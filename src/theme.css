@@ -1,0 +1,185 @@
+/* Los tokens primero, después Tailwind leyéndolos.
+   El @source es obligatorio: Tailwind v4 arranca el escaneo en el root de Vite,
+   no en el directorio de este archivo. Sin esto, las clases que solo usan los
+   componentes de este directorio no se generan y falla en silencio, sin estilos. */
+@import "./tokens/index.css";
+@import "tailwindcss";
+@source "./**/*.{ts,tsx}";
+
+/* Los escalones que Tailwind no trae por nombre. El resto de la escala vive en
+   `tokens/scales.css` y funciona porque solo redefine variables que Tailwind ya
+   usa; estas no existen para él, así que si no se declaran acá el token queda
+   definido y la utilidad no hace nada. */
+@theme {
+  --text-2xs: 11px;
+  --text-2xs--line-height: 16px;
+  --text-md: 16px;
+  --text-md--line-height: 24px;
+  --text-display: 40px;
+  --text-display--line-height: 1.05;
+}
+
+@theme inline {
+  /* Se apaga la paleta que trae Tailwind: si `bg-slate-200` sigue existiendo,
+     alguien la va a usar y el sistema deja de ser la única fuente de color. */
+  --color-*: initial;
+
+  --color-canvas: var(--canvas);
+  --color-surface: var(--surface);
+  --color-muted: var(--surface-muted);
+  --color-sunken: var(--surface-sunken);
+  --color-hover: var(--surface-hover);
+  --color-active: var(--surface-active);
+  --color-inverted: var(--surface-inverted);
+  --color-popover: var(--popover);
+  --color-scrim: var(--scrim);
+  --color-veil: var(--veil);
+
+  --color-line: var(--border);
+  --color-line-strong: var(--border-strong);
+  --color-line-alpha: var(--border-alpha);
+
+  --color-ink: var(--text);
+  --color-ink-muted: var(--text-muted);
+  --color-icon-muted: var(--icon-muted);
+  --color-ink-subtle: var(--text-subtle);
+  --color-ink-disabled: var(--text-disabled);
+  --color-ink-inverted: var(--text-inverted);
+
+  --color-solid: var(--solid);
+  --color-solid-hover: var(--solid-hover);
+  --color-on-solid: var(--on-solid);
+
+  --color-accent: var(--accent);
+  --color-accent-hover: var(--accent-hover);
+  --color-accent-subtle: var(--accent-subtle);
+
+  --color-ok: var(--ok);
+  --color-ok-subtle: var(--ok-subtle);
+  --color-warn: var(--warn);
+  --color-warn-subtle: var(--warn-subtle);
+  --color-bad: var(--bad);
+  --color-bad-hover: var(--bad-hover);
+  --color-bad-subtle: var(--bad-subtle);
+  --color-on-bad: var(--on-bad);
+
+  --color-tint-1: var(--tint-1);
+  --color-tint-2: var(--tint-2);
+  --color-tint-3: var(--tint-3);
+  --color-tint-4: var(--tint-4);
+  --color-tint-5: var(--tint-5);
+  --color-tint-6: var(--tint-6);
+
+  --font-sans: var(--font-sans);
+  --font-display: var(--font-display);
+  --font-mono: var(--font-mono);
+
+  --radius-sm: var(--radius-sm);
+  --radius-md: var(--radius-md);
+  --radius-lg: var(--radius-lg);
+  --radius-xl: var(--radius-xl);
+  --radius-2xl: var(--radius-2xl);
+
+  /* El relieve entra a Tailwind como sombra: `shadow-raised`, `shadow-inset`. */
+  --shadow-raised: var(--relief-raised);
+  --shadow-inset: var(--relief-inset);
+  --shadow-card: var(--relief-card);
+  --shadow-toolbar: var(--relief-toolbar);
+  --shadow-popover: var(--relief-popover);
+
+  --color-field: var(--field-bg);
+  --color-field-hover: var(--field-bg-hover);
+  --color-field-line: var(--field-border);
+
+  --ease-out: var(--ease-out);
+}
+
+* { box-sizing: border-box; }
+html, body, #root { min-height: 100%; margin: 0; }
+
+/* La interfaz entera es 12px con peso 500 y line-height fijo de 16. El peso 500
+   de base no es un detalle: a 12px, el 400 de Inter se lee lavado sobre un
+   fondo casi blanco. */
+body {
+  background: var(--canvas);
+  color: var(--text);
+  font-family: var(--font-sans);
+  font-size: var(--text-xs);
+  font-weight: 500;
+  line-height: var(--leading-ui);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+h1, h2, h3 { font-family: var(--font-sans); font-weight: 500; letter-spacing: var(--tracking-tight); margin: 0; }
+
+/* Los números de un precio o de una métrica se alinean en columna: sin esto, el
+   1 es más angosto que el 4 y una tabla de números baila. */
+.tabular { font-variant-numeric: tabular-nums; }
+
+/* El botón gris con relieve: degradado, luz interior arriba, anillo y una
+   sombra corta. Va como clase y no como utilidad porque son cuatro capas que
+   tienen que viajar juntas. */
+.raised {
+  background: var(--grad-raised);
+  box-shadow: var(--relief-raised);
+}
+.raised:hover { filter: brightness(0.985); }
+.raised:active { box-shadow: var(--relief-inset); filter: brightness(0.97); }
+
+/* El sólido oscuro con su relieve. */
+.raised-solid { box-shadow: var(--relief-solid); }
+.raised-solid:active { box-shadow: var(--relief-inset); }
+
+/* Un toggle activo: hundido mientras su panel está abierto. */
+.pressed { box-shadow: var(--relief-pressed); }
+
+/* Lo hundido: un kbd, la pista de un segmented. */
+.inset-relief { box-shadow: var(--relief-inset); }
+
+/* El switch. Va como clases y no como utilidades porque el pulgar lleva tres
+   capas de sombra que tienen que cambiar juntas el día que cambien. */
+.switch-track-on { background: var(--switch-on); box-shadow: var(--switch-on-inset); }
+.switch-track-off { background: var(--switch-off); box-shadow: var(--switch-off-inset); }
+.switch-thumb { background: var(--switch-thumb); box-shadow: var(--switch-thumb-shadow); }
+
+/* El anillo de foco, una vez y para todos los roles. `:focus-visible` y no
+   `:focus`: con el segundo, un click deja el anillo puesto. */
+:where(a, button, input, select, textarea, [tabindex]):focus-visible {
+  outline: none;
+  box-shadow: var(--focus-ring);
+}
+
+/* En Tailwind v4 el preflight deja los <button> con la flecha del navegador:
+   nada se siente clickeable. Se resuelve una vez acá, sobre los roles. */
+@layer base {
+  button, summary, select,
+  [role="button"], [role="radio"], [role="checkbox"], [role="switch"], [role="tab"],
+  [role="menuitem"], [role="menuitemcheckbox"], [role="option"],
+  label:has(> input[type="checkbox"]), label:has(> input[type="radio"]) { cursor: pointer; }
+  :disabled, [aria-disabled="true"], [data-disabled] { cursor: not-allowed; }
+}
+
+@supports selector(::-webkit-scrollbar) {
+  ::-webkit-scrollbar { width: 10px; height: 10px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: var(--shade-09-a11); border-radius: 999px; border: 3px solid transparent; background-clip: content-box; }
+  ::-webkit-scrollbar-thumb:hover { background: var(--shade-06); background-clip: content-box; }
+}
+
+/* ------- movimiento ------- */
+@keyframes ui-pop-in { from { opacity: 0; transform: translateY(-4px) scale(.97) } to { opacity: 1; transform: none } }
+@keyframes ui-fade-in { from { opacity: 0 } to { opacity: 1 } }
+@keyframes ui-zoom-in { from { opacity: 0; transform: scale(.97) translateY(6px) } to { opacity: 1; transform: none } }
+@keyframes ui-rise { from { opacity: 0; transform: translateY(10px) } to { opacity: 1; transform: none } }
+
+.ui-pop { animation: ui-pop-in var(--duration-fast) var(--ease-out) }
+.ui-fade { animation: ui-fade-in var(--duration-normal) var(--ease-out) }
+.ui-zoom { animation: ui-zoom-in var(--duration-normal) var(--ease-out) }
+.ui-rise { animation: ui-rise 340ms var(--ease-out) both }
+.ui-d1 { animation-delay: 30ms } .ui-d2 { animation-delay: 60ms } .ui-d3 { animation-delay: 90ms }
+.ui-d4 { animation-delay: 120ms } .ui-d5 { animation-delay: 150ms } .ui-d6 { animation-delay: 180ms }
+
+@media (prefers-reduced-motion: reduce) {
+  .ui-pop, .ui-fade, .ui-zoom, .ui-rise { animation: none !important }
+  * { transition-duration: 1ms !important }
+}

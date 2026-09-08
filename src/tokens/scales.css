@@ -1,0 +1,68 @@
+/**
+ * Scale tokens: radios, tipografía, alturas, movimiento.
+ *
+ * Las medidas salen de medir la referencia, no de estimarla: la densidad es lo
+ * primero que se nota y lo último que se corrige a mano. Base de 12 con
+ * line-height de 16 fijo, controles de 40, y una escala de radios donde cada
+ * paso tiene un rol.
+ */
+:root {
+  /* ------- radios -------
+   *   sm   6   marcas hundidas: un kbd, un badge
+   *   md  10   lo cuadrado que se toca: botón de icono
+   *   lg  12   lo que se toca y tiene texto: botón, item de nav, buscador
+   *   xl  16   lo que va adentro de una tarjeta (24 menos sus 8 de padding)
+   *   2xl 24   contenedores: tarjeta, modal, popover
+   *
+   * La regla del anidado: el radio de un hijo es el del padre menos el padding
+   * del padre. Si el hijo repite el radio del padre, la curva se ve doble.
+   */
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+  --radius-2xl: 24px;
+  --radius-full: 9999px;
+
+  /* ------- medidas del shell ------- */
+  --sidebar-w: 220px;
+  --sidebar-w-collapsed: 72px;
+  --topbar-h: 80px;
+  --shell-pad: 20px;
+  --nav-item-h: 40px;
+  --nav-item-gap: 2px;
+  --nav-sub-indent: 48px;
+
+  /* ------- alturas de control ------- */
+  --control-sm: 32px;
+  --control-md: 40px;
+
+  /* ------- tipografía -------
+     Un solo line-height (16px) para todo lo que es interfaz: con leading
+     proporcional, dos filas de 12px y de 14px dejan de alinearse entre sí. */
+  --font-sans: "Inter", ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --font-display: "Inter Tight", "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, "SF Mono", monospace;
+
+  --text-2xs: 11px;   /* kbd, metadatos, contadores */
+  --text-xs: 12px;    /* la base de la interfaz */
+  --text-sm: 13px;
+  --text-base: 14px;  /* botones y texto con énfasis */
+  --text-md: 16px;
+  --text-lg: 20px;    /* título de pantalla */
+  --text-xl: 24px;
+  --text-2xl: 32px;
+  --text-display: 40px;
+
+  --leading-ui: 16px;
+  --tracking-tight: -0.015em;
+  --tracking-wide: 0.04em;
+
+  /* ------- movimiento -------
+     Una curva para todo lo que entra, y salidas más cortas que entradas: abrir
+     se mira, cerrar estorba. */
+  --duration-fast: 120ms;
+  --duration-normal: 190ms;
+  --ease-out: cubic-bezier(0.24, 1, 0.4, 1);
+  --ease-in: cubic-bezier(0.4, 0, 1, 1);
+}
