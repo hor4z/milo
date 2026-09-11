@@ -250,8 +250,17 @@ export function Slider({
   className?: string
 }) {
   const t = max === min ? 0 : Math.min(1, Math.max(0, (value - min) / (max - min)))
-  // Hasta el centro del pulgar, no hasta el borde de la caja.
-  const upToThumb = 'calc(var(--t) * (100% - 24px) + 12px)'
+  /* El pulgar viaja entre 12 y el ancho menos 12, así que la cuenta lleva su
+     propio tamaño adentro: sin eso, en 0 y en 100 media pieza queda afuera. */
+  const thumbAt = 'calc(var(--t) * (100% - 24px) + 12px)'
+  /* El relleno NO usa esa misma cuenta, y esa es la diferencia que importa. Con
+     ella, en 0 medía 12 —hasta el centro del pulgar— y ese pedazo asomaba por
+     las esquinas del círculo: un slider en cero con azul atrás.
+
+     Con esta, el relleno es 0 en 0 y termina exacto en el centro del pulgar en
+     100. En el medio se queda corto, como mucho 6px, y esos 6 caen adentro del
+     radio de 12 del pulgar, así que no se ven nunca. */
+  const fillTo = 'calc(var(--t) * (100% - 12px))'
   /* Arrastrando no hay transición y sin arrastrar sí, y las dos cosas son por
      el mismo motivo. Con transición, el pulgar va atrás del cursor: el dedo ya
      está en un lugar y la pieza llega 120ms después, que es exactamente la
@@ -272,7 +281,7 @@ export function Slider({
       <span className="switch-track-off pointer-events-none absolute inset-x-0 h-[22px] rounded-full" />
       <span
         className={cx('switch-track-on pointer-events-none absolute left-0 h-[22px] rounded-full', move)}
-        style={{ width: upToThumb }}
+        style={{ width: fillTo }}
       />
       <input
         type="range"
@@ -308,7 +317,7 @@ export function Slider({
              estés arrastrando, que es el único momento en que pasa. */
           'peer-focus-visible:shadow-[var(--switch-thumb-shadow),var(--focus-ring)]',
         )}
-        style={{ left: upToThumb }}
+        style={{ left: thumbAt }}
       >
         <span
           className={cx(
