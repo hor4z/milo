@@ -236,7 +236,7 @@ export function Dropdown({
                   {/* El icono va en gris y el texto en tinta: al revés —texto
                       gris— el menú entero se lee como deshabilitado. El trazo
                       sube a 1.5 porque en gris el de 1 se apaga demasiado. */}
-                  {item.icon && <Icon name={item.icon} size={20} weight={1.5} className="text-icon-muted" />}
+                  {item.icon && <Icon name={item.icon} size={20} className="icon-muted" />}
                   {item.label}
                 </button>
             ))}
@@ -375,7 +375,7 @@ export function Modal({
             cualquier otro control cuadrado de 40 del sistema — el círculo era
             una excepción sin motivo. */}
         <IconButton
-          icon="x"
+          icon="close"
           label="Cerrar"
           variant="solid"
           size="md"

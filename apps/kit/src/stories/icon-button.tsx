@@ -10,23 +10,23 @@ export function IconButtonStory() {
       <Block label="Variantes" note="`label` es obligatorio. Un botón que solo tiene un icono no dice nada sin él, ni para un lector de pantalla ni para quien duda qué hace.">
         <Panel>
           <Variant name="ghost">
-            <IconButton icon="sliders" label="Ajustes" />
-            <IconButton icon="sliders" label="Ajustes" size="sm" />
+            <IconButton icon="tune" label="Ajustes" />
+            <IconButton icon="tune" label="Ajustes" size="sm" />
           </Variant>
           <Variant name="raised">
-            <IconButton icon="pencil" label="Editar" variant="raised" />
-            <IconButton icon="pencil" label="Editar" variant="raised" size="sm" />
+            <IconButton icon="edit" label="Editar" variant="raised" />
+            <IconButton icon="edit" label="Editar" variant="raised" size="sm" />
           </Variant>
           <Variant name="solid"><IconButton icon="check" label="Aceptar" variant="solid" /></Variant>
-          <Variant name="muted"><IconButton icon="more" label="Más" variant="muted" /></Variant>
+          <Variant name="muted"><IconButton icon="more_horiz" label="Más" variant="muted" /></Variant>
         </Panel>
       </Block>
 
       <Block label="Estados" note="`dot` es el puntito de «hay algo nuevo», y es uno de los pocos usos del acento en toda la interfaz.">
         <Panel>
-          <Variant name="active"><IconButton icon="filter" label="Filtrar" active /></Variant>
-          <Variant name="dot"><IconButton icon="bell" label="Novedades" dot /></Variant>
-          <Variant name="disabled"><IconButton icon="trash" label="Eliminar" disabled /></Variant>
+          <Variant name="active"><IconButton icon="filter_alt" label="Filtrar" active /></Variant>
+          <Variant name="dot"><IconButton icon="notifications" label="Novedades" dot /></Variant>
+          <Variant name="disabled"><IconButton icon="delete" label="Eliminar" disabled /></Variant>
         </Panel>
       </Block>
 

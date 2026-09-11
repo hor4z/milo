@@ -45,7 +45,7 @@ export function SignInScreen() {
           </p>
 
           <div className="mt-9 flex items-center gap-2 text-sm text-ink-subtle">
-            <Icon name="shield" size={15} />
+            <Icon name="verified_user" size={15} />
             No leemos el contenido de las entregas
           </div>
         </div>

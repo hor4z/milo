@@ -43,8 +43,8 @@ export function ButtonStory() {
 
       <Block label="Iconos, ancho completo y deshabilitado">
         <div className="flex flex-wrap items-start gap-3">
-          <Demo label="icon"><Button variant="raised" icon="plus">Nuevo espacio</Button></Demo>
-          <Demo label="iconEnd"><Button variant="raised" iconEnd="chevronRight">Siguiente</Button></Demo>
+          <Demo label="icon"><Button variant="raised" icon="add">Nuevo espacio</Button></Demo>
+          <Demo label="iconEnd"><Button variant="raised" iconEnd="chevron_right">Siguiente</Button></Demo>
           <Demo label="disabled">
             <Button variant="solid" disabled>Guardar</Button>
             <Button variant="raised" disabled>Guardar</Button>

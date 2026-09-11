@@ -57,7 +57,7 @@ function NotFound() {
         <EmptyState
           title="Acá no hay nada"
           body="La dirección existe pero no lleva a ninguna pantalla. Puede que la actividad se haya movido a otro espacio."
-          action={<Button variant="solid" icon="cube" onClick={() => location.assign('/')}>Ir a mis actividades</Button>}
+          action={<Button variant="solid" icon="deployed_code" onClick={() => location.assign('/')}>Ir a mis actividades</Button>}
         />
       </div>
     </Page>

@@ -24,7 +24,7 @@ export function SegmentedStory() {
           </Variant>
           <Variant name="md · iconos">
             <Segmented value={vista} onChange={setVista}
-              options={[{ value: 'grilla', icon: 'grid', title: 'Grilla' }, { value: 'lista', icon: 'layers', title: 'Lista' }]} />
+              options={[{ value: 'grilla', icon: 'grid_view', title: 'Grilla' }, { value: 'lista', icon: 'layers', title: 'Lista' }]} />
           </Variant>
           <Variant name="sm">
             <Segmented size="sm" value={rango} onChange={setRango}

@@ -6,6 +6,75 @@
 @import "tailwindcss";
 @source "./**/*.{ts,tsx}";
 
+/* La fuente de iconos. Va commiteada y no pedida a Google en cada carga, y el
+   motivo no es el mismo que el de Geist: una fuente de texto que no carga
+   degrada a system-ui y se sigue leyendo; una fuente de iconos que no carga
+   deja tofu. Los iconos no tienen fallback.
+
+   `font-display: block` y no `swap`: con swap el navegador dibuja el fallback
+   primero, y el fallback de un codepoint del área privada es un cuadradito. */
+@font-face {
+  font-family: "Material Symbols Rounded";
+  src: url("./assets/material-symbols-rounded.woff2") format("woff2");
+  font-weight: 100 700;
+  font-display: block;
+}
+
+/* La receta es casi la de `md-icon`, el componente oficial de Google, y cada
+   línea está por algo:
+
+   · `font-weight`/`font-style` normal — si no, un contexto en `font-semibold`
+     o en itálica sintetiza negrita u oblicua sobre el glifo.
+   · `letter-spacing: normal` — los h1/h2/h3 del sistema traen
+     `--tracking-tight`, y el tracking suma avance y rompe la caja de size×size.
+   · `line-height: 1` — hace que la caja de línea mida exactamente 1em, así el
+     `align-items: center` centra contra la caja y no contra la baseline.
+   · `user-select: none` — un glifo es texto: sin esto entra en un Ctrl+A y en
+     el portapapeles. Un <svg> no tenía el problema.
+   · `font-variant-ligatures: none` — direccionamos por codepoint, así que las
+     ligaduras del set no hacen falta.
+
+   Los ejes van en custom properties y no escritos en `font-variation-settings`
+   de cada instancia: cambiar esa propiedad invalida el shaping y la
+   rasterización del glifo, así que la galería del kit con sus controles vivos
+   pasaría de una mutación a ciento cincuenta por evento. Con variables, el
+   contenedor las escribe una vez y los glifos heredan. */
+/* El gris de un icono y su peso viajan juntos, y por eso esto es una utilidad y
+   no una prop.
+
+   La doctrina vieja decía "icono en gris ⇒ weight 1.5", pero era imposible de
+   cumplir: el gris muchas veces lo hereda de un ancestro —un `IconButton`
+   apagado, un item de nav inactivo, el placeholder de un `Select`— y el call
+   site no tiene forma de saberlo. Había 6 sitios que cumplían la regla y al
+   menos 5 que no.
+
+   Con la utilidad, poner el gris sube el peso solo. Un contorno fino en gris
+   claro encierra aire y se apaga al lado del texto; a 400 pesa lo mismo que el
+   texto que acompaña. */
+@utility icon-muted {
+  color: var(--icon-muted);
+  --icon-wght: 400;
+}
+
+.ms-icon {
+  font-family: "Material Symbols Rounded";
+  font-weight: normal;
+  font-style: normal;
+  letter-spacing: normal;
+  text-transform: none;
+  line-height: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  direction: ltr;
+  white-space: nowrap;
+  user-select: none;
+  font-variant-ligatures: none;
+  -webkit-font-smoothing: antialiased;
+  font-variation-settings: "FILL" var(--icon-fill, 0), "wght" var(--icon-wght, 300);
+}
+
 /* Los escalones que Tailwind no trae por nombre. El resto de la escala vive en
    `tokens/scales.css` y funciona porque solo redefine variables que Tailwind ya
    usa; estas no existen para él, así que si no se declaran acá el token queda

@@ -401,7 +401,7 @@ export function Checkbox({
     >
       {indeterminate
         ? <span className="h-0.5 w-2.5 rounded-full bg-current" />
-        : <Icon name="check" size={12} weight={3} />}
+        : <Icon name="check" size={14} weight={700} />}
     </button>
   )
 }
@@ -711,7 +711,7 @@ export function Select({
         className="inline-flex h-9 items-center justify-between gap-2 rounded-md border border-field-line bg-field px-3 text-xs font-medium text-ink transition-colors duration-[120ms] hover:bg-field-hover"
       >
         <span className="min-w-0 truncate">{value}</span>
-        <Icon name="chevronDown" size={16} className="shrink-0 text-ink" />
+        <Icon name="keyboard_arrow_down" size={16} className="shrink-0 text-ink" />
       </button>
 
       {open && (
@@ -793,7 +793,7 @@ export function Chip({
       {children}
       {onRemove && (
         <button onClick={onRemove} aria-label="Quitar" className="-mr-0.5 rounded-sm p-0.5 hover:bg-active">
-          <Icon name="x" size={12} />
+          <Icon name="close" size={12} />
         </button>
       )}
     </Tag>

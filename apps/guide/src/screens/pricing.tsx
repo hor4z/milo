@@ -25,7 +25,7 @@ export function PricingScreen() {
           </svg>
           <span className="font-display text-lg font-semibold tracking-[-0.03em]">melu</span>
         </Link>
-        <Button variant="ghost" iconEnd="arrowRight" onClick={() => history.back()}>Volver</Button>
+        <Button variant="ghost" iconEnd="arrow_forward" onClick={() => history.back()}>Volver</Button>
       </header>
 
       <div className="mx-auto max-w-[1120px] px-6 pb-24 pt-10 text-center">
@@ -62,7 +62,7 @@ export function PricingScreen() {
               >
                 {p.featured && (
                   <div className="flex items-center justify-center gap-1.5 bg-solid py-2 text-2xs font-medium uppercase tracking-[0.06em] text-on-solid">
-                    <Icon name="sparkle" size={12} />
+                    <Icon name="star_shine" size={12} />
                     El que usan casi todas las escuelas
                   </div>
                 )}

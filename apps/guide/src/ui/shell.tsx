@@ -35,14 +35,14 @@ type NavGroup = {
 
 const groups: NavGroup[] = [
   {
-    label: 'Explorar', icon: 'compass', to: '/explorar',
+    label: 'Explorar', icon: 'explore', to: '/explorar',
     children: [
       { label: 'Recetas', to: '/explorar/recetas' },
       { label: 'Publicadas', to: '/explorar/publicadas' },
     ],
   },
   { label: 'Recursos', icon: 'layers', to: '/recursos', badge: '84' },
-  { label: 'Guardadas', icon: 'heart', to: '/guardadas' },
+  { label: 'Guardadas', icon: 'favorite', to: '/guardadas' },
 ]
 
 /**
@@ -112,7 +112,7 @@ function Sidebar() {
                       aria-label={`${isOpen ? 'Cerrar' : 'Abrir'} ${g.label}`}
                       className="absolute right-1.5 rounded-sm p-1 text-ink-muted hover:bg-active hover:text-ink"
                     >
-                      <Icon name="chevronDown" size={16} className={cx('transition-transform duration-[190ms] ease-out', isOpen && 'rotate-180')} />
+                      <Icon name="keyboard_arrow_down" size={16} className={cx('transition-transform duration-[190ms] ease-out', isOpen && 'rotate-180')} />
                     </button>
                   )}
                 </div>
@@ -142,10 +142,10 @@ function Sidebar() {
         )}
 
         <nav className="flex flex-col gap-0.5">
-          <NavItem to="/" icon="cube" label="Mis actividades" collapsed={collapsed} end />
+          <NavItem to="/" icon="deployed_code" label="Mis actividades" collapsed={collapsed} end />
 
           <button className={navItemClass({ collapsed })} title={collapsed ? 'Nuevo espacio' : undefined}>
-            <NavItemBody icon="folderPlus" label="Nuevo espacio" collapsed={collapsed} />
+            <NavItemBody icon="create_new_folder" label="Nuevo espacio" collapsed={collapsed} />
           </button>
 
           {spaces.map(s => (
@@ -175,7 +175,7 @@ function Sidebar() {
           className={cx('mt-auto', navItemClass({ collapsed, muted: true }))}
         >
           <NavItemBody
-            glyph={<Icon name={collapsed ? 'arrowRight' : 'arrowLeft'} size={20} />}
+            glyph={<Icon name={collapsed ? 'arrow_forward' : 'arrow_back'} size={20} />}
             label="Contraer"
             collapsed={collapsed}
           />
@@ -192,11 +192,11 @@ function Topbar({ onOpenSettings, onOpenPalette }: { onOpenSettings: () => void;
   const { prefs, set } = usePrefs()
 
   const menu: MenuItem[] = [
-    { label: 'Mi perfil', icon: 'user', onSelect: onOpenSettings },
-    { label: 'Plan', icon: 'card', onSelect: () => navigate('/planes') },
-    { label: 'Ajustes', icon: 'sliders', onSelect: onOpenSettings },
-    { label: prefs.theme === 'dark' ? 'Tema claro' : 'Tema oscuro', icon: prefs.theme === 'dark' ? 'sun' : 'moon', onSelect: () => set('theme', prefs.theme === 'dark' ? 'light' : 'dark') },
-    { label: 'Novedades', icon: 'sparkle', onSelect: () => navigate('/novedades') },
+    { label: 'Mi perfil', icon: 'person', onSelect: onOpenSettings },
+    { label: 'Plan', icon: 'credit_card', onSelect: () => navigate('/planes') },
+    { label: 'Ajustes', icon: 'tune', onSelect: onOpenSettings },
+    { label: prefs.theme === 'dark' ? 'Tema claro' : 'Tema oscuro', icon: prefs.theme === 'dark' ? 'light_mode' : 'dark_mode', onSelect: () => set('theme', prefs.theme === 'dark' ? 'light' : 'dark') },
+    { label: 'Novedades', icon: 'star_shine', onSelect: () => navigate('/novedades') },
     /* Salir no va en rojo: el rojo es para lo que destruye algo, y cerrar
        sesión no borra nada. Gastarlo acá le quita el aviso a lo que sí importa. */
     { label: 'Salir', icon: 'logout', onSelect: () => navigate('/entrar') },
@@ -205,8 +205,8 @@ function Topbar({ onOpenSettings, onOpenPalette }: { onOpenSettings: () => void;
   return (
     <header className="sticky top-0 z-30 flex h-20 shrink-0 items-center gap-3 bg-canvas/90 px-5 backdrop-blur-md">
       <div className="flex items-center gap-1">
-        <IconButton icon="arrowLeft" label="Atrás" onClick={() => navigate(-1)} />
-        <IconButton icon="arrowRight" label="Adelante" onClick={() => navigate(1)} />
+        <IconButton icon="arrow_back" label="Atrás" onClick={() => navigate(-1)} />
+        <IconButton icon="arrow_forward" label="Adelante" onClick={() => navigate(1)} />
       </div>
 
       {/* El buscador no es un input: es un botón que abre la paleta. Un input
@@ -235,7 +235,7 @@ function Topbar({ onOpenSettings, onOpenPalette }: { onOpenSettings: () => void;
         className="group relative ml-1 flex h-10 w-[260px] items-center rounded-lg border border-search-line bg-search pl-12 pr-2.5 text-left transition-colors hover:bg-search-hover max-md:w-10 max-md:px-0"
       >
         <span className="absolute inset-y-1 left-1 flex w-8 items-center justify-center">
-          <Icon name="search" size={20} weight={1.5} className="text-icon-muted transition-colors group-hover:text-ink" />
+          <Icon name="search" size={20} className="icon-muted transition-colors group-hover:text-ink" />
         </span>
         <span className="flex-1 text-xs font-medium text-ink-muted max-md:hidden">Buscar…</span>
         <span className="max-md:hidden"><Kbd>⌘ K</Kbd></span>

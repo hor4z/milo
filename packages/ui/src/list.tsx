@@ -81,7 +81,7 @@ export function ListItem({
           relieve están escritos contra `currentColor`, y currentColor acá es el
           glifo que pone `marks[color]`. */}
       <span className={cx('mark inline-flex size-11 shrink-0 items-center justify-center rounded-full', marks[color])}>
-        <Icon name={icon} size={22} weight={1.75} />
+        <Icon name={icon} size={22} weight={400} />
       </span>
 
       <span className="min-w-0 flex-1">

@@ -17,8 +17,24 @@ export function IconStory() {
             <span className="text-2xs text-ink-muted">weight 1 · en tinta</span>
           </span>
           <span className="flex items-center gap-2">
-            <Icon name="search" size={20} weight={1.5} className="text-icon-muted" />
+            <Icon name="search" size={20} className="icon-muted" />
             <span className="text-2xs text-ink-muted">weight 1.5 · icon-muted</span>
+          </span>
+        </Demo>
+      </Block>
+
+      <Block label="SPIKE · Material Symbols" note="Temporal. Si estos tres se ven, el woff2 se resolvió desde packages/ui y el enfoque de fuente sigue.">
+        <Demo>
+          {[0xe8b6, 0xe88a, 0xe8b8].map(cp => (
+            <span key={cp} className="ms-spike" style={{ fontSize: 32, width: 32, height: 32 }}>
+              {String.fromCodePoint(cp)}
+            </span>
+          ))}
+          <span className="ms-spike" style={{ fontSize: 32, width: 32, height: 32, ['--icon-wght' as string]: 700 }}>
+            {String.fromCodePoint(0xe8b6)}
+          </span>
+          <span className="ms-spike" style={{ fontSize: 32, width: 32, height: 32, ['--icon-fill' as string]: 1 }}>
+            {String.fromCodePoint(0xe88a)}
           </span>
         </Demo>
       </Block>

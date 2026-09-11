@@ -3,16 +3,16 @@ import { Block, Mono, Props, Section } from '../kit'
 
 const onboarding: { icon: IconName; color: MarkColor; title: string; hint: string; active?: boolean }[] = [
   { icon: 'check', color: 'green', title: 'Update your profile', hint: 'Add a photo and connect your social links.' },
-  { icon: 'book', color: 'purple', title: 'Write your first post', hint: 'Share your voice – start creating today.' },
-  { icon: 'calendar', color: 'orange', title: 'Plan your first post', hint: 'Pick the perfect time to publish.' },
+  { icon: 'menu_book', color: 'purple', title: 'Write your first post', hint: 'Share your voice – start creating today.' },
+  { icon: 'calendar_month', color: 'orange', title: 'Plan your first post', hint: 'Pick the perfect time to publish.' },
   { icon: 'check', color: 'green', title: 'Create your first link', hint: 'Make a trackable link to share.', active: true },
-  { icon: 'bulb', color: 'blue', title: 'Explore today’s inspiration', hint: 'Spark ideas with fresh content.' },
+  { icon: 'lightbulb', color: 'blue', title: 'Explore today’s inspiration', hint: 'Spark ideas with fresh content.' },
 ]
 
 const espacios: { icon: IconName; color: MarkColor; title: string; hint: string }[] = [
-  { icon: 'target', color: 'orange', title: 'Matemática · 4.º A', hint: 'Doce actividades · cuatro sin mirar' },
-  { icon: 'book', color: 'purple', title: 'Lengua · 6.º', hint: 'Ocho actividades · todas al día' },
-  { icon: 'compass', color: 'blue', title: 'Ciencias · 5.º B', hint: 'Cinco actividades · dos abiertas' },
+  { icon: 'adjust', color: 'orange', title: 'Matemática · 4.º A', hint: 'Doce actividades · cuatro sin mirar' },
+  { icon: 'menu_book', color: 'purple', title: 'Lengua · 6.º', hint: 'Ocho actividades · todas al día' },
+  { icon: 'explore', color: 'blue', title: 'Ciencias · 5.º B', hint: 'Cinco actividades · dos abiertas' },
 ]
 
 export function ListStory() {
@@ -42,8 +42,8 @@ export function ListStory() {
         <div className="max-w-[460px]">
           <List>
             <ListItem icon="check" color="green" title="En reposo" hint="Fondo apagado, sin sombra." />
-            <ListItem icon="book" color="purple" title="Elegida" hint="Hundida un paso." active />
-            <ListItem icon="sparkle" color="blue" title="Se toca" hint="Pasá el mouse: sube al papel y toma sombra." onClick={() => {}} />
+            <ListItem icon="menu_book" color="purple" title="Elegida" hint="Hundida un paso." active />
+            <ListItem icon="star_shine" color="blue" title="Se toca" hint="Pasá el mouse: sube al papel y toma sombra." onClick={() => {}} />
           </List>
         </div>
       </Block>
@@ -56,7 +56,7 @@ export function ListStory() {
                 key={e.title}
                 icon={e.icon} color={e.color} title={e.title} hint={e.hint}
                 onClick={() => {}}
-                trailing={<Icon name="chevronRight" size={20} weight={1.5} className="text-icon-muted" />}
+                trailing={<Icon name="chevron_right" size={20} className="icon-muted" />}
               />
             ))}
           </List>

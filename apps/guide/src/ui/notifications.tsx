@@ -7,10 +7,10 @@ import { notifications, type Notif, type NotifKind } from '../data'
  *  de leer el texto, que es para lo que sirve una lista de avisos. */
 const badges: Record<NotifKind, { icon: IconName; className: string }> = {
   entrega:     { icon: 'check',   className: 'bg-ok text-white' },
-  traba:       { icon: 'clock',   className: 'bg-warn text-white' },
-  invitacion:  { icon: 'users',   className: 'bg-ink text-ink-inverted' },
-  comentario:  { icon: 'book',    className: 'bg-accent text-white' },
-  publicada:   { icon: 'sparkle', className: 'bg-ink text-ink-inverted' },
+  traba:       { icon: 'schedule',   className: 'bg-warn text-white' },
+  invitacion:  { icon: 'group',   className: 'bg-ink text-ink-inverted' },
+  comentario:  { icon: 'menu_book',    className: 'bg-accent text-white' },
+  publicada:   { icon: 'star_shine', className: 'bg-ink text-ink-inverted' },
 }
 
 /**

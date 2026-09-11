@@ -14,13 +14,13 @@ export function DropdownStory() {
             <Dropdown
               width={220}
               items={[
-                { label: 'Mi perfil', icon: 'user' },
-                { label: 'Plan', icon: 'card' },
-                { label: 'Ajustes', icon: 'sliders' },
+                { label: 'Mi perfil', icon: 'person' },
+                { label: 'Plan', icon: 'credit_card' },
+                { label: 'Ajustes', icon: 'tune' },
                 { label: 'Salir', icon: 'logout' },
               ]}
               trigger={({ onClick, ref, ...rest }) => (
-                <Button ref={ref} onClick={onClick} {...rest} variant="raised" iconEnd="chevronDown">Abrir menú</Button>
+                <Button ref={ref} onClick={onClick} {...rest} variant="raised" iconEnd="keyboard_arrow_down">Abrir menú</Button>
               )}
             />
           </Demo>
@@ -28,9 +28,9 @@ export function DropdownStory() {
             <Dropdown
               align="start"
               width={200}
-              items={[{ label: 'Duplicar', icon: 'copy' }, { label: 'Descargar', icon: 'download' }, { label: 'Eliminar', icon: 'trash' }]}
+              items={[{ label: 'Duplicar', icon: 'content_copy' }, { label: 'Descargar', icon: 'download' }, { label: 'Eliminar', icon: 'delete' }]}
               trigger={({ onClick, ref, ...rest }) => (
-                <Button ref={ref} onClick={onClick} {...rest} variant="raised" icon="more">Acciones</Button>
+                <Button ref={ref} onClick={onClick} {...rest} variant="raised" icon="more_horiz">Acciones</Button>
               )}
             />
           </Demo>

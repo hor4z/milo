@@ -72,7 +72,7 @@ function RecipeCard({ recipe }: { recipe: (typeof recipes)[number] }) {
   return (
     <Card interactive className="flex items-start gap-3.5 p-4">
       <span className={cx('flex size-10 shrink-0 items-center justify-center rounded-xl text-on-label', labelFill[labelColors[(recipe.tint - 1) % labelColors.length]])}>
-        <Icon name="book" size={18} weight={1.5} />
+        <Icon name="menu_book" size={18} />
       </span>
       <div className="min-w-0 flex-1">
         <div className="flex items-center gap-2">

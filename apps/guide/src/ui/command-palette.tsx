@@ -32,20 +32,20 @@ export function CommandPalette({
   const commands = useMemo<Command[]>(() => {
     const go = (to: string) => () => { navigate(to); onClose() }
     return [
-      { id: 'c1', label: 'Nueva actividad', icon: 'plus', group: 'Acciones', run: go('/') },
-      { id: 'c2', label: 'Nuevo espacio', icon: 'folderPlus', group: 'Acciones', run: go('/') },
-      { id: 'c3', label: 'Ajustes', hint: '⌘,', icon: 'sliders', group: 'Acciones', run: () => onOpenSettings() },
-      { id: 'n1', label: 'Mis actividades', icon: 'cube', group: 'Ir a', run: go('/') },
-      { id: 'n2', label: 'Explorar', icon: 'compass', group: 'Ir a', run: go('/explorar') },
-      { id: 'n3', label: 'Recetas', icon: 'book', group: 'Ir a', run: go('/explorar/recetas') },
-      { id: 'n4', label: 'Guardadas', icon: 'heart', group: 'Ir a', run: go('/guardadas') },
-      { id: 'n5', label: 'Planes', icon: 'card', group: 'Ir a', run: go('/planes') },
-      { id: 'n6', label: 'Novedades', icon: 'sparkle', group: 'Ir a', run: go('/novedades') },
+      { id: 'c1', label: 'Nueva actividad', icon: 'add', group: 'Acciones', run: go('/') },
+      { id: 'c2', label: 'Nuevo espacio', icon: 'create_new_folder', group: 'Acciones', run: go('/') },
+      { id: 'c3', label: 'Ajustes', hint: '⌘,', icon: 'tune', group: 'Acciones', run: () => onOpenSettings() },
+      { id: 'n1', label: 'Mis actividades', icon: 'deployed_code', group: 'Ir a', run: go('/') },
+      { id: 'n2', label: 'Explorar', icon: 'explore', group: 'Ir a', run: go('/explorar') },
+      { id: 'n3', label: 'Recetas', icon: 'menu_book', group: 'Ir a', run: go('/explorar/recetas') },
+      { id: 'n4', label: 'Guardadas', icon: 'favorite', group: 'Ir a', run: go('/guardadas') },
+      { id: 'n5', label: 'Planes', icon: 'credit_card', group: 'Ir a', run: go('/planes') },
+      { id: 'n6', label: 'Novedades', icon: 'star_shine', group: 'Ir a', run: go('/novedades') },
       ...activities.slice(0, 8).map<Command>(a => ({
-        id: a.id, label: a.title, hint: a.space, icon: 'cube', group: 'Actividades', run: go('/'),
+        id: a.id, label: a.title, hint: a.space, icon: 'deployed_code', group: 'Actividades', run: go('/'),
       })),
       ...recipes.slice(0, 4).map<Command>(r => ({
-        id: r.id, label: r.title, hint: `${r.phases} fases`, icon: 'book', group: 'Recetas', run: go('/explorar/recetas'),
+        id: r.id, label: r.title, hint: `${r.phases} fases`, icon: 'menu_book', group: 'Recetas', run: go('/explorar/recetas'),
       })),
     ]
   }, [navigate, onClose, onOpenSettings])
@@ -147,7 +147,7 @@ export function CommandPalette({
                       <Icon name={c.icon} size={16} className={isActive ? 'text-accent' : 'text-ink-subtle'} />
                       <span className="min-w-0 flex-1 truncate text-base">{c.label}</span>
                       {c.hint && <span className="shrink-0 text-xs text-ink-subtle">{c.hint}</span>}
-                      {isActive && <Icon name="arrowRight" size={14} className="shrink-0 text-ink-subtle" />}
+                      {isActive && <Icon name="arrow_forward" size={14} className="shrink-0 text-ink-subtle" />}
                     </button>
                   )
                 })}

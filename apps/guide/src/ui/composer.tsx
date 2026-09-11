@@ -30,10 +30,10 @@ export function Composer() {
   }
 
   const lensMenu: MenuItem[] = [
-    { label: 'Indagación guiada', icon: 'compass' },
+    { label: 'Indagación guiada', icon: 'explore' },
     { label: 'Proyecto por fases', icon: 'layers' },
-    { label: 'Taller de escritura', icon: 'book' },
-    { label: 'Resolución de problemas', icon: 'target' },
+    { label: 'Taller de escritura', icon: 'menu_book' },
+    { label: 'Resolución de problemas', icon: 'adjust' },
   ]
 
   return (
@@ -52,7 +52,7 @@ export function Composer() {
           style={{ boxShadow: 'none' }}
         />
         <div className="flex items-center gap-2 px-3 pb-3">
-          <IconButton icon="plus" label="Adjuntar" size="sm" variant="muted" className="!rounded-full" />
+          <IconButton icon="add" label="Adjuntar" size="sm" variant="muted" className="!rounded-full" />
 
           <Dropdown
             items={lensMenu}
@@ -65,9 +65,9 @@ export function Composer() {
                 {...rest}
                 className="inline-flex h-8 items-center gap-1.5 rounded-full bg-accent-subtle px-3 text-base font-medium text-accent ring-1 ring-line transition-colors hover:bg-accent-subtle/70"
               >
-                <Icon name="sparkle" size={14} />
+                <Icon name="star_shine" size={14} />
                 Indagación
-                <Icon name="chevronDown" size={13} />
+                <Icon name="keyboard_arrow_down" size={13} />
               </button>
             )}
           />
@@ -82,7 +82,7 @@ export function Composer() {
               className={cx('!size-8 !rounded-full !px-0')}
               aria-label="Crear la actividad"
             >
-              <Icon name="arrowUp" size={16} />
+              <Icon name="arrow_upward" size={16} />
             </Button>
           </span>
         </div>

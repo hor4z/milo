@@ -36,11 +36,11 @@ const grupos: { icon: IconName; label: string; body: string; first: string }[] =
     body: 'La identidad: la rampa, los roles, la tipografía, las medidas del shell, los radios y las cinco recetas de relieve. Los valores se leen del navegador en vivo, así que un rol roto aparece vacío en vez de aparecer correcto.',
   },
   {
-    icon: 'sliders', label: 'Componentes', first: 'button',
+    icon: 'tune', label: 'Componentes', first: 'button',
     body: 'Una historia por pieza, con sus variantes, sus estados y una tabla de props que dice cuándo usar cada una — no solo su tipo.',
   },
   {
-    icon: 'cube', label: 'Patrones', first: 'list',
+    icon: 'deployed_code', label: 'Patrones', first: 'list',
     body: 'Lo compuesto: la lista de acciones, los contenedores, el item de nav y los tres overlays. Los overlays van con disparadores vivos porque casi todo lo que costó en ellos solo se ve abriéndolos.',
   },
 ]
@@ -90,7 +90,7 @@ export function Intro({ go }: { go: (id: string) => void }) {
               )}
             >
               <span className="inline-flex size-11 shrink-0 items-center justify-center rounded-full bg-surface shadow-[0_0_0_1px_var(--border)]">
-                <Icon name={g.icon} size={22} weight={1.5} className="text-ink" />
+                <Icon name={g.icon} size={22} className="text-ink" />
               </span>
               <span className="min-w-0">
                 <span className="block text-md font-semibold text-ink">{g.label}</span>

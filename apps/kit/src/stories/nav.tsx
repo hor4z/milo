@@ -17,12 +17,12 @@ export function NavStory() {
         <div className="w-[220px] rounded-xl border border-line bg-canvas px-5 py-4">
           <div className="flex flex-col gap-0.5">
             {[
-              { id: 'explorar', icon: 'compass', label: 'Explorar' },
+              { id: 'explorar', icon: 'explore', label: 'Explorar' },
               { id: 'recursos', icon: 'layers', label: 'Recursos', badge: '84' },
-              { id: 'guardadas', icon: 'heart', label: 'Guardadas' },
+              { id: 'guardadas', icon: 'favorite', label: 'Guardadas' },
             ].map(i => (
               <button key={i.id} onClick={() => setActive(i.id)} className={navItemClass({ active: active === i.id })}>
-                <NavItemBody icon={i.icon as 'compass'} label={i.label} badge={i.badge} active={active === i.id} />
+                <NavItemBody icon={i.icon as 'explore'} label={i.label} badge={i.badge} active={active === i.id} />
               </button>
             ))}
 
@@ -51,7 +51,7 @@ export function NavStory() {
         <div className="w-[220px] rounded-xl border border-line bg-canvas px-5 py-4">
           <div className="flex flex-col gap-0.5">
             <button className={navItemClass({ active: true })}>
-              <NavItemBody icon="compass" label="Explorar" active />
+              <NavItemBody icon="explore" label="Explorar" active />
             </button>
             <button className={navSubItemClass({ active: true })}>Recetas</button>
             <button className={navSubItemClass()}>Publicadas</button>
@@ -63,7 +63,7 @@ export function NavStory() {
         <div className="w-[72px] rounded-xl border border-line bg-canvas px-3 py-4">
           <div className="flex flex-col gap-0.5">
             <button className={navItemClass({ active: true, collapsed: true })} title="Explorar">
-              <NavItemBody icon="compass" label="Explorar" active collapsed />
+              <NavItemBody icon="explore" label="Explorar" active collapsed />
             </button>
             <button className={navItemClass({ collapsed: true })} title="Recursos">
               <NavItemBody icon="layers" label="Recursos" collapsed />

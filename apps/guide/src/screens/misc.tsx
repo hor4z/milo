@@ -16,7 +16,7 @@ export function SavedScreen() {
         <EmptyState
           title="Todavía no guardaste nada"
           body="El corazón de una tarjeta la trae hasta acá. Sirve para juntar ideas antes de armar la próxima secuencia."
-          action={<Button variant="solid" icon="compass">Ir a explorar</Button>}
+          action={<Button variant="solid" icon="explore">Ir a explorar</Button>}
         />
       )}
     </Page>
@@ -26,7 +26,7 @@ export function SavedScreen() {
 export function ResourcesScreen() {
   const kinds = [
     { label: 'Imágenes', count: 38, icon: 'image', tint: 2 },
-    { label: 'Documentos', count: 21, icon: 'book', tint: 5 },
+    { label: 'Documentos', count: 21, icon: 'menu_book', tint: 5 },
     { label: 'Audios', count: 12, icon: 'mic', tint: 6 },
     { label: 'Videos', count: 13, icon: 'layers', tint: 1 },
   ] as const
@@ -36,7 +36,7 @@ export function ResourcesScreen() {
       <PageHeader
         title="Recursos"
         subtitle="Lo que subiste y lo que subieron los aprendices, junto."
-        actions={<Button variant="solid" icon="plus">Subir</Button>}
+        actions={<Button variant="solid" icon="add">Subir</Button>}
       />
       <div className="grid grid-cols-2 gap-3 lg:grid-cols-4">
         {kinds.map(k => (
@@ -44,7 +44,7 @@ export function ResourcesScreen() {
             {/* Marca viva, no tinte: el cuadradito es lo que te deja encontrar
                 un tipo de recurso de reojo, y para eso el color tiene que verse. */}
             <span className={cx('mb-3 flex size-10 items-center justify-center rounded-xl text-on-label', labelFill[labelColors[(k.tint - 1) % labelColors.length]])}>
-              <Icon name={k.icon} size={18} weight={1.5} />
+              <Icon name={k.icon} size={18} />
             </span>
             <div className="text-base font-medium">{k.label}</div>
             <div className="tabular mt-0.5 text-xs text-ink-subtle">{k.count} archivos</div>
@@ -70,7 +70,7 @@ export function SpaceScreen() {
       <PageHeader
         title={space?.name ?? 'Espacio'}
         subtitle={`${space?.count ?? 0} actividades · 26 aprendices · 2 guías`}
-        actions={<Button variant="solid" icon="plus">Nueva actividad</Button>}
+        actions={<Button variant="solid" icon="add">Nueva actividad</Button>}
       />
       <div className="mb-6 grid grid-cols-2 gap-3 lg:grid-cols-4">
         <Stat label="Entregas esta semana" value="41" hint="+8 vs. la anterior" />

@@ -18,7 +18,14 @@ export {
 } from './primitives'
 
 export { Icon, FolderIcon } from './icon'
-export type { IconName, FolderColor } from './icon'
+export type { FolderColor } from './icon'
+/* `iconNames` y `codepoints` salen del barrel porque la galería del kit tiene
+   que poder enumerar el set — hoy `paths` era privado y por eso el kit no tenía
+   galería. Los tags NO salen de acá: van por el subpath `@melu/ui/icons.meta`,
+   así la app de producto no se lleva en el bundle el catálogo de búsqueda del
+   muestrario. */
+export { codepoints, iconNames } from './icons.gen'
+export type { IconName } from './icons.gen'
 
 export { Portal, Dropdown, Popover, Modal, useScrollLock, useEscape, useFocusTrap } from './overlay'
 export type { MenuItem } from './overlay'

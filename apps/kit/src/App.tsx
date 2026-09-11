@@ -52,7 +52,7 @@ const groups: Group[] = [
     ],
   },
   {
-    label: 'Componentes', icon: 'sliders',
+    label: 'Componentes', icon: 'tune',
     stories: [
       { id: 'button', label: 'Button', render: () => <ButtonStory /> },
       { id: 'icon-button', label: 'IconButton', render: () => <IconButtonStory /> },
@@ -71,7 +71,7 @@ const groups: Group[] = [
     ],
   },
   {
-    label: 'Patrones', icon: 'cube',
+    label: 'Patrones', icon: 'deployed_code',
     stories: [
       { id: 'list', label: 'List', render: () => <ListStory /> },
       { id: 'table', label: 'Table', render: () => <TableStory /> },
@@ -124,7 +124,7 @@ export function App() {
 
         <div className="flex flex-col gap-0.5">
           <button onClick={() => setCurrent(INTRO)} className={navItemClass({ active: current === INTRO })}>
-            <NavItemBody icon="sparkle" label="Introducción" active={current === INTRO} />
+            <NavItemBody icon="star_shine" label="Introducción" active={current === INTRO} />
           </button>
 
           {groups.map(g => {
@@ -144,7 +144,7 @@ export function App() {
                   </div>
                   <span className="pointer-events-none absolute right-1.5 p-1 text-ink-muted">
                     <Icon
-                      name="chevronDown"
+                      name="keyboard_arrow_down"
                       size={16}
                       className={cx('transition-transform duration-[190ms] ease-out', isOpen && 'rotate-180')}
                     />
@@ -173,7 +173,7 @@ export function App() {
         <div className="mt-auto flex items-center justify-between gap-2 pt-6 pl-[3px]">
           <span className="text-2xs text-ink-muted">{prefs.theme === 'dark' ? 'Oscuro' : 'Claro'}</span>
           <IconButton
-            icon={prefs.theme === 'dark' ? 'sun' : 'moon'}
+            icon={prefs.theme === 'dark' ? 'light_mode' : 'dark_mode'}
             label={prefs.theme === 'dark' ? 'Tema claro' : 'Tema oscuro'}
             size="sm"
             variant="raised"

@@ -4,10 +4,10 @@ import { Modal, Button, Chip, cx, Row, Segmented, Select, Switch, Icon, type Ico
 type SectionId = 'general' | 'perfil' | 'seguridad' | 'avisos'
 
 const sections: { id: SectionId; label: string; icon: IconName }[] = [
-  { id: 'general', label: 'General', icon: 'sliders' },
-  { id: 'perfil', label: 'Perfil', icon: 'user' },
-  { id: 'seguridad', label: 'Seguridad', icon: 'shield' },
-  { id: 'avisos', label: 'Avisos', icon: 'bell' },
+  { id: 'general', label: 'General', icon: 'tune' },
+  { id: 'perfil', label: 'Perfil', icon: 'person' },
+  { id: 'seguridad', label: 'Seguridad', icon: 'verified_user' },
+  { id: 'avisos', label: 'Avisos', icon: 'notifications' },
 ]
 
 /**
@@ -66,7 +66,9 @@ export function SettingsModal({ open, onClose }: { open: boolean; onClose: () =>
                       el activo y 1.5 en el inactivo, al seleccionar cambiaba el
                       grosor del dibujo y el icono daba un salto de peso. Lo que
                       distingue el estado es el color, nada más. */}
-                  <Icon name={s.icon} size={20} weight={1.5} className={active ? 'text-ink' : 'text-icon-muted'} />
+                  {/* La rama activa queda en el peso base y la inactiva la sube sola con
+                      `icon-muted`: el gris y el peso son la misma decisión. */}
+                  <Icon name={s.icon} size={20} className={active ? 'text-ink' : 'icon-muted'} />
                 </span>
                 {s.label}
               </button>
@@ -235,7 +237,7 @@ function EditableRow({ label, value: initial }: { label: string; value: string }
           className="flex items-center gap-2 rounded-md px-1.5 py-1 text-xs font-medium text-ink hover:bg-hover"
         >
           {value}
-          <Icon name="pencil" size={16} className="text-ink-muted opacity-0 transition-opacity group-hover:opacity-100" />
+          <Icon name="edit" size={16} className="text-ink-muted opacity-0 transition-opacity group-hover:opacity-100" />
         </button>
       )}
     </div>

@@ -38,8 +38,8 @@ export function LibraryScreen() {
                 value={view}
                 onChange={setView}
                 options={[
-                  { value: 'grid', icon: 'grid', title: 'Ver en grilla' },
-                  { value: 'list', icon: 'sliders', title: 'Ver en lista' },
+                  { value: 'grid', icon: 'grid_view', title: 'Ver en grilla' },
+                  { value: 'list', icon: 'tune', title: 'Ver en lista' },
                 ]}
               />
             </>
@@ -65,7 +65,7 @@ export function LibraryScreen() {
           <Chip color="orange">Los nombres de la cuadra</Chip>
           <Chip color="pink">Cuántos pasos hay hasta la puerta</Chip>
           <Chip color="teal">Una carta a quien venga después</Chip>
-          <Button size="sm" variant="ghost" icon="plus">Nueva</Button>
+          <Button size="sm" variant="ghost" icon="add">Nueva</Button>
         </div>
 
         {/* El composer flota, así que hay que dejarle aire abajo o tapa la
