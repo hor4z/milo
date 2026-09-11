@@ -1,0 +1,18 @@
+{
+  "name": "@melu/ui",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Los componentes del sistema y el puente a Tailwind.",
+  "exports": {
+    ".": "./src/index.ts",
+    "./theme.css": "./src/theme.css"
+  },
+  "dependencies": {
+    "@melu/tokens": "*"
+  },
+  "peerDependencies": {
+    "react": ">=19",
+    "react-dom": ">=19"
+  }
+}

@@ -1,0 +1,279 @@
+/**
+ * Semantic tokens: la capa de roles. Los componentes se estilan SOLO contra
+ * esto. Ninguno sabe que existe `--shade-03`; sabe que hay un `--surface-muted`.
+ */
+:root {
+  color-scheme: light;
+
+  /* ------- superficies -------
+     El shell y las piezas comparten el papel (`--shade-01`): lo que separa una
+     tarjeta del fondo no es un tono distinto, es el relieve. */
+  --canvas: var(--shade-01);
+  --surface: var(--shade-01);
+  --surface-muted: var(--shade-03);
+  --surface-sunken: var(--shade-04);
+  --surface-hover: var(--shade-09-a04);
+  --surface-active: var(--shade-09-a08);
+  --surface-inverted: var(--shade-09);
+  --popover: var(--shade-01);
+  --scrim: rgb(18 18 18 / 0.14);
+  /* El velo de un panel anclado es más oscuro que el de un modal y no lleva
+     blur: el modal ya se separa por tamaño, un panel de 384 necesita que el
+     resto se apague para ganar la mirada. */
+  --veil: rgb(58 58 58 / 0.4);
+
+  /* ------- bordes ------- */
+  --border: var(--shade-04);
+  --border-strong: var(--shade-05);
+  --border-alpha: var(--shade-09-a08);
+
+  /* ------- texto ------- */
+  --text: var(--shade-09);
+  --text-muted: var(--shade-06);
+  --text-subtle: var(--shade-06);
+  --text-disabled: var(--shade-05);
+  --text-inverted: var(--shade-01);
+
+  /* ------- sólidos y acento -------
+     La interfaz es monocroma: el botón que manda es tinta, el que acompaña es
+     gris con relieve, y el acento queda libre para señalar lo poco que importa. */
+  --solid: var(--shade-09);
+  --solid-hover: #000000;
+  --on-solid: var(--shade-01);
+
+  /* El CTA de marca: el mismo botón lleno que el sólido, en azul. Es la única
+     variante con color de la interfaz, y su rol es exactamente uno. */
+  --brand: var(--blue-500);
+  /* El canto y el labio comparten escalón. No es que falte un paso: el labio es
+     el mismo filo visto desde abajo, y con un azul más oscuro que el canto el
+     botón se veía sobrerrelevado. */
+  --brand-edge: var(--blue-600);
+  --brand-lip: var(--blue-600);
+  --on-brand: #ffffff;
+
+  /* El texto de una etiqueta de color. Uno solo para las seis: con la familia
+     toda al mismo contraste contra blanco, el blanco funciona en todas. Si algún
+     día entra un amarillo no va a poder llevarlo, y ahí este rol se parte en
+     pares — es la única condición que lo rompe.
+
+     Las marcas de la lista no usan esto: van en pares relleno/glifo, porque son
+     pasteles y el glifo tiene que ser del mismo tono varios pasos más oscuro. */
+  --on-label: #ffffff;
+
+  --accent: var(--accent-500);
+  --accent-hover: var(--accent-600);
+  --accent-subtle: var(--accent-050);
+
+  --ok: var(--ok-500);
+  --ok-subtle: var(--ok-050);
+  --warn: var(--warn-500);
+  --warn-subtle: var(--warn-050);
+  --bad: var(--bad-500);
+  --bad-hover: var(--bad-600);
+  --bad-subtle: var(--bad-050);
+  --on-bad: #ffffff;
+
+  /* ------- relieve -------
+     Las cuatro recetas del sistema. Todas mezclan luz interior arriba y sombra
+     abajo: es lo que hace que una pieza se sienta física en vez de dibujada.
+
+     `--relief-raised`  el botón gris que sobresale: degradado + brillo interior
+                        arriba + anillo + una sombra corta y marcada.
+     `--relief-inset`   lo hundido: un kbd, la pista de un segmented.
+     `--relief-toolbar` la barra que flota sobre el contenido.
+     `--relief-popover` un menú o un modal, lejos del plano del fondo. */
+  --relief-raised:
+    0 0 0 1px var(--edge),
+    inset 0 1px 0 0 var(--light-a33),
+    0 3px 4px -1px rgb(0 0 0 / 0.15);
+  /* El sólido oscuro tiene su propio relieve, y no es el del gris invertido:
+     un filo de luz muy tenue arriba, un labio oscuro abajo y un anillo un paso
+     más claro que el relleno. Sin esto, la tinta plana al lado de un gris con
+     relieve se ve como un rectángulo pegado. */
+  --relief-solid:
+    0 0 0 1px var(--solid-edge),
+    inset 0 0.5px 1px 0 rgb(255 255 255 / 0.15),
+    inset 0 -1px 1.2px 0.35px var(--shade-09),
+    0 2px 4px -1px rgb(13 13 13 / 0.5);
+  /* Un toggle mientras está activo: hundido. La sombra entra desde abajo y el
+     filo blanco queda arriba, que es el orden inverso al del botón que
+     sobresale. No es `--relief-inset` (el del kbd): ese lleva anillo y sombra
+     de caída porque es una marca, no algo que se aprieta. */
+  --relief-pressed:
+    inset 0 -1px 3px 0 rgb(18 18 18 / 0.15),
+    inset 0 1.25px 1px 0 #ffffff;
+  /* Los blur son sub-píxel a propósito. Con 1px, el labio de abajo se derrama
+     hacia adentro y pinta una fila gris DENTRO de la caja: el borde inferior
+     pasa a leerse de dos píxeles y la pieza se ve blanda, no hundida. A 0.6 el
+     labio queda en la fila que le toca y el canto se ve dibujado. */
+  --relief-inset:
+    0 0 0 1px var(--shade-09-a11),
+    inset 0 2px 0.8px 0 var(--light-a27),
+    inset 0 -1px 0.6px 0 rgb(0 0 0 / 0.2),
+    0 1px 4.2px -1px rgb(0 0 0 / 0.25);
+  --relief-card:
+    0 1px 1px 0 rgb(0 0 0 / 0.05),
+    0 3px 3px 0 rgb(0 0 0 / 0.03),
+    0 6px 3px 0 rgb(0 0 0 / 0.02);
+  --relief-toolbar:
+    0 1px 4px -4px rgb(0 0 0 / 0.08),
+    0 8px 16px -12px rgb(0 0 0 / 0.13);
+  --relief-popover:
+    0 10px 21px 0 rgb(0 0 0 / 0.07),
+    0 38px 38px 0 rgb(0 0 0 / 0.06),
+    0 86px 52px 0 rgb(0 0 0 / 0.04);
+
+  /* El degradado del botón gris. Va como token porque el día que cambie, el
+     botón, el select y el chip activo tienen que cambiar juntos. */
+  --grad-raised: linear-gradient(in oklab, #e5e5e5 0%, #e2e2e2 100%);
+
+  /* El azul lleva las cuatro capas del sólido oscuro, no las del gris: un filo
+     de luz arriba, un labio abajo, el canto un paso más oscuro que el relleno y
+     una caída teñida del propio azul. Una sombra gris debajo de una pieza de
+     color se ve como suciedad, no como sombra.
+
+     Pero las cuatro van más flojas que en el gris, y no es un ajuste de gusto:
+     sobre un relleno saturado, el mismo relieve que el gris necesita para
+     despegarse del papel se ve exagerado. El filo de luz baja a 0.16 (a 0.28 se
+     ve un reflejo pegado arriba), el labio pierde el spread —era eso, y no su
+     color, lo que lo engordaba a dos píxeles— y sale del 600 en vez del 700, y
+     la caída pasa a 1/3 y opacidad 0.28: el color ya separa la pieza del fondo,
+     la sombra solo la apoya. */
+  --grad-brand: linear-gradient(in oklab, var(--blue-400) 0%, var(--blue-500) 100%);
+  --relief-brand:
+    0 0 0 1px var(--brand-edge),
+    inset 0 1px 0 0 rgb(255 255 255 / 0.16),
+    inset 0 -1px 0.6px 0 var(--brand-lip),
+    0 1px 3px -1px rgb(10 70 150 / 0.28);
+  /* Apretado: se va el filo de luz y la sombra entra desde arriba, teñida. El
+     canto se queda: es el filo de la pieza y no depende de si está hundida. */
+  --relief-brand-pressed:
+    0 0 0 1px var(--brand-edge),
+    inset 0 2px 3px 0 rgb(6 48 105 / 0.3);
+
+  /* El relieve de una marca de lista. Todo sale de `currentColor`, que dentro
+     del disco es el glifo —la fila ya le puso `text-mark-*-ink`—, así que la
+     receta se escribe una vez y sirve para los cinco tonos. Lo que la deja
+     escribirse una vez es que la familia esté pareja: con la croma yendo de
+     0.067 a 0.110 como estaba antes, cada tono pedía su propia alfa.
+
+     Los saltos son los que el sistema ya usa: el canto a 1.14:1 contra su
+     relleno, que es el mismo salto del botón gris (`#e2e2e2` → `#d4d4d4`), y el
+     labio a 1.24:1.
+
+     El filo de luz va al mismo 1.14:1 que el canto: un paso para arriba y uno
+     para abajo, del mismo tamaño. Estuvo a medio paso (blanco al 0.10, 1.07:1)
+     con el argumento de que sobre un pastel el blanco no se lee, y se veía
+     apagado — sobre un pastel el blanco no se lee *tanto*, que es otra cosa, y
+     por eso hace falta más alfa para el mismo salto: 0.20 contra el 0.16 del
+     botón azul, que es más oscuro.
+
+     La caída es corta y teñida del propio tono. Una sombra gris debajo de una
+     pieza de color se ve como suciedad, no como sombra. */
+  --grad-mark: linear-gradient(to bottom, rgb(255 255 255 / 0.20), rgb(255 255 255 / 0) 60%);
+  --relief-mark:
+    inset 0 0 0 1px color-mix(in oklab, currentColor 10%, transparent),
+    inset 0 -1px 0 0 color-mix(in oklab, currentColor 16%, transparent),
+    0 1px 2px -1px color-mix(in oklab, currentColor 20%, transparent);
+
+  /* ------- el switch -------
+     Geometría: pista 40×22 con 2 de padding, así que el pulgar es de 18 y viaja
+     18. Las tres capas del pulgar son lo que lo hace parecer una pieza apoyada
+     encima y no un círculo pintado: luz interior arriba, un halo corto y una
+     sombra de contacto un píxel más abajo. */
+  /* La pista prendida va en el azul de marca, no en tinta: es el mismo color con
+     el que el checkbox confirma una elección, y compartirlo es lo que hace que
+     "esto lo prendí yo" se lea igual en los dos controles.
+
+     La sombra interior también se tiñe. Con la tinta original al 30% sobre el
+     azul, la pista se veía sucia en vez de hundida: una sombra gris sobre una
+     superficie de color no lee como sombra, lee como suciedad. */
+  --switch-on: var(--brand);
+  --switch-off: var(--shade-04);
+  --switch-on-inset: inset 0 1px 0.6px 0 rgb(0 45 105 / 0.35);
+  --switch-off-inset: inset 0 0 1px 0.5px rgb(18 18 18 / 0.1);
+  --switch-thumb: var(--shade-02);
+  --switch-thumb-shadow:
+    inset 0 1px 0.5px 0 rgb(255 255 255 / 0.82),
+    0 0 2.6px 0 rgb(0 0 0 / 0.25),
+    0 1px 4px 0 rgb(0 0 0 / 0.14);
+
+  /* ------- el campo con valor -------
+     Un select o cualquier caja que muestra algo elegido: gris, radio 10, borde
+     de un píxel. Plano a propósito: el relieve queda para lo que se aprieta. */
+  --field-bg: var(--shade-03);
+  --field-bg-hover: var(--shade-04);
+  --field-border: var(--shade-04);
+
+  /* ------- el campo vacío -------
+     El buscador de la topbar. No es `--field-*` (el campo que ya muestra algo
+     elegido): acá el fondo casi desaparece y lo que dibuja la caja es el borde
+     más oscuro de la rampa. Un campo vacío pintado del gris del campo con
+     valor se lee como un botón apagado, y en una topbar donde el botón que
+     manda es tinta y el que acompaña es gris con relieve, ese sería un tercer
+     botón que nadie va a tocar. */
+  --search-bg: var(--shade-02);
+  --search-bg-hover: var(--shade-03);
+  --search-border: var(--border-strong);
+
+  --focus-ring: 0 0 0 2px var(--surface), 0 0 0 4px var(--shade-09-a35);
+}
+
+[data-theme="dark"] {
+  color-scheme: dark;
+  --veil: rgb(0 0 0 / 0.55);
+  --switch-on: var(--brand);
+  --switch-off: var(--shade-04);
+  --switch-on-inset: inset 0 1px 0.6px 0 rgb(0 0 0 / 0.4);
+  --switch-off-inset: inset 0 0 1px 0.5px rgb(0 0 0 / 0.5);
+  --switch-thumb: var(--shade-01);
+  --switch-thumb-shadow:
+    inset 0 1px 0.5px 0 rgb(255 255 255 / 0.15),
+    0 0 2.6px 0 rgb(0 0 0 / 0.5),
+    0 1px 4px 0 rgb(0 0 0 / 0.4);
+  --field-bg: var(--shade-03);
+  --field-bg-hover: var(--shade-04);
+  --field-border: var(--shade-05);
+  --search-bg: var(--shade-02);
+  --search-bg-hover: var(--shade-03);
+  --search-border: var(--border-strong);
+  --scrim: rgb(0 0 0 / 0.55);
+  --solid: var(--shade-09);
+  --solid-hover: #ffffff;
+  --grad-raised: linear-gradient(in oklab, #333333 0%, #2c2c2c 100%);
+  --grad-brand: linear-gradient(in oklab, var(--blue-400) 0%, var(--blue-500) 100%);
+  --relief-brand:
+    0 0 0 1px var(--brand-edge),
+    inset 0 1px 0 0 rgb(255 255 255 / 0.13),
+    inset 0 -1px 0.6px 0 var(--brand-lip),
+    0 1px 3px -1px rgb(0 0 0 / 0.4);
+  --relief-brand-pressed:
+    0 0 0 1px var(--brand-edge),
+    inset 0 2px 3px 0 rgb(0 0 0 / 0.38);
+
+  /* En oscuro la receta se da vuelta y arriba pasa a mandar el tono: el relleno
+     es profundo, así que el volumen lo dibujan un filo de luz del propio color y
+     un labio negro abajo. El blanco del degradado sale —sobre un relleno
+     profundo lava el color en vez de levantarlo— y lo reemplaza el tono. El
+     canto baja a la mitad de alfa: contra un fondo oscuro el mismo salto se
+     consigue con menos. */
+  --grad-mark: linear-gradient(to bottom, color-mix(in oklab, currentColor 10%, transparent), transparent 60%);
+  --relief-mark:
+    inset 0 0 0 1px color-mix(in oklab, currentColor 6%, transparent),
+    inset 0 -1px 0 0 rgb(0 0 0 / 0.31),
+    0 1px 2px -1px rgb(0 0 0 / 0.4);
+  --relief-raised:
+    0 0 0 1px var(--edge),
+    inset 0 1px 0 0 rgb(255 255 255 / 0.08),
+    0 3px 4px -1px rgb(0 0 0 / 0.5);
+  --relief-pressed:
+    inset 0 -1px 3px 0 rgb(0 0 0 / 0.45),
+    inset 0 1.25px 1px 0 rgb(255 255 255 / 0.07);
+  --relief-inset:
+    0 0 0 1px rgb(0 0 0 / 0.5),
+    inset 0 1px 1px 0 rgb(0 0 0 / 0.5),
+    inset 0 -1px 0 0 rgb(255 255 255 / 0.05);
+  --relief-card: 0 1px 2px 0 rgb(0 0 0 / 0.4), inset 0 1px 0 0 rgb(255 255 255 / 0.04);
+  --relief-toolbar: 0 4px 12px -6px rgb(0 0 0 / 0.6), inset 0 1px 0 0 rgb(255 255 255 / 0.04);
+  --relief-popover: 0 16px 32px -8px rgb(0 0 0 / 0.6), 0 48px 64px -32px rgb(0 0 0 / 0.5);
+}

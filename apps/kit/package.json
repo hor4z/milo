@@ -1,0 +1,15 @@
+{
+  "name": "@melu/kit",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "description": "La galería: tokens y componentes uno al lado del otro.",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@melu/ui": "*"
+  }
+}

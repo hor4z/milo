@@ -1,0 +1,51 @@
+import { Button, Spinner } from '@melu/ui'
+import { Block, Panel, Props, Section, Variant } from '../kit'
+
+export function SpinnerStory() {
+  return (
+    <Section
+      title="Spinner"
+      note="Pista completa más un arco encima, los dos del mismo grosor. La pista no es decorativa: sin ella, un arco suelto girando no dice «esperá», dice que falta un trozo de la interfaz."
+    >
+      <Block
+        label="Tamaños"
+        note="El trazo no escala con el tamaño: 3 a los 20 y 3 a los 44. Un anillo fino en grande se ve frágil, pero un anillo proporcional en chico se tapa a sí mismo —el agujero desaparece— y deja de leerse como anillo. Abajo de 16 baja a 2."
+      >
+        <Panel>
+          <Variant name="16 · 20 · 28 · 44">
+            <Spinner size={16} />
+            <Spinner size={20} />
+            <Spinner size={28} />
+            <Spinner size={44} />
+          </Variant>
+        </Panel>
+      </Block>
+
+      <Block
+        label="En contexto"
+        note="El arco va en el azul de marca y no en tinta: en una pantalla monocroma, lo único que se mueve conviene que sea también lo único con color, porque es lo que tiene que encontrar la mirada."
+      >
+        <Panel>
+          <Variant name="en un botón">
+            <Button variant="solid" aria-busy><Spinner size={16} />Guardando</Button>
+            <Button variant="raised" aria-busy><Spinner size={16} />Guardando</Button>
+          </Variant>
+          <Variant name="en una fila">
+            <span className="flex items-center gap-2.5 text-xs font-medium text-ink-muted">
+              <Spinner size={16} />
+              Buscando en siete espacios
+            </span>
+          </Variant>
+        </Panel>
+      </Block>
+
+      <Block label="Props">
+        <Props rows={[
+          { name: 'size', type: 'number', def: '20', note: 'el trazo no lo sigue' },
+          { name: 'label', type: 'string', def: "'Cargando'", note: 'al aria-label; el rol es status' },
+          { name: 'className', type: 'string' },
+        ]} />
+      </Block>
+    </Section>
+  )
+}

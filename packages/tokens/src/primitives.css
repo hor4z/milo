@@ -1,0 +1,245 @@
+/**
+ * Primitive tokens: valores crudos. Nadie los usa directo — están para que
+ * `semantic.css` les ponga un rol. Un componente que lea de acá es un bug.
+ *
+ * La rampa es casi neutra y de nueve pasos, calibrada contra la referencia:
+ * tres superficies claras antes del primer borde visible, un salto grande al
+ * gris de texto secundario, y tres tintas oscuras. El salto de 05 a 06 es
+ * deliberadamente violento: entre el borde más oscuro y el texto más claro no
+ * tiene que haber nada, o aparecen grises que no se distinguen entre sí.
+ */
+:root {
+  --shade-01: #fcfcfc;  /* el papel */
+  --shade-02: #f8f7f7;
+  --shade-03: #f1f1f1;
+  --shade-04: #ececec;
+  --shade-05: #e2e2e2;
+  --shade-06: #7b7b7b;  /* texto secundario e iconos apagados */
+  --shade-07: #323232;
+  --shade-08: #222222;
+  --shade-09: #121212;  /* la tinta */
+
+  /* Bordes y hovers se pintan con tinta transparente, no con un gris opaco:
+     sobre un tinte, el gris opaco se ve como una línea sucia. */
+  --shade-09-a04: rgb(18 18 18 / 0.04);
+  --shade-09-a06: rgb(18 18 18 / 0.06);
+  --shade-09-a08: rgb(18 18 18 / 0.08);
+  --shade-09-a11: rgb(18 18 18 / 0.11);
+  --shade-09-a35: rgb(18 18 18 / 0.35);
+
+  /* El relieve se arma con estas: luz arriba, sombra abajo, y un canto propio.
+     El canto NO es un escalón de la rampa: tiene que ser más oscuro que el
+     borde más oscuro (05) para dibujar el filo de una pieza que sobresale.
+     Con el 05 puesto acá, el botón gris se ve plano sobre un fondo casi blanco. */
+  --light-a33: rgb(255 255 255 / 0.33);
+  --light-a27: rgb(255 255 255 / 0.27);
+  --edge: #d4d4d4;
+  --solid-edge: #333333;
+  /* El gris de un icono trazado. No es --shade-06 (el del texto secundario):
+     un trazo de 1.5 encierra aire, así que con el gris del texto se lee más
+     apagado que ese mismo texto. Un paso más oscuro lo empareja sin tocar el
+     dibujo. Si algún día el set pasa a glifos macizos, este token vuelve a 06. */
+  --icon-muted: #5f5f5f;
+
+  /* El azul de marca. Existe para un solo uso: el CTA lleno de la topbar. No es
+     un segundo acento —el ámbar sigue siendo el que señala— y por eso no tiene
+     versión apagada ni tinte: si aparece en un badge o en un texto, la pantalla
+     pasa a tener dos colores peleando y ninguno de los dos avisa nada.
+
+     Tres pasos y nada más: 400 y 500 son el degradado, y el 600 hace de canto y
+     de labio a la vez. Hubo un 300 y un 700 —un filo de luz propio y un labio
+     más oscuro— y los dos sobraban: el filo sale mejor del blanco en alpha, y
+     con el labio en 700 el botón se veía sobrerrelevado.
+
+     El 600 no se elige a ojo: sale de reproducir el mismo salto que el botón
+     gris usa entre su relleno y su canto (#e2e2e2 a #d4d4d4, 1.14:1). Con un
+     salto más corto el canto desaparece y el botón se ve como un rectángulo
+     pintado; con uno más largo se lee como un borde de otro color en vez del
+     filo de la misma pieza. Acá el 500 al 600 da 1.13:1. */
+  --blue-400: #5199f9;
+  --blue-500: #2781f9;
+  --blue-600: #1375f8;
+
+  /* Marcas de color: el círculo que identifica una fila en una lista.
+     Es la misma excepción que las carpetas de espacios —color propio y acotado
+     a una pieza— y por el mismo motivo: en una lista de cinco o siete filas, el
+     color es lo que te deja encontrar una de reojo, sin leer. Fuera de una
+     marca no se usan: no son una paleta, son etiquetas.
+
+     Van en pares. El relleno es un pastel y el glifo es el mismo tono varios
+     pasos más oscuro. Eso es a propósito y no quedó de una versión vieja: la
+     marca es de 44 y vive dentro de una fila clara, así que tiene lugar para
+     leerse entera sin gritarle al título que está al lado. En saturado con el
+     glifo blanco, cinco marcas en una lista de cinco filas se llevan toda la
+     pantalla y el título pasa a segundo plano.
+
+     Para lo chico —un chip, un avatar, un cuadradito de icono— la familia es
+     `--label-*`, que sí es viva. La diferencia entre las dos es el tamaño de la
+     pieza, no el gusto.
+
+     LA REGLA, que antes no estaba escrita y por eso los cinco derivaron:
+
+     · Los tonos son los de `--label-*`. Un verde del sistema es un verde, sea
+       una marca de 44 o la inicial de un avatar. Lo que cambia entre las dos
+       familias es la luminosidad y la croma, nunca el tono.
+     · El relleno va a L 0.80 en OKLCH, con la croma más alta que los cinco
+       tonos puedan llevar a esa luminosidad: 0.101. No es un porcentaje del
+       techo de cada tono, es el techo común, y la diferencia importa. A L 0.80
+       el verde aguanta croma 0.20 y el azul 0.10; con «el 90% de lo que cada
+       uno aguante», el verde sale flúor y el azul pastel, que es justo la
+       familia desarmada que había.
+     · El glifo es el mismo tono a 4.5:1 de contraste contra su propio relleno.
+       Mismo tono de verdad: antes el relleno verde estaba en 135 y su glifo en
+       147, trece grados de diferencia, así que el glifo no era el relleno más
+       oscuro sino otro color.
+
+     En oscuro la regla se invierte y el contraste del glifo sube a 7:1. No es
+     inconsistencia: un trazo claro y fino sobre un relleno profundo se apaga,
+     que es el mismo motivo por el que existe `--icon-muted` y la prop `weight`
+     del icono. El glifo de una marca es de 22 con trazo 1.75.
+
+     Lo que esta regla arregló, medido: la croma del relleno iba de 0.067 a
+     0.110 —el verde al 42% de su techo y los otros cuatro al 90%— y el
+     contraste del glifo de 4.26:1 a 4.91:1. */
+  --mark-green: #91d09a;    --mark-green-ink: #145d27;
+  --mark-purple: #ccaef3;   --mark-purple-ink: #6e1cab;
+  --mark-orange: #eab177;   --mark-orange-ink: #6c4210;
+  --mark-blue: #95c0ff;     --mark-blue-ink: #114d9b;
+  --mark-pink: #f5a2b6;     --mark-pink-ink: #8f1746;
+
+  /* Etiquetas de color: la familia viva. Un chip, un avatar, el cuadradito de
+     icono de una tarjeta — todo lo que es chico y tiene que identificar de
+     reojo contra el papel.
+
+     No son las marcas de arriba y la diferencia no es de gusto, es de tamaño.
+     Una marca de 44 dentro de una fila clara tiene lugar para ser un pastel con
+     el glifo oscuro: se lee entera y no le grita al título que está al lado. Un
+     chip de 28 o una inicial de avatar no tienen ese lugar — en pastel se
+     confunden con el fondo apagado del que salen.
+
+     Los seis salen de la regla de la familia: saturación al 95% y la
+     luminosidad que los deja al mismo contraste contra blanco que el azul
+     (3.75:1). Por eso los seis llevan el mismo texto blanco, y van en orden de
+     rueda porque el avatar reparte por hash sobre el índice. */
+  --label-green: #04983b;
+  --label-teal: #049393;
+  --label-blue: var(--blue-500);
+  --label-purple: #ad5afa;
+  --label-pink: #f9267b;
+  --label-orange: #bc7305;
+
+  /* El acento se usa poquísimo —un punto, un badge, el aviso de algo nuevo— y
+     por eso se ve. La interfaz es monocroma; el color es el que señala. */
+  --accent-500: #ec4c07;
+  --accent-600: #c53f05;
+  --accent-050: #fdf0ea;
+
+  /* Los de estado siguen la misma regla, y eso les da algo que antes no tenían:
+     los tres pesan lo mismo. Con un verde apagado y un rojo fuerte, «terminado»
+     se leía más débil que «falló» sin que nadie lo hubiera decidido.
+
+     Cada uno se usa de las dos formas —relleno con texto blanco y texto sobre
+     papel— así que el contraste tiene que servir en los dos sentidos, y con esta
+     regla es el mismo número en los dos: 3.75:1.
+
+     El amarillo es el que no llega a ser brillante: forzarlo a ese contraste lo
+     baja a un oro oscuro. No es un error de la regla, es que no existe un
+     amarillo vivo que aguante texto blanco. Un aviso se lee, no decora. */
+  --ok-500: #04983b;
+  --ok-050: #eafdf1;
+  --warn-500: #aa7c05;
+  --warn-050: #fdf8ea;
+  --bad-500: #f93630;
+  --bad-600: #d81e18;
+  --bad-050: #fdeaea;
+
+  /* Tintes: el lavado de una superficie grande que lleva un dibujo oscuro
+     encima. Son tres usos y nada más — el hueco 4:3 de una tarjeta, el mock de
+     una novedad y el costado de la pantalla de entrar.
+
+     NO son para una etiqueta. Un chip, un avatar o un cuadradito de icono
+     llevan `--label-*`, que es viva: ahí el color identifica y tiene que verse.
+     Acá el color solo tiñe el papel detrás de un dibujo, así que si se saturara
+     el dibujo desaparecería y una grilla de doce tarjetas se volvería un
+     arcoíris. Los dos roles vivían en estos seis tokens, y por eso los chips
+     quedaron pastel más tiempo del que correspondía. */
+  --tint-1: #eef2ef;
+  --tint-2: #ecf1f7;
+  --tint-3: #f9efe9;
+  --tint-4: #f1eef7;
+  --tint-5: #fbf4e6;
+  --tint-6: #f9eef1;
+}
+
+/* El tema oscuro reescribe la rampa y nada más. Ningún componente sabe que
+   existe: leen roles, y los roles ya apuntan a otro lado. */
+[data-theme="dark"] {
+  --shade-01: #131313;
+  --shade-02: #191919;
+  --shade-03: #202020;
+  --shade-04: #292929;
+  --shade-05: #363636;
+  --shade-06: #8a8a8a;
+  --shade-07: #c9c9c9;
+  --shade-08: #e6e6e6;
+  --shade-09: #f7f7f7;
+
+  --shade-09-a04: rgb(247 247 247 / 0.05);
+  --shade-09-a06: rgb(247 247 247 / 0.08);
+  --shade-09-a08: rgb(247 247 247 / 0.10);
+  --shade-09-a11: rgb(247 247 247 / 0.14);
+  --shade-09-a35: rgb(0 0 0 / 0.6);
+
+  --light-a33: rgb(255 255 255 / 0.07);
+  --light-a27: rgb(255 255 255 / 0.05);
+  --edge: #434343;
+  --solid-edge: #d0d0d0;
+  --icon-muted: #a0a0a0;
+
+  /* En oscuro el azul sube un paso: el mismo relleno que funciona sobre papel
+     casi blanco se apaga sobre #131313. */
+  --blue-400: #599ef9;
+  --blue-500: #2f86f9;
+  --blue-600: #1b7af8;
+
+  /* En oscuro la marca se invierte: el relleno pasa a ser el tono profundo y el
+     glifo el pastel. Un pastel de relleno sobre #131313 es una mancha de luz
+     que se lleva toda la pantalla.
+
+     Las etiquetas no se invierten: son saturadas, y un saturado se apoya sobre
+     el fondo oscuro sin encenderlo. Solo suben un paso de luz. */
+  /* La misma regla dada vuelta: relleno a L 0.32 con el techo común de croma
+     (0.072) y glifo del mismo tono, pero a 7:1 y no a 4.5:1 — sobre un relleno
+     profundo, un trazo claro y fino necesita más. */
+  --mark-green: #143d1d;    --mark-green-ink: #3ee06a;
+  --mark-purple: #3b2850;   --mark-purple-ink: #d0b0f9;
+  --mark-orange: #4b2a00;   --mark-orange-ink: #f9af60;
+  --mark-blue: #193357;     --mark-blue-ink: #9ec3f9;
+  --mark-pink: #50212e;     --mark-pink-ink: #f9a5b9;
+
+  --label-green: #05b646;
+  --label-teal: #05b1b1;
+  --label-blue: var(--blue-500);
+  --label-purple: #bb77fb;
+  --label-pink: #fa448d;
+  --label-orange: #da8506;
+
+  --accent-500: #f95c19;
+  --accent-600: #fa753c;
+  --accent-050: #2a1811;
+
+  --ok-500: #05b646;
+  --ok-050: #112a1a;
+  --warn-500: #c89106;
+  --warn-050: #2a2311;
+  --bad-500: #fa534e;
+  --bad-600: #f7726e;
+  --bad-050: #2a1211;
+
+  --tint-1: #1b201d;
+  --tint-2: #191f27;
+  --tint-3: #241d19;
+  --tint-4: #1f1d26;
+  --tint-5: #221f18;
+  --tint-6: #231b1e;
+}

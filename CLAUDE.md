@@ -9,7 +9,9 @@ Lo que se decida acá se porta a `~/melu/packages/ui`, que es el design system d
 
 ```sh
 npm install
-npm run dev     # http://localhost:5180
+npm run dev        # el kit  · http://localhost:5190
+npm run dev:guide  # la app  · http://localhost:5180
+npm run typecheck  # todo el monorepo de una
 ```
 
 ## De dónde salió
@@ -31,18 +33,21 @@ El stack es el de melu a propósito —React 19 + Tailwind v4 + Vite— y la cap
 la misma forma que `packages/ui`, así portar es copiar valores y no traducir un sistema:
 
 ```
-src/tokens/primitives.css   valores crudos: la rampa, el canto, los tintes, el acento
-src/tokens/semantic.css     los roles: --surface, --border, --text, --relief-*, --switch-*
-src/tokens/scales.css       radios, medidas del shell, tipografía, movimiento
-src/theme.css               el puente: Tailwind leyendo los tokens + las clases de relieve
+packages/tokens/src/primitives.css   valores crudos: la rampa, el canto, los tintes, el azul
+packages/tokens/src/semantic.css     los roles: --surface, --border, --text, --relief-*, --switch-*
+packages/tokens/src/scales.css       radios, medidas del shell, tipografía, movimiento
+packages/ui/src/theme.css            el puente: Tailwind leyendo los tokens + las clases de relieve
 ```
 
 Los componentes se estilan **solo** contra roles: ninguno sabe que existe `--shade-03`, sabe
 que hay un `--surface-muted`. Un hex escrito a mano en un componente es un bug.
 
-`@source "./**/*.{ts,tsx}"` en `theme.css` es obligatorio: Tailwind v4 escanea desde el root
-de Vite, no desde el directorio del CSS. Sin eso, las clases que solo usan estos componentes
-no se generan y **falla en silencio, sin estilos**.
+Con el monorepo, el `@source` va **dos veces** y las dos hacen falta: el de
+`packages/ui/src/theme.css` cubre los componentes del paquete, y el `app.css` de cada app
+declara los archivos de esa app. Tailwind v4 arranca la detección automática en el root de
+Vite, que ahora es la carpeta de la app y no la del CSS, así que ninguno de los dos alcanza
+solo. Cuando falta uno **falla en silencio, sin estilos**: la clase queda en el HTML sin
+efecto y no hay error.
 
 ## El sistema
 
@@ -76,7 +81,44 @@ pintan con tinta en alpha, no con un gris opaco: sobre un tinte, el opaco se ve 
 sucia.
 
 La interfaz es **monocroma**. El acento (`#d2691e`) se usa poquísimo —un punto, un badge— y por
-eso se ve. El botón que manda es tinta, no color de marca.
+eso se ve.
+
+Hay dos excepciones, las dos deliberadas y las dos acotadas a una pieza:
+
+- **El azul de marca** (`--blue-400/500/600`, rampa de tres pasos). Es la variante `brand` del
+  botón y el arco del spinner, y nada más. `solid` y `brand` son el mismo rol —el botón que
+  manda— así que va uno o el otro, nunca los dos en la misma pantalla, o la mirada no sabe cuál
+  es. El 600 hace de canto y de labio, y su valor no se elige a ojo: sale de reproducir el salto
+  que el botón gris usa entre su relleno y su canto (1.14:1). Con un salto más corto el canto
+  desaparece y el botón se ve como un rectángulo pintado.
+- **Las marcas de la lista** (`--mark-*`, en pares relleno/glifo). El círculo que identifica una
+  fila en la lista de acciones. Relleno pastel y glifo del mismo tono varios pasos más oscuro, y
+  eso es deliberado: la marca es de 44 y vive dentro de una fila clara, así que tiene lugar para
+  leerse entera sin gritarle al título de al lado. En oscuro se invierten —relleno profundo,
+  glifo pastel— porque un pastel de relleno sobre `#131313` es una mancha de luz.
+- **Las etiquetas de color** (`--label-*` + `--on-label`). La familia viva de lo chico: un chip,
+  la inicial de un avatar, el cuadradito de icono de una tarjeta. Salen de la regla de la familia
+  y por eso las seis llevan el mismo texto blanco. Van en orden de rueda porque el avatar reparte
+  por hash sobre el índice: con los tonos desordenados, dos nombres consecutivos caían en dos
+  tonos casi iguales.
+
+**Las tres paletas de categoría son tres roles y no se mezclan**, y la que las separa es el
+tamaño de la pieza:
+
+| | para qué | contenido encima |
+|---|---|---|
+| `--mark-*` | la marca de 44 de una fila de lista | glifo del mismo tono, oscuro |
+| `--label-*` | lo chico: chip, avatar, cuadradito de icono | texto o glifo blanco |
+| `--tint-*` | la superficie grande: el hueco 4:3 de una tarjeta, el mock de una novedad, el costado de entrar | un dibujo en tinta al 14% |
+
+Los tres roles vivieron un rato en `--tint-*`, y de ahí salieron dos bugs: los chips quedaron
+pastel cuando ya tenían que ser vivos, y al pasar la familia a vivos se llevó puesta la marca de
+la lista, que tenía que quedar pastel. **Antes de teñir algo, mirar de qué tamaño es la pieza y
+qué va encima.**
+
+El relieve del azul va **más flojo** que el del gris, y no es cuestión de gusto: sobre un relleno
+saturado, el mismo relieve que el gris necesita para despegarse del papel se ve exagerado. Filo de
+luz al 16% en vez de 28%, labio sin spread, y la caída a un tercio.
 
 **Relieve.** Es lo que le da carácter y lo que más costó acertar. Cinco recetas, todas mezclando
 luz interior arriba y sombra abajo:
@@ -128,7 +170,7 @@ etiqueta apagada, una lista de siete espacios se lee como si estuviera deshabili
 
 ## Overlays: lo que costó y conviene no volver a pelear
 
-Todo en `src/ui/overlay.tsx`.
+Todo en `packages/ui/src/overlay.tsx`.
 
 - **El `Portal` crea su host durante el render**, no en un effect. La versión obvia —crearlo en el
   effect y guardarlo en estado— hace que el primer render devuelva `null`, y eso rompe a
@@ -169,21 +211,48 @@ rm -rf node_modules/.vite   # y reiniciar vite
 Antes de dar por bueno un color nuevo, verificar que la regla exista:
 
 ```sh
-curl -s http://localhost:5180/src/theme.css | grep -o '\.text-icon-muted[^}]*}'
+curl -s http://localhost:5190/src/app.css | grep -o '\.text-icon-muted[^}]*}'
 ```
 
 ## Estructura
 
+Monorepo de npm workspaces. Dos paquetes y dos apps:
+
 ```
-src/tokens/      la identidad
-src/theme.css    el puente a Tailwind
-src/ui/          primitives · icon · overlay · shell · settings-modal ·
-                 command-palette · notifications · composer · activity-card · page
-src/screens/     library · explore · misc (guardadas/recursos/espacio) · pricing ·
-                 updates · signin
-src/data.ts      contenido de muestra (español; claves técnicas en inglés)
-src/prefs.tsx    preferencias en localStorage, con el tema aplicado en <html>
+packages/tokens/src/    la identidad, en CSS puro. Sin Tailwind y sin JS.
+packages/ui/src/        theme.css (el puente) · index.ts (la puerta) ·
+                        primitives · icon · overlay · nav · list · page · prefs
+apps/kit/src/           la galería, estilo storybook: intro.tsx (la portada) ·
+                        kit.tsx (los andamios) · tokens/ (color · type ·
+                        measure · relief) · stories/ (una por componente)
+apps/guide/src/         el prototipo: screens/ · data.ts · ui/ (shell ·
+                        command-palette · notifications · composer ·
+                        activity-card · settings-modal)
 ```
+
+**El corte entre el paquete y la app es por dependencia, no por gusto.** Lo que está en
+`packages/ui` no sabe que existen `data.ts` ni el router; lo que los lee es producto y se
+queda en `apps/guide`. Por eso el shell y la paleta de comandos no están en el paquete
+todavía, y por eso el kit puede depender solo de `@melu/ui`.
+
+Todo lo que consume una app entra por `packages/ui/src/index.ts`. Un import a
+`@melu/ui/src/primitives` desde afuera ataría la app al reparto interno de archivos, y mover
+una pieza de un archivo a otro pasaría a ser un cambio que rompe.
+
+`packages/ui` es además el ensayo del port: tiene la forma que va a tener `~/melu/packages/ui`,
+así que mudarlo es copiar la carpeta y no traducir un sistema.
+
+**El kit va con una historia por pieza, no con pantallas temáticas.** La primera versión tenía
+seis pantallas largas —"Controles" era una sola con botones, campos, toggles y marcas— y
+encontrar el switch era scrollear buscándolo. Con una por componente, el riel es el índice y
+cada pantalla entra casi entera de una vez, que es cuando un muestrario sirve: lo que se mira
+son las diferencias entre variantes vecinas, y para eso tienen que estar a la vista juntas.
+
+**El riel del kit usa la receta del sidebar del producto** (`navItemClass` + `NavItemBody`), no
+una copia parecida. Esa geometría estaba escrita cuatro veces dentro de `shell.tsx` y una
+quinta en el kit, y la quinta fue la que se desincronizó: marcaba el activo con
+`--relief-pressed` —la receta de un toggle mientras su panel está abierto— en vez del anillo de
+un píxel con el chip de papel. Ahora vive solo en `packages/ui/src/nav.tsx`.
 
 `prefs` aplica el tema en `<html>` y no en un wrapper: los portales viven en el `<body>`, fuera
 de cualquier wrapper de React, y un `data-theme` en un div no los alcanza.
@@ -191,6 +260,11 @@ de cualquier wrapper de React, y un `data-theme` en un div no los alcanza.
 ## Pendiente
 
 - **`planes` y `entrar`** siguen con las medidas viejas (14px, sin relieve).
+- **El foco se come el relieve.** El `:focus-visible` global pisa el `box-shadow` completo, así que
+  un botón enfocado con teclado queda plano. Le pasa a `raised`, a `solid` y a `brand` por igual.
+  Se arregla sumando el relieve dentro de la regla de foco, una vez para todas las variantes.
+- **El shell y la paleta de comandos siguen en `apps/guide`** porque leen `data.ts`. Para que
+  entren al paquete hay que pasarles el contenido por props.
 - **`README.md` quedó desactualizado**: describe la primera identidad (jade y ámbar, radios
   3·6·8·10·14) que después se reemplazó por la rampa neutra y la escala 6·10·12·16·24.
 - Portar los tokens a `~/melu/packages/ui`, que es para lo que existe todo esto.
