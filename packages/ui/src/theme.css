@@ -133,9 +133,10 @@
 * { box-sizing: border-box; }
 html, body, #root { min-height: 100%; margin: 0; }
 
-/* La interfaz entera es 12px con peso 500 y line-height fijo de 16. El peso 500
-   de base no es un detalle: a 12px, el 400 de Inter se lee lavado sobre un
-   fondo casi blanco. */
+/* La interfaz entera es 12px con peso 500 y line-height fijo de 16. El 500 de
+   base se decidió contra Inter, donde el 400 a 12px se leía lavado sobre un
+   fondo casi blanco. La familia ahora es Geist y ese número no se volvió a
+   mirar: queda en 500 porque es lo que hay, no porque esté medido de nuevo. */
 body {
   background: var(--canvas);
   color: var(--text);

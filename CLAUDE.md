@@ -51,9 +51,15 @@ efecto y no hay error.
 
 ## El sistema
 
-**Densidad.** Base 12px, peso 500, line-height fijo de 16. El peso 500 de base no es capricho:
-a 12px el 400 de Inter se lee lavado sobre un fondo casi blanco. El line-height único es para
-que dos filas de 12 y de 14 sigan alineadas entre sí.
+**Tipografía.** Geist para todo —interfaz y portadas— y Geist Mono para lo monoespaciado, las
+dos por Google Fonts. Display y cuerpo son la misma familia a propósito: a 40px lo que separa un
+título del cuerpo es el tamaño y el tracking, no un dibujo distinto de la letra, y dos familias
+que se parecen es lo peor de los dos mundos. Antes eran Inter, Inter Tight y JetBrains Mono.
+
+**Densidad.** Base 12px, peso 500, line-height fijo de 16. El 500 de base se decidió contra
+Inter, donde el 400 a 12px se leía lavado sobre un fondo casi blanco; con Geist ese número no se
+volvió a medir. El line-height único es para que dos filas de 12 y de 14 sigan alineadas entre
+sí.
 
 Escala de texto: `2xs` 11 (kbd, metadatos) · `xs` 12 (la interfaz) · `base` 14 (botones y
 énfasis) · `lg` 20 (título de pantalla) · `display` 40 (portadas).
@@ -259,6 +265,10 @@ de cualquier wrapper de React, y un `data-theme` en un div no los alcanza.
 
 ## Pendiente
 
+- **Revisar los números que se calibraron contra Inter.** El peso 500 de base y el
+  `--tracking-tight` de -0.015em salieron de mirar Inter a 12px; la familia ahora es Geist y
+  ninguno de los dos se volvió a mirar. Geist tiene otra altura de x y otro ancho, así que lo
+  más probable es que al menos el tracking quiera otro valor.
 - **`planes` y `entrar`** siguen con las medidas viejas (14px, sin relieve).
 - **El foco se come el relieve.** El `:focus-visible` global pisa el `box-shadow` completo, así que
   un botón enfocado con teclado queda plano. Le pasa a `raised`, a `solid` y a `brand` por igual.

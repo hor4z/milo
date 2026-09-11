@@ -16,7 +16,7 @@ export function TypeSection() {
   return (
     <Section
       title="Tipografía"
-      note="Base 12px con peso 500 y line-height fijo de 16. El peso 500 de base no es capricho: a 12px el 400 de Inter se lee lavado sobre un fondo casi blanco. Y el leading único es para que una fila de 12 y una de 14 sigan alineadas entre sí."
+      note="Base 12px con peso 500 y line-height fijo de 16. El 500 de base se decidió contra Inter, donde el 400 a 12px se leía lavado sobre un fondo casi blanco — la familia ahora es Geist y ese número no se volvió a mirar. El leading único es para que una fila de 12 y una de 14 sigan alineadas entre sí."
     >
       <Block label="Familias">
         <div className="flex flex-col gap-3">

@@ -14,7 +14,7 @@ import { Mono } from './kit'
 const decisiones: { title: string; body: string }[] = [
   {
     title: 'Base 12, peso 500, leading fijo de 16',
-    body: 'A 12px el 400 de Inter se lee lavado sobre un fondo casi blanco. Y el line-height único es para que una fila de 12 y una de 14 sigan alineadas entre sí.',
+    body: 'El 500 de base se decidió contra Inter, donde el 400 a 12px se leía lavado sobre un fondo casi blanco; con Geist no se volvió a medir. El line-height único es para que una fila de 12 y una de 14 sigan alineadas entre sí.',
   },
   {
     title: 'Monocroma, con dos excepciones acotadas',

@@ -46,10 +46,20 @@
 
   /* ------- tipografía -------
      Un solo line-height (16px) para todo lo que es interfaz: con leading
-     proporcional, dos filas de 12px y de 14px dejan de alinearse entre sí. */
-  --font-sans: "Inter", ui-sans-serif, system-ui, -apple-system, sans-serif;
-  --font-display: "Inter Tight", "Inter", ui-sans-serif, system-ui, sans-serif;
-  --font-mono: "JetBrains Mono", ui-monospace, "SF Mono", monospace;
+     proporcional, dos filas de 12px y de 14px dejan de alinearse entre sí.
+
+     La familia es Geist, y las tres líneas son la misma familia a propósito.
+     Antes el display era Inter Tight, una compañera más angosta; Geist no tiene
+     una, y no hace falta: a 40px lo que separa un título del cuerpo es el
+     tamaño y el tracking, no un dibujo distinto de la letra. Dos familias que
+     se parecen es lo peor de los dos mundos — no contrastan y no son la misma.
+
+     El mono es Geist Mono, que está dibujada como la compañera de Geist: mismo
+     ancho de trazo y misma altura de x, así que un `⌘K` dentro de una línea de
+     interfaz no cambia de peso a mitad de la oración. */
+  --font-sans: "Geist", ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --font-display: "Geist", ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --font-mono: "Geist Mono", ui-monospace, "SF Mono", monospace;
 
   --text-2xs: 11px;   /* kbd, metadatos, contadores */
   --text-xs: 12px;    /* la base de la interfaz */
