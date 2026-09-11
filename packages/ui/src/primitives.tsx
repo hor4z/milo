@@ -930,11 +930,29 @@ export function Input({ icon, suffix, className, ...rest }: InputProps) {
 
 /* -------------------------------------------------------------------- Card */
 
-export function Card({ children, className, interactive }: { children: ReactNode; className?: string; interactive?: boolean }) {
+/**
+ * El contenedor de radio 24. Dos superficies y no una:
+ *
+ * · `paper` es papel — sobresale del fondo y tira sombra. Es lo que lleva
+ *   contenido: una tarjeta de actividad, un panel.
+ * · `muted` es un hueco — el mismo gris del fondo apagado, sin sombra, porque
+ *   algo hundido no proyecta. Es para agrupar sin jerarquizar: una bandeja donde
+ *   apoyar piezas, el fondo de una galería.
+ *
+ * La sombra es lo que las separa y no el color: una superficie apagada CON
+ * sombra se lee como papel gris, que no es ninguna de las dos cosas.
+ */
+export function Card({ children, className, interactive, surface = 'paper' }: {
+  children: ReactNode
+  className?: string
+  interactive?: boolean
+  surface?: 'paper' | 'muted'
+}) {
   return (
     <div
       className={cx(
-        'rounded-2xl bg-surface p-2 shadow-card',
+        'rounded-2xl p-2',
+        surface === 'muted' ? 'bg-muted' : 'bg-surface shadow-card',
         interactive && 'transition-[box-shadow,transform] duration-[190ms] ease-out hover:-translate-y-0.5 hover:shadow-toolbar',
         className,
       )}

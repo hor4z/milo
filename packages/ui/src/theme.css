@@ -291,12 +291,14 @@ h1, h2, h3 { font-family: var(--font-sans); font-weight: 500; letter-spacing: va
   align-items: center;
   gap: calc(var(--folder-w) * 0.08);
   padding: calc(var(--folder-w) * 0.1);
-  border-radius: var(--radius-xl);
-  background: transparent;
-  transition: background-color var(--duration-normal) var(--ease-out);
 }
 .folder-clickable { cursor: pointer; text-align: center; }
-.folder:hover { background: var(--surface-muted); }
+/* La carpeta NO pinta fondo en hover. Lo tuvo, y sobraba: el aviso de que es
+   tocable son las hojas abriéndose, que es información —cuántas hay— y no una
+   superficie. Un fondo gris además la ata a dónde está apoyada: sobre papel se
+   veía, sobre una superficie apagada del mismo gris desaparecía, y sobre
+   cualquier otra cosa aparecía un rectángulo que no le corresponde a la pieza
+   sino al contenedor. Sin fondo, la carpeta se puede poner en cualquier lado. */
 
 .folder-stack {
   position: relative;
