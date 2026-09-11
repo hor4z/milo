@@ -1,5 +1,8 @@
-import { Avatar, Folder, Icon } from '@melu/ui'
+import { Folder, Icon } from '@melu/ui'
 import { Block, Mono, Props, Section } from '../kit'
+
+const cara = (n: number) => `/avatars/${String(n).padStart(2, '0')}.webp`
+const p = (name: string, foto?: number) => ({ name, src: foto ? cara(foto) : undefined })
 
 export function FolderStory() {
   return (
@@ -42,38 +45,36 @@ export function FolderStory() {
       >
         <div className="flex flex-wrap items-end gap-6 rounded-xl border border-line bg-surface px-6 py-8">
           <Folder label="Amarillo" meta="el default" />
-          <Folder label="Verde" meta="color=var(--label-green)" color="var(--label-green)" />
-          <Folder label="Azul" meta="color=var(--label-blue)" color="var(--label-blue)" />
+          <Folder label="Azul" meta="--label-blue" color="var(--label-blue)" />
+          <Folder label="Púrpura" meta="--label-purple" color="var(--label-purple)" />
+          <Folder label="Rosa" meta="--label-pink" color="var(--label-pink)" />
         </div>
         <p className="mt-3 max-w-[70ch] text-2xs text-ink-muted">
-          Con <Mono>color</Mono> cambia el tope del degradado; la contratapa y el pie se quedan en
-          el amarillo. Sirve para distinguir una carpeta puntual, no para pintar una grilla entera —
-          doce carpetas de doce colores es un arcoíris, que es lo mismo que dice la nota de los
+          Se elige <strong className="font-semibold text-ink">un solo color</strong>, el del cuerpo:
+          la pestaña y el canto salen de él con color relativo, así que la carpeta queda pintada
+          entera. Antes solo se teñía el cuerpo y quedaba con la oreja amarilla, que se veía como un
+          error. Sirve igual para distinguir una carpeta puntual y no para pintar una grilla entera
+          — doce carpetas de doce colores es un arcoíris, que es lo mismo que dice la nota de los
           tintes.
         </p>
       </Block>
 
       <Block
-        label="Con marcas"
-        note="Abajo a la izquierda de la solapa va de dónde vino el contenido: quién lo subió, de qué servicio. Es el mismo lugar donde lo pone el original."
+        label="Con avatares"
+        note="Abajo a la izquierda de la solapa va quién tiene acceso. Es un `AvatarGroup`, así que hereda todo lo suyo: tres caras como máximo, el resto en un círculo neutro, y con un solo sobrante se muestra la cuarta cara en vez de un «+1». La prop `badges` sigue estando para lo que no es una persona."
       >
         <div className="flex flex-wrap gap-4 rounded-xl border border-line bg-surface px-6 py-8">
-          <Folder
-            label="Compartida"
-            meta="6 archivos · 3 personas"
-            badges={
-              <span className="flex items-center -space-x-1.5">
-                <Avatar name="Ana Pérez" size={18} className="ring-2 ring-[var(--folder-top)]" />
-                <Avatar name="Bruno Díaz" size={18} className="ring-2 ring-[var(--folder-top)]" />
-              </span>
-            }
-          />
-          <Folder
-            label="Con adjuntos"
-            meta="4 archivos"
-            badges={<Icon name="attach_file" size={16} className="text-ink" />}
-          />
+          <Folder label="Con dos" meta="6 archivos" avatars={[p('Ana Pérez', 1), p('Bruno Díaz', 2)]} />
+          <Folder label="Con cinco" meta="24 archivos" avatars={[p('Ana Pérez', 1), p('Bruno Díaz', 2), p('Carla Sosa', 3), p('Damián Ruiz', 4), p('Elena Vega', 5)]} />
+          <Folder label="Sin foto" meta="9 archivos" avatars={[p('Irene Lopez'), p('Julián Cruz'), p('Karen Ortiz')]} />
+          <Folder label="Teñida" meta="3 archivos" color="var(--label-blue)" avatars={[p('Mora Tello', 6), p('Nico Arce', 7)]} />
+          <Folder label="Con un icono" meta="4 archivos" badges={<Icon name="attach_file" size={16} className="text-ink" />} />
         </div>
+        <p className="mt-3 max-w-[70ch] text-2xs text-ink-muted">
+          El anillo de los avatares va del color del cuerpo y no del papel: acá están apoyados sobre
+          la carpeta, no sobre la página, y con el anillo blanco se ven recortados. El tamaño sale
+          del ancho de la carpeta, como todo lo demás.
+        </p>
       </Block>
 
       <Block label="Props">
@@ -82,8 +83,9 @@ export function FolderStory() {
           { name: 'meta', type: 'string', note: 'la línea de apoyo: «15 archivos»' },
           { name: 'sheets', type: '2 | 3', def: '3', note: 'más de tres se pisan y dejan de contarse' },
           { name: 'size', type: 'number', def: '128', note: 'el ancho; todo lo demás sale de acá' },
-          { name: 'color', type: 'string', note: 'un token, no un hex' },
-          { name: 'badges', type: 'ReactNode', note: 'abajo a la izquierda de la solapa' },
+          { name: 'color', type: 'string', note: 'un token; tiñe la carpeta entera, no solo el cuerpo' },
+          { name: 'avatars', type: '{ name, src? }[]', note: 'abajo a la izquierda; es un AvatarGroup' },
+          { name: 'badges', type: 'ReactNode', note: 'lo mismo pero a mano, para lo que no es una persona' },
           { name: 'onClick', type: '() => void', note: 'sin esto es un <div> y no se puede tabular' },
         ]} />
       </Block>

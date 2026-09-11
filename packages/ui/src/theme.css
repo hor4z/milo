@@ -267,6 +267,18 @@ h1, h2, h3 { font-family: var(--font-sans); font-weight: 500; letter-spacing: va
    alto, radio al 9% del ancho. Todo va en por ciento del ancho, así que el mismo
    dibujo sirve a 88 y a 220. */
 .folder {
+  /* Las dos derivaciones van acá y no en `:root`: una custom property sustituye
+     sus `var()` donde se declara, así que en `:root` estas dos quedarían atadas
+     al amarillo para siempre y una carpeta teñida cambiaría el cuerpo pero no la
+     pestaña. Declaradas en la clase, cada carpeta deriva contra el color que le
+     pasaron.
+
+     · el pie del degradado: 0.024 de luminosidad menos, y nada más;
+     · la pestaña y el canto: 0.033 menos y **un tercio más de croma**. Que sean
+       más saturados y no solo más oscuros es lo que los hace leer como la misma
+       cartulina doblada en vez de dos cartones apilados. */
+  --folder-bottom: oklch(from var(--folder-top) calc(l - 0.024) c h);
+  --folder-back: oklch(from var(--folder-top) calc(l - 0.033) calc(c * 1.33) h);
   --folder-h: calc(var(--folder-w) / 1.3);
   --folder-r: calc(var(--folder-w) * 0.09);
   /* Dónde arranca la solapa. El borde de la contratapa está en el 9% y la
@@ -370,6 +382,7 @@ h1, h2, h3 { font-family: var(--font-sans); font-weight: 500; letter-spacing: va
   bottom: 9%;
   display: flex;
   align-items: center;
+  gap: 4%;
 }
 
 .folder-label {

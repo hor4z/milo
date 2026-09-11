@@ -191,22 +191,23 @@
      Siete grados son poco para dos colores de estado y mucho para una pieza cuyo
      único trabajo es leerse como una carpeta.
 
-     La croma va al 81% del techo de sRGB en el cuerpo y al 89% en la pestaña, no
-     al tope: el amarillo es el tono que más croma aguanta a luminosidad alta, y
-     empujado al límite deja de ser una carpeta y pasa a ser un resaltador.
+     La croma va al 81% del techo de sRGB, no al tope: el amarillo es el tono que
+     más croma aguanta a luminosidad alta, y empujado al límite deja de ser una
+     carpeta y pasa a ser un resaltador.
 
-     El orden importa y es al revés de lo que parece: **la pestaña y el canto son
-     el amarillo MÁS saturado, no el más oscuro.** Es lo que hace que la carpeta
-     se lea como una sola pieza de cartulina con un doblez, y no como un cuerpo
-     claro con una sombra atrás. La primera versión tenía la pestaña del color
-     del cuerpo y el canto oscuro, y se veía como dos cartones apilados.
+     **Solo se elige un color: el del cuerpo.** Los otros dos salen de él con
+     color relativo, así que pasarle un color a la carpeta la pinta entera y no a
+     medias. Y la regla queda escrita en el CSS en vez de en tres hexadecimales
+     que hay que mantener a mano:
 
-     El degradado del cuerpo es apenas 0.024 de luminosidad. El de la referencia
-     que se midió al principio caía 0.055, pero ahí el cuerpo era gris oscuro;
-     sobre un amarillo claro ese mismo salto se ve como una mancha. */
-  --folder-top: #f8d67d;
-  --folder-bottom: #f6cd58;
-  --folder-back: #f7c93f;
+     Acá va solo el color del cuerpo. Las dos derivaciones viven en la clase
+     `.folder` y no en este bloque, y el motivo es una trampa de las custom
+     properties: si `--folder-back` se declara en `:root`, su `var(--folder-top)`
+     se resuelve **ahí**, contra el amarillo, y queda ese valor ya sustituido
+     para todo el árbol. Una carpeta que pasa otro color cambiaría el cuerpo y
+     seguiría con la pestaña amarilla. Declarada en `.folder`, se resuelve por
+     elemento y cada carpeta deriva la suya. */
+  --folder-top: oklch(0.886 0.118 89.6);
   --folder-sheet: var(--surface);
 
   /* ------- el switch -------
@@ -296,11 +297,9 @@
     inset 0 -1px 0 0 rgb(0 0 0 / 0.31),
     0 1px 2px -1px rgb(0 0 0 / 0.4);
 
-  /* Los mismos saltos, bajados para que la carpeta no sea una lámpara sobre el
-     papel oscuro. */
-  --folder-top: #bb9b41;
-  --folder-bottom: #b2933d;
-  --folder-back: #aa8a2b;
+  /* Solo baja el cuerpo; los otros dos se derivan igual que en claro, así que
+     la relación entre las tres capas es la misma en los dos temas. */
+  --folder-top: oklch(0.70 0.098 89.6);
   --relief-raised:
     0 0 0 1px var(--edge),
     inset 0 1px 0 0 rgb(255 255 255 / 0.08),
