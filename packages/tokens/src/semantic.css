@@ -26,6 +26,13 @@
   --border: var(--shade-04);
   --border-strong: var(--shade-05);
   --border-alpha: var(--shade-09-a08);
+  /* El contorno de un control vacío: el anillo de un radio sin elegir. No es
+     `--border-strong`: ese es un gris opaco y el radio vive tanto sobre el
+     papel como adentro de una pista apagada, donde #e2e2e2 sobre #f1f1f1 no se
+     ve. Y no es `--border-alpha` tampoco: al 8% pasa lo mismo. Va en tinta y no
+     en gris por la regla de siempre — sobre un tinte, el opaco se ve como una
+     línea sucia. */
+  --border-control: var(--shade-09-a28);
 
   /* ------- texto ------- */
   --text: var(--shade-09);

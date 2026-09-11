@@ -38,6 +38,7 @@
   --color-line: var(--border);
   --color-line-strong: var(--border-strong);
   --color-line-alpha: var(--border-alpha);
+  --color-line-control: var(--border-control);
 
   --color-ink: var(--text);
   --color-ink-muted: var(--text-muted);

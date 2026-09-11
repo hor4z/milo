@@ -25,6 +25,10 @@
   --shade-09-a06: rgb(18 18 18 / 0.06);
   --shade-09-a08: rgb(18 18 18 / 0.08);
   --shade-09-a11: rgb(18 18 18 / 0.11);
+  /* El paso que usa el contorno de un control vacío. Invierte como los de
+     arriba —en oscuro pasa a luz— y por eso no reusa el `a35`, que es el del
+     velo y se queda negro a propósito en los dos temas. */
+  --shade-09-a28: rgb(18 18 18 / 0.28);
   --shade-09-a35: rgb(18 18 18 / 0.35);
 
   /* El relieve se arma con estas: luz arriba, sombra abajo, y un canto propio.
@@ -188,6 +192,7 @@
   --shade-09-a06: rgb(247 247 247 / 0.08);
   --shade-09-a08: rgb(247 247 247 / 0.10);
   --shade-09-a11: rgb(247 247 247 / 0.14);
+  --shade-09-a28: rgb(247 247 247 / 0.30);
   --shade-09-a35: rgb(0 0 0 / 0.6);
 
   --light-a33: rgb(255 255 255 / 0.07);

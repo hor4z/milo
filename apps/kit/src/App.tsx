@@ -12,6 +12,7 @@ import { IconButtonStory } from './stories/icon-button'
 import { InputStory } from './stories/input'
 import { SelectStory } from './stories/select'
 import { CheckboxStory } from './stories/checkbox'
+import { RadioStory } from './stories/radio'
 import { SliderStory } from './stories/slider'
 import { SwitchStory } from './stories/switch'
 import { SegmentedStory } from './stories/segmented'
@@ -58,6 +59,7 @@ const groups: Group[] = [
       { id: 'input', label: 'Input', render: () => <InputStory /> },
       { id: 'select', label: 'Select', render: () => <SelectStory /> },
       { id: 'checkbox', label: 'Checkbox', render: () => <CheckboxStory /> },
+      { id: 'radio', label: 'Radio', render: () => <RadioStory /> },
       { id: 'switch', label: 'Switch', render: () => <SwitchStory /> },
       { id: 'slider', label: 'Slider', render: () => <SliderStory /> },
       { id: 'segmented', label: 'Segmented', render: () => <SegmentedStory /> },

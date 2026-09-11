@@ -406,6 +406,151 @@ export function Checkbox({
   )
 }
 
+/* ------------------------------------------------------------------- Radio */
+
+/**
+ * La elección de una entre varias. Es 18, la misma medida del `Checkbox` y del
+ * pulgar del switch, así una fila con los tres queda pareja.
+ *
+ * **Prendido es el pulgar del slider**: el disco claro con relieve y un punto
+ * azul adentro. No es lo mismo que el checkbox, que se llena entero de azul, y
+ * la diferencia no es de gusto: una casilla llena sigue leyéndose como casilla,
+ * pero un círculo lleno de azul deja de leerse como radio — lo que dice "radio"
+ * es el anillo con algo adentro, y si el anillo desaparece queda un punto. Así
+ * que el azul va donde puede ir sin romper la forma, que es el punto.
+ *
+ * El azul, igual, es el mismo de siempre y por la misma regla: es lo que el
+ * usuario prendió o confirmó. Checkbox, switch, slider y radio dicen "esto lo
+ * elegí yo" con el mismo color; lo único que cambia es cuánto de la pieza pueden
+ * teñir sin dejar de ser lo que son.
+ *
+ * Apagado va con el anillo en tinta y no con un gris opaco. El radio vive tanto
+ * sobre el papel como adentro de una pista apagada, y un gris opaco que se ve
+ * sobre uno desaparece sobre el otro: `--border-strong` es #e2e2e2 y la pista
+ * es #f1f1f1.
+ */
+export function Radio({
+  checked, onChange, label, disabled, id, tabIndex, ref,
+}: {
+  checked: boolean
+  onChange: () => void
+  label?: string
+  disabled?: boolean
+  id?: string
+  /** Lo pone `RadioGroup` para dejar una sola parada de tabulación. */
+  tabIndex?: number
+  ref?: Ref<HTMLButtonElement>
+}) {
+  return (
+    <button
+      ref={ref}
+      id={id}
+      type="button"
+      role="radio"
+      aria-checked={checked}
+      aria-label={label}
+      disabled={disabled}
+      tabIndex={tabIndex}
+      onClick={onChange}
+      className={cx(
+        'inline-flex size-[18px] shrink-0 items-center justify-center rounded-full',
+        'transition-[background-color,box-shadow] duration-[120ms] ease-out',
+        'disabled:opacity-45 disabled:pointer-events-none',
+        /* Elegido: la receta de la opción activa del `Segmented` —papel con
+           relieve— y no la del pulgar del switch. Es la misma situación, una
+           pieza flotando en una pista apagada, y el pulgar del switch es
+           `--shade-02`, que sobre `--surface-muted` no se despega: la pieza
+           elegida desaparecía y quedaba el punto azul flotando solo.
+           Vacío: el anillo en `--border-control`, que es tinta y no gris justo
+           porque este control vive sobre dos fondos distintos. */
+        checked ? 'bg-surface shadow-raised' : 'ring-1 ring-line-control',
+      )}
+    >
+      {/* El punto es 9 sobre 18: la misma mitad que el punto del pulgar del
+          slider sobre sus 24. Sale escalando en vez de aparecer, porque en una
+          fila de opciones lo que cambia de lugar es el punto y un salto seco no
+          deja ver de dónde a dónde fue. */}
+      <span
+        className={cx(
+          'size-[9px] rounded-full bg-brand transition-transform duration-[120ms] ease-out',
+          checked ? 'scale-100' : 'scale-0',
+        )}
+      />
+    </button>
+  )
+}
+
+/**
+ * El grupo. Con `track` va adentro de una píldora apagada, que es la receta de
+ * la pista del `Segmented` — mismo fondo y mismo padding — porque es lo mismo:
+ * un contenedor apagado con la pieza elegida flotando adentro. Sin `track` las
+ * opciones van sueltas, que es lo normal cuando cada una lleva su etiqueta al
+ * lado.
+ *
+ * El teclado es el de un grupo de radios y no el de una lista de botones: una
+ * sola parada de tabulación para todo el grupo —la opción elegida— y las
+ * flechas mueven Y eligen. Es la diferencia entre tabular cuatro veces para
+ * pasar un grupo y tabular una.
+ */
+export function RadioGroup<T extends string>({
+  value, onChange, options, track, label, className,
+}: {
+  value: T
+  onChange: (v: T) => void
+  options: readonly { value: T; label: string; disabled?: boolean }[]
+  /** Adentro de una píldora apagada, como la pista del Segmented. */
+  track?: boolean
+  label?: string
+  className?: string
+}) {
+  const live = options.filter(o => !o.disabled)
+  const refs = useRef<Record<string, HTMLButtonElement | null>>({})
+  const step = (dir: 1 | -1) => {
+    if (!live.length) return
+    const i = live.findIndex(o => o.value === value)
+    const next = live[(i + dir + live.length) % live.length].value
+    onChange(next)
+    /* El foco se mueve con la elección y no al revés. En un grupo de radios las
+       dos cosas son la misma: la flecha elige, y si el foco se quedara atrás la
+       siguiente flecha saldría del lugar equivocado. */
+    refs.current[next]?.focus()
+  }
+  return (
+    <div
+      role="radiogroup"
+      aria-label={label}
+      onKeyDown={e => {
+        const dir = e.key === 'ArrowRight' || e.key === 'ArrowDown' ? 1
+          : e.key === 'ArrowLeft' || e.key === 'ArrowUp' ? -1 : 0
+        if (!dir) return
+        e.preventDefault()
+        step(dir)
+      }}
+      className={cx(
+        'inline-flex items-center',
+        track ? 'gap-2 rounded-full bg-muted p-1' : 'gap-3',
+        className,
+      )}
+    >
+      {options.map(o => (
+        <Radio
+          key={o.value}
+          ref={el => { refs.current[o.value] = el }}
+          checked={o.value === value}
+          onChange={() => onChange(o.value)}
+          label={o.label}
+          disabled={o.disabled}
+          /* Una sola parada para todo el grupo: tabular entra en la elegida y
+             vuelve a salir, en vez de recorrer las cuatro. Si no hay ninguna
+             elegida, la primera viva toma la parada — si no, el grupo entero
+             queda fuera del teclado. */
+          tabIndex={o.value === value || (!live.some(l => l.value === value) && o.value === live[0]?.value) ? 0 : -1}
+        />
+      ))}
+    </div>
+  )
+}
+
 /* --------------------------------------------------------------- Segmented */
 
 type SegmentedOption<T extends string> = {
