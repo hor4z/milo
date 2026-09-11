@@ -36,6 +36,7 @@ export {
 } from './table'
 
 export { Book } from './book'
+export { Folder } from './folder'
 export type { BookWidth } from './book'
 
 export { List, ListItem } from './list'

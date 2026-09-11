@@ -275,7 +275,7 @@ Monorepo de npm workspaces. Dos paquetes y dos apps:
 packages/tokens/src/    la identidad, en CSS puro. Sin Tailwind y sin JS.
 packages/ui/src/        theme.css (el puente) · index.ts (la puerta) ·
                         primitives · icon · overlay · nav · list · table · book ·
-                        page · prefs
+                        folder · page · prefs
                         icons.gen.ts e icons.meta.ts los genera scripts/icons.mjs
 packages/ui/scripts/    icons.mjs (search · add · sync · check) + catalog.json
 apps/kit/src/           la galería, estilo storybook: intro.tsx (la portada) ·

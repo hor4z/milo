@@ -22,6 +22,7 @@ import { AvatarStory } from './stories/avatar'
 import { IconStory } from './stories/icon'
 import { KbdStory } from './stories/kbd'
 import { BookStory } from './stories/book'
+import { FolderStory } from './stories/folder'
 import { ListStory } from './stories/list'
 import { TableStory } from './stories/table'
 import { ContainersStory } from './stories/containers'
@@ -76,6 +77,7 @@ const groups: Group[] = [
     stories: [
       { id: 'list', label: 'List', render: () => <ListStory /> },
       { id: 'book', label: 'Book', render: () => <BookStory /> },
+      { id: 'folder', label: 'Folder', render: () => <FolderStory /> },
       { id: 'table', label: 'Table', render: () => <TableStory /> },
       { id: 'containers', label: 'Card y Row', render: () => <ContainersStory /> },
       { id: 'nav', label: 'NavItem', render: () => <NavStory /> },
