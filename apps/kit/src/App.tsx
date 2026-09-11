@@ -16,7 +16,9 @@ import { SwitchStory } from './stories/switch'
 import { SegmentedStory } from './stories/segmented'
 import { ChipStory } from './stories/chip'
 import { SpinnerStory } from './stories/spinner'
-import { MarksStory } from './stories/marks'
+import { AvatarStory } from './stories/avatar'
+import { IconStory } from './stories/icon'
+import { KbdStory } from './stories/kbd'
 import { ListStory } from './stories/list'
 import { TableStory } from './stories/table'
 import { ContainersStory } from './stories/containers'
@@ -59,7 +61,9 @@ const groups: Group[] = [
       { id: 'segmented', label: 'Segmented', render: () => <SegmentedStory /> },
       { id: 'chip', label: 'Chip', render: () => <ChipStory /> },
       { id: 'spinner', label: 'Spinner', render: () => <SpinnerStory /> },
-      { id: 'marks', label: 'Kbd, Avatar, Icon', render: () => <MarksStory /> },
+      { id: 'avatar', label: 'Avatar', render: () => <AvatarStory /> },
+      { id: 'icon', label: 'Icon', render: () => <IconStory /> },
+      { id: 'kbd', label: 'Kbd', render: () => <KbdStory /> },
     ],
   },
   {
