@@ -269,8 +269,11 @@ h1, h2, h3 { font-family: var(--font-sans); font-weight: 500; letter-spacing: va
 .folder {
   --folder-h: calc(var(--folder-w) / 1.3);
   --folder-r: calc(var(--folder-w) * 0.09);
-  --folder-tab: 46%;
-  --folder-tab-h: calc(var(--folder-h) * 0.12);
+  /* Dónde arranca la solapa. El borde de la contratapa está en el 9% y la
+     pestaña sube hasta el 0, así que entre el 9 y el 17 queda la franja del
+     canto: la tira saturada que cruza de lado a lado y es lo que hace que se
+     vea una carpeta y no una tarjeta con una oreja. */
+  --folder-tab-h: calc(var(--folder-h) * 0.17);
   display: inline-flex;
   flex-direction: column;
   align-items: center;
@@ -290,15 +293,16 @@ h1, h2, h3 { font-family: var(--font-sans); font-weight: 500; letter-spacing: va
   height: var(--folder-h);
 }
 
-/* La contratapa: asoma apenas arriba y a los costados, y es lo que da el
-   espesor. Sin ella la carpeta es una solapa suelta. */
-.folder-back {
+/* La contratapa con su pestaña: un solo path, así el relleno es uniforme y en
+   el doblez no queda costura. Ocupa toda la caja; lo que asoma por arriba de la
+   solapa es la pestaña y la franja del canto. */
+.folder-shell {
   position: absolute;
-  /* Asoma poco: es el espesor de la carpeta, no una segunda carpeta. Con el
-     -6% que tenía, el borde de arriba se leía como un bloque aparte. */
-  inset: calc(var(--folder-h) * -0.035) calc(var(--folder-w) * -0.018) 0;
-  border-radius: calc(var(--folder-r) * 1.1);
-  background: var(--folder-back);
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  fill: var(--folder-back);
 }
 
 /* Las hojas. En reposo asoman apenas por arriba del borde de la solapa; en
@@ -307,12 +311,14 @@ h1, h2, h3 { font-family: var(--font-sans); font-weight: 500; letter-spacing: va
 .folder-sheet {
   position: absolute;
   left: 50%;
-  /* En reposo la hoja tiene que asomar por arriba del borde de la solapa: el
-     borde está al 12% del alto y la hoja llega al 3%, así que se ven 9 puntos
-     de papel. Sin eso, la carpeta cerrada se ve maciza y no hay nada que
-     sugiera que tiene algo adentro — y entonces el hover sorprende en vez de
-     confirmar. */
-  bottom: 41%;
+  /* En reposo la hoja queda entera detrás de la solapa. Estuvo asomando, con el
+     argumento de que si no la carpeta cerrada se ve maciza y el hover sorprende
+     en vez de confirmar. Pero el papel blanco cortaba la franja del canto justo
+     al medio y la carpeta cerrada se leía como tres pedazos sueltos: la
+     pestaña, una mancha blanca y el resto del canto. La silueta limpia vale más
+     que el anticipo — y el anticipo igual lo da el pie, que dice cuántos
+     archivos hay. */
+  bottom: 26%;
   width: 56%;
   height: 56%;
   margin-left: -28%;
@@ -356,18 +362,6 @@ h1, h2, h3 { font-family: var(--font-sans); font-weight: 500; letter-spacing: va
   box-shadow:
     inset 0 1px 0 0 rgb(255 255 255 / 0.28),
     0 1px 2px 0 rgb(0 0 0 / 0.10);
-}
-.folder-front::before {
-  content: "";
-  position: absolute;
-  top: calc(var(--folder-tab-h) * -1);
-  left: 0;
-  width: var(--folder-tab);
-  height: calc(var(--folder-tab-h) + var(--folder-r));
-  border-radius: var(--folder-r) calc(var(--folder-r) * 1.6) 0 0;
-  /* El saturado, no el del cuerpo: la pestaña y el canto son la misma cartulina
-     doblada, y lo que los separa del frente es la saturación y no la sombra. */
-  background: var(--folder-back);
 }
 
 .folder-badges {

@@ -5,7 +5,7 @@ export function FolderStory() {
   return (
     <Section
       title="Folder"
-      note="Una carpeta que se abre. En reposo está cerrada y las hojas asoman apenas; al pasar por encima suben y se abanican, y ahí se ve qué hay adentro sin tener que entrar."
+      note="Una carpeta que se abre. Cerrada es una silueta limpia; al pasar por encima las hojas suben desde adentro y se abanican, y ahí se ve qué hay sin tener que entrar."
     >
       <Block
         label="Pasá el mouse"
@@ -20,7 +20,7 @@ export function FolderStory() {
 
       <Block
         label="Las tres capas"
-        note="Contratapa, hojas, y solapa con la pestaña. Las hojas suben entre la contratapa y la solapa, que es lo que hace que parezca que salen de adentro y no que aparecen encima. La pestaña y el canto van en el amarillo MÁS saturado y no en uno más oscuro: es lo que hace que se lea como una sola cartulina con un doblez. La primera versión tenía la pestaña del color del cuerpo y el canto oscuro, y se veían dos cartones apilados."
+        note="Contratapa, hojas, y solapa. La contratapa y la pestaña son UN solo path de SVG y no dos rectángulos: con dos, cada uno trae sus esquinas y en el doblez queda un corte a la vista. La pestaña y el canto van en el amarillo MÁS saturado y no en uno más oscuro — es lo que hace que se lea como una sola cartulina doblada. Las hojas suben entre la contratapa y la solapa, que es lo que hace que parezca que salen de adentro y no que aparecen encima."
       >
         <div className="flex flex-wrap items-end gap-8 rounded-xl border border-line bg-surface px-6 py-8">
           {[88, 128, 168, 220].map(s => (

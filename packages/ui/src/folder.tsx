@@ -2,9 +2,14 @@ import type { CSSProperties, ReactNode } from 'react'
 import { cx } from './primitives'
 
 /**
- * Una carpeta que se abre. En reposo está cerrada y asoman las hojas apenas por
- * arriba; al pasar por encima, las hojas suben y se abanican, y ahí se ve qué
- * hay adentro sin tener que entrar.
+ * Una carpeta que se abre. Cerrada es una silueta limpia; al pasar por encima
+ * las hojas suben desde adentro y se abanican, y ahí se ve qué hay sin entrar.
+ *
+ * Las hojas estuvieron asomando en reposo, con el argumento de que si no la
+ * carpeta cerrada se ve maciza. Pero el papel blanco cortaba la franja del canto
+ * justo al medio y la carpeta se leía como tres pedazos sueltos: la pestaña, una
+ * mancha blanca y el resto del canto. La silueta limpia vale más que el
+ * anticipo, y el anticipo igual lo da el pie, que dice cuántos archivos hay.
  *
  * **Qué hace la animación, y por qué no es adorno.** El sistema ya tiene escrito
  * que las tarjetas no se mueven en hover: una grilla que salta hace temblar la
@@ -55,7 +60,18 @@ export function Folder({
       style={{ '--folder-w': `${size}px`, ...(color ? { '--folder-top': color } : null) } as CSSProperties}
     >
       <span className="folder-stack">
-        <span className="folder-back" />
+        {/* La contratapa y la pestaña son UN solo path y no dos rectángulos.
+            Con dos, la unión se ve: cada uno trae sus esquinas redondeadas y en
+            el doblez queda un corte. Con un path, el relleno es uno y el
+            hombro de la pestaña baja con una curva, que es como se ve una
+            cartulina doblada de verdad.
+
+            El viewBox es 130×100 porque la carpeta tiene proporción fija 1.3;
+            al escalar uniforme no hace falta `preserveAspectRatio` y los radios
+            no se deforman. */}
+        <svg className="folder-shell" viewBox="0 0 130 100" aria-hidden="true">
+          <path d="M12 0h34c8 0 10 1.5 14 5c4 3.5 8 4 16 4h42a12 12 0 0 1 12 12v67a12 12 0 0 1-12 12H12A12 12 0 0 1 0 88V12A12 12 0 0 1 12 0z" />
+        </svg>
         {/* Las hojas van del fondo hacia adelante para que la del medio quede
             encima: si se apilaran al revés, el abanico se abre para atrás. */}
         {Array.from({ length: sheets }, (_, i) => (
