@@ -106,7 +106,7 @@ export function ColorSection() {
 
       <Block
         label="Etiquetas de color"
-        note="La familia viva de lo chico: un chip, la inicial de un avatar, el cuadradito de icono de una tarjeta. Los seis salen de la regla de la familia (saturación 95% y 3.75:1 contra blanco, el número del azul), así que los seis llevan el mismo texto blanco. Van en orden de rueda porque el avatar reparte por hash sobre el índice."
+        note="La familia viva de lo chico: un chip, el cuadradito de icono de una tarjeta. Los seis salen de la regla de la familia (saturación 95% y 3.75:1 contra blanco, el número del azul), así que los seis llevan el mismo texto blanco. Van en orden de rueda porque el avatar reparte por hash sobre el índice."
       >
         <Grid min={150}>
           <Swatch token="--label-green" />
