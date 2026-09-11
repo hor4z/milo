@@ -184,22 +184,29 @@
     0 1px 2px -1px color-mix(in oklab, currentColor 20%, transparent);
 
   /* ------- la carpeta -------
-     El tono es el del naranja del sistema (H 66.6, el de `--label-orange`), no
-     un ámbar nuevo. Lo que se copió de la referencia son los saltos, no los
-     valores: el degradado de la solapa cae 0.055 de luminosidad en OKLCH y la
-     contratapa va 0.185 por debajo del tope de la solapa. Esos dos números son
-     los que hacen que se lea como una pieza de cartulina doblada y no como dos
-     rectángulos apilados.
+     El amarillo va en H 89.6 de OKLCH, que es un tono nuevo, y conviene saber
+     por qué: `--warn-500` está en 82.2 y a la misma luminosidad y croma sale
+     dorado, no amarillo. Medido contra la referencia, el tono del sistema queda
+     diez veces más lejos que este (0.031 contra 0.003 de distancia perceptual).
+     Siete grados son poco para dos colores de estado y mucho para una pieza cuyo
+     único trabajo es leerse como una carpeta.
 
-     Las luminosidades absolutas sí cambian, porque la referencia es un diseño
-     oscuro y acá la carpeta se apoya sobre papel casi blanco. Y el salto de la
-     contratapa también: 0.185 es lo que se ve cuando la contratapa está en
-     sombra profunda sobre un fondo oscuro; sobre papel blanco eso se lee como
-     una banda negra pegada arriba. Acá va a 0.10, que es lo que hace falta para
-     que se lea el espesor sin que aparezca una segunda pieza. */
-  --folder-top: #fab46b;
-  --folder-bottom: #f39c32;
-  --folder-back: #e2902e;
+     La croma va al 81% del techo de sRGB en el cuerpo y al 89% en la pestaña, no
+     al tope: el amarillo es el tono que más croma aguanta a luminosidad alta, y
+     empujado al límite deja de ser una carpeta y pasa a ser un resaltador.
+
+     El orden importa y es al revés de lo que parece: **la pestaña y el canto son
+     el amarillo MÁS saturado, no el más oscuro.** Es lo que hace que la carpeta
+     se lea como una sola pieza de cartulina con un doblez, y no como un cuerpo
+     claro con una sombra atrás. La primera versión tenía la pestaña del color
+     del cuerpo y el canto oscuro, y se veía como dos cartones apilados.
+
+     El degradado del cuerpo es apenas 0.024 de luminosidad. El de la referencia
+     que se midió al principio caía 0.055, pero ahí el cuerpo era gris oscuro;
+     sobre un amarillo claro ese mismo salto se ve como una mancha. */
+  --folder-top: #f8d67d;
+  --folder-bottom: #f6cd58;
+  --folder-back: #f7c93f;
   --folder-sheet: var(--surface);
 
   /* ------- el switch -------
@@ -291,9 +298,9 @@
 
   /* Los mismos saltos, bajados para que la carpeta no sea una lámpara sobre el
      papel oscuro. */
-  --folder-top: #b87523;
-  --folder-bottom: #a2671e;
-  --folder-back: #714612;
+  --folder-top: #bb9b41;
+  --folder-bottom: #b2933d;
+  --folder-back: #aa8a2b;
   --relief-raised:
     0 0 0 1px var(--edge),
     inset 0 1px 0 0 rgb(255 255 255 / 0.08),

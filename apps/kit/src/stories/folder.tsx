@@ -20,7 +20,7 @@ export function FolderStory() {
 
       <Block
         label="Las tres capas"
-        note="Contratapa, hojas, y solapa con la pestaña. Las hojas suben entre la contratapa y la solapa, que es lo que hace que parezca que salen de adentro y no que aparecen encima. Si se apilaran al revés, el abanico se abriría para atrás."
+        note="Contratapa, hojas, y solapa con la pestaña. Las hojas suben entre la contratapa y la solapa, que es lo que hace que parezca que salen de adentro y no que aparecen encima. La pestaña y el canto van en el amarillo MÁS saturado y no en uno más oscuro: es lo que hace que se lea como una sola cartulina con un doblez. La primera versión tenía la pestaña del color del cuerpo y el canto oscuro, y se veían dos cartones apilados."
       >
         <div className="flex flex-wrap items-end gap-8 rounded-xl border border-line bg-surface px-6 py-8">
           {[88, 128, 168, 220].map(s => (
@@ -37,17 +37,17 @@ export function FolderStory() {
       </Block>
 
       <Block
-        label="El ámbar sale de una regla"
-        note="El tono es el del naranja del sistema, no un ámbar nuevo. Lo que se copió del original son los saltos y no los valores: el degradado de la solapa cae 0.055 de luminosidad en OKLCH y la contratapa va 0.185 por debajo del tope. Esos dos números son los que la hacen leer como cartulina doblada y no como dos rectángulos apilados."
+        label="El amarillo sale de una regla"
+        note="Va en H 89.6 de OKLCH, y es un tono nuevo del sistema. `--warn-500` está en 82.2 y a la misma luminosidad y croma sale dorado, no amarillo: medido contra la referencia, el tono de casa queda diez veces más lejos (0.031 contra 0.003 de distancia perceptual). Siete grados son poco para dos colores de estado y mucho para una pieza cuyo único trabajo es leerse como una carpeta. La croma va al 81% del techo en el cuerpo y al 89% en la pestaña, no al tope — el amarillo es el tono que más croma aguanta a luminosidad alta, y empujado al límite deja de ser una carpeta y pasa a ser un resaltador."
       >
         <div className="flex flex-wrap items-end gap-6 rounded-xl border border-line bg-surface px-6 py-8">
-          <Folder label="Ámbar" meta="el default" />
+          <Folder label="Amarillo" meta="el default" />
           <Folder label="Verde" meta="color=var(--label-green)" color="var(--label-green)" />
           <Folder label="Azul" meta="color=var(--label-blue)" color="var(--label-blue)" />
         </div>
         <p className="mt-3 max-w-[70ch] text-2xs text-ink-muted">
           Con <Mono>color</Mono> cambia el tope del degradado; la contratapa y el pie se quedan en
-          el ámbar. Sirve para distinguir una carpeta puntual, no para pintar una grilla entera —
+          el amarillo. Sirve para distinguir una carpeta puntual, no para pintar una grilla entera —
           doce carpetas de doce colores es un arcoíris, que es lo mismo que dice la nota de los
           tintes.
         </p>
@@ -71,7 +71,7 @@ export function FolderStory() {
           <Folder
             label="Con adjuntos"
             meta="4 archivos"
-            badges={<Icon name="attach_file" size={16} className="text-on-label" />}
+            badges={<Icon name="attach_file" size={16} className="text-ink" />}
           />
         </div>
       </Block>

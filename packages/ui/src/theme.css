@@ -365,7 +365,9 @@ h1, h2, h3 { font-family: var(--font-sans); font-weight: 500; letter-spacing: va
   width: var(--folder-tab);
   height: calc(var(--folder-tab-h) + var(--folder-r));
   border-radius: var(--folder-r) calc(var(--folder-r) * 1.6) 0 0;
-  background: var(--folder-top);
+  /* El saturado, no el del cuerpo: la pestaña y el canto son la misma cartulina
+     doblada, y lo que los separa del frente es la saturación y no la sombra. */
+  background: var(--folder-back);
 }
 
 .folder-badges {

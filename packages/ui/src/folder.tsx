@@ -40,7 +40,7 @@ export function Folder({
   sheets?: 2 | 3
   /** El ancho de la carpeta en px. Todo lo demás sale de acá. */
   size?: number
-  /** Un token, no un hex. Por default, el ámbar de carpeta del sistema. */
+  /** Un token, no un hex. Por default, el amarillo de carpeta del sistema. */
   color?: string
   /** Lo que va abajo a la izquierda de la solapa: de dónde vino el contenido. */
   badges?: ReactNode
