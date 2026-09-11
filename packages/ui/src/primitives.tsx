@@ -850,47 +850,39 @@ export function Kbd({ children }: { children: ReactNode }) {
 /* ------------------------------------------------------------------ Avatar */
 
 /**
- * El avatar sin foto: inicial sobre una etiqueta de color, y la etiqueta sale del
- * nombre. Determinístico a propósito — si saliera de un random, la misma
- * persona cambiaría de color en cada render y el color dejaría de identificar a
- * nadie.
+ * Dos estados y nada más: con foto, o el círculo pastel con la inicial. No hay
+ * prop de variante.
  *
- * El reparto va sobre `labelColors`, que está en orden de rueda: con los tonos
- * desordenados, dos nombres consecutivos podían caer en dos tonos casi iguales
- * y el color dejaba de separar a dos personas.
+ * **El fondo sin foto sale de la familia de marcas** —pastel con relieve y la
+ * inicial en el mismo tono varios pasos más oscuro— y no de la familia viva.
+ * Eso contradice lo que el sistema tenía asignado, y se cambió después de
+ * medirlo: la inicial sobre pastel se lee MEJOR que el blanco sobre el relleno
+ * vivo (4.51:1 contra su propio disco, contra 3.78:1). Lo que se pierde es
+ * presencia del disco —1.91:1 contra el papel, donde el vivo daba 3.68:1—, y a
+ * cambio el avatar deja de gritarle al texto que tiene al lado, que es el
+ * problema real de una fila con cinco.
+ *
+ * El color sale del nombre, no de un random: si saliera de un random, la misma
+ * persona cambiaría de color en cada render y el color dejaría de identificar a
+ * nadie. El reparto va sobre `markColors` en orden de rueda, porque con los
+ * tonos desordenados dos nombres consecutivos caían en dos tonos casi iguales.
  */
-export function Avatar({ name, src, size = 40, variant = 'label', className }: {
+export function Avatar({ name, src, size = 40, className }: {
   name: string
   src?: string
   size?: number
-  /**
-   * De qué familia sale el fondo cuando no hay foto.
-   *
-   * · `label` — la familia viva: relleno saturado y la inicial en blanco. Es lo
-   *   que el sistema tiene asignado a lo chico, y el argumento está escrito en
-   *   los tokens: algo chico en pastel se confunde con el fondo apagado del que
-   *   sale.
-   * · `mark` — la familia de la marca de una fila de lista: relleno pastel con
-   *   relieve y la inicial en el mismo tono varios pasos más oscuro.
-   *
-   * Que existan las dos es para poder mirar si esa regla se sostiene a los
-   * tamaños en que aparece un avatar. La comparación está en la historia.
-   */
-  variant?: 'label' | 'mark'
   className?: string
 }) {
   const initials = name.trim().split(/\s+/).slice(0, 2).map(w => w[0]).join('').toUpperCase()
   const i = [...name].reduce((a, c) => a + c.charCodeAt(0), 0)
-  const relleno = variant === 'mark'
-    ? `mark ${markFill[markColors[i % markColors.length]]}`
-    : `text-on-label ${labelFill[labelColors[i % labelColors.length]]}`
+  const relleno = markFill[markColors[i % markColors.length]]
   return (
     /* Con foto, el color se queda igual de fondo: es lo que se ve mientras la
        imagen carga y lo que queda si no carga nunca. Un hueco gris en una fila
        de cinco avatares se lee como una persona sin nombre; la inicial sobre su
        color, no. */
     <span
-      className={cx('relative inline-flex items-center justify-center overflow-hidden rounded-full font-semibold select-none', relleno, className)}
+      className={cx('mark relative inline-flex items-center justify-center overflow-hidden rounded-full font-semibold select-none', relleno, className)}
       style={{ width: size, height: size, fontSize: Math.max(10, Math.round(size * 0.3)) }}
       aria-hidden="true"
     >
