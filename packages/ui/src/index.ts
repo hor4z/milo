@@ -35,6 +35,9 @@ export {
   TableTitle, TableHint, TableNum,
 } from './table'
 
+export { Book } from './book'
+export type { BookWidth } from './book'
+
 export { List, ListItem } from './list'
 export type { MarkColor } from './list'
 

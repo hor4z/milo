@@ -21,6 +21,7 @@ import { SpinnerStory } from './stories/spinner'
 import { AvatarStory } from './stories/avatar'
 import { IconStory } from './stories/icon'
 import { KbdStory } from './stories/kbd'
+import { BookStory } from './stories/book'
 import { ListStory } from './stories/list'
 import { TableStory } from './stories/table'
 import { ContainersStory } from './stories/containers'
@@ -74,6 +75,7 @@ const groups: Group[] = [
     label: 'Patrones', icon: 'deployed_code',
     stories: [
       { id: 'list', label: 'List', render: () => <ListStory /> },
+      { id: 'book', label: 'Book', render: () => <BookStory /> },
       { id: 'table', label: 'Table', render: () => <TableStory /> },
       { id: 'containers', label: 'Card y Row', render: () => <ContainersStory /> },
       { id: 'nav', label: 'NavItem', render: () => <NavStory /> },

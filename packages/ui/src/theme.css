@@ -262,6 +262,165 @@ h1, h2, h3 { font-family: var(--font-sans); font-weight: 500; letter-spacing: va
   box-shadow: var(--relief-mark);
 }
 
+/* El libro. Va como clases y no como utilidades porque son cuatro caras en 3D
+   que solo tienen sentido juntas, y porque la mitad de las medidas son
+   proporciones del propio libro y no valores de la escala.
+
+   Las medidas salen del `Book` de Geist, que es la referencia: proporción 49/60,
+   lomo al 29% del ancho, radio más redondo del lado del pliegue que del lado del
+   corte —porque un lomo es un doblez y un canto es un corte—, perspectiva de 900
+   y el giro de -20° al pasar por encima. El dibujo usa nuestros tokens.
+
+   `container-type: inline-size` en dos niveles es lo que deja escribir todo en
+   `cqw`: el ancho manda y adentro no hay un solo px suelto, así que el mismo
+   libro a 140 y a 300 es el mismo dibujo y no dos. */
+.book-perspective {
+  --book-width: var(--book-sm);
+  --book-depth: 29cqw;
+  --book-radius: var(--radius-sm) calc(var(--radius-sm) / 1.5) calc(var(--radius-sm) / 1.5) var(--radius-sm);
+  --book-color: var(--surface-muted);
+  /* Lo que va encima del color: el glifo de la franja, y el título solo en
+     `simple`. En `stripe` el título va sobre papel y usa la tinta de siempre. */
+  --book-on-color: var(--on-label);
+  perspective: 900px;
+  display: inline-block;
+  width: fit-content;
+}
+@media (min-width: 640px) { .book-perspective { --book-width: var(--book-md); } }
+
+.book-rotate {
+  aspect-ratio: 49 / 60;
+  width: fit-content;
+  min-width: calc(var(--book-width) * 1px);
+  transform-style: preserve-3d;
+  container-type: inline-size;
+  position: relative;
+  transition: transform 250ms var(--ease-out);
+}
+/* Girar es lo que muestra que es un volumen: aparecen el lomo y las hojas. Sin
+   esto, un libro quieto es un rectángulo con sombra. */
+.book-perspective:hover .book-rotate,
+.book-perspective:focus-visible .book-rotate {
+  transform: rotateY(-20deg) scale(1.066) translateX(-8px);
+}
+
+.book-back,
+.book-cover {
+  width: calc(var(--book-width) * 1px);
+  height: 100%;
+  border-radius: var(--book-radius);
+  position: absolute;
+  left: 0;
+}
+.book-back {
+  background: var(--book-color);
+  transform: translateZ(calc(-1 * var(--book-depth)));
+}
+
+/* El canto: las hojas vistas de costado, giradas 90° contra el borde derecho. */
+.book-pages {
+  position: absolute;
+  top: 3px;
+  height: calc(100% - 6px);
+  width: calc(var(--book-depth) - 2px);
+  transform:
+    translateX(calc(var(--book-width) * 1px - var(--book-depth) / 2 - 3px))
+    rotateY(90deg)
+    translateX(calc(var(--book-depth) / 2));
+  background:
+    linear-gradient(90deg, var(--surface-sunken) 0%, transparent 70%),
+    linear-gradient(var(--surface), var(--surface-muted));
+}
+/* Hojas sueltas en vez de bloque parejo. */
+.book-pages-rough {
+  background: repeating-linear-gradient(90deg,
+    var(--surface), var(--surface-muted) 1px, var(--surface) 3px, var(--border-strong) 4px);
+}
+
+.book-cover {
+  overflow: hidden;
+  transform: translateZ(0);
+  background: var(--surface);
+  box-shadow: var(--relief-toolbar);
+  display: flex;
+}
+/* El canto de la tapa, con el mismo filo de un píxel que usa todo lo que
+   sobresale en este sistema. */
+.book-cover::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  border: 1px solid var(--border-alpha);
+  pointer-events: none;
+}
+
+/* El pliegue. Es la sombra del doblez contra el lomo, y es lo que hace que la
+   tapa se lea doblada y no pegada al canto. */
+.book-bind {
+  width: 8.2%;
+  height: 100%;
+  flex: none;
+  background: linear-gradient(90deg,
+    rgb(0 0 0 / 0.14) 0%, rgb(0 0 0 / 0.04) 45%, rgb(255 255 255 / 0.10) 70%, transparent 100%);
+}
+
+.book-body { display: flex; flex-direction: column; flex: 1; min-width: 0; }
+.book-stripe {
+  flex: 1;
+  background: var(--book-color);
+  position: relative;
+  overflow: hidden;
+  display: flex; align-items: center; justify-content: center;
+}
+.book-icon { display: flex; color: var(--book-on-color); }
+.book-stripe .book-icon { width: 26cqw; height: 26cqw; }
+
+.book-content {
+  width: 100%;
+  padding: 6.1%;
+  container-type: inline-size;
+  display: flex; flex-direction: column; justify-content: flex-end;
+  gap: 4cqw;
+}
+.book-content-full { flex: 1; background: var(--book-color); }
+.book-content-full .book-icon { width: 22cqw; height: 22cqw; margin-bottom: auto; }
+
+/* El único texto del sistema que no usa la escala tipográfica. Va en por ciento
+   del ancho del libro porque la tapa es un dibujo y el título es parte del
+   dibujo: con un cuerpo fijo, el mismo título se ve enorme a 140 y perdido a 300. */
+/* Sobre papel, la tinta de siempre. Solo `simple` la pisa, porque ahí el título
+   está sobre el color. */
+.book-title {
+  color: var(--text);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1.25;
+  text-wrap: balance;
+  font-size: 10.5cqw;
+}
+.book-simple .book-title { font-size: 12cqw; color: var(--book-on-color); }
+
+/* El grano del papel. Es de acá y no una imagen traída de afuera: dos tramas
+   cruzadas a alpha muy bajo alcanzan, y no cuesta un request. */
+.book-grain {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  mix-blend-mode: overlay;
+  opacity: 0.5;
+  background:
+    repeating-linear-gradient(22deg, rgb(0 0 0 / 0.10) 0 1px, transparent 1px 3px),
+    repeating-linear-gradient(-64deg, rgb(255 255 255 / 0.14) 0 1px, transparent 1px 4px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .book-rotate { transition: none; }
+  .book-perspective:hover .book-rotate,
+  .book-perspective:focus-visible .book-rotate { transform: none; }
+}
+
 /* El switch. Va como clases y no como utilidades porque el pulgar lleva tres
    capas de sombra que tienen que cambiar juntas el día que cambien. */
 .switch-track-on { background: var(--switch-on); box-shadow: var(--switch-on-inset); }
