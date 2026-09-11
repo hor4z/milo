@@ -547,16 +547,21 @@ export function Kbd({ children }: { children: ReactNode }) {
  * desordenados, dos nombres consecutivos podían caer en dos tonos casi iguales
  * y el color dejaba de separar a dos personas.
  */
-export function Avatar({ name, size = 40, className }: { name: string; size?: number; className?: string }) {
+export function Avatar({ name, src, size = 40, className }: { name: string; src?: string; size?: number; className?: string }) {
   const initials = name.trim().split(/\s+/).slice(0, 2).map(w => w[0]).join('').toUpperCase()
   const label = labelColors[[...name].reduce((a, c) => a + c.charCodeAt(0), 0) % labelColors.length]
   return (
+    /* Con foto, la etiqueta de color se queda igual de fondo: es lo que se ve
+       mientras la imagen carga y lo que queda si no carga nunca. Un hueco gris
+       en una fila de cinco avatares se lee como una persona sin nombre; la
+       inicial sobre su color, no. */
     <span
-      className={cx('inline-flex items-center justify-center rounded-full font-semibold text-on-label select-none', labelFill[label], className)}
+      className={cx('relative inline-flex items-center justify-center overflow-hidden rounded-full font-semibold text-on-label select-none', labelFill[label], className)}
       style={{ width: size, height: size, fontSize: Math.max(10, Math.round(size * 0.3)) }}
       aria-hidden="true"
     >
       {initials}
+      {src && <img src={src} alt="" loading="lazy" decoding="async" className="absolute inset-0 size-full object-cover" />}
     </span>
   )
 }
@@ -579,17 +584,17 @@ export function Avatar({ name, size = 40, className }: { name: string; size?: nu
  * la cuarta cara: un `+1` ocupa lo mismo que la persona que esconde.
  */
 export function AvatarGroup({
-  names, max = 3, size = 28, ring = 'ring-surface', className,
+  people, max = 3, size = 28, ring = 'ring-surface', className,
 }: {
-  names: readonly string[]
+  people: readonly { name: string; src?: string }[]
   max?: number
   size?: number
   /** La utilidad de color del anillo, que tiene que ser la del fondo de atrás. */
   ring?: string
   className?: string
 }) {
-  const shown = names.length === max + 1 ? names : names.slice(0, max)
-  const rest = names.length - shown.length
+  const shown = people.length === max + 1 ? people : people.slice(0, max)
+  const rest = people.length - shown.length
   const overlap = Math.round(size / 3)
   return (
     /* El monte va como variable y no como una clase fija porque depende de
@@ -599,10 +604,11 @@ export function AvatarGroup({
       className={cx('inline-flex items-center', className)}
       style={{ '--overlap': `${overlap}px` } as CSSProperties}
     >
-      {shown.map((name, i) => (
+      {shown.map((p, i) => (
         <Avatar
-          key={`${name}-${i}`}
-          name={name}
+          key={`${p.name}-${i}`}
+          name={p.name}
+          src={p.src}
           size={size}
           className={cx('ring-2', ring, i > 0 && '-ml-[var(--overlap)]')}
         />
@@ -615,7 +621,7 @@ export function AvatarGroup({
           +{rest}
         </span>
       )}
-      <span hidden>{names.join(', ')}</span>
+      <span hidden>{people.map(p => p.name).join(', ')}</span>
     </span>
   )
 }

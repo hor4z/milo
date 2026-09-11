@@ -4,25 +4,39 @@ import {
 } from '@melu/ui'
 import { Block, Mono, Props, Section } from '../kit'
 
+/* Las caras son sintéticas —generadas, no fotografiadas— y por eso se pueden
+   usar acá: no hay nadie atrás de ninguna. En una columna que se llama
+   "estudiantes" eso no es un detalle legal, es la diferencia entre un ejemplo
+   que alguien copia y pega y una foto de un menor en una pantalla. Están en
+   `public/avatars` y no apuntan a un host: un kit que le pide imágenes a un
+   tercero se rompe sin internet y filtra un request por avatar. */
+const cara = (n: number) => `/avatars/${String(n).padStart(2, '0')}.webp`
+
+const p = (name: string, foto?: number) => ({ name, src: foto ? cara(foto) : undefined })
+
 const espacios = [
   {
     nombre: 'Fracciones equivalentes', espacio: 'Matemática · 4.º A', estado: 'Abierta',
-    estudiantes: ['Ana Pérez', 'Bruno Díaz', 'Carla Sosa', 'Damián Ruiz', 'Elena Vega'],
+    estudiantes: [p('Ana Pérez', 1), p('Bruno Díaz', 2), p('Carla Sosa', 3), p('Damián Ruiz', 4), p('Elena Vega', 5)],
     entregas: 18,
   },
   {
     nombre: 'El sistema solar', espacio: 'Ciencias · 5.º B', estado: 'Corregida',
-    estudiantes: ['Franco Gil', 'Gabriela Mota', 'Hugo Paz'],
+    estudiantes: [p('Franco Gil', 6), p('Gabriela Mota', 7), p('Hugo Paz', 8)],
     entregas: 24,
   },
   {
     nombre: 'Cuento policial', espacio: 'Lengua · 6.º', estado: 'Borrador',
-    estudiantes: ['Irene Lopez', 'Julián Cruz', 'Karen Ortiz', 'Leo Nuñez'],
+    /* Una fila sin fotos: es lo que pasa de verdad cuando nadie subió una, y el
+       grupo tiene que seguir leyéndose como cinco personas. */
+    estudiantes: [p('Irene Lopez'), p('Julián Cruz'), p('Karen Ortiz'), p('Leo Nuñez')],
     entregas: 0,
   },
   {
     nombre: 'Mapa de América', espacio: 'Sociales · 5.º A', estado: 'Abierta',
-    estudiantes: ['Mora Tello', 'Nico Arce'],
+    /* Mezcla: dos con foto y una sin. La inicial sobre su color tiene que pesar
+       lo mismo que una cara, o la persona sin foto se lee como un hueco. */
+    estudiantes: [p('Mora Tello', 2), p('Nico Arce'), p('Olivia Rey', 4)],
     entregas: 7,
   },
 ]
@@ -54,7 +68,7 @@ export function TableStory() {
                   <TableHint>{a.espacio}</TableHint>
                 </TableCell>
                 <TableCell>
-                  <AvatarGroup names={a.estudiantes} />
+                  <AvatarGroup people={a.estudiantes} />
                 </TableCell>
                 <TableCell>
                   <Chip>{a.estado}</Chip>
@@ -68,23 +82,23 @@ export function TableStory() {
 
       <Block
         label="La columna de estudiantes"
-        note="Los avatares se montan un tercio de su tamaño y cada uno lleva un anillo del color de la fila: sin el anillo, dos vecinos de tonos parecidos se leen como una mancha sola en vez de como dos personas. El resto va en un círculo neutro y no en otra etiqueta de color — un `+4` no identifica a nadie, y en la familia viva se leería como una persona más del grupo."
+        note="Los avatares se montan un tercio de su tamaño y cada uno lleva un anillo del color de la fila: sin el anillo, dos vecinos de tonos parecidos se leen como una mancha sola en vez de como dos personas. El resto va en un círculo neutro y no en otra etiqueta de color — un `+4` no identifica a nadie, y en la familia viva se leería como una persona más del grupo. Con foto, la etiqueta de color se queda de fondo: es lo que se ve mientras la imagen carga y lo que queda si no carga nunca, y una inicial sobre su color pesa lo mismo que una cara — un hueco gris, no."
       >
         <div className="flex flex-col gap-4">
           <div className="flex items-center gap-6 rounded-xl bg-surface p-4 ring-1 ring-line">
-            <AvatarGroup names={['Ana Pérez', 'Bruno Díaz']} />
+            <AvatarGroup people={[p('Ana Pérez', 1), p('Bruno Díaz', 2)]} />
             <Mono>2 de 3</Mono>
           </div>
           <div className="flex items-center gap-6 rounded-xl bg-surface p-4 ring-1 ring-line">
-            <AvatarGroup names={['Ana Pérez', 'Bruno Díaz', 'Carla Sosa']} />
+            <AvatarGroup people={[p('Ana Pérez', 1), p('Bruno Díaz', 2), p('Carla Sosa', 3)]} />
             <Mono>3 de 3</Mono>
           </div>
           <div className="flex items-center gap-6 rounded-xl bg-surface p-4 ring-1 ring-line">
-            <AvatarGroup names={['Ana Pérez', 'Bruno Díaz', 'Carla Sosa', 'Damián Ruiz']} />
+            <AvatarGroup people={[p('Ana Pérez', 1), p('Bruno Díaz', 2), p('Carla Sosa', 3), p('Damián Ruiz', 4)]} />
             <Mono>4 · se muestra la cuarta cara, no un «+1»</Mono>
           </div>
           <div className="flex items-center gap-6 rounded-xl bg-surface p-4 ring-1 ring-line">
-            <AvatarGroup names={['Ana Pérez', 'Bruno Díaz', 'Carla Sosa', 'Damián Ruiz', 'Elena Vega']} />
+            <AvatarGroup people={[p('Ana Pérez', 1), p('Bruno Díaz', 2), p('Carla Sosa', 3), p('Damián Ruiz', 4), p('Elena Vega', 5)]} />
             <Mono>5 · tres caras y el resto</Mono>
           </div>
         </div>
@@ -100,7 +114,7 @@ export function TableStory() {
         note="El anillo es del color de la fila y no blanco fijo, así que sobre un fondo distinto hay que pasarle `ring`. Es la única forma: un avatar no puede saber sobre qué lo pusieron."
       >
         <div className="flex items-center gap-6 rounded-xl bg-muted p-4">
-          <AvatarGroup names={['Ana Pérez', 'Bruno Díaz', 'Carla Sosa', 'Damián Ruiz']} ring="ring-muted" />
+          <AvatarGroup people={[p('Ana Pérez', 1), p('Bruno Díaz', 2), p('Carla Sosa', 3), p('Damián Ruiz', 4)]} ring="ring-muted" />
           <Mono>ring="ring-muted"</Mono>
         </div>
       </Block>
@@ -115,7 +129,8 @@ export function TableStory() {
           { name: 'TableNum', type: 'td', note: 'igual pero alineada a la derecha y tabular' },
           { name: 'TableTitle', type: 'ReactNode', note: '14/600: lo que se lee primero' },
           { name: 'TableHint', type: 'ReactNode', note: '12/500 en gris, debajo del título' },
-          { name: 'AvatarGroup · names', type: 'readonly string[]', note: 'obligatorio' },
+          { name: 'Avatar · src', type: 'string', note: 'opcional; la etiqueta de color queda de fondo' },
+          { name: 'AvatarGroup · people', type: '{ name, src? }[]', note: 'obligatorio; sin `src` cae a la inicial' },
           { name: 'AvatarGroup · max', type: 'number', def: '3', note: 'cuenta avatares, no personas' },
           { name: 'AvatarGroup · size', type: 'number', def: '28', note: 'el monte sale de acá' },
           { name: 'AvatarGroup · ring', type: 'string', def: "'ring-surface'", note: 'la utilidad del fondo de atrás' },
