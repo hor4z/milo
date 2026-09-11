@@ -24,9 +24,9 @@ export function TypeSection() {
         note="Geist para la interfaz y las portadas, Geist Mono para lo monoespaciado, las dos por Google Fonts. Display y cuerpo son la misma familia a propósito: a 40px lo que separa un título del cuerpo es el tamaño y el tracking, no un dibujo distinto de la letra, y dos familias que se parecen es lo peor de los dos mundos. Antes eran Inter, Inter Tight y JetBrains Mono."
       >
         <div className="flex flex-col gap-3">
-          <Specimen family="font-sans" token="--font-sans" />
-          <Specimen family="font-display" token="--font-display" />
-          <Specimen family="font-mono" token="--font-mono" />
+          <Specimen family="font-sans" token="--font-sans" rol="la interfaz entera, de 11 a 20" muestra="Doce actividades en siete espacios" px={24} />
+          <Specimen family="font-display" token="--font-display" rol="las portadas, a 40" muestra="El sistema" px={40} />
+          <Specimen family="font-mono" token="--font-mono" rol="tokens, valores y atajos" muestra="0123456789 · --shade-05" px={24} mono />
         </div>
       </Block>
 
@@ -81,18 +81,26 @@ export function TypeSection() {
  * vivo, así que un rol roto aparece vacío en vez de aparecer correcto— aplicada
  * a la tipografía, que era lo único que faltaba.
  */
-function Specimen({ family, token }: { family: string; token: string }) {
+function Specimen({ family, token, rol, muestra, px, mono }: {
+  family: string
+  token: string
+  rol: string
+  muestra: string
+  px: number
+  mono?: boolean
+}) {
   const valores = useTokens([token])
   const stack = valores[token] ?? ''
   const dibujando = useFamiliaReal(stack)
-  const mono = token === '--font-mono'
   const primera = stack.split(',')[0].replace(/["']/g, '').trim()
   const cargada = dibujando === primera
 
   return (
     <div className="rounded-xl border border-line bg-surface p-4">
       <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
-        <span className="text-base font-semibold">{primera || '—'}</span>
+        <span className="text-base font-semibold">
+          {primera || '—'} <span className="font-medium text-ink-muted">· {rol}</span>
+        </span>
         <span className="text-2xs text-ink-muted">
           {dibujando
             ? cargada
@@ -101,8 +109,12 @@ function Specimen({ family, token }: { family: string; token: string }) {
             : 'midiendo…'}
         </span>
       </div>
-      <div className={`${family} mt-3 text-2xl font-semibold`}>
-        {mono ? '0123456789 · tokens y valores' : 'Doce actividades en siete espacios'}
+      {/* El tamaño va por prop y no fijo: `--font-sans` y `--font-display` son
+          la misma familia desde que entró Geist, así que dos tarjetas con el
+          mismo texto al mismo cuerpo se leen como una duplicada por error. Lo
+          que las distingue es para qué está cada rol y a qué tamaño se usa. */}
+      <div className={`${family} mt-3 font-semibold`} style={{ fontSize: px, lineHeight: 1.1 }}>
+        {muestra}
       </div>
       {/* Un abecedario para poder mirar la letra, que es de lo que se trata un
           espécimen. Sin esto solo se ve una frase y no se juzga nada. */}
@@ -141,12 +153,16 @@ function useFamiliaReal(stack: string) {
     let vivo = true
     const genericas = new Set(['ui-sans-serif', 'ui-monospace', 'system-ui', 'sans-serif', 'monospace', 'serif', '-apple-system'])
     const ctx = document.createElement('canvas').getContext('2d')
-    const muestra = 'mmmMMMwwwiiil10OQ · ABCdef'
-    const ancho = (f: string) => { ctx!.font = `48px ${f}`; return ctx!.measureText(muestra).width }
+    /* Sin canvas no se puede medir, y decir "se está dibujando con esta" sin
+       haberlo comprobado es exactamente el problema que este bloque arregla. */
+    if (!ctx) { setReal('no se pudo medir'); return }
+
+    const texto = 'mmmMMMwwwiiil10OQ · ABCdef'
+    const ancho = (f: string) => { ctx.font = `48px ${f}`; return ctx.measureText(texto).width }
     const existe = (f: string) => ['monospace', 'serif'].some(g => ancho(`"${f}", ${g}`) !== ancho(g))
 
     document.fonts.ready.then(() => {
-      if (!vivo || !ctx) return
+      if (!vivo) return
       for (const parte of stack.split(',')) {
         const f = parte.replace(/["']/g, '').trim()
         if (genericas.has(f)) return setReal(f)
