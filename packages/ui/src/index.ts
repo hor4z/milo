@@ -13,7 +13,7 @@
 export { cx, labelColors, labelFill } from './primitives'
 export type { LabelColor } from './primitives'
 export {
-  Button, IconButton, Switch, Checkbox, Segmented, Select,
+  Button, IconButton, Switch, Slider, Checkbox, Segmented, Select,
   Chip, Kbd, Avatar, AvatarGroup, Input, Spinner, Card, Row,
 } from './primitives'
 

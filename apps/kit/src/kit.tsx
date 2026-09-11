@@ -192,7 +192,7 @@ export function Variant({ name, children }: { name: string; children: ReactNode 
   return (
     <div className="flex flex-wrap items-center gap-x-4 gap-y-2 border-t border-line py-3 first:border-t-0">
       <span className="w-28 shrink-0 font-mono text-2xs text-ink-muted">{name}</span>
-      <div className="flex flex-wrap items-center gap-3">{children}</div>
+      <div className="flex min-w-0 flex-1 flex-wrap items-center gap-3">{children}</div>
     </div>
   )
 }

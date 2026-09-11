@@ -199,6 +199,128 @@ export function Switch({
   )
 }
 
+/* ------------------------------------------------------------------ Slider */
+
+/**
+ * Un valor en un rango. Es el hermano del switch y por eso no tiene recetas
+ * propias: la pista llena es `switch-track-on`, la vacía `switch-track-off` y
+ * el pulgar es el pulgar del switch. Los dos son una píldora con una pieza
+ * redonda encima, y el día que cambie el relieve de uno tiene que cambiar el
+ * del otro.
+ *
+ * El azul tampoco se elige acá. Es la misma regla de rol que ya está escrita:
+ * el azul es lo que el usuario prendió o confirmó —el switch, el checkbox, el
+ * CTA— y el valor de un slider es exactamente eso. El punto azul del pulgar es
+ * la misma frase dicha en la pieza que se agarra.
+ *
+ * Geometría, y dónde se aparta del switch:
+ *
+ * · La pista es de 22, la del switch. Dos píldoras en el mismo sistema con dos
+ *   alturas distintas se ven como dos sistemas.
+ * · El pulgar es de 24 y **sobresale** de la pista, al revés que el del switch,
+ *   que es de 18 y vive adentro de una de 22. Es la diferencia entre los dos
+ *   controles: el del switch es una pieza que corre por un canal, el del slider
+ *   es una pieza apoyada sobre un riel, y se agarra.
+ * · El punto es de 12, la mitad del pulgar.
+ * · La caja es de 32, el `--control-sm`, aunque la pista mida 22. Lo que se
+ *   agarra no puede medir lo que se ve: 22 de alto es poco para el dedo, y el
+ *   aire de arriba y abajo es parte del control aunque no se dibuje.
+ *
+ * El pulgar no llega nunca a salirse: viaja entre 12 y el ancho menos 12, así
+ * que la cuenta lleva su propio tamaño adentro. Sin eso, en 0 y en 100 la mitad
+ * del pulgar queda afuera de la pista.
+ *
+ * Adentro hay un `<input type="range">` de verdad, transparente y encima de
+ * todo. No es el caso del `Select`: ahí el sistema operativo dibuja la lista
+ * desplegada y no hay forma de estilarla, pero un range se tapa entero con un
+ * div y lo que se gana a cambio es el teclado, el arrastre y el rol, gratis y
+ * bien hechos.
+ */
+export function Slider({
+  value, onChange, min = 0, max = 100, step = 1, disabled, label, id, className,
+}: {
+  value: number
+  onChange: (v: number) => void
+  min?: number
+  max?: number
+  step?: number
+  disabled?: boolean
+  label?: string
+  id?: string
+  className?: string
+}) {
+  const t = max === min ? 0 : Math.min(1, Math.max(0, (value - min) / (max - min)))
+  // Hasta el centro del pulgar, no hasta el borde de la caja.
+  const upToThumb = 'calc(var(--t) * (100% - 24px) + 12px)'
+  /* Arrastrando no hay transición y sin arrastrar sí, y las dos cosas son por
+     el mismo motivo. Con transición, el pulgar va atrás del cursor: el dedo ya
+     está en un lugar y la pieza llega 120ms después, que es exactamente la
+     sensación de que el control no responde. Sin transición, un paso de flecha
+     o un `value` que cambia desde afuera teletransporta la pieza y no se ve de
+     dónde a dónde fue. */
+  const [dragging, setDragging] = useState(false)
+  const move = dragging ? '' : 'transition-[left,width] duration-[120ms] ease-out'
+  return (
+    /* `flex` y no `inline-flex`: el slider no tiene ancho propio —lo toma del
+       hueco donde lo pongan— y un inline con `w-full` adentro de otro inline
+       colapsa a cero. Con la caja en bloque, lo único que hay que darle desde
+       afuera es el máximo. */
+    <span
+      className={cx('relative flex h-8 w-full min-w-[120px] items-center', disabled && 'opacity-45', className)}
+      style={{ '--t': t } as CSSProperties}
+    >
+      <span className="switch-track-off pointer-events-none absolute inset-x-0 h-[22px] rounded-full" />
+      <span
+        className={cx('switch-track-on pointer-events-none absolute left-0 h-[22px] rounded-full', move)}
+        style={{ width: upToThumb }}
+      />
+      <input
+        type="range"
+        id={id}
+        aria-label={label}
+        min={min} max={max} step={step} value={value}
+        disabled={disabled}
+        onChange={e => onChange(Number(e.target.value))}
+        onPointerDown={() => setDragging(true)}
+        onPointerUp={() => setDragging(false)}
+        onPointerCancel={() => setDragging(false)}
+        /* También en blur: si se suelta el botón afuera de la ventana, el
+           `pointerup` no llega nunca y el control se queda sin transición para
+           siempre. */
+        onBlur={() => setDragging(false)}
+        /* `peer` para que el pulgar dibujado tome el foco del input que no se
+           ve. La opacidad es 0 y no `sr-only`: tiene que seguir ocupando la
+           caja entera para recibir el arrastre. */
+        className="peer absolute inset-0 h-full w-full cursor-pointer appearance-none bg-transparent opacity-0 disabled:cursor-default"
+      />
+      <span
+        className={cx(
+          'switch-thumb pointer-events-none absolute size-6 -translate-x-1/2 rounded-full',
+          'flex items-center justify-center',
+          move,
+          /* Lo que hace que se sienta agarrado: el punto crece un paso mientras
+             el dedo está abajo. Crece el punto y no el pulgar — si creciera el
+             pulgar, el borde de la pieza se movería respecto de la pista y el
+             riel se vería saltar justo cuando lo estás usando.
+
+             La escala va con su propia transición, más corta que la del
+             movimiento y siempre puesta: el crecer tiene que leerse aunque
+             estés arrastrando, que es el único momento en que pasa. */
+          'peer-focus-visible:shadow-[var(--switch-thumb-shadow),var(--focus-ring)]',
+        )}
+        style={{ left: upToThumb }}
+      >
+        <span
+          className={cx(
+            'size-3 rounded-full bg-brand transition-transform duration-[90ms] ease-out',
+            dragging ? 'scale-[1.18]' : 'scale-100',
+          )}
+        />
+      </span>
+    </span>
+  )
+}
+
 /* ---------------------------------------------------------------- Checkbox */
 
 /**
