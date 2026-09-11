@@ -27,6 +27,30 @@ export const labelFill = {
 export type LabelColor = keyof typeof labelFill
 
 /**
+ * La otra familia: pares relleno/glifo, pastel con el glifo del mismo tono
+ * varios pasos más oscuro. Es la marca de 44 de una fila de lista.
+ *
+ * Vive acá y no en `list.tsx` desde que el `Avatar` la puede usar también. El
+ * corte entre las dos familias sigue siendo el tamaño de la pieza, y está
+ * argumentado en los tokens: una marca de 44 en una fila clara puede ser pastel
+ * y leerse entera; algo chico en pastel se confunde con el fondo apagado del que
+ * sale. Que el avatar pueda tomar esta familia es justamente para poder mirar si
+ * esa regla se sostiene a los tamaños en que aparece un avatar.
+ */
+export const markFill = {
+  green: 'bg-mark-green text-mark-green-ink',
+  purple: 'bg-mark-purple text-mark-purple-ink',
+  orange: 'bg-mark-orange text-mark-orange-ink',
+  blue: 'bg-mark-blue text-mark-blue-ink',
+  pink: 'bg-mark-pink text-mark-pink-ink',
+} as const
+
+export type MarkColor = keyof typeof markFill
+
+/** Las cinco en orden de rueda, para quien elige por hash. */
+export const markColors = Object.keys(markFill) as MarkColor[]
+
+/**
  * Las seis en orden de rueda, para quien elige por índice o por hash.
  *
  * El orden importa: el avatar reparte sobre el índice, y con los tonos
@@ -835,16 +859,38 @@ export function Kbd({ children }: { children: ReactNode }) {
  * desordenados, dos nombres consecutivos podían caer en dos tonos casi iguales
  * y el color dejaba de separar a dos personas.
  */
-export function Avatar({ name, src, size = 40, className }: { name: string; src?: string; size?: number; className?: string }) {
+export function Avatar({ name, src, size = 40, variant = 'label', className }: {
+  name: string
+  src?: string
+  size?: number
+  /**
+   * De qué familia sale el fondo cuando no hay foto.
+   *
+   * · `label` — la familia viva: relleno saturado y la inicial en blanco. Es lo
+   *   que el sistema tiene asignado a lo chico, y el argumento está escrito en
+   *   los tokens: algo chico en pastel se confunde con el fondo apagado del que
+   *   sale.
+   * · `mark` — la familia de la marca de una fila de lista: relleno pastel con
+   *   relieve y la inicial en el mismo tono varios pasos más oscuro.
+   *
+   * Que existan las dos es para poder mirar si esa regla se sostiene a los
+   * tamaños en que aparece un avatar. La comparación está en la historia.
+   */
+  variant?: 'label' | 'mark'
+  className?: string
+}) {
   const initials = name.trim().split(/\s+/).slice(0, 2).map(w => w[0]).join('').toUpperCase()
-  const label = labelColors[[...name].reduce((a, c) => a + c.charCodeAt(0), 0) % labelColors.length]
+  const i = [...name].reduce((a, c) => a + c.charCodeAt(0), 0)
+  const relleno = variant === 'mark'
+    ? `mark ${markFill[markColors[i % markColors.length]]}`
+    : `text-on-label ${labelFill[labelColors[i % labelColors.length]]}`
   return (
-    /* Con foto, la etiqueta de color se queda igual de fondo: es lo que se ve
-       mientras la imagen carga y lo que queda si no carga nunca. Un hueco gris
-       en una fila de cinco avatares se lee como una persona sin nombre; la
-       inicial sobre su color, no. */
+    /* Con foto, el color se queda igual de fondo: es lo que se ve mientras la
+       imagen carga y lo que queda si no carga nunca. Un hueco gris en una fila
+       de cinco avatares se lee como una persona sin nombre; la inicial sobre su
+       color, no. */
     <span
-      className={cx('relative inline-flex items-center justify-center overflow-hidden rounded-full font-semibold text-on-label select-none', labelFill[label], className)}
+      className={cx('relative inline-flex items-center justify-center overflow-hidden rounded-full font-semibold select-none', relleno, className)}
       style={{ width: size, height: size, fontSize: Math.max(10, Math.round(size * 0.3)) }}
       aria-hidden="true"
     >
