@@ -48,13 +48,23 @@ const filled: Partial<Record<IconName, true>> = { favorite: true, bolt: true, st
    precisamente lo que da un set diseñado. Meter un factor para emparejarlo con
    los dibujos viejos sería importar esa inconsistencia. */
 
-export function Icon({ name, size = 20, className, solid, weight = 300 }: {
+export function Icon({ name, size = 20, className, solid, weight }: {
   name: IconName
   /** Alto y ancho de la caja en px. La escala 12 · 14 · 16 · 18 · 20 · 22. */
   size?: number
   className?: string
   /** El eje FILL. Por default lo deciden los tres de arriba. */
   solid?: boolean
+  /**
+   * El eje wght. **Sin default a propósito**: si no se pasa, no se escribe nada
+   * y el glifo hereda. El default (300) está en el `var()` de la clase, no acá.
+   *
+   * La diferencia no es cosmética. Un estilo inline le gana a una clase, así que
+   * con `weight = 300` escrito siempre, `icon-muted` no podía subir el peso y la
+   * grilla del kit no podía fijarlo para todos sus glifos de una: cada icono se
+   * pisaba a sí mismo con su propio default. Escribir la variable solo cuando
+   * alguien la pide es lo que hace que heredar funcione.
+   */
   weight?: IconWeight
 }) {
   return (
@@ -68,8 +78,8 @@ export function Icon({ name, size = 20, className, solid, weight = 300 }: {
         fontSize: size,
         width: size,
         height: size,
-        '--icon-wght': weight,
-        ...((solid ?? filled[name]) ? { '--icon-fill': 1 } : null),
+        ...(weight ? { '--icon-wght': weight } : null),
+        ...(solid ?? filled[name] ? { '--icon-fill': 1 } : null),
       } as CSSProperties}
     >
       {String.fromCodePoint(codepoints[name])}

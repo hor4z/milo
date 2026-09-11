@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { Icon, type IconName, cx, Kbd, Portal, useEscape, useFocusTrap, useScrollLock } from '@melu/ui'
+import { Icon, type IconName, cx, Kbd, Portal, useEscape, useFocusTrap, useScrollLock, fold } from '@melu/ui'
 import { activities, recipes } from '../data'
 
 type Command = { id: string; label: string; hint?: string; icon: IconName; run: () => void; group: string }
@@ -53,11 +53,10 @@ export function CommandPalette({
   const results = useMemo(() => {
     const q = query.trim().toLowerCase()
     if (!q) return commands
-    /* Se busca sin tildes: quien escribe rápido no las pone, y "indagacion"
-       tiene que encontrar "Indagación". */
-    const strip = (s: string) => s.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase()
-    const needle = strip(q)
-    return commands.filter(c => strip(c.label).includes(needle) || strip(c.hint ?? '').includes(needle) || strip(c.group).includes(needle))
+    // Se busca sin tildes; `fold` vive en el paquete porque la galería de
+    // iconos del kit necesita lo mismo.
+    const needle = fold(q)
+    return commands.filter(c => fold(c.label).includes(needle) || fold(c.hint ?? '').includes(needle) || fold(c.group).includes(needle))
   }, [commands, query])
 
   useEffect(() => { setActive(0) }, [query])
@@ -102,7 +101,7 @@ export function CommandPalette({
           className="ui-zoom relative z-10 flex w-full max-w-[560px] flex-col overflow-hidden rounded-2xl bg-popover shadow-popover ring-1 ring-line"
         >
           <div className="flex h-14 shrink-0 items-center gap-3 border-b border-line px-4">
-            <Icon name="search" size={18} className="text-ink-subtle" />
+            <Icon name="search" size={18} className="icon-muted" />
             <input
               data-autofocus
               autoFocus
@@ -144,10 +143,10 @@ export function CommandPalette({
                         isActive ? 'bg-hover text-ink' : 'text-ink-muted',
                       )}
                     >
-                      <Icon name={c.icon} size={16} className={isActive ? 'text-accent' : 'text-ink-subtle'} />
+                      <Icon name={c.icon} size={16} className={isActive ? 'text-accent' : 'icon-muted'} />
                       <span className="min-w-0 flex-1 truncate text-base">{c.label}</span>
                       {c.hint && <span className="shrink-0 text-xs text-ink-subtle">{c.hint}</span>}
-                      {isActive && <Icon name="arrow_forward" size={14} className="shrink-0 text-ink-subtle" />}
+                      {isActive && <Icon name="arrow_forward" size={14} className="shrink-0 icon-muted" />}
                     </button>
                   )
                 })}

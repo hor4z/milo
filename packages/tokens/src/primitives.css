@@ -39,10 +39,15 @@
   --light-a27: rgb(255 255 255 / 0.27);
   --edge: #d4d4d4;
   --solid-edge: #333333;
-  /* El gris de un icono trazado. No es --shade-06 (el del texto secundario):
-     un trazo de 1.5 encierra aire, así que con el gris del texto se lee más
-     apagado que ese mismo texto. Un paso más oscuro lo empareja sin tocar el
-     dibujo. Si algún día el set pasa a glifos macizos, este token vuelve a 06. */
+  /* El gris de un icono. No es --shade-06 (el del texto secundario): un
+     contorno encierra aire, así que con el gris del texto se lee más apagado
+     que ese mismo texto. Un paso más oscuro lo empareja sin tocar el dibujo.
+
+     Este token decía que con un set de glifos macizos volvía a 06. El set ahora
+     es Material Symbols, y a FILL 0 tampoco es macizo: son contornos, así que el
+     problema es el mismo y el token se queda. Lo que sí cambió es quién lo usa —
+     ya no se escribe `text-icon-muted` a mano, va la utilidad `icon-muted`, que
+     pone este color y sube el peso del glifo a 400 en el mismo movimiento. */
   --icon-muted: #5f5f5f;
 
   /* El azul de marca. Existe para un solo uso: el CTA lleno de la topbar. No es

@@ -37,6 +37,18 @@ export const labelColors = ['green', 'teal', 'blue', 'purple', 'pink', 'orange']
 
 
 /** Junta clases y descarta lo falsy, para no escribir ternarios que devuelvan ''. */
+/**
+ * Texto plegado para comparar: sin tildes y en minúscula. Quien escribe rápido
+ * no pone las tildes, y "indagacion" tiene que encontrar "Indagación".
+ *
+ * Vive acá y no en cada buscador porque ya hay dos que lo necesitan —la paleta
+ * de comandos y la galería de iconos— y dos copias de un normalizador se
+ * desincronizan igual que se desincronizó el riel del kit.
+ */
+export function fold(s: string) {
+  return s.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase()
+}
+
 export function cx(...parts: (string | false | null | undefined)[]) {
   return parts.filter(Boolean).join(' ')
 }
@@ -909,7 +921,7 @@ type InputProps = InputHTMLAttributes<HTMLInputElement> & { icon?: IconName; suf
 export function Input({ icon, suffix, className, ...rest }: InputProps) {
   return (
     <div className={cx('flex h-10 items-center gap-2 rounded-lg bg-muted px-3 transition-colors duration-[120ms] focus-within:bg-surface focus-within:shadow-raised', className)}>
-      {icon && <Icon name={icon} size={20} className="text-ink-muted" />}
+      {icon && <Icon name={icon} size={20} className="icon-muted" />}
       <input className="min-w-0 flex-1 bg-transparent text-xs font-medium text-ink outline-none placeholder:text-ink-muted" {...rest} />
       {suffix}
     </div>

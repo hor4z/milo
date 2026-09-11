@@ -67,7 +67,7 @@ export function Composer() {
               >
                 <Icon name="star_shine" size={14} />
                 Indagación
-                <Icon name="keyboard_arrow_down" size={13} />
+                <Icon name="keyboard_arrow_down" size={14} />
               </button>
             )}
           />

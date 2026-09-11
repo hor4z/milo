@@ -85,7 +85,7 @@ export function PricingScreen() {
                         estado. */}
                     {p.current ? (
                       <div className="mt-3.5 flex h-9 items-center justify-center gap-1.5 rounded-lg bg-surface text-base font-medium text-ink-muted ring-1 ring-line">
-                        <Icon name="check" size={15} className="text-accent" />
+                        <Icon name="check" size={14} className="text-accent" />
                         Es tu plan
                       </div>
                     ) : (
@@ -98,7 +98,7 @@ export function PricingScreen() {
                   <ul className="mt-5 flex flex-col gap-2.5">
                     {p.features.map(f => (
                       <li key={f} className="flex gap-2.5 text-base text-ink-muted">
-                        <Icon name="check" size={15} className="mt-0.5 text-accent" />
+                        <Icon name="check" size={14} className="mt-0.5 text-accent" />
                         <span>{f}</span>
                       </li>
                     ))}

@@ -102,7 +102,7 @@ export function NotificationsButton() {
                   <div className="relative size-12 shrink-0 self-start">
                     <Avatar name={n.who} size={48} />
                     <span className={cx('absolute -right-0.5 -bottom-0.5 flex size-[18px] items-center justify-center rounded-full ring-2 ring-popover', badge.className)}>
-                      <Icon name={badge.icon} size={11} />
+                      <Icon name={badge.icon} size={12} />
                     </span>
                   </div>
 

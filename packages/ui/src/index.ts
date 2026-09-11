@@ -10,7 +10,7 @@
  * genérica, se muda y se agrega una línea.
  */
 
-export { cx, labelColors, labelFill } from './primitives'
+export { cx, fold, labelColors, labelFill } from './primitives'
 export type { LabelColor } from './primitives'
 export {
   Button, IconButton, Switch, Slider, Checkbox, Radio, RadioGroup, Segmented, Select,
@@ -18,7 +18,7 @@ export {
 } from './primitives'
 
 export { Icon, FolderIcon } from './icon'
-export type { FolderColor } from './icon'
+export type { FolderColor, IconWeight } from './icon'
 /* `iconNames` y `codepoints` salen del barrel porque la galería del kit tiene
    que poder enumerar el set — hoy `paths` era privado y por eso el kit no tenía
    galería. Los tags NO salen de acá: van por el subpath `@melu/ui/icons.meta`,

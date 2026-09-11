@@ -54,7 +54,7 @@ export function ColorSection() {
         </Grid>
       </Block>
 
-      <Block label="Texto e iconos" note="`--icon-muted` es un paso más oscuro que el gris del texto: un trazo de 1.5 encierra aire y con el gris del texto se lee más apagado que ese mismo texto.">
+      <Block label="Texto e iconos" note="`--icon-muted` es un paso más oscuro que el gris del texto: un contorno encierra aire y con el gris del texto se lee más apagado que ese mismo texto. No se usa a mano — lo pone la utilidad `icon-muted`, que además sube el peso del glifo a 400, porque el gris y el peso son la misma decisión.">
         <Grid>
           <Swatch token="--text" />
           <Swatch token="--text-muted" />

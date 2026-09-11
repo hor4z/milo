@@ -145,13 +145,27 @@ Dos aprendizajes que quedaron escritos al lado de cada token:
 - **Hundido son dos cosas distintas.** Una marca lleva canto y sombra de caída; algo que se
   aprieta, no. Mezclarlas hace que un kbd y un toggle activo se vean igual.
 
-**Iconos.** Set propio de contornos, grilla de 24, 20px, trazo 1. La prop `weight` sube a 1.5
-donde el icono va en gris: un trazo fino encierra aire y se apaga al lado del texto. Por lo
-mismo hay un `--icon-muted` (`#5f5f5f`) más oscuro que el gris del texto. Si algún día el set
-pasa a glifos macizos, ese token vuelve a `--shade-06` y el `weight` desaparece.
+**Iconos.** Material Symbols Rounded, subseteado a los 152 que usamos y servido desde el repo
+(57 KB de woff2). El peso y el relleno son ejes reales de la fuente —`wght` de 100 a 700 y `FILL`
+de 0 a 1—, no variantes generadas: por eso el set es una fuente y no SVG. Los dibujos de Material
+son contornos rellenos y no trazos, así que el peso está horneado en la geometría y con SVG haría
+falta un archivo por combinación. Google hace lo mismo en Flutter y en Material Web.
 
-Las carpetas de espacios (`FolderIcon`) son la excepción: traen color propio, elegido a mano
-por espacio y no derivado, para reconocerlas de reojo en una lista de siete.
+Escala de tamaños: 12 · 14 · 16 · 18 · 20 · 22. Solo pares — con una fuente, un tamaño impar cae
+en media grilla de píxeles y se ve borroso.
+
+**El gris de un icono no es una prop, es la utilidad `icon-muted`.** La regla vieja decía "icono
+en gris ⇒ `weight 1.5`" y era imposible de cumplir: el gris muchas veces lo hereda de un ancestro
+—un `IconButton` apagado, un item de nav inactivo, el placeholder de un `Select`— y el call site
+no tiene forma de saberlo. Con la utilidad, poner el gris sube el peso a 400 solo.
+
+Corolario que cuesta ver: **`Icon` no escribe `--icon-wght` salvo que le pasen `weight`.** Un
+estilo inline le gana a una clase, así que con un default escrito siempre, `icon-muted` no podía
+subir nada y la grilla del kit no podía fijar el peso de todos sus glifos de una.
+
+Las carpetas de espacios (`FolderIcon`) son la excepción y el único SVG que queda: son bicolor
+—relleno al 13% y una línea al 55% del mismo tono— y una fuente monocroma no puede hacer eso. El
+color propio por espacio es el punto: es lo que las deja reconocer de reojo en una lista de siete.
 
 **El estado activo no se marca con color, se marca con relieve o con canto.** En una interfaz
 monocroma eso distingue más que teñir el texto, y no gasta el único acento que hay. Corolario
@@ -220,6 +234,39 @@ Antes de dar por bueno un color nuevo, verificar que la regla exista:
 curl -s http://localhost:5190/src/app.css | grep -o '\.text-icon-muted[^}]*}'
 ```
 
+## Agregar un icono
+
+El set son 152 de los más de 3900 de Material Symbols. Agregar uno **no es dibujar un path**, es
+un comando, y el que lo corre no tiene que acordarse de nada:
+
+```sh
+npm run icons -w @melu/ui -- search notification   # busca en el catálogo, offline
+npm run icons -w @melu/ui -- add rocket_launch     # agrega y regenera todo
+npm run icons -w @melu/ui -- check                 # usados que faltan, y al revés
+npm run icons -w @melu/ui -- refresh               # rebaja el catálogo desde Google
+```
+
+`add` hace tres preguntas antes de bajar nada, y las hace el script y no el prompt:
+
+1. **¿el nombre existe?** Si no, sugiere los cinco más parecidos por distancia de edición.
+2. **¿ya lo tenemos?** Si sí, no baja nada y lo dice.
+3. **¿hay uno mejor?** Compara los tags del candidato contra todo el set y muestra los que
+   comparten dos o más: *"ya tenés `tune` — ¿seguro que querés `settings_input_component`?"*.
+   Para saltearlo hay que escribir `--yes`. Esto es lo que evita llegar a doscientos iconos con
+   seis variantes de engranaje.
+
+La regla: **el set crece solo por `icons add`, y un icono que no renderiza ningún call site no va
+en el manifiesto.** `icons check` es lo que lo audita, y corre al lado de `typecheck`.
+
+El catálogo podado (3912 iconos con codepoint, popularidad y tags) está versionado en
+`packages/ui/scripts/catalog.json` para que buscar funcione sin internet — el mismo argumento por
+el que las caras de los avatares están commiteadas. Nunca llega al browser: al bundle solo van los
+codepoints, y los tags viajan por el subpath `@melu/ui/icons.meta`, que importa únicamente la
+galería del kit.
+
+Los tags son los de Google y están en inglés: "calendar" encuentra `calendar_month`, "calendario"
+no encuentra nada.
+
 ## Estructura
 
 Monorepo de npm workspaces. Dos paquetes y dos apps:
@@ -227,7 +274,9 @@ Monorepo de npm workspaces. Dos paquetes y dos apps:
 ```
 packages/tokens/src/    la identidad, en CSS puro. Sin Tailwind y sin JS.
 packages/ui/src/        theme.css (el puente) · index.ts (la puerta) ·
-                        primitives · icon · overlay · nav · list · page · prefs
+                        primitives · icon · overlay · nav · list · table · page · prefs
+                        icons.gen.ts e icons.meta.ts los genera scripts/icons.mjs
+packages/ui/scripts/    icons.mjs (search · add · sync · check) + catalog.json
 apps/kit/src/           la galería, estilo storybook: intro.tsx (la portada) ·
                         kit.tsx (los andamios) · tokens/ (color · type ·
                         measure · relief) · stories/ (una por componente)
@@ -278,8 +327,9 @@ de cualquier wrapper de React, y un `data-theme` en un div no los alcanza.
 - **`README.md` quedó desactualizado**: describe la primera identidad (jade y ámbar, radios
   3·6·8·10·14) que después se reemplazó por la rampa neutra y la escala 6·10·12·16·24.
 - Portar los tokens a `~/melu/packages/ui`, que es para lo que existe todo esto.
-- Opcional: dibujar un set de iconos macizo propio. Resolvería de raíz el "se ven livianos" que
-  hoy se compensa con `weight` y con `--icon-muted`.
+- ~~Dibujar un set de iconos macizo propio~~. Cerrado: el set es Material Symbols, y el "se ven
+  livianos" se resuelve con el eje `wght` en vez de con un `strokeWidth` inventado. `--icon-muted`
+  sobrevive igual, porque a `FILL 0` los glifos siguen siendo contornos.
 
 ## Lo que no está
 
