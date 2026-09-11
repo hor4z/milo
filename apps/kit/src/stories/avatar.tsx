@@ -14,7 +14,7 @@ export function AvatarStory() {
     >
       <Block
         label="Sin foto"
-        note="El tinte sale del nombre, no de un random: si saliera de un random, la misma persona cambiaría de color en cada render y el color dejaría de identificar a nadie. El reparto va sobre la familia de etiquetas en orden de rueda — con los tonos desordenados, dos nombres consecutivos caían en dos tonos casi iguales."
+        note="Círculo pastel con relieve y la inicial en el mismo tono varios pasos más oscuro: es la familia de las marcas de una fila de lista, no la familia viva. Se cambió después de medirlo — la inicial sobre pastel se lee mejor que el blanco sobre relleno vivo (4.51:1 contra su propio disco, contra 3.78:1), y a cambio el avatar deja de gritarle al texto de al lado, que es el problema real de una fila con cinco. Lo que se pierde es presencia del disco: 1.91:1 contra el papel donde el vivo daba 3.68:1. El tono sale del nombre y no de un random: si saliera de un random, la misma persona cambiaría de color en cada render y el color dejaría de identificar a nadie."
       >
         <Demo>
           <Avatar name="Horacio Rivero" size={24} />

@@ -103,8 +103,8 @@ Hay dos excepciones, las dos deliberadas y las dos acotadas a una pieza:
   leerse entera sin gritarle al título de al lado. En oscuro se invierten —relleno profundo,
   glifo pastel— porque un pastel de relleno sobre `#131313` es una mancha de luz.
 - **Las etiquetas de color** (`--label-*` + `--on-label`). La familia viva de lo chico: un chip,
-  la inicial de un avatar, el cuadradito de icono de una tarjeta. Salen de la regla de la familia
-  y por eso las seis llevan el mismo texto blanco. Van en orden de rueda porque el avatar reparte
+  el cuadradito de icono de una tarjeta. Salen de la regla de la familia
+  y por eso las seis llevan el mismo texto blanco. Van en orden de rueda porque quien las usa reparte
   por hash sobre el índice: con los tonos desordenados, dos nombres consecutivos caían en dos
   tonos casi iguales.
 
@@ -113,8 +113,8 @@ tamaño de la pieza:
 
 | | para qué | contenido encima |
 |---|---|---|
-| `--mark-*` | la marca de 44 de una fila de lista | glifo del mismo tono, oscuro |
-| `--label-*` | lo chico: chip, avatar, cuadradito de icono | texto o glifo blanco |
+| `--mark-*` | la marca de 44 de una fila de lista, y el avatar sin foto | glifo o inicial del mismo tono, oscuro |
+| `--label-*` | lo chico: chip, cuadradito de icono | texto o glifo blanco |
 | `--tint-*` | la superficie grande: el hueco 4:3 de una tarjeta, el mock de una novedad, el costado de entrar | un dibujo en tinta al 14% |
 
 Los tres roles vivieron un rato en `--tint-*`, y de ahí salieron dos bugs: los chips quedaron

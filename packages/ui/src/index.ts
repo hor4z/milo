@@ -10,8 +10,8 @@
  * genérica, se muda y se agrega una línea.
  */
 
-export { cx, fold, labelColors, labelFill } from './primitives'
-export type { LabelColor } from './primitives'
+export { cx, fold, labelColors, labelFill, markColors, markFill } from './primitives'
+export type { LabelColor, MarkColor } from './primitives'
 export {
   Button, IconButton, Switch, Slider, Checkbox, Radio, RadioGroup, Segmented, Select,
   Chip, Kbd, Avatar, AvatarGroup, Input, Spinner, Card, Row,
@@ -40,7 +40,6 @@ export { Folder } from './folder'
 export type { BookWidth } from './book'
 
 export { List, ListItem } from './list'
-export type { MarkColor } from './list'
 
 export { navItemClass, navSubItemClass, NavItemBody } from './nav'
 

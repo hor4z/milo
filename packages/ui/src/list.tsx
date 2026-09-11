@@ -1,5 +1,5 @@
 import type { ReactNode } from 'react'
-import { cx } from './primitives'
+import { cx, markFill, type MarkColor } from './primitives'
 import { Icon, type IconName } from './icon'
 
 /**
@@ -21,20 +21,10 @@ import { Icon, type IconName } from './icon'
  * abajo. Cambiar la marca cambia el alto, no el padding.
  */
 
-/* Las marcas van en pares relleno/glifo, y son de esta lista y de nada más.
-   Lo chico —un chip, un avatar, un cuadradito de icono— usa `labelFill`, que es
-   la familia viva. La diferencia entre las dos es el tamaño de la pieza: una
-   marca de 44 dentro de una fila clara tiene lugar para ser un pastel con el
-   glifo oscuro y leerse entera sin gritarle al título de al lado. */
-const marks = {
-  green: 'bg-mark-green text-mark-green-ink',
-  purple: 'bg-mark-purple text-mark-purple-ink',
-  orange: 'bg-mark-orange text-mark-orange-ink',
-  blue: 'bg-mark-blue text-mark-blue-ink',
-  pink: 'bg-mark-pink text-mark-pink-ink',
-} as const
-
-export type MarkColor = keyof typeof marks
+/* Los pares relleno/glifo viven en `primitives` desde que el `Avatar` también
+   los puede tomar. El corte entre las dos familias sigue siendo el tamaño de la
+   pieza, y está argumentado allá. */
+export type { MarkColor } from './primitives'
 
 export function List({ children, className }: { children: ReactNode; className?: string }) {
   return (
@@ -79,8 +69,8 @@ export function ListItem({
     >
       {/* `mark` va en este mismo nodo y no en un padre: el degradado y el
           relieve están escritos contra `currentColor`, y currentColor acá es el
-          glifo que pone `marks[color]`. */}
-      <span className={cx('mark inline-flex size-11 shrink-0 items-center justify-center rounded-full', marks[color])}>
+          glifo que pone `markFill[color]`. */}
+      <span className={cx('mark inline-flex size-11 shrink-0 items-center justify-center rounded-full', markFill[color])}>
         <Icon name={icon} size={22} weight={400} />
       </span>
 

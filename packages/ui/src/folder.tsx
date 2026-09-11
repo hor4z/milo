@@ -1,5 +1,5 @@
 import type { CSSProperties, ReactNode } from 'react'
-import { cx } from './primitives'
+import { AvatarGroup, cx } from './primitives'
 
 /**
  * Una carpeta que se abre. Cerrada es una silueta limpia; al pasar por encima
@@ -17,6 +17,10 @@ import { cx } from './primitives'
  * pieza, es **el contenido de la pieza**, y lo que se gana es información:
  * cuántas hojas hay y de qué tipo. La carpeta no cambia de tamaño ni de lugar,
  * así que la grilla no se mueve.
+ *
+ * **El color es uno solo.** Se elige el del cuerpo; la pestaña y el canto salen
+ * de él con color relativo —0.033 menos de luminosidad y un tercio más de
+ * croma—, así que pasarle un color la pinta entera y no a medias.
  *
  * **Construcción.** Tres capas: la contratapa, las hojas en el medio, y la
  * solapa delantera con la pestaña adelante. Las hojas suben *entre* la
@@ -36,7 +40,7 @@ import { cx } from './primitives'
  */
 
 export function Folder({
-  label, meta, sheets = 3, size = 128, color, badges, onClick, className,
+  label, meta, sheets = 3, size = 128, color, avatars, badges, onClick, className,
 }: {
   label?: string
   /** La línea de apoyo: «15 archivos». */
@@ -45,9 +49,15 @@ export function Folder({
   sheets?: 2 | 3
   /** El ancho de la carpeta en px. Todo lo demás sale de acá. */
   size?: number
-  /** Un token, no un hex. Por default, el amarillo de carpeta del sistema. */
+  /**
+   * Un token, no un hex. Es **un solo color, el del cuerpo**: la pestaña y el
+   * canto se derivan de él con color relativo, así que la carpeta queda pintada
+   * entera y no a medias.
+   */
   color?: string
-  /** Lo que va abajo a la izquierda de la solapa: de dónde vino el contenido. */
+  /** Quiénes tienen acceso, abajo a la izquierda. */
+  avatars?: readonly { name: string; src?: string }[]
+  /** Lo mismo pero a mano, para lo que no es una persona: un logo, un icono. */
   badges?: ReactNode
   onClick?: () => void
   className?: string
@@ -78,7 +88,22 @@ export function Folder({
           <span key={i} className="folder-sheet" data-sheet={i - (sheets - 1) / 2} />
         ))}
         <span className="folder-front">
-          {badges && <span className="folder-badges">{badges}</span>}
+          {(avatars?.length || badges) && (
+            <span className="folder-badges">
+              {avatars?.length ? (
+                /* El anillo va del color del cuerpo y no del papel: acá los
+                   avatares están apoyados sobre la carpeta, no sobre la
+                   página, y con el anillo blanco se ven recortados. El tamaño
+                   sale del ancho de la carpeta como todo lo demás. */
+                <AvatarGroup
+                  people={avatars}
+                  size={Math.round(size * 0.17)}
+                  ring="ring-[var(--folder-top)]"
+                />
+              ) : null}
+              {badges}
+            </span>
+          )}
         </span>
       </span>
       {(label || meta) && (

@@ -82,7 +82,7 @@
      glifo blanco, cinco marcas en una lista de cinco filas se llevan toda la
      pantalla y el título pasa a segundo plano.
 
-     Para lo chico —un chip, un avatar, un cuadradito de icono— la familia es
+     Para lo chico —un chip, un cuadradito de icono— la familia es
      `--label-*`, que sí es viva. La diferencia entre las dos es el tamaño de la
      pieza, no el gusto.
 
@@ -116,20 +116,28 @@
   --mark-blue: #95c0ff;     --mark-blue-ink: #114d9b;
   --mark-pink: #f5a2b6;     --mark-pink-ink: #8f1746;
 
-  /* Etiquetas de color: la familia viva. Un chip, un avatar, el cuadradito de
-     icono de una tarjeta — todo lo que es chico y tiene que identificar de
-     reojo contra el papel.
+  /* Etiquetas de color: la familia viva. Un chip, el cuadradito de icono de una
+     tarjeta — lo chico que tiene que identificar de reojo contra el papel.
+
+     **El avatar salió de esta familia y pasó a la de marcas.** Estaba acá por la
+     regla del tamaño, y se movió después de medirlo: la inicial sobre pastel se
+     lee mejor que el blanco sobre relleno vivo (4.51:1 contra su propio disco,
+     contra 3.78:1). Lo que se pierde es presencia del disco —1.91:1 contra el
+     papel donde el vivo daba 3.68— y eso se aceptó a cambio de lo que se ve en
+     una fila con cinco: con el relleno vivo, cinco discos saturados se llevaban
+     la fila puesta. La regla del tamaño sigue valiendo para el chip; lo que no
+     vale es aplicarla sin mirar cuántas piezas hay juntas.
 
      No son las marcas de arriba y la diferencia no es de gusto, es de tamaño.
      Una marca de 44 dentro de una fila clara tiene lugar para ser un pastel con
      el glifo oscuro: se lee entera y no le grita al título que está al lado. Un
-     chip de 28 o una inicial de avatar no tienen ese lugar — en pastel se
-     confunden con el fondo apagado del que salen.
+     chip de 28 no tiene ese lugar — en pastel se confunde con el fondo apagado
+     del que sale.
 
      Los seis salen de la regla de la familia: saturación al 95% y la
      luminosidad que los deja al mismo contraste contra blanco que el azul
      (3.75:1). Por eso los seis llevan el mismo texto blanco, y van en orden de
-     rueda porque el avatar reparte por hash sobre el índice. */
+     rueda porque quien las usa reparte por hash sobre el índice. */
   --label-green: #04983b;
   --label-teal: #049393;
   --label-blue: var(--blue-500);
@@ -166,7 +174,7 @@
      encima. Son tres usos y nada más — el hueco 4:3 de una tarjeta, el mock de
      una novedad y el costado de la pantalla de entrar.
 
-     NO son para una etiqueta. Un chip, un avatar o un cuadradito de icono
+     NO son para una etiqueta. Un chip o un cuadradito de icono
      llevan `--label-*`, que es viva: ahí el color identifica y tiene que verse.
      Acá el color solo tiñe el papel detrás de un dibujo, así que si se saturara
      el dibujo desaparecería y una grilla de doce tarjetas se volvería un
