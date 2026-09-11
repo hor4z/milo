@@ -222,36 +222,18 @@ h1, h2, h3 { font-family: var(--font-sans); font-weight: 500; letter-spacing: va
   ::-webkit-scrollbar-thumb:hover { background: var(--shade-06); background-clip: content-box; }
 }
 
-/* El spinner. Va como clase y no como utilidad porque son dos animaciones que
-   tienen que correr juntas: el svg gira parejo y el arco cambia de largo. Con
-   solo la vuelta, un arco fijo se ve como un gif; con el largo variable, la
-   espera se lee como progreso aunque no lo sea. */
+/* El spinner: una sola animación, porque el arco es de largo fijo y lo único
+   que pasa es que gira. Tuvo dos —la vuelta y un latido que abría y cerraba el
+   arco— y el latido se fue: parecerse a una barra de progreso que no avanza es
+   peor que no parecerse a nada, y en el extremo cerrado el arco se encogía
+   hasta ser un punto, que se lee como un glitch y no como una espera. */
 @keyframes ui-spin { to { transform: rotate(360deg) } }
-/* El arco lleva `pathLength: 100`, así que estos valores son por ciento de la
-   vuelta y no unidades de un radio que cambia con el trazo: 8% cuando está
-   cerrado, 75% cuando está abierto. Los dos extremos son a propósito: abajo de
-   ~5% las puntas redondas se tocan y el arco se ve como un punto; arriba de ~85%
-   se cierra contra la pista y el anillo se ve entero, que es no decir nada. */
-@keyframes ui-spin-arc {
-  0%   { stroke-dashoffset: 92; }
-  50%  { stroke-dashoffset: 25; }
-  100% { stroke-dashoffset: 92; }
-}
 .spin { animation: ui-spin 900ms linear infinite; }
-/* Simétrica y no `--ease-out`: el pulso va y vuelve por el mismo camino, y con
-   una curva de salida el crecer termina lento y el encoger arranca rápido, así
-   que se ve un tirón justo en el máximo. Las dos duraciones no son múltiplo a
-   propósito: si lo fueran, el arco abriría siempre en el mismo ángulo. */
-.spin-arc { animation: ui-spin-arc 1400ms var(--ease-pulse) infinite; }
 
 @media (prefers-reduced-motion: reduce) {
   /* Sin movimiento el spinner no puede decir nada —es lo único que avisa que
-     algo está pasando— así que en vez de quedarse quieto gira lento y lo que
-     se apaga es el pulso: el arco queda fijo en tres cuartos. El
-     `stroke-dashoffset` hay que escribirlo: sin él vuelve al 0 del atributo y
-     el arco tapa la vuelta entera, un aro azul cerrado y la pista invisible. */
+     algo está pasando— así que en vez de quedarse quieto gira lento. */
   .spin { animation: ui-spin 2.4s linear infinite; }
-  .spin-arc { animation: none; stroke-dashoffset: 25; }
 }
 
 /* ------- movimiento ------- */

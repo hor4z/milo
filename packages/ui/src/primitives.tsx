@@ -803,43 +803,97 @@ export function Row({ label, hint, children }: { label: string; hint?: string; c
 /* ----------------------------------------------------------------- Spinner */
 
 /**
- * Pista completa + arco encima, los dos del mismo grosor. La pista es lo que
- * evita que el arco se lea como un pedazo de algo roto: sin ella, un arco suelto
- * girando no dice "esperá", dice que falta un trozo de la interfaz.
+ * Pista completa más un arco encima. La pista es lo que evita que el arco se
+ * lea como un pedazo de algo roto: sin ella, un arco suelto girando no dice
+ * "esperá", dice que falta un trozo de la interfaz.
  *
- * El arco va en el azul de marca —es la única pieza además del CTA que lo usa—
- * y no en tinta: en una pantalla monocroma, lo único que se mueve es también lo
- * único que conviene que tenga color, porque es lo que tiene que encontrar la
- * mirada.
+ * El arco es de largo fijo y lo único que pasa es que gira. Antes latía —se
+ * abría y se cerraba— con el argumento de que "con el largo variable, la espera
+ * se lee como progreso aunque no lo sea". Es al revés: parecerse a una barra de
+ * progreso que no avanza es peor que no parecerse a nada, y en el extremo
+ * cerrado el arco se encogía hasta ser un punto, que se ve como un glitch. Un
+ * largo constante girando parejo dice una sola cosa y la dice siempre igual.
  *
- * El trazo no escala con el tamaño: 3 a los 20 y 3 a los 44. Un anillo fino en
- * grande se ve frágil, pero un anillo proporcional en chico se tapa a sí mismo
- * —el agujero desaparece— y deja de leerse como anillo.
+ * El arco **no es azul plano**: va con el degradado de la rampa de marca, del
+ * 400 al 600. Es la misma idea que el relieve de una marca de lista —una pieza
+ * de color plana se ve impresa y no puesta— con una diferencia: acá el salto es
+ * de dos escalones y no de uno como en `--grad-brand`. Un botón reparte su
+ * degradado en 36px de relleno y con un escalón alcanza; el arco es una línea
+ * fina que se ve entera de una vez, y ahí un escalón no se nota.
+ *
+ * Y lleva un filo del color del papel entre el arco y la pista. Eso es lo que
+ * lo despega: sin el filo, el arco y la pista son dos tintas pegadas del mismo
+ * ancho y el arco parece pintado sobre el riel en vez de apoyado encima.
+ *
+ * El trazo **sí** escala: es el 17% del diámetro a cualquier tamaño, que es la
+ * proporción medida sobre la referencia (trazo 8 con el agujero en el 66% del
+ * diámetro). Estuvo fijo en 3px con el argumento de que "un anillo proporcional
+ * en chico se tapa a sí mismo, el agujero desaparece". Eso es cierto de un
+ * anillo gordo, no de este: al 17% el agujero queda en dos tercios y no se
+ * cierra ni a los 16. Lo que el trazo fijo sí hacía era dejar el de 44 en 3
+ * sobre 44 —0.068, un hilo— al lado del de 20 en 0.15. Dos piezas del mismo
+ * componente que no se parecen entre sí.
+ *
+ * El piso de 2px es para que a tamaños chicos el trazo no caiga en el
+ * medio píxel, donde el antialias lo apaga en vez de adelgazarlo.
  */
-export function Spinner({ size = 20, label = 'Cargando', className }: { size?: number; label?: string; className?: string }) {
-  const stroke = size <= 16 ? 2 : 3
-  // El trazo se pide en px pero se dibuja en unidades del viewBox, que el svg
-  // escala a `size`. Hay que deshacer esa escala a mano o la promesa de arriba
-  // es falsa: con el 3 escrito crudo, un 44 salía con 5.5 de grosor y un 16 con
-  // 1.3 —el donut y el pelo— que es justo lo contrario de lo que dice la regla.
-  const w = (stroke * 24) / size
-  // El radio se mete media pluma para adentro; así el anillo entra justo en la
-  // caja de `size` a cualquier tamaño, en vez de salirse media pluma.
-  const r = (24 - w) / 2
+export function Spinner({ size = 20, label = 'Cargando', on = 'surface', className }: {
+  size?: number
+  label?: string
+  /**
+   * Sobre qué está apoyado. No es decoración: el filo tiene que ser del color
+   * del fondo de atrás y la pista tiene que salir del color del texto de ese
+   * fondo. Es lo mismo que el `ring` de `AvatarGroup` y por el mismo motivo —
+   * una pieza no puede saber sobre qué la pusieron. Con el default puesto
+   * dentro de un botón oscuro, el filo blanco se ve como un halo y la pista
+   * gris clara como un aro de otro sistema.
+   */
+  on?: 'surface' | 'solid'
+  className?: string
+}) {
+  const gid = useId()
+  const [edge, track] = on === 'solid'
+    ? ['var(--solid)', 'color-mix(in oklab, var(--on-solid) 22%, transparent)']
+    : ['var(--surface)', 'var(--border-strong)']
+  // El trazo, en unidades del viewBox. Como es una fracción del diámetro y el
+  // viewBox es de 24, sale directo: no hay que deshacer la escala del svg
+  // porque no hay ningún número en px de por medio.
+  const w = Math.max((2 * 24) / size, 24 * 0.17)
+  /* El filo es el arco más un reborde de 0.85 por lado. Al doble de ancho —que
+     fue el primer intento— se comía la caja: el anillo de color quedaba en 16.6
+     de los 20 y el spinner se veía más chico de lo que se le pidió. Con el
+     reborde fijo, el color llega al 93% de la caja a cualquier tamaño. */
+  const rim = 0.85
+  const e = w + rim * 2
+  const r = (24 - e) / 2
+  // `pathLength` normaliza la vuelta a 100, así el largo se escribe en por
+  // ciento del anillo y no en unidades de un radio que cambia con el trazo.
+  const arc = 40
   return (
     <span role="status" aria-label={label} className={cx('inline-flex', className)}>
       <svg width={size} height={size} viewBox="0 0 24 24" className="spin" aria-hidden="true">
-        <circle cx="12" cy="12" r={r} fill="none" stroke="var(--surface-sunken)" strokeWidth={w} />
-        {/* `pathLength` normaliza la vuelta a 100, así el largo del arco se
-            escribe en por ciento del anillo y no en unidades de un radio que
-            cambia con el trazo. Con el 60 crudo que había, el arco tapaba el
-            92% del anillo a los 20 y el 87% a los 16: ni se leía como arco ni
-            medía lo mismo en dos tamaños. */}
-        <circle
-          cx="12" cy="12" r={r} fill="none"
-          stroke="var(--brand)" strokeWidth={w} strokeLinecap="round"
-          pathLength={100} strokeDasharray={100} className="spin-arc"
-        />
+        <defs>
+          {/* De arriba a abajo y a la derecha, que es por donde va el arco: con
+              el arco arrancando a las 12 y girando en sentido horario, el claro
+              queda en la punta que entra y el oscuro en la que sale. */}
+          <linearGradient id={gid} x1="0.5" y1="0" x2="1" y2="1">
+            <stop offset="0%" stopColor="var(--blue-400)" />
+            <stop offset="100%" stopColor="var(--blue-600)" />
+          </linearGradient>
+        </defs>
+        <circle cx="12" cy="12" r={r} fill="none" stroke={track} strokeWidth={w} />
+        <g transform="rotate(-90 12 12)">
+          <circle
+            cx="12" cy="12" r={r} fill="none"
+            stroke={edge} strokeWidth={e} strokeLinecap="round"
+            pathLength={100} strokeDasharray={`${arc} ${100 - arc}`}
+          />
+          <circle
+            cx="12" cy="12" r={r} fill="none"
+            stroke={`url(#${gid})`} strokeWidth={w} strokeLinecap="round"
+            pathLength={100} strokeDasharray={`${arc} ${100 - arc}`}
+          />
+        </g>
       </svg>
     </span>
   )

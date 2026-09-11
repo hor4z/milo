@@ -23,11 +23,11 @@ export function SpinnerStory() {
 
       <Block
         label="En contexto"
-        note="El arco va en el azul de marca y no en tinta: en una pantalla monocroma, lo único que se mueve conviene que sea también lo único con color, porque es lo que tiene que encontrar la mirada."
+        note="El arco va en el azul de marca y no en tinta: en una pantalla monocroma, lo único que se mueve conviene que sea también lo único con color. Adentro de un botón oscuro hay que pasarle `on=&quot;solid&quot;` — el filo es del color del fondo de atrás y la pista sale del color del texto de ese fondo, y con el default puesto ahí el filo blanco se ve como un halo."
       >
         <Panel>
           <Variant name="en un botón">
-            <Button variant="solid" aria-busy><Spinner size={16} />Guardando</Button>
+            <Button variant="solid" aria-busy><Spinner size={16} on="solid" />Guardando</Button>
             <Button variant="raised" aria-busy><Spinner size={16} />Guardando</Button>
           </Variant>
           <Variant name="en una fila">
@@ -43,6 +43,7 @@ export function SpinnerStory() {
         <Props rows={[
           { name: 'size', type: 'number', def: '20', note: 'el trazo no lo sigue' },
           { name: 'label', type: 'string', def: "'Cargando'", note: 'al aria-label; el rol es status' },
+          { name: 'on', type: "'surface' | 'solid'", def: "'surface'", note: 'sobre qué está apoyado: de ahí salen el filo y la pista' },
           { name: 'className', type: 'string' },
         ]} />
       </Block>

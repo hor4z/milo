@@ -82,12 +82,4 @@
   --duration-normal: 190ms;
   --ease-out: cubic-bezier(0.24, 1, 0.4, 1);
   --ease-in: cubic-bezier(0.4, 0, 1, 1);
-  /* Para lo que va y vuelve —un pulso, un latido—, donde una curva de salida
-     deja un tirón en el punto de retorno. No es para entradas ni salidas.
-     Se llama `pulse` y no `in-out` a propósito: Tailwind v4 ya tiene un
-     `--ease-in-out` propio, y como los tokens se importan antes que Tailwind,
-     con ese nombre el valor del sistema queda pisado. Declararlo en `@theme`
-     tampoco sirve: sale como `--ease-in-out: var(--ease-in-out)`, que es una
-     autorreferencia y deja la propiedad inválida. */
-  --ease-pulse: cubic-bezier(0.4, 0, 0.6, 1);
 }
