@@ -669,6 +669,20 @@ h1, h2, h3 { font-family: var(--font-sans); font-weight: 400; letter-spacing: va
 .field input:focus-visible,
 .field textarea:focus-visible { box-shadow: none; }
 
+/* La barra de un gráfico: el foco marca la barra, no su columna.
+
+   El `<button>` de cada barra ocupa la columna entera —incluido el aire de
+   arriba— para que apuntarle a una barra baja no obligue a bajar hasta el piso.
+   Eso está bien para el mouse y mal para el anillo: dibujado sobre el botón,
+   encierra una caja alta y flaca de la que la barra ocupa un cuarto, y se lee
+   como un borde puesto alrededor de nada.
+
+   Va acá y no como utilidad por lo de siempre: la regla global de foco no vive
+   en ninguna capa y le gana a cualquier utilidad de Tailwind, así que apagarla
+   desde el componente no hace nada, en silencio. */
+.chart-bar:focus-visible { box-shadow: none; }
+.chart-bar:focus-visible > span { box-shadow: var(--focus-ring); }
+
 /* El anillo de foco, una vez y para todos los roles. `:focus-visible` y no
    `:focus`: con el segundo, un click deja el anillo puesto.
 

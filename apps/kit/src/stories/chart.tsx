@@ -42,7 +42,7 @@ export function ChartStory() {
         label="Vivo"
         note="Pasá el mouse por las barras, y después tabulá hasta ellas. El tooltip aparece igual con el teclado: un dato que solo existe al pasar el mouse no existe para quien no usa mouse. Y el blanco del hover es la columna entera, no el rectángulo pintado — apuntarle a una barra baja no obliga a bajar hasta el piso."
       >
-        <Card className="p-6">
+        <Card className="max-w-2xl p-6">
           <div className="mb-5">
             <div className="text-base font-semibold text-ink">Entregas de la semana</div>
             <div className="text-xs font-medium text-ink-muted">De todos tus espacios, con el mejor día destacado</div>
@@ -55,8 +55,8 @@ export function ChartStory() {
         label="Sin destacada"
         note="`highlight` no es decoración: es la barra que la pantalla vino a contar. Cuando no hay una —cuando lo que importa es la forma de la serie y no un día— se deja afuera y todas quedan de contexto."
       >
-        <Card className="p-6">
-          <BarChart title="Entregas por mes" data={meses} height={180} />
+        <Card className="max-w-2xl p-6">
+          <BarChart title="Entregas por mes" data={meses} height={160} />
         </Card>
       </Block>
 

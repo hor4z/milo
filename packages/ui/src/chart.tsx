@@ -73,7 +73,7 @@ export function BarChart({ data, highlight, title, height = 220, className }: {
                  rectángulo pintado: el `<button>` ocupa la columna completa
                  —incluido el aire de arriba— así que apuntarle a una barra baja
                  no obliga a bajar hasta el piso. */
-              className="group relative flex h-full flex-1 cursor-default flex-col justify-end rounded-lg outline-none"
+              className="chart-bar group relative flex h-full flex-1 cursor-default flex-col justify-end outline-none"
               onPointerEnter={() => setActiva(i)}
               onPointerLeave={() => setActiva(a => (a === i ? null : a))}
               onFocus={() => setActiva(i)}
