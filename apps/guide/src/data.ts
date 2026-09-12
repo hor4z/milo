@@ -53,13 +53,13 @@ export const spaces: Space[] = [
   { id: 's3', name: 'Lengua · 6.º', color: 'purple', count: 11 },
 ]
 
-export type Update = { id: string; version: string; date: string; title: string; body: string; tag: 'nuevo' | 'mejora' | 'arreglo' }
+export type Update = { id: string; version: string; date: string; title: string; body: string; tag: 'feature' | 'improvement' | 'fix' }
 
 export const updates: Update[] = [
-  { id: 'u1', version: '1.7', date: '2 de septiembre', title: 'Los ajustes se abren en un modal', body: 'Antes eran una página aparte y perdías de vista el espacio en el que estabas. Ahora se abren encima, con las secciones a la izquierda, y al cerrar seguís donde estabas.', tag: 'nuevo' },
-  { id: 'u2', version: '1.6', date: '26 de agosto', title: 'El panel del guía carga de una', body: 'La matemática del perfil se movió al servidor. El número es el mismo lo mire el aprendiz o el guía, y la pantalla dejó de calcularlo dos veces.', tag: 'mejora' },
-  { id: 'u3', version: '1.5', date: '18 de agosto', title: 'Arrastrar un bloque adentro de otro', body: 'Un bloque se puede soltar dentro de una fase sin que la fase se cierre. Antes había que soltar afuera y volver a entrar.', tag: 'mejora' },
-  { id: 'u4', version: '1.4', date: '11 de agosto', title: 'Las entregas ya no se duplicaban', body: 'Si un aprendiz mandaba dos veces desde la misma pantalla quedaban dos filas. Ahora la segunda reemplaza a la primera y queda el rastro de las dos.', tag: 'arreglo' },
+  { id: 'u1', version: '1.7', date: '2 de septiembre', title: 'Los ajustes se abren en un modal', body: 'Antes eran una página aparte y perdías de vista el espacio en el que estabas. Ahora se abren encima, con las secciones a la izquierda, y al cerrar seguís donde estabas.', tag: 'feature' },
+  { id: 'u2', version: '1.6', date: '26 de agosto', title: 'El panel del guía carga de una', body: 'La matemática del perfil se movió al servidor. El número es el mismo lo mire el aprendiz o el guía, y la pantalla dejó de calcularlo dos veces.', tag: 'improvement' },
+  { id: 'u3', version: '1.5', date: '18 de agosto', title: 'Arrastrar un bloque adentro de otro', body: 'Un bloque se puede soltar dentro de una fase sin que la fase se cierre. Antes había que soltar afuera y volver a entrar.', tag: 'improvement' },
+  { id: 'u4', version: '1.4', date: '11 de agosto', title: 'Las entregas ya no se duplicaban', body: 'Si un aprendiz mandaba dos veces desde la misma pantalla quedaban dos filas. Ahora la segunda reemplaza a la primera y queda el rastro de las dos.', tag: 'fix' },
 ]
 
 export type Plan = {
@@ -95,7 +95,7 @@ export const plans: Plan[] = [
 
 /* --------------------------------------------------------------- avisos --- */
 
-export type NotifKind = 'entrega' | 'traba' | 'invitacion' | 'comentario' | 'publicada'
+export type NotifKind = 'submission' | 'stuck' | 'invite' | 'comment' | 'published'
 
 export type Notif = {
   id: string
@@ -112,10 +112,10 @@ export type Notif = {
 }
 
 export const notifications: Notif[] = [
-  { id: 'n1', kind: 'entrega', who: 'Malena Ferreyra', action: 'entregó', target: 'El barrio como mapa', body: 'Subió tres fotos y el mapa dibujado a mano.', time: 'hace 20 min', unread: true },
-  { id: 'n2', kind: 'traba', who: 'Tomás Aguirre', action: 'quedó trabado en', target: 'Fracciones con la receta de la abuela', body: 'Dos intentos en la fase de cálculo, sin avanzar.', time: 'hace 1 h', unread: true },
-  { id: 'n3', kind: 'invitacion', who: 'Paula Giménez', action: 'te invitó a acompañar', target: 'Ciencias · 6.º A', body: 'Quedarías como acompañante: ves las entregas, no las calificás.', time: 'hace 3 h', unread: true, decision: true },
-  { id: 'n4', kind: 'comentario', who: 'Ignacio Ruiz', action: 'comentó en', target: 'La sombra a lo largo del día', body: 'Che, la fase de cierre quedó muy corta para lo que pide la consigna.', time: 'hace 5 h', unread: false },
-  { id: 'n5', kind: 'publicada', who: 'Vera Sosa', action: 'publicó', target: 'Un diario del recreo', body: 'Ya la podés copiar a cualquiera de tus espacios.', time: 'ayer', unread: false },
-  { id: 'n6', kind: 'entrega', who: 'Grupo de 5.º B', action: 'completó', target: 'Inventario de plantas del patio', body: 'Entregaron los 28.', time: 'ayer', unread: false },
+  { id: 'n1', kind: 'submission', who: 'Malena Ferreyra', action: 'entregó', target: 'El barrio como mapa', body: 'Subió tres fotos y el mapa dibujado a mano.', time: 'hace 20 min', unread: true },
+  { id: 'n2', kind: 'stuck', who: 'Tomás Aguirre', action: 'quedó trabado en', target: 'Fracciones con la receta de la abuela', body: 'Dos intentos en la fase de cálculo, sin avanzar.', time: 'hace 1 h', unread: true },
+  { id: 'n3', kind: 'invite', who: 'Paula Giménez', action: 'te invitó a acompañar', target: 'Ciencias · 6.º A', body: 'Quedarías como acompañante: ves las entregas, no las calificás.', time: 'hace 3 h', unread: true, decision: true },
+  { id: 'n4', kind: 'comment', who: 'Ignacio Ruiz', action: 'comentó en', target: 'La sombra a lo largo del día', body: 'Che, la fase de cierre quedó muy corta para lo que pide la consigna.', time: 'hace 5 h', unread: false },
+  { id: 'n5', kind: 'published', who: 'Vera Sosa', action: 'publicó', target: 'Un diario del recreo', body: 'Ya la podés copiar a cualquiera de tus espacios.', time: 'ayer', unread: false },
+  { id: 'n6', kind: 'submission', who: 'Grupo de 5.º B', action: 'completó', target: 'Inventario de plantas del patio', body: 'Entregaron los 28.', time: 'ayer', unread: false },
 ]

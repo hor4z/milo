@@ -7,7 +7,8 @@
   "exports": {
     ".": "./src/index.ts",
     "./theme.css": "./src/theme.css",
-    "./icons.meta": "./src/icons.meta.ts"
+    "./icons.meta": "./src/icons.meta.ts",
+    "./props": "./src/props.gen.ts"
   },
   "dependencies": {
     "@melu/tokens": "*"
@@ -17,6 +18,7 @@
     "react-dom": ">=19"
   },
   "scripts": {
-    "icons": "node scripts/icons.mjs"
+    "icons": "node scripts/icons.mjs",
+    "props": "node scripts/props.mjs"
   }
 }

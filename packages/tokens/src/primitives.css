@@ -14,7 +14,12 @@
   --shade-03: #f1f1f1;
   --shade-04: #ececec;
   --shade-05: #e2e2e2;
-  --shade-06: #7b7b7b;  /* texto secundario e iconos apagados */
+  /* El gris del texto secundario. Estaba en #7b7b7b y no llegaba a AA sobre
+     ninguna superficie clara —4.13:1 sobre el papel, 3.58:1 sobre un hueco—,
+     así que todo lo que el sistema escribe en gris fallaba. Ahora es el gris
+     más claro que llega a 4.5:1 sobre la superficie más oscura donde se
+     escribe, que es --shade-04. */
+  --shade-06: #6b6b6b;  /* texto secundario e iconos apagados */
   --shade-07: #323232;
   --shade-08: #222222;
   --shade-09: #121212;  /* la tinta */
@@ -71,6 +76,8 @@
      salto más corto el canto desaparece y el botón se ve como un rectángulo
      pintado; con uno más largo se lee como un borde de otro color en vez del
      filo de la misma pieza. Acá el 500 al 600 da 1.13:1. */
+  --blue-050: #eaf2fe;
+  --blue-700: #0a55c4;
   --blue-400: #5199f9;
   --blue-500: #2781f9;
   --blue-600: #1375f8;
@@ -173,11 +180,14 @@
      baja a un oro oscuro. No es un error de la regla, es que no existe un
      amarillo vivo que aguante texto blanco. Un aviso se lee, no decora. */
   --ok-500: #04983b;
+  --ok-700: #04712c;
   --ok-050: #eafdf1;
   --warn-500: #aa7c05;
+  --warn-700: #7e5c04;
   --warn-050: #fdf8ea;
   --bad-500: #f93630;
   --bad-600: #d81e18;
+  --bad-700: #a81713;
   --bad-050: #fdeaea;
 
   /* Tintes: el lavado de una superficie grande que lleva un dibujo oscuro
@@ -206,7 +216,7 @@
   --shade-03: #202020;
   --shade-04: #292929;
   --shade-05: #363636;
-  --shade-06: #8a8a8a;
+  --shade-06: #959595;
   --shade-07: #c9c9c9;
   --shade-08: #e6e6e6;
   --shade-09: #f7f7f7;
@@ -228,6 +238,8 @@
 
   /* En oscuro el azul sube un paso: el mismo relleno que funciona sobre papel
      casi blanco se apaga sobre #131313. */
+  --blue-050: #15283a;
+  --blue-700: #7cb2fa;
   --blue-400: #599ef9;
   --blue-500: #2f86f9;
   --blue-600: #1b7af8;
@@ -262,12 +274,15 @@
   --accent-050: #2a1811;
 
   --ok-500: #05b646;
-  --ok-050: #112a1a;
+  --ok-700: #3ad472;
+  --ok-050: #15351f;
   --warn-500: #c89106;
-  --warn-050: #2a2311;
+  --warn-700: #e3ab1f;
+  --warn-050: #352c14;
   --bad-500: #fa534e;
   --bad-600: #f7726e;
-  --bad-050: #2a1211;
+  --bad-700: #fb827e;
+  --bad-050: #351816;
 
   --tint-1: #1b201d;
   --tint-2: #191f27;

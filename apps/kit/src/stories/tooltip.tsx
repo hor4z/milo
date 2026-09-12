@@ -1,0 +1,89 @@
+import { Button, IconButton, Tooltip } from '@melu/ui'
+import { A11y, Demo, Page, Props, Section } from '../kit'
+
+export function TooltipStory() {
+  return (
+    <Page
+      title="Tooltip"
+      lead="La etiqueta que dice qué hace un control que no lo dice solo. No es un Popover chico: se abre solo —hover o foco de teclado—, no recibe el mouse (o taparía justo el botón que explica) y no lleva nada interactivo adentro. Si tiene un link o un botón, es un Popover."
+      kind="Avisos"
+      imports="import { Tooltip } from '@melu/ui'"
+    >
+      <Section
+        title="El retraso se comparte"
+        note="El primero tarda medio segundo, porque un tooltip que aparece apenas el mouse pasa por encima salta solo mientras cruzás la pantalla. Pero una vez que uno se mostró, el de al lado abre al instante: con medio segundo cada uno, recorrer seis iconos son tres segundos de espera y la fila se siente trabada. Pasá el mouse por la fila entera y después salí un rato y volvé."
+      >
+        <div className="flex flex-wrap items-center gap-1">
+          <Tooltip label="Buscar"><IconButton icon="search" label="Buscar" /></Tooltip>
+          <Tooltip label="Duplicar"><IconButton icon="content_copy" label="Duplicar" /></Tooltip>
+          <Tooltip label="Compartir"><IconButton icon="share" label="Compartir" /></Tooltip>
+          <Tooltip label="Archivar"><IconButton icon="inventory_2" label="Archivar" /></Tooltip>
+          <Tooltip label="Ajustes"><IconButton icon="tune" label="Ajustes" /></Tooltip>
+          <Tooltip label="Más"><IconButton icon="more_horiz" label="Más" /></Tooltip>
+        </div>
+      </Section>
+
+      <Section
+        title="Con el teclado"
+        note="Tabulá hasta el botón: el tooltip aparece igual. Pero solo cuando el foco es del teclado — con un onFocus pelado, clickear el botón deja el tooltip puesto encima de lo que acabás de tocar. Escape lo cierra, por la misma pila global que los otros overlays."
+      >
+        <div className="flex flex-wrap items-center gap-3">
+          <Demo label="en un botón con texto">
+            <Tooltip label="Se publica para los siete espacios">
+              <Button variant="solid">Publicar</Button>
+            </Tooltip>
+          </Demo>
+          <Demo label="texto largo · se envuelve a 240">
+            <Tooltip label="Una actividad archivada sale de la lista pero no se borra: queda en «Archivadas» y se puede restaurar.">
+              <IconButton icon="inventory_2" label="Archivar" variant="raised" />
+            </Tooltip>
+          </Demo>
+          <Demo label="abajo">
+            <Tooltip side="bottom" label="Va abajo si entra">
+              <IconButton icon="keyboard_arrow_down" label="Abajo" variant="raised" />
+            </Tooltip>
+          </Demo>
+        </div>
+      </Section>
+
+      <Section
+        title="Se da vuelta y no se sale"
+        note="Contra el borde de arriba se va abajo, y contra el costado se pega a 8 del canto en vez de salirse. Un tooltip de un icono de la punta del sidebar se salía de la ventana."
+      >
+        <div className="flex items-center justify-between">
+          <Tooltip label="Pegado al borde izquierdo de la ventana">
+            <IconButton icon="chevron_left" label="Izquierda" variant="raised" />
+          </Tooltip>
+          <Tooltip label="Pegado al borde derecho de la ventana">
+            <IconButton icon="chevron_right" label="Derecha" variant="raised" />
+          </Tooltip>
+        </div>
+      </Section>
+
+      <Section title="Props">
+        <Props of="Tooltip" />
+      </Section>
+
+      <Section
+        title="Lo que no hace"
+        note="En touch no aparece: no hay hover que lo abra ni forma de cerrarlo sin tocar otra cosa. Por eso lo que el tooltip diga tiene que estar también en el aria-label del control, y por eso no lleva información que no esté en otro lado. Para un lector de pantalla el control ya se nombra solo; el tooltip es la ayuda de quien ve el icono y no sabe qué hace."
+      >
+        <p className="max-w-[70ch] text-xs text-ink-muted">
+          Queda un <code>title</code> nativo en el <code>Segmented</code> de solo iconos, que es la
+          misma caja del sistema operativo que se le sacó al <code>IconButton</code>. Pasarlo a{' '}
+          <code>Tooltip</code> ata <code>primitives</code> a <code>overlay</code>, que hoy importa
+          al revés: es un movimiento de archivos, no una prop.
+        </p>
+      </Section>
+    
+      <Section title="Accesibilidad">
+        <A11y items={[
+          'Aparece con el foco de teclado y no solo con el mouse.',
+          'Lleva role="tooltip" y el control que explica lo referencia con aria-describedby.',
+          'No recibe el puntero, así que nunca se mete entre el mouse y lo que describe.',
+          'En touch no aparece: lo que diga tiene que estar también en el aria-label del control.',
+        ]} />
+      </Section>
+    </Page>
+  )
+}

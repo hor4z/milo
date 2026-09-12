@@ -1,176 +1,117 @@
-import { useEffect, useState } from 'react'
-import { Block, Mono, Section, useTokens } from '../kit'
+import { Note, Page, Section, useTokens } from '../kit'
 
 const scale = [
-  { cls: 'text-2xs', px: 11, role: 'kbd, metadatos, contadores' },
-  { cls: 'text-xs', px: 12, role: 'la base de la interfaz' },
-  { cls: 'text-sm', px: 13, role: 'poco usado' },
-  { cls: 'text-base', px: 14, role: 'botones y texto con énfasis' },
-  { cls: 'text-md', px: 16, role: 'título de una fila de lista' },
-  { cls: 'text-lg', px: 20, role: 'título de pantalla' },
-  { cls: 'text-xl', px: 24, role: 'título de sección' },
-  { cls: 'text-2xl', px: 32, role: '' },
-  { cls: 'text-display', px: 40, role: 'portadas' },
+  { token: '--text-2xs', cls: 'text-2xs', px: '11', role: 'kbd, metadatos, la línea de apoyo de una fila' },
+  { token: '--text-xs', cls: 'text-xs', px: '12', role: 'la interfaz entera' },
+  { token: '--text-base', cls: 'text-base', px: '14', role: 'botones, títulos de fila, lo que se lee primero' },
+  { token: '--text-lg', cls: 'text-lg', px: '20', role: 'título de una sección' },
+  { token: '--text-display', cls: 'text-display', px: '40', role: 'portadas' },
 ] as const
 
 export function TypeSection() {
   return (
-    <Section
+    <Page
       title="Tipografía"
-      note="Base 12px con peso 400 y line-height fijo de 16. Estuvo en 500, que se decidió contra Inter: ahí el 400 a 12px se leía lavado sobre un fondo casi blanco. Instrument Sans dibuja más grueso al mismo número, así que los tres escalones bajaron uno entero. El leading único es para que una fila de 12 y una de 14 sigan alineadas entre sí."
+      kind="Guía"
+      lead="Instrument Sans y nada más: interfaz, portadas y el rol mono. Display y cuerpo son la misma familia a propósito — a 40px lo que separa un título del cuerpo es el tamaño y el tracking, no un dibujo distinto de la letra, y dos familias que se parecen es lo peor de los dos mundos."
     >
-      <Block
-        label="Familias"
-        note="Instrument Sans y nada más: los tres roles son la misma familia. Display y cuerpo lo eran ya a propósito —a 40px lo que separa un título del cuerpo es el tamaño y el tracking, no un dibujo distinto de la letra— y ahora el rol `mono` también. Lo que ese rol pierde es el ancho fijo, y lo que alinea una columna de valores pasa a ser `tabular`: ancho fijo para los números sin cambiar de letra. Alcanza para precios, métricas y una columna de tabla; no alcanzaría para un bloque de código, que en el sistema no hay. Por acá pasaron Inter + Inter Tight + JetBrains Mono, después Geist + Geist Mono, y ahora una sola."
-      >
-        <div className="flex flex-col gap-3">
-          <Specimen family="font-sans" token="--font-sans" rol="la interfaz entera, de 11 a 20" muestra="Doce actividades en siete espacios" px={24} />
-          <Specimen family="font-display" token="--font-display" rol="las portadas, a 40" muestra="El sistema" px={40} />
-          <Specimen family="font-mono" token="--font-mono" rol="tokens, valores y atajos" muestra="0123456789 · --shade-05" px={24} mono />
-        </div>
-      </Block>
-
-      <Block label="Escala" note="Del md para arriba el texto de un control es 14/600: un botón con el mismo tamaño de letra que su entorno no se lee como accionable.">
-        <div className="rounded-xl border border-line bg-surface px-4">
-          {scale.map(s => (
-            <div key={s.cls} className="flex flex-wrap items-baseline gap-x-4 gap-y-1 border-t border-line py-3.5 first:border-t-0">
-              <span className="w-24 shrink-0"><Mono>{s.cls}</Mono></span>
-              <span className="w-10 shrink-0 tabular"><Mono>{s.px}px</Mono></span>
-              <span className={`${s.cls} min-w-0 flex-1 font-medium`}>Doce actividades en siete espacios</span>
-              {s.role && <span className="text-2xs text-ink-muted">{s.role}</span>}
+      <Section title="La escala">
+        <div className="overflow-hidden rounded-2xl border border-line bg-surface">
+          {scale.map(e => (
+            <div key={e.token} className="flex flex-wrap items-baseline gap-x-5 gap-y-1 border-b border-line px-5 py-4 last:border-0">
+              <span className="w-14 shrink-0">
+                <code className="font-mono text-2xs text-ink-muted">{e.px}px</code>
+              </span>
+              <span className={`${e.cls} min-w-0 flex-1 font-semibold text-ink`}>Doce actividades</span>
+              <span className="w-[34ch] shrink-0 text-2xs font-medium text-ink-muted">{e.role}</span>
             </div>
           ))}
         </div>
-      </Block>
+      </Section>
 
-      <Block label="Pesos" note="Tres y nada más: 400 la interfaz, 500 lo accionable y los títulos de fila, 600 solo en display. Las utilidades siguen llamándose medium · semibold · bold porque son el nombre del rol, no del número: el número se cambia en un lugar, el rol no se renombra en doscientos call sites.">
-        <div className="flex flex-wrap gap-6 rounded-xl border border-line bg-surface p-4">
-          <div><div className="text-base font-medium">Peso 400</div><Mono>font-medium · la interfaz</Mono></div>
-          <div><div className="text-base font-semibold">Peso 500</div><Mono>font-semibold · lo accionable</Mono></div>
-          <div><div className="font-display text-base font-bold">Peso 600</div><Mono>font-bold · display</Mono></div>
+      <Section
+        title="Tres pesos"
+        note="400 la interfaz, 500 lo accionable y los títulos de fila, 600 solo en portada. Bajaron un escalón entero al pasar a Instrument Sans, que dibuja más grueso al mismo número: con los tres anteriores la pantalla entera se veía en negrita. Se cambió en el @theme y no en los call sites, así que las utilidades siguen llamándose medium, semibold y bold: el nombre es del rol, no del número."
+      >
+        <div className="grid gap-3 sm:grid-cols-3">
+          {[
+            ['font-medium', '400', 'la interfaz'],
+            ['font-semibold', '500', 'lo accionable'],
+            ['font-bold', '600', 'la portada'],
+          ].map(([cls, n, role]) => (
+            <div key={cls} className="flex flex-col gap-2 rounded-2xl border border-line bg-surface p-5">
+              <span className={`${cls} text-display leading-none text-ink`}>Aa</span>
+              <code className="font-mono text-2xs text-ink">{cls}</code>
+              <span className="text-2xs font-medium text-ink-muted">{n} · {role}</span>
+            </div>
+          ))}
         </div>
-      </Block>
+      </Section>
 
-      <Block label="Interletrado y leading">
-        <div className="flex flex-col gap-3 rounded-xl border border-line bg-surface p-4">
-          <div>
-            <div className="text-xl font-semibold tracking-[-0.015em]">Título con tracking cerrado</div>
-            <Mono>--tracking-tight · -0.015em · solo de 20 para arriba</Mono>
+      <Section
+        title="El line-height es uno solo"
+        note="16px fijo para todo lo que no sea portada. Es lo que hace que una fila de 12 y una de 14 sigan alineadas entre sí cuando van una al lado de la otra."
+      >
+        <div className="flex flex-wrap items-center gap-6 rounded-2xl border border-line bg-surface p-5">
+          <div className="flex items-center gap-2 rounded-lg bg-muted px-3 py-2">
+            <span className="text-xs font-medium text-ink">12 sobre 16</span>
+            <span className="text-base font-semibold text-ink">14 sobre 16</span>
           </div>
-          <div>
-            <div className="text-2xs font-semibold tracking-[0.04em] text-ink-muted uppercase">Rótulo con tracking abierto</div>
-            <Mono>--tracking-wide · 0.04em</Mono>
-          </div>
-          <div>
-            <div className="text-xs font-medium">Dos líneas de interfaz, las dos con el mismo<br />line-height de 16 sin importar el tamaño</div>
-            <Mono>--leading-ui · 16px</Mono>
-          </div>
+          <span className="text-2xs font-medium text-ink-muted">Las dos líneas apoyan en la misma base.</span>
         </div>
-      </Block>
+      </Section>
+
+      <Section
+        title="El rol mono"
+        note="Es la misma familia, así que pierde el ancho fijo. Lo que lo reemplaza es --tabular, que da ancho fijo a los números sin cambiar de letra: alcanza para un precio, una métrica o una columna de tabla, y no alcanza para un bloque de código, que en este sistema no existe."
+      >
+        <div className="flex flex-wrap gap-10 rounded-2xl border border-line bg-surface p-5">
+          <div className="flex flex-col items-start gap-1">
+            <span className="mb-1 text-2xs font-medium text-ink-muted">sin tabular</span>
+            {['11.111', '40.000', '18.914', '88.100'].map(n => (
+              <span key={n} className="border-r border-line pr-1 text-lg font-semibold text-ink">{n}</span>
+            ))}
+          </div>
+          <div className="flex flex-col items-start gap-1">
+            <span className="mb-1 text-2xs font-medium text-ink-muted">con tabular</span>
+            {['11.111', '40.000', '18.914', '88.100'].map(n => (
+              <span key={n} className="tabular border-r border-line pr-1 text-lg font-semibold text-ink">{n}</span>
+            ))}
+          </div>
+          <p className="max-w-[30ch] self-center text-2xs font-medium text-ink-muted">
+            Mirá dónde termina cada número. En la primera columna el borde derecho baila, porque el
+            1 mide casi la mitad que el 0. En la segunda, todos los dígitos miden lo mismo y la
+            columna cierra derecha.
+          </p>
+        </div>
+      </Section>
+
+      <Families />
+
+      <Note title="Lo que queda por mirar">
+        El <code>--tracking-tight</code> de -0.015em salió de mirar Inter a 12px y no se volvió a mirar
+        en tres familias. El peso ya se corrigió al pasar a Instrument Sans; el tracking es el que
+        queda.
+      </Note>
+    </Page>
+  )
+}
+
+function Families() {
+  const vals = useTokens(['--font-sans', '--font-mono'])
+  return (
+    <Section title="Las familias">
+      <div className="flex flex-col gap-3">
+        {[['--font-sans', 'la interfaz, las portadas'], ['--font-mono', 'tokens, valores y atajos']].map(([t, role]) => (
+          <div key={t} className="flex flex-wrap items-center justify-between gap-4 rounded-2xl border border-line bg-surface px-5 py-4">
+            <div className="flex min-w-0 flex-col gap-1">
+              <code className="font-mono text-2xs font-semibold text-ink">{t}</code>
+              <span className="text-2xs font-medium text-ink-muted">{role}</span>
+            </div>
+            <code className="truncate font-mono text-2xs text-ink-muted">{vals[t]}</code>
+          </div>
+        ))}
+      </div>
     </Section>
   )
-}
-
-/**
- * Un espécimen dice qué familia es y, sobre todo, **cuál se está dibujando de
- * verdad**. No es lo mismo: el token puede decir "Instrument Sans" y el navegador estar
- * cayendo al `system-ui` del stack porque la fuente no cargó, y con solo el
- * nombre del token escrito al lado se vería igual de bien.
- *
- * Es la misma idea que el resto del kit —los valores se leen del navegador en
- * vivo, así que un rol roto aparece vacío en vez de aparecer correcto— aplicada
- * a la tipografía, que era lo único que faltaba.
- */
-function Specimen({ family, token, rol, muestra, px, mono }: {
-  family: string
-  token: string
-  rol: string
-  muestra: string
-  px: number
-  mono?: boolean
-}) {
-  const valores = useTokens([token])
-  const stack = valores[token] ?? ''
-  const dibujando = useFamiliaReal(stack)
-  const primera = stack.split(',')[0].replace(/["']/g, '').trim()
-  const cargada = dibujando === primera
-
-  return (
-    <div className="rounded-xl border border-line bg-surface p-4">
-      <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
-        <span className="text-base font-semibold">
-          {primera || '—'} <span className="font-medium text-ink-muted">· {rol}</span>
-        </span>
-        <span className="text-2xs text-ink-muted">
-          {dibujando
-            ? cargada
-              ? 'se está dibujando con esta'
-              : `OJO: no cargó, está cayendo a ${dibujando}`
-            : 'midiendo…'}
-        </span>
-      </div>
-      {/* El tamaño va por prop y no fijo: `--font-sans` y `--font-display` son
-          la misma familia, así que dos tarjetas con el
-          mismo texto al mismo cuerpo se leen como una duplicada por error. Lo
-          que las distingue es para qué está cada rol y a qué tamaño se usa. */}
-      <div className={`${family} mt-3 font-semibold`} style={{ fontSize: px, lineHeight: 1.1 }}>
-        {muestra}
-      </div>
-      {/* Un abecedario para poder mirar la letra, que es de lo que se trata un
-          espécimen. Sin esto solo se ve una frase y no se juzga nada. */}
-      <div className={`${family} mt-1 text-lg font-medium text-ink-muted`}>
-        {mono ? 'abcdefghijklmnopqrstuvwxyz' : 'ABCDEFGHIJKLMNÑOPQRSTUVWXYZ'}
-      </div>
-      <div className={`${family} text-lg font-medium text-ink-muted`}>
-        {mono ? '{ } [ ] ( ) < > / \\ | — _ = + * & % $ #' : 'abcdefghijklmnñopqrstuvwxyz · 0123456789 · ¿? ¡! áéíóú'}
-      </div>
-      <div className="mt-3 flex flex-wrap items-center gap-x-3 gap-y-1">
-        <Mono>{token}</Mono>
-        <Mono>{stack || '(vacío: el rol está roto)'}</Mono>
-      </div>
-    </div>
-  )
-}
-
-/**
- * Cuál de las familias del stack está dibujando de verdad.
- *
- * **No usa `document.fonts.check`**, que era lo obvio y está mal: esa API
- * responde "¿se puede dibujar este texto?" y no "¿existe esta familia?", así que
- * devuelve `true` para una fuente inventada —lo probé— y el espécimen habría
- * jurado que todo carga siempre. Confianza falsa es peor que no tener el dato.
- *
- * Lo que sí funciona es medir: se mide el ancho de una cadena con la familia
- * candidata seguida de una genérica, y contra esa genérica sola. Si la familia
- * no existe, los dos anchos son idénticos porque dibujó la genérica en los dos
- * casos. Se prueba contra dos genéricas distintas porque una fuente puede dar la
- * casualidad de medir igual que una de ellas, pero no que las dos.
- */
-function useFamiliaReal(stack: string) {
-  const [real, setReal] = useState('')
-  useEffect(() => {
-    if (!stack) return
-    let vivo = true
-    const genericas = new Set(['ui-sans-serif', 'ui-monospace', 'system-ui', 'sans-serif', 'monospace', 'serif', '-apple-system'])
-    const ctx = document.createElement('canvas').getContext('2d')
-    /* Sin canvas no se puede medir, y decir "se está dibujando con esta" sin
-       haberlo comprobado es exactamente el problema que este bloque arregla. */
-    if (!ctx) { setReal('no se pudo medir'); return }
-
-    const texto = 'mmmMMMwwwiiil10OQ · ABCdef'
-    const ancho = (f: string) => { ctx.font = `48px ${f}`; return ctx.measureText(texto).width }
-    const existe = (f: string) => ['monospace', 'serif'].some(g => ancho(`"${f}", ${g}`) !== ancho(g))
-
-    document.fonts.ready.then(() => {
-      if (!vivo) return
-      for (const parte of stack.split(',')) {
-        const f = parte.replace(/["']/g, '').trim()
-        if (genericas.has(f)) return setReal(f)
-        if (existe(f)) return setReal(f)
-      }
-      setReal('ninguna del stack')
-    })
-    return () => { vivo = false }
-  }, [stack])
-  return real
 }

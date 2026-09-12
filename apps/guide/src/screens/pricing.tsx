@@ -3,14 +3,7 @@ import { Link } from 'react-router-dom'
 import { Button, Segmented, cx, Icon } from '@melu/ui'
 import { plans } from '../data'
 
-/**
- * Planes. Va sin sidebar: es una pantalla de decisión, y el shell de trabajo
- * al costado te invita a irte a otra cosa.
- *
- * El plan destacado no se marca solo con un borde de color: se levanta con
- * sombra y sube unos píxeles. Un borde de color se pierde entre las tres cards;
- * la altura, no.
- */
+/** Planes. */
 export function PricingScreen() {
   const [cycle, setCycle] = useState<'monthly' | 'yearly'>('monthly')
 
@@ -37,6 +30,7 @@ export function PricingScreen() {
 
         <div className="mt-7 flex justify-center">
           <Segmented
+            label="Cada cuánto se paga"
             value={cycle}
             onChange={setCycle}
             options={[
@@ -79,10 +73,6 @@ export function PricingScreen() {
                         por {cycle === 'monthly' ? 'mes' : 'año'}
                       </span>
                     </div>
-                    {/* El plan actual no lleva un botón deshabilitado: sobre el
-                        panel apagado se queda sin borde ni contraste y se lee
-                        como texto suelto. Es un estado, así que se muestra como
-                        estado. */}
                     {p.current ? (
                       <div className="mt-3.5 flex h-9 items-center justify-center gap-1.5 rounded-lg bg-surface text-base font-medium text-ink-muted ring-1 ring-line">
                         <Icon name="check" size={14} className="text-accent" />

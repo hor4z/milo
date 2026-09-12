@@ -149,7 +149,12 @@
   --color-accent-hover: var(--accent-hover);
   --color-accent-subtle: var(--accent-subtle);
 
+  --color-brand-subtle: var(--brand-subtle);
+  --color-brand-ink: var(--brand-ink);
   --color-ok: var(--ok);
+  --color-ok-ink: var(--ok-ink);
+  --color-warn-ink: var(--warn-ink);
+  --color-bad-ink: var(--bad-ink);
   --color-ok-subtle: var(--ok-subtle);
   --color-warn: var(--warn);
   --color-warn-subtle: var(--warn-subtle);
@@ -654,7 +659,8 @@ h1, h2, h3 { font-family: var(--font-sans); font-weight: 400; letter-spacing: va
    alrededor de la misma caja, con un hueco blanco en el medio— y eso es lo que
    se veía raro. El `inset` engrosa esa misma línea hacia adentro en vez de
    agregar una afuera, así que el campo no cambia de tamaño ni empuja a nadie. */
-.field:focus-within:not(:has(button:focus, a:focus, [tabindex]:focus)) {
+.field:focus-within:not(:has(button:focus, a:focus, [tabindex]:focus)),
+.field-focus:focus-visible {
   border-color: var(--focus-border);
   box-shadow: inset 0 0 0 1px var(--focus-border);
 }
@@ -709,6 +715,16 @@ h1, h2, h3 { font-family: var(--font-sans); font-weight: 400; letter-spacing: va
    tampoco está en ninguna capa, y lo que está fuera de capa le gana a lo que
    está adentro. */
 [role="dialog"]:focus-visible { box-shadow: none; }
+
+/* Una fila de tabla enfocada: el anillo va adentro y no alrededor. Un `tr` con
+   `border-collapse` no dibuja `box-shadow` —la receta de arriba se pierde— y
+   un anillo por afuera lo cortaría el scroll lateral de la tabla. El outline
+   con offset negativo se ve entero y no mueve ni una columna. */
+tr[tabindex]:focus-visible {
+  outline: 2px solid var(--blue-500);
+  outline-offset: -2px;
+  box-shadow: none;
+}
 
 /* En Tailwind v4 el preflight deja los <button> con la flecha del navegador:
    nada se siente clickeable. Se resuelve una vez acá, sobre los roles. */
@@ -769,15 +785,19 @@ h1, h2, h3 { font-family: var(--font-sans); font-weight: 400; letter-spacing: va
 @keyframes ui-fade-in { from { opacity: 0 } to { opacity: 1 } }
 @keyframes ui-zoom-in { from { opacity: 0; transform: scale(.97) translateY(6px) } to { opacity: 1; transform: none } }
 @keyframes ui-rise { from { opacity: 0; transform: translateY(10px) } to { opacity: 1; transform: none } }
+@keyframes ui-slide-in { from { opacity: 0; transform: translateX(var(--slide-from, 12px)) } to { opacity: 1; transform: none } }
 
+@keyframes ui-pulse { 0%, 100% { opacity: 1 } 50% { opacity: 0.45 } }
+.ui-pulse { animation: ui-pulse 1.6s var(--ease-out) infinite }
 .ui-pop { animation: ui-pop-in var(--duration-fast) var(--ease-out) }
 .ui-fade { animation: ui-fade-in var(--duration-normal) var(--ease-out) }
 .ui-zoom { animation: ui-zoom-in var(--duration-normal) var(--ease-out) }
 .ui-rise { animation: ui-rise 340ms var(--ease-out) both }
+.ui-slide { animation: ui-slide-in var(--duration-normal) var(--ease-out) }
 .ui-d1 { animation-delay: 30ms } .ui-d2 { animation-delay: 60ms } .ui-d3 { animation-delay: 90ms }
 .ui-d4 { animation-delay: 120ms } .ui-d5 { animation-delay: 150ms } .ui-d6 { animation-delay: 180ms }
 
 @media (prefers-reduced-motion: reduce) {
-  .ui-pop, .ui-fade, .ui-zoom, .ui-rise { animation: none !important }
+  .ui-pop, .ui-fade, .ui-zoom, .ui-rise, .ui-pulse, .ui-slide { animation: none !important }
   * { transition-duration: 1ms !important }
 }

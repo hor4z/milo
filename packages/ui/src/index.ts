@@ -1,64 +1,71 @@
-/**
- * La puerta del paquete. Todo lo que consume una app entra por acá, y nada más:
- * un import a `@melu/ui/src/primitives` desde afuera ataría la app al reparto
- * interno de archivos, y mover una pieza de un archivo a otro pasaría a ser un
- * cambio que rompe.
- *
- * Lo que NO está acá está afuera a propósito. El shell, la paleta de comandos,
- * las notificaciones y la tarjeta de actividad viven en la app porque leen
- * `data.ts` y el router: son producto, no sistema. El día que alguna se vuelva
- * genérica, se muda y se agrega una línea.
- */
+export { cx, fold } from './lib/cx'
+export { labelColors, labelFill, markColors, markFill } from './lib/colors'
+export type { LabelColor, MarkColor } from './lib/colors'
 
-export { cx, fold, labelColors, labelFill, markColors, markFill } from './primitives'
-export type { LabelColor, MarkColor } from './primitives'
-export {
-  Button, IconButton, Switch, Slider, Checkbox, Radio, RadioGroup, Segmented, Select,
-  Chip, Kbd, Avatar, AvatarGroup, TextField, Textarea, Spinner, Card, Row, Divider,
-} from './primitives'
+export { Button } from './button/button'
+export { IconButton } from './icon-button/icon-button'
+export { Link } from './link/link'
 
-export { Icon, FolderIcon } from './icon'
-export type { FolderColor, IconWeight } from './icon'
-/* `iconNames` y `codepoints` salen del barrel porque la galería del kit tiene
-   que poder enumerar el set — hoy `paths` era privado y por eso el kit no tenía
-   galería. Los tags NO salen de acá: van por el subpath `@melu/ui/icons.meta`,
-   así la app de producto no se lleva en el bundle el catálogo de búsqueda del
-   muestrario. */
-export { codepoints, iconNames } from './icons.gen'
-export type { IconName } from './icons.gen'
+export { TextField } from './text-field/text-field'
+export { Textarea } from './textarea/textarea'
+export { Select } from './select/select'
+export { Checkbox } from './checkbox/checkbox'
+export { Radio, RadioGroup } from './radio/radio'
+export { Switch } from './switch/switch'
+export { Slider } from './slider/slider'
+export { Segmented } from './segmented/segmented'
+export { Field, FieldSet, useField } from './field/field'
 
-export { Portal, Dropdown, Popover, Tooltip, Modal, useScrollLock, useEscape, useFocusTrap } from './overlay'
-export type { DropdownItem } from './overlay'
-
-export { Menu, MenuItem, MenuLabel } from './menu'
+export { Tabs, TabList, Tab, TabPanel } from './tabs/tabs'
+export { Accordion, AccordionItem } from './accordion/accordion'
+export { Breadcrumb } from './breadcrumb/breadcrumb'
+export { navItemClass, navSubItemClass, NavItemBody } from './nav/nav'
+export { Pagination, PaginationStatus, PaginationPrev, PaginationNext } from './pagination/pagination'
 
 export {
   Table, TableHeader, TableBody, TableFooter, TableRow, TableHead, TableCell,
   TableTitle, TableHint, TableNum,
-} from './table'
+} from './table/table'
+export { List, ListItem } from './list/list'
+export { BarChart } from './chart/chart'
+export type { BarDatum } from './chart/chart'
+export { FilterBar, FilterSearch, Filter, FilterReset, ColumnPicker, facets } from './filter/filter'
+export { Badge } from './badge/badge'
+export { Progress } from './progress/progress'
+export { Avatar, AvatarGroup } from './avatar/avatar'
+export { Chip } from './chip/chip'
 
-export { Pagination, PaginationStatus, PaginationPrev, PaginationNext } from './pagination'
-export { FilterBar, FilterSearch, Filter, FilterReset, ColumnPicker, facets } from './filter'
+export { Alert, AlertTitle, AlertBody, AlertActions } from './alert/alert'
+export type { Tone } from './lib/tone'
+export { ToastProvider, useToast } from './toast/toast'
+export type { ToastOptions } from './toast/toast'
+export { EmptyState } from './empty-state/empty-state'
+export { Spinner } from './spinner/spinner'
+export { Skeleton } from './skeleton/skeleton'
+export { Tooltip } from './tooltip/tooltip'
 
-export { Book } from './book'
-export { Folder } from './folder'
-export { BarChart } from './chart'
-export type { BarDatum } from './chart'
-export type { BookWidth } from './book'
+export { Card, CardHeader, CardTitle, CardHint, CardBody, CardFooter } from './card/card'
+export { Row } from './row/row'
+export { Divider } from './divider/divider'
+export { Kbd } from './kbd/kbd'
+export { Book } from './book/book'
+export { Folder } from './folder/folder'
+export { Page, PageHeader, SectionLabel } from './page/page'
 
-export { List, ListItem } from './list'
+export { Portal } from './portal/portal'
+export { Popover } from './popover/popover'
+export { Dropdown } from './dropdown/dropdown'
+export type { DropdownItem } from './dropdown/dropdown'
+export { Modal } from './modal/modal'
+export { ConfirmDialog } from './confirm-dialog/confirm-dialog'
+export { Sheet, SheetHeader, SheetBody, SheetFooter } from './sheet/sheet'
+export { Menu, MenuItem, MenuLabel } from './menu/menu'
+export { useEscape } from './lib/esc'
+export { useFocusTrap, useScrollLock } from './lib/overlay-hooks'
 
-export { navItemClass, navSubItemClass, NavItemBody } from './nav'
+export { Icon, FolderIcon } from './icon/icon'
+export type { IconName, IconWeight, FolderColor } from './icon/icon'
+export { iconNames } from './icons.gen'
 
-export { Page, PageHeader, SectionLabel, EmptyState } from './page'
-
-export { PrefsProvider, usePrefs } from './prefs'
-export type { Prefs } from './prefs'
-
-/* El modal de ajustes entra al paquete por la misma regla que deja afuera al
-   shell: **no lee `data.ts` ni el router**. Lo único que necesita son las
-   preferencias, que ya viven acá, y quién está mirando, que ahora va por prop —
-   el nombre y el correo de una persona real no son parte de un design system.
-   Con eso, el kit y la app muestran el mismo modal y no dos copias. */
-export { SettingsModal } from './settings-modal'
-export type { SettingsUser } from './settings-modal'
+export { PrefsProvider, usePrefs } from './prefs/prefs'
+export { SettingsModal } from './settings-modal/settings-modal'

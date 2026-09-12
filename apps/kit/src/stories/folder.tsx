@@ -1,17 +1,19 @@
 import { Card, Folder, Icon } from '@melu/ui'
-import { Block, Mono, Props, Section } from '../kit'
+import { A11y, Mono, Page, Props, Section } from '../kit'
 
-const cara = (n: number) => `/avatars/${String(n).padStart(2, '0')}.webp`
-const p = (name: string, foto?: number) => ({ name, src: foto ? cara(foto) : undefined })
+const face = (n: number) => `/avatars/${String(n).padStart(2, '0')}.webp`
+const p = (name: string, photo?: number) => ({ name, src: photo ? face(photo) : undefined })
 
 export function FolderStory() {
   return (
-    <Section
+    <Page
       title="Folder"
-      note="Una carpeta que se abre. Cerrada es una silueta limpia; al pasar por encima las hojas suben desde adentro y se abanican, y ahí se ve qué hay sin tener que entrar."
+      kind="Superficies"
+      imports="import { Folder, FolderIcon } from '@melu/ui'"
+      lead="Una carpeta que se abre. Cerrada es una silueta limpia; al pasar por encima las hojas suben desde adentro y se abanican, y ahí se ve qué hay sin tener que entrar."
     >
-      <Block
-        label="Pasá el mouse"
+      <Section
+        title="Pasá el mouse"
         note="El sistema tiene escrito que las tarjetas no se mueven en hover, porque una grilla que salta hace temblar la vista. Esto no lo contradice: lo que se mueve no es la pieza, es el contenido de la pieza. La carpeta no cambia de tamaño ni de lugar, así que la grilla se queda quieta — y lo que se gana es información, cuántas hojas hay."
       >
         <Card surface="muted" className="flex flex-wrap gap-4 px-6 py-8">
@@ -19,10 +21,10 @@ export function FolderStory() {
           <Folder label="Matemática · 4.º A" meta="8 actividades" onClick={() => {}} />
           <Folder label="Sin abrir" meta="2 archivos" sheets={2} onClick={() => {}} />
         </Card>
-      </Block>
+      </Section>
 
-      <Block
-        label="Las tres capas"
+      <Section
+        title="Las tres capas"
         note="Contratapa, hojas, y solapa. La contratapa y la pestaña son UN solo path de SVG y no dos rectángulos: con dos, cada uno trae sus esquinas y en el doblez queda un corte a la vista. La pestaña y el canto van en el amarillo MÁS saturado y no en uno más oscuro — es lo que hace que se lea como una sola cartulina doblada. Las hojas suben entre la contratapa y la solapa, que es lo que hace que parezca que salen de adentro y no que aparecen encima."
       >
         <Card surface="muted" className="flex flex-wrap items-end gap-8 px-6 py-8">
@@ -37,10 +39,10 @@ export function FolderStory() {
           Adentro no hay un px suelto: todo va en por ciento del ancho, como el <Mono>Book</Mono>,
           así que el mismo dibujo sirve a 88 y a 220.
         </p>
-      </Block>
+      </Section>
 
-      <Block
-        label="El amarillo sale de una regla"
+      <Section
+        title="El amarillo sale de una regla"
         note="Va en H 89.6 de OKLCH, y es un tono nuevo del sistema. `--warn-500` está en 82.2 y a la misma luminosidad y croma sale dorado, no amarillo: medido contra la referencia, el tono de casa queda diez veces más lejos (0.031 contra 0.003 de distancia perceptual). Siete grados son poco para dos colores de estado y mucho para una pieza cuyo único trabajo es leerse como una carpeta. La croma va al 81% del techo en el cuerpo y al 89% en la pestaña, no al tope — el amarillo es el tono que más croma aguanta a luminosidad alta, y empujado al límite deja de ser una carpeta y pasa a ser un resaltador."
       >
         <Card surface="muted" className="flex flex-wrap items-end gap-6 px-6 py-8">
@@ -57,10 +59,10 @@ export function FolderStory() {
           — doce carpetas de doce colores es un arcoíris, que es lo mismo que dice la nota de los
           tintes.
         </p>
-      </Block>
+      </Section>
 
-      <Block
-        label="Con avatares"
+      <Section
+        title="Con avatares"
         note="Abajo a la izquierda de la solapa va quién tiene acceso. Es un `AvatarGroup`, así que hereda todo lo suyo: tres caras como máximo, el resto en un círculo neutro, y con un solo sobrante se muestra la cuarta cara en vez de un «+1». La prop `badges` sigue estando para lo que no es una persona."
       >
         <Card surface="muted" className="flex flex-wrap gap-4 px-6 py-8">
@@ -75,30 +77,28 @@ export function FolderStory() {
           la carpeta, no sobre la página, y con el anillo blanco se ven recortados. El tamaño sale
           del ancho de la carpeta, como todo lo demás.
         </p>
-      </Block>
+      </Section>
 
-      <Block label="Props">
-        <Props rows={[
-          { name: 'label', type: 'string', note: 'el nombre, debajo' },
-          { name: 'meta', type: 'string', note: 'la línea de apoyo: «15 archivos»' },
-          { name: 'sheets', type: '2 | 3', def: '3', note: 'más de tres se pisan y dejan de contarse' },
-          { name: 'size', type: 'number', def: '128', note: 'el ancho; todo lo demás sale de acá' },
-          { name: 'color', type: 'string', note: 'un token; tiñe la carpeta entera, no solo el cuerpo' },
-          { name: 'avatars', type: '{ name, src? }[]', note: 'abajo a la izquierda; es un AvatarGroup' },
-          { name: 'badges', type: 'ReactNode', note: 'lo mismo pero a mano, para lo que no es una persona' },
-          { name: 'onClick', type: '() => void', note: 'sin esto es un <div> y no se puede tabular' },
-        ]} />
-      </Block>
+      <Section title="Props">
+        <Props of="Folder" />
+      </Section>
 
-      <Block
-        label="No reemplaza a FolderIcon"
+      <Section
+        title="No reemplaza a FolderIcon"
         note="`FolderIcon` es el glifo de 20 que identifica un espacio en una lista de siete, y sigue siendo el único SVG dibujado a mano del sistema. Esto es la pieza grande: una carpeta que se mira, no una que se lee de reojo."
       >
         <Card surface="muted" className="flex items-center gap-6 px-6 py-6">
           <Folder size={88} />
           <span className="text-xs text-ink-muted">la pieza · el glifo</span>
         </Card>
-      </Block>
-    </Section>
+      </Section>
+    
+      <Section title="Accesibilidad">
+        <A11y items={[
+          'El color identifica el espacio de un vistazo, pero el nombre está siempre escrito.',
+          'El dibujo es aria-hidden: no se anuncia una carpeta dibujada.',
+        ]} />
+      </Section>
+    </Page>
   )
 }

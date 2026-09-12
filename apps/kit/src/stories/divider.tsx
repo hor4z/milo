@@ -1,14 +1,16 @@
 import { Avatar, Divider, Icon, Kbd } from '@melu/ui'
-import { Block, Panel, Props, Section, Variant } from '../kit'
+import { A11y, Page, Panel, Props, Section, Variant } from '../kit'
 
 export function DividerStory() {
   return (
-    <Section
+    <Page
       title="Divider"
-      note="Un píxel de --border, y nada más. Existe como pieza y no como una clase suelta por algo práctico: la línea estaba escrita a mano en varios lugares —border-t, border-b, un hr con el borde apagado— y no todas con el mismo gris. Cuál gris es la línea del sistema es una decisión, y una decisión escrita seis veces se desincroniza a la quinta."
+      kind="Superficies"
+      imports="import { Divider } from '@melu/ui'"
+      lead="Un píxel de --border, y nada más. Existe como pieza y no como una clase suelta por algo práctico: la línea estaba escrita a mano en varios lugares —border-t, border-b, un hr con el borde apagado— y no todas con el mismo gris. Cuál gris es la línea del sistema es una decisión, y una decisión escrita seis veces se desincroniza a la quinta."
     >
-      <Block
-        label="Las dos orientaciones"
+      <Section
+        title="Las dos orientaciones"
         note="El vertical lleva `self-stretch` adentro: sin eso, en una fila con `items-center` mide cero y no se ve. Es el caso que rompe siempre, así que lo resuelve la pieza y no el call site."
       >
         <Panel>
@@ -29,10 +31,10 @@ export function DividerStory() {
             </div>
           </Variant>
         </Panel>
-      </Block>
+      </Section>
 
-      <Block
-        label="Entre piezas"
+      <Section
+        title="Entre piezas"
         note="Separar dos cosas que son del mismo tipo. Cuando lo que hay abajo es de otro tipo, el cambio de fondo dice más que una línea — el hueco apagado de un panel, la cabecera de una tabla."
       >
         <Panel>
@@ -53,14 +55,19 @@ export function DividerStory() {
           el Divider lleva <code className="font-mono">data-divider</code>, que es de lo único que
           se agarra el padre para hacerla.
         </p>
-      </Block>
+      </Section>
 
-      <Block label="Props">
-        <Props rows={[
-          { name: 'orientation', type: "'horizontal' | 'vertical'", def: "'horizontal'" },
-          { name: 'className', type: 'string', note: 'para el margen, que depende de dónde esté' },
+      <Section title="Props">
+        <Props of="Divider" />
+      </Section>
+    
+      <Section title="Accesibilidad">
+        <A11y items={[
+          'Lleva role="separator" con su orientación, así que un lector anuncia el corte en vez de saltearlo.',
+          'No es tabulable ni tiene contenido: separa, y nada más.',
+          'El gris sale de --border, el mismo de todas las líneas del sistema, así que sube y baja con el tema.',
         ]} />
-      </Block>
-    </Section>
+      </Section>
+    </Page>
   )
 }

@@ -1,0 +1,2225 @@
+/* Generado por scripts/props.mjs — no se edita a mano.
+   La descripción de cada prop vive en su docblock, al lado del tipo. */
+
+export type PropDoc = {
+  name: string
+  type: string
+  required: boolean
+  def?: string
+  doc?: string
+}
+
+/** Lo propio de la pieza, y la etiqueta nativa cuyos atributos pasa de largo. */
+export type ComponentDoc = {
+  props: PropDoc[]
+  html?: string
+  doc?: string
+}
+
+export const propsByComponent: Record<string, ComponentDoc> = {
+  "AccordionItem": {
+    "props": [
+      {
+        "name": "summary",
+        "type": "ReactNode",
+        "required": true,
+        "doc": "Lo que se ve siempre y se toca para abrir."
+      },
+      {
+        "name": "children",
+        "type": "ReactNode",
+        "required": true,
+        "doc": "Lo que aparece al abrir."
+      },
+      {
+        "name": "defaultOpen",
+        "type": "boolean",
+        "required": false,
+        "doc": "Arranca abierta."
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "required": false
+      }
+    ],
+    "doc": "Una fila que se abre. Es un `<details>`, así que funciona sin JavaScript."
+  },
+  "Accordion": {
+    "props": [],
+    "html": "div",
+    "doc": "Varias filas que se abren, una debajo de la otra."
+  },
+  "Alert": {
+    "props": [
+      {
+        "name": "tone",
+        "type": "Tone",
+        "required": false,
+        "def": "'info'",
+        "doc": "De acá salen el glifo, el color y la urgencia con que se anuncia."
+      },
+      {
+        "name": "icon",
+        "type": "IconName | null",
+        "required": false,
+        "doc": "Sin esto lo pone el tono; `null` lo saca."
+      },
+      {
+        "name": "onDismiss",
+        "type": "() => void",
+        "required": false,
+        "doc": "Agrega la X para cerrarlo; sin esto no se cierra."
+      }
+    ],
+    "html": "div",
+    "doc": "Un aviso fijo en la página: algo pasó o algo hay que saber antes de seguir."
+  },
+  "AlertTitle": {
+    "props": [],
+    "html": "p",
+    "doc": "El renglón que nombra el aviso."
+  },
+  "AlertBody": {
+    "props": [],
+    "html": "p",
+    "doc": "Qué pasó y qué se puede hacer."
+  },
+  "AlertActions": {
+    "props": [],
+    "html": "div",
+    "doc": "La fila de botones del aviso."
+  },
+  "Avatar": {
+    "props": [
+      {
+        "name": "name",
+        "type": "string",
+        "required": true,
+        "doc": "De acá salen la inicial y el tinte."
+      },
+      {
+        "name": "src",
+        "type": "string",
+        "required": false,
+        "doc": "Opcional; la etiqueta de color queda de fondo."
+      },
+      {
+        "name": "size",
+        "type": "number",
+        "required": false,
+        "def": "40",
+        "doc": "El diámetro en px; la inicial y el anillo salen de acá."
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "required": false
+      }
+    ],
+    "doc": "Dos estados y nada más: con foto, o el círculo pastel con la inicial."
+  },
+  "AvatarGroup": {
+    "props": [
+      {
+        "name": "people",
+        "type": "readonly { name: string; src?: string }[]",
+        "required": true,
+        "doc": "Sin `src` cae a la inicial."
+      },
+      {
+        "name": "max",
+        "type": "number",
+        "required": false,
+        "def": "3",
+        "doc": "Cuenta avatares, no personas."
+      },
+      {
+        "name": "size",
+        "type": "number",
+        "required": false,
+        "def": "28",
+        "doc": "El monte sale de acá."
+      },
+      {
+        "name": "ring",
+        "type": "string",
+        "required": false,
+        "def": "'ring-surface'",
+        "doc": "La utilidad de color del anillo, que tiene que ser la del fondo de atrás."
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "required": false
+      }
+    ],
+    "doc": "Varias personas en el lugar de una."
+  },
+  "Badge": {
+    "props": [
+      {
+        "name": "tone",
+        "type": "Tone | 'neutral'",
+        "required": false,
+        "def": "'neutral'",
+        "doc": "En qué estado está lo que describe. `neutral` es una etiqueta y no un estado, y es el que más se usa."
+      },
+      {
+        "name": "icon",
+        "type": "IconName",
+        "required": false,
+        "doc": "El glifo que acompaña al texto, a la izquierda."
+      }
+    ],
+    "html": "span",
+    "doc": "Una marca chica que dice en qué estado está algo."
+  },
+  "Book": {
+    "props": [
+      {
+        "name": "title",
+        "type": "string",
+        "required": true,
+        "doc": "El nombre, en la tapa."
+      },
+      {
+        "name": "variant",
+        "type": "'stripe' | 'simple'",
+        "required": false,
+        "def": "'stripe'",
+        "doc": "`stripe` lleva una franja de color arriba con el icono o la ilustración, y el título abajo sobre papel."
+      },
+      {
+        "name": "color",
+        "type": "string",
+        "required": false,
+        "doc": "Un token, no un hex: así la tapa sigue al tema."
+      },
+      {
+        "name": "textColor",
+        "type": "string",
+        "required": false,
+        "doc": "El color de lo que va encima del color: el glifo de la franja en `stripe`, y el título en `simple`."
+      },
+      {
+        "name": "width",
+        "type": "BookWidth",
+        "required": false,
+        "def": "196",
+        "doc": "Ancho en px, o dos anchos para que el libro no se aplaste en pantalla chica."
+      },
+      {
+        "name": "textured",
+        "type": "boolean",
+        "required": false,
+        "doc": "Solo para una portada sola."
+      },
+      {
+        "name": "icon",
+        "type": "ReactNode",
+        "required": false,
+        "doc": "El glifo de la franja en `stripe`, o el de la tapa en `simple`."
+      },
+      {
+        "name": "illustration",
+        "type": "ReactNode",
+        "required": false,
+        "doc": "Llena la franja o la tapa."
+      },
+      {
+        "name": "href",
+        "type": "string",
+        "required": false,
+        "doc": "Lo convierte en <a>."
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "required": false
+      }
+    ]
+  },
+  "Breadcrumb": {
+    "props": [
+      {
+        "name": "items",
+        "type": "{ label: string; href?: string; onClick?: () => void }[]",
+        "required": true,
+        "doc": "De la raíz hasta acá. El último es dónde estás."
+      }
+    ],
+    "html": "nav",
+    "doc": "Dónde estás parado y cómo volver."
+  },
+  "Button": {
+    "props": [
+      {
+        "name": "variant",
+        "type": "'solid' | 'raised' | 'brand' | 'ghost' | 'muted' | 'bad'",
+        "required": false,
+        "def": "'raised'",
+        "doc": "Solid y brand son el mismo rol."
+      },
+      {
+        "name": "size",
+        "type": "'sm' | 'md' | 'lg'",
+        "required": false,
+        "def": "'md'",
+        "doc": "32 · 36 · 40."
+      },
+      {
+        "name": "icon",
+        "type": "IconName",
+        "required": false,
+        "doc": "Antes del texto."
+      },
+      {
+        "name": "iconEnd",
+        "type": "IconName",
+        "required": false,
+        "doc": "Después del texto."
+      },
+      {
+        "name": "block",
+        "type": "boolean",
+        "required": false,
+        "doc": "Ocupa el ancho del contenedor."
+      },
+      {
+        "name": "ref",
+        "type": "Ref<HTMLButtonElement>",
+        "required": false,
+        "doc": "Para usarlo como disparador de Dropdown o Popover."
+      }
+    ],
+    "html": "button"
+  },
+  "Card": {
+    "props": [
+      {
+        "name": "children",
+        "type": "ReactNode",
+        "required": true
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "required": false,
+        "doc": "Para el ancho y para cambiar el padding."
+      },
+      {
+        "name": "interactive",
+        "type": "boolean",
+        "required": false,
+        "doc": "Levanta la tarjeta en hover; por defecto no se mueve."
+      },
+      {
+        "name": "surface",
+        "type": "'paper' | 'muted'",
+        "required": false,
+        "def": "'paper'",
+        "doc": "Papel sobresale y tira sombra; muted es un hueco."
+      }
+    ],
+    "doc": "El contenedor de radio 24."
+  },
+  "CardHeader": {
+    "props": [],
+    "html": "div",
+    "doc": "La cabecera de una tarjeta: el título a la izquierda, lo que haya a la derecha."
+  },
+  "CardTitle": {
+    "props": [],
+    "html": "h3",
+    "doc": "Cómo se llama lo que hay en la tarjeta."
+  },
+  "CardHint": {
+    "props": [],
+    "html": "p",
+    "doc": "La línea de apoyo, debajo del título."
+  },
+  "CardBody": {
+    "props": [],
+    "html": "div",
+    "doc": "El cuerpo, con el padding que la tarjeta no pone."
+  },
+  "CardFooter": {
+    "props": [],
+    "html": "div",
+    "doc": "La fila de abajo, separada por una línea."
+  },
+  "BarChart": {
+    "props": [
+      {
+        "name": "data",
+        "type": "BarDatum[]",
+        "required": true,
+        "doc": "Label, value (lo hecho), total, y opcionales detail y caption."
+      },
+      {
+        "name": "highlight",
+        "type": "number",
+        "required": false,
+        "doc": "El índice de la barra de la que habla la pantalla: le pesa la etiqueta."
+      },
+      {
+        "name": "title",
+        "type": "string",
+        "required": true,
+        "doc": "Para el lector de pantalla y la tabla de abajo."
+      },
+      {
+        "name": "height",
+        "type": "number",
+        "required": false,
+        "def": "220",
+        "doc": "El alto del área de barras, sin las etiquetas."
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "required": false
+      }
+    ],
+    "doc": "El gráfico de barras."
+  },
+  "BarDatum": {
+    "props": [
+      {
+        "name": "label",
+        "type": "string",
+        "required": true,
+        "doc": "Lo que va abajo de la barra."
+      },
+      {
+        "name": "value",
+        "type": "number",
+        "required": true,
+        "doc": "Lo hecho: la parte azul."
+      },
+      {
+        "name": "total",
+        "type": "number",
+        "required": true,
+        "doc": "Lo que había para hacer: el alto de la barra gris."
+      },
+      {
+        "name": "detail",
+        "type": "ReactNode",
+        "required": false,
+        "doc": "Lo que el tooltip muestra además del número: un porcentaje, un grupo de caras."
+      },
+      {
+        "name": "caption",
+        "type": "string",
+        "required": false,
+        "doc": "La frase del tooltip, abajo del número."
+      }
+    ]
+  },
+  "Checkbox": {
+    "props": [
+      {
+        "name": "checked",
+        "type": "boolean",
+        "required": true,
+        "doc": "Es controlado: el estado lo lleva quien lo usa."
+      },
+      {
+        "name": "onChange",
+        "type": "(v: boolean) => void",
+        "required": true,
+        "doc": "Recibe el valor nuevo, no el evento."
+      },
+      {
+        "name": "label",
+        "type": "string",
+        "required": false,
+        "doc": "Al aria-label; si va dentro de un <label>, se omite."
+      },
+      {
+        "name": "disabled",
+        "type": "boolean",
+        "required": false,
+        "doc": "Apagado no se toca ni recibe el foco."
+      },
+      {
+        "name": "id",
+        "type": "string",
+        "required": false,
+        "doc": "Para atarlo a una etiqueta de afuera. Adentro de un `Field` lo toma solo."
+      },
+      {
+        "name": "indeterminate",
+        "type": "boolean",
+        "required": false,
+        "doc": "Pinta la raya y manda aria-checked=\"mixed\"."
+      }
+    ],
+    "doc": "La caja de 18, la misma medida del pulgar del switch, así una fila con los dos no tiene dos tamaños de \"marca\"."
+  },
+  "Chip": {
+    "props": [
+      {
+        "name": "children",
+        "type": "ReactNode",
+        "required": true
+      },
+      {
+        "name": "color",
+        "type": "LabelColor",
+        "required": false,
+        "doc": "Una de las seis etiquetas vivas; sin esto va gris."
+      },
+      {
+        "name": "onRemove",
+        "type": "() => void",
+        "required": false,
+        "doc": "Agrega la cruz."
+      },
+      {
+        "name": "active",
+        "type": "boolean",
+        "required": false,
+        "doc": "Pasa a tinta plena y pisa el color."
+      },
+      {
+        "name": "onClick",
+        "type": "() => void",
+        "required": false,
+        "doc": "Lo convierte en <button>."
+      }
+    ],
+    "doc": "El chip: 28 de alto y radio 10."
+  },
+  "ConfirmDialog": {
+    "props": [
+      {
+        "name": "open",
+        "type": "boolean",
+        "required": true,
+        "doc": "Lo dibuja o no: cerrado no monta nada."
+      },
+      {
+        "name": "onCancel",
+        "type": "() => void",
+        "required": true,
+        "doc": "Lo llaman Cancelar, el velo y Escape."
+      },
+      {
+        "name": "onConfirm",
+        "type": "() => void",
+        "required": true,
+        "doc": "Lo que pasa si dice que sí."
+      },
+      {
+        "name": "title",
+        "type": "string",
+        "required": true,
+        "doc": "La pregunta, con el nombre de lo que se va a tocar adentro."
+      },
+      {
+        "name": "body",
+        "type": "ReactNode",
+        "required": false,
+        "doc": "Qué más se lleva puesto."
+      },
+      {
+        "name": "confirmLabel",
+        "type": "string",
+        "required": false,
+        "def": "'Aceptar'",
+        "doc": "El verbo de lo que va a pasar, no «Sí»."
+      },
+      {
+        "name": "cancelLabel",
+        "type": "string",
+        "required": false,
+        "def": "'Cancelar'",
+        "doc": "La salida segura."
+      },
+      {
+        "name": "tone",
+        "type": "'neutral' | 'bad'",
+        "required": false,
+        "def": "'neutral'",
+        "doc": "Bad pinta el botón de confirmar y arranca el foco en Cancelar."
+      }
+    ],
+    "doc": "El diálogo que pregunta antes de algo que no se puede deshacer."
+  },
+  "Divider": {
+    "props": [
+      {
+        "name": "orientation",
+        "type": "'horizontal' | 'vertical'",
+        "required": false,
+        "def": "'horizontal'",
+        "doc": "El vertical lleva `self-stretch` adentro: en una fila con `items-center` mediría cero."
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "required": false,
+        "doc": "Para el margen, que depende de dónde esté."
+      }
+    ],
+    "doc": "La línea que separa."
+  },
+  "Dropdown": {
+    "props": [
+      {
+        "name": "trigger",
+        "type": "(props: { onClick: () => void; 'aria-expanded': boolean; ref: React.Ref<HTMLButtonElement> }) => ReactNode",
+        "required": true,
+        "doc": "Recibe onClick, ref y aria-expanded."
+      },
+      {
+        "name": "items",
+        "type": "DropdownItem[]",
+        "required": true,
+        "doc": "Las opciones, en el orden en que van."
+      },
+      {
+        "name": "align",
+        "type": "'start' | 'end'",
+        "required": false,
+        "def": "'end'",
+        "doc": "Contra qué borde del disparador se alinea el panel."
+      },
+      {
+        "name": "width",
+        "type": "number",
+        "required": false,
+        "def": "220",
+        "doc": "El ancho del panel en px."
+      }
+    ],
+    "doc": "El menú de opciones escrito como lista, que es lo más corto cuando el menú no tiene nada raro: cuatro filas con su icono y su acción."
+  },
+  "DropdownItem": {
+    "props": [
+      {
+        "name": "label",
+        "type": "string",
+        "required": true,
+        "doc": "Lo que dice la fila."
+      },
+      {
+        "name": "icon",
+        "type": "IconName",
+        "required": false,
+        "doc": "El glifo de la izquierda, en gris."
+      },
+      {
+        "name": "shortcut",
+        "type": "string",
+        "required": false,
+        "doc": "El atajo de teclado, a la derecha, en un `Kbd`."
+      },
+      {
+        "name": "danger",
+        "type": "boolean",
+        "required": false,
+        "doc": "Lo que no se deshace: borrar, salir, revocar."
+      },
+      {
+        "name": "disabled",
+        "type": "boolean",
+        "required": false,
+        "doc": "Se queda a la vista y apagada; una opción que desaparece obliga a aprender el menú de nuevo."
+      },
+      {
+        "name": "onSelect",
+        "type": "() => void",
+        "required": false,
+        "doc": "Al elegirla, el panel se cierra solo."
+      }
+    ],
+    "doc": "Una opción de la lista del `Dropdown`."
+  },
+  "EmptyState": {
+    "props": [
+      {
+        "name": "title",
+        "type": "string",
+        "required": true,
+        "doc": "Qué falta, en una línea."
+      },
+      {
+        "name": "body",
+        "type": "string",
+        "required": true,
+        "doc": "Qué pasó y qué se puede hacer."
+      },
+      {
+        "name": "action",
+        "type": "ReactNode",
+        "required": false,
+        "doc": "La salida. Siempre conviene que haya una."
+      },
+      {
+        "name": "icon",
+        "type": "IconName",
+        "required": false,
+        "doc": "La marca de arriba."
+      },
+      {
+        "name": "size",
+        "type": "'sm' | 'md'",
+        "required": false,
+        "def": "'md'",
+        "doc": "`md` para una pantalla, `sm` para adentro de una tabla o una galería."
+      },
+      {
+        "name": "bordered",
+        "type": "boolean",
+        "required": false,
+        "def": "size === 'md'",
+        "doc": "La caja punteada."
+      }
+    ],
+    "doc": "Lo que se ve cuando no hay nada."
+  },
+  "Field": {
+    "props": [
+      {
+        "name": "label",
+        "type": "string",
+        "required": true,
+        "doc": "Nombra el control y lo enfoca al tocarla."
+      },
+      {
+        "name": "hint",
+        "type": "string",
+        "required": false,
+        "doc": "Debajo de la etiqueta: para qué sirve el campo."
+      },
+      {
+        "name": "error",
+        "type": "string",
+        "required": false,
+        "doc": "Lo que está mal. Reemplaza al hint y marca el control."
+      },
+      {
+        "name": "required",
+        "type": "boolean",
+        "required": false,
+        "doc": "Marca visible de que sin esto no se puede seguir."
+      },
+      {
+        "name": "children",
+        "type": "ReactNode",
+        "required": true,
+        "doc": "El control, que toma el id solo."
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "required": false
+      }
+    ],
+    "doc": "Une etiqueta, ayuda, error y control: los tres textos quedan atados al control."
+  },
+  "FieldSet": {
+    "props": [
+      {
+        "name": "legend",
+        "type": "string",
+        "required": false,
+        "doc": "Cómo se llama el grupo. Un lector lo anuncia al entrar."
+      }
+    ],
+    "html": "fieldset",
+    "doc": "Varios campos, uno debajo del otro, con el aire del sistema."
+  },
+  "FilterBar": {
+    "props": [],
+    "html": "div",
+    "doc": "La barra de arriba de una tabla: el buscador y los filtros, en una línea."
+  },
+  "FilterSearch": {
+    "props": [
+      {
+        "name": "value",
+        "type": "string",
+        "required": true,
+        "doc": "Es controlado: el texto lo lleva la pantalla, que es la que filtra."
+      },
+      {
+        "name": "onValueChange",
+        "type": "(v: string) => void",
+        "required": true,
+        "doc": "Recibe el texto nuevo."
+      },
+      {
+        "name": "placeholder",
+        "type": "string",
+        "required": false,
+        "def": "'Buscar…'",
+        "doc": "Qué se busca, no «Buscar…» a secas."
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "required": false
+      }
+    ],
+    "doc": "El buscador de la barra."
+  },
+  "Filter": {
+    "props": [
+      {
+        "name": "label",
+        "type": "string",
+        "required": true,
+        "doc": "El rótulo: qué filtra."
+      },
+      {
+        "name": "options",
+        "type": "FilterOption[]",
+        "required": true,
+        "doc": "Las opciones, con cuántas filas cae en cada una."
+      },
+      {
+        "name": "value",
+        "type": "string[]",
+        "required": true,
+        "doc": "Lo elegido."
+      },
+      {
+        "name": "onValueChange",
+        "type": "(v: string[]) => void",
+        "required": true,
+        "doc": "Recibe la lista nueva de valores elegidos."
+      }
+    ],
+    "doc": "Un filtro: un botón que dice qué filtra, y un panel para elegir."
+  },
+  "FilterReset": {
+    "props": [],
+    "html": "button",
+    "doc": "El botón que devuelve la tabla a como estaba."
+  },
+  "ColumnPicker": {
+    "props": [
+      {
+        "name": "columns",
+        "type": "{ id: string; label: string; locked?: boolean }[]",
+        "required": true,
+        "doc": "Todas las columnas que la tabla puede mostrar, en el orden en que van."
+      },
+      {
+        "name": "value",
+        "type": "string[]",
+        "required": true,
+        "doc": "Los ids de las que están a la vista."
+      },
+      {
+        "name": "onValueChange",
+        "type": "(v: string[]) => void",
+        "required": true,
+        "doc": "Recibe los ids de las columnas que quedan a la vista."
+      },
+      {
+        "name": "label",
+        "type": "string",
+        "required": false,
+        "def": "'Columnas'",
+        "doc": "Nombra el botón y encabeza el panel."
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "required": false
+      }
+    ],
+    "doc": "Elegir qué columnas se ven."
+  },
+  "Folder": {
+    "props": [
+      {
+        "name": "label",
+        "type": "string",
+        "required": false,
+        "doc": "El nombre, debajo."
+      },
+      {
+        "name": "meta",
+        "type": "string",
+        "required": false,
+        "doc": "La línea de apoyo: «15 archivos»."
+      },
+      {
+        "name": "sheets",
+        "type": "2 | 3",
+        "required": false,
+        "def": "3",
+        "doc": "Cuántas hojas se abanican."
+      },
+      {
+        "name": "size",
+        "type": "number",
+        "required": false,
+        "def": "128",
+        "doc": "El ancho de la carpeta en px."
+      },
+      {
+        "name": "color",
+        "type": "string",
+        "required": false,
+        "doc": "Un token, no un hex."
+      },
+      {
+        "name": "avatars",
+        "type": "readonly { name: string; src?: string }[]",
+        "required": false,
+        "doc": "Quiénes tienen acceso, abajo a la izquierda."
+      },
+      {
+        "name": "badges",
+        "type": "ReactNode",
+        "required": false,
+        "doc": "Lo mismo pero a mano, para lo que no es una persona: un logo, un icono."
+      },
+      {
+        "name": "onClick",
+        "type": "() => void",
+        "required": false,
+        "doc": "Sin esto es un <div> y no se puede tabular."
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "required": false
+      }
+    ],
+    "doc": "Una carpeta que se abre."
+  },
+  "Icon": {
+    "props": [
+      {
+        "name": "name",
+        "type": "IconName",
+        "required": true,
+        "doc": "El glifo, de la unión de los que están en el manifiesto."
+      },
+      {
+        "name": "size",
+        "type": "number",
+        "required": false,
+        "def": "20",
+        "doc": "Alto y ancho de la caja en px."
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "required": false,
+        "doc": "Para el color: `icon-muted` para el gris."
+      },
+      {
+        "name": "weight",
+        "type": "IconWeight",
+        "required": false,
+        "doc": "El eje `wght` de la fuente."
+      }
+    ]
+  },
+  "FolderIcon": {
+    "props": [
+      {
+        "name": "color",
+        "type": "FolderColor",
+        "required": false,
+        "def": "'ink'",
+        "doc": "El color del espacio: es lo que la deja reconocer de reojo en una lista de siete."
+      },
+      {
+        "name": "size",
+        "type": "number",
+        "required": false,
+        "def": "20",
+        "doc": "El lado en px."
+      }
+    ]
+  },
+  "IconButton": {
+    "props": [
+      {
+        "name": "icon",
+        "type": "IconName",
+        "required": true,
+        "doc": "El glifo, que es todo lo que se ve."
+      },
+      {
+        "name": "label",
+        "type": "string",
+        "required": true,
+        "doc": "Un botón que solo tiene un icono no dice nada sin esto."
+      },
+      {
+        "name": "variant",
+        "type": "'ghost' | 'raised' | 'solid' | 'muted'",
+        "required": false,
+        "def": "'ghost'",
+        "doc": "La misma escalera del `Button`, sin `brand` ni `bad`."
+      },
+      {
+        "name": "size",
+        "type": "'sm' | 'md' | 'lg'",
+        "required": false,
+        "def": "'md'",
+        "doc": "32 · 36 · 40, los del Button."
+      },
+      {
+        "name": "dot",
+        "type": "boolean",
+        "required": false,
+        "doc": "El puntito de \"hay algo nuevo\", arriba a la derecha."
+      },
+      {
+        "name": "active",
+        "type": "boolean",
+        "required": false,
+        "doc": "Solo cambia el ghost, que pasa a muted."
+      },
+      {
+        "name": "ref",
+        "type": "Ref<HTMLButtonElement>",
+        "required": false,
+        "doc": "Para usarlo como disparador de un `Dropdown` o un `Popover`."
+      }
+    ],
+    "html": "button"
+  },
+  "Kbd": {
+    "props": [
+      {
+        "name": "children",
+        "type": "ReactNode",
+        "required": true,
+        "doc": "La tecla: un símbolo, un nombre corto o una unidad."
+      }
+    ],
+    "doc": "El kbd va hundido: 11px, radio 6, con luz arriba y sombra interior abajo."
+  },
+  "Link": {
+    "props": [
+      {
+        "name": "external",
+        "type": "boolean",
+        "required": false,
+        "doc": "Abre en otra pestaña y lo avisa, en vez de hacerlo en silencio."
+      }
+    ],
+    "html": "a",
+    "doc": "Un enlace dentro de un texto o suelto en una fila."
+  },
+  "List": {
+    "props": [
+      {
+        "name": "children",
+        "type": "ReactNode",
+        "required": true
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "required": false
+      }
+    ]
+  },
+  "ListItem": {
+    "props": [
+      {
+        "name": "icon",
+        "type": "IconName",
+        "required": true,
+        "doc": "El glifo de la marca de color."
+      },
+      {
+        "name": "color",
+        "type": "MarkColor",
+        "required": true,
+        "doc": "El par relleno/glifo de la marca."
+      },
+      {
+        "name": "title",
+        "type": "string",
+        "required": true,
+        "doc": "· 16/600."
+      },
+      {
+        "name": "hint",
+        "type": "string",
+        "required": false,
+        "doc": "14/500 en gris."
+      },
+      {
+        "name": "active",
+        "type": "boolean",
+        "required": false,
+        "doc": "La fila elegida: queda hundida, no teñida."
+      },
+      {
+        "name": "onClick",
+        "type": "() => void",
+        "required": false,
+        "doc": "Sin esto la fila es un <div> y no toma hover."
+      },
+      {
+        "name": "trailing",
+        "type": "ReactNode",
+        "required": false,
+        "doc": "A la derecha: un chevron, un contador."
+      }
+    ]
+  },
+  "Menu": {
+    "props": [
+      {
+        "name": "children",
+        "type": "ReactNode",
+        "required": true
+      },
+      {
+        "name": "width",
+        "type": "number",
+        "required": false,
+        "doc": "Opcional: sin él, el panel mide lo que su contenido."
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "required": false
+      }
+    ],
+    "doc": "El menú, en piezas."
+  },
+  "MenuItem": {
+    "props": [
+      {
+        "name": "children",
+        "type": "ReactNode",
+        "required": true
+      },
+      {
+        "name": "icon",
+        "type": "IconName",
+        "required": false,
+        "doc": "A la izquierda, en gris."
+      },
+      {
+        "name": "shortcut",
+        "type": "string",
+        "required": false,
+        "doc": "El atajo, en un Kbd."
+      },
+      {
+        "name": "hint",
+        "type": "string",
+        "required": false,
+        "doc": "Una línea de apoyo a la derecha, en gris."
+      },
+      {
+        "name": "checked",
+        "type": "boolean",
+        "required": false,
+        "doc": "El tilde de \"esta es la que está puesta\"."
+      },
+      {
+        "name": "submenu",
+        "type": "boolean",
+        "required": false,
+        "doc": "El chevron de \"hay otro nivel\"."
+      },
+      {
+        "name": "danger",
+        "type": "boolean",
+        "required": false,
+        "doc": "Borrar, salir, revocar: lo que no se deshace."
+      },
+      {
+        "name": "disabled",
+        "type": "boolean",
+        "required": false,
+        "doc": "Apagada y a la vista: las flechas la saltean."
+      },
+      {
+        "name": "onSelect",
+        "type": "() => void",
+        "required": false,
+        "doc": "Cerrar el panel es de quien lo abrió."
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "required": false
+      }
+    ],
+    "doc": "Una fila del menú."
+  },
+  "MenuLabel": {
+    "props": [
+      {
+        "name": "children",
+        "type": "ReactNode",
+        "required": true
+      }
+    ],
+    "doc": "El rótulo de un grupo de opciones."
+  },
+  "Modal": {
+    "props": [
+      {
+        "name": "open",
+        "type": "boolean",
+        "required": true,
+        "doc": "Cerrado no monta nada."
+      },
+      {
+        "name": "onClose",
+        "type": "() => void",
+        "required": true,
+        "doc": "Lo llaman Escape y el click en el backdrop."
+      },
+      {
+        "name": "children",
+        "type": "ReactNode",
+        "required": true
+      },
+      {
+        "name": "width",
+        "type": "number",
+        "required": false,
+        "def": "620",
+        "doc": "El ancho del panel en px."
+      },
+      {
+        "name": "label",
+        "type": "string",
+        "required": true,
+        "doc": "El aria-label del role=\"dialog\"."
+      }
+    ]
+  },
+  "NavItemBody": {
+    "props": [
+      {
+        "name": "icon",
+        "type": "IconName",
+        "required": false,
+        "doc": "El glifo del set; para uno propio va `glyph`."
+      },
+      {
+        "name": "glyph",
+        "type": "ReactNode",
+        "required": false,
+        "doc": "Para cuando el glifo no sale del set: la carpeta de color de un espacio."
+      },
+      {
+        "name": "label",
+        "type": "string",
+        "required": true,
+        "doc": "El texto del item, que se esconde al contraerse."
+      },
+      {
+        "name": "badge",
+        "type": "string",
+        "required": false,
+        "doc": "Hundido como un kbd: un contador no es accionable."
+      },
+      {
+        "name": "active",
+        "type": "boolean",
+        "required": false,
+        "doc": "Dónde estás parado. Se marca con relieve y canto, no con color."
+      },
+      {
+        "name": "collapsed",
+        "type": "boolean",
+        "required": false,
+        "doc": "El riel de 72: queda el icono y nada más."
+      },
+      {
+        "name": "chip",
+        "type": "boolean",
+        "required": false,
+        "def": "true",
+        "doc": "El chip de papel detrás del icono cuando el item está activo."
+      }
+    ]
+  },
+  "Page": {
+    "props": [
+      {
+        "name": "children",
+        "type": "ReactNode",
+        "required": true
+      },
+      {
+        "name": "wide",
+        "type": "boolean",
+        "required": false,
+        "doc": "Suelta el ancho para una tabla o una grilla larga."
+      }
+    ],
+    "doc": "El contenedor de una pantalla."
+  },
+  "PageHeader": {
+    "props": [
+      {
+        "name": "title",
+        "type": "string",
+        "required": true,
+        "doc": "El nombre de la pantalla, como `h1`."
+      },
+      {
+        "name": "subtitle",
+        "type": "string",
+        "required": false,
+        "doc": "Una línea de apoyo."
+      },
+      {
+        "name": "actions",
+        "type": "ReactNode",
+        "required": false,
+        "doc": "Lo que se puede hacer acá, a la derecha."
+      }
+    ]
+  },
+  "SectionLabel": {
+    "props": [
+      {
+        "name": "children",
+        "type": "ReactNode",
+        "required": true
+      },
+      {
+        "name": "count",
+        "type": "number",
+        "required": false,
+        "doc": "Cuántos hay, al lado del rótulo."
+      }
+    ],
+    "doc": "El separador con rótulo, para cortar una pantalla larga en tramos."
+  },
+  "Pagination": {
+    "props": [],
+    "html": "nav",
+    "doc": "La línea de abajo de una tabla: qué tramo se está viendo y cómo pasar al que sigue."
+  },
+  "PaginationStatus": {
+    "props": [
+      {
+        "name": "to",
+        "type": "number",
+        "required": true,
+        "doc": "El último de la pantalla, contando desde uno."
+      },
+      {
+        "name": "from",
+        "type": "number",
+        "required": false,
+        "def": "1",
+        "doc": "El primero de la pantalla."
+      },
+      {
+        "name": "total",
+        "type": "number",
+        "required": false,
+        "doc": "Cuántos hay en total."
+      },
+      {
+        "name": "noun",
+        "type": "string | [singular: string, plural: string]",
+        "required": false,
+        "doc": "Qué se está contando."
+      },
+      {
+        "name": "children",
+        "type": "ReactNode",
+        "required": false,
+        "doc": "Reemplaza la frase entera cuando la pantalla tiene una mejor."
+      }
+    ],
+    "doc": "Qué tramo se está viendo."
+  },
+  "PaginationPrev": {
+    "props": [
+      {
+        "name": "children",
+        "type": "ReactNode",
+        "required": false,
+        "def": "'Anterior'"
+      }
+    ],
+    "doc": "Los dos viajan juntos y están siempre, apagados en las puntas."
+  },
+  "PaginationNext": {
+    "props": [
+      {
+        "name": "children",
+        "type": "ReactNode",
+        "required": false,
+        "def": "'Siguiente'"
+      }
+    ],
+    "doc": "Su `disabled` es el «hay más» que contesta el back: mientras haya, hay siguiente."
+  },
+  "Popover": {
+    "props": [
+      {
+        "name": "trigger",
+        "type": "(props: { onClick: () => void 'aria-expanded': boolean ref: React.Ref<HTMLButtonElement> 'data-open': boolean }) => ReactNode",
+        "required": true,
+        "doc": "Recibe onClick, ref, aria-expanded y data-open."
+      },
+      {
+        "name": "children",
+        "type": "(close: () => void) => ReactNode",
+        "required": true,
+        "doc": "Recibe el cierre. El panel lo dibuja el call site — fondo, borde, radio y sombra — porque Popover no tiene aspecto."
+      },
+      {
+        "name": "align",
+        "type": "'start' | 'end'",
+        "required": false,
+        "def": "'end'",
+        "doc": "Contra qué borde del disparador se alinea el panel."
+      },
+      {
+        "name": "width",
+        "type": "number",
+        "required": false,
+        "doc": "Sin esto se mide el ancho real del panel para alinearlo y encajarlo."
+      },
+      {
+        "name": "offset",
+        "type": "number",
+        "required": false,
+        "def": "8",
+        "doc": "Cuánto se separa del disparador, en px."
+      },
+      {
+        "name": "veil",
+        "type": "boolean",
+        "required": false,
+        "doc": "Atenúa el resto de la pantalla."
+      },
+      {
+        "name": "onOpenChange",
+        "type": "(open: boolean) => void",
+        "required": false,
+        "doc": "Avisa cuándo abre y cuándo cierra."
+      }
+    ],
+    "doc": "Un panel anclado a su disparador."
+  },
+  "Portal": {
+    "props": [
+      {
+        "name": "children",
+        "type": "ReactNode",
+        "required": true
+      }
+    ]
+  },
+  "PrefsProvider": {
+    "props": [
+      {
+        "name": "children",
+        "type": "ReactNode",
+        "required": true
+      }
+    ]
+  },
+  "Progress": {
+    "props": [
+      {
+        "name": "value",
+        "type": "number",
+        "required": true,
+        "doc": "Lo hecho, en las unidades de max."
+      },
+      {
+        "name": "max",
+        "type": "number",
+        "required": false,
+        "def": "100",
+        "doc": "El total contra el que se mide."
+      },
+      {
+        "name": "label",
+        "type": "string",
+        "required": true,
+        "doc": "Qué mide, para quien no ve la barra."
+      },
+      {
+        "name": "hint",
+        "type": "ReactNode",
+        "required": false,
+        "doc": "El número al costado."
+      },
+      {
+        "name": "tone",
+        "type": "'brand' | 'ok' | 'warn' | 'bad'",
+        "required": false,
+        "def": "'brand'",
+        "doc": "`brand` para lo que avanza y `ok` para lo que terminó; `warn` y `bad` solo cuando llenar la barra es el problema."
+      }
+    ],
+    "html": "div",
+    "doc": "Cuánto de algo va hecho. La pista es el resto, no un segundo dato."
+  },
+  "Radio": {
+    "props": [
+      {
+        "name": "checked",
+        "type": "boolean",
+        "required": true,
+        "doc": "Es controlado."
+      },
+      {
+        "name": "onChange",
+        "type": "() => void",
+        "required": true,
+        "doc": "Sin valor: el radio solo se prende."
+      },
+      {
+        "name": "label",
+        "type": "string",
+        "required": false,
+        "doc": "Va al `aria-label`."
+      },
+      {
+        "name": "disabled",
+        "type": "boolean",
+        "required": false,
+        "doc": "Apagado no se elige ni recibe el foco."
+      },
+      {
+        "name": "id",
+        "type": "string",
+        "required": false,
+        "doc": "Para atarlo a una etiqueta de afuera."
+      },
+      {
+        "name": "tabIndex",
+        "type": "number",
+        "required": false,
+        "doc": "Lo pone `RadioGroup` para dejar una sola parada de tabulación."
+      },
+      {
+        "name": "ref",
+        "type": "Ref<HTMLButtonElement>",
+        "required": false,
+        "doc": "Lo usa `RadioGroup` para mover el foco con las flechas."
+      }
+    ],
+    "doc": "La elección de una entre varias."
+  },
+  "RadioGroup": {
+    "props": [
+      {
+        "name": "value",
+        "type": "T",
+        "required": true,
+        "doc": "El valor elegido: es controlado."
+      },
+      {
+        "name": "onChange",
+        "type": "(v: T) => void",
+        "required": true,
+        "doc": "Recibe el valor nuevo."
+      },
+      {
+        "name": "options",
+        "type": "readonly { value: T; label: string; disabled?: boolean }[]",
+        "required": true,
+        "doc": "Las opciones, con su etiqueta."
+      },
+      {
+        "name": "label",
+        "type": "string",
+        "required": false,
+        "doc": "Al aria-label del grupo."
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "required": false
+      }
+    ],
+    "doc": "El grupo va suelto: las opciones sobre el papel, cada una con su etiqueta al lado."
+  },
+  "Row": {
+    "props": [
+      {
+        "name": "label",
+        "type": "string",
+        "required": true,
+        "doc": "Qué se ajusta. Es un `<label>` de verdad: tocarlo acciona el control."
+      },
+      {
+        "name": "hint",
+        "type": "string",
+        "required": false,
+        "doc": "La segunda línea, en 11 gris."
+      },
+      {
+        "name": "children",
+        "type": "ReactNode",
+        "required": false,
+        "doc": "El control, alineado a la derecha."
+      }
+    ],
+    "doc": "La fila de un panel: 56px de alto, padding 16/24, label a la izquierda y control a la derecha."
+  },
+  "Segmented": {
+    "props": [
+      {
+        "name": "value",
+        "type": "T",
+        "required": true,
+        "doc": "La opción elegida: es controlado."
+      },
+      {
+        "name": "onChange",
+        "type": "(v: T) => void",
+        "required": true,
+        "doc": "Recibe el valor nuevo."
+      },
+      {
+        "name": "options",
+        "type": "SegmentedOption<T>[]",
+        "required": true,
+        "doc": "Sin label la opción queda cuadrada, solo icono — y title pasa a obligatorio."
+      },
+      {
+        "name": "size",
+        "type": "'xs' | 'sm' | 'md'",
+        "required": false,
+        "def": "'md'",
+        "doc": "Xs va con pista transparente: dentro del header de un panel, una pista gris sobre fondo gris agrega una caja que no hace falta."
+      },
+      {
+        "name": "label",
+        "type": "string",
+        "required": false,
+        "doc": "Cómo se llama el grupo. Adentro de un `Field` lo toma de la etiqueta."
+      }
+    ],
+    "doc": "Un solo segmented para todo: el de texto (\"Todas · Abiertas\") y el de iconos (grilla · lista) son el mismo componente con distintas opciones."
+  },
+  "Select": {
+    "props": [
+      {
+        "name": "value",
+        "type": "string",
+        "required": true,
+        "doc": "El valor elegido, que es lo que se ve en el botón."
+      },
+      {
+        "name": "onChange",
+        "type": "(v: string) => void",
+        "required": false,
+        "doc": "Recibe el valor nuevo; sin esto el control es de solo lectura."
+      },
+      {
+        "name": "options",
+        "type": "string[]",
+        "required": true,
+        "doc": "La lista, en el orden en que se muestra."
+      },
+      {
+        "name": "width",
+        "type": "number",
+        "required": false,
+        "doc": "Sin esto toma el ancho del contenido."
+      },
+      {
+        "name": "leading",
+        "type": "ReactNode",
+        "required": false,
+        "doc": "Adelante del valor: un `Icon`, un `FolderIcon`, un `Avatar`, un `Spinner`."
+      },
+      {
+        "name": "loading",
+        "type": "boolean",
+        "required": false,
+        "doc": "Mientras los datos no están: no abre, y el spinner va solo si no hay `leading`."
+      }
+    ],
+    "doc": "El select es un botón con un listbox propio, no un `<select>` nativo."
+  },
+  "SettingsModal": {
+    "props": [
+      {
+        "name": "open",
+        "type": "boolean",
+        "required": true,
+        "doc": "Cerrado no monta nada."
+      },
+      {
+        "name": "onClose",
+        "type": "() => void",
+        "required": true,
+        "doc": "Al cerrar no hay navegación: seguís donde estabas."
+      },
+      {
+        "name": "user",
+        "type": "SettingsUser",
+        "required": true,
+        "doc": "Quién está mirando los ajustes."
+      }
+    ],
+    "doc": "Los ajustes en un modal y no en una página."
+  },
+  "Sheet": {
+    "props": [
+      {
+        "name": "open",
+        "type": "boolean",
+        "required": true,
+        "doc": "Cerrado no monta nada."
+      },
+      {
+        "name": "onClose",
+        "type": "() => void",
+        "required": true,
+        "doc": "Lo llaman la X, el velo y Escape."
+      },
+      {
+        "name": "children",
+        "type": "ReactNode",
+        "required": true
+      },
+      {
+        "name": "side",
+        "type": "'right' | 'left'",
+        "required": false,
+        "def": "'right'",
+        "doc": "De qué lado entra. La derecha es de donde vienen las cosas nuevas."
+      },
+      {
+        "name": "width",
+        "type": "number",
+        "required": false,
+        "def": "460",
+        "doc": "El ancho del panel en px."
+      },
+      {
+        "name": "label",
+        "type": "string",
+        "required": true,
+        "doc": "Nombra el diálogo para el lector."
+      }
+    ],
+    "doc": "El panel que entra desde un costado: un formulario largo sin cambiar de pantalla."
+  },
+  "SheetHeader": {
+    "props": [
+      {
+        "name": "title",
+        "type": "string",
+        "required": true,
+        "doc": "El nombre del panel."
+      },
+      {
+        "name": "onClose",
+        "type": "() => void",
+        "required": true,
+        "doc": "La X. Es la salida a la vista Escape y el velo hacen lo mismo."
+      }
+    ],
+    "doc": "La cabecera del panel, con su título y el botón de cerrar."
+  },
+  "Skeleton": {
+    "props": [],
+    "html": "span",
+    "doc": "El hueco que ocupa algo que todavía está cargando."
+  },
+  "Slider": {
+    "props": [
+      {
+        "name": "value",
+        "type": "number",
+        "required": true,
+        "doc": "Es controlado."
+      },
+      {
+        "name": "onChange",
+        "type": "(v: number) => void",
+        "required": true,
+        "doc": "Recibe el número nuevo."
+      },
+      {
+        "name": "min",
+        "type": "number",
+        "required": false,
+        "def": "0",
+        "doc": "El extremo de la izquierda."
+      },
+      {
+        "name": "max",
+        "type": "number",
+        "required": false,
+        "def": "100",
+        "doc": "El extremo de la derecha."
+      },
+      {
+        "name": "step",
+        "type": "number",
+        "required": false,
+        "def": "1",
+        "doc": "El salto entre dos valores."
+      },
+      {
+        "name": "disabled",
+        "type": "boolean",
+        "required": false,
+        "doc": "Apagado no se arrastra ni recibe el foco."
+      },
+      {
+        "name": "label",
+        "type": "string",
+        "required": false,
+        "doc": "Va al aria-label del input."
+      },
+      {
+        "name": "id",
+        "type": "string",
+        "required": false,
+        "doc": "Para atarlo a una etiqueta de afuera."
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "required": false,
+        "doc": "El ancho se pone desde afuera."
+      }
+    ],
+    "doc": "Un valor en un rango."
+  },
+  "Spinner": {
+    "props": [
+      {
+        "name": "size",
+        "type": "number",
+        "required": false,
+        "def": "20",
+        "doc": "El trazo lo sigue: 17% del diámetro."
+      },
+      {
+        "name": "label",
+        "type": "string",
+        "required": false,
+        "def": "'Cargando'",
+        "doc": "Al aria-label; el rol es status."
+      },
+      {
+        "name": "on",
+        "type": "'surface' | 'solid'",
+        "required": false,
+        "def": "'surface'",
+        "doc": "Sobre qué está apoyado."
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "required": false
+      }
+    ],
+    "doc": "Pista completa más un arco encima."
+  },
+  "Switch": {
+    "props": [
+      {
+        "name": "checked",
+        "type": "boolean",
+        "required": true,
+        "doc": "Es controlado: el estado lo lleva quien lo usa."
+      },
+      {
+        "name": "onChange",
+        "type": "(v: boolean) => void",
+        "required": true,
+        "doc": "Recibe el valor nuevo, no el evento."
+      },
+      {
+        "name": "label",
+        "type": "string",
+        "required": false,
+        "doc": "Va al `aria-label`. Adentro de un `Field` o de un `Row` sobra: el nombre sale de la etiqueta."
+      },
+      {
+        "name": "disabled",
+        "type": "boolean",
+        "required": false,
+        "doc": "Apagado no se toca ni recibe el foco."
+      },
+      {
+        "name": "id",
+        "type": "string",
+        "required": false,
+        "doc": "Para atarlo a una etiqueta de afuera. Adentro de un `Field` lo toma solo."
+      }
+    ],
+    "doc": "El switch: pista de 40×22 con 2 de padding, así que el pulgar es de 18 y viaja 18 exactos."
+  },
+  "Table": {
+    "props": [
+      {
+        "name": "children",
+        "type": "ReactNode",
+        "required": true
+      },
+      {
+        "name": "minWidth",
+        "type": "number",
+        "required": false,
+        "def": "640",
+        "doc": "Abajo de esto la tabla scrollea en vez de apretar las columnas."
+      },
+      {
+        "name": "footer",
+        "type": "ReactNode",
+        "required": false,
+        "doc": "La franja de abajo: vive adentro del marco pero fuera del scroll."
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "required": false
+      }
+    ],
+    "doc": "La tabla, en piezas."
+  },
+  "TableHeader": {
+    "props": [
+      {
+        "name": "children",
+        "type": "ReactNode",
+        "required": true
+      }
+    ],
+    "doc": "La cabecera va sobre `--surface-muted` y no sobre el papel: es lo que la separa del cuerpo sin gastar un divisor más grueso."
+  },
+  "TableBody": {
+    "props": [
+      {
+        "name": "children",
+        "type": "ReactNode",
+        "required": true
+      }
+    ],
+    "doc": "El cuerpo de la tabla."
+  },
+  "TableFooter": {
+    "props": [
+      {
+        "name": "children",
+        "type": "ReactNode",
+        "required": true
+      }
+    ],
+    "doc": "La fila del total, abajo de todo."
+  },
+  "TableRow": {
+    "props": [
+      {
+        "name": "children",
+        "type": "ReactNode",
+        "required": true
+      },
+      {
+        "name": "onClick",
+        "type": "() => void",
+        "required": false,
+        "doc": "Sin esto la fila no toma hover ni cursor."
+      },
+      {
+        "name": "active",
+        "type": "boolean",
+        "required": false,
+        "doc": "La fila elegida: apagada, no teñida."
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "required": false
+      }
+    ],
+    "doc": "`last:border-0` saca el divisor de la última fila."
+  },
+  "TableHead": {
+    "props": [
+      {
+        "name": "children",
+        "type": "ReactNode",
+        "required": false
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "required": false
+      }
+    ],
+    "html": "th",
+    "doc": "Un encabezado de columna: 11/600 con tracking, en tinta."
+  },
+  "TableCell": {
+    "props": [
+      {
+        "name": "children",
+        "type": "ReactNode",
+        "required": false
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "required": false
+      }
+    ],
+    "html": "td",
+    "doc": "Una celda: 12/500, con el alto de fila de 56."
+  },
+  "TableTitle": {
+    "props": [
+      {
+        "name": "children",
+        "type": "ReactNode",
+        "required": false
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "required": false
+      }
+    ],
+    "doc": "Lo que se lee primero de una fila."
+  },
+  "TableHint": {
+    "props": [
+      {
+        "name": "children",
+        "type": "ReactNode",
+        "required": false
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "required": false
+      }
+    ],
+    "doc": "La línea de apoyo debajo del título, en gris."
+  },
+  "TableNum": {
+    "props": [
+      {
+        "name": "children",
+        "type": "ReactNode",
+        "required": false
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "required": false
+      }
+    ],
+    "html": "td",
+    "doc": "Una columna de números."
+  },
+  "Tabs": {
+    "props": [
+      {
+        "name": "value",
+        "type": "string",
+        "required": false,
+        "doc": "Controlado; sin esto usa defaultValue."
+      },
+      {
+        "name": "defaultValue",
+        "type": "string",
+        "required": false,
+        "doc": "La solapa abierta al entrar."
+      },
+      {
+        "name": "onValueChange",
+        "type": "(v: string) => void",
+        "required": false,
+        "doc": "Avisa qué solapa quedó abierta."
+      }
+    ],
+    "doc": "Paneles hermanos donde solo se ve uno. Controlado o no, como el resto."
+  },
+  "TabList": {
+    "props": [],
+    "html": "div",
+    "doc": "La fila de solapas. Las flechas se mueven entre ellas, como pide un tablist."
+  },
+  "Tab": {
+    "props": [
+      {
+        "name": "value",
+        "type": "string",
+        "required": true,
+        "doc": "Ata la solapa a su panel."
+      }
+    ],
+    "html": "button",
+    "doc": "Una solapa. El activo se marca con una línea, no con color."
+  },
+  "TabPanel": {
+    "props": [
+      {
+        "name": "value",
+        "type": "string",
+        "required": true,
+        "doc": "El mismo valor que su solapa."
+      }
+    ],
+    "html": "div",
+    "doc": "El contenido de una solapa."
+  },
+  "TextField": {
+    "props": [
+      {
+        "name": "icon",
+        "type": "IconName",
+        "required": false,
+        "doc": "A la izquierda, en gris."
+      },
+      {
+        "name": "suffix",
+        "type": "ReactNode",
+        "required": false,
+        "doc": "A la derecha: una unidad, un kbd, un botón."
+      },
+      {
+        "name": "size",
+        "type": "'sm' | 'md' | 'lg'",
+        "required": false,
+        "def": "'lg'",
+        "doc": "32 · 36 · 40, las del Button. Default lg."
+      },
+      {
+        "name": "ref",
+        "type": "Ref<HTMLDivElement>",
+        "required": false,
+        "doc": "Va al contenedor, que es lo que mide y lo que se enfoca."
+      }
+    ],
+    "doc": "El campo de texto."
+  },
+  "Textarea": {
+    "props": [
+      {
+        "name": "rows",
+        "type": "number",
+        "required": false,
+        "def": "3",
+        "doc": "Las filas de arranque: el alto mínimo del campo."
+      },
+      {
+        "name": "maxRows",
+        "type": "number",
+        "required": false,
+        "doc": "Hasta cuántas filas crece antes de scrollear."
+      },
+      {
+        "name": "resize",
+        "type": "'auto' | 'vertical' | 'none'",
+        "required": false,
+        "def": "'auto'",
+        "doc": "Quién decide el alto."
+      }
+    ],
+    "doc": "El campo de varias líneas: la misma caja que `TextField`, estirada."
+  },
+  "ToastProvider": {
+    "props": [
+      {
+        "name": "children",
+        "type": "ReactNode",
+        "required": true
+      },
+      {
+        "name": "max",
+        "type": "number",
+        "required": false,
+        "def": "3",
+        "doc": "Cuántos se apilan antes de empujar al más viejo."
+      }
+    ],
+    "doc": "Monta la región de avisos pasajeros y el `useToast` que los empuja."
+  },
+  "ToastOptions": {
+    "props": [
+      {
+        "name": "title",
+        "type": "string",
+        "required": true,
+        "doc": "Qué pasó, en una línea."
+      },
+      {
+        "name": "body",
+        "type": "string",
+        "required": false,
+        "doc": "El detalle, cuando el título no alcanza."
+      },
+      {
+        "name": "tone",
+        "type": "Tone",
+        "required": false,
+        "doc": "El mismo juego de tonos que `Alert` y `Badge`."
+      },
+      {
+        "name": "action",
+        "type": "{ label: string; onClick?: () => void }",
+        "required": false,
+        "doc": "La salida del aviso: deshacer, ver, reintentar. Al tocarla el aviso se cierra."
+      },
+      {
+        "name": "duration",
+        "type": "number",
+        "required": false,
+        "doc": "Milisegundos antes de irse solo. `0` lo deja hasta que lo cierren."
+      }
+    ],
+    "doc": "Lo que recibe `toast()`."
+  },
+  "Tooltip": {
+    "props": [
+      {
+        "name": "label",
+        "type": "ReactNode",
+        "required": true,
+        "doc": "Lo que dice la etiqueta."
+      },
+      {
+        "name": "children",
+        "type": "ReactNode",
+        "required": true,
+        "doc": "El control que explica; se envuelve, no se pide render prop."
+      },
+      {
+        "name": "side",
+        "type": "'top' | 'bottom'",
+        "required": false,
+        "def": "'top'",
+        "doc": "Dónde va si entra."
+      },
+      {
+        "name": "delay",
+        "type": "number",
+        "required": false,
+        "def": "500",
+        "doc": "Ms del primero; los siguientes abren en 0 dentro de una ventana de 400."
+      }
+    ],
+    "doc": "La etiqueta que dice qué hace un control que no lo dice solo: un icono suelto, un valor truncado, una acción con una consecuencia que conviene aclarar."
+  }
+}

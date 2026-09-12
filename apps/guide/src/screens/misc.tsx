@@ -42,8 +42,6 @@ export function ResourcesScreen() {
       <div className="grid grid-cols-2 gap-3 lg:grid-cols-4">
         {kinds.map(k => (
           <Card key={k.label} interactive className="p-4">
-            {/* Marca viva, no tinte: el cuadradito es lo que te deja encontrar
-                un tipo de recurso de reojo, y para eso el color tiene que verse. */}
             <span className={cx('mb-3 flex size-10 items-center justify-center rounded-xl text-on-label', labelFill[labelColors[(k.tint - 1) % labelColors.length]])}>
               <Icon name={k.icon} size={18} />
             </span>
@@ -86,10 +84,7 @@ export function SpaceScreen() {
   )
 }
 
-/**
- * La métrica. El número va en `tabular` y en display: una fila de cuatro
- * métricas con números de ancho variable no se alinea, y se ve como un error.
- */
+/** La métrica. */
 function Stat({ label, value, hint }: { label: string; value: string; hint: string }) {
   return (
     <Card className="p-4">

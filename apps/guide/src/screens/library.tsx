@@ -26,6 +26,7 @@ export function LibraryScreen() {
             <>
               <Segmented
                 size="sm"
+                label="Filtro"
                 value={filter}
                 onChange={setFilter}
                 options={[
@@ -35,6 +36,7 @@ export function LibraryScreen() {
               />
               <Segmented
                 size="sm"
+                label="Vista"
                 value={view}
                 onChange={setView}
                 options={[
@@ -68,8 +70,6 @@ export function LibraryScreen() {
           <Button size="sm" variant="ghost" icon="add">Nueva</Button>
         </div>
 
-        {/* El composer flota, así que hay que dejarle aire abajo o tapa la
-            última fila de la grilla. */}
         <div className="h-32" />
       </Page>
       <Composer />

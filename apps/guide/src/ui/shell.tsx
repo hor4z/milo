@@ -5,24 +5,17 @@ import { CommandPalette } from './command-palette'
 import { NotificationsButton } from './notifications'
 import { spaces } from '../data'
 
-/* ------------------------------------------------------------------- marca */
-
 function Brand({ compact }: { compact?: boolean }) {
   return (
-    <Link to="/" className="flex h-20 items-center gap-2.5" aria-label="melu, inicio">
-      {/* El logo es geometría y no un archivo: vive en el código para que
-          herede el color del tema en vez de traer el suyo. */}
-      <svg width="32" height="32" viewBox="0 0 32 32" fill="none" aria-hidden="true" className="shrink-0">
-        <rect width="32" height="32" rx="10" fill="var(--solid)" />
-        <path d="M9 22V13.5a4.5 4.5 0 019 0V22" stroke="var(--on-solid)" strokeWidth="2.2" strokeLinecap="round" />
-        <path d="M18 22V13.5A4.5 4.5 0 0122.5 9" stroke="var(--accent)" strokeWidth="2.2" strokeLinecap="round" />
-      </svg>
-      {!compact && <span className="text-[19px] font-semibold tracking-[-0.03em]">melu</span>}
+    <Link
+      to="/"
+      className="flex h-20 items-center rounded-lg px-1 text-lg font-semibold tracking-tight text-ink"
+      aria-label="melu, inicio"
+    >
+      {compact ? 'm' : 'melu'}
     </Link>
   )
 }
-
-/* ----------------------------------------------------------------- sidebar */
 
 type NavGroup = {
   label: string
@@ -44,15 +37,7 @@ const groups: NavGroup[] = [
   { label: 'Guardadas', icon: 'favorite', to: '/guardadas' },
 ]
 
-/**
- * El item de nav del router. La forma y el estado activo salen de la receta del
- * paquete (`navItemClass` + `NavItemBody`); lo único que agrega esto es el
- * `NavLink` y el `isActive` que le corresponde.
- *
- * Antes esta geometría estaba escrita acá y copiada otras tres veces más abajo
- * —los espacios, «Nuevo espacio», «Contraer»— y una cuarta en el riel del kit,
- * que fue la que se desincronizó: quedó con `pressed` en vez del anillo.
- */
+/** El item de nav del router. */
 function NavItem({
   to, icon, label, badge, collapsed, end,
 }: { to: string; icon: IconName; label: string; badge?: string; collapsed?: boolean; end?: boolean }) {
@@ -75,8 +60,6 @@ function Sidebar() {
   const collapsed = prefs.sidebarCollapsed
   const { pathname } = useLocation()
 
-  /* Un grupo arranca abierto si la ruta activa está adentro: al recargar en
-     /explorar/recetas, un grupo cerrado esconde el item que está activo. */
   const [openGroups, setOpenGroups] = useState<string[]>(() =>
     groups.filter(g => g.children?.some(c => pathname.startsWith(c.to))).map(g => g.label),
   )
@@ -116,8 +99,6 @@ function Sidebar() {
                   )}
                 </div>
 
-                {/* Los hijos entran con sangría de 48: la del texto del padre,
-                    para que las etiquetas queden en la misma columna. */}
                 {hasChildren && isOpen && !collapsed && (
                   <div className="flex flex-col gap-0.5">
                     {g.children!.map(c => (
@@ -137,7 +118,7 @@ function Sidebar() {
         </nav>
 
         {!collapsed && (
-          <div className="px-2.5 py-2.5 text-xs font-medium text-ink-muted/70">Mis espacios</div>
+          <div className="px-2.5 py-2.5 text-xs font-medium text-ink-muted">Mis espacios</div>
         )}
 
         <nav className="flex flex-col gap-0.5">
@@ -155,8 +136,6 @@ function Sidebar() {
               className={({ isActive }) => navItemClass({ active: isActive, collapsed })}
             >
               {({ isActive }) => (
-                /* `chip={false}`: la carpeta ya trae su color, y el chip de
-                   papel detrás le pelea el contraste en vez de levantarla. */
                 <NavItemBody
                   glyph={<FolderIcon color={s.color} size={20} />}
                   label={s.name}
@@ -184,8 +163,6 @@ function Sidebar() {
   )
 }
 
-/* ------------------------------------------------------------------ topbar */
-
 function Topbar({ onOpenSettings, onOpenPalette }: { onOpenSettings: () => void; onOpenPalette: () => void }) {
   const navigate = useNavigate()
   const { prefs, set } = usePrefs()
@@ -196,17 +173,12 @@ function Topbar({ onOpenSettings, onOpenPalette }: { onOpenSettings: () => void;
     { label: 'Ajustes', icon: 'tune', onSelect: onOpenSettings },
     { label: prefs.theme === 'dark' ? 'Tema claro' : 'Tema oscuro', icon: prefs.theme === 'dark' ? 'light_mode' : 'dark_mode', onSelect: () => set('theme', prefs.theme === 'dark' ? 'light' : 'dark') },
     { label: 'Novedades', icon: 'star_shine', onSelect: () => navigate('/novedades') },
-    /* Salir no va en rojo: el rojo es para lo que destruye algo, y cerrar
-       sesión no borra nada. Gastarlo acá le quita el aviso a lo que sí importa. */
     { label: 'Salir', icon: 'logout', onSelect: () => navigate('/entrar') },
   ]
 
   return (
     <header className="sticky top-0 z-30 flex h-20 shrink-0 items-center gap-3 bg-canvas/90 px-5 backdrop-blur-md">
       <div className="flex items-center gap-1">
-        {/* `lg` explícito: la topbar es de 80 y sus controles son de 40, que es
-            el paso principal. Antes salía del default porque el `md` del
-            IconButton medía 40 — ahora el `md` mide 36 en las dos piezas. */}
         <Tooltip label="Atrás">
           <IconButton icon="arrow_back" label="Atrás" size="lg" onClick={() => navigate(-1)} />
         </Tooltip>
@@ -215,27 +187,6 @@ function Topbar({ onOpenSettings, onOpenPalette }: { onOpenSettings: () => void;
         </Tooltip>
       </div>
 
-      {/* El buscador no es un input: es un botón que abre la paleta. Un input
-          que al enfocarse abre otra cosa deja el cursor titilando en un campo
-          que ya no existe.
-
-          Pero se dibuja como un campo vacío y no como un botón gris: fondo casi
-          blanco (`--search-bg`), borde de un píxel y nada de relieve. En una
-          topbar donde el que manda es tinta y el que acompaña es gris con
-          relieve, un buscador gris y plano se lee como un tercer botón apagado.
-          El borde es el que dibuja la caja; el fondo solo la separa del papel.
-
-          Geometría: el icono va en un cuadro de 32 pegado al canto con 4 de
-          aire, así el texto arranca a los 48 —la misma sangría que los subitems
-          del nav— y el ⌘K queda a 10 del borde derecho, no a 12: el kbd ya trae
-          su propio canto dibujado, y con 12 la caja se ve descentrada.
-
-          El ⌘ y la K van separados por un espacio: pegados, la caja queda 2px
-          más angosta y con el mismo radio de 6 se ve más redonda que hundida.
-
-          El cuadro del icono es un span y no un botón como en la referencia: no
-          se puede anidar un button dentro de otro, así que el icono se apoya en
-          el hover del padre para pasar de gris a tinta. */}
       <button
         onClick={onOpenPalette}
         className="group relative ml-1 flex h-10 w-[260px] items-center rounded-lg border border-search-line bg-search pl-12 pr-2.5 text-left transition-colors hover:bg-search-hover max-md:w-10 max-md:px-0"
@@ -270,15 +221,11 @@ function Topbar({ onOpenSettings, onOpenPalette }: { onOpenSettings: () => void;
   )
 }
 
-/* ------------------------------------------------------------------- shell */
-
 export function AppShell({ children }: { children: React.ReactNode }) {
   const { prefs } = usePrefs()
   const [settings, setSettings] = useState(false)
   const [palette, setPalette] = useState(false)
 
-  /* ⌘K / Ctrl+K abre la paleta desde cualquier parte. El `preventDefault` hace
-     falta porque en Chrome ⌘K va a la barra de direcciones. */
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
       if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') {
@@ -297,8 +244,6 @@ export function AppShell({ children }: { children: React.ReactNode }) {
   return (
     <div className="min-h-screen bg-canvas">
       <Sidebar />
-      {/* El contenido se corre con padding y no con un flex: el sidebar es
-          `fixed`, así que no ocupa lugar en el flujo. */}
       <div
         className="transition-[padding] duration-[190ms] ease-out"
         style={{ paddingLeft: prefs.sidebarCollapsed ? 72 : 220 }}

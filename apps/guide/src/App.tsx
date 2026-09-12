@@ -8,13 +8,7 @@ import { UpdatesScreen } from './screens/updates'
 import { SignInScreen } from './screens/signin'
 import { EmptyState, Page, Button } from '@melu/ui'
 
-/**
- * Dos shells: el de trabajo (con sidebar) y el que va suelto.
- *
- * Planes y entrar van sueltas a propósito: son pantallas de decisión, y el
- * sidebar al costado te ofrece irte a cualquier otra parte justo cuando estás
- * decidiendo.
- */
+/** Dos shells: el de trabajo (con sidebar) y el que va suelto. */
 export function App() {
   return (
     <Routes>
@@ -38,9 +32,6 @@ export function App() {
   )
 }
 
-/* `useLocation` sobre el shell no es decorativo: sin la key, al navegar entre
-   dos pantallas que comparten componentes React reusa los nodos y las
-   animaciones de entrada no vuelven a correr. */
 function ShellLayout() {
   const { pathname } = useLocation()
   return (
