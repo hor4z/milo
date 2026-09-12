@@ -15,4 +15,12 @@ describe('Link', () => {
     render(<Link href="/ajustes">Ajustes</Link>)
     expect(screen.getByRole('link')).not.toHaveAttribute('target')
   })
+
+  it('lleva las dos señales: el color de marca y el subrayado', () => {
+    // El color solo no alcanza (WCAG 1.4.1) y el subrayado solo lo confundía con
+    // el texto en negrita de al lado.
+    render(<Link href="#">Ver todas</Link>)
+    const a = screen.getByRole('link')
+    expect(a).toHaveClass('text-brand-ink', 'underline')
+  })
 })

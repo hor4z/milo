@@ -10,8 +10,12 @@ export function Link({ external, className, children, ...props }: ComponentProps
   return (
     <a
       className={cx(
-        'inline-flex items-center gap-1 rounded-sm text-ink underline decoration-ink-muted underline-offset-[3px]',
-        'transition-colors hover:decoration-ink',
+        // Azul **y** subrayado, las dos cosas. El color solo no alcanza —WCAG
+        // 1.4.1— y el subrayado solo dejaba al enlace confundido con el texto en
+        // negrita de al lado. Ahora que el azul es primario, un enlace en la
+        // tinta de marca es la convención que todo el mundo ya sabe leer.
+        'inline-flex items-center gap-1 rounded-sm text-brand-ink underline decoration-brand-border underline-offset-[3px]',
+        'transition-colors duration-fast hover:decoration-brand-ink',
         className,
       )}
       {...(external ? { target: '_blank', rel: 'noreferrer noopener' } : null)}

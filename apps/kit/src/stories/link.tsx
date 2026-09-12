@@ -7,7 +7,7 @@ export function LinkStory() {
       title="Link"
       kind="Superficies"
       imports="import { Link } from '@milo/ui'"
-      lead="Un enlace lleva subrayado, siempre. El azul primario está tomado —lo usan el CTA y el estado activo— así que teñir un enlace lo confundiría con una de esas dos cosas. El subrayado no es decoración: es la única señal que queda."
+      lead="Azul **y** subrayado, las dos cosas. El color solo no alcanza —hay quien no lo distingue— y el subrayado solo dejaba al enlace confundido con el texto en negrita de al lado. Con las dos señales, un enlace se reconoce sin leerlo y sin depender de ver el tono."
     >
       <Section
         title="Adentro de un párrafo"
@@ -46,7 +46,7 @@ export function LinkStory() {
 
       <Section title="Accesibilidad">
         <A11y items={[
-          'El subrayado no depende del color: se ve igual en monocromo y en alto contraste.',
+          'El subrayado no depende del color: en monocromo o en alto contraste el enlace se sigue reconociendo.',
           'Un link externo dice «se abre en otra pestaña» además de mostrar el glifo.',
           'El texto dice a dónde lleva: «los ajustes de la actividad» y no «hacé click acá», que fuera de la frase no significa nada.',
           'El foco se ve con el mismo anillo azul que el resto del sistema.',

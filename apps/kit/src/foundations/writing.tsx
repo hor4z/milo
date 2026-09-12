@@ -37,7 +37,7 @@ export function Writing() {
     >
       <Section
         title="Las reglas"
-        note="Cinco, y las cinco se pueden revisar leyendo en voz alta."
+        note="Siete, y se revisan leyendo en voz alta."
       >
         <div className="grid gap-3 sm:grid-cols-2">
           {[
@@ -47,6 +47,8 @@ export function Writing() {
             ['Sin jerga de sistema', 'Nada de «token», «endpoint», «query» ni «elemento» en una pantalla de producto.'],
             ['Mayúscula solo al principio', 'Los títulos van como una oración: «Entregas de la semana», no «Entregas De La Semana».'],
             ['Números como números', '3 y no «tres», salvo al empezar una oración.'],
+            ['Un número por frase', 'Una línea con tres cifras se cuenta, no se lee. «Cuatro espacios, 79 entregas y 12 sin mirar» obliga a hacer tres lecturas para entender una idea — y quien lee puede ser un docente de Lengua, no alguien que vive entre planillas. Si los números están en las tarjetas de abajo, la frase no los repite: dice qué hacer con ellos.'],
+            ['Decí qué pasa, no cuánto hay', 'Un contador informa; una frase orienta. «Tres entregas vencen mañana» se entiende de una, «3 · 12 · 79» hay que interpretarlo.'],
           ].map(([t, d]) => (
             <div key={t} className="flex flex-col gap-1 rounded-xl border border-line bg-surface p-4">
               <span className="text-body font-semibold text-ink">{t}</span>

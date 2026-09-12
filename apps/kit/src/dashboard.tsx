@@ -1,8 +1,8 @@
 import { useState } from 'react'
 import {
-  Avatar, AvatarGroup, BarChart, Badge, Button, Card, Chip, Dropdown, Folder, Icon, IconButton, Indicator,
-  List, ListItem, Progress, Search, Segmented, SettingsModal, Table, TableBody, TableCell, TableHead,
-  TableHeader, TableHint, TableNum, TableRow, TableTitle, Tooltip, useToast, type IconName,
+  Avatar, AvatarGroup, BarChart, Badge, Button, Card, Dropdown, Folder, Icon, IconButton,
+  Indicator, Link, List, ListItem, Progress, Search, Segmented, SettingsModal, Tooltip, useToast,
+  type IconName,
 } from '@milo/ui'
 
 const face = (n: number) => `/avatars/${String(n).padStart(2, '0')}.webp`
@@ -20,15 +20,6 @@ const month = [
   { label: 'S1', value: 61, total: 84 }, { label: 'S2', value: 74, total: 91 },
   { label: 'S3', value: 38, total: 77 }, { label: 'S4', value: 84, total: 96 },
 ]
-
-const rows = [
-  { name: 'Fracciones equivalentes', space: 'Matemática · 4.º A', status: 'Abierta', people: [p('Ana Pérez', 1), p('Bruno Díaz', 2), p('Carla Sosa', 3), p('Elena Vega', 5)], done: 11, total: 18 },
-  { name: 'El sistema solar', space: 'Ciencias · 5.º B', status: 'Corregida', people: [p('Franco Gil', 6), p('Gabriela Mota', 7), p('Hugo Paz', 8)], done: 24, total: 24 },
-  { name: 'Cuento policial', space: 'Lengua · 6.º', status: 'Borrador', people: [p('Irene Lopez'), p('Julián Cruz')], done: 0, total: 0 },
-  { name: 'Mapa de América', space: 'Sociales · 5.º A', status: 'Abierta', people: [p('Mora Tello', 2), p('Nico Arce'), p('Olivia Rey', 4)], done: 3, total: 7 },
-]
-
-const tone = { 'Abierta': 'green', 'Corregida': 'blue' } as const
 
 const yo = {
   name: 'Valeria Ochoa',
@@ -105,7 +96,7 @@ export function Dashboard() {
         <div className="flex flex-col gap-2">
           <h1 className="text-display font-bold text-ink">Tu semana</h1>
           <p className="text-reading font-medium text-ink-muted">
-            Cuatro espacios, 79 entregas y 12 sin mirar.
+            Ciencias ya está al día. Lo que falta mirar está en Matemática y Lengua.
           </p>
         </div>
         <div className="flex items-center gap-2">
@@ -160,7 +151,7 @@ export function Dashboard() {
           <section className="flex flex-col gap-4">
             <div className="flex items-center justify-between gap-4">
               <h2 className="text-reading font-semibold text-ink">Tus espacios</h2>
-              <Button size="sm" variant="ghost" iconEnd="chevron_right">Ver todos</Button>
+              <Link href="#" className="text-body">Ver todos</Link>
             </div>
             <div className="grid grid-cols-2 gap-4 sm:grid-cols-4">
               {espacios.map(e => (
@@ -183,7 +174,7 @@ export function Dashboard() {
           <div className="flex flex-col gap-3">
             <div className="flex items-center justify-between gap-4">
               <h2 className="text-reading font-semibold text-ink">Para hoy</h2>
-              <Chip color="orange" icon="bolt">3 sin hacer</Chip>
+              <Link href="#" className="text-body">Ver todas</Link>
             </div>
             <List>
               {pendientes.map(t => (
@@ -214,54 +205,6 @@ export function Dashboard() {
         </Card>
       </div>
 
-      <Card className="overflow-hidden p-0">
-        <div className="flex items-center justify-between gap-4 px-5 py-4">
-          <h2 className="text-reading font-semibold text-ink">Últimas actividades</h2>
-          <Button size="sm" variant="ghost" iconEnd="chevron_right">Ver todas</Button>
-        </div>
-        <Table minWidth={720} className="rounded-none border-0 ring-0">
-          <TableHeader>
-            <TableRow>
-              <TableHead>Actividad</TableHead>
-              <TableHead>Estudiantes</TableHead>
-              <TableHead>Estado</TableHead>
-              <TableHead className="text-right">Corregidas</TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            {rows.map(f => (
-              <TableRow key={f.name} onClick={() => {}}>
-                <TableCell>
-                  <TableTitle>{f.name}</TableTitle>
-                  <TableHint>{f.space}</TableHint>
-                </TableCell>
-                <TableCell><AvatarGroup people={f.people} /></TableCell>
-                <TableCell><Chip color={tone[f.status as keyof typeof tone]}>{f.status}</Chip></TableCell>
-                <TableNum>{f.total ? <>{f.done}<span className="text-ink-muted"> / {f.total}</span></> : '—'}</TableNum>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </Card>
-
-      <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-        {[
-          { name: 'Valeria Ochoa', photo: 7, role: 'Matemática · 4.º A', pending: 7 },
-          { name: 'Martín Roldán', photo: 6, role: 'Ciencias · 5.º B', pending: 0 },
-          { name: 'Nadia Britos', role: 'Sociales · 5.º A', pending: 4 },
-        ].map(d => (
-          <Card key={d.name} className="flex items-center gap-3 p-4">
-            <Avatar name={d.name} src={d.photo ? face(d.photo) : undefined} size={38} />
-            <div className="flex min-w-0 flex-1 flex-col">
-              <span className="truncate text-body font-semibold text-ink">{d.name}</span>
-              <span className="truncate text-meta font-medium text-ink-muted">{d.role}</span>
-            </div>
-            {d.pending > 0
-              ? <Badge>{d.pending}</Badge>
-              : <Badge tone="ok" icon="check">al día</Badge>}
-          </Card>
-        ))}
-      </div>
 
       <SettingsModal open={settings} onClose={() => setSettings(false)} user={yo} />
     </div>
