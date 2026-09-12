@@ -11,6 +11,7 @@ import { ReliefSection } from './foundations/relief'
 import { MotionSection } from './foundations/motion'
 import { StatesSection } from './foundations/states'
 import { InclusionSection } from './foundations/inclusion'
+import { AmeliaStory } from './mascots/amelia'
 import { OttoStory } from './mascots/otto'
 import { Writing } from './foundations/writing'
 import { ButtonStory } from './stories/button'
@@ -87,6 +88,7 @@ const groups: Group[] = [
     label: 'Mascotas',
     stories: [
       { id: 'otto', label: 'Otto', alias: 'otto mascota personaje nutria hurón ilustración', render: () => <OttoStory /> },
+      { id: 'amelia', label: 'Amelia', alias: 'amelia mascota personaje chica estudiante ilustración', render: () => <AmeliaStory /> },
     ],
   },
   {

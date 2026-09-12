@@ -1,27 +1,6 @@
-import { useEffect, useState } from 'react'
-import { Button, EmptyState, Icon } from '@milo/ui'
+import { Button, EmptyState } from '@milo/ui'
 import { A11y, Note, Page, Section } from '../kit'
-
-/** Si alguien pidió menos movimiento, el video no arranca: se queda el retrato. */
-function useQuieto() {
-  const [quieto, setQuieto] = useState(false)
-  useEffect(() => {
-    const mq = matchMedia('(prefers-reduced-motion: reduce)')
-    const leer = () => setQuieto(mq.matches)
-    leer()
-    mq.addEventListener('change', leer)
-    return () => mq.removeEventListener('change', leer)
-  }, [])
-  return quieto
-}
-
-/** Dónde aparece y dónde no. La segunda columna es la que hace falta escribir. */
-const donde = [
-  { si: 'La primera vez que se abre algo', no: 'Una pantalla de trabajo, todos los días' },
-  { si: 'Un vacío: todavía no hay actividades', no: 'Un error, una confirmación de borrado' },
-  { si: 'Cuando algo salió bien y vale celebrarlo', no: 'Al lado del botón que manda' },
-  { si: 'Una pantalla de bienvenida o de ayuda', no: 'Adentro de una tabla o de una lista' },
-] as const
+import { ReglasDeMascota, useQuieto } from './reglas'
 
 export function OttoStory() {
   const quieto = useQuieto()
@@ -38,16 +17,16 @@ export function OttoStory() {
         note="Una nutria de pie, con los ojos grandes y las manos juntas. Está mirando un poco hacia arriba y hacia afuera de cuadro, que es lo que lo hace ver curioso en vez de vigilante — una mascota que mira de frente a quien la usa incomoda a la tercera pantalla."
       >
         <div className="flex flex-wrap items-end gap-8 rounded-xl border border-line bg-surface p-6">
-          <img src="/mascotas/otto.webp" alt="" width={200} className="shrink-0" />
+          <img src="/mascotas/otto.webp" alt="" className="h-60 w-auto shrink-0" />
           <div className="flex min-w-0 flex-1 flex-col gap-3">
             <p className="max-w-[54ch] text-reading text-ink">
               Otto no habla, no señala y no explica: acompaña. Lo que hay que decir lo dice el
               texto de la pantalla, y él está para que esa pantalla no se sienta vacía.
             </p>
             <p className="max-w-[54ch] text-body text-ink-muted">
-              Va siempre entero y siempre derecho. No se rota, no se recorta, no se tiñe y no se
-              le cambia la escala en un eje. Una mascota deformada deja de ser la misma mascota, y
-              es lo primero que alguien reconoce de un producto.
+              Va siempre entero y siempre derecho, y se mide por el alto: el retrato está exportado a
+              1200 de alto con el ancho que le toca, así que un ancho fijo lo deja de otro tamaño
+              que Amelia.
             </p>
           </div>
         </div>
@@ -63,20 +42,18 @@ export function OttoStory() {
               <img
                 src="/mascotas/otto.webp"
                 alt="Otto, quieto: pediste menos movimiento"
-                width={220}
-                className="rounded-xl border border-line bg-sunken"
+                className="h-[280px] w-auto rounded-xl border border-line bg-sunken"
               />
             )
             : (
               <video
                 src="/mascotas/otto.mp4"
-                width={220}
                 autoPlay
                 loop
                 muted
                 playsInline
                 aria-label="Otto saluda y se acomoda"
-                className="rounded-xl border border-line"
+                className="h-[280px] w-auto rounded-xl border border-line"
               />
             )}
           <div className="flex min-w-0 flex-1 flex-col gap-3">
@@ -94,25 +71,7 @@ export function OttoStory() {
         </div>
       </Section>
 
-      <Section
-        title="Dónde va y dónde no"
-        note="La segunda columna es la que importa. Una mascota sin un «acá no» termina en todas las pantallas, y una mascota que está en todas las pantallas deja de significar algo."
-      >
-        <div className="flex flex-col overflow-hidden rounded-xl border border-line bg-surface">
-          {donde.map(d => (
-            <div key={d.si} className="flex flex-wrap gap-x-6 gap-y-2 border-t border-line px-5 py-4 first:border-t-0">
-              <span className="flex min-w-0 flex-1 items-start gap-2">
-                <Icon name="check" size={16} className="mt-0.5 shrink-0 text-ok" />
-                <span className="text-body text-ink">{d.si}</span>
-              </span>
-              <span className="flex min-w-0 flex-1 items-start gap-2">
-                <Icon name="close" size={16} className="mt-0.5 shrink-0 text-bad" />
-                <span className="text-body text-ink-muted">{d.no}</span>
-              </span>
-            </div>
-          ))}
-        </div>
-      </Section>
+      <ReglasDeMascota />
 
       <Section
         title="En un vacío, que es donde mejor funciona"
@@ -120,7 +79,7 @@ export function OttoStory() {
       >
         <div className="grid gap-4 lg:grid-cols-2">
           <div className="flex flex-col items-center gap-4 rounded-xl border border-line bg-surface p-8">
-            <img src="/mascotas/otto.webp" alt="" width={120} />
+            <img src="/mascotas/otto.webp" alt="" className="h-28 w-auto" />
             <div className="flex flex-col items-center gap-2 text-center">
               <span className="text-reading font-semibold text-ink">Todavía no hay nada acá</span>
               <p className="max-w-[34ch] text-body text-ink-muted">
@@ -148,7 +107,7 @@ export function OttoStory() {
       <Section title="Los archivos">
         <div className="flex flex-col overflow-hidden rounded-xl border border-line bg-surface">
           {[
-            ['/mascotas/otto.webp', '948 × 1659 · 150 KB', 'El retrato, con alfa. Se apoya en cualquier superficie.'],
+            ['/mascotas/otto.webp', '686 × 1200 · 150 KB', 'El retrato, con alfa. Se apoya en cualquier superficie.'],
             ['/mascotas/otto.mp4', '540 × 960 · 10 s · 228 KB', 'Sin audio y con su propio fondo. Va adentro de una caja.'],
           ].map(([ruta, peso, nota]) => (
             <div key={ruta} className="flex flex-wrap items-center gap-x-5 gap-y-1 border-t border-line px-5 py-4 first:border-t-0">
@@ -161,11 +120,12 @@ export function OttoStory() {
       </Section>
 
       <Note title="Todavía no es una pieza">
-        Otto vive como archivo y no como componente, y eso está bien mientras haya una sola mascota
-        y dos o tres usos. El día que aparezca la segunda —o que alguien necesite elegir la pose—
-        ahí sí conviene una pieza que reciba el nombre y el tamaño, porque si no cada pantalla va a
-        escribir su propio <code>{'<img>'}</code> con su propio ancho y vamos a terminar con cuatro
-        Ottos de cuatro tamaños distintos. Es exactamente lo que pasó con el buscador.
+        Otto vive como archivo y no como componente, y con Amelia al lado ya son dos. Todavía se
+        banca: son dos rutas y un puñado de usos. Lo que no se banca es el ancho — se dibujan con
+        <code>h-*</code> y <code>w-auto</code>, porque los dos retratos comparten el alto y no el
+        ancho. El día que aparezca la tercera, o que alguien necesite elegir la pose, ahí conviene
+        una pieza que reciba el nombre y la altura, o cada pantalla va a escribir su propio
+        <code>{'<img>'}</code> con su propia medida. Es exactamente lo que pasó con el buscador.
       </Note>
 
       <A11y
