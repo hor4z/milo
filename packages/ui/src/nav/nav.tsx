@@ -8,12 +8,12 @@ export function navItemClass({
   active, collapsed, muted,
 }: { active?: boolean; collapsed?: boolean; muted?: boolean } = {}) {
   return cx(
-    'flex h-10 items-center gap-3 rounded-lg text-left text-body font-semibold',
+    'flex h-10 items-center gap-3 rounded-lg text-left text-body',
     'transition-[background-color,box-shadow] duration-fast ease-out',
     collapsed ? 'justify-center px-0' : 'pr-3 pl-[3px]',
     // Orientación va en azul; preferencia, en relieve. La regla está en CLAUDE.md.
     active
-      ? 'bg-brand-soft text-brand-ink shadow-[0_0_0_1px_var(--brand-border)]'
+      ? 'bg-brand-soft font-semibold text-brand-ink shadow-[0_0_0_1px_var(--brand-border)]'
       : muted
         ? 'text-ink-muted hover:bg-hover hover:text-ink'
         : 'text-ink hover:bg-hover',
@@ -66,10 +66,10 @@ export function NavItemBody({
 export function navSubItemClass({ active }: { active?: boolean } = {}) {
   // El inactivo va en tinta: en gris, una lista de siete se lee deshabilitada.
   return cx(
-    'flex h-9 items-center rounded-lg pr-3 pl-12 text-left text-body font-semibold',
+    'flex h-9 items-center rounded-lg pr-3 pl-12 text-left text-body',
     'transition-[background-color,box-shadow] duration-fast ease-out',
     active
-      ? 'bg-brand-soft text-brand-ink shadow-[0_0_0_1px_var(--brand-border)]'
+      ? 'bg-brand-soft font-semibold text-brand-ink shadow-[0_0_0_1px_var(--brand-border)]'
       : 'text-ink hover:bg-hover',
   )
 }

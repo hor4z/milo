@@ -84,22 +84,25 @@
    usa; estas no existen para él, así que si no se declaran acá el token queda
    definido y la utilidad no hace nada. */
 @theme {
-  /* Los tres pesos, bajados un escalón entero. El sistema entero estaba escrito
-     en 500 · 600 · 700, y esos números se eligieron mirando **Inter** a 12px,
-     donde el 400 se leía lavado sobre un fondo casi blanco. Instrument Sans
-     dibuja más grueso al mismo número —tiene la x más alta y el trazo más
-     ancho—, así que ese 500 de interfaz que con Inter apenas alcanzaba, acá
-     pesa: la pantalla entera se ve en negrita.
+  /* Tres pesos y dos reglas, y la segunda importa más que los números.
 
-     Se cambia acá y no en cada call site a propósito. Los pesos del sistema son
-     tres **roles** —la interfaz, lo accionable, el display— y las utilidades de
-     Tailwind son el nombre que les pusimos. Cambiar el rol es cambiar el número
-     al que apunta, una vez; renombrar 200 clases para decir lo mismo no.
+     **El peso lo lleva el elegido, no la lista.** Un riel de doce entradas, un
+     menú de seis, unas solapas, seis chips en una fila: si todos van en el peso
+     de énfasis, ninguno está enfatizado y la pantalla entera se lee agresiva. Se
+     llegó a ese estado —el 44% del texto de una pantalla estaba en el escalón de
+     arriba— y la salida no fue bajar el número: fue sacarle el peso a los
+     hermanos y dejárselo al que está elegido.
 
-     El costo de hacerlo así, y hay que saberlo: `font-medium` ahora escribe
-     400. La clase miente sobre el número y dice la verdad sobre el rol. */
+     **Y el escalón de énfasis es corto a propósito.** 450 y no 500: con Inter,
+     el 500 sobre una base de 400 es un salto que se nota como negrita, y lo que
+     hace falta es que se note como énfasis. El 600 se queda donde está porque su
+     trabajo es otro —una portada, un número grande— y ahí sí conviene el salto
+     largo.
+
+     Los nombres de las utilidades mienten sobre el número y dicen la verdad
+     sobre el rol, que es lo que se elige al escribir. */
   --font-weight-medium: 400;    /* la interfaz */
-  --font-weight-semibold: 500;  /* lo accionable y los títulos de fila */
+  --font-weight-semibold: 450;  /* lo accionable, los títulos, lo elegido */
   --font-weight-bold: 600;      /* solo display */
 
   /* Se apaga la escala que trae Tailwind, con el mismo argumento que la paleta
@@ -360,6 +363,9 @@ body {
    y se lo aplicaba igual a un título de 20 que a uno de 40. El tracking es parte
    del rol: lo trae `text-title` o `text-heading`, que saben de qué tamaño son. */
 h1, h2, h3 { font-family: var(--font-sans); font-weight: 400; margin: 0; }
+/* El `th` trae `bold` del navegador. Es un peso que el sistema no tiene, y se
+   cuela en cualquier tabla —incluso en una `sr-only`— sin que nadie lo elija. */
+th { font-weight: var(--font-weight-semibold); }
 
 /* Los números de un precio o de una métrica se alinean en columna: sin esto, el
    1 es más angosto que el 4 y una tabla de números baila. */
@@ -567,7 +573,7 @@ h1, h2, h3 { font-family: var(--font-sans); font-weight: 400; margin: 0; }
   gap: 2px;
   max-width: calc(var(--folder-w) * 1.1);
 }
-.folder-name { font-size: var(--type-body); line-height: var(--type-body-lh); font-weight: 500; color: var(--text); }
+.folder-name { font-size: var(--type-body); line-height: var(--type-body-lh); font-weight: var(--font-weight-semibold); color: var(--text); }
 .folder-meta { font-size: var(--type-meta); line-height: var(--type-meta-lh); letter-spacing: var(--type-meta-ls); font-weight: 400; color: var(--text-muted); }
 
 @media (prefers-reduced-motion: reduce) {
@@ -708,7 +714,7 @@ h1, h2, h3 { font-family: var(--font-sans); font-weight: 400; margin: 0; }
    está sobre el color. */
 .book-title {
   color: var(--text);
-  font-weight: 500;
+  font-weight: var(--font-weight-semibold);
   letter-spacing: -0.02em;
   line-height: 1.25;
   text-wrap: balance;

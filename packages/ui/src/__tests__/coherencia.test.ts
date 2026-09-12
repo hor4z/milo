@@ -91,6 +91,15 @@ describe('coherencia del sistema', () => {
     expect(offenders).toEqual([])
   })
 
+  it('los pesos salen de los tres roles', () => {
+    // Tres pesos y tres nombres. Un `font-[500]` o un `font-weight: 600` a mano
+    // mete un cuarto escalón que nadie eligió y que no se mueve cuando se
+    // recalibra la familia — que es justo lo que pasó al volver a Inter.
+    const fuera = /font-\[\d|font-(thin|extralight|light|normal|extrabold|black)\b/
+    const offenders = sources.filter(f => fuera.test(f.text)).map(f => f.name)
+    expect(offenders).toEqual([])
+  })
+
   it('todo lo público se exporta desde index.ts', () => {
     const index = readFileSync(join(dir, 'index.ts'), 'utf8')
     const missing: string[] = []

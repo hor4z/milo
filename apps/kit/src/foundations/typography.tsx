@@ -119,13 +119,13 @@ export function TypographySection() {
       </Section>
 
       <Section
-        title="Tres pesos"
-        note="400 la interfaz, 500 lo accionable y los títulos de fila, 600 solo en portada. Se cambian en el @theme y no en los call sites, así que las utilidades siguen llamándose medium, semibold y bold: el nombre es del rol, no del número. Ese número se calibró mirando la pantalla a 12px y la base ahora es 14, así que hay que volver a mirarlo cuando se elija la familia."
+        title="Tres pesos, y una regla que pesa más que los tres"
+        note="400 la interfaz · 450 lo accionable, los títulos y lo elegido · 600 solo display. **El peso lo lleva el elegido, no la lista**: un riel de doce entradas, un menú de seis, seis chips en una fila — si todos van en el escalón de énfasis, ninguno está enfatizado y la pantalla se lee agresiva. Se llegó a medir un 44% del texto de una pantalla en el escalón de arriba. Y el escalón es corto a propósito: 450 y no 500, porque con Inter el 500 sobre una base de 400 salta a algo que se lee como negrita cuando lo que hace falta es que se lea como énfasis."
       >
         <div className="grid gap-3 sm:grid-cols-3">
           {[
             ['font-medium', '400', 'la interfaz'],
-            ['font-semibold', '500', 'lo accionable'],
+            ['font-semibold', '450', 'lo elegido'],
             ['font-bold', '600', 'la portada'],
           ].map(([cls, n, role]) => (
             <div key={cls} className="flex flex-col gap-2 rounded-2xl border border-line bg-surface p-5">

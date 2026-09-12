@@ -74,7 +74,7 @@ export function MenuItem({
       aria-checked={checked}
       onClick={onSelect}
       className={cx(
-        'flex h-10 w-full items-center gap-4 rounded-lg px-2 text-left text-body font-semibold',
+        'flex h-10 w-full items-center gap-4 rounded-lg px-2 text-left text-body',
         'transition-colors duration-fast',
         'disabled:pointer-events-none disabled:opacity-45',
         danger ? 'text-bad-ink hover:bg-bad-subtle' : 'text-ink hover:bg-hover',

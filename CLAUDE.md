@@ -18,7 +18,7 @@ final son lo único que hay que tocar.
 npm install
 npm run dev        # el sitio · http://localhost:5190
 npm run typecheck  # todo el monorepo de una
-npm test           # 291 tests con vitest y testing-library
+npm test           # 292 tests con vitest y testing-library
 npm run props      # regenera la tabla de props desde los tipos
 ```
 
@@ -139,14 +139,26 @@ fijo a los **números** sin cambiar de letra — verificado, el 1 y el 4 miden l
 lo que el rol hace de verdad (precios, métricas, una columna de tabla) y no alcanza para un bloque
 de código, que no existe en el sistema.
 
-**Pesos.** 400 la interfaz · 500 lo accionable y los títulos de fila · 600 solo display. Bajaron un
-escalón entero al pasar de Inter a Instrument Sans, que dibuja más grueso al mismo número —x más
-alta, trazo más ancho— y con los tres anteriores la pantalla entera se veía en negrita. Se cambia
-en el `@theme` y no en los call sites, así que las utilidades siguen llamándose `font-medium` ·
-`font-semibold` · `font-bold`: el nombre es del rol, no del número. Se miraron de nuevo al volver a
-Inter y se quedan: el problema documentado era **Inter a 12px**, donde el 400 se leía lavado, y la
-base ahora es 14. El pendiente se resolvió solo cuando se movió el tamaño, que es lo que había que
-mover.
+**Pesos.** 400 la interfaz · **450** lo accionable, los títulos y lo elegido · 600 solo display. Se
+cambian en el `@theme` y no en los call sites, así que las utilidades siguen llamándose
+`font-medium` · `font-semibold` · `font-bold`: el nombre miente sobre el número y dice la verdad
+sobre el rol, que es lo que se elige al escribir.
+
+**El peso lo lleva el elegido, no la lista.** Es la regla que más cuesta ver y la que más se
+rompe. Un riel de doce entradas, un menú de seis, unas solapas, seis chips en una fila: si todos
+van en el escalón de énfasis, **ninguno está enfatizado** y la pantalla entera se lee agresiva. Se
+llegó a medir un 44% del texto de una pantalla en el escalón de arriba. La salida no fue bajar el
+número: fue sacarle el peso a los hermanos —`Nav`, `Tabs`, `Segmented`, `Menu`, `Chip`, `Link`— y
+dejárselo al que está elegido. Lo que conserva el énfasis por derecho propio es lo que se aprieta
+(un botón), lo que titula (una tarjeta, una fila, un aviso) y lo que es una marca chica que tiene
+que leerse (un badge, la inicial de un avatar).
+
+**Y el escalón de énfasis es corto a propósito.** 450 y no 500: con Inter, el 500 sobre una base de
+400 salta a algo que se lee como negrita, y lo que hace falta es que se lea como énfasis. El 600 se
+queda con el salto largo porque su trabajo es otro — una portada, un número grande.
+
+Un `Link` no lleva peso: ya tiene el subrayado, que es su señal. Sumarle 450 lo convierte en lo más
+fuerte de un párrafo por ser un enlace, que no es lo que un enlace quiere decir.
 
 **Sin `-webkit-font-smoothing: antialiased` y sin `text-rendering: optimizeLegibility`**, y las dos
 ausencias son la decisión. El primero no mejora el antialias: lo apaga, y pide rasterizar en escala
@@ -598,7 +610,7 @@ Lo mismo vale para los tipos que una pieza recibe como argumento —`ToastOption
 
 ## Los tests
 
-`npm test` corre vitest con jsdom y testing-library. 291 tests, y lo que prueban es el
+`npm test` corre vitest con jsdom y testing-library. 292 tests, y lo que prueban es el
 comportamiento —teclado, nombres accesibles, estados— y no el markup, que cambia con cada
 ajuste de estilo. El test de cada pieza vive en su carpeta, al lado del componente.
 
