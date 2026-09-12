@@ -64,12 +64,19 @@ export function BarChart({ data, highlight, title, height = 220, className }: {
   height?: number
   className?: string
 }) {
-  const [activa, setActiva] = useState<number | null>(null)
+  /* El hover y el foco van en dos estados y no en uno, y esto se rompió antes de
+     separarse: con un solo índice, enfocar la barra 2 con el teclado y después
+     pasar el mouse por la 4 y salir del gráfico dejaba el índice en nulo —el
+     `pointerleave` de la 4 lo limpiaba— con la barra 2 todavía enfocada y sin
+     una sola marca de dónde estaba el foco. Un puntero no puede apagar lo que
+     puso el teclado. */
+  const [hover, setHover] = useState<number | null>(null)
+  const [foco, setFoco] = useState<number | null>(null)
   const tablaId = useId()
   /* El id del patrón sale de `useId` y no de una constante: dos gráficos en la
      misma pantalla con el mismo id hacen que el segundo apunte al `<pattern>`
      del primero, y si ese se desmonta, el rayado del que queda desaparece. */
-  const tramaId = `trama-${useId().replace(/:/g, '')}`
+  const tramaId = `trama-${useId()}`
   /* La escala sale del total más alto y no del valor más alto: si la altura la
      mandara lo hecho, un día con 4 de 4 dibujaría una barra más alta que uno con
      30 de 60, y el gráfico diría lo contrario de lo que pasó. */
@@ -101,17 +108,22 @@ export function BarChart({ data, highlight, title, height = 220, className }: {
           const hecho = Math.min(100, Math.round((d.value / Math.max(d.total, 1)) * 100))
           return (
             <button
-              key={d.label}
+              /* La clave es el índice y no el `label`: dos meses de años
+                 distintos o dos lunes de una serie de quince días repiten el
+                 nombre, y ahí React avisa por duplicado y puede colgarle el
+                 estado de una barra a la de al lado. Los datos son
+                 posicionales; la posición es la clave honesta. */
+              key={i}
               type="button"
               /* La barra entera es el blanco del mouse y del foco, no el
                  rectángulo pintado: el `<button>` ocupa la columna completa
                  —incluido el aire de arriba— así que apuntarle a una barra baja
                  no obliga a bajar hasta el piso. */
               className="chart-bar group relative flex h-full flex-1 cursor-default flex-col justify-end outline-none"
-              onPointerEnter={() => setActiva(i)}
-              onPointerLeave={() => setActiva(a => (a === i ? null : a))}
-              onFocus={() => setActiva(i)}
-              onBlur={() => setActiva(a => (a === i ? null : a))}
+              onPointerEnter={() => setHover(i)}
+              onPointerLeave={() => setHover(h => (h === i ? null : h))}
+              onFocus={() => setFoco(i)}
+              onBlur={() => setFoco(f => (f === i ? null : f))}
               aria-label={`${d.label}: ${d.value} de ${d.total}`}
             >
               <span
@@ -147,42 +159,51 @@ export function BarChart({ data, highlight, title, height = 220, className }: {
                   style={{ height: `${hecho}%` }}
                 />
               </span>
+
+              {/* El tooltip se dibuja **adentro de su columna**, y eso arregla
+                  tres cosas de una. Calculado como un porcentaje del ancho del
+                  gráfico, el ancla ignoraba el `gap` entre barras y se corría
+                  unos píxeles en las de las puntas —el centro real de la barra
+                  `i` no es `(i+0,5)/n` cuando hay aire entre ellas—; el alto de
+                  la barra estaba escrito dos veces y había que acordarse de
+                  cambiarlo en las dos; y el índice suelto indexaba el arreglo en
+                  el render, así que una serie que se acortaba mientras había una
+                  barra hovereada leía `data[activa]` como `undefined` y
+                  reventaba. Acá no hay índice ni cuenta: el tooltip está donde
+                  está el dato. */}
+              {(hover === i || foco === i) && (
+                <ChartTooltip
+                  datum={d}
+                  /* Se recuesta contra el borde en las de las puntas: centrado
+                     sobre la primera columna, la mitad izquierda de la caja cae
+                     afuera de la tarjeta. */
+                  align={i === 0 ? 'start' : i === data.length - 1 ? 'end' : 'center'}
+                  /* Y baja adentro de la barra cuando arriba no entra. El
+                     umbral no puede ser un porcentaje fijo: lo que decide es
+                     cuántos píxeles quedan libres sobre el tope, y eso depende
+                     del alto del gráfico — en uno de 160 una barra al 88% deja
+                     19px, y en uno de 300 deja 36. Se compara contra el alto de
+                     la caja más su margen, que es lo que necesita para entrar. */
+                  dentro={height * (1 - alto / 100) < 56}
+                  style={{ bottom: `${alto}%` }}
+                />
+              )}
             </button>
           )
         })}
-
-        {activa !== null && (
-          <ChartTooltip
-            datum={data[activa]}
-            /* Anclado a su columna y no al puntero: siguiendo el mouse, el
-               tooltip tiembla mientras te movés adentro de la misma barra y hay
-               que perseguirlo con la vista para leer un número.
-
-               Y se recuesta contra el borde en las de las puntas. Centrado sobre
-               la primera columna, la mitad izquierda de la caja cae afuera de la
-               tarjeta: o se corta, o se sale por encima de lo que haya al lado.
-               En las puntas se alinea por su borde en vez de por su centro, que
-               es lo que hace cualquier menú anclado. */
-            align={activa === 0 ? 'start' : activa === data.length - 1 ? 'end' : 'center'}
-            style={{
-              left: `${((activa + 0.5) / data.length) * 100}%`,
-              bottom: `${Math.max(6, Math.round((data[activa].total / max) * 100))}%`,
-            }}
-          />
-        )}
       </div>
 
       <div className="mt-3 flex gap-3">
         {data.map((d, i) => (
           <div
-            key={d.label}
+            key={i}
             /* Todas en tinta, y la que importa un paso más pesada. En gris, una
                fila de etiquetas debajo de barras claras se lee como si el
                gráfico estuviera deshabilitado — y son el único texto que dice
                qué es cada barra, así que no acompañan a un dato: lo nombran. */
             className={cx(
               'flex-1 text-center text-xs text-ink transition-[font-weight]',
-              i === activa || i === highlight ? 'font-bold' : 'font-semibold',
+              i === hover || i === foco || i === highlight ? 'font-bold' : 'font-semibold',
             )}
           >
             {d.label}
@@ -192,11 +213,16 @@ export function BarChart({ data, highlight, title, height = 220, className }: {
 
       {/* La misma información sin gráfico. `sr-only` y no `hidden`: escondida
           para la vista, presente para un lector de pantalla. */}
+      {/* Con las dos columnas sin nombre, un lector de pantalla lee «Lunes 18
+          24» y no hay forma de saber cuál es lo hecho y cuál el total. */}
       <table id={tablaId} className="sr-only">
         <caption>{title}</caption>
+        <thead>
+          <tr><th scope="col">Categoría</th><th scope="col">Hecho</th><th scope="col">Total</th></tr>
+        </thead>
         <tbody>
-          {data.map(d => (
-            <tr key={d.label}><th scope="row">{d.label}</th><td>{d.value}</td><td>{d.total}</td></tr>
+          {data.map((d, i) => (
+            <tr key={i}><th scope="row">{d.label}</th><td>{d.value}</td><td>{d.total}</td></tr>
           ))}
         </tbody>
       </table>
@@ -221,10 +247,12 @@ export function BarChart({ data, highlight, title, height = 220, className }: {
  * tooltip al revés de la de una leyenda: acá el lector ya sabe qué tocó y lo que
  * fue a buscar es cuánto.
  */
-function ChartTooltip({ datum, style, align = 'center' }: {
+function ChartTooltip({ datum, style, align = 'center', dentro }: {
   datum: BarDatum
   style?: React.CSSProperties
   align?: 'start' | 'center' | 'end'
+  /** La barra llega arriba de todo: la caja se apoya adentro en vez de encima. */
+  dentro?: boolean
 }) {
   return (
     <div
@@ -233,7 +261,8 @@ function ChartTooltip({ datum, style, align = 'center' }: {
          explica, y el hover parpadea. `-translate-x-1/2` para centrarlo en su
          columna, y el margen de abajo lo despega del tope de la barra. */
       className={cx(
-        'ui-fade pointer-events-none absolute z-20 mb-2 whitespace-nowrap rounded-md bg-surface px-3 py-2 shadow-popover',
+        'ui-fade pointer-events-none absolute z-20 whitespace-nowrap rounded-md bg-surface px-3 py-2 shadow-popover',
+        dentro ? 'translate-y-full -mb-2' : 'mb-2',
         /* El corrimiento se hace con `translate` y no con `left`: el `left` ya
            apunta al centro de la columna, así que moverlo de nuevo lo desancla
            de su barra. Acá solo se elige qué punto de la caja cae sobre esa
