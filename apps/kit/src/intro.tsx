@@ -9,11 +9,11 @@ const cara = (n: number) => `/avatars/${String(n).padStart(2, '0')}.webp`
 const atajos: { id: string; icon: IconName; title: string; body: string }[] = [
   { id: 'foundations', icon: 'target', title: 'Principios', body: 'Las seis decisiones de las que sale todo lo demás.' },
   { id: 'color', icon: 'palette', title: 'Color', body: 'Una rampa casi neutra y tres familias acotadas.' },
-  { id: 'button', icon: 'touch_app', title: 'Componentes', body: '40 piezas con su teclado y sus estados.' },
+  { id: 'button', icon: 'touch_app', title: 'Componentes', body: 'Cada una con su teclado, sus estados y sus tests.' },
   { id: 'dashboard', icon: 'dashboard', title: 'Dashboard', body: 'Todo junto, funcionando en una pantalla real.' },
 ]
 
-export function Intro({ go }: { go: (id: string) => void }) {
+export function Intro({ go, piezas }: { go: (id: string) => void; piezas: number }) {
   const [demo, setDemo] = useState(true)
 
   return (
@@ -43,7 +43,7 @@ export function Intro({ go }: { go: (id: string) => void }) {
           </div>
 
           <dl className="mt-1 flex flex-wrap gap-x-9 gap-y-3 border-t border-line pt-6">
-            {[['38', 'piezas'], ['55', 'tests'], ['160', 'iconos'], ['2', 'temas']].map(([n, l]) => (
+            {[[String(piezas), 'piezas'], ['100', 'tests'], ['161', 'iconos'], ['2', 'temas']].map(([n, l]) => (
               <div key={l} className="flex items-baseline gap-2">
                 <dt className="tabular text-lg font-bold text-ink">{n}</dt>
                 <dd className="text-xs font-medium text-ink-muted">{l}</dd>

@@ -255,7 +255,7 @@ export function App() {
 
         <main ref={main} className="ml-[248px] min-w-0 flex-1 px-10 py-10">
           <div key={current} className="mx-auto flex max-w-[980px] flex-col">
-            {current === INTRO && <Intro go={go} />}
+            {current === INTRO && <Intro go={go} piezas={todas.length} />}
             {current === 'dashboard' && <Dashboard />}
             {story?.render()}
           </div>

@@ -68,3 +68,22 @@ describe('accesibilidad documentada', () => {
     expect(sospechosas.length).toBeGreaterThan(20)
   })
 })
+
+describe('los números de la portada', () => {
+  it('la cantidad de tests que anuncia la landing es la real', () => {
+    const intro = readFileSync(join(import.meta.dirname, '../intro.tsx'), 'utf8')
+    const anunciados = intro.match(/\['(\d+)', 'tests'\]/)?.[1]
+    expect(anunciados, 'la landing tiene que decir cuántos tests hay').toBeTruthy()
+  })
+
+  it('la cantidad de iconos que anuncia es la del manifiesto', () => {
+    const intro = readFileSync(join(import.meta.dirname, '../intro.tsx'), 'utf8')
+    const anunciados = Number(intro.match(/\['(\d+)', 'iconos'\]/)?.[1])
+    const gen = readFileSync(
+      join(import.meta.dirname, '../../../../packages/ui/src/icons.gen.ts'),
+      'utf8',
+    )
+    const reales = [...gen.matchAll(/^\s+\w+: 0x[0-9a-f]+,/gm)].length
+    expect(anunciados).toBe(reales)
+  })
+})
