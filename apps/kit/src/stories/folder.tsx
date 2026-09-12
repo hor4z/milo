@@ -8,6 +8,8 @@ export function FolderStory() {
   return (
     <Page
       title="Folder"
+      kind="Superficies"
+      imports="import { Folder, FolderIcon } from '@melu/ui'"
       lead="Una carpeta que se abre. Cerrada es una silueta limpia; al pasar por encima las hojas suben desde adentro y se abanican, y ahí se ve qué hay sin tener que entrar."
     >
       <Section

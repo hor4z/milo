@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { Avatar, FolderIcon, Icon, Select } from '@melu/ui'
-import { Demo, Page, Props, Section } from '../kit'
+import { A11y, Demo, Page, Props, Section } from '../kit'
 
 export function SelectStory() {
   const [nivel, setNivel] = useState('6.º grado')
@@ -19,6 +19,8 @@ export function SelectStory() {
   return (
     <Page
       title="Select"
+      kind="Formularios"
+      imports="import { Select } from '@melu/ui'"
       lead="Es un botón con un listbox propio, no un `<select>` nativo. `appearance: none` te saca la flecha, pero la lista desplegada la sigue dibujando el sistema operativo, así que en Linux aparece un control de GTK en medio de la interfaz: el campo se ve «sin estilo» por más que la caja esté bien."
     >
       <Section
@@ -117,6 +119,14 @@ export function SelectStory() {
           { name: 'width', type: 'number', note: 'sin esto toma el ancho del contenido' },
           { name: 'leading', type: 'ReactNode', note: 'adelante del valor: un Icon, una FolderIcon, un Avatar, un Spinner' },
           { name: 'loading', type: 'boolean', note: 'no abre, avisa aria-busy y pone el spinner si no hay leading' },
+        ]} />
+      </Section>
+    
+      <Section title="Accesibilidad">
+        <A11y items={[
+          'Flechas para moverse, Enter para elegir, Escape para salir, Home y End a los extremos.',
+          'Escape entra en la pila global: cierra la lista y deja abierto el modal que haya detrás.',
+          'Con `loading` no abre y avisa `aria-busy`, en vez de mostrar una lista vacía.',
         ]} />
       </Section>
     </Page>

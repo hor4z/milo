@@ -1,5 +1,5 @@
 import { Avatar, AvatarGroup } from '@melu/ui'
-import { Demo, Page, Props, Section } from '../kit'
+import { A11y, Demo, Page, Props, Section } from '../kit'
 
 const cara = (n: number) => `/avatars/${String(n).padStart(2, '0')}.webp`
 const persona = (name: string, foto?: number) => ({ name, src: foto ? cara(foto) : undefined })
@@ -8,6 +8,8 @@ export function AvatarStory() {
   return (
     <Page
       title="Avatar · AvatarGroup"
+      kind="Datos"
+      imports="import { Avatar, AvatarGroup } from '@melu/ui'"
       lead="Una persona en el lugar de un nombre. Con foto o con la inicial sobre una etiqueta de color, y las dos tienen que pesar lo mismo: en una fila donde algunos subieron foto y otros no, el que no subió no puede leerse como un error."
     >
       <Section
@@ -87,6 +89,13 @@ export function AvatarStory() {
           { name: 'AvatarGroup · max', type: 'number', def: '3', note: 'cuenta avatares, no personas' },
           { name: 'AvatarGroup · size', type: 'number', def: '28', note: 'el monte sale de acá' },
           { name: 'AvatarGroup · ring', type: 'string', def: "'ring-surface'", note: 'la utilidad del fondo de atrás' },
+        ]} />
+      </Section>
+    
+      <Section title="Accesibilidad">
+        <A11y items={[
+          'El grupo publica los nombres completos en texto para quien no ve las caras.',
+          'Sin foto, la inicial va sobre su color con contraste suficiente.',
         ]} />
       </Section>
     </Page>

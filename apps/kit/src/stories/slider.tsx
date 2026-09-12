@@ -11,6 +11,8 @@ export function SliderStory() {
   return (
     <Page
       title="Slider"
+      kind="Formularios"
+      imports="import { Slider } from '@melu/ui'"
       lead="El hermano del switch, y por eso no tiene recetas propias: la pista llena, la vacía y el pulgar son los del switch. Los dos son una píldora con una pieza redonda encima, así que el día que cambie el relieve de uno tiene que cambiar el del otro."
     >
       <Section

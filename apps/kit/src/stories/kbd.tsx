@@ -5,6 +5,8 @@ export function KbdStory() {
   return (
     <Page
       title="Kbd"
+      kind="Superficies"
+      imports="import { Kbd } from '@melu/ui'"
       lead="La tecla de un atajo. No se toca: marca. Por eso va hundida y no con el relieve de algo que sobresale."
     >
       <Section

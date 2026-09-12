@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { Textarea } from '@melu/ui'
-import { Demo, Page, Props, Section } from '../kit'
+import { A11y, Demo, Page, Props, Section } from '../kit'
 
 export function TextareaStory() {
   const [corto, setCorto] = useState('')
@@ -13,6 +13,8 @@ export function TextareaStory() {
   return (
     <Page
       title="Textarea"
+      kind="Formularios"
+      imports="import { Textarea } from '@melu/ui'"
       lead="El campo de varias líneas: el TextField estirado. La misma caja, el mismo borde y la misma marca de foco, porque un campo de una línea y uno de varias que no se parecen se leen como dos sistemas. Lo único que cambia adentro es el leading — el 16 fijo de la interfaz aprieta cuando hay varios renglones. Al enfocarse se le tiñe el borde en vez de rodearse de un anillo: el anillo es para una pieza sin borde propio, y sobre un campo dibujaba una segunda línea azul a dos píxeles de la primera."
     >
       <Section
@@ -115,6 +117,14 @@ export function TextareaStory() {
           arrastrarla deja un alto que el crecimiento automático después pisa. El alto lo decide el
           contenido.
         </p>
+      </Section>
+    
+      <Section title="Accesibilidad">
+        <A11y items={[
+          'Se remide al cambiar el ancho y al cargar la fuente, así que nunca recorta texto sin barra.',
+          'Al llegar al techo prende el scroll; abajo del techo lo apaga para que no titile.',
+          'El anillo de foco es de la caja, igual que en TextField.',
+        ]} />
       </Section>
     </Page>
   )

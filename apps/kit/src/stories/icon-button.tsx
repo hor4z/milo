@@ -1,10 +1,12 @@
 import { IconButton } from '@melu/ui'
-import { Page, Panel, Props, Section, Variant } from '../kit'
+import { A11y, Page, Panel, Props, Section, Variant } from '../kit'
 
 export function IconButtonStory() {
   return (
     <Page
       title="IconButton"
+      kind="Acciones"
+      imports="import { IconButton } from '@melu/ui'"
       lead="Cuadrado del alto de su paso, y los pasos son los del Button: el mismo nombre de tamaño da el mismo alto en las dos piezas, así que un icono al lado de un botón en la misma fila apoya en la misma línea sin que nadie lo calcule. El radio es 10 en los tres y no el del paso — es la regla del sistema: `md` es lo cuadrado que se toca, `lg` lo que se toca con texto."
     >
       <Section
@@ -65,6 +67,14 @@ export function IconButtonStory() {
           { name: 'size', type: "'sm' | 'md' | 'lg'", def: "'md'", note: '32 · 36 · 40, los del Button' },
           { name: 'dot', type: 'boolean', note: 'el punto de acento arriba a la derecha' },
           { name: 'active', type: 'boolean', note: 'solo cambia el ghost, que pasa a muted' },
+        ]} />
+      </Section>
+    
+      <Section title="Accesibilidad">
+        <A11y items={[
+          'El `label` es obligatorio y se convierte en el nombre accesible: un icono solo no dice nada.',
+          'No lleva `title` nativo, que era una segunda caja del sistema operativo diciendo lo mismo.',
+          'Para la ayuda visual se envuelve en `Tooltip`, que aparece también con el teclado.',
         ]} />
       </Section>
     </Page>

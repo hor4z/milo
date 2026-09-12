@@ -1,10 +1,12 @@
 import { Button, Spinner } from '@melu/ui'
-import { Page, Panel, Props, Section, Variant } from '../kit'
+import { A11y, Page, Panel, Props, Section, Variant } from '../kit'
 
 export function SpinnerStory() {
   return (
     <Page
       title="Spinner"
+      kind="Avisos"
+      imports="import { Spinner } from '@melu/ui'"
       lead="Pista completa más un arco encima, los dos del mismo grosor. La pista no es decorativa: sin ella, un arco suelto girando no dice «esperá», dice que falta un trozo de la interfaz. El arco es de largo fijo y lo único que pasa es que gira, parejo."
     >
       <Section
@@ -45,6 +47,12 @@ export function SpinnerStory() {
           { name: 'label', type: 'string', def: "'Cargando'", note: 'al aria-label; el rol es status' },
           { name: 'on', type: "'surface' | 'solid'", def: "'surface'", note: 'sobre qué está apoyado: de ahí salen el filo y la pista' },
           { name: 'className', type: 'string' },
+        ]} />
+      </Section>
+    
+      <Section title="Accesibilidad">
+        <A11y items={[
+          'Lleva role="status" y un nombre, así que un lector dice qué está cargando.',
         ]} />
       </Section>
     </Page>

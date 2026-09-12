@@ -5,6 +5,8 @@ export function BookStory() {
   return (
     <Page
       title="Book"
+      kind="Superficies"
+      imports="import { Book } from '@melu/ui'"
       lead="Una tapa en tres dimensiones, con su lomo y su canto de hojas. Es una portada —un tema, una guía, una colección— y no una tarjeta: en una grilla de doce filas iguales, doce libros son doce objetos pidiendo atención y ninguno la consigue. Para eso está Card."
     >
       <Section

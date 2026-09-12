@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { Checkbox } from '@melu/ui'
-import { Page, Panel, Props, Section, Variant } from '../kit'
+import { A11y, Page, Panel, Props, Section, Variant } from '../kit'
 
 export function CheckboxStory() {
   const [a, setA] = useState(true)
@@ -10,6 +10,8 @@ export function CheckboxStory() {
   return (
     <Page
       title="Checkbox"
+      kind="Formularios"
+      imports="import { Checkbox } from '@melu/ui'"
       lead="Caja de 18, la medida del pulgar del switch. El radio es `xs` (5) y no `sm` (6), que es el del kbd: sobre un cuadrado de 18, un radio de 6 deja solo 6px de lado plano de los 18 y la casilla se lee redonda. El kbd puede llevar 6 porque es más ancho que alto y le sobran lados rectos."
     >
       <Section
@@ -57,6 +59,14 @@ export function CheckboxStory() {
           { name: 'label', type: 'string', note: 'al aria-label; si va dentro de un <label>, se omite' },
           { name: 'indeterminate', type: 'boolean', note: 'pinta la raya y manda aria-checked="mixed"' },
           { name: 'disabled', type: 'boolean' },
+        ]} />
+      </Section>
+    
+      <Section title="Accesibilidad">
+        <A11y items={[
+          'Es un botón con role="checkbox" y aria-checked, así que un lector lo anuncia con su estado.',
+          'El `label` lo nombra; sin él, un cuadrado tildado no dice de qué es.',
+          'Espacio lo alterna, como cualquier casilla nativa.',
         ]} />
       </Section>
     </Page>

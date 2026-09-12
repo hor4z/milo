@@ -1,10 +1,12 @@
 import { Button } from '@melu/ui'
-import { Demo, Page, Panel, Props, Section, Variant } from '../kit'
+import { A11y, Demo, Page, Panel, Props, Section, Variant } from '../kit'
 
 export function ButtonStory() {
   return (
     <Page
       title="Button"
+      kind="Acciones"
+      imports="import { Button } from '@melu/ui'"
       lead="El texto va en 14/600 aunque la interfaz sea de 12: un botón con el mismo tamaño de letra que su entorno no se lee como accionable."
     >
       <Section
@@ -63,6 +65,14 @@ export function ButtonStory() {
           { name: 'iconEnd', type: 'IconName', note: 'después del texto' },
           { name: 'block', type: 'boolean', note: 'ocupa el ancho del contenedor' },
           { name: 'ref', type: 'Ref<HTMLButtonElement>', note: 'para usarlo como disparador de Dropdown o Popover' },
+        ]} />
+      </Section>
+    
+      <Section title="Accesibilidad">
+        <A11y items={[
+          'Es un <button> real: entra en el orden de tabulación y responde a Enter y Espacio.',
+          'El anillo de foco se suma al relieve en vez de reemplazarlo, así que un botón enfocado no se plancha.',
+          'Deshabilitado deja de recibir el puntero y baja a 45% de opacidad, pero conserva su texto legible.',
         ]} />
       </Section>
     </Page>

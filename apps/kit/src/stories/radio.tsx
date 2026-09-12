@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { Checkbox, Radio, RadioGroup } from '@melu/ui'
-import { Page, Panel, Props, Section, Variant } from '../kit'
+import { A11y, Page, Panel, Props, Section, Variant } from '../kit'
 
 export function RadioStory() {
   const [uno, setUno] = useState<'a' | 'b'>('b')
@@ -11,6 +11,8 @@ export function RadioStory() {
   return (
     <Page
       title="Radio · RadioGroup"
+      kind="Formularios"
+      imports="import { Radio } from '@melu/ui'"
       lead="La elección de una entre varias. Es 18, la misma medida del Checkbox y del pulgar del switch, así una fila con los tres queda pareja."
     >
       <Section
@@ -117,6 +119,13 @@ export function RadioStory() {
           { name: 'RadioGroup · onChange', type: '(v: T) => void', note: 'obligatorio' },
           { name: 'RadioGroup · options', type: '{ value, label, disabled? }[]', note: 'obligatorio' },
           { name: 'RadioGroup · label', type: 'string', note: 'al aria-label del grupo' },
+        ]} />
+      </Section>
+    
+      <Section title="Accesibilidad">
+        <A11y items={[
+          'role="radio" con aria-checked y nombre propio.',
+          'El anillo del control sin elegir va en tinta y no en gris: sobre un tinte, el gris se ve sucio.',
         ]} />
       </Section>
     </Page>

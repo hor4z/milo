@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { Segmented } from '@melu/ui'
-import { Page, Panel, Props, Section, Variant } from '../kit'
+import { A11y, Page, Panel, Props, Section, Variant } from '../kit'
 
 export function SegmentedStory() {
   const [filtro, setFiltro] = useState<'todas' | 'abiertas'>('todas')
@@ -11,6 +11,8 @@ export function SegmentedStory() {
   return (
     <Page
       title="Segmented"
+      kind="Formularios"
+      imports="import { Segmented } from '@melu/ui'"
       lead="Un solo componente para el filtro de texto («Todas · Abiertas») y para el conmutador de grilla/lista. Que sean la misma pieza y no dos parecidas es el punto: dos implementaciones del mismo control se van separando sola una de la otra con cada cambio, y terminan con dos radios, dos alturas y dos ideas de qué es «activo»."
     >
       <Section
@@ -43,6 +45,14 @@ export function SegmentedStory() {
           { name: 'onChange', type: '(v: T) => void', note: 'obligatorio' },
           { name: 'options', type: '{ value, label?, icon?, dot?, title? }[]', note: 'sin label la opción queda cuadrada, solo icono — y title pasa a obligatorio' },
           { name: 'size', type: "'xs' | 'sm' | 'md'", def: "'md'", note: 'xs va con pista transparente: dentro del header de un panel, una pista gris sobre fondo gris agrega una caja que no hace falta' },
+        ]} />
+      </Section>
+    
+      <Section title="Accesibilidad">
+        <A11y items={[
+          'Es un tablist: cada opción es un tab con aria-selected.',
+          'Con solo iconos, cada opción lleva su nombre accesible.',
+          'El chip elegido conserva el relieve al enfocarse con el teclado.',
         ]} />
       </Section>
     </Page>

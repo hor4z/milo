@@ -1,5 +1,5 @@
 import { AvatarGroup, BarChart, Card } from '@melu/ui'
-import { Page, Props, Section } from '../kit'
+import { A11y, Page, Props, Section } from '../kit'
 
 const cara = (n: number) => `/avatars/${String(n).padStart(2, '0')}.webp`
 
@@ -37,6 +37,8 @@ export function ChartStory() {
   return (
     <Page
       title="BarChart"
+      kind="Datos"
+      imports="import { BarChart } from '@melu/ui'"
       lead="Cada barra son dos cosas: el gris es el total y el azul es lo hecho. No son dos series compitiendo, es una parte adentro de su todo — y por eso el azul va dentro del gris y no al lado: apoyados uno junto al otro habría que compararlos con la vista para saber cuánto falta, y metido adentro, lo que falta es el gris que se ve arriba. La pista va clarísima porque es el resto, no un dato que compita: con el mismo peso que el relleno, la barra se lee como dos bloques apilados."
     >
       <Section
@@ -91,6 +93,15 @@ export function ChartStory() {
           los valores viven también en una tabla <code>sr-only</code>: un lector de pantalla no puede
           hoverear, y una altura no se lee.
         </p>
+      </Section>
+    
+      <Section title="Accesibilidad">
+        <A11y items={[
+          'Cada barra es un <button> que se enfoca y muestra el mismo tooltip que con el mouse.',
+          'Cada barra se anuncia como «Miércoles: 27 de 29».',
+          'Los valores viven además en una tabla sr-only: una altura no se lee.',
+          'El tono sube con la altura, así que el tamaño y el color dicen lo mismo.',
+        ]} />
       </Section>
     </Page>
   )

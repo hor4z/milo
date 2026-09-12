@@ -10,6 +10,8 @@ export function ContainersStory() {
   return (
     <Page
       title="Card · Row"
+      kind="Superficies"
+      imports="import { Card, Row } from '@melu/ui'"
       lead="Los dos contenedores del sistema: la tarjeta de una grilla y la fila de un panel."
     >
       <Section

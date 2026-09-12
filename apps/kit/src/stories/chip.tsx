@@ -8,6 +8,8 @@ export function ChipStory() {
   return (
     <Page
       title="Chip"
+      kind="Datos"
+      imports="import { Chip } from '@melu/ui'"
       lead="28 de alto y radio 10. Es una etiqueta, no un botón: solo se vuelve accionable si recibe `onClick` o `onRemove`."
     >
       <Section

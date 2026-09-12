@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { Button, Divider, Menu, MenuItem, MenuLabel, Popover } from '@melu/ui'
-import { Mono, Page, Panel, Props, Section, Variant } from '../kit'
+import { A11y, Mono, Page, Panel, Props, Section, Variant } from '../kit'
 
 export function MenuStory() {
   const [vista, setVista] = useState<'grilla' | 'lista'>('grilla')
@@ -8,6 +8,8 @@ export function MenuStory() {
   return (
     <Page
       title="Menu"
+      kind="Acciones"
+      imports="import { Menu, MenuItem, MenuLabel } from '@melu/ui'"
       lead="Piezas que se arman, no una lista de opciones: un panel y filas que se escriben adentro. Es el mismo corte que la Table, y por el mismo motivo — la lista alcanza hasta el primer menú que necesita un separador, un rótulo de grupo o un atajo, y a partir de ahí cada necesidad nueva es una prop nueva en un objeto."
     >
       <Section
@@ -100,6 +102,14 @@ export function MenuStory() {
           { name: 'MenuItem · danger', type: 'boolean', note: 'lo que no se deshace' },
           { name: 'MenuItem · disabled', type: 'boolean' },
           { name: 'MenuItem · onSelect', type: '() => void', note: 'cerrar el panel es de quien lo abrió' },
+        ]} />
+      </Section>
+    
+      <Section title="Accesibilidad">
+        <A11y items={[
+          'role="menu" con menuitem, y las opciones que se marcan son menuitemradio con aria-checked.',
+          'El rótulo de grupo va como presentation: no es una fila que se pueda enfocar.',
+          'Escape cierra solo el menú, no lo que haya detrás.',
         ]} />
       </Section>
     </Page>

@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { IconButton, Kbd, TextField } from '@melu/ui'
-import { Demo, Page, Props, Section } from '../kit'
+import { A11y, Demo, Page, Props, Section } from '../kit'
 
 export function TextFieldStory() {
   const [text, setText] = useState('Fracciones con la receta de la abuela')
@@ -8,6 +8,8 @@ export function TextFieldStory() {
   return (
     <Page
       title="TextField"
+      kind="Formularios"
+      imports="import { TextField } from '@melu/ui'"
       lead="Plano: un fondo y una línea de un píxel, sin relieve. El campo fue un hueco y el volumen se fue a propósito — el relieve dice «esto sobresale» o «esto se aprieta», y un campo no es ninguna de las dos. Así se dibuja igual que el Select y que el buscador de la topbar. Al enfocarse no cambia de plano: se le tiñe el borde que ya tenía. El anillo del sistema es para una pieza sin borde propio; sobre un campo dibujaba una segunda línea azul a dos píxeles de la primera."
     >
       <Section title="Variantes">
@@ -63,6 +65,14 @@ export function TextFieldStory() {
           { name: 'icon', type: 'IconName', note: 'a la izquierda, en gris' },
           { name: 'suffix', type: 'ReactNode', note: 'a la derecha: una unidad, un kbd, un botón' },
           { name: 'className', type: 'string', note: 'va al contenedor, no al input — para el ancho' },
+        ]} />
+      </Section>
+    
+      <Section title="Accesibilidad">
+        <A11y items={[
+          'El área clickeable es la caja entera y no solo la línea de texto de 16px.',
+          'El anillo lo toma el campo y no el <input> de adentro, así que no hay dos marcas de foco.',
+          'Con un botón adentro, el campo no se enciende: la marca es del botón que tiene el foco.',
         ]} />
       </Section>
     </Page>

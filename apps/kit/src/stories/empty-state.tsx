@@ -1,10 +1,12 @@
 import { Button, EmptyState, FilterReset } from '@melu/ui'
-import { Demo, Page, Props, Section } from '../kit'
+import { A11y, Demo, Page, Props, Section } from '../kit'
 
 export function EmptyStateStory() {
   return (
     <Page
       title="EmptyState"
+      kind="Avisos"
+      imports="import { EmptyState } from '@melu/ui'"
       lead="Lo que se ve cuando no hay nada, siempre con una salida: un vacío que no dice qué hacer es una pantalla rota con buena redacción. El icono va adentro de un hueco y en gris — suelto y grande se ve como una imagen que no cargó, que es justo lo que uno teme cuando una pantalla aparece vacía, y el hueco lo convierte en una marca puesta a propósito."
     >
       <Section
@@ -76,6 +78,13 @@ export function EmptyStateStory() {
           { name: 'size', type: "'sm' | 'md'", def: "'md'", note: 'md para una pantalla, sm adentro de una pieza' },
           { name: 'bordered', type: 'boolean', def: 'md → true, sm → false', note: 'la caja punteada' },
           { name: 'action', type: 'ReactNode', note: 'la salida. Siempre conviene que haya una' },
+        ]} />
+      </Section>
+    
+      <Section title="Accesibilidad">
+        <A11y items={[
+          'El icono es decorativo y no se anuncia: lo que se lee es el título y el cuerpo.',
+          'La acción es un botón real, no un texto que parece link.',
         ]} />
       </Section>
     </Page>

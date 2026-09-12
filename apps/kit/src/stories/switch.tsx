@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { Switch } from '@melu/ui'
-import { Page, Panel, Props, Section, Variant } from '../kit'
+import { A11y, Page, Panel, Props, Section, Variant } from '../kit'
 
 export function SwitchStory() {
   const [on, setOn] = useState(true)
@@ -9,6 +9,8 @@ export function SwitchStory() {
   return (
     <Page
       title="Switch"
+      kind="Formularios"
+      imports="import { Switch } from '@melu/ui'"
       lead="Pista de 40×22 con 2 de padding, así que el pulgar es de 18 y viaja 18 exactos. La pista prendida va en el azul de marca, el mismo que el checkbox marcado: el ámbar señala algo que pasó y no eligió nadie, y un switch prendido es lo contrario — es una decisión de quien lo usa."
     >
       <Section
@@ -32,6 +34,13 @@ export function SwitchStory() {
           { name: 'label', type: 'string', note: 'al aria-label' },
           { name: 'disabled', type: 'boolean' },
           { name: 'id', type: 'string', note: 'para asociarlo a una etiqueta externa' },
+        ]} />
+      </Section>
+    
+      <Section title="Accesibilidad">
+        <A11y items={[
+          'role="switch" con aria-checked: un lector dice «activado» y no «casilla marcada».',
+          'El `label` lo nombra aunque en pantalla no haya texto al lado.',
         ]} />
       </Section>
     </Page>

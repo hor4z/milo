@@ -42,6 +42,8 @@ export function IconStory() {
   return (
     <Page
       title="Icon"
+      kind="Guía"
+      imports="import { Icon } from '@melu/ui'"
       lead="Material Symbols Rounded, subseteado a lo que usamos y servido desde el repo. Peso 300 de base, y peso y relleno son ejes reales de la fuente, no variantes generadas."
     >
       <Section

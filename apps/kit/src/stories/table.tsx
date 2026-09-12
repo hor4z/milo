@@ -6,7 +6,7 @@ import {
   Table, TableBody, TableCell, TableFooter, TableHead, TableHeader,
   TableHint, TableNum, TableRow, TableTitle, facets, fold,
 } from '@melu/ui'
-import { Mono, Page, Props, Section } from '../kit'
+import { A11y, Mono, Page, Props, Section } from '../kit'
 
 const cara = (n: number) => `/avatars/${String(n).padStart(2, '0')}.webp`
 
@@ -120,6 +120,8 @@ export function TableStory() {
   return (
     <Page
       title="Table"
+      kind="Datos"
+      imports="import { Table, TableHeader, TableRow, TableCell } from '@melu/ui'"
       lead="Piezas que se arman, no un componente que recibe `columns` y `rows`. Una tabla de datos y una de personas con un grupo de avatares y un menú al final no comparten nada más que la grilla, y una API de columnas termina con un `render` por columna: el mismo JSX, pero metido en un objeto y sin poder leerlo de arriba abajo."
     >
       <Section
@@ -346,6 +348,14 @@ export function TableStory() {
           { name: 'AvatarGroup · max', type: 'number', def: '3', note: 'cuenta avatares, no personas' },
           { name: 'AvatarGroup · size', type: 'number', def: '28', note: 'el monte sale de acá' },
           { name: 'AvatarGroup · ring', type: 'string', def: "'ring-surface'", note: 'la utilidad del fondo de atrás' },
+        ]} />
+      </Section>
+    
+      <Section title="Accesibilidad">
+        <A11y items={[
+          'Es una <table> de verdad: encabezados, filas y celdas con su semántica.',
+          'La franja de paginación anuncia el tramo con role="status" cuando cambia.',
+          'Las opciones de filtros y columnas se nombran una por una.',
         ]} />
       </Section>
     </Page>

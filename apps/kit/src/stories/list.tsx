@@ -19,6 +19,8 @@ export function ListStory() {
   return (
     <Page
       title="List · ListItem"
+      kind="Datos"
+      imports="import { List, ListItem } from '@melu/ui'"
       lead="Filas altas, cada una con una marca de color, un título y una línea de apoyo. No es `Row`: acá no hay divisores —cada fila es su propia caja con aire alrededor—, el título sube a 16 porque es lo que se lee primero, y la marca de color es lo que te deja encontrar una fila de reojo sin leerla."
     >
       <Section
