@@ -70,10 +70,23 @@ describe('accesibilidad documentada', () => {
 })
 
 describe('los números de la portada', () => {
-  it('la cantidad de tests que anuncia la landing es la real', () => {
+  it('la landing no anuncia menos tests de los que hay', () => {
     const intro = readFileSync(join(import.meta.dirname, '../intro.tsx'), 'utf8')
-    const anunciados = intro.match(/\['(\d+)', 'tests'\]/)?.[1]
-    expect(anunciados, 'la landing tiene que decir cuántos tests hay').toBeTruthy()
+    const anunciados = Number(intro.match(/\['(\d+)', 'tests'\]/)?.[1])
+
+    const raiz = join(import.meta.dirname, '../../../..')
+    const carpetas = [join(raiz, 'packages/ui/src/__tests__'), join(import.meta.dirname)]
+    let escritos = 0
+    for (const carpeta of carpetas) {
+      for (const f of readdirSync(carpeta)) {
+        escritos += [...readFileSync(join(carpeta, f), 'utf8').matchAll(/^\s*it\(/gm)].length
+      }
+    }
+
+    expect(
+      anunciados,
+      `la landing dice ${anunciados} y hay al menos ${escritos} tests escritos`,
+    ).toBeGreaterThanOrEqual(escritos)
   })
 
   it('la cantidad de iconos que anuncia es la del manifiesto', () => {

@@ -50,3 +50,43 @@ describe('FieldSet', () => {
     expect(screen.getByRole('group', { name: 'Quién puede ver' })).toBeInTheDocument()
   })
 })
+
+describe('Field con cualquier control del sistema', () => {
+  it('nombra un Select y lo enfoca desde la etiqueta', async () => {
+    const { Select } = await import('../primitives')
+    render(<Field label="Espacio"><Select value="Matemática" options={['Matemática', 'Lengua']} /></Field>)
+    const control = screen.getByRole('button', { name: /Espacio/ })
+    await userEvent.click(screen.getByText('Espacio'))
+    expect(document.activeElement).toBe(control)
+  })
+
+  it('nombra un Switch', async () => {
+    const { Switch } = await import('../primitives')
+    render(<Field label="Avisos por mail"><Switch checked onChange={() => {}} /></Field>)
+    expect(screen.getByRole('switch', { name: 'Avisos por mail' })).toBeInTheDocument()
+  })
+
+  it('nombra un Checkbox y le pasa el error', async () => {
+    const { Checkbox } = await import('../primitives')
+    render(
+      <Field label="Acepto" error="Hay que aceptar para seguir">
+        <Checkbox checked={false} onChange={() => {}} />
+      </Field>,
+    )
+    const cb = screen.getByRole('checkbox', { name: 'Acepto' })
+    expect(cb).toHaveAttribute('aria-invalid', 'true')
+    expect(cb).toHaveAccessibleDescription('Hay que aceptar para seguir')
+  })
+
+  it('nombra un Slider', async () => {
+    const { Slider } = await import('../primitives')
+    render(<Field label="Duración"><Slider value={30} onChange={() => {}} /></Field>)
+    expect(screen.getByRole('slider', { name: 'Duración' })).toBeInTheDocument()
+  })
+
+  it('un control suelto conserva su propio label', async () => {
+    const { Switch } = await import('../primitives')
+    render(<Switch checked onChange={() => {}} label="Suelto" />)
+    expect(screen.getByRole('switch', { name: 'Suelto' })).toBeInTheDocument()
+  })
+})

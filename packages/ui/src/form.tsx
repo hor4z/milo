@@ -2,12 +2,12 @@ import { createContext, useContext, useId, type ComponentPropsWithoutRef, type R
 import { Icon } from './icon'
 import { cx } from './primitives'
 
-type FieldCtx = { id: string; describedBy?: string; invalid: boolean }
-const Ctx = createContext<FieldCtx | null>(null)
+type Campo = { id: string; describedBy?: string; invalid: boolean }
+export const FieldCtx = createContext<Campo | null>(null)
 
 /** Lo que un control necesita para quedar bien atado a su etiqueta. */
 export function useField() {
-  const ctx = useContext(Ctx)
+  const ctx = useContext(FieldCtx)
   if (!ctx) return { id: undefined, 'aria-describedby': undefined, 'aria-invalid': undefined }
   return {
     id: ctx.id,
@@ -36,7 +36,7 @@ export function Field({ label, hint, error, required, children, className }: Fie
   const describedBy = [hint && hintId, error && errorId].filter(Boolean).join(' ') || undefined
 
   return (
-    <Ctx.Provider value={{ id, describedBy, invalid: Boolean(error) }}>
+    <FieldCtx.Provider value={{ id, describedBy, invalid: Boolean(error) }}>
       <div className={cx('flex flex-col gap-1.5', className)}>
         <label htmlFor={id} className="flex items-center gap-1 text-xs font-semibold text-ink">
           {label}
@@ -52,7 +52,7 @@ export function Field({ label, hint, error, required, children, className }: Fie
           </p>
         )}
       </div>
-    </Ctx.Provider>
+    </FieldCtx.Provider>
   )
 }
 

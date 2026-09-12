@@ -138,7 +138,6 @@ export const iconTags: Record<IconName, string> = {
   star_shine: "achievement ai artificial intelligence astral automation bookmark bright celestial",
   stars_2: "achievement ai artificial intelligence astronomy automation award bookmark celestial",
   stop: "action audio basic block button close command control",
-  straighten: "adjust align angle arrangement bend calibrate curve distribute",
   support_agent: "advisor answer assistance avatar bubble call care chat",
   swap_vert: "arrow arrows bidirectional connection data direction direction change document",
   sync: "360 align around arrow arrows circular cloud connection",

@@ -78,6 +78,15 @@ describe('Row', () => {
     expect(screen.getByText('Tema')).toBeInTheDocument()
     expect(screen.getByRole('button', { name: 'Cambiar' })).toBeInTheDocument()
   })
+
+  it('su etiqueta nombra al control que lleva adentro', async () => {
+    const { Switch } = await import('../primitives')
+    render(<Row label="Avisos por mail" hint="Cuando llega una entrega"><Switch checked onChange={() => {}} /></Row>)
+    const sw = screen.getByRole('switch', { name: 'Avisos por mail' })
+    expect(sw).toHaveAccessibleDescription('Cuando llega una entrega')
+    await userEvent.click(screen.getByText('Avisos por mail'))
+    expect(document.activeElement).toBe(sw)
+  })
 })
 
 describe('List', () => {

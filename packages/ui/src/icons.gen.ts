@@ -137,7 +137,6 @@ export const codepoints = {
   star_shine: 0xf31d,
   stars_2: 0xf31c,
   stop: 0xe047,
-  straighten: 0xe41c,
   support_agent: 0xf0e2,
   swap_vert: 0xe8d5,
   sync: 0xe627,

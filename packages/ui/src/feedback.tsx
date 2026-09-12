@@ -118,7 +118,7 @@ export function ToastProvider({ children, max = 3 }: { children: ReactNode; max?
             aria-label="Avisos"
             className="fixed right-4 bottom-4 z-[70] flex w-[min(380px,calc(100vw-2rem))] flex-col gap-2"
           >
-            {lista.map(t => <ToastItem key={t.id} toast={t} onDismiss={() => dismiss(t.id)} />)}
+            {lista.map(t => <ToastItem key={t.id} toast={t} onDismiss={dismiss} />)}
           </ol>
         </Portal>
       )}
@@ -126,16 +126,20 @@ export function ToastProvider({ children, max = 3 }: { children: ReactNode; max?
   )
 }
 
-function ToastItem({ toast, onDismiss }: { toast: ToastRecord; onDismiss: () => void }) {
-  const { title, body, tone = 'info', action, duration = 5000 } = toast
+function ToastItem({ toast, onDismiss }: { toast: ToastRecord; onDismiss: (id: string) => void }) {
+  const { id: toastId, title, body, tone = 'info', action, duration = 5000 } = toast
   const [pausado, setPausado] = useState(false)
   const id = useId()
 
+  // Sin el `useCallback`, cada aviso nuevo reinicia el reloj de los que ya
+  // estaban: con un goteo constante, el primero no se va nunca.
+  const cerrar = useCallback(() => onDismiss(toastId), [onDismiss, toastId])
+
   useEffect(() => {
     if (!duration || pausado) return
-    const t = setTimeout(onDismiss, duration)
+    const t = setTimeout(cerrar, duration)
     return () => clearTimeout(t)
-  }, [duration, pausado, onDismiss])
+  }, [duration, pausado, cerrar])
 
   return (
     <li
@@ -154,7 +158,7 @@ function ToastItem({ toast, onDismiss }: { toast: ToastRecord; onDismiss: () => 
         {body && <p className="text-xs font-medium text-ink-muted">{body}</p>}
         {action && <div className="mt-1.5 flex items-center gap-2">{action}</div>}
       </div>
-      <IconButton icon="close" label="Cerrar el aviso" size="sm" variant="ghost" onClick={onDismiss} className="-mt-0.5 -mr-1" />
+      <IconButton icon="close" label="Cerrar el aviso" size="sm" variant="ghost" onClick={cerrar} className="-mt-0.5 -mr-1" />
     </li>
   )
 }

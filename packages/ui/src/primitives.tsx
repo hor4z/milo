@@ -3,7 +3,7 @@ import type { ButtonHTMLAttributes, ComponentPropsWithoutRef, CSSProperties, Inp
 import { useEscape } from './esc'
 import { Portal } from './overlay'
 import { Icon, type IconName } from './icon'
-import { useField } from './form'
+import { FieldCtx, useField } from './form'
 
 /** La familia viva de lo chico: un chip, la inicial de un avatar, el cuadradito de icono de una tarjeta. */
 export const labelFill = {
@@ -129,12 +129,14 @@ export function IconButton({
 export function Switch({
   checked, onChange, label, disabled, id,
 }: { checked: boolean; onChange: (v: boolean) => void; label?: string; disabled?: boolean; id?: string }) {
+  const campo = useField()
   return (
     <button
-      id={id}
+      {...campo}
+      id={id ?? campo.id}
       role="switch"
       aria-checked={checked}
-      aria-label={label}
+      aria-label={campo.id ? undefined : label}
       disabled={disabled}
       onClick={() => onChange(!checked)}
       className={cx(
@@ -169,6 +171,7 @@ export function Slider({
   id?: string
   className?: string
 }) {
+  const campo = useField()
   const t = max === min ? 0 : Math.min(1, Math.max(0, (value - min) / (max - min)))
   const thumbAt = 'calc(var(--t) * (100% - 24px) + 12px)'
   const fillTo = 'calc(var(--t) * (100% - 24px) + 24px)'
@@ -186,8 +189,9 @@ export function Slider({
       />
       <input
         type="range"
-        id={id}
-        aria-label={label}
+        {...campo}
+        id={id ?? campo.id}
+        aria-label={campo.id ? undefined : label}
         min={min} max={max} step={step} value={value}
         disabled={disabled}
         onChange={e => onChange(Number(e.target.value))}
@@ -229,13 +233,15 @@ export function Checkbox({
   indeterminate?: boolean
 }) {
   const on = checked || indeterminate
+  const campo = useField()
   return (
     <button
-      id={id}
+      {...campo}
+      id={id ?? campo.id}
       type="button"
       role="checkbox"
       aria-checked={indeterminate ? 'mixed' : checked}
-      aria-label={label}
+      aria-label={campo.id ? undefined : label}
       disabled={disabled}
       onClick={() => onChange(!checked)}
       className={cx(
@@ -423,6 +429,7 @@ export function Select({
   /** Mientras los datos no están: no abre, y el spinner va solo si no hay `leading`. */
   loading?: boolean
 }) {
+  const campo = useField()
   const [open, setOpen] = useState(false)
   const [active, setActive] = useState(() => Math.max(0, options.indexOf(value)))
   const btn = useRef<HTMLButtonElement>(null)
@@ -486,6 +493,7 @@ export function Select({
         aria-haspopup="listbox"
         aria-expanded={open}
         aria-controls={open ? listId : undefined}
+        {...campo}
         aria-busy={loading || undefined}
         aria-disabled={loading || undefined}
         onClick={() => { if (!loading) setOpen(o => !o) }}
@@ -849,14 +857,18 @@ export function CardFooter({ className, ...props }: ComponentPropsWithoutRef<'di
 
 /** La fila de un panel: 56px de alto, padding 16/24, label a la izquierda y control a la derecha. */
 export function Row({ label, hint, children }: { label: string; hint?: string; children?: ReactNode }) {
+  const id = useId()
+  const hintId = `${id}-hint`
   return (
-    <div className="flex min-h-14 items-center gap-4 border-t border-line px-6 py-4 first:border-t-0">
-      <div className="min-w-0 flex-1">
-        <div className="text-xs font-medium text-ink">{label}</div>
-        {hint && <div className="mt-1 text-2xs text-ink-muted">{hint}</div>}
+    <FieldCtx.Provider value={{ id, describedBy: hint ? hintId : undefined, invalid: false }}>
+      <div className="flex min-h-14 items-center gap-4 border-t border-line px-6 py-4 first:border-t-0">
+        <div className="min-w-0 flex-1">
+          <label htmlFor={id} className="block cursor-pointer text-xs font-medium text-ink">{label}</label>
+          {hint && <span id={hintId} className="mt-1 block text-2xs text-ink-muted">{hint}</span>}
+        </div>
+        {children}
       </div>
-      {children}
-    </div>
+    </FieldCtx.Provider>
   )
 }
 

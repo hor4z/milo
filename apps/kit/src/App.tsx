@@ -140,7 +140,9 @@ export function App() {
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
-      if (e.key === '/' && document.activeElement?.tagName !== 'INPUT') {
+      const donde = document.activeElement as HTMLElement | null
+      const escribiendo = donde?.tagName === 'INPUT' || donde?.tagName === 'TEXTAREA' || donde?.isContentEditable
+      if (e.key === '/' && !escribiendo) {
         e.preventDefault()
         buscador.current?.focus()
       }
@@ -153,7 +155,7 @@ export function App() {
     location.hash = id
     setCurrent(id)
     setRielAbierto(false)
-    main.current?.scrollTo({ top: 0 })
+    window.scrollTo({ top: 0 })
   }
 
   const filtrados = useMemo(() => {

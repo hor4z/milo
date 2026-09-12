@@ -403,7 +403,7 @@ export function Sheet({
           aria-modal="true"
           aria-label={label}
           tabIndex={-1}
-          style={{ width, maxWidth: '100%' }}
+          style={{ width, maxWidth: '100%', ['--slide-from' as string]: side === 'right' ? '12px' : '-12px' }}
           className={cx(
             'ui-slide absolute inset-y-0 flex flex-col bg-surface shadow-popover',
             side === 'right' ? 'right-0 border-l border-line' : 'left-0 border-r border-line',
