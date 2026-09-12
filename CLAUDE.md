@@ -5,7 +5,9 @@ color, radios, relieve y unos cuantos patrones de interacción. No es un product
 librería: es la guía, con el sistema funcionando en pantallas reales en vez de en una lámina
 de estilos.
 
-Lo que se decida acá se porta a `~/milo/packages/ui`, que es el design system de verdad.
+Lo que se decida acá se porta a `~/melu/packages/ui`, que es el design system de verdad. Ese
+repo todavía se llama `melu` en el disco y en GitHub: el nombre nuevo es de acá para adelante, y
+el día que se renombre allá esta línea y el link del README son lo único que hay que tocar.
 
 ```sh
 npm install
@@ -472,7 +474,8 @@ alguien cambia un tono y rompe un par, falla antes de llegar a una pantalla.
 - **`planes` y `entrar`** siguen con las medidas viejas (14px, sin relieve).
 - **El shell y la paleta de comandos siguen en `apps/guide`** porque leen `data.ts`. Para que
   entren al paquete hay que pasarles el contenido por props.
-- Portar los tokens a `~/milo/packages/ui`, que es para lo que existe todo esto.
+- Portar los tokens a `~/melu/packages/ui`, que es para lo que existe todo esto. Ojo con el
+  nombre: ese repo sigue siendo `melu`.
 
 ## Lo que no está
 

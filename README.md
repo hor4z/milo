@@ -1,8 +1,8 @@
 # ui-kit
 
-El sistema de interfaz de [milo](https://github.com/hor4z/milo), funcionando: tokens,
-componentes y dos apps que los usan. No es una lámina de estilos — cada pieza de acá es el
-componente real, con su teclado, sus estados y sus tests.
+El sistema de interfaz de **milo**, funcionando: tokens, componentes y dos apps que los
+usan. No es una lámina de estilos — cada pieza de acá es el componente real, con su teclado,
+sus estados y sus tests.
 
 ```sh
 npm install
