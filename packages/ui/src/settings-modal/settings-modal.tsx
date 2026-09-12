@@ -60,7 +60,7 @@ export function SettingsModal({ open, onClose, user }: {
                 )}
               >
                 <span className={cx(
-                  'flex size-8 shrink-0 items-center justify-center rounded-lg transition-[background-color,box-shadow] duration-fast',
+                  'flex size-8 shrink-0 items-center justify-center rounded-md transition-[background-color,box-shadow] duration-fast',
                   active && 'bg-surface shadow-[0_0_0_1px_var(--brand-border)]',
                 )}>
                   <Icon name={s.icon} size={20} className={active ? 'text-brand-ink' : 'icon-muted'} />
@@ -214,13 +214,13 @@ function EditableRow({ label, value: initial }: { label: string; value: string }
             if (e.key === 'Enter') commit()
             if (e.key === 'Escape') { setDraft(value); setEditing(false) }
           }}
-          className="inset-relief h-8 w-48 rounded-lg bg-muted px-2 text-right text-body font-medium text-ink outline-none"
+          className="inset-relief h-8 w-48 rounded-md bg-muted px-2 text-right text-body font-medium text-ink outline-none"
         />
       ) : (
         <button
           type="button"
           onClick={() => { setDraft(value); setEditing(true) }}
-          className="flex items-center gap-2 rounded-lg px-2 py-1 text-body font-medium text-ink hover:bg-hover"
+          className="flex items-center gap-2 rounded-md px-2 py-1 text-body font-medium text-ink hover:bg-hover"
         >
           {value}
           <Icon name="edit" size={16} className="icon-muted opacity-0 transition-opacity group-hover:opacity-100" />

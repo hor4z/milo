@@ -34,7 +34,7 @@ export function Table({ children, minWidth = 640, footer, className }: {
   }, [children])
 
   return (
-    <div className={cx('relative overflow-hidden rounded-lg bg-surface ring-1 ring-line', className)}>
+    <div className={cx('relative overflow-hidden rounded-md bg-surface ring-1 ring-line', className)}>
       {/* Solo es una parada de tabulación cuando de verdad hay algo que
           scrollear: sin la barra a la vista, es la única forma de llegar a las
           columnas de la derecha sin mouse. */}

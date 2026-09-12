@@ -224,7 +224,7 @@ export function App() {
           )}
         >
           <div className="flex flex-col gap-3 px-4 pt-5 pb-3">
-            <button onClick={() => go(INTRO)} className="flex items-baseline gap-2 self-start rounded-lg px-1 text-left">
+            <button onClick={() => go(INTRO)} className="flex items-baseline gap-2 self-start rounded-md px-1 text-left">
               <span className="text-reading font-bold text-ink">milo</span>
               <span className="text-meta font-semibold text-ink-muted">design system</span>
             </button>

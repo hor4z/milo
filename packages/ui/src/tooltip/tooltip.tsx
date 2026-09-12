@@ -93,7 +93,7 @@ export function Tooltip({ label, children, side = 'top', delay = 500 }: {
             id={id}
             role="tooltip"
             style={{ top: pos.top, left: pos.left }}
-            className="ui-fade pointer-events-none fixed z-[60] max-w-[240px] rounded-lg bg-solid px-2 py-1 text-body font-medium text-on-solid shadow-popover"
+            className="ui-fade pointer-events-none fixed z-[60] max-w-[240px] rounded-md bg-solid px-2 py-1 text-body font-medium text-on-solid shadow-popover"
           >
             {label}
           </div>

@@ -22,7 +22,7 @@ export function Chip({
   onClick?: () => void
 }) {
   const box = cx(
-    'inline-flex min-h-7 items-center gap-2 rounded-lg px-2 text-body font-semibold',
+    'inline-flex min-h-7 items-center gap-2 rounded-md px-2 text-body font-semibold',
     'transition-[background-color,color] duration-fast ease-out',
     active
       ? 'bg-solid text-on-solid'

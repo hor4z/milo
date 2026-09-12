@@ -136,7 +136,7 @@ function ChartTooltip({ datum, style, align = 'center', clamped }: {
     <div
       role="tooltip"
       className={cx(
-        'ui-fade pointer-events-none absolute z-20 whitespace-nowrap rounded-lg bg-surface px-3 py-2 shadow-popover',
+        'ui-fade pointer-events-none absolute z-20 whitespace-nowrap rounded-md bg-surface px-3 py-2 shadow-popover',
         clamped ? 'translate-y-full -mb-2' : 'mb-2',
         align === 'center' ? '-translate-x-1/2' : align === 'end' ? '-translate-x-full' : '',
       )}

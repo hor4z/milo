@@ -43,7 +43,7 @@ export function NavItemBody({
       <span className="flex size-[34px] shrink-0 items-center justify-center">
         <span
           className={cx(
-            'flex size-[26px] items-center justify-center rounded-lg transition-[background-color,box-shadow] duration-fast',
+            'flex size-[26px] items-center justify-center rounded-md transition-[background-color,box-shadow] duration-fast',
             active && chip && 'bg-surface shadow-[0_0_0_1px_var(--border)]',
           )}
         >

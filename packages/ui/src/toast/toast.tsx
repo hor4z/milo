@@ -99,7 +99,7 @@ function ToastItem({ toast, onDismiss }: { toast: ToastRecord; onDismiss: (id: s
       onBlur={() => setPaused(false)}
       aria-labelledby={id}
     >
-      <span className={cx('flex size-7 shrink-0 items-center justify-center rounded-lg', toneClass[tone])}>
+      <span className={cx('flex size-7 shrink-0 items-center justify-center rounded-md', toneClass[tone])}>
         <Icon name={toneIcon[tone]} size={18} />
       </span>
       <div className="flex min-w-0 flex-1 flex-col gap-1 py-0.5">

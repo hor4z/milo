@@ -67,7 +67,7 @@ export function Segmented<T extends string>({
               'relative inline-flex items-center justify-center gap-2 font-semibold',
               'transition-[background-color,color,box-shadow] duration-normal ease-out',
               'disabled:pointer-events-none disabled:opacity-45',
-              size === 'xs' ? 'min-h-6 rounded-lg text-meta' : size === 'sm' ? 'min-h-7 rounded-md text-body' : 'min-h-8 rounded-md text-body',
+              size === 'xs' ? 'min-h-6 rounded-md text-meta' : size === 'sm' ? 'min-h-7 rounded-md text-body' : 'min-h-8 rounded-md text-body',
               iconOnly
                 ? (size === 'xs' ? 'w-6' : size === 'sm' ? 'w-7' : 'w-8')
                 : (size === 'xs' ? 'px-2' : size === 'sm' ? 'px-3' : 'px-4'),

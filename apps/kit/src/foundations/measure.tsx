@@ -12,8 +12,8 @@ const shell = [
 
 const radii = [
   { token: '--radius-sm', cls: 'rounded-sm', role: 'marcas hundidas: un kbd, un badge, un checkbox' },
-  { token: '--radius-md', cls: 'rounded-md', role: 'lo cuadrado: un botón de icono, el pulgar de un segmented' },
-  { token: '--radius-lg', cls: 'rounded-lg', role: 'todo lo que se toca: botón, botón de icono, item de nav, campo' },
+  { token: '--radius-md', cls: 'rounded-md', role: 'lo chico: un control de 32, un chip, un tooltip, un esqueleto' },
+  { token: '--radius-lg', cls: 'rounded-lg', role: 'lo que se toca de 36 para arriba: botón md y lg, item de nav' },
   { token: '--radius-xl', cls: 'rounded-xl', role: 'lo que va adentro de una tarjeta' },
   { token: '--radius-2xl', cls: 'rounded-2xl', role: 'contenedores: tarjeta, modal, popover' },
   { token: '--radius-full', cls: 'rounded-full', role: 'lo que es redondo de verdad: un avatar, un punto, un pulgar' },
@@ -101,7 +101,7 @@ export function MeasureSection() {
 
       <Section
         title="Radios"
-        note="Cinco pasos y el círculo. Murió un `xs` de 5 por estar a un píxel de su vecino. El `md` de 10 también murió y **volvió**, y vale saber por qué: el argumento para sacarlo era que 10 y 12 están a dos píxeles y nadie ve la diferencia, y eso es cierto entre dos formas parecidas y falso entre un cuadrado y un rectángulo ancho. **El mismo radio se lee más redondo cuanto más corto es el lado**: sobre los 164 de un botón, 12 es un remate; sobre los 32 de un botón de icono, se come casi todo el lado plano. La regla que los ata: el radio de un hijo es el del padre menos el padding del padre."
+        note="Cinco pasos y el círculo. **El radio sigue al alto**: el radio se lee en proporción al lado más corto de la pieza, no en píxeles. Sobre un botón de 40, 12 deja 16 de lado plano y se lee como un remate; sobre uno de 32 deja 8, y la misma curva se lee como una pastilla. El `md` de 10 llegó a morir con el argumento de que 10 y 12 están a dos píxeles y nadie ve la diferencia — sacarlo hizo dos píxeles más redondas a dieciséis piezas de golpe y la interfaz entera se vio más blanda. La otra regla, la del anidado: el radio de un hijo es el del padre menos el padding del padre."
       >
         <Section title="La escala">
           <div className="flex flex-col rounded-xl border border-line bg-surface px-4">
