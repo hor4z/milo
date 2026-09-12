@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useId, useLayoutEffect, useRef, useState, type ReactNode } from 'react'
 import { useField } from '../field/field'
 import { Icon } from '../icon/icon'
-import { cx } from '../lib/cx'
+import { cx, fold } from '../lib/cx'
 import { useEscape } from '../lib/esc'
 import { Portal } from '../portal/portal'
 import { Spinner } from '../spinner/spinner'
@@ -26,6 +26,8 @@ export function Select({
   const list = useRef<HTMLDivElement>(null)
   const [pos, setPos] = useState({ top: 0, left: 0, width: 0 })
   const listId = useId()
+  const opcionId = (i: number) => `${listId}-${i}`
+  const tecleo = useRef({ texto: '', hasta: 0 })
 
   useLayoutEffect(() => {
     if (!open || !btn.current) return
@@ -35,8 +37,16 @@ export function Select({
       left: Math.max(8, Math.min(r.left, window.innerWidth - r.width - 8)),
       width: r.width,
     })
-    setActive(Math.max(0, options.indexOf(value)))
   }, [open, options, value])
+
+  // La opción señalada se pone al abrir y no en cada render. Junto a la
+  // medición —que sí depende de `options`— el cursor del teclado volvía a la
+  // opción elegida cada vez que el padre volvía a renderizar, porque un
+  // `options={[...]}` escrito inline arma un arreglo nuevo cada vez.
+  useLayoutEffect(() => {
+    if (open) setActive(Math.max(0, options.indexOf(value)))
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [open])
 
   useEffect(() => {
     if (!open) return
@@ -55,6 +65,16 @@ export function Select({
         onChange?.(options[active])
         setOpen(false)
         btn.current?.focus()
+      }
+      // Teclear salta a la opción que empieza así, que es lo que hace un
+      // select nativo y lo único que vuelve usable una lista de veinte.
+      if (e.key.length === 1 && !e.ctrlKey && !e.metaKey && !e.altKey) {
+        const ahora = Date.now()
+        tecleo.current.texto = ahora > tecleo.current.hasta ? e.key : tecleo.current.texto + e.key
+        tecleo.current.hasta = ahora + 600
+        const buscado = fold(tecleo.current.texto)
+        const i = options.findIndex(o => fold(o).startsWith(buscado))
+        if (i >= 0) { e.preventDefault(); setActive(i) }
       }
     }
     document.addEventListener('pointerdown', onDown)
@@ -83,10 +103,15 @@ export function Select({
         aria-haspopup="listbox"
         aria-expanded={open}
         aria-controls={open ? listId : undefined}
+        aria-activedescendant={open ? opcionId(active) : undefined}
         {...campo}
         aria-busy={loading || undefined}
         aria-disabled={loading || undefined}
         onClick={() => { if (!loading) setOpen(o => !o) }}
+        onKeyDown={e => {
+          if (loading || open) return
+          if (e.key === 'ArrowDown' || e.key === 'ArrowUp') { e.preventDefault(); setOpen(true) }
+        }}
         style={{ width }}
         className="field-focus inline-flex h-9 items-center justify-between gap-2 rounded-md border border-field-line bg-field px-3 text-xs font-medium text-ink transition-colors duration-[120ms] hover:bg-field-hover aria-disabled:cursor-default aria-disabled:hover:bg-field"
       >
@@ -111,8 +136,10 @@ export function Select({
               return (
                 <button
                   key={o}
+                  id={opcionId(i)}
                   type="button"
                   role="option"
+                  tabIndex={-1}
                   aria-selected={selected}
                   data-active={i === active}
                   onMouseMove={() => setActive(i)}

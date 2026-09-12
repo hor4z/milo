@@ -25,7 +25,7 @@ export function SelectStory() {
     >
       <Section
         title="Variantes"
-        note="El costo de no usar el nativo es traer el teclado a mano, que es lo que el nativo regalaba: flechas para moverse, Enter para elegir, Escape para salir, Home y End a los extremos. Probalo con el teclado."
+        note="El costo de no usar el nativo es traer el teclado a mano, que es lo que el nativo regalaba: flechas para moverse, Enter para elegir, Escape para salir, Home y End a los extremos, y teclear para saltar a la opción que empieza así. Probalo con el teclado: abrí el de al lado y escribí «ci»."
       >
         <div className="flex flex-wrap items-start gap-3">
           <Demo label="width 160">
@@ -124,7 +124,10 @@ export function SelectStory() {
     
       <Section title="Accesibilidad">
         <A11y items={[
-          'Flechas para moverse, Enter para elegir, Escape para salir, Home y End a los extremos.',
+          'Flechas para moverse, Enter para elegir, Escape para salir, Home y End a los extremos. La flecha abajo también abre la lista.',
+          'Teclear salta a la opción que empieza así, sin tildes y sin distinguir mayúsculas — con veinte opciones es la diferencia entre usable y no.',
+          'El foco se queda en el control y la opción activa se anuncia con `aria-activedescendant`: un lector de pantalla dice cuál está señalada.',
+          'Las opciones no son paradas de tabulación: Tab sale del control, no recorre las veinte.',
           'Escape entra en la pila global: cierra la lista y deja abierto el modal que haya detrás.',
           'Con `loading` no abre y avisa `aria-busy`, en vez de mostrar una lista vacía.',
         ]} />
