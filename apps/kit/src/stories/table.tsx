@@ -1,6 +1,9 @@
+import { useMemo, useState } from 'react'
 import {
-  AvatarGroup, Chip, Table, TableBody, TableCell, TableHead, TableHeader,
-  TableHint, TableNum, TableRow, TableTitle,
+  AvatarGroup, Chip, EmptyState, Filter, FilterBar, FilterReset, FilterSearch,
+  Pagination, PaginationNext, PaginationPrev, PaginationStatus,
+  Table, TableBody, TableCell, TableFooter, TableHead, TableHeader,
+  TableHint, TableNum, TableRow, TableTitle, facets, fold,
 } from '@melu/ui'
 import { Block, Mono, Props, Section } from '../kit'
 
@@ -51,12 +54,152 @@ const espacios = [
   },
 ]
 
+/* Las mismas cuatro de arriba más otras cinco: paginar de a cuatro sobre cuatro
+   filas no muestra nada, y con los botones siempre apagados no se ve ni que el
+   par vive en las puntas. */
+const todas = [
+  ...espacios,
+  { nombre: 'La Revolución de Mayo', espacio: 'Sociales · 6.º', estado: 'Corregida', estudiantes: [p('Pablo Vera', 7), p('Rita Coll', 1)], entregas: 21 },
+  { nombre: 'Ecuaciones de primer grado', espacio: 'Matemática · 6.º', estado: 'Abierta', estudiantes: [p('Sara Luna', 3), p('Tomás Gil'), p('Ulises Paz', 5), p('Vera Ruiz', 6)], entregas: 12 },
+  { nombre: 'El ciclo del agua', espacio: 'Ciencias · 4.º A', estado: 'Borrador', estudiantes: [p('Wanda Ise'), p('Ximena Roa', 8)], entregas: 0 },
+  { nombre: 'Poesía de vanguardia', espacio: 'Lengua · 6.º', estado: 'Corregida', estudiantes: [p('Yago Prat', 4), p('Zoe Marín', 2), p('Aldo Sanz')], entregas: 16 },
+  { nombre: 'Los climas del mundo', espacio: 'Sociales · 5.º A', estado: 'Abierta', estudiantes: [p('Bianca Toro', 6), p('Ciro Vega')], entregas: 9 },
+]
+
+const TRAMO = 4
+
 export function TableStory() {
+  const [texto, setTexto] = useState('')
+  const [estados, setEstados] = useState<string[]>([])
+  const [espaciosElegidos, setEspaciosElegidos] = useState<string[]>([])
+  const [pagina, setPagina] = useState(0)
+
+  /* Volver a la primera página cada vez que cambia lo que se está mirando. Sin
+     esto, filtrar desde la página tres deja una tabla vacía que parece un error
+     de datos: hay resultados, pero no tantos como para llegar hasta ahí. */
+  const filtrar = <T,>(set: (v: T) => void) => (v: T) => { set(v); setPagina(0) }
+
+  const materia = (a: typeof todas[number]) => a.espacio.split(' · ')[0]
+
+  /* Cada filtro cuenta sobre lo que los OTROS ya dejaron: por eso el texto y el
+     otro filtro se aplican antes de contar, y el propio no. Contando sobre la
+     tabla entera, elegís una opción que dice 12 y te quedan 0 filas. */
+  const porTexto = useMemo(
+    () => todas.filter(a => !texto.trim() || fold(a.nombre + ' ' + a.espacio).includes(fold(texto))),
+    [texto],
+  )
+  const cuentaEstados = facets(
+    porTexto.filter(a => !espaciosElegidos.length || espaciosElegidos.includes(materia(a))),
+    a => a.estado,
+  )
+  const cuentaEspacios = facets(
+    porTexto.filter(a => !estados.length || estados.includes(a.estado)),
+    materia,
+  )
+
+  const lista = porTexto.filter(a =>
+    (!estados.length || estados.includes(a.estado))
+    && (!espaciosElegidos.length || espaciosElegidos.includes(materia(a))))
+
+  const desde = pagina * TRAMO
+  const aLaVista = lista.slice(desde, desde + TRAMO)
+  const hayMas = desde + TRAMO < lista.length
+  const filtrando = texto.trim() !== '' || estados.length > 0 || espaciosElegidos.length > 0
+  const limpiar = () => { setTexto(''); setEstados([]); setEspaciosElegidos([]); setPagina(0) }
+
   return (
     <Section
       title="Table"
       note="Piezas que se arman, no un componente que recibe `columns` y `rows`. Una tabla de datos y una de personas con un grupo de avatares y un menú al final no comparten nada más que la grilla, y una API de columnas termina con un `render` por columna: el mismo JSX, pero metido en un objeto y sin poder leerlo de arriba abajo."
     >
+      <Block
+        label="La tabla entera"
+        note="Una tabla de trabajo son tres cosas más que la grilla: con qué se recorta, cuántas hay, y cómo se pasa al tramo siguiente. Buscá, filtrá y paginá — los tres se llevan entre sí, que es la parte que se rompe cuando cada uno se escribe por su lado."
+      >
+        <FilterBar className="mb-3">
+          <FilterSearch
+            value={texto}
+            onValueChange={filtrar(setTexto)}
+            placeholder="Buscar por actividad o espacio"
+          />
+          <Filter
+            label="Estado"
+            value={estados}
+            onValueChange={filtrar(setEstados)}
+            options={['Abierta', 'Corregida', 'Borrador'].map(v => ({ value: v, count: cuentaEstados[v] ?? 0 }))}
+          />
+          <Filter
+            label="Materia"
+            value={espaciosElegidos}
+            onValueChange={filtrar(setEspaciosElegidos)}
+            options={['Matemática', 'Ciencias', 'Lengua', 'Sociales'].map(v => ({ value: v, count: cuentaEspacios[v] ?? 0 }))}
+          />
+          {filtrando && <FilterReset onClick={limpiar} />}
+        </FilterBar>
+
+        <Table
+          minWidth={720}
+          footer={(
+            <Pagination>
+              <PaginationStatus
+                from={desde + 1}
+                to={desde + aLaVista.length}
+                total={lista.length}
+                noun="actividades"
+              />
+              <PaginationPrev disabled={pagina === 0} onClick={() => setPagina(p => p - 1)} />
+              <PaginationNext disabled={!hayMas} onClick={() => setPagina(p => p + 1)} />
+            </Pagination>
+          )}
+        >
+          <TableHeader>
+            <TableRow>
+              <TableHead>Actividad</TableHead>
+              <TableHead>Estudiantes</TableHead>
+              <TableHead>Estado</TableHead>
+              <TableHead className="text-right">Entregas</TableHead>
+            </TableRow>
+          </TableHeader>
+          <TableBody>
+            {aLaVista.map(a => (
+              <TableRow key={a.nombre} onClick={() => {}}>
+                <TableCell>
+                  <TableTitle>{a.nombre}</TableTitle>
+                  <TableHint>{a.espacio}</TableHint>
+                </TableCell>
+                <TableCell><AvatarGroup people={a.estudiantes} /></TableCell>
+                <TableCell><Chip color={tono[a.estado as keyof typeof tono]}>{a.estado}</Chip></TableCell>
+                <TableNum>{a.entregas || '—'}</TableNum>
+              </TableRow>
+            ))}
+            {aLaVista.length === 0 && (
+              <tr>
+                <td colSpan={4} className="px-6 py-10">
+                  <EmptyState
+                    title="Ninguna actividad con eso"
+                    body="Probá con otras palabras, o sacá alguno de los filtros puestos."
+                    action={<FilterReset onClick={limpiar}>Limpiar los filtros</FilterReset>}
+                  />
+                </td>
+              </tr>
+            )}
+          </TableBody>
+          {/* El total va adentro de la tabla y no en la franja de abajo: cae en
+              la misma columna que los números que suma. Suma lo filtrado y no
+              la página, que es lo que alguien quiere saber cuando filtra. */}
+          {aLaVista.length > 0 && (
+            <TableFooter>
+              <TableRow>
+                <TableCell>Total{filtrando ? ' de lo filtrado' : ''}</TableCell>
+                <TableCell />
+                <TableCell />
+                <TableNum>{lista.reduce((n, a) => n + a.entregas, 0)}</TableNum>
+              </TableRow>
+            </TableFooter>
+          )}
+        </Table>
+      </Block>
+
       <Block
         label="La pieza"
         note="La fila es de 56, la misma que `Row` en un panel de ajustes: las dos son una línea de contenido con un divisor de un píxel, así que compartir el alto es lo que hace que una tabla y un panel puestos uno arriba del otro no se vean de dos sistemas distintos. La cabecera va en 11 con `tracking-wide` y en tinta: en 11 el tamaño ya dice que es un rótulo, y el gris encima lo apagaba tanto que había que buscar de qué era cada columna. Las filas alternan papel y un paso más oscuro — en una tabla ancha el divisor de un píxel no alcanza para seguir una fila hasta la última columna, la banda sí. Y contra los bordes las celdas llevan 24 en vez de 16: entre dos columnas el aire se reparte entre las dos, contra el canto hay uno solo."
