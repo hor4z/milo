@@ -276,6 +276,17 @@
      de la pieza, y son lo que lo deja ver también sobre el botón azul, donde un
      anillo pegado al relleno desaparece. */
   --focus-ring: 0 0 0 2px var(--surface), 0 0 0 4px var(--blue-500-a45);
+
+  /* **Un campo enfocado no lleva ese anillo: se le tiñe el borde.** El anillo
+     está pensado para una pieza chica y opaca —un botón, un item de nav— donde
+     el halo aparece afuera y no tiene con qué chocar. Un campo ya tiene un borde
+     dibujado en los cuatro lados, así que el halo le suma una segunda línea a
+     dos píxeles de la primera: dos cosas azules alrededor de la misma caja, con
+     un hueco blanco en el medio. Tiñendo el borde que ya existe, el foco no
+     agrega una forma nueva — cambia la que había.
+     Es lo mismo que hace Reshaped, que lo resuelve con un `inset` de 1.5px del
+     color primario y nada más. */
+  --focus-border: var(--blue-500);
 }
 
 [data-theme="dark"] {

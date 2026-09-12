@@ -1226,11 +1226,22 @@ export function TextField({ icon, suffix, size = 'lg', className, ...rest }: Tex
 
 /* ---------------------------------------------------------------- Textarea */
 
-type TextareaProps = Omit<TextareaHTMLAttributes<HTMLTextAreaElement>, 'rows' | 'style'> & {
+type TextareaProps = Omit<TextareaHTMLAttributes<HTMLTextAreaElement>, 'rows' | 'style' | 'resize'> & {
   /** Las filas de arranque: el alto mínimo del campo. */
   rows?: number
   /** Hasta cuántas filas crece antes de scrollear. Sin esto, crece sin techo. */
   maxRows?: number
+  /**
+   * Quién decide el alto. Son tres modos y no una suma: o lo decide el
+   * contenido, o lo decide quien arrastra, o no lo decide nadie.
+   *
+   * · `auto` — crece con lo que escribís hasta `maxRows`. El default.
+   * · `vertical` — el tirador nativo de la esquina. `maxRows` no aplica: el alto
+   *   pasa a ser de quien arrastra, y medirlo además sería pisárselo en la
+   *   tecla siguiente.
+   * · `none` — alto fijo de `rows`, y lo que sobra scrollea.
+   */
+  resize?: 'auto' | 'vertical' | 'none'
 }
 
 /**
@@ -1261,12 +1272,14 @@ type TextareaProps = Omit<TextareaHTMLAttributes<HTMLTextAreaElement>, 'rows' | 
  * arrastrarla deja al campo de un alto que el autogrow después pisa: dos cosas
  * peleando por lo mismo. El alto lo decide el contenido.
  */
-export function Textarea({ rows = 3, maxRows, className, onChange, value, ...rest }: TextareaProps) {
+export function Textarea({
+  rows = 3, maxRows, resize = 'auto', className, onChange, value, ...rest
+}: TextareaProps) {
   const ref = useRef<HTMLTextAreaElement>(null)
 
   const medir = useCallback(() => {
     const el = ref.current
-    if (!el) return
+    if (!el || resize !== 'auto') return
     const cs = getComputedStyle(el)
     const line = parseFloat(cs.lineHeight) || 16
     const marco = parseFloat(cs.paddingTop) + parseFloat(cs.paddingBottom)
@@ -1276,7 +1289,7 @@ export function Textarea({ rows = 3, maxRows, className, onChange, value, ...res
     const techo = maxRows ? line * maxRows + marco : Infinity
     el.style.height = `${Math.min(alto, techo)}px`
     el.style.overflowY = alto > techo ? 'auto' : 'hidden'
-  }, [maxRows])
+  }, [maxRows, resize])
 
   /* Se remide cuando cambia el valor y no solo al tipear: un campo controlado
      puede recibir texto de afuera —un borrador que se carga, un reset del
@@ -1298,7 +1311,12 @@ export function Textarea({ rows = 3, maxRows, className, onChange, value, ...res
         value={value}
         onChange={e => { medir(); onChange?.(e) }}
         className={cx(
-          'min-w-0 flex-1 resize-none bg-transparent font-normal text-ink outline-none',
+          'min-w-0 flex-1 bg-transparent font-normal text-ink outline-none',
+          /* El tirador nativo se dibuja en la esquina del `<textarea>`, y el
+             padding del contenedor lo dejaría flotando adentro de la caja: por
+             eso el campo llega hasta el borde y el aire lo pone el propio
+             control. */
+          resize === 'vertical' ? 'resize-y' : 'resize-none',
           'placeholder:text-ink-muted',
           /* El leading de la interfaz es 16 sobre 12px, que apretado para un
              bloque de varias líneas: en un párrafo, los renglones se tocan. Este
