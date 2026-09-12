@@ -15,10 +15,15 @@ npm run typecheck  # todo el monorepo de una
 npm test           # 92 tests con vitest y testing-library
 ```
 
-**El código no lleva comentarios.** Queda un docblock de una línea por export —lo que el
-editor usa para autocompletar— y algún `//` donde el motivo no se deduce leyendo. El porqué
-de cada decisión vive en dos lugares que sí se leen: este archivo y las notas de cada vista
-del kit, que están a la vista de quien usa el sistema en vez de escondidas en el fuente.
+**El código va en inglés y los comentarios en castellano.** Todo lo que es código —variables,
+parámetros, tipos, funciones, props— se escribe en inglés; lo que se lee —los comentarios, los
+textos de la interfaz, los nombres de los tests, el contenido de ejemplo— va en castellano. Esa
+es la línea, y no hay una tercera categoría.
+
+**El código no lleva comentarios de más.** Queda un docblock de una línea por export y por prop
+—lo que el editor usa para autocompletar, y lo que el kit muestra como documentación— y algún
+`//` donde el motivo no se deduce leyendo. El porqué de cada decisión vive en dos lugares que sí
+se leen: este archivo y las notas de cada vista del kit.
 
 ## De dónde salió
 
@@ -395,9 +400,34 @@ Dos tests verifican que ninguna vista se quede sin portada ni sin import.
 
 El riel tiene buscador con atajo `/` y no tiene logo: el nombre va en texto.
 
+## La documentación de las props
+
+**La tabla de props de cada vista sale del código y no de una lista escrita al lado.** Antes
+cada vista del kit llevaba su tabla a mano —el tipo, el default y la descripción copiados del
+componente— y eso se despega solo: el `Dropdown` declaraba tres props de su `items` cuando la
+pieza acepta siete.
+
+Ahora la descripción vive en el docblock de la prop, al lado de su tipo:
+
+```tsx
+export function Select({ value, onChange, options, width }: {
+  value: string
+  /** Sin esto toma el ancho del contenido. */
+  width?: number
+}) {
+```
+
+`npm run props` lee el AST de cada pieza y escribe `packages/ui/src/props.gen.ts` con el
+nombre, el tipo, si es obligatoria, su default, su descripción y de qué etiqueta nativa hereda
+la pieza. La vista pide `<Props of="Select" />` y nada más. Un test corre el script con
+`--check` y falla si el archivo quedó viejo, igual que `icons check`.
+
+Lo mismo vale para los tipos que una pieza recibe como argumento —`ToastOptions`,
+`DropdownItem`, `BarDatum`—: son API pública y se documentan igual.
+
 ## Los tests
 
-`npm test` corre vitest con jsdom y testing-library. 251 tests, y lo que prueban es el
+`npm test` corre vitest con jsdom y testing-library. 255 tests, y lo que prueban es el
 comportamiento —teclado, nombres accesibles, estados— y no el markup, que cambia con cada
 ajuste de estilo. El test de cada pieza vive en su carpeta, al lado del componente.
 

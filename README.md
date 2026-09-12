@@ -9,7 +9,8 @@ npm install
 npm run dev        # el kit · http://localhost:5190
 npm run dev:guide  # el prototipo · http://localhost:5180
 npm run typecheck  # todo el monorepo de una
-npm test           # 251 tests
+npm test           # 255 tests
+npm run props      # regenera la tabla de props desde los tipos
 ```
 
 ## Qué hay adentro
@@ -39,6 +40,12 @@ un test que falla si alguien exporta algo de un archivo sin sacarlo por esa puer
   estado activo se marca con relieve o canto, no tiñendo el texto.
 - **Iconos:** Material Symbols Rounded, subseteado a los 160 que usamos, servido desde el repo
   (57 KB). Se agregan con `npm run icons -w @melu/ui -- add <nombre>`, nunca a mano.
+
+El código va en inglés y los comentarios en castellano: lo que es código se escribe en inglés,
+lo que se lee —comentarios, textos de la interfaz, nombres de los tests— en castellano.
+
+La documentación de cada prop vive en su docblock y el kit la extrae con `npm run props`: la
+tabla que se ve en cada vista es el tipo real, no una copia escrita al lado.
 
 Los componentes se estilan **solo** contra roles: ninguno sabe que existe `--shade-03`, sabe que
 hay un `--surface-muted`. Un hex escrito a mano en un componente es un bug, y hay un test que lo
