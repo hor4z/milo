@@ -142,7 +142,7 @@ export function ColorSection() {
 function Family({ title, detail, tokens }: { title: string; detail: string; tokens: readonly string[] }) {
   const vals = useTokens(tokens)
   return (
-    <div className="flex flex-col gap-3 rounded-2xl border border-line bg-surface p-5">
+    <div className="flex flex-col gap-3 rounded-xl border border-line bg-surface p-5">
       <div className="flex flex-col gap-1">
         <code className="font-mono text-body font-semibold text-ink">{title}</code>
         <p className="max-w-[70ch] text-meta font-medium text-ink-muted">{detail}</p>

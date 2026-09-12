@@ -48,7 +48,7 @@ export function InclusionSection() {
             ['person', 'Quien enseña', 'Entra treinta veces por día y corrige de a cuarenta. Necesita densidad y atajos, y no tiene tiempo de aprender un patrón nuevo por pantalla.'],
             ['group', 'Quien acompaña', 'Una familia que entra una vez por trimestre. No conoce el producto y no lo va a aprender: cada pantalla tiene que explicarse sola.'],
           ].map(([icon, title, body]) => (
-            <div key={title} className="flex flex-col gap-2 rounded-2xl border border-line bg-surface p-5">
+            <div key={title} className="flex flex-col gap-2 rounded-xl border border-line bg-surface p-5">
               <span className="inset-relief mb-1 inline-flex size-9 items-center justify-center rounded-sm">
                 <Icon name={icon as 'school'} size={18} />
               </span>
@@ -65,7 +65,7 @@ export function InclusionSection() {
       >
         <div className="flex flex-col gap-3">
           {pares.map(par => (
-            <div key={par.good} className="overflow-hidden rounded-2xl border border-line bg-surface">
+            <div key={par.good} className="overflow-hidden rounded-xl border border-line bg-surface">
               <div className="flex items-start gap-3 bg-bad-subtle px-5 py-4">
                 <Icon name="close" size={16} className="mt-0.5 shrink-0 text-bad-ink" />
                 <span className="text-body text-bad-ink">{par.bad}</span>
@@ -90,7 +90,7 @@ export function InclusionSection() {
             ['Desdoblado', 'Los y las docentes deben revisar las entregas de sus alumnos y alumnas.', 'el doble de largo'],
             ['Segunda persona', 'Revisá las entregas del curso.', 'ni género ni relleno'],
           ].map(([titulo, frase, veredicto], i) => (
-            <div key={titulo} className="flex flex-col gap-2 rounded-2xl border border-line bg-surface p-5">
+            <div key={titulo} className="flex flex-col gap-2 rounded-xl border border-line bg-surface p-5">
               <span className="text-label font-semibold text-ink-muted">{titulo}</span>
               <p className="min-h-[72px] text-body text-ink">{frase}</p>
               <Chip color={i === 2 ? 'green' : 'orange'} icon={i === 2 ? 'check' : 'warning'}>{veredicto}</Chip>
@@ -103,7 +103,7 @@ export function InclusionSection() {
         title="Las caras y los nombres del contenido de ejemplo"
         note="El contenido de muestra de un sistema de diseño es una decisión de producto disfrazada de relleno. Si las cinco personas de ejemplo se llaman Juan, Pedro y María y todas tienen la misma cara, eso es lo que el equipo va a dibujar después sin darse cuenta."
       >
-        <div className="flex flex-col gap-4 rounded-2xl border border-line bg-surface p-5">
+        <div className="flex flex-col gap-4 rounded-xl border border-line bg-surface p-5">
           <div className="flex flex-wrap items-center gap-3">
             {[
               { name: 'Milagros Ibáñez', src: '/avatars/01.webp' },

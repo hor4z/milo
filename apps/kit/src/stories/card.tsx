@@ -7,7 +7,7 @@ export function CardStory() {
       title="Card"
       kind="Superficies"
       imports="import { Card, CardHeader, CardTitle, CardHint, CardBody, CardFooter } from '@milo/ui'"
-      lead="La superficie de una grilla: una cosa por tarjeta, y la tarjeta entera es la unidad que se escanea. Radio 24 con 8 de padding, así que lo que va adentro lleva 16 — la regla del anidado, no un número elegido a ojo."
+      lead="La superficie de una grilla: una cosa por tarjeta, y la tarjeta entera es la unidad que se escanea. Radio 16 con 8 de padding, así que lo que va adentro lleva 8 — la regla del anidado, no un número elegido a ojo."
     >
       <Section
         title="Se arma con partes"
@@ -50,14 +50,14 @@ export function CardStory() {
       >
         <div className="flex flex-wrap gap-4">
           <Card className="w-[260px]">
-            <div className="rounded-xl bg-tint-2" style={{ height: 120 }} />
+            <div className="rounded-sm bg-tint-2" style={{ height: 120 }} />
             <div className="px-2 pt-3 pb-2">
               <div className="text-body font-semibold">El barrio como mapa</div>
               <div className="mt-1 text-meta text-ink-muted">Geografía · 6.º · Indagación</div>
             </div>
           </Card>
           <Card className="w-[260px]" interactive>
-            <div className="rounded-xl bg-tint-3" style={{ height: 120 }} />
+            <div className="rounded-sm bg-tint-3" style={{ height: 120 }} />
             <div className="px-2 pt-3 pb-2">
               <div className="text-body font-semibold">Con interactive</div>
               <div className="mt-1 text-meta text-ink-muted">Sube la sombra en hover, sin moverse</div>

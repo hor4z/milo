@@ -1,7 +1,7 @@
 import { useMemo, useState } from 'react'
 import {
   Avatar, AvatarGroup, Chip, ColumnPicker, Dropdown, EmptyState, Filter, FilterBar, FilterReset,
-  FilterSearch, IconButton,
+  Search, IconButton,
   Pagination, PaginationNext, PaginationPrev, PaginationStatus,
   Table, TableBody, TableCell, TableFooter, TableHead, TableHeader,
   TableHint, TableNum, TableRow, TableTitle, facets, fold,
@@ -129,7 +129,7 @@ export function TableStory() {
         note="Una tabla de trabajo son tres cosas más que la grilla: con qué se recorta, cuántas hay, y cómo se pasa al tramo siguiente. Buscá, filtrá y paginá — los tres se llevan entre sí, que es la parte que se rompe cuando cada uno se escribe por su lado. Y si las columnas no entran, la tabla scrollea de costado sin dibujar una barra: scrolleá con la rueda y mirá que los botones de paginar no se van con la tabla. Esa franja vive adentro del marco pero afuera del scroll, que es un lugar al que el call site no llega solo."
       >
         <FilterBar className="mb-3">
-          <FilterSearch
+          <Search
             value={query}
             onValueChange={narrow(setQuery)}
             placeholder="Buscar por actividad o espacio"

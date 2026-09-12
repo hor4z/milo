@@ -23,7 +23,7 @@ export function EmptyState({ title, body, action, icon, size = 'md', bordered = 
       className={cx(
         'flex flex-col items-center text-center',
         small ? 'px-4 py-8' : 'px-6 py-16',
-        bordered && 'rounded-2xl border border-dashed border-line-strong',
+        bordered && 'rounded-xl border border-dashed border-line-strong',
       )}
     >
       {icon && (

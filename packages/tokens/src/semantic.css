@@ -321,19 +321,6 @@
      exactamente lo que pasaba. */
   --field-border: var(--shade-09-a28);
 
-  /* ------- el campo vacío -------
-     El buscador de la topbar. **Se invierte contra su fondo igual que el campo**,
-     y por el mismo motivo: la topbar está pintada del escritorio, así que un
-     buscador del color del escritorio no se ve. Va en papel ahí, y se hunde un
-     tono cuando cae adentro de una pieza de papel.
-
-     Lo que lo separa de `--field-*` es lo otro: el buscador está vacío casi
-     siempre, así que la caja la dibuja el borde y no el relleno. */
-  --search-bg: var(--shade-01);
-  --search-bg-hover: var(--shade-02);
-  --search-bg-on-surface: var(--shade-02);
-  --search-bg-on-surface-hover: var(--shade-03);
-  --search-border: var(--border-strong);
 
   /* El anillo de foco es azul, y es la tercera excepción a la interfaz
      monocroma —después del botón `brand` y del arco del spinner— con la misma
@@ -406,11 +393,6 @@
   --space-blue: #5b96e8;
   --space-purple: #a37ce6;
   --space-pink: #e074a4;
-  --search-bg: var(--shade-01);
-  --search-bg-hover: var(--shade-02);
-  --search-bg-on-surface: var(--shade-02);
-  --search-bg-on-surface-hover: var(--shade-03);
-  --search-border: var(--border-strong);
   --scrim: rgb(0 0 0 / 0.55);
   --solid: var(--shade-09);
   --solid-hover: #ffffff;

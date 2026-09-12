@@ -322,7 +322,7 @@ export const propsByComponent: Record<string, ComponentDoc> = {
         "doc": "Papel sobresale y tira sombra; muted es un hueco."
       }
     ],
-    "doc": "El contenedor de radio 24."
+    "doc": "El contenedor de radio 16: lo que se apoya en la página. Lo que flota sobre un velo —un modal, un diálogo— va en 24."
   },
   "CardHeader": {
     "props": [],
@@ -504,6 +504,41 @@ export const propsByComponent: Record<string, ComponentDoc> = {
       }
     ],
     "doc": "El chip: 28 de alto y radio 10. Identifica —una categoría, una persona, un espacio—; si el texto cambia según lo que pasó, es un `Badge`."
+  },
+  "ColumnPicker": {
+    "props": [
+      {
+        "name": "columns",
+        "type": "{ id: string; label: string; locked?: boolean }[]",
+        "required": true,
+        "doc": "Todas las columnas que la tabla puede mostrar, en el orden en que van."
+      },
+      {
+        "name": "value",
+        "type": "string[]",
+        "required": true,
+        "doc": "Los ids de las que están a la vista."
+      },
+      {
+        "name": "onValueChange",
+        "type": "(v: string[]) => void",
+        "required": true,
+        "doc": "Recibe los ids de las columnas que quedan a la vista."
+      },
+      {
+        "name": "label",
+        "type": "string",
+        "required": false,
+        "def": "'Columnas'",
+        "doc": "Nombra el botón y encabeza el panel."
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "required": false
+      }
+    ],
+    "doc": "Elegir qué columnas se ven."
   },
   "ConfirmDialog": {
     "props": [
@@ -751,35 +786,6 @@ export const propsByComponent: Record<string, ComponentDoc> = {
     "html": "div",
     "doc": "La barra de arriba de una tabla: el buscador y los filtros, en una línea."
   },
-  "FilterSearch": {
-    "props": [
-      {
-        "name": "value",
-        "type": "string",
-        "required": true,
-        "doc": "Es controlado: el texto lo lleva la pantalla, que es la que filtra."
-      },
-      {
-        "name": "onValueChange",
-        "type": "(v: string) => void",
-        "required": true,
-        "doc": "Recibe el texto nuevo."
-      },
-      {
-        "name": "placeholder",
-        "type": "string",
-        "required": false,
-        "def": "'Buscar…'",
-        "doc": "Qué se busca, no «Buscar…» a secas."
-      },
-      {
-        "name": "className",
-        "type": "string",
-        "required": false
-      }
-    ],
-    "doc": "El buscador de la barra."
-  },
   "Filter": {
     "props": [
       {
@@ -813,41 +819,6 @@ export const propsByComponent: Record<string, ComponentDoc> = {
     "props": [],
     "html": "button",
     "doc": "El botón que devuelve la tabla a como estaba."
-  },
-  "ColumnPicker": {
-    "props": [
-      {
-        "name": "columns",
-        "type": "{ id: string; label: string; locked?: boolean }[]",
-        "required": true,
-        "doc": "Todas las columnas que la tabla puede mostrar, en el orden en que van."
-      },
-      {
-        "name": "value",
-        "type": "string[]",
-        "required": true,
-        "doc": "Los ids de las que están a la vista."
-      },
-      {
-        "name": "onValueChange",
-        "type": "(v: string[]) => void",
-        "required": true,
-        "doc": "Recibe los ids de las columnas que quedan a la vista."
-      },
-      {
-        "name": "label",
-        "type": "string",
-        "required": false,
-        "def": "'Columnas'",
-        "doc": "Nombra el botón y encabeza el panel."
-      },
-      {
-        "name": "className",
-        "type": "string",
-        "required": false
-      }
-    ],
-    "doc": "Elegir qué columnas se ven."
   },
   "Folder": {
     "props": [
@@ -1131,7 +1102,7 @@ export const propsByComponent: Record<string, ComponentDoc> = {
         "name": "trailing",
         "type": "ReactNode",
         "required": false,
-        "doc": "A la derecha: un chevron, un contador."
+        "doc": "A la derecha: un chevron, un `Switch`. Un contador no — el número ya está en `hint`, y repetirlo al lado obliga a leer dos veces lo mismo."
       }
     ]
   },
@@ -1635,6 +1606,59 @@ export const propsByComponent: Record<string, ComponentDoc> = {
       }
     ],
     "doc": "La fila de un panel: 56px de alto, padding 16/24, label a la izquierda y control a la derecha."
+  },
+  "Search": {
+    "props": [
+      {
+        "name": "value",
+        "type": "string",
+        "required": true,
+        "doc": "Lo que hay escrito: es controlado."
+      },
+      {
+        "name": "onValueChange",
+        "type": "(v: string) => void",
+        "required": true,
+        "doc": "Recibe el texto nuevo, y `''` cuando se limpia."
+      },
+      {
+        "name": "placeholder",
+        "type": "string",
+        "required": false,
+        "def": "'Buscar…'",
+        "doc": "Qué se busca, no «Buscar…» a secas."
+      },
+      {
+        "name": "size",
+        "type": "'sm' | 'md' | 'lg'",
+        "required": false,
+        "def": "'sm'",
+        "doc": "Las mismas tres del resto de los controles."
+      },
+      {
+        "name": "shortcut",
+        "type": "string",
+        "required": false,
+        "doc": "El atajo que lo enfoca, a la derecha: `/`. Es un recordatorio, no la tecla — esa la escucha quien lo pone."
+      },
+      {
+        "name": "block",
+        "type": "boolean",
+        "required": false,
+        "doc": "Toma el ancho de lo que lo contiene."
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "ref",
+        "type": "Ref<HTMLInputElement>",
+        "required": false
+      }
+    ],
+    "doc": "El buscador: un campo con la lupa y una cruz que aparece cuando hay algo escrito. Es un `TextField` y no otro campo — se dibuja igual que los demás y hereda su inversión contra el fondo."
   },
   "Segmented": {
     "props": [
@@ -2169,6 +2193,12 @@ export const propsByComponent: Record<string, ComponentDoc> = {
         "type": "Ref<HTMLDivElement>",
         "required": false,
         "doc": "Va al contenedor, que es lo que mide y lo que se enfoca."
+      },
+      {
+        "name": "inputRef",
+        "type": "Ref<HTMLInputElement>",
+        "required": false,
+        "doc": "Va al `input` de adentro, para quien necesita enfocarlo desde afuera: un atajo de teclado."
       }
     ],
     "doc": "El campo de texto."

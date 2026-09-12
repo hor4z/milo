@@ -27,7 +27,7 @@ export function MotionSection() {
       >
         <div className="flex flex-col gap-3">
           {duraciones.map(d => (
-            <div key={d.cls} className="flex flex-wrap items-center gap-x-5 gap-y-2 rounded-2xl border border-line bg-surface px-5 py-4">
+            <div key={d.cls} className="flex flex-wrap items-center gap-x-5 gap-y-2 rounded-xl border border-line bg-surface px-5 py-4">
               <code className="w-40 shrink-0 font-mono text-meta font-semibold text-ink">{d.cls}</code>
               <span className="w-16 shrink-0 tabular text-body text-ink">{d.ms}ms</span>
               <span className="min-w-0 flex-1 text-meta text-ink-muted">{d.role}</span>
@@ -49,7 +49,7 @@ export function MotionSection() {
       >
         <div className="flex flex-col gap-3">
           {curvas.map(c => (
-            <div key={c.cls} className="flex flex-wrap items-center gap-x-5 gap-y-2 rounded-2xl border border-line bg-surface px-5 py-4">
+            <div key={c.cls} className="flex flex-wrap items-center gap-x-5 gap-y-2 rounded-xl border border-line bg-surface px-5 py-4">
               <code className="w-40 shrink-0 font-mono text-meta font-semibold text-ink">{c.cls}</code>
               <code className="w-64 shrink-0 font-mono text-meta text-ink-muted">{c.value}</code>
               <span className="min-w-0 flex-1 text-meta text-ink-muted">{c.role}</span>
@@ -71,7 +71,7 @@ export function MotionSection() {
             ['El contenido al cargar', 'Nada entra desde abajo ni se desvanece. El esqueleto ocupa el lugar exacto de lo que viene, así que cuando llega no se mueve nada.'],
             ['El foco', 'El anillo aparece y desaparece sin transición: es un aviso, y un aviso que tarda 190ms en verse llega tarde.'],
           ].map(([t, b]) => (
-            <div key={t} className="flex flex-col gap-2 rounded-2xl border border-line bg-surface p-5">
+            <div key={t} className="flex flex-col gap-2 rounded-xl border border-line bg-surface p-5">
               <div className="flex items-center gap-2">
                 <Icon name="close" size={14} className="text-bad" />
                 <span className="text-label font-semibold text-ink">{t}</span>
@@ -93,7 +93,7 @@ export function MotionSection() {
             ['El libro', 'no rota', 'La rotación era gusto y nada más, así que se va entera.'],
             ['Todo lo demás', 'aparece y desaparece', 'Un panel que llega en 1ms sigue llegando: lo que se pierde es el recorrido, no el estado.'],
           ].map(([q, comoQueda, porque]) => (
-            <div key={q} className="flex flex-wrap items-baseline gap-x-5 gap-y-1 rounded-2xl border border-line bg-surface px-5 py-4">
+            <div key={q} className="flex flex-wrap items-baseline gap-x-5 gap-y-1 rounded-xl border border-line bg-surface px-5 py-4">
               <span className="w-36 shrink-0 text-body font-semibold text-ink">{q}</span>
               <span className="w-56 shrink-0 text-body text-ink">{comoQueda}</span>
               <span className="min-w-0 flex-1 text-meta text-ink-muted">{porque}</span>
@@ -123,7 +123,7 @@ function Probador() {
       title="Verlo"
       note="El mismo panel con las dos duraciones. La diferencia entre 120 y 190 milisegundos parece nada escrita y se nota entera cuando algo entra en pantalla."
     >
-      <div className="flex flex-col gap-4 rounded-2xl border border-line bg-surface p-5">
+      <div className="flex flex-col gap-4 rounded-xl border border-line bg-surface p-5">
         <div className="flex flex-wrap items-center gap-4">
           <Button variant="raised" onClick={() => setAbierto(v => !v)}>
             {abierto ? 'Cerrar' : 'Abrir'}

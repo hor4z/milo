@@ -24,7 +24,7 @@ export function TypographySection() {
         title="Los siete roles"
         note="La utilidad escribe los tres valores de una. Escritos por separado se despegan, y se despegaron: `text-lg` llegó a ser 20px de letra dentro de una caja de línea de 16px porque el interlineado era un token aparte que nadie tenía que recordar."
       >
-        <div className="overflow-x-auto rounded-2xl border border-line bg-surface">
+        <div className="overflow-x-auto rounded-xl border border-line bg-surface">
           {roles.map(r => (
             <div key={r.cls} className="flex flex-wrap items-baseline gap-x-5 gap-y-2 border-b border-line px-5 py-4 last:border-0">
               <code className="w-24 shrink-0 font-mono text-meta text-ink-muted">{r.px}/{r.lh}</code>
@@ -73,7 +73,7 @@ export function TypographySection() {
         note="Era 16px fijo para todo, y el argumento era bueno: con interlineado proporcional, una fila de 12 y una de 14 dejan de alinearse entre sí. Dejó de importar por dos razones. Los interlineados nuevos son todos pares y casi todos múltiplos de cuatro, así que apilan predecible; y las filas del sistema centran sus hijos con flex, no haciendo coincidir cajas de línea."
       >
         <div className="grid gap-4 sm:grid-cols-2">
-          <div className="rounded-2xl border border-line bg-surface p-5">
+          <div className="rounded-xl border border-line bg-surface p-5">
             <div className="mb-3 flex items-center gap-2">
               <Icon name="close" size={14} className="text-bad" />
               <span className="text-label font-semibold text-ink">Antes · 16 fijo</span>
@@ -87,7 +87,7 @@ export function TypographySection() {
               no como falta de aire.
             </p>
           </div>
-          <div className="rounded-2xl border border-line bg-surface p-5">
+          <div className="rounded-xl border border-line bg-surface p-5">
             <div className="mb-3 flex items-center gap-2">
               <Icon name="check" size={14} className="text-ok" />
               <span className="text-label font-semibold text-ink">Ahora · 16/24</span>
@@ -108,7 +108,7 @@ export function TypographySection() {
         title="El tracking cruza el cero en la base"
         note="Positivo donde la letra es chica y se empasta, cero en la interfaz, negativo donde es grande y se despega. Antes era al revés: -0.015em aplicado a todos los h1, h2 y h3 por igual, un número medido contra Inter a 12px dos familias atrás. Apretar la letra chica es exactamente cómo se pierde nitidez. Es lo que hace el eje óptico de San Francisco, y lo que Carbon escribe a mano."
       >
-        <div className="flex flex-col gap-3 rounded-2xl border border-line bg-surface p-5">
+        <div className="flex flex-col gap-3 rounded-xl border border-line bg-surface p-5">
           {roles.map(r => (
             <div key={r.cls} className="flex flex-wrap items-baseline gap-4">
               <code className="w-32 shrink-0 font-mono text-meta text-ink-muted">{r.ls}</code>
@@ -128,7 +128,7 @@ export function TypographySection() {
             ['font-semibold', '450', 'lo elegido'],
             ['font-bold', '600', 'la portada'],
           ].map(([cls, n, role]) => (
-            <div key={cls} className="flex flex-col gap-2 rounded-2xl border border-line bg-surface p-5">
+            <div key={cls} className="flex flex-col gap-2 rounded-xl border border-line bg-surface p-5">
               <span className={`${cls} text-display text-ink`}>Aa</span>
               <code className="font-mono text-meta text-ink">{cls}</code>
               <span className="text-meta text-ink-muted">{n} · {role}</span>
@@ -141,7 +141,7 @@ export function TypographySection() {
         title="La medida de una línea"
         note="Entre 60 y 75 caracteres para lo que se lee de corrido. Más largo y el ojo pierde el renglón al volver; más corto y el salto de línea interrumpe cada tres palabras. Se fija con `max-w-[65ch]` y no con un ancho en píxeles, porque `ch` sigue al tamaño de la letra: si el rol cambia, la medida se acomoda sola."
       >
-        <div className="flex flex-col gap-4 rounded-2xl border border-line bg-surface p-5">
+        <div className="flex flex-col gap-4 rounded-xl border border-line bg-surface p-5">
           <p className="max-w-[65ch] text-reading text-ink">
             Esta columna mide 65 caracteres. Es la que va cuando lo que hay abajo es un enunciado, una
             consigna o una devolución — cualquier cosa que alguien lee entera en vez de barrer con
@@ -160,7 +160,7 @@ export function TypographySection() {
         title="Los números se alinean solos"
         note="El rol mono es la misma familia que el resto, así que perdió el ancho fijo. Lo que lo reemplaza es `.tabular`, que le da ancho fijo a los números sin cambiar de letra: alcanza para un precio, una métrica o una columna de tabla, y no alcanza para un bloque de código, que en este sistema no existe."
       >
-        <div className="flex flex-wrap gap-10 rounded-2xl border border-line bg-surface p-5">
+        <div className="flex flex-wrap gap-10 rounded-xl border border-line bg-surface p-5">
           <div className="flex flex-col items-start gap-1">
             <span className="mb-1 text-meta text-ink-muted">sin tabular</span>
             {['11.111', '40.000', '18.914', '88.100'].map(n => (
@@ -213,7 +213,7 @@ function PorQueInter() {
     >
       <div className="flex flex-col gap-4">
         <div className="grid gap-4 sm:grid-cols-2">
-          <div className="rounded-2xl border border-line bg-surface p-5">
+          <div className="rounded-xl border border-line bg-surface p-5">
             <div className="mb-3 flex items-center gap-2">
               <Icon name="visibility" size={16} />
               <span className="text-label font-semibold text-ink">El eje óptico</span>
@@ -229,7 +229,7 @@ function PorQueInter() {
               que pedir más rango no agrega dibujo y sí agrega bytes.
             </p>
           </div>
-          <div className="rounded-2xl border border-line bg-surface p-5">
+          <div className="rounded-xl border border-line bg-surface p-5">
             <div className="mb-3 flex items-center gap-2">
               <Icon name="warning" size={16} />
               <span className="text-label font-semibold text-ink">Lo que se paga</span>
@@ -247,7 +247,7 @@ function PorQueInter() {
           </div>
         </div>
 
-        <div className="rounded-2xl border border-line bg-surface p-5">
+        <div className="rounded-xl border border-line bg-surface p-5">
           <div className="mb-1 flex items-center gap-2">
             <Icon name="info" size={16} />
             <span className="text-label font-semibold text-ink">Lo que el CDN no trae</span>
@@ -283,7 +283,7 @@ function Familias() {
     >
       <div className="flex flex-col gap-3">
         {[['--font-sans', 'la interfaz, las portadas'], ['--font-mono', 'tokens, valores y atajos']].map(([t, role]) => (
-          <div key={t} className="flex flex-wrap items-center justify-between gap-4 rounded-2xl border border-line bg-surface px-5 py-4">
+          <div key={t} className="flex flex-wrap items-center justify-between gap-4 rounded-xl border border-line bg-surface px-5 py-4">
             <div className="flex min-w-0 flex-col gap-1">
               <code className="font-mono text-meta font-semibold text-ink">{t}</code>
               <span className="text-meta text-ink-muted">{role}</span>
