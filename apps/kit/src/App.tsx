@@ -355,7 +355,7 @@ function SideLink({ active, onClick, icon, piece, children }: {
       aria-current={active ? 'page' : undefined}
       className={cx(
         'flex h-8 w-full items-center gap-2 rounded-lg px-2 text-left text-body transition-colors',
-        active ? 'bg-muted font-semibold text-ink' : 'font-medium text-ink-muted hover:bg-hover hover:text-ink',
+        active ? 'bg-brand-soft font-semibold text-brand-ink shadow-[0_0_0_1px_var(--brand-border)]' : 'font-medium text-ink hover:bg-hover',
       )}
     >
       {icon && <Icon name={icon} size={16} className={active ? undefined : 'icon-muted'} />}

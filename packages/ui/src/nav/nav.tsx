@@ -11,8 +11,21 @@ export function navItemClass({
     'flex h-10 items-center gap-3 rounded-lg text-left text-body font-semibold',
     'transition-[background-color,box-shadow] duration-fast ease-out',
     collapsed ? 'justify-center px-0' : 'pr-3 pl-[3px]',
+    // **El item actual va en el azul suave**, y esto cambió. La regla vieja decía
+    // que el estado activo se marca con relieve y nunca con color, y el motivo
+    // escrito era que la interfaz es monocroma y el azul es el único acento que
+    // hay: gastarlo acá lo dejaba sin decir nada donde importa.
+    //
+    // Esa premisa se cayó. El azul dejó de ser una excepción acotada al CTA y
+    // pasó a ser el color primario con rampa de diez pasos, así que ya no hay un
+    // acento que se gaste. Y «dónde estoy» es exactamente lo que un color
+    // primario sabe hacer mejor que una pastilla gris: en un riel de doce
+    // entradas, el gris hay que buscarlo y el azul se encuentra sin leer.
+    //
+    // El relieve no se fue: sigue marcando lo que se aprieta. Lo que cambió es
+    // que dejó de tener que marcar también dónde estás parado.
     active
-      ? 'bg-muted text-ink shadow-[0_0_0_1px_var(--border)]'
+      ? 'bg-brand-soft text-brand-ink shadow-[0_0_0_1px_var(--brand-border)]'
       : muted
         ? 'text-ink-muted hover:bg-hover hover:text-ink'
         : 'text-ink hover:bg-hover',
@@ -72,7 +85,7 @@ export function navSubItemClass({ active }: { active?: boolean } = {}) {
     'flex h-9 items-center rounded-lg pr-3 pl-12 text-left text-body font-semibold',
     'transition-[background-color,box-shadow] duration-fast ease-out',
     active
-      ? 'bg-muted text-ink shadow-[0_0_0_1px_var(--border)]'
+      ? 'bg-brand-soft text-brand-ink shadow-[0_0_0_1px_var(--brand-border)]'
       : 'text-ink hover:bg-hover',
   )
 }

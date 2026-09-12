@@ -18,7 +18,7 @@ final son lo único que hay que tocar.
 npm install
 npm run dev        # el sitio · http://localhost:5190
 npm run typecheck  # todo el monorepo de una
-npm test           # 284 tests con vitest y testing-library
+npm test           # 285 tests con vitest y testing-library
 npm run props      # regenera la tabla de props desde los tipos
 ```
 
@@ -333,10 +333,20 @@ Las carpetas de espacios (`FolderIcon`) son la excepción y el único SVG que qu
 —relleno al 13% y una línea al 55% del mismo tono— y una fuente monocroma no puede hacer eso. El
 color propio por espacio es el punto: es lo que las deja reconocer de reojo en una lista de siete.
 
-**El estado activo no se marca con color, se marca con relieve o con canto.** En una interfaz
-monocroma eso distingue más que teñir el texto, y no gasta el único acento que hay. Corolario
-que se rompió tres veces: **el texto de un item inactivo va en tinta, no en gris.** Con la
-etiqueta apagada, una lista de siete espacios se lee como si estuviera deshabilitada.
+**Dónde estás se marca con el azul; lo que se aprieta, con relieve.** La regla vieja decía que el
+estado activo se marca con relieve y nunca con color, y el motivo escrito era que la interfaz es
+monocroma y el azul es el único acento que hay, así que gastarlo acá lo dejaba sin decir nada donde
+importa. **Esa premisa se cayó**: el azul es el color primario con rampa de diez pasos y ya no hay
+un acento que se gaste. Y «dónde estoy» es exactamente lo que un primario sabe hacer mejor que una
+pastilla gris: en un riel de doce entradas, el gris hay que buscarlo y el azul se encuentra sin
+leer. El item actual va en `--brand-soft` con tinta `--brand-ink` y su canto.
+
+El relieve no se fue: sigue marcando lo que se aprieta y lo que sobresale. Lo que cambió es que
+dejó de tener que marcar también dónde estás parado.
+
+Corolario que se rompió cuatro veces: **el texto de un item inactivo va en tinta, no en gris.** Con
+la etiqueta apagada, una lista de siete espacios se lee como si estuviera deshabilitada. La cuarta
+fue el subitem del riel, que la rompía mientras su propio padre la cumplía.
 
 **El relleno que lleva texto encima está anclado.** Los dos rellenos saturados con una palabra
 arriba —el `brand` azul y el `bad` rojo— usan el escalón donde el blanco encima llega exactamente a
@@ -561,7 +571,7 @@ Lo mismo vale para los tipos que una pieza recibe como argumento —`ToastOption
 
 ## Los tests
 
-`npm test` corre vitest con jsdom y testing-library. 284 tests, y lo que prueban es el
+`npm test` corre vitest con jsdom y testing-library. 285 tests, y lo que prueban es el
 comportamiento —teclado, nombres accesibles, estados— y no el markup, que cambia con cada
 ajuste de estilo. El test de cada pieza vive en su carpeta, al lado del componente.
 
