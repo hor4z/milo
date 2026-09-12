@@ -1,10 +1,10 @@
 import { Note, Page, Section } from '../kit'
 
 const recetas = [
-  { cls: 'raised', token: '--relief-raised', rol: 'el botón gris que sobresale', detalle: 'degradado, luz al 33%, canto y caída corta' },
-  { cls: 'raised-solid', token: '--relief-solid', rol: 'el botón oscuro', detalle: 'luz al 15% arriba, labio oscuro abajo, canto un paso más claro' },
-  { cls: 'pressed', token: '--relief-pressed', rol: 'un toggle con su panel abierto', detalle: 'la sombra entra desde abajo, sin canto' },
-  { cls: 'inset-relief', token: '--relief-inset', rol: 'lo hundido que es una marca', detalle: 'kbd, la pista de un segmented: lleva canto y caída' },
+  { cls: 'raised', fondo: 'bg-muted text-ink', token: '--relief-raised', rol: 'el botón gris que sobresale', detalle: 'degradado, luz al 33%, canto y caída corta' },
+  { cls: 'raised-solid', fondo: 'bg-solid text-on-solid', token: '--relief-solid', rol: 'el botón oscuro', detalle: 'luz al 15% arriba, labio oscuro abajo, canto un paso más claro' },
+  { cls: 'pressed', fondo: 'bg-muted text-ink', token: '--relief-pressed', rol: 'un toggle con su panel abierto', detalle: 'la sombra entra desde abajo, sin canto' },
+  { cls: 'inset-relief', fondo: 'bg-muted text-ink', token: '--relief-inset', rol: 'lo hundido que es una marca', detalle: 'kbd, la pista de un segmented: lleva canto y caída' },
 ] as const
 
 const capas = [
@@ -24,7 +24,7 @@ export function ReliefSection() {
         <div className="grid gap-3 sm:grid-cols-2">
           {recetas.map(r => (
             <div key={r.token} className="flex flex-col gap-3 rounded-2xl border border-line bg-surface p-5">
-              <div className={`${r.cls} flex h-14 items-center justify-center rounded-xl bg-muted text-xs font-semibold text-ink`}>
+              <div className={`${r.cls} ${r.fondo} flex h-14 items-center justify-center rounded-xl text-xs font-semibold`}>
                 {r.rol}
               </div>
               <div className="flex flex-col gap-1">
