@@ -92,7 +92,28 @@ const extraer = (archivo) => {
       })
     }
     const html = nativa(param.type)
-    if (filas.length || html) piezas[nombre] = { props: filas, ...(html ? { html } : {}) }
+    const doc = docDe(n)
+    if (filas.length || html) piezas[nombre] = { props: filas, ...(html ? { html } : {}), ...(doc ? { doc } : {}) }
+  })
+
+  // Los tipos que una pieza recibe como argumento —las opciones de un toast, el
+  // item de un dropdown— se documentan igual: son la API pública de esa pieza.
+  ts.forEachChild(sf, (n) => {
+    if (!ts.isTypeAliasDeclaration(n)) return
+    if (!n.modifiers?.some(m => m.kind === ts.SyntaxKind.ExportKeyword)) return
+    if (!/(Options|Item|Datum|Option)$/.test(n.name.text)) return
+    const filas = []
+    for (const m of miembros(n.type)) {
+      if (!ts.isPropertySignature(m) || !m.name) continue
+      filas.push({
+        name: m.name.getText(sf),
+        type: limpiar(m.type?.getText(sf) ?? 'unknown'),
+        required: !m.questionToken,
+        doc: docDe(m) || undefined,
+      })
+    }
+    const doc = docDe(n)
+    if (filas.length) piezas[n.name.text] = { props: filas, ...(doc ? { doc } : {}) }
   })
 
   return piezas
@@ -125,6 +146,7 @@ export type PropDoc = {
 export type ComponentDoc = {
   props: PropDoc[]
   html?: string
+  doc?: string
 }
 
 export const propsByComponent: Record<string, ComponentDoc> = ${JSON.stringify(todo, null, 2)}

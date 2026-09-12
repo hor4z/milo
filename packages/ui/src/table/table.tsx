@@ -65,6 +65,7 @@ export function TableHeader({ children }: { children: ReactNode }) {
   return <thead className="bg-muted">{children}</thead>
 }
 
+/** El cuerpo de la tabla. */
 export function TableBody({ children }: { children: ReactNode }) {
   return <tbody>{children}</tbody>
 }
@@ -110,6 +111,7 @@ export function TableRow({ children, onClick, active, className }: {
 
 type CellProps = { children?: ReactNode; className?: string }
 
+/** Un encabezado de columna: 11/600 con tracking, en tinta. */
 export function TableHead({ children, scope = 'col', className, ...rest }: CellProps & ThHTMLAttributes<HTMLTableCellElement>) {
   return (
     <th
@@ -122,6 +124,7 @@ export function TableHead({ children, scope = 'col', className, ...rest }: CellP
   )
 }
 
+/** Una celda: 12/500, con el alto de fila de 56. */
 export function TableCell({ children, className, ...rest }: CellProps & TdHTMLAttributes<HTMLTableCellElement>) {
   return (
     <td className={cx('h-14 px-4 first:pl-6 last:pr-6 text-xs font-medium text-ink', className)} {...rest}>

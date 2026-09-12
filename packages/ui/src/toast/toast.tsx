@@ -6,9 +6,13 @@ import { cx } from '../lib/cx'
 import { type Tone, toneClass, toneIcon } from '../lib/tone'
 import { Portal } from '../portal/portal'
 
+/** Lo que recibe `toast()`. */
 export type ToastOptions = {
+  /** Qué pasó, en una línea. */
   title: string
+  /** El detalle, cuando el título no alcanza. */
   body?: string
+  /** El mismo juego de tonos que `Alert` y `Badge`. */
   tone?: Tone
   /** La salida del aviso: deshacer, ver, reintentar. Al tocarla el aviso se cierra. */
   action?: { label: string; onClick?: () => void }

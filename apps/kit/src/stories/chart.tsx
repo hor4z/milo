@@ -75,7 +75,7 @@ export function ChartStory() {
       </Section>
 
       <Section title="Props">
-        <Props of="BarChart" />
+        <Props of={['BarChart', 'BarDatum']} />
       </Section>
 
       <Section

@@ -61,7 +61,7 @@ export function DropdownStory() {
       </Section>
 
       <Section title="Props">
-        <Props of="Dropdown" />
+        <Props of={['Dropdown', 'DropdownItem']} />
       </Section>
     
       <Section title="Accesibilidad">

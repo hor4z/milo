@@ -76,7 +76,7 @@ export function ToastStory() {
       </Note>
 
       <Section title="Props">
-        <Props of="ToastProvider" />
+        <Props of={['ToastOptions', 'ToastProvider']} />
       </Section>
 
       <Section title="Accesibilidad">

@@ -168,8 +168,9 @@ export function Props({ of }: { of: string | readonly string[] }) {
         return (
           <div key={pieza} className="overflow-hidden rounded-xl border border-line">
             {piezas.length > 1 && (
-              <div className="border-b border-line bg-muted px-4 py-2">
+              <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1 border-b border-line bg-muted px-4 py-2">
                 <code className="font-mono text-2xs font-semibold text-ink">{pieza}</code>
+                {doc?.doc && <span className="text-2xs font-medium text-ink-muted"><Rich text={doc.doc} /></span>}
               </div>
             )}
             {rows.length === 0 ? (

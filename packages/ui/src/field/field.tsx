@@ -71,8 +71,10 @@ export function Field({ label, hint, error, required, children, className }: Fie
 }
 
 /** Varios campos, uno debajo del otro, con el aire del sistema. */
-export function FieldSet({ legend, className, children, ...props }: ComponentPropsWithoutRef<'fieldset'> & { /** cómo se llama el grupo */
-                                                                                                             legend?: string }) {
+export function FieldSet({ legend, className, children, ...props }: ComponentPropsWithoutRef<'fieldset'> & {
+  /** Cómo se llama el grupo. Un lector lo anuncia al entrar. */
+  legend?: string
+}) {
   return (
     <fieldset className={cx('flex flex-col gap-4 border-0 p-0', className)} {...props}>
       {legend && <legend className="mb-1 text-base font-semibold text-ink">{legend}</legend>}

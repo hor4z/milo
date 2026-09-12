@@ -61,8 +61,10 @@ export function TabList({ className, children, ...props }: ComponentPropsWithout
 }
 
 /** Una solapa. El activo se marca con una línea, no con color. */
-export function Tab({ value, className, children, ...props }: ComponentPropsWithoutRef<'button'> & { /** ata la solapa a su panel */
-                                                                                                     value: string }) {
+export function Tab({ value, className, children, ...props }: ComponentPropsWithoutRef<'button'> & {
+  /** Ata la solapa a su panel. */
+  value: string
+}) {
   const { value: current, setValue, name } = useTabs('Tab')
   const active = current === value
   return (
@@ -88,8 +90,10 @@ export function Tab({ value, className, children, ...props }: ComponentPropsWith
 }
 
 /** El contenido de una solapa. */
-export function TabPanel({ value, className, children, ...props }: ComponentPropsWithoutRef<'div'> & { /** el mismo valor de su solapa */
-                                                                                                       value: string }) {
+export function TabPanel({ value, className, children, ...props }: ComponentPropsWithoutRef<'div'> & {
+  /** El mismo valor que su solapa. */
+  value: string
+}) {
   const { value: current, name } = useTabs('TabPanel')
   if (current !== value) return null
   return (

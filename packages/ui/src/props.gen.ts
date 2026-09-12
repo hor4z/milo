@@ -13,6 +13,7 @@ export type PropDoc = {
 export type ComponentDoc = {
   props: PropDoc[]
   html?: string
+  doc?: string
 }
 
 export const propsByComponent: Record<string, ComponentDoc> = {
@@ -41,11 +42,13 @@ export const propsByComponent: Record<string, ComponentDoc> = {
         "type": "string",
         "required": false
       }
-    ]
+    ],
+    "doc": "Una fila que se abre. Es un `<details>`, así que funciona sin JavaScript."
   },
   "Accordion": {
     "props": [],
-    "html": "div"
+    "html": "div",
+    "doc": "Varias filas que se abren, una debajo de la otra."
   },
   "Alert": {
     "props": [
@@ -69,19 +72,23 @@ export const propsByComponent: Record<string, ComponentDoc> = {
         "doc": "Agrega la X para cerrarlo; sin esto no se cierra."
       }
     ],
-    "html": "div"
+    "html": "div",
+    "doc": "Un aviso fijo en la página: algo pasó o algo hay que saber antes de seguir."
   },
   "AlertTitle": {
     "props": [],
-    "html": "p"
+    "html": "p",
+    "doc": "El renglón que nombra el aviso."
   },
   "AlertBody": {
     "props": [],
-    "html": "p"
+    "html": "p",
+    "doc": "Qué pasó y qué se puede hacer."
   },
   "AlertActions": {
     "props": [],
-    "html": "div"
+    "html": "div",
+    "doc": "La fila de botones del aviso."
   },
   "Avatar": {
     "props": [
@@ -108,7 +115,8 @@ export const propsByComponent: Record<string, ComponentDoc> = {
         "type": "string",
         "required": false
       }
-    ]
+    ],
+    "doc": "Dos estados y nada más: con foto, o el círculo pastel con la inicial."
   },
   "AvatarGroup": {
     "props": [
@@ -144,7 +152,8 @@ export const propsByComponent: Record<string, ComponentDoc> = {
         "type": "string",
         "required": false
       }
-    ]
+    ],
+    "doc": "Varias personas en el lugar de una."
   },
   "Badge": {
     "props": [
@@ -161,7 +170,8 @@ export const propsByComponent: Record<string, ComponentDoc> = {
         "doc": "El glifo que acompaña al texto, a la izquierda."
       }
     ],
-    "html": "span"
+    "html": "span",
+    "doc": "Una marca chica que dice en qué estado está algo."
   },
   "Book": {
     "props": [
@@ -235,7 +245,8 @@ export const propsByComponent: Record<string, ComponentDoc> = {
         "doc": "De la raíz hasta acá. El último es dónde estás."
       }
     ],
-    "html": "nav"
+    "html": "nav",
+    "doc": "Dónde estás parado y cómo volver."
   },
   "Button": {
     "props": [
@@ -306,27 +317,33 @@ export const propsByComponent: Record<string, ComponentDoc> = {
         "def": "'paper'",
         "doc": "Papel sobresale y tira sombra; muted es un hueco."
       }
-    ]
+    ],
+    "doc": "El contenedor de radio 24."
   },
   "CardHeader": {
     "props": [],
-    "html": "div"
+    "html": "div",
+    "doc": "La cabecera de una tarjeta: el título a la izquierda, lo que haya a la derecha."
   },
   "CardTitle": {
     "props": [],
-    "html": "h3"
+    "html": "h3",
+    "doc": "Cómo se llama lo que hay en la tarjeta."
   },
   "CardHint": {
     "props": [],
-    "html": "p"
+    "html": "p",
+    "doc": "La línea de apoyo, debajo del título."
   },
   "CardBody": {
     "props": [],
-    "html": "div"
+    "html": "div",
+    "doc": "El cuerpo, con el padding que la tarjeta no pone."
   },
   "CardFooter": {
     "props": [],
-    "html": "div"
+    "html": "div",
+    "doc": "La fila de abajo, separada por una línea."
   },
   "BarChart": {
     "props": [
@@ -359,6 +376,41 @@ export const propsByComponent: Record<string, ComponentDoc> = {
         "name": "className",
         "type": "string",
         "required": false
+      }
+    ],
+    "doc": "El gráfico de barras."
+  },
+  "BarDatum": {
+    "props": [
+      {
+        "name": "label",
+        "type": "string",
+        "required": true,
+        "doc": "Lo que va abajo de la barra."
+      },
+      {
+        "name": "value",
+        "type": "number",
+        "required": true,
+        "doc": "Lo hecho: la parte azul."
+      },
+      {
+        "name": "total",
+        "type": "number",
+        "required": true,
+        "doc": "Lo que había para hacer: el alto de la barra gris."
+      },
+      {
+        "name": "detail",
+        "type": "ReactNode",
+        "required": false,
+        "doc": "Lo que el tooltip muestra además del número: un porcentaje, un grupo de caras."
+      },
+      {
+        "name": "caption",
+        "type": "string",
+        "required": false,
+        "doc": "La frase del tooltip, abajo del número."
       }
     ]
   },
@@ -396,7 +448,8 @@ export const propsByComponent: Record<string, ComponentDoc> = {
         "required": false,
         "doc": "Pinta la raya y manda aria-checked=\"mixed\"."
       }
-    ]
+    ],
+    "doc": "La caja de 18, la misma medida del pulgar del switch, así una fila con los dos no tiene dos tamaños de \"marca\"."
   },
   "Chip": {
     "props": [
@@ -429,7 +482,8 @@ export const propsByComponent: Record<string, ComponentDoc> = {
         "required": false,
         "doc": "Lo convierte en <button>."
       }
-    ]
+    ],
+    "doc": "El chip: 28 de alto y radio 10."
   },
   "ConfirmDialog": {
     "props": [
@@ -481,7 +535,8 @@ export const propsByComponent: Record<string, ComponentDoc> = {
         "def": "'neutral'",
         "doc": "Bad pinta el botón de confirmar y arranca el foco en Cancelar."
       }
-    ]
+    ],
+    "doc": "El diálogo que pregunta antes de algo que no se puede deshacer."
   },
   "Divider": {
     "props": [
@@ -497,7 +552,8 @@ export const propsByComponent: Record<string, ComponentDoc> = {
         "required": false,
         "doc": "Para el margen, que depende de dónde esté."
       }
-    ]
+    ],
+    "doc": "La línea que separa."
   },
   "Dropdown": {
     "props": [
@@ -524,7 +580,43 @@ export const propsByComponent: Record<string, ComponentDoc> = {
         "required": false,
         "def": "220"
       }
-    ]
+    ],
+    "doc": "El menú de opciones escrito como lista, que es lo más corto cuando el menú no tiene nada raro: cuatro filas con su icono y su acción."
+  },
+  "DropdownItem": {
+    "props": [
+      {
+        "name": "label",
+        "type": "string",
+        "required": true
+      },
+      {
+        "name": "icon",
+        "type": "IconName",
+        "required": false
+      },
+      {
+        "name": "shortcut",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "danger",
+        "type": "boolean",
+        "required": false
+      },
+      {
+        "name": "disabled",
+        "type": "boolean",
+        "required": false
+      },
+      {
+        "name": "onSelect",
+        "type": "() => void",
+        "required": false
+      }
+    ],
+    "doc": "Una opción de la lista del `Dropdown`."
   },
   "EmptyState": {
     "props": [
@@ -565,7 +657,8 @@ export const propsByComponent: Record<string, ComponentDoc> = {
         "def": "size === 'md'",
         "doc": "La caja punteada."
       }
-    ]
+    ],
+    "doc": "Lo que se ve cuando no hay nada."
   },
   "Field": {
     "props": [
@@ -604,21 +697,25 @@ export const propsByComponent: Record<string, ComponentDoc> = {
         "type": "string",
         "required": false
       }
-    ]
+    ],
+    "doc": "Une etiqueta, ayuda, error y control: los tres textos quedan atados al control."
   },
   "FieldSet": {
     "props": [
       {
         "name": "legend",
         "type": "string",
-        "required": false
+        "required": false,
+        "doc": "Cómo se llama el grupo. Un lector lo anuncia al entrar."
       }
     ],
-    "html": "fieldset"
+    "html": "fieldset",
+    "doc": "Varios campos, uno debajo del otro, con el aire del sistema."
   },
   "FilterBar": {
     "props": [],
-    "html": "div"
+    "html": "div",
+    "doc": "La barra de arriba de una tabla: el buscador y los filtros, en una línea."
   },
   "FilterSearch": {
     "props": [
@@ -643,7 +740,8 @@ export const propsByComponent: Record<string, ComponentDoc> = {
         "type": "string",
         "required": false
       }
-    ]
+    ],
+    "doc": "El buscador de la barra."
   },
   "Filter": {
     "props": [
@@ -670,11 +768,13 @@ export const propsByComponent: Record<string, ComponentDoc> = {
         "type": "(v: string[]) => void",
         "required": true
       }
-    ]
+    ],
+    "doc": "Un filtro: un botón que dice qué filtra, y un panel para elegir."
   },
   "FilterReset": {
     "props": [],
-    "html": "button"
+    "html": "button",
+    "doc": "El botón que devuelve la tabla a como estaba."
   },
   "ColumnPicker": {
     "props": [
@@ -706,7 +806,8 @@ export const propsByComponent: Record<string, ComponentDoc> = {
         "type": "string",
         "required": false
       }
-    ]
+    ],
+    "doc": "Elegir qué columnas se ven."
   },
   "Folder": {
     "props": [
@@ -765,7 +866,8 @@ export const propsByComponent: Record<string, ComponentDoc> = {
         "type": "string",
         "required": false
       }
-    ]
+    ],
+    "doc": "Una carpeta que se abre."
   },
   "Icon": {
     "props": [
@@ -865,7 +967,8 @@ export const propsByComponent: Record<string, ComponentDoc> = {
         "type": "ReactNode",
         "required": true
       }
-    ]
+    ],
+    "doc": "El kbd va hundido: 11px, radio 6, con luz arriba y sombra interior abajo."
   },
   "Link": {
     "props": [
@@ -876,7 +979,8 @@ export const propsByComponent: Record<string, ComponentDoc> = {
         "doc": "Abre en otra pestaña y lo avisa, en vez de hacerlo en silencio."
       }
     ],
-    "html": "a"
+    "html": "a",
+    "doc": "Un enlace dentro de un texto o suelto en una fila."
   },
   "List": {
     "props": [
@@ -955,7 +1059,8 @@ export const propsByComponent: Record<string, ComponentDoc> = {
         "type": "string",
         "required": false
       }
-    ]
+    ],
+    "doc": "El menú, en piezas."
   },
   "MenuItem": {
     "props": [
@@ -1016,7 +1121,8 @@ export const propsByComponent: Record<string, ComponentDoc> = {
         "type": "string",
         "required": false
       }
-    ]
+    ],
+    "doc": "Una fila del menú."
   },
   "MenuLabel": {
     "props": [
@@ -1025,7 +1131,8 @@ export const propsByComponent: Record<string, ComponentDoc> = {
         "type": "ReactNode",
         "required": true
       }
-    ]
+    ],
+    "doc": "El rótulo de un grupo de opciones."
   },
   "Modal": {
     "props": [
@@ -1114,7 +1221,8 @@ export const propsByComponent: Record<string, ComponentDoc> = {
         "type": "boolean",
         "required": false
       }
-    ]
+    ],
+    "doc": "El contenedor de una pantalla."
   },
   "PageHeader": {
     "props": [
@@ -1147,11 +1255,13 @@ export const propsByComponent: Record<string, ComponentDoc> = {
         "type": "number",
         "required": false
       }
-    ]
+    ],
+    "doc": "El separador con rótulo, para cortar una pantalla larga en tramos."
   },
   "Pagination": {
     "props": [],
-    "html": "nav"
+    "html": "nav",
+    "doc": "La línea de abajo de una tabla: qué tramo se está viendo y cómo pasar al que sigue."
   },
   "PaginationStatus": {
     "props": [
@@ -1186,7 +1296,8 @@ export const propsByComponent: Record<string, ComponentDoc> = {
         "required": false,
         "doc": "Reemplaza la frase entera cuando la pantalla tiene una mejor."
       }
-    ]
+    ],
+    "doc": "Qué tramo se está viendo."
   },
   "PaginationPrev": {
     "props": [
@@ -1196,7 +1307,8 @@ export const propsByComponent: Record<string, ComponentDoc> = {
         "required": false,
         "def": "'Anterior'"
       }
-    ]
+    ],
+    "doc": "Los dos viajan juntos y están siempre, apagados en las puntas."
   },
   "PaginationNext": {
     "props": [
@@ -1206,7 +1318,8 @@ export const propsByComponent: Record<string, ComponentDoc> = {
         "required": false,
         "def": "'Siguiente'"
       }
-    ]
+    ],
+    "doc": "Su `disabled` es el «hay más» que contesta el back: mientras haya, hay siguiente."
   },
   "Popover": {
     "props": [
@@ -1251,7 +1364,8 @@ export const propsByComponent: Record<string, ComponentDoc> = {
         "type": "(open: boolean) => void",
         "required": false
       }
-    ]
+    ],
+    "doc": "Un panel anclado a su disparador."
   },
   "Portal": {
     "props": [
@@ -1304,7 +1418,8 @@ export const propsByComponent: Record<string, ComponentDoc> = {
         "def": "'brand'"
       }
     ],
-    "html": "div"
+    "html": "div",
+    "doc": "Cuánto de algo va hecho. La pista es el resto, no un segundo dato."
   },
   "Radio": {
     "props": [
@@ -1347,7 +1462,8 @@ export const propsByComponent: Record<string, ComponentDoc> = {
         "type": "Ref<HTMLButtonElement>",
         "required": false
       }
-    ]
+    ],
+    "doc": "La elección de una entre varias."
   },
   "RadioGroup": {
     "props": [
@@ -1377,7 +1493,8 @@ export const propsByComponent: Record<string, ComponentDoc> = {
         "type": "string",
         "required": false
       }
-    ]
+    ],
+    "doc": "El grupo va suelto: las opciones sobre el papel, cada una con su etiqueta al lado."
   },
   "Row": {
     "props": [
@@ -1396,7 +1513,8 @@ export const propsByComponent: Record<string, ComponentDoc> = {
         "type": "ReactNode",
         "required": false
       }
-    ]
+    ],
+    "doc": "La fila de un panel: 56px de alto, padding 16/24, label a la izquierda y control a la derecha."
   },
   "Segmented": {
     "props": [
@@ -1429,7 +1547,8 @@ export const propsByComponent: Record<string, ComponentDoc> = {
         "required": false,
         "doc": "Cómo se llama el grupo. Adentro de un `Field` lo toma de la etiqueta."
       }
-    ]
+    ],
+    "doc": "Un solo segmented para todo: el de texto (\"Todas · Abiertas\") y el de iconos (grilla · lista) son el mismo componente con distintas opciones."
   },
   "Select": {
     "props": [
@@ -1466,7 +1585,8 @@ export const propsByComponent: Record<string, ComponentDoc> = {
         "required": false,
         "doc": "Mientras los datos no están: no abre, y el spinner va solo si no hay `leading`."
       }
-    ]
+    ],
+    "doc": "El select es un botón con un listbox propio, no un `<select>` nativo."
   },
   "SettingsModal": {
     "props": [
@@ -1485,7 +1605,8 @@ export const propsByComponent: Record<string, ComponentDoc> = {
         "type": "SettingsUser",
         "required": true
       }
-    ]
+    ],
+    "doc": "Los ajustes en un modal y no en una página."
   },
   "Sheet": {
     "props": [
@@ -1523,7 +1644,8 @@ export const propsByComponent: Record<string, ComponentDoc> = {
         "required": true,
         "doc": "Nombra el diálogo para el lector."
       }
-    ]
+    ],
+    "doc": "El panel que entra desde un costado: un formulario largo sin cambiar de pantalla."
   },
   "SheetHeader": {
     "props": [
@@ -1537,11 +1659,13 @@ export const propsByComponent: Record<string, ComponentDoc> = {
         "type": "() => void",
         "required": true
       }
-    ]
+    ],
+    "doc": "La cabecera del panel, con su título y el botón de cerrar."
   },
   "Skeleton": {
     "props": [],
-    "html": "span"
+    "html": "span",
+    "doc": "El hueco que ocupa algo que todavía está cargando."
   },
   "Slider": {
     "props": [
@@ -1596,7 +1720,8 @@ export const propsByComponent: Record<string, ComponentDoc> = {
         "required": false,
         "doc": "El ancho se pone desde afuera."
       }
-    ]
+    ],
+    "doc": "Un valor en un rango."
   },
   "Spinner": {
     "props": [
@@ -1626,7 +1751,8 @@ export const propsByComponent: Record<string, ComponentDoc> = {
         "type": "string",
         "required": false
       }
-    ]
+    ],
+    "doc": "Pista completa más un arco encima."
   },
   "Switch": {
     "props": [
@@ -1655,7 +1781,8 @@ export const propsByComponent: Record<string, ComponentDoc> = {
         "type": "string",
         "required": false
       }
-    ]
+    ],
+    "doc": "El switch: pista de 40×22 con 2 de padding, así que el pulgar es de 18 y viaja 18 exactos."
   },
   "Table": {
     "props": [
@@ -1682,7 +1809,8 @@ export const propsByComponent: Record<string, ComponentDoc> = {
         "type": "string",
         "required": false
       }
-    ]
+    ],
+    "doc": "La tabla, en piezas."
   },
   "TableHeader": {
     "props": [
@@ -1691,7 +1819,8 @@ export const propsByComponent: Record<string, ComponentDoc> = {
         "type": "ReactNode",
         "required": true
       }
-    ]
+    ],
+    "doc": "La cabecera va sobre `--surface-muted` y no sobre el papel: es lo que la separa del cuerpo sin gastar un divisor más grueso."
   },
   "TableBody": {
     "props": [
@@ -1700,7 +1829,8 @@ export const propsByComponent: Record<string, ComponentDoc> = {
         "type": "ReactNode",
         "required": true
       }
-    ]
+    ],
+    "doc": "El cuerpo de la tabla."
   },
   "TableFooter": {
     "props": [
@@ -1709,7 +1839,8 @@ export const propsByComponent: Record<string, ComponentDoc> = {
         "type": "ReactNode",
         "required": true
       }
-    ]
+    ],
+    "doc": "La fila del total, abajo de todo."
   },
   "TableRow": {
     "props": [
@@ -1735,7 +1866,8 @@ export const propsByComponent: Record<string, ComponentDoc> = {
         "type": "string",
         "required": false
       }
-    ]
+    ],
+    "doc": "`last:border-0` saca el divisor de la última fila."
   },
   "TableHead": {
     "props": [
@@ -1750,7 +1882,8 @@ export const propsByComponent: Record<string, ComponentDoc> = {
         "required": false
       }
     ],
-    "html": "th"
+    "html": "th",
+    "doc": "Un encabezado de columna: 11/600 con tracking, en tinta."
   },
   "TableCell": {
     "props": [
@@ -1765,7 +1898,8 @@ export const propsByComponent: Record<string, ComponentDoc> = {
         "required": false
       }
     ],
-    "html": "td"
+    "html": "td",
+    "doc": "Una celda: 12/500, con el alto de fila de 56."
   },
   "TableTitle": {
     "props": [
@@ -1779,7 +1913,8 @@ export const propsByComponent: Record<string, ComponentDoc> = {
         "type": "string",
         "required": false
       }
-    ]
+    ],
+    "doc": "Lo que se lee primero de una fila."
   },
   "TableHint": {
     "props": [
@@ -1793,7 +1928,8 @@ export const propsByComponent: Record<string, ComponentDoc> = {
         "type": "string",
         "required": false
       }
-    ]
+    ],
+    "doc": "La línea de apoyo debajo del título, en gris."
   },
   "TableNum": {
     "props": [
@@ -1808,7 +1944,8 @@ export const propsByComponent: Record<string, ComponentDoc> = {
         "required": false
       }
     ],
-    "html": "td"
+    "html": "td",
+    "doc": "Una columna de números."
   },
   "Tabs": {
     "props": [
@@ -1829,31 +1966,37 @@ export const propsByComponent: Record<string, ComponentDoc> = {
         "type": "(v: string) => void",
         "required": false
       }
-    ]
+    ],
+    "doc": "Paneles hermanos donde solo se ve uno. Controlado o no, como el resto."
   },
   "TabList": {
     "props": [],
-    "html": "div"
+    "html": "div",
+    "doc": "La fila de solapas. Las flechas se mueven entre ellas, como pide un tablist."
   },
   "Tab": {
     "props": [
       {
         "name": "value",
         "type": "string",
-        "required": true
+        "required": true,
+        "doc": "Ata la solapa a su panel."
       }
     ],
-    "html": "button"
+    "html": "button",
+    "doc": "Una solapa. El activo se marca con una línea, no con color."
   },
   "TabPanel": {
     "props": [
       {
         "name": "value",
         "type": "string",
-        "required": true
+        "required": true,
+        "doc": "El mismo valor que su solapa."
       }
     ],
-    "html": "div"
+    "html": "div",
+    "doc": "El contenido de una solapa."
   },
   "TextField": {
     "props": [
@@ -1882,7 +2025,8 @@ export const propsByComponent: Record<string, ComponentDoc> = {
         "required": false,
         "doc": "Va al contenedor, que es lo que mide y lo que se enfoca."
       }
-    ]
+    ],
+    "doc": "El campo de texto."
   },
   "Textarea": {
     "props": [
@@ -1906,7 +2050,8 @@ export const propsByComponent: Record<string, ComponentDoc> = {
         "def": "'auto'",
         "doc": "Quién decide el alto."
       }
-    ]
+    ],
+    "doc": "El campo de varias líneas: la misma caja que `TextField`, estirada."
   },
   "ToastProvider": {
     "props": [
@@ -1921,7 +2066,43 @@ export const propsByComponent: Record<string, ComponentDoc> = {
         "required": false,
         "def": "3"
       }
-    ]
+    ],
+    "doc": "Monta la región de avisos pasajeros y el `useToast` que los empuja."
+  },
+  "ToastOptions": {
+    "props": [
+      {
+        "name": "title",
+        "type": "string",
+        "required": true,
+        "doc": "Qué pasó, en una línea."
+      },
+      {
+        "name": "body",
+        "type": "string",
+        "required": false,
+        "doc": "El detalle, cuando el título no alcanza."
+      },
+      {
+        "name": "tone",
+        "type": "Tone",
+        "required": false,
+        "doc": "El mismo juego de tonos que `Alert` y `Badge`."
+      },
+      {
+        "name": "action",
+        "type": "{ label: string; onClick?: () => void }",
+        "required": false,
+        "doc": "La salida del aviso: deshacer, ver, reintentar. Al tocarla el aviso se cierra."
+      },
+      {
+        "name": "duration",
+        "type": "number",
+        "required": false,
+        "doc": "Milisegundos antes de irse solo. `0` lo deja hasta que lo cierren."
+      }
+    ],
+    "doc": "Lo que recibe `toast()`."
   },
   "Tooltip": {
     "props": [
@@ -1951,6 +2132,7 @@ export const propsByComponent: Record<string, ComponentDoc> = {
         "def": "500",
         "doc": "Ms del primero; los siguientes abren en 0 dentro de una ventana de 400."
       }
-    ]
+    ],
+    "doc": "La etiqueta que dice qué hace un control que no lo dice solo: un icono suelto, un valor truncado, una acción con una consecuencia que conviene aclarar."
   }
 }
