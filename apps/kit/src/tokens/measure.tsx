@@ -69,7 +69,7 @@ export function MeasureSection() {
           <div className="flex flex-col rounded-xl border border-line bg-surface px-4">
             {radii.map(r => (
               <div key={r.token} className="flex flex-wrap items-center gap-x-4 gap-y-2 border-t border-line py-3.5 first:border-t-0">
-                <span className={`size-11 shrink-0 bg-muted ${r.cls}`} />
+                <span className={`size-14 shrink-0 bg-ink ${r.cls}`} />
                 <span className="w-28 shrink-0"><Mono>{r.token.replace('--radius-', '')}</Mono></span>
                 <Value token={r.token} />
                 <span className="text-2xs text-ink-muted">{r.role}</span>
@@ -115,8 +115,8 @@ function Value({ token }: { token: string }) {
 function NestDemo({ child, label, verdict, ok }: { child: string; label: string; verdict: string; ok?: boolean }) {
   return (
     <div className="flex flex-col gap-2">
-      <div className="rounded-2xl bg-muted p-2">
-        <div className={`size-24 bg-surface shadow-card ${child}`} />
+      <div className="w-fit rounded-2xl bg-ink p-2">
+        <div className={`size-24 bg-canvas ${child}`} />
       </div>
       <Mono>{label}</Mono>
       <span className={ok ? 'text-2xs font-semibold text-ok' : 'text-2xs font-semibold text-bad'}>{verdict}</span>
