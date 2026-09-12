@@ -46,6 +46,11 @@ export function Textarea({
 
   return (
     <div
+      onPointerDown={e => {
+        if ((e.target as HTMLElement).closest('button, a, input, textarea')) return
+        e.preventDefault()
+        e.currentTarget.querySelector('textarea')?.focus()
+      }}
       className={cx(
         'field flex cursor-text border border-field-line bg-field',
         'has-[textarea:disabled]:pointer-events-none has-[textarea:disabled]:opacity-45',

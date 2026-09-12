@@ -9,7 +9,7 @@ npm install
 npm run dev        # el kit · http://localhost:5190
 npm run dev:guide  # el prototipo · http://localhost:5180
 npm run typecheck  # todo el monorepo de una
-npm test           # 246 tests
+npm test           # 248 tests
 ```
 
 ## Qué hay adentro

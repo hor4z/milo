@@ -15,4 +15,24 @@ describe('TextField', () => {
     const { container } = render(<TextField placeholder="x" />)
     expect(container.querySelector('.field')).toBeTruthy()
   })
+
+  it('tocar la caja enfoca el campo, que es lo que promete el cursor', async () => {
+    const { container } = render(<TextField icon="search" placeholder="Buscar" />)
+    const caja = container.querySelector('.field') as HTMLElement
+    await userEvent.click(caja)
+    expect(screen.getByPlaceholderText('Buscar')).toHaveFocus()
+  })
+
+  it('tocar lo que hay adentro no le roba el foco al que lo recibe', async () => {
+    const onClick = vi.fn()
+    render(
+      <TextField
+        placeholder="Buscar"
+        suffix={<button type="button" onClick={onClick}>Limpiar</button>}
+      />,
+    )
+    await userEvent.click(screen.getByRole('button', { name: 'Limpiar' }))
+    expect(onClick).toHaveBeenCalledOnce()
+    expect(screen.getByPlaceholderText('Buscar')).not.toHaveFocus()
+  })
 })
