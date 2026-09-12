@@ -29,7 +29,7 @@ export { codepoints, iconNames } from './icons.gen'
 export type { IconName } from './icons.gen'
 
 export {
-  Portal, Dropdown, Popover, Tooltip, Modal, Sheet, SheetHeader, SheetBody, SheetFooter,
+  Portal, Dropdown, Popover, Tooltip, Modal, ConfirmDialog, Sheet, SheetHeader, SheetBody, SheetFooter,
   useScrollLock, useEscape, useFocusTrap,
 } from './overlay'
 export type { DropdownItem } from './overlay'

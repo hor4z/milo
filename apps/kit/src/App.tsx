@@ -37,7 +37,7 @@ import { FeedbackStory } from './stories/feedback'
 import { FormStory } from './stories/form'
 import { TabsStory } from './stories/tabs'
 import { StatusStory } from './stories/status'
-import { DropdownStory, ModalStory, PopoverStory, TooltipStory } from './stories/overlays'
+import { ConfirmStory, DropdownStory, ModalStory, PopoverStory, TooltipStory } from './stories/overlays'
 
 type Story = { id: string; label: string; render: () => ReactNode; alias?: string }
 type Group = { label: string; stories: Story[] }
@@ -112,6 +112,7 @@ const groups: Group[] = [
     stories: [
       { id: 'containers', label: 'Card y Row', alias: 'tarjeta card fila panel superficie', render: () => <ContainersStory /> },
       { id: 'modal', label: 'Modal', alias: 'diálogo ventana emergente', render: () => <ModalStory /> },
+      { id: 'confirm', label: 'ConfirmDialog', alias: 'confirmar borrar peligro pregunta', render: () => <ConfirmStory /> },
       { id: 'popover', label: 'Popover', alias: 'panel anclado flotante', render: () => <PopoverStory /> },
       { id: 'divider', label: 'Divider', alias: 'separador línea', render: () => <DividerStory /> },
       { id: 'kbd', label: 'Kbd', alias: 'tecla atajo teclado', render: () => <KbdStory /> },
