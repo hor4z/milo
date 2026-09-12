@@ -14,7 +14,7 @@ export { cx, fold, labelColors, labelFill, markColors, markFill } from './primit
 export type { LabelColor, MarkColor } from './primitives'
 export {
   Button, IconButton, Switch, Slider, Checkbox, Radio, RadioGroup, Segmented, Select,
-  Chip, Kbd, Avatar, AvatarGroup, Input, Spinner, Card, Row, Divider,
+  Chip, Kbd, Avatar, AvatarGroup, TextField, Textarea, Spinner, Card, Row, Divider,
 } from './primitives'
 
 export { Icon, FolderIcon } from './icon'

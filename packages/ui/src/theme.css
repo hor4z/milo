@@ -648,12 +648,17 @@ h1, h2, h3 { font-family: var(--font-sans); font-weight: 400; letter-spacing: va
 .field:focus-within:not(:has(button:focus, a:focus, [tabindex]:focus)) {
   box-shadow: var(--focus-ring);
 }
-/* Y el input de adentro se queda sin el suyo. Tiene que estar acá y no como
+/* Y el control de adentro se queda sin el suyo. Tiene que estar acá y no como
    utilidad en el componente: la regla global de foco no vive en ninguna capa, y
    una utilidad de Tailwind sí — lo que está fuera de capa le gana a lo que está
    adentro por más específico que sea. Un `focus-visible:shadow-none` puesto en
-   el input no hace nada, en silencio. */
-.field input:focus-visible { box-shadow: none; }
+   el control no hace nada, en silencio.
+
+   Van los dos, `input` y `textarea`: con la regla escrita solo para el primero,
+   el `Textarea` se encendía con dos anillos, el de su caja y un rectángulo azul
+   pegado al texto adentro. */
+.field input:focus-visible,
+.field textarea:focus-visible { box-shadow: none; }
 
 /* El anillo de foco, una vez y para todos los roles. `:focus-visible` y no
    `:focus`: con el segundo, un click deja el anillo puesto.

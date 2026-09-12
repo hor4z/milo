@@ -10,7 +10,8 @@ import { MeasureSection } from './tokens/measure'
 import { ReliefSection } from './tokens/relief'
 import { ButtonStory } from './stories/button'
 import { IconButtonStory } from './stories/icon-button'
-import { InputStory } from './stories/input'
+import { TextFieldStory } from './stories/text-field'
+import { TextareaStory } from './stories/textarea'
 import { SelectStory } from './stories/select'
 import { CheckboxStory } from './stories/checkbox'
 import { RadioStory } from './stories/radio'
@@ -75,7 +76,8 @@ const groups: Group[] = [
     stories: [
       { id: 'button', label: 'Button', render: () => <ButtonStory /> },
       { id: 'icon-button', label: 'IconButton', render: () => <IconButtonStory /> },
-      { id: 'input', label: 'Input', render: () => <InputStory /> },
+      { id: 'text-field', label: 'TextField', render: () => <TextFieldStory /> },
+      { id: 'textarea', label: 'Textarea', render: () => <TextareaStory /> },
       { id: 'select', label: 'Select', render: () => <SelectStory /> },
       { id: 'checkbox', label: 'Checkbox', render: () => <CheckboxStory /> },
       { id: 'radio', label: 'Radio', render: () => <RadioStory /> },

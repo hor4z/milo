@@ -49,7 +49,7 @@ export function SelectStory() {
 
       <Block
         label="Adelante del valor"
-        note="`leading` es un nodo y no un `IconName`, al revés que el `icon` del Input: ahí el icono es siempre un glifo del set, acá lo que va adelante del valor es de quien lo usa — el glifo de la categoría, la carpeta de color de un espacio, el avatar de una persona."
+        note="`leading` es un nodo y no un `IconName`, al revés que el `icon` del TextField: ahí el icono es siempre un glifo del set, acá lo que va adelante del valor es de quien lo usa — el glifo de la categoría, la carpeta de color de un espacio, el avatar de una persona."
       >
         <div className="flex flex-wrap items-start gap-3">
           <Demo label="un glifo">

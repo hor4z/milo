@@ -1,22 +1,22 @@
 import { useState } from 'react'
-import { IconButton, Input, Kbd } from '@melu/ui'
+import { IconButton, Kbd, TextField } from '@melu/ui'
 import { Block, Demo, Props, Section } from '../kit'
 
-export function InputStory() {
+export function TextFieldStory() {
   const [text, setText] = useState('Fracciones con la receta de la abuela')
 
   return (
     <Section
-      title="Input"
+      title="TextField"
       note="Plano: un fondo y una línea de un píxel, sin relieve. El campo fue un hueco y el volumen se fue a propósito — el relieve dice «esto sobresale» o «esto se aprieta», y un campo no es ninguna de las dos. Así se dibuja igual que el Select y que el buscador de la topbar. Al enfocarse no cambia de plano: se le suma el anillo de foco y nada más."
     >
       <Block label="Variantes">
         <div className="flex flex-wrap gap-3">
           {[
-            { label: 'solo', el: <Input value={text} onChange={e => setText(e.target.value)} className="w-full" /> },
-            { label: 'con icono', el: <Input icon="search" placeholder="Buscar una actividad…" className="w-full" /> },
-            { label: 'con suffix', el: <Input placeholder="Duración" suffix={<Kbd>min</Kbd>} className="w-full" /> },
-            { label: 'disabled', el: <Input placeholder="No editable" disabled className="w-full" /> },
+            { label: 'solo', el: <TextField value={text} onChange={e => setText(e.target.value)} className="w-full" /> },
+            { label: 'con icono', el: <TextField icon="search" placeholder="Buscar una actividad…" className="w-full" /> },
+            { label: 'con suffix', el: <TextField placeholder="Duración" suffix={<Kbd>min</Kbd>} className="w-full" /> },
+            { label: 'disabled', el: <TextField placeholder="No editable" disabled className="w-full" /> },
           ].map(v => (
             <div key={v.label} className="w-full max-w-[320px]">
               <Demo label={v.label}>{v.el}</Demo>
@@ -33,7 +33,7 @@ export function InputStory() {
           {(['sm', 'md', 'lg'] as const).map(s => (
             <div key={s} className="w-full max-w-[320px]">
               <Demo label={s}>
-                <Input size={s} icon="search" placeholder="Buscar una actividad…" className="w-full" />
+                <TextField size={s} icon="search" placeholder="Buscar una actividad…" className="w-full" />
               </Demo>
             </div>
           ))}
@@ -47,7 +47,7 @@ export function InputStory() {
         <div className="flex flex-wrap gap-3">
           <div className="w-full max-w-[320px]">
             <Demo label="con botón adentro">
-              <Input
+              <TextField
                 placeholder="Buscar…"
                 className="w-full"
                 suffix={<IconButton icon="close" label="Limpiar" variant="ghost" size="sm" />}
