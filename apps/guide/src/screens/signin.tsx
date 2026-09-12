@@ -1,14 +1,7 @@
 import { useNavigate } from 'react-router-dom'
 import { Button, Icon } from '@melu/ui'
 
-/**
- * Entrar. Se entra con Google y con nada más, así que la pantalla tiene un solo
- * botón y ningún formulario: un campo de contraseña que no lleva a ninguna parte
- * es peor que no tenerlo.
- *
- * Dos columnas en escritorio y una sola en móvil, donde la columna de la derecha
- * se esconde: es contexto, no contenido.
- */
+/** Entrar. */
 export function SignInScreen() {
   const navigate = useNavigate()
 
@@ -51,9 +44,6 @@ export function SignInScreen() {
         </div>
       </div>
 
-      {/* La columna de contexto. Tinte plano y geometría, del mismo sistema que
-          las tarjetas: si acá apareciera una foto, sería el único lugar del
-          producto con fotos. */}
       <aside className="relative hidden overflow-hidden bg-tint-1 lg:block lg:w-[48%]">
         <svg viewBox="0 0 400 600" className="absolute inset-0 size-full" aria-hidden="true">
           <g stroke="var(--text)" strokeOpacity="0.14" fill="none" strokeWidth="1.5">

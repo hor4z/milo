@@ -65,9 +65,6 @@ export function PopoverStory() {
               )}
             >
               {close => (
-                /* El chrome lo pone el call site: `Popover` dejó de dibujar el
-                   panel y ahora solo lo ubica. Sin esto el contenido queda
-                   flotando sobre lo que haya atrás, sin fondo ni borde. */
                 <div className="ui-pop rounded-xl border border-line bg-popover p-4 shadow-popover">
                   <div className="text-xs font-semibold">Un panel de 320</div>
                   <p className="mt-2 text-2xs text-ink-muted">
@@ -116,7 +113,6 @@ export function PopoverStory() {
     </Section>
   )
 }
-
 
 export function TooltipStory() {
   return (

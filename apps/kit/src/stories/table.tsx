@@ -8,24 +8,10 @@ import {
 } from '@melu/ui'
 import { Block, Mono, Props, Section } from '../kit'
 
-/* Las caras son sintéticas —generadas, no fotografiadas— y por eso se pueden
-   usar acá: no hay nadie atrás de ninguna. En una columna que se llama
-   "estudiantes" eso no es un detalle legal, es la diferencia entre un ejemplo
-   que alguien copia y pega y una foto de un menor en una pantalla. Están en
-   `public/avatars` y no apuntan a un host: un kit que le pide imágenes a un
-   tercero se rompe sin internet y filtra un request por avatar. */
 const cara = (n: number) => `/avatars/${String(n).padStart(2, '0')}.webp`
 
 const p = (name: string, foto?: number) => ({ name, src: foto ? cara(foto) : undefined })
 
-/* El estado va en un chip de color y no en texto suelto: es lo único de la fila
-   que se busca de reojo —cuáles están abiertas— y en una columna de texto plano
-   hay que leer las cuatro para saberlo.
-
-   `Borrador` se queda neutro a propósito. El color acá quiere decir "esto está
-   pasando"; un borrador es justamente lo que todavía no pasa, y si las tres
-   opciones llevan color la columna vuelve a ser un bloque parejo que hay que
-   leer entero. */
 const tono = { Abierta: 'green', Corregida: 'blue' } as const
 
 const espacios = [
@@ -43,25 +29,18 @@ const espacios = [
   },
   {
     nombre: 'Cuento policial', espacio: 'Lengua · 6.º', estado: 'Borrador',
-    /* Una fila sin fotos: es lo que pasa de verdad cuando nadie subió una, y el
-       grupo tiene que seguir leyéndose como cinco personas. */
     estudiantes: [p('Irene Lopez'), p('Julián Cruz'), p('Karen Ortiz'), p('Leo Nuñez')],
     entregas: 0,
     docente: p('Valeria Ochoa', 7), corregidas: 0, cuando: 'hace 5 días'
   },
   {
     nombre: 'Mapa de América', espacio: 'Sociales · 5.º A', estado: 'Abierta',
-    /* Mezcla: dos con foto y una sin. La inicial sobre su color tiene que pesar
-       lo mismo que una cara, o la persona sin foto se lee como un hueco. */
     estudiantes: [p('Mora Tello', 2), p('Nico Arce'), p('Olivia Rey', 4)],
     entregas: 7,
     docente: p('Nadia Britos'), corregidas: 3, cuando: 'hace 1 h'
   },
 ]
 
-/* Las mismas cuatro de arriba más otras cinco: paginar de a cuatro sobre cuatro
-   filas no muestra nada, y con los botones siempre apagados no se ve ni que el
-   par vive en las puntas. */
 const todas = [
   ...espacios,
   { nombre: 'La Revolución de Mayo', espacio: 'Sociales · 6.º', estado: 'Corregida', estudiantes: [p('Pablo Vera', 7), p('Rita Coll', 1)], entregas: 21, docente: p('Martín Roldán', 6), corregidas: 21, cuando: 'hace 3 días' },
@@ -79,9 +58,6 @@ export function TableStory() {
   const [espaciosElegidos, setEspaciosElegidos] = useState<string[]>([])
   const [gente, setGente] = useState<string[]>([])
 
-  /* Las columnas que se pueden esconder, en el orden en que van. `actividad` va
-     `locked`: es la que identifica la fila, y sin ella quedan números y estados
-     que no se sabe de qué son. */
   const columnas = [
     { id: 'actividad', label: 'Actividad', locked: true },
     { id: 'estudiantes', label: 'Estudiantes' },
@@ -95,25 +71,16 @@ export function TableStory() {
   const ver = (id: string) => visibles.includes(id)
   const [pagina, setPagina] = useState(0)
 
-  /* Volver a la primera página cada vez que cambia lo que se está mirando. Sin
-     esto, filtrar desde la página tres deja una tabla vacía que parece un error
-     de datos: hay resultados, pero no tantos como para llegar hasta ahí. */
   const filtrar = <T,>(set: (v: T) => void) => (v: T) => { set(v); setPagina(0) }
 
   const materia = (a: typeof todas[number]) => a.espacio.split(' · ')[0]
 
-  /* Las personas salen de las filas y no de una lista aparte: una lista escrita
-     a mano se desincroniza con los datos en el primer cambio, y el filtro ofrece
-     a alguien que ya no está en ninguna fila. */
   const personas = useMemo(() => {
     const vistas = new Map<string, { name: string; src?: string }>()
     for (const a of todas) for (const e of a.estudiantes) if (!vistas.has(e.name)) vistas.set(e.name, e)
     return [...vistas.values()]
   }, [])
 
-  /* Cada filtro cuenta sobre lo que los OTROS ya dejaron: por eso el texto y el
-     otro filtro se aplican antes de contar, y el propio no. Contando sobre la
-     tabla entera, elegís una opción que dice 12 y te quedan 0 filas. */
   const porTexto = useMemo(
     () => todas.filter(a => !texto.trim() || fold(a.nombre + ' ' + a.espacio).includes(fold(texto))),
     [texto],
@@ -129,9 +96,6 @@ export function TableStory() {
     porTexto.filter(a => (!estados.length || estados.includes(a.estado)) && conGente(a)),
     materia,
   )
-  /* Una fila cuenta para cada una de sus personas, así que acá no alcanza
-     `facets`: esa cuenta una clave por fila. Una actividad con cuatro
-     estudiantes suma uno a los cuatro. */
   const cuentaGente = useMemo(() => {
     const n: Record<string, number> = {}
     for (const a of porTexto) {
@@ -187,10 +151,6 @@ export function TableStory() {
             options={personas.map(p => ({ value: p.name, count: cuentaGente[p.name] ?? 0, person: p }))}
           />
           {filtrando && <FilterReset onClick={limpiar} />}
-          {/* A la derecha de todo y con `ml-auto`: lo de la izquierda son las
-              condiciones de lo que estás mirando, esto es una preferencia de
-              cómo mirarlo. Puestos en la misma fila sin separar, se leería como
-              un filtro más. */}
           <ColumnPicker
             columns={columnas}
             value={visibles}
@@ -221,10 +181,6 @@ export function TableStory() {
               {ver('estado') && <TableHead>Estado</TableHead>}
               {ver('corregidas') && <TableHead className="text-right">Corregidas</TableHead>}
               {ver('entregas') && <TableHead className="text-right">Entregas</TableHead>}
-              {/* La columna de acciones no lleva rótulo: el título de una
-                  columna dice qué hay en ella, y lo que hay acá es el mismo
-                  botón repetido. «Acciones» escrito arriba no agrega nada y le
-                  da peso de columna a lo que es un margen. */}
               {ver('acciones') && <TableHead><span className="sr-only">Acciones</span></TableHead>}
             </TableRow>
           </TableHeader>
@@ -236,9 +192,6 @@ export function TableStory() {
                   <TableHint>{a.espacio}</TableHint>
                 </TableCell>
                 {ver('estudiantes') && <TableCell><AvatarGroup people={a.estudiantes} /></TableCell>}
-                {/* Un avatar solo y su nombre: la misma persona que en la
-                    columna de al lado va en grupo, acá va sola, y las dos tienen
-                    que pesar igual. */}
                 {ver('docente') && (
                   <TableCell>
                     <span className="flex items-center gap-2">
@@ -248,9 +201,6 @@ export function TableStory() {
                   </TableCell>
                 )}
                 {ver('estado') && <TableCell><Chip color={tono[a.estado as keyof typeof tono]}>{a.estado}</Chip></TableCell>}
-                {/* Corregidas contra entregas, no un número suelto: 11 no dice
-                    nada sin saber sobre cuántas, y dos columnas que hay que
-                    cruzar con la vista son dos lecturas para un solo dato. */}
                 {ver('corregidas') && (
                   <TableNum>
                     {a.entregas ? <>{a.corregidas}<span className="text-ink-muted"> / {a.entregas}</span></> : '—'}
@@ -294,15 +244,9 @@ export function TableStory() {
               </tr>
             )}
           </TableBody>
-          {/* El total va adentro de la tabla y no en la franja de abajo: cae en
-              la misma columna que los números que suma. Suma lo filtrado y no
-              la página, que es lo que alguien quiere saber cuando filtra. */}
           {aLaVista.length > 0 && (
             <TableFooter>
               <TableRow>
-                {/* El `colSpan` se cuenta y no se escribe: con columnas que se
-                    esconden, un número fijo deja el total corrido una celda cada
-                    vez que alguien apaga una. */}
                 <TableCell colSpan={1 + ['estudiantes', 'docente', 'estado'].filter(ver).length}>
                   Total{filtrando ? ' de lo filtrado' : ''}
                 </TableCell>

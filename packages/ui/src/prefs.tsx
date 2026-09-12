@@ -32,13 +32,7 @@ const defaults: Prefs = {
 
 const KEY = 'melu.prefs'
 
-/**
- * Las preferencias se guardan solas y se leen una vez al arrancar.
- *
- * El `try` no es paranoia: en una ventana privada o con las cookies bloqueadas,
- * `localStorage` no falla al leer, falla al *acceder*, y tira antes de que
- * puedas comprobar nada. Sin esto la app no arranca en esas ventanas.
- */
+/** Las preferencias se guardan solas y se leen una vez al arrancar. */
 function read(): Prefs {
   try {
     const raw = localStorage.getItem(KEY)
@@ -65,9 +59,6 @@ export function PrefsProvider({ children }: { children: ReactNode }) {
     try { localStorage.setItem(KEY, JSON.stringify(prefs)) } catch { /* ventana privada */ }
   }, [prefs])
 
-  /* El tema se aplica en el <html> y no en un wrapper: los portales del modal y
-     del dropdown viven en el <body>, fuera de cualquier wrapper de React, así
-     que un `data-theme` puesto en un div no los alcanza y quedan en claro. */
   useEffect(() => {
     document.documentElement.dataset.theme = prefs.theme
   }, [prefs.theme])

@@ -654,7 +654,8 @@ h1, h2, h3 { font-family: var(--font-sans); font-weight: 400; letter-spacing: va
    alrededor de la misma caja, con un hueco blanco en el medio— y eso es lo que
    se veía raro. El `inset` engrosa esa misma línea hacia adentro en vez de
    agregar una afuera, así que el campo no cambia de tamaño ni empuja a nadie. */
-.field:focus-within:not(:has(button:focus, a:focus, [tabindex]:focus)) {
+.field:focus-within:not(:has(button:focus, a:focus, [tabindex]:focus)),
+.field-focus:focus-visible {
   border-color: var(--focus-border);
   box-shadow: inset 0 0 0 1px var(--focus-border);
 }

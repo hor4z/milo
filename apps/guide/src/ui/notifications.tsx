@@ -3,8 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import { Popover, Avatar, Button, cx, Segmented, Icon, type IconName } from '@melu/ui'
 import { notifications, type Notif, type NotifKind } from '../data'
 
-/** Cada tipo de aviso trae su chapita y su color. El icono dice qué pasó antes
- *  de leer el texto, que es para lo que sirve una lista de avisos. */
+/** Cada tipo de aviso trae su chapita y su color. */
 const badges: Record<NotifKind, { icon: IconName; className: string }> = {
   entrega:     { icon: 'check',   className: 'bg-ok text-white' },
   traba:       { icon: 'schedule',   className: 'bg-warn text-white' },
@@ -13,17 +12,7 @@ const badges: Record<NotifKind, { icon: IconName; className: string }> = {
   publicada:   { icon: 'star_shine', className: 'bg-ink text-ink-inverted' },
 }
 
-/**
- * El panel de avisos.
- *
- * Va con velo: una lista que pide leerse entera necesita que el resto de la
- * pantalla se apague, a diferencia de un menú de cuatro items. El velo atenúa
- * sin desenfocar, así el fondo se sigue reconociendo.
- *
- * Los avisos que esperan una decisión traen los botones adentro de la fila, no
- * en un modal aparte: si aceptar una invitación abre otra pantalla, se pierde
- * la lista y hay que volver a buscarla.
- */
+/** El panel de avisos. */
 export function NotificationsButton() {
   const navigate = useNavigate()
   const [filter, setFilter] = useState<'todos' | 'sinLeer'>('todos')
@@ -49,9 +38,6 @@ export function NotificationsButton() {
           aria-label={unreadCount ? `Avisos, ${unreadCount} sin leer` : 'Avisos'}
           className={cx(
             'relative inline-flex size-10 items-center justify-center rounded-lg transition-[background-color,box-shadow] duration-[120ms]',
-            /* Mientras el panel está abierto el disparador queda hundido, no
-               realzado: con el fondo atenuado hay que ver de dónde salió el
-               panel, y un botón apretado es lo que dice "esto sigue abierto". */
             rest['data-open'] ? 'bg-muted pressed' : 'hover:bg-hover',
           )}
         >
@@ -63,10 +49,6 @@ export function NotificationsButton() {
       )}
     >
       {close => (
-        /* El `Popover` pone el panel donde va y lo cierra; el dibujo es de acá.
-           Por eso esta caja lleva su propio papel, su radio y su sombra: el
-           panel de avisos es alto y scrollea adentro, así que también necesita
-           el `overflow-hidden` que recorta las filas contra la curva. */
         <div className="ui-pop flex max-h-[min(525px,calc(100vh-6rem))] flex-col overflow-hidden rounded-xl border border-line bg-popover shadow-popover">
           <header className="flex h-[57px] shrink-0 items-center justify-between border-b border-line px-5">
             <h2 className="text-base font-semibold">Avisos</h2>
@@ -99,10 +81,6 @@ export function NotificationsButton() {
                   onClick={() => setRead(r => (r.includes(n.id) ? r : [...r, n.id]))}
                   className="flex cursor-default gap-3.5 border-t border-line py-5 pr-4 pl-5 transition-colors first:border-t-0 hover:bg-hover"
                 >
-                  {/* `size-12 self-start` no es decorativo: sin alto propio y sin
-                      `self-start`, este div se estira a todo el alto de la fila
-                      —es hijo de un flex— y la chapita, que ancla al borde de
-                      abajo, se va a flotar al pie de la fila. */}
                   <div className="relative size-12 shrink-0 self-start">
                     <Avatar name={n.who} size={48} />
                     <span className={cx('absolute -right-0.5 -bottom-0.5 flex size-[18px] items-center justify-center rounded-full ring-2 ring-popover', badge.className)}>

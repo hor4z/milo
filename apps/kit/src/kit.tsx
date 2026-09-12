@@ -1,25 +1,9 @@
 import { useEffect, useState, type ReactNode } from 'react'
 import { cx, usePrefs } from '@melu/ui'
 
-/**
- * Los andamios de la galería. Nada de esto es del sistema: es la vitrina.
- *
- * Se estilan contra los mismos roles que todo lo demás igual, por una razón
- * práctica: si la vitrina usara colores propios, un token roto se vería bien
- * acá y mal en la app, que es justo al revés de para qué existe esto.
- */
+/** Los andamios de la galería. */
 
-/* ----------------------------------------------------------------- lectura */
-
-/**
- * Lee el valor real de un token del `<html>`, no el que está escrito en el CSS.
- *
- * Es la diferencia entre una lámina de estilos y esto: lo que se muestra es lo
- * que el navegador resolvió, así que un rol que apunta a un token que no existe
- * aparece vacío en vez de aparecer correcto. Y como el tema reescribe la rampa,
- * `theme` va en las dependencias: sin eso, al cambiar a oscuro los cuadraditos
- * cambian de color pero los hexas de abajo siguen diciendo los de claro.
- */
+/** Lee el valor real de un token del `<html>`, no el que está escrito en el CSS. */
 export function useTokens(names: readonly string[]) {
   const { prefs } = usePrefs()
   const [values, setValues] = useState<Record<string, string>>({})
@@ -34,8 +18,6 @@ export function useTokens(names: readonly string[]) {
 
   return values
 }
-
-/* ------------------------------------------------------------- estructura */
 
 export function Section({ title, note, children }: { title: string; note?: string; children: ReactNode }) {
   return (
@@ -69,11 +51,7 @@ export function Grid({ children, min = 200 }: { children: ReactNode; min?: numbe
   )
 }
 
-/**
- * La celda que enmarca un componente vivo. El fondo es el papel y no un gris:
- * casi todo el sistema está calibrado contra el papel, y una pieza con relieve
- * sobre un gris se ve plana por el fondo, no por estar mal.
- */
+/** La celda que enmarca un componente vivo. */
 export function Demo({ label, children, className }: { label?: string; children: ReactNode; className?: string }) {
   return (
     <div className="flex flex-col gap-2">
@@ -90,7 +68,7 @@ export function Demo({ label, children, className }: { label?: string; children:
   )
 }
 
-/** La caja que contiene una lista de `Variant`. Repetida en catorce historias. */
+/** La caja que contiene una lista de `Variant`. */
 export function Panel({ children }: { children: ReactNode }) {
   return <div className="rounded-xl border border-line bg-surface px-4">{children}</div>
 }
@@ -99,15 +77,7 @@ export function Mono({ children }: { children: ReactNode }) {
   return <span className="font-mono text-2xs text-ink-muted">{children}</span>
 }
 
-/* -------------------------------------------------------------- muestrarios */
-
-/**
- * El cuadrado de color con su token y su valor resuelto.
- *
- * Lleva borde siempre, incluso los tonos oscuros: sin él, `--shade-01`
- * (`#fcfcfc`) sobre el papel es un cuadrado invisible y parece que el token
- * está roto.
- */
+/** El cuadrado de color con su token y su valor resuelto. */
 export function Swatch({ token, note }: { token: string; note?: string }) {
   const values = useTokens([token])
   const value = values[token] ?? ''
@@ -153,14 +123,7 @@ export function Ramp({ tokens }: { tokens: readonly string[] }) {
   )
 }
 
-/**
- * La tabla de props de una historia.
- *
- * Se escribe a mano y no se genera del tipo a propósito: lo que hace falta saber
- * de una prop no es su tipo —eso ya lo dice el editor— sino cuándo usarla. Un
- * `size?: 'sm' | 'md' | 'lg'` generado no dice que el 32 va inline en una fila
- * densa y el 40 es la acción principal.
- */
+/** La tabla de props de una historia. */
 export function Props({ rows }: { rows: readonly { name: string; type: string; def?: string; note?: string }[] }) {
   return (
     <div className="overflow-x-auto">

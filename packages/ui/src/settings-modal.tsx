@@ -6,12 +6,7 @@ import { usePrefs } from './prefs'
 
 type SectionId = 'general' | 'perfil' | 'seguridad' | 'avisos'
 
-/**
- * Quién está mirando los ajustes. Va por prop y no escrito adentro por dos
- * motivos, y el segundo es el que manda: el kit y la app muestran el mismo
- * modal con gente distinta, y **el nombre y el correo de una persona real no
- * son parte de un design system**.
- */
+/** Quién está mirando los ajustes. */
 export type SettingsUser = {
   name: string
   email: string
@@ -27,19 +22,7 @@ const sections: { id: SectionId; label: string; icon: IconName }[] = [
   { id: 'avisos', label: 'Avisos', icon: 'notifications' },
 ]
 
-/**
- * Los ajustes en un modal y no en una página.
- *
- * La diferencia de sensación no está en el modal: está en que no perdés el
- * contexto. Por eso el fondo se atenúa apenas y por eso al cerrar no hay
- * navegación — seguís donde estabas, con el scroll donde lo dejaste.
- *
- * Rail de 180 que no scrollea + panel que sí. Si scrollean los dos, al bajar en
- * una sección larga desaparecen las secciones y no sabés dónde estás.
- *
- * El título de la sección va en 12/600, igual que el resto de la interfaz: un
- * encabezado grande acá compite con el rail, que es lo que hay que leer primero.
- */
+/** Los ajustes en un modal y no en una página. */
 export function SettingsModal({ open, onClose, user }: {
   open: boolean
   onClose: () => void
@@ -50,7 +33,6 @@ export function SettingsModal({ open, onClose, user }: {
   return (
     <Modal open={open} onClose={onClose} width={594} label="Ajustes">
       <div className="flex h-[448px] max-h-[calc(100vh-2rem)]">
-        {/* ------- rail ------- */}
         <nav className="flex w-[180px] shrink-0 flex-col gap-0.5 border-r border-line p-3">
           {sections.map(s => {
             const active = s.id === section
@@ -62,33 +44,15 @@ export function SettingsModal({ open, onClose, user }: {
                 className={cx(
                   'flex h-10 items-center gap-3 rounded-lg border pr-2.5 pl-[3px] text-left text-xs font-semibold',
                   'text-ink transition-[background-color,border-color] duration-[120ms] ease-out',
-                  /* El borde está siempre, transparente cuando no está activo:
-                     si apareciera solo al activarse, el texto se correría un
-                     píxel a cada click. */
                   active
                     ? 'border-line-strong bg-muted'
                     : 'border-transparent hover:bg-hover',
                 )}
               >
-                {/* El chip de 32 con el icono adentro. Se pinta de blanco solo
-                    cuando la sección está activa: es lo que la separa sin
-                    teñir el texto ni agregar sombra. Radio 10, el escalón de la
-                    escala más cercano al que pide el anidado (12 del item
-                    menos sus 3 de padding). */}
                 <span className={cx(
                   'flex size-8 shrink-0 items-center justify-center rounded-md transition-[background-color,box-shadow] duration-[120ms]',
-                  /* El chip blanco sobre la pastilla apagada son cuatro pasos de
-                     diferencia: sin canto no se lee como una superficie aparte,
-                     se lee blando. La línea de 1px es la misma que usa el chip
-                     del sidebar activo, así los dos estados se explican igual. */
                   active && 'bg-surface shadow-[0_0_0_1px_var(--border)]',
                 )}>
-                  {/* El trazo NO cambia con el estado: 1.5 siempre. Con 1 en
-                      el activo y 1.5 en el inactivo, al seleccionar cambiaba el
-                      grosor del dibujo y el icono daba un salto de peso. Lo que
-                      distingue el estado es el color, nada más. */}
-                  {/* La rama activa queda en el peso base y la inactiva la sube sola con
-                      `icon-muted`: el gris y el peso son la misma decisión. */}
                   <Icon name={s.icon} size={20} className={active ? 'text-ink' : 'icon-muted'} />
                 </span>
                 {s.label}
@@ -97,7 +61,6 @@ export function SettingsModal({ open, onClose, user }: {
           })}
         </nav>
 
-        {/* ------- panel ------- */}
         <div className="flex min-w-0 flex-1 flex-col">
           <header className="flex h-14 shrink-0 items-center border-b border-line px-6">
             <h2 className="text-xs font-semibold">{sections.find(s => s.id === section)!.label}</h2>
@@ -113,8 +76,6 @@ export function SettingsModal({ open, onClose, user }: {
     </Modal>
   )
 }
-
-/* ------------------------------------------------------------------------- */
 
 function GeneralSection({ user }: { user: SettingsUser }) {
   const { prefs, set } = usePrefs()
@@ -222,13 +183,7 @@ function AvisosSection() {
   )
 }
 
-/* ------------------------------------------------------- piezas de la fila */
-
-/**
- * El campo editable inline: se ve como texto hasta que lo tocás. El lápiz
- * aparece en hover del contenedor y no siempre: con el lápiz permanente, seis
- * filas seguidas se llenan de iconos y ninguno se ve.
- */
+/** El campo editable inline: se ve como texto hasta que lo tocás. */
 function EditableRow({ label, value: initial }: { label: string; value: string }) {
   const [value, setValue] = useState(initial)
   const [editing, setEditing] = useState(false)
@@ -247,7 +202,6 @@ function EditableRow({ label, value: initial }: { label: string; value: string }
           onBlur={commit}
           onKeyDown={e => {
             if (e.key === 'Enter') commit()
-            /* Escape descarta y no guarda: es la única forma de arrepentirse. */
             if (e.key === 'Escape') { setDraft(value); setEditing(false) }
           }}
           className="inset-relief h-8 w-48 rounded-md bg-muted px-2.5 text-right text-xs font-medium text-ink outline-none"

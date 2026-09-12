@@ -16,8 +16,6 @@ export function ExploreScreen() {
         subtitle="Lo que otros guías publicaron. Se copia a un espacio propio y se edita sin tocar el original."
       />
 
-      {/* La fila de filtros scrollea horizontal en pantallas angostas, con el
-          gradiente del borde para que se vea que hay más. */}
       <div className="relative -mx-6 mb-6 overflow-x-auto px-6 pb-1">
         <div className="flex gap-2">
           {areas.map(a => (

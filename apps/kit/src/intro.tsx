@@ -1,15 +1,7 @@
 import { Icon, cx, type IconName } from '@melu/ui'
 import { Mono } from './kit'
 
-/**
- * La portada. No es decoración: es lo que evita que alguien abra el kit, vea
- * doscientos cuadraditos y tenga que deducir de qué se trata el sistema.
- *
- * Dice cuatro cosas y nada más: qué es esto, las cuatro decisiones que explican
- * casi todo lo que va a ver, cómo está organizado, y qué NO es. Lo último
- * importa tanto como el resto — este repo se confundió con una librería más de
- * una vez.
- */
+/** La portada. */
 
 const decisiones: { title: string; body: string }[] = [
   {

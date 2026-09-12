@@ -8,19 +8,7 @@ const tagStyle = {
   arreglo: 'bg-muted text-ink-muted',
 } as const
 
-/**
- * Novedades.
- *
- * Dos columnas por entrada: a la izquierda el qué y el cuándo, a la derecha lo
- * que se ve. La columna de meta es angosta y fija (348) para que todos los
- * títulos arranquen en la misma vertical: en un registro de cambios se lee la
- * columna izquierda en diagonal y se frena solo en lo que interesa, y eso no
- * funciona si cada título empieza en otro lugar.
- *
- * El subtítulo del encabezado va del mismo tamaño que el título pero en gris.
- * Es una sola frase partida en dos tonos, no un título con su bajada: dicho de
- * corrido, el gris es la parte que se puede saltear.
- */
+/** Novedades. */
 export function UpdatesScreen() {
   return (
     <div className="mx-auto w-full max-w-[1200px] px-5 pb-20">
@@ -57,11 +45,7 @@ export function UpdatesScreen() {
   )
 }
 
-/**
- * El lugar de la captura. Es geometría y no una imagen: una captura de verdad
- * queda vieja en la primera versión que cambie algo, y en un prototipo de
- * sistema visual lo que importa es el hueco y su proporción, no el contenido.
- */
+/** El lugar de la captura. */
 function Shot({ seed }: { seed: string }) {
   const n = [...seed].reduce((a, c) => a + c.charCodeAt(0), 0)
   const tint = `bg-tint-${(n % 6) + 1}`

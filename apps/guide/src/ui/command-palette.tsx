@@ -5,15 +5,7 @@ import { activities, recipes } from '../data'
 
 type Command = { id: string; label: string; hint?: string; icon: IconName; run: () => void; group: string }
 
-/**
- * La paleta. Dos cosas la hacen usable y las dos son de teclado:
- *
- * 1. El índice activo se resetea a 0 en cada tecleo. Si no, filtrás y el
- *    resaltado queda en la fila 7 de una lista que ahora tiene 2.
- * 2. La fila activa se trae a la vista con `scrollIntoView({block:'nearest'})`.
- *    Con 'center' la lista salta en cada flecha; con nearest solo se mueve
- *    cuando hace falta.
- */
+/** La paleta. */
 export function CommandPalette({
   open, onClose, onOpenSettings,
 }: { open: boolean; onClose: () => void; onOpenSettings: () => void }) {
@@ -78,8 +70,6 @@ export function CommandPalette({
 
   if (!open) return null
 
-  /* Los grupos salen del orden en que ya vienen los resultados: agrupar
-     reordenando haría que la primera fila cambie de lugar al tipear. */
   const groups: { name: string; items: Command[] }[] = []
   for (const r of results) {
     const last = groups[groups.length - 1]
@@ -109,8 +99,6 @@ export function CommandPalette({
               onChange={e => setQuery(e.target.value)}
               placeholder="Buscar una actividad, una receta, una acción…"
               className="flex-1 bg-transparent text-md text-ink outline-none placeholder:text-ink-subtle"
-              /* El input no lleva el anillo de foco: el foco de la paleta ya se
-                 ve en la fila activa, y dos indicadores compiten. */
               style={{ boxShadow: 'none' }}
             />
             <Kbd>esc</Kbd>

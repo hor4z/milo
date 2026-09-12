@@ -1,17 +1,7 @@
 import { useRef, useState } from 'react'
 import { Icon, Button, IconButton, Tooltip, cx, Dropdown, type DropdownItem } from '@melu/ui'
 
-/**
- * El composer flotante: se escribe la consigna y sale una actividad.
- *
- * Detalles que hacen la diferencia:
- * - El textarea crece con el contenido hasta un techo. Se hace midiendo
- *   `scrollHeight` después de resetear el alto: sin el reset, solo crece y
- *   nunca vuelve a encogerse al borrar.
- * - `Enter` envía y `Shift+Enter` hace salto de línea, como cualquier chat.
- * - La sombra tiene una capa `inset` blanca arriba: es lo que le da el borde de
- *   luz y lo separa del fondo sin usar un borde.
- */
+/** El composer flotante: se escribe la consigna y sale una actividad. */
 export function Composer() {
   const [value, setValue] = useState('')
   const ref = useRef<HTMLTextAreaElement>(null)

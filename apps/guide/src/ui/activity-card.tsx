@@ -1,21 +1,7 @@
 import { Icon, Chip, cx, IconButton, Tooltip, usePrefs , labelColors, labelFill } from '@melu/ui'
 import type { Activity } from '../data'
 
-/**
- * La tarjeta de una actividad.
- *
- * No se mueve en hover: una grilla de doce tarjetas donde cada una salta al
- * pasar el mouse hace que la vista entera tiemble mientras recorrés. El hover
- * solo sube la elevación, que alcanza para decir "esto responde".
- *
- * Tampoco tiene acciones flotando encima. Un botón que aparece al pasar por
- * arriba no se puede descubrir sin mouse y tapa justo lo que estabas mirando;
- * lo que haya que hacer con una actividad va adentro, cuando la abrís.
- *
- * El medio es un tinte plano con una marca geométrica y no una foto: el tinte
- * viene del dato, así que la misma actividad siempre tiene el mismo color y la
- * grilla se vuelve reconocible de memoria.
- */
+/** La tarjeta de una actividad. */
 export function ActivityCard({ activity }: { activity: Activity }) {
   const { prefs } = usePrefs()
   const done = activity.submissions >= activity.learners
@@ -39,9 +25,6 @@ export function ActivityCard({ activity }: { activity: Activity }) {
           )}
         </div>
 
-        {/* La barra de entregas: el dato que un guía mira primero. Verde solo
-            cuando entregaron todos — si el verde apareciera al 60%, dejaría de
-            significar "listo". */}
         <div className="mt-3 flex items-center gap-2.5">
           <div className="h-1 flex-1 overflow-hidden rounded-full bg-sunken">
             <div
@@ -58,10 +41,7 @@ export function ActivityCard({ activity }: { activity: Activity }) {
   )
 }
 
-/**
- * La marca del medio: cuatro formas que salen del id. Determinística a
- * propósito, para que la tarjeta no cambie de dibujo en cada render.
- */
+/** La marca del medio: cuatro formas que salen del id. */
 function Mark({ seed }: { seed: string }) {
   const n = [...seed].reduce((a, c) => a + c.charCodeAt(0), 0)
   const variant = n % 4

@@ -1,8 +1,6 @@
 import { Avatar, AvatarGroup } from '@melu/ui'
 import { Block, Demo, Props, Section } from '../kit'
 
-/* Las caras son sintéticas y viven en `public/avatars`. El porqué de las dos
-   cosas —generadas y no pedidas a un host— está en `public/avatars/LEEME.md`. */
 const cara = (n: number) => `/avatars/${String(n).padStart(2, '0')}.webp`
 const persona = (name: string, foto?: number) => ({ name, src: foto ? cara(foto) : undefined })
 

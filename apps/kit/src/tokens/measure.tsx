@@ -103,8 +103,6 @@ function Measure({ token, role }: { token: string; role: string }) {
     <div className="flex flex-wrap items-center gap-x-4 gap-y-2 border-t border-line py-3.5 first:border-t-0">
       <span className="w-52 shrink-0"><Mono>{token}</Mono></span>
       <span className="w-12 shrink-0 tabular"><Mono>{raw || '—'}</Mono></span>
-      {/* La barra se recorta a 220 para que el sidebar de 220 no empuje la fila
-          al ancho de la pantalla; lo que importa es comparar, no medir. */}
       <span className="h-2 rounded-full bg-muted" style={{ width: Math.min(Number.isNaN(px) ? 0 : px, 220) }} />
       <span className="text-2xs text-ink-muted">{role}</span>
     </div>

@@ -7,10 +7,6 @@ import {
 import { iconTags } from '@melu/ui/icons.meta'
 import { Block, Mono, Panel, Props, Section, Variant } from '../kit'
 
-/* La escala de tamaños. Antes había nueve valores —11, 12, 13, 14, 15, 16, 18,
-   20 y 22— porque los impares salieron de encajar ópticamente dibujos propios.
-   Con una fuente, un tamaño impar cae en media grilla de píxeles y se ve
-   borroso, así que la escala quedó en seis pasos pares. */
 const escala = [
   { px: 12, rol: 'un badge, la cruz de un chip' },
   { px: 14, rol: 'la marca de un Select, un tilde' },
@@ -34,8 +30,6 @@ export function IconStory() {
   const visibles = useMemo(() => {
     const n = fold(q.trim())
     if (!n) return iconNames
-    /* Se busca por nombre y por tags. Los tags son los de Google y están en
-       inglés: "calendar" encuentra `calendar_month`, "calendario" no. */
     return iconNames.filter(k => fold(k).includes(n) || fold(iconTags[k] ?? '').includes(n))
   }, [q])
 

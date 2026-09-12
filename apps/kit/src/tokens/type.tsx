@@ -71,16 +71,7 @@ export function TypeSection() {
   )
 }
 
-/**
- * Un espécimen dice qué familia es y, sobre todo, **cuál se está dibujando de
- * verdad**. No es lo mismo: el token puede decir "Instrument Sans" y el navegador estar
- * cayendo al `system-ui` del stack porque la fuente no cargó, y con solo el
- * nombre del token escrito al lado se vería igual de bien.
- *
- * Es la misma idea que el resto del kit —los valores se leen del navegador en
- * vivo, así que un rol roto aparece vacío en vez de aparecer correcto— aplicada
- * a la tipografía, que era lo único que faltaba.
- */
+/** Un espécimen dice qué familia es y, sobre todo, cuál se está dibujando de verdad. */
 function Specimen({ family, token, rol, muestra, px, mono }: {
   family: string
   token: string
@@ -109,15 +100,9 @@ function Specimen({ family, token, rol, muestra, px, mono }: {
             : 'midiendo…'}
         </span>
       </div>
-      {/* El tamaño va por prop y no fijo: `--font-sans` y `--font-display` son
-          la misma familia, así que dos tarjetas con el
-          mismo texto al mismo cuerpo se leen como una duplicada por error. Lo
-          que las distingue es para qué está cada rol y a qué tamaño se usa. */}
       <div className={`${family} mt-3 font-semibold`} style={{ fontSize: px, lineHeight: 1.1 }}>
         {muestra}
       </div>
-      {/* Un abecedario para poder mirar la letra, que es de lo que se trata un
-          espécimen. Sin esto solo se ve una frase y no se juzga nada. */}
       <div className={`${family} mt-1 text-lg font-medium text-ink-muted`}>
         {mono ? 'abcdefghijklmnopqrstuvwxyz' : 'ABCDEFGHIJKLMNÑOPQRSTUVWXYZ'}
       </div>
@@ -132,20 +117,7 @@ function Specimen({ family, token, rol, muestra, px, mono }: {
   )
 }
 
-/**
- * Cuál de las familias del stack está dibujando de verdad.
- *
- * **No usa `document.fonts.check`**, que era lo obvio y está mal: esa API
- * responde "¿se puede dibujar este texto?" y no "¿existe esta familia?", así que
- * devuelve `true` para una fuente inventada —lo probé— y el espécimen habría
- * jurado que todo carga siempre. Confianza falsa es peor que no tener el dato.
- *
- * Lo que sí funciona es medir: se mide el ancho de una cadena con la familia
- * candidata seguida de una genérica, y contra esa genérica sola. Si la familia
- * no existe, los dos anchos son idénticos porque dibujó la genérica en los dos
- * casos. Se prueba contra dos genéricas distintas porque una fuente puede dar la
- * casualidad de medir igual que una de ellas, pero no que las dos.
- */
+/** Cuál de las familias del stack está dibujando de verdad. */
 function useFamiliaReal(stack: string) {
   const [real, setReal] = useState('')
   useEffect(() => {
@@ -153,8 +125,6 @@ function useFamiliaReal(stack: string) {
     let vivo = true
     const genericas = new Set(['ui-sans-serif', 'ui-monospace', 'system-ui', 'sans-serif', 'monospace', 'serif', '-apple-system'])
     const ctx = document.createElement('canvas').getContext('2d')
-    /* Sin canvas no se puede medir, y decir "se está dibujando con esta" sin
-       haberlo comprobado es exactamente el problema que este bloque arregla. */
     if (!ctx) { setReal('no se pudo medir'); return }
 
     const texto = 'mmmMMMwwwiiil10OQ · ABCdef'

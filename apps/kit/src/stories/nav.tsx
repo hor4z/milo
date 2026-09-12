@@ -28,8 +28,6 @@ export function NavStory() {
 
             <div className="px-2.5 py-2.5 text-xs font-medium text-ink-muted/70">Mis espacios</div>
 
-            {/* Los espacios van con `chip={false}`: la carpeta ya trae su color,
-                y el chip de papel detrás le pelea el contraste. */}
             {([
               { id: 'ciencias', color: 'green', label: 'Ciencias · 5.º B' },
               { id: 'mate', color: 'orange', label: 'Matemática · 4.º A' },

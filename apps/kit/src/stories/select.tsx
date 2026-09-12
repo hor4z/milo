@@ -10,8 +10,6 @@ export function SelectStory() {
   const [espacio, setEspacio] = useState('Matemática · 4.º A')
   const [docente, setDocente] = useState('Melina Rivero')
 
-  /* La carga se simula sola y en loop para que el estado se vea sin tener que
-     apretar nada: es lo único de esta pantalla que no se puede mostrar quieto. */
   const [cargando, setCargando] = useState(true)
   useEffect(() => {
     const t = setInterval(() => setCargando(c => !c), 2200)
