@@ -189,6 +189,7 @@
   --color-field: var(--field-bg);
   --color-field-hover: var(--field-bg-hover);
   --color-field-line: var(--field-border);
+  --color-track: var(--track);
 
   --color-search: var(--search-bg);
   --color-search-hover: var(--search-bg-hover);

@@ -4,14 +4,14 @@ import { Block, Props, Section } from '../kit'
 const cara = (n: number) => `/avatars/${String(n).padStart(2, '0')}.webp`
 
 const semana = [
-  { label: 'Lunes', value: 24, caption: 'Actividades entregadas' },
-  { label: 'Martes', value: 14, caption: 'Actividades entregadas' },
-  { label: 'Miércoles', value: 29, caption: 'Actividades entregadas' },
+  { label: 'Lunes', value: 18, total: 24, caption: 'Actividades corregidas' },
+  { label: 'Martes', value: 6, total: 14, caption: 'Actividades corregidas' },
+  { label: 'Miércoles', value: 27, total: 29, caption: 'Actividades corregidas' },
   {
-    label: 'Jueves', value: 32, caption: 'Actividades entregadas',
+    label: 'Jueves', value: 16, total: 32, caption: 'Actividades corregidas',
     detail: (
       <>
-        <span className="tabular text-2xs font-medium text-ink-muted">50,25%</span>
+        <span className="tabular text-2xs font-medium text-ink-muted">50%</span>
         <AvatarGroup
           size={18}
           max={3}
@@ -24,19 +24,20 @@ const semana = [
       </>
     ),
   },
-  { label: 'Viernes', value: 17, caption: 'Actividades entregadas' },
+  { label: 'Viernes', value: 17, total: 17, caption: 'Actividades corregidas' },
 ]
 
 const meses = [
-  { label: 'Ene', value: 42 }, { label: 'Feb', value: 58 }, { label: 'Mar', value: 51 },
-  { label: 'Abr', value: 64 }, { label: 'May', value: 47 }, { label: 'Jun', value: 73 },
+  { label: 'Ene', value: 31, total: 42 }, { label: 'Feb', value: 49, total: 58 },
+  { label: 'Mar', value: 24, total: 51 }, { label: 'Abr', value: 64, total: 64 },
+  { label: 'May', value: 12, total: 47 }, { label: 'Jun', value: 40, total: 73 },
 ]
 
 export function ChartStory() {
   return (
     <Section
       title="BarChart"
-      note="Una sola serie y un solo tono: el azul del sistema, más opaco cuanto más alta la barra. Es la receta de un gráfico de magnitud —un hue, más es más oscuro— y la que se lee sin depender de distinguir colores: el tamaño y el tono dicen lo mismo. Por eso tampoco lleva leyenda; con una serie, el título ya dice qué se está mirando."
+      note="Cada barra son dos cosas: el gris es el total y el azul es lo hecho. No son dos series compitiendo, es una parte adentro de su todo — y por eso el azul va dentro del gris y no al lado: apoyados uno junto al otro habría que compararlos con la vista para saber cuánto falta, y metido adentro, lo que falta es el gris que se ve arriba. La pista va clarísima porque es el resto, no un dato que compita: con el mismo peso que el relleno, la barra se lee como dos bloques apilados."
     >
       <Block
         label="Vivo"
@@ -44,19 +45,19 @@ export function ChartStory() {
       >
         <Card className="max-w-2xl p-6">
           <div className="mb-5">
-            <div className="text-base font-semibold text-ink">Entregas de la semana</div>
-            <div className="text-xs font-medium text-ink-muted">De todos tus espacios, con el mejor día destacado</div>
+            <div className="text-base font-semibold text-ink">Corregidas esta semana</div>
+            <div className="text-xs font-medium text-ink-muted">El azul es lo corregido; el gris, lo que entró ese día</div>
           </div>
-          <BarChart title="Entregas por día de la semana" data={semana} highlight={3} />
+          <BarChart title="Corregidas sobre entregadas, por día" data={semana} highlight={3} />
         </Card>
       </Block>
 
       <Block
         label="Sin destacada"
-        note="`highlight` no es decoración: es la barra que la pantalla vino a contar. Cuando no hay una —cuando lo que importa es la forma de la serie y no un día— se deja afuera y todas quedan de contexto."
+        note="Con todas las barras llevando azul, marcar una con color no queda disponible: `highlight` le pone la etiqueta un paso más pesada, que alcanza para decir «esta es de la que estamos hablando» sin agregar un tercer tono. Acá va sin ninguna: cuando lo que importa es la forma de la serie y no un mes, se deja afuera."
       >
         <Card className="max-w-2xl p-6">
-          <BarChart title="Entregas por mes" data={meses} height={160} />
+          <BarChart title="Corregidas sobre entregadas, por mes" data={meses} height={160} />
         </Card>
       </Block>
 
@@ -73,9 +74,9 @@ export function ChartStory() {
 
       <Block label="Props">
         <Props rows={[
-          { name: 'data', type: 'BarDatum[]', note: 'obligatorio: label, value, y opcionales detail y caption' },
+          { name: 'data', type: 'BarDatum[]', note: 'obligatorio: label, value (lo hecho), total, y opcionales detail y caption' },
           { name: 'title', type: 'string', note: 'obligatorio: nombra el gráfico y encabeza la tabla escondida' },
-          { name: 'highlight', type: 'number', note: 'el índice de la barra llena' },
+          { name: 'highlight', type: 'number', note: 'el índice del que habla la pantalla: le pesa la etiqueta' },
           { name: 'height', type: 'number', def: '220', note: 'el alto del área de barras, sin las etiquetas' },
         ]} />
       </Block>

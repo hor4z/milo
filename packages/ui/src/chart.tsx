@@ -4,8 +4,11 @@ import { cx } from './primitives'
 export type BarDatum = {
   /** Lo que va abajo de la barra. */
   label: string
+  /** Lo hecho: la parte azul. */
   value: number
-  /** Lo que el tooltip muestra además del valor: un porcentaje, un grupo de caras. */
+  /** Lo que había para hacer: el alto de la barra gris. */
+  total: number
+  /** Lo que el tooltip muestra además del número: un porcentaje, un grupo de caras. */
   detail?: ReactNode
   /** La frase del tooltip, abajo del número. Sin esto se usa el `label`. */
   caption?: string
@@ -14,23 +17,28 @@ export type BarDatum = {
 /**
  * El gráfico de barras.
  *
- * **Las barras de contexto van en tinta y la destacada en azul.** No es un
- * gradiente de azules: la interfaz es monocroma y el azul está reservado para
- * una cosa por pantalla, así que gastarlo en las cinco barras lo deja sin decir
- * nada — con todo azul, la que importa es apenas un azul más fuerte entre
- * azules. En gris, la llena se ve desde el otro lado de la habitación.
+ * **Cada barra son dos cosas: el gris es el total y el azul es lo hecho.** No
+ * son dos series compitiendo —es una parte adentro de su todo— y por eso el azul
+ * va *dentro* del gris y no al lado: apoyados uno junto al otro habría que
+ * compararlos con la vista para saber cuánto falta, y metido adentro, lo que
+ * falta es el gris que se ve arriba.
  *
- * Las de contexto igual suben de tono con la altura: el tamaño y el tono dicen
- * lo mismo, así que la comparación sobrevive a una impresión en blanco y negro y
- * a cualquier daltonismo. Por eso tampoco lleva leyenda: con una serie, el
- * título ya dice qué se está mirando, y una caja con un solo cuadradito repite
- * el título y ocupa lugar.
+ * El gris del fondo va claro a propósito: es la pista, no un dato que compita.
+ * Si pesa lo mismo que el relleno, la barra se lee como dos bloques apilados en
+ * vez de como un progreso.
  *
- * **La barra destacada es el único azul lleno.** `highlight` no es decoración:
- * es la que la pantalla vino a contar —el día que más entregas tuvo, el que
- * estás comparando— y el resto queda de contexto. Es el mismo recurso que el
- * sistema usa en todos lados: lo activo se marca una vez y con fuerza, y lo
- * demás acompaña.
+ * **Todas las barras llevan azul**, así que el azul acá no señala una: mide. Es
+ * la excepción a la regla monocroma que el sistema ya tiene para el progreso —la
+ * misma de un `Meter`— y se defiende sola porque el color es la medida, no un
+ * adorno puesto encima.
+ *
+ * Tampoco lleva leyenda: dos partes que se explican con una frase —«de 48»— no
+ * necesitan una caja con dos cuadraditos al costado.
+ *
+ * **`highlight` ya no pinta, resalta el nombre.** Con todas las barras llevando
+ * azul, marcar una con color no queda disponible: lo que hace es poner su
+ * etiqueta un paso más pesada, que alcanza para decir «esta es de la que
+ * estamos hablando» sin agregar un tercer tono a la barra.
  *
  * **El tooltip es parte de la pieza, no un extra.** Un gráfico en HTML se
  * hoverea, y sin tooltip los valores exactos no existen en ningún lado. Acá
@@ -49,7 +57,7 @@ export type BarDatum = {
  */
 export function BarChart({ data, highlight, title, height = 220, className }: {
   data: BarDatum[]
-  /** El índice de la barra llena. Sin esto, ninguna se destaca. */
+  /** El índice de la barra de la que habla la pantalla: le pesa la etiqueta. */
   highlight?: number
   /** Para el lector de pantalla y la tabla de abajo. */
   title: string
@@ -58,21 +66,20 @@ export function BarChart({ data, highlight, title, height = 220, className }: {
 }) {
   const [activa, setActiva] = useState<number | null>(null)
   const tablaId = useId()
-  const max = Math.max(...data.map(d => d.value), 1)
+  /* La escala sale del total más alto y no del valor más alto: si la altura la
+     mandara lo hecho, un día con 4 de 4 dibujaría una barra más alta que uno con
+     30 de 60, y el gráfico diría lo contrario de lo que pasó. */
+  const max = Math.max(...data.map(d => d.total), 1)
 
   return (
     <figure className={cx('m-0', className)} aria-describedby={tablaId}>
       <div className="relative flex items-end gap-3" style={{ height }}>
         {data.map((d, i) => {
-          const lleno = i === highlight
-          const alto = Math.max(6, Math.round((d.value / max) * 100))
-          /* El tono acompaña a la altura: más alta, más oscura. Es lo que hace
-             que la comparación se lea aunque alguien no distinga colores —el
-             tamaño y el tono dicen lo mismo— y lo que evita que una barra corta
-             y una larga del mismo tono se vean como dos categorías.
-             En tinta al 10-26%: más abajo no se despega del papel, más arriba
-             compite con el texto de la tarjeta. */
-          const opacidad = 0.10 + (d.value / max) * 0.16
+          const alto = Math.max(6, Math.round((d.total / max) * 100))
+          /* El relleno se mide contra SU total y no contra el máximo: es cuánto
+             de lo suyo hizo. Medido contra el máximo, un día chico y completo
+             mostraría un relleno corto y parecería que le falta. */
+          const hecho = Math.min(100, Math.round((d.value / Math.max(d.total, 1)) * 100))
           return (
             <button
               key={d.label}
@@ -86,21 +93,20 @@ export function BarChart({ data, highlight, title, height = 220, className }: {
               onPointerLeave={() => setActiva(a => (a === i ? null : a))}
               onFocus={() => setActiva(i)}
               onBlur={() => setActiva(a => (a === i ? null : a))}
-              aria-label={`${d.label}: ${d.value}`}
+              aria-label={`${d.label}: ${d.value} de ${d.total}`}
             >
               <span
-                className={cx(
-                  'w-full rounded-xl transition-[filter,box-shadow] duration-[120ms] ease-out',
-                  /* El hover aclara en vez de teñir: cambiar el color de una
-                     barra al pasarle el mouse hace que la que estás mirando deje
-                     de valer lo mismo que las de al lado. */
-                  lleno ? 'bg-brand group-hover:brightness-110' : 'group-hover:brightness-95',
-                )}
-                style={{
-                  height: `${alto}%`,
-                  ...(lleno ? null : { backgroundColor: `color-mix(in srgb, var(--text) ${opacidad * 100}%, transparent)` }),
-                }}
-              />
+                /* `overflow-hidden` para que el relleno tome la curva de la
+                   pista: sin eso, el azul dibuja sus propias esquinas adentro y
+                   quedan dos radios distintos en la misma barra. */
+                className="relative w-full overflow-hidden rounded-xl bg-track transition-[filter] duration-[120ms] ease-out group-hover:brightness-95"
+                style={{ height: `${alto}%` }}
+              >
+                <span
+                  className="absolute inset-x-0 bottom-0 rounded-xl bg-brand"
+                  style={{ height: `${hecho}%` }}
+                />
+              </span>
             </button>
           )
         })}
@@ -113,7 +119,7 @@ export function BarChart({ data, highlight, title, height = 220, className }: {
                que perseguirlo con la vista para leer un número. */
             style={{
               left: `${((activa + 0.5) / data.length) * 100}%`,
-              bottom: `${Math.max(6, Math.round((data[activa].value / max) * 100))}%`,
+              bottom: `${Math.max(6, Math.round((data[activa].total / max) * 100))}%`,
             }}
           />
         )}
@@ -143,7 +149,7 @@ export function BarChart({ data, highlight, title, height = 220, className }: {
         <caption>{title}</caption>
         <tbody>
           {data.map(d => (
-            <tr key={d.label}><th scope="row">{d.label}</th><td>{d.value}</td></tr>
+            <tr key={d.label}><th scope="row">{d.label}</th><td>{d.value}</td><td>{d.total}</td></tr>
           ))}
         </tbody>
       </table>
@@ -175,6 +181,7 @@ function ChartTooltip({ datum, style }: { datum: BarDatum; style?: React.CSSProp
       <span className="absolute top-2 bottom-2 left-0 w-[3px] rounded-full bg-brand" />
       <div className="flex items-center gap-2 pl-2">
         <span className="tabular text-base font-bold text-ink">{datum.value}</span>
+        <span className="tabular text-2xs font-medium text-ink-muted">de {datum.total}</span>
         {datum.detail}
       </div>
       <div className="pl-2 text-2xs font-medium text-ink-muted">{datum.caption ?? datum.label}</div>

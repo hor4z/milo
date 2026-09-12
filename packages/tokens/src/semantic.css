@@ -287,6 +287,12 @@
      Es lo mismo que hace Reshaped, que lo resuelve con un `inset` de 1.5px del
      color primario y nada más. */
   --focus-border: var(--blue-500);
+
+  /* La pista de una barra de progreso: lo que todavía no pasó. Va clarísima
+     porque no es un dato que compita — es el resto. Con el mismo peso que el
+     relleno, una barra de progreso se lee como dos bloques apilados en vez de
+     como una parte adentro de su todo. */
+  --track: var(--shade-09-a08);
 }
 
 [data-theme="dark"] {
@@ -307,6 +313,8 @@
      invierte sola —al 14% sobre #202020 cae donde caía el gris opaco— así que
      la línea del campo es una sola regla para los dos temas. */
   --field-border: var(--shade-09-a11);
+  /* En oscuro la pista sube un paso: al 8% sobre #131313 no se ve. */
+  --track: var(--shade-09-a11);
   --search-bg: var(--shade-02);
   --search-bg-hover: var(--shade-03);
   --search-border: var(--border-strong);
