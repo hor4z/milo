@@ -7,13 +7,12 @@ import { spaces } from '../data'
 
 function Brand({ compact }: { compact?: boolean }) {
   return (
-    <Link to="/" className="flex h-20 items-center gap-2.5" aria-label="melu, inicio">
-      <svg width="32" height="32" viewBox="0 0 32 32" fill="none" aria-hidden="true" className="shrink-0">
-        <rect width="32" height="32" rx="10" fill="var(--solid)" />
-        <path d="M9 22V13.5a4.5 4.5 0 019 0V22" stroke="var(--on-solid)" strokeWidth="2.2" strokeLinecap="round" />
-        <path d="M18 22V13.5A4.5 4.5 0 0122.5 9" stroke="var(--accent)" strokeWidth="2.2" strokeLinecap="round" />
-      </svg>
-      {!compact && <span className="text-lg font-semibold tracking-tight">melu</span>}
+    <Link
+      to="/"
+      className="flex h-20 items-center rounded-lg px-1 text-lg font-semibold tracking-tight text-ink"
+      aria-label="melu, inicio"
+    >
+      {compact ? 'm' : 'melu'}
     </Link>
   )
 }
