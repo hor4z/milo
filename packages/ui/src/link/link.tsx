@@ -10,12 +10,13 @@ export function Link({ external, className, children, ...props }: ComponentProps
   return (
     <a
       className={cx(
-        // Azul **y** subrayado, las dos cosas. El color solo no alcanza —WCAG
-        // 1.4.1— y el subrayado solo dejaba al enlace confundido con el texto en
-        // negrita de al lado. Ahora que el azul es primario, un enlace en la
-        // tinta de marca es la convención que todo el mundo ya sabe leer.
-        'inline-flex items-center gap-1 rounded-sm text-brand-ink underline decoration-brand-border underline-offset-[3px]',
-        'transition-colors duration-fast hover:decoration-brand-ink',
+        // Azul **y** subrayado, las dos cosas, y el subrayado en el mismo tono que
+        // la letra. Estuvo un rato en `--brand-border`, que sobre papel da 1.49:1
+        // y no se ve: el enlace quedaba dependiendo solo del color, que es
+        // exactamente lo que el subrayado viene a evitar. Un subrayado que hay
+        // que buscar no es una segunda señal.
+        'inline-flex items-center gap-1 rounded-sm text-brand-ink underline decoration-current underline-offset-[3px]',
+        'transition-[text-decoration-thickness] duration-fast hover:decoration-2',
         className,
       )}
       {...(external ? { target: '_blank', rel: 'noreferrer noopener' } : null)}

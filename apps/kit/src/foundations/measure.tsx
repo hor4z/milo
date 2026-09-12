@@ -15,7 +15,7 @@ const radii = [
   { token: '--radius-md', cls: 'rounded-md', role: 'lo chico: un control de 32, un chip, un tooltip, un esqueleto' },
   { token: '--radius-lg', cls: 'rounded-lg', role: 'lo que se toca de 36 para arriba: botón md y lg, item de nav' },
   { token: '--radius-xl', cls: 'rounded-xl', role: 'lo que se apoya en la página: una tarjeta, una fila de lista' },
-  { token: '--radius-2xl', cls: 'rounded-xl', role: 'contenedores: tarjeta, modal, popover' },
+  { token: '--radius-2xl', cls: 'rounded-2xl', role: 'lo que flota sobre un velo: un modal, un diálogo' },
   { token: '--radius-full', cls: 'rounded-full', role: 'lo que es redondo de verdad: un avatar, un punto, un pulgar' },
 ] as const
 
@@ -122,7 +122,7 @@ export function MeasureSection() {
         >
           <div className="flex flex-wrap gap-4">
             <NestDemo child="rounded-xl" label="24 − 8 = 16" verdict="bien" ok />
-            <NestDemo child="rounded-xl" label="24 con hijo de 24" verdict="curva doble" />
+            <NestDemo child="rounded-2xl" label="24 con hijo de 24" verdict="curva doble" />
             <NestDemo child="rounded-sm" label="24 con hijo de 6" verdict="dos curvas distintas" />
           </div>
         </Section>
@@ -153,7 +153,7 @@ function Value({ token }: { token: string }) {
 function NestDemo({ child, label, verdict, ok }: { child: string; label: string; verdict: string; ok?: boolean }) {
   return (
     <div className="flex flex-col gap-2">
-      <div className="w-fit rounded-xl bg-ink p-2">
+      <div className="w-fit rounded-2xl bg-ink p-2">
         <div className={`size-24 bg-canvas ${child}`} />
       </div>
       <Mono>{label}</Mono>

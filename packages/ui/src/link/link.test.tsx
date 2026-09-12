@@ -22,5 +22,8 @@ describe('Link', () => {
     render(<Link href="#">Ver todas</Link>)
     const a = screen.getByRole('link')
     expect(a).toHaveClass('text-brand-ink', 'underline')
+    // El subrayado va en el tono de la letra: en un tono más claro no se ve, y
+    // entonces la única señal vuelve a ser el color.
+    expect(a).toHaveClass('decoration-current')
   })
 })

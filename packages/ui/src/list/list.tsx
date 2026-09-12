@@ -40,7 +40,7 @@ export function ListItem({
       onClick={onClick}
       className={cx(
         'flex min-h-[72px] w-full items-center gap-4 rounded-xl px-4 py-4 text-left',
-        'transition-[background-color,box-shadow] duration-fast ease-out',
+        'transition-[background-image,background-color,box-shadow] duration-fast ease-out',
         active ? 'bg-sunken shadow-none' : 'bg-surface shadow-card',
         // El hover **levanta** en vez de teñir, y no es gusto: la fila es papel y
         // puede estar apoyada sobre el escritorio o sobre una bandeja `muted`.

@@ -151,7 +151,7 @@ export function Dashboard() {
           <section className="flex flex-col gap-4">
             <div className="flex items-center justify-between gap-4">
               <h2 className="text-reading font-semibold text-ink">Tus espacios</h2>
-              <Link href="#" className="text-body">Ver todos</Link>
+              <Link href="#folder" className="text-body">Ver todos</Link>
             </div>
             <div className="grid grid-cols-2 gap-4 sm:grid-cols-4">
               {espacios.map(e => (
@@ -174,7 +174,7 @@ export function Dashboard() {
           <div className="flex flex-col gap-3">
             <div className="flex items-center justify-between gap-4">
               <h2 className="text-reading font-semibold text-ink">Para hoy</h2>
-              <Link href="#" className="text-body">Ver todas</Link>
+              <Link href="#list" className="text-body">Ver todas</Link>
             </div>
             <List>
               {pendientes.map(t => (

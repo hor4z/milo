@@ -37,7 +37,7 @@ export function Writing() {
     >
       <Section
         title="Las reglas"
-        note="Siete, y se revisan leyendo en voz alta."
+        note="Ocho, y se revisan leyendo en voz alta."
       >
         <div className="grid gap-3 sm:grid-cols-2">
           {[

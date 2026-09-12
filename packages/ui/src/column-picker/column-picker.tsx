@@ -62,5 +62,3 @@ export function ColumnPicker({ columns, value, onValueChange, label = 'Columnas'
     </Popover>
   )
 }
-
-/** Cuántas filas caen en cada opción, que es el número que muestra el filtro. */

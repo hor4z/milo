@@ -322,7 +322,7 @@ export const propsByComponent: Record<string, ComponentDoc> = {
         "doc": "Papel sobresale y tira sombra; muted es un hueco."
       }
     ],
-    "doc": "El contenedor de radio 24."
+    "doc": "El contenedor de radio 16: lo que se apoya en la página. Lo que flota sobre un velo —un modal, un diálogo— va en 24."
   },
   "CardHeader": {
     "props": [],
