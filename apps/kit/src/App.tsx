@@ -12,6 +12,7 @@ import { ButtonStory } from './stories/button'
 import { IconButtonStory } from './stories/icon-button'
 import { TextFieldStory } from './stories/text-field'
 import { TextareaStory } from './stories/textarea'
+import { EmptyStateStory } from './stories/empty-state'
 import { SelectStory } from './stories/select'
 import { CheckboxStory } from './stories/checkbox'
 import { RadioStory } from './stories/radio'
@@ -90,6 +91,7 @@ const groups: Group[] = [
       { id: 'icon', label: 'Icon', render: () => <IconStory /> },
       { id: 'kbd', label: 'Kbd', render: () => <KbdStory /> },
       { id: 'divider', label: 'Divider', render: () => <DividerStory /> },
+      { id: 'empty-state', label: 'EmptyState', render: () => <EmptyStateStory /> },
     ],
   },
   {

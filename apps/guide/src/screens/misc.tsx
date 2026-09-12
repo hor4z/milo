@@ -14,6 +14,7 @@ export function SavedScreen() {
         </div>
       ) : (
         <EmptyState
+          icon="favorite"
           title="Todavía no guardaste nada"
           body="El corazón de una tarjeta la trae hasta acá. Sirve para juntar ideas antes de armar la próxima secuencia."
           action={<Button variant="solid" icon="explore">Ir a explorar</Button>}

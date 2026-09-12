@@ -73,6 +73,7 @@
     "history",
     "home",
     "image",
+    "inbox",
     "info",
     "inventory_2",
     "keyboard_arrow_down",
@@ -117,6 +118,7 @@
     "school",
     "science",
     "search",
+    "search_off",
     "sell",
     "send",
     "settings",
@@ -158,9 +160,9 @@
     "zoom_out"
   ],
   "font": {
-    "url": "https://fonts.gstatic.com/l/font?kit=sykO-zNym6YjUruM-QrEh7-nyTnjDwKNJ_190FjpZIvLgyidOK7BDB_Qb9vUdV6_gjDK-P3JuEXXiQX53EITjFf5yxbHx4bUZ_6-qf7E3zuTCWXbVeIInq8rQSmVrsvZhSmReV-W3lx_Fi7tbdADm1W7U-tlb_-cL0eh1xKpM9NNpyoxwcXOkoRluJB0J3PECbwlnhOCv_6Eba4R22JPp4tWQphsA29ZDr9xUNNMNDssAScCC5Z7W5CQPReQaEBLr2bYZvri6K3ZdSQQCk2vKm3UYJOqRB4FgBzJdt1W-5c&skey=70ddea8fe54d532e&v=v372",
-    "bytes": 59368,
-    "sha256": "d2a1c935b38fc67e499ac5ced574590ef5208ca95ac25dc2cdfff477d74d9ae4",
+    "url": "https://fonts.gstatic.com/l/font?kit=sykO-zNym6YjUruM-QrEh7-nyTnjDwKNJ_190FjpZIvLgyidOK7BDB_Qb9vUdV6_gjDK-P3JuEXXiQX53EITjFf5yxbHx4bUZ_6-qf7E3zuTCWXbVeIIka8rQSmVrsvZhSmReV-W3lx_Fi7tbdADm1W7U-tlb_-cJ0eh1xKpM9NNpyoxwcXOkoRluJB0J3PECbwlnhOCv_6Eba4Re64fs0cbNpL8Q9hrly9B_E-zMz2AGi7La8V9WJkADPmKUklCSE29AGEfAq9UAVAj0nsHsc6NzN1qGELDStBcLxdcB_Ld&skey=70ddea8fe54d532e&v=v372",
+    "bytes": 60084,
+    "sha256": "4c1d2bb523a9e02bc6890a682897c19f0ef88851d1a8daf4388b04cfdff66da2",
     "fetchedAt": "2026-09-12"
   }
 }

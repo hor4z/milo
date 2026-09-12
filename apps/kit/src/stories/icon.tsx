@@ -89,6 +89,8 @@ export function IconStory() {
         {visibles.length === 0 ? (
           <div className="mt-4">
             <EmptyState
+              size="sm"
+              icon="search_off"
               title="Ningún icono con eso"
               body={`Los tags son los de Google y están en inglés. Si no está en el set, buscalo en el catálogo completo: npm run icons -w @melu/ui -- search ${q.trim() || '…'}`}
             />

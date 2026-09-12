@@ -284,6 +284,8 @@ export function TableStory() {
               <tr>
                 <td colSpan={visibles.length} className="px-6 py-10">
                   <EmptyState
+                    size="sm"
+                    icon="search_off"
                     title="Ninguna actividad con eso"
                     body="Probá con otras palabras, o sacá alguno de los filtros puestos."
                     action={<FilterReset onClick={limpiar}>Limpiar los filtros</FilterReset>}
