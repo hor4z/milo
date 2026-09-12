@@ -1,8 +1,8 @@
 import { useState } from 'react'
 import {
-  Avatar, AvatarGroup, BarChart, Badge, Button, Card, Chip, Folder, Icon, IconButton, List,
-  ListItem, Progress, Segmented, Table, TableBody, TableCell, TableHead, TableHeader,
-  TableHint, TableNum, TableRow, TableTitle, Tooltip, useToast, type IconName,
+  Avatar, AvatarGroup, BarChart, Badge, Button, Card, Chip, Dropdown, Folder, Icon, IconButton, Indicator,
+  List, ListItem, Progress, Segmented, SettingsModal, Table, TableBody, TableCell, TableHead,
+  TableHeader, TableHint, TableNum, TableRow, TableTitle, Tooltip, useToast, type IconName,
 } from '@milo/ui'
 
 const face = (n: number) => `/avatars/${String(n).padStart(2, '0')}.webp`
@@ -30,6 +30,13 @@ const rows = [
 
 const tone = { 'Abierta': 'green', 'Corregida': 'blue' } as const
 
+const yo = {
+  name: 'Valeria Ochoa',
+  email: 'valeria.ochoa@ejemplo.edu',
+  alias: 'Profe Vale',
+  school: 'Escuela N.º 12 · Turno mañana',
+}
+
 const espacios = [
   { label: 'Matemática', meta: '4.º A · 18 archivos', color: 'var(--space-blue)', avatars: [p('Ana Pérez', 1), p('Bruno Díaz', 2), p('Carla Sosa', 3)] },
   { label: 'Ciencias', meta: '5.º B · 24 archivos', color: 'var(--space-green)', avatars: [p('Franco Gil', 6), p('Hugo Paz', 8)] },
@@ -44,11 +51,53 @@ const pendientes = [
 ] as const
 
 export function Dashboard() {
+  const [settings, setSettings] = useState(false)
   const [range, setRange] = useState('semana')
   const { toast } = useToast()
 
   return (
     <div className="flex flex-col gap-6">
+      {/* La barra de la pantalla: el buscador a la izquierda, los avisos y la
+          cuenta a la derecha. Mide lo que dice `--topbar-h` y se despega del
+          contenido con una línea, no con relieve — es el borde de la página,
+          no una pieza apoyada encima. */}
+      <div className="-mx-5 -mt-5 mb-2 flex h-20 items-center gap-4 border-b border-line px-5">
+        <label className="field flex h-9 w-full max-w-[320px] cursor-text items-center gap-2 rounded-md border border-search-line bg-search px-3">
+          <Icon name="search" size={16} className="icon-muted shrink-0" />
+          <input
+            className="min-w-0 flex-1 bg-transparent text-body font-medium text-ink outline-none placeholder:text-ink-placeholder"
+            placeholder="Buscar una actividad o un espacio"
+            aria-label="Buscar"
+          />
+        </label>
+
+        <div className="ml-auto flex items-center gap-2">
+          <Avisos />
+          <Dropdown
+            align="end"
+            width={224}
+            trigger={({ onClick, ref, 'aria-expanded': expanded }) => (
+              <button
+                ref={ref}
+                type="button"
+                onClick={onClick}
+                aria-expanded={expanded}
+                aria-label={`Cuenta de ${yo.name}`}
+                className="flex items-center gap-2 rounded-full transition-shadow duration-fast ease-out hover:shadow-card"
+              >
+                <Avatar name={yo.name} src={face(4)} size={34} />
+              </button>
+            )}
+            items={[
+              { label: 'Ajustes', icon: 'settings', shortcut: ',', onSelect: () => setSettings(true) },
+              { label: 'Mis espacios', icon: 'folder', onSelect: () => {} },
+              { label: 'Ayuda', icon: 'help', onSelect: () => {} },
+              { label: 'Cerrar sesión', icon: 'logout', danger: true, onSelect: () => {} },
+            ]}
+          />
+        </div>
+      </div>
+
       <header className="flex flex-wrap items-end justify-between gap-4">
         <div className="flex flex-col gap-2">
           <h1 className="text-display font-bold text-ink">Tu semana</h1>
@@ -75,6 +124,7 @@ export function Dashboard() {
           >
             Nueva actividad
           </Button>
+
         </div>
       </header>
 
@@ -210,7 +260,29 @@ export function Dashboard() {
           </Card>
         ))}
       </div>
+
+      <SettingsModal open={settings} onClose={() => setSettings(false)} user={yo} />
     </div>
+  )
+}
+
+function Avisos() {
+  return (
+    <Dropdown
+      align="end"
+      width={300}
+      trigger={({ onClick, ref, 'aria-expanded': expanded }) => (
+        <Indicator dot label="Hay avisos sin leer">
+          <IconButton ref={ref} icon="notifications" label="Avisos" size="md" variant="ghost" onClick={onClick} aria-expanded={expanded} />
+        </Indicator>
+      )}
+      items={[
+        { label: '24 entregas sin corregir', icon: 'inbox', onSelect: () => {} },
+        { label: 'Nadia Britos pidió entrar a Lengua', icon: 'person_add', onSelect: () => {} },
+        { label: '«Fracciones equivalentes» vence mañana', icon: 'schedule', onSelect: () => {} },
+        { label: 'Marcar todo como leído', icon: 'check', onSelect: () => {} },
+      ]}
+    />
   )
 }
 

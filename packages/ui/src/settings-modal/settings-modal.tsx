@@ -52,7 +52,7 @@ export function SettingsModal({ open, onClose, user }: {
                 onClick={() => setSection(s.id)}
                 aria-current={active ? 'page' : undefined}
                 className={cx(
-                  'flex h-10 items-center gap-3 rounded-lg border pr-2 pl-[3px] text-left text-body font-semibold',
+                  'flex h-10 items-center gap-3 rounded-lg border pr-2 pl-[calc((2.5rem-2rem)/2)] text-left text-body font-semibold',
                   'transition-[background-color,border-color,color] duration-fast ease-out',
                   active
                     ? 'border-brand-border bg-brand-soft text-brand-ink'

@@ -4,14 +4,14 @@ El sistema de interfaz de **milo**: la identidad en tokens, las piezas que la us
 donde se ve todo funcionando. No es una lámina de estilos — cada pieza de acá es el componente
 real, con su teclado, sus estados y sus tests.
 
-El UI kit —las 48 piezas— es **una parte** del sistema, no el sistema. Acá adentro no vive
+El UI kit —las 49 piezas— es **una parte** del sistema, no el sistema. Acá adentro no vive
 producto: este repo es del design system y de nada más.
 
 ```sh
 npm install
 npm run dev        # el sitio · http://localhost:5190
 npm run typecheck  # todo el monorepo de una
-npm test           # 292 tests
+npm test           # 299 tests
 npm run props      # regenera la tabla de props desde los tipos
 ```
 
@@ -23,7 +23,7 @@ estados · iconos · cómo se escribe · inclusión.
 
 ```
 packages/tokens/   la identidad, en CSS puro: primitives · semantic · scales
-packages/ui/       el UI kit: 48 piezas, una carpeta cada una, con su test al lado
+packages/ui/       el UI kit: 49 piezas, una carpeta cada una, con su test al lado
 apps/kit/          el sitio: los fundamentos y una vista por pieza
 ```
 

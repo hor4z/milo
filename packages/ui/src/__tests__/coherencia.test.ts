@@ -73,8 +73,22 @@ describe('coherencia del sistema', () => {
   it('el espaciado sale de la grilla', () => {
     // Once pasos: 2 4 6 8 12 16 20 24 32 40 48. Mira solo el aire — las alturas
     // de pieza salen de la escalera de controles y no de acá.
-    const fuera = /(?<![\w-])-?(p|px|py|pt|pb|pl|pr|m|mx|my|mt|mb|ml|mr|gap|gap-x|gap-y|space-y|space-x)-(1\.5|2\.5|3\.5|7|9|11|13|14|15|\[)(?![\w.])/
+    const eje = 'p|px|py|pt|pb|pl|pr|m|mx|my|mt|mb|ml|mr|gap|gap-x|gap-y|space-y|space-x'
+    const fuera = new RegExp(`(?<![\\w-])-?(${eje})-(1\\.5|2\\.5|3\\.5|7|9|11|13|14|15)(?![\\w.])`)
     const offenders = sources.filter(f => fuera.test(f.text)).map(f => f.name)
+    expect(offenders).toEqual([])
+  })
+
+  it('un espaciado arbitrario va con un token adentro, no con un número', () => {
+    // El guardián de arriba miraba solo los escalones con nombre, así que
+    // `pl-[30px]` pasaba por al lado. Un `var()` o un `calc()` sí valen: no son
+    // números mágicos, son una derivación que se lee. El píxel suelto no.
+    const eje = 'p|px|py|pt|pb|pl|pr|m|mx|my|mt|mb|ml|mr|gap|gap-x|gap-y|space-y|space-x'
+    const magico = new RegExp(`(?<![\\w-])-?(${eje})-\\[(?!var\\(|calc\\()`, 'g')
+    const offenders: string[] = []
+    for (const f of sources) {
+      for (const m of f.text.matchAll(magico)) offenders.push(`${f.name}: ${f.text.slice(m.index, m.index! + 18)}`)
+    }
     expect(offenders).toEqual([])
   })
 

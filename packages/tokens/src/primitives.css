@@ -221,6 +221,10 @@
   --accent-500: #ec4c07;
   --accent-600: #c53f05;
   --accent-050: #fdf0ea;
+  /* El relleno del acento cuando lleva texto encima —el contador de una campana—,
+     anclado como el azul y el rojo: el escalón donde el blanco llega a 4.5:1. El
+     500 da 3.75 y un contador es texto de 11. */
+  --accent-fill: #db3b00;
 
   /* Los de estado siguen la misma regla, y eso les da algo que antes no tenían:
      los tres pesan lo mismo. Con un verde apagado y un rojo fuerte, «terminado»
@@ -239,15 +243,16 @@
   --warn-500: #aa7c05;
   --warn-700: #7e5c04;
   --warn-050: #fdf8ea;
-  --bad-500: #f93630;
-  /* El relleno del botón que borra, **anclado igual que el azul**: es el rojo
-     donde el blanco encima llega a 4.5:1. Con el 500 daba 3.75:1, y el texto de
-     un botón no es texto grande para WCAG. El 500 se queda para lo que no lleva
-     texto encima —el glifo de un estado, el borde de un campo inválido— y este
-     es el que se pinta con una palabra arriba. */
+  /* El rojo del sistema son tres pasos y cada uno tiene su trabajo: el `fill` es
+     el relleno con una palabra encima, el `050` el papel de un aviso y el `700`
+     la tinta que va sobre ese papel. El `fill` está **anclado igual que el
+     azul**: es el rojo donde el blanco encima llega a 4.5:1. Con el 500 que
+     había daba 3.75, y el texto de un botón no es texto grande para WCAG.
+
+     El 500 y el 600 se fueron con el anclaje: quedaron sin un solo uso, y un
+     token que no usa nadie es una invitación a volver a elegir a ojo. */
   --bad-fill: #e81f20;
   --bad-fill-hover: #ce010f;
-  --bad-600: #d81e18;
   --bad-700: #a81713;
   --bad-050: #fdeaea;
   /* El borde de un aviso. Existe porque el aviso dejó de ser blanco: con el
@@ -365,6 +370,7 @@
 
   --accent-500: #f95c19;
   --accent-600: #fa753c;
+  --accent-fill: #da3d00;
   --accent-050: #2a1811;
 
   --ok-500: #05b646;
@@ -373,10 +379,8 @@
   --warn-500: #c89106;
   --warn-700: #e3ab1f;
   --warn-050: #352c14;
-  --bad-500: #fa534e;
   --bad-fill: #dd3636;
   --bad-fill-hover: #c42529;
-  --bad-600: #f7726e;
   --bad-700: #fb827e;
   --bad-050: #351816;
   --ok-border: #14491f;

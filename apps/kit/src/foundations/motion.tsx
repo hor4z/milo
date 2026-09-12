@@ -128,10 +128,12 @@ function Probador() {
           <Button variant="raised" onClick={() => setAbierto(v => !v)}>
             {abierto ? 'Cerrar' : 'Abrir'}
           </Button>
-          <label className="flex items-center gap-2 text-body text-ink">
+          <span className="flex items-center gap-2 text-body text-ink">
             <Switch checked={lento} onChange={setLento} label="Usar duration-normal" />
-            <span>Usar <code className="font-mono">duration-normal</code></span>
-          </label>
+            <button type="button" onClick={() => setLento(v => !v)} className="rounded-sm">
+              Usar <code className="font-mono">duration-normal</code>
+            </button>
+          </span>
         </div>
         <div className="flex min-h-[120px] items-start">
           <div

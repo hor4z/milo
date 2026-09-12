@@ -47,6 +47,7 @@ import { TabsStory } from './stories/tabs'
 import { AccordionStory } from './stories/accordion'
 import { BreadcrumbStory } from './stories/breadcrumb'
 import { BadgeStory } from './stories/badge'
+import { IndicatorStory } from './stories/indicator'
 import { ProgressStory } from './stories/progress'
 import { SkeletonStory } from './stories/skeleton'
 import { ConfirmStory } from './stories/confirm-dialog'
@@ -118,6 +119,7 @@ const groups: Group[] = [
       { id: 'table', label: 'Table', alias: 'tabla grilla filas columnas datos', render: () => <TableStory /> },
       { id: 'list', label: 'List', alias: 'lista filas acciones', render: () => <ListStory /> },
       { id: 'bar-chart', label: 'BarChart', alias: 'gráfico barras chart datos progreso', render: () => <ChartStory /> },
+      { id: 'indicator', label: 'Indicator', alias: 'indicador marca punto contador aviso notificación campana', render: () => <IndicatorStory /> },
       { id: 'badge', label: 'Badge', alias: 'etiqueta marca estado', render: () => <BadgeStory /> },
       { id: 'progress', label: 'Progress', alias: 'progreso barra porcentaje avance', render: () => <ProgressStory /> },
       { id: 'skeleton', label: 'Skeleton', alias: 'esqueleto carga hueco placeholder', render: () => <SkeletonStory /> },

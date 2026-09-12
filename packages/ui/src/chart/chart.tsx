@@ -148,7 +148,7 @@ function ChartTooltip({ datum, style, align = 'center', clamped }: {
         <span className="tabular text-meta font-medium text-ink-muted">de {datum.total}</span>
         {datum.detail}
       </div>
-      <div className="pl-[11px] text-meta font-medium text-ink-muted">{datum.caption ?? datum.label}</div>
+      <div className="pl-[calc(22px/2)] text-meta font-medium text-ink-muted">{datum.caption ?? datum.label}</div>
     </div>
   )
 }

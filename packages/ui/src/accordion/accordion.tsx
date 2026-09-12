@@ -24,7 +24,7 @@ export function AccordionItem({ summary, children, defaultOpen, className }: Acc
         />
         <span className="min-w-0 flex-1">{summary}</span>
       </summary>
-      <div className="pb-4 pl-[30px] text-body font-medium text-ink-muted">{children}</div>
+      <div className="pb-4 pl-[calc(18px+var(--spacing)*3)] text-body font-medium text-ink-muted">{children}</div>
     </details>
   )
 }

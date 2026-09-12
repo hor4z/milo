@@ -15,8 +15,9 @@ export const control = {
   lg: { box: 'h-10', square: 'size-10', px: 'px-6', text: 'text-reading', gap: 'gap-2', radius: 'rounded-lg', icon: 20, dot: 'top-[7px] right-[7px]' },
 } as const
 
+/** Los campos van en el cuerpo de la interfaz y no un escalón arriba como el botón: lo que se escribe tiene que medir lo mismo que lo que se lee alrededor. En táctil sube a 16, y eso lo hace `theme.css`. */
 export const fieldSizes = {
   sm: 'h-8 gap-2 rounded-md px-3 text-body',
-  md: 'h-9 gap-2 rounded-lg px-3 text-reading',
-  lg: 'h-10 gap-2 rounded-lg px-3 text-reading',
+  md: 'h-9 gap-2 rounded-lg px-3 text-body',
+  lg: 'h-10 gap-2 rounded-lg px-3 text-body',
 } as const

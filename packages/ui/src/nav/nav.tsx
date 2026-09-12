@@ -10,7 +10,7 @@ export function navItemClass({
   return cx(
     'flex h-10 items-center gap-3 rounded-lg text-left text-body',
     'transition-[background-color,box-shadow] duration-fast ease-out',
-    collapsed ? 'justify-center px-0' : 'pr-3 pl-[3px]',
+    collapsed ? 'justify-center px-0' : 'pr-3 pl-[calc((var(--nav-item-h)-34px)/2)]',
     // Orientación va en azul; preferencia, en relieve. La regla está en CLAUDE.md.
     active
       ? 'bg-brand-soft font-semibold text-brand-ink shadow-[0_0_0_1px_var(--brand-border)]'

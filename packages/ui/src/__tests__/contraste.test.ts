@@ -78,6 +78,32 @@ describe('el relleno que lleva texto encima llega a AA', () => {
   }
 })
 
+describe('el hover no deshace el anclaje', () => {
+  // El relleno del CTA está en el escalón exacto donde el blanco llega a 4.5:1,
+  // así que no tiene aire para arriba. Un `filter: brightness(1.06)` en hover lo
+  // dejaba en 4.07 todo el tiempo que el puntero estaba encima — sobre el botón
+  // que más se mira. El hover **oscurece**, y esto lo mide.
+  const theme = readFileSync(join(import.meta.dirname, '../theme.css'), 'utf8')
+
+  it('ningún relleno con texto encima se aclara al pasar el mouse', () => {
+    const reglas = [...theme.matchAll(/\.raised-(brand|solid)[^{]*:hover[^{]*\{([^}]*)\}/g)]
+    const aclaran = reglas
+      .filter(m => /brightness\(1\.[1-9]|brightness\(1\.0[1-9]/.test(m[2]))
+      .map(m => m[1])
+    expect(aclaran).toEqual([])
+  })
+
+  it('el degradado del hover es más oscuro que el de reposo', () => {
+    for (const t of ['light', 'dark'] as const) {
+      const paso = (n: string) => value(n, t)!
+      const reposo = t === 'light' ? paso('--blue-600') : paso('--blue-400')
+      const hover = t === 'light' ? paso('--blue-700') : paso('--blue-300')
+      expect(ratio('#ffffff', hover), t).toBeGreaterThan(ratio('#ffffff', reposo))
+      expect(ratio('#ffffff', hover), t).toBeGreaterThanOrEqual(4.5)
+    }
+  })
+})
+
 describe('el texto sugerido de un campo se lee', () => {
   // El paso más claro que todavía lleva texto: el que está más cerca de romperse.
   for (const theme of ['light', 'dark'] as const) {

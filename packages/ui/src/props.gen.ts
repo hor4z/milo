@@ -988,7 +988,7 @@ export const propsByComponent: Record<string, ComponentDoc> = {
         "name": "dot",
         "type": "boolean",
         "required": false,
-        "doc": "El puntito de \"hay algo nuevo\", arriba a la derecha."
+        "doc": "El puntito de «hay algo nuevo», adentro del botón. Para un contador o un glifo, `Indicator`."
       },
       {
         "name": "active",
@@ -1004,6 +1004,53 @@ export const propsByComponent: Record<string, ComponentDoc> = {
       }
     ],
     "html": "button"
+  },
+  "Indicator": {
+    "props": [
+      {
+        "name": "children",
+        "type": "ReactNode",
+        "required": true,
+        "doc": "Lo que se marca: un icono, un botón, un avatar, una tarjeta."
+      },
+      {
+        "name": "dot",
+        "type": "boolean",
+        "required": false,
+        "doc": "El punto pelado. Es el default cuando no hay nada más que decir."
+      },
+      {
+        "name": "count",
+        "type": "number",
+        "required": false,
+        "doc": "Un número. En 0 no dibuja nada y arriba de 99 dice `99+`."
+      },
+      {
+        "name": "icon",
+        "type": "IconName",
+        "required": false,
+        "doc": "Un glifo de 10 en vez del punto: un check, un candado, una alerta."
+      },
+      {
+        "name": "tone",
+        "type": "keyof typeof tones",
+        "required": false,
+        "def": "'accent'",
+        "doc": "El color de la marca."
+      },
+      {
+        "name": "label",
+        "type": "string",
+        "required": false,
+        "doc": "Qué significa la marca, para quien no la ve. Sin esto la marca es decorativa."
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "required": false
+      }
+    ],
+    "doc": "Una marca chica pegada a la esquina de otra cosa: un punto, un contador o un glifo. Lo que marca sigue siendo lo que se toca."
   },
   "Kbd": {
     "props": [

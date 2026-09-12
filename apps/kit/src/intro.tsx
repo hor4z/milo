@@ -26,7 +26,7 @@ export function Intro({ go, views }: { go: (id: string) => void; views: number }
         </div>
 
         <div className="relative flex flex-col gap-8 px-8 py-12">
-          <Badge tone="info" icon="bolt" className="self-start">Instrument Sans · Material Symbols · Tailwind v4</Badge>
+          <Badge tone="info" icon="bolt" className="self-start">Inter · Material Symbols · Tailwind v4</Badge>
 
           <div className="flex flex-col gap-4">
             <h1 className="max-w-[20ch] text-display font-bold text-ink">
@@ -44,7 +44,7 @@ export function Intro({ go, views }: { go: (id: string) => void; views: number }
           </div>
 
           <dl className="mt-1 flex flex-wrap gap-x-8 gap-y-3 border-t border-line pt-6">
-            {[[String(views), 'vistas'], ['292', 'tests'], ['160', 'iconos'], ['2', 'temas']].map(([n, l]) => (
+            {[[String(views), 'vistas'], ['299', 'tests'], ['160', 'iconos'], ['2', 'temas']].map(([n, l]) => (
               <div key={l} className="flex items-baseline gap-2">
                 <dt className="tabular text-title font-bold text-ink">{n}</dt>
                 <dd className="text-body font-medium text-ink-muted">{l}</dd>

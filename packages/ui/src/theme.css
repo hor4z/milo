@@ -159,6 +159,8 @@
   --color-accent: var(--accent);
   --color-accent-hover: var(--accent-hover);
   --color-accent-subtle: var(--accent-subtle);
+  --color-accent-fill: var(--accent-fill);
+  --color-on-accent: var(--on-accent);
 
   --color-brand-subtle: var(--brand-subtle);
   --color-brand-ink: var(--brand-ink);
@@ -243,6 +245,9 @@
   --radius-lg: var(--radius-lg);
   --radius-xl: var(--radius-xl);
   --radius-2xl: var(--radius-2xl);
+  /* `rounded-full` es una utilidad estática de Tailwind, así que sin esta línea
+     el token existe, el kit lo muestra y la clase escribe otro número. */
+  --radius-full: var(--radius-full);
 
   /* El relieve entra a Tailwind como sombra: `shadow-raised`, `shadow-inset`. */
   --shadow-raised: var(--relief-raised);
@@ -379,10 +384,32 @@ th { font-weight: var(--font-weight-semibold); }
    dentro de un `Card` dentro de un `Modal`— y preguntárselo sería la prop número
    catorce. La superficie lo sabe sola, y la herencia de custom properties hace
    el resto. */
+/* **En táctil el campo sube a 16, y no es una preferencia estética.** Safari en
+   iOS hace zoom sobre la página al enfocar un campo cuya letra mide menos de 16,
+   y ese zoom no se deshace solo: la persona queda con la pantalla corrida a la
+   mitad de un formulario. La salida conocida —`maximum-scale=1`— apaga el pinch
+   para todo el mundo, así que no es una salida.
+
+   Con `pointer: coarse` el que paga los 2px de más es solo quien iba a sufrir el
+   zoom, y en un escritorio el campo sigue midiendo lo mismo que el texto que lo
+   rodea. Va sobre el elemento que escribe y no sobre la caja, porque lo que
+   dispara el zoom es la letra del `input`. */
+@media (pointer: coarse) {
+  .field input,
+  .field textarea,
+  input.field-focus,
+  textarea.field-focus {
+    font-size: var(--type-reading);
+    line-height: var(--type-reading-lh);
+  }
+}
+
 .bg-surface,
 .bg-popover {
   --field-bg: var(--field-bg-on-surface);
   --field-bg-hover: var(--field-bg-on-surface-hover);
+  --search-bg: var(--search-bg-on-surface);
+  --search-bg-hover: var(--search-bg-on-surface-hover);
 }
 
 /* Ninguna receta de relieve escribe `box-shadow` directo: escriben `--relief`,
@@ -423,8 +450,14 @@ th { font-weight: var(--font-weight-semibold); }
   background: var(--grad-brand);
   box-shadow: var(--relief);
 }
-.raised-brand:hover { filter: brightness(1.06) saturate(1.04); }
-.raised-brand:active { filter: brightness(0.94); --relief: var(--relief-brand-pressed); }
+/* El hover **oscurece**, no aclara, y esto no es gusto: el relleno del CTA está
+   anclado al escalón exacto donde el blanco encima llega a 4.5:1, así que no
+   tiene aire para arriba. Con el `brightness(1.06)` que había acá, el botón
+   caía a 4.07:1 todo el tiempo que el puntero estaba encima — justo sobre el
+   botón que más se mira. Se aclaraba el único color del sistema que no se
+   podía aclarar. */
+.raised-brand:hover { background: var(--grad-brand-hover); }
+.raised-brand:active { background: var(--grad-brand-hover); --relief: var(--relief-brand-pressed); }
 
 /* Un toggle activo: hundido mientras su panel está abierto. */
 .pressed { --relief: var(--relief-pressed); box-shadow: var(--relief); }

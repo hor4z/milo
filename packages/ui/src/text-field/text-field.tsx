@@ -39,7 +39,7 @@ export function TextField({ icon, suffix, size = 'lg', className, ref, ...rest }
       <input
         className={cx(
           'h-full min-w-0 flex-1 bg-transparent font-medium text-ink outline-none placeholder:text-ink-placeholder',
-          size === 'sm' ? '-mx-2 px-2' : '-mx-2 px-2',
+          '-mx-2 px-2',
         )}
         {...field}
         {...rest}
