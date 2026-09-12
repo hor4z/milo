@@ -172,7 +172,7 @@ function Vivo() {
   return (
     <Section
       title="Verlos"
-      note="Pasá el mouse, hacé Tab, apretá. Los mismos tres controles con el interruptor puesto en deshabilitado."
+      note="Pasá el mouse, hacé Tab, apretá. Uno que manda, uno que acompaña y uno que casi no está — y los tres con el interruptor puesto en deshabilitado. `solid` no aparece acá porque es el mismo rol que `brand`: va uno o el otro, nunca los dos en la misma pantalla."
     >
       <Card className="flex flex-col gap-5 p-6">
         <span className="flex w-fit items-center gap-2 text-body text-ink">
@@ -180,7 +180,6 @@ function Vivo() {
           <button type="button" onClick={() => setOff(v => !v)} className="rounded-sm">Deshabilitar todo</button>
         </span>
         <div className="flex flex-wrap items-center gap-3">
-          <Button variant="solid" disabled={off}>Guardar</Button>
           <Button variant="brand" disabled={off}>Publicar</Button>
           <Button variant="raised" disabled={off}>Cancelar</Button>
           <Button variant="ghost" disabled={off}>Descartar</Button>
