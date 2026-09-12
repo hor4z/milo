@@ -13,7 +13,7 @@ function Brand({ compact }: { compact?: boolean }) {
         <path d="M9 22V13.5a4.5 4.5 0 019 0V22" stroke="var(--on-solid)" strokeWidth="2.2" strokeLinecap="round" />
         <path d="M18 22V13.5A4.5 4.5 0 0122.5 9" stroke="var(--accent)" strokeWidth="2.2" strokeLinecap="round" />
       </svg>
-      {!compact && <span className="text-[19px] font-semibold tracking-[-0.03em]">melu</span>}
+      {!compact && <span className="text-lg font-semibold tracking-tight">melu</span>}
     </Link>
   )
 }

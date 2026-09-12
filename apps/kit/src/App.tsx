@@ -197,7 +197,7 @@ export function App() {
 
             {filtrados.map(g => (
               <div key={g.label} className="mt-5 first:mt-4">
-                <div className="px-2.5 pb-1.5 text-[10px] font-semibold tracking-[0.06em] text-ink-muted uppercase">
+                <div className="px-2.5 pb-1.5 text-2xs font-semibold tracking-wide text-ink-muted uppercase">
                   {g.label}
                 </div>
                 <div className="flex flex-col gap-px">

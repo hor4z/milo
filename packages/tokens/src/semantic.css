@@ -78,6 +78,12 @@
 
   --brand-subtle: var(--blue-050);
   --brand-ink: var(--blue-600);
+
+  --space-orange: #e2761b;
+  --space-green: #3f9c5f;
+  --space-blue: #3b7dd8;
+  --space-purple: #8b5cd6;
+  --space-pink: #d1568f;
   --ok: var(--ok-500);
   --ok-subtle: var(--ok-050);
   --warn: var(--warn-500);
@@ -319,6 +325,12 @@
   --track: var(--shade-09-a11);
   --brand-subtle: var(--blue-050);
   --brand-ink: var(--blue-400);
+
+  --space-orange: #f0913f;
+  --space-green: #55b377;
+  --space-blue: #5b96e8;
+  --space-purple: #a37ce6;
+  --space-pink: #e074a4;
   --search-bg: var(--shade-02);
   --search-bg-hover: var(--shade-03);
   --search-border: var(--border-strong);

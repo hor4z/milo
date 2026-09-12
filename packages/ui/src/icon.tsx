@@ -33,11 +33,11 @@ export function Icon({ name, size = 20, className, weight }: {
 
 /** La excepción, y la única pieza que sigue siendo un SVG dibujado a mano. */
 const folderColors = {
-  orange: '#e2761b',
-  green: '#3f9c5f',
-  blue: '#3b7dd8',
-  purple: '#8b5cd6',
-  pink: '#d1568f',
+  orange: 'var(--space-orange)',
+  green: 'var(--space-green)',
+  blue: 'var(--space-blue)',
+  purple: 'var(--space-purple)',
+  pink: 'var(--space-pink)',
   ink: 'var(--text)',
 } as const
 

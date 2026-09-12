@@ -238,8 +238,8 @@ export function Ramp({ tokens }: { tokens: readonly string[] }) {
       <div className="flex border-t border-line">
         {tokens.map(t => (
           <div key={t} className="min-w-0 flex-1 px-1.5 py-2 text-center">
-            <code className="block truncate font-mono text-[10px] text-ink-muted">{t.replace('--', '')}</code>
-            <code className="block truncate font-mono text-[10px] text-ink">{vals[t]}</code>
+            <code className="block truncate font-mono text-2xs text-ink-muted">{t.replace('--', '')}</code>
+            <code className="block truncate font-mono text-2xs text-ink">{vals[t]}</code>
           </div>
         ))}
       </div>
