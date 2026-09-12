@@ -52,6 +52,7 @@ export function ChipStory() {
         <A11y items={[
           'Sin onClick ni onRemove es un <span>: no entra en el orden de tabulación algo que no hace nada.',
           'La cruz de quitar es un botón con su propio nombre, así que se puede usar con el teclado.',
+          'Un chip que se toca y se saca son dos botones hermanos y no uno adentro del otro: anidados, tocar la cruz disparaba también el click del chip.',
           'El color nunca es la única marca: lo que identifica al chip es su texto.',
         ]} />
       </Section>
