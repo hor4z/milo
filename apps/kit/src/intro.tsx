@@ -29,7 +29,7 @@ export function Intro({ go, views }: { go: (id: string) => void; views: number }
           <div className="absolute -bottom-24 -left-10 size-64 rounded-full bg-accent/10 blur-3xl" />
         </div>
 
-        <div className="relative flex flex-col gap-7 px-9 py-11">
+        <div className="relative flex flex-col gap-8 px-8 py-12">
           <Badge tone="info" icon="bolt" className="self-start">Instrument Sans · Material Symbols · Tailwind v4</Badge>
 
           <div className="flex flex-col gap-4">
@@ -42,12 +42,12 @@ export function Intro({ go, views }: { go: (id: string) => void; views: number }
             </p>
           </div>
 
-          <div className="flex flex-wrap items-center gap-2.5">
+          <div className="flex flex-wrap items-center gap-2">
             <Button variant="solid" icon="arrow_forward" onClick={() => go('principles')}>Ver los principios</Button>
             <Button variant="raised" icon="dashboard" onClick={() => go('dashboard')}>Ver el dashboard</Button>
           </div>
 
-          <dl className="mt-1 flex flex-wrap gap-x-9 gap-y-3 border-t border-line pt-6">
+          <dl className="mt-1 flex flex-wrap gap-x-8 gap-y-3 border-t border-line pt-6">
             {[[String(views), 'vistas'], ['273', 'tests'], ['160', 'iconos'], ['2', 'temas']].map(([n, l]) => (
               <div key={l} className="flex items-baseline gap-2">
                 <dt className="tabular text-title font-bold text-ink">{n}</dt>
@@ -79,7 +79,7 @@ export function Intro({ go, views }: { go: (id: string) => void; views: number }
 
       <section className="flex flex-col gap-4">
         <div className="flex items-end justify-between gap-4">
-          <div className="flex flex-col gap-1.5">
+          <div className="flex flex-col gap-2">
             <h2 className="text-title font-semibold text-ink">Una muestra</h2>
             <p className="max-w-[70ch] text-body font-medium text-ink-muted">
               Las mismas piezas que hay en el riel, apoyadas juntas. Si algo de acá no se ve como el resto,
@@ -117,7 +117,7 @@ export function Intro({ go, views }: { go: (id: string) => void; views: number }
             </Card>
 
             <Card className="flex items-center justify-between gap-4 p-5">
-              <div className="flex items-center gap-2.5">
+              <div className="flex items-center gap-2">
                 <AvatarGroup people={[
                   { name: 'Ana Pérez', src: face(1) },
                   { name: 'Bruno Díaz', src: face(2) },

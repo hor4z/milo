@@ -23,7 +23,7 @@ export function EmptyStateStory() {
             />
           </Demo>
           <Demo label="sm · adentro de una pieza">
-            <div className="rounded-md bg-surface ring-1 ring-line">
+            <div className="rounded-lg bg-surface ring-1 ring-line">
               <EmptyState
                 size="sm"
                 icon="search_off"

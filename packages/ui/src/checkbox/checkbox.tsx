@@ -32,7 +32,7 @@ export function Checkbox({
       disabled={disabled}
       onClick={() => onChange(!checked)}
       className={cx(
-        'inline-flex size-[18px] shrink-0 items-center justify-center rounded-xs',
+        'inline-flex size-[18px] shrink-0 items-center justify-center rounded-sm',
         'transition-[background-color,box-shadow] duration-fast ease-out',
         'disabled:opacity-45 disabled:pointer-events-none',
         on ? 'bg-brand text-on-brand' : 'inset-relief bg-muted text-on-brand',

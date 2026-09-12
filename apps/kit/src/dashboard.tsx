@@ -1,8 +1,8 @@
 import { useState } from 'react'
 import {
-  Avatar, AvatarGroup, BarChart, Badge, Button, Card, Chip, Icon, IconButton, Progress,
-  Segmented, Table, TableBody, TableCell, TableHead, TableHeader, TableHint, TableNum,
-  TableRow, TableTitle, Tooltip, useToast, type IconName,
+  Avatar, AvatarGroup, BarChart, Badge, Button, Card, Chip, Folder, Icon, IconButton, List,
+  ListItem, Progress, Segmented, Table, TableBody, TableCell, TableHead, TableHeader,
+  TableHint, TableNum, TableRow, TableTitle, Tooltip, useToast, type IconName,
 } from '@milo/ui'
 
 const face = (n: number) => `/avatars/${String(n).padStart(2, '0')}.webp`
@@ -30,6 +30,19 @@ const rows = [
 
 const tone = { 'Abierta': 'green', 'Corregida': 'blue' } as const
 
+const espacios = [
+  { label: 'Matemática', meta: '4.º A · 18 archivos', color: 'var(--space-blue)', avatars: [p('Ana Pérez', 1), p('Bruno Díaz', 2), p('Carla Sosa', 3)] },
+  { label: 'Ciencias', meta: '5.º B · 24 archivos', color: 'var(--space-green)', avatars: [p('Franco Gil', 6), p('Hugo Paz', 8)] },
+  { label: 'Lengua', meta: '6.º · 9 archivos', color: 'var(--space-purple)', avatars: [p('Irene Lopez'), p('Julián Cruz')] },
+  { label: 'Sociales', meta: '5.º A · 12 archivos', color: 'var(--space-orange)', avatars: [p('Mora Tello', 2), p('Olivia Rey', 4)] },
+] as const
+
+const pendientes = [
+  { icon: 'edit', color: 'orange', title: 'Corregir «El sistema solar»', hint: '24 entregas esperando', count: '24' },
+  { icon: 'schedule', color: 'purple', title: 'Cerrar «Fracciones equivalentes»', hint: 'Vence mañana a las 23:59', count: '7' },
+  { icon: 'group_add', color: 'green', title: 'Sumar a Lengua · 6.º', hint: 'Dos aprendices pidieron entrar', count: '2' },
+] as const
+
 export function Dashboard() {
   const [range, setRange] = useState('semana')
   const { toast } = useToast()
@@ -37,7 +50,7 @@ export function Dashboard() {
   return (
     <div className="flex flex-col gap-6">
       <header className="flex flex-wrap items-end justify-between gap-4">
-        <div className="flex flex-col gap-1.5">
+        <div className="flex flex-col gap-2">
           <h1 className="text-display font-bold text-ink">Tu semana</h1>
           <p className="text-reading font-medium text-ink-muted">
             Cuatro espacios, 79 entregas y 12 sin mirar.
@@ -97,11 +110,57 @@ export function Dashboard() {
             <Progress label="Sociales · 5.º A" value={3} max={7} hint="3/7" />
             <Progress label="Lengua · 6.º" value={0} max={12} hint="sin entregas" />
           </div>
-          <div className="mt-auto flex items-center gap-2.5 border-t border-line pt-4">
+          <div className="mt-auto flex items-center gap-2 border-t border-line pt-4">
             <AvatarGroup size={24} people={[p('Ana Pérez', 1), p('Bruno Díaz', 2), p('Carla Sosa', 3), p('Elena Vega', 5)]} />
             <span className="text-meta font-medium text-ink-muted">96 estudiantes en total</span>
           </div>
         </Card>
+      </div>
+
+      {/* Los espacios y lo que hay que hacer: las dos piezas que mejor cuentan de
+          qué se trata el producto, y las dos que el dashboard no mostraba. La
+          lista va sin contenedor propio —las filas son el papel— así que se
+          apoya directo sobre el escritorio, al lado de las carpetas. */}
+      <div className="grid gap-6 lg:grid-cols-[1fr_1fr]">
+        <section className="flex flex-col gap-4">
+          <div className="flex items-center justify-between gap-4">
+            <h2 className="text-reading font-semibold text-ink">Tus espacios</h2>
+            <Button size="sm" variant="ghost" iconEnd="chevron_right">Ver todos</Button>
+          </div>
+          <div className="grid grid-cols-2 gap-4 sm:grid-cols-4">
+            {espacios.map(e => (
+              <Folder
+                key={e.label}
+                size={104}
+                label={e.label}
+                meta={e.meta}
+                color={e.color}
+                avatars={e.avatars}
+                onClick={() => {}}
+              />
+            ))}
+          </div>
+        </section>
+
+        <section className="flex flex-col gap-4">
+          <div className="flex items-center justify-between gap-4">
+            <h2 className="text-reading font-semibold text-ink">Para hoy</h2>
+            <Chip color="orange" icon="bolt">3 sin hacer</Chip>
+          </div>
+          <List>
+            {pendientes.map(t => (
+              <ListItem
+                key={t.title}
+                icon={t.icon}
+                color={t.color}
+                title={t.title}
+                hint={t.hint}
+                onClick={() => {}}
+                trailing={<Badge tone="neutral">{t.count}</Badge>}
+              />
+            ))}
+          </List>
+        </section>
       </div>
 
       <Card className="overflow-hidden p-0">

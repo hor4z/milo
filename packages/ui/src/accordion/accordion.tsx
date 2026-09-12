@@ -16,7 +16,7 @@ type AccordionItemProps = {
 export function AccordionItem({ summary, children, defaultOpen, className }: AccordionItemProps) {
   return (
     <details open={defaultOpen} className={cx('group border-b border-line last:border-0', className)}>
-      <summary className="flex cursor-pointer list-none items-center gap-3 py-3.5 text-reading font-semibold text-ink marker:content-none">
+      <summary className="flex cursor-pointer list-none items-center gap-3 py-4 text-reading font-semibold text-ink marker:content-none">
         <Icon
           name="keyboard_arrow_down"
           size={18}

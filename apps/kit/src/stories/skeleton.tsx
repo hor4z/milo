@@ -35,14 +35,14 @@ export function SkeletonStory() {
         <div className="flex flex-wrap gap-4">
           <Card className="w-[260px]">
             <Skeleton className="h-[120px] w-full rounded-xl" />
-            <div className="flex flex-col gap-2 px-2 pt-3 pb-1.5">
+            <div className="flex flex-col gap-2 px-2 pt-3 pb-2">
               <Skeleton className="h-3.5 w-3/4" />
               <Skeleton className="h-3 w-1/2" />
             </div>
           </Card>
           <Card className="w-[260px]">
             <Skeleton className="h-[120px] w-full rounded-xl" />
-            <div className="flex flex-col gap-2 px-2 pt-3 pb-1.5">
+            <div className="flex flex-col gap-2 px-2 pt-3 pb-2">
               <Skeleton className="h-3.5 w-2/3" />
               <Skeleton className="h-3 w-2/5" />
             </div>

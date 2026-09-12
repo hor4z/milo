@@ -32,7 +32,7 @@ export function IconButton({
         'relative inline-flex items-center justify-center transition-[background-color,color,box-shadow] duration-fast ease-out',
         'disabled:opacity-45 disabled:pointer-events-none',
         variants[variant === 'ghost' && active ? 'muted' : variant],
-        c.square, 'rounded-md',
+        c.square, 'rounded-lg',
         className,
       )}
       {...rest}

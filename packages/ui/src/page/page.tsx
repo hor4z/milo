@@ -8,7 +8,7 @@ export function Page({ children, wide }: {
   wide?: boolean
 }) {
   return (
-    <div className={cx('mx-auto w-full px-5 pt-1 pb-7', wide ? 'max-w-[1560px]' : 'max-w-[1200px]')}>
+    <div className={cx('mx-auto w-full px-5 pt-1 pb-8', wide ? 'max-w-[1560px]' : 'max-w-[1200px]')}>
       {children}
     </div>
   )
@@ -28,7 +28,7 @@ export function PageHeader({
     <div className="mb-5 flex min-h-10 flex-wrap items-center justify-between gap-4">
       <div className="min-w-0">
         <h1 className="text-title font-medium">{title}</h1>
-        {subtitle && <p className="mt-1.5 text-body font-medium text-ink-muted">{subtitle}</p>}
+        {subtitle && <p className="mt-2 text-body font-medium text-ink-muted">{subtitle}</p>}
       </div>
       {actions && <div className="flex shrink-0 items-center gap-2">{actions}</div>}
     </div>
@@ -42,7 +42,7 @@ export function SectionLabel({ children, count }: {
   count?: number
 }) {
   return (
-    <div className="mb-3 mt-8 flex items-center gap-2.5 first:mt-0">
+    <div className="mb-3 mt-8 flex items-center gap-2 first:mt-0">
       <span className="text-body font-medium text-ink-muted">{children}</span>
       {count !== undefined && <span className="tabular text-meta text-ink-muted">{count}</span>}
       <span className="h-px flex-1 bg-line" />

@@ -22,7 +22,7 @@ export function Progress({ value, max = 100, label, hint, tone = 'brand', classN
   const pct = (clamped / (max || 1)) * 100
   const id = useId()
   return (
-    <div className={cx('flex flex-col gap-1.5', className)} {...props}>
+    <div className={cx('flex flex-col gap-2', className)} {...props}>
       {(label || hint) && (
         <div className="flex items-baseline justify-between gap-3">
           <span id={id} className="text-body font-medium text-ink">{label}</span>

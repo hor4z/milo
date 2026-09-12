@@ -154,6 +154,11 @@
 
   --color-brand-subtle: var(--brand-subtle);
   --color-brand-ink: var(--brand-ink);
+  --color-ok-border: var(--ok-border);
+  --color-warn-border: var(--warn-border);
+  --color-bad-border: var(--bad-border);
+  --color-info-border: var(--info-border);
+
   --color-ok: var(--ok);
   --color-ok-ink: var(--ok-ink);
   --color-warn-ink: var(--warn-ink);
@@ -221,12 +226,12 @@
   --text-display--line-height: var(--type-display-lh);
   --text-display--letter-spacing: var(--type-display-ls);
 
-  /* `xs` hay que declararlo: Tailwind v4 ya trae un --radius-xs propio de 2px,
-     así que sin esta línea `rounded-xs` sale con el valor de Tailwind y no con
-     el del sistema. */
-  --radius-xs: var(--radius-xs);
+  /* Se apagan los escalones que Tailwind trae y el sistema no usa. `xs` y `md`
+     existieron acá y murieron por estar a uno y a dos píxeles de su vecino; sin
+     este `initial` vuelven solos con los valores de Tailwind, que es peor que
+     tenerlos: la clase anda y escribe una curva que no es del sistema. */
+  --radius-*: initial;
   --radius-sm: var(--radius-sm);
-  --radius-md: var(--radius-md);
   --radius-lg: var(--radius-lg);
   --radius-xl: var(--radius-xl);
   --radius-2xl: var(--radius-2xl);
@@ -263,6 +268,20 @@
   --color-mark-blue-ink: var(--mark-blue-ink);
   --color-mark-pink: var(--mark-pink);
   --color-mark-pink-ink: var(--mark-pink-ink);
+
+  /* El par suave de cada tono: lo que usa un chip. */
+  --color-label-green-soft: var(--label-green-soft);
+  --color-label-green-ink: var(--label-green-ink);
+  --color-label-teal-soft: var(--label-teal-soft);
+  --color-label-teal-ink: var(--label-teal-ink);
+  --color-label-blue-soft: var(--label-blue-soft);
+  --color-label-blue-ink: var(--label-blue-ink);
+  --color-label-purple-soft: var(--label-purple-soft);
+  --color-label-purple-ink: var(--label-purple-ink);
+  --color-label-pink-soft: var(--label-pink-soft);
+  --color-label-pink-ink: var(--label-pink-ink);
+  --color-label-orange-soft: var(--label-orange-soft);
+  --color-label-orange-ink: var(--label-orange-ink);
 
   --color-label-green: var(--label-green);
   --color-label-teal: var(--label-teal);
@@ -340,6 +359,20 @@ h1, h2, h3 { font-family: var(--font-sans); font-weight: 400; margin: 0; }
 /* Los números de un precio o de una métrica se alinean en columna: sin esto, el
    1 es más angosto que el 4 y una tabla de números baila. */
 .tabular { font-variant-numeric: tabular-nums; }
+
+/* La inversión del campo. Una pieza de papel le dice a los campos que tiene
+   adentro que se hundan; sobre el escritorio, el default ya los pinta de papel.
+
+   Va como regla sobre la clase de Tailwind y no como prop de cada componente a
+   propósito: el call site no sabe dónde va a caer su campo —un `TextField`
+   dentro de un `Card` dentro de un `Modal`— y preguntárselo sería la prop número
+   catorce. La superficie lo sabe sola, y la herencia de custom properties hace
+   el resto. */
+.bg-surface,
+.bg-popover {
+  --field-bg: var(--field-bg-on-surface);
+  --field-bg-hover: var(--field-bg-on-surface-hover);
+}
 
 /* Ninguna receta de relieve escribe `box-shadow` directo: escriben `--relief`,
    y el `box-shadow` sale de ahí. El motivo es el foco. El anillo también es un

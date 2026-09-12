@@ -94,7 +94,7 @@ export function IconStory() {
           </div>
         ) : (
           <div
-            className="mt-4 grid gap-1.5"
+            className="mt-4 grid gap-2"
             style={{
               gridTemplateColumns: 'repeat(auto-fill, minmax(104px, 1fr))',
               '--icon-wght': weight,

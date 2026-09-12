@@ -22,7 +22,7 @@ export function EmptyState({ title, body, action, icon, size = 'md', bordered = 
     <div
       className={cx(
         'flex flex-col items-center text-center',
-        small ? 'px-4 py-8' : 'px-6 py-14',
+        small ? 'px-4 py-8' : 'px-6 py-16',
         bordered && 'rounded-2xl border border-dashed border-line-strong',
       )}
     >
@@ -38,7 +38,7 @@ export function EmptyState({ title, body, action, icon, size = 'md', bordered = 
       )}
       <div className={small ? 'text-body font-semibold' : 'text-reading font-semibold'}>{title}</div>
       <p className={cx('mt-2 max-w-[42ch] font-medium text-ink-muted', small ? 'text-meta' : 'text-body')}>{body}</p>
-      {action && <div className={small ? 'mt-3.5' : 'mt-5'}>{action}</div>}
+      {action && <div className={small ? 'mt-4' : 'mt-5'}>{action}</div>}
     </div>
   )
 }

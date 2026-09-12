@@ -18,7 +18,7 @@ export function BookStory() {
           <Book
             variant="stripe"
             color="var(--label-blue)"
-            icon={<Icon name="menu_book" size={44} />}
+            icon={<Icon name="menu_book" size={40} />}
             title="Guía de la plataforma"
           />
           <Book

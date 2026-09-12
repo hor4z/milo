@@ -34,7 +34,7 @@ export function Menu({ children, width, className }: {
       style={width ? { width } : undefined}
       className={cx(
         'ui-pop rounded-xl border border-line bg-popover p-1 shadow-popover',
-        '[&>[data-divider]]:-mx-1 [&>[data-divider]]:my-1.5',
+        '[&>[data-divider]]:-mx-1 [&>[data-divider]]:my-2',
         className,
       )}
     >
@@ -74,7 +74,7 @@ export function MenuItem({
       aria-checked={checked}
       onClick={onSelect}
       className={cx(
-        'flex h-10 w-full items-center gap-3.5 rounded-lg px-2.5 text-left text-body font-semibold',
+        'flex h-10 w-full items-center gap-4 rounded-lg px-2 text-left text-body font-semibold',
         'transition-colors duration-fast',
         'disabled:pointer-events-none disabled:opacity-45',
         danger ? 'text-bad-ink hover:bg-bad-subtle' : 'text-ink hover:bg-hover',
@@ -94,7 +94,7 @@ export function MenuItem({
 /** El rótulo de un grupo de opciones. */
 export function MenuLabel({ children }: { children: ReactNode }) {
   return (
-    <div role="presentation" className="px-2.5 pt-2 pb-1.5 text-label font-semibold text-ink">
+    <div role="presentation" className="px-2 pt-2 pb-2 text-label font-semibold text-ink">
       {children}
     </div>
   )

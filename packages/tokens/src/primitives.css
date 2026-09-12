@@ -2,39 +2,54 @@
  * Primitive tokens: valores crudos. Nadie los usa directo — están para que
  * `semantic.css` les ponga un rol. Un componente que lea de acá es un bug.
  *
- * La rampa es casi neutra y de nueve pasos, calibrada contra la referencia:
- * tres superficies claras antes del primer borde visible, un salto grande al
- * gris de texto secundario, y tres tintas oscuras. El salto de 05 a 06 es
- * deliberadamente violento: entre el borde más oscuro y el texto más claro no
- * tiene que haber nada, o aparecen grises que no se distinguen entre sí.
+ * La rampa es de nueve pasos y **no es neutra**: lleva una pizca del tono del
+ * azul primario (C 0.006 en OKLCH, el mismo H). Es poquísimo y se nota — un gris
+ * exactamente neutro al lado de un azul saturado se ve sucio, como si fuera de
+ * otro sistema. Con la pizca, la pantalla entera se lee de una familia.
+ *
+ * **El 01 es el papel de una pieza y el 02 es el escritorio.** Eso es nuevo y es
+ * la corrección más grande de toda la rampa: antes `--canvas` y `--surface`
+ * apuntaban al mismo token, así que el fondo de la página y el de una tarjeta
+ * eran el mismo color y lo único que separaba una cosa de la otra era el borde.
+ * En una pantalla densa eso se lee como un campo blanco enorme con líneas
+ * encima. Ahora una tarjeta es papel sobre un escritorio, que es como se separan
+ * dos superficies desde que existe el papel.
+ *
+ * El salto de 05 a 06 sigue siendo violento a propósito: entre el borde más
+ * oscuro y el texto más claro no tiene que haber nada, o aparecen grises que no
+ * se distinguen entre sí.
  */
 :root {
-  --shade-01: #fcfcfc;  /* el papel */
-  --shade-02: #f8f7f7;
-  --shade-03: #f1f1f1;
-  --shade-04: #ececec;
-  --shade-05: #e2e2e2;
-  /* El gris del texto secundario. Estaba en #7b7b7b y no llegaba a AA sobre
-     ninguna superficie clara —4.13:1 sobre el papel, 3.58:1 sobre un hueco—,
-     así que todo lo que el sistema escribe en gris fallaba. Ahora es el gris
-     más claro que llega a 4.5:1 sobre la superficie más oscura donde se
-     escribe, que es --shade-04. */
-  --shade-06: #6b6b6b;  /* texto secundario e iconos apagados */
-  --shade-07: #323232;
-  --shade-08: #222222;
-  --shade-09: #121212;  /* la tinta */
+  --shade-01: #ffffff;  /* el papel: una tarjeta, un panel, un popover */
+  --shade-02: #f0f3f7;  /* el escritorio: el fondo de la página */
+  --shade-03: #e7ebef;
+  --shade-04: #dce0e6;
+  --shade-05: #cdd1d7;
+  /* El gris del texto secundario: el más claro que llega a 4.5:1 sobre la
+     superficie más oscura donde se escribe, que es --shade-04. Sale de una
+     búsqueda, no de elegirlo mirando. */
+  --shade-06: #5f6267;  /* texto secundario e iconos apagados */
+  --shade-07: #47494d;
+  --shade-08: #36383b;
+  /* La tinta, y **ya no es casi negro**. Estaba en #121212, que sobre el papel
+     daba 18.26:1 — AAA pide 7, así que era más del doble del techo. Eso no se
+     lee mejor: se lee duro. El borde entre una letra muy oscura y un fondo muy
+     claro produce halación —el texto parece vibrar o brillar— y le pega más
+     fuerte a quien lee con dificultad, que es justo a quien hay que cuidar acá.
+     14:1 sigue siendo el doble de AAA y se lee sin que la pantalla empuje. */
+  --shade-09: #2a2c2f;  /* la tinta */
 
   /* Bordes y hovers se pintan con tinta transparente, no con un gris opaco:
      sobre un tinte, el gris opaco se ve como una línea sucia. */
-  --shade-09-a04: rgb(18 18 18 / 0.04);
-  --shade-09-a06: rgb(18 18 18 / 0.06);
-  --shade-09-a08: rgb(18 18 18 / 0.08);
-  --shade-09-a11: rgb(18 18 18 / 0.11);
+  --shade-09-a04: rgb(42 44 47 / 0.04);
+  --shade-09-a06: rgb(42 44 47 / 0.06);
+  --shade-09-a08: rgb(42 44 47 / 0.08);
+  --shade-09-a11: rgb(42 44 47 / 0.11);
   /* El paso que usa el contorno de un control vacío. Invierte como los de
      arriba —en oscuro pasa a luz— y por eso no reusa el `a35`, que es el del
      velo y se queda negro a propósito en los dos temas. */
-  --shade-09-a28: rgb(18 18 18 / 0.28);
-  --shade-09-a35: rgb(18 18 18 / 0.35);
+  --shade-09-a28: rgb(42 44 47 / 0.28);
+  --shade-09-a35: rgb(42 44 47 / 0.35);
 
   /* El relieve se arma con estas: luz arriba, sombra abajo, y un canto propio.
      El canto NO es un escalón de la rampa: tiene que ser más oscuro que el
@@ -42,8 +57,8 @@
      Con el 05 puesto acá, el botón gris se ve plano sobre un fondo casi blanco. */
   --light-a33: rgb(255 255 255 / 0.33);
   --light-a27: rgb(255 255 255 / 0.27);
-  --edge: #d4d4d4;
-  --solid-edge: #333333;
+  --edge: #c3c8cf;
+  --solid-edge: #4a4d51;
   /* El gris de un icono. No es --shade-06 (el del texto secundario): un
      contorno encierra aire, así que con el gris del texto se lee más apagado
      que ese mismo texto. Un paso más oscuro lo empareja sin tocar el dibujo.
@@ -59,32 +74,43 @@
      un trazo de 1px queda casi en el color del papel. El gris del icono sigue
      existiendo —hay una jerarquía que sostener— pero ahora es un gris que se
      ve, y la distancia con el texto que acompaña la pone el peso, no el tono. */
-  --icon-muted: #323232;
+  --icon-muted: #47494d;
 
-  /* El azul de marca. Existe para un solo uso: el CTA lleno de la topbar. No es
-     un segundo acento —el ámbar sigue siendo el que señala— y por eso no tiene
-     versión apagada ni tinte: si aparece en un badge o en un texto, la pantalla
-     pasa a tener dos colores peleando y ninguno de los dos avisa nada.
+  /* ------- el azul: el color primario -------
+     Dejó de ser "el azul de marca acotado al CTA" y pasó a ser **el color
+     primario del sistema**, con una rampa de diez pasos como cualquier familia
+     que se usa en serio. El cambio es de fondo: antes eran tres valores sueltos
+     elegidos para un botón, y tres valores no alcanzan para vestir un estado
+     seleccionado, un fondo suave, una tinta que se lea encima y un borde.
 
-     Tres pasos y nada más: 400 y 500 son el degradado, y el 600 hace de canto y
-     de labio a la vez. Hubo un 300 y un 700 —un filo de luz propio y un labio
-     más oscuro— y los dos sobraban: el filo sale mejor del blanco en alpha, y
-     con el labio en 700 el botón se veía sobrerrelevado.
+     La rampa **se deriva, no se elige**: se toma el tono y el croma del azul que
+     había (#2781f9 → H -102.4°, C 0.198 en OKLCH), se fija una curva de
+     luminosidad que baja parejo, y el croma sube hacia el medio y cae en los dos
+     extremos — si no, los pasos claros salen lavados y los oscuros embarrados.
 
-     El 600 no se elige a ojo: sale de reproducir el mismo salto que el botón
-     gris usa entre su relleno y su canto (#e2e2e2 a #d4d4d4, 1.14:1). Con un
-     salto más corto el canto desaparece y el botón se ve como un rectángulo
-     pintado; con uno más largo se lee como un borde de otro color en vez del
-     filo de la misma pieza. Acá el 500 al 600 da 1.13:1. */
-  --blue-050: #eaf2fe;
-  --blue-700: #0a55c4;
-  --blue-400: #5199f9;
-  --blue-500: #2781f9;
-  --blue-600: #1375f8;
+     **El 600 no está elegido: está anclado.** Es el escalón donde el blanco
+     encima llega exactamente a 4.5:1, y por eso es el relleno del botón que
+     manda. Eso salda la única deuda de accesibilidad que el sistema arrastraba:
+     el CTA daba 2.89:1 arriba del degradado y 3.75:1 abajo, y el texto de un
+     botón no es texto grande para WCAG. Ahora el degradado va de 600 a 700, así
+     que **pasa AA de punta a punta** y no solo en la mitad de abajo.
+
+     La regla que sigue valiendo: `solid` y `brand` son el mismo rol, así que va
+     uno o el otro y nunca los dos en la misma pantalla. */
+  --blue-050: #e7f7ff;
+  --blue-100: #cdecff;
+  --blue-200: #aad9ff;
+  --blue-300: #7cbfff;
+  --blue-400: #50a1ff;
+  --blue-500: #2f88ff;
+  --blue-600: #1b73e7;  /* anclado: blanco encima da 4.51:1 */
+  --blue-700: #105ec1;
+  --blue-800: #0c4894;
+  --blue-900: #0c3368;
   /* El azul del foco. Va en alpha y no como un cuarto escalón de la rampa: el
      anillo se dibuja sobre lo que haya abajo —papel, hueco, un botón azul— y un
      opaco que funciona sobre uno se ensucia sobre el otro. */
-  --blue-500-a45: rgb(39 129 249 / 0.45);
+  --blue-500-a45: rgb(47 136 255 / 0.45);
 
   /* Marcas de color: el círculo que identifica una fila en una lista.
      Es la misma excepción que las carpetas de espacios —color propio y acotado
@@ -162,6 +188,25 @@
   --label-pink: #f9267b;
   --label-orange: #bc7305;
 
+  /* **El par suave de cada tono: fondo apagado y tinta del mismo tono.** Es lo
+     que usa un chip, y reemplaza al relleno vivo con tinta negra encima.
+
+     El relleno vivo se quedó con lo que sabe hacer: el cuadradito de icono de
+     una tarjeta, donde la pieza es chica, el glifo es blanco y el color tiene
+     que gritar. Un chip es otra cosa: hay cinco o seis juntos en una fila, se
+     leen como texto, y seis rellenos saturados uno al lado del otro compiten
+     entre sí y con todo lo demás. Con el par suave, el color sigue clasificando
+     de un vistazo y deja de ser lo primero que se ve.
+
+     Las doce tintas están ancladas a 4.6:1 sobre su propio fondo, por búsqueda y
+     no a ojo. */
+  --label-green-soft: #e0f8e2;   --label-green-ink: #007f21;
+  --label-teal-soft: #e0f5f5;    --label-teal-ink: #00797a;
+  --label-blue-soft: #def2ff;    --label-blue-ink: #0067db;
+  --label-purple-soft: #f8e8ff;  --label-purple-ink: #923cdc;
+  --label-pink-soft: #ffe2ec;    --label-pink-ink: #ce0059;
+  --label-orange-soft: #ffeddc;  --label-orange-ink: #a15a00;
+
   /* El acento se usa poquísimo —un punto, un badge, el aviso de algo nuevo— y
      por eso se ve. La interfaz es monocroma; el color es el que señala. */
   --accent-500: #ec4c07;
@@ -189,6 +234,15 @@
   --bad-600: #d81e18;
   --bad-700: #a81713;
   --bad-050: #fdeaea;
+  /* El borde de un aviso. Existe porque el aviso dejó de ser blanco: con el
+     fondo en su propio tono, hace falta una línea que cierre la caja y que no
+     sea el gris de la rampa —un borde neutro alrededor de un fondo teñido se ve
+     como una cosa pegada encima de otra. Sale del mismo tono, dos pasos por
+     debajo del relleno suave. */
+  --ok-border: #c2e4c5;
+  --warn-border: #e7d7bc;
+  --bad-border: #ffc7be;
+  --info-border: #c0dbff;
 
   /* Tintes: el lavado de una superficie grande que lleva un dibujo oscuro
      encima. Son tres usos y nada más — el hueco 4:3 de una tarjeta, el mock de
@@ -211,41 +265,54 @@
 /* El tema oscuro reescribe la rampa y nada más. Ningún componente sabe que
    existe: leen roles, y los roles ya apuntan a otro lado. */
 [data-theme="dark"] {
-  --shade-01: #131313;
-  --shade-02: #191919;
-  --shade-03: #202020;
-  --shade-04: #292929;
-  --shade-05: #363636;
-  --shade-06: #959595;
-  --shade-07: #c9c9c9;
-  --shade-08: #e6e6e6;
-  --shade-09: #f7f7f7;
+  /* La misma corrección que en claro, y acá importa todavía más: el 01 es el
+     papel de una pieza y el 02 es el escritorio, que en oscuro es **más oscuro
+     que la tarjeta**. Una superficie que se levanta se aclara; el fondo de la
+     página es lo que está más al fondo. Antes los dos eran #131313 y una tarjeta
+     no existía sin su borde. */
+  --shade-01: #1b1e23;  /* el papel */
+  --shade-02: #111418;  /* el escritorio */
+  --shade-03: #26292e;
+  --shade-04: #32363c;
+  --shade-05: #43484f;
+  --shade-06: #9da0a4;
+  --shade-07: #c2c4c8;
+  --shade-08: #dfe0e3;
+  --shade-09: #f2f3f5;
 
-  --shade-09-a04: rgb(247 247 247 / 0.05);
-  --shade-09-a06: rgb(247 247 247 / 0.08);
-  --shade-09-a08: rgb(247 247 247 / 0.10);
-  --shade-09-a11: rgb(247 247 247 / 0.14);
-  --shade-09-a28: rgb(247 247 247 / 0.30);
+  --shade-09-a04: rgb(242 243 245 / 0.05);
+  --shade-09-a06: rgb(242 243 245 / 0.08);
+  --shade-09-a08: rgb(242 243 245 / 0.10);
+  --shade-09-a11: rgb(242 243 245 / 0.14);
+  --shade-09-a28: rgb(242 243 245 / 0.30);
   --shade-09-a35: rgb(0 0 0 / 0.6);
 
   --light-a33: rgb(255 255 255 / 0.07);
   --light-a27: rgb(255 255 255 / 0.05);
-  --edge: #434343;
-  --solid-edge: #d0d0d0;
+  --edge: #4e535a;
+  --solid-edge: #cfd2d6;
   /* El espejo de 07 en oscuro, por el mismo motivo que en claro: a #a0a0a0 un
      contorno de 1px sobre #131313 no llegaba a dibujarse. */
-  --icon-muted: #c9c9c9;
+  --icon-muted: #c2c4c8;
 
   /* En oscuro el azul sube un paso: el mismo relleno que funciona sobre papel
      casi blanco se apaga sobre #131313. */
-  --blue-050: #15283a;
-  --blue-700: #7cb2fa;
-  --blue-400: #599ef9;
-  --blue-500: #2f86f9;
-  --blue-600: #1b7af8;
+  /* La rampa se da vuelta: el 050 pasa a ser el azul profundo que hace de fondo
+     suave y el 900 el pastel que va encima. Un pastel de fondo sobre #111418 es
+     una mancha de luz, igual que pasa con las marcas de color. */
+  --blue-050: #062148;
+  --blue-100: #022d66;
+  --blue-200: #003d88;
+  --blue-300: #0051b1;
+  --blue-400: #1970e0;  /* anclado: blanco encima da 4.73:1 */
+  --blue-500: #368fff;
+  --blue-600: #54a6ff;
+  --blue-700: #7abfff;
+  --blue-800: #a4d7ff;
+  --blue-900: #cdecff;
   /* Un paso más de alpha que en claro, por lo mismo que el relleno sube un
      paso: sobre #131313 el azul al 45% se apaga. */
-  --blue-500-a45: rgb(47 134 249 / 0.6);
+  --blue-500-a45: rgb(54 143 255 / 0.6);
 
   /* En oscuro la marca se invierte: el relleno pasa a ser el tono profundo y el
      glifo el pastel. Un pastel de relleno sobre #131313 es una mancha de luz
@@ -269,6 +336,16 @@
   --label-pink: #fa448d;
   --label-orange: #da8506;
 
+  /* Los pares se invierten como todo lo demás: el fondo pasa a ser el tono
+     profundo y la tinta el paso claro. Un pastel de fondo sobre #111418 es una
+     mancha de luz. */
+  --label-green-soft: #0c3314;   --label-green-ink: #44a757;
+  --label-teal-soft: #0b3030;    --label-teal-ink: #43a1a0;
+  --label-blue-soft: #132a4a;    --label-blue-ink: #5594e6;
+  --label-purple-soft: #322044;  --label-purple-ink: #aa7bdb;
+  --label-pink-soft: #471628;    --label-pink-ink: #e5638f;
+  --label-orange-soft: #3c2409;  --label-orange-ink: #c2843f;
+
   --accent-500: #f95c19;
   --accent-600: #fa753c;
   --accent-050: #2a1811;
@@ -283,6 +360,10 @@
   --bad-600: #f7726e;
   --bad-700: #fb827e;
   --bad-050: #351816;
+  --ok-border: #14491f;
+  --warn-border: #4e390f;
+  --bad-border: #652622;
+  --info-border: #1d3d68;
 
   --tint-1: #1b201d;
   --tint-2: #191f27;

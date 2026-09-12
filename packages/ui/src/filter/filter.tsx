@@ -100,12 +100,12 @@ export function Filter({ label, options, value, onValueChange }: FilterProps) {
       )}
     >
       {() => (
-        <div className="ui-pop max-h-[320px] overflow-y-auto overscroll-contain rounded-xl border border-line bg-popover p-1.5 shadow-popover">
+        <div className="ui-pop max-h-[320px] overflow-y-auto overscroll-contain rounded-xl border border-line bg-popover p-2 shadow-popover">
           {options.map(o => (
             <label
               key={o.value}
               className={cx(
-                'flex cursor-pointer items-center gap-2.5 rounded-lg px-2 transition-colors hover:bg-hover',
+                'flex cursor-pointer items-center gap-2 rounded-lg px-2 transition-colors hover:bg-hover',
                 o.person ? 'h-10' : 'h-9',
               )}
             >
@@ -183,13 +183,13 @@ export function ColumnPicker({ columns, value, onValueChange, label = 'Columnas'
       )}
     >
       {() => (
-        <div className="ui-pop max-h-[320px] overflow-y-auto overscroll-contain rounded-xl border border-line bg-popover p-1.5 shadow-popover">
-          <p className="px-2 pt-1 pb-1.5 text-label font-semibold text-ink">{label}</p>
+        <div className="ui-pop max-h-[320px] overflow-y-auto overscroll-contain rounded-xl border border-line bg-popover p-2 shadow-popover">
+          <p className="px-2 pt-1 pb-2 text-label font-semibold text-ink">{label}</p>
           {columns.map(c => (
             <label
               key={c.id}
               className={cx(
-                'flex h-9 items-center gap-2.5 rounded-lg px-2 transition-colors',
+                'flex h-9 items-center gap-2 rounded-lg px-2 transition-colors',
                 c.locked ? 'cursor-default opacity-45' : 'cursor-pointer hover:bg-hover',
               )}
             >

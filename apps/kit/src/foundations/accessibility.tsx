@@ -47,7 +47,7 @@ export function AccessibilitySection() {
         <div className="grid gap-3 md:grid-cols-2">
           {reglas.map(r => (
             <div key={r.title} className="flex flex-col gap-2 rounded-2xl border border-line bg-surface p-5">
-              <span className="inset-relief mb-1 inline-flex size-9 items-center justify-center rounded-md">
+              <span className="inset-relief mb-1 inline-flex size-9 items-center justify-center rounded-lg">
                 <Icon name={r.icon} size={18} />
               </span>
               <span className="text-reading font-semibold text-ink">{r.title}</span>

@@ -55,7 +55,7 @@ export function Textarea({
         'field flex cursor-text border border-field-line bg-field',
         'has-[textarea:disabled]:pointer-events-none has-[textarea:disabled]:opacity-45',
         'rounded-lg text-reading',
-        resize === 'vertical' ? 'p-0' : 'px-3 py-2.5',
+        resize === 'vertical' ? 'p-0' : 'px-3 py-2',
         className,
       )}
     >
@@ -67,7 +67,7 @@ export function Textarea({
         className={cx(
           'min-w-0 flex-1 bg-transparent font-normal text-ink outline-none',
           'placeholder:text-ink-muted',
-          resize === 'vertical' ? 'resize-y px-3 py-2.5' : 'resize-none',
+          resize === 'vertical' ? 'resize-y px-3 py-2' : 'resize-none',
         )}
         {...field}
         {...rest}

@@ -470,7 +470,19 @@ export const propsByComponent: Record<string, ComponentDoc> = {
         "name": "color",
         "type": "LabelColor",
         "required": false,
-        "doc": "Una de las seis etiquetas vivas; sin esto va gris."
+        "doc": "Uno de los seis tonos, en su par suave; sin esto va gris."
+      },
+      {
+        "name": "icon",
+        "type": "IconName",
+        "required": false,
+        "doc": "Un glifo adelante, del mismo tono que el texto."
+      },
+      {
+        "name": "dot",
+        "type": "boolean",
+        "required": false,
+        "doc": "Un punto del tono en vez de un glifo: clasifica sin nombrar."
       },
       {
         "name": "onRemove",
@@ -491,7 +503,7 @@ export const propsByComponent: Record<string, ComponentDoc> = {
         "doc": "Lo convierte en <button>."
       }
     ],
-    "doc": "El chip: 28 de alto y radio 10."
+    "doc": "El chip: 28 de alto y radio 10. Identifica —una categoría, una persona, un espacio—; si el texto cambia según lo que pasó, es un `Badge`."
   },
   "ConfirmDialog": {
     "props": [

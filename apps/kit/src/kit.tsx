@@ -53,8 +53,8 @@ type PageProps = {
 export function Page({ title, lead, imports, kind, children }: PageProps) {
   return (
     <article className="flex flex-col gap-8">
-      <header className="flex flex-col gap-4 border-b border-line pb-7">
-        <div className="flex flex-wrap items-center gap-2.5">
+      <header className="flex flex-col gap-4 border-b border-line pb-8">
+        <div className="flex flex-wrap items-center gap-2">
           <h1 className="text-display font-bold text-ink">{title}</h1>
           {kind && <Badge>{kind}</Badge>}
         </div>
@@ -77,7 +77,7 @@ export function Code({ children }: { children: string }) {
         setCopied(true)
         setTimeout(() => setCopied(false), 1400)
       }}
-      className="group inline-flex max-w-full items-center gap-2.5 self-start rounded-lg border border-line bg-muted py-1.5 pr-2.5 pl-3 text-left transition-colors hover:bg-sunken"
+      className="group inline-flex max-w-full items-center gap-2 self-start rounded-lg border border-line bg-muted py-2 pr-2 pl-3 text-left transition-colors hover:bg-sunken"
     >
       <code className="truncate font-mono text-meta text-ink">{children}</code>
       <Icon
@@ -94,7 +94,7 @@ export function Code({ children }: { children: string }) {
 export function Section({ title, note, children }: { title: string; note?: string; children?: ReactNode }) {
   return (
     <section className="flex flex-col gap-4">
-      <div className="flex flex-col gap-1.5">
+      <div className="flex flex-col gap-2">
         <h2 className="text-title font-semibold text-ink">{title}</h2>
         {note && <p className="max-w-[72ch] text-body font-medium text-ink-muted"><Rich text={note} /></p>}
       </div>
@@ -140,7 +140,7 @@ export function Grid({ children, min = 220 }: { children: ReactNode; min?: numbe
 /** Una fila de variantes con su nombre al costado. */
 export function Variant({ name, children }: { name: string; children: ReactNode }) {
   return (
-    <div className="flex flex-wrap items-center gap-4 border-b border-line py-3.5 last:border-0">
+    <div className="flex flex-wrap items-center gap-4 border-b border-line py-4 last:border-0">
       <code className="w-[168px] shrink-0 font-mono text-meta text-ink-muted">{name}</code>
       <div className="flex min-w-0 flex-wrap items-center gap-3">{children}</div>
     </div>
@@ -182,10 +182,10 @@ export function Props({ of }: { of: string | readonly string[] }) {
             <table className="w-full border-collapse text-left">
               <thead>
                 <tr className="bg-muted">
-                  <th scope="col" className="px-4 py-2.5 text-label font-semibold text-ink">Prop</th>
-                  <th scope="col" className="px-4 py-2.5 text-label font-semibold text-ink">Tipo</th>
-                  <th scope="col" className="hidden px-4 py-2.5 text-label font-semibold text-ink sm:table-cell">Default</th>
-                  <th scope="col" className="px-4 py-2.5 text-label font-semibold text-ink">Qué hace</th>
+                  <th scope="col" className="px-4 py-2 text-label font-semibold text-ink">Prop</th>
+                  <th scope="col" className="px-4 py-2 text-label font-semibold text-ink">Tipo</th>
+                  <th scope="col" className="hidden px-4 py-2 text-label font-semibold text-ink sm:table-cell">Default</th>
+                  <th scope="col" className="px-4 py-2 text-label font-semibold text-ink">Qué hace</th>
                 </tr>
               </thead>
               <tbody>
@@ -212,7 +212,7 @@ export function Props({ of }: { of: string | readonly string[] }) {
             </table>
             )}
             {rows.length > 0 && doc?.html && (
-              <p className="border-t border-line px-4 py-2.5 text-meta font-medium text-ink-muted">
+              <p className="border-t border-line px-4 py-2 text-meta font-medium text-ink-muted">
                 Y los atributos de un{' '}
                 <code className="font-mono text-meta text-ink">{`<${doc.html}>`}</code>.
               </p>
@@ -241,7 +241,7 @@ export function A11y({ items }: { items: string[] }) {
   return (
     <ul className="flex flex-col gap-2">
       {items.map(t => (
-        <li key={t} className="flex gap-2.5 text-body font-medium text-ink-muted">
+        <li key={t} className="flex gap-2 text-body font-medium text-ink-muted">
           <Icon name="check" size={16} className="mt-px shrink-0 text-ok" />
           <span className="max-w-[70ch]"><Rich text={t} /></span>
         </li>
@@ -279,7 +279,7 @@ export function Ramp({ tokens }: { tokens: readonly string[] }) {
       </div>
       <div className="flex border-t border-line">
         {tokens.map(t => (
-          <div key={t} className="min-w-0 flex-1 px-1.5 py-2 text-center">
+          <div key={t} className="min-w-0 flex-1 px-2 py-2 text-center">
             <code className="block truncate font-mono text-meta text-ink-muted">{t.replace('--', '')}</code>
             <code className="block truncate font-mono text-meta text-ink">{vals[t]}</code>
           </div>

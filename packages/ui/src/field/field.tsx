@@ -51,7 +51,7 @@ export function Field({ label, hint, error, required, children, className }: Fie
 
   return (
     <FieldCtx.Provider value={{ id, labelId, describedBy, invalid: Boolean(error) }}>
-      <div className={cx('flex flex-col gap-1.5', className)}>
+      <div className={cx('flex flex-col gap-2', className)}>
         <label id={labelId} htmlFor={id} className="flex items-center gap-1 text-body font-semibold text-ink">
           {label}
           {required && <span aria-hidden="true" className="text-bad-ink">*</span>}
@@ -60,7 +60,7 @@ export function Field({ label, hint, error, required, children, className }: Fie
         {hint && !error && <p id={hintId} className="text-meta font-medium text-ink-muted">{hint}</p>}
         {children}
         {error && (
-          <p id={errorId} className="flex items-center gap-1.5 text-meta font-medium text-bad-ink">
+          <p id={errorId} className="flex items-center gap-2 text-meta font-medium text-bad-ink">
             <Icon name="error" size={14} />
             {error}
           </p>

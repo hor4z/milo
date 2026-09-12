@@ -76,6 +76,32 @@ describe('coherencia del sistema', () => {
     expect(offenders).toEqual([])
   })
 
+  it('el espaciado sale de la grilla', () => {
+    // Once pasos: 2 4 6 8 12 16 20 24 32 40 48, más el 0. Antes no había escala
+    // y los call sites tomaban los dieciocho valores que trae Tailwind, así que
+    // dos cosas que hacen lo mismo quedaban separadas por 10 en un lado y por 12
+    // en el otro. Esto solo mira el aire: las alturas de pieza —un `h-9` de 36,
+    // una fila de 56— salen de la escalera de controles y no de acá.
+    const fuera = /(?<![\w-])-?(p|px|py|pt|pb|pl|pr|m|mx|my|mt|mb|ml|mr|gap|gap-x|gap-y|space-y|space-x)-(1\.5|2\.5|3\.5|7|9|11|13|14|15|\[)(?![\w.])/
+    const offenders = sources.filter(f => fuera.test(f.text)).map(f => f.name)
+    expect(offenders).toEqual([])
+  })
+
+  it('los iconos salen de la escala', () => {
+    // 12·14·16·18·20·22 para la interfaz, y 28·40 para un specimen o el hueco de
+    // un `EmptyState`. Todos pares: con una fuente, un tamaño impar cae en media
+    // grilla de píxeles y se ve borroso. El guardián existe porque el tamaño se
+    // pasa como número y no como clase, así que ningún linter lo mira.
+    const escala = new Set([12, 14, 16, 18, 20, 22, 28, 40])
+    const offenders: string[] = []
+    for (const f of sources) {
+      for (const m of f.text.matchAll(/<Icon\b[^>]*?size=\{(\d+)\}/gs)) {
+        if (!escala.has(Number(m[1]))) offenders.push(`${f.name}: ${m[1]}`)
+      }
+    }
+    expect(offenders).toEqual([])
+  })
+
   it('todo lo público se exporta desde index.ts', () => {
     const index = readFileSync(join(dir, 'index.ts'), 'utf8')
     const missing: string[] = []

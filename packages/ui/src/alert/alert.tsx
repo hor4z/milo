@@ -2,7 +2,7 @@ import type { ComponentPropsWithoutRef } from 'react'
 import { IconButton } from '../icon-button/icon-button'
 import { Icon, type IconName } from '../icon/icon'
 import { cx } from '../lib/cx'
-import { type Tone, toneClass, toneIcon } from '../lib/tone'
+import { type Tone, toneIcon, toneInk, toneSurface } from '../lib/tone'
 
 type AlertProps = ComponentPropsWithoutRef<'div'> & {
   /** De acá salen el glifo, el color y la urgencia con que se anuncia. */
@@ -19,11 +19,17 @@ export function Alert({ tone = 'info', icon, onDismiss, className, children, ...
   return (
     <div
       role={tone === 'bad' ? 'alert' : 'status'}
-      className={cx('flex gap-3 rounded-xl border border-line bg-surface p-3.5 shadow-card', className)}
+      // El papel es el del tono y no `--surface`. Un aviso blanco apoyado sobre
+      // una tarjeta blanca no se diferencia de lo que lo rodea, que es lo único
+      // que un aviso tiene que hacer. El borde también sale del tono: uno neutro
+      // alrededor de un fondo teñido se ve como algo pegado encima.
+      className={cx('flex gap-3 rounded-xl border p-4', toneSurface[tone], className)}
       {...props}
     >
       {glyph && (
-        <span className={cx('flex size-7 shrink-0 items-center justify-center rounded-md', toneClass[tone])}>
+        // Sin cuadradito: sobre el papel del tono, una caja del mismo tono un
+        // paso más fuerte se lee como un parche. El glifo va suelto y en tinta.
+        <span className={cx('flex size-5 shrink-0 items-center justify-center', toneInk[tone])}>
           <Icon name={glyph} size={18} />
         </span>
       )}
@@ -47,5 +53,5 @@ export function AlertBody({ className, ...props }: ComponentPropsWithoutRef<'p'>
 
 /** La fila de botones del aviso. */
 export function AlertActions({ className, ...props }: ComponentPropsWithoutRef<'div'>) {
-  return <div className={cx('mt-1.5 flex flex-wrap items-center gap-2', className)} {...props} />
+  return <div className={cx('mt-2 flex flex-wrap items-center gap-2', className)} {...props} />
 }

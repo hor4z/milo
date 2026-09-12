@@ -9,7 +9,11 @@ export type { MarkColor } from '../lib/colors'
 
 export function List({ children, className }: { children: ReactNode; className?: string }) {
   return (
-    <div className={cx('flex flex-col gap-2 rounded-2xl bg-surface p-2 shadow-card', className)}>
+    // El contenedor es la bandeja y no otra hoja de papel: va transparente. Con
+    // `bg-surface` acá, las filas —que también son papel— quedaban blanco sobre
+    // blanco y lo único que las separaba era su propio anillo. La lista se apoya
+    // sobre lo que haya abajo y las que flotan son las filas.
+    <div className={cx('flex flex-col gap-2', className)}>
       {children}
     </div>
   )
@@ -38,9 +42,10 @@ export function ListItem({
     <Tag
       onClick={onClick}
       className={cx(
-        'flex min-h-[72px] w-full items-center gap-3.5 rounded-xl px-3.5 py-3.5 text-left',
+        'flex min-h-[72px] w-full items-center gap-4 rounded-xl px-4 py-4 text-left',
         'transition-[background-color,box-shadow] duration-fast ease-out',
-        'ring-1 ring-line',
+        // Sin anillo: con el escritorio gris detrás, el tono y la sombra ya
+        // separan la fila. El anillo encima la dibujaba dos veces.
         active ? 'bg-sunken shadow-none' : 'bg-surface shadow-card',
         onClick && !active && 'hover:bg-muted hover:shadow-none',
       )}

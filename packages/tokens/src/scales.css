@@ -9,24 +9,28 @@
  */
 :root {
   /* ------- radios -------
-   *   sm   6   marcas hundidas: un kbd, un badge
-   *   md  10   lo cuadrado que se toca: botón de icono
-   *   lg  12   lo que se toca y tiene texto: botón, item de nav, buscador
+   *   sm   6   marcas hundidas y cuadraditos: un kbd, un badge, un checkbox
+   *   lg  12   todo lo que se toca: botón, botón de icono, item de nav, campo
    *   xl  16   lo que va adentro de una tarjeta (24 menos sus 8 de padding)
    *   2xl 24   contenedores: tarjeta, modal, popover
+   *   full     lo que es redondo de verdad: un avatar, un punto, un pulgar
+   *
+   * **Cuatro pasos y no seis.** Había un `md` de 10 y un `xs` de 5, y los dos
+   * murieron por la misma razón: estaban a dos y a un píxel de su vecino, y a
+   * esa distancia nadie ve una diferencia — lo único que hacían era dar a elegir
+   * entre dos cosas iguales, que es cómo una pantalla termina con cuatro curvas
+   * distintas sin que nadie lo haya decidido.
+   *
+   * El `md` separaba "lo cuadrado que se toca" de "lo que se toca y tiene
+   * texto". Es una distinción real y 2px no alcanzan para decirla: un botón de
+   * icono y un botón con texto se distinguen por ser cuadrado uno y ancho el
+   * otro, no por la curva.
    *
    * La regla del anidado: el radio de un hijo es el del padre menos el padding
-   * del padre. Si el hijo repite el radio del padre, la curva se ve doble.
+   * del padre. Si el hijo repite el radio del padre, la curva se ve doble; si
+   * queda más cuadrado que el padre, se ven dos curvas distintas.
    */
-  /* El paso que la escala no tenía: una marca chica y CUADRADA.
-     La escala está calibrada para piezas más anchas que altas —un kbd, un
-     badge— donde 6 de radio deja lados planos largos y se lee como caja. Sobre
-     un cuadrado de 18, esos mismos 6 dejan solo 6px de lado plano de los 18 y la
-     pieza se lee redonda. A 5 quedan 8, que ya es un cuadrado con las esquinas
-     limadas. */
-  --radius-xs: 5px;
   --radius-sm: 6px;
-  --radius-md: 10px;
   --radius-lg: 12px;
   --radius-xl: 16px;
   --radius-2xl: 24px;
@@ -140,6 +144,41 @@
   --type-display: 2.5rem;      /* 40 */
   --type-display-lh: 2.75rem;  /* 44 · 1.1 */
   --type-display-ls: -0.02em;
+
+  /* ------- espaciado -------
+     **Once pasos y ninguno más.** Antes no había escala: los call sites tomaban
+     lo que Tailwind trae, que son dieciocho valores entre 0 y 56, y el resultado
+     era una interfaz donde dos cosas que hacen lo mismo estaban separadas por
+     10 en un lado y por 12 en el otro. Eso no se ve como un error; se ve como
+     desprolijidad, que es peor porque no se puede señalar.
+
+     La grilla es de 4 con dos sub-pasos abajo: a 2 y a 6 píxeles todavía hay
+     decisiones reales que tomar —el aire adentro de un control, el inset de una
+     pista— y forzarlos a 4 u 8 los rompe. De 8 para arriba no: ahí la diferencia
+     entre 28 y 32 no la ve nadie y lo único que hace es dar a elegir.
+
+     Los roles, que es lo que hay que leer y no los números:
+
+       2    el pelo: el inset de una pista, el aire de un punto
+       4    adentro de una marca: un badge, un kbd
+       6    lo que separa un glifo de su texto
+       8    lo que separa dos cosas de la misma fila
+       12   lo que separa dos filas, y el aire de un control chico
+       16   el padding de una pieza chica, y la separación entre dos piezas
+       20   el padding de una tarjeta
+       24   el padding de un panel, y la separación entre dos bloques
+       32   la separación entre dos secciones
+       40   el aire de una pantalla
+       48   el respiro de una portada
+
+     Esto **no** manda sobre las alturas de control ni sobre las medidas del
+     shell: un `h-9` de 36 o una fila de 56 son medidas de pieza, salen de la
+     escalera de controles y no de acá. Lo que la escala manda es el aire.
+
+     No son tokens propios: son los escalones de Tailwind que el sistema deja
+     usar. Ponerlos como `--space-*` obligaría a escribir `p-(--space-4)` en cada
+     call site, que dice lo mismo y se lee peor. Lo que hace cumplir la escala es
+     un test. */
 
   /* ------- movimiento -------
      Una curva para todo lo que entra, y salidas más cortas que entradas: abrir

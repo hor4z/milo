@@ -12,7 +12,7 @@ const shell = [
 
 const radii = [
   { token: '--radius-sm', cls: 'rounded-sm', role: 'marcas hundidas: un kbd, un badge' },
-  { token: '--radius-md', cls: 'rounded-md', role: 'lo cuadrado que se toca: botón de icono' },
+  { token: '--radius-md', cls: 'rounded-lg', role: 'lo cuadrado que se toca: botón de icono' },
   { token: '--radius-lg', cls: 'rounded-lg', role: 'lo que se toca y tiene texto: botón, nav, buscador' },
   { token: '--radius-xl', cls: 'rounded-xl', role: 'lo que va adentro de una tarjeta' },
   { token: '--radius-2xl', cls: 'rounded-2xl', role: 'contenedores: tarjeta, modal, popover' },
@@ -53,7 +53,7 @@ export function MeasureSection() {
         <Section title="La base de 4" note="Los pasos que se usan de verdad. Todo lo que no está acá es un valor puesto a mano y conviene mirarlo dos veces.">
           <div className="flex flex-wrap items-end gap-4">
             {[2, 4, 6, 8, 10, 12, 14, 16, 20, 24, 32, 40].map(px => (
-              <div key={px} className="flex flex-col items-center gap-1.5">
+              <div key={px} className="flex flex-col items-center gap-2">
                 <div className="rounded-sm bg-solid" style={{ width: px, height: px }} />
                 <Mono>{px}</Mono>
               </div>
@@ -68,7 +68,7 @@ export function MeasureSection() {
         <Section title="La escala">
           <div className="flex flex-col rounded-xl border border-line bg-surface px-4">
             {radii.map(r => (
-              <div key={r.token} className="flex flex-wrap items-center gap-x-4 gap-y-2 border-t border-line py-3.5 first:border-t-0">
+              <div key={r.token} className="flex flex-wrap items-center gap-x-4 gap-y-2 border-t border-line py-4 first:border-t-0">
                 <span className={`size-14 shrink-0 bg-ink ${r.cls}`} />
                 <span className="w-28 shrink-0"><Mono>{r.token.replace('--radius-', '')}</Mono></span>
                 <Value token={r.token} />
@@ -98,7 +98,7 @@ function Measure({ token, role }: { token: string; role: string }) {
   const raw = values[token] ?? ''
   const px = Number.parseInt(raw, 10)
   return (
-    <div className="flex flex-wrap items-center gap-x-4 gap-y-2 border-t border-line py-3.5 first:border-t-0">
+    <div className="flex flex-wrap items-center gap-x-4 gap-y-2 border-t border-line py-4 first:border-t-0">
       <span className="w-52 shrink-0"><Mono>{token}</Mono></span>
       <span className="w-12 shrink-0 tabular"><Mono>{raw || '—'}</Mono></span>
       <span className="h-2 rounded-full bg-muted" style={{ width: Math.min(Number.isNaN(px) ? 0 : px, 220) }} />

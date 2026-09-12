@@ -51,14 +51,14 @@ export function CardStory() {
         <div className="flex flex-wrap gap-4">
           <Card className="w-[260px]">
             <div className="rounded-xl bg-tint-2" style={{ height: 120 }} />
-            <div className="px-2 pt-3 pb-1.5">
+            <div className="px-2 pt-3 pb-2">
               <div className="text-body font-semibold">El barrio como mapa</div>
               <div className="mt-1 text-meta text-ink-muted">Geografía · 6.º · Indagación</div>
             </div>
           </Card>
           <Card className="w-[260px]" interactive>
             <div className="rounded-xl bg-tint-3" style={{ height: 120 }} />
-            <div className="px-2 pt-3 pb-1.5">
+            <div className="px-2 pt-3 pb-2">
               <div className="text-body font-semibold">Con interactive</div>
               <div className="mt-1 text-meta text-ink-muted">Se levanta en hover — para donde haga falta</div>
             </div>

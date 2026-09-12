@@ -131,8 +131,8 @@ function Family({ title, detail, tokens }: { title: string; detail: string; toke
       </div>
       <div className="flex flex-wrap gap-2">
         {tokens.map(t => (
-          <div key={t} className="flex items-center gap-2 rounded-lg border border-line px-2 py-1.5">
-            <span className="size-5 rounded-md" style={{ background: `var(${t})` }} />
+          <div key={t} className="flex items-center gap-2 rounded-lg border border-line px-2 py-2">
+            <span className="size-5 rounded-lg" style={{ background: `var(${t})` }} />
             <code className="font-mono text-meta text-ink-muted">{vals[t] || t.replace('--', '')}</code>
           </div>
         ))}

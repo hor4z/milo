@@ -42,7 +42,7 @@ export function NavItemBody({
       <span className="flex size-[34px] shrink-0 items-center justify-center">
         <span
           className={cx(
-            'flex size-[26px] items-center justify-center rounded-md transition-[background-color,box-shadow] duration-fast',
+            'flex size-[26px] items-center justify-center rounded-lg transition-[background-color,box-shadow] duration-fast',
             active && chip && 'bg-surface shadow-[0_0_0_1px_var(--border)]',
           )}
         >
@@ -53,7 +53,7 @@ export function NavItemBody({
       {!collapsed && <span className="min-w-0 flex-1 truncate">{label}</span>}
 
       {!collapsed && badge && (
-        <span className="inset-relief tabular rounded-sm bg-muted px-1.5 py-0.5 text-meta font-medium text-ink-muted">
+        <span className="inset-relief tabular rounded-sm bg-muted px-2 py-0.5 text-meta font-medium text-ink-muted">
           {badge}
         </span>
       )}

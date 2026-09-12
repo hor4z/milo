@@ -6,7 +6,7 @@ export function Skeleton({ className, ...props }: ComponentPropsWithoutRef<'span
   return (
     <span
       aria-hidden="true"
-      className={cx('ui-pulse block rounded-md bg-track', className)}
+      className={cx('ui-pulse block rounded-lg bg-track', className)}
       {...props}
     />
   )

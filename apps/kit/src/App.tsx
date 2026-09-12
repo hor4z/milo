@@ -226,12 +226,12 @@ export function App() {
           )}
         >
           <div className="flex flex-col gap-3 px-4 pt-5 pb-3">
-            <button onClick={() => go(INTRO)} className="flex items-baseline gap-1.5 self-start rounded-md px-1 text-left">
+            <button onClick={() => go(INTRO)} className="flex items-baseline gap-2 self-start rounded-lg px-1 text-left">
               <span className="text-reading font-bold text-ink">milo</span>
               <span className="text-meta font-semibold text-ink-muted">design system</span>
             </button>
 
-            <label className="field flex h-8 cursor-text items-center gap-2 rounded-lg border border-field-line bg-field px-2.5">
+            <label className="field flex h-8 cursor-text items-center gap-2 rounded-lg border border-field-line bg-field px-2">
               <Icon name="search" size={14} className="icon-muted shrink-0" />
               <input
                 ref={searchRef}
@@ -274,7 +274,7 @@ export function App() {
 
             {filtered.map(g => (
               <div key={g.label} className="mt-5 first:mt-4">
-                <div className="px-2.5 pb-1.5 text-label font-semibold text-ink-muted uppercase">
+                <div className="px-2 pb-2 text-label font-semibold text-ink-muted uppercase">
                   {g.label}
                 </div>
                 <div className="flex flex-col gap-px">
@@ -286,7 +286,7 @@ export function App() {
             ))}
 
             {filtered.length === 0 && (
-              <p className="px-2.5 py-6 text-body font-medium text-ink-muted">Nada con «{query}».</p>
+              <p className="px-2 py-6 text-body font-medium text-ink-muted">Nada con «{query}».</p>
             )}
           </div>
 
@@ -350,7 +350,7 @@ function SideLink({ active, onClick, icon, piece, children }: {
       }}
       aria-current={active ? 'page' : undefined}
       className={cx(
-        'flex h-8 w-full items-center gap-2 rounded-lg px-2.5 text-left text-body transition-colors',
+        'flex h-8 w-full items-center gap-2 rounded-lg px-2 text-left text-body transition-colors',
         active ? 'bg-muted font-semibold text-ink' : 'font-medium text-ink-muted hover:bg-hover hover:text-ink',
       )}
     >

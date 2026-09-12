@@ -52,7 +52,7 @@ export function SettingsModal({ open, onClose, user }: {
                 onClick={() => setSection(s.id)}
                 aria-current={active ? 'page' : undefined}
                 className={cx(
-                  'flex h-10 items-center gap-3 rounded-lg border pr-2.5 pl-[3px] text-left text-body font-semibold',
+                  'flex h-10 items-center gap-3 rounded-lg border pr-2 pl-[3px] text-left text-body font-semibold',
                   'text-ink transition-[background-color,border-color] duration-fast ease-out',
                   active
                     ? 'border-line-strong bg-muted'
@@ -60,7 +60,7 @@ export function SettingsModal({ open, onClose, user }: {
                 )}
               >
                 <span className={cx(
-                  'flex size-8 shrink-0 items-center justify-center rounded-md transition-[background-color,box-shadow] duration-fast',
+                  'flex size-8 shrink-0 items-center justify-center rounded-lg transition-[background-color,box-shadow] duration-fast',
                   active && 'bg-surface shadow-[0_0_0_1px_var(--border)]',
                 )}>
                   <Icon name={s.icon} size={20} className={active ? 'text-ink' : 'icon-muted'} />
@@ -159,7 +159,7 @@ function SecuritySection() {
       <div className="border-t border-line px-6 py-4">
         <div className="rounded-xl bg-bad-subtle p-4">
           <div className="text-body font-semibold text-ink">Borrar la cuenta</div>
-          <p className="mt-1.5 text-body text-ink-muted">
+          <p className="mt-2 text-body text-ink-muted">
             Se van los espacios que coordinás y las actividades que escribiste. Las entregas de los
             aprendices quedan con su autor, no con vos.
           </p>
@@ -214,13 +214,13 @@ function EditableRow({ label, value: initial }: { label: string; value: string }
             if (e.key === 'Enter') commit()
             if (e.key === 'Escape') { setDraft(value); setEditing(false) }
           }}
-          className="inset-relief h-8 w-48 rounded-md bg-muted px-2.5 text-right text-body font-medium text-ink outline-none"
+          className="inset-relief h-8 w-48 rounded-lg bg-muted px-2 text-right text-body font-medium text-ink outline-none"
         />
       ) : (
         <button
           type="button"
           onClick={() => { setDraft(value); setEditing(true) }}
-          className="flex items-center gap-2 rounded-md px-1.5 py-1 text-body font-medium text-ink hover:bg-hover"
+          className="flex items-center gap-2 rounded-lg px-2 py-1 text-body font-medium text-ink hover:bg-hover"
         >
           {value}
           <Icon name="edit" size={16} className="icon-muted opacity-0 transition-opacity group-hover:opacity-100" />
