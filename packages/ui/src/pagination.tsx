@@ -35,8 +35,12 @@ type PaginationStatusProps = Omit<ComponentPropsWithoutRef<'p'>, 'children'> & {
   from?: number
   /** Cuántos hay en total. Sin esto solo se dice el tramo. */
   total?: number
-  /** Qué se está contando, en plural: «entregas». */
-  noun?: string
+  /**
+   * Qué se está contando. Un par `['actividad', 'actividades']` cuando el
+   * singular importa — y en una tabla importa, porque el tramo de una fila sola
+   * es un caso que pasa todo el tiempo apenas alguien filtra.
+   */
+  noun?: string | [singular: string, plural: string]
   /** Reemplaza la frase entera cuando la pantalla tiene una mejor. */
   children?: ReactNode
 }
@@ -60,7 +64,13 @@ type PaginationStatusProps = Omit<ComponentPropsWithoutRef<'p'>, 'children'> & {
 export function PaginationStatus({
   to, from = 1, total, noun, className, children, ...props
 }: PaginationStatusProps) {
-  const cola = noun ? ` ${noun}` : ''
+  /* El número que manda el plural es el que la frase termina nombrando: el total
+     si está —«1 a 4 de 9 actividades» habla de nueve— y si no, el último del
+     tramo. Con el plural fijo salía «1 actividades» cada vez que un filtro
+     dejaba una sola fila, que es un caso común y no un borde. */
+  const cuantos = total ?? to
+  const palabra = Array.isArray(noun) ? (cuantos === 1 ? noun[0] : noun[1]) : noun
+  const cola = palabra ? ` ${palabra}` : ''
   const frase = total !== undefined && from <= 1 && to >= total
     ? `${total}${cola}`
     : total !== undefined
@@ -86,13 +96,25 @@ type PaginationNavProps = Omit<ComponentPropsWithoutRef<'button'>, 'children'> &
  *
  * Son `ghost` y no botones con contorno: la franja ya tiene su línea arriba y el
  * contenedor alrededor, así que un tercer marco ahí adentro es uno de más.
+ *
+ * **Pero el texto va en tinta y no en el gris del `ghost`.** El gris es para lo
+ * que acompaña; acá los dos estados que hay que poder distinguir de un vistazo
+ * son puesto y apagado, y con el activo ya en gris la única diferencia contra el
+ * apagado —que es ese mismo gris con opacidad— era demasiado poca: los dos se
+ * leían deshabilitados y había que probar cuál respondía. En tinta, el apagado
+ * es tinta al 45% y la diferencia se ve sin comparar.
+ *
+ * Va con `!` y no como una utilidad más: el color de la variante y este son la
+ * misma propiedad y la misma especificidad, así que entre los dos gana el que
+ * Tailwind haya escrito último en la hoja —no el que esté último en el
+ * `className`— y sin el `!` esto no hacía nada, en silencio.
  */
 export function PaginationPrev({ className, children = 'Anterior', ...props }: PaginationNavProps) {
   return (
     /* `ml-auto` acá y no en el contenedor: así el par se va a la derecha
        cualquiera sea lo que haya a la izquierda —el status, nada, un selector de
        cuántas filas— sin que el call site acomode nada. */
-    <Button type="button" variant="ghost" size="sm" icon="chevron_left" className={cx('ml-auto', className)} {...props}>
+    <Button type="button" variant="ghost" size="sm" icon="chevron_left" className={cx('ml-auto !text-ink', className)} {...props}>
       {children}
     </Button>
   )
@@ -101,7 +123,7 @@ export function PaginationPrev({ className, children = 'Anterior', ...props }: P
 /** Su `disabled` es el «hay más» que contesta el back: mientras haya, hay siguiente. */
 export function PaginationNext({ className, children = 'Siguiente', ...props }: PaginationNavProps) {
   return (
-    <Button type="button" variant="ghost" size="sm" iconEnd="chevron_right" className={className} {...props}>
+    <Button type="button" variant="ghost" size="sm" iconEnd="chevron_right" className={cx('!text-ink', className)} {...props}>
       {children}
     </Button>
   )

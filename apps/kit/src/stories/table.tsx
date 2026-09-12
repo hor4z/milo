@@ -72,6 +72,7 @@ export function TableStory() {
   const [texto, setTexto] = useState('')
   const [estados, setEstados] = useState<string[]>([])
   const [espaciosElegidos, setEspaciosElegidos] = useState<string[]>([])
+  const [gente, setGente] = useState<string[]>([])
   const [pagina, setPagina] = useState(0)
 
   /* Volver a la primera página cada vez que cambia lo que se está mirando. Sin
@@ -81,6 +82,15 @@ export function TableStory() {
 
   const materia = (a: typeof todas[number]) => a.espacio.split(' · ')[0]
 
+  /* Las personas salen de las filas y no de una lista aparte: una lista escrita
+     a mano se desincroniza con los datos en el primer cambio, y el filtro ofrece
+     a alguien que ya no está en ninguna fila. */
+  const personas = useMemo(() => {
+    const vistas = new Map<string, { name: string; src?: string }>()
+    for (const a of todas) for (const e of a.estudiantes) if (!vistas.has(e.name)) vistas.set(e.name, e)
+    return [...vistas.values()]
+  }, [])
+
   /* Cada filtro cuenta sobre lo que los OTROS ya dejaron: por eso el texto y el
      otro filtro se aplican antes de contar, y el propio no. Contando sobre la
      tabla entera, elegís una opción que dice 12 y te quedan 0 filas. */
@@ -88,24 +98,40 @@ export function TableStory() {
     () => todas.filter(a => !texto.trim() || fold(a.nombre + ' ' + a.espacio).includes(fold(texto))),
     [texto],
   )
+  const conGente = (a: typeof todas[number]) =>
+    !gente.length || a.estudiantes.some(e => gente.includes(e.name))
+
   const cuentaEstados = facets(
-    porTexto.filter(a => !espaciosElegidos.length || espaciosElegidos.includes(materia(a))),
+    porTexto.filter(a => (!espaciosElegidos.length || espaciosElegidos.includes(materia(a))) && conGente(a)),
     a => a.estado,
   )
   const cuentaEspacios = facets(
-    porTexto.filter(a => !estados.length || estados.includes(a.estado)),
+    porTexto.filter(a => (!estados.length || estados.includes(a.estado)) && conGente(a)),
     materia,
   )
+  /* Una fila cuenta para cada una de sus personas, así que acá no alcanza
+     `facets`: esa cuenta una clave por fila. Una actividad con cuatro
+     estudiantes suma uno a los cuatro. */
+  const cuentaGente = useMemo(() => {
+    const n: Record<string, number> = {}
+    for (const a of porTexto) {
+      if (estados.length && !estados.includes(a.estado)) continue
+      if (espaciosElegidos.length && !espaciosElegidos.includes(materia(a))) continue
+      for (const e of a.estudiantes) n[e.name] = (n[e.name] ?? 0) + 1
+    }
+    return n
+  }, [porTexto, estados, espaciosElegidos])
 
   const lista = porTexto.filter(a =>
     (!estados.length || estados.includes(a.estado))
-    && (!espaciosElegidos.length || espaciosElegidos.includes(materia(a))))
+    && (!espaciosElegidos.length || espaciosElegidos.includes(materia(a)))
+    && conGente(a))
 
   const desde = pagina * TRAMO
   const aLaVista = lista.slice(desde, desde + TRAMO)
   const hayMas = desde + TRAMO < lista.length
-  const filtrando = texto.trim() !== '' || estados.length > 0 || espaciosElegidos.length > 0
-  const limpiar = () => { setTexto(''); setEstados([]); setEspaciosElegidos([]); setPagina(0) }
+  const filtrando = texto.trim() !== '' || estados.length > 0 || espaciosElegidos.length > 0 || gente.length > 0
+  const limpiar = () => { setTexto(''); setEstados([]); setEspaciosElegidos([]); setGente([]); setPagina(0) }
 
   return (
     <Section
@@ -134,6 +160,12 @@ export function TableStory() {
             onValueChange={filtrar(setEspaciosElegidos)}
             options={['Matemática', 'Ciencias', 'Lengua', 'Sociales'].map(v => ({ value: v, count: cuentaEspacios[v] ?? 0 }))}
           />
+          <Filter
+            label="Estudiantes"
+            value={gente}
+            onValueChange={filtrar(setGente)}
+            options={personas.map(p => ({ value: p.name, count: cuentaGente[p.name] ?? 0, person: p }))}
+          />
           {filtrando && <FilterReset onClick={limpiar} />}
         </FilterBar>
 
@@ -145,7 +177,7 @@ export function TableStory() {
                 from={desde + 1}
                 to={desde + aLaVista.length}
                 total={lista.length}
-                noun="actividades"
+                noun={['actividad', 'actividades']}
               />
               <PaginationPrev disabled={pagina === 0} onClick={() => setPagina(p => p - 1)} />
               <PaginationNext disabled={!hayMas} onClick={() => setPagina(p => p + 1)} />

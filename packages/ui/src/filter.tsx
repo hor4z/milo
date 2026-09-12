@@ -1,5 +1,5 @@
 import type { ComponentPropsWithoutRef } from 'react'
-import { Button, Checkbox, TextField, cx } from './primitives'
+import { Avatar, AvatarGroup, Button, Checkbox, TextField, cx } from './primitives'
 import { Icon } from './icon'
 import { Popover } from './overlay'
 
@@ -56,11 +56,22 @@ export function FilterSearch({ value, onValueChange, placeholder = 'Buscar…', 
   )
 }
 
+type FilterOption = {
+  value: string
+  /** En cuántas filas cae, contado sobre lo que los otros filtros dejaron. */
+  count?: number
+  /**
+   * La persona, cuando el filtro es de personas. Con esto la opción se dibuja
+   * con su cara y el botón muestra el grupo de las elegidas.
+   */
+  person?: { name: string; src?: string }
+}
+
 type FilterProps = {
   /** El rótulo: qué filtra. */
   label: string
   /** Las opciones, con cuántas filas cae en cada una. */
-  options: { value: string; count?: number }[]
+  options: FilterOption[]
   /** Lo elegido. Un arreglo porque lo normal es querer dos estados a la vez. */
   value: string[]
   onValueChange: (v: string[]) => void
@@ -89,6 +100,11 @@ export function Filter({ label, options, value, onValueChange }: FilterProps) {
   const alternar = (v: string) =>
     onValueChange(value.includes(v) ? value.filter(x => x !== v) : [...value, v])
 
+  /* Las caras de las elegidas, en el orden en que están las opciones y no en el
+     que se fueron tocando: el botón no se tiene que reordenar solo mientras
+     elegís. */
+  const caras = options.filter(o => o.person && value.includes(o.value)).map(o => o.person!)
+
   return (
     <Popover
       align="start"
@@ -98,22 +114,50 @@ export function Filter({ label, options, value, onValueChange }: FilterProps) {
           ref={ref}
           onClick={onClick}
           {...rest}
-          variant={value.length ? 'solid' : 'muted'}
+          /* Puesto va en `brand` y no en `solid`: el azul es el color que el
+             sistema ya usa para decir «esto está encendido» —el CTA, el arco del
+             spinner, el anillo de foco— y un filtro puesto es exactamente eso.
+             En tinta se confundía con un botón oscuro cualquiera, que acá no es
+             lo que quiere decir: la fila de filtros no tiene un botón que manda,
+             tiene botones que están o no están puestos. */
+          variant={value.length ? 'brand' : 'muted'}
           size="sm"
           iconEnd="keyboard_arrow_down"
         >
-          {label}{value.length > 0 && ` · ${value.length}`}
+          {/* Con personas, el grupo de caras reemplaza al contador: ya dice
+              cuántas son —el `+2` de `AvatarGroup` cuenta el resto— y además
+              dice cuáles, que es lo único que un filtro de personas necesita
+              contestar de un vistazo. Un nombre no; tres nombres en un botón lo
+              estiran hasta sacarlo de la barra.
+
+              El anillo va del color del botón y no del papel: sobre el azul, el
+              anillo blanco del default se ve como un halo recortado. */}
+          {caras.length > 0 && <AvatarGroup people={caras} size={18} max={3} ring="ring-brand" className="-ml-0.5" />}
+          {label}{value.length > 0 && caras.length === 0 && ` · ${value.length}`}
         </Button>
       )}
     >
       {() => (
-        <div className="ui-pop rounded-xl border border-line bg-popover p-1.5 shadow-popover">
+        /* El techo es para el filtro de personas: los estados de una tabla son
+           tres, pero las personas son todas las que haya, y sin él el panel se
+           estira hasta cubrir la tabla que estás filtrando. `overscroll-contain`
+           para que llegar al fondo de la lista no siga scrolleando la página
+           —que además cerraría el panel, porque un scroll de la página lo
+           cierra. */
+        <div className="ui-pop max-h-[320px] overflow-y-auto overscroll-contain rounded-xl border border-line bg-popover p-1.5 shadow-popover">
           {options.map(o => (
             <label
               key={o.value}
-              className="flex h-9 cursor-pointer items-center gap-2.5 rounded-lg px-2 transition-colors hover:bg-hover"
+              className={cx(
+                'flex cursor-pointer items-center gap-2.5 rounded-lg px-2 transition-colors hover:bg-hover',
+                /* La fila con cara va más alta: un avatar de 22 adentro de 36
+                   toca arriba y abajo, y una lista de personas apretada se lee
+                   como una sola mancha. */
+                o.person ? 'h-10' : 'h-9',
+              )}
             >
               <Checkbox checked={value.includes(o.value)} onChange={() => alternar(o.value)} />
+              {o.person && <Avatar name={o.person.name} src={o.person.src} size={22} className="shrink-0" />}
               <span className="min-w-0 flex-1 truncate text-xs font-medium text-ink">{o.value}</span>
               {o.count !== undefined && (
                 <span className="tabular shrink-0 text-2xs font-medium text-ink-muted">{o.count}</span>
