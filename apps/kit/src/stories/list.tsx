@@ -2,11 +2,11 @@ import { Icon, List, ListItem, type IconName, type MarkColor } from '@melu/ui'
 import { A11y, Mono, Page, Props, Section } from '../kit'
 
 const onboarding: { icon: IconName; color: MarkColor; title: string; hint: string; active?: boolean }[] = [
-  { icon: 'check', color: 'green', title: 'Update your profile', hint: 'Add a photo and connect your social links.' },
-  { icon: 'menu_book', color: 'purple', title: 'Write your first post', hint: 'Share your voice – start creating today.' },
-  { icon: 'calendar_month', color: 'orange', title: 'Plan your first post', hint: 'Pick the perfect time to publish.' },
-  { icon: 'check', color: 'green', title: 'Create your first link', hint: 'Make a trackable link to share.', active: true },
-  { icon: 'lightbulb', color: 'blue', title: 'Explore today’s inspiration', hint: 'Spark ideas with fresh content.' },
+  { icon: 'check', color: 'green', title: 'Completá tu perfil', hint: 'Una foto y en qué materias das clase.' },
+  { icon: 'menu_book', color: 'purple', title: 'Armá tu primera actividad', hint: 'Con una consigna y un método alcanza para empezar.' },
+  { icon: 'calendar_month', color: 'orange', title: 'Elegí cuándo se cierra', hint: 'Después de esa fecha nadie puede entregar.' },
+  { icon: 'check', color: 'green', title: 'Invitá a tu primer grupo', hint: 'Con un link que podés revocar cuando quieras.', active: true },
+  { icon: 'lightbulb', color: 'blue', title: 'Mirá lo que hicieron otros', hint: 'Actividades públicas de docentes de tu área.' },
 ]
 
 const espacios: { icon: IconName; color: MarkColor; title: string; hint: string }[] = [
