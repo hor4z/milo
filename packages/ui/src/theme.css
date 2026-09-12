@@ -700,6 +700,21 @@ h1, h2, h3 { font-family: var(--font-sans); font-weight: 400; letter-spacing: va
   :disabled, [aria-disabled="true"], [data-disabled] { cursor: not-allowed; }
 }
 
+/* El scroller de la tabla no muestra su barra. Una tabla ancha es de las pocas
+   piezas que scrollean de costado, y en un escritorio con barras clásicas —las
+   de Linux y Windows, que ocupan lugar siempre— esa barra queda dibujada abajo
+   del cuerpo aunque nadie la esté usando: una línea gris permanente entre la
+   última fila y la franja de paginación, que se lee como un divisor más de la
+   tabla. La rueda, el trackpad y las flechas siguen scrolleando igual.
+
+   Lo que se pierde es el aviso de que hay más a la derecha, y la respuesta a eso
+   no es la barra: es no necesitarla — la tabla elige su `minWidth` para entrar,
+   y las columnas que sobran se apagan con el `ColumnPicker`. */
+@utility no-scrollbar {
+  scrollbar-width: none;
+  &::-webkit-scrollbar { display: none; }
+}
+
 @supports selector(::-webkit-scrollbar) {
   ::-webkit-scrollbar { width: 10px; height: 10px; }
   ::-webkit-scrollbar-track { background: transparent; }

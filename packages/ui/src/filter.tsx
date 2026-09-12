@@ -1,5 +1,5 @@
 import type { ComponentPropsWithoutRef } from 'react'
-import { Avatar, AvatarGroup, Button, Checkbox, TextField, cx } from './primitives'
+import { Avatar, AvatarGroup, Button, Checkbox, IconButton, TextField, cx } from './primitives'
 import { Icon } from './icon'
 import { Popover } from './overlay'
 
@@ -191,6 +191,85 @@ export function FilterReset({ className, children = 'Limpiar', ...props }: Compo
     <Button type="button" variant="ghost" size="sm" className={className} {...props}>
       {children}
     </Button>
+  )
+}
+
+type ColumnPickerProps = {
+  /** Todas las columnas que la tabla puede mostrar, en el orden en que van. */
+  columns: { id: string; label: string; locked?: boolean }[]
+  /** Los ids de las que están a la vista. */
+  value: string[]
+  onValueChange: (v: string[]) => void
+  label?: string
+  className?: string
+}
+
+/**
+ * Elegir qué columnas se ven.
+ *
+ * **No es un `Filter` con otro nombre**, aunque se dibujen parecido: un filtro
+ * cambia qué filas hay y este cambia qué se muestra de cada una. Por eso no va
+ * en la fila de filtros sino empujado a la esquina, y por eso no se apaga ni se
+ * enciende — no hay un estado «sin columnas» que valga la pena avisar, siempre
+ * hay algunas puestas.
+ *
+ * **Y por eso es un icono y no un botón con texto.** En la barra, lo que se lee
+ * de izquierda a derecha son las condiciones de lo que estás mirando; esto es
+ * una preferencia de cómo mirarlo, y con un rótulo del mismo peso se leería como
+ * un filtro más.
+ *
+ * **Una columna puede venir `locked`.** La primera identifica la fila, y sin
+ * ella queda una tabla de datos sin sujeto: números y estados que no se sabe de
+ * qué son. Esa se muestra en la lista —para que se entienda que no es un olvido—
+ * pero con su casilla apagada.
+ */
+export function ColumnPicker({ columns, value, onValueChange, label = 'Columnas', className }: ColumnPickerProps) {
+  const alternar = (id: string) =>
+    onValueChange(value.includes(id) ? value.filter(x => x !== id) : [...value, id])
+
+  return (
+    <Popover
+      align="end"
+      width={220}
+      trigger={({ onClick, ref, ...rest }) => (
+        /* El `ml-auto` va acá y no en el call site, por lo mismo que en la
+           paginación: este control va contra la esquina cualquiera sea lo que
+           haya a su izquierda, y que cada barra se acuerde de empujarlo es una
+           forma de que en la tercera pantalla quede pegado a los filtros. */
+        <IconButton
+          ref={ref}
+          onClick={onClick}
+          {...rest}
+          icon="view_column"
+          label={label}
+          size="sm"
+          variant="muted"
+          className={cx('ml-auto', className)}
+        />
+      )}
+    >
+      {() => (
+        <div className="ui-pop max-h-[320px] overflow-y-auto overscroll-contain rounded-xl border border-line bg-popover p-1.5 shadow-popover">
+          <p className="px-2 pt-1 pb-1.5 text-2xs font-semibold tracking-wide text-ink">{label}</p>
+          {columns.map(c => (
+            <label
+              key={c.id}
+              className={cx(
+                'flex h-9 items-center gap-2.5 rounded-lg px-2 transition-colors',
+                c.locked ? 'cursor-default opacity-45' : 'cursor-pointer hover:bg-hover',
+              )}
+            >
+              <Checkbox
+                checked={c.locked || value.includes(c.id)}
+                onChange={() => !c.locked && alternar(c.id)}
+                disabled={c.locked}
+              />
+              <span className="min-w-0 flex-1 truncate text-xs font-medium text-ink">{c.label}</span>
+            </label>
+          ))}
+        </div>
+      )}
+    </Popover>
   )
 }
 

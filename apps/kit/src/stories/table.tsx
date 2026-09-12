@@ -1,7 +1,7 @@
 import { useMemo, useState } from 'react'
 import {
-  Avatar, AvatarGroup, Chip, Dropdown, EmptyState, Filter, FilterBar, FilterReset, FilterSearch,
-  IconButton,
+  Avatar, AvatarGroup, Chip, ColumnPicker, Dropdown, EmptyState, Filter, FilterBar, FilterReset,
+  FilterSearch, IconButton,
   Pagination, PaginationNext, PaginationPrev, PaginationStatus,
   Table, TableBody, TableCell, TableFooter, TableHead, TableHeader,
   TableHint, TableNum, TableRow, TableTitle, facets, fold,
@@ -78,6 +78,21 @@ export function TableStory() {
   const [estados, setEstados] = useState<string[]>([])
   const [espaciosElegidos, setEspaciosElegidos] = useState<string[]>([])
   const [gente, setGente] = useState<string[]>([])
+
+  /* Las columnas que se pueden esconder, en el orden en que van. `actividad` va
+     `locked`: es la que identifica la fila, y sin ella quedan números y estados
+     que no se sabe de qué son. */
+  const columnas = [
+    { id: 'actividad', label: 'Actividad', locked: true },
+    { id: 'estudiantes', label: 'Estudiantes' },
+    { id: 'docente', label: 'Docente' },
+    { id: 'estado', label: 'Estado' },
+    { id: 'corregidas', label: 'Corregidas' },
+    { id: 'entregas', label: 'Entregas' },
+    { id: 'acciones', label: 'Acciones' },
+  ]
+  const [visibles, setVisibles] = useState(columnas.map(c => c.id))
+  const ver = (id: string) => visibles.includes(id)
   const [pagina, setPagina] = useState(0)
 
   /* Volver a la primera página cada vez que cambia lo que se está mirando. Sin
@@ -145,7 +160,7 @@ export function TableStory() {
     >
       <Block
         label="La tabla entera"
-        note="Una tabla de trabajo son tres cosas más que la grilla: con qué se recorta, cuántas hay, y cómo se pasa al tramo siguiente. Buscá, filtrá y paginá — los tres se llevan entre sí, que es la parte que se rompe cuando cada uno se escribe por su lado. Con ocho columnas además se pasa del ancho del cuerpo y aparece el scroll de costado: scrolleá y mirá que los botones de paginar no se van con la tabla. Esa franja vive adentro del marco pero afuera del scroll, que es un lugar al que el call site no llega solo."
+        note="Una tabla de trabajo son tres cosas más que la grilla: con qué se recorta, cuántas hay, y cómo se pasa al tramo siguiente. Buscá, filtrá y paginá — los tres se llevan entre sí, que es la parte que se rompe cuando cada uno se escribe por su lado. Y si las columnas no entran, la tabla scrollea de costado sin dibujar una barra: scrolleá con la rueda y mirá que los botones de paginar no se van con la tabla. Esa franja vive adentro del marco pero afuera del scroll, que es un lugar al que el call site no llega solo."
       >
         <FilterBar className="mb-3">
           <FilterSearch
@@ -172,10 +187,19 @@ export function TableStory() {
             options={personas.map(p => ({ value: p.name, count: cuentaGente[p.name] ?? 0, person: p }))}
           />
           {filtrando && <FilterReset onClick={limpiar} />}
+          {/* A la derecha de todo y con `ml-auto`: lo de la izquierda son las
+              condiciones de lo que estás mirando, esto es una preferencia de
+              cómo mirarlo. Puestos en la misma fila sin separar, se leería como
+              un filtro más. */}
+          <ColumnPicker
+            columns={columnas}
+            value={visibles}
+            onValueChange={setVisibles}
+          />
         </FilterBar>
 
         <Table
-          minWidth={1100}
+          minWidth={980}
           footer={(
             <Pagination>
               <PaginationStatus
@@ -192,17 +216,16 @@ export function TableStory() {
           <TableHeader>
             <TableRow>
               <TableHead>Actividad</TableHead>
-              <TableHead>Estudiantes</TableHead>
-              <TableHead>Docente</TableHead>
-              <TableHead>Estado</TableHead>
-              <TableHead>Última edición</TableHead>
-              <TableHead className="text-right">Corregidas</TableHead>
-              <TableHead className="text-right">Entregas</TableHead>
+              {ver('estudiantes') && <TableHead>Estudiantes</TableHead>}
+              {ver('docente') && <TableHead>Docente</TableHead>}
+              {ver('estado') && <TableHead>Estado</TableHead>}
+              {ver('corregidas') && <TableHead className="text-right">Corregidas</TableHead>}
+              {ver('entregas') && <TableHead className="text-right">Entregas</TableHead>}
               {/* La columna de acciones no lleva rótulo: el título de una
                   columna dice qué hay en ella, y lo que hay acá es el mismo
                   botón repetido. «Acciones» escrito arriba no agrega nada y le
                   da peso de columna a lo que es un margen. */}
-              <TableHead><span className="sr-only">Acciones</span></TableHead>
+              {ver('acciones') && <TableHead><span className="sr-only">Acciones</span></TableHead>}
             </TableRow>
           </TableHeader>
           <TableBody>
@@ -212,28 +235,29 @@ export function TableStory() {
                   <TableTitle>{a.nombre}</TableTitle>
                   <TableHint>{a.espacio}</TableHint>
                 </TableCell>
-                <TableCell><AvatarGroup people={a.estudiantes} /></TableCell>
+                {ver('estudiantes') && <TableCell><AvatarGroup people={a.estudiantes} /></TableCell>}
                 {/* Un avatar solo y su nombre: la misma persona que en la
                     columna de al lado va en grupo, acá va sola, y las dos tienen
                     que pesar igual. */}
-                <TableCell>
-                  <span className="flex items-center gap-2">
-                    <Avatar name={a.docente.name} src={a.docente.src} size={24} />
-                    <span className="truncate">{a.docente.name}</span>
-                  </span>
-                </TableCell>
-                <TableCell><Chip color={tono[a.estado as keyof typeof tono]}>{a.estado}</Chip></TableCell>
-                {/* Cuándo se tocó es de lo poco que sí va en gris: acompaña a la
-                    fila y no la nombra. Y no lleva `tabular` — no es una columna
-                    de números que tenga que alinear, son frases. */}
-                <TableCell className="whitespace-nowrap text-ink-muted">{a.cuando}</TableCell>
+                {ver('docente') && (
+                  <TableCell>
+                    <span className="flex items-center gap-2">
+                      <Avatar name={a.docente.name} src={a.docente.src} size={24} />
+                      <span className="truncate">{a.docente.name}</span>
+                    </span>
+                  </TableCell>
+                )}
+                {ver('estado') && <TableCell><Chip color={tono[a.estado as keyof typeof tono]}>{a.estado}</Chip></TableCell>}
                 {/* Corregidas contra entregas, no un número suelto: 11 no dice
                     nada sin saber sobre cuántas, y dos columnas que hay que
                     cruzar con la vista son dos lecturas para un solo dato. */}
-                <TableNum>
-                  {a.entregas ? <>{a.corregidas}<span className="text-ink-muted"> / {a.entregas}</span></> : '—'}
-                </TableNum>
-                <TableNum>{a.entregas || '—'}</TableNum>
+                {ver('corregidas') && (
+                  <TableNum>
+                    {a.entregas ? <>{a.corregidas}<span className="text-ink-muted"> / {a.entregas}</span></> : '—'}
+                  </TableNum>
+                )}
+                {ver('entregas') && <TableNum>{a.entregas || '—'}</TableNum>}
+                {ver('acciones') && (
                 <TableCell className="w-0 pr-4">
                   <Dropdown
                     items={[
@@ -253,11 +277,12 @@ export function TableStory() {
                     )}
                   />
                 </TableCell>
+                )}
               </TableRow>
             ))}
             {aLaVista.length === 0 && (
               <tr>
-                <td colSpan={8} className="px-6 py-10">
+                <td colSpan={visibles.length} className="px-6 py-10">
                   <EmptyState
                     title="Ninguna actividad con eso"
                     body="Probá con otras palabras, o sacá alguno de los filtros puestos."
@@ -273,10 +298,15 @@ export function TableStory() {
           {aLaVista.length > 0 && (
             <TableFooter>
               <TableRow>
-                <TableCell colSpan={5}>Total{filtrando ? ' de lo filtrado' : ''}</TableCell>
-                <TableNum>{lista.reduce((n, a) => n + a.corregidas, 0)}</TableNum>
-                <TableNum>{lista.reduce((n, a) => n + a.entregas, 0)}</TableNum>
-                <TableCell />
+                {/* El `colSpan` se cuenta y no se escribe: con columnas que se
+                    esconden, un número fijo deja el total corrido una celda cada
+                    vez que alguien apaga una. */}
+                <TableCell colSpan={1 + ['estudiantes', 'docente', 'estado'].filter(ver).length}>
+                  Total{filtrando ? ' de lo filtrado' : ''}
+                </TableCell>
+                {ver('corregidas') && <TableNum>{lista.reduce((n, a) => n + a.corregidas, 0)}</TableNum>}
+                {ver('entregas') && <TableNum>{lista.reduce((n, a) => n + a.entregas, 0)}</TableNum>}
+                {ver('acciones') && <TableCell />}
               </TableRow>
             </TableFooter>
           )}
