@@ -13,6 +13,7 @@ import { IconButtonStory } from './stories/icon-button'
 import { TextFieldStory } from './stories/text-field'
 import { TextareaStory } from './stories/textarea'
 import { EmptyStateStory } from './stories/empty-state'
+import { ChartStory } from './stories/chart'
 import { SelectStory } from './stories/select'
 import { CheckboxStory } from './stories/checkbox'
 import { RadioStory } from './stories/radio'
@@ -92,6 +93,12 @@ const groups: Group[] = [
       { id: 'kbd', label: 'Kbd', render: () => <KbdStory /> },
       { id: 'divider', label: 'Divider', render: () => <DividerStory /> },
       { id: 'empty-state', label: 'EmptyState', render: () => <EmptyStateStory /> },
+    ],
+  },
+  {
+    label: 'Charts', color: 'orange',
+    stories: [
+      { id: 'bar-chart', label: 'BarChart', render: () => <ChartStory /> },
     ],
   },
   {
