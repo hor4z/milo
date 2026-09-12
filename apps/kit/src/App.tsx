@@ -185,6 +185,23 @@ export function App() {
                 ref={buscador}
                 value={busqueda}
                 onChange={e => setBusqueda(e.target.value)}
+                onKeyDown={e => {
+                  const encontrados = filtrados.flatMap(g => g.stories)
+                  if (e.key === 'Enter' && encontrados.length > 0) {
+                    go(encontrados[0].id)
+                    setBusqueda('')
+                    buscador.current?.blur()
+                  }
+                  if (e.key === 'Escape') {
+                    if (busqueda) setBusqueda('')
+                    else buscador.current?.blur()
+                  }
+                  if (e.key === 'ArrowDown') {
+                    e.preventDefault()
+                    const primero = document.querySelector<HTMLButtonElement>('nav [data-pieza]')
+                    primero?.focus()
+                  }
+                }}
                 placeholder="Buscar"
                 aria-label="Buscar una pieza"
                 className="min-w-0 flex-1 bg-transparent text-xs font-normal text-ink outline-none placeholder:text-ink-muted"
@@ -210,7 +227,7 @@ export function App() {
                 </div>
                 <div className="flex flex-col gap-px">
                   {g.stories.map(s => (
-                    <SideLink key={s.id} active={current === s.id} onClick={() => go(s.id)}>{s.label}</SideLink>
+                    <SideLink key={s.id} active={current === s.id} onClick={() => go(s.id)} pieza>{s.label}</SideLink>
                   ))}
                 </div>
               </div>
@@ -247,15 +264,25 @@ export function App() {
   )
 }
 
-function SideLink({ active, onClick, icon, children }: {
+function SideLink({ active, onClick, icon, pieza, children }: {
   active: boolean
   onClick: () => void
   icon?: 'deployed_code' | 'dashboard'
+  pieza?: boolean
   children: ReactNode
 }) {
   return (
     <button
       onClick={onClick}
+      data-pieza={pieza ? '' : undefined}
+      onKeyDown={e => {
+        if (e.key !== 'ArrowDown' && e.key !== 'ArrowUp') return
+        e.preventDefault()
+        const todos = [...document.querySelectorAll<HTMLButtonElement>('nav [data-pieza]')]
+        const i = todos.indexOf(e.currentTarget)
+        const siguiente = todos[i + (e.key === 'ArrowDown' ? 1 : -1)]
+        siguiente?.focus()
+      }}
       aria-current={active ? 'page' : undefined}
       className={cx(
         'flex h-8 w-full items-center gap-2 rounded-lg px-2.5 text-left text-xs transition-colors',

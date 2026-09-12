@@ -28,3 +28,12 @@ describe('las vistas del kit', () => {
     expect(sinImport).toEqual([])
   })
 })
+
+describe('el riel', () => {
+  it('cada pieza tiene sinónimos para buscarla', () => {
+    const app = readFileSync(join(import.meta.dirname, '../App.tsx'), 'utf8')
+    const piezas = [...app.matchAll(/\{ id: '([\w-]+)', label: '[^']*',( alias: '[^']*',)?/g)]
+    const sinAlias = piezas.filter(m => !m[2]).map(m => m[1])
+    expect(sinAlias).toEqual([])
+  })
+})
