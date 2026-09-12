@@ -378,7 +378,13 @@ Lo que no es un componente vive en `lib/`: `cx` y `fold`, las familias de color,
 de alturas de control, los pares de tono de aviso, la pila de Escape y los hooks de overlay.
 El corte es el mismo de siempre: si dos piezas lo comparten, no es de ninguna de las dos.
 
-**El kit va con una historia por pieza**, y las piezas se agrupan por el trabajo que hacen
+**El kit va con una historia por pieza, y una sola pieza por historia.** Las vistas que juntaban
+dos o tres —"Alert y Toast", "Badge y Progress", "Card y Row"— hacían a escala chica lo mismo que
+las seis pantallas temáticas del principio: quien busca `Skeleton` en el riel no lo ve, porque la
+vista se llama por otra pieza. Donde la comparación importa, queda escrita en las dos vistas y
+cada una linkea a la otra: solapas o acordeón, alert o toast, sheet o modal, link o button.
+
+Las piezas se agrupan por el trabajo que hacen
 —Guía, Acciones, Formularios, Navegación, Datos, Avisos, Superficies— y no por su tipo
 técnico. Cada vista abre con una portada: el nombre, una línea de qué es y cuándo se usa, la
 categoría y el `import` para copiar; y cierra con lo que la pieza resuelve en accesibilidad.
@@ -388,7 +394,7 @@ El riel tiene buscador con atajo `/` y no tiene logo: el nombre va en texto.
 
 ## Los tests
 
-`npm test` corre vitest con jsdom y testing-library. 162 tests, y lo que prueban es el
+`npm test` corre vitest con jsdom y testing-library. 169 tests, y lo que prueban es el
 comportamiento —teclado, nombres accesibles, estados— y no el markup, que cambia con cada
 ajuste de estilo. El test de cada pieza vive en su carpeta, al lado del componente.
 

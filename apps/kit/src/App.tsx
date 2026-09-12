@@ -31,13 +31,25 @@ import { BookStory } from './stories/book'
 import { FolderStory } from './stories/folder'
 import { ListStory } from './stories/list'
 import { TableStory } from './stories/table'
-import { ContainersStory } from './stories/containers'
+import { CardStory } from './stories/card'
+import { RowStory } from './stories/row'
 import { NavStory } from './stories/nav'
-import { FeedbackStory } from './stories/feedback'
-import { FormStory } from './stories/form'
+import { AlertStory } from './stories/alert'
+import { ToastStory } from './stories/toast'
+import { FieldStory } from './stories/field'
+import { SheetStory } from './stories/sheet'
+import { LinkStory } from './stories/link'
 import { TabsStory } from './stories/tabs'
-import { StatusStory } from './stories/status'
-import { ConfirmStory, DropdownStory, ModalStory, PopoverStory, TooltipStory } from './stories/overlays'
+import { AccordionStory } from './stories/accordion'
+import { BreadcrumbStory } from './stories/breadcrumb'
+import { BadgeStory } from './stories/badge'
+import { ProgressStory } from './stories/progress'
+import { SkeletonStory } from './stories/skeleton'
+import { ConfirmStory } from './stories/confirm-dialog'
+import { DropdownStory } from './stories/dropdown'
+import { ModalStory } from './stories/modal'
+import { PopoverStory } from './stories/popover'
+import { TooltipStory } from './stories/tooltip'
 
 type Story = { id: string; label: string; render: () => ReactNode; alias?: string }
 type Group = { label: string; stories: Story[] }
@@ -69,7 +81,8 @@ const groups: Group[] = [
   {
     label: 'Formularios',
     stories: [
-      { id: 'form', label: 'Field y Sheet', alias: 'formulario campo etiqueta error panel lateral drawer', render: () => <FormStory /> },
+      { id: 'field', label: 'Field', alias: 'formulario campo etiqueta ayuda error obligatorio fieldset', render: () => <FieldStory /> },
+      { id: 'sheet', label: 'Sheet', alias: 'panel lateral drawer formulario largo costado', render: () => <SheetStory /> },
       { id: 'text-field', label: 'TextField', alias: 'input campo texto entrada', render: () => <TextFieldStory /> },
       { id: 'textarea', label: 'Textarea', alias: 'campo multilínea texto largo', render: () => <TextareaStory /> },
       { id: 'select', label: 'Select', alias: 'combo desplegable elegir opción', render: () => <SelectStory /> },
@@ -83,7 +96,9 @@ const groups: Group[] = [
   {
     label: 'Navegación',
     stories: [
-      { id: 'tabs', label: 'Tabs, Accordion y Breadcrumb', alias: 'solapas pestañas acordeón desplegable ruta migas navegación', render: () => <TabsStory /> },
+      { id: 'tabs', label: 'Tabs', alias: 'solapas pestañas paneles', render: () => <TabsStory /> },
+      { id: 'accordion', label: 'Accordion', alias: 'acordeón desplegable details preguntas frecuentes', render: () => <AccordionStory /> },
+      { id: 'breadcrumb', label: 'Breadcrumb', alias: 'ruta migas volver jerarquía', render: () => <BreadcrumbStory /> },
       { id: 'nav', label: 'NavItem', alias: 'navegación item sidebar riel', render: () => <NavStory /> },
     ],
   },
@@ -93,7 +108,9 @@ const groups: Group[] = [
       { id: 'table', label: 'Table', alias: 'tabla grilla filas columnas datos', render: () => <TableStory /> },
       { id: 'list', label: 'List', alias: 'lista filas acciones', render: () => <ListStory /> },
       { id: 'bar-chart', label: 'BarChart', alias: 'gráfico barras chart datos progreso', render: () => <ChartStory /> },
-      { id: 'status', label: 'Badge y Progress', alias: 'badge etiqueta progreso barra esqueleto carga', render: () => <StatusStory /> },
+      { id: 'badge', label: 'Badge', alias: 'etiqueta marca estado', render: () => <BadgeStory /> },
+      { id: 'progress', label: 'Progress', alias: 'progreso barra porcentaje avance', render: () => <ProgressStory /> },
+      { id: 'skeleton', label: 'Skeleton', alias: 'esqueleto carga hueco placeholder', render: () => <SkeletonStory /> },
       { id: 'avatar', label: 'Avatar', alias: 'foto persona iniciales grupo', render: () => <AvatarStory /> },
       { id: 'chip', label: 'Chip', alias: 'etiqueta pill categoría', render: () => <ChipStory /> },
     ],
@@ -101,7 +118,8 @@ const groups: Group[] = [
   {
     label: 'Avisos',
     stories: [
-      { id: 'feedback', label: 'Alert y Toast', alias: 'alerta aviso error toast notificación mensaje', render: () => <FeedbackStory /> },
+      { id: 'alert', label: 'Alert', alias: 'alerta aviso error banner mensaje', render: () => <AlertStory /> },
+      { id: 'toast', label: 'Toast', alias: 'toast notificación aviso pasajero deshacer', render: () => <ToastStory /> },
       { id: 'empty-state', label: 'EmptyState', alias: 'vacío sin resultados nada', render: () => <EmptyStateStory /> },
       { id: 'spinner', label: 'Spinner', alias: 'cargando loading esperar', render: () => <SpinnerStory /> },
       { id: 'tooltip', label: 'Tooltip', alias: 'ayuda globo hover', render: () => <TooltipStory /> },
@@ -110,11 +128,13 @@ const groups: Group[] = [
   {
     label: 'Superficies',
     stories: [
-      { id: 'containers', label: 'Card y Row', alias: 'tarjeta card fila panel superficie', render: () => <ContainersStory /> },
+      { id: 'card', label: 'Card', alias: 'tarjeta card panel superficie grilla', render: () => <CardStory /> },
+      { id: 'row', label: 'Row', alias: 'fila ajuste panel preferencia', render: () => <RowStory /> },
       { id: 'modal', label: 'Modal', alias: 'diálogo ventana emergente', render: () => <ModalStory /> },
       { id: 'confirm', label: 'ConfirmDialog', alias: 'confirmar borrar peligro pregunta', render: () => <ConfirmStory /> },
       { id: 'popover', label: 'Popover', alias: 'panel anclado flotante', render: () => <PopoverStory /> },
-      { id: 'divider', label: 'Divider y Link', alias: 'separador línea enlace hipervínculo', render: () => <DividerStory /> },
+      { id: 'divider', label: 'Divider', alias: 'separador línea corte', render: () => <DividerStory /> },
+      { id: 'link', label: 'Link', alias: 'enlace hipervínculo subrayado externo', render: () => <LinkStory /> },
       { id: 'kbd', label: 'Kbd', alias: 'tecla atajo teclado', render: () => <KbdStory /> },
       { id: 'book', label: 'Book', alias: 'libro portada tapa', render: () => <BookStory /> },
       { id: 'folder', label: 'Folder', alias: 'carpeta espacio color', render: () => <FolderStory /> },

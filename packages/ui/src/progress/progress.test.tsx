@@ -10,8 +10,16 @@ describe('Progress', () => {
     expect(bar).toHaveAttribute('aria-valuemax', '60')
   })
 
-  it('no se pasa de los bordes', () => {
-    render(<Progress value={999} max={10} label="x" />)
-    expect(screen.getByRole('progressbar')).toHaveAttribute('aria-valuenow', '999')
+  it('el valor que se anuncia no se sale del rango', () => {
+    const { rerender } = render(<Progress value={999} max={10} label="Corregidas" />)
+    expect(screen.getByRole('progressbar')).toHaveAttribute('aria-valuenow', '10')
+    rerender(<Progress value={-4} max={10} label="Corregidas" />)
+    expect(screen.getByRole('progressbar')).toHaveAttribute('aria-valuenow', '0')
+  })
+
+  it('el nombre accesible es el rótulo que se ve', () => {
+    render(<Progress value={3} max={10} label="Corregidas" />)
+    const bar = screen.getByRole('progressbar', { name: 'Corregidas' })
+    expect(bar.getAttribute('aria-labelledby')).toBe(screen.getByText('Corregidas').id)
   })
 })

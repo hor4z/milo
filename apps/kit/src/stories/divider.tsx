@@ -1,12 +1,12 @@
-import { Avatar, Divider, Icon, Kbd, Link } from '@melu/ui'
-import { A11y, Canvas, Page, Panel, Props, Section, Variant } from '../kit'
+import { Avatar, Divider, Icon, Kbd } from '@melu/ui'
+import { A11y, Page, Panel, Props, Section, Variant } from '../kit'
 
 export function DividerStory() {
   return (
     <Page
-      title="Divider y Link"
+      title="Divider"
       kind="Superficies"
-      imports="import { Divider, Link } from '@melu/ui'"
+      imports="import { Divider } from '@melu/ui'"
       lead="Un píxel de --border, y nada más. Existe como pieza y no como una clase suelta por algo práctico: la línea estaba escrita a mano en varios lugares —border-t, border-b, un hr con el borde apagado— y no todas con el mismo gris. Cuál gris es la línea del sistema es una decisión, y una decisión escrita seis veces se desincroniza a la quinta."
     >
       <Section
@@ -64,24 +64,11 @@ export function DividerStory() {
         ]} />
       </Section>
     
-      <Section
-        title="Link"
-        note="Un enlace lleva subrayado, siempre. Sin él, lo único que lo distingue del texto que lo rodea es el color, y en una interfaz monocroma no hay color que lo distinga. El de afuera avisa que se abre en otra pestaña —con el glifo y con texto para el lector— en vez de hacerlo en silencio."
-      >
-        <Canvas className="flex-col items-start gap-3">
-          <p className="max-w-[60ch] text-xs font-medium text-ink-muted">
-            Las entregas se cierran en la fecha que elijas. Podés cambiarla desde{' '}
-            <Link href="#divider">los ajustes de la actividad</Link> mientras siga abierta.
-          </p>
-          <Link href="https://m3.material.io/styles/icons" external>Material Symbols</Link>
-        </Canvas>
-      </Section>
-
       <Section title="Accesibilidad">
         <A11y items={[
-          'El Divider lleva role="separator" con su orientación, así que un lector anuncia el corte.',
-          'Un Link externo dice «se abre en otra pestaña» además de mostrar el glifo.',
-          'El subrayado no depende del color: se ve igual en monocromo y en alto contraste.',
+          'Lleva role="separator" con su orientación, así que un lector anuncia el corte en vez de saltearlo.',
+          'No es tabulable ni tiene contenido: separa, y nada más.',
+          'El gris sale de --border, el mismo de todas las líneas del sistema, así que sube y baja con el tema.',
         ]} />
       </Section>
     </Page>

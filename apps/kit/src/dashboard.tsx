@@ -93,8 +93,8 @@ export function Dashboard() {
           <div className="flex flex-col gap-4">
             <Progress label="Matemática · 4.º A" value={11} max={18} hint="11/18" />
             <Progress label="Ciencias · 5.º B" value={24} max={24} hint="listo" tone="ok" />
-            <Progress label="Sociales · 5.º A" value={3} max={7} hint="3/7" tone="warn" />
-            <Progress label="Lengua · 6.º" value={0} max={12} hint="sin entregas" tone="bad" />
+            <Progress label="Sociales · 5.º A" value={3} max={7} hint="3/7" />
+            <Progress label="Lengua · 6.º" value={0} max={12} hint="sin entregas" />
           </div>
           <div className="mt-auto flex items-center gap-2.5 border-t border-line pt-4">
             <AvatarGroup size={24} people={[p('Ana Pérez', 1), p('Bruno Díaz', 2), p('Carla Sosa', 3), p('Elena Vega', 5)]} />
@@ -146,7 +146,7 @@ export function Dashboard() {
               <span className="truncate text-2xs font-medium text-ink-muted">{d.rol}</span>
             </div>
             {d.pend > 0
-              ? <Badge tone="warn">{d.pend}</Badge>
+              ? <Badge>{d.pend}</Badge>
               : <Badge tone="ok" icon="check">al día</Badge>}
           </Card>
         ))}

@@ -1,24 +1,16 @@
-import { useState } from 'react'
-import {
-  Badge, Button, Card, CardBody, CardFooter, CardHeader, CardHint, CardTitle, Progress, Row,
-  Select, Switch,
-} from '@melu/ui'
-import { A11y, Page, Props, Section } from '../kit'
+import { Badge, Button, Card, CardBody, CardFooter, CardHeader, CardHint, CardTitle, Progress } from '@melu/ui'
+import { A11y, Note, Page, Props, Section } from '../kit'
 
-export function ContainersStory() {
-  const [uno, setUno] = useState(true)
-  const [dos, setDos] = useState(false)
-  const [nivel, setNivel] = useState('Todo el equipo')
-
+export function CardStory() {
   return (
     <Page
-      title="Card · Row"
+      title="Card"
       kind="Superficies"
-      imports="import { Card, Row } from '@melu/ui'"
-      lead="Los dos contenedores del sistema: la tarjeta de una grilla y la fila de un panel."
+      imports="import { Card, CardHeader, CardTitle, CardHint, CardBody, CardFooter } from '@melu/ui'"
+      lead="La superficie de una grilla: una cosa por tarjeta, y la tarjeta entera es la unidad que se escanea. Radio 24 con 8 de padding, así que lo que va adentro lleva 16 — la regla del anidado, no un número elegido a ojo."
     >
       <Section
-        title="La tarjeta se arma con partes"
+        title="Se arma con partes"
         note="`CardHeader`, `CardTitle`, `CardHint`, `CardBody` y `CardFooter` traen el espaciado y la tipografía del sistema. Sin ellas, cada pantalla inventaba su propia cabecera: tres tamaños de título distintos en tres tarjetas vecinas."
       >
         <div className="flex flex-wrap items-start gap-4">
@@ -53,8 +45,8 @@ export function ContainersStory() {
       </Section>
 
       <Section
-        title="Card"
-        note="Radio 24 con 8 de padding, así que lo que va adentro lleva 16. Las tarjetas no se mueven en hover y no tienen acciones flotando encima: una grilla que salta hace temblar la vista, y un botón que aparece al pasar el mouse no se descubre sin mouse y tapa justo lo que estabas mirando."
+        title="Quieta, y sin acciones escondidas"
+        note="Las tarjetas no se mueven en hover y no tienen botones flotando encima: una grilla que salta hace temblar la vista, y un botón que aparece al pasar el mouse no se descubre sin mouse y tapa justo lo que estabas mirando. `interactive` existe para la tarjeta que es un link entero, y ahí el movimiento dice algo."
       >
         <div className="flex flex-wrap gap-4">
           <Card className="w-[260px]">
@@ -75,43 +67,46 @@ export function ContainersStory() {
       </Section>
 
       <Section
-        title="Row"
-        note="56 de alto, padding 16/24, label a la izquierda y control a la derecha. El divisor va como borde superior de cada fila menos la primera, y no como borde inferior de todas: así la última no deja una línea suelta contra el fondo del panel."
+        title="Papel o hueco"
+        note="`paper` sobresale del fondo y tira su sombra: es una cosa apoyada arriba. `muted` es lo contrario, un hueco hundido en la pantalla, y sirve para lo que agrupa sin ser protagonista — un resumen, un bloque de ayuda."
       >
-        <div className="max-w-[520px] overflow-hidden rounded-2xl border border-line bg-surface">
-          <Row label="Sugerir mejoras" hint="Mientras escribís una consigna">
-            <Switch checked={uno} onChange={setUno} label="Sugerir mejoras" />
-          </Row>
-          <Row label="Aparecer en el directorio" hint="Otras escuelas pueden encontrarte">
-            <Switch checked={dos} onChange={setDos} label="Directorio" />
-          </Row>
-          <Row label="Quién ve mis recetas">
-            <Select value={nivel} onChange={setNivel} width={180} options={['Solo yo', 'Todo el equipo', 'Cualquiera con el link']} />
-          </Row>
+        <div className="flex flex-wrap gap-4">
+          <Card className="w-[260px] p-4" surface="paper">
+            <div className="text-xs font-semibold">paper</div>
+            <div className="mt-1 text-2xs text-ink-muted">Sobresale. El default.</div>
+          </Card>
+          <Card className="w-[260px] p-4" surface="muted">
+            <div className="text-xs font-semibold">muted</div>
+            <div className="mt-1 text-2xs text-ink-muted">Un hueco, para lo que agrupa.</div>
+          </Card>
         </div>
       </Section>
 
+      <Note title="Card o Row">
+        La tarjeta es para una grilla de cosas que se comparan de reojo. Si lo que hay es una lista
+        de ajustes —etiqueta a la izquierda, control a la derecha— eso es un
+        {' '}<a className="underline underline-offset-2" href="#row">Row</a> adentro de un panel, y
+        no seis tarjetas apiladas.
+      </Note>
+
       <Section title="Props">
         <Props rows={[
-          { name: 'Card · interactive', type: 'boolean', note: 'levanta la tarjeta en hover; por defecto no se mueve' },
-          { name: 'Card · surface', type: "'paper' | 'muted'", def: "'paper'", note: 'papel sobresale y tira sombra; muted es un hueco' },
-          { name: 'Card · className', type: 'string', note: 'para el ancho' },
+          { name: 'interactive', type: 'boolean', note: 'levanta la tarjeta en hover; por defecto no se mueve' },
+          { name: 'surface', type: "'paper' | 'muted'", def: "'paper'", note: 'papel sobresale y tira sombra; muted es un hueco' },
+          { name: 'className', type: 'string', note: 'para el ancho y para cambiar el padding' },
           { name: 'CardHeader', type: 'div', note: 'título a la izquierda, lo que haya a la derecha' },
           { name: 'CardTitle', type: 'h3', note: 'cómo se llama lo que hay adentro' },
           { name: 'CardHint', type: 'p', note: 'la línea de apoyo' },
           { name: 'CardBody', type: 'div', note: 'el cuerpo, con el padding que la tarjeta no pone' },
           { name: 'CardFooter', type: 'div', note: 'la fila de abajo, separada por una línea' },
-          { name: 'Row · label', type: 'string', note: 'obligatorio' },
-          { name: 'Row · hint', type: 'string', note: 'segunda línea en 11px gris' },
-          { name: 'Row · children', type: 'ReactNode', note: 'el control, alineado a la derecha' },
         ]} />
       </Section>
 
       <Section title="Accesibilidad">
         <A11y items={[
-          'CardTitle es un <h3>: la tarjeta entra en el esquema de encabezados de la página.',
-          'La tarjeta no se mueve en hover ni esconde acciones detrás del puntero.',
-          'Row ata su etiqueta al control que lleva adentro.',
+          'CardTitle es un <h3>: la tarjeta entra en el esquema de encabezados de la página en vez de ser texto en negrita.',
+          'La tarjeta no se mueve en hover ni esconde acciones detrás del puntero, así que se descubre igual sin mouse.',
+          'Con interactive, lo que se toca sigue siendo un control de verdad —un link o un botón— y no un div con onClick.',
         ]} />
       </Section>
     </Page>

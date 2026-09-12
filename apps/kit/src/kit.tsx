@@ -89,11 +89,6 @@ export function Code({ children }: { children: string }) {
   )
 }
 
-/** Compatibilidad con las vistas que todavía no se migraron. */
-export function Block({ label, note, children }: { label: string; note?: string; children?: ReactNode }) {
-  return <Section title={label} note={note}>{children}</Section>
-}
-
 /** Un bloque con título, una explicación y lo que se muestra. */
 export function Section({ title, note, children }: { title: string; note?: string; children?: ReactNode }) {
   return (

@@ -1,4 +1,5 @@
 import { createContext, useCallback, useContext, useEffect, useId, useMemo, useRef, useState, type ReactNode } from 'react'
+import { Button } from '../button/button'
 import { IconButton } from '../icon-button/icon-button'
 import { Icon } from '../icon/icon'
 import { cx } from '../lib/cx'
@@ -9,7 +10,8 @@ export type ToastOptions = {
   title: string
   body?: string
   tone?: Tone
-  action?: ReactNode
+  /** La salida del aviso: deshacer, ver, reintentar. Al tocarla el aviso se cierra. */
+  action?: { label: string; onClick?: () => void }
   /** Milisegundos antes de irse solo. `0` lo deja hasta que lo cierren. */
   duration?: number
 }
@@ -95,7 +97,13 @@ function ToastItem({ toast, onDismiss }: { toast: ToastRecord; onDismiss: (id: s
       <div className="flex min-w-0 flex-1 flex-col gap-1 py-0.5">
         <p id={id} className="text-base font-semibold text-ink">{title}</p>
         {body && <p className="text-xs font-medium text-ink-muted">{body}</p>}
-        {action && <div className="mt-1.5 flex items-center gap-2">{action}</div>}
+        {action && (
+          <div className="mt-1.5 flex items-center gap-2">
+            <Button size="sm" variant="raised" onClick={() => { action.onClick?.(); cerrar() }}>
+              {action.label}
+            </Button>
+          </div>
+        )}
       </div>
       <IconButton icon="close" label="Cerrar el aviso" size="sm" variant="ghost" onClick={cerrar} className="-mt-0.5 -mr-1" />
     </li>

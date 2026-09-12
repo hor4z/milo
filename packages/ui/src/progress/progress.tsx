@@ -1,4 +1,4 @@
-import type { ComponentPropsWithoutRef, ReactNode } from 'react'
+import { useId, type ComponentPropsWithoutRef, type ReactNode } from 'react'
 import { cx } from '../lib/cx'
 
 type ProgressProps = ComponentPropsWithoutRef<'div'> & {
@@ -15,19 +15,21 @@ const fillTone = { brand: 'bg-brand', ok: 'bg-ok', warn: 'bg-warn', bad: 'bg-bad
 
 /** Cuánto de algo va hecho. La pista es el resto, no un segundo dato. */
 export function Progress({ value, max = 100, label, hint, tone = 'brand', className, ...props }: ProgressProps) {
-  const pct = Math.min(100, Math.max(0, (value / (max || 1)) * 100))
+  const dentro = Math.min(max, Math.max(0, value))
+  const pct = (dentro / (max || 1)) * 100
+  const id = useId()
   return (
     <div className={cx('flex flex-col gap-1.5', className)} {...props}>
       {(label || hint) && (
         <div className="flex items-baseline justify-between gap-3">
-          <span className="text-xs font-medium text-ink">{label}</span>
+          <span id={id} className="text-xs font-medium text-ink">{label}</span>
           {hint && <span className="tabular text-2xs font-medium text-ink-muted">{hint}</span>}
         </div>
       )}
       <div
         role="progressbar"
-        aria-label={label}
-        aria-valuenow={Math.round(value)}
+        aria-labelledby={id}
+        aria-valuenow={Math.round(dentro)}
         aria-valuemin={0}
         aria-valuemax={max}
         className="h-1.5 w-full overflow-hidden rounded-full bg-track"
