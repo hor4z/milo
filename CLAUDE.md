@@ -439,8 +439,6 @@ alguien cambia un tono y rompe un par, falla antes de llegar a una pantalla.
 - **`planes` y `entrar`** siguen con las medidas viejas (14px, sin relieve).
 - **El shell y la paleta de comandos siguen en `apps/guide`** porque leen `data.ts`. Para que
   entren al paquete hay que pasarles el contenido por props.
-- **`README.md` quedó desactualizado**: describe la primera identidad (jade y ámbar, radios
-  3·6·8·10·14) que después se reemplazó por la rampa neutra y la escala 6·10·12·16·24.
 - Portar los tokens a `~/melu/packages/ui`, que es para lo que existe todo esto.
 
 ## Lo que no está
