@@ -64,7 +64,7 @@ export function Dashboard() {
         </div>
       </header>
 
-      <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+      <div className="grid grid-cols-2 gap-3 lg:grid-cols-4">
         <Stat label="Entregas" value="79" delta="+12%" icon="inbox" />
         <Stat label="Corregidas" value="67" delta="+8%" icon="check_circle" />
         <Stat label="Sin mirar" value="12" delta="-3" icon="schedule" tone="warn" />
@@ -133,7 +133,7 @@ export function Dashboard() {
         </Table>
       </Card>
 
-      <div className="grid gap-3 sm:grid-cols-3">
+      <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
         {[
           { name: 'Valeria Ochoa', foto: 7, rol: 'Matemática · 4.º A', pend: 7 },
           { name: 'Martín Roldán', foto: 6, rol: 'Ciencias · 5.º B', pend: 0 },

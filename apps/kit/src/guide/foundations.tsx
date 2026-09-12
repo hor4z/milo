@@ -40,7 +40,7 @@ export function Foundations() {
       title="Principios"
       lead="Seis decisiones de las que sale casi todo lo demás. No son gustos: cada una se rompió al menos una vez y dejó una cicatriz que conviene no repetir."
     >
-      <div className="grid gap-3 sm:grid-cols-2">
+      <div className="grid gap-3 md:grid-cols-2">
         {principios.map(p => (
           <div key={p.title} className="flex flex-col gap-3 rounded-2xl border border-line bg-surface p-5">
             <span className="inset-relief flex size-9 items-center justify-center rounded-xl bg-muted">
