@@ -716,6 +716,16 @@ h1, h2, h3 { font-family: var(--font-sans); font-weight: 400; letter-spacing: va
    está adentro. */
 [role="dialog"]:focus-visible { box-shadow: none; }
 
+/* Una fila de tabla enfocada: el anillo va adentro y no alrededor. Un `tr` con
+   `border-collapse` no dibuja `box-shadow` —la receta de arriba se pierde— y
+   un anillo por afuera lo cortaría el scroll lateral de la tabla. El outline
+   con offset negativo se ve entero y no mueve ni una columna. */
+tr[tabindex]:focus-visible {
+  outline: 2px solid var(--blue-500);
+  outline-offset: -2px;
+  box-shadow: none;
+}
+
 /* En Tailwind v4 el preflight deja los <button> con la flecha del navegador:
    nada se siente clickeable. Se resuelve una vez acá, sobre los roles. */
 @layer base {
