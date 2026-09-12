@@ -1,5 +1,5 @@
-import { type ReactNode } from 'react'
-import { type IconName } from '../icon/icon'
+import type { ReactNode } from 'react'
+import type { IconName } from '../icon/icon'
 import { Menu, MenuItem } from '../menu/menu'
 import { Popover } from '../popover/popover'
 

@@ -1,4 +1,4 @@
-/** Dos botones cargan todo el peso del sistema: - `solid` tinta plana. */
+/** `solid` y `brand` son el mismo rol —el botón que manda—: va uno o el otro, nunca los dos en la misma pantalla. */
 export const variants = {
   solid: 'raised-solid bg-solid text-on-solid hover:bg-solid-hover',
   raised: 'raised text-ink',

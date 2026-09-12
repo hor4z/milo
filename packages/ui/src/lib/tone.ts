@@ -1,4 +1,4 @@
-import { type IconName } from '../icon/icon'
+import type { IconName } from '../icon/icon'
 
 export type Tone = 'info' | 'ok' | 'warn' | 'bad'
 
@@ -18,8 +18,5 @@ export const toneClass: Record<Tone, string> = {
 
 export const badgeTone: Record<Tone | 'neutral', string> = {
   neutral: 'bg-muted text-ink',
-  info: 'bg-brand-subtle text-brand-ink',
-  ok: 'bg-ok-subtle text-ok-ink',
-  warn: 'bg-warn-subtle text-warn-ink',
-  bad: 'bg-bad-subtle text-bad-ink',
+  ...toneClass,
 }

@@ -1,4 +1,4 @@
-import { type ComponentPropsWithoutRef } from 'react'
+import type { ComponentPropsWithoutRef } from 'react'
 import { Icon } from '../icon/icon'
 import { cx } from '../lib/cx'
 

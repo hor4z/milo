@@ -1,4 +1,4 @@
-import { type ComponentPropsWithoutRef } from 'react'
+import type { ComponentPropsWithoutRef } from 'react'
 import { cx } from '../lib/cx'
 
 /** El hueco que ocupa algo que todavía está cargando. */

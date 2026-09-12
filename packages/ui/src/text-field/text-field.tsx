@@ -1,4 +1,4 @@
-import { type InputHTMLAttributes, type ReactNode, type Ref } from 'react'
+import type { InputHTMLAttributes, ReactNode, Ref } from 'react'
 import { useField } from '../field/field'
 import { Icon, type IconName } from '../icon/icon'
 import { fieldSizes } from '../lib/control'

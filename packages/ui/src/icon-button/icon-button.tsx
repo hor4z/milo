@@ -1,4 +1,4 @@
-import { type ButtonHTMLAttributes, type Ref } from 'react'
+import type { ButtonHTMLAttributes, Ref } from 'react'
 import { Icon, type IconName } from '../icon/icon'
 import { control, variants } from '../lib/control'
 import { cx } from '../lib/cx'

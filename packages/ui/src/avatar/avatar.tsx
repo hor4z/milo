@@ -1,4 +1,4 @@
-import { type CSSProperties } from 'react'
+import type { CSSProperties } from 'react'
 import { markColors, markFill } from '../lib/colors'
 import { cx } from '../lib/cx'
 

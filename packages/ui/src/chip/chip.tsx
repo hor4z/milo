@@ -1,4 +1,4 @@
-import { type ReactNode } from 'react'
+import type { ReactNode } from 'react'
 import { Icon } from '../icon/icon'
 import { type LabelColor, labelFill } from '../lib/colors'
 import { cx } from '../lib/cx'

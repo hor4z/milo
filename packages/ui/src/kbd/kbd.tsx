@@ -1,4 +1,4 @@
-import { type ReactNode } from 'react'
+import type { ReactNode } from 'react'
 
 /** El kbd va hundido: 11px, radio 6, con luz arriba y sombra interior abajo. */
 export function Kbd({ children }: { children: ReactNode }) {
