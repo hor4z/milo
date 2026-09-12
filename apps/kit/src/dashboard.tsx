@@ -4,6 +4,7 @@ import {
   Indicator, Link, List, ListItem, Progress, Search, Segmented, SettingsModal, Tooltip, useToast,
   type IconName,
 } from '@milo/ui'
+import { useQuieto } from './mascots/reglas'
 
 const face = (n: number) => `/avatars/${String(n).padStart(2, '0')}.webp`
 const p = (name: string, photo?: number) => ({ name, src: photo ? face(photo) : undefined })
@@ -170,39 +171,42 @@ export function Dashboard() {
         </div>
 
         {/* En `muted` y no en papel: adentro lleva `ListItem`s, que son papel. */}
-        <Card surface="muted" className="flex flex-col gap-5 p-6">
-          <div className="flex flex-col gap-3">
-            <div className="flex items-center justify-between gap-4">
-              <h2 className="text-reading font-semibold text-ink">Para hoy</h2>
-              <Link href="#list" className="text-body">Ver todas</Link>
+        <div className="relative">
+          <Otto />
+          <Card surface="muted" className="relative flex flex-col gap-5 p-6">
+            <div className="flex flex-col gap-3">
+              <div className="flex items-center justify-between gap-4">
+                <h2 className="text-reading font-semibold text-ink">Para hoy</h2>
+                <Link href="#list" className="text-body">Ver todas</Link>
+              </div>
+              <List>
+                {pendientes.map(t => (
+                  <ListItem
+                    key={t.title}
+                    icon={t.icon}
+                    color={t.color}
+                    title={t.title}
+                    hint={t.hint}
+                    onClick={() => {}}
+                  />
+                ))}
+              </List>
             </div>
-            <List>
-              {pendientes.map(t => (
-                <ListItem
-                  key={t.title}
-                  icon={t.icon}
-                  color={t.color}
-                  title={t.title}
-                  hint={t.hint}
-                  onClick={() => {}}
-                />
-              ))}
-            </List>
-          </div>
 
-          <div className="flex flex-col gap-4 border-t border-line pt-5">
-            <h2 className="text-reading font-semibold text-ink">Cómo va cada espacio</h2>
-            <Progress label="Matemática · 4.º A" value={11} max={18} hint="11/18" />
-            <Progress label="Ciencias · 5.º B" value={24} max={24} hint="listo" tone="ok" />
-            <Progress label="Sociales · 5.º A" value={3} max={7} hint="3/7" />
-            <Progress label="Lengua · 6.º" value={0} max={12} hint="sin entregas" />
-          </div>
+            <div className="flex flex-col gap-4 border-t border-line pt-5">
+              <h2 className="text-reading font-semibold text-ink">Cómo va cada espacio</h2>
+              <Progress label="Matemática · 4.º A" value={11} max={18} hint="11/18" />
+              <Progress label="Ciencias · 5.º B" value={24} max={24} hint="listo" tone="ok" />
+              <Progress label="Sociales · 5.º A" value={3} max={7} hint="3/7" />
+              <Progress label="Lengua · 6.º" value={0} max={12} hint="sin entregas" />
+            </div>
 
-          <div className="mt-auto flex items-center gap-2 border-t border-line pt-4">
-            <AvatarGroup size={24} people={[p('Ana Pérez', 1), p('Bruno Díaz', 2), p('Carla Sosa', 3), p('Elena Vega', 5)]} />
-            <span className="text-meta font-medium text-ink-muted">96 estudiantes en total</span>
-          </div>
-        </Card>
+            <div className="mt-auto flex items-center gap-2 border-t border-line pt-4">
+              <AvatarGroup size={24} people={[p('Ana Pérez', 1), p('Bruno Díaz', 2), p('Carla Sosa', 3), p('Elena Vega', 5)]} />
+              <span className="text-meta font-medium text-ink-muted">96 estudiantes en total</span>
+            </div>
+          </Card>
+        </div>
       </div>
 
 
@@ -230,6 +234,28 @@ function Avisos() {
     />
   )
 }
+
+/**
+ * Otto flota adelante de todo, en la esquina de la tarjeta. El video trae su
+ * propio fondo y no es transparente, así que va adentro de una caja con su
+ * borde y su radio — suelto se vería el rectángulo gris.
+ */
+function Otto() {
+  const quieto = useQuieto()
+  if (quieto) return null
+  return (
+    <video
+      src="/mascotas/otto.mp4"
+      autoPlay
+      loop
+      muted
+      playsInline
+      aria-hidden
+      className="absolute -top-8 right-4 z-20 h-40 w-auto rounded-xl border border-line shadow-card"
+    />
+  )
+}
+
 
 function Stat({ label, value, delta, icon, tone = 'ok' }: {
   label: string
