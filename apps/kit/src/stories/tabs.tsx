@@ -11,7 +11,7 @@ export function TabsStory() {
     >
       <Section
         title="Cómo se arma"
-        note="El activo se marca con una línea y no con color: en una interfaz monocroma la línea distingue igual y no gasta el único acento que hay. `value` ata cada solapa con su panel, y es lo mismo que un lector de pantalla usa para decir cuál de los tres estás leyendo."
+        note="El activo se marca con la línea **y** con el azul: unas solapas dicen dónde estás dentro de una pantalla, y eso es orientación. Un `Segmented` se le parece y no lleva azul, porque ahí lo que se elige es un filtro — una decisión que cambia diez veces por minuto y no un lugar donde estás parado. `value` ata cada solapa con su panel, y es lo mismo que un lector de pantalla usa para decir cuál de los tres estás leyendo."
       >
         <Canvas>
           <Tabs defaultValue="entregas">

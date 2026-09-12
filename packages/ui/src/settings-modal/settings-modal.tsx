@@ -53,17 +53,19 @@ export function SettingsModal({ open, onClose, user }: {
                 aria-current={active ? 'page' : undefined}
                 className={cx(
                   'flex h-10 items-center gap-3 rounded-lg border pr-2 pl-[3px] text-left text-body font-semibold',
-                  'text-ink transition-[background-color,border-color] duration-fast ease-out',
+                  'transition-[background-color,border-color,color] duration-fast ease-out',
+                  // El mismo azul que el riel de la app: este rail también dice
+                  // dónde estás, solo que adentro de un modal.
                   active
-                    ? 'border-line-strong bg-muted'
-                    : 'border-transparent hover:bg-hover',
+                    ? 'border-brand-border bg-brand-soft text-brand-ink'
+                    : 'border-transparent text-ink hover:bg-hover',
                 )}
               >
                 <span className={cx(
                   'flex size-8 shrink-0 items-center justify-center rounded-lg transition-[background-color,box-shadow] duration-fast',
-                  active && 'bg-surface shadow-[0_0_0_1px_var(--border)]',
+                  active && 'bg-surface shadow-[0_0_0_1px_var(--brand-border)]',
                 )}>
-                  <Icon name={s.icon} size={20} className={active ? 'text-ink' : 'icon-muted'} />
+                  <Icon name={s.icon} size={20} className={active ? 'text-brand-ink' : 'icon-muted'} />
                 </span>
                 {s.label}
               </button>

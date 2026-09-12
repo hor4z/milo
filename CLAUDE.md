@@ -344,6 +344,13 @@ leer. El item actual va en `--brand-soft` con tinta `--brand-ink` y su canto.
 El relieve no se fue: sigue marcando lo que se aprieta y lo que sobresale. Lo que cambió es que
 dejó de tener que marcar también dónde estás parado.
 
+**La línea que separa los dos: orientación va en azul, preferencia va en relieve.** Un item de nav
+y una solapa dicen *dónde estás* —eso no cambia por minuto y conviene encontrarlo sin leer—, así
+que van en el primario. Un `Segmented` se les parece y **no** lleva azul: ahí lo que se elige es un
+filtro, una decisión que cambia diez veces por minuto, y teñirla de primario le da el peso de una
+ubicación a algo que es una preferencia. Si todo lo elegido fuera azul, el azul dejaría de decir
+dónde estás.
+
 Corolario que se rompió cuatro veces: **el texto de un item inactivo va en tinta, no en gris.** Con
 la etiqueta apagada, una lista de siete espacios se lee como si estuviera deshabilitada. La cuarta
 fue el subitem del riel, que la rompía mientras su propio padre la cumplía.

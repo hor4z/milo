@@ -79,13 +79,18 @@ export function Tab({ value, className, children, ...props }: ComponentPropsWith
       onClick={() => setValue(value)}
       className={cx(
         'relative -mb-px h-9 px-3 text-body font-semibold transition-colors',
-        active ? 'text-ink' : 'text-ink-muted hover:text-ink',
+        // La solapa elegida va en el azul, por lo mismo que el item de nav: unas
+        // solapas dicen dónde estás dentro de una pantalla, y eso es orientación
+        // y no una preferencia. Un `Segmented` no lleva azul aunque se le
+        // parezca — ahí lo que se elige es un filtro, que es una decisión que
+        // cambia diez veces por minuto y no un lugar donde estás parado.
+        active ? 'text-brand-ink' : 'text-ink-muted hover:text-ink',
         className,
       )}
       {...props}
     >
       {children}
-      {active && <span className="absolute inset-x-0 -bottom-px h-0.5 rounded-full bg-ink" />}
+      {active && <span className="absolute inset-x-0 -bottom-px h-0.5 rounded-full bg-brand" />}
     </button>
   )
 }
