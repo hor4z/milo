@@ -87,3 +87,12 @@ describe('los números de la portada', () => {
     expect(anunciados).toBe(reales)
   })
 })
+
+describe('useTokens', () => {
+  it('no depende de la identidad del arreglo', () => {
+    const kit = readFileSync(join(import.meta.dirname, '../kit.tsx'), 'utf8')
+    const hook = kit.slice(kit.indexOf('export function useTokens'), kit.indexOf('type PageProps'))
+    expect(hook, 'la dependencia tiene que ser el contenido, no el arreglo').not.toMatch(/\}, \[names\]\)/)
+    expect(hook).toMatch(/\[clave\]/)
+  })
+})

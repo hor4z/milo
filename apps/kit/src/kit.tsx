@@ -3,20 +3,24 @@ import { Badge, Icon, cx, type IconName } from '@melu/ui'
 
 export function useTokens(names: readonly string[]) {
   const [vals, setVals] = useState<Record<string, string>>({})
+  // La dependencia es el contenido y no el arreglo: con la identidad, un
+  // `useTokens(['--x'])` escrito inline arma uno nuevo en cada render y el
+  // effect se vuelve a disparar para siempre.
+  const clave = names.join('|')
+
   useEffect(() => {
-    const cs = getComputedStyle(document.documentElement)
-    const next: Record<string, string> = {}
-    for (const n of names) next[n] = cs.getPropertyValue(n).trim()
-    setVals(next)
-    const obs = new MutationObserver(() => {
-      const cs2 = getComputedStyle(document.documentElement)
-      const n2: Record<string, string> = {}
-      for (const n of names) n2[n] = cs2.getPropertyValue(n).trim()
-      setVals(n2)
-    })
+    const leer = () => {
+      const cs = getComputedStyle(document.documentElement)
+      const next: Record<string, string> = {}
+      for (const n of clave.split('|')) next[n] = cs.getPropertyValue(n).trim()
+      setVals(next)
+    }
+    leer()
+    const obs = new MutationObserver(leer)
     obs.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] })
     return () => obs.disconnect()
-  }, [names])
+  }, [clave])
+
   return vals
 }
 
