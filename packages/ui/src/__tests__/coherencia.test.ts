@@ -3,10 +3,12 @@ import { readFileSync, readdirSync } from 'node:fs'
 import { join } from 'node:path'
 
 const dir = join(import.meta.dirname, '..')
-const fuentes = readdirSync(dir)
-  .filter(f => f.endsWith('.tsx') || f.endsWith('.ts'))
-  .filter(f => !f.startsWith('icons.gen') && !f.startsWith('icons.meta'))
-  .map(f => ({ nombre: f, texto: readFileSync(join(dir, f), 'utf8') }))
+type Fuente = { nombre: string; texto: string }
+
+const fuentes: Fuente[] = readdirSync(dir)
+  .filter((f: string) => f.endsWith('.tsx') || f.endsWith('.ts'))
+  .filter((f: string) => !f.startsWith('icons.gen') && !f.startsWith('icons.meta'))
+  .map((f: string): Fuente => ({ nombre: f, texto: readFileSync(join(dir, f), 'utf8') }))
 
 describe('coherencia del sistema', () => {
   it('ningún componente escribe un color a mano', () => {

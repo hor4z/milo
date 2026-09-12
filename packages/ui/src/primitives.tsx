@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useId, useLayoutEffect, useRef, useState } from 'react'
-import type { ButtonHTMLAttributes, CSSProperties, InputHTMLAttributes, ReactNode, Ref, TextareaHTMLAttributes } from 'react'
+import type { ButtonHTMLAttributes, ComponentPropsWithoutRef, CSSProperties, InputHTMLAttributes, ReactNode, Ref, TextareaHTMLAttributes } from 'react'
 import { useEscape } from './esc'
 import { Portal } from './overlay'
 import { Icon, type IconName } from './icon'
@@ -785,6 +785,35 @@ export function Card({ children, className, interactive, surface = 'paper' }: {
       {children}
     </div>
   )
+}
+
+/** La cabecera de una tarjeta: el título a la izquierda, lo que haya a la derecha. */
+export function CardHeader({ className, children, ...props }: ComponentPropsWithoutRef<'div'>) {
+  return (
+    <div className={cx('flex items-start justify-between gap-4 px-3 pt-3 pb-1', className)} {...props}>
+      {children}
+    </div>
+  )
+}
+
+/** Cómo se llama lo que hay en la tarjeta. */
+export function CardTitle({ className, ...props }: ComponentPropsWithoutRef<'h3'>) {
+  return <h3 className={cx('text-base font-semibold text-ink', className)} {...props} />
+}
+
+/** La línea de apoyo, debajo del título. */
+export function CardHint({ className, ...props }: ComponentPropsWithoutRef<'p'>) {
+  return <p className={cx('text-xs font-medium text-ink-muted', className)} {...props} />
+}
+
+/** El cuerpo, con el padding que la tarjeta no pone. */
+export function CardBody({ className, ...props }: ComponentPropsWithoutRef<'div'>) {
+  return <div className={cx('px-3 py-2', className)} {...props} />
+}
+
+/** La fila de abajo, separada por una línea. */
+export function CardFooter({ className, ...props }: ComponentPropsWithoutRef<'div'>) {
+  return <div className={cx('mt-1 flex items-center gap-2 border-t border-line px-3 pt-3 pb-2', className)} {...props} />
 }
 
 /** La fila de un panel: 56px de alto, padding 16/24, label a la izquierda y control a la derecha. */
