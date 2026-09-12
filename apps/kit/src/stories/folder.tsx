@@ -1,4 +1,4 @@
-import { Card, Folder, Icon } from '@melu/ui'
+import { Card, Folder, Icon } from '@milo/ui'
 import { A11y, Mono, Page, Props, Section } from '../kit'
 
 const face = (n: number) => `/avatars/${String(n).padStart(2, '0')}.webp`
@@ -9,7 +9,7 @@ export function FolderStory() {
     <Page
       title="Folder"
       kind="Superficies"
-      imports="import { Folder, FolderIcon } from '@melu/ui'"
+      imports="import { Folder, FolderIcon } from '@milo/ui'"
       lead="Una carpeta que se abre. Cerrada es una silueta limpia; al pasar por encima las hojas suben desde adentro y se abanican, y ahí se ve qué hay sin tener que entrar."
     >
       <Section

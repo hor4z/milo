@@ -1,4 +1,4 @@
-import { Accordion, AccordionItem } from '@melu/ui'
+import { Accordion, AccordionItem } from '@milo/ui'
 import { A11y, Note, Page, Props, Section } from '../kit'
 
 export function AccordionStory() {
@@ -6,7 +6,7 @@ export function AccordionStory() {
     <Page
       title="Accordion"
       kind="Navegación"
-      imports="import { Accordion, AccordionItem } from '@melu/ui'"
+      imports="import { Accordion, AccordionItem } from '@milo/ui'"
       lead="Filas que se leen de a una y que la mayoría no va a abrir: las preguntas frecuentes, los detalles de una configuración, lo que está de más en la pantalla pero tiene que estar en algún lado."
     >
       <Section

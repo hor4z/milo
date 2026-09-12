@@ -1,4 +1,4 @@
-import { Badge, Card, CardBody, CardHeader, CardTitle } from '@melu/ui'
+import { Badge, Card, CardBody, CardHeader, CardTitle } from '@milo/ui'
 import { A11y, Demo, Note, Page, Props, Section } from '../kit'
 
 export function BadgeStory() {
@@ -6,7 +6,7 @@ export function BadgeStory() {
     <Page
       title="Badge"
       kind="Datos"
-      imports="import { Badge } from '@melu/ui'"
+      imports="import { Badge } from '@milo/ui'"
       lead="Una marca chica pegada a lo que describe: en qué estado está una actividad, cuántas entregas faltan, qué es esto que estoy mirando. Siempre con texto — un punto de color no dice en qué estado está algo, y si lo dijera, no lo diría para quien no distingue colores."
     >
       <Section

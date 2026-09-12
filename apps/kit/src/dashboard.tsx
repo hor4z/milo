@@ -3,7 +3,7 @@ import {
   Avatar, AvatarGroup, BarChart, Badge, Button, Card, Chip, Icon, IconButton, Progress,
   Segmented, Table, TableBody, TableCell, TableHead, TableHeader, TableHint, TableNum,
   TableRow, TableTitle, Tooltip, useToast, type IconName,
-} from '@melu/ui'
+} from '@milo/ui'
 
 const face = (n: number) => `/avatars/${String(n).padStart(2, '0')}.webp`
 const p = (name: string, photo?: number) => ({ name, src: photo ? face(photo) : undefined })

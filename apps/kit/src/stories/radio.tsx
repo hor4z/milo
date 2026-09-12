@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Checkbox, Radio, RadioGroup } from '@melu/ui'
+import { Checkbox, Radio, RadioGroup } from '@milo/ui'
 import { A11y, Page, Panel, Props, Section, Variant } from '../kit'
 
 export function RadioStory() {
@@ -12,7 +12,7 @@ export function RadioStory() {
     <Page
       title="Radio · RadioGroup"
       kind="Formularios"
-      imports="import { Radio } from '@melu/ui'"
+      imports="import { Radio } from '@milo/ui'"
       lead="La elección de una entre varias. Es 18, la misma medida del Checkbox y del pulgar del switch, así una fila con los tres queda pareja."
     >
       <Section

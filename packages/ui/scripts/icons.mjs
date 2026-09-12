@@ -3,11 +3,11 @@
  * El set de iconos se administra desde acá. Nunca se edita a mano ni el
  * manifiesto ni los `.gen.ts`.
  *
- *   npm run icons -w @melu/ui -- search <texto>   busca en el catálogo, offline
- *   npm run icons -w @melu/ui -- add <nombre...>  agrega al set y regenera
- *   npm run icons -w @melu/ui -- sync             rebaja la fuente y regenera
- *   npm run icons -w @melu/ui -- check            nombres usados que faltan, y al revés
- *   npm run icons -w @melu/ui -- refresh          reconstruye el catálogo desde Google
+ *   npm run icons -w @milo/ui -- search <texto>   busca en el catálogo, offline
+ *   npm run icons -w @milo/ui -- add <nombre...>  agrega al set y regenera
+ *   npm run icons -w @milo/ui -- sync             rebaja la fuente y regenera
+ *   npm run icons -w @milo/ui -- check            nombres usados que faltan, y al revés
+ *   npm run icons -w @milo/ui -- refresh          reconstruye el catálogo desde Google
  *
  * Por qué el catálogo está versionado: `search` y `add` tienen que andar sin
  * internet. Es el mismo argumento de las caras de los avatares. Nunca llega al
@@ -86,7 +86,7 @@ async function bajarFuente(names, axes) {
 function escribirGen(names, cat) {
   const filas = names.map(n => `  ${n}: 0x${cat.get(n).c.toString(16)},`).join('\n')
   writeFileSync(P.gen, `/* GENERADO por scripts/icons.mjs — no editar a mano.
-   Se regenera con: npm run icons -w @melu/ui -- sync
+   Se regenera con: npm run icons -w @milo/ui -- sync
 
    Son codepoints y no ligaduras a propósito: con ligaduras, el instante previo
    a que cargue la fuente muestra la palabra "chevron_right" adentro de un

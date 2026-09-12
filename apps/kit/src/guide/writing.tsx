@@ -1,4 +1,4 @@
-import { Icon } from '@melu/ui'
+import { Icon } from '@milo/ui'
 import { Page, Section } from '../kit'
 
 const pairs: { bad: string; good: string; by: string }[] = [

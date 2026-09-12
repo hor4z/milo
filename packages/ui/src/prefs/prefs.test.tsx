@@ -25,17 +25,17 @@ describe('PrefsProvider', () => {
   it('lo que se cambia queda guardado', async () => {
     render(<PrefsProvider><Probe /></PrefsProvider>)
     await userEvent.click(screen.getByRole('button'))
-    expect(JSON.parse(localStorage.getItem('melu.prefs')!).theme).toBe('dark')
+    expect(JSON.parse(localStorage.getItem('milo.prefs')!).theme).toBe('dark')
   })
 
   it('vuelve a arrancar donde quedó', () => {
-    localStorage.setItem('melu.prefs', JSON.stringify({ theme: 'dark' }))
+    localStorage.setItem('milo.prefs', JSON.stringify({ theme: 'dark' }))
     render(<PrefsProvider><Probe /></PrefsProvider>)
     expect(screen.getByRole('button')).toHaveTextContent('dark')
   })
 
   it('un guardado corrupto no rompe el arranque', () => {
-    localStorage.setItem('melu.prefs', 'no es json')
+    localStorage.setItem('milo.prefs', 'no es json')
     render(<PrefsProvider><Probe /></PrefsProvider>)
     expect(screen.getByRole('button')).toHaveTextContent('light')
   })

@@ -2,7 +2,7 @@ import { useState } from 'react'
 import {
   Button, Field, FieldSet, Select, Sheet, SheetBody, SheetFooter, SheetHeader, Switch,
   TextField, Textarea, useToast,
-} from '@melu/ui'
+} from '@milo/ui'
 import { A11y, Canvas, Note, Page, Props, Section } from '../kit'
 
 export function SheetStory() {
@@ -14,7 +14,7 @@ export function SheetStory() {
     <Page
       title="Sheet"
       kind="Formularios"
-      imports="import { Sheet, SheetHeader, SheetBody, SheetFooter } from '@melu/ui'"
+      imports="import { Sheet, SheetHeader, SheetBody, SheetFooter } from '@milo/ui'"
       lead="El panel que entra de costado, para un formulario largo que no justifica cambiar de pantalla. Lo de atrás se queda donde estaba y al cerrar seguís en el mismo lugar, con el scroll donde lo dejaste."
     >
       <Section

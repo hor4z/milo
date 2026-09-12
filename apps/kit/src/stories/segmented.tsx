@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Segmented } from '@melu/ui'
+import { Segmented } from '@milo/ui'
 import { A11y, Page, Panel, Props, Section, Variant } from '../kit'
 
 export function SegmentedStory() {
@@ -12,7 +12,7 @@ export function SegmentedStory() {
     <Page
       title="Segmented"
       kind="Formularios"
-      imports="import { Segmented } from '@melu/ui'"
+      imports="import { Segmented } from '@milo/ui'"
       lead="Un solo componente para el filtro de texto («Todas · Abiertas») y para el conmutador de grilla/lista. Que sean la misma pieza y no dos parecidas es el punto: dos implementaciones del mismo control se van separando sola una de la otra con cada cambio, y terminan con dos radios, dos alturas y dos ideas de qué es «activo»."
     >
       <Section

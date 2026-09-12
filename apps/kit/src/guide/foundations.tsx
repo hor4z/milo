@@ -1,4 +1,4 @@
-import { Icon, type IconName } from '@melu/ui'
+import { Icon, type IconName } from '@milo/ui'
 import { Page, Section } from '../kit'
 
 const principles: { icon: IconName; title: string; body: string }[] = [

@@ -1,4 +1,4 @@
-import { Button, Dropdown } from '@melu/ui'
+import { Button, Dropdown } from '@milo/ui'
 import { A11y, Demo, Page, Props, Section } from '../kit'
 
 export function DropdownStory() {
@@ -7,7 +7,7 @@ export function DropdownStory() {
       title="Dropdown"
       lead="Un menú de cuatro items. No lleva velo: el velo va para lo que pide leerse entero, y un menú corto no lo pide. Cierra con Escape, que usa una pila global — cierra el overlay de arriba y no todos."
       kind="Acciones"
-      imports="import { Dropdown } from '@melu/ui'"
+      imports="import { Dropdown } from '@milo/ui'"
     >
       <Section title="Vivo" note="El disparador va como render prop porque el Dropdown necesita su ref para medir dónde abrir. Desde que `Button` acepta ref, el disparador puede ser el botón del sistema y no un <button> crudo repitiendo las clases.">
         <div className="flex flex-wrap items-start gap-3">

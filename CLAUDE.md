@@ -1,18 +1,25 @@
-# Guía visual para melu
+# milo · design system
 
-Un prototipo que corre, hecho para decidir la identidad visual nueva de melu: densidad,
-color, radios, relieve y unos cuantos patrones de interacción. No es un producto ni una
-librería: es la guía, con el sistema funcionando en pantallas reales en vez de en una lámina
-de estilos.
+El sistema de interfaz de milo: la identidad en tokens, las piezas que la usan, y el sitio
+donde se ve todo funcionando. No es una lámina de estilos — cada pieza de acá es el componente
+real, con su teclado, sus estados y sus tests.
 
-Lo que se decida acá se porta a `~/melu/packages/ui`, que es el design system de verdad.
+**El repo es del design system y de nada más.** El UI kit —las 48 piezas— es una parte; las
+otras son los tokens y lo que el sitio documenta alrededor. Acá adentro no vive producto: el
+prototipo de la app que hubo hasta ahora se borró, y cuando haga falta uno de nuevo se arma
+aparte.
+
+Lo que se decide acá se porta a `~/melu/packages/ui`, que es el paquete que hoy consume el
+producto. **Ese es otro repo y todavía se llama `melu`**, en el disco y en GitHub; este pasó a
+llamarse `milo` —`hor4z/milo`— y el día que se renombre el otro, estas dos líneas y la del
+final son lo único que hay que tocar.
 
 ```sh
 npm install
-npm run dev        # el kit  · http://localhost:5190
-npm run dev:guide  # la app  · http://localhost:5180
+npm run dev        # el sitio · http://localhost:5190
 npm run typecheck  # todo el monorepo de una
-npm test           # 92 tests con vitest y testing-library
+npm test           # 255 tests con vitest y testing-library
+npm run props      # regenera la tabla de props desde los tipos
 ```
 
 **El código va en inglés y los comentarios en castellano.** Todo lo que es código —variables,
@@ -28,7 +35,7 @@ se leen: este archivo y las notas de cada vista del kit.
 ## De dónde salió
 
 Arrancó como "clonar https://ui8-brainwave-2.vercel.app" y derivó en calibrar el sistema de
-melu contra esa referencia. **Brainwave 2 es un template comercial de UI8 y no está
+milo contra esa referencia. **Brainwave 2 es un template comercial de UI8 y no está
 licenciado acá.** Lo que hay en este repo es código, iconos y contenido propios; de la
 referencia se tomaron medidas y recetas de sombra, que es lo que hace cualquier diseñador con
 una referencia enfrente.
@@ -40,7 +47,7 @@ código fuente). Si no, las pantallas que falten se resuelven con criterio propi
 
 ## Arquitectura
 
-El stack es el de melu a propósito —React 19 + Tailwind v4 + Vite— y la capa de tokens tiene
+El stack es el de milo a propósito —React 19 + Tailwind v4 + Vite— y la capa de tokens tiene
 la misma forma que `packages/ui`, así portar es copiar valores y no traducir un sistema:
 
 ```
@@ -247,16 +254,16 @@ una tarjeta es `CardHeader`, `CardTitle`, `CardHint`, `CardBody` y `CardFooter`;
 `Tabs`, `TabList`, `Tab` y `TabPanel`. Cuesta dos líneas más de escribir y evita la prop número
 catorce.
 
-## Patrones que vale la pena portar
+## Patrones que el sistema da por decididos
+
+Salieron de armar pantallas de verdad con estas piezas, y valen para cualquiera que las use.
 
 - **Ajustes en un modal, no en una página.** Rail de 180 que no scrollea + panel que sí. Al
   cerrar no hay navegación: seguís donde estabas, con el scroll donde lo dejaste. Por eso el
-  fondo se atenúa apenas (14%) en vez de lavarse.
+  fondo se atenúa apenas (14%) en vez de lavarse. El `SettingsModal` del paquete es eso.
 - **Panel anclado con velo** (`Popover` con `veil`). Una lista que pide leerse entera necesita
   que el resto se apague; un menú de cuatro items, no. El velo va sin blur: el fondo se sigue
   reconociendo.
-- **Paleta de comandos (⌘K).** Busca sin tildes, agrupa sin reordenar, y el índice activo vuelve
-  a 0 en cada tecleo.
 - **Un solo `Segmented`** para el filtro de texto y para el conmutador de grilla/lista. Dos
   implementaciones del mismo control se separan sola una de la otra con cada cambio.
 - **Las tarjetas no se mueven en hover** y no tienen acciones flotando encima: una grilla que
@@ -316,10 +323,10 @@ El set son 152 de los más de 3900 de Material Symbols. Agregar uno **no es dibu
 un comando, y el que lo corre no tiene que acordarse de nada:
 
 ```sh
-npm run icons -w @melu/ui -- search notification   # busca en el catálogo, offline
-npm run icons -w @melu/ui -- add rocket_launch     # agrega y regenera todo
-npm run icons -w @melu/ui -- check                 # usados que faltan, y al revés
-npm run icons -w @melu/ui -- refresh               # rebaja el catálogo desde Google
+npm run icons -w @milo/ui -- search notification   # busca en el catálogo, offline
+npm run icons -w @milo/ui -- add rocket_launch     # agrega y regenera todo
+npm run icons -w @milo/ui -- check                 # usados que faltan, y al revés
+npm run icons -w @milo/ui -- refresh               # rebaja el catálogo desde Google
 ```
 
 `add` hace tres preguntas antes de bajar nada, y las hace el script y no el prompt:
@@ -337,7 +344,7 @@ en el manifiesto.** `icons check` es lo que lo audita, y corre al lado de `typec
 El catálogo podado (3912 iconos con codepoint, popularidad y tags) está versionado en
 `packages/ui/scripts/catalog.json` para que buscar funcione sin internet — el mismo argumento por
 el que las caras de los avatares están commiteadas. Nunca llega al browser: al bundle solo van los
-codepoints, y los tags viajan por el subpath `@melu/ui/icons.meta`, que importa únicamente la
+codepoints, y los tags viajan por el subpath `@milo/ui/icons.meta`, que importa únicamente la
 galería del kit.
 
 Los tags son los de Google y están en inglés: "calendar" encuentra `calendar_month`, "calendario"
@@ -358,21 +365,19 @@ packages/ui/src/        theme.css (el puente) · index.ts (la puerta) ·
                         coherencia y contraste
                         icons.gen.ts e icons.meta.ts los genera scripts/icons.mjs
 packages/ui/scripts/    icons.mjs (search · add · sync · check) + catalog.json
-apps/kit/src/           el kit: App.tsx (shell y riel) · kit.tsx (Page, Section,
-                        Canvas, Props, A11y, Note) · intro.tsx (la landing) ·
+apps/kit/src/           el sitio: App.tsx (shell y riel) · kit.tsx (Page, Section,
+                        Canvas, Props, A11y, Note) · intro.tsx (la portada) ·
                         dashboard.tsx · guide/ (principios, escritura) ·
                         tokens/ (color · type · measure · relief) ·
-                        stories/ (una por componente)
-apps/guide/src/         el prototipo: screens/ · data.ts · ui/ (shell ·
-                        command-palette · notifications · composer · activity-card)
+                        stories/ (una por pieza)
 ```
 
-**El corte entre el paquete y la app es por dependencia, no por gusto.** Lo que está en
-`packages/ui` no sabe que existen `data.ts` ni el router; lo que los lee es producto y se
-queda en `apps/guide`.
+**El corte entre el paquete y el sitio es por dependencia, no por gusto.** `packages/ui` no
+sabe que el sitio existe: exporta piezas y nada más. El sitio las consume como lo haría
+cualquier app de afuera, que es lo que lo vuelve una prueba de verdad y no una demo.
 
-Todo lo que consume una app entra por `packages/ui/src/index.ts`. Un test lo verifica: si
-alguien exporta algo de un archivo y no lo saca por la puerta, falla.
+Todo lo que se consume entra por `packages/ui/src/index.ts`. Un test lo verifica: si alguien
+exporta algo de un archivo y no lo saca por la puerta, falla.
 
 **Una carpeta por pieza, con su test adentro.** El archivo largo con doce componentes
 —`primitives.tsx` tenía 922 líneas— obliga a leer todo para tocar uno, y su test hermano en
@@ -469,13 +474,16 @@ alguien cambia un tono y rompe un par, falla antes de llegar a una pantalla.
 - **El `--tracking-tight` sigue calibrado contra Inter.** Los -0.015em salieron de mirar Inter a
   12px y no se volvieron a mirar en tres familias. El peso ya se corrigió al pasar a Instrument
   Sans; el tracking es el que queda.
-- **`planes` y `entrar`** siguen con las medidas viejas (14px, sin relieve).
-- **El shell y la paleta de comandos siguen en `apps/guide`** porque leen `data.ts`. Para que
-  entren al paquete hay que pasarles el contenido por props.
-- Portar los tokens a `~/melu/packages/ui`, que es para lo que existe todo esto.
+- Portar los tokens a `~/melu/packages/ui`, que es para lo que existe todo esto. Ojo con el
+  nombre: ese repo es otro y sigue llamándose `melu`.
 
 ## Lo que no está
 
-No hay backend ni datos reales, y nada persiste salvo las preferencias. Los medios de las
-tarjetas son geometría derivada del id, no imágenes: una grilla de fotos se ve linda y no dice
-nada del contenido.
+No hay backend ni datos reales, y nada persiste salvo las preferencias del sitio. El contenido
+de las vistas es de ejemplo y está escrito a mano: nombres, entregas, espacios. Los medios de
+las tarjetas son geometría derivada del id, no imágenes — una grilla de fotos se ve linda y no
+dice nada del contenido.
+
+**Y no está el prototipo de la app.** Vivía en `apps/guide` y se borró a propósito: este repo
+es del design system. Cuando haga falta probar el sistema en pantallas de producto, eso se arma
+donde vive el producto, consumiendo el paquete como cualquier otro consumidor.

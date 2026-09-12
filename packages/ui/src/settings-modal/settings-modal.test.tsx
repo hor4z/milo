@@ -4,7 +4,7 @@ import { beforeEach, describe, expect, it, vi } from 'vitest'
 import { PrefsProvider } from '../prefs/prefs'
 import { SettingsModal } from './settings-modal'
 
-const user = { name: 'Melina Rivero', email: 'melina@melu.app', alias: 'Profe Meli', school: 'Escuela 12' }
+const user = { name: 'Melina Rivero', email: 'melina@milo.app', alias: 'Profe Meli', school: 'Escuela 12' }
 
 function openModal(onClose = () => {}) {
   return render(

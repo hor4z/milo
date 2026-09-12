@@ -1,4 +1,4 @@
-import { Button, IconButton, Tooltip } from '@melu/ui'
+import { Button, IconButton, Tooltip } from '@milo/ui'
 import { A11y, Demo, Page, Props, Section } from '../kit'
 
 export function TooltipStory() {
@@ -7,7 +7,7 @@ export function TooltipStory() {
       title="Tooltip"
       lead="La etiqueta que dice qué hace un control que no lo dice solo. No es un Popover chico: se abre solo —hover o foco de teclado—, no recibe el mouse (o taparía justo el botón que explica) y no lleva nada interactivo adentro. Si tiene un link o un botón, es un Popover."
       kind="Avisos"
-      imports="import { Tooltip } from '@melu/ui'"
+      imports="import { Tooltip } from '@milo/ui'"
     >
       <Section
         title="El retraso se comparte"

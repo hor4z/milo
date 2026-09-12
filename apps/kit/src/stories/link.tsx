@@ -1,4 +1,4 @@
-import { Link } from '@melu/ui'
+import { Link } from '@milo/ui'
 import { A11y, Canvas, Note, Page, Props, Section } from '../kit'
 
 export function LinkStory() {
@@ -6,7 +6,7 @@ export function LinkStory() {
     <Page
       title="Link"
       kind="Superficies"
-      imports="import { Link } from '@melu/ui'"
+      imports="import { Link } from '@milo/ui'"
       lead="Un enlace lleva subrayado, siempre. Sin él, lo único que lo distingue del texto que lo rodea es el color, y en una interfaz monocroma no hay color que lo distinga: el subrayado no es decoración, es la única señal que queda."
     >
       <Section

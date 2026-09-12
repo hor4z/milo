@@ -1,7 +1,7 @@
 import {
   Alert, AlertTitle, AvatarGroup, Badge, BarChart, Button, Card, Chip, Icon,
   Progress, Switch, TextField, type IconName,
-} from '@melu/ui'
+} from '@milo/ui'
 import { useState } from 'react'
 
 const face = (n: number) => `/avatars/${String(n).padStart(2, '0')}.webp`
@@ -29,11 +29,11 @@ export function Intro({ go, pieces }: { go: (id: string) => void; pieces: number
 
           <div className="flex flex-col gap-4">
             <h1 className="max-w-[20ch] text-[clamp(2.25rem,5vw,3.25rem)] leading-[1.04] font-bold tracking-tight text-ink">
-              El sistema de melu, funcionando
+              El sistema de milo, funcionando
             </h1>
             <p className="max-w-[62ch] text-base font-medium text-ink-muted">
               No es una lámina de estilos: cada pieza de acá es el componente real, con su teclado, sus
-              estados y sus tests. Lo que se decide en este kit se porta a <code className="font-mono text-xs text-ink">packages/ui</code>.
+              estados y sus tests. Lo que se decide acá se porta a <code className="font-mono text-xs text-ink">packages/ui</code>.
             </p>
           </div>
 

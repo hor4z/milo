@@ -3,8 +3,8 @@ import type { CSSProperties } from 'react'
 import {
   EmptyState, Icon, Segmented, Slider, TextField, fold,
   iconNames, type IconName, type IconWeight,
-} from '@melu/ui'
-import { iconTags } from '@melu/ui/icons.meta'
+} from '@milo/ui'
+import { iconTags } from '@milo/ui/icons.meta'
 import { A11y, Mono, Page, Panel, Props, Section, Variant } from '../kit'
 
 const sizes = [
@@ -43,7 +43,7 @@ export function IconStory() {
     <Page
       title="Icon"
       kind="Guía"
-      imports="import { Icon } from '@melu/ui'"
+      imports="import { Icon } from '@milo/ui'"
       lead="Material Symbols Rounded, subseteado a lo que usamos y servido desde el repo. Peso 300 de base, y peso y relleno son ejes reales de la fuente, no variantes generadas."
     >
       <Section
@@ -89,7 +89,7 @@ export function IconStory() {
               size="sm"
               icon="search_off"
               title="Ningún icono con eso"
-              body={`Los tags son los de Google y están en inglés. Si no está en el set, buscalo en el catálogo completo: npm run icons -w @melu/ui -- search ${q.trim() || '…'}`}
+              body={`Los tags son los de Google y están en inglés. Si no está en el set, buscalo en el catálogo completo: npm run icons -w @milo/ui -- search ${q.trim() || '…'}`}
             />
           </div>
         ) : (
@@ -164,13 +164,13 @@ export function IconStory() {
       >
         <Panel>
           <Variant name="buscar">
-            <Mono>npm run icons -w @melu/ui -- search notification</Mono>
+            <Mono>npm run icons -w @milo/ui -- search notification</Mono>
           </Variant>
           <Variant name="agregar">
-            <Mono>npm run icons -w @melu/ui -- add rocket_launch</Mono>
+            <Mono>npm run icons -w @milo/ui -- add rocket_launch</Mono>
           </Variant>
           <Variant name="auditar">
-            <Mono>npm run icons -w @melu/ui -- check</Mono>
+            <Mono>npm run icons -w @milo/ui -- check</Mono>
           </Variant>
         </Panel>
         <p className="mt-3 max-w-[70ch] text-xs text-ink-muted">

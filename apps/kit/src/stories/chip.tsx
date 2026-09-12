@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Chip, labelColors } from '@melu/ui'
+import { Chip, labelColors } from '@milo/ui'
 import { A11y, Note, Page, Panel, Props, Section, Variant } from '../kit'
 
 export function ChipStory() {
@@ -9,7 +9,7 @@ export function ChipStory() {
     <Page
       title="Chip"
       kind="Datos"
-      imports="import { Chip } from '@melu/ui'"
+      imports="import { Chip } from '@milo/ui'"
       lead="28 de alto y radio 10. Es una etiqueta, no un botón: solo se vuelve accionable si recibe `onClick` o `onRemove`."
     >
       <Section

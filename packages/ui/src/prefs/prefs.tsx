@@ -30,7 +30,7 @@ const defaults: Prefs = {
   sidebarCollapsed: false,
 }
 
-const KEY = 'melu.prefs'
+const KEY = 'milo.prefs'
 
 /** Las preferencias se guardan solas y se leen una vez al arrancar. */
 function read(): Prefs {

@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Button, Row, Select, Switch } from '@melu/ui'
+import { Button, Row, Select, Switch } from '@milo/ui'
 import { A11y, Note, Page, Props, Section } from '../kit'
 
 export function RowStory() {
@@ -11,7 +11,7 @@ export function RowStory() {
     <Page
       title="Row"
       kind="Superficies"
-      imports="import { Row } from '@melu/ui'"
+      imports="import { Row } from '@milo/ui'"
       lead="La fila de un panel de ajustes: qué es a la izquierda, con qué se cambia a la derecha. 56 de alto y padding 16/24, iguales en todas, que es lo que hace que una lista de ocho se lea como una sola cosa."
     >
       <Section
@@ -48,7 +48,7 @@ export function RowStory() {
       >
         <div className="max-w-[520px] overflow-hidden rounded-2xl border border-line bg-surface">
           <Row label="Correo">
-            <span className="text-xs text-ink-muted">melina@melu.app</span>
+            <span className="text-xs text-ink-muted">melina@milo.app</span>
           </Row>
           <Row label="Contraseña" hint="La última vez que la cambiaste fue en marzo">
             <Button size="sm" variant="raised">Cambiar</Button>

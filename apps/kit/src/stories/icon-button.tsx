@@ -1,4 +1,4 @@
-import { IconButton } from '@melu/ui'
+import { IconButton } from '@milo/ui'
 import { A11y, Page, Panel, Props, Section, Variant } from '../kit'
 
 export function IconButtonStory() {
@@ -6,7 +6,7 @@ export function IconButtonStory() {
     <Page
       title="IconButton"
       kind="Acciones"
-      imports="import { IconButton } from '@melu/ui'"
+      imports="import { IconButton } from '@milo/ui'"
       lead="Cuadrado del alto de su paso, y los pasos son los del Button: el mismo nombre de tamaño da el mismo alto en las dos piezas, así que un icono al lado de un botón en la misma fila apoya en la misma línea sin que nadie lo calcule. El radio es 10 en los tres y no el del paso — es la regla del sistema: `md` es lo cuadrado que se toca, `lg` lo que se toca con texto."
     >
       <Section

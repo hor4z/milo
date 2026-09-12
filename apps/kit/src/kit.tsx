@@ -1,6 +1,6 @@
 import { useEffect, useState, type ReactNode } from 'react'
-import { Badge, Icon, cx, type IconName } from '@melu/ui'
-import { propsByComponent } from '@melu/ui/props'
+import { Badge, Icon, cx, type IconName } from '@milo/ui'
+import { propsByComponent } from '@milo/ui/props'
 
 export function useTokens(names: readonly string[]) {
   const [vals, setVals] = useState<Record<string, string>>({})

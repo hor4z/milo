@@ -1,4 +1,4 @@
-import { Alert, AlertActions, AlertBody, AlertTitle, Button } from '@melu/ui'
+import { Alert, AlertActions, AlertBody, AlertTitle, Button } from '@milo/ui'
 import { A11y, Demo, Note, Page, Props, Section } from '../kit'
 
 export function AlertStory() {
@@ -6,7 +6,7 @@ export function AlertStory() {
     <Page
       title="Alert"
       kind="Avisos"
-      imports="import { Alert, AlertTitle, AlertBody, AlertActions } from '@melu/ui'"
+      imports="import { Alert, AlertTitle, AlertBody, AlertActions } from '@milo/ui'"
       lead="El aviso que se queda en la página y forma parte de lo que estás mirando: algo está roto, algo falta, algo está por vencer. Si el aviso tiene que seguir ahí cuando la persona vuelva a mirar, es un Alert y no un `Toast`."
     >
       <Section

@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Checkbox } from '@melu/ui'
+import { Checkbox } from '@milo/ui'
 import { A11y, Page, Panel, Props, Section, Variant } from '../kit'
 
 export function CheckboxStory() {
@@ -11,7 +11,7 @@ export function CheckboxStory() {
     <Page
       title="Checkbox"
       kind="Formularios"
-      imports="import { Checkbox } from '@melu/ui'"
+      imports="import { Checkbox } from '@milo/ui'"
       lead="Caja de 18, la medida del pulgar del switch. El radio es `xs` (5) y no `sm` (6), que es el del kbd: sobre un cuadrado de 18, un radio de 6 deja solo 6px de lado plano de los 18 y la casilla se lee redonda. El kbd puede llevar 6 porque es más ancho que alto y le sobran lados rectos."
     >
       <Section

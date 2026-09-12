@@ -1,5 +1,5 @@
 /* GENERADO por scripts/icons.mjs — no editar a mano.
-   Se regenera con: npm run icons -w @melu/ui -- sync
+   Se regenera con: npm run icons -w @milo/ui -- sync
 
    Son codepoints y no ligaduras a propósito: con ligaduras, el instante previo
    a que cargue la fuente muestra la palabra "chevron_right" adentro de un
