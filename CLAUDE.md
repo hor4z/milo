@@ -1,11 +1,11 @@
-# Guía visual para melu
+# Guía visual para milo
 
-Un prototipo que corre, hecho para decidir la identidad visual nueva de melu: densidad,
+Un prototipo que corre, hecho para decidir la identidad visual nueva de milo: densidad,
 color, radios, relieve y unos cuantos patrones de interacción. No es un producto ni una
 librería: es la guía, con el sistema funcionando en pantallas reales en vez de en una lámina
 de estilos.
 
-Lo que se decida acá se porta a `~/melu/packages/ui`, que es el design system de verdad.
+Lo que se decida acá se porta a `~/milo/packages/ui`, que es el design system de verdad.
 
 ```sh
 npm install
@@ -28,7 +28,7 @@ se leen: este archivo y las notas de cada vista del kit.
 ## De dónde salió
 
 Arrancó como "clonar https://ui8-brainwave-2.vercel.app" y derivó en calibrar el sistema de
-melu contra esa referencia. **Brainwave 2 es un template comercial de UI8 y no está
+milo contra esa referencia. **Brainwave 2 es un template comercial de UI8 y no está
 licenciado acá.** Lo que hay en este repo es código, iconos y contenido propios; de la
 referencia se tomaron medidas y recetas de sombra, que es lo que hace cualquier diseñador con
 una referencia enfrente.
@@ -40,7 +40,7 @@ código fuente). Si no, las pantallas que falten se resuelven con criterio propi
 
 ## Arquitectura
 
-El stack es el de melu a propósito —React 19 + Tailwind v4 + Vite— y la capa de tokens tiene
+El stack es el de milo a propósito —React 19 + Tailwind v4 + Vite— y la capa de tokens tiene
 la misma forma que `packages/ui`, así portar es copiar valores y no traducir un sistema:
 
 ```
@@ -316,10 +316,10 @@ El set son 152 de los más de 3900 de Material Symbols. Agregar uno **no es dibu
 un comando, y el que lo corre no tiene que acordarse de nada:
 
 ```sh
-npm run icons -w @melu/ui -- search notification   # busca en el catálogo, offline
-npm run icons -w @melu/ui -- add rocket_launch     # agrega y regenera todo
-npm run icons -w @melu/ui -- check                 # usados que faltan, y al revés
-npm run icons -w @melu/ui -- refresh               # rebaja el catálogo desde Google
+npm run icons -w @milo/ui -- search notification   # busca en el catálogo, offline
+npm run icons -w @milo/ui -- add rocket_launch     # agrega y regenera todo
+npm run icons -w @milo/ui -- check                 # usados que faltan, y al revés
+npm run icons -w @milo/ui -- refresh               # rebaja el catálogo desde Google
 ```
 
 `add` hace tres preguntas antes de bajar nada, y las hace el script y no el prompt:
@@ -337,7 +337,7 @@ en el manifiesto.** `icons check` es lo que lo audita, y corre al lado de `typec
 El catálogo podado (3912 iconos con codepoint, popularidad y tags) está versionado en
 `packages/ui/scripts/catalog.json` para que buscar funcione sin internet — el mismo argumento por
 el que las caras de los avatares están commiteadas. Nunca llega al browser: al bundle solo van los
-codepoints, y los tags viajan por el subpath `@melu/ui/icons.meta`, que importa únicamente la
+codepoints, y los tags viajan por el subpath `@milo/ui/icons.meta`, que importa únicamente la
 galería del kit.
 
 Los tags son los de Google y están en inglés: "calendar" encuentra `calendar_month`, "calendario"
@@ -472,7 +472,7 @@ alguien cambia un tono y rompe un par, falla antes de llegar a una pantalla.
 - **`planes` y `entrar`** siguen con las medidas viejas (14px, sin relieve).
 - **El shell y la paleta de comandos siguen en `apps/guide`** porque leen `data.ts`. Para que
   entren al paquete hay que pasarles el contenido por props.
-- Portar los tokens a `~/melu/packages/ui`, que es para lo que existe todo esto.
+- Portar los tokens a `~/milo/packages/ui`, que es para lo que existe todo esto.
 
 ## Lo que no está
 

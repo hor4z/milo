@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Row, Switch } from '@melu/ui'
+import { Row, Switch } from '@milo/ui'
 import { A11y, Note, Page, Panel, Props, Section, Variant } from '../kit'
 
 export function SwitchStory() {
@@ -10,7 +10,7 @@ export function SwitchStory() {
     <Page
       title="Switch"
       kind="Formularios"
-      imports="import { Row, Switch } from '@melu/ui'"
+      imports="import { Row, Switch } from '@milo/ui'"
       lead="Pista de 40×22 con 2 de padding, así que el pulgar es de 18 y viaja 18 exactos. La pista prendida va en el azul de marca, el mismo que el checkbox marcado: el ámbar señala algo que pasó y no eligió nadie, y un switch prendido es lo contrario — es una decisión de quien lo usa."
     >
       <Section

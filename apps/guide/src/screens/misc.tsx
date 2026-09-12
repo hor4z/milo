@@ -1,5 +1,5 @@
 import { useParams } from 'react-router-dom'
-import { Page, PageHeader, EmptyState, SectionLabel, Button, Card, cx, Icon , labelColors, labelFill } from '@melu/ui'
+import { Page, PageHeader, EmptyState, SectionLabel, Button, Card, cx, Icon , labelColors, labelFill } from '@milo/ui'
 import { ActivityCard, ActivityRow } from '../ui/activity-card'
 import { activities, spaces } from '../data'
 

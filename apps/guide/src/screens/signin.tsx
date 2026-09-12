@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom'
-import { Button, Icon } from '@melu/ui'
+import { Button, Icon } from '@milo/ui'
 
 /** Entrar. */
 export function SignInScreen() {
@@ -15,7 +15,7 @@ export function SignInScreen() {
             <path d="M15 17.5V11a4 4 0 014-4" stroke="var(--jade-500)" strokeWidth="2.1" strokeLinecap="round" />
           </svg>
 
-          <h1 className="mt-7 text-2xl font-semibold">Entrá a melu</h1>
+          <h1 className="mt-7 text-2xl font-semibold">Entrá a milo</h1>
           <p className="mt-2 text-md leading-relaxed text-ink-muted">
             Con tu cuenta de Google, seas guía o aprendiz. No hay contraseña que recordar
             ni formulario que llenar.

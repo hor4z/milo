@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { Avatar, FolderIcon, Icon, Select } from '@melu/ui'
+import { Avatar, FolderIcon, Icon, Select } from '@milo/ui'
 import { A11y, Demo, Page, Props, Section } from '../kit'
 
 export function SelectStory() {
@@ -20,7 +20,7 @@ export function SelectStory() {
     <Page
       title="Select"
       kind="Formularios"
-      imports="import { Select } from '@melu/ui'"
+      imports="import { Select } from '@milo/ui'"
       lead="Es un botón con un listbox propio, no un `<select>` nativo. `appearance: none` te saca la flecha, pero la lista desplegada la sigue dibujando el sistema operativo, así que en Linux aparece un control de GTK en medio de la interfaz: el campo se ve «sin estilo» por más que la caja esté bien."
     >
       <Section

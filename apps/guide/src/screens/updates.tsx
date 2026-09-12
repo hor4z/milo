@@ -1,4 +1,4 @@
-import { cx } from '@melu/ui'
+import { cx } from '@milo/ui'
 import { updates } from '../data'
 
 const tagLabel = { feature: 'Nuevo', improvement: 'Mejora', fix: 'Arreglo' } as const
@@ -15,7 +15,7 @@ export function UpdatesScreen() {
       <header className="py-14 text-center">
         <h1 className="text-display font-medium">
           Novedades
-          <span className="block text-ink-muted">Lo que cambió en melu.</span>
+          <span className="block text-ink-muted">Lo que cambió en milo.</span>
         </h1>
       </header>
 

@@ -1,4 +1,4 @@
-import { Card, Skeleton } from '@melu/ui'
+import { Card, Skeleton } from '@milo/ui'
 import { A11y, Demo, Note, Page, Props, Section } from '../kit'
 
 export function SkeletonStory() {
@@ -6,7 +6,7 @@ export function SkeletonStory() {
     <Page
       title="Skeleton"
       kind="Datos"
-      imports="import { Skeleton } from '@melu/ui'"
+      imports="import { Skeleton } from '@milo/ui'"
       lead="El hueco que ocupa algo que todavía no llegó. Tiene que medir lo mismo que el contenido real, o al llegar los datos la pantalla salta y se pierde lo que se estaba leyendo."
     >
       <Section

@@ -1,4 +1,4 @@
-import { AvatarGroup, BarChart, Card } from '@melu/ui'
+import { AvatarGroup, BarChart, Card } from '@milo/ui'
 import { A11y, Page, Props, Section } from '../kit'
 
 const face = (n: number) => `/avatars/${String(n).padStart(2, '0')}.webp`
@@ -38,7 +38,7 @@ export function ChartStory() {
     <Page
       title="BarChart"
       kind="Datos"
-      imports="import { BarChart } from '@melu/ui'"
+      imports="import { BarChart } from '@milo/ui'"
       lead="Cada barra son dos cosas: el gris es el total y el azul es lo hecho. No son dos series compitiendo, es una parte adentro de su todo — y por eso el azul va dentro del gris y no al lado: apoyados uno junto al otro habría que compararlos con la vista para saber cuánto falta, y metido adentro, lo que falta es el gris que se ve arriba. La pista va clarísima porque es el resto, no un dato que compita: con el mismo peso que el relleno, la barra se lee como dos bloques apilados."
     >
       <Section

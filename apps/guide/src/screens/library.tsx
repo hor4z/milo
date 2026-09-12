@@ -1,5 +1,5 @@
 import { useMemo, useState } from 'react'
-import { Page, PageHeader, SectionLabel, Button, Chip, Segmented } from '@melu/ui'
+import { Page, PageHeader, SectionLabel, Button, Chip, Segmented } from '@milo/ui'
 import { ActivityCard, ActivityRow } from '../ui/activity-card'
 import { Composer } from '../ui/composer'
 import { activities } from '../data'

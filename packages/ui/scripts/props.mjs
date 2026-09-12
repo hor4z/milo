@@ -155,7 +155,7 @@ export const propsByComponent: Record<string, ComponentDoc> = ${JSON.stringify(t
 if (process.argv.includes('--check')) {
   const viejo = readFileSync(salida, 'utf8')
   if (viejo !== cuerpo) {
-    console.error('✗ props.gen.ts quedó viejo — corré `npm run props -w @melu/ui`')
+    console.error('✗ props.gen.ts quedó viejo — corré `npm run props -w @milo/ui`')
     process.exit(1)
   }
   console.log(`✓ props.gen.ts al día (${Object.keys(todo).length} piezas)`)

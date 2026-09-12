@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { Link, NavLink, useLocation, useNavigate } from 'react-router-dom'
-import { FolderIcon, Icon, type IconName, Avatar, Button, cx, IconButton, Tooltip, Kbd, Dropdown, type DropdownItem, usePrefs, navItemClass, navSubItemClass, NavItemBody, SettingsModal } from '@melu/ui'
+import { FolderIcon, Icon, type IconName, Avatar, Button, cx, IconButton, Tooltip, Kbd, Dropdown, type DropdownItem, usePrefs, navItemClass, navSubItemClass, NavItemBody, SettingsModal } from '@milo/ui'
 import { CommandPalette } from './command-palette'
 import { NotificationsButton } from './notifications'
 import { spaces } from '../data'
@@ -10,9 +10,9 @@ function Brand({ compact }: { compact?: boolean }) {
     <Link
       to="/"
       className="flex h-20 items-center rounded-lg px-1 text-lg font-semibold tracking-tight text-ink"
-      aria-label="melu, inicio"
+      aria-label="milo, inicio"
     >
-      {compact ? 'm' : 'melu'}
+      {compact ? 'm' : 'milo'}
     </Link>
   )
 }

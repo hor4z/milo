@@ -1,4 +1,4 @@
-import { Badge, Button, Card, CardBody, CardFooter, CardHeader, CardHint, CardTitle, Progress } from '@melu/ui'
+import { Badge, Button, Card, CardBody, CardFooter, CardHeader, CardHint, CardTitle, Progress } from '@milo/ui'
 import { A11y, Note, Page, Props, Section } from '../kit'
 
 export function CardStory() {
@@ -6,7 +6,7 @@ export function CardStory() {
     <Page
       title="Card"
       kind="Superficies"
-      imports="import { Card, CardHeader, CardTitle, CardHint, CardBody, CardFooter } from '@melu/ui'"
+      imports="import { Card, CardHeader, CardTitle, CardHint, CardBody, CardFooter } from '@milo/ui'"
       lead="La superficie de una grilla: una cosa por tarjeta, y la tarjeta entera es la unidad que se escanea. Radio 24 con 8 de padding, así que lo que va adentro lleva 16 — la regla del anidado, no un número elegido a ojo."
     >
       <Section

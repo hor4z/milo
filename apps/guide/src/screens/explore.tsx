@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Page, PageHeader, SectionLabel, Card, Chip, cx, Icon , labelColors, labelFill } from '@melu/ui'
+import { Page, PageHeader, SectionLabel, Card, Chip, cx, Icon , labelColors, labelFill } from '@milo/ui'
 import { ActivityCard } from '../ui/activity-card'
 import { activities, recipes } from '../data'
 

@@ -1,4 +1,4 @@
-import { Avatar, AvatarGroup } from '@melu/ui'
+import { Avatar, AvatarGroup } from '@milo/ui'
 import { A11y, Demo, Page, Props, Section } from '../kit'
 
 const face = (n: number) => `/avatars/${String(n).padStart(2, '0')}.webp`
@@ -9,7 +9,7 @@ export function AvatarStory() {
     <Page
       title="Avatar · AvatarGroup"
       kind="Datos"
-      imports="import { Avatar, AvatarGroup } from '@melu/ui'"
+      imports="import { Avatar, AvatarGroup } from '@milo/ui'"
       lead="Una persona en el lugar de un nombre. Con foto o con la inicial sobre una etiqueta de color, y las dos tienen que pesar lo mismo: en una fila donde algunos subieron foto y otros no, el que no subió no puede leerse como un error."
     >
       <Section

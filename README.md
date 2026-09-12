@@ -1,6 +1,6 @@
 # ui-kit
 
-El sistema de interfaz de [melu](https://github.com/hor4z/melu), funcionando: tokens,
+El sistema de interfaz de [milo](https://github.com/hor4z/milo), funcionando: tokens,
 componentes y dos apps que los usan. No es una lámina de estilos — cada pieza de acá es el
 componente real, con su teclado, sus estados y sus tests.
 
@@ -39,7 +39,7 @@ un test que falla si alguien exporta algo de un archivo sin sacarlo por esa puer
 - **Relieve:** cinco recetas (`raised`, `solid`, `pressed`, `inset` y la elevación en capas). El
   estado activo se marca con relieve o canto, no tiñendo el texto.
 - **Iconos:** Material Symbols Rounded, subseteado a los 160 que usamos, servido desde el repo
-  (57 KB). Se agregan con `npm run icons -w @melu/ui -- add <nombre>`, nunca a mano.
+  (57 KB). Se agregan con `npm run icons -w @milo/ui -- add <nombre>`, nunca a mano.
 
 El código va en inglés y los comentarios en castellano: lo que es código se escribe en inglés,
 lo que se lee —comentarios, textos de la interfaz, nombres de los tests— en castellano.

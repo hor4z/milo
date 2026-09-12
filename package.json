@@ -1,5 +1,5 @@
 {
-  "name": "melu-ui-kit",
+  "name": "milo-ui-kit",
   "private": true,
   "type": "module",
   "workspaces": [
@@ -7,11 +7,11 @@
     "apps/*"
   ],
   "scripts": {
-    "dev": "npm run dev -w @melu/kit",
-    "dev:guide": "npm run dev -w @melu/guide",
-    "build": "npm run build -w @melu/kit -w @melu/guide",
+    "dev": "npm run dev -w @milo/kit",
+    "dev:guide": "npm run dev -w @milo/guide",
+    "build": "npm run build -w @milo/kit -w @milo/guide",
     "typecheck": "tsc -b",
-    "props": "npm run props -w @melu/ui",
+    "props": "npm run props -w @milo/ui",
     "test": "vitest run",
     "test:watch": "vitest"
   },

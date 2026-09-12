@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
-import { Button, Segmented, cx, Icon } from '@melu/ui'
+import { Button, Segmented, cx, Icon } from '@milo/ui'
 import { plans } from '../data'
 
 /** Planes. */
@@ -16,7 +16,7 @@ export function PricingScreen() {
             <path d="M7 17.5V11a4 4 0 018 0v6.5" stroke="var(--on-solid)" strokeWidth="2.1" strokeLinecap="round" />
             <path d="M15 17.5V11a4 4 0 014-4" stroke="var(--jade-500)" strokeWidth="2.1" strokeLinecap="round" />
           </svg>
-          <span className="font-display text-lg font-semibold tracking-[-0.03em]">melu</span>
+          <span className="font-display text-lg font-semibold tracking-[-0.03em]">milo</span>
         </Link>
         <Button variant="ghost" iconEnd="arrow_forward" onClick={() => history.back()}>Volver</Button>
       </header>

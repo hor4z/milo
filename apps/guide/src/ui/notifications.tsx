@@ -1,6 +1,6 @@
 import { useMemo, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { Popover, Avatar, Button, cx, Segmented, Icon, type IconName } from '@melu/ui'
+import { Popover, Avatar, Button, cx, Segmented, Icon, type IconName } from '@milo/ui'
 import { notifications, type Notif, type NotifKind } from '../data'
 
 /** Cada tipo de aviso trae su chapita y su color. */

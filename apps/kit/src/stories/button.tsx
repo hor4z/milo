@@ -1,4 +1,4 @@
-import { Button } from '@melu/ui'
+import { Button } from '@milo/ui'
 import { A11y, Demo, Page, Panel, Props, Section, Variant } from '../kit'
 
 export function ButtonStory() {
@@ -6,7 +6,7 @@ export function ButtonStory() {
     <Page
       title="Button"
       kind="Acciones"
-      imports="import { Button } from '@melu/ui'"
+      imports="import { Button } from '@milo/ui'"
       lead="El texto va en 14/600 aunque la interfaz sea de 12: un botón con el mismo tamaño de letra que su entorno no se lee como accionable."
     >
       <Section

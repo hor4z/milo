@@ -1,4 +1,4 @@
-import { Button, Popover } from '@melu/ui'
+import { Button, Popover } from '@milo/ui'
 import { A11y, Demo, Page, Props, Section } from '../kit'
 
 export function PopoverStory() {
@@ -7,7 +7,7 @@ export function PopoverStory() {
       title="Popover"
       lead="El panel anclado. Cierra con `pointerdown` y no con `click`: con click, el mismo gesto que abre otro panel lo cierra y lo reabre, y parpadea. Y el scroll de la página lo cierra, pero el de su propio contenido no — el listener va en captura y se filtra por origen."
       kind="Superficies"
-      imports="import { Popover } from '@melu/ui'"
+      imports="import { Popover } from '@milo/ui'"
     >
       <Section title="Vivo" note="Con `veil`, el resto de la pantalla se apaga. El velo va sin blur: el fondo se sigue reconociendo, que es lo que te dice de dónde salió el panel.">
         <div className="flex flex-wrap items-start gap-3">

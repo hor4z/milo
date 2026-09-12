@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { FolderIcon, NavItemBody, navItemClass, navSubItemClass } from '@melu/ui'
+import { FolderIcon, NavItemBody, navItemClass, navSubItemClass } from '@milo/ui'
 import { A11y, Page, Props, Section } from '../kit'
 
 export function NavStory() {
@@ -9,7 +9,7 @@ export function NavStory() {
     <Page
       title="NavItem"
       kind="Navegación"
-      imports="import { NavItemBody, navItemClass } from '@melu/ui'"
+      imports="import { NavItemBody, navItemClass } from '@milo/ui'"
       lead="El item del sidebar, y es la pieza que usa el riel de este mismo kit. Va partido en dos —`navItemClass` para el contenedor y `NavItemBody` para el contenido— porque NavLink recibe className y children como funciones de su propio estado: partirlo deja que quien navega elija el elemento y que el sistema decida cómo se ve."
     >
       <Section

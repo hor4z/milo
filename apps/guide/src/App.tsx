@@ -6,7 +6,7 @@ import { ResourcesScreen, SavedScreen, SpaceScreen } from './screens/misc'
 import { PricingScreen } from './screens/pricing'
 import { UpdatesScreen } from './screens/updates'
 import { SignInScreen } from './screens/signin'
-import { EmptyState, Page, Button } from '@melu/ui'
+import { EmptyState, Page, Button } from '@milo/ui'
 
 /** Dos shells: el de trabajo (con sidebar) y el que va suelto. */
 export function App() {

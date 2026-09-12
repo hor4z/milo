@@ -1,5 +1,5 @@
 {
-  "name": "@melu/ui",
+  "name": "@milo/ui",
   "version": "0.0.0",
   "private": true,
   "type": "module",
@@ -11,7 +11,7 @@
     "./props": "./src/props.gen.ts"
   },
   "dependencies": {
-    "@melu/tokens": "*"
+    "@milo/tokens": "*"
   },
   "peerDependencies": {
     "react": ">=19",

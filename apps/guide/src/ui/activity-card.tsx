@@ -1,4 +1,4 @@
-import { Icon, Chip, cx, IconButton, Tooltip, usePrefs , labelColors, labelFill } from '@melu/ui'
+import { Icon, Chip, cx, IconButton, Tooltip, usePrefs , labelColors, labelFill } from '@milo/ui'
 import type { Activity } from '../data'
 
 /** La tarjeta de una actividad. */

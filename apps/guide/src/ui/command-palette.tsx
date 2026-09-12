@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { Icon, type IconName, cx, Kbd, Portal, useEscape, useFocusTrap, useScrollLock, fold } from '@melu/ui'
+import { Icon, type IconName, cx, Kbd, Portal, useEscape, useFocusTrap, useScrollLock, fold } from '@milo/ui'
 import { activities, recipes } from '../data'
 
 type Command = { id: string; label: string; hint?: string; icon: IconName; run: () => void; group: string }

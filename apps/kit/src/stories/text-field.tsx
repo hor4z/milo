@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { IconButton, Kbd, TextField } from '@melu/ui'
+import { IconButton, Kbd, TextField } from '@milo/ui'
 import { A11y, Demo, Page, Props, Section } from '../kit'
 
 export function TextFieldStory() {
@@ -9,7 +9,7 @@ export function TextFieldStory() {
     <Page
       title="TextField"
       kind="Formularios"
-      imports="import { TextField } from '@melu/ui'"
+      imports="import { TextField } from '@milo/ui'"
       lead="Plano: un fondo y una línea de un píxel, sin relieve. El campo fue un hueco y el volumen se fue a propósito — el relieve dice «esto sobresale» o «esto se aprieta», y un campo no es ninguna de las dos. Así se dibuja igual que el Select y que el buscador de la topbar. Al enfocarse no cambia de plano: se le tiñe el borde que ya tenía. El anillo del sistema es para una pieza sin borde propio; sobre un campo dibujaba una segunda línea azul a dos píxeles de la primera."
     >
       <Section title="Variantes">

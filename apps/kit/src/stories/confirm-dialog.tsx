@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Button, ConfirmDialog, useToast } from '@melu/ui'
+import { Button, ConfirmDialog, useToast } from '@milo/ui'
 import { A11y, Canvas, Note, Page, Props, Section } from '../kit'
 
 export function ConfirmStory() {
@@ -10,7 +10,7 @@ export function ConfirmStory() {
     <Page
       title="ConfirmDialog"
       kind="Superficies"
-      imports="import { ConfirmDialog } from '@melu/ui'"
+      imports="import { ConfirmDialog } from '@milo/ui'"
       lead="La pregunta antes de algo que no se deshace. Es un modal con una forma fija, porque una confirmación siempre es lo mismo: qué se va a hacer, sobre qué, y dos salidas."
     >
       <Section

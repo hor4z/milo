@@ -1,6 +1,6 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
-import { PrefsProvider } from '@melu/ui'
+import { PrefsProvider } from '@milo/ui'
 import { App } from './App'
 import './app.css'
 

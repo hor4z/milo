@@ -1,5 +1,5 @@
 import { useRef, useState } from 'react'
-import { Icon, Button, IconButton, Tooltip, cx, Dropdown, type DropdownItem } from '@melu/ui'
+import { Icon, Button, IconButton, Tooltip, cx, Dropdown, type DropdownItem } from '@milo/ui'
 
 /** El composer flotante: se escribe la consigna y sale una actividad. */
 export function Composer() {

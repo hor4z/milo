@@ -1,4 +1,4 @@
-import { Book, Icon } from '@melu/ui'
+import { Book, Icon } from '@milo/ui'
 import { A11y, Mono, Page, Props, Section } from '../kit'
 
 export function BookStory() {
@@ -6,7 +6,7 @@ export function BookStory() {
     <Page
       title="Book"
       kind="Superficies"
-      imports="import { Book } from '@melu/ui'"
+      imports="import { Book } from '@milo/ui'"
       lead="Una tapa en tres dimensiones, con su lomo y su canto de hojas. Es una portada —un tema, una guía, una colección— y no una tarjeta: en una grilla de doce filas iguales, doce libros son doce objetos pidiendo atención y ninguno la consigue. Para eso está Card."
     >
       <Section
@@ -25,7 +25,7 @@ export function BookStory() {
             variant="simple"
             color="var(--label-purple)"
             textColor="var(--on-label)"
-            title="Diseño de sistemas en melu"
+            title="Diseño de sistemas en milo"
           />
         </div>
       </Section>

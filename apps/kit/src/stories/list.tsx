@@ -1,4 +1,4 @@
-import { Icon, List, ListItem, type IconName, type MarkColor } from '@melu/ui'
+import { Icon, List, ListItem, type IconName, type MarkColor } from '@milo/ui'
 import { A11y, Mono, Page, Props, Section } from '../kit'
 
 const onboarding: { icon: IconName; color: MarkColor; title: string; hint: string; active?: boolean }[] = [
@@ -20,7 +20,7 @@ export function ListStory() {
     <Page
       title="List · ListItem"
       kind="Datos"
-      imports="import { List, ListItem } from '@melu/ui'"
+      imports="import { List, ListItem } from '@milo/ui'"
       lead="Filas altas, cada una con una marca de color, un título y una línea de apoyo. No es `Row`: acá no hay divisores —cada fila es su propia caja con aire alrededor—, el título sube a 16 porque es lo que se lee primero, y la marca de color es lo que te deja encontrar una fila de reojo sin leerla."
     >
       <Section
@@ -50,7 +50,7 @@ export function ListStory() {
         </div>
       </Section>
 
-      <Section title="Como índice" note="La misma pieza con contenido de melu: acá el color identifica el espacio, no el estado.">
+      <Section title="Como índice" note="La misma pieza con contenido de milo: acá el color identifica el espacio, no el estado.">
         <div className="max-w-[460px]">
           <List>
             {spaces.map(e => (
