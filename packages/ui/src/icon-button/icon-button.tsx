@@ -16,11 +16,12 @@ type IconButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
 }
 
 export function IconButton({
-  icon, label, variant = 'ghost', size = 'md', dot, active, className, ...rest
+  icon, label, variant = 'ghost', size = 'md', dot, active, type = 'button', className, ...rest
 }: IconButtonProps) {
   const c = control[size]
   return (
     <button
+      type={type}
       aria-label={label}
       className={cx(
         'relative inline-flex items-center justify-center transition-[background-color,color,box-shadow] duration-[120ms] ease-out',

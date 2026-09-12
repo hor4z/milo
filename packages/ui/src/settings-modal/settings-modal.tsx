@@ -45,6 +45,7 @@ export function SettingsModal({ open, onClose, user }: {
             return (
               <button
                 key={s.id}
+                type="button"
                 onClick={() => setSection(s.id)}
                 aria-current={active ? 'page' : undefined}
                 className={cx(
@@ -214,6 +215,7 @@ function EditableRow({ label, value: initial }: { label: string; value: string }
         />
       ) : (
         <button
+          type="button"
           onClick={() => { setDraft(value); setEditing(true) }}
           className="flex items-center gap-2 rounded-md px-1.5 py-1 text-xs font-medium text-ink hover:bg-hover"
         >

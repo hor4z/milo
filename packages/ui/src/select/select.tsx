@@ -111,6 +111,7 @@ export function Select({
               return (
                 <button
                   key={o}
+                  type="button"
                   role="option"
                   aria-selected={selected}
                   data-active={i === active}

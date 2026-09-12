@@ -10,6 +10,7 @@ export function Switch({
     <button
       {...campo}
       id={id ?? campo.id}
+      type="button"
       role="switch"
       aria-checked={checked}
       aria-label={campo.id ? undefined : label}

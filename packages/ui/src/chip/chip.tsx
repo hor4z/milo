@@ -30,7 +30,7 @@ export function Chip({
     >
       {children}
       {onRemove && (
-        <button onClick={onRemove} aria-label="Quitar" className="-mr-0.5 rounded-sm p-0.5 hover:bg-active">
+        <button type="button" onClick={onRemove} aria-label="Quitar" className="-mr-0.5 rounded-sm p-0.5 hover:bg-active">
           <Icon name="close" size={12} />
         </button>
       )}

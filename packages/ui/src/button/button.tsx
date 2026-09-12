@@ -13,11 +13,12 @@ type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
 }
 
 export function Button({
-  variant = 'raised', size = 'md', icon, iconEnd, block, className, children, ...rest
+  variant = 'raised', size = 'md', icon, iconEnd, block, type = 'button', className, children, ...rest
 }: ButtonProps) {
   const c = control[size]
   return (
     <button
+      type={type}
       className={cx(
         'inline-flex items-center justify-center font-semibold whitespace-nowrap',
         'transition-[background-color,color,box-shadow,filter] duration-[120ms] ease-out',

@@ -59,6 +59,16 @@ describe('coherencia del sistema', () => {
     expect(faltan).toEqual([])
   })
 
+  it('ningún botón se olvida el type, que adentro de un form manda el form', () => {
+    const culpables: string[] = []
+    for (const f of fuentes) {
+      for (const m of f.texto.matchAll(/<button\b[^>]*?>/gs)) {
+        if (!m[0].includes('type=')) culpables.push(f.nombre)
+      }
+    }
+    expect([...new Set(culpables)]).toEqual([])
+  })
+
   it('cada componente tiene su test al lado', () => {
     const faltan = carpetas.filter(c => !readdirSync(join(dir, c)).includes(`${c}.test.tsx`))
     expect(faltan).toEqual([])

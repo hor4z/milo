@@ -14,4 +14,45 @@ describe('Button', () => {
     await userEvent.click(screen.getByRole('button'))
     expect(onClick).toHaveBeenCalledTimes(1)
   })
+
+  it('adentro de un form no manda el form sin querer', async () => {
+    const enviar = vi.fn(e => e.preventDefault())
+    render(
+      <form onSubmit={enviar}>
+        <Button>Cancelar</Button>
+      </form>,
+    )
+    await userEvent.click(screen.getByRole('button', { name: 'Cancelar' }))
+    expect(enviar).not.toHaveBeenCalled()
+  })
+
+  it('el que sí manda lo pide', async () => {
+    const enviar = vi.fn(e => e.preventDefault())
+    render(
+      <form onSubmit={enviar}>
+        <Button type="submit">Crear</Button>
+      </form>,
+    )
+    await userEvent.click(screen.getByRole('button', { name: 'Crear' }))
+    expect(enviar).toHaveBeenCalledOnce()
+  })
+
+  it('los iconos acompañan al texto sin robarle el nombre', () => {
+    render(<Button icon="add" iconEnd="chevron_right">Nueva actividad</Button>)
+    expect(screen.getByRole('button', { name: 'Nueva actividad' })).toBeInTheDocument()
+  })
+
+  it('el tamaño y la variante son clases, no medidas escritas a mano', () => {
+    const { rerender } = render(<Button size="sm">Guardar</Button>)
+    expect(screen.getByRole('button')).toHaveClass('h-8')
+    rerender(<Button size="lg">Guardar</Button>)
+    expect(screen.getByRole('button')).toHaveClass('h-10')
+    rerender(<Button variant="solid">Guardar</Button>)
+    expect(screen.getByRole('button').className).toContain('bg-solid')
+  })
+
+  it('block ocupa la fila entera', () => {
+    render(<Button block>Guardar</Button>)
+    expect(screen.getByRole('button')).toHaveClass('w-full')
+  })
 })

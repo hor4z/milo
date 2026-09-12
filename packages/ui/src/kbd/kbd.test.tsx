@@ -7,4 +7,9 @@ describe('Kbd', () => {
     const { container } = render(<Kbd>⌘K</Kbd>)
     expect(container.querySelector('kbd')).toBeInTheDocument()
   })
+
+  it('muestra la tecla tal cual', () => {
+    const { container } = render(<Kbd>⌘K</Kbd>)
+    expect(container.querySelector('kbd')).toHaveTextContent('⌘K')
+  })
 })
