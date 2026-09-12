@@ -2,8 +2,8 @@ import { Note, Page, Ramp, Section, Swatch, useTokens } from '../kit'
 
 const rampa = ['--shade-01', '--shade-02', '--shade-03', '--shade-04', '--shade-05', '--shade-06', '--shade-07', '--shade-08', '--shade-09'] as const
 const marcas = ['--mark-green', '--mark-purple', '--mark-orange', '--mark-blue', '--mark-pink'] as const
-const etiquetas = ['--label-green', '--label-purple', '--label-orange', '--label-blue', '--label-pink', '--label-red'] as const
-const tintes = ['--tint-green', '--tint-purple', '--tint-orange', '--tint-blue', '--tint-pink'] as const
+const etiquetas = ['--label-green', '--label-teal', '--label-blue', '--label-purple', '--label-pink', '--label-orange'] as const
+const tintes = ['--tint-1', '--tint-2', '--tint-3', '--tint-4', '--tint-5'] as const
 const espacios = ['--space-green', '--space-purple', '--space-orange', '--space-blue', '--space-pink'] as const
 
 export function ColorSection() {
@@ -36,8 +36,8 @@ export function ColorSection() {
 
       <Section title="Bordes y líneas">
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          <Swatch token="--line" note="el divisor de siempre" />
-          <Swatch token="--line-strong" note="cuando hay que separar de verdad" />
+          <Swatch token="--border" note="el divisor de siempre" />
+          <Swatch token="--border-strong" note="cuando hay que separar de verdad" />
           <Swatch token="--edge" note="el filo de algo que sobresale" />
           <Swatch token="--field-border" note="la línea de un campo, en tinta" />
           <Swatch token="--focus-border" note="el borde de un campo enfocado" />

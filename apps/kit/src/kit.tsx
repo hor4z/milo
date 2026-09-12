@@ -20,6 +20,18 @@ export function useTokens(names: readonly string[]) {
   return vals
 }
 
+function Rico({ texto }: { texto: string }) {
+  const partes = texto.split(/(`[^`]+`)/g)
+  return (
+    <>
+      {partes.map((t, i) =>
+        t.startsWith('`') && t.endsWith('`')
+          ? <code key={i} className="rounded-sm bg-muted px-1 py-0.5 font-mono text-[0.92em] text-ink">{t.slice(1, -1)}</code>
+          : t)}
+    </>
+  )
+}
+
 type PageProps = {
   /** El nombre de la pieza, tal como se importa. */
   title: string
@@ -41,7 +53,7 @@ export function Page({ title, lead, imports, kind, children }: PageProps) {
           <h1 className="text-display font-bold tracking-tight text-ink">{title}</h1>
           {kind && <Badge>{kind}</Badge>}
         </div>
-        <p className="max-w-[68ch] text-base font-medium text-ink-muted">{lead}</p>
+        <p className="max-w-[68ch] text-base font-medium text-ink-muted"><Rico texto={lead} /></p>
         {imports && <Code>{imports}</Code>}
       </header>
       {children}
@@ -84,7 +96,7 @@ export function Section({ title, note, children }: { title: string; note?: strin
     <section className="flex flex-col gap-4">
       <div className="flex flex-col gap-1.5">
         <h2 className="text-lg font-semibold tracking-tight text-ink">{title}</h2>
-        {note && <p className="max-w-[72ch] text-xs font-medium text-ink-muted">{note}</p>}
+        {note && <p className="max-w-[72ch] text-xs font-medium text-ink-muted"><Rico texto={note} /></p>}
       </div>
       {children}
     </section>
