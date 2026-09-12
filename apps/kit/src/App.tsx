@@ -127,6 +127,7 @@ const todas = groups.flatMap(g => g.stories.map(s => ({ ...s, grupo: g.label }))
 export function App() {
   const [current, setCurrent] = useState(() => location.hash.slice(1) || INTRO)
   const [busqueda, setBusqueda] = useState('')
+  const [rielAbierto, setRielAbierto] = useState(false)
   const { prefs, set } = usePrefs()
   const buscador = useRef<HTMLInputElement>(null)
   const main = useRef<HTMLElement>(null)
@@ -151,6 +152,7 @@ export function App() {
   const go = (id: string) => {
     location.hash = id
     setCurrent(id)
+    setRielAbierto(false)
     main.current?.scrollTo({ top: 0 })
   }
 
@@ -172,8 +174,23 @@ export function App() {
 
   return (
     <ToastProvider>
-      <div className="flex min-h-screen bg-canvas">
-        <nav className="fixed top-0 bottom-0 left-0 flex w-[248px] shrink-0 flex-col border-r border-line bg-canvas">
+      <div className="flex min-h-screen flex-col bg-canvas lg:flex-row">
+        {rielAbierto && (
+          <div
+            className="ui-fade fixed inset-0 z-30 bg-veil lg:hidden"
+            onClick={() => setRielAbierto(false)}
+            aria-hidden="true"
+          />
+        )}
+
+        <nav
+          id="riel"
+          className={cx(
+            'fixed top-0 bottom-0 left-0 z-40 flex w-[248px] shrink-0 flex-col border-r border-line bg-canvas',
+            'transition-transform duration-[190ms] ease-out lg:translate-x-0',
+            rielAbierto ? 'translate-x-0 shadow-popover' : '-translate-x-full',
+          )}
+        >
           <div className="flex flex-col gap-3 px-4 pt-5 pb-3">
             <button onClick={() => go(INTRO)} className="flex items-baseline gap-1.5 self-start rounded-md px-1 text-left">
               <span className="text-base font-bold tracking-tight text-ink">melu</span>
@@ -253,7 +270,20 @@ export function App() {
           </div>
         </nav>
 
-        <main ref={main} className="ml-[248px] min-w-0 flex-1 px-10 py-10">
+        <div className="sticky top-0 z-20 flex items-center gap-2 border-b border-line bg-canvas/90 px-4 py-3 backdrop-blur-md lg:hidden">
+          <IconButton
+            icon="menu"
+            label="Abrir el índice"
+            size="sm"
+            variant="ghost"
+            aria-expanded={rielAbierto}
+            aria-controls="riel"
+            onClick={() => setRielAbierto(true)}
+          />
+          <span className="text-xs font-semibold text-ink">melu · ui kit</span>
+        </div>
+
+        <main ref={main} className="min-w-0 flex-1 px-5 py-8 lg:ml-[248px] lg:px-10 lg:py-10">
           <div key={current} className="mx-auto flex max-w-[980px] flex-col">
             {current === INTRO && <Intro go={go} piezas={todas.length} />}
             {current === 'dashboard' && <Dashboard />}
