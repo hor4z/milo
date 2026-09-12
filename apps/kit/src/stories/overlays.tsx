@@ -1,14 +1,16 @@
 import { useState } from 'react'
 import { Button, Dropdown, IconButton, Modal, Popover, SettingsModal, Tooltip } from '@melu/ui'
-import { Block, Demo, Props, Section } from '../kit'
+import { Demo, Page, Props, Section } from '../kit'
 
 export function DropdownStory() {
   return (
-    <Section
+    <Page
       title="Dropdown"
-      note="Un menú de cuatro items. No lleva velo: el velo va para lo que pide leerse entero, y un menú corto no lo pide. Cierra con Escape, que usa una pila global — cierra el overlay de arriba y no todos."
+      lead="Un menú de cuatro items. No lleva velo: el velo va para lo que pide leerse entero, y un menú corto no lo pide. Cierra con Escape, que usa una pila global — cierra el overlay de arriba y no todos."
+      kind="Acciones"
+      imports="import { Dropdown } from '@melu/ui'"
     >
-      <Block label="Vivo" note="El disparador va como render prop porque el Dropdown necesita su ref para medir dónde abrir. Desde que `Button` acepta ref, el disparador puede ser el botón del sistema y no un <button> crudo repitiendo las clases.">
+      <Section title="Vivo" note="El disparador va como render prop porque el Dropdown necesita su ref para medir dónde abrir. Desde que `Button` acepta ref, el disparador puede ser el botón del sistema y no un <button> crudo repitiendo las clases.">
         <div className="flex flex-wrap items-start gap-3">
           <Demo label="align end · width 220">
             <Dropdown
@@ -35,27 +37,29 @@ export function DropdownStory() {
             />
           </Demo>
         </div>
-      </Block>
+      </Section>
 
-      <Block label="Props">
+      <Section title="Props">
         <Props rows={[
           { name: 'items', type: '{ label, icon?, onSelect? }[]', note: 'obligatorio' },
           { name: 'trigger', type: '(props) => ReactNode', note: 'obligatorio: recibe onClick, ref y aria-expanded' },
           { name: 'align', type: "'start' | 'end'", def: "'end'" },
           { name: 'width', type: 'number', def: '220' },
         ]} />
-      </Block>
-    </Section>
+      </Section>
+    </Page>
   )
 }
 
 export function PopoverStory() {
   return (
-    <Section
+    <Page
       title="Popover"
-      note="El panel anclado. Cierra con `pointerdown` y no con `click`: con click, el mismo gesto que abre otro panel lo cierra y lo reabre, y parpadea. Y el scroll de la página lo cierra, pero el de su propio contenido no — el listener va en captura y se filtra por origen."
+      lead="El panel anclado. Cierra con `pointerdown` y no con `click`: con click, el mismo gesto que abre otro panel lo cierra y lo reabre, y parpadea. Y el scroll de la página lo cierra, pero el de su propio contenido no — el listener va en captura y se filtra por origen."
+      kind="Superficies"
+      imports="import { Popover } from '@melu/ui'"
     >
-      <Block label="Vivo" note="Con `veil`, el resto de la pantalla se apaga. El velo va sin blur: el fondo se sigue reconociendo, que es lo que te dice de dónde salió el panel.">
+      <Section title="Vivo" note="Con `veil`, el resto de la pantalla se apaga. El velo va sin blur: el fondo se sigue reconociendo, que es lo que te dice de dónde salió el panel.">
         <div className="flex flex-wrap items-start gap-3">
           <Demo label="sin velo">
             <Popover
@@ -98,9 +102,9 @@ export function PopoverStory() {
             </Popover>
           </Demo>
         </div>
-      </Block>
+      </Section>
 
-      <Block label="Props">
+      <Section title="Props">
         <Props rows={[
           { name: 'trigger', type: '(props) => ReactNode', note: 'obligatorio: recibe onClick, ref, aria-expanded y data-open' },
           { name: 'children', type: '(close: () => void) => ReactNode', note: 'obligatorio: recibe el cierre. El panel lo dibuja el call site — fondo, borde, radio y sombra — porque Popover no tiene aspecto' },
@@ -109,19 +113,21 @@ export function PopoverStory() {
           { name: 'width', type: 'number', note: 'sin esto se mide el ancho real del panel montado' },
           { name: 'offset', type: 'number', def: '8' },
         ]} />
-      </Block>
-    </Section>
+      </Section>
+    </Page>
   )
 }
 
 export function TooltipStory() {
   return (
-    <Section
+    <Page
       title="Tooltip"
-      note="La etiqueta que dice qué hace un control que no lo dice solo. No es un Popover chico: se abre solo —hover o foco de teclado—, no recibe el mouse (o taparía justo el botón que explica) y no lleva nada interactivo adentro. Si tiene un link o un botón, es un Popover."
+      lead="La etiqueta que dice qué hace un control que no lo dice solo. No es un Popover chico: se abre solo —hover o foco de teclado—, no recibe el mouse (o taparía justo el botón que explica) y no lleva nada interactivo adentro. Si tiene un link o un botón, es un Popover."
+      kind="Avisos"
+      imports="import { Tooltip } from '@melu/ui'"
     >
-      <Block
-        label="El retraso se comparte"
+      <Section
+        title="El retraso se comparte"
         note="El primero tarda medio segundo, porque un tooltip que aparece apenas el mouse pasa por encima salta solo mientras cruzás la pantalla. Pero una vez que uno se mostró, el de al lado abre al instante: con medio segundo cada uno, recorrer seis iconos son tres segundos de espera y la fila se siente trabada. Pasá el mouse por la fila entera y después salí un rato y volvé."
       >
         <div className="flex flex-wrap items-center gap-1">
@@ -132,10 +138,10 @@ export function TooltipStory() {
           <Tooltip label="Ajustes"><IconButton icon="tune" label="Ajustes" /></Tooltip>
           <Tooltip label="Más"><IconButton icon="more_horiz" label="Más" /></Tooltip>
         </div>
-      </Block>
+      </Section>
 
-      <Block
-        label="Con el teclado"
+      <Section
+        title="Con el teclado"
         note="Tabulá hasta el botón: el tooltip aparece igual. Pero solo cuando el foco es del teclado — con un onFocus pelado, clickear el botón deja el tooltip puesto encima de lo que acabás de tocar. Escape lo cierra, por la misma pila global que los otros overlays."
       >
         <div className="flex flex-wrap items-center gap-3">
@@ -155,10 +161,10 @@ export function TooltipStory() {
             </Tooltip>
           </Demo>
         </div>
-      </Block>
+      </Section>
 
-      <Block
-        label="Se da vuelta y no se sale"
+      <Section
+        title="Se da vuelta y no se sale"
         note="Contra el borde de arriba se va abajo, y contra el costado se pega a 8 del canto en vez de salirse. Un tooltip de un icono de la punta del sidebar se salía de la ventana."
       >
         <div className="flex items-center justify-between">
@@ -169,19 +175,19 @@ export function TooltipStory() {
             <IconButton icon="chevron_right" label="Derecha" variant="raised" />
           </Tooltip>
         </div>
-      </Block>
+      </Section>
 
-      <Block label="Props">
+      <Section title="Props">
         <Props rows={[
           { name: 'label', type: 'ReactNode', note: 'obligatorio; lo que dice la etiqueta' },
           { name: 'children', type: 'ReactNode', note: 'el control que explica; se envuelve, no se pide render prop' },
           { name: 'side', type: "'top' | 'bottom'", def: "'top'", note: 'si de ese lado no entra, se da vuelta' },
           { name: 'delay', type: 'number', def: '500', note: 'ms del primero; los siguientes abren en 0 dentro de una ventana de 400' },
         ]} />
-      </Block>
+      </Section>
 
-      <Block
-        label="Lo que no hace"
+      <Section
+        title="Lo que no hace"
         note="En touch no aparece: no hay hover que lo abra ni forma de cerrarlo sin tocar otra cosa. Por eso lo que el tooltip diga tiene que estar también en el aria-label del control, y por eso no lleva información que no esté en otro lado. Para un lector de pantalla el control ya se nombra solo; el tooltip es la ayuda de quien ve el icono y no sabe qué hace."
       >
         <p className="max-w-[70ch] text-xs text-ink-muted">
@@ -190,8 +196,8 @@ export function TooltipStory() {
           <code>Tooltip</code> ata <code>primitives</code> a <code>overlay</code>, que hoy importa
           al revés: es un movimiento de archivos, no una prop.
         </p>
-      </Block>
-    </Section>
+      </Section>
+    </Page>
   )
 }
 
@@ -201,12 +207,14 @@ export function ModalStory() {
   const [ajustes, setAjustes] = useState(false)
 
   return (
-    <Section
+    <Page
       title="Modal"
-      note="El backdrop es blur de 3px más una capa muy tenue (14%), no un negro al 50%: el contexto de abajo se sigue leyendo y el modal no se siente un cambio de página. El bloqueo de scroll compensa el ancho de la scrollbar, porque sin eso la página salta a la derecha justo al abrir."
+      lead="El backdrop es blur de 3px más una capa muy tenue (14%), no un negro al 50%: el contexto de abajo se sigue leyendo y el modal no se siente un cambio de página. El bloqueo de scroll compensa el ancho de la scrollbar, porque sin eso la página salta a la derecha justo al abrir."
+      kind="Superficies"
+      imports="import { Modal } from '@melu/ui'"
     >
-      <Block
-        label="Vivo"
+      <Section
+        title="Vivo"
         note="Se enfoca el contenedor del diálogo y no su primer control: el navegador scrollea para traer a la vista lo que enfoca, así que enfocar «el primero enfocable» abría el panel corrido 39px con la primera fila tapada. Para el caso que sí quiere un campo —la paleta de comandos— hay un `[data-autofocus]`."
       >
         <div className="flex flex-wrap items-start gap-3">
@@ -241,10 +249,10 @@ export function ModalStory() {
             </Modal>
           </Demo>
         </div>
-      </Block>
+      </Section>
 
-      <Block
-        label="El caso real: los ajustes"
+      <Section
+        title="El caso real: los ajustes"
         note="El mismo modal que usa la app, no una maqueta: rail de 180 que no scrollea + panel que sí. Si scrollean los dos, al bajar en una sección larga desaparecen las secciones y no sabés dónde estás. Los ajustes van en un modal y no en una página porque lo que importa es no perder el contexto — al cerrar no hay navegación, seguís donde estabas y con el scroll donde lo dejaste, y por eso el fondo se atenúa apenas en vez de lavarse."
       >
         <div className="flex flex-wrap items-start gap-3">
@@ -269,16 +277,16 @@ export function ModalStory() {
           parte de un design system. Adentro hay un Select, que abre un flotante adentro de otro
           flotante: probalo, el listbox queda arriba del modal sin que nadie escriba un z-index.
         </p>
-      </Block>
+      </Section>
 
-      <Block label="Props">
+      <Section title="Props">
         <Props rows={[
           { name: 'open', type: 'boolean', note: 'obligatorio' },
           { name: 'onClose', type: '() => void', note: 'obligatorio: lo llaman Escape y el click en el backdrop' },
           { name: 'label', type: 'string', note: 'obligatorio: el aria-label del role="dialog"' },
           { name: 'width', type: 'number', def: '620' },
         ]} />
-      </Block>
-    </Section>
+      </Section>
+    </Page>
   )
 }
