@@ -2,8 +2,19 @@ import { createContext, useContext, useId, type ComponentPropsWithoutRef, type R
 import { Icon } from '../icon/icon'
 import { cx } from '../lib/cx'
 
-type Campo = { id: string; describedBy?: string; invalid: boolean }
+type Campo = { id: string; labelId: string; describedBy?: string; invalid: boolean }
 export const FieldCtx = createContext<Campo | null>(null)
+
+/** Lo que un grupo de opciones necesita: no toma el id, se nombra con la etiqueta. */
+export function useFieldGroup() {
+  const ctx = useContext(FieldCtx)
+  if (!ctx) return { 'aria-labelledby': undefined, 'aria-describedby': undefined, 'aria-invalid': undefined }
+  return {
+    'aria-labelledby': ctx.labelId,
+    'aria-describedby': ctx.describedBy,
+    'aria-invalid': ctx.invalid || undefined,
+  }
+}
 
 /** Lo que un control necesita para quedar bien atado a su etiqueta. */
 export function useField() {
@@ -31,14 +42,15 @@ type FieldProps = {
 /** Une etiqueta, ayuda, error y control: los tres textos quedan atados al control. */
 export function Field({ label, hint, error, required, children, className }: FieldProps) {
   const id = useId()
+  const labelId = `${id}-label`
   const hintId = `${id}-hint`
   const errorId = `${id}-error`
   const describedBy = [hint && hintId, error && errorId].filter(Boolean).join(' ') || undefined
 
   return (
-    <FieldCtx.Provider value={{ id, describedBy, invalid: Boolean(error) }}>
+    <FieldCtx.Provider value={{ id, labelId, describedBy, invalid: Boolean(error) }}>
       <div className={cx('flex flex-col gap-1.5', className)}>
-        <label htmlFor={id} className="flex items-center gap-1 text-xs font-semibold text-ink">
+        <label id={labelId} htmlFor={id} className="flex items-center gap-1 text-xs font-semibold text-ink">
           {label}
           {required && <span aria-hidden="true" className="text-bad">*</span>}
           {required && <span className="sr-only">(obligatorio)</span>}

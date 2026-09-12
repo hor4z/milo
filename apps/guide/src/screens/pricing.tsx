@@ -30,6 +30,7 @@ export function PricingScreen() {
 
         <div className="mt-7 flex justify-center">
           <Segmented
+            label="Cada cuánto se paga"
             value={cycle}
             onChange={setCycle}
             options={[

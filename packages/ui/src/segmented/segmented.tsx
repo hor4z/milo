@@ -1,5 +1,8 @@
 import { Icon, type IconName } from '../icon/icon'
+import { useFieldGroup } from '../field/field'
 import { cx } from '../lib/cx'
+import { useRovingRadio } from '../lib/roving'
+import { Tooltip } from '../tooltip/tooltip'
 
 type SegmentedOption<T extends string> = {
   value: T
@@ -7,22 +10,31 @@ type SegmentedOption<T extends string> = {
   label?: string
   icon?: IconName
   dot?: boolean
-  /** Obligatorio en las opciones que solo tienen icono. */
+  /** Obligatorio en las opciones que solo tienen icono: es su nombre y su ayuda. */
   title?: string
+  disabled?: boolean
 }
 
 /** Un solo segmented para todo: el de texto ("Todas · Abiertas") y el de iconos (grilla · lista) son el mismo componente con distintas opciones. */
 export function Segmented<T extends string>({
-  value, onChange, options, size = 'md',
+  value, onChange, options, size = 'md', label,
 }: {
   value: T
   onChange: (v: T) => void
   options: SegmentedOption<T>[]
   size?: 'xs' | 'sm' | 'md'
+  /** Cómo se llama el grupo. Adentro de un `Field` lo toma de la etiqueta. */
+  label?: string
 }) {
+  const roving = useRovingRadio(value, onChange, options)
+  const group = useFieldGroup()
+
   return (
     <div
-      role="tablist"
+      role="radiogroup"
+      aria-label={label}
+      {...(label ? {} : group)}
+      onKeyDown={roving.onKeyDown}
       className={cx(
         'inline-flex items-center',
         size === 'xs' ? 'gap-1' : 'gap-0.5 bg-muted',
@@ -33,17 +45,21 @@ export function Segmented<T extends string>({
       {options.map(o => {
         const active = o.value === value
         const iconOnly = !o.label && !!o.icon
-        return (
+        const boton = (
           <button
             key={o.value}
-            role="tab"
-            aria-selected={active}
+            ref={roving.ref(o.value)}
+            type="button"
+            role="radio"
+            aria-checked={active}
             aria-label={iconOnly ? o.title : undefined}
-            title={iconOnly ? o.title : undefined}
+            disabled={o.disabled}
+            tabIndex={roving.tabIndex(o.value)}
             onClick={() => onChange(o.value)}
             className={cx(
               'relative inline-flex items-center justify-center gap-1.5 font-semibold',
               'transition-[background-color,color,box-shadow] duration-[190ms] ease-out',
+              'disabled:pointer-events-none disabled:opacity-45',
               size === 'xs' ? 'h-6 rounded-md text-xs' : size === 'sm' ? 'h-8 rounded-md text-xs' : 'h-9 rounded-lg text-xs',
               iconOnly
                 ? (size === 'xs' ? 'w-6' : size === 'sm' ? 'w-8' : 'w-9')
@@ -58,6 +74,9 @@ export function Segmented<T extends string>({
             {o.dot && <span className="size-1.5 rounded-full bg-ok" />}
           </button>
         )
+        return iconOnly && o.title
+          ? <Tooltip key={o.value} label={o.title}>{boton}</Tooltip>
+          : boton
       })}
     </div>
   )

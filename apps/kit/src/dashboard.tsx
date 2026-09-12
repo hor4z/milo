@@ -46,6 +46,7 @@ export function Dashboard() {
         <div className="flex items-center gap-2">
           <Segmented
             size="sm"
+            label="Rango"
             value={rango}
             onChange={setRango}
             options={[{ value: 'semana', label: 'Semana' }, { value: 'mes', label: 'Mes' }]}

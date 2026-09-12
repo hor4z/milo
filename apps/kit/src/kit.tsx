@@ -214,7 +214,7 @@ export function A11y({ items }: { items: string[] }) {
       {items.map(t => (
         <li key={t} className="flex gap-2.5 text-xs font-medium text-ink-muted">
           <Icon name="check" size={16} className="mt-px shrink-0 text-ok" />
-          <span className="max-w-[70ch]">{t}</span>
+          <span className="max-w-[70ch]"><Rico texto={t} /></span>
         </li>
       ))}
     </ul>

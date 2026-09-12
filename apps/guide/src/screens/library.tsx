@@ -26,6 +26,7 @@ export function LibraryScreen() {
             <>
               <Segmented
                 size="sm"
+                label="Filtro"
                 value={filter}
                 onChange={setFilter}
                 options={[
@@ -35,6 +36,7 @@ export function LibraryScreen() {
               />
               <Segmented
                 size="sm"
+                label="Vista"
                 value={view}
                 onChange={setView}
                 options={[

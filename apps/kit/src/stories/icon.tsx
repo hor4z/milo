@@ -71,6 +71,7 @@ export function IconStory() {
             <TextField icon="search" value={q} onChange={e => setQ(e.target.value)} placeholder="buscar por nombre o por tag…" />
           </span>
           <Segmented
+            label="Peso del glifo"
             value={weight}
             onChange={setWeight}
             options={pesos.map(p => ({ value: p.value, label: p.label }))}

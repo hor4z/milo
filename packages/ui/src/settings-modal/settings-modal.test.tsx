@@ -38,7 +38,7 @@ describe('SettingsModal', () => {
 
   it('lo que se cambia queda en las preferencias', async () => {
     abrir()
-    await userEvent.click(screen.getByRole('tab', { name: 'Oscuro' }))
+    await userEvent.click(screen.getByRole('radio', { name: 'Oscuro' }))
     expect(document.documentElement.dataset.theme).toBe('dark')
   })
 

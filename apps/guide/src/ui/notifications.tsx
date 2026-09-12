@@ -54,6 +54,7 @@ export function NotificationsButton() {
             <h2 className="text-base font-semibold">Avisos</h2>
             <Segmented
               size="xs"
+              label="Qué avisos ver"
               value={filter}
               onChange={setFilter}
               options={[

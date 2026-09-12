@@ -1,5 +1,6 @@
-import { useRef, type Ref } from 'react'
+import type { Ref } from 'react'
 import { cx } from '../lib/cx'
+import { useRovingRadio } from '../lib/roving'
 
 /** La elección de una entre varias. */
 export function Radio({
@@ -53,37 +54,23 @@ export function RadioGroup<T extends string>({
   label?: string
   className?: string
 }) {
-  const live = options.filter(o => !o.disabled)
-  const refs = useRef<Record<string, HTMLButtonElement | null>>({})
-  const step = (dir: 1 | -1) => {
-    if (!live.length) return
-    const i = live.findIndex(o => o.value === value)
-    const next = live[(i + dir + live.length) % live.length].value
-    onChange(next)
-    refs.current[next]?.focus()
-  }
+  const roving = useRovingRadio(value, onChange, options)
   return (
     <div
       role="radiogroup"
       aria-label={label}
-      onKeyDown={e => {
-        const dir = e.key === 'ArrowRight' || e.key === 'ArrowDown' ? 1
-          : e.key === 'ArrowLeft' || e.key === 'ArrowUp' ? -1 : 0
-        if (!dir) return
-        e.preventDefault()
-        step(dir)
-      }}
+      onKeyDown={roving.onKeyDown}
       className={cx('inline-flex items-center gap-3', className)}
     >
       {options.map(o => (
         <Radio
           key={o.value}
-          ref={el => { refs.current[o.value] = el }}
+          ref={roving.ref(o.value)}
           checked={o.value === value}
           onChange={() => onChange(o.value)}
           label={o.label}
           disabled={o.disabled}
-          tabIndex={o.value === value || (!live.some(l => l.value === value) && o.value === live[0]?.value) ? 0 : -1}
+          tabIndex={roving.tabIndex(o.value)}
         />
       ))}
     </div>
