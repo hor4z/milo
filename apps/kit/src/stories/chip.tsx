@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { Chip, labelColors } from '@melu/ui'
-import { Page, Panel, Props, Section, Variant } from '../kit'
+import { A11y, Note, Page, Panel, Props, Section, Variant } from '../kit'
 
 export function ChipStory() {
   const [chips, setChips] = useState(['Indagación', 'Proyecto', 'Taller'])
@@ -32,12 +32,27 @@ export function ChipStory() {
         </Panel>
       </Section>
 
+      <Note title="Chip o Badge">
+        Se parecen y hacen cosas distintas. El <code>Chip</code> identifica: es el nombre de una
+        categoría, un método, una persona — y muchas veces se toca o se saca. El <code>Badge</code>
+        dice en qué estado está algo: corregida, vence mañana, sin entregar. Uno lleva el color de su
+        familia; el otro, el de su estado. Si el texto cambia según lo que pasó, es un badge.
+      </Note>
+
       <Section title="Props">
         <Props rows={[
           { name: 'color', type: 'LabelColor', def: '—', note: 'una de las seis etiquetas vivas; sin esto va gris' },
           { name: 'active', type: 'boolean', note: 'pasa a tinta plena y pisa el color' },
           { name: 'onClick', type: '() => void', note: 'lo convierte en <button>' },
           { name: 'onRemove', type: '() => void', note: 'agrega la cruz' },
+        ]} />
+      </Section>
+
+      <Section title="Accesibilidad">
+        <A11y items={[
+          'Sin onClick ni onRemove es un <span>: no entra en el orden de tabulación algo que no hace nada.',
+          'La cruz de quitar es un botón con su propio nombre, así que se puede usar con el teclado.',
+          'El color nunca es la única marca: lo que identifica al chip es su texto.',
         ]} />
       </Section>
     </Page>
