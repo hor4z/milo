@@ -40,7 +40,7 @@ export function TypeSection() {
             ['font-bold', '600', 'la portada'],
           ].map(([cls, n, rol]) => (
             <div key={cls} className="flex flex-col gap-2 rounded-2xl border border-line bg-surface p-5">
-              <span className={`${cls} text-lg text-ink`}>Aa</span>
+              <span className={`${cls} text-display leading-none text-ink`}>Aa</span>
               <code className="font-mono text-2xs text-ink">{cls}</code>
               <span className="text-2xs font-medium text-ink-muted">{n} · {rol}</span>
             </div>
@@ -65,15 +65,24 @@ export function TypeSection() {
         title="El rol mono"
         note="Es la misma familia, así que pierde el ancho fijo. Lo que lo reemplaza es --tabular, que da ancho fijo a los números sin cambiar de letra: alcanza para un precio, una métrica o una columna de tabla, y no alcanza para un bloque de código, que en este sistema no existe."
       >
-        <div className="flex flex-col gap-3 rounded-2xl border border-line bg-surface p-5">
-          <div className="flex items-center gap-4">
-            <span className="w-24 shrink-0 text-2xs font-medium text-ink-muted">sin tabular</span>
-            <span className="font-mono text-base text-ink">1111 · 4444</span>
+        <div className="flex flex-wrap gap-10 rounded-2xl border border-line bg-surface p-5">
+          <div className="flex flex-col items-start gap-1">
+            <span className="mb-1 text-2xs font-medium text-ink-muted">sin tabular</span>
+            {['11.111', '40.000', '18.914', '88.100'].map(n => (
+              <span key={n} className="border-r border-line pr-1 text-lg font-semibold text-ink">{n}</span>
+            ))}
           </div>
-          <div className="flex items-center gap-4">
-            <span className="w-24 shrink-0 text-2xs font-medium text-ink-muted">con tabular</span>
-            <span className="tabular font-mono text-base text-ink">1111 · 4444</span>
+          <div className="flex flex-col items-start gap-1">
+            <span className="mb-1 text-2xs font-medium text-ink-muted">con tabular</span>
+            {['11.111', '40.000', '18.914', '88.100'].map(n => (
+              <span key={n} className="tabular border-r border-line pr-1 text-lg font-semibold text-ink">{n}</span>
+            ))}
           </div>
+          <p className="max-w-[30ch] self-center text-2xs font-medium text-ink-muted">
+            Mirá dónde termina cada número. En la primera columna el borde derecho baila, porque el
+            1 mide casi la mitad que el 0. En la segunda, todos los dígitos miden lo mismo y la
+            columna cierra derecha.
+          </p>
         </div>
       </Section>
 
