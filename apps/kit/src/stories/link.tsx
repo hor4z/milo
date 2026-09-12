@@ -41,12 +41,7 @@ export function LinkStory() {
       </Note>
 
       <Section title="Props">
-        <Props rows={[
-          { name: 'href', type: 'string', required: true, note: 'a dónde va' },
-          { name: 'external', type: 'boolean', note: 'glifo, target y el aviso para el lector' },
-          { name: 'children', type: 'ReactNode', required: true, note: 'el texto, que tiene que decir a dónde lleva' },
-          { name: 'className', type: 'string' },
-        ]} />
+        <Props of="Link" />
       </Section>
 
       <Section title="Accesibilidad">

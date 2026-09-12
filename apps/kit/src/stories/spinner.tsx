@@ -42,12 +42,7 @@ export function SpinnerStory() {
       </Section>
 
       <Section title="Props">
-        <Props rows={[
-          { name: 'size', type: 'number', def: '20', note: 'el trazo lo sigue: 17% del diámetro' },
-          { name: 'label', type: 'string', def: "'Cargando'", note: 'al aria-label; el rol es status' },
-          { name: 'on', type: "'surface' | 'solid'", def: "'surface'", note: 'sobre qué está apoyado: de ahí salen el filo y la pista' },
-          { name: 'className', type: 'string' },
-        ]} />
+        <Props of="Spinner" />
       </Section>
     
       <Section title="Accesibilidad">

@@ -66,16 +66,7 @@ export function SliderStory() {
       </Section>
 
       <Section title="Props">
-        <Props rows={[
-          { name: 'value', type: 'number', note: 'obligatorio: es controlado' },
-          { name: 'onChange', type: '(v: number) => void', note: 'obligatorio' },
-          { name: 'min', type: 'number', def: '0' },
-          { name: 'max', type: 'number', def: '100' },
-          { name: 'step', type: 'number', def: '1' },
-          { name: 'label', type: 'string', note: 'va al aria-label del input' },
-          { name: 'disabled', type: 'boolean' },
-          { name: 'className', type: 'string', note: 'el ancho se pone desde afuera' },
-        ]} />
+        <Props of="Slider" />
       </Section>
 
       <Section title="El azul no se elige acá">

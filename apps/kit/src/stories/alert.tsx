@@ -90,13 +90,7 @@ export function AlertStory() {
       </Note>
 
       <Section title="Props">
-        <Props rows={[
-          { name: 'tone', type: "'info' | 'ok' | 'warn' | 'bad'", def: "'info'", note: 'de acá salen el glifo, el color y la urgencia con que se anuncia' },
-          { name: 'icon', type: 'IconName | null', note: 'cambia el glifo del tono, o lo saca con null' },
-          { name: 'onDismiss', type: '() => void', note: 'agrega la X para cerrarlo; sin esto no se cierra' },
-          { name: 'children', type: 'ReactNode', note: 'AlertTitle, AlertBody y AlertActions' },
-          { name: 'className', type: 'string', note: 'para el ancho' },
-        ]} />
+        <Props of="Alert" />
       </Section>
 
       <Section title="Accesibilidad">

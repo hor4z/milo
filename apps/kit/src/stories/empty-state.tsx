@@ -71,14 +71,7 @@ export function EmptyStateStory() {
       </Section>
 
       <Section title="Props">
-        <Props rows={[
-          { name: 'title', type: 'string', note: 'obligatorio' },
-          { name: 'body', type: 'string', note: 'obligatorio: qué pasó y qué se puede hacer' },
-          { name: 'icon', type: 'IconName', note: 'la marca de arriba, en un hueco y en gris' },
-          { name: 'size', type: "'sm' | 'md'", def: "'md'", note: 'md para una pantalla, sm adentro de una pieza' },
-          { name: 'bordered', type: 'boolean', def: 'md → true, sm → false', note: 'la caja punteada' },
-          { name: 'action', type: 'ReactNode', note: 'la salida. Siempre conviene que haya una' },
-        ]} />
+        <Props of="EmptyState" />
       </Section>
     
       <Section title="Accesibilidad">

@@ -3,7 +3,9 @@ import { cx } from '../lib/cx'
 
 /** Pista completa más un arco encima. */
 export function Spinner({ size = 20, label = 'Cargando', on = 'surface', className }: {
+  /** El trazo lo sigue: 17% del diámetro. */
   size?: number
+  /** Al aria-label; el rol es status. */
   label?: string
   /** Sobre qué está apoyado. */
   on?: 'surface' | 'solid'

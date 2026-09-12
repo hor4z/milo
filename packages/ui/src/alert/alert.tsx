@@ -5,9 +5,11 @@ import { cx } from '../lib/cx'
 import { type Tone, toneClass, toneIcon } from '../lib/tone'
 
 type AlertProps = ComponentPropsWithoutRef<'div'> & {
+  /** De acá salen el glifo, el color y la urgencia con que se anuncia. */
   tone?: Tone
   /** Sin esto lo pone el tono; `null` lo saca. */
   icon?: IconName | null
+  /** Agrega la X para cerrarlo; sin esto no se cierra. */
   onDismiss?: () => void
 }
 

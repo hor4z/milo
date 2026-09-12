@@ -58,11 +58,7 @@ export function BadgeStory() {
       </Note>
 
       <Section title="Props">
-        <Props rows={[
-          { name: 'tone', type: "'neutral' | 'info' | 'ok' | 'warn' | 'bad'", def: "'neutral'" },
-          { name: 'icon', type: 'IconName', note: 'el glifo que acompaña al texto, a la izquierda' },
-          { name: 'children', type: 'ReactNode', required: true, note: 'el texto, que es lo que dice el estado' },
-        ]} />
+        <Props of="Badge" />
       </Section>
 
       <Section title="Accesibilidad">

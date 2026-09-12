@@ -58,14 +58,7 @@ export function ButtonStory() {
       </Section>
 
       <Section title="Props">
-        <Props rows={[
-          { name: 'variant', type: "'solid' | 'raised' | 'brand' | 'ghost' | 'muted' | 'bad'", def: "'raised'", note: 'solid y brand son el mismo rol' },
-          { name: 'size', type: "'sm' | 'md' | 'lg'", def: "'md'", note: '32 · 36 · 40' },
-          { name: 'icon', type: 'IconName', note: 'antes del texto' },
-          { name: 'iconEnd', type: 'IconName', note: 'después del texto' },
-          { name: 'block', type: 'boolean', note: 'ocupa el ancho del contenedor' },
-          { name: 'ref', type: 'Ref<HTMLButtonElement>', note: 'para usarlo como disparador de Dropdown o Popover' },
-        ]} />
+        <Props of="Button" />
       </Section>
     
       <Section title="Accesibilidad">

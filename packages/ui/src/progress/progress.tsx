@@ -2,6 +2,7 @@ import { useId, type ComponentPropsWithoutRef, type ReactNode } from 'react'
 import { cx } from '../lib/cx'
 
 type ProgressProps = ComponentPropsWithoutRef<'div'> & {
+  /** Lo hecho, en las unidades de max. */
   value: number
   max?: number
   /** Qué mide, para quien no ve la barra. */

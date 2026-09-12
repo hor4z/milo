@@ -61,12 +61,7 @@ export function TooltipStory() {
       </Section>
 
       <Section title="Props">
-        <Props rows={[
-          { name: 'label', type: 'ReactNode', note: 'obligatorio; lo que dice la etiqueta' },
-          { name: 'children', type: 'ReactNode', note: 'el control que explica; se envuelve, no se pide render prop' },
-          { name: 'side', type: "'top' | 'bottom'", def: "'top'", note: 'si de ese lado no entra, se da vuelta' },
-          { name: 'delay', type: 'number', def: '500', note: 'ms del primero; los siguientes abren en 0 dentro de una ventana de 400' },
-        ]} />
+        <Props of="Tooltip" />
       </Section>
 
       <Section

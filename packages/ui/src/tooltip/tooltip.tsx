@@ -8,10 +8,13 @@ const WARM_WINDOW = 400
 
 /** La etiqueta que dice qué hace un control que no lo dice solo: un icono suelto, un valor truncado, una acción con una consecuencia que conviene aclarar. */
 export function Tooltip({ label, children, side = 'top', delay = 500 }: {
+  /** Lo que dice la etiqueta. */
   label: ReactNode
+  /** El control que explica; se envuelve, no se pide render prop. */
   children: ReactNode
   /** Dónde va si entra. */
   side?: 'top' | 'bottom'
+  /** Ms del primero; los siguientes abren en 0 dentro de una ventana de 400. */
   delay?: number
 }) {
   const [open, setOpen] = useState(false)

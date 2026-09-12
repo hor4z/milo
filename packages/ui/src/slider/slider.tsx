@@ -6,14 +6,17 @@ import { cx } from '../lib/cx'
 export function Slider({
   value, onChange, min = 0, max = 100, step = 1, disabled, label, id, className,
 }: {
+  /** Es controlado. */
   value: number
   onChange: (v: number) => void
   min?: number
   max?: number
   step?: number
   disabled?: boolean
+  /** Va al aria-label del input. */
   label?: string
   id?: string
+  /** El ancho se pone desde afuera. */
   className?: string
 }) {
   const field = useField()

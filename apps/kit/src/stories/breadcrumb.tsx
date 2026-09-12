@@ -42,10 +42,7 @@ export function BreadcrumbStory() {
       </Note>
 
       <Section title="Props">
-        <Props rows={[
-          { name: 'items', type: '{ label, href?, onClick? }[]', required: true, note: 'de la raíz hasta acá; el último es dónde estás' },
-          { name: 'className', type: 'string' },
-        ]} />
+        <Props of="Breadcrumb" />
       </Section>
 
       <Section title="Accesibilidad">

@@ -112,14 +112,7 @@ export function SelectStory() {
       </Section>
 
       <Section title="Props">
-        <Props rows={[
-          { name: 'value', type: 'string', note: 'obligatorio' },
-          { name: 'onChange', type: '(v: string) => void' },
-          { name: 'options', type: 'string[]', note: 'obligatorio' },
-          { name: 'width', type: 'number', note: 'sin esto toma el ancho del contenido' },
-          { name: 'leading', type: 'ReactNode', note: 'adelante del valor: un Icon, una FolderIcon, un Avatar, un Spinner' },
-          { name: 'loading', type: 'boolean', note: 'no abre, avisa aria-busy y pone el spinner si no hay leading' },
-        ]} />
+        <Props of="Select" />
       </Section>
     
       <Section title="Accesibilidad">

@@ -64,11 +64,7 @@ export function RowStory() {
       </Note>
 
       <Section title="Props">
-        <Props rows={[
-          { name: 'label', type: 'string', required: true, note: 'nombra el control y lo enfoca al tocarlo' },
-          { name: 'hint', type: 'string', note: 'segunda línea en 11px gris' },
-          { name: 'children', type: 'ReactNode', note: 'el control, alineado a la derecha' },
-        ]} />
+        <Props of="Row" />
       </Section>
 
       <Section title="Accesibilidad">

@@ -100,12 +100,7 @@ export function TextareaStory() {
       </Section>
 
       <Section title="Props" note="Todo lo que acepta un `<textarea>` nativo pasa derecho: `value`, `onChange`, `placeholder`, `disabled`, `maxLength`. Menos `style` y `resize`, que son de quien decide el alto.">
-        <Props rows={[
-          { name: 'rows', type: 'number', def: '3', note: 'las filas de arranque: el alto mínimo' },
-          { name: 'maxRows', type: 'number', note: 'hasta dónde crece antes de scrollear. Sin esto, crece sin techo. Solo con resize auto' },
-          { name: 'resize', type: "'auto' | 'vertical' | 'none'", def: "'auto'", note: 'quién decide el alto: el contenido, quien arrastra, o nadie' },
-          { name: 'className', type: 'string', note: 'va al contenedor, no al textarea — para el ancho' },
-        ]} />
+        <Props of="Textarea" />
       </Section>
 
       <Section

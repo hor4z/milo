@@ -5,7 +5,9 @@ import { cx } from '../lib/cx'
 /** Lo que se ve cuando no hay nada. */
 export function EmptyState({ title, body, action, icon, size = 'md', bordered = size === 'md' }: {
   title: string
+  /** Qué pasó y qué se puede hacer. */
   body: string
+  /** La salida. Siempre conviene que haya una. */
   action?: ReactNode
   /** La marca de arriba. */
   icon?: IconName

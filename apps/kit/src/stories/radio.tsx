@@ -110,16 +110,7 @@ export function RadioStory() {
       </Section>
 
       <Section title="Props">
-        <Props rows={[
-          { name: 'Radio · checked', type: 'boolean', note: 'obligatorio: es controlado' },
-          { name: 'Radio · onChange', type: '() => void', note: 'sin valor: el radio solo se prende' },
-          { name: 'Radio · label', type: 'string', note: 'al aria-label: el texto visible entero, no un resumen' },
-          { name: 'Radio · disabled', type: 'boolean' },
-          { name: 'RadioGroup · value', type: 'T', note: 'obligatorio' },
-          { name: 'RadioGroup · onChange', type: '(v: T) => void', note: 'obligatorio' },
-          { name: 'RadioGroup · options', type: '{ value, label, disabled? }[]', note: 'obligatorio' },
-          { name: 'RadioGroup · label', type: 'string', note: 'al aria-label del grupo' },
-        ]} />
+        <Props of={['Radio', 'RadioGroup']} />
       </Section>
     
       <Section title="Accesibilidad">

@@ -92,17 +92,7 @@ export function MenuStory() {
       </Section>
 
       <Section title="Props">
-        <Props rows={[
-          { name: 'Menu · width', type: 'number', note: 'opcional: sin él, el panel mide lo que su contenido' },
-          { name: 'MenuItem · icon', type: 'IconName', note: 'a la izquierda, en gris' },
-          { name: 'MenuItem · shortcut', type: 'string', note: 'a la derecha, en un Kbd' },
-          { name: 'MenuItem · hint', type: 'string', note: 'a la derecha, en gris: una cuenta, un estado' },
-          { name: 'MenuItem · checked', type: 'boolean', note: 'el tilde de «esta es la que está puesta»' },
-          { name: 'MenuItem · submenu', type: 'boolean', note: 'el chevron. No abre nada por su cuenta' },
-          { name: 'MenuItem · danger', type: 'boolean', note: 'lo que no se deshace' },
-          { name: 'MenuItem · disabled', type: 'boolean' },
-          { name: 'MenuItem · onSelect', type: '() => void', note: 'cerrar el panel es de quien lo abrió' },
-        ]} />
+        <Props of={['Menu', 'MenuItem']} />
       </Section>
     
       <Section title="Accesibilidad">

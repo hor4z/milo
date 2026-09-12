@@ -28,6 +28,7 @@ export function useField() {
 }
 
 type FieldProps = {
+  /** Nombra el control y lo enfoca al tocarla. */
   label: string
   /** Debajo de la etiqueta: para qué sirve el campo. */
   hint?: string
@@ -35,6 +36,7 @@ type FieldProps = {
   error?: string
   /** Marca visible de que sin esto no se puede seguir. */
   required?: boolean
+  /** El control, que toma el id solo. */
   children: ReactNode
   className?: string
 }
@@ -69,7 +71,8 @@ export function Field({ label, hint, error, required, children, className }: Fie
 }
 
 /** Varios campos, uno debajo del otro, con el aire del sistema. */
-export function FieldSet({ legend, className, children, ...props }: ComponentPropsWithoutRef<'fieldset'> & { legend?: string }) {
+export function FieldSet({ legend, className, children, ...props }: ComponentPropsWithoutRef<'fieldset'> & { /** cómo se llama el grupo */
+                                                                                                             legend?: string }) {
   return (
     <fieldset className={cx('flex flex-col gap-4 border-0 p-0', className)} {...props}>
       {legend && <legend className="mb-1 text-base font-semibold text-ink">{legend}</legend>}

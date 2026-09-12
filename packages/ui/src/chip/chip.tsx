@@ -8,9 +8,13 @@ export function Chip({
   children, color, onRemove, active, onClick,
 }: {
   children: ReactNode
+  /** Una de las seis etiquetas vivas; sin esto va gris. */
   color?: LabelColor
+  /** Agrega la cruz. */
   onRemove?: () => void
+  /** Pasa a tinta plena y pisa el color. */
   active?: boolean
+  /** Lo convierte en <button>. */
   onClick?: () => void
 }) {
   const box = cx(

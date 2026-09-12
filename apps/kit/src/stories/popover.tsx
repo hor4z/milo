@@ -55,14 +55,7 @@ export function PopoverStory() {
       </Section>
 
       <Section title="Props">
-        <Props rows={[
-          { name: 'trigger', type: '(props) => ReactNode', note: 'obligatorio: recibe onClick, ref, aria-expanded y data-open' },
-          { name: 'children', type: '(close: () => void) => ReactNode', note: 'obligatorio: recibe el cierre. El panel lo dibuja el call site — fondo, borde, radio y sombra — porque Popover no tiene aspecto' },
-          { name: 'veil', type: 'boolean', note: 'atenúa el resto de la pantalla' },
-          { name: 'align', type: "'start' | 'end'", def: "'end'" },
-          { name: 'width', type: 'number', note: 'sin esto se mide el ancho real del panel montado' },
-          { name: 'offset', type: 'number', def: '8' },
-        ]} />
+        <Props of="Popover" />
       </Section>
     
       <Section title="Accesibilidad">

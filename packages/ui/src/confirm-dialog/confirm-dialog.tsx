@@ -9,13 +9,17 @@ export function ConfirmDialog({
   open, onCancel, onConfirm, title, body, confirmLabel = 'Aceptar', cancelLabel = 'Cancelar', tone = 'neutral',
 }: {
   open: boolean
+  /** Lo llaman Cancelar, el velo y Escape. */
   onCancel: () => void
   onConfirm: () => void
   /** La pregunta, con el nombre de lo que se va a tocar adentro. */
   title: string
+  /** Qué más se lleva puesto. */
   body?: ReactNode
+  /** El verbo de lo que va a pasar, no «Sí». */
   confirmLabel?: string
   cancelLabel?: string
+  /** Bad pinta el botón de confirmar y arranca el foco en Cancelar. */
   tone?: 'neutral' | 'bad'
 }) {
   const panel = useRef<HTMLDivElement>(null)

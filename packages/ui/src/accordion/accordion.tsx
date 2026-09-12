@@ -5,7 +5,9 @@ import { cx } from '../lib/cx'
 type AccordionItemProps = {
   /** Lo que se ve siempre y se toca para abrir. */
   summary: ReactNode
+  /** Lo que aparece al abrir. */
   children: ReactNode
+  /** Arranca abierta. */
   defaultOpen?: boolean
   className?: string
 }

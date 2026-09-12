@@ -93,16 +93,7 @@ export function SheetStory() {
       </Note>
 
       <Section title="Props">
-        <Props rows={[
-          { name: 'open', type: 'boolean', required: true },
-          { name: 'onClose', type: '() => void', required: true, note: 'lo llaman la X, el velo y Escape' },
-          { name: 'label', type: 'string', required: true, note: 'nombra el diálogo para el lector' },
-          { name: 'side', type: "'right' | 'left'", def: "'right'" },
-          { name: 'width', type: 'number', def: '460' },
-          { name: 'SheetHeader · title', type: 'string', required: true },
-          { name: 'SheetBody', type: 'div', note: 'la parte que scrollea' },
-          { name: 'SheetFooter', type: 'div', note: 'las acciones, siempre a la vista' },
-        ]} />
+        <Props of="SheetHeader" />
       </Section>
 
       <Section title="Accesibilidad">

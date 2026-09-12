@@ -53,13 +53,7 @@ export function CheckboxStory() {
       </Section>
 
       <Section title="Props">
-        <Props rows={[
-          { name: 'checked', type: 'boolean', note: 'obligatorio' },
-          { name: 'onChange', type: '(v: boolean) => void', note: 'obligatorio' },
-          { name: 'label', type: 'string', note: 'al aria-label; si va dentro de un <label>, se omite' },
-          { name: 'indeterminate', type: 'boolean', note: 'pinta la raya y manda aria-checked="mixed"' },
-          { name: 'disabled', type: 'boolean' },
-        ]} />
+        <Props of="Checkbox" />
       </Section>
     
       <Section title="Accesibilidad">

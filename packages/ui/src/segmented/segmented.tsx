@@ -10,7 +10,7 @@ type SegmentedOption<T extends string> = {
   label?: string
   icon?: IconName
   dot?: boolean
-  /** Obligatorio en las opciones que solo tienen icono: es su nombre y su ayuda. */
+  /** En las opciones que solo tienen icono: es su nombre y su ayuda. */
   title?: string
   disabled?: boolean
 }
@@ -21,7 +21,9 @@ export function Segmented<T extends string>({
 }: {
   value: T
   onChange: (v: T) => void
+  /** Sin label la opción queda cuadrada, solo icono — y title pasa a obligatorio. */
   options: SegmentedOption<T>[]
+  /** Xs va con pista transparente: dentro del header de un panel, una pista gris sobre fondo gris agrega una caja que no hace falta. */
   size?: 'xs' | 'sm' | 'md'
   /** Cómo se llama el grupo. Adentro de un `Field` lo toma de la etiqueta. */
   label?: string

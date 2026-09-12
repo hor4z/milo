@@ -26,6 +26,7 @@ export function NavItemBody({
   /** Para cuando el glifo no sale del set: la carpeta de color de un espacio. */
   glyph?: ReactNode
   label: string
+  /** Hundido como un kbd: un contador no es accionable. */
   badge?: string
   active?: boolean
   collapsed?: boolean

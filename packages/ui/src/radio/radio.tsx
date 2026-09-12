@@ -6,7 +6,9 @@ import { useRovingRadio } from '../lib/roving'
 export function Radio({
   checked, onChange, label, disabled, id, tabIndex, ref,
 }: {
+  /** Es controlado. */
   checked: boolean
+  /** Sin valor: el radio solo se prende. */
   onChange: () => void
   /** Va al `aria-label`. */
   label?: string
@@ -51,6 +53,7 @@ export function RadioGroup<T extends string>({
   value: T
   onChange: (v: T) => void
   options: readonly { value: T; label: string; disabled?: boolean }[]
+  /** Al aria-label del grupo. */
   label?: string
   className?: string
 }) {

@@ -4,11 +4,17 @@ import { control, variants } from '../lib/control'
 import { cx } from '../lib/cx'
 
 type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
+  /** Solid y brand son el mismo rol. */
   variant?: 'solid' | 'raised' | 'brand' | 'ghost' | 'muted' | 'bad'
+  /** 32 · 36 · 40. */
   size?: 'sm' | 'md' | 'lg'
+  /** Antes del texto. */
   icon?: IconName
+  /** Después del texto. */
   iconEnd?: IconName
+  /** Ocupa el ancho del contenedor. */
   block?: boolean
+  /** Para usarlo como disparador de Dropdown o Popover. */
   ref?: Ref<HTMLButtonElement>
 }
 

@@ -58,10 +58,7 @@ export function DividerStory() {
       </Section>
 
       <Section title="Props">
-        <Props rows={[
-          { name: 'orientation', type: "'horizontal' | 'vertical'", def: "'horizontal'" },
-          { name: 'className', type: 'string', note: 'para el margen, que depende de dónde esté' },
-        ]} />
+        <Props of="Divider" />
       </Section>
     
       <Section title="Accesibilidad">

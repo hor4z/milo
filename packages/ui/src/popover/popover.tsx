@@ -6,17 +6,20 @@ import { Portal } from '../portal/portal'
 export function Popover({
   trigger, children, align = 'end', width, offset = 8, veil, onOpenChange,
 }: {
+  /** Recibe onClick, ref, aria-expanded y data-open. */
   trigger: (props: {
     onClick: () => void
     'aria-expanded': boolean
     ref: React.Ref<HTMLButtonElement>
     'data-open': boolean
   }) => ReactNode
+  /** Recibe el cierre. El panel lo dibuja el call site — fondo, borde, radio y sombra — porque Popover no tiene aspecto. */
   children: (close: () => void) => ReactNode
   align?: 'start' | 'end'
   /** Sin esto se mide el ancho real del panel para alinearlo y encajarlo. */
   width?: number
   offset?: number
+  /** Atenúa el resto de la pantalla. */
   veil?: boolean
   onOpenChange?: (open: boolean) => void
 }) {

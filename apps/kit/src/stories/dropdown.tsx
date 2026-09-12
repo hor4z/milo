@@ -61,12 +61,7 @@ export function DropdownStory() {
       </Section>
 
       <Section title="Props">
-        <Props rows={[
-          { name: 'items', type: '{ label, icon?, shortcut?, danger?, disabled?, onSelect? }[]', required: true },
-          { name: 'trigger', type: '(props) => ReactNode', note: 'obligatorio: recibe onClick, ref y aria-expanded' },
-          { name: 'align', type: "'start' | 'end'", def: "'end'" },
-          { name: 'width', type: 'number', def: '220' },
-        ]} />
+        <Props of="Dropdown" />
       </Section>
     
       <Section title="Accesibilidad">

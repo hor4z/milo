@@ -81,15 +81,7 @@ export function AvatarStory() {
       </Section>
 
       <Section title="Props">
-        <Props rows={[
-          { name: 'Avatar · name', type: 'string', note: 'obligatorio: de acá salen la inicial y el tinte' },
-          { name: 'Avatar · src', type: 'string', note: 'opcional; la etiqueta de color queda de fondo' },
-          { name: 'Avatar · size', type: 'number', def: '40' },
-          { name: 'AvatarGroup · people', type: '{ name, src? }[]', note: 'obligatorio; sin `src` cae a la inicial' },
-          { name: 'AvatarGroup · max', type: 'number', def: '3', note: 'cuenta avatares, no personas' },
-          { name: 'AvatarGroup · size', type: 'number', def: '28', note: 'el monte sale de acá' },
-          { name: 'AvatarGroup · ring', type: 'string', def: "'ring-surface'", note: 'la utilidad del fondo de atrás' },
-        ]} />
+        <Props of={['Avatar', 'AvatarGroup']} />
       </Section>
     
       <Section title="Accesibilidad">

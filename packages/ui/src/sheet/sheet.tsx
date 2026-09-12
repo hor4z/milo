@@ -10,10 +10,12 @@ export function Sheet({
   open, onClose, children, side = 'right', width = 460, label,
 }: {
   open: boolean
+  /** Lo llaman la X, el velo y Escape. */
   onClose: () => void
   children: ReactNode
   side?: 'right' | 'left'
   width?: number
+  /** Nombra el diálogo para el lector. */
   label: string
 }) {
   const panel = useRef<HTMLDivElement>(null)

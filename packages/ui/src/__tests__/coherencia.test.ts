@@ -9,7 +9,7 @@ function walk(base: string, prefix = ''): string[] {
   return readdirSync(base).flatMap((f: string) => {
     const path = join(base, f)
     if (statSync(path).isDirectory()) return f === '__tests__' ? [] : walk(path, `${prefix}${f}/`)
-    return /\.tsx?$/.test(f) && !f.endsWith('.test.tsx') && !f.startsWith('icons.') ? [`${prefix}${f}`] : []
+    return /\.tsx?$/.test(f) && !f.endsWith('.test.tsx') && !f.endsWith('.gen.ts') && !f.startsWith('icons.') ? [`${prefix}${f}`] : []
   })
 }
 
@@ -62,7 +62,10 @@ describe('coherencia del sistema', () => {
   it('ningún botón se olvida el type, que adentro de un form manda el form', () => {
     const offenders: string[] = []
     for (const f of sources) {
-      for (const m of f.text.matchAll(/<button\b[^>]*?>/gs)) {
+      // Sin sacar los comentarios, un `<button>` escrito adentro de un docblock
+      // cuenta como una etiqueta más.
+      const code = f.text.replace(/\/\*[\s\S]*?\*\//g, ' ').replace(/(?<!:)\/\/.*$/gm, ' ')
+      for (const m of code.matchAll(/<button\b[^>]*?>/gs)) {
         if (!m[0].includes('type=')) offenders.push(f.name)
       }
     }

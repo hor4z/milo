@@ -5,12 +5,14 @@ import { cx } from '../lib/cx'
 
 type IconButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
   icon: IconName
-  /** Obligatorio: un botón que solo tiene un icono no dice nada sin esto. */
+  /** Un botón que solo tiene un icono no dice nada sin esto. */
   label: string
   variant?: 'ghost' | 'raised' | 'solid' | 'muted'
+  /** 32 · 36 · 40, los del Button. */
   size?: 'sm' | 'md' | 'lg'
   /** El puntito de "hay algo nuevo", arriba a la derecha. */
   dot?: boolean
+  /** Solo cambia el ghost, que pasa a muted. */
   active?: boolean
   ref?: Ref<HTMLButtonElement>
 }

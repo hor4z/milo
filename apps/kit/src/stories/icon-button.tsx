@@ -60,14 +60,7 @@ export function IconButtonStory() {
       </Section>
 
       <Section title="Props">
-        <Props rows={[
-          { name: 'icon', type: 'IconName', note: 'obligatorio' },
-          { name: 'label', type: 'string', note: 'obligatorio: va al aria-label y al title' },
-          { name: 'variant', type: "'ghost' | 'raised' | 'solid' | 'muted'", def: "'ghost'" },
-          { name: 'size', type: "'sm' | 'md' | 'lg'", def: "'md'", note: '32 · 36 · 40, los del Button' },
-          { name: 'dot', type: 'boolean', note: 'el punto de acento arriba a la derecha' },
-          { name: 'active', type: 'boolean', note: 'solo cambia el ghost, que pasa a muted' },
-        ]} />
+        <Props of="IconButton" />
       </Section>
     
       <Section title="Accesibilidad">

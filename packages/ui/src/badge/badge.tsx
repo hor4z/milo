@@ -5,6 +5,7 @@ import { type Tone, badgeTone } from '../lib/tone'
 
 type BadgeProps = ComponentPropsWithoutRef<'span'> & {
   tone?: Tone | 'neutral'
+  /** El glifo que acompaña al texto, a la izquierda. */
   icon?: IconName
 }
 

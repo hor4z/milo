@@ -81,17 +81,7 @@ export function BookStory() {
       </Section>
 
       <Section title="Props">
-        <Props rows={[
-          { name: 'title', type: 'string', note: 'obligatorio' },
-          { name: 'variant', type: "'stripe' | 'simple'", def: "'stripe'" },
-          { name: 'color', type: 'string', note: 'un token, no un hex' },
-          { name: 'textColor', type: 'string', note: 'sobre un color vivo, --on-label' },
-          { name: 'width', type: 'number | { sm, md }', def: '196', note: 'dos anchos para que no se aplaste en pantalla chica' },
-          { name: 'textured', type: 'boolean', note: 'solo para una portada sola' },
-          { name: 'icon', type: 'ReactNode' },
-          { name: 'illustration', type: 'ReactNode', note: 'llena la franja o la tapa' },
-          { name: 'href', type: 'string', note: 'lo convierte en <a>' },
-        ]} />
+        <Props of="Book" />
       </Section>
 
       <Section

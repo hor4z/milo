@@ -75,12 +75,7 @@ export function ChartStory() {
       </Section>
 
       <Section title="Props">
-        <Props rows={[
-          { name: 'data', type: 'BarDatum[]', note: 'obligatorio: label, value (lo hecho), total, y opcionales detail y caption' },
-          { name: 'title', type: 'string', note: 'obligatorio: nombra el gráfico y encabeza la tabla escondida' },
-          { name: 'highlight', type: 'number', note: 'el índice del que habla la pantalla: le pesa la etiqueta' },
-          { name: 'height', type: 'number', def: '220', note: 'el alto del área de barras, sin las etiquetas' },
-        ]} />
+        <Props of="BarChart" />
       </Section>
 
       <Section

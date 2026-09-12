@@ -73,15 +73,7 @@ export function NavStory() {
       </Section>
 
       <Section title="Props">
-        <Props rows={[
-          { name: 'navItemClass · active', type: 'boolean', note: 'pastilla apagada con anillo de 1px — no relieve hundido' },
-          { name: 'navItemClass · collapsed', type: 'boolean', note: 'centra el icono y saca el padding' },
-          { name: 'navItemClass · muted', type: 'boolean', note: 'para lo que comparte la forma sin ser un destino: el botón de contraer' },
-          { name: 'NavItemBody · icon', type: 'IconName' },
-          { name: 'NavItemBody · glyph', type: 'ReactNode', note: 'cuando el glifo no sale del set: la carpeta de un espacio' },
-          { name: 'NavItemBody · badge', type: 'string', note: 'hundido como un kbd: un contador no es accionable' },
-          { name: 'NavItemBody · chip', type: 'boolean', def: 'true', note: 'el chip de papel detrás del icono activo' },
-        ]} />
+        <Props of={['navItemClass', 'NavItemBody']} />
       </Section>
     
       <Section title="Accesibilidad">

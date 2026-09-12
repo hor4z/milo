@@ -184,12 +184,7 @@ export function IconStory() {
       </Section>
 
       <Section title="Props">
-        <Props rows={[
-          { name: 'name', type: 'IconName', note: 'obligatorio; la unión de los 152 del set' },
-          { name: 'size', type: 'number', def: '20', note: 'la escala 12 · 14 · 16 · 18 · 20 · 22' },
-          { name: 'weight', type: '100…700', def: '300', note: 'el eje wght; el gris lo sube solo' },
-          { name: 'className', type: 'string', note: 'para el color; `icon-muted` para el gris' },
-        ]} />
+        <Props of={['Icon', 'FolderIcon']} />
       </Section>
 
       <Section

@@ -16,11 +16,13 @@ export type BarDatum = {
 
 /** El gráfico de barras. */
 export function BarChart({ data, highlight, title, height = 220, className }: {
+  /** Label, value (lo hecho), total, y opcionales detail y caption. */
   data: BarDatum[]
   /** El índice de la barra de la que habla la pantalla: le pesa la etiqueta. */
   highlight?: number
   /** Para el lector de pantalla y la tabla de abajo. */
   title: string
+  /** El alto del área de barras, sin las etiquetas. */
   height?: number
   className?: string
 }) {

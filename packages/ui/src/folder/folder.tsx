@@ -7,6 +7,7 @@ import { cx } from '../lib/cx'
 export function Folder({
   label, meta, sheets = 3, size = 128, color, avatars, badges, onClick, className,
 }: {
+  /** El nombre, debajo. */
   label?: string
   /** La línea de apoyo: «15 archivos». */
   meta?: string
@@ -20,6 +21,7 @@ export function Folder({
   avatars?: readonly { name: string; src?: string }[]
   /** Lo mismo pero a mano, para lo que no es una persona: un logo, un icono. */
   badges?: ReactNode
+  /** Sin esto es un <div> y no se puede tabular. */
   onClick?: () => void
   className?: string
 }) {

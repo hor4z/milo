@@ -45,9 +45,7 @@ export function KbdStory() {
       </Note>
 
       <Section title="Props">
-        <Props rows={[
-          { name: 'children', type: 'ReactNode', required: true, note: 'la tecla: un símbolo, un nombre corto o una unidad' },
-        ]} />
+        <Props of="Kbd" />
       </Section>
 
       <Section title="Accesibilidad">

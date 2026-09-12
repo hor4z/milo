@@ -334,21 +334,7 @@ export function TableStory() {
       </Section>
 
       <Section title="Props">
-        <Props rows={[
-          { name: 'Table · minWidth', type: 'number', def: '640', note: 'abajo de eso scrollea en vez de apretar' },
-          { name: 'TableRow · onClick', type: '() => void', note: 'sin esto la fila no toma hover ni cursor' },
-          { name: 'TableRow · active', type: 'boolean', note: 'apagada, no teñida' },
-          { name: 'TableHead', type: 'th', note: '11/600 con tracking, en gris' },
-          { name: 'TableCell', type: 'td', note: '12/500, alto 56' },
-          { name: 'TableNum', type: 'td', note: 'igual pero alineada a la derecha y tabular' },
-          { name: 'TableTitle', type: 'ReactNode', note: '14/600: lo que se lee primero' },
-          { name: 'TableHint', type: 'ReactNode', note: '12/500 en gris, debajo del título' },
-          { name: 'Avatar · src', type: 'string', note: 'opcional; la etiqueta de color queda de fondo' },
-          { name: 'AvatarGroup · people', type: '{ name, src? }[]', note: 'obligatorio; sin `src` cae a la inicial' },
-          { name: 'AvatarGroup · max', type: 'number', def: '3', note: 'cuenta avatares, no personas' },
-          { name: 'AvatarGroup · size', type: 'number', def: '28', note: 'el monte sale de acá' },
-          { name: 'AvatarGroup · ring', type: 'string', def: "'ring-surface'", note: 'la utilidad del fondo de atrás' },
-        ]} />
+        <Props of={['Table', 'TableRow', 'Avatar', 'AvatarGroup']} />
       </Section>
     
       <Section title="Accesibilidad">

@@ -81,12 +81,7 @@ export function ModalStory() {
       </Section>
 
       <Section title="Props">
-        <Props rows={[
-          { name: 'open', type: 'boolean', note: 'obligatorio' },
-          { name: 'onClose', type: '() => void', note: 'obligatorio: lo llaman Escape y el click en el backdrop' },
-          { name: 'label', type: 'string', note: 'obligatorio: el aria-label del role="dialog"' },
-          { name: 'width', type: 'number', def: '620' },
-        ]} />
+        <Props of="Modal" />
       </Section>
     
       <Section title="Accesibilidad">

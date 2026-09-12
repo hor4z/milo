@@ -17,6 +17,7 @@ export type DropdownItem = {
 export function Dropdown({
   trigger, items, align = 'end', width = 220,
 }: {
+  /** Recibe onClick, ref y aria-expanded. */
   trigger: (props: { onClick: () => void; 'aria-expanded': boolean; ref: React.Ref<HTMLButtonElement> }) => ReactNode
   items: DropdownItem[]
   align?: 'start' | 'end'

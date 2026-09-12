@@ -13,6 +13,7 @@ export function Select({
   value: string
   onChange?: (v: string) => void
   options: string[]
+  /** Sin esto toma el ancho del contenido. */
   width?: number
   /** Adelante del valor: un `Icon`, un `FolderIcon`, un `Avatar`, un `Spinner`. */
   leading?: ReactNode

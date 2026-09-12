@@ -21,7 +21,9 @@ export function Book({
   /** Solo para una portada sola. */
   textured?: boolean
   icon?: ReactNode
+  /** Llena la franja o la tapa. */
   illustration?: ReactNode
+  /** Lo convierte en <a>. */
   href?: string
   className?: string
 }) {

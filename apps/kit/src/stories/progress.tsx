@@ -38,13 +38,7 @@ export function ProgressStory() {
       </Note>
 
       <Section title="Props">
-        <Props rows={[
-          { name: 'value', type: 'number', required: true, note: 'lo hecho, en las unidades de max' },
-          { name: 'max', type: 'number', def: '100' },
-          { name: 'label', type: 'string', required: true, note: 'qué mide; lo usa el lector de pantalla' },
-          { name: 'hint', type: 'ReactNode', note: 'el número al costado del rótulo' },
-          { name: 'tone', type: "'brand' | 'ok' | 'warn' | 'bad'", def: "'brand'" },
-        ]} />
+        <Props of="Progress" />
       </Section>
 
       <Section title="Accesibilidad">

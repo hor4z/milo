@@ -58,9 +58,7 @@ export function SkeletonStory() {
       </Note>
 
       <Section title="Props">
-        <Props rows={[
-          { name: 'className', type: 'string', note: 'el tamaño y el radio los pone quien lo usa' },
-        ]} />
+        <Props of="Skeleton" />
       </Section>
 
       <Section title="Accesibilidad">

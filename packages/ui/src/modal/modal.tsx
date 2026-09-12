@@ -8,9 +8,11 @@ export function Modal({
   open, onClose, children, width = 620, label,
 }: {
   open: boolean
+  /** Lo llaman Escape y el click en el backdrop. */
   onClose: () => void
   children: ReactNode
   width?: number
+  /** El aria-label del role="dialog". */
   label: string
 }) {
   const panel = useRef<HTMLDivElement>(null)

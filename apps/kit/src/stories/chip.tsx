@@ -44,12 +44,7 @@ export function ChipStory() {
       </Note>
 
       <Section title="Props">
-        <Props rows={[
-          { name: 'color', type: 'LabelColor', def: '—', note: 'una de las seis etiquetas vivas; sin esto va gris' },
-          { name: 'active', type: 'boolean', note: 'pasa a tinta plena y pisa el color' },
-          { name: 'onClick', type: '() => void', note: 'lo convierte en <button>' },
-          { name: 'onRemove', type: '() => void', note: 'agrega la cruz' },
-        ]} />
+        <Props of="Chip" />
       </Section>
 
       <Section title="Accesibilidad">

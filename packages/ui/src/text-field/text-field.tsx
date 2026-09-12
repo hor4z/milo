@@ -5,8 +5,11 @@ import { fieldSizes } from '../lib/control'
 import { cx } from '../lib/cx'
 
 type TextFieldProps = Omit<InputHTMLAttributes<HTMLInputElement>, 'size'> & {
+  /** A la izquierda, en gris. */
   icon?: IconName
+  /** A la derecha: una unidad, un kbd, un botón. */
   suffix?: ReactNode
+  /** 32 · 36 · 40, las del Button. Default lg. */
   size?: 'sm' | 'md' | 'lg'
   /** Va al contenedor, que es lo que mide y lo que se enfoca. */
   ref?: Ref<HTMLDivElement>

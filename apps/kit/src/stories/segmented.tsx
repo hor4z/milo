@@ -40,13 +40,7 @@ export function SegmentedStory() {
       </Section>
 
       <Section title="Props">
-        <Props rows={[
-          { name: 'value', type: 'T extends string', note: 'obligatorio' },
-          { name: 'onChange', type: '(v: T) => void', note: 'obligatorio' },
-          { name: 'options', type: '{ value, label?, icon?, dot?, title?, disabled? }[]', note: 'sin label la opción queda cuadrada, solo icono — y title pasa a obligatorio' },
-          { name: 'size', type: "'xs' | 'sm' | 'md'", def: "'md'", note: 'xs va con pista transparente: dentro del header de un panel, una pista gris sobre fondo gris agrega una caja que no hace falta' },
-          { name: 'label', type: 'string', note: 'cómo se llama el grupo; adentro de un Field o un Row lo toma de la etiqueta' },
-        ]} />
+        <Props of="Segmented" />
       </Section>
     
       <Section title="Accesibilidad">

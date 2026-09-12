@@ -7,9 +7,11 @@ export type { IconName }
 export type IconWeight = 100 | 200 | 300 | 400 | 500 | 600 | 700
 
 export function Icon({ name, size = 20, className, weight }: {
+  /** La unión de los 152 del set. */
   name: IconName
   /** Alto y ancho de la caja en px. */
   size?: number
+  /** Para el color; `icon-muted` para el gris. */
   className?: string
   /** El eje wght. */
   weight?: IconWeight

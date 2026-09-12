@@ -6,6 +6,7 @@ import { Icon, type IconName } from '../icon/icon'
 /** El menú, en piezas. */
 export function Menu({ children, width, className }: {
   children: ReactNode
+  /** Opcional: sin él, el panel mide lo que su contenido. */
   width?: number
   className?: string
 }) {
@@ -47,6 +48,7 @@ export function MenuItem({
   children, icon, shortcut, hint, checked, submenu, danger, disabled, onSelect, className,
 }: {
   children: ReactNode
+  /** A la izquierda, en gris. */
   icon?: IconName
   /** El atajo, en un Kbd. */
   shortcut?: string
@@ -59,6 +61,7 @@ export function MenuItem({
   /** Borrar, salir, revocar: lo que no se deshace. */
   danger?: boolean
   disabled?: boolean
+  /** Cerrar el panel es de quien lo abrió. */
   onSelect?: () => void
   className?: string
 }) {

@@ -1,5 +1,6 @@
 import { useEffect, useState, type ReactNode } from 'react'
 import { Badge, Icon, cx, type IconName } from '@melu/ui'
+import { propsByComponent } from '@melu/ui/props'
 
 export function useTokens(names: readonly string[]) {
   const [vals, setVals] = useState<Record<string, string>>({})
@@ -155,46 +156,73 @@ export function Mono({ children }: { children: ReactNode }) {
   return <code className="font-mono text-2xs text-ink-muted">{children}</code>
 }
 
-type Row = { name: string; type: string; def?: string; note?: string; required?: boolean }
-
-/** La tabla de props. */
-export function Props({ rows }: { rows: readonly Row[] }) {
+/** La tabla de props. Las filas salen del código: tipo, default y descripción
+    los escribe la pieza en su docblock y los extrae `scripts/props.mjs`. */
+export function Props({ of }: { of: string | readonly string[] }) {
+  const piezas = typeof of === 'string' ? [of] : of
   return (
-    <div className="overflow-hidden rounded-xl border border-line">
-      <table className="w-full border-collapse text-left">
-        <thead>
-          <tr className="bg-muted">
-            <th className="px-4 py-2.5 text-2xs font-semibold tracking-wide text-ink">Prop</th>
-            <th className="px-4 py-2.5 text-2xs font-semibold tracking-wide text-ink">Tipo</th>
-            <th className="hidden px-4 py-2.5 text-2xs font-semibold tracking-wide text-ink sm:table-cell">Default</th>
-            <th className="px-4 py-2.5 text-2xs font-semibold tracking-wide text-ink">Qué hace</th>
-          </tr>
-        </thead>
-        <tbody>
-          {rows.map(r => (
-            <tr key={r.name} className="border-t border-line align-top">
-              <td className="px-4 py-3">
-                <span className="flex flex-col gap-1">
-                  <code className="font-mono text-2xs font-semibold text-ink">{r.name}</code>
-                  {r.required && (
-                    <span className="text-[10px] font-semibold tracking-wide text-bad-ink uppercase">obligatorio</span>
-                  )}
-                </span>
-              </td>
-              <td className="px-4 py-3"><code className="font-mono text-2xs text-brand-ink">{r.type}</code></td>
-              <td className="hidden px-4 py-3 sm:table-cell">
-                <code className="font-mono text-2xs text-ink-muted">{r.def ?? '—'}</code>
-              </td>
-              <td className="px-4 py-3 text-2xs font-medium text-ink-muted">{r.note}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+    <div className="flex flex-col gap-4">
+      {piezas.map(pieza => {
+        const doc = propsByComponent[pieza]
+        const rows = doc?.props ?? []
+        return (
+          <div key={pieza} className="overflow-hidden rounded-xl border border-line">
+            {piezas.length > 1 && (
+              <div className="border-b border-line bg-muted px-4 py-2">
+                <code className="font-mono text-2xs font-semibold text-ink">{pieza}</code>
+              </div>
+            )}
+            {rows.length === 0 ? (
+              <p className="px-4 py-3 text-2xs font-medium text-ink-muted">
+                No tiene props propias: toma los atributos de un{' '}
+                <code className="font-mono text-2xs text-ink">{`<${doc?.html ?? 'div'}>`}</code>.
+              </p>
+            ) : (
+            <table className="w-full border-collapse text-left">
+              <thead>
+                <tr className="bg-muted">
+                  <th scope="col" className="px-4 py-2.5 text-2xs font-semibold tracking-wide text-ink">Prop</th>
+                  <th scope="col" className="px-4 py-2.5 text-2xs font-semibold tracking-wide text-ink">Tipo</th>
+                  <th scope="col" className="hidden px-4 py-2.5 text-2xs font-semibold tracking-wide text-ink sm:table-cell">Default</th>
+                  <th scope="col" className="px-4 py-2.5 text-2xs font-semibold tracking-wide text-ink">Qué hace</th>
+                </tr>
+              </thead>
+              <tbody>
+                {rows.map(r => (
+                  <tr key={r.name} className="border-t border-line align-top">
+                    <td className="px-4 py-3">
+                      <span className="flex flex-col gap-1">
+                        <code className="font-mono text-2xs font-semibold text-ink">{r.name}</code>
+                        {r.required && (
+                          <span className="text-[10px] font-semibold tracking-wide text-bad-ink uppercase">obligatorio</span>
+                        )}
+                      </span>
+                    </td>
+                    <td className="px-4 py-3"><code className="font-mono text-2xs text-brand-ink">{r.type}</code></td>
+                    <td className="hidden px-4 py-3 sm:table-cell">
+                      <code className="font-mono text-2xs text-ink-muted">{r.def ?? '—'}</code>
+                    </td>
+                    <td className="px-4 py-3 text-2xs font-medium text-ink-muted">
+                      {r.doc ? <Rich text={r.doc} /> : '—'}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+            )}
+            {rows.length > 0 && doc?.html && (
+              <p className="border-t border-line px-4 py-2.5 text-2xs font-medium text-ink-muted">
+                Y los atributos de un{' '}
+                <code className="font-mono text-2xs text-ink">{`<${doc.html}>`}</code>.
+              </p>
+            )}
+          </div>
+        )
+      })}
     </div>
   )
 }
 
-/** Una nota al costado: lo que conviene saber sin que sea parte del ejemplo. */
 export function Note({ icon = 'lightbulb', title, children }: { icon?: IconName; title?: string; children: ReactNode }) {
   return (
     <div className="flex gap-3 rounded-xl border border-line bg-surface p-4">

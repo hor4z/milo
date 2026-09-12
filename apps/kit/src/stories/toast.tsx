@@ -76,15 +76,7 @@ export function ToastStory() {
       </Note>
 
       <Section title="Props">
-        <Props rows={[
-          { name: 'toast()', type: '(o: ToastOptions) => string', note: 'sale de useToast(); devuelve el id' },
-          { name: 'title', type: 'string', required: true, note: 'qué pasó, en una línea' },
-          { name: 'body', type: 'string', note: 'el detalle, cuando el título no alcanza' },
-          { name: 'tone', type: "'info' | 'ok' | 'warn' | 'bad'", def: "'info'" },
-          { name: 'action', type: '{ label, onClick }', note: 'la salida: deshacer, ver, reintentar' },
-          { name: 'duration', type: 'number', def: '5000', note: '0 lo deja hasta que lo cierren' },
-          { name: 'ToastProvider · max', type: 'number', def: '3', note: 'cuántos se apilan antes de empujar al más viejo' },
-        ]} />
+        <Props of="ToastProvider" />
       </Section>
 
       <Section title="Accesibilidad">

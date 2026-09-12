@@ -4,7 +4,10 @@ import { cx } from '../lib/cx'
 
 /** Dos estados y nada más: con foto, o el círculo pastel con la inicial. */
 export function Avatar({ name, src, size = 40, className }: {
+  /** De acá salen la inicial y el tinte. */
   name: string
+  /** Opcional; la etiqueta de color queda de fondo. */
+  /** Opcional; la etiqueta de color queda de fondo. */
   src?: string
   size?: number
   className?: string
@@ -28,8 +31,14 @@ export function Avatar({ name, src, size = 40, className }: {
 export function AvatarGroup({
   people, max = 3, size = 28, ring = 'ring-surface', className,
 }: {
+  /** Sin `src` cae a la inicial. */
+  /** Sin `src` cae a la inicial. */
   people: readonly { name: string; src?: string }[]
+  /** Cuenta avatares, no personas. */
+  /** Cuenta avatares, no personas. */
   max?: number
+  /** El monte sale de acá. */
+  /** El monte sale de acá. */
   size?: number
   /** La utilidad de color del anillo, que tiene que ser la del fondo de atrás. */
   ring?: string

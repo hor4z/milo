@@ -4,8 +4,11 @@ import { cx } from '../lib/cx'
 /** El contenedor de radio 24. */
 export function Card({ children, className, interactive, surface = 'paper' }: {
   children: ReactNode
+  /** Para el ancho y para cambiar el padding. */
   className?: string
+  /** Levanta la tarjeta en hover; por defecto no se mueve. */
   interactive?: boolean
+  /** Papel sobresale y tira sombra; muted es un hueco. */
   surface?: 'paper' | 'muted'
 }) {
   return (

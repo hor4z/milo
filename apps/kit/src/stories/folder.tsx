@@ -80,16 +80,7 @@ export function FolderStory() {
       </Section>
 
       <Section title="Props">
-        <Props rows={[
-          { name: 'label', type: 'string', note: 'el nombre, debajo' },
-          { name: 'meta', type: 'string', note: 'la línea de apoyo: «15 archivos»' },
-          { name: 'sheets', type: '2 | 3', def: '3', note: 'más de tres se pisan y dejan de contarse' },
-          { name: 'size', type: 'number', def: '128', note: 'el ancho; todo lo demás sale de acá' },
-          { name: 'color', type: 'string', note: 'un token; tiñe la carpeta entera, no solo el cuerpo' },
-          { name: 'avatars', type: '{ name, src? }[]', note: 'abajo a la izquierda; es un AvatarGroup' },
-          { name: 'badges', type: 'ReactNode', note: 'lo mismo pero a mano, para lo que no es una persona' },
-          { name: 'onClick', type: '() => void', note: 'sin esto es un <div> y no se puede tabular' },
-        ]} />
+        <Props of="Folder" />
       </Section>
 
       <Section

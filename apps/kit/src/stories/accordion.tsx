@@ -47,12 +47,7 @@ export function AccordionStory() {
       </Note>
 
       <Section title="Props">
-        <Props rows={[
-          { name: 'AccordionItem · summary', type: 'ReactNode', required: true, note: 'lo que se ve con la fila cerrada' },
-          { name: 'AccordionItem · defaultOpen', type: 'boolean', note: 'arranca abierta' },
-          { name: 'AccordionItem · children', type: 'ReactNode', note: 'lo que aparece al abrir' },
-          { name: 'Accordion · className', type: 'string' },
-        ]} />
+        <Props of={['AccordionItem', 'Accordion']} />
       </Section>
 
       <Section title="Accesibilidad">

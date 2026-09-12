@@ -92,14 +92,7 @@ export function FieldStory() {
       </Note>
 
       <Section title="Props">
-        <Props rows={[
-          { name: 'label', type: 'string', required: true, note: 'nombra el control y lo enfoca al tocarla' },
-          { name: 'hint', type: 'string', note: 'para qué sirve el campo; se anuncia con él' },
-          { name: 'error', type: 'string', note: 'reemplaza al hint y marca aria-invalid' },
-          { name: 'required', type: 'boolean', note: 'asterisco a la vista, «obligatorio» al lector' },
-          { name: 'children', type: 'ReactNode', required: true, note: 'el control, que toma el id solo' },
-          { name: 'FieldSet · legend', type: 'string', required: true, note: 'cómo se llama el grupo' },
-        ]} />
+        <Props of="FieldSet" />
       </Section>
 
       <Section title="Accesibilidad">

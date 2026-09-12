@@ -48,13 +48,7 @@ export function SwitchStory() {
       </Note>
 
       <Section title="Props">
-        <Props rows={[
-          { name: 'checked', type: 'boolean', note: 'obligatorio' },
-          { name: 'onChange', type: '(v: boolean) => void', note: 'obligatorio' },
-          { name: 'label', type: 'string', note: 'al aria-label' },
-          { name: 'disabled', type: 'boolean' },
-          { name: 'id', type: 'string', note: 'para asociarlo a una etiqueta externa' },
-        ]} />
+        <Props of="Switch" />
       </Section>
     
       <Section title="Accesibilidad">

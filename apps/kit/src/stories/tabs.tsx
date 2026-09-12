@@ -64,13 +64,7 @@ export function TabsStory() {
       </Note>
 
       <Section title="Props">
-        <Props rows={[
-          { name: 'Tabs · value', type: 'string', note: 'controlado; sin esto usa defaultValue' },
-          { name: 'Tabs · defaultValue', type: 'string', note: 'la solapa abierta al entrar' },
-          { name: 'Tabs · onValueChange', type: '(v: string) => void' },
-          { name: 'Tab · value', type: 'string', required: true, note: 'ata la solapa a su panel' },
-          { name: 'TabPanel · value', type: 'string', required: true, note: 'el mismo valor de su solapa' },
-        ]} />
+        <Props of={['Tabs', 'Tab', 'TabPanel']} />
       </Section>
 
       <Section title="Accesibilidad">

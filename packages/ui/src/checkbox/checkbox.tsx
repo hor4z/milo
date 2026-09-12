@@ -8,9 +8,11 @@ export function Checkbox({
 }: {
   checked: boolean
   onChange: (v: boolean) => void
+  /** Al aria-label; si va dentro de un <label>, se omite. */
   label?: string
   disabled?: boolean
   id?: string
+  /** Pinta la raya y manda aria-checked="mixed". */
   indeterminate?: boolean
 }) {
   const on = checked || indeterminate

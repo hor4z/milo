@@ -66,15 +66,7 @@ export function ListStory() {
       </Section>
 
       <Section title="Props">
-        <Props rows={[
-          { name: 'ListItem · icon', type: 'IconName', note: 'obligatorio' },
-          { name: 'ListItem · color', type: "'green' | 'purple' | 'orange' | 'blue' | 'pink'", note: 'obligatorio: el par relleno/glifo de la marca' },
-          { name: 'ListItem · title', type: 'string', note: 'obligatorio · 16/600' },
-          { name: 'ListItem · hint', type: 'string', note: '14/500 en gris' },
-          { name: 'ListItem · active', type: 'boolean', note: 'hundida, no teñida' },
-          { name: 'ListItem · onClick', type: '() => void', note: 'sin esto la fila es un <div> y no toma hover' },
-          { name: 'ListItem · trailing', type: 'ReactNode', note: 'a la derecha: un chevron, un contador' },
-        ]} />
+        <Props of="ListItem" />
       </Section>
     
       <Section title="Accesibilidad">

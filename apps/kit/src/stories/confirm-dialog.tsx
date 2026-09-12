@@ -62,16 +62,7 @@ export function ConfirmStory() {
       </Note>
 
       <Section title="Props">
-        <Props rows={[
-          { name: 'open', type: 'boolean', required: true },
-          { name: 'onCancel', type: '() => void', required: true, note: 'lo llaman Cancelar, el velo y Escape' },
-          { name: 'onConfirm', type: '() => void', required: true },
-          { name: 'title', type: 'string', required: true, note: 'la pregunta, con el nombre de lo que se toca' },
-          { name: 'body', type: 'ReactNode', note: 'qué más se lleva puesto' },
-          { name: 'confirmLabel', type: 'string', def: "'Aceptar'", note: 'el verbo de lo que va a pasar, no «Sí»' },
-          { name: 'cancelLabel', type: 'string', def: "'Cancelar'" },
-          { name: 'tone', type: "'neutral' | 'bad'", def: "'neutral'", note: 'bad pinta el botón de confirmar y arranca el foco en Cancelar' },
-        ]} />
+        <Props of="ConfirmDialog" />
       </Section>
 
       <Section title="Accesibilidad">

@@ -90,16 +90,7 @@ export function CardStory() {
       </Note>
 
       <Section title="Props">
-        <Props rows={[
-          { name: 'interactive', type: 'boolean', note: 'levanta la tarjeta en hover; por defecto no se mueve' },
-          { name: 'surface', type: "'paper' | 'muted'", def: "'paper'", note: 'papel sobresale y tira sombra; muted es un hueco' },
-          { name: 'className', type: 'string', note: 'para el ancho y para cambiar el padding' },
-          { name: 'CardHeader', type: 'div', note: 'título a la izquierda, lo que haya a la derecha' },
-          { name: 'CardTitle', type: 'h3', note: 'cómo se llama lo que hay adentro' },
-          { name: 'CardHint', type: 'p', note: 'la línea de apoyo' },
-          { name: 'CardBody', type: 'div', note: 'el cuerpo, con el padding que la tarjeta no pone' },
-          { name: 'CardFooter', type: 'div', note: 'la fila de abajo, separada por una línea' },
-        ]} />
+        <Props of={['Card', 'CardHeader', 'CardTitle', 'CardHint', 'CardBody', 'CardFooter']} />
       </Section>
 
       <Section title="Accesibilidad">

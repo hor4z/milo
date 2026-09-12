@@ -11,6 +11,7 @@
     "dev:guide": "npm run dev -w @melu/guide",
     "build": "npm run build -w @melu/kit -w @melu/guide",
     "typecheck": "tsc -b",
+    "props": "npm run props -w @melu/ui",
     "test": "vitest run",
     "test:watch": "vitest"
   },

@@ -19,12 +19,17 @@ export function ListItem({
   icon, color, title, hint, active, onClick, trailing,
 }: {
   icon: IconName
+  /** El par relleno/glifo de la marca. */
   color: MarkColor
+  /** · 16/600. */
   title: string
+  /** 14/500 en gris. */
   hint?: string
   /** La fila elegida: queda hundida, no teñida. */
   active?: boolean
+  /** Sin esto la fila es un <div> y no toma hover. */
   onClick?: () => void
+  /** A la derecha: un chevron, un contador. */
   trailing?: ReactNode
 }) {
   const Tag = onClick ? 'button' : 'div'

@@ -4,7 +4,11 @@ import { cx } from '../lib/cx'
 /** El switch: pista de 40×22 con 2 de padding, así que el pulgar es de 18 y viaja 18 exactos. */
 export function Switch({
   checked, onChange, label, disabled, id,
-}: { checked: boolean; onChange: (v: boolean) => void; label?: string; disabled?: boolean; id?: string }) {
+}: { /** obligatorio */
+     checked: boolean; /** obligatorio */
+                       onChange: (v: boolean) => void; /** al aria-label */
+                                                       label?: string; disabled?: boolean; /** para asociarlo a una etiqueta externa */
+                                                                                           id?: string }) {
   const field = useField()
   return (
     <button

@@ -60,12 +60,7 @@ export function TextFieldStory() {
       </Section>
 
       <Section title="Props" note="Todo lo que acepta un `<input>` nativo pasa derecho: `value`, `onChange`, `placeholder`, `disabled`, `type`.">
-        <Props rows={[
-          { name: 'size', type: "'sm' | 'md' | 'lg'", note: '32 · 36 · 40, las del Button. Default lg' },
-          { name: 'icon', type: 'IconName', note: 'a la izquierda, en gris' },
-          { name: 'suffix', type: 'ReactNode', note: 'a la derecha: una unidad, un kbd, un botón' },
-          { name: 'className', type: 'string', note: 'va al contenedor, no al input — para el ancho' },
-        ]} />
+        <Props of="TextField" />
       </Section>
     
       <Section title="Accesibilidad">

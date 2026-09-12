@@ -81,6 +81,7 @@ export function TableFooter({ children }: { children: ReactNode }) {
 /** `last:border-0` saca el divisor de la última fila. */
 export function TableRow({ children, onClick, active, className }: {
   children: ReactNode
+  /** Sin esto la fila no toma hover ni cursor. */
   onClick?: () => void
   /** La fila elegida: apagada, no teñida. */
   active?: boolean

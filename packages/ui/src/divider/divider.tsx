@@ -3,6 +3,7 @@ import { cx } from '../lib/cx'
 /** La línea que separa. */
 export function Divider({ orientation = 'horizontal', className }: {
   orientation?: 'horizontal' | 'vertical'
+  /** Para el margen, que depende de dónde esté. */
   className?: string
 }) {
   return (
