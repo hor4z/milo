@@ -78,7 +78,10 @@ nombre es del rol, no del número. El line-height único es para que dos filas d
 alineadas entre sí.
 
 Escala de texto: `2xs` 11 (kbd, metadatos) · `xs` 12 (la interfaz) · `base` 14 (botones y
-énfasis) · `lg` 20 (título de pantalla) · `display` 40 (portadas).
+énfasis) · `md` 16 (lo que se lee primero de una fila alta, y el campo donde se escribe un texto
+largo) · `lg` 20 (título de pantalla) · `display` 40 (portadas). El `md` estuvo sin escribir acá
+un tiempo largo y en uso en cinco lugares, que es la forma de que un escalón se vuelva
+folclore.
 
 **Medidas del shell.** Sidebar 220 `fixed` (72 contraído) · topbar 80 · padding lateral 20 ·
 item de nav 40 con radio 12 y el icono en un cuadro de 34 · sangría de subitems 48.
