@@ -51,15 +51,25 @@ efecto y no hay error.
 
 ## El sistema
 
-**Tipografía.** Geist para todo —interfaz y portadas— y Geist Mono para lo monoespaciado, las
-dos por Google Fonts. Display y cuerpo son la misma familia a propósito: a 40px lo que separa un
-título del cuerpo es el tamaño y el tracking, no un dibujo distinto de la letra, y dos familias
-que se parecen es lo peor de los dos mundos. Antes eran Inter, Inter Tight y JetBrains Mono.
+**Tipografía.** **Instrument Sans y nada más**: interfaz, portadas y el rol `mono`, una sola
+familia por Google Fonts. Display y cuerpo son la misma a propósito: a 40px lo que separa un título
+del cuerpo es el tamaño y el tracking, no un dibujo distinto de la letra, y dos familias que se
+parecen es lo peor de los dos mundos. Por acá pasaron Inter + Inter Tight + JetBrains Mono, después
+Geist + Geist Mono, y ahora una sola.
 
-**Densidad.** Base 12px, peso 500, line-height fijo de 16. El 500 de base se decidió contra
-Inter, donde el 400 a 12px se leía lavado sobre un fondo casi blanco; con Geist ese número no se
-volvió a medir. El line-height único es para que dos filas de 12 y de 14 sigan alineadas entre
-sí.
+El rol `mono` pierde el ancho fijo, y hay que saber qué se pierde con él: una columna de valores ya
+no alinea sola. La alinea `--tabular` (`font-variant-numeric: tabular-nums`), que da ancho fijo a
+los **números** sin cambiar de letra — verificado, el 1 y el 4 miden lo mismo. Alcanza para lo que
+el rol hace de verdad (precios, métricas, una columna de tabla) y no alcanza para un bloque de
+código, que no existe en el sistema.
+
+**Densidad.** Base 12px, peso 400, line-height fijo de 16. Estuvo en 500, decidido contra Inter,
+donde el 400 a 12px se leía lavado sobre un fondo casi blanco. Instrument Sans dibuja más grueso al
+mismo número —x más alta, trazo más ancho— así que la pantalla entera se veía en negrita: **los
+tres escalones bajaron uno entero**, a 400 · 500 · 600. Se cambió en el `@theme` y no en los call
+sites, así que las utilidades siguen llamándose `font-medium` · `font-semibold` · `font-bold`: el
+nombre es del rol, no del número. El line-height único es para que dos filas de 12 y de 14 sigan
+alineadas entre sí.
 
 Escala de texto: `2xs` 11 (kbd, metadatos) · `xs` 12 (la interfaz) · `base` 14 (botones y
 énfasis) · `lg` 20 (título de pantalla) · `display` 40 (portadas).
@@ -92,11 +102,17 @@ eso se ve.
 Hay dos excepciones, las dos deliberadas y las dos acotadas a una pieza:
 
 - **El azul de marca** (`--blue-400/500/600`, rampa de tres pasos). Es la variante `brand` del
-  botón y el arco del spinner, y nada más. `solid` y `brand` son el mismo rol —el botón que
-  manda— así que va uno o el otro, nunca los dos en la misma pantalla, o la mirada no sabe cuál
-  es. El 600 hace de canto y de labio, y su valor no se elige a ojo: sale de reproducir el salto
-  que el botón gris usa entre su relleno y su canto (1.14:1). Con un salto más corto el canto
-  desaparece y el botón se ve como un rectángulo pintado.
+  botón, el arco del spinner y el anillo de foco (`--blue-500-a45`), y nada más. `solid` y `brand`
+  son el mismo rol —el botón que manda— así que va uno o el otro, nunca los dos en la misma
+  pantalla, o la mirada no sabe cuál es. El 600 hace de canto y de labio, y su valor no se elige a
+  ojo: sale de reproducir el salto que el botón gris usa entre su relleno y su canto (1.14:1). Con
+  un salto más corto el canto desaparece y el botón se ve como un rectángulo pintado.
+
+  El foco es el uso más nuevo y el que se defiende solo: los otros dos son roles —esto manda, esto
+  está cargando—, este es un estado del teclado, y es el único aviso que tiene que reconocerse
+  antes de leerse. En tinta se confundía con un canto o con una sombra, que es de lo que está
+  hecho el resto del sistema. Los 2px de `--surface` antes del azul son lo que lo deja ver también
+  sobre el botón azul.
 - **Las marcas de la lista** (`--mark-*`, en pares relleno/glifo). El círculo que identifica una
   fila en la lista de acciones. Relleno pastel y glifo del mismo tono varios pasos más oscuro, y
   eso es deliberado: la marca es de 44 y vive dentro de una fila clara, así que tiene lugar para
@@ -144,12 +160,24 @@ Dos aprendizajes que quedaron escritos al lado de cada token:
   botón gris se ve plano sobre un fondo casi blanco.
 - **Hundido son dos cosas distintas.** Una marca lleva canto y sombra de caída; algo que se
   aprieta, no. Mezclarlas hace que un kbd y un toggle activo se vean igual.
+- **Un campo no lleva relieve.** El `Input` fue un hueco (canto en tinta, luz arriba, labio
+  abajo) y se planchó: el relieve dice "esto sobresale" o "esto se aprieta", y un campo no es
+  ninguna de las dos. Los tres campos del sistema —el `Input`, el `Select` y el buscador de la
+  topbar— se dibujan igual: fondo (`--field-bg`) y una línea de un píxel (`--field-border`, tinta
+  en alpha, la misma que el relieve usaba de canto). Lo único que aparece al enfocar es el anillo.
 
 **Iconos.** Material Symbols Rounded, subseteado a los 152 que usamos y servido desde el repo
-(57 KB de woff2). El peso y el relleno son ejes reales de la fuente —`wght` de 100 a 700 y `FILL`
-de 0 a 1—, no variantes generadas: por eso el set es una fuente y no SVG. Los dibujos de Material
-son contornos rellenos y no trazos, así que el peso está horneado en la geometría y con SVG haría
-falta un archivo por combinación. Google hace lo mismo en Flutter y en Material Web.
+(57 KB de woff2). El peso es un eje real de la fuente —`wght` de 100 a 700—, no un set de
+variantes generadas: por eso el set es una fuente y no SVG. Los dibujos de Material son contornos
+rellenos y no trazos, así que el peso está horneado en la geometría y con SVG haría falta un
+archivo por escalón. Google hace lo mismo en Flutter y en Material Web.
+
+**Todos de contorno.** `FILL` está clavado en 0, sin variable y sin prop. Había tres rellenos por
+default —`favorite`, `bolt`, `star_shine`— con el argumento de que una marca pesa más que un
+acompañante, y lo que pasaba es que el mismo icono se dibujaba distinto según dónde cayera: el
+corazón de la nav relleno y el mismo corazón de la paleta de comandos hueco. Un set mezclado no se
+lee como un set. Marca y acompañante se separan con el peso y el tamaño, que el call site ya
+tiene.
 
 Escala de tamaños: 12 · 14 · 16 · 18 · 20 · 22. Solo pares — con una fuente, un tamaño impar cae
 en media grilla de píxeles y se ve borroso.
@@ -315,19 +343,18 @@ de cualquier wrapper de React, y un `data-theme` en un div no los alcanza.
 
 ## Pendiente
 
-- **Revisar los números que se calibraron contra Inter.** El peso 500 de base y el
-  `--tracking-tight` de -0.015em salieron de mirar Inter a 12px; la familia ahora es Geist y
-  ninguno de los dos se volvió a mirar. Geist tiene otra altura de x y otro ancho, así que lo
-  más probable es que al menos el tracking quiera otro valor.
+- **El `--tracking-tight` sigue calibrado contra Inter.** Los -0.015em salieron de mirar Inter a
+  12px y no se volvieron a mirar en tres familias. El peso ya se corrigió al pasar a Instrument
+  Sans; el tracking es el que queda.
 - **`planes` y `entrar`** siguen con las medidas viejas (14px, sin relieve).
-- **El foco se come el relieve.** El `:focus-visible` global pisa el `box-shadow` completo, así que
-  un botón enfocado con teclado queda plano. Le pasa a `raised`, a `solid` y a `brand` por igual.
-  Se arregla sumando el relieve dentro de la regla de foco, una vez para todas las variantes.
 - **El shell y la paleta de comandos siguen en `apps/guide`** porque leen `data.ts`. Para que
   entren al paquete hay que pasarles el contenido por props.
 - **`README.md` quedó desactualizado**: describe la primera identidad (jade y ámbar, radios
   3·6·8·10·14) que después se reemplazó por la rampa neutra y la escala 6·10·12·16·24.
 - Portar los tokens a `~/melu/packages/ui`, que es para lo que existe todo esto.
+- ~~El foco se comía el relieve~~. Cerrado: ninguna receta escribe `box-shadow` directo, escriben
+  `--relief` —registrada con `@property` e `inherits: false`, o cualquier hijo enfocable se la
+  llevaba— y la regla de `:focus-visible` la suma adelante del anillo en vez de reemplazarla.
 - ~~Dibujar un set de iconos macizo propio~~. Cerrado: el set es Material Symbols, y el "se ven
   livianos" se resuelve con el eje `wght` en vez de con un `strokeWidth` inventado. `--icon-muted`
   sobrevive igual, porque a `FILL 0` los glifos siguen siendo contornos.

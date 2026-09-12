@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react'
 import { Link, NavLink, useLocation, useNavigate } from 'react-router-dom'
-import { FolderIcon, Icon, type IconName, Avatar, Button, cx, IconButton, Kbd, Dropdown, type MenuItem, usePrefs, navItemClass, navSubItemClass, NavItemBody } from '@melu/ui'
-import { SettingsModal } from './settings-modal'
+import { FolderIcon, Icon, type IconName, Avatar, Button, cx, IconButton, Kbd, Dropdown, type DropdownItem, usePrefs, navItemClass, navSubItemClass, NavItemBody, SettingsModal } from '@melu/ui'
 import { CommandPalette } from './command-palette'
 import { NotificationsButton } from './notifications'
 import { spaces } from '../data'
@@ -191,7 +190,7 @@ function Topbar({ onOpenSettings, onOpenPalette }: { onOpenSettings: () => void;
   const navigate = useNavigate()
   const { prefs, set } = usePrefs()
 
-  const menu: MenuItem[] = [
+  const menu: DropdownItem[] = [
     { label: 'Mi perfil', icon: 'person', onSelect: onOpenSettings },
     { label: 'Plan', icon: 'credit_card', onSelect: () => navigate('/planes') },
     { label: 'Ajustes', icon: 'tune', onSelect: onOpenSettings },
@@ -205,8 +204,11 @@ function Topbar({ onOpenSettings, onOpenPalette }: { onOpenSettings: () => void;
   return (
     <header className="sticky top-0 z-30 flex h-20 shrink-0 items-center gap-3 bg-canvas/90 px-5 backdrop-blur-md">
       <div className="flex items-center gap-1">
-        <IconButton icon="arrow_back" label="Atrás" onClick={() => navigate(-1)} />
-        <IconButton icon="arrow_forward" label="Adelante" onClick={() => navigate(1)} />
+        {/* `lg` explícito: la topbar es de 80 y sus controles son de 40, que es
+            el paso principal. Antes salía del default porque el `md` del
+            IconButton medía 40 — ahora el `md` mide 36 en las dos piezas. */}
+        <IconButton icon="arrow_back" label="Atrás" size="lg" onClick={() => navigate(-1)} />
+        <IconButton icon="arrow_forward" label="Adelante" size="lg" onClick={() => navigate(1)} />
       </div>
 
       {/* El buscador no es un input: es un botón que abre la paleta. Un input
@@ -300,7 +302,16 @@ export function AppShell({ children }: { children: React.ReactNode }) {
         <Topbar onOpenSettings={() => setSettings(true)} onOpenPalette={() => setPalette(true)} />
         <main className="min-w-0">{children}</main>
       </div>
-      <SettingsModal open={settings} onClose={() => setSettings(false)} />
+      <SettingsModal
+        open={settings}
+        onClose={() => setSettings(false)}
+        user={{
+          name: 'Horacio Rivero',
+          email: 'horacio.rivero@educabot.com',
+          alias: 'Profe Horacio',
+          school: 'Escuela N.º 12 · Distrito 7',
+        }}
+      />
       <CommandPalette
         open={palette}
         onClose={() => setPalette(false)}

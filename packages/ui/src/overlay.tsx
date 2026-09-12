@@ -1,7 +1,11 @@
-import { useEffect, useId, useLayoutEffect, useRef, useState, type ReactNode } from 'react'
+import {
+  cloneElement, createContext, isValidElement, useContext, useEffect, useId, useLayoutEffect,
+  useRef, useState, type ReactElement, type ReactNode,
+} from 'react'
 import { createPortal } from 'react-dom'
-import { cx, IconButton } from './primitives'
-import { Icon, type IconName } from './icon'
+import { IconButton } from './primitives'
+import { Menu, MenuItem } from './menu'
+import type { IconName } from './icon'
 
 /* ------------------------------------------------------------------ Portal */
 
@@ -13,18 +17,44 @@ import { Icon, type IconName } from './icon'
  * enfoque el contenido: en el commit en el que el overlay "ya abrió", sus nodos
  * todavía no existen. Portalear a un div desprendido es válido: los refs se
  * asignan igual, y el contenido aparece en pantalla cuando el div se cuelga.
+ *
+ * **Flotante adentro de flotante.** Todos los hosts son hermanos colgados del
+ * body, así que entre dos abiertos manda el orden del DOM y no quién abrió a
+ * quién: un `Select` abierto adentro de un modal quedaba tapado por el modal, y
+ * la única defensa era subirle el `z-index` a mano en el call site — un número
+ * que hay que mantener sincronizado desde el otro lado del árbol.
+ *
+ * Acá cada `Portal` sabe a qué profundidad está —el contexto viaja por el árbol
+ * de React aunque el DOM sea plano— y se pone un `z-index` un escalón arriba de
+ * su padre. Lo de adentro queda arriba de lo que lo abrió, siempre, sin que
+ * nadie escriba un número.
+ *
+ * El `z-index` va en el host y eso crea un contexto de apilado por overlay, que
+ * es la otra mitad del arreglo: los `z-40` / `z-50` de adentro pasan a ordenar
+ * solo entre ellos —velo contra panel— y dejan de competir con los de otros
+ * overlays.
  */
+const PortalDepth = createContext(0)
+
 export function Portal({ children }: { children: ReactNode }) {
+  const depth = useContext(PortalDepth)
   const [host] = useState(() => {
     const el = document.createElement('div')
-    el.setAttribute('data-portal', '')
+    el.setAttribute('data-portal', String(depth))
+    /* `relative` para que el z-index agarre: sin posición, un z-index no hace
+       nada y el arreglo entero sería invisible. */
+    el.style.position = 'relative'
+    el.style.zIndex = String(1000 + depth * 10)
     return el
   })
   useLayoutEffect(() => {
     document.body.appendChild(host)
     return () => host.remove()
   }, [host])
-  return createPortal(children, host)
+  return createPortal(
+    <PortalDepth.Provider value={depth + 1}>{children}</PortalDepth.Provider>,
+    host,
+  )
 }
 
 /* --------------------------------------------------- bloqueo de scroll ---- */
@@ -151,141 +181,87 @@ export function useFocusTrap(active: boolean, ref: React.RefObject<HTMLElement |
   }, [active, ref])
 }
 
-/* ---------------------------------------------------------------- Dropdown */
-
-export type MenuItem = { label: string; icon?: IconName; onSelect?: () => void }
-
-export function Dropdown({
-  trigger, items, align = 'end', width = 220,
-}: {
-  trigger: (props: { onClick: () => void; 'aria-expanded': boolean; ref: React.Ref<HTMLButtonElement> }) => ReactNode
-  items: MenuItem[]
-  align?: 'start' | 'end'
-  width?: number
-}) {
-  const [open, setOpen] = useState(false)
-  const triggerRef = useRef<HTMLButtonElement>(null)
-  const menuRef = useRef<HTMLDivElement>(null)
-  const [pos, setPos] = useState({ top: 0, left: 0 })
-  const id = useId()
-
-  useEscape(open, () => setOpen(false))
-
-  /* La posición se calcula con `layout` y no en un effect normal: si se mide
-     después del paint, el menú aparece un frame en 0,0 y se ve el salto. */
-  useLayoutEffect(() => {
-    if (!open || !triggerRef.current) return
-    const r = triggerRef.current.getBoundingClientRect()
-    const left = align === 'end' ? r.right - width : r.left
-    /* Que no se salga por abajo ni por los costados de la ventana. */
-    setPos({
-      top: Math.min(r.bottom + 8, window.innerHeight - 16),
-      left: Math.max(8, Math.min(left, window.innerWidth - width - 8)),
-    })
-  }, [open, align, width])
-
-  useEffect(() => {
-    if (!open) return
-    const onDown = (e: PointerEvent) => {
-      const t = e.target as Node
-      if (menuRef.current?.contains(t) || triggerRef.current?.contains(t)) return
-      setOpen(false)
-    }
-    /* `pointerdown` y no `click`: con click, el mismo gesto que abre otro menú
-       lo cierra y lo vuelve a abrir, y parpadea. */
-    document.addEventListener('pointerdown', onDown)
-    /* `scroll` en captura es la única forma de enterarse del scroll de la
-       página, pero atrapa también el de cualquier elemento de adentro. Sin
-       filtrar el origen, scrollear la lista del propio panel lo cierra. Un
-       resize sí lo cierra siempre: ahí la posición anclada ya no vale. */
-    const onScroll = (e: Event) => {
-      if (e.type === 'scroll' && menuRef.current?.contains(e.target as Node)) return
-      setOpen(false)
-    }
-    window.addEventListener('scroll', onScroll, true)
-    window.addEventListener('resize', onScroll)
-    return () => {
-      document.removeEventListener('pointerdown', onDown)
-      window.removeEventListener('scroll', onScroll, true)
-      window.removeEventListener('resize', onScroll)
-    }
-  }, [open])
-
-  return (
-    <>
-      {trigger({ onClick: () => setOpen(o => !o), 'aria-expanded': open, ref: triggerRef })}
-      {open && (
-        <Portal>
-          <div
-            ref={menuRef}
-            id={id}
-            role="menu"
-            style={{ top: pos.top, left: pos.left, width }}
-            className="ui-pop fixed z-50 rounded-[20px] border border-line bg-popover p-2 shadow-popover"
-          >
-            {items.map((item, i) => (
-                <button
-                  key={i}
-                  role="menuitem"
-                  onClick={() => { item.onSelect?.(); setOpen(false) }}
-                  className={cx(
-                    'flex h-10 w-full items-center gap-3.5 rounded-lg px-2.5 text-left text-xs font-semibold',
-                    'text-ink transition-colors duration-[120ms] hover:bg-hover',
-                  )}
-                >
-                  {/* El icono va en gris y el texto en tinta: al revés —texto
-                      gris— el menú entero se lee como deshabilitado. El trazo
-                      sube a 1.5 porque en gris el de 1 se apaga demasiado. */}
-                  {item.icon && <Icon name={item.icon} size={20} className="icon-muted" />}
-                  {item.label}
-                </button>
-            ))}
-          </div>
-        </Portal>
-      )}
-    </>
-  )
-}
-
 /* ----------------------------------------------------------------- Popover */
 
 /**
- * Un panel anclado a su disparador. Es el `Dropdown` sin la lista de items:
- * sirve para lo que tiene contenido propio —un panel de avisos, un selector de
- * fecha— en vez de opciones.
+ * Un panel anclado a su disparador. **No tiene aspecto**: pone el panel donde
+ * va y se encarga de cerrarlo, y el dibujo lo pone quien lo usa.
  *
- * Comparte los tres cuidados del menú: se posiciona en `layout` para que no se
- * vea el salto desde 0,0; se cierra con `pointerdown` afuera y no con `click`,
- * porque con click el mismo gesto que abre otro panel lo cierra y lo reabre; y
- * se cierra al scrollear, porque un panel anclado que se queda quieto mientras
- * el fondo se mueve se ve pegado a la nada.
+ * Ese corte es el punto de la pieza. Lo mismo estaba escrito tres veces —el
+ * menú, el panel de avisos y el listbox del `Select`— con la misma lista de
+ * cuidados en cada copia, que es lo que de verdad cuesta acá:
+ *
+ * · Se posiciona en `useLayoutEffect` y no en un effect normal: midiendo después
+ *   del paint, el panel aparece un cuadro en 0,0 y se ve el salto.
+ * · Se cierra con `pointerdown` afuera y no con `click`: con click, el mismo
+ *   gesto que abre otro panel lo cierra y lo vuelve a abrir, y parpadea.
+ * · El `scroll` en captura es la única forma de enterarse del scroll de la
+ *   página, pero atrapa el de cualquier hijo: sin filtrar por origen, scrollear
+ *   la lista del propio panel lo cierra. Un `resize` sí cierra siempre — ahí la
+ *   posición anclada ya no vale.
+ * · `Escape` cierra el de más arriba y no todos, por la pila global.
+ *
+ * Tres copias de esa lista son tres lugares donde falta un arreglo. El menú y
+ * el panel de avisos ya salen de acá; **el `Select` todavía no**, y no por
+ * olvido: su teclado —flechas, Enter, Home/End— está atado a su propio estado de
+ * abierto, así que mudarlo es mover también eso. Queda como el tercer call site
+ * y como la prueba de si esta pieza alcanza.
+ *
+ * **Se da vuelta solo.** Si abajo del disparador no entra y arriba sí, el panel
+ * sube. Para eso hace falta medir el panel ya montado, que es gratis: el
+ * `Portal` cuelga su host en su propio layout effect, y los effects de los hijos
+ * corren antes que los del padre, así que cuando esta medición ocurre el panel
+ * ya está en el documento.
+ *
+ * El `width` es opcional y también por eso: sin él se mide el ancho real del
+ * panel, que es lo que un menú que se adapta a su contenido necesita para poder
+ * alinearse a la derecha.
+ *
+ * La única concesión visual es el velo, y no es decoración: es la superficie que
+ * apaga el resto y que además se puede clickear para cerrar. Una lista que pide
+ * leerse entera lo necesita; un menú de cuatro opciones, no.
  */
 export function Popover({
-  trigger, children, align = 'end', width = 384, offset = 8, veil,
+  trigger, children, align = 'end', width, offset = 8, veil, onOpenChange,
 }: {
-  trigger: (props: { onClick: () => void; 'aria-expanded': boolean; ref: React.Ref<HTMLButtonElement>; 'data-open': boolean }) => ReactNode
+  trigger: (props: {
+    onClick: () => void
+    'aria-expanded': boolean
+    ref: React.Ref<HTMLButtonElement>
+    'data-open': boolean
+  }) => ReactNode
   children: (close: () => void) => ReactNode
   align?: 'start' | 'end'
+  /** Sin esto se mide el ancho real del panel para alinearlo y encajarlo. */
   width?: number
   offset?: number
-  /** Atenúa el resto de la pantalla mientras el panel está abierto. Para lo que
-   *  pide leerse entero —una lista de avisos— y no para un menú de cuatro items. */
   veil?: boolean
+  onOpenChange?: (open: boolean) => void
 }) {
   const [open, setOpen] = useState(false)
   const triggerRef = useRef<HTMLButtonElement>(null)
   const panelRef = useRef<HTMLDivElement>(null)
   const [pos, setPos] = useState({ top: 0, left: 0 })
 
-  useEscape(open, () => setOpen(false))
+  const set = (v: boolean) => { setOpen(v); onOpenChange?.(v) }
+  const close = () => set(false)
+
+  useEscape(open, close)
 
   useLayoutEffect(() => {
     if (!open || !triggerRef.current) return
     const r = triggerRef.current.getBoundingClientRect()
-    const left = align === 'end' ? r.right - width : r.left
+    const w = width ?? panelRef.current?.offsetWidth ?? 0
+    const h = panelRef.current?.offsetHeight ?? 0
+    const left = align === 'end' ? r.right - w : r.left
+    /* Abajo si entra, arriba si no. El margen de 8 contra el borde de la
+       ventana es el mismo que el de los costados: un panel pegado al canto se
+       ve cortado aunque entre. */
+    const cabeAbajo = r.bottom + offset + h <= window.innerHeight - 8
+    const cabeArriba = r.top - offset - h >= 8
     setPos({
-      top: r.bottom + offset,
-      left: Math.max(8, Math.min(left, window.innerWidth - width - 8)),
+      top: cabeAbajo || !cabeArriba ? r.bottom + offset : r.top - offset - h,
+      left: Math.max(8, Math.min(left, window.innerWidth - w - 8)),
     })
   }, [open, align, width, offset])
 
@@ -294,15 +270,11 @@ export function Popover({
     const onDown = (e: PointerEvent) => {
       const t = e.target as Node
       if (panelRef.current?.contains(t) || triggerRef.current?.contains(t)) return
-      setOpen(false)
+      close()
     }
-    /* `scroll` en captura es la única forma de enterarse del scroll de la
-       página, pero atrapa también el de cualquier elemento de adentro. Sin
-       filtrar el origen, scrollear la lista del propio panel lo cierra. Un
-       resize sí lo cierra siempre: ahí la posición anclada ya no vale. */
     const onScroll = (e: Event) => {
       if (e.type === 'scroll' && panelRef.current?.contains(e.target as Node)) return
-      setOpen(false)
+      close()
     }
     document.addEventListener('pointerdown', onDown)
     window.addEventListener('scroll', onScroll, true)
@@ -316,23 +288,237 @@ export function Popover({
 
   return (
     <>
-      {trigger({ onClick: () => setOpen(o => !o), 'aria-expanded': open, ref: triggerRef, 'data-open': open })}
+      {trigger({
+        onClick: () => set(!open),
+        'aria-expanded': open,
+        ref: triggerRef,
+        'data-open': open,
+      })}
       {open && (
         <Portal>
           {/* El velo va sin blur y por debajo del panel. Atenúa sin desenfocar:
               el fondo se sigue reconociendo, que es la diferencia entre "esto
               está encima" y "cambiaste de pantalla". */}
-          {veil && <div className="ui-fade fixed inset-0 z-40 bg-veil" onClick={() => setOpen(false)} />}
+          {veil && <div className="ui-fade fixed inset-0 z-40 bg-veil" onClick={close} />}
           <div
             ref={panelRef}
             style={{ top: pos.top, left: pos.left, width }}
-            className="ui-pop fixed z-50 overflow-hidden rounded-[20px] border border-line bg-popover shadow-popover"
+            className="fixed z-50"
           >
-            {children(() => setOpen(false))}
+            {children(close)}
           </div>
         </Portal>
       )}
     </>
+  )
+}
+
+
+/* ----------------------------------------------------------------- Tooltip */
+
+/* Cuándo se cerró el último tooltip, en milisegundos. Es una variable de módulo
+   y no estado de un componente a propósito: **el retraso se comparte entre
+   todos**. El primero de una barra de iconos tarda, porque un tooltip que
+   aparece apenas el mouse pasa por encima salta solo mientras cruzás la
+   pantalla para ir a otra cosa. Pero una vez que uno se mostró, el de al lado
+   tiene que aparecer al instante: si cada uno espera su propio medio segundo,
+   recorrer seis iconos son tres segundos de espera y la fila se siente trabada.
+   Es el mismo grupo de delay que tienen los sistemas que se sienten rápidos. */
+let ultimoCierre = 0
+
+/* Cuánto dura la ventana en la que el siguiente tooltip abre sin esperar. */
+const VENTANA_TIBIA = 400
+
+/**
+ * La etiqueta que dice qué hace un control que no lo dice solo: un icono suelto,
+ * un valor truncado, una acción con una consecuencia que conviene aclarar.
+ *
+ * **No es un `Popover` chico.** Un popover se abre con click, atrapa el
+ * `pointerdown` de la página y puede contener cosas que se tocan. Un tooltip se
+ * abre solo —hover o foco de teclado—, no recibe el mouse (`pointer-events:
+ * none`, o taparía justo el botón que explica) y no lleva nada interactivo
+ * adentro: lo que hay adentro no se puede alcanzar ni con mouse ni con teclado.
+ * Si tiene un link o un botón, es un popover y no esto.
+ *
+ * **Envuelve en vez de pedir un render prop.** Los eventos burbujean, así que el
+ * `<span>` de afuera se entera del hover y del foco del control que envuelve sin
+ * pedirle nada: funciona con cualquier hijo, incluso uno que no reenvíe props.
+ * Lo único que sí se le pasa al hijo es el `aria-describedby`, con
+ * `cloneElement`, porque un `span` sin rol no le describe nada a un lector de
+ * pantalla; si el hijo no reenvía props, se pierde solo eso y el tooltip se
+ * sigue viendo.
+ *
+ * **Se abre con el teclado, pero solo cuando el foco es del teclado.** Con un
+ * `onFocus` pelado, clickear el botón deja el tooltip puesto encima de lo que
+ * acabás de tocar. El `:focus-visible` es lo que separa "llegué tabulando y
+ * necesito saber qué es esto" de "lo acabo de clickear y ya sé".
+ *
+ * **En touch no aparece.** No hay hover que lo abra ni forma de cerrarlo sin
+ * tocar otra cosa: el `pointerType` que no es `mouse` se ignora, y lo que el
+ * tooltip diga tiene que estar también en el `aria-label` del control.
+ *
+ * Sin flecha, a propósito: ningún overlay del sistema la tiene, y una flecha
+ * pide un canto y un borde que estas cajas no llevan.
+ */
+export function Tooltip({ label, children, side = 'top', delay = 500 }: {
+  label: ReactNode
+  children: ReactNode
+  /** Dónde va si entra. Si no entra de ese lado, se da vuelta. */
+  side?: 'top' | 'bottom'
+  delay?: number
+}) {
+  const [open, setOpen] = useState(false)
+  const anchor = useRef<HTMLSpanElement>(null)
+  const bubble = useRef<HTMLDivElement>(null)
+  const [pos, setPos] = useState({ top: 0, left: 0 })
+  const timer = useRef<ReturnType<typeof setTimeout> | null>(null)
+  const id = useId()
+
+  const cancelar = () => {
+    if (timer.current) clearTimeout(timer.current)
+    timer.current = null
+  }
+  const abrir = () => {
+    cancelar()
+    const espera = Date.now() - ultimoCierre < VENTANA_TIBIA ? 0 : delay
+    timer.current = setTimeout(() => setOpen(true), espera)
+  }
+  const cerrar = () => {
+    cancelar()
+    ultimoCierre = Date.now()
+    setOpen(false)
+  }
+
+  /* El timer tiene que morir con el componente: un control que se desmonta
+     mientras el mouse está encima —una fila que se borra, un menú que cierra—
+     dejaba el `setTimeout` vivo y el tooltip abría contra un ancla que ya no
+     existe. */
+  useEffect(() => cancelar, [])
+
+  useEscape(open, cerrar)
+
+  useLayoutEffect(() => {
+    if (!open || !anchor.current) return
+    const r = anchor.current.getBoundingClientRect()
+    const w = bubble.current?.offsetWidth ?? 0
+    const h = bubble.current?.offsetHeight ?? 0
+    const cabeArriba = r.top - 8 - h >= 8
+    const cabeAbajo = r.bottom + 8 + h <= window.innerHeight - 8
+    const arriba = side === 'top' ? cabeArriba || !cabeAbajo : !cabeAbajo && cabeArriba
+    setPos({
+      top: arriba ? r.top - 8 - h : r.bottom + 8,
+      /* Centrado sobre el control, y pegado a 8 del borde si no entra: un
+         tooltip de un icono de la punta del sidebar se sale de la ventana. */
+      left: Math.max(8, Math.min(r.left + r.width / 2 - w / 2, window.innerWidth - w - 8)),
+    })
+  }, [open, side])
+
+  /* Anclado a un control que se movió es un tooltip apuntando al aire. Acá no
+     hace falta filtrar el scroll por origen como en el `Popover` —adentro de un
+     tooltip no hay nada que scrollear— así que cualquier scroll lo cierra. */
+  useEffect(() => {
+    if (!open) return
+    window.addEventListener('scroll', cerrar, true)
+    window.addEventListener('resize', cerrar)
+    return () => {
+      window.removeEventListener('scroll', cerrar, true)
+      window.removeEventListener('resize', cerrar)
+    }
+  }, [open])
+
+  return (
+    <>
+      <span
+        ref={anchor}
+        /* `inline-flex` y no `inline-block`: el span tiene que medir exactamente
+           lo que mide el control, o el tooltip se centra sobre una caja con
+           espacio de línea de más y queda corrido. */
+        className="inline-flex"
+        onPointerEnter={e => { if (e.pointerType === 'mouse') abrir() }}
+        onPointerLeave={cerrar}
+        /* El click ya dijo lo que el tooltip explicaba. */
+        onPointerDown={cerrar}
+        onFocus={e => { if ((e.target as HTMLElement).matches?.(':focus-visible')) abrir() }}
+        onBlur={cerrar}
+      >
+        {isValidElement(children)
+          ? cloneElement(children as ReactElement<{ 'aria-describedby'?: string }>,
+              { 'aria-describedby': open ? id : undefined })
+          : children}
+      </span>
+
+      {open && (
+        <Portal>
+          <div
+            ref={bubble}
+            id={id}
+            role="tooltip"
+            style={{ top: pos.top, left: pos.left }}
+            className="ui-fade pointer-events-none fixed z-[60] max-w-[240px] rounded-md bg-solid px-2 py-1 text-xs font-medium text-on-solid shadow-popover"
+          >
+            {label}
+          </div>
+        </Portal>
+      )}
+    </>
+  )
+}
+
+/* ---------------------------------------------------------------- Dropdown */
+
+/** Una opción de la lista del `Dropdown`. La fila dibujada es `MenuItem`, el
+ *  componente: este tipo es la forma corta de escribirla como dato. */
+export type DropdownItem = {
+  label: string
+  icon?: IconName
+  shortcut?: string
+  danger?: boolean
+  disabled?: boolean
+  onSelect?: () => void
+}
+
+/**
+ * El menú de opciones escrito como lista, que es lo más corto cuando el menú no
+ * tiene nada raro: cuatro filas con su icono y su acción.
+ *
+ * No dibuja nada por su cuenta — es `Popover` (el comportamiento) más `Menu` y
+ * `MenuItem` (la caja y la fila). Por eso una fila de acá y una escrita a mano
+ * son la misma fila, y no dos parecidas que se van separando.
+ *
+ * Cuando el menú necesita un separador, un rótulo de grupo o un submenú, la
+ * lista deja de alcanzar: ahí se arma con las piezas adentro de un `Popover`.
+ */
+export function Dropdown({
+  trigger, items, align = 'end', width = 220,
+}: {
+  trigger: (props: { onClick: () => void; 'aria-expanded': boolean; ref: React.Ref<HTMLButtonElement> }) => ReactNode
+  items: DropdownItem[]
+  align?: 'start' | 'end'
+  width?: number
+}) {
+  return (
+    <Popover
+      align={align}
+      width={width}
+      trigger={({ onClick, ref, 'aria-expanded': expanded }) => trigger({ onClick, ref, 'aria-expanded': expanded })}
+    >
+      {close => (
+        <Menu>
+          {items.map((item, i) => (
+            <MenuItem
+              key={i}
+              icon={item.icon}
+              shortcut={item.shortcut}
+              danger={item.danger}
+              disabled={item.disabled}
+              onSelect={() => { item.onSelect?.(); close() }}
+            >
+              {item.label}
+            </MenuItem>
+          ))}
+        </Menu>
+      )}
+    </Popover>
   )
 }
 

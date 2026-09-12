@@ -1,11 +1,22 @@
-import { useState } from 'react'
-import { Select } from '@melu/ui'
+import { useEffect, useState } from 'react'
+import { Avatar, FolderIcon, Icon, Select } from '@melu/ui'
 import { Block, Demo, Props, Section } from '../kit'
 
 export function SelectStory() {
   const [nivel, setNivel] = useState('6.º grado')
   const [area, setArea] = useState('Matemática')
   const [largo, setLargo] = useState('Cualquiera con el link puede ver y comentar')
+  const [conIcono, setConIcono] = useState('Matemática')
+  const [espacio, setEspacio] = useState('Matemática · 4.º A')
+  const [docente, setDocente] = useState('Melina Rivero')
+
+  /* La carga se simula sola y en loop para que el estado se vea sin tener que
+     apretar nada: es lo único de esta pantalla que no se puede mostrar quieto. */
+  const [cargando, setCargando] = useState(true)
+  useEffect(() => {
+    const t = setInterval(() => setCargando(c => !c), 2200)
+    return () => clearInterval(t)
+  }, [])
 
   return (
     <Section
@@ -36,12 +47,78 @@ export function SelectStory() {
         </div>
       </Block>
 
+      <Block
+        label="Adelante del valor"
+        note="`leading` es un nodo y no un `IconName`, al revés que el `icon` del Input: ahí el icono es siempre un glifo del set, acá lo que va adelante del valor es de quien lo usa — el glifo de la categoría, la carpeta de color de un espacio, el avatar de una persona."
+      >
+        <div className="flex flex-wrap items-start gap-3">
+          <Demo label="un glifo">
+            <Select
+              value={conIcono}
+              onChange={setConIcono}
+              width={180}
+              leading={<Icon name="calculate" size={16} />}
+              options={['Matemática', 'Lengua', 'Ciencias']}
+            />
+          </Demo>
+          <Demo label="una carpeta de color">
+            <Select
+              value={espacio}
+              onChange={setEspacio}
+              width={200}
+              leading={<FolderIcon color="blue" size={16} />}
+              options={['Matemática · 4.º A', 'Lengua · 6.º', 'Ciencias · 5.º B']}
+            />
+          </Demo>
+          <Demo label="un avatar">
+            <Select
+              value={docente}
+              onChange={setDocente}
+              width={190}
+              leading={<Avatar name="Melina Rivero" size={20} />}
+              options={['Melina Rivero', 'Juan Pérez', 'Ana Gómez']}
+            />
+          </Demo>
+        </div>
+      </Block>
+
+      <Block
+        label="Mientras los datos no están"
+        note="`loading` no es lo mismo que pasar un spinner por `leading`. Un spinner suelto se dibuja y nada más: el control sigue abriendo, y lo que abre es una lista vacía o —peor— la lista vieja, que se puede elegir. Eso no lo arregla el nodo porque no es contenido, es el estado del control. Con `loading` el select no abre, avisa `aria-busy`, cierra el panel si estaba abierto y pone el spinner solo si nadie pasó un leading propio. Lo que el componente no hace es enterarse solo: no recibe promesas ni sabe de fetch."
+      >
+        <div className="flex flex-wrap items-start gap-3">
+          <Demo label="loading · el spinner es el default">
+            <Select value="Cargando espacios…" width={200} loading options={[]} />
+          </Demo>
+          <Demo label="loading con leading propio">
+            <Select
+              value="Matemática"
+              width={180}
+              loading
+              leading={<Icon name="calculate" size={16} className="icon-muted" />}
+              options={['Matemática', 'Lengua']}
+            />
+          </Demo>
+          <Demo label="en vivo · alterna cada 2s">
+            <Select
+              value={cargando ? 'Buscando espacios…' : espacio}
+              onChange={setEspacio}
+              width={200}
+              loading={cargando}
+              options={['Matemática · 4.º A', 'Lengua · 6.º', 'Ciencias · 5.º B']}
+            />
+          </Demo>
+        </div>
+      </Block>
+
       <Block label="Props">
         <Props rows={[
           { name: 'value', type: 'string', note: 'obligatorio' },
           { name: 'onChange', type: '(v: string) => void' },
           { name: 'options', type: 'string[]', note: 'obligatorio' },
           { name: 'width', type: 'number', note: 'sin esto toma el ancho del contenido' },
+          { name: 'leading', type: 'ReactNode', note: 'adelante del valor: un Icon, una FolderIcon, un Avatar, un Spinner' },
+          { name: 'loading', type: 'boolean', note: 'no abre, avisa aria-busy y pone el spinner si no hay leading' },
         ]} />
       </Block>
     </Section>

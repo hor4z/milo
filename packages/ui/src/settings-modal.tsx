@@ -1,7 +1,24 @@
 import { useState } from 'react'
-import { Modal, Button, Chip, cx, Row, Segmented, Select, Switch, Icon, type IconName, usePrefs } from '@melu/ui'
+import { cx, Button, Chip, Row, Segmented, Select, Switch } from './primitives'
+import { Icon, type IconName } from './icon'
+import { Modal } from './overlay'
+import { usePrefs } from './prefs'
 
 type SectionId = 'general' | 'perfil' | 'seguridad' | 'avisos'
+
+/**
+ * Quién está mirando los ajustes. Va por prop y no escrito adentro por dos
+ * motivos, y el segundo es el que manda: el kit y la app muestran el mismo
+ * modal con gente distinta, y **el nombre y el correo de una persona real no
+ * son parte de un design system**.
+ */
+export type SettingsUser = {
+  name: string
+  email: string
+  /** Cómo lo ven los aprendices. */
+  alias: string
+  school: string
+}
 
 const sections: { id: SectionId; label: string; icon: IconName }[] = [
   { id: 'general', label: 'General', icon: 'tune' },
@@ -23,7 +40,11 @@ const sections: { id: SectionId; label: string; icon: IconName }[] = [
  * El título de la sección va en 12/600, igual que el resto de la interfaz: un
  * encabezado grande acá compite con el rail, que es lo que hay que leer primero.
  */
-export function SettingsModal({ open, onClose }: { open: boolean; onClose: () => void }) {
+export function SettingsModal({ open, onClose, user }: {
+  open: boolean
+  onClose: () => void
+  user: SettingsUser
+}) {
   const [section, setSection] = useState<SectionId>('general')
 
   return (
@@ -82,8 +103,8 @@ export function SettingsModal({ open, onClose }: { open: boolean; onClose: () =>
             <h2 className="text-xs font-semibold">{sections.find(s => s.id === section)!.label}</h2>
           </header>
           <div className="min-h-0 flex-1 overflow-y-auto">
-            {section === 'general' && <GeneralSection />}
-            {section === 'perfil' && <PerfilSection />}
+            {section === 'general' && <GeneralSection user={user} />}
+            {section === 'perfil' && <PerfilSection user={user} />}
             {section === 'seguridad' && <SeguridadSection />}
             {section === 'avisos' && <AvisosSection />}
           </div>
@@ -95,13 +116,13 @@ export function SettingsModal({ open, onClose }: { open: boolean; onClose: () =>
 
 /* ------------------------------------------------------------------------- */
 
-function GeneralSection() {
+function GeneralSection({ user }: { user: SettingsUser }) {
   const { prefs, set } = usePrefs()
   return (
     <div>
-      <EditableRow label="Nombre" value="Horacio Rivero" />
+      <EditableRow label="Nombre" value={user.name} />
       <Row label="Correo">
-        <span className="text-xs text-ink-muted">horacio.rivero@educabot.com</span>
+        <span className="text-xs text-ink-muted">{user.email}</span>
       </Row>
       <Row label="Tema">
         <Segmented
@@ -127,16 +148,16 @@ function GeneralSection() {
   )
 }
 
-function PerfilSection() {
+function PerfilSection({ user }: { user: SettingsUser }) {
   const { prefs, set } = usePrefs()
   return (
     <div>
-      <EditableRow label="Cómo te ven los aprendices" value="Profe Horacio" />
+      <EditableRow label="Cómo te ven los aprendices" value={user.alias} />
       <Row label="Rol" hint="Lo define quien coordina el espacio.">
         <Chip color="green">Guía</Chip>
       </Row>
       <Row label="Escuela">
-        <span className="text-xs text-ink-muted">Escuela N.º 12 · Distrito 7</span>
+        <span className="text-xs text-ink-muted">{user.school}</span>
       </Row>
       <Row label="Dejar que otros guías vean mis recetas" hint="Solo las que publiques, nunca los borradores.">
         <Switch checked={prefs.shareRecipes} onChange={v => set('shareRecipes', v)} label="Compartir recetas" />

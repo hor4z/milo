@@ -17,11 +17,11 @@ export function TypeSection() {
   return (
     <Section
       title="Tipografía"
-      note="Base 12px con peso 500 y line-height fijo de 16. El 500 de base se decidió contra Inter, donde el 400 a 12px se leía lavado sobre un fondo casi blanco — la familia ahora es Geist y ese número no se volvió a mirar. El leading único es para que una fila de 12 y una de 14 sigan alineadas entre sí."
+      note="Base 12px con peso 400 y line-height fijo de 16. Estuvo en 500, que se decidió contra Inter: ahí el 400 a 12px se leía lavado sobre un fondo casi blanco. Instrument Sans dibuja más grueso al mismo número, así que los tres escalones bajaron uno entero. El leading único es para que una fila de 12 y una de 14 sigan alineadas entre sí."
     >
       <Block
         label="Familias"
-        note="Geist para la interfaz y las portadas, Geist Mono para lo monoespaciado, las dos por Google Fonts. Display y cuerpo son la misma familia a propósito: a 40px lo que separa un título del cuerpo es el tamaño y el tracking, no un dibujo distinto de la letra, y dos familias que se parecen es lo peor de los dos mundos. Antes eran Inter, Inter Tight y JetBrains Mono."
+        note="Instrument Sans y nada más: los tres roles son la misma familia. Display y cuerpo lo eran ya a propósito —a 40px lo que separa un título del cuerpo es el tamaño y el tracking, no un dibujo distinto de la letra— y ahora el rol `mono` también. Lo que ese rol pierde es el ancho fijo, y lo que alinea una columna de valores pasa a ser `tabular`: ancho fijo para los números sin cambiar de letra. Alcanza para precios, métricas y una columna de tabla; no alcanzaría para un bloque de código, que en el sistema no hay. Por acá pasaron Inter + Inter Tight + JetBrains Mono, después Geist + Geist Mono, y ahora una sola."
       >
         <div className="flex flex-col gap-3">
           <Specimen family="font-sans" token="--font-sans" rol="la interfaz entera, de 11 a 20" muestra="Doce actividades en siete espacios" px={24} />
@@ -43,11 +43,11 @@ export function TypeSection() {
         </div>
       </Block>
 
-      <Block label="Pesos" note="Tres y nada más: 500 la interfaz, 600 lo accionable y los títulos de fila, 700 solo en display.">
+      <Block label="Pesos" note="Tres y nada más: 400 la interfaz, 500 lo accionable y los títulos de fila, 600 solo en display. Las utilidades siguen llamándose medium · semibold · bold porque son el nombre del rol, no del número: el número se cambia en un lugar, el rol no se renombra en doscientos call sites.">
         <div className="flex flex-wrap gap-6 rounded-xl border border-line bg-surface p-4">
-          <div><div className="text-base font-medium">Peso 500</div><Mono>font-medium</Mono></div>
-          <div><div className="text-base font-semibold">Peso 600</div><Mono>font-semibold</Mono></div>
-          <div><div className="font-display text-base font-bold">Peso 700</div><Mono>font-bold · display</Mono></div>
+          <div><div className="text-base font-medium">Peso 400</div><Mono>font-medium · la interfaz</Mono></div>
+          <div><div className="text-base font-semibold">Peso 500</div><Mono>font-semibold · lo accionable</Mono></div>
+          <div><div className="font-display text-base font-bold">Peso 600</div><Mono>font-bold · display</Mono></div>
         </div>
       </Block>
 
@@ -73,7 +73,7 @@ export function TypeSection() {
 
 /**
  * Un espécimen dice qué familia es y, sobre todo, **cuál se está dibujando de
- * verdad**. No es lo mismo: el token puede decir "Geist" y el navegador estar
+ * verdad**. No es lo mismo: el token puede decir "Instrument Sans" y el navegador estar
  * cayendo al `system-ui` del stack porque la fuente no cargó, y con solo el
  * nombre del token escrito al lado se vería igual de bien.
  *
@@ -110,7 +110,7 @@ function Specimen({ family, token, rol, muestra, px, mono }: {
         </span>
       </div>
       {/* El tamaño va por prop y no fijo: `--font-sans` y `--font-display` son
-          la misma familia desde que entró Geist, así que dos tarjetas con el
+          la misma familia, así que dos tarjetas con el
           mismo texto al mismo cuerpo se leen como una duplicada por error. Lo
           que las distingue es para qué está cada rol y a qué tamaño se usa. */}
       <div className={`${family} mt-3 font-semibold`} style={{ fontSize: px, lineHeight: 1.1 }}>

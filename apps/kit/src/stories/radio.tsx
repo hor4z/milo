@@ -14,13 +14,12 @@ export function RadioStory() {
       note="La elección de una entre varias. Es 18, la misma medida del Checkbox y del pulgar del switch, así una fila con los tres queda pareja."
     >
       <Block
-        label="Adentro de una píldora"
-        note="Con `track` el grupo va adentro de una pista apagada, que es la receta de la pista del Segmented — mismo fondo y mismo padding — porque es la misma idea: un contenedor apagado con la pieza elegida flotando adentro."
+        label="El grupo"
+        note="Las opciones van sueltas sobre el papel, sin píldora gris detrás. Una pista apagada con la pieza elegida flotando adentro es la receta del Segmented, y un radio metido ahí es el mismo control dibujado dos veces: opciones cortas que se comparan de un vistazo son un Segmented; opciones que necesitan su propio texto al lado son este grupo."
       >
         <Panel>
           <Variant name="dos opciones">
             <RadioGroup
-              track
               label="Dos opciones"
               value={uno}
               onChange={setUno}
@@ -29,7 +28,6 @@ export function RadioStory() {
           </Variant>
           <Variant name="tres">
             <RadioGroup
-              track
               label="Tres opciones"
               value={modo}
               onChange={setModo}
@@ -44,8 +42,8 @@ export function RadioStory() {
       </Block>
 
       <Block
-        label="Prendido es el pulgar del slider"
-        note="El disco claro con relieve y un punto azul adentro. No es lo mismo que el checkbox, que se llena entero de azul, y la diferencia no es de gusto: una casilla llena sigue leyéndose como casilla, pero un círculo lleno de azul deja de leerse como radio — lo que dice «radio» es el anillo con algo adentro. Así que el azul va donde puede ir sin romper la forma, que es el punto. El color es el mismo de siempre y por la misma regla: es lo que el usuario prendió o confirmó."
+        label="Es el checkbox en redondo"
+        note="Mismo relleno azul prendido, misma receta hundida apagado, misma medida de 18. Lo único que cambia es la forma y la marca de adentro: el checkbox lleva un tilde, el radio un disco blanco. Dos piezas que dicen lo mismo — «esto lo elegí yo» — no pueden dibujarse con dos recetas distintas, o la fila que las tiene juntas se lee como dos sistemas."
       >
         <Panel>
           <Variant name="radio vs checkbox">
@@ -58,25 +56,26 @@ export function RadioStory() {
           </Variant>
         </Panel>
         <p className="mt-3 max-w-[70ch] text-2xs text-ink-muted">
-          Apagado va con el anillo en tinta al 8% y no con un gris opaco: el radio vive tanto
-          sobre el papel como adentro de una pista apagada, y un gris opaco que funciona sobre uno
-          se ve como una línea sucia sobre el otro.
+          El azul es el círculo de afuera y el blanco el de adentro, no al revés: con el papel
+          afuera y el punto azul adentro la pieza pesa lo mismo prendida que apagada, porque lo
+          único que cambia es el disco del medio. Con el relleno afuera, la elegida se ve de una en
+          toda la fila. Y va sin anillo, que era justo lo que lo separaba del checkbox.
         </p>
       </Block>
 
       <Block
-        label="Sueltos"
-        note="Sin `track`, que es lo normal cuando cada opción lleva su etiqueta al lado."
+        label="Con etiqueta al lado"
+        note="El caso para el que existe el radio y no el Segmented: cada opción con su propio texto."
       >
         <Panel>
           <Variant name="con etiqueta">
             <span className="flex items-center gap-5">
               <label className="flex items-center gap-2 text-xs font-medium text-ink">
-                <Radio checked={suelto === 'si'} onChange={() => setSuelto('si')} label="Sí" />
+                <Radio checked={suelto === 'si'} onChange={() => setSuelto('si')} label="Sí, avisarme" />
                 Sí, avisarme
               </label>
               <label className="flex items-center gap-2 text-xs font-medium text-ink">
-                <Radio checked={suelto === 'no'} onChange={() => setSuelto('no')} label="No" />
+                <Radio checked={suelto === 'no'} onChange={() => setSuelto('no')} label="No hace falta" />
                 No hace falta
               </label>
             </span>
@@ -95,7 +94,6 @@ export function RadioStory() {
         <Panel>
           <Variant name="probalo">
             <RadioGroup
-              track
               label="Probá las flechas"
               value={modo}
               onChange={setModo}
@@ -113,12 +111,11 @@ export function RadioStory() {
         <Props rows={[
           { name: 'Radio · checked', type: 'boolean', note: 'obligatorio: es controlado' },
           { name: 'Radio · onChange', type: '() => void', note: 'sin valor: el radio solo se prende' },
-          { name: 'Radio · label', type: 'string', note: 'al aria-label' },
+          { name: 'Radio · label', type: 'string', note: 'al aria-label: el texto visible entero, no un resumen' },
           { name: 'Radio · disabled', type: 'boolean' },
           { name: 'RadioGroup · value', type: 'T', note: 'obligatorio' },
           { name: 'RadioGroup · onChange', type: '(v: T) => void', note: 'obligatorio' },
           { name: 'RadioGroup · options', type: '{ value, label, disabled? }[]', note: 'obligatorio' },
-          { name: 'RadioGroup · track', type: 'boolean', note: 'adentro de una píldora apagada' },
           { name: 'RadioGroup · label', type: 'string', note: 'al aria-label del grupo' },
         ]} />
       </Block>

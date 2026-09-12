@@ -47,8 +47,14 @@
      es Material Symbols, y a FILL 0 tampoco es macizo: son contornos, así que el
      problema es el mismo y el token se queda. Lo que sí cambió es quién lo usa —
      ya no se escribe `text-icon-muted` a mano, va la utilidad `icon-muted`, que
-     pone este color y sube el peso del glifo a 400 en el mismo movimiento. */
-  --icon-muted: #5f5f5f;
+     pone este color y sube el peso del glifo a 400 en el mismo movimiento.
+
+     Y bajó de #5f5f5f a 07 (#323232), a un paso de la tinta. Un contorno fino
+     en gris medio no se lee apagado: se lee borroso, porque lo poco que dibuja
+     un trazo de 1px queda casi en el color del papel. El gris del icono sigue
+     existiendo —hay una jerarquía que sostener— pero ahora es un gris que se
+     ve, y la distancia con el texto que acompaña la pone el peso, no el tono. */
+  --icon-muted: #323232;
 
   /* El azul de marca. Existe para un solo uso: el CTA lleno de la topbar. No es
      un segundo acento —el ámbar sigue siendo el que señala— y por eso no tiene
@@ -68,6 +74,10 @@
   --blue-400: #5199f9;
   --blue-500: #2781f9;
   --blue-600: #1375f8;
+  /* El azul del foco. Va en alpha y no como un cuarto escalón de la rampa: el
+     anillo se dibuja sobre lo que haya abajo —papel, hueco, un botón azul— y un
+     opaco que funciona sobre uno se ensucia sobre el otro. */
+  --blue-500-a45: rgb(39 129 249 / 0.45);
 
   /* Marcas de color: el círculo que identifica una fila en una lista.
      Es la misma excepción que las carpetas de espacios —color propio y acotado
@@ -212,13 +222,18 @@
   --light-a27: rgb(255 255 255 / 0.05);
   --edge: #434343;
   --solid-edge: #d0d0d0;
-  --icon-muted: #a0a0a0;
+  /* El espejo de 07 en oscuro, por el mismo motivo que en claro: a #a0a0a0 un
+     contorno de 1px sobre #131313 no llegaba a dibujarse. */
+  --icon-muted: #c9c9c9;
 
   /* En oscuro el azul sube un paso: el mismo relleno que funciona sobre papel
      casi blanco se apaga sobre #131313. */
   --blue-400: #599ef9;
   --blue-500: #2f86f9;
   --blue-600: #1b7af8;
+  /* Un paso más de alpha que en claro, por lo mismo que el relleno sube un
+     paso: sobre #131313 el azul al 45% se apaga. */
+  --blue-500-a45: rgb(47 134 249 / 0.6);
 
   /* En oscuro la marca se invierte: el relleno pasa a ser el tono profundo y el
      glifo el pastel. Un pastel de relleno sobre #131313 es una mancha de luz

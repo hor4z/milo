@@ -14,6 +14,16 @@ const cara = (n: number) => `/avatars/${String(n).padStart(2, '0')}.webp`
 
 const p = (name: string, foto?: number) => ({ name, src: foto ? cara(foto) : undefined })
 
+/* El estado va en un chip de color y no en texto suelto: es lo único de la fila
+   que se busca de reojo —cuáles están abiertas— y en una columna de texto plano
+   hay que leer las cuatro para saberlo.
+
+   `Borrador` se queda neutro a propósito. El color acá quiere decir "esto está
+   pasando"; un borrador es justamente lo que todavía no pasa, y si las tres
+   opciones llevan color la columna vuelve a ser un bloque parejo que hay que
+   leer entero. */
+const tono = { Abierta: 'green', Corregida: 'blue' } as const
+
 const espacios = [
   {
     nombre: 'Fracciones equivalentes', espacio: 'Matemática · 4.º A', estado: 'Abierta',
@@ -49,7 +59,7 @@ export function TableStory() {
     >
       <Block
         label="La pieza"
-        note="La fila es de 56, la misma que `Row` en un panel de ajustes: las dos son una línea de contenido con un divisor de un píxel, así que compartir el alto es lo que hace que una tabla y un panel puestos uno arriba del otro no se vean de dos sistemas distintos. La cabecera va en 11 con `tracking-wide` y en gris, que es el rol que la escala le da al `2xs`: es metadato, no contenido."
+        note="La fila es de 56, la misma que `Row` en un panel de ajustes: las dos son una línea de contenido con un divisor de un píxel, así que compartir el alto es lo que hace que una tabla y un panel puestos uno arriba del otro no se vean de dos sistemas distintos. La cabecera va en 11 con `tracking-wide` y en tinta: en 11 el tamaño ya dice que es un rótulo, y el gris encima lo apagaba tanto que había que buscar de qué era cada columna. Las filas alternan papel y un paso más oscuro — en una tabla ancha el divisor de un píxel no alcanza para seguir una fila hasta la última columna, la banda sí. Y contra los bordes las celdas llevan 24 en vez de 16: entre dos columnas el aire se reparte entre las dos, contra el canto hay uno solo."
       >
         <Table minWidth={720}>
           <TableHeader>
@@ -71,7 +81,7 @@ export function TableStory() {
                   <AvatarGroup people={a.estudiantes} />
                 </TableCell>
                 <TableCell>
-                  <Chip>{a.estado}</Chip>
+                  <Chip color={tono[a.estado as keyof typeof tono]}>{a.estado}</Chip>
                 </TableCell>
                 <TableNum>{a.entregas || '—'}</TableNum>
               </TableRow>

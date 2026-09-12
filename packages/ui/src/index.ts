@@ -14,7 +14,7 @@ export { cx, fold, labelColors, labelFill, markColors, markFill } from './primit
 export type { LabelColor, MarkColor } from './primitives'
 export {
   Button, IconButton, Switch, Slider, Checkbox, Radio, RadioGroup, Segmented, Select,
-  Chip, Kbd, Avatar, AvatarGroup, Input, Spinner, Card, Row,
+  Chip, Kbd, Avatar, AvatarGroup, Input, Spinner, Card, Row, Divider,
 } from './primitives'
 
 export { Icon, FolderIcon } from './icon'
@@ -27,8 +27,10 @@ export type { FolderColor, IconWeight } from './icon'
 export { codepoints, iconNames } from './icons.gen'
 export type { IconName } from './icons.gen'
 
-export { Portal, Dropdown, Popover, Modal, useScrollLock, useEscape, useFocusTrap } from './overlay'
-export type { MenuItem } from './overlay'
+export { Portal, Dropdown, Popover, Tooltip, Modal, useScrollLock, useEscape, useFocusTrap } from './overlay'
+export type { DropdownItem } from './overlay'
+
+export { Menu, MenuItem, MenuLabel } from './menu'
 
 export {
   Table, TableHeader, TableBody, TableRow, TableHead, TableCell,
@@ -47,3 +49,11 @@ export { Page, PageHeader, SectionLabel, EmptyState } from './page'
 
 export { PrefsProvider, usePrefs } from './prefs'
 export type { Prefs } from './prefs'
+
+/* El modal de ajustes entra al paquete por la misma regla que deja afuera al
+   shell: **no lee `data.ts` ni el router**. Lo único que necesita son las
+   preferencias, que ya viven acá, y quién está mirando, que ahora va por prop —
+   el nombre y el correo de una persona real no son parte de un design system.
+   Con eso, el kit y la app muestran el mismo modal y no dos copias. */
+export { SettingsModal } from './settings-modal'
+export type { SettingsUser } from './settings-modal'

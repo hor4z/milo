@@ -5,11 +5,11 @@ export function SpinnerStory() {
   return (
     <Section
       title="Spinner"
-      note="Pista completa más un arco encima, los dos del mismo grosor. La pista no es decorativa: sin ella, un arco suelto girando no dice «esperá», dice que falta un trozo de la interfaz."
+      note="Pista completa más un arco encima, los dos del mismo grosor. La pista no es decorativa: sin ella, un arco suelto girando no dice «esperá», dice que falta un trozo de la interfaz. El arco es de largo fijo y lo único que pasa es que gira, parejo."
     >
       <Block
         label="Tamaños"
-        note="El trazo no escala con el tamaño: 3 a los 20 y 3 a los 44. Un anillo fino en grande se ve frágil, pero un anillo proporcional en chico se tapa a sí mismo —el agujero desaparece— y deja de leerse como anillo. Abajo de 16 baja a 2."
+        note="El trazo sí escala: es el 17% del diámetro a cualquier tamaño, que es la proporción de la referencia. Con el trazo fijo, el de 44 quedaba en 3 sobre 44 —un hilo— al lado del de 20 en 3 sobre 20: dos piezas del mismo componente que no se parecían entre sí. Abajo de 12 hay un piso de 2px, para que el trazo no caiga en el medio píxel y el antialias lo apague en vez de adelgazarlo."
       >
         <Panel>
           <Variant name="16 · 20 · 28 · 44">
@@ -41,7 +41,7 @@ export function SpinnerStory() {
 
       <Block label="Props">
         <Props rows={[
-          { name: 'size', type: 'number', def: '20', note: 'el trazo no lo sigue' },
+          { name: 'size', type: 'number', def: '20', note: 'el trazo lo sigue: 17% del diámetro' },
           { name: 'label', type: 'string', def: "'Cargando'", note: 'al aria-label; el rol es status' },
           { name: 'on', type: "'surface' | 'solid'", def: "'surface'", note: 'sobre qué está apoyado: de ahí salen el filo y la pista' },
           { name: 'className', type: 'string' },

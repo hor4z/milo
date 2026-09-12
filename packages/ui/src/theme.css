@@ -7,7 +7,7 @@
 @source "./**/*.{ts,tsx}";
 
 /* La fuente de iconos. Va commiteada y no pedida a Google en cada carga, y el
-   motivo no es el mismo que el de Geist: una fuente de texto que no carga
+   motivo no es el mismo que el de una fuente de texto: una de texto que no carga
    degrada a system-ui y se sigue leyendo; una fuente de iconos que no carga
    deja tofu. Los iconos no tienen fallback.
 
@@ -72,7 +72,11 @@
   user-select: none;
   font-variant-ligatures: none;
   -webkit-font-smoothing: antialiased;
-  font-variation-settings: "FILL" var(--icon-fill, 0), "wght" var(--icon-wght, 300);
+  /* `FILL` clavado en 0 y sin variable: todos los glifos son de contorno. Con
+     un `var(--icon-fill, 0)` el relleno quedaba a un paso de distancia y el set
+     se mezclaba solo — el mismo corazón relleno en la nav y hueco en la paleta.
+     Lo que separa una marca de un acompañante es el peso y el tamaño. */
+  font-variation-settings: "FILL" 0, "wght" var(--icon-wght, 300);
 }
 
 /* Los escalones que Tailwind no trae por nombre. El resto de la escala vive en
@@ -80,6 +84,24 @@
    usa; estas no existen para él, así que si no se declaran acá el token queda
    definido y la utilidad no hace nada. */
 @theme {
+  /* Los tres pesos, bajados un escalón entero. El sistema entero estaba escrito
+     en 500 · 600 · 700, y esos números se eligieron mirando **Inter** a 12px,
+     donde el 400 se leía lavado sobre un fondo casi blanco. Instrument Sans
+     dibuja más grueso al mismo número —tiene la x más alta y el trazo más
+     ancho—, así que ese 500 de interfaz que con Inter apenas alcanzaba, acá
+     pesa: la pantalla entera se ve en negrita.
+
+     Se cambia acá y no en cada call site a propósito. Los pesos del sistema son
+     tres **roles** —la interfaz, lo accionable, el display— y las utilidades de
+     Tailwind son el nombre que les pusimos. Cambiar el rol es cambiar el número
+     al que apunta, una vez; renombrar 200 clases para decir lo mismo no.
+
+     El costo de hacerlo así, y hay que saberlo: `font-medium` ahora escribe
+     400. La clase miente sobre el número y dice la verdad sobre el rol. */
+  --font-weight-medium: 400;    /* la interfaz */
+  --font-weight-semibold: 500;  /* lo accionable y los títulos de fila */
+  --font-weight-bold: 600;      /* solo display */
+
   --text-2xs: 11px;
   --text-2xs--line-height: 16px;
   --text-md: 16px;
@@ -203,55 +225,85 @@
 * { box-sizing: border-box; }
 html, body, #root { min-height: 100%; margin: 0; }
 
-/* La interfaz entera es 12px con peso 500 y line-height fijo de 16. El 500 de
-   base se decidió contra Inter, donde el 400 a 12px se leía lavado sobre un
-   fondo casi blanco. La familia ahora es Geist y ese número no se volvió a
-   mirar: queda en 500 porque es lo que hay, no porque esté medido de nuevo. */
+/* La interfaz entera es 12px con peso 400 y line-height fijo de 16. Estuvo años
+   en 500, y ese 500 se decidió mirando **Inter**, donde el 400 a 12px se leía
+   lavado sobre un fondo casi blanco. Instrument Sans dibuja más grueso al mismo
+   número, así que el 500 que con Inter apenas alcanzaba acá pesaba: la pantalla
+   entera se veía en negrita. Bajaron los tres escalones juntos, no solo este:
+   400 la interfaz, 500 lo accionable, 600 el display. */
+/* **Sin `-webkit-font-smoothing: antialiased` y sin `text-rendering:
+   optimizeLegibility`**, y las dos ausencias son la decisión.
+
+   `antialiased` no mejora el antialias: lo apaga. Le dice a Chrome que deje el
+   subpíxel y rasterice en escala de grises, y el subpíxel es exactamente lo que
+   da nitidez cuando la pantalla tiene un píxel físico por píxel CSS. La receta
+   circula porque en un panel 2x adelgazar el texto queda mejor, y ahí sobra
+   resolución para perder; en 1x, que es donde se está mirando esto, el mismo
+   ajuste deja la interfaz entera lavada — que es lo que se veía. `auto` decide
+   por pantalla, que es lo que hay que dejarlo hacer.
+
+   `optimizeLegibility` tampoco agrega: el kerning y las ligaduras ya vienen
+   prendidos, así que lo único que quedaba era su costo. */
 body {
   background: var(--canvas);
   color: var(--text);
   font-family: var(--font-sans);
   font-size: var(--text-xs);
-  font-weight: 500;
+  font-weight: 400;
   line-height: var(--leading-ui);
-  -webkit-font-smoothing: antialiased;
-  text-rendering: optimizeLegibility;
 }
-h1, h2, h3 { font-family: var(--font-sans); font-weight: 500; letter-spacing: var(--tracking-tight); margin: 0; }
+h1, h2, h3 { font-family: var(--font-sans); font-weight: 400; letter-spacing: var(--tracking-tight); margin: 0; }
 
 /* Los números de un precio o de una métrica se alinean en columna: sin esto, el
    1 es más angosto que el 4 y una tabla de números baila. */
 .tabular { font-variant-numeric: tabular-nums; }
 
+/* Ninguna receta de relieve escribe `box-shadow` directo: escriben `--relief`,
+   y el `box-shadow` sale de ahí. El motivo es el foco. El anillo también es un
+   `box-shadow`, así que la regla de `:focus-visible` pisaba la sombra entera y
+   un botón enfocado con teclado quedaba plano — justo en el momento en que lo
+   estás mirando. Con el relieve en una variable, la regla de foco lo suma en
+   vez de reemplazarlo, una vez y para todas las variantes.
+
+   `inherits: false` es la mitad que importa: las custom properties se heredan,
+   y sin esto el relieve de un botón se lo comía cualquier hijo enfocable que
+   tuviera adentro. */
+@property --relief {
+  syntax: "*";
+  inherits: false;
+}
+
 /* El botón gris con relieve: degradado, luz interior arriba, anillo y una
    sombra corta. Va como clase y no como utilidad porque son cuatro capas que
    tienen que viajar juntas. */
 .raised {
+  --relief: var(--relief-raised);
   background: var(--grad-raised);
-  box-shadow: var(--relief-raised);
+  box-shadow: var(--relief);
 }
 .raised:hover { filter: brightness(0.985); }
-.raised:active { box-shadow: var(--relief-inset); filter: brightness(0.97); }
+.raised:active { --relief: var(--relief-inset); filter: brightness(0.97); }
 
 /* El sólido oscuro con su relieve. */
-.raised-solid { box-shadow: var(--relief-solid); }
-.raised-solid:active { box-shadow: var(--relief-inset); }
+.raised-solid { --relief: var(--relief-solid); box-shadow: var(--relief); }
+.raised-solid:active { --relief: var(--relief-inset); }
 
 /* El CTA azul: el degradado y las cuatro capas del relieve de marca. Al
    apretarlo NO pasa a `--relief-inset`, que es gris y sobre azul se ve como una
    mancha: se hunde con su propio labio, oscureciendo el relleno un punto. */
 .raised-brand {
+  --relief: var(--relief-brand);
   background: var(--grad-brand);
-  box-shadow: var(--relief-brand);
+  box-shadow: var(--relief);
 }
 .raised-brand:hover { filter: brightness(1.06) saturate(1.04); }
-.raised-brand:active { filter: brightness(0.94); box-shadow: var(--relief-brand-pressed); }
+.raised-brand:active { filter: brightness(0.94); --relief: var(--relief-brand-pressed); }
 
 /* Un toggle activo: hundido mientras su panel está abierto. */
-.pressed { box-shadow: var(--relief-pressed); }
+.pressed { --relief: var(--relief-pressed); box-shadow: var(--relief); }
 
 /* Lo hundido: un kbd, la pista de un segmented. */
-.inset-relief { box-shadow: var(--relief-inset); }
+.inset-relief { --relief: var(--relief-inset); box-shadow: var(--relief); }
 
 /* La marca de una fila de lista: el degradado y las tres capas del relieve.
    Va como clase por lo mismo que las otras —las capas viajan juntas— y además
@@ -394,8 +446,8 @@ h1, h2, h3 { font-family: var(--font-sans); font-weight: 500; letter-spacing: va
   gap: 2px;
   max-width: calc(var(--folder-w) * 1.1);
 }
-.folder-name { font-size: var(--text-xs); font-weight: 600; color: var(--text); }
-.folder-meta { font-size: var(--text-2xs); font-weight: 500; color: var(--text-muted); }
+.folder-name { font-size: var(--text-xs); font-weight: 500; color: var(--text); }
+.folder-meta { font-size: var(--text-2xs); font-weight: 400; color: var(--text-muted); }
 
 @media (prefers-reduced-motion: reduce) {
   /* Sin movimiento no se puede abanicar, así que las hojas se quedan afuera:
@@ -535,7 +587,7 @@ h1, h2, h3 { font-family: var(--font-sans); font-weight: 500; letter-spacing: va
    está sobre el color. */
 .book-title {
   color: var(--text);
-  font-weight: 600;
+  font-weight: 500;
   letter-spacing: -0.02em;
   line-height: 1.25;
   text-wrap: balance;
@@ -569,12 +621,60 @@ h1, h2, h3 { font-family: var(--font-sans); font-weight: 500; letter-spacing: va
 .switch-track-off { background: var(--switch-off); box-shadow: var(--switch-off-inset); }
 .switch-thumb { background: var(--switch-thumb); box-shadow: var(--switch-thumb-shadow); }
 
-/* El anillo de foco, una vez y para todos los roles. `:focus-visible` y no
-   `:focus`: con el segundo, un click deja el anillo puesto. */
-:where(a, button, input, select, textarea, [tabindex]):focus-visible {
-  outline: none;
+/* Las filas alternadas de una tabla.
+
+   Va **adentro de `@layer base`**, y ahí está todo el asunto. Como regla suelta
+   —fuera de capa— le gana a cualquier utilidad de Tailwind por más específica
+   que sea, porque lo que está fuera de capa gana siempre: la cebra se comía el
+   hover y la fila elegida, que son `bg-muted`. Adentro de `base` pasa lo
+   contrario, que es lo que queremos: la banda es el fondo de descanso y
+   cualquier estado la tapa.
+
+   Y es una regla y no un `even:` de utilidad porque entre dos utilidades de la
+   misma capa decide el orden en que Tailwind las emite, que no es algo que uno
+   elija. */
+@layer base {
+  .zebra tbody tr:nth-child(even) { background: var(--surface-alt); }
+}
+
+/* El campo de texto. En reposo no escribe ninguna sombra: la caja es el fondo y
+   el borde de un píxel, y eso lo ponen dos utilidades en el componente. Lo
+   único que queda acá es el foco, y sigue siendo una clase y no una utilidad
+   porque el anillo NO va cuando el foco lo tiene un botón de adentro del campo:
+   ahí la marca es del botón. Eso es un `:has()`, y como utilidad no se escribe.
+   Va con `:focus` y no con `:focus-visible` a propósito: clickear ese botón
+   igual mueve el foco adentro del campo, y si el campo se enciende por un click
+   que no es suyo, la marca deja de querer decir "acá escribís". */
+.field:focus-within:not(:has(button:focus, a:focus, [tabindex]:focus)) {
   box-shadow: var(--focus-ring);
 }
+/* Y el input de adentro se queda sin el suyo. Tiene que estar acá y no como
+   utilidad en el componente: la regla global de foco no vive en ninguna capa, y
+   una utilidad de Tailwind sí — lo que está fuera de capa le gana a lo que está
+   adentro por más específico que sea. Un `focus-visible:shadow-none` puesto en
+   el input no hace nada, en silencio. */
+.field input:focus-visible { box-shadow: none; }
+
+/* El anillo de foco, una vez y para todos los roles. `:focus-visible` y no
+   `:focus`: con el segundo, un click deja el anillo puesto.
+
+   El relieve de la pieza va adelante del anillo y en la misma declaración. Sin
+   eso, esta regla reemplazaba la sombra entera y el botón enfocado quedaba
+   plano: se le iba el degradado del canto, la luz de arriba y la caída, o sea
+   todo lo que lo hace un botón. El `0 0 #0000` es para las piezas que no tienen
+   relieve — un link, un item de nav— donde `--relief` no está puesto. */
+:where(a, button, input, select, textarea, [tabindex]):focus-visible {
+  outline: none;
+  box-shadow: var(--relief, 0 0 #0000), var(--focus-ring);
+}
+
+/* El contenedor del diálogo no muestra anillo. Tiene `tabindex="-1"` y se
+   enfoca solo para atrapar el foco —nadie tabuló hasta él— así que el anillo no
+   avisa de nada: dibuja un halo de 4px alrededor de un panel de 620 apenas se
+   abre. La regla va suelta y no como utilidad por lo de siempre: la de foco
+   tampoco está en ninguna capa, y lo que está fuera de capa le gana a lo que
+   está adentro. */
+[role="dialog"]:focus-visible { box-shadow: none; }
 
 /* En Tailwind v4 el preflight deja los <button> con la flecha del navegador:
    nada se siente clickeable. Se resuelve una vez acá, sobre los roles. */
@@ -597,9 +697,17 @@ h1, h2, h3 { font-family: var(--font-sans); font-weight: 500; letter-spacing: va
    que pasa es que gira. Tuvo dos —la vuelta y un latido que abría y cerraba el
    arco— y el latido se fue: parecerse a una barra de progreso que no avanza es
    peor que no parecerse a nada, y en el extremo cerrado el arco se encogía
-   hasta ser un punto, que se lee como un glitch y no como una espera. */
+   hasta ser un punto, que se lee como un glitch y no como una espera.
+
+   La vuelta va pareja, y esto quedó probado a la mala. Se intentaron dos
+   versiones con la velocidad modulada —un ciclo de tres vueltas con curva, y
+   una base constante con un vaivén sumado— con el argumento de que a velocidad
+   constante el arco no le da al ojo dónde engancharse. Las dos se vieron peor:
+   la primera frena tanto en el valle que se lee trabada, y la segunda vibra.
+   Un arco de largo fijo girando parejo dice una sola cosa y la dice siempre
+   igual, que es todo lo que un spinner tiene que hacer. */
 @keyframes ui-spin { to { transform: rotate(360deg) } }
-.spin { animation: ui-spin 900ms linear infinite; }
+.spin { animation: ui-spin 600ms linear infinite; }
 
 @media (prefers-reduced-motion: reduce) {
   /* Sin movimiento el spinner no puede decir nada —es lo único que avisa que
