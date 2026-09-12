@@ -11,19 +11,7 @@ export function navItemClass({
     'flex h-10 items-center gap-3 rounded-lg text-left text-body font-semibold',
     'transition-[background-color,box-shadow] duration-fast ease-out',
     collapsed ? 'justify-center px-0' : 'pr-3 pl-[3px]',
-    // **El item actual va en el azul suave**, y esto cambió. La regla vieja decía
-    // que el estado activo se marca con relieve y nunca con color, y el motivo
-    // escrito era que la interfaz es monocroma y el azul es el único acento que
-    // hay: gastarlo acá lo dejaba sin decir nada donde importa.
-    //
-    // Esa premisa se cayó. El azul dejó de ser una excepción acotada al CTA y
-    // pasó a ser el color primario con rampa de diez pasos, así que ya no hay un
-    // acento que se gaste. Y «dónde estoy» es exactamente lo que un color
-    // primario sabe hacer mejor que una pastilla gris: en un riel de doce
-    // entradas, el gris hay que buscarlo y el azul se encuentra sin leer.
-    //
-    // El relieve no se fue: sigue marcando lo que se aprieta. Lo que cambió es
-    // que dejó de tener que marcar también dónde estás parado.
+    // Orientación va en azul; preferencia, en relieve. La regla está en CLAUDE.md.
     active
       ? 'bg-brand-soft text-brand-ink shadow-[0_0_0_1px_var(--brand-border)]'
       : muted
@@ -43,7 +31,7 @@ export function NavItemBody({
   label: string
   /** Hundido como un kbd: un contador no es accionable. */
   badge?: string
-  /** Dónde estás parado. Se marca con relieve y canto, no con color. */
+  /** Dónde estás parado. Se marca con el azul primario y su canto. */
   active?: boolean
   /** El riel de 72: queda el icono y nada más. */
   collapsed?: boolean
@@ -76,11 +64,7 @@ export function NavItemBody({
 
 /** La sangría de los subitems: la columna del texto del padre, no un valor nuevo. */
 export function navSubItemClass({ active }: { active?: boolean } = {}) {
-  // El inactivo va en **tinta**, no en gris, y el activo se marca con el mismo
-  // fondo y canto que su padre. Es la regla del sistema —el estado activo se
-  // marca con relieve o con canto, nunca tiñendo el texto— y acá estaba rota:
-  // con la etiqueta apagada, una lista de siete espacios se lee como si
-  // estuviera deshabilitada entera. El padre ya la cumplía; el hijo no.
+  // El inactivo va en tinta: en gris, una lista de siete se lee deshabilitada.
   return cx(
     'flex h-9 items-center rounded-lg pr-3 pl-12 text-left text-body font-semibold',
     'transition-[background-color,box-shadow] duration-fast ease-out',

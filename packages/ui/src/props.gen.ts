@@ -1246,7 +1246,7 @@ export const propsByComponent: Record<string, ComponentDoc> = {
         "name": "active",
         "type": "boolean",
         "required": false,
-        "doc": "Dónde estás parado. Se marca con relieve y canto, no con color."
+        "doc": "Dónde estás parado. Se marca con el azul primario y su canto."
       },
       {
         "name": "collapsed",
@@ -2082,7 +2082,7 @@ export const propsByComponent: Record<string, ComponentDoc> = {
       }
     ],
     "html": "button",
-    "doc": "Una solapa. El activo se marca con una línea, no con color."
+    "doc": "Una solapa. El activo se marca con la línea y el azul primario."
   },
   "TabPanel": {
     "props": [

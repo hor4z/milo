@@ -7,7 +7,7 @@ export function LinkStory() {
       title="Link"
       kind="Superficies"
       imports="import { Link } from '@milo/ui'"
-      lead="Un enlace lleva subrayado, siempre. Sin él, lo único que lo distingue del texto que lo rodea es el color, y en una interfaz monocroma no hay color que lo distinga: el subrayado no es decoración, es la única señal que queda."
+      lead="Un enlace lleva subrayado, siempre. El azul primario está tomado —lo usan el CTA y el estado activo— así que teñir un enlace lo confundiría con una de esas dos cosas. El subrayado no es decoración: es la única señal que queda."
     >
       <Section
         title="Adentro de un párrafo"

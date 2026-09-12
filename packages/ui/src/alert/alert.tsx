@@ -19,16 +19,10 @@ export function Alert({ tone = 'info', icon, onDismiss, className, children, ...
   return (
     <div
       role={tone === 'bad' ? 'alert' : 'status'}
-      // El papel es el del tono y no `--surface`. Un aviso blanco apoyado sobre
-      // una tarjeta blanca no se diferencia de lo que lo rodea, que es lo único
-      // que un aviso tiene que hacer. El borde también sale del tono: uno neutro
-      // alrededor de un fondo teñido se ve como algo pegado encima.
       className={cx('flex gap-3 rounded-xl border p-4', toneSurface[tone], className)}
       {...props}
     >
       {glyph && (
-        // Sin cuadradito: sobre el papel del tono, una caja del mismo tono un
-        // paso más fuerte se lee como un parche. El glifo va suelto y en tinta.
         <span className={cx('flex size-5 shrink-0 items-center justify-center', toneInk[tone])}>
           <Icon name={glyph} size={18} />
         </span>

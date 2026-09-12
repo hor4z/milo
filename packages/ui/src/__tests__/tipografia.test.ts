@@ -23,9 +23,8 @@ function tracking(role: string): number {
 
 describe('la escala tipográfica', () => {
   it('cada rol declara sus tres valores', () => {
-    // El bug que esto custodia: de nueve escalones viejos, solo tres declaraban
-    // interlineado. `text-base` se quedó sin el suyo y Tailwind le puso el de la
-    // casa —21px donde la doctrina decía 16— sin que nadie se enterara.
+    // De los nueve escalones viejos solo tres declaraban interlineado, y Tailwind
+    // le ponía el de la casa a los otros sin que nadie se enterara.
     const incompletos = roles.filter(r =>
       !new RegExp(`--type-${r}:`).test(scales) ||
       !new RegExp(`--type-${r}-lh:`).test(scales) ||
@@ -44,8 +43,7 @@ describe('la escala tipográfica', () => {
   })
 
   it('los nombres viejos están apagados', () => {
-    // Sin esto, los valores que trae Tailwind resucitan: `text-xs` volvería a ser
-    // 12px y un call site olvidado andaría con el tamaño equivocado, en silencio.
+    // Sin esto los valores de Tailwind resucitan y `text-xs` vuelve a ser 12px.
     expect(theme).toMatch(/--text-\*:\s*initial/)
   })
 
@@ -76,10 +74,7 @@ describe('la escala tipográfica', () => {
   })
 
   it('la curva de interlineado tiene su máximo en el rol de lectura', () => {
-    // No es «más chico, más aire»: es «el que se lee de corrido, más aire». Los
-    // dos roles de abajo son cromo de una sola línea —un badge, la cabecera de
-    // una columna— donde lo que importa es que la caja no crezca, y de `reading`
-    // para arriba la caja se aprieta porque a 40px el aire sobra solo.
+    // No es «más chico, más aire» sino «el que se lee de corrido, más aire».
     const ratios = roles.map(r => size(`type-${r}-lh`) / size(`type-${r}`))
     const pico = ratios.indexOf(Math.max(...ratios))
     expect(roles[pico]).toBe('reading')
@@ -96,10 +91,7 @@ describe('la escala tipográfica', () => {
   })
 
   it('el tracking cruza el cero en la base y nunca sube', () => {
-    // Positivo donde la letra es chica y se empasta, negativo donde es grande y
-    // se despega. Es lo que hace el eje óptico de San Francisco. La regla vieja
-    // hacía lo contrario —-0.015em a todos los h1-h3, medido contra Inter a
-    // 12px— y apretar la letra chica es exactamente cómo se pierde nitidez.
+    // Positivo donde la letra se empasta, negativo donde se despega.
     const ls = roles.map(tracking)
     expect(ls).toEqual([...ls].sort((a, b) => b - a))
     expect(tracking('meta')).toBeGreaterThan(0)

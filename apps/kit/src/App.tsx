@@ -61,14 +61,8 @@ type Group = { label: string; stories: Story[] }
 const INTRO = 'intro'
 
 const groups: Group[] = [
-  // Fundamentos es la capa de la que sale todo lo demás, así que va primero y
-  // se lleva lo que antes estaba repartido entre "Guía" y "Tokens" — dos grupos
-  // que se distinguían por si el contenido era un valor o una regla, cuando el
-  // que busca no sabe ni le importa cuál de las dos cosas está buscando.
-  //
-  // El orden adentro no es alfabético: Principios y Accesibilidad son las dos
-  // que hay que leer antes de tocar nada, y después van las capas en el orden
-  // en que se construye una pantalla.
+  // El orden no es alfabético: las dos primeras son las que hay que leer antes
+  // de tocar nada, y después van las capas en el orden en que se arma una pantalla.
   {
     label: 'Fundamentos',
     stories: [

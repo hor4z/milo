@@ -16,11 +16,7 @@ export function Card({ children, className, interactive, surface = 'paper' }: {
       className={cx(
         'rounded-2xl p-2',
         surface === 'muted' ? 'bg-muted' : 'bg-surface shadow-card',
-        // Sube la sombra y **no se mueve**. El `-translate-y` que había acá
-        // contradecía la regla que el propio sistema tiene escrita: una grilla
-        // que salta hace temblar la vista entera, y el salto no informa nada
-        // porque ya sabías dónde tenías el mouse. La sombra dice lo mismo —esto
-        // responde— sin mover el contenido de lugar.
+        // Sube la sombra y no se mueve: una grilla que salta hace temblar la vista.
         interactive && 'transition-[box-shadow] duration-normal ease-out hover:shadow-toolbar',
         className,
       )}

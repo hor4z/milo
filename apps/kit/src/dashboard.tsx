@@ -69,7 +69,7 @@ export function Dashboard() {
           </Tooltip>
           <Button
             size="sm"
-            variant="solid"
+            variant="brand"
             icon="add"
             onClick={() => toast({ title: 'Actividad creada', body: 'Quedó en borrador', tone: 'ok' })}
           >
@@ -85,9 +85,7 @@ export function Dashboard() {
         <Stat label="Estudiantes" value="96" delta="+4" icon="group" />
       </div>
 
-      {/* `items-start` y no el estiramiento por default: sin esto las dos columnas
-          se igualan a la más alta y el chart queda con medio lienzo vacío abajo
-          para acompañar a la de al lado. Cada una mide lo que mide. */}
+      {/* `items-start`: sin esto el chart se estira para igualar a la de al lado. */}
       <div className="grid items-start gap-6 lg:grid-cols-[1.55fr_1fr]">
         <div className="flex flex-col gap-6">
           <Card className="flex flex-col gap-5 p-6">
@@ -106,9 +104,6 @@ export function Dashboard() {
             />
           </Card>
 
-          {/* Las carpetas: la pieza que mejor cuenta de qué se trata el producto,
-              y la que el dashboard no mostraba. Van acá abajo del chart para que
-              la columna izquierda pese lo mismo que la derecha. */}
           <section className="flex flex-col gap-4">
             <div className="flex items-center justify-between gap-4">
               <h2 className="text-reading font-semibold text-ink">Tus espacios</h2>
@@ -130,10 +125,7 @@ export function Dashboard() {
           </section>
         </div>
 
-        {/* La tarjeta va en `muted` y no en papel, y es a propósito: adentro lleva
-            `ListItem`s, que son papel. Sobre una tarjeta blanca serían blanco
-            sobre blanco — el mismo bug que el sistema acaba de sacarse de encima.
-            En `muted` la tarjeta hace de bandeja y las filas flotan. */}
+        {/* En `muted` y no en papel: adentro lleva `ListItem`s, que son papel. */}
         <Card surface="muted" className="flex flex-col gap-5 p-6">
           <div className="flex flex-col gap-3">
             <div className="flex items-center justify-between gap-4">

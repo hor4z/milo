@@ -21,11 +21,6 @@ export function Chip({
   /** Lo convierte en <button>. */
   onClick?: () => void
 }) {
-  // El relleno es el par suave y no el vivo, y el motivo es que un chip nunca
-  // viene solo: hay cinco o seis en una fila. Seis rellenos saturados uno al
-  // lado del otro compiten entre sí y con todo lo que tienen alrededor, y la
-  // tinta oscura encima de un tono vivo se lee como una etiqueta de precio. Con
-  // el par suave el color sigue clasificando de un vistazo y deja de gritar.
   const box = cx(
     'inline-flex min-h-7 items-center gap-2 rounded-lg px-2 text-body font-semibold',
     'transition-[background-color,color] duration-fast ease-out',
@@ -37,9 +32,7 @@ export function Chip({
     onClick && !active && (color ? 'hover:brightness-95' : 'hover:bg-sunken'),
   )
 
-  // El glifo y el punto heredan el color del texto, así que no llevan clase
-  // propia: son del mismo tono que la etiqueta y se apagan con ella cuando el
-  // chip pasa a activo.
+  // Sin clase de color: heredan el del texto y se apagan con él cuando va activo.
   const mark = dot
     ? <span aria-hidden="true" className="size-1.5 shrink-0 rounded-full bg-current" />
     : icon

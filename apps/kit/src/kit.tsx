@@ -25,10 +25,7 @@ export function useTokens(names: readonly string[]) {
   return vals
 }
 
-// Dos marcas y ninguna más: backticks para el código y `**` para lo que hay que
-// leer sí o sí. No es un renderizador de markdown y no tiene que serlo — en
-// cuanto acepte tres marcas, las notas del kit se van a escribir en un markdown
-// a medias que nadie documentó.
+// Dos marcas y ninguna más: con tres, las notas pasan a ser markdown a medias.
 function Rich({ text }: { text: string }) {
   const parts = text.split(/(`[^`]+`|\*\*[^*]+\*\*)/g)
   return (
@@ -114,7 +111,9 @@ export function Canvas({ children, className, pad = true }: { children: ReactNod
   return (
     <div
       className={cx(
-        'relative overflow-hidden rounded-2xl border border-line bg-muted',
+        // El lienzo va en papel y no en `bg-muted`: con el hueco puesto acá, un
+        // botón `muted` quedaba del mismo tono que su propio fondo.
+        'relative overflow-hidden rounded-2xl border border-line bg-surface',
         pad && 'p-6',
         className,
       )}

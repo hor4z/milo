@@ -61,7 +61,7 @@ export function TabList({ className, children, ...props }: ComponentPropsWithout
   )
 }
 
-/** Una solapa. El activo se marca con una línea, no con color. */
+/** Una solapa. El activo se marca con la línea y el azul primario. */
 export function Tab({ value, className, children, ...props }: ComponentPropsWithoutRef<'button'> & {
   /** Ata la solapa a su panel. */
   value: string
@@ -79,11 +79,6 @@ export function Tab({ value, className, children, ...props }: ComponentPropsWith
       onClick={() => setValue(value)}
       className={cx(
         'relative -mb-px h-9 px-3 text-body font-semibold transition-colors',
-        // La solapa elegida va en el azul, por lo mismo que el item de nav: unas
-        // solapas dicen dónde estás dentro de una pantalla, y eso es orientación
-        // y no una preferencia. Un `Segmented` no lleva azul aunque se le
-        // parezca — ahí lo que se elige es un filtro, que es una decisión que
-        // cambia diez veces por minuto y no un lugar donde estás parado.
         active ? 'text-brand-ink' : 'text-ink-muted hover:text-ink',
         className,
       )}

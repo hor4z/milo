@@ -18,7 +18,7 @@ export function ReliefSection() {
     <Page
       title="Relieve"
       kind="Fundamentos"
-      lead="Es lo que le da carácter al sistema y lo que más costó acertar. Cinco recetas, todas mezclando luz interior arriba y sombra abajo. El estado activo se marca con relieve y no con color: distingue más que teñir el texto, y no gasta el color primario en algo que no lo necesita."
+      lead="Es lo que le da carácter al sistema y lo que más costó acertar. Cinco recetas, todas mezclando luz interior arriba y sombra abajo. Marca lo que se aprieta y lo que sobresale; dónde estás parado lo marca el azul, que para eso es el primario."
     >
       <Note icon="layers" title="Lo que el relieve dejó de tener que hacer">
         Durante un tiempo el relieve era lo único que separaba una tarjeta del fondo: el papel de

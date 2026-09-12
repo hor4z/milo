@@ -13,11 +13,7 @@ const shortcuts: { id: string; icon: IconName; title: string; body: string }[] =
   { id: 'dashboard', icon: 'dashboard', title: 'Dashboard', body: 'Todo junto, funcionando en una pantalla real.' },
 ]
 
-// `views` y no `pieces`: cuenta lo que el riel tiene, que desde que Fundamentos
-// existe son vistas de documentación además de piezas. Antes decía "piezas" y
-// daba 48 por casualidad —siete guías más cuarenta y una historias—; con dos
-// fundamentos más pasó a 50 y la casualidad se notó. Las piezas de verdad son
-// 48 carpetas en `packages/ui`, y eso lo custodia un test del paquete.
+// `views` y no `pieces`: el riel tiene vistas de documentación además de piezas.
 export function Intro({ go, views }: { go: (id: string) => void; views: number }) {
   const [demo, setDemo] = useState(true)
 

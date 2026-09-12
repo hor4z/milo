@@ -18,13 +18,9 @@ describe('las vistas del kit', () => {
   })
 
   it('el sitio usa la misma escala que el paquete', () => {
-    // El guardián de `packages/ui` mira solo el paquete, y el kit se escapó
-    // durante todo este tiempo: tenía un `text-[clamp(...)]` en la portada y un
-    // `text-[10px]` en la tabla de props justamente porque nadie lo miraba.
-    //
-    // La única excepción es el tamaño relativo en `em`: el código inline tiene
-    // que ser un poco más chico que la prosa que lo rodea, sea cual sea, y eso
-    // ningún rol fijo lo puede expresar.
+    // El guardián de `packages/ui` mira solo el paquete y el kit se escapaba. La
+    // única excepción es el tamaño en `em`: el código inline tiene que ser más
+    // chico que la prosa que lo rodea, y eso ningún rol fijo lo expresa.
     const dir = join(import.meta.dirname, '..')
     const walk = (base: string, prefix = ''): string[] =>
       readdirSync(base, { withFileTypes: true }).flatMap(e =>
@@ -34,9 +30,8 @@ describe('las vistas del kit', () => {
       )
 
     const prohibido = /\btext-(2xs|xs|sm|base|md|lg|xl|2xl)\b|text-\[(?![\d.]+em\])|\b(leading|tracking)-(\[|none|tight|normal|snug|relaxed|loose|wide|wider|widest)|\bduration-(\[|\d)/
-    // Lo que va entre backticks es prosa, no clase: así se nombra el código en
-    // las notas del kit, y la vista de tipografía cuenta la historia del nombre
-    // viejo. Sin esta línea, documentar el bug lo reintroduce.
+    // Lo que va entre backticks es prosa, no clase: sin esto, documentar el
+    // nombre viejo lo reintroduce.
     const offenders = walk(dir)
       .filter(f => prohibido.test(readFileSync(join(dir, f), 'utf8').replace(/`[^`]*`/g, '')))
     expect(offenders).toEqual([])

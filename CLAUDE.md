@@ -222,8 +222,11 @@ deriva y no se elige**: tono y croma salen del azul de siempre, la luminosidad b
 croma sube al medio y cae en los extremos. **El 600 está anclado**: es el escalón donde el blanco
 encima llega exactamente a 4.5:1, y por eso es el relleno del CTA. Eso saldó la única deuda de
 accesibilidad que el sistema arrastraba — el botón daba 2.89:1 arriba del degradado y 3.75:1
-abajo. Ahora el degradado va de 600 a 700 y pasa AA de punta a punta. `solid` y `brand` siguen
-siendo el mismo rol: va uno o el otro, nunca los dos en la misma pantalla.
+abajo. Ahora el degradado va de 600 a 700 y pasa AA de punta a punta.
+
+**`brand` es el botón que manda** y hay uno por pantalla. `solid` pasa a ser el mismo rol en tinta,
+para donde el azul no se puede usar: adentro de un aviso teñido, o sobre una superficie que ya es
+azul. Va uno o el otro, nunca los dos en la misma pantalla.
 
 El anillo de foco es el único lugar donde el color es la señal y no el acompañante, y se defiende
 solo: los otros usos son roles —esto manda, esto está cargando—, este es un estado del teclado y es

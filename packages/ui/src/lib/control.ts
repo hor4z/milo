@@ -1,8 +1,8 @@
-/** `solid` y `brand` son el mismo rol —el botón que manda—: va uno o el otro, nunca los dos en la misma pantalla. */
+/** `brand` es el botón que manda y hay uno por pantalla; `solid` es el mismo rol en tinta, para donde el azul no se puede usar. Va uno o el otro, nunca los dos. */
 export const variants = {
+  brand: 'raised-brand text-on-brand',
   solid: 'raised-solid bg-solid text-on-solid hover:bg-solid-hover',
   raised: 'raised text-ink',
-  brand: 'raised-brand text-on-brand',
   muted: 'bg-muted text-ink hover:bg-sunken',
   ghost: 'text-ink-muted hover:bg-hover hover:text-ink',
   bad: 'bg-bad text-on-bad hover:bg-bad-hover',

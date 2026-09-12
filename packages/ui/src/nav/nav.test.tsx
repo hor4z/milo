@@ -4,11 +4,6 @@ import { NavItemBody, navItemClass, navSubItemClass } from './nav'
 
 describe('navItemClass', () => {
   it('el activo se marca con el azul primario y su canto', () => {
-    // Estuvo en gris con la regla «el activo se marca con relieve y nunca con
-    // color», cuyo motivo era que el azul era el único acento que había y
-    // gastarlo acá lo dejaba sin decir nada donde importa. Esa premisa se cayó:
-    // el azul es el color primario con rampa de diez pasos. Y «dónde estoy» es
-    // lo que un primario sabe hacer mejor que una pastilla gris.
     const active = navItemClass({ active: true })
     expect(active).toContain('bg-brand-soft')
     expect(active).toContain('text-brand-ink')

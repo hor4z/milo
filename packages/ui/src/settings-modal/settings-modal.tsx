@@ -54,8 +54,6 @@ export function SettingsModal({ open, onClose, user }: {
                 className={cx(
                   'flex h-10 items-center gap-3 rounded-lg border pr-2 pl-[3px] text-left text-body font-semibold',
                   'transition-[background-color,border-color,color] duration-fast ease-out',
-                  // El mismo azul que el riel de la app: este rail también dice
-                  // dónde estás, solo que adentro de un modal.
                   active
                     ? 'border-brand-border bg-brand-soft text-brand-ink'
                     : 'border-transparent text-ink hover:bg-hover',
