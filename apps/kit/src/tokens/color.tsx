@@ -1,152 +1,142 @@
-import { Grid, Page, Ramp, Section, Swatch } from '../kit'
+import { Note, Page, Ramp, Section, Swatch, useTokens } from '../kit'
 
-const shades = [
-  '--shade-01', '--shade-02', '--shade-03', '--shade-04', '--shade-05',
-  '--shade-06', '--shade-07', '--shade-08', '--shade-09',
-] as const
+const rampa = ['--shade-01', '--shade-02', '--shade-03', '--shade-04', '--shade-05', '--shade-06', '--shade-07', '--shade-08', '--shade-09'] as const
+const marcas = ['--mark-green', '--mark-purple', '--mark-orange', '--mark-blue', '--mark-pink'] as const
+const etiquetas = ['--label-green', '--label-purple', '--label-orange', '--label-blue', '--label-pink', '--label-red'] as const
+const tintes = ['--tint-green', '--tint-purple', '--tint-orange', '--tint-blue', '--tint-pink'] as const
+const espacios = ['--space-green', '--space-purple', '--space-orange', '--space-blue', '--space-pink'] as const
 
 export function ColorSection() {
   return (
     <Page
       title="Color"
-      lead="Una rampa casi neutra de nueve pasos y un solo acento. El salto de 05 a 06 es violento a propósito: entre el borde más oscuro y el texto más claro no tiene que haber nada, o aparecen grises que no se distinguen entre sí."
+      kind="Guía"
+      lead="La interfaz es monocroma. Una rampa casi neutra de nueve pasos dibuja todo, y el color aparece contado: el azul manda, el ámbar señala y tres familias identifican espacios y personas."
     >
       <Section
         title="La rampa"
-        note="Tres superficies claras antes del primer borde visible, el salto, y tres tintas oscuras. Nadie la usa directo: los componentes leen roles."
+        note="Nueve pasos de #fcfcfc a #121212. El salto de 05 a 06 es violento a propósito: entre el borde más oscuro y el texto más claro no tiene que haber nada, o aparecen grises que no se distinguen entre sí."
       >
-        <Ramp tokens={shades} />
+        <Ramp tokens={rampa} />
       </Section>
 
       <Section
-        title="Tinta en alpha"
-        note="Los bordes y los hovers se pintan con tinta transparente, no con un gris opaco: sobre un tinte, el opaco se ve como una línea sucia."
+        title="Superficies"
+        note="El shell y las piezas comparten el papel. Lo que separa una tarjeta del fondo no es un tono distinto: es el relieve."
       >
-        <Grid>
-          <Swatch token="--shade-09-a04" note="hover" />
-          <Swatch token="--shade-09-a06" />
-          <Swatch token="--shade-09-a08" note="borde, activo" />
-          <Swatch token="--shade-09-a11" note="anillo del hundido" />
-          <Swatch token="--shade-09-a35" note="anillo de foco" />
-        </Grid>
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          <Swatch token="--canvas" note="el fondo de la app" />
+          <Swatch token="--surface" note="el papel de una pieza" />
+          <Swatch token="--surface-alt" note="la banda alterna de una tabla" />
+          <Swatch token="--surface-muted" note="lo apagado: una bandeja, un hueco" />
+          <Swatch token="--surface-sunken" note="el fondo de algo hundido" />
+          <Swatch token="--popover" note="lo que flota" />
+        </div>
       </Section>
 
-      <Section title="Superficies" note="El shell y las piezas comparten el papel. Lo que separa una tarjeta del fondo no es un tono distinto, es el relieve.">
-        <Grid>
-          <Swatch token="--canvas" />
-          <Swatch token="--surface" />
-          <Swatch token="--surface-muted" />
-          <Swatch token="--surface-sunken" />
-          <Swatch token="--surface-inverted" />
-          <Swatch token="--popover" />
-          <Swatch token="--scrim" note="fondo del modal" />
-          <Swatch token="--veil" note="fondo del panel anclado" />
-        </Grid>
+      <Section title="Bordes y líneas">
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          <Swatch token="--line" note="el divisor de siempre" />
+          <Swatch token="--line-strong" note="cuando hay que separar de verdad" />
+          <Swatch token="--edge" note="el filo de algo que sobresale" />
+          <Swatch token="--field-border" note="la línea de un campo, en tinta" />
+          <Swatch token="--focus-border" note="el borde de un campo enfocado" />
+          <Swatch token="--track" note="la pista de una barra de progreso" />
+        </div>
       </Section>
 
-      <Section title="Bordes">
-        <Grid>
-          <Swatch token="--border" />
-          <Swatch token="--border-strong" />
-          <Swatch token="--border-alpha" />
-          <Swatch token="--edge" note="el canto: más oscuro que el borde más oscuro" />
-          <Swatch token="--solid-edge" />
-        </Grid>
+      <Section
+        title="Texto e iconos"
+        note="El gris del icono es un paso más oscuro que el del texto: un contorno fino encierra aire y con el mismo gris se lee más apagado que el texto que acompaña. No se escribe a mano — lo pone la utilidad icon-muted, que además sube el peso del glifo, porque el tono y el peso son la misma decisión."
+      >
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          <Swatch token="--text" note="lo que se lee" />
+          <Swatch token="--text-muted" note="lo que acompaña" />
+          <Swatch token="--icon-muted" note="el gris de un glifo" />
+          <Swatch token="--text-inverted" note="sobre tinta" />
+        </div>
       </Section>
 
-      <Section title="Texto e iconos" note="`--icon-muted` es un paso más oscuro que el gris del texto: un contorno encierra aire y con el gris del texto se lee más apagado que ese mismo texto. No se usa a mano — lo pone la utilidad `icon-muted`, que además sube el peso del glifo a 400, porque el gris y el peso son la misma decisión.">
-        <Grid>
-          <Swatch token="--text" />
-          <Swatch token="--text-muted" />
-          <Swatch token="--text-subtle" />
-          <Swatch token="--text-disabled" />
-          <Swatch token="--text-inverted" />
-          <Swatch token="--icon-muted" />
-        </Grid>
+      <Section
+        title="El azul, y cuándo"
+        note="Es la excepción más usada y la más acotada: el botón que manda, el arco del spinner, el anillo del foco y el relleno de una barra de progreso. solid y brand son el mismo rol —el botón que manda— así que va uno o el otro, nunca los dos en la misma pantalla."
+      >
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          <Swatch token="--solid" note="el botón en tinta" />
+          <Swatch token="--brand" note="el botón en azul" />
+          <Swatch token="--brand-subtle" note="el fondo de un aviso" />
+          <Swatch token="--accent" note="el ámbar que señala" />
+        </div>
       </Section>
 
-      <Section title="Sólidos y marca" note="El botón que manda es tinta. El azul es la única pieza con color, y `solid` y `brand` son el mismo rol: va uno o el otro, nunca los dos en la misma pantalla.">
-        <Grid>
-          <Swatch token="--solid" />
-          <Swatch token="--solid-hover" />
-          <Swatch token="--on-solid" />
-          <Swatch token="--brand" />
-          <Swatch token="--brand-edge" note="canto y labio" />
-          <Swatch token="--on-brand" />
-        </Grid>
-      </Section>
-
-      <Section title="Acento" note="Se usa poquísimo —un punto, un badge, el aviso de algo nuevo— y por eso se ve.">
-        <Grid>
-          <Swatch token="--accent" />
-          <Swatch token="--accent-hover" />
-          <Swatch token="--accent-subtle" />
-        </Grid>
-      </Section>
-
-      <Section title="Estado">
-        <Grid>
-          <Swatch token="--ok" />
+      <Section
+        title="Estado"
+        note="Cuatro tonos, y ninguno viaja solo: cada uno trae su glifo y su texto, porque un color de estado sin forma no dice nada a quien no distingue colores."
+      >
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          <Swatch token="--ok" note="salió bien" />
+          <Swatch token="--warn" note="mirá esto" />
+          <Swatch token="--bad" note="se rompió" />
           <Swatch token="--ok-subtle" />
-          <Swatch token="--warn" />
           <Swatch token="--warn-subtle" />
-          <Swatch token="--bad" />
           <Swatch token="--bad-subtle" />
-        </Grid>
-      </Section>
-
-      <Section title="Campos" note="Dos roles distintos: el campo que ya muestra algo elegido es gris con borde suave; el campo vacío es casi blanco y lo que dibuja la caja es el borde.">
-        <Grid>
-          <Swatch token="--field-bg" />
-          <Swatch token="--field-border" />
-          <Swatch token="--search-bg" />
-          <Swatch token="--search-border" />
-        </Grid>
+        </div>
       </Section>
 
       <Section
-        title="Etiquetas de color"
-        note="La familia viva de lo chico: un chip, el cuadradito de icono de una tarjeta. Los seis salen de la regla de la familia (saturación 95% y 3.75:1 contra blanco, el número del azul), así que los seis llevan el mismo texto blanco. Van en orden de rueda porque el avatar reparte por hash sobre el índice."
+        title="Las tres familias, y qué las separa"
+        note="Las tres son de categoría y no se mezclan. La que decide cuál va no es el gusto: es el tamaño de la pieza y qué se apoya encima."
       >
-        <Grid min={150}>
-          <Swatch token="--label-green" />
-          <Swatch token="--label-teal" />
-          <Swatch token="--label-blue" note="apunta a la rampa de marca" />
-          <Swatch token="--label-purple" />
-          <Swatch token="--label-pink" />
-          <Swatch token="--label-orange" />
-          <Swatch token="--on-label" note="el texto, uno para las seis" />
-        </Grid>
+        <div className="flex flex-col gap-5">
+          <Familia
+            titulo="mark · la marca de 44 de una fila"
+            detalle="Relleno pastel y glifo del mismo tono varios pasos más oscuro. La marca vive dentro de una fila clara y tiene lugar para leerse entera sin gritarle al título de al lado."
+            tokens={marcas}
+          />
+          <Familia
+            titulo="label · lo chico"
+            detalle="Un chip, el cuadradito de icono de una tarjeta. Van vivos y todos llevan el mismo texto blanco encima. En orden de rueda, porque quien las usa reparte por hash: desordenadas, dos nombres consecutivos caían en dos tonos casi iguales."
+            tokens={etiquetas}
+          />
+          <Familia
+            titulo="tint · la superficie grande"
+            detalle="El hueco 4:3 de una tarjeta, el mock de una novedad. Llevan un dibujo en tinta al 14% encima: saturados, el dibujo desaparece y una grilla de doce tarjetas se vuelve un arcoíris."
+            tokens={tintes}
+          />
+          <Familia
+            titulo="space · la carpeta de un espacio"
+            detalle="El único color que se dibuja con SVG, porque la carpeta es bicolor y una fuente monocroma no puede. El color propio por espacio es lo que las deja reconocer de reojo en una lista de siete."
+            tokens={espacios}
+          />
+        </div>
       </Section>
 
-      <Section title="Tintes" note="El lavado de una superficie grande que lleva un dibujo oscuro encima: el hueco 4:3 de una tarjeta, el mock de una novedad, el costado de la pantalla de entrar. No son para una etiqueta — si se saturaran, el dibujo desaparecería y una grilla de doce tarjetas se volvería un arcoíris.">
-        <Grid min={150}>
-          <Swatch token="--tint-1" />
-          <Swatch token="--tint-2" />
-          <Swatch token="--tint-3" />
-          <Swatch token="--tint-4" />
-          <Swatch token="--tint-5" />
-          <Swatch token="--tint-6" />
-        </Grid>
-      </Section>
-
-      <Section
-        title="Marcas de la lista"
-        note="Van en pares relleno/glifo y son de la lista de acciones y de nada más. El relleno es pastel y el glifo el mismo tono varios pasos más oscuro, y eso es a propósito: la marca es de 44 y vive dentro de una fila clara, así que tiene lugar para leerse entera sin gritarle al título de al lado. Para lo chico está la familia de etiquetas, que sí es viva. Los cinco salen de una regla: los tonos son los de las etiquetas, el relleno va a L 0.80 en OKLCH con el techo común de croma de los cinco (0.101) y el glifo es el mismo tono a 4.5:1 de su relleno — en oscuro, a 7:1, porque un trazo claro y fino sobre un relleno profundo se apaga. El techo tiene que ser común y no un porcentaje del de cada tono: a esa luminosidad el verde aguanta el doble de croma que el azul, así que «el 90% de lo que cada uno aguante» da un verde flúor al lado de un azul pastel."
-      >
-        <Grid min={150}>
-          <Swatch token="--mark-green" />
-          <Swatch token="--mark-green-ink" />
-          <Swatch token="--mark-purple" />
-          <Swatch token="--mark-purple-ink" />
-          <Swatch token="--mark-orange" />
-          <Swatch token="--mark-orange-ink" />
-          <Swatch token="--mark-blue" />
-          <Swatch token="--mark-blue-ink" />
-          <Swatch token="--mark-pink" />
-          <Swatch token="--mark-pink-ink" />
-        </Grid>
-      </Section>
+      <Note title="Antes de teñir algo">
+        Mirá de qué tamaño es la pieza y qué va encima. Los tres roles vivieron un rato juntos bajo el
+        mismo nombre y de ahí salieron dos bugs: los chips quedaron pastel cuando ya tenían que ser
+        vivos, y al pasar la familia a vivos se llevó puesta la marca de la lista, que tenía que
+        quedar pastel.
+      </Note>
     </Page>
+  )
+}
+
+function Familia({ titulo, detalle, tokens }: { titulo: string; detalle: string; tokens: readonly string[] }) {
+  const vals = useTokens(tokens)
+  return (
+    <div className="flex flex-col gap-3 rounded-2xl border border-line bg-surface p-5">
+      <div className="flex flex-col gap-1">
+        <code className="font-mono text-xs font-semibold text-ink">{titulo}</code>
+        <p className="max-w-[70ch] text-2xs font-medium text-ink-muted">{detalle}</p>
+      </div>
+      <div className="flex flex-wrap gap-2">
+        {tokens.map(t => (
+          <div key={t} className="flex items-center gap-2 rounded-lg border border-line px-2 py-1.5">
+            <span className="size-5 rounded-md" style={{ background: `var(${t})` }} />
+            <code className="font-mono text-2xs text-ink-muted">{vals[t] || t.replace('--', '')}</code>
+          </div>
+        ))}
+      </div>
+    </div>
   )
 }
