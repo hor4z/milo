@@ -129,6 +129,7 @@
     "skip_previous",
     "smart_toy",
     "sort",
+    "square_foot",
     "star",
     "star_shine",
     "stars_2",
@@ -165,9 +166,9 @@
     "zoom_out"
   ],
   "font": {
-    "url": "https://fonts.gstatic.com/l/font?kit=sykO-zNym6YjUruM-QrEh7-nyTnjDwKNJ_190FjpZIvLgyidOK7BDB_Qb9vUdV6_gjDK-P3JuEXXiQX53EITjFf5yxbHx4bUZ_6-qf7E3zuTCWXbVeIIlK8rQSmVrsvZhSmReF-X3lx_Fi7tbdADu1W7U20Af9A06_5ltCClCnaIRCmEr6z1_jgeH9C8FRCTAzUpt3rvtN5DlvvXHKK_DEfL-lgsA39anoLpBgMH9LuhrXTOvc-YDgqcLzuRYvhnoGd-WpL3watSgLBE1w70E36x2Zxj3huvRNCQJhtcxwLdn9ffKCs&skey=70ddea8fe54d532e&v=v372",
-    "bytes": 61820,
-    "sha256": "c7c7929c459d89ad78d59e974647bbe64b9cb290d4d4dbd6665b7671d78c7a61",
+    "url": "https://fonts.gstatic.com/l/font?kit=sykO-zNym6YjUruM-QrEh7-nyTnjDwKNJ_190FjpZIvLgyidOK7BDB_Qb9vUdV6_gjDK-P3JuEXXiQL53EITjFf5yxbHx4bUZ_6-qf7H3jySCmTUVOEYcyMLqJ4V3sungsI3PpWdPJJ_Oouy_pw54AbSBDveHBGbiTXccEOXBk8tgcqHGsKcxVSiZHccV5Ko_vXj9DWJu7wq30WEG6PTBi0L7408CqxQB7Z1p5OeB53ALRMIq0VBi1yaGQgI8tBqFPzuwOuuuKiCwuKABcvHUM4EbI5h3djG4BaQdkeaDc5Ixh3V1E4g&skey=70ddea8fe54d532e&v=v372",
+    "bytes": 62308,
+    "sha256": "0cd2e238a5174cf052a1a5409d50adce08142622b455de4d83a4176bd7a173cd",
     "fetchedAt": "2026-09-12"
   }
 }

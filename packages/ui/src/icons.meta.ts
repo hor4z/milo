@@ -133,6 +133,7 @@ export const iconTags: Record<IconName, string> = {
   skip_previous: "arrow audio back bar beginning button control controls",
   smart_toy: "ai android artificial intelligence assistant automation bot character chatbot",
   sort: "alphabetize arrange arrow ascending categorize change order content data",
+  square_foot: "architecture area construction design diagram dimension feet floor plan",
   star: "add to favorite best bookmark border empty empty star favorite five pointed star",
   star_shine: "achievement ai artificial intelligence astral automation bookmark bright celestial",
   stars_2: "achievement ai artificial intelligence astronomy automation award bookmark celestial",

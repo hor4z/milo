@@ -13,7 +13,7 @@ const principios: { icon: IconName; title: string; body: string }[] = [
     body: 'Lo activo sobresale o se hunde. Teñir el texto de un item elegido gasta el acento y, peor, apaga a los que no están elegidos: una lista de siete espacios con seis en gris parece deshabilitada.',
   },
   {
-    icon: 'straighten',
+    icon: 'square_foot',
     title: 'Una sola escalera de medidas',
     body: 'Tres alturas de control, cinco radios y una base de espaciado de cuatro. El mismo nombre da el mismo número en todas las piezas, así que un campo y el botón que lo acompaña apoyan en la misma línea sin que nadie lo calcule.',
   },

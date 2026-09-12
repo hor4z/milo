@@ -39,7 +39,7 @@ import { TabsStory } from './stories/tabs'
 import { StatusStory } from './stories/status'
 import { DropdownStory, ModalStory, PopoverStory, TooltipStory } from './stories/overlays'
 
-type Story = { id: string; label: string; render: () => ReactNode }
+type Story = { id: string; label: string; render: () => ReactNode; alias?: string }
 type Group = { label: string; stories: Story[] }
 
 const INTRO = 'intro'
@@ -48,75 +48,75 @@ const groups: Group[] = [
   {
     label: 'Guía',
     stories: [
-      { id: 'foundations', label: 'Principios', render: () => <Foundations /> },
-      { id: 'color', label: 'Color', render: () => <ColorSection /> },
-      { id: 'type', label: 'Tipografía', render: () => <TypeSection /> },
-      { id: 'measure', label: 'Medidas y radios', render: () => <MeasureSection /> },
-      { id: 'relief', label: 'Relieve', render: () => <ReliefSection /> },
-      { id: 'icon', label: 'Iconos', render: () => <IconStory /> },
-      { id: 'writing', label: 'Cómo se escribe', render: () => <Writing /> },
+      { id: 'foundations', label: 'Principios', alias: 'principios fundamentos reglas decisiones', render: () => <Foundations /> },
+      { id: 'color', label: 'Color', alias: 'paleta tokens rampa tonos', render: () => <ColorSection /> },
+      { id: 'type', label: 'Tipografía', alias: 'tipografía fuente texto escala pesos', render: () => <TypeSection /> },
+      { id: 'measure', label: 'Medidas y radios', alias: 'espaciado medidas radios tamaños', render: () => <MeasureSection /> },
+      { id: 'relief', label: 'Relieve', alias: 'sombra relieve elevación profundidad', render: () => <ReliefSection /> },
+      { id: 'icon', label: 'Iconos', alias: 'iconos glifos símbolos', render: () => <IconStory /> },
+      { id: 'writing', label: 'Cómo se escribe', alias: 'texto redacción copy mensajes tono', render: () => <Writing /> },
     ],
   },
   {
     label: 'Acciones',
     stories: [
-      { id: 'button', label: 'Button', render: () => <ButtonStory /> },
-      { id: 'icon-button', label: 'IconButton', render: () => <IconButtonStory /> },
-      { id: 'menu', label: 'Menu', render: () => <MenuStory /> },
-      { id: 'dropdown', label: 'Dropdown', render: () => <DropdownStory /> },
+      { id: 'button', label: 'Button', alias: 'botón acción primaria cta', render: () => <ButtonStory /> },
+      { id: 'icon-button', label: 'IconButton', alias: 'botón icono redondo acción', render: () => <IconButtonStory /> },
+      { id: 'menu', label: 'Menu', alias: 'menú opciones contextual', render: () => <MenuStory /> },
+      { id: 'dropdown', label: 'Dropdown', alias: 'menú desplegable opciones', render: () => <DropdownStory /> },
     ],
   },
   {
     label: 'Formularios',
     stories: [
-      { id: 'form', label: 'Field y Sheet', render: () => <FormStory /> },
-      { id: 'text-field', label: 'TextField', render: () => <TextFieldStory /> },
-      { id: 'textarea', label: 'Textarea', render: () => <TextareaStory /> },
-      { id: 'select', label: 'Select', render: () => <SelectStory /> },
-      { id: 'checkbox', label: 'Checkbox', render: () => <CheckboxStory /> },
-      { id: 'radio', label: 'Radio', render: () => <RadioStory /> },
-      { id: 'switch', label: 'Switch', render: () => <SwitchStory /> },
-      { id: 'slider', label: 'Slider', render: () => <SliderStory /> },
-      { id: 'segmented', label: 'Segmented', render: () => <SegmentedStory /> },
+      { id: 'form', label: 'Field y Sheet', alias: 'formulario campo etiqueta error panel lateral drawer', render: () => <FormStory /> },
+      { id: 'text-field', label: 'TextField', alias: 'input campo texto entrada', render: () => <TextFieldStory /> },
+      { id: 'textarea', label: 'Textarea', alias: 'campo multilínea texto largo', render: () => <TextareaStory /> },
+      { id: 'select', label: 'Select', alias: 'combo desplegable elegir opción', render: () => <SelectStory /> },
+      { id: 'checkbox', label: 'Checkbox', alias: 'casilla marcar tilde', render: () => <CheckboxStory /> },
+      { id: 'radio', label: 'Radio', alias: 'opción única elegir', render: () => <RadioStory /> },
+      { id: 'switch', label: 'Switch', alias: 'toggle interruptor prender apagar', render: () => <SwitchStory /> },
+      { id: 'slider', label: 'Slider', alias: 'rango deslizar valor', render: () => <SliderStory /> },
+      { id: 'segmented', label: 'Segmented', alias: 'filtro conmutador pestañas grupo', render: () => <SegmentedStory /> },
     ],
   },
   {
     label: 'Navegación',
     stories: [
-      { id: 'tabs', label: 'Tabs y Accordion', render: () => <TabsStory /> },
-      { id: 'nav', label: 'NavItem', render: () => <NavStory /> },
+      { id: 'tabs', label: 'Tabs y Accordion', alias: 'solapas pestañas acordeón desplegable', render: () => <TabsStory /> },
+      { id: 'nav', label: 'NavItem', alias: 'navegación item sidebar riel', render: () => <NavStory /> },
     ],
   },
   {
     label: 'Datos',
     stories: [
-      { id: 'table', label: 'Table', render: () => <TableStory /> },
-      { id: 'list', label: 'List', render: () => <ListStory /> },
-      { id: 'bar-chart', label: 'BarChart', render: () => <ChartStory /> },
-      { id: 'status', label: 'Badge y Progress', render: () => <StatusStory /> },
-      { id: 'avatar', label: 'Avatar', render: () => <AvatarStory /> },
-      { id: 'chip', label: 'Chip', render: () => <ChipStory /> },
+      { id: 'table', label: 'Table', alias: 'tabla grilla filas columnas datos', render: () => <TableStory /> },
+      { id: 'list', label: 'List', alias: 'lista filas acciones', render: () => <ListStory /> },
+      { id: 'bar-chart', label: 'BarChart', alias: 'gráfico barras chart datos progreso', render: () => <ChartStory /> },
+      { id: 'status', label: 'Badge y Progress', alias: 'badge etiqueta progreso barra esqueleto carga', render: () => <StatusStory /> },
+      { id: 'avatar', label: 'Avatar', alias: 'foto persona iniciales grupo', render: () => <AvatarStory /> },
+      { id: 'chip', label: 'Chip', alias: 'etiqueta pill categoría', render: () => <ChipStory /> },
     ],
   },
   {
     label: 'Avisos',
     stories: [
-      { id: 'feedback', label: 'Alert y Toast', render: () => <FeedbackStory /> },
-      { id: 'empty-state', label: 'EmptyState', render: () => <EmptyStateStory /> },
-      { id: 'spinner', label: 'Spinner', render: () => <SpinnerStory /> },
-      { id: 'tooltip', label: 'Tooltip', render: () => <TooltipStory /> },
+      { id: 'feedback', label: 'Alert y Toast', alias: 'alerta aviso error toast notificación mensaje', render: () => <FeedbackStory /> },
+      { id: 'empty-state', label: 'EmptyState', alias: 'vacío sin resultados nada', render: () => <EmptyStateStory /> },
+      { id: 'spinner', label: 'Spinner', alias: 'cargando loading esperar', render: () => <SpinnerStory /> },
+      { id: 'tooltip', label: 'Tooltip', alias: 'ayuda globo hover', render: () => <TooltipStory /> },
     ],
   },
   {
     label: 'Superficies',
     stories: [
-      { id: 'containers', label: 'Card y Row', render: () => <ContainersStory /> },
-      { id: 'modal', label: 'Modal', render: () => <ModalStory /> },
-      { id: 'popover', label: 'Popover', render: () => <PopoverStory /> },
-      { id: 'divider', label: 'Divider', render: () => <DividerStory /> },
-      { id: 'kbd', label: 'Kbd', render: () => <KbdStory /> },
-      { id: 'book', label: 'Book', render: () => <BookStory /> },
-      { id: 'folder', label: 'Folder', render: () => <FolderStory /> },
+      { id: 'containers', label: 'Card y Row', alias: 'tarjeta card fila panel superficie', render: () => <ContainersStory /> },
+      { id: 'modal', label: 'Modal', alias: 'diálogo ventana emergente', render: () => <ModalStory /> },
+      { id: 'popover', label: 'Popover', alias: 'panel anclado flotante', render: () => <PopoverStory /> },
+      { id: 'divider', label: 'Divider', alias: 'separador línea', render: () => <DividerStory /> },
+      { id: 'kbd', label: 'Kbd', alias: 'tecla atajo teclado', render: () => <KbdStory /> },
+      { id: 'book', label: 'Book', alias: 'libro portada tapa', render: () => <BookStory /> },
+      { id: 'folder', label: 'Folder', alias: 'carpeta espacio color', render: () => <FolderStory /> },
     ],
   },
 ]
@@ -157,7 +157,13 @@ export function App() {
     const q = fold(busqueda.trim())
     if (!q) return groups
     return groups
-      .map(g => ({ ...g, stories: g.stories.filter(s => fold(s.label).includes(q)) }))
+      .map(g => ({
+        ...g,
+        stories: g.stories.filter(s =>
+          fold(s.label).includes(q)
+          || fold(g.label).includes(q)
+          || (s.alias ? fold(s.alias).includes(q) : false)),
+      }))
       .filter(g => g.stories.length > 0)
   }, [busqueda])
 

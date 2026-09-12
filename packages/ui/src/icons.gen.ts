@@ -132,6 +132,7 @@ export const codepoints = {
   skip_previous: 0xe045,
   smart_toy: 0xf06c,
   sort: 0xe164,
+  square_foot: 0xea49,
   star: 0xe838,
   star_shine: 0xf31d,
   stars_2: 0xf31c,
