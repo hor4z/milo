@@ -205,6 +205,11 @@ function check() {
     for (const re of [/\bicon(?:End)?=["']([a-z0-9_]+)["']/g, /\bname=["']([a-z0-9_]+)["']/g, /\bicon:\s*'([a-z0-9_]+)'/g]) {
       for (const mm of src.matchAll(re)) usados.add(mm[1])
     }
+    // Un mapa tipado `Record<…, IconName>` también son usos: los glifos están
+    // del lado de los valores y ninguna de las formas de arriba los ve.
+    for (const mapa of src.matchAll(/Record<[^>]*IconName>\s*=\s*\{([^}]*)\}/g)) {
+      for (const mm of mapa[1].matchAll(/'([a-z0-9_]+)'/g)) usados.add(mm[1])
+    }
   }
   const faltantes = [...usados].filter(n => !enManifiesto.has(n) && catalog().has(n)).sort()
   const sinUso = m.names.filter(n => !usados.has(n)).sort()
