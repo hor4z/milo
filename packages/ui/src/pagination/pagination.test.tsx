@@ -39,4 +39,13 @@ describe('Pagination', () => {
     expect(screen.getByRole('status')).toHaveTextContent('5 a 8 de 12')
     expect(screen.getByRole('button', { name: /Anterior/ })).toBeEnabled()
   })
+
+  it('la franja se anuncia como la navegación de la tabla', () => {
+    render(
+      <Pagination>
+        <PaginationStatus to={4} total={9} noun={['actividad', 'actividades']} />
+      </Pagination>,
+    )
+    expect(screen.getByRole('navigation', { name: 'Paginación' })).toBeInTheDocument()
+  })
 })

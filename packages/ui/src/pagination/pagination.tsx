@@ -3,9 +3,10 @@ import { Button } from '../button/button'
 import { cx } from '../lib/cx'
 
 /** La línea de abajo de una tabla: qué tramo se está viendo y cómo pasar al que sigue. */
-export function Pagination({ className, ...props }: ComponentPropsWithoutRef<'div'>) {
+export function Pagination({ className, 'aria-label': label = 'Paginación', ...props }: ComponentPropsWithoutRef<'nav'>) {
   return (
-    <div
+    <nav
+      aria-label={label}
       className={cx(
         'flex flex-wrap items-center gap-3 border-t border-line px-4 py-3',
         className,

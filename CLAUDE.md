@@ -394,7 +394,7 @@ El riel tiene buscador con atajo `/` y no tiene logo: el nombre va en texto.
 
 ## Los tests
 
-`npm test` corre vitest con jsdom y testing-library. 238 tests, y lo que prueban es el
+`npm test` corre vitest con jsdom y testing-library. 242 tests, y lo que prueban es el
 comportamiento —teclado, nombres accesibles, estados— y no el markup, que cambia con cada
 ajuste de estilo. El test de cada pieza vive en su carpeta, al lado del componente.
 

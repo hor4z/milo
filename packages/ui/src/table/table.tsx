@@ -12,13 +12,17 @@ export function Table({ children, minWidth = 640, footer, className }: {
 }) {
   const scroller = useRef<HTMLDivElement>(null)
   const [corte, setCorte] = useState(false)
+  const [scrollea, setScrollea] = useState(false)
 
   // Sin barra visible, un degradado en el canto es lo único que avisa que hay
   // más columnas a la derecha.
   useEffect(() => {
     const el = scroller.current
     if (!el) return
-    const medir = () => setCorte(el.scrollWidth - el.clientWidth - el.scrollLeft > 1)
+    const medir = () => {
+      setCorte(el.scrollWidth - el.clientWidth - el.scrollLeft > 1)
+      setScrollea(el.scrollWidth > el.clientWidth + 1)
+    }
     medir()
     el.addEventListener('scroll', medir, { passive: true })
     const ro = typeof ResizeObserver !== 'undefined' ? new ResizeObserver(medir) : null
@@ -31,7 +35,16 @@ export function Table({ children, minWidth = 640, footer, className }: {
 
   return (
     <div className={cx('relative overflow-hidden rounded-md bg-surface ring-1 ring-line', className)}>
-      <div ref={scroller} className="zebra no-scrollbar overflow-x-auto overflow-y-hidden">
+      {/* Solo es una parada de tabulación cuando de verdad hay algo que
+          scrollear: sin la barra a la vista, es la única forma de llegar a las
+          columnas de la derecha sin mouse. */}
+      <div
+        ref={scroller}
+        tabIndex={scrollea ? 0 : undefined}
+        role={scrollea ? 'region' : undefined}
+        aria-label={scrollea ? 'Tabla, scrolleable' : undefined}
+        className="zebra no-scrollbar overflow-x-auto overflow-y-hidden"
+      >
         <table className="w-full border-collapse text-left" style={{ minWidth }}>
           {children}
         </table>
@@ -76,6 +89,12 @@ export function TableRow({ children, onClick, active, className }: {
   return (
     <tr
       onClick={onClick}
+      // Una fila que se toca tiene que poder tocarse sin mouse: entra en el
+      // orden de tabulación y contesta a Enter y a la barra.
+      tabIndex={onClick ? 0 : undefined}
+      onKeyDown={onClick
+        ? e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); onClick() } }
+        : undefined}
       className={cx(
         'border-b border-line transition-colors duration-[120ms] last:border-0',
         active && 'bg-muted',
@@ -90,9 +109,10 @@ export function TableRow({ children, onClick, active, className }: {
 
 type CellProps = { children?: ReactNode; className?: string }
 
-export function TableHead({ children, className, ...rest }: CellProps & ThHTMLAttributes<HTMLTableCellElement>) {
+export function TableHead({ children, scope = 'col', className, ...rest }: CellProps & ThHTMLAttributes<HTMLTableCellElement>) {
   return (
     <th
+      scope={scope}
       className={cx('h-10 px-4 first:pl-6 last:pr-6 text-2xs font-semibold tracking-wide text-ink', className)}
       {...rest}
     >
