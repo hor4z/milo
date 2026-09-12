@@ -1,14 +1,23 @@
 import { describe, expect, it } from 'vitest'
-import { readFileSync, readdirSync } from 'node:fs'
+import { readFileSync, readdirSync, statSync } from 'node:fs'
 import { join } from 'node:path'
 
 const dir = join(import.meta.dirname, '..')
 type Fuente = { nombre: string; texto: string }
 
-const fuentes: Fuente[] = readdirSync(dir)
-  .filter((f: string) => f.endsWith('.tsx') || f.endsWith('.ts'))
-  .filter((f: string) => !f.startsWith('icons.gen') && !f.startsWith('icons.meta'))
-  .map((f: string): Fuente => ({ nombre: f, texto: readFileSync(join(dir, f), 'utf8') }))
+function recorrer(base: string, prefijo = ''): string[] {
+  return readdirSync(base).flatMap((f: string) => {
+    const ruta = join(base, f)
+    if (statSync(ruta).isDirectory()) return f === '__tests__' ? [] : recorrer(ruta, `${prefijo}${f}/`)
+    return /\.tsx?$/.test(f) && !f.endsWith('.test.tsx') && !f.startsWith('icons.') ? [`${prefijo}${f}`] : []
+  })
+}
+
+const fuentes: Fuente[] = recorrer(dir).map((f): Fuente => ({ nombre: f, texto: readFileSync(join(dir, f), 'utf8') }))
+
+const carpetas = readdirSync(dir)
+  .filter((f: string) => statSync(join(dir, f)).isDirectory())
+  .filter((f: string) => f !== '__tests__' && f !== 'lib' && f !== 'assets')
 
 describe('coherencia del sistema', () => {
   it('ningún componente escribe un color a mano', () => {
@@ -42,6 +51,16 @@ describe('coherencia del sistema', () => {
         if (!new RegExp(`\\b${nombre}\\b`).test(index)) faltan.push(`${nombre} (${f.nombre})`)
       }
     }
+    expect(faltan).toEqual([])
+  })
+
+  it('cada carpeta tiene el componente que le da nombre', () => {
+    const faltan = carpetas.filter(c => !readdirSync(join(dir, c)).includes(`${c}.tsx`))
+    expect(faltan).toEqual([])
+  })
+
+  it('cada componente tiene su test al lado', () => {
+    const faltan = carpetas.filter(c => !readdirSync(join(dir, c)).includes(`${c}.test.tsx`))
     expect(faltan).toEqual([])
   })
 })

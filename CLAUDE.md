@@ -257,7 +257,8 @@ catorce.
 
 ## Overlays: lo que costó y conviene no volver a pelear
 
-Todo en `packages/ui/src/overlay.tsx`.
+Repartido entre `portal/`, `popover/`, `tooltip/`, `dropdown/`, `modal/`, `sheet/` y
+`confirm-dialog/`, con `lib/overlay-hooks.ts` y `lib/esc.ts` para lo que comparten.
 
 - **El `Portal` crea su host durante el render**, no en un effect. La versión obvia —crearlo en el
   effect y guardarlo en estado— hace que el primer render devuelva `null`, y eso rompe a
@@ -341,10 +342,12 @@ Monorepo de npm workspaces. Dos paquetes y dos apps:
 ```
 packages/tokens/src/    la identidad, en CSS puro. Sin Tailwind y sin JS.
 packages/ui/src/        theme.css (el puente) · index.ts (la puerta) ·
-                        primitives · form · feedback · disclosure · status ·
-                        icon · overlay · esc · nav · list · table · chart ·
-                        filter · pagination · menu · book · folder · page · prefs
-                        __tests__/ los tests del paquete
+                        una carpeta por pieza: button/button.tsx + button/button.test.tsx,
+                        y así las 48 (select, modal, toast, chart, table…)
+                        lib/ lo compartido que no es un componente: cx · colors ·
+                        control · tone · esc · overlay-hooks
+                        __tests__/ los dos que leen el paquete entero:
+                        coherencia y contraste
                         icons.gen.ts e icons.meta.ts los genera scripts/icons.mjs
 packages/ui/scripts/    icons.mjs (search · add · sync · check) + catalog.json
 apps/kit/src/           el kit: App.tsx (shell y riel) · kit.tsx (Page, Section,
@@ -363,6 +366,18 @@ queda en `apps/guide`.
 Todo lo que consume una app entra por `packages/ui/src/index.ts`. Un test lo verifica: si
 alguien exporta algo de un archivo y no lo saca por la puerta, falla.
 
+**Una carpeta por pieza, con su test adentro.** El archivo largo con doce componentes
+—`primitives.tsx` tenía 922 líneas— obliga a leer todo para tocar uno, y su test hermano en
+`__tests__/` obliga a buscar en otro lado qué es lo que ya está probado. Con la carpeta, lo
+que hay que mirar para cambiar el `Select` son dos archivos que están uno al lado del otro, y
+agregar una pieza es agregar una carpeta y no editar cuatro archivos. Dos tests de coherencia
+lo sostienen: cada carpeta tiene el componente que le da nombre, y cada componente tiene su
+test al lado.
+
+Lo que no es un componente vive en `lib/`: `cx` y `fold`, las familias de color, la escalera
+de alturas de control, los pares de tono de aviso, la pila de Escape y los hooks de overlay.
+El corte es el mismo de siempre: si dos piezas lo comparten, no es de ninguna de las dos.
+
 **El kit va con una historia por pieza**, y las piezas se agrupan por el trabajo que hacen
 —Guía, Acciones, Formularios, Navegación, Datos, Avisos, Superficies— y no por su tipo
 técnico. Cada vista abre con una portada: el nombre, una línea de qué es y cuándo se usa, la
@@ -373,15 +388,16 @@ El riel tiene buscador con atajo `/` y no tiene logo: el nombre va en texto.
 
 ## Los tests
 
-`npm test` corre vitest con jsdom y testing-library. 92 tests, y lo que prueban es el
+`npm test` corre vitest con jsdom y testing-library. 162 tests, y lo que prueban es el
 comportamiento —teclado, nombres accesibles, estados— y no el markup, que cambia con cada
-ajuste de estilo.
+ajuste de estilo. El test de cada pieza vive en su carpeta, al lado del componente.
 
-Cuatro de ellos leen el paquete entero y fallan si alguien:
+Seis de ellos leen el paquete entero y fallan si alguien:
 
 - escribe un color a mano en un componente,
 - se sale de la escala de radios o de tamaños de texto,
-- exporta algo sin sacarlo por `index.ts`.
+- exporta algo sin sacarlo por `index.ts`,
+- deja una carpeta sin el componente que le da nombre, o un componente sin su test al lado.
 
 Y ocho leen los tokens y calculan el contraste de cada tono de estado contra su fondo, en los
 dos temas. Si alguien cambia un tono y rompe el par, falla antes de llegar a una pantalla.
@@ -395,8 +411,8 @@ dos temas. Si alguien cambia un tono y rompe el par, falla antes de llegar a una
 - **El shell y la paleta de comandos siguen en `apps/guide`** porque leen `data.ts`. Para que
   entren al paquete hay que pasarles el contenido por props.
 - **El `Segmented` de solo iconos usa `title` nativo**, que es la caja del sistema operativo que
-  se le sacó al `IconButton`. Pasarlo a `Tooltip` ata `primitives` a `overlay`, que hoy importa
-  al revés: es un movimiento de archivos, no una prop.
+  se le sacó al `IconButton`. Ahora que cada pieza es su propia carpeta el ciclo de imports ya
+  no es la excusa: falta hacerlo.
 - **`README.md` quedó desactualizado**: describe la primera identidad (jade y ámbar, radios
   3·6·8·10·14) que después se reemplazó por la rampa neutra y la escala 6·10·12·16·24.
 - Portar los tokens a `~/melu/packages/ui`, que es para lo que existe todo esto.

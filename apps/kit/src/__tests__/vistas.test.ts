@@ -75,13 +75,13 @@ describe('los números de la portada', () => {
     const anunciados = Number(intro.match(/\['(\d+)', 'tests'\]/)?.[1])
 
     const raiz = join(import.meta.dirname, '../../../..')
-    const carpetas = [join(raiz, 'packages/ui/src/__tests__'), join(import.meta.dirname)]
-    let escritos = 0
-    for (const carpeta of carpetas) {
-      for (const f of readdirSync(carpeta)) {
-        escritos += [...readFileSync(join(carpeta, f), 'utf8').matchAll(/^\s*it\(/gm)].length
-      }
-    }
+    const recorrer = (base: string): string[] =>
+      readdirSync(base, { withFileTypes: true }).flatMap(e =>
+        e.isDirectory() ? recorrer(join(base, e.name)) : /\.test\.tsx?$/.test(e.name) ? [join(base, e.name)] : [])
+    const archivos = [...recorrer(join(raiz, 'packages/ui/src')), ...recorrer(import.meta.dirname)]
+    const escritos = archivos.reduce(
+      (n, f) => n + [...readFileSync(f, 'utf8').matchAll(/^\s*it\(/gm)].length, 0)
+
 
     expect(
       anunciados,
