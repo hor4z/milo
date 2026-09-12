@@ -53,14 +53,14 @@ export function SettingsModal({ open, onClose, user }: {
                 aria-current={active ? 'page' : undefined}
                 className={cx(
                   'flex h-10 items-center gap-3 rounded-lg border pr-2.5 pl-[3px] text-left text-body font-semibold',
-                  'text-ink transition-[background-color,border-color] duration-[120ms] ease-out',
+                  'text-ink transition-[background-color,border-color] duration-fast ease-out',
                   active
                     ? 'border-line-strong bg-muted'
                     : 'border-transparent hover:bg-hover',
                 )}
               >
                 <span className={cx(
-                  'flex size-8 shrink-0 items-center justify-center rounded-md transition-[background-color,box-shadow] duration-[120ms]',
+                  'flex size-8 shrink-0 items-center justify-center rounded-md transition-[background-color,box-shadow] duration-fast',
                   active && 'bg-surface shadow-[0_0_0_1px_var(--border)]',
                 )}>
                   <Icon name={s.icon} size={20} className={active ? 'text-ink' : 'icon-muted'} />

@@ -60,7 +60,7 @@ export function BarChart({ data, highlight, title, height = 220, className }: {
               <span
                 className={cx(
                   'relative w-full overflow-hidden rounded-xl bg-track',
-                  'transition-colors duration-[140ms] ease-out group-hover:bg-transparent',
+                  'transition-colors duration-normal ease-out group-hover:bg-transparent',
                   'group-hover:ring-1 group-hover:ring-line-strong group-hover:ring-inset',
                   // Con el teclado pasa lo mismo que con el mouse: la barra no
                   // lleva anillo de foco —se decidió así— así que lo que avisa
@@ -72,7 +72,7 @@ export function BarChart({ data, highlight, title, height = 220, className }: {
               >
                 <svg
                   aria-hidden="true"
-                  className="absolute inset-0 h-full w-full opacity-0 transition-opacity duration-[140ms] ease-out group-hover:opacity-100 group-focus-visible:opacity-100"
+                  className="absolute inset-0 h-full w-full opacity-0 transition-opacity duration-normal ease-out group-hover:opacity-100 group-focus-visible:opacity-100"
                 >
                   <rect width="100%" height="100%" fill={`url(#${hatchId})`} />
                 </svg>

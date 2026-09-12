@@ -39,7 +39,7 @@ export function ListItem({
       onClick={onClick}
       className={cx(
         'flex min-h-[72px] w-full items-center gap-3.5 rounded-xl px-3.5 py-3.5 text-left',
-        'transition-[background-color,box-shadow] duration-[120ms] ease-out',
+        'transition-[background-color,box-shadow] duration-fast ease-out',
         'ring-1 ring-line',
         active ? 'bg-sunken shadow-none' : 'bg-surface shadow-card',
         onClick && !active && 'hover:bg-muted hover:shadow-none',

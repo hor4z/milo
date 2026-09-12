@@ -177,6 +177,12 @@
   --font-display: var(--font-display);
   --font-mono: var(--font-mono);
 
+  /* Las dos curvas. Estas sí son un namespace de Tailwind, así que alcanza con
+     declararlas y `ease-out` sale sola. Las duraciones no: `--duration-*` no
+     existe como namespace, y van más abajo con `@utility`. */
+  --ease-out: var(--ease-out);
+  --ease-in: var(--ease-in);
+
   /* Los siete roles. Cada utilidad escribe los tres valores de una —tamaño,
      interlineado y tracking—, que es todo el punto: escritos por separado se
      despegan, y se despegaron. `text-lg` llegó a ser 20px de letra dentro de una
@@ -305,6 +311,24 @@ body {
   font-weight: 400;
   line-height: var(--type-body-lh);
   letter-spacing: var(--type-body-ls);
+
+  /* El eje óptico de Inter v4: la letra se redibuja más abierta a 12px y más
+     cerrada a 40px. `auto` ya es el default del navegador y se escribe igual,
+     porque es media razón por la que la familia es esta y no se deduce de
+     ningún otro lado del archivo.
+
+     **Lo que no se puede pedir acá, y conviene saberlo antes de intentarlo.**
+     Inter trae un set de desambiguación (`ss04`: ele con cola, i mayúscula con
+     serifas) y un cero barrado (`zero`) que serían ideales para esto — separan
+     `1 l I` y `0 O` de un vistazo, que es justo lo que le cuesta a quien está
+     aprendiendo a leer. **El build que sirve Google los recorta**: su GSUB queda
+     en `calt ccmp dnom frac locl numr pnum tnum` y nada más. Escribir
+     `font-feature-settings: "ss04"` acá no rompe: no hace nada, en silencio.
+
+     Lo que sí sobrevive es `tnum`, así que `.tabular` funciona. Recuperar los
+     otros dos pide auto-alojar la fuente (unos 69 KB subseteada a latín), y se
+     decidió que el CDN vale más. */
+  font-optical-sizing: auto;
 }
 
 /* Sin `letter-spacing` acá, y es a propósito. La regla vieja apretaba todos los
@@ -799,6 +823,19 @@ tr[tabindex]:focus-visible {
    Lo que se pierde es el aviso de que hay más a la derecha, y la respuesta a eso
    no es la barra: es no necesitarla — la tabla elige su `minWidth` para entrar,
    y las columnas que sobran se apagan con el `ColumnPicker`. */
+/* Las dos duraciones del sistema. Van con `@utility` y no en el `@theme` porque
+   `--duration-*` no es un namespace de Tailwind: `duration-fast` no se genera
+   por más que el token exista. La alternativa era escribir
+   `duration-(--duration-fast)` en cada call site, que dice lo mismo y se lee
+   peor.
+
+   Los tokens estaban desde el principio y no los leía nadie: los call sites
+   escribían `duration-[120ms]` a mano —diecisiete veces— y cuatro de ellos con
+   números que no estaban en ninguna escala (90, 140, 160, 200). Es el mismo bug
+   que tenía la tipografía: el token definido y el call site esquivándolo. */
+@utility duration-fast { transition-duration: var(--duration-fast); }
+@utility duration-normal { transition-duration: var(--duration-normal); }
+
 @utility no-scrollbar {
   scrollbar-width: none;
   &::-webkit-scrollbar { display: none; }

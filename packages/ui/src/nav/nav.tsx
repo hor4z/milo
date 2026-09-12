@@ -9,7 +9,7 @@ export function navItemClass({
 }: { active?: boolean; collapsed?: boolean; muted?: boolean } = {}) {
   return cx(
     'flex h-10 items-center gap-3 rounded-lg text-left text-body font-semibold',
-    'transition-[background-color,box-shadow] duration-[120ms] ease-out',
+    'transition-[background-color,box-shadow] duration-fast ease-out',
     collapsed ? 'justify-center px-0' : 'pr-3 pl-[3px]',
     active
       ? 'bg-muted text-ink shadow-[0_0_0_1px_var(--border)]'
@@ -42,7 +42,7 @@ export function NavItemBody({
       <span className="flex size-[34px] shrink-0 items-center justify-center">
         <span
           className={cx(
-            'flex size-[26px] items-center justify-center rounded-md transition-[background-color,box-shadow] duration-[120ms]',
+            'flex size-[26px] items-center justify-center rounded-md transition-[background-color,box-shadow] duration-fast',
             active && chip && 'bg-surface shadow-[0_0_0_1px_var(--border)]',
           )}
         >
@@ -64,7 +64,7 @@ export function NavItemBody({
 /** La sangría de los subitems: la columna del texto del padre, no un valor nuevo. */
 export function navSubItemClass({ active }: { active?: boolean } = {}) {
   return cx(
-    'flex h-9 items-center rounded-lg pr-3 pl-12 text-left text-body font-semibold transition-colors duration-[120ms]',
+    'flex h-9 items-center rounded-lg pr-3 pl-12 text-left text-body font-semibold transition-colors duration-fast',
     active ? 'text-ink' : 'text-ink-muted hover:text-ink',
   )
 }

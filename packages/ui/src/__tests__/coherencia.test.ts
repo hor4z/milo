@@ -60,6 +60,22 @@ describe('coherencia del sistema', () => {
     expect(offenders).toEqual([])
   })
 
+  it('las duraciones salen de las dos del sistema', () => {
+    // Mismo bug que tenía la tipografía y por eso el mismo guardián: los tokens
+    // de movimiento estaban desde el principio y no los leía nadie. Diecisiete
+    // call sites escribían `duration-[120ms]` a mano, y cuatro con números que
+    // no estaban en ninguna escala: 90, 140, 160, 200.
+    const sueltas = /\bduration-(\[|\d)/
+    const offenders = sources.filter(f => sueltas.test(f.text)).map(f => f.name)
+    expect(offenders).toEqual([])
+  })
+
+  it('las curvas también', () => {
+    const sueltas = /\bease-(\[|linear|initial)/
+    const offenders = sources.filter(f => sueltas.test(f.text)).map(f => f.name)
+    expect(offenders).toEqual([])
+  })
+
   it('todo lo público se exporta desde index.ts', () => {
     const index = readFileSync(join(dir, 'index.ts'), 'utf8')
     const missing: string[] = []

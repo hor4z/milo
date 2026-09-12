@@ -30,10 +30,10 @@ test que falla si alguien exporta algo de un archivo sin sacarlo por esa puerta.
 
 ## El sistema, en corto
 
-- **Tipografía:** siete roles que cargan tamaño, interlineado y tracking juntos. Base `text-body`
-  14/20 y un escalón `text-reading` 16/24 para lo que se lee de corrido; portadas en 40. En `rem`,
-  para que la preferencia del navegador cuente. La familia está en revisión: hay un comparador en
-  Fundamentos › Tipografía. El rol `mono` alinea números con la clase `.tabular`.
+- **Tipografía:** Inter, una sola familia para los tres roles, elegida por su eje óptico. Siete
+  roles que cargan tamaño, interlineado y tracking juntos: base `text-body` 14/20 y un escalón
+  `text-reading` 16/24 para lo que se lee de corrido; portadas en 40. En `rem`, para que la
+  preferencia del navegador cuente. El rol `mono` alinea números con la clase `.tabular`.
 - **Shell:** sidebar 220 `fixed` (72 contraído), topbar 80, padding lateral 20, item de nav 40.
 - **Controles:** tres alturas con un rol cada una — 32 inline, 36 en panel, 40 la principal.
 - **Radios:** 6 · 10 · 12 · 16 · 24. El radio de un hijo es el del padre menos su padding.

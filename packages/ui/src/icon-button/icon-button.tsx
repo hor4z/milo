@@ -29,7 +29,7 @@ export function IconButton({
       type={type}
       aria-label={label}
       className={cx(
-        'relative inline-flex items-center justify-center transition-[background-color,color,box-shadow] duration-[120ms] ease-out',
+        'relative inline-flex items-center justify-center transition-[background-color,color,box-shadow] duration-fast ease-out',
         'disabled:opacity-45 disabled:pointer-events-none',
         variants[variant === 'ghost' && active ? 'muted' : variant],
         c.square, 'rounded-md',

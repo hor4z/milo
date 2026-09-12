@@ -62,7 +62,7 @@ export function Segmented<T extends string>({
             onClick={() => onChange(o.value)}
             className={cx(
               'relative inline-flex items-center justify-center gap-1.5 font-semibold',
-              'transition-[background-color,color,box-shadow] duration-[190ms] ease-out',
+              'transition-[background-color,color,box-shadow] duration-normal ease-out',
               'disabled:pointer-events-none disabled:opacity-45',
               size === 'xs' ? 'min-h-6 rounded-md text-meta' : size === 'sm' ? 'min-h-8 rounded-md text-body' : 'min-h-9 rounded-lg text-body',
               iconOnly

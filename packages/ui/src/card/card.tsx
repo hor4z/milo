@@ -16,7 +16,7 @@ export function Card({ children, className, interactive, surface = 'paper' }: {
       className={cx(
         'rounded-2xl p-2',
         surface === 'muted' ? 'bg-muted' : 'bg-surface shadow-card',
-        interactive && 'transition-[box-shadow,transform] duration-[190ms] ease-out hover:-translate-y-0.5 hover:shadow-toolbar',
+        interactive && 'transition-[box-shadow,transform] duration-normal ease-out hover:-translate-y-0.5 hover:shadow-toolbar',
         className,
       )}
     >

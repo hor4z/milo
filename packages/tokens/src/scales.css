@@ -77,9 +77,22 @@
      quien tiene baja visión. La geometría del shell sigue en px a propósito: lo
      que crece es la letra, no la barra lateral.
 
-     La familia está en revisión: Instrument Sans es la tercera del proyecto
-     (Inter → Geist → Instrument Sans) y el comparador de Fundamentos › Tipografía
-     tiene las candidatas. Los tres roles apuntan al mismo stack mientras tanto.
+     **Una sola familia para los tres roles, y es Inter.** Cuarta y última del
+     proyecto: Inter → Geist → Instrument Sans → Inter. Volver no es andar en
+     círculo, porque lo que se fue no vuelve: aquella vez eran tres familias
+     (Inter + Inter Tight + JetBrains Mono) y el motivo de dejarla fue justamente
+     ese. Inter v4 trae un **eje óptico** (`opsz`), así que una sola instancia
+     cubre el cuerpo y el display —Inter Tight deja de tener sentido— y el
+     argumento viejo se cae solo.
+
+     El eje óptico es lo que la hace la elección y no una preferencia: la letra se
+     redibuja más abierta y con más avance a 12px, y más cerrada a 40px. Es la
+     cura estructural de la falta de nitidez a tamaños chicos, en vez de
+     compensarla a mano con tracking. Ninguna de las otras candidatas lo tiene.
+
+     Lo que se pierde: es la letra de media industria y no aporta identidad. En un
+     sistema que se apoya en el relieve y en una rampa casi neutra, eso es menos
+     costo que en otro lado — acá la identidad no la pone la letra.
 
      Lo que el rol `mono` pierde es el ancho fijo, y hay que saber qué se pierde
      con él: una columna de valores ya no alinea sola. La alinea `.tabular`
@@ -87,7 +100,7 @@
      sin cambiar de letra. Alcanza para lo que el rol hace de verdad —precios,
      métricas, una columna de una tabla— y no alcanza para un bloque de código,
      que no hay en el sistema. */
-  --font-sans: "Instrument Sans", ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --font-sans: Inter, ui-sans-serif, system-ui, -apple-system, sans-serif;
   --font-display: var(--font-sans);
   --font-mono: var(--font-sans);
 

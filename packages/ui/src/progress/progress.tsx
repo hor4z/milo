@@ -37,7 +37,7 @@ export function Progress({ value, max = 100, label, hint, tone = 'brand', classN
         aria-valuemax={max}
         className="h-1.5 w-full overflow-hidden rounded-full bg-track"
       >
-        <div className={cx('h-full rounded-full transition-[width] duration-300 ease-out', fillTone[tone])} style={{ width: `${pct}%` }} />
+        <div className={cx('h-full rounded-full transition-[width] duration-normal ease-out', fillTone[tone])} style={{ width: `${pct}%` }} />
       </div>
     </div>
   )

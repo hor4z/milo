@@ -33,14 +33,14 @@ export function Checkbox({
       onClick={() => onChange(!checked)}
       className={cx(
         'inline-flex size-[18px] shrink-0 items-center justify-center rounded-xs',
-        'transition-[background-color,box-shadow] duration-[120ms] ease-out',
+        'transition-[background-color,box-shadow] duration-fast ease-out',
         'disabled:opacity-45 disabled:pointer-events-none',
         on ? 'bg-brand text-on-brand' : 'inset-relief bg-muted text-on-brand',
       )}
     >
       <span
         className={cx(
-          'inline-flex transition-transform duration-[120ms] ease-out',
+          'inline-flex transition-transform duration-fast ease-out',
           on ? 'scale-100' : 'scale-0',
         )}
       >

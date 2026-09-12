@@ -33,7 +33,7 @@ describe('las vistas del kit', () => {
           : /\.tsx?$/.test(e.name) ? [`${prefix}${e.name}`] : [],
       )
 
-    const prohibido = /\btext-(2xs|xs|sm|base|md|lg|xl|2xl)\b|text-\[(?![\d.]+em\])|\b(leading|tracking)-(\[|none|tight|normal|snug|relaxed|loose|wide|wider|widest)/
+    const prohibido = /\btext-(2xs|xs|sm|base|md|lg|xl|2xl)\b|text-\[(?![\d.]+em\])|\b(leading|tracking)-(\[|none|tight|normal|snug|relaxed|loose|wide|wider|widest)|\bduration-(\[|\d)/
     // Lo que va entre backticks es prosa, no clase: así se nombra el código en
     // las notas del kit, y la vista de tipografía cuenta la historia del nombre
     // viejo. Sin esta línea, documentar el bug lo reintroduce.
@@ -157,9 +157,14 @@ describe('cobertura del kit', () => {
       join(import.meta.dirname, '../intro.tsx'),
       join(import.meta.dirname, '../App.tsx'),
       join(import.meta.dirname, '../main.tsx'),
-      join(import.meta.dirname, '../guide/principles.tsx'),
-      join(import.meta.dirname, '../foundations/writing.tsx'),
+      join(import.meta.dirname, '../foundations/principles.tsx'),
+      join(import.meta.dirname, '../foundations/accessibility.tsx'),
       join(import.meta.dirname, '../foundations/typography.tsx'),
+      join(import.meta.dirname, '../foundations/color.tsx'),
+      join(import.meta.dirname, '../foundations/measure.tsx'),
+      join(import.meta.dirname, '../foundations/relief.tsx'),
+      join(import.meta.dirname, '../foundations/motion.tsx'),
+      join(import.meta.dirname, '../foundations/writing.tsx'),
     ]
     const text = sources.map((f: string) => readFileSync(f, 'utf8')).join('\n')
 

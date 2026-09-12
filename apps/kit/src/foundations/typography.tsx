@@ -1,5 +1,4 @@
-import { useEffect, useState } from 'react'
-import { Badge, Chip, Icon, Segmented, Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@milo/ui'
+import { Icon, Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@milo/ui'
 import { A11y, Note, Page, Section, useTokens } from '../kit'
 
 /** Los siete roles, en orden de tamaño. `cls` es la utilidad y el resto es lo que documenta. */
@@ -13,23 +12,12 @@ const roles = [
   { cls: 'text-display', px: 40, lh: 44, ls: '-0.02em', role: 'Portadas.' },
 ] as const
 
-/** Las candidatas del comparador. `stack` es lo que se escribe en `--font-sans`. */
-const families = [
-  { value: 'instrument', label: 'Instrument Sans', stack: '"Instrument Sans"', note: 'La actual, y la tercera del proyecto: Inter → Geist → Instrument Sans. Está en revisión porque se eligió mirando una referencia comercial, no pensando en quién va a leer esto.' },
-  { value: 'inter', label: 'Inter', stack: 'Inter', note: 'La única de la lista con eje óptico (opsz): la letra se redibuja más abierta a 12px y más cerrada a 40px, que es exactamente el problema de nitidez que estamos corrigiendo a mano. El costo es que es la letra de media industria.' },
-  { value: 'plex', label: 'IBM Plex Sans', stack: '"IBM Plex Sans"', note: 'La de Carbon, probada años a 14px en consolas densas. Tiene más carácter que Inter sin volverse rara, y viene con una monoespaciada hermana de verdad — eso recuperaría el rol mono, que hoy es la misma familia y perdió el ancho fijo.' },
-  { value: 'atkinson', label: 'Atkinson Hyperlegible Next', stack: '"Atkinson Hyperlegible Next"', note: 'Del Braille Institute, dibujada para baja visión: cada par que suele confundirse está resuelto a propósito. Es el argumento edtech más fuerte de la lista, y la que más hay que mirar contra el relieve — tiene personalidad y el sistema es sobrio.' },
-  { value: 'public', label: 'Public Sans', stack: '"Public Sans"', note: 'La del sistema de diseño del gobierno de Estados Unidos, obligada a accesibilidad por mandato. Neutra hasta el aburrimiento, que a veces es la virtud.' },
-] as const
-
-type Family = (typeof families)[number]['value']
-
 export function TypographySection() {
   return (
     <Page
       title="Tipografía"
       kind="Fundamentos"
-      lead="Siete roles, y cada uno carga tamaño, interlineado y tracking juntos. La base es 14 y hay un escalón explícito de 16 para lo que un estudiante lee de corrido. La familia está en revisión: abajo está el comparador."
+      lead="Una familia —Inter— y siete roles, cada uno cargando tamaño, interlineado y tracking juntos. La base es 14 y hay un escalón explícito de 16 para lo que un estudiante lee de corrido."
       imports="import { Icon } from '@milo/ui'"
     >
       <Section
@@ -78,7 +66,7 @@ export function TypographySection() {
         </div>
       </Section>
 
-      <Comparador />
+      <PorQueInter />
 
       <Section
         title="El interlineado dejó de ser uno solo"
@@ -217,118 +205,69 @@ export function TypographySection() {
   )
 }
 
-function Comparador() {
-  const [family, setFamily] = useState<Family>('instrument')
-  const elegida = families.find(f => f.value === family)!
-
-  // Se escribe en el <html> y no en un contenedor: la idea es ver el sistema
-  // entero cambiar de letra, incluido el riel y lo que quedó arriba en pantalla.
-  // Se limpia al salir de la vista o no te lo sacás más de encima.
-  useEffect(() => {
-    const root = document.documentElement
-    root.style.setProperty('--font-sans', `${elegida.stack}, ui-sans-serif, system-ui, sans-serif`)
-    return () => { root.style.removeProperty('--font-sans') }
-  }, [elegida.stack])
-
+function PorQueInter() {
   return (
     <Section
-      title="El comparador"
-      note="La calibración de arriba es agnóstica y sirve para cualquiera de las cinco, así que la familia se puede decidir sola y mirando — que es como se decide un cambio de identidad. Cambia el sitio entero, no este recuadro. Es andamio del kit: las candidatas se cargan solo acá y se van el día que haya una elegida."
+      title="Por qué Inter, y por qué una sola"
+      note="Cuarta y última familia del proyecto: Inter → Geist → Instrument Sans → Inter. Volver no es andar en círculo, porque lo que se fue no vuelve: aquella vez eran tres familias —Inter, Inter Tight y JetBrains Mono— y el motivo de dejarla fue justamente ese. Inter v4 trae eje óptico, así que una sola instancia cubre el cuerpo y el display, y el argumento viejo se cae solo."
     >
-      <div className="flex flex-col gap-5">
-        <div className="flex flex-wrap items-center gap-3">
-          <Segmented
-            label="Familia tipográfica"
-            size="sm"
-            value={family}
-            onChange={setFamily}
-            options={families.map(f => ({ value: f.value, label: f.label }))}
-          />
-          {family === 'instrument' && <Badge tone="neutral">la actual</Badge>}
+      <div className="flex flex-col gap-4">
+        <div className="grid gap-4 sm:grid-cols-2">
+          <div className="rounded-2xl border border-line bg-surface p-5">
+            <div className="mb-3 flex items-center gap-2">
+              <Icon name="visibility" size={16} />
+              <span className="text-label font-semibold text-ink">El eje óptico</span>
+            </div>
+            <p className="max-w-[52ch] text-body text-ink-muted">
+              La letra se redibuja sola según el tamaño: más abierta y con más avance a 12px, más
+              cerrada a 40px. Es la cura estructural de la falta de nitidez abajo, en vez de
+              compensarla a mano con tracking. Ninguna de las otras candidatas que se miraron lo
+              tiene, y es lo que hace que esta sea una elección y no una preferencia.
+            </p>
+            <p className="mt-3 text-meta text-ink-muted">
+              Se pide como <code>opsz 14..32</code>: son los dos extremos que la fuente define, así
+              que pedir más rango no agrega dibujo y sí agrega bytes.
+            </p>
+          </div>
+          <div className="rounded-2xl border border-line bg-surface p-5">
+            <div className="mb-3 flex items-center gap-2">
+              <Icon name="warning" size={16} />
+              <span className="text-label font-semibold text-ink">Lo que se paga</span>
+            </div>
+            <p className="max-w-[52ch] text-body text-ink-muted">
+              Es la letra de media industria y no aporta identidad. En un sistema que se apoya en el
+              relieve y en una rampa casi neutra eso cuesta menos que en otro lado: acá la identidad
+              no la pone la letra. Si algún día tiene que ponerla, el lugar es la portada y no la
+              interfaz.
+            </p>
+            <p className="mt-3 text-meta text-ink-muted">
+              Las otras cuatro que se miraron: IBM Plex Sans, Atkinson Hyperlegible Next, Public
+              Sans e Instrument Sans, la anterior.
+            </p>
+          </div>
         </div>
 
-        <p className="max-w-[65ch] text-body text-ink-muted">{elegida.note}</p>
-
-        <div className="grid gap-4 lg:grid-cols-2">
-          <div className="rounded-2xl border border-line bg-surface p-5">
-            <span className="text-label font-semibold text-ink-muted">Lo que se lee · 16/24</span>
-            <p className="mt-3 max-w-[65ch] text-reading text-ink">
-              Para el martes tienen que entregar el informe del experimento. Va la hipótesis que
-              escribieron en clase, qué midieron, y qué les pasó que no esperaban — esa última
-              parte es la que más me interesa leer.
-            </p>
-            <p className="mt-3 max-w-[65ch] text-reading text-ink">
-              Si algo no les salió, escríbanlo igual. Un experimento que falla y está bien contado
-              vale más que uno que sale y no se entiende.
-            </p>
+        <div className="rounded-2xl border border-line bg-surface p-5">
+          <div className="mb-1 flex items-center gap-2">
+            <Icon name="info" size={16} />
+            <span className="text-label font-semibold text-ink">Lo que el CDN no trae</span>
           </div>
-
-          <div className="rounded-2xl border border-line bg-surface p-5">
-            <span className="text-label font-semibold text-ink-muted">Un panel denso · 14 y 13</span>
-            <div className="mt-3">
-              <Table minWidth={300}>
-                <TableHeader>
-                  <TableRow>
-                    <TableHead>Aprendiz</TableHead>
-                    <TableHead>Estado</TableHead>
-                  </TableRow>
-                </TableHeader>
-                <TableBody>
-                  {[
-                    ['Milagros Ibáñez', 'ok'],
-                    ['Joaquín Ledesma', 'warn'],
-                    ['Ailén Quiroga', 'bad'],
-                  ].map(([n, t]) => (
-                    <TableRow key={n}>
-                      <TableCell>{n}</TableCell>
-                      <TableCell><Badge tone={t as 'ok' | 'warn' | 'bad'}>{t === 'ok' ? 'Entregó' : t === 'warn' ? 'Tarde' : 'Falta'}</Badge></TableCell>
-                    </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
-            </div>
-            <div className="mt-4 flex flex-wrap gap-2">
-              <Chip color="green">Ciencias</Chip>
-              <Chip color="blue">6.° B</Chip>
-              <Chip color="orange">Trimestral</Chip>
-            </div>
-          </div>
-
-          <div className="rounded-2xl border border-line bg-surface p-5">
-            <span className="text-label font-semibold text-ink-muted">El test de confusión</span>
-            <div className="mt-3 flex flex-col gap-2">
-              {[
-                ['1 l I |', 'uno, ele, i mayúscula, barra'],
-                ['0 O o Ø', 'cero y o'],
-                ['rn m cl d', 'los pares que se funden'],
-                ['ñ Ñ ¿ ¡ «»', 'lo que el castellano necesita'],
-                ['áéíóú ÁÉÍÓÚ ü', 'acentos, arriba y abajo'],
-              ].map(([g, q]) => (
-                <div key={g} className="flex flex-wrap items-baseline gap-4">
-                  <span className="w-[14ch] shrink-0 text-title font-medium text-ink">{g}</span>
-                  <span className="text-meta text-ink-muted">{q}</span>
-                </div>
-              ))}
-            </div>
-            <p className="mt-4 max-w-[46ch] text-meta text-ink-muted">
-              Acá se decide de verdad. Una familia que no distingue el uno de la ele es un problema
-              en cualquier interfaz, y en una donde alguien está aprendiendo a leer es otra cosa.
-            </p>
-          </div>
-
-          <div className="rounded-2xl border border-line bg-surface p-5">
-            <span className="text-label font-semibold text-ink-muted">Los números en columna</span>
-            <div className="mt-3 flex flex-col items-start gap-1">
-              {['11.111', '40.000', '18.914', '88.100', '90.007'].map(n => (
-                <span key={n} className="tabular border-r border-line pr-1 text-title font-semibold text-ink">{n}</span>
-              ))}
-            </div>
-            <p className="mt-4 max-w-[46ch] text-meta text-ink-muted">
-              Con <code>.tabular</code> puesto. Si una familia no trae cifras tabulares de verdad, la
-              columna de la derecha baila igual y se nota acá.
-            </p>
-            <p className="mt-4 text-display font-bold text-ink">Portada</p>
-          </div>
+          <p className="mb-4 max-w-[70ch] text-body text-ink-muted">
+            Inter tiene un set de desambiguación —<code>ss04</code>: la ele minúscula con cola y la
+            i mayúscula con serifas— y un cero barrado. Serían ideales acá: separan{' '}
+            <span className="text-ink">1 l I</span> y <span className="text-ink">0 O</span> de un
+            vistazo, que es exactamente lo que le cuesta a quien está aprendiendo a leer.{' '}
+            <strong className="font-semibold text-ink">El build que sirve Google los recorta.</strong>{' '}
+            Su tabla de features queda en <code>calt ccmp dnom frac locl numr pnum tnum</code> y nada
+            más, así que escribir <code>font-feature-settings: "ss04"</code> no rompe: no hace nada,
+            en silencio. Está anotado en el <code>theme.css</code> para que nadie lo intente dos veces.
+          </p>
+          <p className="max-w-[70ch] text-body text-ink-muted">
+            Lo que sí sobrevive es <code>tnum</code>, así que <code>.tabular</code> funciona.
+            Recuperar los otros dos pide auto-alojar la fuente —unos 69 KB subseteada a latín— y se
+            decidió que tener CDN vale más: una red escolar cachea Google Fonts, y la primera visita
+            de cada alumno no paga la descarga.
+          </p>
         </div>
       </div>
     </Section>

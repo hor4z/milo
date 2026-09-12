@@ -28,8 +28,11 @@ export function Switch({
       disabled={disabled}
       onClick={() => onChange(!checked)}
       className={cx(
+        // El pulgar viaja, no entra ni sale, así que pedía una curva simétrica.
+        // Va con `ease-out` igual: agregar una tercera curva al sistema por una
+        // sola pieza es peor que la asimetría, que a 190ms y 18px no se ve.
         'relative inline-flex h-[22px] w-10 shrink-0 items-center rounded-full p-0.5',
-        'transition-[background-color,box-shadow] duration-200 ease-[cubic-bezier(.4,0,.2,1)]',
+        'transition-[background-color,box-shadow] duration-normal ease-out',
         'disabled:opacity-45 disabled:pointer-events-none',
         checked ? 'switch-track-on' : 'switch-track-off',
       )}
@@ -37,7 +40,7 @@ export function Switch({
       <span
         className={cx(
           'switch-thumb size-[18px] rounded-full',
-          'transition-transform duration-200 ease-[cubic-bezier(.4,0,.2,1)]',
+          'transition-transform duration-normal ease-out',
           checked ? 'translate-x-[18px]' : 'translate-x-0',
         )}
       />

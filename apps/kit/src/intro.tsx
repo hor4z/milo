@@ -13,7 +13,12 @@ const shortcuts: { id: string; icon: IconName; title: string; body: string }[] =
   { id: 'dashboard', icon: 'dashboard', title: 'Dashboard', body: 'Todo junto, funcionando en una pantalla real.' },
 ]
 
-export function Intro({ go, pieces }: { go: (id: string) => void; pieces: number }) {
+// `views` y no `pieces`: cuenta lo que el riel tiene, que desde que Fundamentos
+// existe son vistas de documentación además de piezas. Antes decía "piezas" y
+// daba 48 por casualidad —siete guías más cuarenta y una historias—; con dos
+// fundamentos más pasó a 50 y la casualidad se notó. Las piezas de verdad son
+// 48 carpetas en `packages/ui`, y eso lo custodia un test del paquete.
+export function Intro({ go, views }: { go: (id: string) => void; views: number }) {
   const [demo, setDemo] = useState(true)
 
   return (
@@ -43,7 +48,7 @@ export function Intro({ go, pieces }: { go: (id: string) => void; pieces: number
           </div>
 
           <dl className="mt-1 flex flex-wrap gap-x-9 gap-y-3 border-t border-line pt-6">
-            {[[String(pieces), 'piezas'], ['271', 'tests'], ['160', 'iconos'], ['2', 'temas']].map(([n, l]) => (
+            {[[String(views), 'vistas'], ['273', 'tests'], ['160', 'iconos'], ['2', 'temas']].map(([n, l]) => (
               <div key={l} className="flex items-baseline gap-2">
                 <dt className="tabular text-title font-bold text-ink">{n}</dt>
                 <dd className="text-body font-medium text-ink-muted">{l}</dd>

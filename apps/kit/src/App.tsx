@@ -2,12 +2,14 @@ import { useEffect, useMemo, useRef, useState, type ReactNode } from 'react'
 import { Icon, IconButton, Kbd, ToastProvider, cx, fold, usePrefs } from '@milo/ui'
 import { Intro } from './intro'
 import { Dashboard } from './dashboard'
-import { Principles } from './guide/principles'
+import { Principles } from './foundations/principles'
+import { AccessibilitySection } from './foundations/accessibility'
 import { TypographySection } from './foundations/typography'
+import { ColorSection } from './foundations/color'
+import { MeasureSection } from './foundations/measure'
+import { ReliefSection } from './foundations/relief'
+import { MotionSection } from './foundations/motion'
 import { Writing } from './foundations/writing'
-import { ColorSection } from './tokens/color'
-import { MeasureSection } from './tokens/measure'
-import { ReliefSection } from './tokens/relief'
 import { ButtonStory } from './stories/button'
 import { IconButtonStory } from './stories/icon-button'
 import { TextFieldStory } from './stories/text-field'
@@ -57,25 +59,26 @@ type Group = { label: string; stories: Story[] }
 const INTRO = 'intro'
 
 const groups: Group[] = [
-  // Fundamentos va primero y arriba de Guía a propósito: es la capa de la que
-  // sale todo lo demás. Hoy tiene las dos caras del texto —cómo se ve y cómo
-  // suena— y color, medidas y relieve siguen en Guía, que es tan arbitrario
-  // como suena: son fundamentos igual y les toca mudarse.
+  // Fundamentos es la capa de la que sale todo lo demás, así que va primero y
+  // se lleva lo que antes estaba repartido entre "Guía" y "Tokens" — dos grupos
+  // que se distinguían por si el contenido era un valor o una regla, cuando el
+  // que busca no sabe ni le importa cuál de las dos cosas está buscando.
+  //
+  // El orden adentro no es alfabético: Principios y Accesibilidad son las dos
+  // que hay que leer antes de tocar nada, y después van las capas en el orden
+  // en que se construye una pantalla.
   {
     label: 'Fundamentos',
     stories: [
-      { id: 'typography', label: 'Tipografía', alias: 'tipografía fuente texto escala pesos interlineado tracking familia legibilidad', render: () => <TypographySection /> },
-      { id: 'writing', label: 'Cómo se escribe', alias: 'texto redacción copy mensajes tono escritura', render: () => <Writing /> },
-    ],
-  },
-  {
-    label: 'Guía',
-    stories: [
       { id: 'principles', label: 'Principios', alias: 'principios fundamentos reglas decisiones', render: () => <Principles /> },
+      { id: 'accessibility', label: 'Accesibilidad', alias: 'accesibilidad a11y contraste teclado foco lector pantalla wcag', render: () => <AccessibilitySection /> },
+      { id: 'typography', label: 'Tipografía', alias: 'tipografía fuente texto escala pesos interlineado tracking familia inter legibilidad', render: () => <TypographySection /> },
       { id: 'color', label: 'Color', alias: 'paleta tokens rampa tonos', render: () => <ColorSection /> },
-      { id: 'measure', label: 'Medidas y radios', alias: 'espaciado medidas radios tamaños', render: () => <MeasureSection /> },
+      { id: 'measure', label: 'Medidas y radios', alias: 'espaciado medidas radios tamaños layout grilla', render: () => <MeasureSection /> },
       { id: 'relief', label: 'Relieve', alias: 'sombra relieve elevación profundidad', render: () => <ReliefSection /> },
+      { id: 'motion', label: 'Movimiento', alias: 'movimiento animación transición duración curva easing reduced motion', render: () => <MotionSection /> },
       { id: 'icon', label: 'Iconos', alias: 'iconos glifos símbolos', render: () => <IconStory /> },
+      { id: 'writing', label: 'Cómo se escribe', alias: 'texto redacción copy mensajes tono escritura', render: () => <Writing /> },
     ],
   },
   {
@@ -218,7 +221,7 @@ export function App() {
           id="riel"
           className={cx(
             'fixed top-0 bottom-0 left-0 z-40 flex w-[248px] shrink-0 flex-col border-r border-line bg-canvas',
-            'transition-transform duration-[190ms] ease-out lg:translate-x-0',
+            'transition-transform duration-normal ease-out lg:translate-x-0',
             railOpen ? 'translate-x-0 shadow-popover' : '-translate-x-full',
           )}
         >
@@ -289,7 +292,7 @@ export function App() {
 
           <div className="flex items-center justify-between gap-2 border-t border-line px-4 py-3">
             <span className="text-meta font-medium text-ink-muted">
-              {everything.length} piezas
+              {everything.length} vistas
             </span>
             <IconButton
               icon={prefs.theme === 'dark' ? 'light_mode' : 'dark_mode'}
@@ -316,7 +319,7 @@ export function App() {
 
         <main ref={main} className="min-w-0 flex-1 px-5 py-8 lg:ml-[248px] lg:px-10 lg:py-10">
           <div key={current} className="mx-auto flex max-w-[980px] flex-col">
-            {current === INTRO && <Intro go={go} pieces={everything.length} />}
+            {current === INTRO && <Intro go={go} views={everything.length} />}
             {current === 'dashboard' && <Dashboard />}
             {story?.render()}
           </div>
