@@ -47,6 +47,14 @@ export function DropdownStory() {
           { name: 'width', type: 'number', def: '220' },
         ]} />
       </Section>
+    
+      <Section title="Accesibilidad">
+        <A11y items={[
+          'El panel es role="menu" y cada opción un menuitem.',
+          'Escape cierra solo este menú y deja abierto lo que haya detrás, por la pila global.',
+          'Cierra con pointerdown y no con click: el mismo gesto que abre otro menú no lo reabre.',
+        ]} />
+      </Section>
     </Page>
   )
 }
@@ -112,6 +120,14 @@ export function PopoverStory() {
           { name: 'align', type: "'start' | 'end'", def: "'end'" },
           { name: 'width', type: 'number', note: 'sin esto se mide el ancho real del panel montado' },
           { name: 'offset', type: 'number', def: '8' },
+        ]} />
+      </Section>
+    
+      <Section title="Accesibilidad">
+        <A11y items={[
+          'El disparador declara aria-expanded, así que se anuncia si está abierto.',
+          'Escape cierra el de arriba y no todos.',
+          'El scroll de la página lo cierra; el de su propio contenido, no.',
         ]} />
       </Section>
     </Page>
@@ -196,6 +212,15 @@ export function TooltipStory() {
           <code>Tooltip</code> ata <code>primitives</code> a <code>overlay</code>, que hoy importa
           al revés: es un movimiento de archivos, no una prop.
         </p>
+      </Section>
+    
+      <Section title="Accesibilidad">
+        <A11y items={[
+          'Aparece con el foco de teclado y no solo con el mouse.',
+          'Lleva role="tooltip" y el control que explica lo referencia con aria-describedby.',
+          'No recibe el puntero, así que nunca se mete entre el mouse y lo que describe.',
+          'En touch no aparece: lo que diga tiene que estar también en el aria-label del control.',
+        ]} />
       </Section>
     </Page>
   )
@@ -338,6 +363,15 @@ export function ModalStory() {
           { name: 'onClose', type: '() => void', note: 'obligatorio: lo llaman Escape y el click en el backdrop' },
           { name: 'label', type: 'string', note: 'obligatorio: el aria-label del role="dialog"' },
           { name: 'width', type: 'number', def: '620' },
+        ]} />
+      </Section>
+    
+      <Section title="Accesibilidad">
+        <A11y items={[
+          'role="dialog" con aria-modal y su nombre.',
+          'Atrapa el foco mientras está abierto y lo devuelve al cerrarse.',
+          'Se enfoca el contenedor y no el primer control: el navegador scrollea a lo que enfoca, y eso abría el panel corrido.',
+          'Bloquea el scroll de la página compensando el ancho de la barra, así que nada salta al abrir.',
         ]} />
       </Section>
     </Page>

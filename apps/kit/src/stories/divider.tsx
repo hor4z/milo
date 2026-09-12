@@ -1,5 +1,5 @@
 import { Avatar, Divider, Icon, Kbd } from '@melu/ui'
-import { Page, Panel, Props, Section, Variant } from '../kit'
+import { A11y, Page, Panel, Props, Section, Variant } from '../kit'
 
 export function DividerStory() {
   return (
@@ -61,6 +61,12 @@ export function DividerStory() {
         <Props rows={[
           { name: 'orientation', type: "'horizontal' | 'vertical'", def: "'horizontal'" },
           { name: 'className', type: 'string', note: 'para el margen, que depende de dónde esté' },
+        ]} />
+      </Section>
+    
+      <Section title="Accesibilidad">
+        <A11y items={[
+          'Lleva role="separator" con su orientación, así que un lector anuncia el corte.',
         ]} />
       </Section>
     </Page>

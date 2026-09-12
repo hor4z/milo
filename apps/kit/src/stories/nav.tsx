@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { FolderIcon, NavItemBody, navItemClass, navSubItemClass } from '@melu/ui'
-import { Page, Props, Section } from '../kit'
+import { A11y, Page, Props, Section } from '../kit'
 
 export function NavStory() {
   const [active, setActive] = useState('explorar')
@@ -81,6 +81,13 @@ export function NavStory() {
           { name: 'NavItemBody · glyph', type: 'ReactNode', note: 'cuando el glifo no sale del set: la carpeta de un espacio' },
           { name: 'NavItemBody · badge', type: 'string', note: 'hundido como un kbd: un contador no es accionable' },
           { name: 'NavItemBody · chip', type: 'boolean', def: 'true', note: 'el chip de papel detrás del icono activo' },
+        ]} />
+      </Section>
+    
+      <Section title="Accesibilidad">
+        <A11y items={[
+          'El item activo lo dice con aria-current, no solo con el fondo.',
+          'El texto de un item inactivo va en tinta: en gris, una lista de siete espacios parece deshabilitada.',
         ]} />
       </Section>
     </Page>

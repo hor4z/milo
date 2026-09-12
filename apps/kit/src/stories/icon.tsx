@@ -5,7 +5,7 @@ import {
   iconNames, type IconName, type IconWeight,
 } from '@melu/ui'
 import { iconTags } from '@melu/ui/icons.meta'
-import { Mono, Page, Panel, Props, Section, Variant } from '../kit'
+import { A11y, Mono, Page, Panel, Props, Section, Variant } from '../kit'
 
 const escala = [
   { px: 12, rol: 'un badge, la cruz de un chip' },
@@ -196,6 +196,15 @@ export function IconStory() {
         note="Firefox deja desactivar «permitir que las páginas elijan sus propias fuentes», y hay gente que lo usa por dislexia o baja visión. Con esa opción todos los iconos desaparecen y quedan cuadraditos. Un <svg> era inmune. No tiene mitigación dentro de este enfoque: es el precio de que el peso y el relleno sean ejes de verdad, y está acá escrito y no escondido."
       >
         <div />
+      </Section>
+    
+      <Section title="Accesibilidad">
+        <A11y items={[
+          'Los glifos van aria-hidden: un icono es una imagen del texto que tiene al lado, no una segunda lectura.',
+          'Un icono sin texto vive dentro de un IconButton, que exige su label.',
+          'El glifo lleva translate="no": es texto, y un traductor automático puede reescribirlo.',
+          'Si alguien desactiva las fuentes de la página, los iconos desaparecen. Es el precio de que el peso sea un eje real y está dicho, no escondido.',
+        ]} />
       </Section>
     </Page>
   )

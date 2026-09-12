@@ -1,5 +1,5 @@
 import { Card, Folder, Icon } from '@melu/ui'
-import { Mono, Page, Props, Section } from '../kit'
+import { A11y, Mono, Page, Props, Section } from '../kit'
 
 const cara = (n: number) => `/avatars/${String(n).padStart(2, '0')}.webp`
 const p = (name: string, foto?: number) => ({ name, src: foto ? cara(foto) : undefined })
@@ -100,6 +100,13 @@ export function FolderStory() {
           <Folder size={88} />
           <span className="text-xs text-ink-muted">la pieza · el glifo</span>
         </Card>
+      </Section>
+    
+      <Section title="Accesibilidad">
+        <A11y items={[
+          'El color identifica el espacio de un vistazo, pero el nombre está siempre escrito.',
+          'El dibujo es aria-hidden: no se anuncia una carpeta dibujada.',
+        ]} />
       </Section>
     </Page>
   )

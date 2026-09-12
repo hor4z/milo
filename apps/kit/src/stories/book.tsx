@@ -1,5 +1,5 @@
 import { Book, Icon } from '@melu/ui'
-import { Mono, Page, Props, Section } from '../kit'
+import { A11y, Mono, Page, Props, Section } from '../kit'
 
 export function BookStory() {
   return (
@@ -99,6 +99,12 @@ export function BookStory() {
         note="La idea y las medidas son del Book de Geist, el sistema de Vercel: proporción 49/60, lomo al 29% del ancho, perspectiva de 900 y el giro de -20°. Eso es lo que se tomó, que es lo que hace cualquiera con una referencia enfrente. El dibujo está armado con los tokens y los relieves de acá."
       >
         <div />
+      </Section>
+    
+      <Section title="Accesibilidad">
+        <A11y items={[
+          'La portada es decorativa: lo que se lee es el título que va al lado.',
+        ]} />
       </Section>
     </Page>
   )

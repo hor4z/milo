@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { Slider } from '@melu/ui'
-import { Mono, Page, Panel, Props, Section, Variant } from '../kit'
+import { A11y, Mono, Page, Panel, Props, Section, Variant } from '../kit'
 
 export function SliderStory() {
   const [a, setA] = useState(59)
@@ -85,6 +85,14 @@ export function SliderStory() {
           El punto azul del pulgar es la misma frase dicha en la pieza que se agarra.{' '}
           <Mono>--switch-on</Mono> y <Mono>--brand</Mono>, sin un hex nuevo.
         </p>
+      </Section>
+    
+      <Section title="Accesibilidad">
+        <A11y items={[
+          'Es un <input type="range"> de verdad: flechas, Home, End y PageUp funcionan solas.',
+          'El pulgar dibujado toma el foco del input que hay debajo.',
+          'El label lo nombra aunque en pantalla no haya texto al lado.',
+        ]} />
       </Section>
     </Page>
   )

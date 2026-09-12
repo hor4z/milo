@@ -1,5 +1,5 @@
 import { Icon, List, ListItem, type IconName, type MarkColor } from '@melu/ui'
-import { Mono, Page, Props, Section } from '../kit'
+import { A11y, Mono, Page, Props, Section } from '../kit'
 
 const onboarding: { icon: IconName; color: MarkColor; title: string; hint: string; active?: boolean }[] = [
   { icon: 'check', color: 'green', title: 'Update your profile', hint: 'Add a photo and connect your social links.' },
@@ -74,6 +74,13 @@ export function ListStory() {
           { name: 'ListItem · active', type: 'boolean', note: 'hundida, no teñida' },
           { name: 'ListItem · onClick', type: '() => void', note: 'sin esto la fila es un <div> y no toma hover' },
           { name: 'ListItem · trailing', type: 'ReactNode', note: 'a la derecha: un chevron, un contador' },
+        ]} />
+      </Section>
+    
+      <Section title="Accesibilidad">
+        <A11y items={[
+          'Una fila con onClick es un <button>; sin él es un <div> que no se puede enfocar.',
+          'La marca de color no es la única señal: el título dice de qué es la fila.',
         ]} />
       </Section>
     </Page>
