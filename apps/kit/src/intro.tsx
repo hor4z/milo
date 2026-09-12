@@ -33,7 +33,7 @@ export function Intro({ go, pieces }: { go: (id: string) => void; pieces: number
             </h1>
             <p className="max-w-[62ch] text-base font-medium text-ink-muted">
               No es una lámina de estilos: cada pieza de acá es el componente real, con su teclado, sus
-              estados y sus tests. Lo que se decide en este kit se porta a <code className="font-mono text-xs text-ink">packages/ui</code>.
+              estados y sus tests. Lo que se decide acá se porta a <code className="font-mono text-xs text-ink">packages/ui</code>.
             </p>
           </div>
 

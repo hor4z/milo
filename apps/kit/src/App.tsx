@@ -216,7 +216,7 @@ export function App() {
           <div className="flex flex-col gap-3 px-4 pt-5 pb-3">
             <button onClick={() => go(INTRO)} className="flex items-baseline gap-1.5 self-start rounded-md px-1 text-left">
               <span className="text-base font-bold tracking-tight text-ink">milo</span>
-              <span className="text-2xs font-semibold text-ink-muted">ui kit</span>
+              <span className="text-2xs font-semibold text-ink-muted">design system</span>
             </button>
 
             <label className="field flex h-8 cursor-text items-center gap-2 rounded-lg border border-field-line bg-field px-2.5">
@@ -302,7 +302,7 @@ export function App() {
             aria-controls="riel"
             onClick={() => setRailOpen(true)}
           />
-          <span className="text-xs font-semibold text-ink">milo · ui kit</span>
+          <span className="text-xs font-semibold text-ink">milo · design system</span>
         </div>
 
         <main ref={main} className="min-w-0 flex-1 px-5 py-8 lg:ml-[248px] lg:px-10 lg:py-10">

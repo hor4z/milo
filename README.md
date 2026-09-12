@@ -1,13 +1,15 @@
-# ui-kit
+# milo · design system
 
-El sistema de interfaz de **milo**, funcionando: tokens, componentes y dos apps que los
-usan. No es una lámina de estilos — cada pieza de acá es el componente real, con su teclado,
-sus estados y sus tests.
+El sistema de interfaz de **milo**: la identidad en tokens, las piezas que la usan y el sitio
+donde se ve todo funcionando. No es una lámina de estilos — cada pieza de acá es el componente
+real, con su teclado, sus estados y sus tests.
+
+El UI kit —las 48 piezas— es **una parte** del sistema, no el sistema. Acá adentro no vive
+producto: este repo es del design system y de nada más.
 
 ```sh
 npm install
-npm run dev        # el kit · http://localhost:5190
-npm run dev:guide  # el prototipo · http://localhost:5180
+npm run dev        # el sitio · http://localhost:5190
 npm run typecheck  # todo el monorepo de una
 npm test           # 255 tests
 npm run props      # regenera la tabla de props desde los tipos
@@ -17,14 +19,14 @@ npm run props      # regenera la tabla de props desde los tipos
 
 ```
 packages/tokens/   la identidad, en CSS puro: primitives · semantic · scales
-packages/ui/       48 piezas, una carpeta cada una: el componente y su test al lado
-apps/kit/          el muestrario: una vista por pieza, con props, demos y accesibilidad
-apps/guide/        el prototipo: las pantallas del producto usando el paquete
+packages/ui/       el UI kit: 48 piezas, una carpeta cada una, con su test al lado
+apps/kit/          el sitio: los principios, los tokens y una vista por pieza
 ```
 
-El corte entre el paquete y las apps es por dependencia: `packages/ui` no sabe que existen
-`data.ts` ni el router. Todo lo que una app consume entra por `packages/ui/src/index.ts`, y hay
-un test que falla si alguien exporta algo de un archivo sin sacarlo por esa puerta.
+El corte entre el paquete y el sitio es por dependencia: `packages/ui` no sabe que el sitio
+existe. El sitio consume las piezas como lo haría cualquier app de afuera, que es lo que lo
+vuelve una prueba de verdad y no una demo. Todo entra por `packages/ui/src/index.ts`, y hay un
+test que falla si alguien exporta algo de un archivo sin sacarlo por esa puerta.
 
 ## El sistema, en corto
 
@@ -84,6 +86,9 @@ la licencia.
 Las decisiones y su por qué están en [CLAUDE.md](CLAUDE.md), junto con los errores que ya se
 cometieron acá y conviene no repetir.
 
-No hay backend ni datos reales; nada persiste salvo las preferencias. Los medios de las tarjetas
-son geometría derivada del id, no imágenes: una grilla de fotos se ve linda y no dice nada del
-contenido.
+No hay backend ni datos reales; nada persiste salvo las preferencias del sitio. Los medios de
+las tarjetas son geometría derivada del id, no imágenes: una grilla de fotos se ve linda y no
+dice nada del contenido.
+
+El prototipo de la app que vivía en `apps/guide` se borró: este repo es del design system. Se
+va a armar de nuevo cuando sea el momento, y del lado del producto.

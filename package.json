@@ -1,5 +1,5 @@
 {
-  "name": "milo-ui-kit",
+  "name": "milo-design-system",
   "private": true,
   "type": "module",
   "workspaces": [
@@ -8,8 +8,7 @@
   ],
   "scripts": {
     "dev": "npm run dev -w @milo/kit",
-    "dev:guide": "npm run dev -w @milo/guide",
-    "build": "npm run build -w @milo/kit -w @milo/guide",
+    "build": "npm run build -w @milo/kit",
     "typecheck": "tsc -b",
     "props": "npm run props -w @milo/ui",
     "test": "vitest run",
@@ -17,8 +16,7 @@
   },
   "dependencies": {
     "react": "^19.1.1",
-    "react-dom": "^19.1.1",
-    "react-router-dom": "^7.1.5"
+    "react-dom": "^19.1.1"
   },
   "devDependencies": {
     "@tailwindcss/vite": "^4.1.11",
