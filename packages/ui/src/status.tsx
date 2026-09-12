@@ -6,9 +6,9 @@ import type { Tone } from './feedback'
 const badgeTone: Record<Tone | 'neutral', string> = {
   neutral: 'bg-muted text-ink',
   info: 'bg-brand-subtle text-brand-ink',
-  ok: 'bg-ok-subtle text-ok',
-  warn: 'bg-warn-subtle text-warn',
-  bad: 'bg-bad-subtle text-bad',
+  ok: 'bg-ok-subtle text-ok-ink',
+  warn: 'bg-warn-subtle text-warn-ink',
+  bad: 'bg-bad-subtle text-bad-ink',
 }
 
 type BadgeProps = ComponentPropsWithoutRef<'span'> & {

@@ -72,6 +72,7 @@
      pintado; con uno más largo se lee como un borde de otro color en vez del
      filo de la misma pieza. Acá el 500 al 600 da 1.13:1. */
   --blue-050: #eaf2fe;
+  --blue-700: #0a55c4;
   --blue-400: #5199f9;
   --blue-500: #2781f9;
   --blue-600: #1375f8;
@@ -174,11 +175,14 @@
      baja a un oro oscuro. No es un error de la regla, es que no existe un
      amarillo vivo que aguante texto blanco. Un aviso se lee, no decora. */
   --ok-500: #04983b;
+  --ok-700: #04712c;
   --ok-050: #eafdf1;
   --warn-500: #aa7c05;
+  --warn-700: #7e5c04;
   --warn-050: #fdf8ea;
   --bad-500: #f93630;
   --bad-600: #d81e18;
+  --bad-700: #a81713;
   --bad-050: #fdeaea;
 
   /* Tintes: el lavado de una superficie grande que lleva un dibujo oscuro
@@ -230,6 +234,7 @@
   /* En oscuro el azul sube un paso: el mismo relleno que funciona sobre papel
      casi blanco se apaga sobre #131313. */
   --blue-050: #11202f;
+  --blue-700: #7cb2fa;
   --blue-400: #599ef9;
   --blue-500: #2f86f9;
   --blue-600: #1b7af8;
@@ -264,11 +269,14 @@
   --accent-050: #2a1811;
 
   --ok-500: #05b646;
+  --ok-700: #3ad472;
   --ok-050: #112a1a;
   --warn-500: #c89106;
+  --warn-700: #e3ab1f;
   --warn-050: #2a2311;
   --bad-500: #fa534e;
   --bad-600: #f7726e;
+  --bad-700: #fb827e;
   --bad-050: #2a1211;
 
   --tint-1: #1b201d;

@@ -152,6 +152,9 @@
   --color-brand-subtle: var(--brand-subtle);
   --color-brand-ink: var(--brand-ink);
   --color-ok: var(--ok);
+  --color-ok-ink: var(--ok-ink);
+  --color-warn-ink: var(--warn-ink);
+  --color-bad-ink: var(--bad-ink);
   --color-ok-subtle: var(--ok-subtle);
   --color-warn: var(--warn);
   --color-warn-subtle: var(--warn-subtle);

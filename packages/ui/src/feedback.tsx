@@ -17,9 +17,9 @@ const toneIcon: Record<Tone, IconName> = {
 
 const toneClass: Record<Tone, string> = {
   info: 'bg-brand-subtle text-brand-ink',
-  ok: 'bg-ok-subtle text-ok',
-  warn: 'bg-warn-subtle text-warn',
-  bad: 'bg-bad-subtle text-bad',
+  ok: 'bg-ok-subtle text-ok-ink',
+  warn: 'bg-warn-subtle text-warn-ink',
+  bad: 'bg-bad-subtle text-bad-ink',
 }
 
 type AlertProps = ComponentPropsWithoutRef<'div'> & {

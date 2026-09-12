@@ -77,7 +77,7 @@
   --accent-subtle: var(--accent-050);
 
   --brand-subtle: var(--blue-050);
-  --brand-ink: var(--blue-600);
+  --brand-ink: var(--blue-700);
 
   --space-orange: #e2761b;
   --space-green: #3f9c5f;
@@ -85,10 +85,13 @@
   --space-purple: #8b5cd6;
   --space-pink: #d1568f;
   --ok: var(--ok-500);
+  --ok-ink: var(--ok-700);
   --ok-subtle: var(--ok-050);
   --warn: var(--warn-500);
+  --warn-ink: var(--warn-700);
   --warn-subtle: var(--warn-050);
   --bad: var(--bad-500);
+  --bad-ink: var(--bad-700);
   --bad-hover: var(--bad-600);
   --bad-subtle: var(--bad-050);
   --on-bad: #ffffff;
@@ -324,7 +327,7 @@
   /* En oscuro la pista sube un paso: al 8% sobre #131313 no se ve. */
   --track: var(--shade-09-a11);
   --brand-subtle: var(--blue-050);
-  --brand-ink: var(--blue-400);
+  --brand-ink: var(--blue-700);
 
   --space-orange: #f0913f;
   --space-green: #55b377;
