@@ -60,4 +60,20 @@ describe('ColumnPicker', () => {
     await userEvent.click(screen.getByRole('checkbox', { name: /Estado/ }))
     expect(screen.getByRole('checkbox', { name: /Estado/ })).toHaveAttribute('aria-checked', 'false')
   })
+
+  it('cada opción se anuncia una vez, con su número adentro del nombre', async () => {
+    render(
+      <Filter
+        label="Estado"
+        options={[{ value: 'Abierta', count: 4 }, { value: 'Corregida', count: 3 }]}
+        value={[]}
+        onValueChange={() => {}}
+      />,
+    )
+    await userEvent.click(screen.getByRole('button', { name: 'Estado' }))
+    expect(screen.getByRole('checkbox', { name: 'Abierta, 4' })).toBeInTheDocument()
+    // El texto de al lado es el mismo y no se anuncia de nuevo.
+    expect(screen.queryAllByText('Abierta')).toHaveLength(1)
+    expect(screen.getByText('Abierta')).toHaveAttribute('aria-hidden', 'true')
+  })
 })

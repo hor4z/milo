@@ -105,11 +105,18 @@ export function Filter({ label, options, value, onValueChange }: FilterProps) {
                 o.person ? 'h-10' : 'h-9',
               )}
             >
-              <Checkbox label={o.value} checked={value.includes(o.value)} onChange={() => alternar(o.value)} />
+              {/* El nombre lo lleva la casilla: el texto de al lado es el
+                  mismo y, sin esconderlo, un lector anuncia la opción dos
+                  veces y el número suelto una tercera. */}
+              <Checkbox
+                label={o.count === undefined ? o.value : `${o.value}, ${o.count}`}
+                checked={value.includes(o.value)}
+                onChange={() => alternar(o.value)}
+              />
               {o.person && <Avatar name={o.person.name} src={o.person.src} size={22} className="shrink-0" />}
-              <span className="min-w-0 flex-1 truncate text-xs font-medium text-ink">{o.value}</span>
+              <span aria-hidden="true" className="min-w-0 flex-1 truncate text-xs font-medium text-ink">{o.value}</span>
               {o.count !== undefined && (
-                <span className="tabular shrink-0 text-2xs font-medium text-ink-muted">{o.count}</span>
+                <span aria-hidden="true" className="tabular shrink-0 text-2xs font-medium text-ink-muted">{o.count}</span>
               )}
             </label>
           ))}
@@ -186,7 +193,7 @@ export function ColumnPicker({ columns, value, onValueChange, label = 'Columnas'
                 onChange={() => !c.locked && alternar(c.id)}
                 disabled={c.locked}
               />
-              <span className="min-w-0 flex-1 truncate text-xs font-medium text-ink">{c.label}</span>
+              <span aria-hidden="true" className="min-w-0 flex-1 truncate text-xs font-medium text-ink">{c.label}</span>
             </label>
           ))}
         </div>
