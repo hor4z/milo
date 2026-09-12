@@ -261,10 +261,6 @@
   --color-field-line: var(--field-border);
   --color-track: var(--track);
 
-  --color-search: var(--search-bg);
-  --color-search-hover: var(--search-bg-hover);
-  --color-search-line: var(--search-border);
-
   /* Dos familias y las dos entran enteras, porque los componentes las eligen
      por nombre y una utilidad que no se genera no avisa: queda la clase en el
      HTML sin efecto.
@@ -408,8 +404,6 @@ th { font-weight: var(--font-weight-semibold); }
 .bg-popover {
   --field-bg: var(--field-bg-on-surface);
   --field-bg-hover: var(--field-bg-on-surface-hover);
-  --search-bg: var(--search-bg-on-surface);
-  --search-bg-hover: var(--search-bg-on-surface-hover);
 }
 
 /* Ninguna receta de relieve escribe `box-shadow` directo: escriben `--relief`,

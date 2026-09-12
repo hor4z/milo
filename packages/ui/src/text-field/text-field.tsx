@@ -13,10 +13,12 @@ type TextFieldProps = Omit<InputHTMLAttributes<HTMLInputElement>, 'size'> & {
   size?: 'sm' | 'md' | 'lg'
   /** Va al contenedor, que es lo que mide y lo que se enfoca. */
   ref?: Ref<HTMLDivElement>
+  /** Va al `input` de adentro, para quien necesita enfocarlo desde afuera: un atajo de teclado. */
+  inputRef?: Ref<HTMLInputElement>
 }
 
 /** El campo de texto. */
-export function TextField({ icon, suffix, size = 'lg', className, ref, ...rest }: TextFieldProps) {
+export function TextField({ icon, suffix, size = 'lg', className, ref, inputRef, ...rest }: TextFieldProps) {
   const iconSize = size === 'sm' ? 16 : size === 'md' ? 18 : 20
   const field = useField()
   return (
@@ -37,6 +39,7 @@ export function TextField({ icon, suffix, size = 'lg', className, ref, ...rest }
     >
       {icon && <Icon name={icon} size={iconSize} className="icon-muted shrink-0" />}
       <input
+        ref={inputRef}
         className={cx(
           'h-full min-w-0 flex-1 bg-transparent font-medium text-ink outline-none placeholder:text-ink-placeholder',
           '-mx-2 px-2',

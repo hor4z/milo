@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import {
   Avatar, AvatarGroup, BarChart, Badge, Button, Card, Chip, Dropdown, Folder, Icon, IconButton, Indicator,
-  List, ListItem, Progress, Segmented, SettingsModal, Table, TableBody, TableCell, TableHead,
+  List, ListItem, Progress, Search, Segmented, SettingsModal, Table, TableBody, TableCell, TableHead,
   TableHeader, TableHint, TableNum, TableRow, TableTitle, Tooltip, useToast, type IconName,
 } from '@milo/ui'
 
@@ -52,6 +52,7 @@ const pendientes = [
 
 export function Dashboard() {
   const [settings, setSettings] = useState(false)
+  const [busca, setBusca] = useState('')
   const [range, setRange] = useState('semana')
   const { toast } = useToast()
 
@@ -62,14 +63,14 @@ export function Dashboard() {
           contenido con una línea, no con relieve — es el borde de la página,
           no una pieza apoyada encima. */}
       <div className="-mx-5 -mt-5 mb-2 flex h-20 items-center gap-4 border-b border-line px-5">
-        <label className="field flex h-9 w-full max-w-[320px] cursor-text items-center gap-2 rounded-md border border-search-line bg-search px-3">
-          <Icon name="search" size={16} className="icon-muted shrink-0" />
-          <input
-            className="min-w-0 flex-1 bg-transparent text-body font-medium text-ink outline-none placeholder:text-ink-placeholder"
-            placeholder="Buscar una actividad o un espacio"
-            aria-label="Buscar"
-          />
-        </label>
+        <Search
+          size="md"
+          value={busca}
+          onValueChange={setBusca}
+          placeholder="Buscar una actividad o un espacio"
+          aria-label="Buscar"
+          className="w-full max-w-[320px]"
+        />
 
         <div className="ml-auto flex items-center gap-2">
           <Avisos />

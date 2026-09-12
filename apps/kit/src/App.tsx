@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef, useState, type ReactNode } from 'react'
-import { Icon, IconButton, Kbd, ToastProvider, cx, fold, usePrefs } from '@milo/ui'
+import { Icon, IconButton, Search, ToastProvider, cx, fold, usePrefs } from '@milo/ui'
 import { Intro } from './intro'
 import { Dashboard } from './dashboard'
 import { Principles } from './foundations/principles'
@@ -48,6 +48,8 @@ import { AccordionStory } from './stories/accordion'
 import { BreadcrumbStory } from './stories/breadcrumb'
 import { BadgeStory } from './stories/badge'
 import { IndicatorStory } from './stories/indicator'
+import { SearchStory } from './stories/search'
+import { ColumnPickerStory } from './stories/column-picker'
 import { ProgressStory } from './stories/progress'
 import { SkeletonStory } from './stories/skeleton'
 import { ConfirmStory } from './stories/confirm-dialog'
@@ -94,6 +96,7 @@ const groups: Group[] = [
     stories: [
       { id: 'field', label: 'Field', alias: 'formulario campo etiqueta ayuda error obligatorio fieldset', render: () => <FieldStory /> },
       { id: 'sheet', label: 'Sheet', alias: 'panel lateral drawer formulario largo costado', render: () => <SheetStory /> },
+      { id: 'search', label: 'Search', alias: 'buscador buscar búsqueda lupa filtrar atajo', render: () => <SearchStory /> },
       { id: 'text-field', label: 'TextField', alias: 'input campo texto entrada', render: () => <TextFieldStory /> },
       { id: 'textarea', label: 'Textarea', alias: 'campo multilínea texto largo', render: () => <TextareaStory /> },
       { id: 'select', label: 'Select', alias: 'combo desplegable elegir opción', render: () => <SelectStory /> },
@@ -119,6 +122,7 @@ const groups: Group[] = [
       { id: 'table', label: 'Table', alias: 'tabla grilla filas columnas datos', render: () => <TableStory /> },
       { id: 'list', label: 'List', alias: 'lista filas acciones', render: () => <ListStory /> },
       { id: 'bar-chart', label: 'BarChart', alias: 'gráfico barras chart datos progreso', render: () => <ChartStory /> },
+      { id: 'column-picker', label: 'ColumnPicker', alias: 'columnas tabla elegir mostrar ocultar', render: () => <ColumnPickerStory /> },
       { id: 'indicator', label: 'Indicator', alias: 'indicador marca punto contador aviso notificación campana', render: () => <IndicatorStory /> },
       { id: 'badge', label: 'Badge', alias: 'etiqueta marca estado', render: () => <BadgeStory /> },
       { id: 'progress', label: 'Progress', alias: 'progreso barra porcentaje avance', render: () => <ProgressStory /> },
@@ -231,41 +235,31 @@ export function App() {
               <span className="text-meta font-semibold text-ink-muted">design system</span>
             </button>
 
-            <label className="field flex h-8 cursor-text items-center gap-2 rounded-lg border border-field-line bg-field px-2">
-              <Icon name="search" size={14} className="icon-muted shrink-0" />
-              <input
-                ref={searchRef}
-                value={query}
-                onChange={e => setQuery(e.target.value)}
-                onKeyDown={e => {
-                  const found = filtered.flatMap(g => g.stories)
-                  if (e.key === 'Enter' && found.length > 0) {
-                    go(found[0].id)
-                    setQuery('')
-                    searchRef.current?.blur()
-                  }
-                  if (e.key === 'Escape') {
-                    if (query) setQuery('')
-                    else searchRef.current?.blur()
-                  }
-                  if (e.key === 'ArrowDown') {
-                    e.preventDefault()
-                    const first = document.querySelector<HTMLButtonElement>('nav [data-pieza]')
-                    first?.focus()
-                  }
-                }}
-                placeholder="Buscar"
-                aria-label="Buscar una pieza"
-                className="min-w-0 flex-1 bg-transparent text-body font-normal text-ink outline-none placeholder:text-ink-muted"
-              />
-              {query
-                ? (
-                  <button type="button" onClick={() => setQuery('')} aria-label="Limpiar" className="shrink-0 text-ink-muted hover:text-ink">
-                    <Icon name="close" size={14} />
-                  </button>
-                )
-                : <Kbd>/</Kbd>}
-            </label>
+            <Search
+              ref={searchRef}
+              value={query}
+              onValueChange={setQuery}
+              placeholder="Buscar"
+              aria-label="Buscar una pieza"
+              shortcut="/"
+              block
+              onKeyDown={e => {
+                const found = filtered.flatMap(g => g.stories)
+                if (e.key === 'Enter' && found.length > 0) {
+                  go(found[0].id)
+                  setQuery('')
+                  searchRef.current?.blur()
+                }
+                if (e.key === 'Escape') {
+                  if (query) setQuery('')
+                  else searchRef.current?.blur()
+                }
+                if (e.key === 'ArrowDown') {
+                  e.preventDefault()
+                  document.querySelector<HTMLButtonElement>('nav [data-pieza]')?.focus()
+                }
+              }}
+            />
           </div>
 
           <div className="flex-1 overflow-y-auto px-3 pb-4">
