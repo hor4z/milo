@@ -11,7 +11,8 @@ const shell = [
 ] as const
 
 const radii = [
-  { token: '--radius-sm', cls: 'rounded-sm', role: 'marcas hundidas y cuadraditos: un kbd, un badge, un checkbox' },
+  { token: '--radius-sm', cls: 'rounded-sm', role: 'marcas hundidas: un kbd, un badge, un checkbox' },
+  { token: '--radius-md', cls: 'rounded-md', role: 'lo cuadrado: un botón de icono, el pulgar de un segmented' },
   { token: '--radius-lg', cls: 'rounded-lg', role: 'todo lo que se toca: botón, botón de icono, item de nav, campo' },
   { token: '--radius-xl', cls: 'rounded-xl', role: 'lo que va adentro de una tarjeta' },
   { token: '--radius-2xl', cls: 'rounded-2xl', role: 'contenedores: tarjeta, modal, popover' },
@@ -100,7 +101,7 @@ export function MeasureSection() {
 
       <Section
         title="Radios"
-        note="Cuatro pasos y el círculo. Había seis: murieron un `md` de 10 y un `xs` de 5, los dos por la misma razón — estaban a dos y a un píxel de su vecino, y a esa distancia nadie ve una diferencia. Lo único que hacían era dar a elegir entre dos cosas iguales, que es cómo una pantalla termina con cuatro curvas distintas sin que nadie lo haya decidido. La regla que los ata: el radio de un hijo es el del padre menos el padding del padre."
+        note="Cinco pasos y el círculo. Murió un `xs` de 5 por estar a un píxel de su vecino. El `md` de 10 también murió y **volvió**, y vale saber por qué: el argumento para sacarlo era que 10 y 12 están a dos píxeles y nadie ve la diferencia, y eso es cierto entre dos formas parecidas y falso entre un cuadrado y un rectángulo ancho. **El mismo radio se lee más redondo cuanto más corto es el lado**: sobre los 164 de un botón, 12 es un remate; sobre los 32 de un botón de icono, se come casi todo el lado plano. La regla que los ata: el radio de un hijo es el del padre menos el padding del padre."
       >
         <Section title="La escala">
           <div className="flex flex-col rounded-xl border border-line bg-surface px-4">

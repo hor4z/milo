@@ -18,7 +18,7 @@ final son lo único que hay que tocar.
 npm install
 npm run dev        # el sitio · http://localhost:5190
 npm run typecheck  # todo el monorepo de una
-npm test           # 285 tests con vitest y testing-library
+npm test           # 288 tests con vitest y testing-library
 npm run props      # regenera la tabla de props desde los tipos
 ```
 
@@ -156,6 +156,12 @@ problema es el peso o el contraste.
 **Medidas del shell.** Sidebar 220 `fixed` (72 contraído) · topbar 80 · padding lateral 20 ·
 item de nav 40 con radio 12 y el icono en un cuadro de 34 · sangría de subitems 48.
 
+**El alto de afuera es el de la escalera, siempre.** Una pieza que envuelve a otra —la pista de un
+`Segmented` alrededor de sus opciones— **contiene** su padding, no lo suma. El `Segmented` lo sumaba
+y su `sm` medía 36, o sea el alto de `md`: puesto al lado de un `Button size="sm"` no apoyaban en la
+misma línea, y el resultado es que dos piezas del mismo talle se leen como de sistemas distintos.
+Si el mismo nombre de talle da dos alturas, el nombre no sirve para nada.
+
 **Controles.** Tres alturas y un rol cada una: `sm` 32 inline en una fila densa · `md` 36
 acciones dentro de un panel · `lg` 40 la acción principal. El `sm` va en `text-body` y del `md`
 para arriba en `text-reading` con radio 12: un botón con el mismo tamaño de letra que su entorno
@@ -180,11 +186,18 @@ que hacen lo mismo quedaban separadas por 10 acá y por 12 allá — y eso no se
 ve como desprolijidad. Lo hace cumplir un test. **No manda sobre las alturas de pieza**: un control
 de 36 o una fila de 56 salen de la escalera de controles.
 
-**Radios.** `sm` 6 marcas hundidas y cuadraditos · `lg` 12 todo lo que se toca · `xl` 16 lo que va
-adentro de una tarjeta · `2xl` 24 contenedores · `full` lo redondo de verdad. **Cuatro y no seis**:
-murieron un `md` de 10 y un `xs` de 5 por estar a dos y a un píxel de su vecino — a esa distancia
-nadie ve una diferencia y lo único que hacían era dar a elegir entre dos cosas iguales, que es cómo
-una pantalla termina con cuatro curvas sin que nadie lo haya decidido.
+**Radios.** `sm` 6 marcas hundidas · `md` 10 lo cuadrado · `lg` 12 lo que se toca y es ancho ·
+`xl` 16 adentro de una tarjeta · `2xl` 24 contenedores · `full` lo redondo de verdad. Murió un `xs`
+de 5 por estar a un píxel de su vecino.
+
+**El `md` también murió y volvió**, y vale escribir por qué: matarlo rompió dos piezas. El
+argumento para sacarlo era que 10 y 12 están a dos píxeles y nadie ve la diferencia. Eso es cierto
+entre dos formas parecidas y **falso entre un cuadrado y un rectángulo ancho**: el mismo radio se
+lee más redondo cuanto más corto es el lado. Sobre los 164 de ancho de un botón, 12 es un remate;
+sobre los 32 de un botón de icono, 12 se come casi todo el lado plano y la pieza se lee como una
+pastilla — que es exactamente cómo se notó, un `IconButton` que parecía de otra librería al lado de
+un `Segmented`. Es además lo que da la regla del anidado en el caso más común: una pista de 12 con
+2 de padding pide 10 adentro.
 
 La regla del anidado: **el radio de un hijo es el del padre menos el padding del padre.** Un
 24 con 8 de padding pide 16 adentro. Si el hijo repite el radio del padre, la curva se ve
@@ -581,7 +594,7 @@ Lo mismo vale para los tipos que una pieza recibe como argumento —`ToastOption
 
 ## Los tests
 
-`npm test` corre vitest con jsdom y testing-library. 285 tests, y lo que prueban es el
+`npm test` corre vitest con jsdom y testing-library. 288 tests, y lo que prueban es el
 comportamiento —teclado, nombres accesibles, estados— y no el markup, que cambia con cada
 ajuste de estilo. El test de cada pieza vive en su carpeta, al lado del componente.
 

@@ -41,9 +41,12 @@ export function Segmented<T extends string>({
       onKeyDown={roving.onKeyDown}
       className={cx(
         'inline-flex items-center',
+        // El alto de afuera es el de la escalera: la pista no agrega altura, la
+        // contiene. Antes el padding se sumaba y `sm` medía 36 —el alto de `md`—
+        // así que un Segmented y un Button del mismo talle no alineaban.
         size === 'xs' ? 'gap-1' : 'gap-0.5 bg-muted',
         size === 'sm' && 'rounded-lg p-0.5',
-        size === 'md' && 'rounded-xl p-1',
+        size === 'md' && 'rounded-lg p-0.5',
       )}
     >
       {options.map(o => {
@@ -64,9 +67,9 @@ export function Segmented<T extends string>({
               'relative inline-flex items-center justify-center gap-2 font-semibold',
               'transition-[background-color,color,box-shadow] duration-normal ease-out',
               'disabled:pointer-events-none disabled:opacity-45',
-              size === 'xs' ? 'min-h-6 rounded-lg text-meta' : size === 'sm' ? 'min-h-8 rounded-lg text-body' : 'min-h-9 rounded-lg text-body',
+              size === 'xs' ? 'min-h-6 rounded-lg text-meta' : size === 'sm' ? 'min-h-7 rounded-md text-body' : 'min-h-8 rounded-md text-body',
               iconOnly
-                ? (size === 'xs' ? 'w-6' : size === 'sm' ? 'w-8' : 'w-9')
+                ? (size === 'xs' ? 'w-6' : size === 'sm' ? 'w-7' : 'w-8')
                 : (size === 'xs' ? 'px-2' : size === 'sm' ? 'px-3' : 'px-4'),
               active
                 ? (size === 'xs' ? 'bg-muted text-ink' : 'bg-surface text-ink [--relief:var(--relief-raised)] shadow-(--relief)')

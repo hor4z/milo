@@ -10,27 +10,37 @@
 :root {
   /* ------- radios -------
    *   sm   6   marcas hundidas y cuadraditos: un kbd, un badge, un checkbox
+   *   md  10   lo cuadrado: un botón de icono, el pulgar de un segmented
    *   lg  12   todo lo que se toca: botón, botón de icono, item de nav, campo
    *   xl  16   lo que va adentro de una tarjeta (24 menos sus 8 de padding)
    *   2xl 24   contenedores: tarjeta, modal, popover
    *   full     lo que es redondo de verdad: un avatar, un punto, un pulgar
    *
-   * **Cuatro pasos y no seis.** Había un `md` de 10 y un `xs` de 5, y los dos
-   * murieron por la misma razón: estaban a dos y a un píxel de su vecino, y a
-   * esa distancia nadie ve una diferencia — lo único que hacían era dar a elegir
-   * entre dos cosas iguales, que es cómo una pantalla termina con cuatro curvas
-   * distintas sin que nadie lo haya decidido.
+   * **Cuatro pasos para elegir y uno que se deriva.** Había además un `xs` de 5
+   * y murió: estaba a un píxel de su vecino, y a esa distancia nadie ve una
+   * diferencia — lo único que hacía era dar a elegir entre dos cosas iguales,
+   * que es cómo una pantalla termina con cuatro curvas sin que nadie lo haya
+   * decidido.
    *
-   * El `md` separaba "lo cuadrado que se toca" de "lo que se toca y tiene
-   * texto". Es una distinción real y 2px no alcanzan para decirla: un botón de
-   * icono y un botón con texto se distinguen por ser cuadrado uno y ancho el
-   * otro, no por la curva.
+   * El `md` también murió y **volvió**, y el motivo es que matarlo rompió dos
+   * piezas. La razón para matarlo era que 10 y 12 están a dos píxeles y nadie ve
+   * la diferencia. Eso es cierto entre dos formas parecidas y falso entre un
+   * cuadrado y un rectángulo ancho: **el mismo radio se lee más redondo cuanto
+   * más chico es el lado**. Sobre los 164 de ancho de un botón, 12 es un remate;
+   * sobre los 32 de un botón de icono, 12 se come casi todo el lado plano y la
+   * pieza se lee como una pastilla.
+   *
+   * Y es además el resultado de la regla del anidado en el caso más común del
+   * sistema —una pista de 12 con 2 de padding y su pulgar adentro—: sin este
+   * paso, el pulgar repite el 12 del padre (la curva se ve doble) o cae al 6 (se
+   * ven dos curvas distintas). Los dos errores ya pasaron acá.
    *
    * La regla del anidado: el radio de un hijo es el del padre menos el padding
    * del padre. Si el hijo repite el radio del padre, la curva se ve doble; si
    * queda más cuadrado que el padre, se ven dos curvas distintas.
    */
   --radius-sm: 6px;
+  --radius-md: 10px;
   --radius-lg: 12px;
   --radius-xl: 16px;
   --radius-2xl: 24px;
