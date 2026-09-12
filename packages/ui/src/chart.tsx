@@ -156,7 +156,14 @@ export function BarChart({ data, highlight, title, height = 220, className }: {
             datum={data[activa]}
             /* Anclado a su columna y no al puntero: siguiendo el mouse, el
                tooltip tiembla mientras te movés adentro de la misma barra y hay
-               que perseguirlo con la vista para leer un número. */
+               que perseguirlo con la vista para leer un número.
+
+               Y se recuesta contra el borde en las de las puntas. Centrado sobre
+               la primera columna, la mitad izquierda de la caja cae afuera de la
+               tarjeta: o se corta, o se sale por encima de lo que haya al lado.
+               En las puntas se alinea por su borde en vez de por su centro, que
+               es lo que hace cualquier menú anclado. */
+            align={activa === 0 ? 'start' : activa === data.length - 1 ? 'end' : 'center'}
             style={{
               left: `${((activa + 0.5) / data.length) * 100}%`,
               bottom: `${Math.max(6, Math.round((data[activa].total / max) * 100))}%`,
@@ -214,14 +221,25 @@ export function BarChart({ data, highlight, title, height = 220, className }: {
  * tooltip al revés de la de una leyenda: acá el lector ya sabe qué tocó y lo que
  * fue a buscar es cuánto.
  */
-function ChartTooltip({ datum, style }: { datum: BarDatum; style?: React.CSSProperties }) {
+function ChartTooltip({ datum, style, align = 'center' }: {
+  datum: BarDatum
+  style?: React.CSSProperties
+  align?: 'start' | 'center' | 'end'
+}) {
   return (
     <div
       role="tooltip"
       /* `pointer-events-none` o el tooltip se mete entre el mouse y la barra que
          explica, y el hover parpadea. `-translate-x-1/2` para centrarlo en su
          columna, y el margen de abajo lo despega del tope de la barra. */
-      className="ui-fade pointer-events-none absolute z-20 mb-2 -translate-x-1/2 whitespace-nowrap rounded-md bg-surface px-3 py-2 shadow-popover"
+      className={cx(
+        'ui-fade pointer-events-none absolute z-20 mb-2 whitespace-nowrap rounded-md bg-surface px-3 py-2 shadow-popover',
+        /* El corrimiento se hace con `translate` y no con `left`: el `left` ya
+           apunta al centro de la columna, así que moverlo de nuevo lo desancla
+           de su barra. Acá solo se elige qué punto de la caja cae sobre esa
+           línea. */
+        align === 'center' ? '-translate-x-1/2' : align === 'end' ? '-translate-x-full' : '',
+      )}
       style={style}
     >
       <div className="flex items-center gap-2">
