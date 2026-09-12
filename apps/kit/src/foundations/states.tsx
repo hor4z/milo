@@ -24,7 +24,7 @@ export function StatesSection() {
         title="La regla que ordena todo esto"
         note="Cada estado tiene una forma además de un tono. Un cambio de color solo es una señal que no llega a quien no distingue colores, a quien mira de reojo, ni a quien está en una pantalla mal calibrada de un aula. La forma puede ser el relieve, la opacidad, un glifo o una palabra — pero alguna hay."
       >
-        <div className="flex flex-col overflow-hidden rounded-2xl border border-line bg-surface">
+        <div className="flex flex-col overflow-hidden rounded-xl border border-line bg-surface">
           {interaccion.map(e => (
             <div key={e.name} className="flex flex-wrap gap-x-5 gap-y-2 border-t border-line px-5 py-4 first:border-t-0">
               <code className="w-24 shrink-0 font-mono text-meta font-semibold text-ink">{e.name}</code>
@@ -104,7 +104,7 @@ export function StatesSection() {
         note="Un error tiene que decir tres cosas: qué pasó, si se perdió algo, y qué se puede hacer ahora. La tercera es la que más se olvida, y sin ella el aviso solo informa que la persona no puede seguir."
       >
         <div className="grid gap-4 sm:grid-cols-2">
-          <div className="rounded-2xl border border-line bg-surface p-5">
+          <div className="rounded-xl border border-line bg-surface p-5">
             <div className="mb-3 flex items-center gap-2">
               <Icon name="close" size={14} className="text-bad" />
               <span className="text-label font-semibold text-ink">Lo que no alcanza</span>
@@ -115,7 +115,7 @@ export function StatesSection() {
               lee solo se entera de que no puede seguir.
             </p>
           </div>
-          <div className="rounded-2xl border border-line bg-surface p-5">
+          <div className="rounded-xl border border-line bg-surface p-5">
             <div className="mb-3 flex items-center gap-2">
               <Icon name="check" size={14} className="text-ok" />
               <span className="text-label font-semibold text-ink">Lo que sí</span>

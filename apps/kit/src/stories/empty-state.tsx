@@ -45,7 +45,7 @@ export function EmptyStateStory() {
             <EmptyState icon="folder_open" title="Este espacio está vacío" body="Todavía no hay actividades acá." />
           </Demo>
           <Demo label="sin caja, adentro de una tarjeta">
-            <div className="rounded-2xl bg-surface p-2 shadow-card">
+            <div className="rounded-xl bg-surface p-2 shadow-card">
               <EmptyState
                 bordered={false}
                 icon="folder_open"

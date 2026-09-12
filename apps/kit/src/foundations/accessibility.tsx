@@ -46,7 +46,7 @@ export function AccessibilitySection() {
       <Section title="Las seis reglas">
         <div className="grid gap-3 md:grid-cols-2">
           {reglas.map(r => (
-            <div key={r.title} className="flex flex-col gap-2 rounded-2xl border border-line bg-surface p-5">
+            <div key={r.title} className="flex flex-col gap-2 rounded-xl border border-line bg-surface p-5">
               <span className="inset-relief mb-1 inline-flex size-9 items-center justify-center rounded-lg">
                 <Icon name={r.icon} size={18} />
               </span>
@@ -61,7 +61,7 @@ export function AccessibilitySection() {
         title="El anillo de foco"
         note="Dos píxeles de superficie y después el azul. Los dos píxeles de papel en el medio son lo que lo deja ver también sobre un botón azul, donde un anillo pegado al borde se perdería contra el relleno. Probalo: hacé Tab acá adentro."
       >
-        <div className="flex flex-wrap items-center gap-4 rounded-2xl border border-line bg-surface p-5">
+        <div className="flex flex-wrap items-center gap-4 rounded-xl border border-line bg-surface p-5">
           <Button variant="solid">Guardar</Button>
           <Button variant="brand">Publicar</Button>
           <Button variant="raised">Cancelar</Button>
@@ -82,7 +82,7 @@ export function AccessibilitySection() {
             ['md', 36, 'ok', 'La acción dentro de un panel.'],
             ['lg', 40, 'ok', 'La acción principal. Es el que más se acerca a los 44 del dedo.'],
           ].map(([size, px, tone, nota]) => (
-            <div key={size as string} className="flex flex-wrap items-center gap-4 rounded-2xl border border-line bg-surface px-5 py-4">
+            <div key={size as string} className="flex flex-wrap items-center gap-4 rounded-xl border border-line bg-surface px-5 py-4">
               <code className="w-10 shrink-0 font-mono text-meta font-semibold text-ink">{size}</code>
               <span className="w-14 shrink-0 tabular text-body text-ink">{px}px</span>
               <Badge tone={tone as 'ok'}>≥ 24</Badge>
@@ -103,7 +103,7 @@ export function AccessibilitySection() {
         title="Lo obligatorio se dice con la palabra"
         note="Un asterisco es una convención que no significa nada para quien no la conoce, y un lector de pantalla lo lee como «asterisco». Va el asterisco para quien lo reconoce y la palabra para todos los demás."
       >
-        <div className="flex max-w-[460px] flex-col gap-3 rounded-2xl border border-line bg-surface p-5">
+        <div className="flex max-w-[460px] flex-col gap-3 rounded-xl border border-line bg-surface p-5">
           <Field label="Nombre de la actividad" required hint="Lo que van a ver los aprendices en su lista.">
             <TextField placeholder="Informe del experimento" />
           </Field>
@@ -119,7 +119,7 @@ export function AccessibilitySection() {
         title="Lo urgente interrumpe, lo demás espera"
         note="Un error va como role=alert y un lector lo anuncia cortando lo que esté leyendo; todo lo demás va como role=status y espera su turno. Elegir mal es lo que hace que una confirmación de guardado le pise a alguien la frase que estaba escuchando."
       >
-        <div className="flex flex-wrap items-center gap-6 rounded-2xl border border-line bg-surface p-5">
+        <div className="flex flex-wrap items-center gap-6 rounded-xl border border-line bg-surface p-5">
           <div className="flex items-center gap-2">
             <Icon name="error" size={16} className="text-bad" />
             <code className="font-mono text-meta font-semibold text-ink">role="alert"</code>
@@ -137,7 +137,7 @@ export function AccessibilitySection() {
         title="Las salidas"
         note="Escape usa una pila global: cierra el overlay de arriba y no todos. Un menú abierto adentro de un modal se cierra solo él, y el modal queda. Sin la pila, un Escape de más te saca de la tarea entera."
       >
-        <div className="flex flex-wrap items-center gap-3 rounded-2xl border border-line bg-surface p-5">
+        <div className="flex flex-wrap items-center gap-3 rounded-xl border border-line bg-surface p-5">
           <Kbd>Esc</Kbd>
           <span className="text-body text-ink-muted">cierra lo de más arriba</span>
           <span className="text-ink-disabled">·</span>

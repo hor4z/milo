@@ -112,8 +112,9 @@ export function Canvas({ children, className, pad = true }: { children: ReactNod
     <div
       className={cx(
         // El lienzo va en papel y no en `bg-muted`: con el hueco puesto acá, un
-        // botón `muted` quedaba del mismo tono que su propio fondo.
-        'relative overflow-hidden rounded-2xl border border-line bg-surface',
+        // botón `muted` quedaba del mismo tono que su propio fondo. Y en 16 como
+        // la `Card`: el mueble del kit se dibuja con las reglas del sistema.
+        'relative overflow-hidden rounded-xl border border-line bg-surface',
         pad && 'p-6',
         className,
       )}

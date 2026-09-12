@@ -38,16 +38,18 @@ const yo = {
 }
 
 const espacios = [
-  { label: 'Matemática', meta: '4.º A · 18 archivos', color: 'var(--space-blue)', avatars: [p('Ana Pérez', 1), p('Bruno Díaz', 2), p('Carla Sosa', 3)] },
+  // Sin color: el ámbar de manila es el default de la pieza, y el azul de un
+  // espacio compite con el azul primario, que ya significa otra cosa.
+  { label: 'Matemática', meta: '4.º A · 18 archivos', color: undefined, avatars: [p('Ana Pérez', 1), p('Bruno Díaz', 2), p('Carla Sosa', 3)] },
   { label: 'Ciencias', meta: '5.º B · 24 archivos', color: 'var(--space-green)', avatars: [p('Franco Gil', 6), p('Hugo Paz', 8)] },
   { label: 'Lengua', meta: '6.º · 9 archivos', color: 'var(--space-purple)', avatars: [p('Irene Lopez'), p('Julián Cruz')] },
   { label: 'Sociales', meta: '5.º A · 12 archivos', color: 'var(--space-orange)', avatars: [p('Mora Tello', 2), p('Olivia Rey', 4)] },
 ] as const
 
 const pendientes = [
-  { icon: 'edit', color: 'orange', title: 'Corregir «El sistema solar»', hint: '24 entregas esperando', count: '24' },
-  { icon: 'schedule', color: 'purple', title: 'Cerrar «Fracciones equivalentes»', hint: 'Vence mañana a las 23:59', count: '7' },
-  { icon: 'group_add', color: 'green', title: 'Sumar a Lengua · 6.º', hint: 'Dos aprendices pidieron entrar', count: '2' },
+  { icon: 'edit', color: 'orange', title: 'Corregir «El sistema solar»', hint: '24 entregas esperando' },
+  { icon: 'schedule', color: 'purple', title: 'Cerrar «Fracciones equivalentes»', hint: 'Vence mañana a las 23:59' },
+  { icon: 'group_add', color: 'green', title: 'Sumar a Lengua · 6.º', hint: 'Dos aprendices pidieron entrar' },
 ] as const
 
 export function Dashboard() {
@@ -192,7 +194,6 @@ export function Dashboard() {
                   title={t.title}
                   hint={t.hint}
                   onClick={() => {}}
-                  trailing={<Badge tone="neutral">{t.count}</Badge>}
                 />
               ))}
             </List>

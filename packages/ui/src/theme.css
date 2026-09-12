@@ -904,6 +904,17 @@ tr[tabindex]:focus-visible {
    escribían `duration-[120ms]` a mano —diecisiete veces— y cuatro de ellos con
    números que no estaban en ninguna escala (90, 140, 160, 200). Es el mismo bug
    que tenía la tipografía: el token definido y el call site esquivándolo. */
+/* Oscurece una superficie **sobre sí misma**, sin importar qué tiene abajo.
+
+   Un hover pintado con un paso opaco de la rampa tiene que saber contra qué
+   fondo cae: `bg-muted` sobre el escritorio se ve, y sobre una bandeja del mismo
+   tono desaparece — pasó, y la fila de una lista se esfumaba al pasarle el
+   mouse. Esto pinta tinta en alpha *encima* del fondo propio de la pieza en vez
+   de reemplazarlo, así que siempre oscurece un paso y nunca coincide con nada. */
+@utility tinted {
+  background-image: linear-gradient(var(--surface-hover), var(--surface-hover));
+}
+
 @utility duration-fast { transition-duration: var(--duration-fast); }
 @utility duration-normal { transition-duration: var(--duration-normal); }
 

@@ -1102,7 +1102,7 @@ export const propsByComponent: Record<string, ComponentDoc> = {
         "name": "trailing",
         "type": "ReactNode",
         "required": false,
-        "doc": "A la derecha: un chevron, un contador."
+        "doc": "A la derecha: un chevron, un `Switch`. Un contador no — el número ya está en `hint`, y repetirlo al lado obliga a leer dos veces lo mismo."
       }
     ]
   },

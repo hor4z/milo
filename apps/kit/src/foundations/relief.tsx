@@ -33,7 +33,7 @@ export function ReliefSection() {
       <Section title="Las recetas que se tocan">
         <div className="grid gap-3 sm:grid-cols-2">
           {recipes.map(r => (
-            <div key={r.token} className="flex flex-col gap-3 rounded-2xl border border-line bg-surface p-5">
+            <div key={r.token} className="flex flex-col gap-3 rounded-xl border border-line bg-surface p-5">
               <div className={`${r.cls} ${r.back} flex h-14 items-center justify-center rounded-xl text-body font-semibold`}>
                 {r.role}
               </div>
@@ -52,7 +52,7 @@ export function ReliefSection() {
       >
         <div className="grid gap-3 sm:grid-cols-3">
           {layers.map(c => (
-            <div key={c.token} className="flex flex-col items-center gap-4 rounded-2xl border border-line bg-muted p-6">
+            <div key={c.token} className="flex flex-col items-center gap-4 rounded-xl border border-line bg-muted p-6">
               <div className="size-20 rounded-xl bg-surface" style={{ boxShadow: `var(${c.token})` }} />
               <div className="flex flex-col items-center gap-1 text-center">
                 <code className="font-mono text-meta font-semibold text-ink">{c.token}</code>
@@ -68,7 +68,7 @@ export function ReliefSection() {
         note="Las dos están escritas al lado de su token, y las dos se rompieron antes de quedar escritas."
       >
         <div className="grid gap-3 sm:grid-cols-2">
-          <div className="flex flex-col gap-2 rounded-2xl border border-line bg-surface p-5">
+          <div className="flex flex-col gap-2 rounded-xl border border-line bg-surface p-5">
             <span className="text-body font-semibold text-ink">El canto no es un escalón de la rampa</span>
             <p className="text-meta font-medium text-ink-muted">
               <code className="font-mono">--edge</code> es más oscuro que el borde más oscuro, porque tiene
@@ -76,7 +76,7 @@ export function ReliefSection() {
               plano sobre un fondo casi blanco.
             </p>
           </div>
-          <div className="flex flex-col gap-2 rounded-2xl border border-line bg-surface p-5">
+          <div className="flex flex-col gap-2 rounded-xl border border-line bg-surface p-5">
             <span className="text-body font-semibold text-ink">Hundido son dos cosas distintas</span>
             <p className="text-meta font-medium text-ink-muted">
               Una marca lleva canto y sombra de caída; algo que se aprieta, no. Mezclarlas hace que un

@@ -19,7 +19,7 @@ export function Intro({ go, views }: { go: (id: string) => void; views: number }
 
   return (
     <div className="flex flex-col gap-10">
-      <section className="relative overflow-hidden rounded-2xl border border-line bg-surface">
+      <section className="relative overflow-hidden rounded-xl border border-line bg-surface">
         <div className="pointer-events-none absolute inset-0 opacity-[0.55]">
           <div className="absolute -top-24 -right-16 size-72 rounded-full bg-brand/10 blur-3xl" />
           <div className="absolute -bottom-24 -left-10 size-64 rounded-full bg-accent/10 blur-3xl" />
@@ -59,7 +59,7 @@ export function Intro({ go, views }: { go: (id: string) => void; views: number }
           <button
             key={a.id}
             onClick={() => go(a.id)}
-            className="group flex flex-col gap-3 rounded-2xl border border-line bg-surface p-5 text-left transition-[background-color,box-shadow] hover:bg-muted"
+            className="group flex flex-col gap-3 rounded-xl border border-line bg-surface p-5 text-left transition-[background-color,box-shadow] hover:bg-muted"
           >
             <span className="inset-relief flex size-9 items-center justify-center rounded-xl bg-muted">
               <Icon name={a.icon} size={20} className="icon-muted" />
@@ -139,7 +139,7 @@ export function Intro({ go, views }: { go: (id: string) => void; views: number }
             ['No tiene backend', 'Nada persiste salvo las preferencias, y el tema vive en localStorage.'],
             ['No es un clon terminado', 'De la referencia salieron medidas y recetas de sombra; el resto se resolvió con criterio propio.'],
           ].map(([t, d]) => (
-            <div key={t} className="flex flex-col gap-2 rounded-2xl border border-line border-dashed p-5">
+            <div key={t} className="flex flex-col gap-2 rounded-xl border border-line border-dashed p-5">
               <span className="text-body font-semibold text-ink">{t}</span>
               <span className="text-meta font-medium text-ink-muted">{d}</span>
             </div>

@@ -12,8 +12,8 @@
    *   sm   6   marcas hundidas y cuadraditos: un kbd, un badge, un checkbox
    *   md  10   lo chico: un control de 32, un chip, un tooltip, un esqueleto
    *   lg  12   lo que se toca de 36 para arriba: botón md y lg, item de nav
-   *   xl  16   lo que va adentro de una tarjeta (24 menos sus 8 de padding)
-   *   2xl 24   contenedores: tarjeta, modal, popover
+   *   xl  16   lo que se apoya en la página: una tarjeta, una fila de lista
+   *   2xl 24   lo que flota sobre un velo: un modal, un diálogo
    *   full     lo que es redondo de verdad: un avatar, un punto, un pulgar
    *
    * **Cuatro pasos para elegir y uno que se deriva.** Había además un `xs` de 5
@@ -40,6 +40,18 @@
    * sistema: una pista de 12 con 2 de padding pide 10 adentro. Sin ese paso, el
    * pulgar repite el 12 del padre (la curva se ve doble) o cae al 6 (se ven dos
    * curvas distintas). Los dos errores ya pasaron acá.
+   *
+   * **Flota 24, se apoya 16.** Los dos escalones grandes tenían el mismo trabajo
+   * —«contenedores»— y el 24 caía igual sobre una tarjeta de dato de 116 que
+   * sobre un panel de 676. No es cuestión de proporción: una fila de lista de 72
+   * con radio 16 y una tarjeta de 116 con radio 24 ocupan casi el mismo
+   * porcentaje del lado corto, y la segunda se ve redonda y la primera no. Lo
+   * que cambia es el **arco absoluto**: por encima de unos 20px la curva deja de
+   * leerse como el remate de una esquina y pasa a ser la silueta de la pieza.
+   *
+   * Una tarjeta aparece de a muchas en una grilla, así que su silueta tiene que
+   * callarse. Un modal aparece de a uno, sobre un velo, y ahí el 24 se lee como
+   * una superficie blanda a propósito.
    *
    * La regla del anidado: el radio de un hijo es el del padre menos el padding
    * del padre. Si el hijo repite el radio del padre, la curva se ve doble; si

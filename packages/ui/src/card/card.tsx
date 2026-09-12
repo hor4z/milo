@@ -14,7 +14,10 @@ export function Card({ children, className, interactive, surface = 'paper' }: {
   return (
     <div
       className={cx(
-        'rounded-2xl p-2',
+        // 16 y no 24: una tarjeta se apoya en la página y aparece de a muchas en
+        // una grilla, así que su silueta tiene que callarse. El 24 queda para lo
+        // que flota sobre un velo, que aparece de a uno y es grande.
+        'rounded-xl p-2',
         surface === 'muted' ? 'bg-muted' : 'bg-surface shadow-card',
         // Sube la sombra y no se mueve: una grilla que salta hace temblar la vista.
         interactive && 'transition-[box-shadow] duration-normal ease-out hover:shadow-toolbar',

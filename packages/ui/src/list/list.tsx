@@ -31,7 +31,7 @@ export function ListItem({
   active?: boolean
   /** Sin esto la fila es un <div> y no toma hover. */
   onClick?: () => void
-  /** A la derecha: un chevron, un contador. */
+  /** A la derecha: un chevron, un `Switch`. Un contador no — el número ya está en `hint`, y repetirlo al lado obliga a leer dos veces lo mismo. */
   trailing?: ReactNode
 }) {
   const Tag = onClick ? 'button' : 'div'
@@ -42,7 +42,13 @@ export function ListItem({
         'flex min-h-[72px] w-full items-center gap-4 rounded-xl px-4 py-4 text-left',
         'transition-[background-color,box-shadow] duration-fast ease-out',
         active ? 'bg-sunken shadow-none' : 'bg-surface shadow-card',
-        onClick && !active && 'hover:bg-muted hover:shadow-none',
+        // El hover **levanta** en vez de teñir, y no es gusto: la fila es papel y
+        // puede estar apoyada sobre el escritorio o sobre una bandeja `muted`.
+        // Cualquier gris opaco acierta contra un fondo y choca contra el otro —
+        // con `bg-muted` puesto acá, la fila quedaba exactamente del color de la
+        // tarjeta que la contiene y desaparecía al pasar el mouse. La sombra no
+        // necesita saber qué hay abajo.
+        onClick && !active && 'hover:tinted hover:shadow-toolbar',
       )}
     >
       <span className={cx('mark inline-flex size-11 shrink-0 items-center justify-center rounded-full', markFill[color])}>

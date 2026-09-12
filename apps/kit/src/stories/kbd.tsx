@@ -25,7 +25,7 @@ export function KbdStory() {
         title="Dónde aparece"
         note="En el buscador del riel, en la paleta de comandos y como sufijo de un campo cuando lo que sigue es una unidad. Son los tres lugares donde hace falta mostrar algo que se escribe."
       >
-        <div className="flex flex-wrap items-center gap-4 rounded-2xl border border-line bg-surface px-5 py-4">
+        <div className="flex flex-wrap items-center gap-4 rounded-xl border border-line bg-surface px-5 py-4">
           <span className="flex items-center gap-2 text-body font-medium text-ink-muted">
             Buscar una pieza <Kbd>/</Kbd>
           </span>

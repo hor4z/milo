@@ -25,7 +25,7 @@ export function ListStory() {
     >
       <Section
         title="La pieza"
-        note="Las medidas salen de la regla del anidado: contenedor de radio 24 con 8 de padding, así que la fila lleva 16. El alto de 72 tampoco es arbitrario — la marca es de 44 y el aire de 14 arriba y abajo. Cambiar la marca cambia el alto, no el padding."
+        note="El contenedor es una bandeja transparente y las que flotan son las filas, cada una en papel con radio 16 — el mismo de la `Card`, porque las dos se apoyan en la página. El alto de 72 tampoco es arbitrario — la marca es de 44 y el aire de 14 arriba y abajo. Cambiar la marca cambia el alto, no el padding."
       >
         <div className="max-w-[460px]">
           <List>
