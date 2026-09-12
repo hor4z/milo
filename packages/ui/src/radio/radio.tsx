@@ -12,10 +12,13 @@ export function Radio({
   onChange: () => void
   /** Va al `aria-label`. */
   label?: string
+  /** Apagado no se elige ni recibe el foco. */
   disabled?: boolean
+  /** Para atarlo a una etiqueta de afuera. */
   id?: string
   /** Lo pone `RadioGroup` para dejar una sola parada de tabulación. */
   tabIndex?: number
+  /** Lo usa `RadioGroup` para mover el foco con las flechas. */
   ref?: Ref<HTMLButtonElement>
 }) {
   return (
@@ -50,8 +53,11 @@ export function Radio({
 export function RadioGroup<T extends string>({
   value, onChange, options, label, className,
 }: {
+  /** El valor elegido: es controlado. */
   value: T
+  /** Recibe el valor nuevo. */
   onChange: (v: T) => void
+  /** Las opciones, con su etiqueta. */
   options: readonly { value: T; label: string; disabled?: boolean }[]
   /** Al aria-label del grupo. */
   label?: string

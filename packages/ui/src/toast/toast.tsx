@@ -37,8 +37,11 @@ export function useToast() {
 }
 
 /** Monta la región de avisos pasajeros y el `useToast` que los empuja. */
-export function ToastProvider({ children, max = 3 }: { children: ReactNode; /** cuántos se apilan antes de empujar al más viejo */
-                                                                            max?: number }) {
+export function ToastProvider({ children, max = 3 }: {
+  children: ReactNode
+  /** Cuántos se apilan antes de empujar al más viejo. */
+  max?: number
+}) {
   const [list, setList] = useState<ToastRecord[]>([])
   const counter = useRef(0)
 

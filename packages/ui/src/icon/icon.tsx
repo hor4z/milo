@@ -7,13 +7,13 @@ export type { IconName }
 export type IconWeight = 100 | 200 | 300 | 400 | 500 | 600 | 700
 
 export function Icon({ name, size = 20, className, weight }: {
-  /** La unión de los 152 del set. */
+  /** El glifo, de la unión de los que están en el manifiesto. */
   name: IconName
   /** Alto y ancho de la caja en px. */
   size?: number
-  /** Para el color; `icon-muted` para el gris. */
+  /** Para el color: `icon-muted` para el gris. */
   className?: string
-  /** El eje wght. */
+  /** El eje `wght` de la fuente. */
   weight?: IconWeight
 }) {
   return (
@@ -45,7 +45,12 @@ const folderColors = {
 
 export type FolderColor = keyof typeof folderColors
 
-export function FolderIcon({ color = 'ink', size = 20 }: { color?: FolderColor; size?: number }) {
+export function FolderIcon({ color = 'ink', size = 20 }: {
+  /** El color del espacio: es lo que la deja reconocer de reojo en una lista de siete. */
+  color?: FolderColor
+  /** El lado en px. */
+  size?: number
+}) {
   const c = folderColors[color]
   return (
     <svg width={size} height={size} viewBox="0 0 24 24" fill="none" aria-hidden="true" style={{ flexShrink: 0 }}>

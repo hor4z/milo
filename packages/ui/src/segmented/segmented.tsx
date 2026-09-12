@@ -19,7 +19,9 @@ type SegmentedOption<T extends string> = {
 export function Segmented<T extends string>({
   value, onChange, options, size = 'md', label,
 }: {
+  /** La opción elegida: es controlado. */
   value: T
+  /** Recibe el valor nuevo. */
   onChange: (v: T) => void
   /** Sin label la opción queda cuadrada, solo icono — y title pasa a obligatorio. */
   options: SegmentedOption<T>[]

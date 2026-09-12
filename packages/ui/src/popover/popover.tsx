@@ -15,12 +15,15 @@ export function Popover({
   }) => ReactNode
   /** Recibe el cierre. El panel lo dibuja el call site — fondo, borde, radio y sombra — porque Popover no tiene aspecto. */
   children: (close: () => void) => ReactNode
+  /** Contra qué borde del disparador se alinea el panel. */
   align?: 'start' | 'end'
   /** Sin esto se mide el ancho real del panel para alinearlo y encajarlo. */
   width?: number
+  /** Cuánto se separa del disparador, en px. */
   offset?: number
   /** Atenúa el resto de la pantalla. */
   veil?: boolean
+  /** Avisa cuándo abre y cuándo cierra. */
   onOpenChange?: (open: boolean) => void
 }) {
   const [open, setOpen] = useState(false)

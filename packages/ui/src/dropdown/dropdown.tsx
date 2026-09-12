@@ -5,11 +5,17 @@ import { Popover } from '../popover/popover'
 
 /** Una opción de la lista del `Dropdown`. */
 export type DropdownItem = {
+  /** Lo que dice la fila. */
   label: string
+  /** El glifo de la izquierda, en gris. */
   icon?: IconName
+  /** El atajo de teclado, a la derecha, en un `Kbd`. */
   shortcut?: string
+  /** Lo que no se deshace: borrar, salir, revocar. */
   danger?: boolean
+  /** Se queda a la vista y apagada; una opción que desaparece obliga a aprender el menú de nuevo. */
   disabled?: boolean
+  /** Al elegirla, el panel se cierra solo. */
   onSelect?: () => void
 }
 
@@ -19,8 +25,11 @@ export function Dropdown({
 }: {
   /** Recibe onClick, ref y aria-expanded. */
   trigger: (props: { onClick: () => void; 'aria-expanded': boolean; ref: React.Ref<HTMLButtonElement> }) => ReactNode
+  /** Las opciones, en el orden en que van. */
   items: DropdownItem[]
+  /** Contra qué borde del disparador se alinea el panel. */
   align?: 'start' | 'end'
+  /** El ancho del panel en px. */
   width?: number
 }) {
   return (

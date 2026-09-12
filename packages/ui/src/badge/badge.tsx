@@ -4,6 +4,7 @@ import { cx } from '../lib/cx'
 import { type Tone, badgeTone } from '../lib/tone'
 
 type BadgeProps = ComponentPropsWithoutRef<'span'> & {
+  /** En qué estado está lo que describe. `neutral` es una etiqueta y no un estado, y es el que más se usa. */
   tone?: Tone | 'neutral'
   /** El glifo que acompaña al texto, a la izquierda. */
   icon?: IconName

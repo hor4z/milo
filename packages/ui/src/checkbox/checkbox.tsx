@@ -6,11 +6,15 @@ import { cx } from '../lib/cx'
 export function Checkbox({
   checked, onChange, label, disabled, id, indeterminate,
 }: {
+  /** Es controlado: el estado lo lleva quien lo usa. */
   checked: boolean
+  /** Recibe el valor nuevo, no el evento. */
   onChange: (v: boolean) => void
   /** Al aria-label; si va dentro de un <label>, se omite. */
   label?: string
+  /** Apagado no se toca ni recibe el foco. */
   disabled?: boolean
+  /** Para atarlo a una etiqueta de afuera. Adentro de un `Field` lo toma solo. */
   id?: string
   /** Pinta la raya y manda aria-checked="mixed". */
   indeterminate?: boolean

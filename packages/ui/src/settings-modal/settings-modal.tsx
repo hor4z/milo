@@ -30,8 +30,11 @@ const sections: { id: SectionId; label: string; icon: IconName }[] = [
 
 /** Los ajustes en un modal y no en una página. */
 export function SettingsModal({ open, onClose, user }: {
+  /** Cerrado no monta nada. */
   open: boolean
+  /** Al cerrar no hay navegación: seguís donde estabas. */
   onClose: () => void
+  /** Quién está mirando los ajustes. */
   user: SettingsUser
 }) {
   const [section, setSection] = useState<SectionId>('general')

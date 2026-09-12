@@ -14,8 +14,11 @@ export function FilterBar({ className, ...props }: ComponentPropsWithoutRef<'div
 }
 
 type FilterSearchProps = {
+  /** Es controlado: el texto lo lleva la pantalla, que es la que filtra. */
   value: string
+  /** Recibe el texto nuevo. */
   onValueChange: (v: string) => void
+  /** Qué se busca, no «Buscar…» a secas. */
   placeholder?: string
   className?: string
 }
@@ -67,6 +70,7 @@ type FilterProps = {
   options: FilterOption[]
   /** Lo elegido. */
   value: string[]
+  /** Recibe la lista nueva de valores elegidos. */
   onValueChange: (v: string[]) => void
 }
 
@@ -149,7 +153,9 @@ type ColumnPickerProps = {
   columns: { id: string; label: string; locked?: boolean }[]
   /** Los ids de las que están a la vista. */
   value: string[]
+  /** Recibe los ids de las columnas que quedan a la vista. */
   onValueChange: (v: string[]) => void
+  /** Nombra el botón y encabeza el panel. */
   label?: string
   className?: string
 }

@@ -10,8 +10,11 @@ import { Spinner } from '../spinner/spinner'
 export function Select({
   value, onChange, options, width, leading, loading,
 }: {
+  /** El valor elegido, que es lo que se ve en el botón. */
   value: string
+  /** Recibe el valor nuevo; sin esto el control es de solo lectura. */
   onChange?: (v: string) => void
+  /** La lista, en el orden en que se muestra. */
   options: string[]
   /** Sin esto toma el ancho del contenido. */
   width?: number

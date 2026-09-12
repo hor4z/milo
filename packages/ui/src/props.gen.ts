@@ -108,7 +108,8 @@ export const propsByComponent: Record<string, ComponentDoc> = {
         "name": "size",
         "type": "number",
         "required": false,
-        "def": "40"
+        "def": "40",
+        "doc": "El diámetro en px; la inicial y el anillo salen de acá."
       },
       {
         "name": "className",
@@ -161,7 +162,8 @@ export const propsByComponent: Record<string, ComponentDoc> = {
         "name": "tone",
         "type": "Tone | 'neutral'",
         "required": false,
-        "def": "'neutral'"
+        "def": "'neutral'",
+        "doc": "En qué estado está lo que describe. `neutral` es una etiqueta y no un estado, y es el que más se usa."
       },
       {
         "name": "icon",
@@ -178,7 +180,8 @@ export const propsByComponent: Record<string, ComponentDoc> = {
       {
         "name": "title",
         "type": "string",
-        "required": true
+        "required": true,
+        "doc": "El nombre, en la tapa."
       },
       {
         "name": "variant",
@@ -215,7 +218,8 @@ export const propsByComponent: Record<string, ComponentDoc> = {
       {
         "name": "icon",
         "type": "ReactNode",
-        "required": false
+        "required": false,
+        "doc": "El glifo de la franja en `stripe`, o el de la tapa en `simple`."
       },
       {
         "name": "illustration",
@@ -419,12 +423,14 @@ export const propsByComponent: Record<string, ComponentDoc> = {
       {
         "name": "checked",
         "type": "boolean",
-        "required": true
+        "required": true,
+        "doc": "Es controlado: el estado lo lleva quien lo usa."
       },
       {
         "name": "onChange",
         "type": "(v: boolean) => void",
-        "required": true
+        "required": true,
+        "doc": "Recibe el valor nuevo, no el evento."
       },
       {
         "name": "label",
@@ -435,12 +441,14 @@ export const propsByComponent: Record<string, ComponentDoc> = {
       {
         "name": "disabled",
         "type": "boolean",
-        "required": false
+        "required": false,
+        "doc": "Apagado no se toca ni recibe el foco."
       },
       {
         "name": "id",
         "type": "string",
-        "required": false
+        "required": false,
+        "doc": "Para atarlo a una etiqueta de afuera. Adentro de un `Field` lo toma solo."
       },
       {
         "name": "indeterminate",
@@ -490,7 +498,8 @@ export const propsByComponent: Record<string, ComponentDoc> = {
       {
         "name": "open",
         "type": "boolean",
-        "required": true
+        "required": true,
+        "doc": "Lo dibuja o no: cerrado no monta nada."
       },
       {
         "name": "onCancel",
@@ -501,7 +510,8 @@ export const propsByComponent: Record<string, ComponentDoc> = {
       {
         "name": "onConfirm",
         "type": "() => void",
-        "required": true
+        "required": true,
+        "doc": "Lo que pasa si dice que sí."
       },
       {
         "name": "title",
@@ -526,7 +536,8 @@ export const propsByComponent: Record<string, ComponentDoc> = {
         "name": "cancelLabel",
         "type": "string",
         "required": false,
-        "def": "'Cancelar'"
+        "def": "'Cancelar'",
+        "doc": "La salida segura."
       },
       {
         "name": "tone",
@@ -544,7 +555,8 @@ export const propsByComponent: Record<string, ComponentDoc> = {
         "name": "orientation",
         "type": "'horizontal' | 'vertical'",
         "required": false,
-        "def": "'horizontal'"
+        "def": "'horizontal'",
+        "doc": "El vertical lleva `self-stretch` adentro: en una fila con `items-center` mediría cero."
       },
       {
         "name": "className",
@@ -566,19 +578,22 @@ export const propsByComponent: Record<string, ComponentDoc> = {
       {
         "name": "items",
         "type": "DropdownItem[]",
-        "required": true
+        "required": true,
+        "doc": "Las opciones, en el orden en que van."
       },
       {
         "name": "align",
         "type": "'start' | 'end'",
         "required": false,
-        "def": "'end'"
+        "def": "'end'",
+        "doc": "Contra qué borde del disparador se alinea el panel."
       },
       {
         "name": "width",
         "type": "number",
         "required": false,
-        "def": "220"
+        "def": "220",
+        "doc": "El ancho del panel en px."
       }
     ],
     "doc": "El menú de opciones escrito como lista, que es lo más corto cuando el menú no tiene nada raro: cuatro filas con su icono y su acción."
@@ -588,32 +603,38 @@ export const propsByComponent: Record<string, ComponentDoc> = {
       {
         "name": "label",
         "type": "string",
-        "required": true
+        "required": true,
+        "doc": "Lo que dice la fila."
       },
       {
         "name": "icon",
         "type": "IconName",
-        "required": false
+        "required": false,
+        "doc": "El glifo de la izquierda, en gris."
       },
       {
         "name": "shortcut",
         "type": "string",
-        "required": false
+        "required": false,
+        "doc": "El atajo de teclado, a la derecha, en un `Kbd`."
       },
       {
         "name": "danger",
         "type": "boolean",
-        "required": false
+        "required": false,
+        "doc": "Lo que no se deshace: borrar, salir, revocar."
       },
       {
         "name": "disabled",
         "type": "boolean",
-        "required": false
+        "required": false,
+        "doc": "Se queda a la vista y apagada; una opción que desaparece obliga a aprender el menú de nuevo."
       },
       {
         "name": "onSelect",
         "type": "() => void",
-        "required": false
+        "required": false,
+        "doc": "Al elegirla, el panel se cierra solo."
       }
     ],
     "doc": "Una opción de la lista del `Dropdown`."
@@ -623,7 +644,8 @@ export const propsByComponent: Record<string, ComponentDoc> = {
       {
         "name": "title",
         "type": "string",
-        "required": true
+        "required": true,
+        "doc": "Qué falta, en una línea."
       },
       {
         "name": "body",
@@ -722,18 +744,21 @@ export const propsByComponent: Record<string, ComponentDoc> = {
       {
         "name": "value",
         "type": "string",
-        "required": true
+        "required": true,
+        "doc": "Es controlado: el texto lo lleva la pantalla, que es la que filtra."
       },
       {
         "name": "onValueChange",
         "type": "(v: string) => void",
-        "required": true
+        "required": true,
+        "doc": "Recibe el texto nuevo."
       },
       {
         "name": "placeholder",
         "type": "string",
         "required": false,
-        "def": "'Buscar…'"
+        "def": "'Buscar…'",
+        "doc": "Qué se busca, no «Buscar…» a secas."
       },
       {
         "name": "className",
@@ -766,7 +791,8 @@ export const propsByComponent: Record<string, ComponentDoc> = {
       {
         "name": "onValueChange",
         "type": "(v: string[]) => void",
-        "required": true
+        "required": true,
+        "doc": "Recibe la lista nueva de valores elegidos."
       }
     ],
     "doc": "Un filtro: un botón que dice qué filtra, y un panel para elegir."
@@ -793,13 +819,15 @@ export const propsByComponent: Record<string, ComponentDoc> = {
       {
         "name": "onValueChange",
         "type": "(v: string[]) => void",
-        "required": true
+        "required": true,
+        "doc": "Recibe los ids de las columnas que quedan a la vista."
       },
       {
         "name": "label",
         "type": "string",
         "required": false,
-        "def": "'Columnas'"
+        "def": "'Columnas'",
+        "doc": "Nombra el botón y encabeza el panel."
       },
       {
         "name": "className",
@@ -875,7 +903,7 @@ export const propsByComponent: Record<string, ComponentDoc> = {
         "name": "name",
         "type": "IconName",
         "required": true,
-        "doc": "La unión de los 152 del set."
+        "doc": "El glifo, de la unión de los que están en el manifiesto."
       },
       {
         "name": "size",
@@ -888,13 +916,13 @@ export const propsByComponent: Record<string, ComponentDoc> = {
         "name": "className",
         "type": "string",
         "required": false,
-        "doc": "Para el color; `icon-muted` para el gris."
+        "doc": "Para el color: `icon-muted` para el gris."
       },
       {
         "name": "weight",
         "type": "IconWeight",
         "required": false,
-        "doc": "El eje wght."
+        "doc": "El eje `wght` de la fuente."
       }
     ]
   },
@@ -904,13 +932,15 @@ export const propsByComponent: Record<string, ComponentDoc> = {
         "name": "color",
         "type": "FolderColor",
         "required": false,
-        "def": "'ink'"
+        "def": "'ink'",
+        "doc": "El color del espacio: es lo que la deja reconocer de reojo en una lista de siete."
       },
       {
         "name": "size",
         "type": "number",
         "required": false,
-        "def": "20"
+        "def": "20",
+        "doc": "El lado en px."
       }
     ]
   },
@@ -919,7 +949,8 @@ export const propsByComponent: Record<string, ComponentDoc> = {
       {
         "name": "icon",
         "type": "IconName",
-        "required": true
+        "required": true,
+        "doc": "El glifo, que es todo lo que se ve."
       },
       {
         "name": "label",
@@ -931,7 +962,8 @@ export const propsByComponent: Record<string, ComponentDoc> = {
         "name": "variant",
         "type": "'ghost' | 'raised' | 'solid' | 'muted'",
         "required": false,
-        "def": "'ghost'"
+        "def": "'ghost'",
+        "doc": "La misma escalera del `Button`, sin `brand` ni `bad`."
       },
       {
         "name": "size",
@@ -955,7 +987,8 @@ export const propsByComponent: Record<string, ComponentDoc> = {
       {
         "name": "ref",
         "type": "Ref<HTMLButtonElement>",
-        "required": false
+        "required": false,
+        "doc": "Para usarlo como disparador de un `Dropdown` o un `Popover`."
       }
     ],
     "html": "button"
@@ -965,7 +998,8 @@ export const propsByComponent: Record<string, ComponentDoc> = {
       {
         "name": "children",
         "type": "ReactNode",
-        "required": true
+        "required": true,
+        "doc": "La tecla: un símbolo, un nombre corto o una unidad."
       }
     ],
     "doc": "El kbd va hundido: 11px, radio 6, con luz arriba y sombra interior abajo."
@@ -1001,7 +1035,8 @@ export const propsByComponent: Record<string, ComponentDoc> = {
       {
         "name": "icon",
         "type": "IconName",
-        "required": true
+        "required": true,
+        "doc": "El glifo de la marca de color."
       },
       {
         "name": "color",
@@ -1108,7 +1143,8 @@ export const propsByComponent: Record<string, ComponentDoc> = {
       {
         "name": "disabled",
         "type": "boolean",
-        "required": false
+        "required": false,
+        "doc": "Apagada y a la vista: las flechas la saltean."
       },
       {
         "name": "onSelect",
@@ -1139,7 +1175,8 @@ export const propsByComponent: Record<string, ComponentDoc> = {
       {
         "name": "open",
         "type": "boolean",
-        "required": true
+        "required": true,
+        "doc": "Cerrado no monta nada."
       },
       {
         "name": "onClose",
@@ -1156,7 +1193,8 @@ export const propsByComponent: Record<string, ComponentDoc> = {
         "name": "width",
         "type": "number",
         "required": false,
-        "def": "620"
+        "def": "620",
+        "doc": "El ancho del panel en px."
       },
       {
         "name": "label",
@@ -1171,7 +1209,8 @@ export const propsByComponent: Record<string, ComponentDoc> = {
       {
         "name": "icon",
         "type": "IconName",
-        "required": false
+        "required": false,
+        "doc": "El glifo del set; para uno propio va `glyph`."
       },
       {
         "name": "glyph",
@@ -1182,7 +1221,8 @@ export const propsByComponent: Record<string, ComponentDoc> = {
       {
         "name": "label",
         "type": "string",
-        "required": true
+        "required": true,
+        "doc": "El texto del item, que se esconde al contraerse."
       },
       {
         "name": "badge",
@@ -1193,12 +1233,14 @@ export const propsByComponent: Record<string, ComponentDoc> = {
       {
         "name": "active",
         "type": "boolean",
-        "required": false
+        "required": false,
+        "doc": "Dónde estás parado. Se marca con relieve y canto, no con color."
       },
       {
         "name": "collapsed",
         "type": "boolean",
-        "required": false
+        "required": false,
+        "doc": "El riel de 72: queda el icono y nada más."
       },
       {
         "name": "chip",
@@ -1219,7 +1261,8 @@ export const propsByComponent: Record<string, ComponentDoc> = {
       {
         "name": "wide",
         "type": "boolean",
-        "required": false
+        "required": false,
+        "doc": "Suelta el ancho para una tabla o una grilla larga."
       }
     ],
     "doc": "El contenedor de una pantalla."
@@ -1229,17 +1272,20 @@ export const propsByComponent: Record<string, ComponentDoc> = {
       {
         "name": "title",
         "type": "string",
-        "required": true
+        "required": true,
+        "doc": "El nombre de la pantalla, como `h1`."
       },
       {
         "name": "subtitle",
         "type": "string",
-        "required": false
+        "required": false,
+        "doc": "Una línea de apoyo."
       },
       {
         "name": "actions",
         "type": "ReactNode",
-        "required": false
+        "required": false,
+        "doc": "Lo que se puede hacer acá, a la derecha."
       }
     ]
   },
@@ -1253,7 +1299,8 @@ export const propsByComponent: Record<string, ComponentDoc> = {
       {
         "name": "count",
         "type": "number",
-        "required": false
+        "required": false,
+        "doc": "Cuántos hay, al lado del rótulo."
       }
     ],
     "doc": "El separador con rótulo, para cortar una pantalla larga en tramos."
@@ -1339,7 +1386,8 @@ export const propsByComponent: Record<string, ComponentDoc> = {
         "name": "align",
         "type": "'start' | 'end'",
         "required": false,
-        "def": "'end'"
+        "def": "'end'",
+        "doc": "Contra qué borde del disparador se alinea el panel."
       },
       {
         "name": "width",
@@ -1351,7 +1399,8 @@ export const propsByComponent: Record<string, ComponentDoc> = {
         "name": "offset",
         "type": "number",
         "required": false,
-        "def": "8"
+        "def": "8",
+        "doc": "Cuánto se separa del disparador, en px."
       },
       {
         "name": "veil",
@@ -1362,7 +1411,8 @@ export const propsByComponent: Record<string, ComponentDoc> = {
       {
         "name": "onOpenChange",
         "type": "(open: boolean) => void",
-        "required": false
+        "required": false,
+        "doc": "Avisa cuándo abre y cuándo cierra."
       }
     ],
     "doc": "Un panel anclado a su disparador."
@@ -1397,7 +1447,8 @@ export const propsByComponent: Record<string, ComponentDoc> = {
         "name": "max",
         "type": "number",
         "required": false,
-        "def": "100"
+        "def": "100",
+        "doc": "El total contra el que se mide."
       },
       {
         "name": "label",
@@ -1415,7 +1466,8 @@ export const propsByComponent: Record<string, ComponentDoc> = {
         "name": "tone",
         "type": "'brand' | 'ok' | 'warn' | 'bad'",
         "required": false,
-        "def": "'brand'"
+        "def": "'brand'",
+        "doc": "`brand` para lo que avanza y `ok` para lo que terminó; `warn` y `bad` solo cuando llenar la barra es el problema."
       }
     ],
     "html": "div",
@@ -1444,12 +1496,14 @@ export const propsByComponent: Record<string, ComponentDoc> = {
       {
         "name": "disabled",
         "type": "boolean",
-        "required": false
+        "required": false,
+        "doc": "Apagado no se elige ni recibe el foco."
       },
       {
         "name": "id",
         "type": "string",
-        "required": false
+        "required": false,
+        "doc": "Para atarlo a una etiqueta de afuera."
       },
       {
         "name": "tabIndex",
@@ -1460,7 +1514,8 @@ export const propsByComponent: Record<string, ComponentDoc> = {
       {
         "name": "ref",
         "type": "Ref<HTMLButtonElement>",
-        "required": false
+        "required": false,
+        "doc": "Lo usa `RadioGroup` para mover el foco con las flechas."
       }
     ],
     "doc": "La elección de una entre varias."
@@ -1470,17 +1525,20 @@ export const propsByComponent: Record<string, ComponentDoc> = {
       {
         "name": "value",
         "type": "T",
-        "required": true
+        "required": true,
+        "doc": "El valor elegido: es controlado."
       },
       {
         "name": "onChange",
         "type": "(v: T) => void",
-        "required": true
+        "required": true,
+        "doc": "Recibe el valor nuevo."
       },
       {
         "name": "options",
         "type": "readonly { value: T; label: string; disabled?: boolean }[]",
-        "required": true
+        "required": true,
+        "doc": "Las opciones, con su etiqueta."
       },
       {
         "name": "label",
@@ -1501,17 +1559,20 @@ export const propsByComponent: Record<string, ComponentDoc> = {
       {
         "name": "label",
         "type": "string",
-        "required": true
+        "required": true,
+        "doc": "Qué se ajusta. Es un `<label>` de verdad: tocarlo acciona el control."
       },
       {
         "name": "hint",
         "type": "string",
-        "required": false
+        "required": false,
+        "doc": "La segunda línea, en 11 gris."
       },
       {
         "name": "children",
         "type": "ReactNode",
-        "required": false
+        "required": false,
+        "doc": "El control, alineado a la derecha."
       }
     ],
     "doc": "La fila de un panel: 56px de alto, padding 16/24, label a la izquierda y control a la derecha."
@@ -1521,12 +1582,14 @@ export const propsByComponent: Record<string, ComponentDoc> = {
       {
         "name": "value",
         "type": "T",
-        "required": true
+        "required": true,
+        "doc": "La opción elegida: es controlado."
       },
       {
         "name": "onChange",
         "type": "(v: T) => void",
-        "required": true
+        "required": true,
+        "doc": "Recibe el valor nuevo."
       },
       {
         "name": "options",
@@ -1555,17 +1618,20 @@ export const propsByComponent: Record<string, ComponentDoc> = {
       {
         "name": "value",
         "type": "string",
-        "required": true
+        "required": true,
+        "doc": "El valor elegido, que es lo que se ve en el botón."
       },
       {
         "name": "onChange",
         "type": "(v: string) => void",
-        "required": false
+        "required": false,
+        "doc": "Recibe el valor nuevo; sin esto el control es de solo lectura."
       },
       {
         "name": "options",
         "type": "string[]",
-        "required": true
+        "required": true,
+        "doc": "La lista, en el orden en que se muestra."
       },
       {
         "name": "width",
@@ -1593,17 +1659,20 @@ export const propsByComponent: Record<string, ComponentDoc> = {
       {
         "name": "open",
         "type": "boolean",
-        "required": true
+        "required": true,
+        "doc": "Cerrado no monta nada."
       },
       {
         "name": "onClose",
         "type": "() => void",
-        "required": true
+        "required": true,
+        "doc": "Al cerrar no hay navegación: seguís donde estabas."
       },
       {
         "name": "user",
         "type": "SettingsUser",
-        "required": true
+        "required": true,
+        "doc": "Quién está mirando los ajustes."
       }
     ],
     "doc": "Los ajustes en un modal y no en una página."
@@ -1613,7 +1682,8 @@ export const propsByComponent: Record<string, ComponentDoc> = {
       {
         "name": "open",
         "type": "boolean",
-        "required": true
+        "required": true,
+        "doc": "Cerrado no monta nada."
       },
       {
         "name": "onClose",
@@ -1630,13 +1700,15 @@ export const propsByComponent: Record<string, ComponentDoc> = {
         "name": "side",
         "type": "'right' | 'left'",
         "required": false,
-        "def": "'right'"
+        "def": "'right'",
+        "doc": "De qué lado entra. La derecha es de donde vienen las cosas nuevas."
       },
       {
         "name": "width",
         "type": "number",
         "required": false,
-        "def": "460"
+        "def": "460",
+        "doc": "El ancho del panel en px."
       },
       {
         "name": "label",
@@ -1652,12 +1724,14 @@ export const propsByComponent: Record<string, ComponentDoc> = {
       {
         "name": "title",
         "type": "string",
-        "required": true
+        "required": true,
+        "doc": "El nombre del panel."
       },
       {
         "name": "onClose",
         "type": "() => void",
-        "required": true
+        "required": true,
+        "doc": "La X. Es la salida a la vista Escape y el velo hacen lo mismo."
       }
     ],
     "doc": "La cabecera del panel, con su título y el botón de cerrar."
@@ -1678,30 +1752,35 @@ export const propsByComponent: Record<string, ComponentDoc> = {
       {
         "name": "onChange",
         "type": "(v: number) => void",
-        "required": true
+        "required": true,
+        "doc": "Recibe el número nuevo."
       },
       {
         "name": "min",
         "type": "number",
         "required": false,
-        "def": "0"
+        "def": "0",
+        "doc": "El extremo de la izquierda."
       },
       {
         "name": "max",
         "type": "number",
         "required": false,
-        "def": "100"
+        "def": "100",
+        "doc": "El extremo de la derecha."
       },
       {
         "name": "step",
         "type": "number",
         "required": false,
-        "def": "1"
+        "def": "1",
+        "doc": "El salto entre dos valores."
       },
       {
         "name": "disabled",
         "type": "boolean",
-        "required": false
+        "required": false,
+        "doc": "Apagado no se arrastra ni recibe el foco."
       },
       {
         "name": "label",
@@ -1712,7 +1791,8 @@ export const propsByComponent: Record<string, ComponentDoc> = {
       {
         "name": "id",
         "type": "string",
-        "required": false
+        "required": false,
+        "doc": "Para atarlo a una etiqueta de afuera."
       },
       {
         "name": "className",
@@ -1759,27 +1839,32 @@ export const propsByComponent: Record<string, ComponentDoc> = {
       {
         "name": "checked",
         "type": "boolean",
-        "required": true
+        "required": true,
+        "doc": "Es controlado: el estado lo lleva quien lo usa."
       },
       {
         "name": "onChange",
         "type": "(v: boolean) => void",
-        "required": true
+        "required": true,
+        "doc": "Recibe el valor nuevo, no el evento."
       },
       {
         "name": "label",
         "type": "string",
-        "required": false
+        "required": false,
+        "doc": "Va al `aria-label`. Adentro de un `Field` o de un `Row` sobra: el nombre sale de la etiqueta."
       },
       {
         "name": "disabled",
         "type": "boolean",
-        "required": false
+        "required": false,
+        "doc": "Apagado no se toca ni recibe el foco."
       },
       {
         "name": "id",
         "type": "string",
-        "required": false
+        "required": false,
+        "doc": "Para atarlo a una etiqueta de afuera. Adentro de un `Field` lo toma solo."
       }
     ],
     "doc": "El switch: pista de 40×22 con 2 de padding, así que el pulgar es de 18 y viaja 18 exactos."
@@ -1964,7 +2049,8 @@ export const propsByComponent: Record<string, ComponentDoc> = {
       {
         "name": "onValueChange",
         "type": "(v: string) => void",
-        "required": false
+        "required": false,
+        "doc": "Avisa qué solapa quedó abierta."
       }
     ],
     "doc": "Paneles hermanos donde solo se ve uno. Controlado o no, como el resto."
@@ -2064,7 +2150,8 @@ export const propsByComponent: Record<string, ComponentDoc> = {
         "name": "max",
         "type": "number",
         "required": false,
-        "def": "3"
+        "def": "3",
+        "doc": "Cuántos se apilan antes de empujar al más viejo."
       }
     ],
     "doc": "Monta la región de avisos pasajeros y el `useToast` que los empuja."

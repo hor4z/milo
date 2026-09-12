@@ -8,13 +8,19 @@ export function Slider({
 }: {
   /** Es controlado. */
   value: number
+  /** Recibe el número nuevo. */
   onChange: (v: number) => void
+  /** El extremo de la izquierda. */
   min?: number
+  /** El extremo de la derecha. */
   max?: number
+  /** El salto entre dos valores. */
   step?: number
+  /** Apagado no se arrastra ni recibe el foco. */
   disabled?: boolean
   /** Va al aria-label del input. */
   label?: string
+  /** Para atarlo a una etiqueta de afuera. */
   id?: string
   /** El ancho se pone desde afuera. */
   className?: string

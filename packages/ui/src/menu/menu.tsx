@@ -60,6 +60,7 @@ export function MenuItem({
   submenu?: boolean
   /** Borrar, salir, revocar: lo que no se deshace. */
   danger?: boolean
+  /** Apagada y a la vista: las flechas la saltean. */
   disabled?: boolean
   /** Cerrar el panel es de quien lo abrió. */
   onSelect?: () => void

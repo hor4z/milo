@@ -22,13 +22,17 @@ export function navItemClass({
 export function NavItemBody({
   icon, glyph, label, badge, active, collapsed, chip = true,
 }: {
+  /** El glifo del set; para uno propio va `glyph`. */
   icon?: IconName
   /** Para cuando el glifo no sale del set: la carpeta de color de un espacio. */
   glyph?: ReactNode
+  /** El texto del item, que se esconde al contraerse. */
   label: string
   /** Hundido como un kbd: un contador no es accionable. */
   badge?: string
+  /** Dónde estás parado. Se marca con relieve y canto, no con color. */
   active?: boolean
+  /** El riel de 72: queda el icono y nada más. */
   collapsed?: boolean
   /** El chip de papel detrás del icono cuando el item está activo. */
   chip?: boolean

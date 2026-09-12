@@ -16,6 +16,7 @@ type TabsProps = Omit<ComponentPropsWithoutRef<'div'>, 'onChange'> & {
   value?: string
   /** La solapa abierta al entrar. */
   defaultValue?: string
+  /** Avisa qué solapa quedó abierta. */
   onValueChange?: (v: string) => void
 }
 

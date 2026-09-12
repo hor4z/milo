@@ -9,6 +9,7 @@ export function Avatar({ name, src, size = 40, className }: {
   /** Opcional; la etiqueta de color queda de fondo. */
   /** Opcional; la etiqueta de color queda de fondo. */
   src?: string
+  /** El diámetro en px; la inicial y el anillo salen de acá. */
   size?: number
   className?: string
 }) {

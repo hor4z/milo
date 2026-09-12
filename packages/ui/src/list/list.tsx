@@ -18,6 +18,7 @@ export function List({ children, className }: { children: ReactNode; className?:
 export function ListItem({
   icon, color, title, hint, active, onClick, trailing,
 }: {
+  /** El glifo de la marca de color. */
   icon: IconName
   /** El par relleno/glifo de la marca. */
   color: MarkColor

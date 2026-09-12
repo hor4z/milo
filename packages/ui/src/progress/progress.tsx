@@ -4,11 +4,13 @@ import { cx } from '../lib/cx'
 type ProgressProps = ComponentPropsWithoutRef<'div'> & {
   /** Lo hecho, en las unidades de max. */
   value: number
+  /** El total contra el que se mide. */
   max?: number
   /** Qué mide, para quien no ve la barra. */
   label: string
   /** El número al costado. */
   hint?: ReactNode
+  /** `brand` para lo que avanza y `ok` para lo que terminó; `warn` y `bad` solo cuando llenar la barra es el problema. */
   tone?: 'brand' | 'ok' | 'warn' | 'bad'
 }
 

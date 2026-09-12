@@ -9,6 +9,7 @@ export function Book({
   title, variant = 'stripe', color, textColor, width = 196,
   textured, icon, illustration, href, className,
 }: {
+  /** El nombre, en la tapa. */
   title: string
   /** `stripe` lleva una franja de color arriba con el icono o la ilustración, y el título abajo sobre papel. */
   variant?: 'stripe' | 'simple'
@@ -20,6 +21,7 @@ export function Book({
   width?: BookWidth
   /** Solo para una portada sola. */
   textured?: boolean
+  /** El glifo de la franja en `stripe`, o el de la tapa en `simple`. */
   icon?: ReactNode
   /** Llena la franja o la tapa. */
   illustration?: ReactNode

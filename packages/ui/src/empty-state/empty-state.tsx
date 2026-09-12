@@ -4,6 +4,7 @@ import { cx } from '../lib/cx'
 
 /** Lo que se ve cuando no hay nada. */
 export function EmptyState({ title, body, action, icon, size = 'md', bordered = size === 'md' }: {
+  /** Qué falta, en una línea. */
   title: string
   /** Qué pasó y qué se puede hacer. */
   body: string

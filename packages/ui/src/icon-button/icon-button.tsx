@@ -4,9 +4,11 @@ import { control, variants } from '../lib/control'
 import { cx } from '../lib/cx'
 
 type IconButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
+  /** El glifo, que es todo lo que se ve. */
   icon: IconName
   /** Un botón que solo tiene un icono no dice nada sin esto. */
   label: string
+  /** La misma escalera del `Button`, sin `brand` ni `bad`. */
   variant?: 'ghost' | 'raised' | 'solid' | 'muted'
   /** 32 · 36 · 40, los del Button. */
   size?: 'sm' | 'md' | 'lg'
@@ -14,6 +16,7 @@ type IconButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
   dot?: boolean
   /** Solo cambia el ghost, que pasa a muted. */
   active?: boolean
+  /** Para usarlo como disparador de un `Dropdown` o un `Popover`. */
   ref?: Ref<HTMLButtonElement>
 }
 

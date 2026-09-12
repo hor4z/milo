@@ -9,11 +9,14 @@ import { Portal } from '../portal/portal'
 export function Sheet({
   open, onClose, children, side = 'right', width = 460, label,
 }: {
+  /** Cerrado no monta nada. */
   open: boolean
   /** Lo llaman la X, el velo y Escape. */
   onClose: () => void
   children: ReactNode
+  /** De qué lado entra. La derecha es de donde vienen las cosas nuevas. */
   side?: 'right' | 'left'
+  /** El ancho del panel en px. */
   width?: number
   /** Nombra el diálogo para el lector. */
   label: string
@@ -47,7 +50,12 @@ export function Sheet({
 }
 
 /** La cabecera del panel, con su título y el botón de cerrar. */
-export function SheetHeader({ title, onClose }: { title: string; onClose: () => void }) {
+export function SheetHeader({ title, onClose }: {
+  /** El nombre del panel. */
+  title: string
+  /** La X. Es la salida a la vista
+  Escape y el velo hacen lo mismo. */ onClose: () => void
+}) {
   return (
     <div className="flex items-center justify-between gap-4 border-b border-line px-5 py-4">
       <h2 className="text-base font-semibold text-ink">{title}</h2>
