@@ -14,12 +14,21 @@ export function ChipStory() {
     >
       <Section
         title="Variantes"
-        note="`color` toma una etiqueta de la familia viva, no un tinte lavado. Antes tomaba `tint: 1..6` y ahí estaba el bug: los tintes son el lavado de una superficie grande con un dibujo oscuro encima, y un chip es una marca chica que tiene que identificar de reojo. Con el tinte puesto, seis chips en una fila se veían todos del mismo gris apenas teñido."
+        note="`color` toma el **par suave** de uno de los seis tonos: fondo apagado y tinta del mismo tono, anclada a 4.6:1 sobre su propio fondo. Antes era el relleno vivo con tinta oscura encima, y el problema es que un chip nunca viene solo — hay cinco o seis en una fila, se leen como texto, y seis rellenos saturados uno al lado del otro compiten entre sí y con todo lo demás. Con el par suave el color sigue clasificando de un vistazo y deja de ser lo primero que se ve. El relleno vivo se quedó con lo que sabe hacer: el cuadradito de icono de una tarjeta, donde la pieza es chica, el glifo es blanco y el color tiene que gritar."
       >
         <Panel>
           <Variant name="plano"><Chip>Indagación</Chip></Variant>
           <Variant name="colores">
             {labelColors.map(c => <Chip key={c} color={c}>{c}</Chip>)}
+          </Variant>
+          <Variant name="con icono">
+            <Chip color="green" icon="check">Corregida</Chip>
+            <Chip color="orange" icon="schedule">Vence mañana</Chip>
+            <Chip color="purple" icon="person">Nadia Britos</Chip>
+          </Variant>
+          <Variant name="con punto">
+            <Chip color="blue" dot>En curso</Chip>
+            <Chip color="pink" dot>Borrador</Chip>
           </Variant>
           <Variant name="activo"><Chip active>Elegido</Chip></Variant>
           <Variant name="clickeable"><Chip onClick={() => {}}>Se toca</Chip></Variant>

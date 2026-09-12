@@ -240,6 +240,13 @@
   --warn-700: #7e5c04;
   --warn-050: #fdf8ea;
   --bad-500: #f93630;
+  /* El relleno del botón que borra, **anclado igual que el azul**: es el rojo
+     donde el blanco encima llega a 4.5:1. Con el 500 daba 3.75:1, y el texto de
+     un botón no es texto grande para WCAG. El 500 se queda para lo que no lleva
+     texto encima —el glifo de un estado, el borde de un campo inválido— y este
+     es el que se pinta con una palabra arriba. */
+  --bad-fill: #e81f20;
+  --bad-fill-hover: #ce010f;
   --bad-600: #d81e18;
   --bad-700: #a81713;
   --bad-050: #fdeaea;
@@ -367,6 +374,8 @@
   --warn-700: #e3ab1f;
   --warn-050: #352c14;
   --bad-500: #fa534e;
+  --bad-fill: #dd3636;
+  --bad-fill-hover: #c42529;
   --bad-600: #f7726e;
   --bad-700: #fb827e;
   --bad-050: #351816;

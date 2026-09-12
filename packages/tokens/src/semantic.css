@@ -123,9 +123,9 @@
   --warn: var(--warn-500);
   --warn-ink: var(--warn-700);
   --warn-subtle: var(--warn-050);
-  --bad: var(--bad-500);
+  --bad: var(--bad-fill);
   --bad-ink: var(--bad-700);
-  --bad-hover: var(--bad-600);
+  --bad-hover: var(--bad-fill-hover);
   --bad-subtle: var(--bad-050);
   --on-bad: #ffffff;
 

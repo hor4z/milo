@@ -18,7 +18,7 @@ final son lo único que hay que tocar.
 npm install
 npm run dev        # el sitio · http://localhost:5190
 npm run typecheck  # todo el monorepo de una
-npm test           # 273 tests con vitest y testing-library
+npm test           # 284 tests con vitest y testing-library
 npm run props      # regenera la tabla de props desde los tipos
 ```
 
@@ -171,55 +171,102 @@ y sin leer desde el principio —diecisiete call sites escribían `duration-[120
 ellos con números fuera de escala— que es exactamente el mismo bug que tenía la tipografía: el
 token definido y el call site esquivándolo. Hay un test que ahora lo impide.
 
-**Radios.** `sm` 6 marcas hundidas · `md` 10 lo cuadrado que se toca · `lg` 12 lo que se toca
-con texto · `xl` 16 lo que va adentro de una tarjeta · `2xl` 24 contenedores.
+**Espaciado.** Once pasos con rol: 2 el pelo · 4 adentro de una marca · 6 glifo y texto · 8 dos
+cosas de una fila · 12 dos filas · 16 una pieza chica · 20 una tarjeta · 24 un panel · 32 dos
+secciones · 40 una pantalla · 48 una portada. Grilla de 4 con dos sub-pasos abajo, porque a 2 y a
+6 píxeles todavía hay decisiones reales y de 8 para arriba la diferencia entre 28 y 32 no la ve
+nadie. **No existía**: los call sites tomaban los dieciocho valores de Tailwind, así que dos cosas
+que hacen lo mismo quedaban separadas por 10 acá y por 12 allá — y eso no se ve como un error, se
+ve como desprolijidad. Lo hace cumplir un test. **No manda sobre las alturas de pieza**: un control
+de 36 o una fila de 56 salen de la escalera de controles.
+
+**Radios.** `sm` 6 marcas hundidas y cuadraditos · `lg` 12 todo lo que se toca · `xl` 16 lo que va
+adentro de una tarjeta · `2xl` 24 contenedores · `full` lo redondo de verdad. **Cuatro y no seis**:
+murieron un `md` de 10 y un `xs` de 5 por estar a dos y a un píxel de su vecino — a esa distancia
+nadie ve una diferencia y lo único que hacían era dar a elegir entre dos cosas iguales, que es cómo
+una pantalla termina con cuatro curvas sin que nadie lo haya decidido.
 
 La regla del anidado: **el radio de un hijo es el del padre menos el padding del padre.** Un
 24 con 8 de padding pide 16 adentro. Si el hijo repite el radio del padre, la curva se ve
 doble; si queda más cuadrado que el padre, se ven dos curvas distintas. Los dos errores ya
 pasaron acá (el segmented chico tenía 6 donde iban 10).
 
-**Color.** Rampa casi neutra de nueve pasos, de `#fcfcfc` a `#121212`. El salto de 05
-(`#e2e2e2`) a 06 (`#7b7b7b`) es violento a propósito: entre el borde más oscuro y el texto más
-claro no tiene que haber nada, o aparecen grises que no se distinguen. Bordes y hovers se
-pintan con tinta en alpha, no con un gris opaco: sobre un tinte, el opaco se ve como una línea
-sucia.
+**Color.** Dos familias: una rampa de nueve pasos casi neutra que dibuja todo, y **el azul, que es
+el color primario** y tiene rampa de diez.
 
-La interfaz es **monocroma**. El acento (`#d2691e`) se usa poquísimo —un punto, un badge— y por
-eso se ve.
+**El papel y el escritorio son dos tonos distintos.** Es la corrección más grande que tuvo el
+sistema. `--canvas` y `--surface` apuntaban al mismo token con el argumento de que lo que separa
+una tarjeta del fondo es el relieve, y no alcanzaba: con el relieve en alpha bajo y a 1x, una
+pantalla densa se lee como un campo blanco enorme con líneas encima y cada widget parece recortado
+en vez de apoyado. Ahora una pieza es papel (`--shade-01`) y la página es el escritorio
+(`--shade-02`); en oscuro se invierte, el papel se aclara y el escritorio es lo que está más al
+fondo. El relieve vuelve a decir solo cuánto se levanta algo en vez de tener que decir si existe.
 
-Hay dos excepciones, las dos deliberadas y las dos acotadas a una pieza:
+**La rampa es casi neutra, no neutra**: lleva C 0.0025 del tono del azul en OKLCH. Es un susurro y
+tiene que seguir siéndolo — un gris exactamente neutro al lado de un azul saturado se ve de otro
+sistema, y un gris que se nota azul convierte una interfaz de dos colores en una de tres. Estuvo en
+0.006 y era demasiado: los campos se veían celestes.
 
-- **El azul de marca** (`--blue-400/500/600`, rampa de tres pasos). Es la variante `brand` del
-  botón, el arco del spinner y el anillo de foco (`--blue-500-a45`), y nada más. `solid` y `brand`
-  son el mismo rol —el botón que manda— así que va uno o el otro, nunca los dos en la misma
-  pantalla, o la mirada no sabe cuál es. El 600 hace de canto y de labio, y su valor no se elige a
-  ojo: sale de reproducir el salto que el botón gris usa entre su relleno y su canto (1.14:1). Con
-  un salto más corto el canto desaparece y el botón se ve como un rectángulo pintado.
+**La tinta no es casi negro.** Estaba en `#121212`, que sobre el papel daba 18.26:1 — AAA pide 7,
+así que era más del doble del techo. Eso no se lee mejor: se lee duro. El borde entre una letra
+casi negra y un fondo casi blanco produce halación, y le pega más fuerte a quien lee con
+dificultad, que es a quien hay que cuidar acá. Está en 14:1, que sigue siendo el doble de AAA.
 
-  El foco es el uso más nuevo y el que se defiende solo: los otros dos son roles —esto manda, esto
-  está cargando—, este es un estado del teclado, y es el único aviso que tiene que reconocerse
-  antes de leerse. En tinta se confundía con un canto o con una sombra, que es de lo que está
-  hecho el resto del sistema. Los 2px de `--surface` antes del azul son lo que lo deja ver también
-  sobre el botón azul.
-- **Las marcas de la lista** (`--mark-*`, en pares relleno/glifo). El círculo que identifica una
-  fila en la lista de acciones. Relleno pastel y glifo del mismo tono varios pasos más oscuro, y
-  eso es deliberado: la marca es de 44 y vive dentro de una fila clara, así que tiene lugar para
-  leerse entera sin gritarle al título de al lado. En oscuro se invierten —relleno profundo,
-  glifo pastel— porque un pastel de relleno sobre `#131313` es una mancha de luz.
-- **Las etiquetas de color** (`--label-*` + `--on-label`). La familia viva de lo chico: un chip,
-  el cuadradito de icono de una tarjeta. Salen de la regla de la familia
-  y por eso las seis llevan el mismo texto blanco. Van en orden de rueda porque quien las usa reparte
-  por hash sobre el índice: con los tonos desordenados, dos nombres consecutivos caían en dos
-  tonos casi iguales.
+El salto de 05 a 06 es violento a propósito: entre el borde más oscuro y el texto más claro no
+tiene que haber nada, o aparecen grises que no se distinguen. Bordes y hovers se pintan con tinta
+en alpha, no con un gris opaco: sobre un tinte, el opaco se ve como una línea sucia.
 
-**Las tres paletas de categoría son tres roles y no se mezclan**, y la que las separa es el
-tamaño de la pieza:
+**El azul, diez pasos.** Eran tres valores sueltos elegidos para un botón, y tres no alcanzan para
+vestir un estado elegido, un fondo suave, una tinta que se lea encima y un borde. La rampa **se
+deriva y no se elige**: tono y croma salen del azul de siempre, la luminosidad baja parejo y el
+croma sube al medio y cae en los extremos. **El 600 está anclado**: es el escalón donde el blanco
+encima llega exactamente a 4.5:1, y por eso es el relleno del CTA. Eso saldó la única deuda de
+accesibilidad que el sistema arrastraba — el botón daba 2.89:1 arriba del degradado y 3.75:1
+abajo. Ahora el degradado va de 600 a 700 y pasa AA de punta a punta. `solid` y `brand` siguen
+siendo el mismo rol: va uno o el otro, nunca los dos en la misma pantalla.
+
+El anillo de foco es el único lugar donde el color es la señal y no el acompañante, y se defiende
+solo: los otros usos son roles —esto manda, esto está cargando—, este es un estado del teclado y es
+el único aviso que tiene que reconocerse antes de leerse. Los 2px de `--surface` antes del azul son
+lo que lo deja ver también sobre el botón azul.
+
+El acento ámbar (`#d2691e`) se usa poquísimo —un punto, un badge— y por eso se ve.
+
+**Las marcas de la lista** (`--mark-*`, en pares relleno/glifo) son el círculo de 44 que identifica
+una fila: relleno pastel y glifo del mismo tono varios pasos más oscuro, porque la marca tiene
+lugar para leerse entera sin gritarle al título de al lado. En oscuro se invierten.
+
+**Las etiquetas de color** van en **dos juegos y hay que elegir bien**:
+
+- `--label-*-soft` + `--label-*-ink` — fondo apagado y tinta del mismo tono, las doce ancladas a
+  4.6:1. **Es lo que usa un chip.** Un chip nunca viene solo: hay cinco o seis en una fila, se leen
+  como texto, y seis rellenos saturados uno al lado del otro compiten entre sí y con todo lo demás.
+- `--label-*` a secas, el relleno vivo con glifo blanco — el cuadradito de icono de una tarjeta,
+  donde la pieza es chica, el glifo es blanco y el color tiene que gritar.
+
+Van en orden de rueda porque quien las usa reparte por hash sobre el índice: con los tonos
+desordenados, dos nombres consecutivos caían en dos tonos casi iguales.
+
+**Un aviso tiene su propio papel.** `Alert` era `--surface`, o sea blanco sobre el blanco de una
+tarjeta: el aviso no se diferenciaba de lo que lo rodeaba, que es lo único que un aviso tiene que
+hacer. Ahora lleva el `-subtle` de su tono y un borde `--<tono>-border`, que existe por lo mismo —
+un borde neutro alrededor de un fondo teñido se ve como algo pegado encima.
+
+**El campo se invierte contra lo que tiene detrás.** Papel sobre el escritorio, hundido sobre una
+tarjeta. Lo decide la superficie escribiendo `--field-bg`, no el call site: un `TextField` no sabe
+si va a caer adentro de un `Card` adentro de un `Modal`, y preguntárselo sería la prop número
+catorce. Y el texto sugerido tiene su propio paso (`--text-placeholder`), el más claro que todavía
+llega a 4.5:1: con el gris del texto puesto ahí, lo que el campo propone se leía igual de firme que
+lo que alguien escribió.
+
+**Las paletas de categoría son roles distintos y no se mezclan**, y las separan el tamaño de la
+pieza y lo que va encima:
 
 | | para qué | contenido encima |
 |---|---|---|
 | `--mark-*` | la marca de 44 de una fila de lista, y el avatar sin foto | glifo o inicial del mismo tono, oscuro |
-| `--label-*` | lo chico: chip, cuadradito de icono | texto o glifo blanco |
+| `--label-*-soft` | un chip | la tinta del mismo tono, `--label-*-ink` |
+| `--label-*` | el cuadradito de icono de una tarjeta | glifo blanco |
 | `--tint-*` | la superficie grande: el hueco 4:3 de una tarjeta, el mock de una novedad, el costado de entrar | un dibujo en tinta al 14% |
 
 Los tres roles vivieron un rato en `--tint-*`, y de ahí salieron dos bugs: los chips quedaron
@@ -290,6 +337,12 @@ color propio por espacio es el punto: es lo que las deja reconocer de reojo en u
 monocroma eso distingue más que teñir el texto, y no gasta el único acento que hay. Corolario
 que se rompió tres veces: **el texto de un item inactivo va en tinta, no en gris.** Con la
 etiqueta apagada, una lista de siete espacios se lee como si estuviera deshabilitada.
+
+**El relleno que lleva texto encima está anclado.** Los dos rellenos saturados con una palabra
+arriba —el `brand` azul y el `bad` rojo— usan el escalón donde el blanco encima llega exactamente a
+4.5:1, y no uno elegido mirando. El `--bad-500` se queda para lo que no lleva texto (el glifo de un
+estado, el borde de un campo inválido) y `--bad-fill` es el que se pinta con una palabra arriba. Un
+test lo mide en los dos temas. **Era la única deuda de accesibilidad que el sistema arrastraba.**
 
 **Estado.** Cuatro tonos —`ok`, `warn`, `bad` e `info`— y ninguno viaja solo: cada uno trae su
 glifo y su texto, porque un color de estado sin forma no dice nada a quien no distingue colores.
@@ -437,7 +490,7 @@ apps/kit/src/           el sitio: App.tsx (shell y riel) · kit.tsx (Page, Secti
                         Canvas, Props, A11y, Note) · intro.tsx (la portada) ·
                         dashboard.tsx · stories/ (una por pieza) ·
                         foundations/ (principles · accessibility · typography ·
-                        color · measure · relief · motion · writing)
+                        color · measure · relief · motion · states · writing)
 ```
 
 **El corte entre el paquete y el sitio es por dependencia, no por gusto.** `packages/ui` no
@@ -507,7 +560,7 @@ Lo mismo vale para los tipos que una pieza recibe como argumento —`ToastOption
 
 ## Los tests
 
-`npm test` corre vitest con jsdom y testing-library. 273 tests, y lo que prueban es el
+`npm test` corre vitest con jsdom y testing-library. 284 tests, y lo que prueban es el
 comportamiento —teclado, nombres accesibles, estados— y no el markup, que cambia con cada
 ajuste de estilo. El test de cada pieza vive en su carpeta, al lado del componente.
 
@@ -521,6 +574,9 @@ Diez de ellos leen el paquete entero y fallan si alguien:
   los traiga el rol — que es el bug que la escala nueva vino a matar,
 - **escribe una duración o una curva a mano** (`duration-[120ms]`, `ease-[cubic-bezier(…)]`) en vez
   de usar las dos del sistema,
+- **se sale de la grilla de espaciado** (un `gap-2.5`, un `p-3.5`),
+- **usa un tamaño de icono que no está en la escala** — el tamaño se pasa como número, así que
+  ningún linter lo mira,
 - exporta algo sin sacarlo por `index.ts`,
 - deja una carpeta sin el componente que le da nombre, o un componente sin su test al lado.
 
@@ -535,27 +591,6 @@ una etiqueta de color contra los seis rellenos de la familia viva — todo en lo
 alguien cambia un tono y rompe un par, falla antes de llegar a una pantalla.
 
 ## Pendiente
-
-- **El blanco sobre los dos rellenos saturados no llega a AA, y eso ya no se arregla solo.**
-  Medido con axe sobre el kit: el botón `brand` va de 2.89:1 arriba del degradado a 3.75:1 abajo,
-  y el `bad` da 3.75:1. El texto es de 14/600, que para WCAG no es texto grande, así que el
-  mínimo es 4.5. Con el resto del sistema ya en AA —el gris del texto y las etiquetas de color se
-  arreglaron— estos dos son lo único que queda, y son los dos rellenos que llevan texto encima.
-
-  Las salidas son dos y ninguna es gratis:
-
-  1. **Oscurecer el relleno.** En OKLCH, bajando solo la L y dejando tono y croma, el azul llega
-     a 4.5:1 en L 0.575 (`#1473ea`) y el degradado podría ir de ahí a L 0.535 (`#0167da`), con el
-     canto en L 0.50 (`#005dc8`) — que reproduce el salto de 1.14:1 que el botón gris usa entre
-     relleno y canto. El rojo pide lo mismo. Cuesta: el CTA se vuelve un azul más profundo.
-     Se puede acotar al botón, dejando `--brand` como está para el switch, el chart y el anillo
-     de foco, que no llevan texto encima.
-  2. **Dar vuelta el texto.** La tinta sobre esos mismos rellenos da 4.99:1, que es lo que se
-     hizo con las etiquetas de color. En un chip funciona; en un CTA azul o en un botón rojo de
-     borrar, un texto oscuro se lee como deshabilitado.
-
-  La recomendación es la 1 acotada al botón. No se hizo porque cambia un color de identidad que
-  se eligió mirando, y eso se decide mirando.
 
 - **El `sm` de 32 no llega a los 44×44 que Apple pide para el dedo.** Pasa WCAG 2.2 (24×24) con
   holgura y se queda corto en táctil, que es media flota de un aula. La salida no es agrandar los

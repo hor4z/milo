@@ -149,13 +149,14 @@ export function AccessibilitySection() {
         </div>
       </Section>
 
-      <Note title="Lo que falta, sin maquillar">
-        El blanco sobre los dos rellenos saturados no llega a AA: el botón <code>brand</code> va de
-        2.89:1 arriba del degradado a 3.75:1 abajo, y el <code>bad</code> da 3.75:1. El texto es de
-        16/600, que para WCAG no es texto grande, así que el mínimo sigue siendo 4.5. Son los dos
-        únicos lugares del sistema que no pasan, y son justo los dos rellenos que llevan texto
-        encima. La salida elegida es oscurecer el relleno acotado al botón; no se hizo porque cambia
-        un color de identidad, y eso se decide mirando.
+      <Note icon="check_circle" title="La deuda de contraste está saldada">
+        El blanco sobre los dos rellenos saturados no llegaba a AA: el botón <code>brand</code> iba
+        de 2.89:1 arriba del degradado a 3.75:1 abajo, y el <code>bad</code> daba 3.75:1. El texto
+        de un botón es de 16/600, que para WCAG no es texto grande, así que el mínimo era 4.5 y no 3.
+        Los dos rellenos ahora están <strong className="font-semibold text-ink">anclados</strong>:
+        son el escalón donde el blanco encima llega exactamente a 4.5:1, derivado por búsqueda en
+        OKLCH y no elegido mirando. El degradado del azul va de 600 a 700, así que pasa de punta a
+        punta y no solo en la mitad de abajo. Hay un test que lo mide en los dos temas.
       </Note>
 
       <A11y

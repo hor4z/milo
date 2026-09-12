@@ -85,82 +85,89 @@ export function Dashboard() {
         <Stat label="Estudiantes" value="96" delta="+4" icon="group" />
       </div>
 
-      <div className="grid gap-3 lg:grid-cols-[1.55fr_1fr]">
-        <Card className="flex flex-col gap-5 p-6">
-          <div className="flex items-start justify-between gap-4">
-            <div>
-              <h2 className="text-reading font-semibold text-ink">Corregidas sobre entregadas</h2>
-              <p className="text-body font-medium text-ink-muted">El azul es lo corregido; el gris, lo que entró</p>
+      {/* `items-start` y no el estiramiento por default: sin esto las dos columnas
+          se igualan a la más alta y el chart queda con medio lienzo vacío abajo
+          para acompañar a la de al lado. Cada una mide lo que mide. */}
+      <div className="grid items-start gap-6 lg:grid-cols-[1.55fr_1fr]">
+        <div className="flex flex-col gap-6">
+          <Card className="flex flex-col gap-5 p-6">
+            <div className="flex items-start justify-between gap-4">
+              <div>
+                <h2 className="text-reading font-semibold text-ink">Corregidas sobre entregadas</h2>
+                <p className="text-body font-medium text-ink-muted">El azul es lo corregido; el gris, lo que entró</p>
+              </div>
+              <Badge tone="ok" icon="trending_up">84%</Badge>
             </div>
-            <Badge tone="ok" icon="trending_up">84%</Badge>
-          </div>
-          <BarChart
-            title="Corregidas sobre entregadas"
-            data={range === 'semana' ? week : month}
-            highlight={range === 'semana' ? 2 : 3}
-            height={200}
-          />
-        </Card>
+            <BarChart
+              title="Corregidas sobre entregadas"
+              data={range === 'semana' ? week : month}
+              highlight={range === 'semana' ? 2 : 3}
+              height={180}
+            />
+          </Card>
 
-        <Card className="flex flex-col gap-5 p-6">
-          <h2 className="text-reading font-semibold text-ink">Cómo va cada espacio</h2>
-          <div className="flex flex-col gap-4">
+          {/* Las carpetas: la pieza que mejor cuenta de qué se trata el producto,
+              y la que el dashboard no mostraba. Van acá abajo del chart para que
+              la columna izquierda pese lo mismo que la derecha. */}
+          <section className="flex flex-col gap-4">
+            <div className="flex items-center justify-between gap-4">
+              <h2 className="text-reading font-semibold text-ink">Tus espacios</h2>
+              <Button size="sm" variant="ghost" iconEnd="chevron_right">Ver todos</Button>
+            </div>
+            <div className="grid grid-cols-2 gap-4 sm:grid-cols-4">
+              {espacios.map(e => (
+                <Folder
+                  key={e.label}
+                  size={104}
+                  label={e.label}
+                  meta={e.meta}
+                  color={e.color}
+                  avatars={e.avatars}
+                  onClick={() => {}}
+                />
+              ))}
+            </div>
+          </section>
+        </div>
+
+        {/* La tarjeta va en `muted` y no en papel, y es a propósito: adentro lleva
+            `ListItem`s, que son papel. Sobre una tarjeta blanca serían blanco
+            sobre blanco — el mismo bug que el sistema acaba de sacarse de encima.
+            En `muted` la tarjeta hace de bandeja y las filas flotan. */}
+        <Card surface="muted" className="flex flex-col gap-5 p-6">
+          <div className="flex flex-col gap-3">
+            <div className="flex items-center justify-between gap-4">
+              <h2 className="text-reading font-semibold text-ink">Para hoy</h2>
+              <Chip color="orange" icon="bolt">3 sin hacer</Chip>
+            </div>
+            <List>
+              {pendientes.map(t => (
+                <ListItem
+                  key={t.title}
+                  icon={t.icon}
+                  color={t.color}
+                  title={t.title}
+                  hint={t.hint}
+                  onClick={() => {}}
+                  trailing={<Badge tone="neutral">{t.count}</Badge>}
+                />
+              ))}
+            </List>
+          </div>
+
+          <div className="flex flex-col gap-4 border-t border-line pt-5">
+            <h2 className="text-reading font-semibold text-ink">Cómo va cada espacio</h2>
             <Progress label="Matemática · 4.º A" value={11} max={18} hint="11/18" />
             <Progress label="Ciencias · 5.º B" value={24} max={24} hint="listo" tone="ok" />
             <Progress label="Sociales · 5.º A" value={3} max={7} hint="3/7" />
             <Progress label="Lengua · 6.º" value={0} max={12} hint="sin entregas" />
           </div>
+
           <div className="mt-auto flex items-center gap-2 border-t border-line pt-4">
             <AvatarGroup size={24} people={[p('Ana Pérez', 1), p('Bruno Díaz', 2), p('Carla Sosa', 3), p('Elena Vega', 5)]} />
             <span className="text-meta font-medium text-ink-muted">96 estudiantes en total</span>
           </div>
         </Card>
-      </div>
-
-      {/* Los espacios y lo que hay que hacer: las dos piezas que mejor cuentan de
-          qué se trata el producto, y las dos que el dashboard no mostraba. La
-          lista va sin contenedor propio —las filas son el papel— así que se
-          apoya directo sobre el escritorio, al lado de las carpetas. */}
-      <div className="grid gap-6 lg:grid-cols-[1fr_1fr]">
-        <section className="flex flex-col gap-4">
-          <div className="flex items-center justify-between gap-4">
-            <h2 className="text-reading font-semibold text-ink">Tus espacios</h2>
-            <Button size="sm" variant="ghost" iconEnd="chevron_right">Ver todos</Button>
-          </div>
-          <div className="grid grid-cols-2 gap-4 sm:grid-cols-4">
-            {espacios.map(e => (
-              <Folder
-                key={e.label}
-                size={104}
-                label={e.label}
-                meta={e.meta}
-                color={e.color}
-                avatars={e.avatars}
-                onClick={() => {}}
-              />
-            ))}
-          </div>
-        </section>
-
-        <section className="flex flex-col gap-4">
-          <div className="flex items-center justify-between gap-4">
-            <h2 className="text-reading font-semibold text-ink">Para hoy</h2>
-            <Chip color="orange" icon="bolt">3 sin hacer</Chip>
-          </div>
-          <List>
-            {pendientes.map(t => (
-              <ListItem
-                key={t.title}
-                icon={t.icon}
-                color={t.color}
-                title={t.title}
-                hint={t.hint}
-                onClick={() => {}}
-                trailing={<Badge tone="neutral">{t.count}</Badge>}
-              />
-            ))}
-          </List>
-        </section>
       </div>
 
       <Card className="overflow-hidden p-0">

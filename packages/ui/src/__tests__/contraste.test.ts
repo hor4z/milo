@@ -63,6 +63,23 @@ describe('el texto secundario se lee sobre cualquier superficie', () => {
   }
 })
 
+describe('el relleno que lleva texto encima llega a AA', () => {
+  // Los dos rellenos saturados con una palabra arriba. Los dos están anclados:
+  // son el escalón donde el blanco encima llega a 4.5:1, y no se eligieron
+  // mirando. Era la única deuda de accesibilidad que el sistema arrastraba.
+  for (const theme of ['light', 'dark'] as const) {
+    for (const fill of ['--blue-600', '--bad-fill']) {
+      it(`blanco sobre ${fill} en ${theme}`, () => {
+        const f = value(fill, theme)
+        expect(f, `falta ${fill} en ${theme}`).toBeTruthy()
+        // En oscuro el azul baja a 400 porque la rampa se da vuelta.
+        const usado = theme === 'dark' && fill === '--blue-600' ? value('--blue-400', theme)! : f!
+        expect(ratio('#ffffff', usado)).toBeGreaterThanOrEqual(4.5)
+      })
+    }
+  }
+})
+
 describe('el texto sugerido de un campo se lee', () => {
   // Es el paso más claro del sistema que todavía lleva texto, así que es el que
   // está más cerca de romperse. Va contra el campo sobre papel —la superficie
