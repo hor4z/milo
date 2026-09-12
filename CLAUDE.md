@@ -394,7 +394,7 @@ El riel tiene buscador con atajo `/` y no tiene logo: el nombre va en texto.
 
 ## Los tests
 
-`npm test` corre vitest con jsdom y testing-library. 169 tests, y lo que prueban es el
+`npm test` corre vitest con jsdom y testing-library. 195 tests, y lo que prueban es el
 comportamiento —teclado, nombres accesibles, estados— y no el markup, que cambia con cada
 ajuste de estilo. El test de cada pieza vive en su carpeta, al lado del componente.
 
@@ -405,10 +405,33 @@ Seis de ellos leen el paquete entero y fallan si alguien:
 - exporta algo sin sacarlo por `index.ts`,
 - deja una carpeta sin el componente que le da nombre, o un componente sin su test al lado.
 
-Y ocho leen los tokens y calculan el contraste de cada tono de estado contra su fondo, en los
-dos temas. Si alguien cambia un tono y rompe el par, falla antes de llegar a una pantalla.
+Y veintinueve leen los tokens y calculan contraste: cada tono de estado contra su fondo, el gris
+del texto secundario contra las cuatro superficies claras sobre las que se escribe, y la tinta de
+una etiqueta de color contra los seis rellenos de la familia viva — todo en los dos temas. Si
+alguien cambia un tono y rompe un par, falla antes de llegar a una pantalla.
 
 ## Pendiente
+
+- **El blanco sobre los dos rellenos saturados no llega a AA, y eso ya no se arregla solo.**
+  Medido con axe sobre el kit: el botón `brand` va de 2.89:1 arriba del degradado a 3.75:1 abajo,
+  y el `bad` da 3.75:1. El texto es de 14/600, que para WCAG no es texto grande, así que el
+  mínimo es 4.5. Con el resto del sistema ya en AA —el gris del texto y las etiquetas de color se
+  arreglaron— estos dos son lo único que queda, y son los dos rellenos que llevan texto encima.
+
+  Las salidas son dos y ninguna es gratis:
+
+  1. **Oscurecer el relleno.** En OKLCH, bajando solo la L y dejando tono y croma, el azul llega
+     a 4.5:1 en L 0.575 (`#1473ea`) y el degradado podría ir de ahí a L 0.535 (`#0167da`), con el
+     canto en L 0.50 (`#005dc8`) — que reproduce el salto de 1.14:1 que el botón gris usa entre
+     relleno y canto. El rojo pide lo mismo. Cuesta: el CTA se vuelve un azul más profundo.
+     Se puede acotar al botón, dejando `--brand` como está para el switch, el chart y el anillo
+     de foco, que no llevan texto encima.
+  2. **Dar vuelta el texto.** La tinta sobre esos mismos rellenos da 4.99:1, que es lo que se
+     hizo con las etiquetas de color. En un chip funciona; en un CTA azul o en un botón rojo de
+     borrar, un texto oscuro se lee como deshabilitado.
+
+  La recomendación es la 1 acotada al botón. No se hizo porque cambia un color de identidad que
+  se eligió mirando, y eso se decide mirando.
 
 - **El `--tracking-tight` sigue calibrado contra Inter.** Los -0.015em salieron de mirar Inter a
   12px y no se volvieron a mirar en tres familias. El peso ya se corrigió al pasar a Instrument
@@ -416,9 +439,6 @@ dos temas. Si alguien cambia un tono y rompe el par, falla antes de llegar a una
 - **`planes` y `entrar`** siguen con las medidas viejas (14px, sin relieve).
 - **El shell y la paleta de comandos siguen en `apps/guide`** porque leen `data.ts`. Para que
   entren al paquete hay que pasarles el contenido por props.
-- **El `Segmented` de solo iconos usa `title` nativo**, que es la caja del sistema operativo que
-  se le sacó al `IconButton`. Ahora que cada pieza es su propia carpeta el ciclo de imports ya
-  no es la excusa: falta hacerlo.
 - **`README.md` quedó desactualizado**: describe la primera identidad (jade y ámbar, radios
   3·6·8·10·14) que después se reemplazó por la rampa neutra y la escala 6·10·12·16·24.
 - Portar los tokens a `~/melu/packages/ui`, que es para lo que existe todo esto.

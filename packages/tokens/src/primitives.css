@@ -14,7 +14,12 @@
   --shade-03: #f1f1f1;
   --shade-04: #ececec;
   --shade-05: #e2e2e2;
-  --shade-06: #7b7b7b;  /* texto secundario e iconos apagados */
+  /* El gris del texto secundario. Estaba en #7b7b7b y no llegaba a AA sobre
+     ninguna superficie clara —4.13:1 sobre el papel, 3.58:1 sobre un hueco—,
+     así que todo lo que el sistema escribe en gris fallaba. Ahora es el gris
+     más claro que llega a 4.5:1 sobre la superficie más oscura donde se
+     escribe, que es --shade-04. */
+  --shade-06: #6b6b6b;  /* texto secundario e iconos apagados */
   --shade-07: #323232;
   --shade-08: #222222;
   --shade-09: #121212;  /* la tinta */
@@ -211,7 +216,7 @@
   --shade-03: #202020;
   --shade-04: #292929;
   --shade-05: #363636;
-  --shade-06: #8a8a8a;
+  --shade-06: #959595;
   --shade-07: #c9c9c9;
   --shade-08: #e6e6e6;
   --shade-09: #f7f7f7;

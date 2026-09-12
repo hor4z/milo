@@ -63,14 +63,21 @@
   --brand-lip: var(--blue-600);
   --on-brand: #ffffff;
 
-  /* El texto de una etiqueta de color. Uno solo para las seis: con la familia
-     toda al mismo contraste contra blanco, el blanco funciona en todas. Si algún
-     día entra un amarillo no va a poder llevarlo, y ahí este rol se parte en
-     pares — es la única condición que lo rompe.
+  /* El texto de una etiqueta de color. Uno solo para las seis, y es tinta.
+
+     Era blanco, y con la familia anclada al mismo contraste que el azul
+     —3.75:1— las seis fallaban AA para el texto de 12 de un chip. La tinta da
+     entre 4.96 y 5.01 sobre esos mismos seis rellenos en claro, y entre 5.26 y
+     7.07 en oscuro, donde la familia es más viva. Fue lo más barato de las dos
+     salidas: la otra era bajar la luminosidad de los seis tonos, que es la
+     identidad, para no tocar el color del texto.
 
      Las marcas de la lista no usan esto: van en pares relleno/glifo, porque son
      pasteles y el glifo tiene que ser del mismo tono varios pasos más oscuro. */
-  --on-label: #ffffff;
+  /* Va literal y no `var(--shade-09)`: la rampa se da vuelta con el tema y la
+     familia viva no. En los dos temas el relleno es claro, así que encima va
+     tinta en los dos. */
+  --on-label: #121212;
 
   --accent: var(--accent-500);
   --accent-hover: var(--accent-600);

@@ -4,11 +4,14 @@ import { join } from 'node:path'
 
 const css = readFileSync(join(import.meta.dirname, '../../../tokens/src/primitives.css'), 'utf8')
 
-function valor(token: string, tema: 'light' | 'dark') {
+function valor(token: string, tema: 'light' | 'dark'): string | undefined {
   const bloques = css.split('[data-theme="dark"]')
   const texto = tema === 'light' ? bloques[0] : bloques[1] ?? ''
-  const m = texto.match(new RegExp(`${token}:\\s*(#[0-9a-fA-F]{3,8})`))
-  return m?.[1]
+  const m = texto.match(new RegExp(`${token}:\\s*(#[0-9a-fA-F]{3,8}|var\\(--[\\w-]+\\))`))
+  const crudo = m?.[1]
+  if (!crudo) return undefined
+  const ref = crudo.match(/var\((--[\w-]+)\)/)
+  return ref ? valor(ref[1], tema) : crudo
 }
 
 function luminancia(hex: string) {
@@ -43,4 +46,39 @@ describe('contraste de los tonos de estado', () => {
       })
     }
   }
+})
+
+/** Las superficies sobre las que el sistema escribe en gris. */
+const superficies = ['--shade-01', '--shade-02', '--shade-03', '--shade-04']
+
+describe('el texto secundario se lee sobre cualquier superficie', () => {
+  for (const tema of ['light', 'dark'] as const) {
+    for (const fondo of superficies) {
+      it(`--shade-06 sobre ${fondo} en ${tema} llega a AA`, () => {
+        const gris = valor('--shade-06', tema)!
+        const papel = valor(fondo, tema)!
+        expect(contraste(gris, papel)).toBeGreaterThanOrEqual(4.5)
+      })
+    }
+  }
+})
+
+const labels = ['--label-green', '--label-teal', '--label-blue', '--label-purple', '--label-pink', '--label-orange']
+
+describe('el texto de una etiqueta de color se lee', () => {
+  const tinta = '#121212'
+  for (const tema of ['light', 'dark'] as const) {
+    for (const label of labels) {
+      it(`${label} en ${tema} aguanta la tinta encima`, () => {
+        const relleno = valor(label, tema)
+        expect(relleno, `falta ${label} en ${tema}`).toBeTruthy()
+        expect(contraste(tinta, relleno!)).toBeGreaterThanOrEqual(4.5)
+      })
+    }
+  }
+
+  it('la tinta del rol es la misma que se mide acá', () => {
+    const semantic = readFileSync(join(import.meta.dirname, '../../../tokens/src/semantic.css'), 'utf8')
+    expect(semantic).toMatch(/--on-label:\s*#121212/)
+  })
 })

@@ -52,7 +52,7 @@ export function Field({ label, hint, error, required, children, className }: Fie
       <div className={cx('flex flex-col gap-1.5', className)}>
         <label id={labelId} htmlFor={id} className="flex items-center gap-1 text-xs font-semibold text-ink">
           {label}
-          {required && <span aria-hidden="true" className="text-bad">*</span>}
+          {required && <span aria-hidden="true" className="text-bad-ink">*</span>}
           {required && <span className="sr-only">(obligatorio)</span>}
         </label>
         {hint && !error && <p id={hintId} className="text-2xs font-medium text-ink-muted">{hint}</p>}

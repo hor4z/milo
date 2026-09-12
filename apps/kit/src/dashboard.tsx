@@ -171,7 +171,7 @@ function Stat({ label, value, delta, icon, tone = 'ok' }: {
       </div>
       <div className="flex items-baseline gap-2">
         <span className="tabular text-display font-bold tracking-tight text-ink">{value}</span>
-        <span className={tone === 'ok' ? 'text-2xs font-semibold text-ok' : 'text-2xs font-semibold text-warn'}>{delta}</span>
+        <span className={tone === 'ok' ? 'text-2xs font-semibold text-ok-ink' : 'text-2xs font-semibold text-warn-ink'}>{delta}</span>
       </div>
     </Card>
   )

@@ -34,7 +34,7 @@ export function ChipStory() {
 
       <Note title="Chip o Badge">
         Se parecen y hacen cosas distintas. El <code>Chip</code> identifica: es el nombre de una
-        categoría, un método, una persona — y muchas veces se toca o se saca. El <code>Badge</code>
+        categoría, un método, una persona — y muchas veces se toca o se saca. El <code>Badge</code>{' '}
         dice en qué estado está algo: corregida, vence mañana, sin entregar. Uno lleva el color de su
         familia; el otro, el de su estado. Si el texto cambia según lo que pasó, es un badge.
       </Note>

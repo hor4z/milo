@@ -119,7 +119,7 @@ function NestDemo({ child, label, verdict, ok }: { child: string; label: string;
         <div className={`size-24 bg-canvas ${child}`} />
       </div>
       <Mono>{label}</Mono>
-      <span className={ok ? 'text-2xs font-semibold text-ok' : 'text-2xs font-semibold text-bad'}>{verdict}</span>
+      <span className={ok ? 'text-2xs font-semibold text-ok-ink' : 'text-2xs font-semibold text-bad-ink'}>{verdict}</span>
     </div>
   )
 }
