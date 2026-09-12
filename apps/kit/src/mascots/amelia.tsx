@@ -2,6 +2,31 @@ import { Alert, AlertBody, AlertTitle, Button, Card, CardBody, Icon } from '@mil
 import { A11y, Note, Page, Section } from '../kit'
 import { ReglasDeMascota, useQuieto } from './reglas'
 
+/** Los tres clips y para qué sirve cada uno. `bucle` es el único que puede repetirse. */
+const clips = [
+  {
+    archivo: 'amelia-quieta',
+    titulo: 'Quieta',
+    para: 'Un vacío, o un costado que acompaña',
+    nota: 'Respira y nada más. Es la única que se puede dejar puesta: no pasa nada, así que no pide que la mires.',
+    bucle: true,
+  },
+  {
+    archivo: 'amelia-saluda',
+    titulo: 'Saluda',
+    para: 'La bienvenida, una sola vez',
+    nota: 'Entra desde afuera de cuadro, saluda y se queda. Arranca con la pantalla vacía, así que va sobre el fondo y no adentro de una caja.',
+    bucle: false,
+  },
+  {
+    archivo: 'amelia-trabaja',
+    titulo: 'Trabaja',
+    para: 'Esto todavía no está listo',
+    nota: 'Casco y cinta métrica. Es «lo estamos construyendo», no «esperá un segundo»: para eso están el Spinner y el Skeleton.',
+    bucle: false,
+  },
+] as const
+
 export function AmeliaStory() {
   const quieto = useQuieto()
 
@@ -49,41 +74,74 @@ export function AmeliaStory() {
       </Section>
 
       <Section
-        title="En movimiento"
-        note="Diez segundos, sin audio, y se queda respirando: no entra corriendo ni saluda. Un bucle discreto se puede dejar en pantalla sin que moleste, que es lo único que lo hace usable."
+        title="En movimiento: tres clips y tres trabajos"
+        note="No es la misma animación en tres velocidades: cada una dice algo distinto y por eso hay tres archivos y no uno con recortes."
       >
-        <div className="flex flex-wrap items-start gap-6">
-          {quieto
-            ? (
-              <img
-                src="/mascotas/amelia.webp"
-                alt="Amelia, quieta: pediste menos movimiento"
-                className="h-[280px] w-auto rounded-xl border border-line bg-sunken"
-              />
-            )
-            : (
-              <video
-                src="/mascotas/amelia.mp4"
-                autoPlay
-                loop
-                muted
-                playsInline
-                aria-label="Amelia, de pie, respirando"
-                className="h-[280px] w-auto rounded-xl border border-line"
-              />
-            )}
-          <div className="flex min-w-0 flex-1 flex-col gap-3">
-            <p className="max-w-[52ch] text-body text-ink-muted">
-              Como el de Otto, el video trae su propio fondo y no es transparente: va adentro de una
-              caja con su borde. El retrato sí tiene alfa y se apoya donde sea.
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {clips.map(c => (
+            <div key={c.archivo} className="flex flex-col gap-3 rounded-xl border border-line bg-surface p-4">
+              <div className="flex justify-center rounded-lg bg-sunken py-3">
+                {quieto
+                  ? <img src="/mascotas/amelia.webp" alt={`${c.titulo}: pediste menos movimiento`} className="h-52 w-auto" />
+                  : (
+                    <video
+                      src={`/mascotas/${c.archivo}.mp4`}
+                      autoPlay
+                      muted
+                      playsInline
+                      loop={c.bucle}
+                      aria-label={`Amelia ${c.titulo.toLowerCase()}`}
+                      className="h-52 w-auto"
+                    />
+                  )}
+              </div>
+              <div className="flex flex-col gap-1">
+                <span className="text-body font-semibold text-ink">{c.titulo}</span>
+                <span className="text-meta text-ink-muted">{c.para}</span>
+                <p className="mt-1 text-meta text-ink-muted">{c.nota}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </Section>
+
+      <Section
+        title="Solo una de las tres puede repetirse"
+        note="Y no es una preferencia: las otras dos empiezan y terminan en poses distintas."
+      >
+        <div className="grid gap-4 lg:grid-cols-2">
+          <div className="flex flex-col gap-2 rounded-xl border border-line bg-surface p-5">
+            <span className="flex items-center gap-2 text-body font-semibold text-ink">
+              <Icon name="check" size={16} className="shrink-0 text-ok" />
+              Quieta lleva <code>loop</code>
+            </span>
+            <p className="max-w-[46ch] text-body text-ink-muted">
+              Termina donde empezó, así que el corte no se ve. Es la única que se puede dejar
+              corriendo sin que nadie la note.
             </p>
-            <p className="max-w-[52ch] text-body text-ink-muted">
-              Va <code>muted</code>, <code>loop</code> y <code>playsInline</code>. Los tres hacen
-              falta: sin el primero el navegador no lo deja arrancar solo, y sin el tercero iOS lo
-              abre en pantalla completa.
+          </div>
+          <div className="flex flex-col gap-2 rounded-xl border border-line bg-surface p-5">
+            <span className="flex items-center gap-2 text-body font-semibold text-ink">
+              <Icon name="close" size={16} className="shrink-0 text-bad" />
+              Saluda y Trabaja no
+            </span>
+            <p className="max-w-[46ch] text-body text-ink-muted">
+              Una arranca con el cuadro vacío y la otra termina con el casco en la mano: en bucle,
+              Amelia desaparece y vuelve a entrar cada diez segundos. Sin <code>loop</code> el video
+              se queda en el último cuadro solo, que es exactamente lo que se quiere.
             </p>
           </div>
         </div>
+        <p className="mt-3 max-w-[64ch] text-body text-ink-muted">
+          Los tres traen su propio fondo y no son transparentes, así que van adentro de una caja con
+          su borde — salvo «Saluda», que arranca vacío y por eso se banca ir suelta sobre el fondo
+          de la pantalla. El retrato sí tiene alfa y se apoya donde sea.
+        </p>
+        <p className="mt-2 max-w-[64ch] text-body text-ink-muted">
+          Los tres van <code>muted</code> y <code>playsInline</code>. Los dos hacen falta: sin el
+          primero el navegador no los deja arrancar solos, y sin el segundo iOS los abre en pantalla
+          completa.
+        </p>
       </Section>
 
       <Section
@@ -149,11 +207,16 @@ export function AmeliaStory() {
 
       <ReglasDeMascota />
 
-      <Section title="Los archivos">
+      <Section
+        title="Los archivos"
+        note="Cada clip se nombra por lo que hace y no por un número: `amelia-quieta`, no `amelia-1`. Otto sigue siendo `otto.mp4` porque tiene uno solo — el día que tenga el segundo se renombra igual."
+      >
         <div className="flex flex-col overflow-hidden rounded-xl border border-line bg-surface">
           {[
             ['/mascotas/amelia.webp', '354 × 1200 · 66 KB', 'El retrato, con alfa. Se apoya en cualquier superficie.'],
-            ['/mascotas/amelia.mp4', '540 × 960 · 10 s · 103 KB', 'Sin audio y con su propio fondo. Va adentro de una caja.'],
+            ['/mascotas/amelia-quieta.mp4', '540 × 960 · 10 s · 103 KB', 'Respira. La única que lleva `loop`.'],
+            ['/mascotas/amelia-saluda.mp4', '540 × 960 · 10 s · 258 KB', 'Entra y saluda. Se reproduce una vez.'],
+            ['/mascotas/amelia-trabaja.mp4', '400 × 736 · 6 s · 166 KB', 'Casco y cinta. Se reproduce una vez.'],
           ].map(([ruta, peso, nota]) => (
             <div key={ruta} className="flex flex-wrap items-center gap-x-5 gap-y-1 border-t border-line px-5 py-4 first:border-t-0">
               <code className="w-56 shrink-0 font-mono text-meta font-semibold text-ink">{ruta}</code>
@@ -176,7 +239,7 @@ export function AmeliaStory() {
         items={[
           'El retrato va con `alt=""`: es decorativo, y lo que la pantalla quiere decir ya está en el texto de al lado. Describirlo obliga a escuchar «ilustración de una chica» antes de llegar al mensaje.',
           'El video lleva `aria-label` porque se mueve y quien no lo ve merece saber qué hay ahí, pero no es contenido: si se saca, la pantalla sigue diciendo lo mismo.',
-          'Respeta `prefers-reduced-motion` como el resto del sistema: quien pidió menos movimiento ve el retrato quieto en vez del bucle.',
+          'Respeta `prefers-reduced-motion` como el resto del sistema: quien pidió menos movimiento ve el retrato quieto en vez de cualquiera de los tres clips.',
           'Amelia nunca representa a quien está del otro lado de la pantalla: no va de avatar por defecto ni de ilustración de «una alumna», porque quien no se parece a ella lo nota.',
           'Nunca es la única forma de entender algo: si desaparece, no se pierde ni una palabra.',
         ]}
