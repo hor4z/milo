@@ -11,16 +11,20 @@ producto: este repo es del design system y de nada más.
 npm install
 npm run dev        # el sitio · http://localhost:5190
 npm run typecheck  # todo el monorepo de una
-npm test           # 255 tests
+npm test           # 284 tests
 npm run props      # regenera la tabla de props desde los tipos
 ```
+
+Los **fundamentos** son la capa de la que sale todo lo demás, y en el sitio van primero:
+principios · accesibilidad · tipografía · color · medidas y radios · relieve · movimiento ·
+estados · iconos · cómo se escribe · inclusión.
 
 ## Qué hay adentro
 
 ```
 packages/tokens/   la identidad, en CSS puro: primitives · semantic · scales
 packages/ui/       el UI kit: 48 piezas, una carpeta cada una, con su test al lado
-apps/kit/          el sitio: los principios, los tokens y una vista por pieza
+apps/kit/          el sitio: los fundamentos y una vista por pieza
 ```
 
 El corte entre el paquete y el sitio es por dependencia: `packages/ui` no sabe que el sitio

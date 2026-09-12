@@ -490,7 +490,8 @@ apps/kit/src/           el sitio: App.tsx (shell y riel) · kit.tsx (Page, Secti
                         Canvas, Props, A11y, Note) · intro.tsx (la portada) ·
                         dashboard.tsx · stories/ (una por pieza) ·
                         foundations/ (principles · accessibility · typography ·
-                        color · measure · relief · motion · states · writing)
+                        color · measure · relief · motion · states · writing ·
+                        inclusion)
 ```
 
 **El corte entre el paquete y el sitio es por dependencia, no por gusto.** `packages/ui` no

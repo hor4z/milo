@@ -63,8 +63,16 @@ export function NavItemBody({
 
 /** La sangría de los subitems: la columna del texto del padre, no un valor nuevo. */
 export function navSubItemClass({ active }: { active?: boolean } = {}) {
+  // El inactivo va en **tinta**, no en gris, y el activo se marca con el mismo
+  // fondo y canto que su padre. Es la regla del sistema —el estado activo se
+  // marca con relieve o con canto, nunca tiñendo el texto— y acá estaba rota:
+  // con la etiqueta apagada, una lista de siete espacios se lee como si
+  // estuviera deshabilitada entera. El padre ya la cumplía; el hijo no.
   return cx(
-    'flex h-9 items-center rounded-lg pr-3 pl-12 text-left text-body font-semibold transition-colors duration-fast',
-    active ? 'text-ink' : 'text-ink-muted hover:text-ink',
+    'flex h-9 items-center rounded-lg pr-3 pl-12 text-left text-body font-semibold',
+    'transition-[background-color,box-shadow] duration-fast ease-out',
+    active
+      ? 'bg-muted text-ink shadow-[0_0_0_1px_var(--border)]'
+      : 'text-ink hover:bg-hover',
   )
 }

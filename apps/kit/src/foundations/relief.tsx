@@ -17,9 +17,19 @@ export function ReliefSection() {
   return (
     <Page
       title="Relieve"
-      kind="Guía"
-      lead="Es lo que le da carácter al sistema y lo que más costó acertar. Cinco recetas, todas mezclando luz interior arriba y sombra abajo. El estado activo se marca con relieve y no con color: en una interfaz monocroma distingue más, y no gasta el único acento que hay."
+      kind="Fundamentos"
+      lead="Es lo que le da carácter al sistema y lo que más costó acertar. Cinco recetas, todas mezclando luz interior arriba y sombra abajo. El estado activo se marca con relieve y no con color: distingue más que teñir el texto, y no gasta el color primario en algo que no lo necesita."
     >
+      <Note icon="layers" title="Lo que el relieve dejó de tener que hacer">
+        Durante un tiempo el relieve era lo único que separaba una tarjeta del fondo: el papel de
+        una pieza y el de la página eran el mismo color. No alcanzaba — con la elevación en alpha
+        bajo y a 1x, una pantalla densa se leía como un campo blanco enorme con líneas encima.
+        Ahora <code>--surface</code> y <code>--canvas</code> son dos tonos distintos, y eso libera
+        al relieve de una carga que no le correspondía: ya no tiene que decir <em>si</em> algo
+        existe, solo <strong className="font-semibold text-ink">cuánto se levanta</strong>. Es la
+        razón por la que las sombras de abajo son tan bajas y funcionan igual.
+      </Note>
+
       <Section title="Las recetas que se tocan">
         <div className="grid gap-3 sm:grid-cols-2">
           {recipes.map(r => (
