@@ -42,6 +42,10 @@ export { FilterBar, FilterSearch, Filter, FilterReset, ColumnPicker, facets } fr
 
 export { Book } from './book'
 export { Folder } from './folder'
+export { Alert, AlertTitle, AlertBody, AlertActions, ToastProvider, useToast } from './feedback'
+export type { Tone, ToastOptions } from './feedback'
+export { Tabs, TabList, Tab, TabPanel, Accordion, AccordionItem } from './disclosure'
+export { Badge, Progress, Skeleton, Breadcrumb } from './status'
 export { BarChart } from './chart'
 export type { BarDatum } from './chart'
 export type { BookWidth } from './book'

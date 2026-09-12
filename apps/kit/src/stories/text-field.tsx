@@ -8,7 +8,7 @@ export function TextFieldStory() {
   return (
     <Section
       title="TextField"
-      note="Plano: un fondo y una línea de un píxel, sin relieve. El campo fue un hueco y el volumen se fue a propósito — el relieve dice «esto sobresale» o «esto se aprieta», y un campo no es ninguna de las dos. Así se dibuja igual que el Select y que el buscador de la topbar. Al enfocarse no cambia de plano: se le suma el anillo de foco y nada más."
+      note="Plano: un fondo y una línea de un píxel, sin relieve. El campo fue un hueco y el volumen se fue a propósito — el relieve dice «esto sobresale» o «esto se aprieta», y un campo no es ninguna de las dos. Así se dibuja igual que el Select y que el buscador de la topbar. Al enfocarse no cambia de plano: se le tiñe el borde que ya tenía. El anillo del sistema es para una pieza sin borde propio; sobre un campo dibujaba una segunda línea azul a dos píxeles de la primera."
     >
       <Block label="Variantes">
         <div className="flex flex-wrap gap-3">

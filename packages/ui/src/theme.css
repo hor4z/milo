@@ -149,6 +149,8 @@
   --color-accent-hover: var(--accent-hover);
   --color-accent-subtle: var(--accent-subtle);
 
+  --color-brand-subtle: var(--brand-subtle);
+  --color-brand-ink: var(--brand-ink);
   --color-ok: var(--ok);
   --color-ok-subtle: var(--ok-subtle);
   --color-warn: var(--warn);
@@ -771,6 +773,8 @@ h1, h2, h3 { font-family: var(--font-sans); font-weight: 400; letter-spacing: va
 @keyframes ui-zoom-in { from { opacity: 0; transform: scale(.97) translateY(6px) } to { opacity: 1; transform: none } }
 @keyframes ui-rise { from { opacity: 0; transform: translateY(10px) } to { opacity: 1; transform: none } }
 
+@keyframes ui-pulse { 0%, 100% { opacity: 1 } 50% { opacity: 0.45 } }
+.ui-pulse { animation: ui-pulse 1.6s var(--ease-out) infinite }
 .ui-pop { animation: ui-pop-in var(--duration-fast) var(--ease-out) }
 .ui-fade { animation: ui-fade-in var(--duration-normal) var(--ease-out) }
 .ui-zoom { animation: ui-zoom-in var(--duration-normal) var(--ease-out) }
@@ -779,6 +783,6 @@ h1, h2, h3 { font-family: var(--font-sans); font-weight: 400; letter-spacing: va
 .ui-d4 { animation-delay: 120ms } .ui-d5 { animation-delay: 150ms } .ui-d6 { animation-delay: 180ms }
 
 @media (prefers-reduced-motion: reduce) {
-  .ui-pop, .ui-fade, .ui-zoom, .ui-rise { animation: none !important }
+  .ui-pop, .ui-fade, .ui-zoom, .ui-rise, .ui-pulse { animation: none !important }
   * { transition-duration: 1ms !important }
 }

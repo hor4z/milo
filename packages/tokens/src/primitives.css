@@ -71,6 +71,7 @@
      salto más corto el canto desaparece y el botón se ve como un rectángulo
      pintado; con uno más largo se lee como un borde de otro color en vez del
      filo de la misma pieza. Acá el 500 al 600 da 1.13:1. */
+  --blue-050: #eaf2fe;
   --blue-400: #5199f9;
   --blue-500: #2781f9;
   --blue-600: #1375f8;
@@ -228,6 +229,7 @@
 
   /* En oscuro el azul sube un paso: el mismo relleno que funciona sobre papel
      casi blanco se apaga sobre #131313. */
+  --blue-050: #11202f;
   --blue-400: #599ef9;
   --blue-500: #2f86f9;
   --blue-600: #1b7af8;
