@@ -25,6 +25,15 @@ export type { IconName }
  * **Codepoint y no ligadura.** Con ligadura, el instante previo a que cargue la
  * fuente muestra la palabra "chevron_right" adentro de un botón.
  *
+ * **Todos los glifos son de contorno: `FILL` queda clavado en 0 y no hay prop
+ * para moverlo.** Había tres rellenos por default —`favorite`, `bolt`,
+ * `star_shine`— con el argumento de que una marca pesa más que un acompañante,
+ * y el resultado era que el mismo icono se dibujaba distinto según dónde
+ * cayera: el corazón de la nav relleno y el mismo corazón de la paleta de
+ * comandos hueco. Un set mezclado no se lee como un set. Lo que diferencia a
+ * una marca de un acompañante es el peso y el tamaño, que son ejes que el call
+ * site ya tiene.
+ *
  * **El peso.** 300 de base. Sube a 400 cuando el icono va en gris —y eso lo
  * pone la clase `icon-muted` sola, no el call site, porque el gris muchas veces
  * lo hereda de un ancestro y desde acá no se puede saber— y a 600/700 cuando el
@@ -35,10 +44,6 @@ export type { IconName }
  */
 export type IconWeight = 100 | 200 | 300 | 400 | 500 | 600 | 700
 
-/* Los que se dibujan rellenos por default. Un glifo relleno se lee más pesado
-   que el mismo contorno, y estos tres son marcas, no acompañantes. */
-const filled: Partial<Record<IconName, true>> = { favorite: true, bolt: true, star_shine: true }
-
 /* No hay factor de corrección, y eso se midió antes de decidirlo.
    Rasterizando los dos sets a la misma medida nominal y comparando la caja de
    tinta de nueve iconos, el nuevo da 92 · 93 · 97 · 98 · 100 · 104 · 105 · 111
@@ -48,13 +53,11 @@ const filled: Partial<Record<IconName, true>> = { favorite: true, bolt: true, st
    precisamente lo que da un set diseñado. Meter un factor para emparejarlo con
    los dibujos viejos sería importar esa inconsistencia. */
 
-export function Icon({ name, size = 20, className, solid, weight }: {
+export function Icon({ name, size = 20, className, weight }: {
   name: IconName
   /** Alto y ancho de la caja en px. La escala 12 · 14 · 16 · 18 · 20 · 22. */
   size?: number
   className?: string
-  /** El eje FILL. Por default lo deciden los tres de arriba. */
-  solid?: boolean
   /**
    * El eje wght. **Sin default a propósito**: si no se pasa, no se escribe nada
    * y el glifo hereda. El default (300) está en el `var()` de la clase, no acá.
@@ -79,7 +82,6 @@ export function Icon({ name, size = 20, className, solid, weight }: {
         width: size,
         height: size,
         ...(weight ? { '--icon-wght': weight } : null),
-        ...(solid ?? filled[name] ? { '--icon-fill': 1 } : null),
       } as CSSProperties}
     >
       {String.fromCodePoint(codepoints[name])}

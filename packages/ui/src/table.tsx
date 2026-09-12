@@ -17,13 +17,20 @@ import { cx } from './primitives'
  *   una línea de contenido con un divisor de un píxel entre filas, así que
  *   compartir el alto es lo que hace que una tabla y un panel puestos uno
  *   arriba del otro no se vean de dos sistemas distintos.
- * · La cabecera va en 11 con `tracking-wide` y en gris: es metadato, no
- *   contenido, y ese es el rol que la escala le da al `2xs`.
+ * · La cabecera va en 11 con `tracking-wide` y en **tinta**, no en gris. En 11
+ *   el tamaño ya dice "esto es un rótulo"; el gris encima lo apaga tanto que
+ *   hay que buscar de qué es cada columna en vez de saberlo de reojo. El gris
+ *   es para lo que acompaña a un dato, no para lo que lo nombra.
  * · El contenido va en 12/500, que es la interfaz. Lo que se lee primero dentro
  *   de una fila sube a 14/600, igual que en `ListItem`.
- * · El contenedor lleva radio 24 y `overflow-hidden`, así que la primera y la
- *   última fila se recortan solas contra la curva. No hay padding, así que no
- *   hay radio de hijo que calcular.
+ * · El contenedor lleva radio 10 —`md`, el de lo cuadrado que se toca— y no el
+ *   24 de una tarjeta. Una tabla es una grilla de filas rectas: con la curva
+ *   grande, las cuatro esquinas se comen el principio y el final de la primera
+ *   y la última fila, y el ojo lee una tarjeta con una tabla adentro en vez de
+ *   una tabla. No hay padding, así que no hay radio de hijo que calcular.
+ * · Las filas van alternadas, una de papel y la siguiente un paso más oscura
+ *   (`--surface-alt`). En una tabla ancha el divisor de un píxel no alcanza para
+ *   seguir una fila hasta la última columna: la banda sí.
  *
  * El scroll horizontal es obligatorio y va acá adentro. Una tabla es de las
  * tres cosas que pueden ser más anchas que el cuerpo de la página —con un
@@ -37,7 +44,7 @@ export function Table({ children, minWidth = 640, className }: {
   className?: string
 }) {
   return (
-    <div className={cx('overflow-x-auto overflow-y-hidden rounded-2xl bg-surface ring-1 ring-line', className)}>
+    <div className={cx('zebra overflow-x-auto overflow-y-hidden rounded-md bg-surface ring-1 ring-line', className)}>
       <table className="w-full border-collapse text-left" style={{ minWidth }}>
         {children}
       </table>
@@ -49,7 +56,7 @@ export function Table({ children, minWidth = 640, className }: {
  * La cabecera va sobre `--surface-muted` y no sobre el papel: es lo que la
  * separa del cuerpo sin gastar un divisor más grueso. El divisor de abajo sí
  * está, y es el mismo de un píxel que va entre filas — la cabecera no se
- * distingue por pesar más, se distingue por el fondo y por el gris del texto.
+ * distingue por pesar más, se distingue por el fondo y por la medida del texto.
  */
 export function TableHeader({ children }: { children: ReactNode }) {
   return <thead className="bg-muted">{children}</thead>
@@ -87,10 +94,17 @@ export function TableRow({ children, onClick, active, className }: {
 
 type CellProps = { children?: ReactNode; className?: string }
 
+/* Las celdas llevan 16 entre columnas y 24 contra los bordes (`first`/`last`).
+   No es simetría porque sí: entre dos columnas el aire se reparte —cada dato
+   tiene 16 de un lado y 16 del otro— y contra el borde hay uno solo, así que
+   con la misma medida el número de la última columna queda pegado al canto. Se
+   nota sobre todo en una columna alineada a la derecha, que es la que termina
+   justo ahí. */
+
 export function TableHead({ children, className, ...rest }: CellProps & ThHTMLAttributes<HTMLTableCellElement>) {
   return (
     <th
-      className={cx('h-10 px-4 text-2xs font-semibold tracking-wide text-ink-muted', className)}
+      className={cx('h-10 px-4 first:pl-6 last:pr-6 text-2xs font-semibold tracking-wide text-ink', className)}
       {...rest}
     >
       {children}
@@ -100,7 +114,7 @@ export function TableHead({ children, className, ...rest }: CellProps & ThHTMLAt
 
 export function TableCell({ children, className, ...rest }: CellProps & TdHTMLAttributes<HTMLTableCellElement>) {
   return (
-    <td className={cx('h-14 px-4 text-xs font-medium text-ink', className)} {...rest}>
+    <td className={cx('h-14 px-4 first:pl-6 last:pr-6 text-xs font-medium text-ink', className)} {...rest}>
       {children}
     </td>
   )
@@ -126,7 +140,7 @@ export function TableHint({ children, className }: CellProps) {
  */
 export function TableNum({ children, className, ...rest }: CellProps & TdHTMLAttributes<HTMLTableCellElement>) {
   return (
-    <td className={cx('tabular h-14 px-4 text-right text-xs font-medium text-ink', className)} {...rest}>
+    <td className={cx('tabular h-14 px-4 first:pl-6 last:pr-6 text-right text-xs font-medium text-ink', className)} {...rest}>
       {children}
     </td>
   )

@@ -1,5 +1,5 @@
 import { useRef, useState } from 'react'
-import { Icon, Button, IconButton, cx, Dropdown, type MenuItem } from '@melu/ui'
+import { Icon, Button, IconButton, Tooltip, cx, Dropdown, type DropdownItem } from '@melu/ui'
 
 /**
  * El composer flotante: se escribe la consigna y sale una actividad.
@@ -29,7 +29,7 @@ export function Composer() {
     if (ref.current) ref.current.style.height = 'auto'
   }
 
-  const lensMenu: MenuItem[] = [
+  const lensMenu: DropdownItem[] = [
     { label: 'Indagación guiada', icon: 'explore' },
     { label: 'Proyecto por fases', icon: 'layers' },
     { label: 'Taller de escritura', icon: 'menu_book' },
@@ -52,7 +52,9 @@ export function Composer() {
           style={{ boxShadow: 'none' }}
         />
         <div className="flex items-center gap-2 px-3 pb-3">
-          <IconButton icon="add" label="Adjuntar" size="sm" variant="muted" className="!rounded-full" />
+          <Tooltip label="Adjuntar un archivo">
+            <IconButton icon="add" label="Adjuntar" size="sm" variant="muted" className="!rounded-full" />
+          </Tooltip>
 
           <Dropdown
             items={lensMenu}
@@ -73,7 +75,9 @@ export function Composer() {
           />
 
           <span className="ml-auto flex items-center gap-1.5">
-            <IconButton icon="mic" label="Dictar" size="sm" />
+            <Tooltip label="Dictar la consigna">
+              <IconButton icon="mic" label="Dictar" size="sm" />
+            </Tooltip>
             <Button
               variant="solid"
               size="sm"

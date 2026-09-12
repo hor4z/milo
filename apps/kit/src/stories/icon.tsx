@@ -1,7 +1,7 @@
 import { useMemo, useState } from 'react'
 import type { CSSProperties } from 'react'
 import {
-  EmptyState, Icon, Input, Segmented, Switch, Slider, fold,
+  EmptyState, Icon, Input, Segmented, Slider, fold,
   iconNames, type IconName, type IconWeight,
 } from '@melu/ui'
 import { iconTags } from '@melu/ui/icons.meta'
@@ -29,7 +29,6 @@ export function IconStory() {
   const [q, setQ] = useState('')
   const [size, setSize] = useState(24)
   const [weight, setWeight] = useState<'300' | '400' | '500' | '700'>('300')
-  const [fill, setFill] = useState(false)
   const [copiado, setCopiado] = useState<string | null>(null)
 
   const visibles = useMemo(() => {
@@ -52,8 +51,8 @@ export function IconStory() {
       note="Material Symbols Rounded, subseteado a lo que usamos y servido desde el repo. Peso 300 de base, y peso y relleno son ejes reales de la fuente, no variantes generadas."
     >
       <Block
-        label="Los ejes"
-        note="El peso va de 100 a 700 y el relleno de 0 a 1, y los dos son continuos porque es una fuente variable. Con SVG haría falta un archivo por combinación — por eso el set es una fuente, y por eso Google la distribuye así: sus SVG estáticos, dice su propio repo, «do not have all the variations available»."
+        label="El eje"
+        note="El peso va de 100 a 700 y es continuo porque es una fuente variable: con SVG haría falta un archivo por escalón — por eso el set es una fuente, y por eso Google la distribuye así: sus SVG estáticos, dice su propio repo, «do not have all the variations available». El otro eje de Material, FILL, está clavado en 0: todos los glifos son de contorno, sin excepciones y sin prop para moverlo."
       >
         <Panel>
           <Variant name="wght 100…700">
@@ -63,12 +62,6 @@ export function IconStory() {
                 <Mono>{w}</Mono>
               </span>
             ))}
-          </Variant>
-          <Variant name="FILL 0 · 1">
-            <span className="flex flex-col items-center gap-1"><Icon name="favorite" size={28} solid={false} /><Mono>0</Mono></span>
-            <span className="flex flex-col items-center gap-1"><Icon name="favorite" size={28} solid /><Mono>1</Mono></span>
-            <span className="flex flex-col items-center gap-1"><Icon name="bookmark" size={28} solid={false} /><Mono>0</Mono></span>
-            <span className="flex flex-col items-center gap-1"><Icon name="bookmark" size={28} solid /><Mono>1</Mono></span>
           </Variant>
         </Panel>
       </Block>
@@ -87,9 +80,6 @@ export function IconStory() {
             options={pesos.map(p => ({ value: p.value, label: p.label }))}
             size="sm"
           />
-          <label className="flex items-center gap-2 text-xs font-medium text-ink">
-            <Switch checked={fill} onChange={setFill} label="Relleno" /> relleno
-          </label>
           <span className="flex w-[180px] items-center gap-3 text-xs text-ink-muted">
             <Slider value={size} onChange={setSize} min={12} max={40} label="Tamaño" />
             <Mono>{size}</Mono>
@@ -109,7 +99,6 @@ export function IconStory() {
             style={{
               gridTemplateColumns: 'repeat(auto-fill, minmax(104px, 1fr))',
               '--icon-wght': weight,
-              '--icon-fill': fill ? 1 : 0,
             } as CSSProperties}
           >
             {visibles.map(name => (
@@ -200,7 +189,6 @@ export function IconStory() {
           { name: 'name', type: 'IconName', note: 'obligatorio; la unión de los 152 del set' },
           { name: 'size', type: 'number', def: '20', note: 'la escala 12 · 14 · 16 · 18 · 20 · 22' },
           { name: 'weight', type: '100…700', def: '300', note: 'el eje wght; el gris lo sube solo' },
-          { name: 'solid', type: 'boolean', note: 'el eje FILL; favorite, bolt y star_shine ya vienen rellenos' },
           { name: 'className', type: 'string', note: 'para el color; `icon-muted` para el gris' },
         ]} />
       </Block>

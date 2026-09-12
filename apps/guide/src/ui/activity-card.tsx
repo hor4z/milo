@@ -1,4 +1,4 @@
-import { Icon, Chip, cx, IconButton, usePrefs , labelColors, labelFill } from '@melu/ui'
+import { Icon, Chip, cx, IconButton, Tooltip, usePrefs , labelColors, labelFill } from '@melu/ui'
 import type { Activity } from '../data'
 
 /**
@@ -105,7 +105,9 @@ export function ActivityRow({ activity }: { activity: Activity }) {
       </div>
       <Chip color={done ? 'green' : undefined}>{done ? 'completa' : `${activity.submissions}/${activity.learners}`}</Chip>
       <span className="hidden w-28 shrink-0 text-right text-2xs font-medium text-ink-muted sm:block">{activity.updatedAt}</span>
-      <IconButton icon="more_horiz" label="Más" size="sm" className="opacity-0 group-hover:opacity-100" />
+      <Tooltip label="Más acciones">
+        <IconButton icon="more_horiz" label="Más" size="sm" className="opacity-0 group-hover:opacity-100" />
+      </Tooltip>
     </div>
   )
 }

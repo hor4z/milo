@@ -1,5 +1,6 @@
-import { useEffect, useId, useLayoutEffect, useRef, useState } from 'react'
+import { useCallback, useEffect, useId, useLayoutEffect, useRef, useState } from 'react'
 import type { ButtonHTMLAttributes, CSSProperties, InputHTMLAttributes, ReactNode, Ref } from 'react'
+import { useEscape } from './esc'
 import { Portal } from './overlay'
 import { Icon, type IconName } from './icon'
 
@@ -118,34 +119,59 @@ const variants = {
   bad: 'bg-bad text-on-bad hover:bg-bad-hover',
 } as const
 
-/* Tres alturas, una por contexto, y las tres del ladder real:
-     sm  32  inline en una fila densa (una fila de ajustes)
-     md  36  acciones dentro de un panel (Rechazar / Aceptar)
-     lg  40  la acción principal de la topbar
-   Del md para arriba el texto es 14/600 y el radio 12: un botón con el mismo
-   tamaño de letra que su entorno no se lee como accionable. */
-const sizes = {
-  sm: 'h-8 px-3.5 text-xs gap-1.5 rounded-md',
-  md: 'h-9 px-5 text-base gap-2 rounded-lg',
-  lg: 'h-10 px-6 text-base gap-2 rounded-lg',
+/**
+ * La escalera de los controles. **Una sola**, y de acá salen el `Button` y el
+ * `IconButton`: el mismo nombre de tamaño tiene que dar el mismo alto en los
+ * dos, o un icono al lado de un botón en la misma fila no apoya en la misma
+ * línea. Ya pasó — el `md` del `IconButton` era 40, que es el `lg` del
+ * `Button`, así que los dos `md` medían distinto.
+ *
+ * El alto no es un número elegido: es **la línea de la interfaz (16) más el
+ * aire vertical**, que sube de a 2. Es la cuenta que usa Reshaped —alto =
+ * interlínea + padding×2— con nuestros números:
+ *
+ *     sm  32 = 16 + 8×2    inline en una fila densa (una fila de ajustes)
+ *     md  36 = 16 + 10×2   acciones dentro de un panel (Rechazar / Aceptar)
+ *     lg  40 = 16 + 12×2   la acción principal de la topbar
+ *
+ * El alto va **fijo** y no como `min-height`, que es la otra diferencia con
+ * Reshaped y es a propósito: con `min-height`, un `md` con un icono de 18
+ * mediría 18 + 20 = 38 y crecería solo. Nuestros iconos son grandes en relación
+ * al texto, así que acá la caja manda sobre el contenido.
+ *
+ * El padding lateral sube al mismo paso que el alto, de a 4: 16 · 20 · 24.
+ * Estaba en 14 · 20 · 24 —un paso de 6 y después uno de 4— sin ninguna razón.
+ *
+ * Del `md` para arriba el texto es 14/600: un botón con el mismo tamaño de
+ * letra que su entorno no se lee como accionable.
+ *
+ * Los radios salen de la regla del sistema y por eso **no son los mismos en las
+ * dos piezas**: `md` (10) es lo cuadrado que se toca y `lg` (12) lo que se toca
+ * con texto. Un `Button` de 36 lleva 12 y un `IconButton` de 36 lleva 10.
+ */
+const control = {
+  sm: { box: 'h-8', square: 'size-8', px: 'px-4', text: 'text-xs', gap: 'gap-1.5', radius: 'rounded-md', icon: 16, dot: 'top-[5px] right-[5px]' },
+  md: { box: 'h-9', square: 'size-9', px: 'px-5', text: 'text-base', gap: 'gap-2', radius: 'rounded-lg', icon: 18, dot: 'top-1.5 right-1.5' },
+  lg: { box: 'h-10', square: 'size-10', px: 'px-6', text: 'text-base', gap: 'gap-2', radius: 'rounded-lg', icon: 20, dot: 'top-[7px] right-[7px]' },
 } as const
 
 export function Button({
   variant = 'raised', size = 'md', icon, iconEnd, block, className, children, ...rest
 }: ButtonProps) {
+  const c = control[size]
   return (
     <button
       className={cx(
         'inline-flex items-center justify-center font-semibold whitespace-nowrap',
         'transition-[background-color,color,box-shadow,filter] duration-[120ms] ease-out',
         'disabled:opacity-45 disabled:pointer-events-none',
-        variants[variant], sizes[size], block && 'w-full', className,
+        variants[variant], c.box, c.px, c.text, c.gap, c.radius, block && 'w-full', className,
       )}
       {...rest}
     >
-      {icon && <Icon name={icon} size={size === 'sm' ? 16 : size === 'md' ? 18 : 20} />}
+      {icon && <Icon name={icon} size={c.icon} />}
       {children}
-      {iconEnd && <Icon name={iconEnd} size={size === 'sm' ? 16 : size === 'md' ? 18 : 20} />}
+      {iconEnd && <Icon name={iconEnd} size={c.icon} />}
     </button>
   )
 }
@@ -157,7 +183,7 @@ type IconButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
   /** Obligatorio: un botón que solo tiene un icono no dice nada sin esto. */
   label: string
   variant?: 'ghost' | 'raised' | 'solid' | 'muted'
-  size?: 'sm' | 'md'
+  size?: 'sm' | 'md' | 'lg'
   /** El puntito de "hay algo nuevo", arriba a la derecha. */
   dot?: boolean
   active?: boolean
@@ -167,23 +193,44 @@ type IconButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
 export function IconButton({
   icon, label, variant = 'ghost', size = 'md', dot, active, className, ...rest
 }: IconButtonProps) {
+  const c = control[size]
   return (
     <button
+      /* Sin `title`. Era el tooltip del sistema operativo: tarda cerca de un
+         segundo, no se puede estilar, no aparece con el teclado y en touch no
+         existe. Con `Tooltip` en el sistema, un `title` puesto acá dibuja dos
+         cajas diciendo lo mismo, una de ellas con la tipografía del SO en medio
+         de la interfaz. El nombre accesible lo sigue dando `aria-label`, que es
+         lo que el `title` no era.
+
+         La ayuda visual la pone el call site envolviendo en `Tooltip`, y eso es
+         mejor que un default: un icono que no se explica solo —el micrófono del
+         composer, el `more_horiz` de una fila— la necesita, y uno inequívoco
+         como la X de un modal no, donde una etiqueta que dice «Cerrar» sobre
+         una cruz es ruido. */
       aria-label={label}
-      title={label}
       className={cx(
         'relative inline-flex items-center justify-center transition-[background-color,color,box-shadow] duration-[120ms] ease-out',
         'disabled:opacity-45 disabled:pointer-events-none',
         variants[variant === 'ghost' && active ? 'muted' : variant],
-        /* Cuadrado y con radio 10: un icono suelto en un contenedor de radio 12
-           se ve descentrado, porque no tiene texto que balancee la curva. */
-        size === 'sm' ? 'size-8 rounded-md' : 'size-10 rounded-md',
+        /* Cuadrado del alto de su paso: el `min-width` = `min-height` de
+           Reshaped, que es lo que hace que un icono suelto y un botón con texto
+           del mismo tamaño apoyen en la misma línea sin que nadie lo calcule.
+           El radio es 10 en los tres y no el del paso: es la regla del sistema
+           —`md` es lo cuadrado que se toca, `lg` lo que se toca con texto— y un
+           icono suelto en radio 12 se ve descentrado, porque no tiene texto que
+           balancee la curva. */
+        c.square, 'rounded-md',
         className,
       )}
       {...rest}
     >
-      <Icon name={icon} size={size === 'sm' ? 16 : 20} />
-      {dot && <span className="absolute top-2 right-2 size-1.5 rounded-full bg-accent ring-2 ring-surface" />}
+      <Icon name={icon} size={c.icon} />
+      {/* El punto se apoya en la esquina del icono, no en la de la caja: como
+          el icono está centrado, esa esquina está a (alto − icono) / 2 de cada
+          borde, y el punto de 6 va centrado ahí. Con un offset fijo, en 32 caía
+          sobre el glifo y en 40 quedaba flotando en el aire. */}
+      {dot && <span className={cx('absolute size-1.5 rounded-full bg-accent ring-2 ring-surface', c.dot)} />}
     </button>
   )
 }
@@ -289,14 +336,18 @@ export function Slider({
   /* El pulgar viaja entre 12 y el ancho menos 12, así que la cuenta lleva su
      propio tamaño adentro: sin eso, en 0 y en 100 media pieza queda afuera. */
   const thumbAt = 'calc(var(--t) * (100% - 24px) + 12px)'
-  /* El relleno NO usa esa misma cuenta, y esa es la diferencia que importa. Con
-     ella, en 0 medía 12 —hasta el centro del pulgar— y ese pedazo asomaba por
-     las esquinas del círculo: un slider en cero con azul atrás.
+  /* El relleno termina en el **borde derecho** del pulgar, no en su centro, y
+     esa es la cuenta que importa. Con el centro, en 100 el azul se quedaba 12px
+     antes del final de la pista y el pulgar no alcanzaba a taparle la curva: se
+     veía el redondeo del relleno y un pedazo de pista vacía a la derecha.
 
-     Con esta, el relleno es 0 en 0 y termina exacto en el centro del pulgar en
-     100. En el medio se queda corto, como mucho 6px, y esos 6 caen adentro del
-     radio de 12 del pulgar, así que no se ven nunca. */
-  const fillTo = 'calc(var(--t) * (100% - 12px))'
+     Que termine en el borde funciona en los dos extremos por geometría, y no de
+     casualidad: una píldora de 22 de alto cuyo lado derecho cae sobre el borde
+     del pulgar tiene su centro de curvatura a 1px del centro del círculo, así
+     que 1 + 11 = 12 y la curva queda tangente adentro del pulgar de 24. En 0 el
+     relleno mide exactamente 24 y es esa misma píldora inscripta en el círculo:
+     no asoma por ningún lado. En 100 llega justo a 100%. */
+  const fillTo = 'calc(var(--t) * (100% - 24px) + 24px)'
   /* Arrastrando no hay transición y sin arrastrar sí, y las dos cosas son por
      el mismo motivo. Con transición, el pulgar va atrás del cursor: el dedo ya
      está en un lugar y la pieza llega 120ms después, que es exactamente la
@@ -432,12 +483,31 @@ export function Checkbox({
         'inline-flex size-[18px] shrink-0 items-center justify-center rounded-xs',
         'transition-[background-color,box-shadow] duration-[120ms] ease-out',
         'disabled:opacity-45 disabled:pointer-events-none',
-        on ? 'bg-brand text-on-brand' : 'inset-relief bg-muted text-transparent',
+        /* El tilde va en `--on-brand` también apagado: lo que lo esconde es la
+           escala en 0, no el color. Con `text-transparent` el glifo tenía que
+           aparecer y crecer a la vez, y una pieza que se destiñe mientras se
+           mueve se ve sucia. */
+        on ? 'bg-brand text-on-brand' : 'inset-relief bg-muted text-on-brand',
       )}
     >
-      {indeterminate
-        ? <span className="h-0.5 w-2.5 rounded-full bg-current" />
-        : <Icon name="check" size={14} weight={700} />}
+      {/* La marca crece, no aparece. Es la misma receta que el disco del
+          `Radio` —escala de 0 a 1 en 120ms, sin opacidad— y tiene que ser la
+          misma: son la misma marca dicha en dos formas, y si una crece y la
+          otra parpadea, una fila con las dos se lee como dos sistemas.
+
+          Sin opacidad a propósito: el tilde se dibuja sobre el relleno azul,
+          que aparece en los mismos 120ms, así que la pieza ya tiene de dónde
+          salir. Desvanecerlo además lo deja gris a mitad de camino. */}
+      <span
+        className={cx(
+          'inline-flex transition-transform duration-[120ms] ease-out',
+          on ? 'scale-100' : 'scale-0',
+        )}
+      >
+        {indeterminate
+          ? <span className="block h-0.5 w-2.5 rounded-full bg-current" />
+          : <Icon name="check" size={14} weight={700} />}
+      </span>
     </button>
   )
 }
@@ -448,28 +518,35 @@ export function Checkbox({
  * La elección de una entre varias. Es 18, la misma medida del `Checkbox` y del
  * pulgar del switch, así una fila con los tres queda pareja.
  *
- * **Prendido es el pulgar del slider**: el disco claro con relieve y un punto
- * azul adentro. No es lo mismo que el checkbox, que se llena entero de azul, y
- * la diferencia no es de gusto: una casilla llena sigue leyéndose como casilla,
- * pero un círculo lleno de azul deja de leerse como radio — lo que dice "radio"
- * es el anillo con algo adentro, y si el anillo desaparece queda un punto. Así
- * que el azul va donde puede ir sin romper la forma, que es el punto.
+ * **Es el checkbox en redondo**, y esa es toda la regla: mismo relleno azul
+ * prendido, misma receta hundida apagado, misma medida. Lo único que cambia es
+ * la forma —círculo contra cuadrado— y la marca de adentro: el checkbox lleva
+ * un tilde, el radio un disco. Dos piezas que dicen lo mismo —"esto lo elegí
+ * yo"— no pueden dibujarse con dos recetas distintas, o la fila que las tiene
+ * juntas se lee como dos sistemas.
  *
- * El azul, igual, es el mismo de siempre y por la misma regla: es lo que el
- * usuario prendió o confirmó. Checkbox, switch, slider y radio dicen "esto lo
- * elegí yo" con el mismo color; lo único que cambia es cuánto de la pieza pueden
- * teñir sin dejar de ser lo que son.
+ * Por eso va **sin anillo**. El borde era justo lo que lo separaba del
+ * checkbox: una pieza de papel con un canto alrededor, al lado de una casilla
+ * que apagada es un hueco gris hundido y sin borde. Ahora apagados son el mismo
+ * hueco.
  *
- * Apagado va con el anillo en tinta y no con un gris opaco. El radio vive tanto
- * sobre el papel como adentro de una pista apagada, y un gris opaco que se ve
- * sobre uno desaparece sobre el otro: `--border-strong` es #e2e2e2 y la pista
- * es #f1f1f1.
+ * El orden de los dos círculos es lo que importa: **el azul es el de afuera y
+ * el blanco el de adentro**. Al revés —papel afuera, punto azul adentro— la
+ * pieza pesa lo mismo prendida que apagada, porque lo único que cambia es el
+ * disco del medio. Con el relleno afuera, la opción elegida se ve de una
+ * en toda la fila, que es para lo que existe el control.
  */
 export function Radio({
   checked, onChange, label, disabled, id, tabIndex, ref,
 }: {
   checked: boolean
   onChange: () => void
+  /**
+   * Va al `aria-label`. Cuando al lado hay texto visible tiene que ser **ese
+   * texto entero** y no un resumen: el `aria-label` pisa lo que se ve, así que
+   * con "No" al lado de "No hace falta" el lector de pantalla dice una cosa y
+   * la pantalla otra, y quien maneja por voz nombra lo que lee y no pasa nada.
+   */
   label?: string
   disabled?: boolean
   id?: string
@@ -492,23 +569,28 @@ export function Radio({
         'inline-flex size-[18px] shrink-0 items-center justify-center rounded-full',
         'transition-[background-color,box-shadow] duration-[120ms] ease-out',
         'disabled:opacity-45 disabled:pointer-events-none',
-        /* Elegido: la receta de la opción activa del `Segmented` —papel con
-           relieve— y no la del pulgar del switch. Es la misma situación, una
-           pieza flotando en una pista apagada, y el pulgar del switch es
-           `--shade-02`, que sobre `--surface-muted` no se despega: la pieza
-           elegida desaparecía y quedaba el punto azul flotando solo.
-           Vacío: el anillo en `--border-control`, que es tinta y no gris justo
-           porque este control vive sobre dos fondos distintos. */
-        checked ? 'bg-surface shadow-raised' : 'ring-1 ring-line-control',
+        /* Las dos recetas son las del `Checkbox`, sin una sola diferencia: el
+           relleno de marca prendido, el hueco gris hundido apagado. */
+        checked ? 'bg-brand' : 'inset-relief bg-muted',
       )}
     >
-      {/* El punto es 9 sobre 18: la misma mitad que el punto del pulgar del
-          slider sobre sus 24. Sale escalando en vez de aparecer, porque en una
-          fila de opciones lo que cambia de lugar es el punto y un salto seco no
-          deja ver de dónde a dónde fue. */}
+      {/* El disco de adentro es 8 sobre 18, y el número se elige **par**: la
+          diferencia con la caja tiene que repartirse en dos mitades enteras. Con
+          9 sobraban 4.5 por lado, el disco caía en media grilla de píxeles y se
+          veía corrido y sucio aunque el `justify-center` estuviera bien puesto.
+          Con 8 sobran 10, o sea 5 enteros por lado — y por lo mismo el paso de
+          acá para arriba o para abajo es de a 2, nunca de a 1: 7 vuelve a caer
+          en media grilla.
+
+          Va en `--on-brand`, el mismo blanco del tilde del checkbox, porque es
+          lo mismo: la marca dibujada arriba del relleno de marca.
+
+          Sale escalando en vez de aparecer, porque en una fila de opciones lo
+          que cambia de lugar es el disco y un salto seco no deja ver de dónde a
+          dónde fue. */}
       <span
         className={cx(
-          'size-[9px] rounded-full bg-brand transition-transform duration-[120ms] ease-out',
+          'size-[8px] rounded-full bg-on-brand transition-transform duration-[120ms] ease-out',
           checked ? 'scale-100' : 'scale-0',
         )}
       />
@@ -517,11 +599,15 @@ export function Radio({
 }
 
 /**
- * El grupo. Con `track` va adentro de una píldora apagada, que es la receta de
- * la pista del `Segmented` — mismo fondo y mismo padding — porque es lo mismo:
- * un contenedor apagado con la pieza elegida flotando adentro. Sin `track` las
- * opciones van sueltas, que es lo normal cuando cada una lleva su etiqueta al
- * lado.
+ * El grupo va suelto: las opciones sobre el papel, cada una con su etiqueta al
+ * lado. **No hay píldora apagada detrás**, y eso es una decisión y no un
+ * faltante: una pista gris con la pieza elegida flotando adentro es la receta
+ * del `Segmented`, y un radio metido ahí es el mismo control dibujado dos
+ * veces. Dos implementaciones de lo mismo se separan sola una de la otra con
+ * cada cambio.
+ *
+ * El reparto queda así: opciones cortas que se comparan de un vistazo, un
+ * `Segmented`; opciones que necesitan su propio texto al lado, este grupo.
  *
  * El teclado es el de un grupo de radios y no el de una lista de botones: una
  * sola parada de tabulación para todo el grupo —la opción elegida— y las
@@ -529,13 +615,11 @@ export function Radio({
  * pasar un grupo y tabular una.
  */
 export function RadioGroup<T extends string>({
-  value, onChange, options, track, label, className,
+  value, onChange, options, label, className,
 }: {
   value: T
   onChange: (v: T) => void
   options: readonly { value: T; label: string; disabled?: boolean }[]
-  /** Adentro de una píldora apagada, como la pista del Segmented. */
-  track?: boolean
   label?: string
   className?: string
 }) {
@@ -562,11 +646,7 @@ export function RadioGroup<T extends string>({
         e.preventDefault()
         step(dir)
       }}
-      className={cx(
-        'inline-flex items-center',
-        track ? 'gap-2 rounded-full bg-muted p-1' : 'gap-3',
-        className,
-      )}
+      className={cx('inline-flex items-center gap-3', className)}
     >
       {options.map(o => (
         <Radio
@@ -653,7 +733,14 @@ export function Segmented<T extends string>({
                 ? (size === 'xs' ? 'w-6' : size === 'sm' ? 'w-8' : 'w-9')
                 : (size === 'xs' ? 'px-2' : size === 'sm' ? 'px-3' : 'px-4'),
               active
-                ? (size === 'xs' ? 'bg-muted text-ink' : 'bg-surface text-ink shadow-raised')
+                /* El relieve va por `--relief` y no por la utilidad
+                   `shadow-raised`. La regla de foco suma el relieve adelante del
+                   anillo leyendo esa variable; con la utilidad, la variable
+                   queda sin escribir y la regla la resuelve a su valor inicial
+                   —transparente— así que el chip elegido se planchaba justo al
+                   tabular hasta él, que es el bug que el sistema de relieve vino
+                   a cerrar. */
+                ? (size === 'xs' ? 'bg-muted text-ink' : 'bg-surface text-ink [--relief:var(--relief-raised)] shadow-(--relief)')
                 : 'text-ink-muted hover:text-ink',
             )}
           >
@@ -680,10 +767,37 @@ export function Segmented<T extends string>({
  * A cambio hay que traer el teclado a mano, que es lo que el nativo regalaba:
  * flechas para moverse, Enter para elegir, Escape para salir, Home/End a los
  * extremos. Sin eso el control queda inutilizable sin mouse.
+ *
+ * **`leading` es un nodo y no un `IconName`**, al revés que el `icon` del
+ * `Input`. Ahí el icono es siempre un glifo del set; acá lo que se muestra
+ * adelante del valor es de quien lo usa: el glifo de la categoría elegida, la
+ * carpeta de color de un espacio, el avatar de una persona, un spinner. Tipar
+ * la unión de glifos dejaba afuera a los otros tres y no ahorraba nada.
+ *
+ * **`loading` existe además de `leading`, y esa es la parte que se discutió.**
+ * Un spinner pasado por `leading` se dibuja, y nada más: el control sigue
+ * abriendo, y lo que abre mientras los datos no llegaron es una lista vacía o
+ * —peor— una lista con las opciones viejas, que se puede elegir. Eso no lo
+ * puede arreglar el nodo, porque no es contenido: es el estado del control. Con
+ * `loading` puesto, el select no abre, avisa `aria-busy` y pone el spinner solo
+ * si nadie pasó un `leading` propio.
+ *
+ * Lo que el componente NO hace es enterarse solo: no recibe promesas, no sabe
+ * de fetch y no tiene estado de carga propio. Quien trae los datos sabe cuándo
+ * está cargando y lo dice con un booleano.
  */
 export function Select({
-  value, onChange, options, width,
-}: { value: string; onChange?: (v: string) => void; options: string[]; width?: number }) {
+  value, onChange, options, width, leading, loading,
+}: {
+  value: string
+  onChange?: (v: string) => void
+  options: string[]
+  width?: number
+  /** Adelante del valor: un `Icon`, un `FolderIcon`, un `Avatar`, un `Spinner`. */
+  leading?: ReactNode
+  /** Mientras los datos no están: no abre, y el spinner va solo si no hay `leading`. */
+  loading?: boolean
+}) {
   const [open, setOpen] = useState(false)
   const [active, setActive] = useState(() => Math.max(0, options.indexOf(value)))
   const btn = useRef<HTMLButtonElement>(null)
@@ -710,7 +824,6 @@ export function Select({
       setOpen(false)
     }
     const onKey = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') { e.stopPropagation(); setOpen(false); btn.current?.focus() }
       if (e.key === 'ArrowDown') { e.preventDefault(); setActive(i => Math.min(i + 1, options.length - 1)) }
       if (e.key === 'ArrowUp') { e.preventDefault(); setActive(i => Math.max(i - 1, 0)) }
       if (e.key === 'Home') { e.preventDefault(); setActive(0) }
@@ -734,6 +847,24 @@ export function Select({
     list.current?.querySelector('[data-active="true"]')?.scrollIntoView({ block: 'nearest' })
   }, [active, open])
 
+  /* Escape va por la pila compartida y no por el `keydown` de acá abajo. Con un
+     listener propio, el listbox abierto adentro de un `Modal` dejaba dos
+     capturas sobre `document` —la suya y la del modal— y las dos corrían: un
+     Escape cerraba la lista y el modal de atrás en el mismo golpe.
+     `stopPropagation` no alcanza contra un hermano registrado en el mismo nodo
+     y la misma fase. */
+  useEscape(open, useCallback(() => { setOpen(false); btn.current?.focus() }, []))
+
+  /* El spinner es el default de `loading`, no su definición: quien quiera
+     mostrar otra cosa mientras carga —el glifo de la categoría, apagado— pasa su
+     `leading` y el control sigue sin abrir igual. */
+  const leadingNode = loading ? leading ?? <Spinner size={16} /> : leading
+
+  /* Un panel abierto tiene que cerrarse si los datos se van a recargar: con la
+     lista arriba, `loading` llegando y el panel quieto, se queda una lista de
+     opciones viejas que se puede elegir. */
+  useEffect(() => { if (loading) setOpen(false) }, [loading])
+
   return (
     <>
       <button
@@ -742,11 +873,19 @@ export function Select({
         aria-haspopup="listbox"
         aria-expanded={open}
         aria-controls={open ? listId : undefined}
-        onClick={() => setOpen(o => !o)}
+        aria-busy={loading || undefined}
+        aria-disabled={loading || undefined}
+        onClick={() => { if (!loading) setOpen(o => !o) }}
         style={{ width }}
-        className="inline-flex h-9 items-center justify-between gap-2 rounded-md border border-field-line bg-field px-3 text-xs font-medium text-ink transition-colors duration-[120ms] hover:bg-field-hover"
+        className="inline-flex h-9 items-center justify-between gap-2 rounded-md border border-field-line bg-field px-3 text-xs font-medium text-ink transition-colors duration-[120ms] hover:bg-field-hover aria-disabled:cursor-default aria-disabled:hover:bg-field"
       >
-        <span className="min-w-0 truncate">{value}</span>
+        {/* El `leading` y el valor viajan juntos en su propio flex: con los tres
+            hijos sueltos, el `justify-between` reparte el aire entre el icono y
+            el texto y el icono se despega del valor que describe. */}
+        <span className="flex min-w-0 items-center gap-2">
+          {leadingNode && <span className="flex shrink-0 items-center">{leadingNode}</span>}
+          <span className="min-w-0 truncate">{value}</span>
+        </span>
         <Icon name="keyboard_arrow_down" size={16} className="shrink-0 text-ink" />
       </button>
 
@@ -833,6 +972,52 @@ export function Chip({
         </button>
       )}
     </Tag>
+  )
+}
+
+/* ----------------------------------------------------------------- Divider */
+
+/**
+ * La línea que separa. Un píxel de `--border`, y nada más.
+ *
+ * Existe como pieza y no como una clase suelta por una razón práctica: la línea
+ * estaba escrita a mano en seis lugares —`border-t border-line`, `border-b`,
+ * un `<hr>` con `border-0`— y tres de ellos con un gris distinto. Cuál gris es
+ * la línea del sistema es una decisión, y una decisión escrita seis veces se
+ * desincroniza a la quinta.
+ *
+ * Es un `div` con `role="separator"` y no un `<hr>`: el `hr` es semánticamente
+ * un corte temático del contenido y trae borde propio del navegador que hay que
+ * apagar. Acá lo que hace falta es la línea y su rol, sin nada que deshacer.
+ *
+ * `data-divider` no es decoración: es lo que deja que un contenedor con padding
+ * —el `Menu`— estire la línea hasta sus bordes sin que cada call site tenga que
+ * saber cuánto padding tiene el padre.
+ */
+export function Divider({ orientation = 'horizontal', className }: {
+  orientation?: 'horizontal' | 'vertical'
+  className?: string
+}) {
+  return (
+    <div
+      data-divider=""
+      role="separator"
+      aria-orientation={orientation}
+      className={cx(
+        'shrink-0 bg-line',
+        /* El vertical lleva `self-stretch` para tomar el alto de la fila: sin
+           eso, adentro de un flex con `items-center` mide cero y no se ve. */
+        /* Horizontal SIN `w-full`, y no es lo mismo. Un bloque de ancho auto ya
+           llena a su padre, y además es lo único que deja estirarlo con
+           márgenes negativos: con `width: 100%` y dos márgenes distintos de
+           auto, la caja queda sobreespecificada y el navegador ignora el
+           margen derecho (CSS 2.1 §10.3.3). El separador full-bleed del `Menu`
+           —`-mx-2` sobre el hijo— llegaba al borde izquierdo y se quedaba 16px
+           corto a la derecha. */
+        orientation === 'horizontal' ? 'h-px' : 'w-px self-stretch',
+        className,
+      )}
+    />
   )
 }
 
@@ -954,13 +1139,86 @@ export function AvatarGroup({
 
 /* ------------------------------------------------------------------- Input */
 
-type InputProps = InputHTMLAttributes<HTMLInputElement> & { icon?: IconName; suffix?: ReactNode }
+type InputProps = Omit<InputHTMLAttributes<HTMLInputElement>, 'size'> & {
+  icon?: IconName
+  suffix?: ReactNode
+  size?: 'sm' | 'md' | 'lg'
+}
 
-export function Input({ icon, suffix, className, ...rest }: InputProps) {
+/* Las tres alturas del `Button`, con los mismos radios, los mismos tamaños de
+   icono y los mismos tamaños de letra. Un campo y el botón que lo acompaña en
+   la misma fila tienen que medir lo mismo; con dos escaleras distintas, no hay
+   combinación que cierre.
+
+   Lo único que cambia respecto del botón es el padding lateral, y por una razón
+   concreta: el texto de un botón está centrado y necesita aire a los dos lados,
+   el de un campo arranca pegado a la izquierda y lo que sobra se lee como el
+   campo vacío corrido. */
+const fieldSizes = {
+  sm: 'h-8 gap-1.5 rounded-md px-2.5 text-xs',
+  md: 'h-9 gap-2 rounded-lg px-3 text-base',
+  lg: 'h-10 gap-2 rounded-lg px-3 text-base',
+} as const
+
+/**
+ * El campo de texto.
+ *
+ * **Es plano: un fondo y una línea de un píxel, sin relieve y sin sombra.** Fue
+ * un hueco —el canto en tinta, la luz arriba, el labio oscuro abajo— y el
+ * volumen se fue a propósito. El relieve del sistema dice dos cosas, "esto
+ * sobresale" y "esto se aprieta", y un campo no es ninguna de las dos: es un
+ * lugar donde apoyar texto. A 40 de alto por 300 de ancho el hueco tampoco
+ * escala —lo que en un kbd de 20 se lee como una tecla, acá se lee como una
+ * caja abollada— y encima dejaba al campo distinto del `Select` y del buscador
+ * de la topbar, que ya eran borde plano. Ahora los tres se dibujan igual.
+ *
+ * El borde es `--field-border`, que es exactamente la línea que el relieve
+ * dibujaba como canto: tinta en alpha, no un gris de la rampa. Sobre un tinte,
+ * el opaco se ve como una línea sucia.
+ *
+ * **El input tapa la caja entera.** Esta es la parte que no se ve y es la que
+ * más se siente: un `<input>` mide lo que mide su línea de texto —16px— y
+ * dentro de una caja de 40 eso deja 12 muertos arriba y 12 abajo. Clickeabas la
+ * mitad de arriba del campo y no pasaba nada. Con `h-full` el input ocupa el
+ * alto entero, y con el margen negativo se come también el hueco que el `gap`
+ * deja contra el icono y contra el suffix. Es lo mismo que hace Reshaped, y por
+ * el mismo motivo: **lo que se ve como campo tiene que ser campo para el
+ * mouse**.
+ *
+ * **El foco se marca una sola vez y en el borde de afuera.** El anillo global
+ * de `:focus-visible` agarraba al `<input>` de adentro, que es más chico que el
+ * campo: quedaba un rectángulo oscuro flotando adentro de la caja. Acá el input
+ * se queda sin anillo (`shadow-none`) y
+ * el que se enciende es el campo, con la clase `.field`. Apagar el del input hay
+ * que hacerlo desde el CSS y no con una utilidad acá: la regla global de foco
+ * está fuera de capa y una utilidad de Tailwind está adentro de una, y lo de
+ * afuera le gana a lo de adentro por más específico que sea. Un
+ * `focus-visible:shadow-none` en el input se lee bien y no hace nada.
+ */
+export function Input({ icon, suffix, size = 'lg', className, ...rest }: InputProps) {
+  const iconSize = size === 'sm' ? 16 : size === 'md' ? 18 : 20
   return (
-    <div className={cx('flex h-10 items-center gap-2 rounded-lg bg-muted px-3 transition-colors duration-[120ms] focus-within:bg-surface focus-within:shadow-raised', className)}>
-      {icon && <Icon name={icon} size={20} className="icon-muted" />}
-      <input className="min-w-0 flex-1 bg-transparent text-xs font-medium text-ink outline-none placeholder:text-ink-muted" {...rest} />
+    <div
+      className={cx(
+        /* `cursor-text` en el contenedor y no en el input: el cursor se hereda,
+           así que el icono y el aire de los costados también dicen "acá se
+           escribe". */
+        'field flex cursor-text items-center border border-field-line bg-field',
+        'has-[input:disabled]:pointer-events-none has-[input:disabled]:opacity-45',
+        fieldSizes[size], className,
+      )}
+    >
+      {icon && <Icon name={icon} size={iconSize} className="icon-muted shrink-0" />}
+      <input
+        className={cx(
+          /* El texto de un campo va en 400 y no en el 500 de la interfaz: lo
+             que escribís es contenido, no una etiqueta. A 14px el 500 se lee
+             como un título corto metido adentro de la caja. */
+          'h-full min-w-0 flex-1 bg-transparent font-normal text-ink outline-none placeholder:text-ink-muted',
+          size === 'sm' ? '-mx-1.5 px-1.5' : '-mx-2 px-2',
+        )}
+        {...rest}
+      />
       {suffix}
     </div>
   )

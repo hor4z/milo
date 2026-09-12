@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Input, Kbd } from '@melu/ui'
+import { IconButton, Input, Kbd } from '@melu/ui'
 import { Block, Demo, Props, Section } from '../kit'
 
 export function InputStory() {
@@ -8,7 +8,7 @@ export function InputStory() {
   return (
     <Section
       title="Input"
-      note="40 de alto sobre fondo apagado, y al enfocarse pasa al papel con relieve en vez de dibujar un borde de color. El foco se marca cambiando el plano del campo, que es lo mismo que hace el resto del sistema."
+      note="Plano: un fondo y una línea de un píxel, sin relieve. El campo fue un hueco y el volumen se fue a propósito — el relieve dice «esto sobresale» o «esto se aprieta», y un campo no es ninguna de las dos. Así se dibuja igual que el Select y que el buscador de la topbar. Al enfocarse no cambia de plano: se le suma el anillo de foco y nada más."
     >
       <Block label="Variantes">
         <div className="flex flex-wrap gap-3">
@@ -25,8 +25,41 @@ export function InputStory() {
         </div>
       </Block>
 
+      <Block
+        label="Las tres alturas"
+        note="Las mismas del Button, con los mismos radios, iconos y tamaños de letra: un campo y el botón que lo acompaña en la misma fila tienen que medir lo mismo. Lo único distinto es el padding lateral — el texto de un botón está centrado y necesita aire de los dos lados, el de un campo arranca pegado a la izquierda."
+      >
+        <div className="flex flex-wrap gap-3">
+          {(['sm', 'md', 'lg'] as const).map(s => (
+            <div key={s} className="w-full max-w-[320px]">
+              <Demo label={s}>
+                <Input size={s} icon="search" placeholder="Buscar una actividad…" className="w-full" />
+              </Demo>
+            </div>
+          ))}
+        </div>
+      </Block>
+
+      <Block
+        label="El click y el foco"
+        note="El input tapa la caja entera: un `<input>` mide lo que mide su línea de texto —16px— y adentro de una caja de 40 eso dejaba 12 muertos arriba y 12 abajo, así que media caja no recibía el click. Y el anillo de foco es del campo y no del input de adentro: si no, queda un rectángulo flotando adentro de la caja. Con un botón adentro, el campo no se enciende — la marca es del botón."
+      >
+        <div className="flex flex-wrap gap-3">
+          <div className="w-full max-w-[320px]">
+            <Demo label="con botón adentro">
+              <Input
+                placeholder="Buscar…"
+                className="w-full"
+                suffix={<IconButton icon="close" label="Limpiar" variant="ghost" size="sm" />}
+              />
+            </Demo>
+          </div>
+        </div>
+      </Block>
+
       <Block label="Props" note="Todo lo que acepta un `<input>` nativo pasa derecho: `value`, `onChange`, `placeholder`, `disabled`, `type`.">
         <Props rows={[
+          { name: 'size', type: "'sm' | 'md' | 'lg'", note: '32 · 36 · 40, las del Button. Default lg' },
           { name: 'icon', type: 'IconName', note: 'a la izquierda, en gris' },
           { name: 'suffix', type: 'ReactNode', note: 'a la derecha: una unidad, un kbd, un botón' },
           { name: 'className', type: 'string', note: 'va al contenedor, no al input — para el ancho' },

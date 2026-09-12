@@ -13,8 +13,8 @@ import { Mono } from './kit'
 
 const decisiones: { title: string; body: string }[] = [
   {
-    title: 'Base 12, peso 500, leading fijo de 16',
-    body: 'El 500 de base se decidió contra Inter, donde el 400 a 12px se leía lavado sobre un fondo casi blanco; con Geist no se volvió a medir. El line-height único es para que una fila de 12 y una de 14 sigan alineadas entre sí.',
+    title: 'Base 12, peso 400, leading fijo de 16',
+    body: 'Estuvo en 500, decidido contra Inter, donde el 400 a 12px se leía lavado sobre un fondo casi blanco; Instrument Sans dibuja más grueso al mismo número, así que los tres escalones bajaron uno: 400 la interfaz, 500 lo accionable, 600 el display. El line-height único es para que una fila de 12 y una de 14 sigan alineadas entre sí.',
   },
   {
     title: 'Monocroma, con dos excepciones acotadas',

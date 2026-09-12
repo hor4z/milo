@@ -5,8 +5,31 @@ export function IconButtonStory() {
   return (
     <Section
       title="IconButton"
-      note="Cuadrado y con radio 10, no 12: un icono suelto en un contenedor de radio 12 se ve descentrado, porque no tiene texto que balancee la curva."
+      note="Cuadrado del alto de su paso, y los pasos son los del Button: el mismo nombre de tamaño da el mismo alto en las dos piezas, así que un icono al lado de un botón en la misma fila apoya en la misma línea sin que nadie lo calcule. El radio es 10 en los tres y no el del paso — es la regla del sistema: `md` es lo cuadrado que se toca, `lg` lo que se toca con texto."
     >
+      <Block
+        label="Los tres tamaños"
+        note="32 · 36 · 40, los del Button, con el icono de cada paso: 16 · 18 · 20. El `md` medía 40 —el `lg` del Button— así que los dos `md` del sistema no coincidían."
+      >
+        <Panel>
+          <Variant name="sm · md · lg">
+            <IconButton icon="tune" label="Ajustes" size="sm" variant="raised" />
+            <IconButton icon="tune" label="Ajustes" size="md" variant="raised" />
+            <IconButton icon="tune" label="Ajustes" size="lg" variant="raised" />
+          </Variant>
+          <Variant name="al lado de su botón">
+            <span className="flex items-center gap-2">
+              <IconButton icon="tune" label="Ajustes" size="md" variant="raised" />
+              <span className="text-2xs text-ink-muted">md · 36</span>
+            </span>
+            <span className="flex items-center gap-2">
+              <IconButton icon="tune" label="Ajustes" size="lg" variant="raised" />
+              <span className="text-2xs text-ink-muted">lg · 40</span>
+            </span>
+          </Variant>
+        </Panel>
+      </Block>
+
       <Block label="Variantes" note="`label` es obligatorio. Un botón que solo tiene un icono no dice nada sin él, ni para un lector de pantalla ni para quien duda qué hace.">
         <Panel>
           <Variant name="ghost">
@@ -25,7 +48,11 @@ export function IconButtonStory() {
       <Block label="Estados" note="`dot` es el puntito de «hay algo nuevo», y es uno de los pocos usos del acento en toda la interfaz.">
         <Panel>
           <Variant name="active"><IconButton icon="filter_alt" label="Filtrar" active /></Variant>
-          <Variant name="dot"><IconButton icon="notifications" label="Novedades" dot /></Variant>
+          <Variant name="dot">
+            <IconButton icon="notifications" label="Novedades" dot size="sm" />
+            <IconButton icon="notifications" label="Novedades" dot />
+            <IconButton icon="notifications" label="Novedades" dot size="lg" />
+          </Variant>
           <Variant name="disabled"><IconButton icon="delete" label="Eliminar" disabled /></Variant>
         </Panel>
       </Block>
@@ -35,7 +62,7 @@ export function IconButtonStory() {
           { name: 'icon', type: 'IconName', note: 'obligatorio' },
           { name: 'label', type: 'string', note: 'obligatorio: va al aria-label y al title' },
           { name: 'variant', type: "'ghost' | 'raised' | 'solid' | 'muted'", def: "'ghost'" },
-          { name: 'size', type: "'sm' | 'md'", def: "'md'", note: '32 · 40' },
+          { name: 'size', type: "'sm' | 'md' | 'lg'", def: "'md'", note: '32 · 36 · 40, los del Button' },
           { name: 'dot', type: 'boolean', note: 'el punto de acento arriba a la derecha' },
           { name: 'active', type: 'boolean', note: 'solo cambia el ghost, que pasa a muted' },
         ]} />

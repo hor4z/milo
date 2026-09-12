@@ -10,6 +10,11 @@
      tarjeta del fondo no es un tono distinto, es el relieve. */
   --canvas: var(--shade-01);
   --surface: var(--shade-01);
+  /* El papel de al lado: un paso, no dos. Es para diferenciar dos cosas que son
+     lo mismo —una fila de tabla de la de arriba— sin que ninguna pase a ser un
+     fondo apagado. `--surface-muted` es el hueco y ya significa otra cosa; con
+     él, media tabla se leería hundida. */
+  --surface-alt: var(--shade-02);
   --surface-muted: var(--shade-03);
   --surface-sunken: var(--shade-04);
   --surface-hover: var(--shade-09-a04);
@@ -232,12 +237,21 @@
     0 0 2.6px 0 rgb(0 0 0 / 0.25),
     0 1px 4px 0 rgb(0 0 0 / 0.14);
 
-  /* ------- el campo con valor -------
-     Un select o cualquier caja que muestra algo elegido: gris, radio 10, borde
-     de un píxel. Plano a propósito: el relieve queda para lo que se aprieta. */
+  /* ------- el campo -------
+     Un input, un select, cualquier caja donde se escribe o se elige: gris,
+     radio 10, borde de un píxel y **nada de relieve**. El campo fue un hueco
+     —luz arriba, labio abajo— y se plancha a propósito: el relieve queda para
+     lo que se aprieta y para lo que sobresale, y un campo no hace ninguna de
+     las dos. Sin él los tres campos del sistema (este, el select y el buscador
+     de la topbar) se dibujan igual: un fondo y una línea.
+
+     El borde es tinta en alpha y no un gris de la rampa, y es exactamente la
+     línea que el relieve ya dibujaba como canto: el campo pierde el volumen y
+     conserva su contorno. En gris opaco, un campo apoyado sobre un tinte se ve
+     con una línea sucia alrededor. */
   --field-bg: var(--shade-03);
   --field-bg-hover: var(--shade-04);
-  --field-border: var(--shade-04);
+  --field-border: var(--shade-09-a11);
 
   /* ------- el campo vacío -------
      El buscador de la topbar. No es `--field-*` (el campo que ya muestra algo
@@ -250,7 +264,18 @@
   --search-bg-hover: var(--shade-03);
   --search-border: var(--border-strong);
 
-  --focus-ring: 0 0 0 2px var(--surface), 0 0 0 4px var(--shade-09-a35);
+  /* El anillo de foco es azul, y es la tercera excepción a la interfaz
+     monocroma —después del botón `brand` y del arco del spinner— con la misma
+     defensa que las otras dos: está acotado a una cosa sola. Las otras dos son
+     roles (esto manda, esto está cargando); esta es un estado del teclado, y es
+     el único aviso que tiene que reconocerse antes de leerse. En tinta no se
+     distinguía de un canto o de una sombra, que es de lo que está hecho el
+     resto del sistema.
+
+     Los 2px de `--surface` antes del azul no son decoración: separan el anillo
+     de la pieza, y son lo que lo deja ver también sobre el botón azul, donde un
+     anillo pegado al relleno desaparece. */
+  --focus-ring: 0 0 0 2px var(--surface), 0 0 0 4px var(--blue-500-a45);
 }
 
 [data-theme="dark"] {
@@ -267,7 +292,10 @@
     0 1px 4px 0 rgb(0 0 0 / 0.4);
   --field-bg: var(--shade-03);
   --field-bg-hover: var(--shade-04);
-  --field-border: var(--shade-05);
+  /* El mismo token que en claro y no `--shade-05`: la tinta en alpha se
+     invierte sola —al 14% sobre #202020 cae donde caía el gris opaco— así que
+     la línea del campo es una sola regla para los dos temas. */
+  --field-border: var(--shade-09-a11);
   --search-bg: var(--shade-02);
   --search-bg-hover: var(--shade-03);
   --search-border: var(--border-strong);

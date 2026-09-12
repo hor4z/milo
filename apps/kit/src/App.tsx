@@ -1,6 +1,7 @@
 import { useMemo, useState, type ReactNode } from 'react'
 import {
-  Icon, IconButton, cx, usePrefs, navItemClass, navSubItemClass, NavItemBody, type IconName,
+  FolderIcon, Icon, IconButton, cx, usePrefs, navItemClass, navSubItemClass, NavItemBody,
+  type FolderColor,
 } from '@melu/ui'
 import { Intro } from './intro'
 import { ColorSection } from './tokens/color'
@@ -21,13 +22,15 @@ import { SpinnerStory } from './stories/spinner'
 import { AvatarStory } from './stories/avatar'
 import { IconStory } from './stories/icon'
 import { KbdStory } from './stories/kbd'
+import { DividerStory } from './stories/divider'
+import { MenuStory } from './stories/menu'
 import { BookStory } from './stories/book'
 import { FolderStory } from './stories/folder'
 import { ListStory } from './stories/list'
 import { TableStory } from './stories/table'
 import { ContainersStory } from './stories/containers'
 import { NavStory } from './stories/nav'
-import { DropdownStory, ModalStory, PopoverStory } from './stories/overlays'
+import { DropdownStory, ModalStory, PopoverStory, TooltipStory } from './stories/overlays'
 
 /**
  * Una historia por pieza, y el riel las agrupa.
@@ -41,11 +44,25 @@ import { DropdownStory, ModalStory, PopoverStory } from './stories/overlays'
  */
 
 type Story = { id: string; label: string; render: () => ReactNode }
-type Group = { label: string; icon: IconName; stories: Story[] }
+/**
+ * El grupo lleva un color de carpeta y no un icono del set, que es lo mismo que
+ * hace el sidebar del producto con los espacios.
+ *
+ * El motivo es el mismo también: en una lista de grupos, **el color es lo que
+ * deja encontrar uno de reojo, sin leer**. Con tres iconos monocromos hay que
+ * leer las tres etiquetas para saber cuál es cuál; con tres carpetas de color,
+ * la mano va sola a la de siempre.
+ *
+ * Y es una de las dos únicas excepciones al monocromo que se permiten en la
+ * navegación: la carpeta es bicolor a propósito —relleno al 13% y la línea al
+ * 55% del mismo tono— por eso es el único SVG que queda en un sistema de
+ * iconos que es una fuente.
+ */
+type Group = { label: string; color: FolderColor; stories: Story[] }
 
 const groups: Group[] = [
   {
-    label: 'Tokens', icon: 'image',
+    label: 'Tokens', color: 'purple',
     stories: [
       { id: 'color', label: 'Color', render: () => <ColorSection /> },
       { id: 'type', label: 'Tipografía', render: () => <TypeSection /> },
@@ -54,7 +71,7 @@ const groups: Group[] = [
     ],
   },
   {
-    label: 'Componentes', icon: 'tune',
+    label: 'Componentes', color: 'blue',
     stories: [
       { id: 'button', label: 'Button', render: () => <ButtonStory /> },
       { id: 'icon-button', label: 'IconButton', render: () => <IconButtonStory /> },
@@ -70,10 +87,11 @@ const groups: Group[] = [
       { id: 'avatar', label: 'Avatar', render: () => <AvatarStory /> },
       { id: 'icon', label: 'Icon', render: () => <IconStory /> },
       { id: 'kbd', label: 'Kbd', render: () => <KbdStory /> },
+      { id: 'divider', label: 'Divider', render: () => <DividerStory /> },
     ],
   },
   {
-    label: 'Patrones', icon: 'deployed_code',
+    label: 'Patrones', color: 'green',
     stories: [
       { id: 'list', label: 'List', render: () => <ListStory /> },
       { id: 'book', label: 'Book', render: () => <BookStory /> },
@@ -81,7 +99,9 @@ const groups: Group[] = [
       { id: 'table', label: 'Table', render: () => <TableStory /> },
       { id: 'containers', label: 'Card y Row', render: () => <ContainersStory /> },
       { id: 'nav', label: 'NavItem', render: () => <NavStory /> },
+      { id: 'menu', label: 'Menu', render: () => <MenuStory /> },
       { id: 'dropdown', label: 'Dropdown', render: () => <DropdownStory /> },
+      { id: 'tooltip', label: 'Tooltip', render: () => <TooltipStory /> },
       { id: 'popover', label: 'Popover', render: () => <PopoverStory /> },
       { id: 'modal', label: 'Modal', render: () => <ModalStory /> },
     ],
@@ -143,7 +163,15 @@ export function App() {
                       aria-expanded={isOpen}
                       className={cx('w-full', navItemClass({ active: hasCurrent && !isOpen }))}
                     >
-                      <NavItemBody icon={g.icon} label={g.label} active={hasCurrent && !isOpen} />
+                      {/* `chip={false}`: la carpeta ya trae su color, y el chip
+                          de papel detrás le pelea el contraste en vez de
+                          levantarla. Es la misma llamada que el shell. */}
+                      <NavItemBody
+                        glyph={<FolderIcon color={g.color} size={20} />}
+                        label={g.label}
+                        active={hasCurrent && !isOpen}
+                        chip={false}
+                      />
                     </button>
                   </div>
                   <span className="pointer-events-none absolute right-1.5 p-1 text-ink-muted">

@@ -63,7 +63,11 @@ export function NotificationsButton() {
       )}
     >
       {close => (
-        <div className="flex max-h-[min(525px,calc(100vh-6rem))] flex-col">
+        /* El `Popover` pone el panel donde va y lo cierra; el dibujo es de acá.
+           Por eso esta caja lleva su propio papel, su radio y su sombra: el
+           panel de avisos es alto y scrollea adentro, así que también necesita
+           el `overflow-hidden` que recorta las filas contra la curva. */
+        <div className="ui-pop flex max-h-[min(525px,calc(100vh-6rem))] flex-col overflow-hidden rounded-[20px] border border-line bg-popover shadow-popover">
           <header className="flex h-[57px] shrink-0 items-center justify-between border-b border-line px-5">
             <h2 className="text-base font-semibold">Avisos</h2>
             <Segmented
