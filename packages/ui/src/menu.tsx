@@ -33,12 +33,23 @@ export function Menu({ children, width, className }: {
       role="menu"
       style={width ? { width } : undefined}
       className={cx(
-        'ui-pop rounded-[20px] border border-line bg-popover p-2 shadow-popover',
+        /* Radio 16 y no 20: la escala del sistema es 6·10·12·16·24 y el 20 era
+           el único valor inventado que quedaba.
+
+           **Y el padding baja a 4 en el mismo movimiento**, que es la parte que
+           no se puede saltear: la regla del anidado dice que el radio del hijo
+           es el del padre menos su padding, y la fila lleva 12. Con 16 y 8 de
+           padding pediría 8 —que ni siquiera está en la escala— y las dos curvas
+           dejarían de verse como una sola pieza. 16 − 4 = 12, que es justo lo
+           que `MenuItem` ya tenía. El 20 cerraba la misma cuenta con 8, y por
+           eso cambiar solo el radio rompía el anidado en silencio. */
+        'ui-pop rounded-xl border border-line bg-popover p-1 shadow-popover',
         /* El separador se estira hasta el borde del panel, y la cuenta la hace
-           el panel porque es el que conoce su padding: 8 de cada lado. Si la
+           el panel porque es el que conoce su padding: 4 de cada lado. Si la
            hiciera el separador, cada call site tendría que acordarse de un
-           número que no es suyo. */
-        '[&>[data-divider]]:-mx-2 [&>[data-divider]]:my-1.5',
+           número que no es suyo — y si este margen y el padding de arriba se
+           separan, la línea deja de llegar al borde o se pasa de largo. */
+        '[&>[data-divider]]:-mx-1 [&>[data-divider]]:my-1.5',
         className,
       )}
     >

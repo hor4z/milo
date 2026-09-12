@@ -1,0 +1,97 @@
+import { AvatarGroup, BarChart, Card } from '@melu/ui'
+import { Block, Props, Section } from '../kit'
+
+const cara = (n: number) => `/avatars/${String(n).padStart(2, '0')}.webp`
+
+const semana = [
+  { label: 'Lunes', value: 18, total: 24, caption: 'Actividades corregidas' },
+  { label: 'Martes', value: 6, total: 14, caption: 'Actividades corregidas' },
+  { label: 'Miércoles', value: 27, total: 29, caption: 'Actividades corregidas' },
+  {
+    label: 'Jueves', value: 16, total: 32, caption: 'Actividades corregidas',
+    detail: (
+      <>
+        <span className="tabular text-2xs font-medium text-ink-muted">50%</span>
+        <AvatarGroup
+          size={18}
+          max={3}
+          people={[
+            { name: 'Ana Pérez', src: cara(1) },
+            { name: 'Bruno Díaz', src: cara(2) },
+            { name: 'Carla Sosa', src: cara(3) },
+          ]}
+        />
+      </>
+    ),
+  },
+  { label: 'Viernes', value: 17, total: 17, caption: 'Actividades corregidas' },
+]
+
+const meses = [
+  { label: 'Ene', value: 31, total: 42 }, { label: 'Feb', value: 49, total: 58 },
+  { label: 'Mar', value: 24, total: 51 }, { label: 'Abr', value: 64, total: 64 },
+  { label: 'May', value: 12, total: 47 }, { label: 'Jun', value: 40, total: 73 },
+]
+
+export function ChartStory() {
+  return (
+    <Section
+      title="BarChart"
+      note="Cada barra son dos cosas: el gris es el total y el azul es lo hecho. No son dos series compitiendo, es una parte adentro de su todo — y por eso el azul va dentro del gris y no al lado: apoyados uno junto al otro habría que compararlos con la vista para saber cuánto falta, y metido adentro, lo que falta es el gris que se ve arriba. La pista va clarísima porque es el resto, no un dato que compita: con el mismo peso que el relleno, la barra se lee como dos bloques apilados."
+    >
+      <Block
+        label="Vivo"
+        note="Pasá el mouse por las barras, y después tabulá hasta ellas. El tooltip aparece igual con el teclado: un dato que solo existe al pasar el mouse no existe para quien no usa mouse. Y el blanco del hover es la columna entera, no el rectángulo pintado — apuntarle a una barra baja no obliga a bajar hasta el piso."
+      >
+        <Card className="max-w-2xl p-6">
+          <div className="mb-5">
+            <div className="text-base font-semibold text-ink">Corregidas esta semana</div>
+            <div className="text-xs font-medium text-ink-muted">El azul es lo corregido; el gris, lo que entró ese día</div>
+          </div>
+          <BarChart title="Corregidas sobre entregadas, por día" data={semana} highlight={3} />
+        </Card>
+      </Block>
+
+      <Block
+        label="Sin destacada"
+        note="Con todas las barras llevando azul, marcar una con color no queda disponible: `highlight` le pone la etiqueta un paso más pesada, que alcanza para decir «esta es de la que estamos hablando» sin agregar un tercer tono. Acá va sin ninguna: cuando lo que importa es la forma de la serie y no un mes, se deja afuera."
+      >
+        <Card className="max-w-2xl p-6">
+          <BarChart title="Corregidas sobre entregadas, por mes" data={meses} height={160} />
+        </Card>
+      </Block>
+
+      <Block
+        label="Lo que el tooltip puede llevar"
+        note="`detail` entra al lado del número: un porcentaje, un grupo de caras, lo que la fila necesite. El número va primero y grande y la frase abajo en gris — es la jerarquía de una leyenda al revés, porque acá el lector ya sabe qué tocó y lo que fue a buscar es cuánto."
+      >
+        <p className="max-w-[70ch] text-xs text-ink-muted">
+          El filo azul de la izquierda es lo único que ata la caja al gráfico: sin él es una tarjeta
+          blanca flotando sobre cualquier cosa. Es el único lugar del sistema donde el color del
+          dato entra en una superficie de texto.
+        </p>
+      </Block>
+
+      <Block label="Props">
+        <Props rows={[
+          { name: 'data', type: 'BarDatum[]', note: 'obligatorio: label, value (lo hecho), total, y opcionales detail y caption' },
+          { name: 'title', type: 'string', note: 'obligatorio: nombra el gráfico y encabeza la tabla escondida' },
+          { name: 'highlight', type: 'number', note: 'el índice del que habla la pantalla: le pesa la etiqueta' },
+          { name: 'height', type: 'number', def: '220', note: 'el alto del área de barras, sin las etiquetas' },
+        ]} />
+      </Block>
+
+      <Block
+        label="Lo que no hace"
+        note="No tiene eje Y ni grilla: con cinco barras y el tooltip, una grilla es tinta que no es dato."
+      >
+        <p className="max-w-[70ch] text-xs text-ink-muted">
+          Tampoco tiene dos series ni dos ejes: dos medidas de escalas distintas son dos gráficos, no
+          uno con dos escalas — es la forma más común de mentir con un gráfico sin darse cuenta. Y
+          los valores viven también en una tabla <code>sr-only</code>: un lector de pantalla no puede
+          hoverear, y una altura no se lee.
+        </p>
+      </Block>
+    </Section>
+  )
+}

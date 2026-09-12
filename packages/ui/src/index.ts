@@ -42,6 +42,8 @@ export { FilterBar, FilterSearch, Filter, FilterReset, ColumnPicker, facets } fr
 
 export { Book } from './book'
 export { Folder } from './folder'
+export { BarChart } from './chart'
+export type { BarDatum } from './chart'
 export type { BookWidth } from './book'
 
 export { List, ListItem } from './list'

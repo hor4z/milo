@@ -1,5 +1,6 @@
 import type { ReactNode } from 'react'
 import { cx } from './primitives'
+import { Icon, type IconName } from './icon'
 
 /**
  * El contenedor de una pantalla. El ancho máximo y el padding viven acá y no en
@@ -39,13 +40,68 @@ export function SectionLabel({ children, count }: { children: ReactNode; count?:
   )
 }
 
-/** Lo que se ve cuando no hay nada. Siempre con una salida, nunca solo un texto. */
-export function EmptyState({ title, body, action }: { title: string; body: string; action?: ReactNode }) {
+/**
+ * Lo que se ve cuando no hay nada. **Siempre con una salida, nunca solo un
+ * texto**: un vacío que no dice qué hacer es una pantalla rota con buena
+ * redacción.
+ *
+ * **El icono va adentro de un cuadro hundido y en gris.** Suelto y grande se ve
+ * como una imagen que no cargó —que es justo lo que uno teme cuando una pantalla
+ * aparece vacía—, y el hueco lo convierte en una marca puesta ahí a propósito.
+ * En gris y no en color porque el acento se gasta en lo que hay que tocar, y acá
+ * lo que hay que tocar es el botón de abajo.
+ *
+ * **Dos tamaños, y la diferencia no es sólo el padding.**
+ *
+ * · `md` es el de una pantalla: aire arriba y abajo, la caja punteada, el título
+ *   en 16. Es el que dice «esto está vacío y podés empezar acá».
+ * · `sm` es el de adentro de una pieza —una tabla filtrada sin resultados, una
+ *   galería sin coincidencias—. Ahí el vacío es temporal y de una búsqueda, no
+ *   del lugar: con el aire del grande, filtrar y no encontrar nada empuja la
+ *   paginación media pantalla para abajo y parece que la tabla desapareció.
+ *
+ * **Y la caja punteada es opcional, con una regla clara: adentro de algo que ya
+ * tiene marco, no va.** El borde punteado dice «acá va a haber contenido», y
+ * dibujado dentro de una tabla o de una tarjeta son dos marcos anidados
+ * discutiendo cuál es el borde de qué. Por eso `sm` la apaga sola: el lugar
+ * donde se usa `sm` es, casi por definición, adentro de otra cosa.
+ */
+export function EmptyState({ title, body, action, icon, size = 'md', bordered = size === 'md' }: {
+  title: string
+  body: string
+  action?: ReactNode
+  /** La marca de arriba. Sin esto es un bloque de texto centrado. */
+  icon?: IconName
+  /** `md` para una pantalla, `sm` para adentro de una tabla o una galería. */
+  size?: 'sm' | 'md'
+  /** La caja punteada. Va apagada en `sm` porque ahí ya hay un marco alrededor. */
+  bordered?: boolean
+}) {
+  const chico = size === 'sm'
   return (
-    <div className="flex flex-col items-center rounded-2xl border border-dashed border-line-strong px-6 py-14 text-center">
-      <div className="text-base font-semibold">{title}</div>
-      <p className="mt-2 max-w-[42ch] text-xs font-medium text-ink-muted">{body}</p>
-      {action && <div className="mt-5">{action}</div>}
+    <div
+      className={cx(
+        'flex flex-col items-center text-center',
+        chico ? 'px-4 py-8' : 'px-6 py-14',
+        bordered && 'rounded-2xl border border-dashed border-line-strong',
+      )}
+    >
+      {icon && (
+        <span
+          className={cx(
+            /* `inset-relief` y no un círculo de color: es la misma receta del
+               kbd y de la pista de un segmented — un hueco donde algo se apoya.
+               Un estado vacío es, literalmente, un hueco. */
+            'inset-relief mb-4 inline-flex items-center justify-center rounded-xl bg-muted',
+            chico ? 'size-9' : 'size-11',
+          )}
+        >
+          <Icon name={icon} size={chico ? 18 : 22} className="icon-muted" />
+        </span>
+      )}
+      <div className={chico ? 'text-xs font-semibold' : 'text-base font-semibold'}>{title}</div>
+      <p className={cx('mt-2 max-w-[42ch] font-medium text-ink-muted', chico ? 'text-2xs' : 'text-xs')}>{body}</p>
+      {action && <div className={chico ? 'mt-3.5' : 'mt-5'}>{action}</div>}
     </div>
   )
 }

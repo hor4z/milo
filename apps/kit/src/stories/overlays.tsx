@@ -68,7 +68,7 @@ export function PopoverStory() {
                 /* El chrome lo pone el call site: `Popover` dejó de dibujar el
                    panel y ahora solo lo ubica. Sin esto el contenido queda
                    flotando sobre lo que haya atrás, sin fondo ni borde. */
-                <div className="ui-pop rounded-[20px] border border-line bg-popover p-4 shadow-popover">
+                <div className="ui-pop rounded-xl border border-line bg-popover p-4 shadow-popover">
                   <div className="text-xs font-semibold">Un panel de 320</div>
                   <p className="mt-2 text-2xs text-ink-muted">
                     Cierra con Escape, con un click afuera, o al scrollear la página — pero no al
@@ -89,7 +89,7 @@ export function PopoverStory() {
               )}
             >
               {close => (
-                <div className="ui-pop rounded-[20px] border border-line bg-popover p-4 shadow-popover">
+                <div className="ui-pop rounded-xl border border-line bg-popover p-4 shadow-popover">
                   <div className="text-xs font-semibold">Una lista que pide leerse entera</div>
                   <p className="mt-2 text-2xs text-ink-muted">
                     El resto de la pantalla se atenúa para ganar la mirada. Un menú de cuatro items
