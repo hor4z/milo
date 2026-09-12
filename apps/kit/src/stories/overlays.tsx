@@ -65,7 +65,10 @@ export function PopoverStory() {
               )}
             >
               {close => (
-                <div className="p-4">
+                /* El chrome lo pone el call site: `Popover` dejó de dibujar el
+                   panel y ahora solo lo ubica. Sin esto el contenido queda
+                   flotando sobre lo que haya atrás, sin fondo ni borde. */
+                <div className="ui-pop rounded-[20px] border border-line bg-popover p-4 shadow-popover">
                   <div className="text-xs font-semibold">Un panel de 320</div>
                   <p className="mt-2 text-2xs text-ink-muted">
                     Cierra con Escape, con un click afuera, o al scrollear la página — pero no al
@@ -86,7 +89,7 @@ export function PopoverStory() {
               )}
             >
               {close => (
-                <div className="p-4">
+                <div className="ui-pop rounded-[20px] border border-line bg-popover p-4 shadow-popover">
                   <div className="text-xs font-semibold">Una lista que pide leerse entera</div>
                   <p className="mt-2 text-2xs text-ink-muted">
                     El resto de la pantalla se atenúa para ganar la mirada. Un menú de cuatro items
@@ -103,10 +106,10 @@ export function PopoverStory() {
       <Block label="Props">
         <Props rows={[
           { name: 'trigger', type: '(props) => ReactNode', note: 'obligatorio: recibe onClick, ref, aria-expanded y data-open' },
-          { name: 'children', type: '(close: () => void) => ReactNode', note: 'obligatorio: recibe el cierre' },
+          { name: 'children', type: '(close: () => void) => ReactNode', note: 'obligatorio: recibe el cierre. El panel lo dibuja el call site — fondo, borde, radio y sombra — porque Popover no tiene aspecto' },
           { name: 'veil', type: 'boolean', note: 'atenúa el resto de la pantalla' },
           { name: 'align', type: "'start' | 'end'", def: "'end'" },
-          { name: 'width', type: 'number', def: '384' },
+          { name: 'width', type: 'number', note: 'sin esto se mide el ancho real del panel montado' },
           { name: 'offset', type: 'number', def: '8' },
         ]} />
       </Block>

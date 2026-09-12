@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { Link, NavLink, useLocation, useNavigate } from 'react-router-dom'
-import { FolderIcon, Icon, type IconName, Avatar, Button, cx, IconButton, Kbd, Dropdown, type DropdownItem, usePrefs, navItemClass, navSubItemClass, NavItemBody, SettingsModal } from '@melu/ui'
+import { FolderIcon, Icon, type IconName, Avatar, Button, cx, IconButton, Tooltip, Kbd, Dropdown, type DropdownItem, usePrefs, navItemClass, navSubItemClass, NavItemBody, SettingsModal } from '@melu/ui'
 import { CommandPalette } from './command-palette'
 import { NotificationsButton } from './notifications'
 import { spaces } from '../data'
@@ -207,8 +207,12 @@ function Topbar({ onOpenSettings, onOpenPalette }: { onOpenSettings: () => void;
         {/* `lg` explícito: la topbar es de 80 y sus controles son de 40, que es
             el paso principal. Antes salía del default porque el `md` del
             IconButton medía 40 — ahora el `md` mide 36 en las dos piezas. */}
-        <IconButton icon="arrow_back" label="Atrás" size="lg" onClick={() => navigate(-1)} />
-        <IconButton icon="arrow_forward" label="Adelante" size="lg" onClick={() => navigate(1)} />
+        <Tooltip label="Atrás">
+          <IconButton icon="arrow_back" label="Atrás" size="lg" onClick={() => navigate(-1)} />
+        </Tooltip>
+        <Tooltip label="Adelante">
+          <IconButton icon="arrow_forward" label="Adelante" size="lg" onClick={() => navigate(1)} />
+        </Tooltip>
       </div>
 
       {/* El buscador no es un input: es un botón que abre la paleta. Un input

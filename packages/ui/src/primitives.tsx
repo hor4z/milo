@@ -1,5 +1,6 @@
-import { useEffect, useId, useLayoutEffect, useRef, useState } from 'react'
+import { useCallback, useEffect, useId, useLayoutEffect, useRef, useState } from 'react'
 import type { ButtonHTMLAttributes, CSSProperties, InputHTMLAttributes, ReactNode, Ref } from 'react'
+import { useEscape } from './esc'
 import { Portal } from './overlay'
 import { Icon, type IconName } from './icon'
 
@@ -200,7 +201,13 @@ export function IconButton({
          existe. Con `Tooltip` en el sistema, un `title` puesto acá dibuja dos
          cajas diciendo lo mismo, una de ellas con la tipografía del SO en medio
          de la interfaz. El nombre accesible lo sigue dando `aria-label`, que es
-         lo que el `title` no era. */
+         lo que el `title` no era.
+
+         La ayuda visual la pone el call site envolviendo en `Tooltip`, y eso es
+         mejor que un default: un icono que no se explica solo —el micrófono del
+         composer, el `more_horiz` de una fila— la necesita, y uno inequívoco
+         como la X de un modal no, donde una etiqueta que dice «Cerrar» sobre
+         una cruz es ruido. */
       aria-label={label}
       className={cx(
         'relative inline-flex items-center justify-center transition-[background-color,color,box-shadow] duration-[120ms] ease-out',
@@ -726,7 +733,14 @@ export function Segmented<T extends string>({
                 ? (size === 'xs' ? 'w-6' : size === 'sm' ? 'w-8' : 'w-9')
                 : (size === 'xs' ? 'px-2' : size === 'sm' ? 'px-3' : 'px-4'),
               active
-                ? (size === 'xs' ? 'bg-muted text-ink' : 'bg-surface text-ink shadow-raised')
+                /* El relieve va por `--relief` y no por la utilidad
+                   `shadow-raised`. La regla de foco suma el relieve adelante del
+                   anillo leyendo esa variable; con la utilidad, la variable
+                   queda sin escribir y la regla la resuelve a su valor inicial
+                   —transparente— así que el chip elegido se planchaba justo al
+                   tabular hasta él, que es el bug que el sistema de relieve vino
+                   a cerrar. */
+                ? (size === 'xs' ? 'bg-muted text-ink' : 'bg-surface text-ink [--relief:var(--relief-raised)] shadow-(--relief)')
                 : 'text-ink-muted hover:text-ink',
             )}
           >
@@ -810,7 +824,6 @@ export function Select({
       setOpen(false)
     }
     const onKey = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') { e.stopPropagation(); setOpen(false); btn.current?.focus() }
       if (e.key === 'ArrowDown') { e.preventDefault(); setActive(i => Math.min(i + 1, options.length - 1)) }
       if (e.key === 'ArrowUp') { e.preventDefault(); setActive(i => Math.max(i - 1, 0)) }
       if (e.key === 'Home') { e.preventDefault(); setActive(0) }
@@ -833,6 +846,14 @@ export function Select({
   useEffect(() => {
     list.current?.querySelector('[data-active="true"]')?.scrollIntoView({ block: 'nearest' })
   }, [active, open])
+
+  /* Escape va por la pila compartida y no por el `keydown` de acá abajo. Con un
+     listener propio, el listbox abierto adentro de un `Modal` dejaba dos
+     capturas sobre `document` —la suya y la del modal— y las dos corrían: un
+     Escape cerraba la lista y el modal de atrás en el mismo golpe.
+     `stopPropagation` no alcanza contra un hermano registrado en el mismo nodo
+     y la misma fase. */
+  useEscape(open, useCallback(() => { setOpen(false); btn.current?.focus() }, []))
 
   /* El spinner es el default de `loading`, no su definición: quien quiera
      mostrar otra cosa mientras carga —el glifo de la categoría, apagado— pasa su
@@ -986,7 +1007,14 @@ export function Divider({ orientation = 'horizontal', className }: {
         'shrink-0 bg-line',
         /* El vertical lleva `self-stretch` para tomar el alto de la fila: sin
            eso, adentro de un flex con `items-center` mide cero y no se ve. */
-        orientation === 'horizontal' ? 'h-px w-full' : 'w-px self-stretch',
+        /* Horizontal SIN `w-full`, y no es lo mismo. Un bloque de ancho auto ya
+           llena a su padre, y además es lo único que deja estirarlo con
+           márgenes negativos: con `width: 100%` y dos márgenes distintos de
+           auto, la caja queda sobreespecificada y el navegador ignora el
+           margen derecho (CSS 2.1 §10.3.3). El separador full-bleed del `Menu`
+           —`-mx-2` sobre el hijo— llegaba al borde izquierdo y se quedaba 16px
+           corto a la derecha. */
+        orientation === 'horizontal' ? 'h-px' : 'w-px self-stretch',
         className,
       )}
     />

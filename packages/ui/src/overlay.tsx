@@ -3,6 +3,7 @@ import {
   useRef, useState, type ReactElement, type ReactNode,
 } from 'react'
 import { createPortal } from 'react-dom'
+import { useEscape } from './esc'
 import { IconButton } from './primitives'
 import { Menu, MenuItem } from './menu'
 import type { IconName } from './icon'
@@ -92,30 +93,10 @@ export function useScrollLock(active: boolean) {
 
 /* ------------------------------------------------------ Escape encadenado - */
 
-/**
- * `Escape` tiene que cerrar solo el overlay de arriba. Una pila global resuelve
- * eso: cada overlay se anota al abrirse y solo reacciona si es el último.
- */
-const escStack: symbol[] = []
-export function useEscape(active: boolean, onEscape: () => void) {
-  useEffect(() => {
-    if (!active) return
-    const token = Symbol('overlay')
-    escStack.push(token)
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key !== 'Escape') return
-      if (escStack[escStack.length - 1] !== token) return
-      e.stopPropagation()
-      onEscape()
-    }
-    document.addEventListener('keydown', onKey, true)
-    return () => {
-      document.removeEventListener('keydown', onKey, true)
-      const i = escStack.indexOf(token)
-      if (i >= 0) escStack.splice(i, 1)
-    }
-  }, [active, onEscape])
-}
+/* La pila de `Escape` se mudó a `esc.ts`: el `Select` también la necesita y
+   vive en `primitives`, que es de donde este archivo importa. Se reexporta desde
+   acá para que `index.ts` y los call sites no se enteren de la mudanza. */
+export { useEscape } from './esc'
 
 /* ----------------------------------------------------------- foco atrapado */
 
@@ -574,7 +555,10 @@ export function Modal({
           icon="close"
           label="Cerrar"
           variant="solid"
-          size="md"
+          /* `lg` y no `md`: los 40 que dice el comentario de arriba son los de
+             `lg` desde que los tres pasos del control comparten escalera —`md`
+             pasó a ser 36—, y este botón se quedó con el nombre viejo. */
+          size="lg"
           onClick={onClose}
           className="!absolute top-4 right-4 z-20 !rounded-lg"
         />

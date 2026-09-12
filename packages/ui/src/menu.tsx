@@ -96,8 +96,12 @@ export function MenuItem({
   return (
     <button
       type="button"
-      role="menuitem"
       disabled={disabled}
+      /* Una opción que se marca no es un `menuitem`: es un `menuitemradio`, y su
+         estado va en `aria-checked`. Con el tilde dibujado y nada más, la fila
+         elegida de «Vista» se veía elegida y se leía igual que las otras dos. */
+      role={checked === undefined ? 'menuitem' : 'menuitemradio'}
+      aria-checked={checked}
       onClick={onSelect}
       className={cx(
         'flex h-10 w-full items-center gap-3.5 rounded-lg px-2.5 text-left text-xs font-semibold',
@@ -131,8 +135,13 @@ export function MenuItem({
  * acompaña a un dato, no para lo que lo nombra.
  */
 export function MenuLabel({ children }: { children: ReactNode }) {
+  /* `presentation` y no un `<div>` suelto: adentro de un `role="menu"` los
+     únicos hijos permitidos son `menuitem*`, `group` y `separator`, así que un
+     div con texto queda en tierra de nadie y el lector de pantalla puede
+     descartarlo. Sacándolo del árbol a propósito, el rótulo es lo que de verdad
+     es —una ayuda visual— y no una fila fantasma que se puede enfocar. */
   return (
-    <div className="px-2.5 pt-2 pb-1.5 text-2xs font-semibold tracking-wide text-ink">
+    <div role="presentation" className="px-2.5 pt-2 pb-1.5 text-2xs font-semibold tracking-wide text-ink">
       {children}
     </div>
   )
