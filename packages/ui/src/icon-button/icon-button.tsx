@@ -12,7 +12,7 @@ type IconButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
   variant?: 'ghost' | 'raised' | 'solid' | 'muted'
   /** 32 · 36 · 40, los del Button. */
   size?: 'sm' | 'md' | 'lg'
-  /** El puntito de "hay algo nuevo", arriba a la derecha. */
+  /** El puntito de «hay algo nuevo», adentro del botón. Para un contador o un glifo, `Indicator`. */
   dot?: boolean
   /** Solo cambia el ghost, que pasa a muted. */
   active?: boolean
@@ -29,9 +29,11 @@ export function IconButton({
       type={type}
       aria-label={label}
       className={cx(
-        'relative inline-flex items-center justify-center transition-[background-color,color,box-shadow] duration-[120ms] ease-out',
+        'relative inline-flex items-center justify-center transition-[background-color,color,box-shadow] duration-fast ease-out',
         'disabled:opacity-45 disabled:pointer-events-none',
         variants[variant === 'ghost' && active ? 'muted' : variant],
+        // El radio es 10 y no el 12 del Button: sobre un cuadrado de 32, esos dos
+        // píxeles de más se comen tanto lado plano que la pieza se lee redonda.
         c.square, 'rounded-md',
         className,
       )}

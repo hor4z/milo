@@ -17,7 +17,7 @@ export function SegmentedStory() {
     >
       <Section
         title="Tamaños"
-        note="La pista es un contenedor apagado y la opción activa es una superficie con relieve que flota adentro. El radio de la opción es el de la pista menos su padding, y las dos medidas tienen que dar la cuenta: sm es pista 12 menos 2 → opción 10; md es pista 16 menos 4 → opción 12. Este control ya tuvo el bug de un 6 donde iban 10."
+        note="La pista es un contenedor apagado y la opción activa es una superficie con relieve que flota adentro. Dos cuentas tienen que dar. La del radio: la opción es la pista menos su padding — pista 12, padding 2, opción 10. Este control ya tuvo el bug de un 6 donde iban 10. Y la del alto: **la pista contiene su padding, no lo suma**, así que el alto de afuera es el de la escalera de controles. Sumándolo, `sm` medía 36 —el alto de `md`— y puesto al lado de un `Button` del mismo talle no apoyaban en la misma línea: dos piezas del mismo talle que se leen como de sistemas distintos."
       >
         <Panel>
           <Variant name="md · texto">

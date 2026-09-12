@@ -3,11 +3,11 @@ import { describe, expect, it } from 'vitest'
 import { NavItemBody, navItemClass, navSubItemClass } from './nav'
 
 describe('navItemClass', () => {
-  it('el activo se marca con relieve y canto, no con color', () => {
+  it('el activo se marca con el azul primario y su canto', () => {
     const active = navItemClass({ active: true })
-    expect(active).toContain('bg-muted')
-    expect(active).toContain('shadow-[0_0_0_1px_var(--border)]')
-    expect(active).not.toContain('text-brand')
+    expect(active).toContain('bg-brand-soft')
+    expect(active).toContain('text-brand-ink')
+    expect(active).toContain('shadow-[0_0_0_1px_var(--brand-border)]')
   })
 
   it('el inactivo va en tinta, no en gris', () => {
@@ -52,7 +52,12 @@ describe('navSubItemClass', () => {
     expect(navSubItemClass()).toContain('pl-12')
   })
 
-  it('el activo se distingue por la tinta', () => {
-    expect(navSubItemClass({ active: true })).toContain('text-ink')
+  it('el activo se marca igual que su padre', () => {
+    expect(navSubItemClass({ active: true })).toContain('bg-brand-soft')
+  })
+
+  it('el inactivo va en tinta, no en gris: una lista de siete no se lee deshabilitada', () => {
+    expect(navSubItemClass()).toContain('text-ink')
+    expect(navSubItemClass()).not.toContain('text-ink-muted')
   })
 })

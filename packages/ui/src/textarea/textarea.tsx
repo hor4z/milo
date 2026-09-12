@@ -54,8 +54,8 @@ export function Textarea({
       className={cx(
         'field flex cursor-text border border-field-line bg-field',
         'has-[textarea:disabled]:pointer-events-none has-[textarea:disabled]:opacity-45',
-        'rounded-lg text-base',
-        resize === 'vertical' ? 'p-0' : 'px-3 py-2.5',
+        'rounded-lg text-reading',
+        resize === 'vertical' ? 'p-0' : 'px-3 py-2',
         className,
       )}
     >
@@ -65,9 +65,9 @@ export function Textarea({
         value={value}
         onChange={e => { measure(); onChange?.(e) }}
         className={cx(
-          'min-w-0 flex-1 bg-transparent font-normal leading-[1.45] text-ink outline-none',
-          'placeholder:text-ink-muted',
-          resize === 'vertical' ? 'resize-y px-3 py-2.5' : 'resize-none',
+          'min-w-0 flex-1 bg-transparent font-medium text-ink outline-none',
+          'placeholder:text-ink-placeholder',
+          resize === 'vertical' ? 'resize-y px-3 py-2' : 'resize-none',
         )}
         {...field}
         {...rest}

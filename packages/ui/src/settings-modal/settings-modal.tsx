@@ -52,18 +52,18 @@ export function SettingsModal({ open, onClose, user }: {
                 onClick={() => setSection(s.id)}
                 aria-current={active ? 'page' : undefined}
                 className={cx(
-                  'flex h-10 items-center gap-3 rounded-lg border pr-2.5 pl-[3px] text-left text-xs font-semibold',
-                  'text-ink transition-[background-color,border-color] duration-[120ms] ease-out',
+                  'flex h-10 items-center gap-3 rounded-lg border pr-2 pl-[calc((2.5rem-2rem)/2)] text-left text-body font-semibold',
+                  'transition-[background-color,border-color,color] duration-fast ease-out',
                   active
-                    ? 'border-line-strong bg-muted'
-                    : 'border-transparent hover:bg-hover',
+                    ? 'border-brand-border bg-brand-soft text-brand-ink'
+                    : 'border-transparent text-ink hover:bg-hover',
                 )}
               >
                 <span className={cx(
-                  'flex size-8 shrink-0 items-center justify-center rounded-md transition-[background-color,box-shadow] duration-[120ms]',
-                  active && 'bg-surface shadow-[0_0_0_1px_var(--border)]',
+                  'flex size-8 shrink-0 items-center justify-center rounded-md transition-[background-color,box-shadow] duration-fast',
+                  active && 'bg-surface shadow-[0_0_0_1px_var(--brand-border)]',
                 )}>
-                  <Icon name={s.icon} size={20} className={active ? 'text-ink' : 'icon-muted'} />
+                  <Icon name={s.icon} size={20} className={active ? 'text-brand-ink' : 'icon-muted'} />
                 </span>
                 {s.label}
               </button>
@@ -73,7 +73,7 @@ export function SettingsModal({ open, onClose, user }: {
 
         <div className="flex min-w-0 flex-1 flex-col">
           <header className="flex h-14 shrink-0 items-center border-b border-line px-6">
-            <h2 className="text-xs font-semibold">{sections.find(s => s.id === section)!.label}</h2>
+            <h2 className="text-body font-semibold">{sections.find(s => s.id === section)!.label}</h2>
           </header>
           <div className="min-h-0 flex-1 overflow-y-auto">
             {section === 'general' && <GeneralSection user={user} />}
@@ -93,7 +93,7 @@ function GeneralSection({ user }: { user: SettingsUser }) {
     <div>
       <EditableRow label="Nombre" value={user.name} />
       <Row label="Correo">
-        <span className="text-xs text-ink-muted">{user.email}</span>
+        <span className="text-body text-ink-muted">{user.email}</span>
       </Row>
       <Row label="Tema">
         <Segmented
@@ -128,7 +128,7 @@ function ProfileSection({ user }: { user: SettingsUser }) {
         <Chip color="green">Guía</Chip>
       </Row>
       <Row label="Escuela">
-        <span className="text-xs text-ink-muted">{user.school}</span>
+        <span className="text-body text-ink-muted">{user.school}</span>
       </Row>
       <Row label="Dejar que otros guías vean mis recetas" hint="Solo las que publiques, nunca los borradores.">
         <Switch checked={prefs.shareRecipes} onChange={v => set('shareRecipes', v)} label="Compartir recetas" />
@@ -158,8 +158,8 @@ function SecuritySection() {
       </Row>
       <div className="border-t border-line px-6 py-4">
         <div className="rounded-xl bg-bad-subtle p-4">
-          <div className="text-xs font-semibold text-ink">Borrar la cuenta</div>
-          <p className="mt-1.5 text-2xs leading-relaxed text-ink-muted">
+          <div className="text-body font-semibold text-ink">Borrar la cuenta</div>
+          <p className="mt-2 text-body text-ink-muted">
             Se van los espacios que coordinás y las actividades que escribiste. Las entregas de los
             aprendices quedan con su autor, no con vos.
           </p>
@@ -203,7 +203,7 @@ function EditableRow({ label, value: initial }: { label: string; value: string }
 
   return (
     <div className="group flex min-h-14 items-center gap-4 border-t border-line px-6 py-4 first:border-t-0">
-      <div className="min-w-0 flex-1 text-xs font-medium text-ink">{label}</div>
+      <div className="min-w-0 flex-1 text-body font-medium text-ink">{label}</div>
       {editing ? (
         <input
           autoFocus
@@ -214,13 +214,13 @@ function EditableRow({ label, value: initial }: { label: string; value: string }
             if (e.key === 'Enter') commit()
             if (e.key === 'Escape') { setDraft(value); setEditing(false) }
           }}
-          className="inset-relief h-8 w-48 rounded-md bg-muted px-2.5 text-right text-xs font-medium text-ink outline-none"
+          className="inset-relief h-8 w-48 rounded-md bg-muted px-2 text-right text-body font-medium text-ink outline-none"
         />
       ) : (
         <button
           type="button"
           onClick={() => { setDraft(value); setEditing(true) }}
-          className="flex items-center gap-2 rounded-md px-1.5 py-1 text-xs font-medium text-ink hover:bg-hover"
+          className="flex items-center gap-2 rounded-md px-2 py-1 text-body font-medium text-ink hover:bg-hover"
         >
           {value}
           <Icon name="edit" size={16} className="icon-muted opacity-0 transition-opacity group-hover:opacity-100" />

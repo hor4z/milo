@@ -2,7 +2,7 @@ import type { ComponentPropsWithoutRef } from 'react'
 import { IconButton } from '../icon-button/icon-button'
 import { Icon, type IconName } from '../icon/icon'
 import { cx } from '../lib/cx'
-import { type Tone, toneClass, toneIcon } from '../lib/tone'
+import { type Tone, toneIcon, toneInk, toneSurface } from '../lib/tone'
 
 type AlertProps = ComponentPropsWithoutRef<'div'> & {
   /** De acá salen el glifo, el color y la urgencia con que se anuncia. */
@@ -19,11 +19,11 @@ export function Alert({ tone = 'info', icon, onDismiss, className, children, ...
   return (
     <div
       role={tone === 'bad' ? 'alert' : 'status'}
-      className={cx('flex gap-3 rounded-xl border border-line bg-surface p-3.5 shadow-card', className)}
+      className={cx('flex gap-3 rounded-xl border p-4', toneSurface[tone], className)}
       {...props}
     >
       {glyph && (
-        <span className={cx('flex size-7 shrink-0 items-center justify-center rounded-md', toneClass[tone])}>
+        <span className={cx('flex size-5 shrink-0 items-center justify-center', toneInk[tone])}>
           <Icon name={glyph} size={18} />
         </span>
       )}
@@ -37,15 +37,15 @@ export function Alert({ tone = 'info', icon, onDismiss, className, children, ...
 
 /** El renglón que nombra el aviso. */
 export function AlertTitle({ className, ...props }: ComponentPropsWithoutRef<'p'>) {
-  return <p className={cx('text-base font-semibold text-ink', className)} {...props} />
+  return <p className={cx('text-reading font-semibold text-ink', className)} {...props} />
 }
 
 /** Qué pasó y qué se puede hacer. */
 export function AlertBody({ className, ...props }: ComponentPropsWithoutRef<'p'>) {
-  return <p className={cx('text-xs font-medium text-ink-muted', className)} {...props} />
+  return <p className={cx('text-body font-medium text-ink-muted', className)} {...props} />
 }
 
 /** La fila de botones del aviso. */
 export function AlertActions({ className, ...props }: ComponentPropsWithoutRef<'div'>) {
-  return <div className={cx('mt-1.5 flex flex-wrap items-center gap-2', className)} {...props} />
+  return <div className={cx('mt-2 flex flex-wrap items-center gap-2', className)} {...props} />
 }

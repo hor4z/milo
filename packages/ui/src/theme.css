@@ -25,8 +25,8 @@
 
    · `font-weight`/`font-style` normal — si no, un contexto en `font-semibold`
      o en itálica sintetiza negrita u oblicua sobre el glifo.
-   · `letter-spacing: normal` — los h1/h2/h3 del sistema traen
-     `--tracking-tight`, y el tracking suma avance y rompe la caja de size×size.
+   · `letter-spacing: normal` — casi todos los roles de texto traen tracking
+     propio, y el tracking suma avance y rompe la caja de size×size.
    · `line-height: 1` — hace que la caja de línea mida exactamente 1em, así el
      `align-items: center` centra contra la caja y no contra la baseline.
    · `user-select: none` — un glifo es texto: sin esto entra en un Ctrl+A y en
@@ -84,30 +84,36 @@
    usa; estas no existen para él, así que si no se declaran acá el token queda
    definido y la utilidad no hace nada. */
 @theme {
-  /* Los tres pesos, bajados un escalón entero. El sistema entero estaba escrito
-     en 500 · 600 · 700, y esos números se eligieron mirando **Inter** a 12px,
-     donde el 400 se leía lavado sobre un fondo casi blanco. Instrument Sans
-     dibuja más grueso al mismo número —tiene la x más alta y el trazo más
-     ancho—, así que ese 500 de interfaz que con Inter apenas alcanzaba, acá
-     pesa: la pantalla entera se ve en negrita.
+  /* Tres pesos y dos reglas, y la segunda importa más que los números.
 
-     Se cambia acá y no en cada call site a propósito. Los pesos del sistema son
-     tres **roles** —la interfaz, lo accionable, el display— y las utilidades de
-     Tailwind son el nombre que les pusimos. Cambiar el rol es cambiar el número
-     al que apunta, una vez; renombrar 200 clases para decir lo mismo no.
+     **El peso lo lleva el elegido, no la lista.** Un riel de doce entradas, un
+     menú de seis, unas solapas, seis chips en una fila: si todos van en el peso
+     de énfasis, ninguno está enfatizado y la pantalla entera se lee agresiva. Se
+     llegó a ese estado —el 44% del texto de una pantalla estaba en el escalón de
+     arriba— y la salida no fue bajar el número: fue sacarle el peso a los
+     hermanos y dejárselo al que está elegido.
 
-     El costo de hacerlo así, y hay que saberlo: `font-medium` ahora escribe
-     400. La clase miente sobre el número y dice la verdad sobre el rol. */
+     **Y el escalón de énfasis es corto a propósito.** 450 y no 500: con Inter,
+     el 500 sobre una base de 400 es un salto que se nota como negrita, y lo que
+     hace falta es que se note como énfasis. El 600 se queda donde está porque su
+     trabajo es otro —una portada, un número grande— y ahí sí conviene el salto
+     largo.
+
+     Los nombres de las utilidades mienten sobre el número y dicen la verdad
+     sobre el rol, que es lo que se elige al escribir. */
   --font-weight-medium: 400;    /* la interfaz */
-  --font-weight-semibold: 500;  /* lo accionable y los títulos de fila */
+  --font-weight-semibold: 450;  /* lo accionable, los títulos, lo elegido */
   --font-weight-bold: 600;      /* solo display */
 
-  --text-2xs: 11px;
-  --text-2xs--line-height: 16px;
-  --text-md: 16px;
-  --text-md--line-height: 24px;
-  --text-display: 40px;
-  --text-display--line-height: 1.05;
+  /* Se apaga la escala que trae Tailwind, con el mismo argumento que la paleta
+     de más abajo: si `text-xs` sigue existiendo, alguien la va a usar y el
+     sistema deja de ser la única fuente de tamaño. Y acá hace falta de verdad,
+     no por higiene: los nombres viejos vivían en `:root` de `tokens/scales.css`
+     y funcionaban solo porque **pisaban** variables que Tailwind ya emite. Al
+     sacarlos de ahí, los valores de Tailwind resucitan solos —`text-xs` volvería
+     a ser 12px, `text-base` 16— y un call site olvidado seguiría andando con el
+     tamaño equivocado, en silencio. Con esto, no anda: se ve. */
+  --text-*: initial;
 }
 
 @theme inline {
@@ -135,6 +141,7 @@
   --color-ink-muted: var(--text-muted);
   --color-icon-muted: var(--icon-muted);
   --color-ink-subtle: var(--text-subtle);
+  --color-ink-placeholder: var(--text-placeholder);
   --color-ink-disabled: var(--text-disabled);
   --color-ink-inverted: var(--text-inverted);
 
@@ -143,14 +150,25 @@
   --color-on-solid: var(--on-solid);
 
   --color-brand: var(--brand);
+  --color-brand-hover: var(--brand-hover);
+  --color-brand-soft: var(--brand-soft);
+  --color-brand-soft-strong: var(--brand-soft-strong);
+  --color-brand-border: var(--brand-border);
   --color-on-brand: var(--on-brand);
 
   --color-accent: var(--accent);
   --color-accent-hover: var(--accent-hover);
   --color-accent-subtle: var(--accent-subtle);
+  --color-accent-fill: var(--accent-fill);
+  --color-on-accent: var(--on-accent);
 
   --color-brand-subtle: var(--brand-subtle);
   --color-brand-ink: var(--brand-ink);
+  --color-ok-border: var(--ok-border);
+  --color-warn-border: var(--warn-border);
+  --color-bad-border: var(--bad-border);
+  --color-info-border: var(--info-border);
+
   --color-ok: var(--ok);
   --color-ok-ink: var(--ok-ink);
   --color-warn-ink: var(--warn-ink);
@@ -174,15 +192,62 @@
   --font-display: var(--font-display);
   --font-mono: var(--font-mono);
 
-  /* `xs` hay que declararlo: Tailwind v4 ya trae un --radius-xs propio de 2px,
-     así que sin esta línea `rounded-xs` sale con el valor de Tailwind y no con
-     el del sistema. */
-  --radius-xs: var(--radius-xs);
+  /* Las dos curvas. Estas sí son un namespace de Tailwind, así que alcanza con
+     declararlas y `ease-out` sale sola. Las duraciones no: `--duration-*` no
+     existe como namespace, y van más abajo con `@utility`. */
+  --ease-out: var(--ease-out);
+  --ease-in: var(--ease-in);
+
+  /* Los siete roles. Cada utilidad escribe los tres valores de una —tamaño,
+     interlineado y tracking—, que es todo el punto: escritos por separado se
+     despegan, y se despegaron. `text-lg` llegó a ser 20px de letra dentro de una
+     caja de línea de 16 porque el line-height era un token aparte que nadie
+     tenía que recordar.
+
+     Tienen que ir sí o sí adentro de un bloque `@theme`: son nombres que
+     Tailwind no conoce, así que declararlos en `:root` no genera ninguna
+     utilidad. El `inline` es para que sigan leyendo el token en vivo y el tema
+     pueda moverlos. */
+  --text-meta: var(--type-meta);
+  --text-meta--line-height: var(--type-meta-lh);
+  --text-meta--letter-spacing: var(--type-meta-ls);
+
+  --text-label: var(--type-label);
+  --text-label--line-height: var(--type-label-lh);
+  --text-label--letter-spacing: var(--type-label-ls);
+
+  --text-body: var(--type-body);
+  --text-body--line-height: var(--type-body-lh);
+  --text-body--letter-spacing: var(--type-body-ls);
+
+  --text-reading: var(--type-reading);
+  --text-reading--line-height: var(--type-reading-lh);
+  --text-reading--letter-spacing: var(--type-reading-ls);
+
+  --text-title: var(--type-title);
+  --text-title--line-height: var(--type-title-lh);
+  --text-title--letter-spacing: var(--type-title-ls);
+
+  --text-heading: var(--type-heading);
+  --text-heading--line-height: var(--type-heading-lh);
+  --text-heading--letter-spacing: var(--type-heading-ls);
+
+  --text-display: var(--type-display);
+  --text-display--line-height: var(--type-display-lh);
+  --text-display--letter-spacing: var(--type-display-ls);
+
+  /* Se apaga lo que Tailwind trae y el sistema no usa: sin el `initial`, `xs`
+     vuelve solo con el valor de Tailwind, que es peor que tenerlo — la clase
+     anda y escribe una curva que no es del sistema. */
+  --radius-*: initial;
   --radius-sm: var(--radius-sm);
   --radius-md: var(--radius-md);
   --radius-lg: var(--radius-lg);
   --radius-xl: var(--radius-xl);
   --radius-2xl: var(--radius-2xl);
+  /* `rounded-full` es una utilidad estática de Tailwind, así que sin esta línea
+     el token existe, el kit lo muestra y la clase escribe otro número. */
+  --radius-full: var(--radius-full);
 
   /* El relieve entra a Tailwind como sombra: `shadow-raised`, `shadow-inset`. */
   --shadow-raised: var(--relief-raised);
@@ -217,6 +282,20 @@
   --color-mark-pink: var(--mark-pink);
   --color-mark-pink-ink: var(--mark-pink-ink);
 
+  /* El par suave de cada tono: lo que usa un chip. */
+  --color-label-green-soft: var(--label-green-soft);
+  --color-label-green-ink: var(--label-green-ink);
+  --color-label-teal-soft: var(--label-teal-soft);
+  --color-label-teal-ink: var(--label-teal-ink);
+  --color-label-blue-soft: var(--label-blue-soft);
+  --color-label-blue-ink: var(--label-blue-ink);
+  --color-label-purple-soft: var(--label-purple-soft);
+  --color-label-purple-ink: var(--label-purple-ink);
+  --color-label-pink-soft: var(--label-pink-soft);
+  --color-label-pink-ink: var(--label-pink-ink);
+  --color-label-orange-soft: var(--label-orange-soft);
+  --color-label-orange-ink: var(--label-orange-ink);
+
   --color-label-green: var(--label-green);
   --color-label-teal: var(--label-teal);
   --color-label-blue: var(--label-blue);
@@ -231,12 +310,18 @@
 * { box-sizing: border-box; }
 html, body, #root { min-height: 100%; margin: 0; }
 
-/* La interfaz entera es 12px con peso 400 y line-height fijo de 16. Estuvo años
-   en 500, y ese 500 se decidió mirando **Inter**, donde el 400 a 12px se leía
-   lavado sobre un fondo casi blanco. Instrument Sans dibuja más grueso al mismo
-   número, así que el 500 que con Inter apenas alcanzaba acá pesaba: la pantalla
-   entera se veía en negrita. Bajaron los tres escalones juntos, no solo este:
-   400 la interfaz, 500 lo accionable, 600 el display. */
+/* La interfaz entera es el rol `body`: 14px, peso 400, 20 de interlineado.
+   Estuvo en 12 sobre una caja de línea de 16 fija para todos los tamaños, y de
+   ahí salían las dos quejas juntas —«se lee chico» y «falta nitidez»—: lo
+   segundo no era la letra, eran los renglones pisándose.
+
+   El peso estuvo años en 500, decidido mirando **Inter**, donde el 400 a 12px se
+   leía lavado sobre un fondo casi blanco. Instrument Sans dibuja más grueso al
+   mismo número, así que el 500 que con Inter apenas alcanzaba acá pesaba: la
+   pantalla entera se veía en negrita. Bajaron los tres escalones juntos, no solo
+   este: 400 la interfaz, 500 lo accionable, 600 el display. Ese número hay que
+   volver a mirarlo cuando se elija la familia, porque se calibró a 12px y ahora
+   la base es 14. */
 /* **Sin `-webkit-font-smoothing: antialiased` y sin `text-rendering:
    optimizeLegibility`**, y las dos ausencias son la decisión.
 
@@ -254,15 +339,78 @@ body {
   background: var(--canvas);
   color: var(--text);
   font-family: var(--font-sans);
-  font-size: var(--text-xs);
+  font-size: var(--type-body);
   font-weight: 400;
-  line-height: var(--leading-ui);
+  line-height: var(--type-body-lh);
+  letter-spacing: var(--type-body-ls);
+
+  /* El eje óptico de Inter v4: la letra se redibuja más abierta a 12px y más
+     cerrada a 40px. `auto` ya es el default del navegador y se escribe igual,
+     porque es media razón por la que la familia es esta y no se deduce de
+     ningún otro lado del archivo.
+
+     **Lo que no se puede pedir acá, y conviene saberlo antes de intentarlo.**
+     Inter trae un set de desambiguación (`ss04`: ele con cola, i mayúscula con
+     serifas) y un cero barrado (`zero`) que serían ideales para esto — separan
+     `1 l I` y `0 O` de un vistazo, que es justo lo que le cuesta a quien está
+     aprendiendo a leer. **El build que sirve Google los recorta**: su GSUB queda
+     en `calt ccmp dnom frac locl numr pnum tnum` y nada más. Escribir
+     `font-feature-settings: "ss04"` acá no rompe: no hace nada, en silencio.
+
+     Lo que sí sobrevive es `tnum`, así que `.tabular` funciona. Recuperar los
+     otros dos pide auto-alojar la fuente (unos 69 KB subseteada a latín), y se
+     decidió que el CDN vale más. */
+  font-optical-sizing: auto;
 }
-h1, h2, h3 { font-family: var(--font-sans); font-weight: 400; letter-spacing: var(--tracking-tight); margin: 0; }
+
+/* Sin `letter-spacing` acá, y es a propósito. La regla vieja apretaba todos los
+   h1-h3 con -0.015em, un número medido contra Inter a 12px dos familias atrás,
+   y se lo aplicaba igual a un título de 20 que a uno de 40. El tracking es parte
+   del rol: lo trae `text-title` o `text-heading`, que saben de qué tamaño son. */
+h1, h2, h3 { font-family: var(--font-sans); font-weight: 400; margin: 0; }
+/* El `th` trae `bold` del navegador. Es un peso que el sistema no tiene, y se
+   cuela en cualquier tabla —incluso en una `sr-only`— sin que nadie lo elija. */
+th { font-weight: var(--font-weight-semibold); }
 
 /* Los números de un precio o de una métrica se alinean en columna: sin esto, el
    1 es más angosto que el 4 y una tabla de números baila. */
 .tabular { font-variant-numeric: tabular-nums; }
+
+/* La inversión del campo. Una pieza de papel le dice a los campos que tiene
+   adentro que se hundan; sobre el escritorio, el default ya los pinta de papel.
+
+   Va como regla sobre la clase de Tailwind y no como prop de cada componente a
+   propósito: el call site no sabe dónde va a caer su campo —un `TextField`
+   dentro de un `Card` dentro de un `Modal`— y preguntárselo sería la prop número
+   catorce. La superficie lo sabe sola, y la herencia de custom properties hace
+   el resto. */
+/* **En táctil el campo sube a 16, y no es una preferencia estética.** Safari en
+   iOS hace zoom sobre la página al enfocar un campo cuya letra mide menos de 16,
+   y ese zoom no se deshace solo: la persona queda con la pantalla corrida a la
+   mitad de un formulario. La salida conocida —`maximum-scale=1`— apaga el pinch
+   para todo el mundo, así que no es una salida.
+
+   Con `pointer: coarse` el que paga los 2px de más es solo quien iba a sufrir el
+   zoom, y en un escritorio el campo sigue midiendo lo mismo que el texto que lo
+   rodea. Va sobre el elemento que escribe y no sobre la caja, porque lo que
+   dispara el zoom es la letra del `input`. */
+@media (pointer: coarse) {
+  .field input,
+  .field textarea,
+  input.field-focus,
+  textarea.field-focus {
+    font-size: var(--type-reading);
+    line-height: var(--type-reading-lh);
+  }
+}
+
+.bg-surface,
+.bg-popover {
+  --field-bg: var(--field-bg-on-surface);
+  --field-bg-hover: var(--field-bg-on-surface-hover);
+  --search-bg: var(--search-bg-on-surface);
+  --search-bg-hover: var(--search-bg-on-surface-hover);
+}
 
 /* Ninguna receta de relieve escribe `box-shadow` directo: escriben `--relief`,
    y el `box-shadow` sale de ahí. El motivo es el foco. El anillo también es un
@@ -302,8 +450,14 @@ h1, h2, h3 { font-family: var(--font-sans); font-weight: 400; letter-spacing: va
   background: var(--grad-brand);
   box-shadow: var(--relief);
 }
-.raised-brand:hover { filter: brightness(1.06) saturate(1.04); }
-.raised-brand:active { filter: brightness(0.94); --relief: var(--relief-brand-pressed); }
+/* El hover **oscurece**, no aclara, y esto no es gusto: el relleno del CTA está
+   anclado al escalón exacto donde el blanco encima llega a 4.5:1, así que no
+   tiene aire para arriba. Con el `brightness(1.06)` que había acá, el botón
+   caía a 4.07:1 todo el tiempo que el puntero estaba encima — justo sobre el
+   botón que más se mira. Se aclaraba el único color del sistema que no se
+   podía aclarar. */
+.raised-brand:hover { background: var(--grad-brand-hover); }
+.raised-brand:active { background: var(--grad-brand-hover); --relief: var(--relief-brand-pressed); }
 
 /* Un toggle activo: hundido mientras su panel está abierto. */
 .pressed { --relief: var(--relief-pressed); box-shadow: var(--relief); }
@@ -452,8 +606,8 @@ h1, h2, h3 { font-family: var(--font-sans); font-weight: 400; letter-spacing: va
   gap: 2px;
   max-width: calc(var(--folder-w) * 1.1);
 }
-.folder-name { font-size: var(--text-xs); font-weight: 500; color: var(--text); }
-.folder-meta { font-size: var(--text-2xs); font-weight: 400; color: var(--text-muted); }
+.folder-name { font-size: var(--type-body); line-height: var(--type-body-lh); font-weight: var(--font-weight-semibold); color: var(--text); }
+.folder-meta { font-size: var(--type-meta); line-height: var(--type-meta-lh); letter-spacing: var(--type-meta-ls); font-weight: 400; color: var(--text-muted); }
 
 @media (prefers-reduced-motion: reduce) {
   /* Sin movimiento no se puede abanicar, así que las hojas se quedan afuera:
@@ -593,7 +747,7 @@ h1, h2, h3 { font-family: var(--font-sans); font-weight: 400; letter-spacing: va
    está sobre el color. */
 .book-title {
   color: var(--text);
-  font-weight: 500;
+  font-weight: var(--font-weight-semibold);
   letter-spacing: -0.02em;
   line-height: 1.25;
   text-wrap: balance;
@@ -746,6 +900,19 @@ tr[tabindex]:focus-visible {
    Lo que se pierde es el aviso de que hay más a la derecha, y la respuesta a eso
    no es la barra: es no necesitarla — la tabla elige su `minWidth` para entrar,
    y las columnas que sobran se apagan con el `ColumnPicker`. */
+/* Las dos duraciones del sistema. Van con `@utility` y no en el `@theme` porque
+   `--duration-*` no es un namespace de Tailwind: `duration-fast` no se genera
+   por más que el token exista. La alternativa era escribir
+   `duration-(--duration-fast)` en cada call site, que dice lo mismo y se lee
+   peor.
+
+   Los tokens estaban desde el principio y no los leía nadie: los call sites
+   escribían `duration-[120ms]` a mano —diecisiete veces— y cuatro de ellos con
+   números que no estaban en ninguna escala (90, 140, 160, 200). Es el mismo bug
+   que tenía la tipografía: el token definido y el call site esquivándolo. */
+@utility duration-fast { transition-duration: var(--duration-fast); }
+@utility duration-normal { transition-duration: var(--duration-normal); }
+
 @utility no-scrollbar {
   scrollbar-width: none;
   &::-webkit-scrollbar { display: none; }

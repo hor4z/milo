@@ -77,7 +77,7 @@ export function IconStory() {
             options={weights.map(p => ({ value: p.value, label: p.label }))}
             size="sm"
           />
-          <span className="flex w-[180px] items-center gap-3 text-xs text-ink-muted">
+          <span className="flex w-[180px] items-center gap-3 text-body text-ink-muted">
             <Slider value={size} onChange={setSize} min={12} max={40} label="Tamaño" />
             <Mono>{size}</Mono>
           </span>
@@ -94,7 +94,7 @@ export function IconStory() {
           </div>
         ) : (
           <div
-            className="mt-4 grid gap-1.5"
+            className="mt-4 grid gap-2"
             style={{
               gridTemplateColumns: 'repeat(auto-fill, minmax(104px, 1fr))',
               '--icon-wght': weight,
@@ -111,14 +111,14 @@ export function IconStory() {
                 <span className="flex items-center justify-center" style={{ height: 40 }}>
                   <Icon name={name} size={size} />
                 </span>
-                <span className="w-full truncate text-center font-mono text-2xs text-ink-muted">
+                <span className="w-full truncate text-center font-mono text-meta text-ink-muted">
                   {copied === name ? 'copiado' : name}
                 </span>
               </button>
             ))}
           </div>
         )}
-        <p className="mt-3 max-w-[70ch] text-2xs text-ink-muted">
+        <p className="mt-3 max-w-[70ch] text-meta text-ink-muted">
           Click en un icono copia <Mono>{'<Icon name="…" />'}</Mono>. El title trae los tags con los
           que se puede buscar.
         </p>
@@ -132,7 +132,7 @@ export function IconStory() {
           {sizes.map(e => (
             <Variant key={e.px} name={`${e.px}`}>
               <Icon name="calendar_month" size={e.px} />
-              <span className="text-xs text-ink-muted">{e.role}</span>
+              <span className="text-body text-ink-muted">{e.role}</span>
             </Variant>
           ))}
         </Panel>
@@ -145,15 +145,15 @@ export function IconStory() {
         <Panel>
           <Variant name="en tinta">
             <Icon name="search" size={20} />
-            <span className="text-xs text-ink-muted">peso 300</span>
+            <span className="text-body text-ink-muted">peso 300</span>
           </Variant>
           <Variant name="icon-muted">
             <Icon name="search" size={20} className="icon-muted" />
-            <span className="text-xs text-ink-muted">el peso sube a 400 solo, sin prop</span>
+            <span className="text-body text-ink-muted">el peso sube a 400 solo, sin prop</span>
           </Variant>
           <Variant name="el error">
             <Icon name="search" size={20} className="text-ink-muted" />
-            <span className="text-xs text-ink-muted">gris sin la utilidad: queda en 300 y se apaga</span>
+            <span className="text-body text-ink-muted">gris sin la utilidad: queda en 300 y se apaga</span>
           </Variant>
         </Panel>
       </Section>
@@ -173,8 +173,8 @@ export function IconStory() {
             <Mono>npm run icons -w @milo/ui -- check</Mono>
           </Variant>
         </Panel>
-        <p className="mt-3 max-w-[70ch] text-xs text-ink-muted">
-          <code className="font-mono text-2xs">add</code> hace tres preguntas antes de bajar nada:
+        <p className="mt-3 max-w-[70ch] text-body text-ink-muted">
+          <code className="font-mono text-meta">add</code> hace tres preguntas antes de bajar nada:
           si el nombre existe —y si no, sugiere los cinco más parecidos—, si ya lo tenemos, y si hay
           uno en el set que comparta tags y probablemente sirva igual. La tercera es la que evita
           llegar a doscientos iconos con seis variantes de engranaje, y para saltearla hay que

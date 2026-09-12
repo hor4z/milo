@@ -34,7 +34,7 @@ export function ListStory() {
             ))}
           </List>
         </div>
-        <p className="mt-3 max-w-[70ch] text-2xs text-ink-muted">
+        <p className="mt-3 max-w-[70ch] text-meta text-ink-muted">
           La cuarta fila está en <Mono>active</Mono>: queda hundida, no teñida — el color ya lo gasta la marca.
           Pasá el mouse por cualquier otra para ver el hover, que levanta la fila al papel en vez de oscurecerla.
         </p>

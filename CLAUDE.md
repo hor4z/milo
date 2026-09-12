@@ -4,7 +4,7 @@ El sistema de interfaz de milo: la identidad en tokens, las piezas que la usan, 
 donde se ve todo funcionando. No es una lámina de estilos — cada pieza de acá es el componente
 real, con su teclado, sus estados y sus tests.
 
-**El repo es del design system y de nada más.** El UI kit —las 48 piezas— es una parte; las
+**El repo es del design system y de nada más.** El UI kit —las 49 piezas— es una parte; las
 otras son los tokens y lo que el sitio documenta alrededor. Acá adentro no vive producto: el
 prototipo de la app que hubo hasta ahora se borró, y cuando haga falta uno de nuevo se arma
 aparte.
@@ -18,7 +18,7 @@ final son lo único que hay que tocar.
 npm install
 npm run dev        # el sitio · http://localhost:5190
 npm run typecheck  # todo el monorepo de una
-npm test           # 255 tests con vitest y testing-library
+npm test           # 299 tests con vitest y testing-library
 npm run props      # regenera la tabla de props desde los tipos
 ```
 
@@ -69,89 +69,236 @@ efecto y no hay error.
 
 ## El sistema
 
-**Tipografía.** **Instrument Sans y nada más**: interfaz, portadas y el rol `mono`, una sola
-familia por Google Fonts. Display y cuerpo son la misma a propósito: a 40px lo que separa un título
-del cuerpo es el tamaño y el tracking, no un dibujo distinto de la letra, y dos familias que se
-parecen es lo peor de los dos mundos. Por acá pasaron Inter + Inter Tight + JetBrains Mono, después
-Geist + Geist Mono, y ahora una sola.
+**Tipografía.** Siete roles, y **cada uno carga tamaño, interlineado y tracking juntos**. Ese es
+todo el punto: escritos por separado se despegan, y se despegaron — `text-lg` llegó a ser 20px de
+letra dentro de una caja de línea de 16 porque el interlineado era un token aparte que nadie tenía
+que recordar.
+
+| rol | px | leading | tracking | para qué |
+|---|---|---|---|---|
+| `text-meta` | 12 | 16 · 1.33 | `+0.01em` | metadatos, kbd, contadores, ayuda de campo. **El piso: nunca para leer.** |
+| `text-label` | 13 | 18 · 1.38 | `+0.005em` | rótulos: cabecera de tabla, chip, badge, título de grupo |
+| `text-body` | 14 | 20 · 1.43 | `0` | **la interfaz.** Si dudás, es este |
+| `text-reading` | 16 | 24 · 1.5 | `0` | lo que se lee de corrido, títulos de superficie, botón de `md` para arriba |
+| `text-title` | 20 | 28 · 1.4 | `-0.01em` | título de pantalla |
+| `text-heading` | 28 | 36 · 1.29 | `-0.015em` | encabezado de sección |
+| `text-display` | 40 | 44 · 1.1 | `-0.02em` | portadas |
+
+Tres cosas que hay que saber antes de tocar un número:
+
+- **La base es 14 y hay un escalón de 16 para lo que se lee.** Es el modelo de Carbon (14
+  productivo, 16 expresivo) y es la decisión edtech: un panel docente es denso, un enunciado que
+  lee un estudiante no. Estuvo en 12, que es el piso de un metadato y no el tamaño en el que se
+  mira una interfaz ocho horas.
+- **El tracking cruza el cero en la base**: positivo donde la letra es chica y se empasta, negativo
+  donde es grande y se despega. Es lo que hace el eje óptico de San Francisco y lo que Carbon
+  escribe a mano. La regla vieja hacía lo contrario —`-0.015em` a todos los `h1-h3`, medido contra
+  Inter a 12px— y apretar la letra chica es exactamente cómo se pierde nitidez.
+- **La curva de interlineado tiene su máximo en `reading`** (1.5, el número de WCAG 1.4.12), no en
+  el rol más chico. Los dos de abajo son cromo de una sola línea donde lo que importa es que la
+  caja no crezca; de `reading` para arriba se aprieta porque a 40px el aire sobra solo.
+
+**Los tamaños van en `rem`, la geometría del shell en px.** Quien agranda la letra en su navegador
+la ve agrandada — el zoom ya escalaba los px y cubría WCAG 1.4.4, pero la preferencia de tamaño de
+fuente no, y esa es la que usa quien tiene baja visión. Las piezas que llevan texto en una caja
+chica (`Badge`, `Kbd`, `Chip`, `Segmented`) usan `min-h` y no alto fijo, justamente por eso.
+
+**Los nombres viejos están apagados con `--text-*: initial` en el `@theme`.** No es higiene: vivían
+en `:root` de `scales.css` y funcionaban solo porque *pisaban* variables que Tailwind ya emite, así
+que al sacarlos de ahí los valores de Tailwind resucitan solos. Sin ese `initial`, un `text-xs`
+olvidado seguiría andando con 12px, en silencio.
+
+**La familia es Inter, y es una sola para los tres roles.** Cuarta del proyecto: Inter → Geist →
+Instrument Sans → Inter. Volver no es andar en círculo, porque lo que se fue no vuelve: aquella vez
+eran **tres** familias (Inter + Inter Tight + JetBrains Mono) y el motivo de dejarla fue justamente
+ese. Inter v4 trae **eje óptico** (`opsz`), así que una sola instancia cubre el cuerpo y el display
+—Inter Tight deja de tener sentido— y el argumento viejo se cae solo.
+
+El eje óptico es lo que la vuelve una elección y no una preferencia: la letra se redibuja más
+abierta y con más avance a 12px, y más cerrada a 40px. Es la cura estructural de la falta de
+nitidez abajo, en vez de compensarla a mano con tracking. Ninguna de las otras cuatro que se
+miraron —IBM Plex Sans, Atkinson Hyperlegible Next, Public Sans, Instrument Sans— lo tiene. Se
+pide como `opsz 14..32`, que son los dos extremos que la fuente define. Lo que se paga: es la letra
+de media industria y no aporta identidad; acá eso cuesta poco, porque la identidad la ponen el
+relieve y la rampa.
+
+**Lo que el CDN de Google no trae, para que nadie lo intente dos veces.** Inter tiene un set de
+desambiguación (`ss04`: ele con cola, i mayúscula con serifas) y un cero barrado (`zero`) que
+serían ideales acá. **El build de Google los recorta**: su GSUB queda en
+`calt ccmp dnom frac locl numr pnum tnum` y nada más, así que escribir
+`font-feature-settings: "ss04"` no rompe — no hace nada, en silencio. Lo que sí sobrevive es
+`tnum`, así que `.tabular` funciona. Recuperarlos pide auto-alojar la fuente (69 KB subseteada a
+latín) y se decidió que tener CDN vale más.
+
+A 40px lo que separa un título del cuerpo es el tamaño y el tracking, no un dibujo distinto de la
+letra, y dos familias que se parecen es lo peor de los dos mundos.
 
 El rol `mono` pierde el ancho fijo, y hay que saber qué se pierde con él: una columna de valores ya
-no alinea sola. La alinea `--tabular` (`font-variant-numeric: tabular-nums`), que da ancho fijo a
-los **números** sin cambiar de letra — verificado, el 1 y el 4 miden lo mismo. Alcanza para lo que
-el rol hace de verdad (precios, métricas, una columna de tabla) y no alcanza para un bloque de
-código, que no existe en el sistema.
+no alinea sola. La alinea la clase `.tabular` (`font-variant-numeric: tabular-nums`), que da ancho
+fijo a los **números** sin cambiar de letra — verificado, el 1 y el 4 miden lo mismo. Alcanza para
+lo que el rol hace de verdad (precios, métricas, una columna de tabla) y no alcanza para un bloque
+de código, que no existe en el sistema.
 
-**Densidad.** Base 12px, peso 400, line-height fijo de 16. Estuvo en 500, decidido contra Inter,
-donde el 400 a 12px se leía lavado sobre un fondo casi blanco. Instrument Sans dibuja más grueso al
-mismo número —x más alta, trazo más ancho— así que la pantalla entera se veía en negrita: **los
-tres escalones bajaron uno entero**, a 400 · 500 · 600. Se cambió en el `@theme` y no en los call
-sites, así que las utilidades siguen llamándose `font-medium` · `font-semibold` · `font-bold`: el
-nombre es del rol, no del número. El line-height único es para que dos filas de 12 y de 14 sigan
-alineadas entre sí.
+**Pesos.** 400 la interfaz · **450** lo accionable, los títulos y lo elegido · 600 solo display. Se
+cambian en el `@theme` y no en los call sites, así que las utilidades siguen llamándose
+`font-medium` · `font-semibold` · `font-bold`: el nombre miente sobre el número y dice la verdad
+sobre el rol, que es lo que se elige al escribir.
 
-Escala de texto: `2xs` 11 (kbd, metadatos) · `xs` 12 (la interfaz) · `base` 14 (botones y
-énfasis) · `md` 16 (lo que se lee primero de una fila alta, y el campo donde se escribe un texto
-largo) · `lg` 20 (título de pantalla) · `display` 40 (portadas). El `md` estuvo sin escribir acá
-un tiempo largo y en uso en cinco lugares, que es la forma de que un escalón se vuelva
-folclore.
+**El peso lo lleva el elegido, no la lista.** Es la regla que más cuesta ver y la que más se
+rompe. Un riel de doce entradas, un menú de seis, unas solapas, seis chips en una fila: si todos
+van en el escalón de énfasis, **ninguno está enfatizado** y la pantalla entera se lee agresiva. Se
+llegó a medir un 44% del texto de una pantalla en el escalón de arriba. La salida no fue bajar el
+número: fue sacarle el peso a los hermanos —`Nav`, `Tabs`, `Segmented`, `Menu`, `Chip`, `Link`— y
+dejárselo al que está elegido. Lo que conserva el énfasis por derecho propio es lo que se aprieta
+(un botón), lo que titula (una tarjeta, una fila, un aviso) y lo que es una marca chica que tiene
+que leerse (un badge, la inicial de un avatar).
+
+**Y el escalón de énfasis es corto a propósito.** 450 y no 500: con Inter, el 500 sobre una base de
+400 salta a algo que se lee como negrita, y lo que hace falta es que se lea como énfasis. El 600 se
+queda con el salto largo porque su trabajo es otro — una portada, un número grande.
+
+Un `Link` no lleva peso: ya tiene el subrayado, que es su señal. Sumarle 450 lo convierte en lo más
+fuerte de un párrafo por ser un enlace, que no es lo que un enlace quiere decir.
+
+**Sin `-webkit-font-smoothing: antialiased` y sin `text-rendering: optimizeLegibility`**, y las dos
+ausencias son la decisión. El primero no mejora el antialias: lo apaga, y pide rasterizar en escala
+de grises en vez de usar el subpíxel, que es justo lo que da nitidez en 1x. Si algo se ve lavado, el
+problema es el peso o el contraste.
 
 **Medidas del shell.** Sidebar 220 `fixed` (72 contraído) · topbar 80 · padding lateral 20 ·
 item de nav 40 con radio 12 y el icono en un cuadro de 34 · sangría de subitems 48.
 
-**Controles.** Tres alturas y un rol cada una: `sm` 32 inline en una fila densa · `md` 36
-acciones dentro de un panel · `lg` 40 la acción principal. Del `md` para arriba el texto es
-14/600 y el radio 12: un botón con el mismo tamaño de letra que su entorno no se lee como
-accionable.
+**El alto de afuera es el de la escalera, siempre.** Una pieza que envuelve a otra —la pista de un
+`Segmented` alrededor de sus opciones— **contiene** su padding, no lo suma. El `Segmented` lo sumaba
+y su `sm` medía 36, o sea el alto de `md`: puesto al lado de un `Button size="sm"` no apoyaban en la
+misma línea, y el resultado es que dos piezas del mismo talle se leen como de sistemas distintos.
+Si el mismo nombre de talle da dos alturas, el nombre no sirve para nada.
 
-**Radios.** `sm` 6 marcas hundidas · `md` 10 lo cuadrado que se toca · `lg` 12 lo que se toca
-con texto · `xl` 16 lo que va adentro de una tarjeta · `2xl` 24 contenedores.
+**Controles.** Tres alturas y un rol cada una: `sm` 32 inline en una fila densa · `md` 36
+acciones dentro de un panel · `lg` 40 la acción principal. El `sm` va en `text-body` y del `md`
+para arriba en `text-reading` con radio 12: un botón con el mismo tamaño de letra que su entorno
+no se lee como accionable, así que cuando subió la base subió también el botón.
+
+**Movimiento.** Dos duraciones y dos curvas, y ninguna tercera. `duration-fast` 120ms para lo que
+acompaña al dedo —un hover, un check— y `duration-normal` 190ms para lo que aparece o se va. Entra
+con `ease-out` y sale con `ease-in`: abrir se mira, cerrar estorba.
+
+Las duraciones van con **`@utility`** y no en el `@theme`, y eso hay que saberlo: `--duration-*` no
+es un namespace de Tailwind, así que declarar el token no genera la utilidad. Estuvieron declarados
+y sin leer desde el principio —diecisiete call sites escribían `duration-[120ms]` a mano, cuatro de
+ellos con números fuera de escala— que es exactamente el mismo bug que tenía la tipografía: el
+token definido y el call site esquivándolo. Hay un test que ahora lo impide.
+
+**Espaciado.** Once pasos con rol: 2 el pelo · 4 adentro de una marca · 6 glifo y texto · 8 dos
+cosas de una fila · 12 dos filas · 16 una pieza chica · 20 una tarjeta · 24 un panel · 32 dos
+secciones · 40 una pantalla · 48 una portada. Grilla de 4 con dos sub-pasos abajo, porque a 2 y a
+6 píxeles todavía hay decisiones reales y de 8 para arriba la diferencia entre 28 y 32 no la ve
+nadie. **No existía**: los call sites tomaban los dieciocho valores de Tailwind, así que dos cosas
+que hacen lo mismo quedaban separadas por 10 acá y por 12 allá — y eso no se ve como un error, se
+ve como desprolijidad. Lo hace cumplir un test. **No manda sobre las alturas de pieza**: un control
+de 36 o una fila de 56 salen de la escalera de controles.
+
+**Radios.** `sm` 6 marcas hundidas · `md` 10 lo chico · `lg` 12 lo que se toca de 36 para arriba ·
+`xl` 16 adentro de una tarjeta · `2xl` 24 contenedores · `full` lo redondo de verdad. Murió un `xs`
+de 5 por estar a un píxel de su vecino.
+
+**El radio sigue al alto**, y esa es la regla que hay que tener presente. El `md` de 10 llegó a
+morir con el argumento de que 10 y 12 están a dos píxeles y nadie ve la diferencia; es falso,
+porque **el radio se lee en proporción al lado más corto de la pieza, no en píxeles**. Sobre un
+botón de 40 de alto, 12 deja 16 de lado plano y se lee como un remate; sobre uno de 32 deja 8, y la
+misma curva se lee como una pastilla. Un control de 32 —el `sm` de la escalera— va en 10; de 36
+para arriba, en 12. Lo mismo vale para todo lo chico que no es un control: un chip de 28, un
+tooltip, un esqueleto, el cuadradito de un glifo.
+
+Sacar el `md` hizo dos píxeles más redondas a dieciséis piezas de golpe, y el efecto es que la
+interfaz entera se ve más blanda — se notó primero en un `IconButton` que parecía de otra librería
+al lado de un `Segmented`, y después en el CTA del dashboard. Es además lo que da la regla del
+anidado en el caso más común: una pista de 12 con 2 de padding pide 10 adentro.
 
 La regla del anidado: **el radio de un hijo es el del padre menos el padding del padre.** Un
 24 con 8 de padding pide 16 adentro. Si el hijo repite el radio del padre, la curva se ve
 doble; si queda más cuadrado que el padre, se ven dos curvas distintas. Los dos errores ya
 pasaron acá (el segmented chico tenía 6 donde iban 10).
 
-**Color.** Rampa casi neutra de nueve pasos, de `#fcfcfc` a `#121212`. El salto de 05
-(`#e2e2e2`) a 06 (`#7b7b7b`) es violento a propósito: entre el borde más oscuro y el texto más
-claro no tiene que haber nada, o aparecen grises que no se distinguen. Bordes y hovers se
-pintan con tinta en alpha, no con un gris opaco: sobre un tinte, el opaco se ve como una línea
-sucia.
+**Color.** Dos familias: una rampa de nueve pasos casi neutra que dibuja todo, y **el azul, que es
+el color primario** y tiene rampa de diez.
 
-La interfaz es **monocroma**. El acento (`#d2691e`) se usa poquísimo —un punto, un badge— y por
-eso se ve.
+**El papel y el escritorio son dos tonos distintos.** Es la corrección más grande que tuvo el
+sistema. `--canvas` y `--surface` apuntaban al mismo token con el argumento de que lo que separa
+una tarjeta del fondo es el relieve, y no alcanzaba: con el relieve en alpha bajo y a 1x, una
+pantalla densa se lee como un campo blanco enorme con líneas encima y cada widget parece recortado
+en vez de apoyado. Ahora una pieza es papel (`--shade-01`) y la página es el escritorio
+(`--shade-02`); en oscuro se invierte, el papel se aclara y el escritorio es lo que está más al
+fondo. El relieve vuelve a decir solo cuánto se levanta algo en vez de tener que decir si existe.
 
-Hay dos excepciones, las dos deliberadas y las dos acotadas a una pieza:
+**La rampa es casi neutra, no neutra**: lleva C 0.0025 del tono del azul en OKLCH. Es un susurro y
+tiene que seguir siéndolo — un gris exactamente neutro al lado de un azul saturado se ve de otro
+sistema, y un gris que se nota azul convierte una interfaz de dos colores en una de tres. Estuvo en
+0.006 y era demasiado: los campos se veían celestes.
 
-- **El azul de marca** (`--blue-400/500/600`, rampa de tres pasos). Es la variante `brand` del
-  botón, el arco del spinner y el anillo de foco (`--blue-500-a45`), y nada más. `solid` y `brand`
-  son el mismo rol —el botón que manda— así que va uno o el otro, nunca los dos en la misma
-  pantalla, o la mirada no sabe cuál es. El 600 hace de canto y de labio, y su valor no se elige a
-  ojo: sale de reproducir el salto que el botón gris usa entre su relleno y su canto (1.14:1). Con
-  un salto más corto el canto desaparece y el botón se ve como un rectángulo pintado.
+**La tinta no es casi negro.** Estaba en `#121212`, que sobre el papel daba 18.26:1 — AAA pide 7,
+así que era más del doble del techo. Eso no se lee mejor: se lee duro. El borde entre una letra
+casi negra y un fondo casi blanco produce halación, y le pega más fuerte a quien lee con
+dificultad, que es a quien hay que cuidar acá. Está en 14:1, que sigue siendo el doble de AAA.
 
-  El foco es el uso más nuevo y el que se defiende solo: los otros dos son roles —esto manda, esto
-  está cargando—, este es un estado del teclado, y es el único aviso que tiene que reconocerse
-  antes de leerse. En tinta se confundía con un canto o con una sombra, que es de lo que está
-  hecho el resto del sistema. Los 2px de `--surface` antes del azul son lo que lo deja ver también
-  sobre el botón azul.
-- **Las marcas de la lista** (`--mark-*`, en pares relleno/glifo). El círculo que identifica una
-  fila en la lista de acciones. Relleno pastel y glifo del mismo tono varios pasos más oscuro, y
-  eso es deliberado: la marca es de 44 y vive dentro de una fila clara, así que tiene lugar para
-  leerse entera sin gritarle al título de al lado. En oscuro se invierten —relleno profundo,
-  glifo pastel— porque un pastel de relleno sobre `#131313` es una mancha de luz.
-- **Las etiquetas de color** (`--label-*` + `--on-label`). La familia viva de lo chico: un chip,
-  el cuadradito de icono de una tarjeta. Salen de la regla de la familia
-  y por eso las seis llevan el mismo texto blanco. Van en orden de rueda porque quien las usa reparte
-  por hash sobre el índice: con los tonos desordenados, dos nombres consecutivos caían en dos
-  tonos casi iguales.
+El salto de 05 a 06 es violento a propósito: entre el borde más oscuro y el texto más claro no
+tiene que haber nada, o aparecen grises que no se distinguen. Bordes y hovers se pintan con tinta
+en alpha, no con un gris opaco: sobre un tinte, el opaco se ve como una línea sucia.
 
-**Las tres paletas de categoría son tres roles y no se mezclan**, y la que las separa es el
-tamaño de la pieza:
+**El azul, diez pasos.** Eran tres valores sueltos elegidos para un botón, y tres no alcanzan para
+vestir un estado elegido, un fondo suave, una tinta que se lea encima y un borde. La rampa **se
+deriva y no se elige**: tono y croma salen del azul de siempre, la luminosidad baja parejo y el
+croma sube al medio y cae en los extremos. **El 600 está anclado**: es el escalón donde el blanco
+encima llega exactamente a 4.5:1, y por eso es el relleno del CTA. Eso saldó la única deuda de
+accesibilidad que el sistema arrastraba — el botón daba 2.89:1 arriba del degradado y 3.75:1
+abajo. Ahora el degradado va de 600 a 700 y pasa AA de punta a punta.
+
+**`brand` es el botón que manda** y hay uno por pantalla. `solid` pasa a ser el mismo rol en tinta,
+para donde el azul no se puede usar: adentro de un aviso teñido, o sobre una superficie que ya es
+azul. Va uno o el otro, nunca los dos en la misma pantalla.
+
+El anillo de foco es el único lugar donde el color es la señal y no el acompañante, y se defiende
+solo: los otros usos son roles —esto manda, esto está cargando—, este es un estado del teclado y es
+el único aviso que tiene que reconocerse antes de leerse. Los 2px de `--surface` antes del azul son
+lo que lo deja ver también sobre el botón azul.
+
+El acento ámbar (`#d2691e`) se usa poquísimo —un punto, un badge— y por eso se ve.
+
+**Las marcas de la lista** (`--mark-*`, en pares relleno/glifo) son el círculo de 44 que identifica
+una fila: relleno pastel y glifo del mismo tono varios pasos más oscuro, porque la marca tiene
+lugar para leerse entera sin gritarle al título de al lado. En oscuro se invierten.
+
+**Las etiquetas de color** van en **dos juegos y hay que elegir bien**:
+
+- `--label-*-soft` + `--label-*-ink` — fondo apagado y tinta del mismo tono, las doce ancladas a
+  4.6:1. **Es lo que usa un chip.** Un chip nunca viene solo: hay cinco o seis en una fila, se leen
+  como texto, y seis rellenos saturados uno al lado del otro compiten entre sí y con todo lo demás.
+- `--label-*` a secas, el relleno vivo con glifo blanco — el cuadradito de icono de una tarjeta,
+  donde la pieza es chica, el glifo es blanco y el color tiene que gritar.
+
+Van en orden de rueda porque quien las usa reparte por hash sobre el índice: con los tonos
+desordenados, dos nombres consecutivos caían en dos tonos casi iguales.
+
+**Un aviso tiene su propio papel.** `Alert` era `--surface`, o sea blanco sobre el blanco de una
+tarjeta: el aviso no se diferenciaba de lo que lo rodeaba, que es lo único que un aviso tiene que
+hacer. Ahora lleva el `-subtle` de su tono y un borde `--<tono>-border`, que existe por lo mismo —
+un borde neutro alrededor de un fondo teñido se ve como algo pegado encima.
+
+**El campo se invierte contra lo que tiene detrás.** Papel sobre el escritorio, hundido sobre una
+tarjeta. Lo decide la superficie escribiendo `--field-bg`, no el call site: un `TextField` no sabe
+si va a caer adentro de un `Card` adentro de un `Modal`, y preguntárselo sería la prop número
+catorce. Y el texto sugerido tiene su propio paso (`--text-placeholder`), el más claro que todavía
+llega a 4.5:1: con el gris del texto puesto ahí, lo que el campo propone se leía igual de firme que
+lo que alguien escribió.
+
+**Las paletas de categoría son roles distintos y no se mezclan**, y las separan el tamaño de la
+pieza y lo que va encima:
 
 | | para qué | contenido encima |
 |---|---|---|
 | `--mark-*` | la marca de 44 de una fila de lista, y el avatar sin foto | glifo o inicial del mismo tono, oscuro |
-| `--label-*` | lo chico: chip, cuadradito de icono | texto o glifo blanco |
+| `--label-*-soft` | un chip | la tinta del mismo tono, `--label-*-ink` |
+| `--label-*` | el cuadradito de icono de una tarjeta | glifo blanco |
 | `--tint-*` | la superficie grande: el hueco 4:3 de una tarjeta, el mock de una novedad, el costado de entrar | un dibujo en tinta al 14% |
 
 Los tres roles vivieron un rato en `--tint-*`, y de ahí salieron dos bugs: los chips quedaron
@@ -218,10 +365,33 @@ Las carpetas de espacios (`FolderIcon`) son la excepción y el único SVG que qu
 —relleno al 13% y una línea al 55% del mismo tono— y una fuente monocroma no puede hacer eso. El
 color propio por espacio es el punto: es lo que las deja reconocer de reojo en una lista de siete.
 
-**El estado activo no se marca con color, se marca con relieve o con canto.** En una interfaz
-monocroma eso distingue más que teñir el texto, y no gasta el único acento que hay. Corolario
-que se rompió tres veces: **el texto de un item inactivo va en tinta, no en gris.** Con la
-etiqueta apagada, una lista de siete espacios se lee como si estuviera deshabilitada.
+**Dónde estás se marca con el azul; lo que se aprieta, con relieve.** La regla vieja decía que el
+estado activo se marca con relieve y nunca con color, y el motivo escrito era que la interfaz es
+monocroma y el azul es el único acento que hay, así que gastarlo acá lo dejaba sin decir nada donde
+importa. **Esa premisa se cayó**: el azul es el color primario con rampa de diez pasos y ya no hay
+un acento que se gaste. Y «dónde estoy» es exactamente lo que un primario sabe hacer mejor que una
+pastilla gris: en un riel de doce entradas, el gris hay que buscarlo y el azul se encuentra sin
+leer. El item actual va en `--brand-soft` con tinta `--brand-ink` y su canto.
+
+El relieve no se fue: sigue marcando lo que se aprieta y lo que sobresale. Lo que cambió es que
+dejó de tener que marcar también dónde estás parado.
+
+**La línea que separa los dos: orientación va en azul, preferencia va en relieve.** Un item de nav
+y una solapa dicen *dónde estás* —eso no cambia por minuto y conviene encontrarlo sin leer—, así
+que van en el primario. Un `Segmented` se les parece y **no** lleva azul: ahí lo que se elige es un
+filtro, una decisión que cambia diez veces por minuto, y teñirla de primario le da el peso de una
+ubicación a algo que es una preferencia. Si todo lo elegido fuera azul, el azul dejaría de decir
+dónde estás.
+
+Corolario que se rompió cuatro veces: **el texto de un item inactivo va en tinta, no en gris.** Con
+la etiqueta apagada, una lista de siete espacios se lee como si estuviera deshabilitada. La cuarta
+fue el subitem del riel, que la rompía mientras su propio padre la cumplía.
+
+**El relleno que lleva texto encima está anclado.** Los dos rellenos saturados con una palabra
+arriba —el `brand` azul y el `bad` rojo— usan el escalón donde el blanco encima llega exactamente a
+4.5:1, y no uno elegido mirando. El `--bad-500` se queda para lo que no lleva texto (el glifo de un
+estado, el borde de un campo inválido) y `--bad-fill` es el que se pinta con una palabra arriba. Un
+test lo mide en los dos temas. **Era la única deuda de accesibilidad que el sistema arrastraba.**
 
 **Estado.** Cuatro tonos —`ok`, `warn`, `bad` e `info`— y ninguno viaja solo: cada uno trae su
 glifo y su texto, porque un color de estado sin forma no dice nada a quien no distingue colores.
@@ -358,7 +528,7 @@ Monorepo de npm workspaces. Dos paquetes y dos apps:
 packages/tokens/src/    la identidad, en CSS puro. Sin Tailwind y sin JS.
 packages/ui/src/        theme.css (el puente) · index.ts (la puerta) ·
                         una carpeta por pieza: button/button.tsx + button/button.test.tsx,
-                        y así las 48 (select, modal, toast, chart, table…)
+                        y así las 49 (select, modal, toast, chart, table…)
                         lib/ lo compartido que no es un componente: cx · colors ·
                         control · tone · esc · overlay-hooks
                         __tests__/ los dos que leen el paquete entero:
@@ -367,9 +537,10 @@ packages/ui/src/        theme.css (el puente) · index.ts (la puerta) ·
 packages/ui/scripts/    icons.mjs (search · add · sync · check) + catalog.json
 apps/kit/src/           el sitio: App.tsx (shell y riel) · kit.tsx (Page, Section,
                         Canvas, Props, A11y, Note) · intro.tsx (la portada) ·
-                        dashboard.tsx · guide/ (principios, escritura) ·
-                        tokens/ (color · type · measure · relief) ·
-                        stories/ (una por pieza)
+                        dashboard.tsx · stories/ (una por pieza) ·
+                        foundations/ (principles · accessibility · typography ·
+                        color · measure · relief · motion · states · writing ·
+                        inclusion)
 ```
 
 **El corte entre el paquete y el sitio es por dependencia, no por gusto.** `packages/ui` no
@@ -398,8 +569,15 @@ vista se llama por otra pieza. Donde la comparación importa, queda escrita en l
 cada una linkea a la otra: solapas o acordeón, alert o toast, sheet o modal, link o button.
 
 Las piezas se agrupan por el trabajo que hacen
-—Guía, Acciones, Formularios, Navegación, Datos, Avisos, Superficies— y no por su tipo
-técnico. Cada vista abre con una portada: el nombre, una línea de qué es y cuándo se usa, la
+—Fundamentos, Acciones, Formularios, Navegación, Datos, Avisos, Superficies— y no por su tipo
+técnico. **Fundamentos va primero** y es la capa de la que sale todo lo demás: Principios ·
+Accesibilidad · Tipografía · Color · Medidas y radios · Relieve · Movimiento · Iconos · Cómo se
+escribe. El orden adentro no es alfabético: las dos primeras son las que hay que leer antes de
+tocar nada, y después van las capas en el orden en que se construye una pantalla.
+
+Se llevó puestos a «Guía» y a «Tokens», que eran dos grupos separados por si el contenido era una
+regla o un valor — una distinción que le importa a quien los escribió y a nadie más: el que busca
+«contraste» no sabe en cuál de los dos caería. Cada vista abre con una portada: el nombre, una línea de qué es y cuándo se usa, la
 categoría y el `import` para copiar; y cierra con lo que la pieza resuelve en accesibilidad.
 Dos tests verifican que ninguna vista se quede sin portada ni sin import.
 
@@ -432,16 +610,30 @@ Lo mismo vale para los tipos que una pieza recibe como argumento —`ToastOption
 
 ## Los tests
 
-`npm test` corre vitest con jsdom y testing-library. 255 tests, y lo que prueban es el
+`npm test` corre vitest con jsdom y testing-library. 299 tests, y lo que prueban es el
 comportamiento —teclado, nombres accesibles, estados— y no el markup, que cambia con cada
 ajuste de estilo. El test de cada pieza vive en su carpeta, al lado del componente.
 
-Seis de ellos leen el paquete entero y fallan si alguien:
+Diez de ellos leen el paquete entero y fallan si alguien:
 
 - escribe un color a mano en un componente,
 - se sale de la escala de radios o de tamaños de texto,
+- **usa un nombre de la escala vieja** (`text-xs`, `text-base`…), que no genera nada y por eso no
+  se nota solo,
+- **escribe el interlineado o el tracking sueltos** (`leading-*`, `tracking-*`) en vez de dejar que
+  los traiga el rol — que es el bug que la escala nueva vino a matar,
+- **escribe una duración o una curva a mano** (`duration-[120ms]`, `ease-[cubic-bezier(…)]`) en vez
+  de usar las dos del sistema,
+- **se sale de la grilla de espaciado** (un `gap-2.5`, un `p-3.5`),
+- **usa un tamaño de icono que no está en la escala** — el tamaño se pasa como número, así que
+  ningún linter lo mira,
 - exporta algo sin sacarlo por `index.ts`,
 - deja una carpeta sin el componente que le da nombre, o un componente sin su test al lado.
+
+Trece más leen los tokens de tipografía: que cada rol declare sus tres valores y llegue entero al
+`@theme`, que ninguno baje de 12px, que la curva de interlineado tenga su máximo en `reading`, que
+el tracking cruce el cero en la base. Y uno del lado del kit repite los guardianes de escala sobre
+`apps/kit`, que hasta ahora se escapaba.
 
 Y veintinueve leen los tokens y calculan contraste: cada tono de estado contra su fondo, el gris
 del texto secundario contra las cuatro superficies claras sobre las que se escribe, y la tinta de
@@ -450,30 +642,13 @@ alguien cambia un tono y rompe un par, falla antes de llegar a una pantalla.
 
 ## Pendiente
 
-- **El blanco sobre los dos rellenos saturados no llega a AA, y eso ya no se arregla solo.**
-  Medido con axe sobre el kit: el botón `brand` va de 2.89:1 arriba del degradado a 3.75:1 abajo,
-  y el `bad` da 3.75:1. El texto es de 14/600, que para WCAG no es texto grande, así que el
-  mínimo es 4.5. Con el resto del sistema ya en AA —el gris del texto y las etiquetas de color se
-  arreglaron— estos dos son lo único que queda, y son los dos rellenos que llevan texto encima.
-
-  Las salidas son dos y ninguna es gratis:
-
-  1. **Oscurecer el relleno.** En OKLCH, bajando solo la L y dejando tono y croma, el azul llega
-     a 4.5:1 en L 0.575 (`#1473ea`) y el degradado podría ir de ahí a L 0.535 (`#0167da`), con el
-     canto en L 0.50 (`#005dc8`) — que reproduce el salto de 1.14:1 que el botón gris usa entre
-     relleno y canto. El rojo pide lo mismo. Cuesta: el CTA se vuelve un azul más profundo.
-     Se puede acotar al botón, dejando `--brand` como está para el switch, el chart y el anillo
-     de foco, que no llevan texto encima.
-  2. **Dar vuelta el texto.** La tinta sobre esos mismos rellenos da 4.99:1, que es lo que se
-     hizo con las etiquetas de color. En un chip funciona; en un CTA azul o en un botón rojo de
-     borrar, un texto oscuro se lee como deshabilitado.
-
-  La recomendación es la 1 acotada al botón. No se hizo porque cambia un color de identidad que
-  se eligió mirando, y eso se decide mirando.
-
-- **El `--tracking-tight` sigue calibrado contra Inter.** Los -0.015em salieron de mirar Inter a
-  12px y no se volvieron a mirar en tres familias. El peso ya se corrigió al pasar a Instrument
-  Sans; el tracking es el que queda.
+- **El `sm` de 32 no llega a los 44×44 que Apple pide para el dedo.** Pasa WCAG 2.2 (24×24) con
+  holgura y se queda corto en táctil, que es media flota de un aula. La salida no es agrandar los
+  tres —la densidad es real— sino decidir que en táctil el piso es `lg`; hoy el tamaño lo elige
+  cada call site sin saber con qué se va a tocar. Está escrito en Fundamentos › Accesibilidad.
+- **Recuperar `ss04` y el cero barrado** pide auto-alojar Inter: 69 KB subseteada a latín, con la
+  receta de `pyftsubset` anotada. Se eligió el CDN; si algún día una red escolar filtra Google
+  Fonts, la decisión se da vuelta y el trabajo ya está pensado.
 - Portar los tokens a `~/melu/packages/ui`, que es para lo que existe todo esto. Ojo con el
   nombre: ese repo es otro y sigue llamándose `melu`.
 

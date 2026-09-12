@@ -43,8 +43,8 @@ export function ConfirmDialog({
           className="ui-zoom relative z-10 flex w-full max-w-[420px] flex-col gap-4 rounded-2xl bg-surface p-5 shadow-popover ring-1 ring-line"
         >
           <div className="flex flex-col gap-2">
-            <h2 className="text-base font-semibold text-ink">{title}</h2>
-            {body && <div className="text-xs font-medium text-ink-muted">{body}</div>}
+            <h2 className="text-reading font-semibold text-ink">{title}</h2>
+            {body && <div className="text-body font-medium text-ink-muted">{body}</div>}
           </div>
           <div className="flex items-center justify-end gap-2">
             {/* En una acción destructiva el foco arranca en la salida segura:

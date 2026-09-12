@@ -11,7 +11,7 @@ const week = [
     label: 'Jueves', value: 16, total: 32, caption: 'Actividades corregidas',
     detail: (
       <>
-        <span className="tabular text-2xs font-medium text-ink-muted">50%</span>
+        <span className="tabular text-meta font-medium text-ink-muted">50%</span>
         <AvatarGroup
           size={18}
           max={3}
@@ -47,8 +47,8 @@ export function ChartStory() {
       >
         <Card className="max-w-2xl p-6">
           <div className="mb-5">
-            <div className="text-base font-semibold text-ink">Corregidas esta semana</div>
-            <div className="text-xs font-medium text-ink-muted">El azul es lo corregido; el gris, lo que entró ese día</div>
+            <div className="text-reading font-semibold text-ink">Corregidas esta semana</div>
+            <div className="text-body font-medium text-ink-muted">El azul es lo corregido; el gris, lo que entró ese día</div>
           </div>
           <BarChart title="Corregidas sobre entregadas, por día" data={week} highlight={3} />
         </Card>
@@ -67,7 +67,7 @@ export function ChartStory() {
         title="Lo que el tooltip puede llevar"
         note="`detail` entra al lado del número: un porcentaje, un grupo de caras, lo que la fila necesite. El número va primero y grande y la frase abajo en gris — es la jerarquía de una leyenda al revés, porque acá el lector ya sabe qué tocó y lo que fue a buscar es cuánto."
       >
-        <p className="max-w-[70ch] text-xs text-ink-muted">
+        <p className="max-w-[70ch] text-body text-ink-muted">
           El filo azul de la izquierda es lo único que ata la caja al gráfico: sin él es una tarjeta
           blanca flotando sobre cualquier cosa. Es el único lugar del sistema donde el color del
           dato entra en una superficie de texto.
@@ -82,7 +82,7 @@ export function ChartStory() {
         title="Lo que no hace"
         note="No tiene eje Y ni grilla: con cinco barras y el tooltip, una grilla es tinta que no es dato."
       >
-        <p className="max-w-[70ch] text-xs text-ink-muted">
+        <p className="max-w-[70ch] text-body text-ink-muted">
           Tampoco tiene dos series ni dos ejes: dos medidas de escalas distintas son dos gráficos, no
           uno con dos escalas — es la forma más común de mentir con un gráfico sin darse cuenta. Y
           los valores viven también en una tabla <code>sr-only</code>: un lector de pantalla no puede

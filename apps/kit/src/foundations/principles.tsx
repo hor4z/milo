@@ -34,7 +34,7 @@ const principles: { icon: IconName; title: string; body: string }[] = [
   },
 ]
 
-export function Foundations() {
+export function Principles() {
   return (
     <Page
       title="Principios"
@@ -46,8 +46,8 @@ export function Foundations() {
             <span className="inset-relief flex size-9 items-center justify-center rounded-xl bg-muted">
               <Icon name={p.icon} size={20} className="icon-muted" />
             </span>
-            <h3 className="text-base font-semibold text-ink">{p.title}</h3>
-            <p className="text-xs font-medium text-ink-muted">{p.body}</p>
+            <h3 className="text-reading font-semibold text-ink">{p.title}</h3>
+            <p className="text-body font-medium text-ink-muted">{p.body}</p>
           </div>
         ))}
       </div>
@@ -56,7 +56,7 @@ export function Foundations() {
         title="Cómo se arma una pieza"
         note="Todo lo que se compone se expone en partes en vez de recibir un objeto de configuración. Un Alert es AlertTitle, AlertBody y AlertActions; unas solapas son Tabs, TabList, Tab y TabPanel. Cuesta dos líneas más de escribir y evita la prop número catorce."
       >
-        <pre className="overflow-x-auto rounded-xl border border-line bg-muted p-4 font-mono text-2xs leading-relaxed text-ink">
+        <pre className="overflow-x-auto rounded-xl border border-line bg-muted p-4 font-mono text-body text-ink">
 {`<Alert tone="warn">
   <AlertTitle>Tres entregas vencen mañana</AlertTitle>
   <AlertBody>Después de esa fecha nadie puede subir nada.</AlertBody>

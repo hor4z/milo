@@ -25,7 +25,7 @@ export function SpinnerStory() {
 
       <Section
         title="En contexto"
-        note="El arco va en el azul de marca y no en tinta: en una pantalla monocroma, lo único que se mueve conviene que sea también lo único con color. Adentro de un botón oscuro hay que pasarle `on=&quot;solid&quot;` — el filo es del color del fondo de atrás y la pista sale del color del texto de ese fondo, y con el default puesto ahí el filo blanco se ve como un halo."
+        note="El arco va en el azul primario y no en tinta: lo único que se mueve conviene que se distinga también por el color. Adentro de un botón oscuro hay que pasarle `on=&quot;solid&quot;` — el filo es del color del fondo de atrás y la pista sale del color del texto de ese fondo, y con el default puesto ahí el filo blanco se ve como un halo."
       >
         <Panel>
           <Variant name="en un botón">
@@ -33,7 +33,7 @@ export function SpinnerStory() {
             <Button variant="raised" aria-busy><Spinner size={16} />Guardando</Button>
           </Variant>
           <Variant name="en una fila">
-            <span className="flex items-center gap-2.5 text-xs font-medium text-ink-muted">
+            <span className="flex items-center gap-2 text-body font-medium text-ink-muted">
               <Spinner size={16} />
               Buscando en siete espacios
             </span>

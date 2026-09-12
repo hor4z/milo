@@ -7,15 +7,15 @@ export function ButtonStory() {
       title="Button"
       kind="Acciones"
       imports="import { Button } from '@milo/ui'"
-      lead="El texto va en 14/600 aunque la interfaz sea de 12: un botón con el mismo tamaño de letra que su entorno no se lee como accionable."
+      lead="El texto va un escalón arriba del de su entorno: un botón con el mismo tamaño de letra que lo que lo rodea no se lee como accionable."
     >
       <Section
         title="Variantes"
-        note="`solid` es el que manda y hay uno por pantalla. `brand` es el mismo rol en azul, así que va uno o el otro, nunca los dos en la misma pantalla, o la mirada no sabe cuál es. `raised` es el secundario y el que le da el carácter físico a la interfaz."
+        note="`brand` es el que manda y hay uno por pantalla — es el azul primario, y el relleno está anclado al escalón donde el blanco encima llega a 4.5:1. `solid` es el mismo rol en tinta, para donde el azul no se puede usar: adentro de un aviso teñido, o sobre una superficie que ya es azul. Va uno o el otro, nunca los dos en la misma pantalla, o la mirada no sabe cuál es. `raised` es el secundario y el que le da el carácter físico a la interfaz."
       >
         <Panel>
-          <Variant name="solid"><Button variant="solid">Crear actividad</Button></Variant>
           <Variant name="brand"><Button variant="brand">Crear actividad</Button></Variant>
+          <Variant name="solid"><Button variant="solid">Crear actividad</Button></Variant>
           <Variant name="raised"><Button variant="raised">Crear actividad</Button></Variant>
           <Variant name="muted"><Button variant="muted">Crear actividad</Button></Variant>
           <Variant name="ghost"><Button variant="ghost">Crear actividad</Button></Variant>

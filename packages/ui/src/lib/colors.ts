@@ -1,4 +1,14 @@
-/** La familia viva de lo chico: un chip, la inicial de un avatar, el cuadradito de icono de una tarjeta. */
+/** El par suave de cada tono: fondo apagado y tinta del mismo tono. Es lo que usa un chip. */
+export const labelSoft = {
+  green: 'bg-label-green-soft text-label-green-ink',
+  teal: 'bg-label-teal-soft text-label-teal-ink',
+  blue: 'bg-label-blue-soft text-label-blue-ink',
+  purple: 'bg-label-purple-soft text-label-purple-ink',
+  pink: 'bg-label-pink-soft text-label-pink-ink',
+  orange: 'bg-label-orange-soft text-label-orange-ink',
+} as const
+
+/** La familia viva de lo chico: el cuadradito de icono de una tarjeta, la inicial de un avatar. Lleva glifo blanco. */
 export const labelFill = {
   green: 'bg-label-green',
   teal: 'bg-label-teal',

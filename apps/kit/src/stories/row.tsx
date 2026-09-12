@@ -48,7 +48,7 @@ export function RowStory() {
       >
         <div className="max-w-[520px] overflow-hidden rounded-2xl border border-line bg-surface">
           <Row label="Correo">
-            <span className="text-xs text-ink-muted">melina@milo.app</span>
+            <span className="text-body text-ink-muted">melina@milo.app</span>
           </Row>
           <Row label="Contraseña" hint="La última vez que la cambiaste fue en marzo">
             <Button size="sm" variant="raised">Cambiar</Button>

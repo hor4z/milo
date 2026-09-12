@@ -107,7 +107,7 @@ export function TextareaStory() {
         title="Lo que se paga si falta"
         note="Tres cosas que no se ven cuando están bien. Primero `height: auto` y después leer `scrollHeight`, porque scrollHeight nunca es menor que el alto puesto: midiendo sin resetear, el campo crece y no vuelve. El techo tiene que prender el scroll, o el texto sigue existiendo sin forma de llegar a él — y abajo del techo tiene que estar apagado, o aparece una barra que titila en cada tecla. Y se mide en un layout effect: midiendo después del paint, cada tecla que agranda el campo se ve como un salto."
       >
-        <p className="max-w-[70ch] text-xs text-ink-muted">
+        <p className="max-w-[70ch] text-body text-ink-muted">
           El <code>resize</code> nativo no está: es una esquina que solo existe con mouse, y
           arrastrarla deja un alto que el crecimiento automático después pisa. El alto lo decide el
           contenido.

@@ -34,14 +34,14 @@ export function Radio({
       onClick={onChange}
       className={cx(
         'inline-flex size-[18px] shrink-0 items-center justify-center rounded-full',
-        'transition-[background-color,box-shadow] duration-[120ms] ease-out',
+        'transition-[background-color,box-shadow] duration-fast ease-out',
         'disabled:opacity-45 disabled:pointer-events-none',
         checked ? 'bg-brand' : 'inset-relief bg-muted',
       )}
     >
       <span
         className={cx(
-          'size-[8px] rounded-full bg-on-brand transition-transform duration-[120ms] ease-out',
+          'size-[8px] rounded-full bg-on-brand transition-transform duration-fast ease-out',
           checked ? 'scale-100' : 'scale-0',
         )}
       />

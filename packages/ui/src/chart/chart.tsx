@@ -60,7 +60,7 @@ export function BarChart({ data, highlight, title, height = 220, className }: {
               <span
                 className={cx(
                   'relative w-full overflow-hidden rounded-xl bg-track',
-                  'transition-colors duration-[140ms] ease-out group-hover:bg-transparent',
+                  'transition-colors duration-normal ease-out group-hover:bg-transparent',
                   'group-hover:ring-1 group-hover:ring-line-strong group-hover:ring-inset',
                   // Con el teclado pasa lo mismo que con el mouse: la barra no
                   // lleva anillo de foco —se decidió así— así que lo que avisa
@@ -72,7 +72,7 @@ export function BarChart({ data, highlight, title, height = 220, className }: {
               >
                 <svg
                   aria-hidden="true"
-                  className="absolute inset-0 h-full w-full opacity-0 transition-opacity duration-[140ms] ease-out group-hover:opacity-100 group-focus-visible:opacity-100"
+                  className="absolute inset-0 h-full w-full opacity-0 transition-opacity duration-normal ease-out group-hover:opacity-100 group-focus-visible:opacity-100"
                 >
                   <rect width="100%" height="100%" fill={`url(#${hatchId})`} />
                 </svg>
@@ -100,7 +100,7 @@ export function BarChart({ data, highlight, title, height = 220, className }: {
           <div
             key={i}
             className={cx(
-              'flex-1 text-center text-xs text-ink transition-[font-weight]',
+              'flex-1 text-center text-body text-ink transition-[font-weight]',
               i === hover || i === focused || i === highlight ? 'font-bold' : 'font-semibold',
             )}
           >
@@ -144,11 +144,11 @@ function ChartTooltip({ datum, style, align = 'center', clamped }: {
     >
       <div className="flex items-center gap-2">
         <span className="h-3 w-[3px] shrink-0 rounded-full bg-brand" />
-        <span className="tabular text-base font-bold text-ink">{datum.value}</span>
-        <span className="tabular text-2xs font-medium text-ink-muted">de {datum.total}</span>
+        <span className="tabular text-reading font-bold text-ink">{datum.value}</span>
+        <span className="tabular text-meta font-medium text-ink-muted">de {datum.total}</span>
         {datum.detail}
       </div>
-      <div className="pl-[11px] text-2xs font-medium text-ink-muted">{datum.caption ?? datum.label}</div>
+      <div className="pl-[calc(22px/2)] text-meta font-medium text-ink-muted">{datum.caption ?? datum.label}</div>
     </div>
   )
 }

@@ -49,7 +49,7 @@ export function SliderStory() {
             <Slider value={steps} onChange={setSteps} min={0} max={5} step={1} label="Dificultad" className="max-w-[320px]" />
           </Variant>
         </Panel>
-        <p className="mt-3 max-w-[70ch] text-2xs text-ink-muted">
+        <p className="mt-3 max-w-[70ch] text-meta text-ink-muted">
           Probalo con el teclado: tabulá hasta el slider y usá las flechas. El anillo de foco se
           suma al relieve del pulgar en vez de reemplazarlo — la regla global de `:focus-visible`
           pisa el `box-shadow` entero y deja la pieza plana, que es el bug que está anotado en
@@ -70,7 +70,7 @@ export function SliderStory() {
       </Section>
 
       <Section title="El azul no se elige acá">
-        <p className="max-w-[70ch] text-xs text-ink-muted">
+        <p className="max-w-[70ch] text-body text-ink-muted">
           Es la regla de rol que ya está escrita: el azul es lo que el usuario prendió o
           confirmó —el switch, el checkbox, el CTA— y el valor de un slider es exactamente eso.
           El punto azul del pulgar es la misma frase dicha en la pieza que se agarra.{' '}

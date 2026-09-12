@@ -4,23 +4,27 @@ El sistema de interfaz de **milo**: la identidad en tokens, las piezas que la us
 donde se ve todo funcionando. No es una lámina de estilos — cada pieza de acá es el componente
 real, con su teclado, sus estados y sus tests.
 
-El UI kit —las 48 piezas— es **una parte** del sistema, no el sistema. Acá adentro no vive
+El UI kit —las 49 piezas— es **una parte** del sistema, no el sistema. Acá adentro no vive
 producto: este repo es del design system y de nada más.
 
 ```sh
 npm install
 npm run dev        # el sitio · http://localhost:5190
 npm run typecheck  # todo el monorepo de una
-npm test           # 255 tests
+npm test           # 299 tests
 npm run props      # regenera la tabla de props desde los tipos
 ```
+
+Los **fundamentos** son la capa de la que sale todo lo demás, y en el sitio van primero:
+principios · accesibilidad · tipografía · color · medidas y radios · relieve · movimiento ·
+estados · iconos · cómo se escribe · inclusión.
 
 ## Qué hay adentro
 
 ```
 packages/tokens/   la identidad, en CSS puro: primitives · semantic · scales
-packages/ui/       el UI kit: 48 piezas, una carpeta cada una, con su test al lado
-apps/kit/          el sitio: los principios, los tokens y una vista por pieza
+packages/ui/       el UI kit: 49 piezas, una carpeta cada una, con su test al lado
+apps/kit/          el sitio: los fundamentos y una vista por pieza
 ```
 
 El corte entre el paquete y el sitio es por dependencia: `packages/ui` no sabe que el sitio
@@ -30,8 +34,10 @@ test que falla si alguien exporta algo de un archivo sin sacarlo por esa puerta.
 
 ## El sistema, en corto
 
-- **Tipografía:** Instrument Sans y nada más. Base 12/400 con line-height fijo de 16; botones y
-  énfasis en 14/600; portadas en 40. El rol `mono` alinea números con `--tabular`.
+- **Tipografía:** Inter, una sola familia para los tres roles, elegida por su eje óptico. Siete
+  roles que cargan tamaño, interlineado y tracking juntos: base `text-body` 14/20 y un escalón
+  `text-reading` 16/24 para lo que se lee de corrido; portadas en 40. En `rem`, para que la
+  preferencia del navegador cuente. El rol `mono` alinea números con la clase `.tabular`.
 - **Shell:** sidebar 220 `fixed` (72 contraído), topbar 80, padding lateral 20, item de nav 40.
 - **Controles:** tres alturas con un rol cada una — 32 inline, 36 en panel, 40 la principal.
 - **Radios:** 6 · 10 · 12 · 16 · 24. El radio de un hijo es el del padre menos su padding.

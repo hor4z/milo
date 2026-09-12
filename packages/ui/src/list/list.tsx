@@ -9,7 +9,8 @@ export type { MarkColor } from '../lib/colors'
 
 export function List({ children, className }: { children: ReactNode; className?: string }) {
   return (
-    <div className={cx('flex flex-col gap-2 rounded-2xl bg-surface p-2 shadow-card', className)}>
+    // La bandeja va transparente: las que flotan son las filas.
+    <div className={cx('flex flex-col gap-2', className)}>
       {children}
     </div>
   )
@@ -38,9 +39,8 @@ export function ListItem({
     <Tag
       onClick={onClick}
       className={cx(
-        'flex min-h-[72px] w-full items-center gap-3.5 rounded-xl px-3.5 py-3.5 text-left',
-        'transition-[background-color,box-shadow] duration-[120ms] ease-out',
-        'ring-1 ring-line',
+        'flex min-h-[72px] w-full items-center gap-4 rounded-xl px-4 py-4 text-left',
+        'transition-[background-color,box-shadow] duration-fast ease-out',
         active ? 'bg-sunken shadow-none' : 'bg-surface shadow-card',
         onClick && !active && 'hover:bg-muted hover:shadow-none',
       )}
@@ -50,8 +50,8 @@ export function ListItem({
       </span>
 
       <span className="min-w-0 flex-1">
-        <span className="block truncate text-md font-semibold text-ink">{title}</span>
-        {hint && <span className="mt-0.5 block truncate text-base font-medium text-ink-muted">{hint}</span>}
+        <span className="block truncate text-reading font-semibold text-ink">{title}</span>
+        {hint && <span className="mt-0.5 block truncate text-reading font-medium text-ink-muted">{hint}</span>}
       </span>
 
       {trailing && <span className="shrink-0">{trailing}</span>}

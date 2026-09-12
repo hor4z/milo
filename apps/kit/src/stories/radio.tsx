@@ -57,7 +57,7 @@ export function RadioStory() {
             </span>
           </Variant>
         </Panel>
-        <p className="mt-3 max-w-[70ch] text-2xs text-ink-muted">
+        <p className="mt-3 max-w-[70ch] text-meta text-ink-muted">
           El azul es el círculo de afuera y el blanco el de adentro, no al revés: con el papel
           afuera y el punto azul adentro la pieza pesa lo mismo prendida que apagada, porque lo
           único que cambia es el disco del medio. Con el relleno afuera, la elegida se ve de una en
@@ -72,11 +72,11 @@ export function RadioStory() {
         <Panel>
           <Variant name="con etiqueta">
             <span className="flex items-center gap-5">
-              <label className="flex items-center gap-2 text-xs font-medium text-ink">
+              <label className="flex items-center gap-2 text-body font-medium text-ink">
                 <Radio checked={loose === 'si'} onChange={() => setLoose('si')} label="Sí, avisarme" />
                 Sí, avisarme
               </label>
-              <label className="flex items-center gap-2 text-xs font-medium text-ink">
+              <label className="flex items-center gap-2 text-body font-medium text-ink">
                 <Radio checked={loose === 'no'} onChange={() => setLoose('no')} label="No hace falta" />
                 No hace falta
               </label>

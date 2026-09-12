@@ -4,6 +4,17 @@ import { describe, expect, it, vi } from 'vitest'
 import { Button } from './button'
 
 describe('Button', () => {
+  // El radio sigue al alto: el radio se lee en proporción al lado más corto, no
+  // en píxeles. Sobre 32 de alto, 12 deja 8 de lado plano y el botón se lee como
+  // una pastilla; sobre 40 deja 16 y se lee como un remate.
+  it.each([['sm', 'rounded-md'], ['md', 'rounded-lg'], ['lg', 'rounded-lg']] as const)(
+    'el radio de %s sigue a su alto',
+    (size, radius) => {
+      render(<Button size={size}>Guardar</Button>)
+      expect(screen.getByRole('button')).toHaveClass(radius)
+    },
+  )
+
   it('dispara onClick y respeta disabled', async () => {
     const onClick = vi.fn()
     const { rerender } = render(<Button onClick={onClick}>Guardar</Button>)

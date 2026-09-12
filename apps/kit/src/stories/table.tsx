@@ -263,7 +263,7 @@ export function TableStory() {
 
       <Section
         title="La pieza"
-        note="La fila es de 56, la misma que `Row` en un panel de ajustes: las dos son una línea de contenido con un divisor de un píxel, así que compartir el alto es lo que hace que una tabla y un panel puestos uno arriba del otro no se vean de dos sistemas distintos. La cabecera va en 11 con `tracking-wide` y en tinta: en 11 el tamaño ya dice que es un rótulo, y el gris encima lo apagaba tanto que había que buscar de qué era cada columna. Las filas alternan papel y un paso más oscuro — en una tabla ancha el divisor de un píxel no alcanza para seguir una fila hasta la última columna, la banda sí. Y contra los bordes las celdas llevan 24 en vez de 16: entre dos columnas el aire se reparte entre las dos, contra el canto hay uno solo."
+        note="La fila es de 56, la misma que `Row` en un panel de ajustes: las dos son una línea de contenido con un divisor de un píxel, así que compartir el alto es lo que hace que una tabla y un panel puestos uno arriba del otro no se vean de dos sistemas distintos. La cabecera va en `text-label` y en tinta: el rol ya trae el espaciado de rótulo y un cuerpo por debajo de la interfaz, así que el tamaño solo dice que es un rótulo, y el gris encima lo apagaba tanto que había que buscar de qué era cada columna. Las filas alternan papel y un paso más oscuro — en una tabla ancha el divisor de un píxel no alcanza para seguir una fila hasta la última columna, la banda sí. Y contra los bordes las celdas llevan 24 en vez de 16: entre dos columnas el aire se reparte entre las dos, contra el canto hay uno solo."
       >
         <Table minWidth={720}>
           <TableHeader>
@@ -316,7 +316,7 @@ export function TableStory() {
             <Mono>5 · tres caras y el resto</Mono>
           </div>
         </div>
-        <p className="mt-3 max-w-[70ch] text-2xs text-ink-muted">
+        <p className="mt-3 max-w-[70ch] text-meta text-ink-muted">
           El sobrante de uno solo muestra la cuarta cara en vez de un «+1»: el círculo ocupa
           exactamente lo mismo que la persona que estaría escondiendo, así que no ahorra nada y
           dice menos.

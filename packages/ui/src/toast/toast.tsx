@@ -92,7 +92,7 @@ function ToastItem({ toast, onDismiss }: { toast: ToastRecord; onDismiss: (id: s
 
   return (
     <li
-      className="ui-rise flex gap-3 rounded-xl border border-line bg-popover p-3.5 shadow-popover"
+      className="ui-rise flex gap-3 rounded-xl border border-line bg-popover p-4 shadow-popover"
       onPointerEnter={() => setPaused(true)}
       onPointerLeave={() => setPaused(false)}
       onFocus={() => setPaused(true)}
@@ -103,10 +103,10 @@ function ToastItem({ toast, onDismiss }: { toast: ToastRecord; onDismiss: (id: s
         <Icon name={toneIcon[tone]} size={18} />
       </span>
       <div className="flex min-w-0 flex-1 flex-col gap-1 py-0.5">
-        <p id={id} className="text-base font-semibold text-ink">{title}</p>
-        {body && <p className="text-xs font-medium text-ink-muted">{body}</p>}
+        <p id={id} className="text-reading font-semibold text-ink">{title}</p>
+        {body && <p className="text-body font-medium text-ink-muted">{body}</p>}
         {action && (
-          <div className="mt-1.5 flex items-center gap-2">
+          <div className="mt-2 flex items-center gap-2">
             <Button size="sm" variant="raised" onClick={() => { action.onClick?.(); close() }}>
               {action.label}
             </Button>

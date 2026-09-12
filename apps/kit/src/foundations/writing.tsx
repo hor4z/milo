@@ -49,8 +49,8 @@ export function Writing() {
             ['Números como números', '3 y no «tres», salvo al empezar una oración.'],
           ].map(([t, d]) => (
             <div key={t} className="flex flex-col gap-1 rounded-xl border border-line bg-surface p-4">
-              <span className="text-xs font-semibold text-ink">{t}</span>
-              <span className="text-2xs font-medium text-ink-muted">{d}</span>
+              <span className="text-body font-semibold text-ink">{t}</span>
+              <span className="text-meta font-medium text-ink-muted">{d}</span>
             </div>
           ))}
         </div>
@@ -65,13 +65,13 @@ export function Writing() {
             <div key={p.good} className="overflow-hidden rounded-xl border border-line">
               <div className="flex items-start gap-3 border-b border-line bg-bad-subtle/40 px-4 py-3">
                 <Icon name="close" size={16} className="mt-px shrink-0 text-bad" />
-                <span className="text-xs font-medium text-ink line-through decoration-bad/40">{p.bad}</span>
+                <span className="text-body font-medium text-ink line-through decoration-bad/40">{p.bad}</span>
               </div>
               <div className="flex items-start gap-3 px-4 py-3">
                 <Icon name="check" size={16} className="mt-px shrink-0 text-ok" />
                 <div className="flex min-w-0 flex-col gap-1">
-                  <span className="text-xs font-semibold text-ink">{p.good}</span>
-                  <span className="text-2xs font-medium text-ink-muted">{p.by}</span>
+                  <span className="text-body font-semibold text-ink">{p.good}</span>
+                  <span className="text-meta font-medium text-ink-muted">{p.by}</span>
                 </div>
               </div>
             </div>

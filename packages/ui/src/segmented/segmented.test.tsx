@@ -63,6 +63,24 @@ describe('Segmented', () => {
     expect(screen.getByRole('radiogroup', { name: 'Rango' })).toBeInTheDocument()
   })
 
+  // La pista contiene su padding, no lo suma: el alto de afuera tiene que ser el
+  // de la escalera de controles. Sumándolo, `sm` medía 36 —el alto de `md`— y un
+  // Segmented al lado de un Button del mismo talle no apoyaban en la misma línea.
+  it.each([
+    ['sm', 'p-0.5', 'min-h-7'],  // 28 + 2 + 2 = 32, el `sm` de la escalera
+    ['md', 'p-0.5', 'min-h-8'],  // 32 + 2 + 2 = 36, el `md` de la escalera
+  ] as const)('el alto de afuera en %s es el de la escalera', (size, pad, inner) => {
+    render(<Segmented value="a" onChange={() => {}} options={filters.slice(0, 2)} label="Rango" size={size} />)
+    expect(screen.getByRole('radiogroup')).toHaveClass(pad)
+    expect(screen.getByRole('radio', { name: 'Todas' })).toHaveClass(inner)
+  })
+
+  it('el pulgar lleva el radio de lo cuadrado, que es el de la pista menos su padding', () => {
+    render(<Segmented value="a" onChange={() => {}} options={filters.slice(0, 2)} label="Rango" size="sm" />)
+    expect(screen.getByRole('radiogroup')).toHaveClass('rounded-lg')
+    expect(screen.getByRole('radio', { name: 'Todas' })).toHaveClass('rounded-md')
+  })
+
   it('una opción apagada no se elige ni recibe el foco', async () => {
     const onChange = vi.fn()
     render(

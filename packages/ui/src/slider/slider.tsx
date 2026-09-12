@@ -30,7 +30,7 @@ export function Slider({
   const thumbAt = 'calc(var(--t) * (100% - 24px) + 12px)'
   const fillTo = 'calc(var(--t) * (100% - 24px) + 24px)'
   const [dragging, setDragging] = useState(false)
-  const move = dragging ? '' : 'transition-[left,width] duration-[120ms] ease-out'
+  const move = dragging ? '' : 'transition-[left,width] duration-fast ease-out'
   return (
     <span
       className={cx('relative flex h-8 w-full min-w-[120px] items-center', disabled && 'opacity-45', className)}
@@ -66,7 +66,7 @@ export function Slider({
       >
         <span
           className={cx(
-            'size-3 rounded-full bg-brand transition-transform duration-[90ms] ease-out',
+            'size-3 rounded-full bg-brand transition-transform duration-fast ease-out',
             dragging ? 'scale-[1.18]' : 'scale-100',
           )}
         />

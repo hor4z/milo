@@ -42,7 +42,7 @@ export function PaginationStatus({
       ? `${from} a ${to} de ${total}${tail}`
       : `${from} a ${to}${tail}`
   return (
-    <p role="status" className={cx('tabular text-xs font-medium text-ink-muted', className)} {...props}>
+    <p role="status" className={cx('tabular text-body font-medium text-ink-muted', className)} {...props}>
       {children ?? phrase}
     </p>
   )

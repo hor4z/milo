@@ -8,11 +8,12 @@ export function navItemClass({
   active, collapsed, muted,
 }: { active?: boolean; collapsed?: boolean; muted?: boolean } = {}) {
   return cx(
-    'flex h-10 items-center gap-3 rounded-lg text-left text-xs font-semibold',
-    'transition-[background-color,box-shadow] duration-[120ms] ease-out',
-    collapsed ? 'justify-center px-0' : 'pr-3 pl-[3px]',
+    'flex h-10 items-center gap-3 rounded-lg text-left text-body',
+    'transition-[background-color,box-shadow] duration-fast ease-out',
+    collapsed ? 'justify-center px-0' : 'pr-3 pl-[calc((var(--nav-item-h)-34px)/2)]',
+    // Orientación va en azul; preferencia, en relieve. La regla está en CLAUDE.md.
     active
-      ? 'bg-muted text-ink shadow-[0_0_0_1px_var(--border)]'
+      ? 'bg-brand-soft font-semibold text-brand-ink shadow-[0_0_0_1px_var(--brand-border)]'
       : muted
         ? 'text-ink-muted hover:bg-hover hover:text-ink'
         : 'text-ink hover:bg-hover',
@@ -30,7 +31,7 @@ export function NavItemBody({
   label: string
   /** Hundido como un kbd: un contador no es accionable. */
   badge?: string
-  /** Dónde estás parado. Se marca con relieve y canto, no con color. */
+  /** Dónde estás parado. Se marca con el azul primario y su canto. */
   active?: boolean
   /** El riel de 72: queda el icono y nada más. */
   collapsed?: boolean
@@ -42,7 +43,7 @@ export function NavItemBody({
       <span className="flex size-[34px] shrink-0 items-center justify-center">
         <span
           className={cx(
-            'flex size-[26px] items-center justify-center rounded-md transition-[background-color,box-shadow] duration-[120ms]',
+            'flex size-[26px] items-center justify-center rounded-md transition-[background-color,box-shadow] duration-fast',
             active && chip && 'bg-surface shadow-[0_0_0_1px_var(--border)]',
           )}
         >
@@ -53,7 +54,7 @@ export function NavItemBody({
       {!collapsed && <span className="min-w-0 flex-1 truncate">{label}</span>}
 
       {!collapsed && badge && (
-        <span className="inset-relief tabular rounded-sm bg-muted px-1.5 py-0.5 text-2xs font-medium text-ink-muted">
+        <span className="inset-relief tabular rounded-sm bg-muted px-2 py-0.5 text-meta font-medium text-ink-muted">
           {badge}
         </span>
       )}
@@ -63,8 +64,12 @@ export function NavItemBody({
 
 /** La sangría de los subitems: la columna del texto del padre, no un valor nuevo. */
 export function navSubItemClass({ active }: { active?: boolean } = {}) {
+  // El inactivo va en tinta: en gris, una lista de siete se lee deshabilitada.
   return cx(
-    'flex h-9 items-center rounded-lg pr-3 pl-12 text-left text-xs font-semibold transition-colors duration-[120ms]',
-    active ? 'text-ink' : 'text-ink-muted hover:text-ink',
+    'flex h-9 items-center rounded-lg pr-3 pl-12 text-left text-body',
+    'transition-[background-color,box-shadow] duration-fast ease-out',
+    active
+      ? 'bg-brand-soft font-semibold text-brand-ink shadow-[0_0_0_1px_var(--brand-border)]'
+      : 'text-ink hover:bg-hover',
   )
 }

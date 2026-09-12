@@ -10,7 +10,7 @@ export function Link({ external, className, children, ...props }: ComponentProps
   return (
     <a
       className={cx(
-        'inline-flex items-center gap-1 rounded-sm font-semibold text-ink underline decoration-ink-muted underline-offset-[3px]',
+        'inline-flex items-center gap-1 rounded-sm text-ink underline decoration-ink-muted underline-offset-[3px]',
         'transition-colors hover:decoration-ink',
         className,
       )}

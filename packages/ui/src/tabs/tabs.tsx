@@ -61,7 +61,7 @@ export function TabList({ className, children, ...props }: ComponentPropsWithout
   )
 }
 
-/** Una solapa. El activo se marca con una línea, no con color. */
+/** Una solapa. El activo se marca con la línea y el azul primario. */
 export function Tab({ value, className, children, ...props }: ComponentPropsWithoutRef<'button'> & {
   /** Ata la solapa a su panel. */
   value: string
@@ -78,14 +78,14 @@ export function Tab({ value, className, children, ...props }: ComponentPropsWith
       tabIndex={active ? 0 : -1}
       onClick={() => setValue(value)}
       className={cx(
-        'relative -mb-px h-9 px-3 text-xs font-semibold transition-colors',
-        active ? 'text-ink' : 'text-ink-muted hover:text-ink',
+        'relative -mb-px h-9 px-3 text-body transition-colors',
+        active ? 'font-semibold text-brand-ink' : 'text-ink-muted hover:text-ink',
         className,
       )}
       {...props}
     >
       {children}
-      {active && <span className="absolute inset-x-0 -bottom-px h-0.5 rounded-full bg-ink" />}
+      {active && <span className="absolute inset-x-0 -bottom-px h-0.5 rounded-full bg-brand" />}
     </button>
   )
 }

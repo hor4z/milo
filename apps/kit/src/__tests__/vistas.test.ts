@@ -17,6 +17,26 @@ describe('las vistas del kit', () => {
     expect(withoutCover).toEqual([])
   })
 
+  it('el sitio usa la misma escala que el paquete', () => {
+    // El guardián de `packages/ui` mira solo el paquete y el kit se escapaba. La
+    // única excepción es el tamaño en `em`: el código inline tiene que ser más
+    // chico que la prosa que lo rodea, y eso ningún rol fijo lo expresa.
+    const dir = join(import.meta.dirname, '..')
+    const walk = (base: string, prefix = ''): string[] =>
+      readdirSync(base, { withFileTypes: true }).flatMap(e =>
+        e.isDirectory()
+          ? (e.name === '__tests__' ? [] : walk(join(base, e.name), `${prefix}${e.name}/`))
+          : /\.tsx?$/.test(e.name) ? [`${prefix}${e.name}`] : [],
+      )
+
+    const prohibido = /\btext-(2xs|xs|sm|base|md|lg|xl|2xl)\b|text-\[(?![\d.]+em\])|\b(leading|tracking)-(\[|none|tight|normal|snug|relaxed|loose|wide|wider|widest)|\bduration-(\[|\d)/
+    // Lo que va entre backticks es prosa, no clase: sin esto, documentar el
+    // nombre viejo lo reintroduce.
+    const offenders = walk(dir)
+      .filter(f => prohibido.test(readFileSync(join(dir, f), 'utf8').replace(/`[^`]*`/g, '')))
+    expect(offenders).toEqual([])
+  })
+
   it('cada portada dice cómo se importa la pieza', () => {
     const withoutImport: string[] = []
     for (const f of files) {
@@ -132,8 +152,16 @@ describe('cobertura del kit', () => {
       join(import.meta.dirname, '../intro.tsx'),
       join(import.meta.dirname, '../App.tsx'),
       join(import.meta.dirname, '../main.tsx'),
-      join(import.meta.dirname, '../guide/foundations.tsx'),
-      join(import.meta.dirname, '../guide/writing.tsx'),
+      join(import.meta.dirname, '../foundations/principles.tsx'),
+      join(import.meta.dirname, '../foundations/accessibility.tsx'),
+      join(import.meta.dirname, '../foundations/typography.tsx'),
+      join(import.meta.dirname, '../foundations/color.tsx'),
+      join(import.meta.dirname, '../foundations/measure.tsx'),
+      join(import.meta.dirname, '../foundations/relief.tsx'),
+      join(import.meta.dirname, '../foundations/motion.tsx'),
+      join(import.meta.dirname, '../foundations/states.tsx'),
+      join(import.meta.dirname, '../foundations/inclusion.tsx'),
+      join(import.meta.dirname, '../foundations/writing.tsx'),
     ]
     const text = sources.map((f: string) => readFileSync(f, 'utf8')).join('\n')
 

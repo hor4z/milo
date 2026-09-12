@@ -16,7 +16,8 @@ export function Card({ children, className, interactive, surface = 'paper' }: {
       className={cx(
         'rounded-2xl p-2',
         surface === 'muted' ? 'bg-muted' : 'bg-surface shadow-card',
-        interactive && 'transition-[box-shadow,transform] duration-[190ms] ease-out hover:-translate-y-0.5 hover:shadow-toolbar',
+        // Sube la sombra y no se mueve: una grilla que salta hace temblar la vista.
+        interactive && 'transition-[box-shadow] duration-normal ease-out hover:shadow-toolbar',
         className,
       )}
     >
@@ -36,12 +37,12 @@ export function CardHeader({ className, children, ...props }: ComponentPropsWith
 
 /** Cómo se llama lo que hay en la tarjeta. */
 export function CardTitle({ className, ...props }: ComponentPropsWithoutRef<'h3'>) {
-  return <h3 className={cx('text-base font-semibold text-ink', className)} {...props} />
+  return <h3 className={cx('text-reading font-semibold text-ink', className)} {...props} />
 }
 
 /** La línea de apoyo, debajo del título. */
 export function CardHint({ className, ...props }: ComponentPropsWithoutRef<'p'>) {
-  return <p className={cx('text-xs font-medium text-ink-muted', className)} {...props} />
+  return <p className={cx('text-body font-medium text-ink-muted', className)} {...props} />
 }
 
 /** El cuerpo, con el padding que la tarjeta no pone. */

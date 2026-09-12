@@ -16,15 +16,15 @@ type AccordionItemProps = {
 export function AccordionItem({ summary, children, defaultOpen, className }: AccordionItemProps) {
   return (
     <details open={defaultOpen} className={cx('group border-b border-line last:border-0', className)}>
-      <summary className="flex cursor-pointer list-none items-center gap-3 py-3.5 text-base font-semibold text-ink marker:content-none">
+      <summary className="flex cursor-pointer list-none items-center gap-3 py-4 text-reading font-semibold text-ink marker:content-none">
         <Icon
           name="keyboard_arrow_down"
           size={18}
-          className="icon-muted shrink-0 transition-transform duration-[160ms] group-open:rotate-180"
+          className="icon-muted shrink-0 transition-transform duration-normal group-open:rotate-180"
         />
         <span className="min-w-0 flex-1">{summary}</span>
       </summary>
-      <div className="pb-4 pl-[30px] text-xs font-medium text-ink-muted">{children}</div>
+      <div className="pb-4 pl-[calc(18px+var(--spacing)*3)] text-body font-medium text-ink-muted">{children}</div>
     </details>
   )
 }

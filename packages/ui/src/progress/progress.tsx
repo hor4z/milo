@@ -22,11 +22,11 @@ export function Progress({ value, max = 100, label, hint, tone = 'brand', classN
   const pct = (clamped / (max || 1)) * 100
   const id = useId()
   return (
-    <div className={cx('flex flex-col gap-1.5', className)} {...props}>
+    <div className={cx('flex flex-col gap-2', className)} {...props}>
       {(label || hint) && (
         <div className="flex items-baseline justify-between gap-3">
-          <span id={id} className="text-xs font-medium text-ink">{label}</span>
-          {hint && <span className="tabular text-2xs font-medium text-ink-muted">{hint}</span>}
+          <span id={id} className="text-body font-medium text-ink">{label}</span>
+          {hint && <span className="tabular text-meta font-medium text-ink-muted">{hint}</span>}
         </div>
       )}
       <div
@@ -37,7 +37,7 @@ export function Progress({ value, max = 100, label, hint, tone = 'brand', classN
         aria-valuemax={max}
         className="h-1.5 w-full overflow-hidden rounded-full bg-track"
       >
-        <div className={cx('h-full rounded-full transition-[width] duration-300 ease-out', fillTone[tone])} style={{ width: `${pct}%` }} />
+        <div className={cx('h-full rounded-full transition-[width] duration-normal ease-out', fillTone[tone])} style={{ width: `${pct}%` }} />
       </div>
     </div>
   )

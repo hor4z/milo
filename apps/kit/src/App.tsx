@@ -2,12 +2,16 @@ import { useEffect, useMemo, useRef, useState, type ReactNode } from 'react'
 import { Icon, IconButton, Kbd, ToastProvider, cx, fold, usePrefs } from '@milo/ui'
 import { Intro } from './intro'
 import { Dashboard } from './dashboard'
-import { Foundations } from './guide/foundations'
-import { Writing } from './guide/writing'
-import { ColorSection } from './tokens/color'
-import { TypeSection } from './tokens/type'
-import { MeasureSection } from './tokens/measure'
-import { ReliefSection } from './tokens/relief'
+import { Principles } from './foundations/principles'
+import { AccessibilitySection } from './foundations/accessibility'
+import { TypographySection } from './foundations/typography'
+import { ColorSection } from './foundations/color'
+import { MeasureSection } from './foundations/measure'
+import { ReliefSection } from './foundations/relief'
+import { MotionSection } from './foundations/motion'
+import { StatesSection } from './foundations/states'
+import { InclusionSection } from './foundations/inclusion'
+import { Writing } from './foundations/writing'
 import { ButtonStory } from './stories/button'
 import { IconButtonStory } from './stories/icon-button'
 import { TextFieldStory } from './stories/text-field'
@@ -43,6 +47,7 @@ import { TabsStory } from './stories/tabs'
 import { AccordionStory } from './stories/accordion'
 import { BreadcrumbStory } from './stories/breadcrumb'
 import { BadgeStory } from './stories/badge'
+import { IndicatorStory } from './stories/indicator'
 import { ProgressStory } from './stories/progress'
 import { SkeletonStory } from './stories/skeleton'
 import { ConfirmStory } from './stories/confirm-dialog'
@@ -57,16 +62,22 @@ type Group = { label: string; stories: Story[] }
 const INTRO = 'intro'
 
 const groups: Group[] = [
+  // El orden no es alfabético: las dos primeras son las que hay que leer antes
+  // de tocar nada, y después van las capas en el orden en que se arma una pantalla.
   {
-    label: 'Guía',
+    label: 'Fundamentos',
     stories: [
-      { id: 'foundations', label: 'Principios', alias: 'principios fundamentos reglas decisiones', render: () => <Foundations /> },
+      { id: 'principles', label: 'Principios', alias: 'principios fundamentos reglas decisiones', render: () => <Principles /> },
+      { id: 'accessibility', label: 'Accesibilidad', alias: 'accesibilidad a11y contraste teclado foco lector pantalla wcag', render: () => <AccessibilitySection /> },
+      { id: 'typography', label: 'Tipografía', alias: 'tipografía fuente texto escala pesos interlineado tracking familia inter legibilidad', render: () => <TypographySection /> },
       { id: 'color', label: 'Color', alias: 'paleta tokens rampa tonos', render: () => <ColorSection /> },
-      { id: 'type', label: 'Tipografía', alias: 'tipografía fuente texto escala pesos', render: () => <TypeSection /> },
-      { id: 'measure', label: 'Medidas y radios', alias: 'espaciado medidas radios tamaños', render: () => <MeasureSection /> },
+      { id: 'measure', label: 'Medidas y radios', alias: 'espaciado medidas radios tamaños layout grilla', render: () => <MeasureSection /> },
       { id: 'relief', label: 'Relieve', alias: 'sombra relieve elevación profundidad', render: () => <ReliefSection /> },
+      { id: 'motion', label: 'Movimiento', alias: 'movimiento animación transición duración curva easing reduced motion', render: () => <MotionSection /> },
+      { id: 'states', label: 'Estados', alias: 'estados hover foco pressed disabled vacío cargando error skeleton empty loading', render: () => <StatesSection /> },
       { id: 'icon', label: 'Iconos', alias: 'iconos glifos símbolos', render: () => <IconStory /> },
-      { id: 'writing', label: 'Cómo se escribe', alias: 'texto redacción copy mensajes tono', render: () => <Writing /> },
+      { id: 'writing', label: 'Cómo se escribe', alias: 'texto redacción copy mensajes tono escritura', render: () => <Writing /> },
+      { id: 'inclusion', label: 'Inclusión', alias: 'inclusión género lenguaje nombres personas diversidad edtech', render: () => <InclusionSection /> },
     ],
   },
   {
@@ -108,6 +119,7 @@ const groups: Group[] = [
       { id: 'table', label: 'Table', alias: 'tabla grilla filas columnas datos', render: () => <TableStory /> },
       { id: 'list', label: 'List', alias: 'lista filas acciones', render: () => <ListStory /> },
       { id: 'bar-chart', label: 'BarChart', alias: 'gráfico barras chart datos progreso', render: () => <ChartStory /> },
+      { id: 'indicator', label: 'Indicator', alias: 'indicador marca punto contador aviso notificación campana', render: () => <IndicatorStory /> },
       { id: 'badge', label: 'Badge', alias: 'etiqueta marca estado', render: () => <BadgeStory /> },
       { id: 'progress', label: 'Progress', alias: 'progreso barra porcentaje avance', render: () => <ProgressStory /> },
       { id: 'skeleton', label: 'Skeleton', alias: 'esqueleto carga hueco placeholder', render: () => <SkeletonStory /> },
@@ -209,17 +221,17 @@ export function App() {
           id="riel"
           className={cx(
             'fixed top-0 bottom-0 left-0 z-40 flex w-[248px] shrink-0 flex-col border-r border-line bg-canvas',
-            'transition-transform duration-[190ms] ease-out lg:translate-x-0',
+            'transition-transform duration-normal ease-out lg:translate-x-0',
             railOpen ? 'translate-x-0 shadow-popover' : '-translate-x-full',
           )}
         >
           <div className="flex flex-col gap-3 px-4 pt-5 pb-3">
-            <button onClick={() => go(INTRO)} className="flex items-baseline gap-1.5 self-start rounded-md px-1 text-left">
-              <span className="text-base font-bold tracking-tight text-ink">milo</span>
-              <span className="text-2xs font-semibold text-ink-muted">design system</span>
+            <button onClick={() => go(INTRO)} className="flex items-baseline gap-2 self-start rounded-md px-1 text-left">
+              <span className="text-reading font-bold text-ink">milo</span>
+              <span className="text-meta font-semibold text-ink-muted">design system</span>
             </button>
 
-            <label className="field flex h-8 cursor-text items-center gap-2 rounded-lg border border-field-line bg-field px-2.5">
+            <label className="field flex h-8 cursor-text items-center gap-2 rounded-lg border border-field-line bg-field px-2">
               <Icon name="search" size={14} className="icon-muted shrink-0" />
               <input
                 ref={searchRef}
@@ -244,7 +256,7 @@ export function App() {
                 }}
                 placeholder="Buscar"
                 aria-label="Buscar una pieza"
-                className="min-w-0 flex-1 bg-transparent text-xs font-normal text-ink outline-none placeholder:text-ink-muted"
+                className="min-w-0 flex-1 bg-transparent text-body font-normal text-ink outline-none placeholder:text-ink-muted"
               />
               {query
                 ? (
@@ -262,7 +274,7 @@ export function App() {
 
             {filtered.map(g => (
               <div key={g.label} className="mt-5 first:mt-4">
-                <div className="px-2.5 pb-1.5 text-2xs font-semibold tracking-wide text-ink-muted uppercase">
+                <div className="px-2 pb-2 text-label font-semibold text-ink-muted uppercase">
                   {g.label}
                 </div>
                 <div className="flex flex-col gap-px">
@@ -274,13 +286,13 @@ export function App() {
             ))}
 
             {filtered.length === 0 && (
-              <p className="px-2.5 py-6 text-xs font-medium text-ink-muted">Nada con «{query}».</p>
+              <p className="px-2 py-6 text-body font-medium text-ink-muted">Nada con «{query}».</p>
             )}
           </div>
 
           <div className="flex items-center justify-between gap-2 border-t border-line px-4 py-3">
-            <span className="text-2xs font-medium text-ink-muted">
-              {everything.length} piezas
+            <span className="text-meta font-medium text-ink-muted">
+              {everything.length} vistas
             </span>
             <IconButton
               icon={prefs.theme === 'dark' ? 'light_mode' : 'dark_mode'}
@@ -302,12 +314,12 @@ export function App() {
             aria-controls="riel"
             onClick={() => setRailOpen(true)}
           />
-          <span className="text-xs font-semibold text-ink">milo · design system</span>
+          <span className="text-body font-semibold text-ink">milo · design system</span>
         </div>
 
         <main ref={main} className="min-w-0 flex-1 px-5 py-8 lg:ml-[248px] lg:px-10 lg:py-10">
           <div key={current} className="mx-auto flex max-w-[980px] flex-col">
-            {current === INTRO && <Intro go={go} pieces={everything.length} />}
+            {current === INTRO && <Intro go={go} views={everything.length} />}
             {current === 'dashboard' && <Dashboard />}
             {story?.render()}
           </div>
@@ -338,8 +350,8 @@ function SideLink({ active, onClick, icon, piece, children }: {
       }}
       aria-current={active ? 'page' : undefined}
       className={cx(
-        'flex h-8 w-full items-center gap-2 rounded-lg px-2.5 text-left text-xs transition-colors',
-        active ? 'bg-muted font-semibold text-ink' : 'font-medium text-ink-muted hover:bg-hover hover:text-ink',
+        'flex h-8 w-full items-center gap-2 rounded-lg px-2 text-left text-body transition-colors',
+        active ? 'bg-brand-soft font-semibold text-brand-ink shadow-[0_0_0_1px_var(--brand-border)]' : 'font-medium text-ink hover:bg-hover',
       )}
     >
       {icon && <Icon name={icon} size={16} className={active ? undefined : 'icon-muted'} />}

@@ -35,7 +35,7 @@ export function CardStory() {
               <CardTitle>Sin partes</CardTitle>
             </CardHeader>
             <CardBody>
-              <p className="text-xs font-medium text-ink-muted">
+              <p className="text-body font-medium text-ink-muted">
                 La tarjeta sigue aceptando cualquier contenido suelto para lo que no tiene esa forma —
                 una portada, un gráfico, una grilla de fotos.
               </p>
@@ -46,21 +46,21 @@ export function CardStory() {
 
       <Section
         title="Quieta, y sin acciones escondidas"
-        note="Las tarjetas no se mueven en hover y no tienen botones flotando encima: una grilla que salta hace temblar la vista, y un botón que aparece al pasar el mouse no se descubre sin mouse y tapa justo lo que estabas mirando. `interactive` existe para la tarjeta que es un link entero, y ahí el movimiento dice algo."
+        note="Las tarjetas no se mueven en hover y no tienen botones flotando encima: una grilla que salta hace temblar la vista, y un botón que aparece al pasar el mouse no se descubre sin mouse y tapa justo lo que estabas mirando. `interactive` existe para la tarjeta que es un link entero: sube la sombra y no mueve el contenido de lugar. Llegó a llevar un `-translate-y` que contradecía esta misma regla."
       >
         <div className="flex flex-wrap gap-4">
           <Card className="w-[260px]">
             <div className="rounded-xl bg-tint-2" style={{ height: 120 }} />
-            <div className="px-2 pt-3 pb-1.5">
-              <div className="text-xs font-semibold">El barrio como mapa</div>
-              <div className="mt-1 text-2xs text-ink-muted">Geografía · 6.º · Indagación</div>
+            <div className="px-2 pt-3 pb-2">
+              <div className="text-body font-semibold">El barrio como mapa</div>
+              <div className="mt-1 text-meta text-ink-muted">Geografía · 6.º · Indagación</div>
             </div>
           </Card>
           <Card className="w-[260px]" interactive>
             <div className="rounded-xl bg-tint-3" style={{ height: 120 }} />
-            <div className="px-2 pt-3 pb-1.5">
-              <div className="text-xs font-semibold">Con interactive</div>
-              <div className="mt-1 text-2xs text-ink-muted">Se levanta en hover — para donde haga falta</div>
+            <div className="px-2 pt-3 pb-2">
+              <div className="text-body font-semibold">Con interactive</div>
+              <div className="mt-1 text-meta text-ink-muted">Sube la sombra en hover, sin moverse</div>
             </div>
           </Card>
         </div>
@@ -72,12 +72,12 @@ export function CardStory() {
       >
         <div className="flex flex-wrap gap-4">
           <Card className="w-[260px] p-4" surface="paper">
-            <div className="text-xs font-semibold">paper</div>
-            <div className="mt-1 text-2xs text-ink-muted">Sobresale. El default.</div>
+            <div className="text-body font-semibold">paper</div>
+            <div className="mt-1 text-meta text-ink-muted">Sobresale. El default.</div>
           </Card>
           <Card className="w-[260px] p-4" surface="muted">
-            <div className="text-xs font-semibold">muted</div>
-            <div className="mt-1 text-2xs text-ink-muted">Un hueco, para lo que agrupa.</div>
+            <div className="text-body font-semibold">muted</div>
+            <div className="mt-1 text-meta text-ink-muted">Un hueco, para lo que agrupa.</div>
           </Card>
         </div>
       </Section>

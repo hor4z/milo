@@ -58,7 +58,7 @@ export function SheetHeader({ title, onClose }: {
 }) {
   return (
     <div className="flex items-center justify-between gap-4 border-b border-line px-5 py-4">
-      <h2 className="text-base font-semibold text-ink">{title}</h2>
+      <h2 className="text-reading font-semibold text-ink">{title}</h2>
       <IconButton icon="close" label="Cerrar" size="sm" variant="ghost" onClick={onClose} />
     </div>
   )

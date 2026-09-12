@@ -6,15 +6,28 @@
   color-scheme: light;
 
   /* ------- superficies -------
-     El shell y las piezas comparten el papel (`--shade-01`): lo que separa una
-     tarjeta del fondo no es un tono distinto, es el relieve. */
-  --canvas: var(--shade-01);
+     **El escritorio y el papel son dos tonos distintos, y esto cambió.** Antes
+     `--canvas` y `--surface` apuntaban al mismo token con el argumento de que lo
+     que separa una tarjeta del fondo es el relieve. No alcanzaba: en una
+     pantalla densa, con el relieve en alpha bajo y a 1x, el resultado se lee
+     como un campo blanco enorme con líneas encima, y cada widget parece
+     recortado en vez de apoyado.
+
+     Ahora una pieza es papel y la página es el escritorio, que es como se
+     separan dos superficies desde que existe el papel. El relieve sigue
+     estando y ahora hace lo suyo: decir cuánto se levanta algo, no si existe. */
+  --canvas: var(--shade-02);
   --surface: var(--shade-01);
-  /* El papel de al lado: un paso, no dos. Es para diferenciar dos cosas que son
-     lo mismo —una fila de tabla de la de arriba— sin que ninguna pase a ser un
-     fondo apagado. `--surface-muted` es el hueco y ya significa otra cosa; con
-     él, media tabla se leería hundida. */
-  --surface-alt: var(--shade-02);
+  /* La banda alterna de una tabla: **tinta en alpha y no un escalón de la
+     rampa**. Apuntaba a `--shade-02`, que desde que el escritorio existe es el
+     fondo de la página: una fila alterna adentro de una tarjeta de papel quedaba
+     pintada del color del fondo, y en oscuro peor todavía —la banda era más
+     oscura que el papel, así que las filas pares se leían como agujeros—.
+
+     En alpha funciona en los dos temas sin dos valores: sobre papel claro oscurece
+     un cuarto de paso, sobre papel oscuro aclara lo mismo. Es la regla de siempre:
+     lo que se apoya sobre otra superficie va en alpha. */
+  --surface-alt: var(--shade-09-a04);
   --surface-muted: var(--shade-03);
   --surface-sunken: var(--shade-04);
   --surface-hover: var(--shade-09-a04);
@@ -43,6 +56,10 @@
   --text: var(--shade-09);
   --text-muted: var(--shade-06);
   --text-subtle: var(--shade-06);
+  /* El texto sugerido de un campo. No es `--text-muted`: con el gris del texto
+     secundario puesto ahí, lo que el campo propone se leía igual de firme que lo
+     que alguien escribió, y un campo vacío parecía lleno. */
+  --text-placeholder: var(--shade-placeholder);
   --text-disabled: var(--shade-05);
   --text-inverted: var(--shade-01);
 
@@ -53,15 +70,24 @@
   --solid-hover: #000000;
   --on-solid: var(--shade-01);
 
-  /* El CTA de marca: el mismo botón lleno que el sólido, en azul. Es la única
-     variante con color de la interfaz, y su rol es exactamente uno. */
-  --brand: var(--blue-500);
+  /* El azul primario. El relleno es el 600 y no el 500, y el motivo es medible:
+     el 600 es el escalón donde el blanco encima llega a 4.5:1. Con el 500 el CTA
+     daba 3.45:1, que para WCAG no alcanza porque el texto de un botón no es
+     texto grande. Era la única deuda de accesibilidad que quedaba y se salda
+     acá. */
+  --brand: var(--blue-600);
+  --brand-hover: var(--blue-700);
   /* El canto y el labio comparten escalón. No es que falte un paso: el labio es
      el mismo filo visto desde abajo, y con un azul más oscuro que el canto el
      botón se veía sobrerrelevado. */
-  --brand-edge: var(--blue-600);
-  --brand-lip: var(--blue-600);
+  --brand-edge: var(--blue-800);
+  --brand-lip: var(--blue-800);
   --on-brand: #ffffff;
+  /* El fondo suave del azul y la tinta que va encima: un estado seleccionado, un
+     aviso de marca, un chip. Es lo que tres valores sueltos no podían dar. */
+  --brand-soft: var(--blue-050);
+  --brand-soft-strong: var(--blue-100);
+  --brand-border: var(--blue-200);
 
   /* El texto de una etiqueta de color. Uno solo para las seis, y es tinta.
 
@@ -82,6 +108,10 @@
   --accent: var(--accent-500);
   --accent-hover: var(--accent-600);
   --accent-subtle: var(--accent-050);
+  /* Ojo: no se reescribe `--accent-fill` acá. Ya es un primitivo, y una custom
+     property que se apunta a sí misma en la misma capa es un ciclo — resuelve a
+     inválido y el color desaparece sin error. Pasó. */
+  --on-accent: #ffffff;
 
   --brand-subtle: var(--blue-050);
   --brand-ink: var(--blue-700);
@@ -91,15 +121,20 @@
   --space-blue: #3b7dd8;
   --space-purple: #8b5cd6;
   --space-pink: #d1568f;
+  /* El aviso que se queda tiene su propio papel y su propio borde. Antes era
+     `--surface` con solo el cuadradito del glifo teñido, y arriba del papel
+     blanco de una tarjeta eso es blanco sobre blanco: el aviso no se
+     diferenciaba de lo que lo rodeaba, que es justo lo único que un aviso tiene
+     que hacer. */
   --ok: var(--ok-500);
   --ok-ink: var(--ok-700);
   --ok-subtle: var(--ok-050);
   --warn: var(--warn-500);
   --warn-ink: var(--warn-700);
   --warn-subtle: var(--warn-050);
-  --bad: var(--bad-500);
+  --bad: var(--bad-fill);
   --bad-ink: var(--bad-700);
-  --bad-hover: var(--bad-600);
+  --bad-hover: var(--bad-fill-hover);
   --bad-subtle: var(--bad-050);
   --on-bad: #ffffff;
 
@@ -169,7 +204,8 @@
      color, lo que lo engordaba a dos píxeles— y sale del 600 en vez del 700, y
      la caída pasa a 1/3 y opacidad 0.28: el color ya separa la pieza del fondo,
      la sombra solo la apoya. */
-  --grad-brand: linear-gradient(in oklab, var(--blue-400) 0%, var(--blue-500) 100%);
+  --grad-brand: linear-gradient(in oklab, var(--blue-600) 0%, var(--blue-700) 100%);
+  --grad-brand-hover: linear-gradient(in oklab, var(--blue-700) 0%, var(--blue-800) 100%);
   --relief-brand:
     0 0 0 1px var(--brand-edge),
     inset 0 1px 0 0 rgb(255 255 255 / 0.16),
@@ -267,19 +303,36 @@
      línea que el relieve ya dibujaba como canto: el campo pierde el volumen y
      conserva su contorno. En gris opaco, un campo apoyado sobre un tinte se ve
      con una línea sucia alrededor. */
-  --field-bg: var(--shade-03);
-  --field-bg-hover: var(--shade-04);
-  --field-border: var(--shade-09-a11);
+  /* **El campo se invierte contra lo que tiene detrás**, y por eso hay dos
+     valores y no uno. Sobre el escritorio —que ahora es gris— un campo gris
+     desaparece: hay que pintarlo de papel. Sobre el papel de una tarjeta pasa lo
+     contrario, y ahí el campo tiene que hundirse un tono.
+
+     Quién de los dos se usa no lo decide el componente: lo decide la superficie
+     que lo contiene, escribiendo `--field-bg`. Eso está en `theme.css`, y es lo
+     que hace que un `TextField` metido adentro de un `Card` se vea bien sin que
+     el call site tenga que saber dónde cayó. */
+  --field-bg: var(--shade-01);        /* el default: el campo vive sobre el escritorio */
+  --field-bg-hover: var(--shade-02);
+  --field-bg-on-surface: var(--shade-02);   /* cuando cae adentro de una pieza de papel */
+  --field-bg-on-surface-hover: var(--shade-03);
+  /* El borde deja de ser una insinuación. En alpha 11 sobre papel blanco la
+     línea no se dibujaba y un `Select` se leía como texto suelto — que es
+     exactamente lo que pasaba. */
+  --field-border: var(--shade-09-a28);
 
   /* ------- el campo vacío -------
-     El buscador de la topbar. No es `--field-*` (el campo que ya muestra algo
-     elegido): acá el fondo casi desaparece y lo que dibuja la caja es el borde
-     más oscuro de la rampa. Un campo vacío pintado del gris del campo con
-     valor se lee como un botón apagado, y en una topbar donde el botón que
-     manda es tinta y el que acompaña es gris con relieve, ese sería un tercer
-     botón que nadie va a tocar. */
-  --search-bg: var(--shade-02);
-  --search-bg-hover: var(--shade-03);
+     El buscador de la topbar. **Se invierte contra su fondo igual que el campo**,
+     y por el mismo motivo: la topbar está pintada del escritorio, así que un
+     buscador del color del escritorio no se ve. Va en papel ahí, y se hunde un
+     tono cuando cae adentro de una pieza de papel.
+
+     Lo que lo separa de `--field-*` es lo otro: el buscador está vacío casi
+     siempre, así que la caja la dibuja el borde y no el relleno. */
+  --search-bg: var(--shade-01);
+  --search-bg-hover: var(--shade-02);
+  --search-bg-on-surface: var(--shade-02);
+  --search-bg-on-surface-hover: var(--shade-03);
   --search-border: var(--border-strong);
 
   /* El anillo de foco es azul, y es la tercera excepción a la interfaz
@@ -325,30 +378,45 @@
     inset 0 1px 0.5px 0 rgb(255 255 255 / 0.15),
     0 0 2.6px 0 rgb(0 0 0 / 0.5),
     0 1px 4px 0 rgb(0 0 0 / 0.4);
-  --field-bg: var(--shade-03);
-  --field-bg-hover: var(--shade-04);
+  --field-bg: var(--shade-01);
+  --field-bg-hover: var(--shade-03);
+  --field-bg-on-surface: var(--shade-03);
+  --field-bg-on-surface-hover: var(--shade-04);
   /* El mismo token que en claro y no `--shade-05`: la tinta en alpha se
      invierte sola —al 14% sobre #202020 cae donde caía el gris opaco— así que
      la línea del campo es una sola regla para los dos temas. */
-  --field-border: var(--shade-09-a11);
+  --field-border: var(--shade-09-a28);
   /* En oscuro la pista sube un paso: al 8% sobre #131313 no se ve. */
   --track: var(--shade-09-a11);
   --brand-subtle: var(--blue-050);
   --brand-ink: var(--blue-700);
+  --brand-soft: var(--blue-050);
+  --brand-soft-strong: var(--blue-100);
+  --brand-border: var(--blue-200);
+  /* En oscuro el relleno del CTA baja a 400: con la rampa dada vuelta, el 600 es
+     un celeste y el blanco encima daría 2.5:1. El 400 es el escalón anclado de
+     este tema — blanco encima, 4.73:1. */
+  --brand: var(--blue-400);
+  --brand-hover: var(--blue-500);
+  --brand-edge: var(--blue-300);
+  --brand-lip: var(--blue-300);
 
   --space-orange: #f0913f;
   --space-green: #55b377;
   --space-blue: #5b96e8;
   --space-purple: #a37ce6;
   --space-pink: #e074a4;
-  --search-bg: var(--shade-02);
-  --search-bg-hover: var(--shade-03);
+  --search-bg: var(--shade-01);
+  --search-bg-hover: var(--shade-02);
+  --search-bg-on-surface: var(--shade-02);
+  --search-bg-on-surface-hover: var(--shade-03);
   --search-border: var(--border-strong);
   --scrim: rgb(0 0 0 / 0.55);
   --solid: var(--shade-09);
   --solid-hover: #ffffff;
   --grad-raised: linear-gradient(in oklab, #333333 0%, #2c2c2c 100%);
-  --grad-brand: linear-gradient(in oklab, var(--blue-400) 0%, var(--blue-500) 100%);
+  --grad-brand: linear-gradient(in oklab, var(--blue-400) 0%, var(--blue-300) 100%);
+  --grad-brand-hover: linear-gradient(in oklab, var(--blue-300) 0%, var(--blue-200) 100%);
   --relief-brand:
     0 0 0 1px var(--brand-edge),
     inset 0 1px 0 0 rgb(255 255 255 / 0.13),

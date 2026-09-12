@@ -35,7 +35,7 @@ export function BadgeStory() {
               <Badge tone="ok" icon="check_circle">Corregida</Badge>
             </CardHeader>
             <CardBody>
-              <p className="text-xs font-medium text-ink-muted">Matemática · 4.º A · 24 entregas</p>
+              <p className="text-body font-medium text-ink-muted">Matemática · 4.º A · 24 entregas</p>
             </CardBody>
           </Card>
           <Card className="w-[300px]">
@@ -44,7 +44,7 @@ export function BadgeStory() {
               <Badge tone="warn" icon="schedule">Vence mañana</Badge>
             </CardHeader>
             <CardBody>
-              <p className="text-xs font-medium text-ink-muted">Sociales · 5.º A · 3 de 7</p>
+              <p className="text-body font-medium text-ink-muted">Sociales · 5.º A · 3 de 7</p>
             </CardBody>
           </Card>
         </div>
