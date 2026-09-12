@@ -1,4 +1,4 @@
-import type { ReactNode } from 'react'
+import { useRef, type KeyboardEvent, type ReactNode } from 'react'
 import { cx } from '../lib/cx'
 import { Kbd } from '../kbd/kbd'
 import { Icon, type IconName } from '../icon/icon'
@@ -9,9 +9,27 @@ export function Menu({ children, width, className }: {
   width?: number
   className?: string
 }) {
+  const caja = useRef<HTMLDivElement>(null)
+
+  // Un `role="menu"` promete flechas. Sin esto, las prometía y no las traía:
+  // se recorría con Tab, que es lo que un menú justamente no hace.
+  const mover = (e: KeyboardEvent<HTMLDivElement>) => {
+    const paso = e.key === 'ArrowDown' ? 1 : e.key === 'ArrowUp' ? -1 : 0
+    const extremo = e.key === 'Home' ? 0 : e.key === 'End' ? -1 : null
+    if (!paso && extremo === null) return
+    const items = [...(caja.current?.querySelectorAll<HTMLButtonElement>('[role^="menuitem"]:not(:disabled)') ?? [])]
+    if (!items.length) return
+    e.preventDefault()
+    if (extremo !== null) return items.at(extremo)!.focus()
+    const i = items.indexOf(document.activeElement as HTMLButtonElement)
+    items[(i + paso + items.length) % items.length].focus()
+  }
+
   return (
     <div
+      ref={caja}
       role="menu"
+      onKeyDown={mover}
       style={width ? { width } : undefined}
       className={cx(
         'ui-pop rounded-xl border border-line bg-popover p-1 shadow-popover',
@@ -55,7 +73,7 @@ export function MenuItem({
         'flex h-10 w-full items-center gap-3.5 rounded-lg px-2.5 text-left text-xs font-semibold',
         'transition-colors duration-[120ms]',
         'disabled:pointer-events-none disabled:opacity-45',
-        danger ? 'text-bad hover:bg-bad-subtle' : 'text-ink hover:bg-hover',
+        danger ? 'text-bad-ink hover:bg-bad-subtle' : 'text-ink hover:bg-hover',
         className,
       )}
     >

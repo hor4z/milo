@@ -108,7 +108,9 @@ export function MenuStory() {
       <Section title="Accesibilidad">
         <A11y items={[
           'role="menu" con menuitem, y las opciones que se marcan son menuitemradio con aria-checked.',
+          'Las flechas recorren las opciones y dan la vuelta; Home y End van a los extremos, y las dos saltean lo apagado. Un `role="menu"` promete eso y hay que cumplirlo.',
           'El rótulo de grupo va como presentation: no es una fila que se pueda enfocar.',
+          'Lo peligroso va en el rojo de tinta, no en el del relleno: sobre el papel, el relleno no llega a AA.',
           'Escape cierra solo el menú, no lo que haya detrás.',
         ]} />
       </Section>
