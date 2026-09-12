@@ -1,12 +1,12 @@
-import { Accordion, AccordionItem, Tab, TabList, TabPanel, Tabs } from '@melu/ui'
+import { Accordion, AccordionItem, Breadcrumb, Tab, TabList, TabPanel, Tabs } from '@melu/ui'
 import { A11y, Canvas, Note, Page, Props, Section } from '../kit'
 
 export function TabsStory() {
   return (
     <Page
-      title="Tabs y Accordion"
+      title="Tabs, Accordion y Breadcrumb"
       kind="Navegación"
-      imports="import { Tabs, TabList, Tab, TabPanel, Accordion, AccordionItem } from '@melu/ui'"
+      imports="import { Tabs, TabList, Tab, TabPanel, Accordion, AccordionItem, Breadcrumb } from '@melu/ui'"
       lead="Dos formas de mostrar de a poco. Las solapas sirven cuando el contenido es del mismo tipo y se compara; el acordeón, cuando cada fila se lee sola y la mayoría no se va a abrir nunca."
     >
       <Section
@@ -50,6 +50,20 @@ export function TabsStory() {
         </Accordion>
       </Section>
 
+      <Section
+        title="Breadcrumb"
+        note="Dónde estás parado y cómo volver. El último item no es un link: es dónde estás, y va marcado con `aria-current`. Los de atrás sí, porque son la única forma de subir un nivel sin usar el botón del navegador."
+      >
+        <Canvas className="flex-col items-start gap-4">
+          <Breadcrumb items={[
+            { label: 'Espacios', onClick: () => {} },
+            { label: 'Matemática · 4.º A', onClick: () => {} },
+            { label: 'Fracciones equivalentes' },
+          ]} />
+          <Breadcrumb items={[{ label: 'Espacios', onClick: () => {} }, { label: 'Lengua · 6.º' }]} />
+        </Canvas>
+      </Section>
+
       <Note title="Cuál de los dos">
         Si las opciones se comparan entre sí —el mismo tipo de contenido para distintos recortes— van
         solapas. Si son preguntas sueltas que se leen de a una, va acordeón. Un acordeón con tres filas
@@ -64,6 +78,7 @@ export function TabsStory() {
           { name: 'Tab · value', type: 'string', required: true, note: 'ata la solapa a su panel' },
           { name: 'AccordionItem · summary', type: 'ReactNode', required: true, note: 'lo que se ve cerrado' },
           { name: 'AccordionItem · defaultOpen', type: 'boolean' },
+          { name: 'Breadcrumb · items', type: '{ label, href?, onClick? }[]', required: true, note: 'de la raíz hasta acá; el último es dónde estás' },
         ]} />
       </Section>
 
@@ -73,6 +88,7 @@ export function TabsStory() {
           'Las flechas izquierda y derecha mueven el foco y dan la vuelta al llegar al final.',
           'Solo la solapa activa es tabulable: Tab entra al grupo y sale, no recorre las cinco.',
           'El acordeón es <details>, así que el estado abierto/cerrado lo anuncia el navegador.',
+          'El Breadcrumb es un <nav> con su nombre, y el item actual lleva aria-current="page".',
         ]} />
       </Section>
     </Page>

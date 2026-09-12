@@ -83,7 +83,7 @@ const groups: Group[] = [
   {
     label: 'Navegación',
     stories: [
-      { id: 'tabs', label: 'Tabs y Accordion', alias: 'solapas pestañas acordeón desplegable', render: () => <TabsStory /> },
+      { id: 'tabs', label: 'Tabs, Accordion y Breadcrumb', alias: 'solapas pestañas acordeón desplegable ruta migas navegación', render: () => <TabsStory /> },
       { id: 'nav', label: 'NavItem', alias: 'navegación item sidebar riel', render: () => <NavStory /> },
     ],
   },

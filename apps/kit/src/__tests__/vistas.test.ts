@@ -96,3 +96,35 @@ describe('useTokens', () => {
     expect(hook).toMatch(/\[clave\]/)
   })
 })
+
+describe('cobertura del kit', () => {
+  const internos = new Set(['Portal', 'PageHeader', 'SectionLabel'])
+
+  it('cada componente exportado se muestra en alguna vista', () => {
+    const index = readFileSync(
+      join(import.meta.dirname, '../../../../packages/ui/src/index.ts'),
+      'utf8',
+    )
+    const exportados = new Set<string>()
+    for (const m of index.matchAll(/export \{([^}]*)\} from/g)) {
+      for (const n of m[1].split(',')) {
+        const nombre = n.trim()
+        if (nombre && /^[A-Z]/.test(nombre) && !internos.has(nombre)) exportados.add(nombre)
+      }
+    }
+
+    const fuentes = [
+      ...readdirSync(stories).map((f: string) => join(stories, f)),
+      join(import.meta.dirname, '../dashboard.tsx'),
+      join(import.meta.dirname, '../intro.tsx'),
+      join(import.meta.dirname, '../App.tsx'),
+      join(import.meta.dirname, '../main.tsx'),
+      join(import.meta.dirname, '../guide/foundations.tsx'),
+      join(import.meta.dirname, '../guide/writing.tsx'),
+    ]
+    const texto = fuentes.map((f: string) => readFileSync(f, 'utf8')).join('\n')
+
+    const sinMostrar = [...exportados].filter(n => !new RegExp(`<${n}[\\s/>]`).test(texto))
+    expect(sinMostrar).toEqual([])
+  })
+})
