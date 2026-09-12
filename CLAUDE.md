@@ -12,7 +12,13 @@ npm install
 npm run dev        # el kit  · http://localhost:5190
 npm run dev:guide  # la app  · http://localhost:5180
 npm run typecheck  # todo el monorepo de una
+npm test           # 92 tests con vitest y testing-library
 ```
+
+**El código no lleva comentarios.** Queda un docblock de una línea por export —lo que el
+editor usa para autocompletar— y algún `//` donde el motivo no se deduce leyendo. El porqué
+de cada decisión vive en dos lugares que sí se leen: este archivo y las notas de cada vista
+del kit, que están a la vista de quien usa el sistema en vez de escondidas en el fuente.
 
 ## De dónde salió
 
@@ -202,6 +208,27 @@ monocroma eso distingue más que teñir el texto, y no gasta el único acento qu
 que se rompió tres veces: **el texto de un item inactivo va en tinta, no en gris.** Con la
 etiqueta apagada, una lista de siete espacios se lee como si estuviera deshabilitada.
 
+**Estado.** Cuatro tonos —`ok`, `warn`, `bad` e `info`— y ninguno viaja solo: cada uno trae su
+glifo y su texto, porque un color de estado sin forma no dice nada a quien no distingue colores.
+Cada tono tiene tres pasos: el **fuerte** (el borde, el relleno de una barra), el **suave** (el
+fondo de un aviso) y la **tinta** (`--ok-ink` y compañía), que es el único que va sobre el suave.
+Ese tercero existe porque el fuerte sobre el suave daba 3,2:1 —pasa apenas para un glifo y no
+alcanza para texto— y un `Badge` pone texto ahí. Hay tests que lo miden.
+
+**Un aviso que se queda y uno que pasa.** `Alert` forma parte de la pantalla y describe su estado;
+`Toast` es consecuencia de algo que acabás de hacer y se va solo. Elegir mal es lo que hace que un
+error importante desaparezca a los cinco segundos.
+
+**Un campo nunca va suelto.** `Field` ata etiqueta, ayuda y error al control, y los campos del
+sistema se enganchan solos por contexto. Lo obligatorio se dice con la palabra «obligatorio»
+además del asterisco: un asterisco es una convención que no significa nada para quien no la
+conoce, y un lector de pantalla lo lee como «asterisco».
+
+**Lo que se compone se expone en partes.** `Alert` es `AlertTitle`, `AlertBody` y `AlertActions`;
+una tarjeta es `CardHeader`, `CardTitle`, `CardHint`, `CardBody` y `CardFooter`; unas solapas son
+`Tabs`, `TabList`, `Tab` y `TabPanel`. Cuesta dos líneas más de escribir y evita la prop número
+catorce.
+
 ## Patrones que vale la pena portar
 
 - **Ajustes en un modal, no en una página.** Rail de 180 que no scrollea + panel que sí. Al
@@ -304,44 +331,50 @@ Monorepo de npm workspaces. Dos paquetes y dos apps:
 ```
 packages/tokens/src/    la identidad, en CSS puro. Sin Tailwind y sin JS.
 packages/ui/src/        theme.css (el puente) · index.ts (la puerta) ·
-                        primitives · icon · overlay · nav · list · table · book ·
-                        folder · page · prefs
+                        primitives · form · feedback · disclosure · status ·
+                        icon · overlay · esc · nav · list · table · chart ·
+                        filter · pagination · menu · book · folder · page · prefs
+                        __tests__/ los tests del paquete
                         icons.gen.ts e icons.meta.ts los genera scripts/icons.mjs
 packages/ui/scripts/    icons.mjs (search · add · sync · check) + catalog.json
-apps/kit/src/           la galería, estilo storybook: intro.tsx (la portada) ·
-                        kit.tsx (los andamios) · tokens/ (color · type ·
-                        measure · relief) · stories/ (una por componente)
+apps/kit/src/           el kit: App.tsx (shell y riel) · kit.tsx (Page, Section,
+                        Canvas, Props, A11y, Note) · intro.tsx (la landing) ·
+                        dashboard.tsx · guide/ (principios, escritura) ·
+                        tokens/ (color · type · measure · relief) ·
+                        stories/ (una por componente)
 apps/guide/src/         el prototipo: screens/ · data.ts · ui/ (shell ·
-                        command-palette · notifications · composer ·
-                        activity-card · settings-modal)
+                        command-palette · notifications · composer · activity-card)
 ```
 
 **El corte entre el paquete y la app es por dependencia, no por gusto.** Lo que está en
 `packages/ui` no sabe que existen `data.ts` ni el router; lo que los lee es producto y se
-queda en `apps/guide`. Por eso el shell y la paleta de comandos no están en el paquete
-todavía, y por eso el kit puede depender solo de `@melu/ui`.
+queda en `apps/guide`.
 
-Todo lo que consume una app entra por `packages/ui/src/index.ts`. Un import a
-`@melu/ui/src/primitives` desde afuera ataría la app al reparto interno de archivos, y mover
-una pieza de un archivo a otro pasaría a ser un cambio que rompe.
+Todo lo que consume una app entra por `packages/ui/src/index.ts`. Un test lo verifica: si
+alguien exporta algo de un archivo y no lo saca por la puerta, falla.
 
-`packages/ui` es además el ensayo del port: tiene la forma que va a tener `~/melu/packages/ui`,
-así que mudarlo es copiar la carpeta y no traducir un sistema.
+**El kit va con una historia por pieza**, y las piezas se agrupan por el trabajo que hacen
+—Guía, Acciones, Formularios, Navegación, Datos, Avisos, Superficies— y no por su tipo
+técnico. Cada vista abre con una portada: el nombre, una línea de qué es y cuándo se usa, la
+categoría y el `import` para copiar; y cierra con lo que la pieza resuelve en accesibilidad.
+Dos tests verifican que ninguna vista se quede sin portada ni sin import.
 
-**El kit va con una historia por pieza, no con pantallas temáticas.** La primera versión tenía
-seis pantallas largas —"Controles" era una sola con botones, campos, toggles y marcas— y
-encontrar el switch era scrollear buscándolo. Con una por componente, el riel es el índice y
-cada pantalla entra casi entera de una vez, que es cuando un muestrario sirve: lo que se mira
-son las diferencias entre variantes vecinas, y para eso tienen que estar a la vista juntas.
+El riel tiene buscador con atajo `/` y no tiene logo: el nombre va en texto.
 
-**El riel del kit usa la receta del sidebar del producto** (`navItemClass` + `NavItemBody`), no
-una copia parecida. Esa geometría estaba escrita cuatro veces dentro de `shell.tsx` y una
-quinta en el kit, y la quinta fue la que se desincronizó: marcaba el activo con
-`--relief-pressed` —la receta de un toggle mientras su panel está abierto— en vez del anillo de
-un píxel con el chip de papel. Ahora vive solo en `packages/ui/src/nav.tsx`.
+## Los tests
 
-`prefs` aplica el tema en `<html>` y no en un wrapper: los portales viven en el `<body>`, fuera
-de cualquier wrapper de React, y un `data-theme` en un div no los alcanza.
+`npm test` corre vitest con jsdom y testing-library. 92 tests, y lo que prueban es el
+comportamiento —teclado, nombres accesibles, estados— y no el markup, que cambia con cada
+ajuste de estilo.
+
+Cuatro de ellos leen el paquete entero y fallan si alguien:
+
+- escribe un color a mano en un componente,
+- se sale de la escala de radios o de tamaños de texto,
+- exporta algo sin sacarlo por `index.ts`.
+
+Y ocho leen los tokens y calculan el contraste de cada tono de estado contra su fondo, en los
+dos temas. Si alguien cambia un tono y rompe el par, falla antes de llegar a una pantalla.
 
 ## Pendiente
 
@@ -351,15 +384,12 @@ de cualquier wrapper de React, y un `data-theme` en un div no los alcanza.
 - **`planes` y `entrar`** siguen con las medidas viejas (14px, sin relieve).
 - **El shell y la paleta de comandos siguen en `apps/guide`** porque leen `data.ts`. Para que
   entren al paquete hay que pasarles el contenido por props.
+- **El `Segmented` de solo iconos usa `title` nativo**, que es la caja del sistema operativo que
+  se le sacó al `IconButton`. Pasarlo a `Tooltip` ata `primitives` a `overlay`, que hoy importa
+  al revés: es un movimiento de archivos, no una prop.
 - **`README.md` quedó desactualizado**: describe la primera identidad (jade y ámbar, radios
   3·6·8·10·14) que después se reemplazó por la rampa neutra y la escala 6·10·12·16·24.
 - Portar los tokens a `~/melu/packages/ui`, que es para lo que existe todo esto.
-- ~~El foco se comía el relieve~~. Cerrado: ninguna receta escribe `box-shadow` directo, escriben
-  `--relief` —registrada con `@property` e `inherits: false`, o cualquier hijo enfocable se la
-  llevaba— y la regla de `:focus-visible` la suma adelante del anillo en vez de reemplazarla.
-- ~~Dibujar un set de iconos macizo propio~~. Cerrado: el set es Material Symbols, y el "se ven
-  livianos" se resuelve con el eje `wght` en vez de con un `strokeWidth` inventado. `--icon-muted`
-  sobrevive igual, porque a `FILL 0` los glifos siguen siendo contornos.
 
 ## Lo que no está
 
