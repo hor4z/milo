@@ -35,7 +35,7 @@ export function FolderStory() {
             </div>
           ))}
         </Card>
-        <p className="mt-3 max-w-[70ch] text-2xs text-ink-muted">
+        <p className="mt-3 max-w-[70ch] text-meta text-ink-muted">
           Adentro no hay un px suelto: todo va en por ciento del ancho, como el <Mono>Book</Mono>,
           así que el mismo dibujo sirve a 88 y a 220.
         </p>
@@ -51,7 +51,7 @@ export function FolderStory() {
           <Folder label="Púrpura" meta="--label-purple" color="var(--label-purple)" />
           <Folder label="Rosa" meta="--label-pink" color="var(--label-pink)" />
         </Card>
-        <p className="mt-3 max-w-[70ch] text-2xs text-ink-muted">
+        <p className="mt-3 max-w-[70ch] text-meta text-ink-muted">
           Se elige <strong className="font-semibold text-ink">un solo color</strong>, el del cuerpo:
           la pestaña y el canto salen de él con color relativo, así que la carpeta queda pintada
           entera. Antes solo se teñía el cuerpo y quedaba con la oreja amarilla, que se veía como un
@@ -72,7 +72,7 @@ export function FolderStory() {
           <Folder label="Teñida" meta="3 archivos" color="var(--label-blue)" avatars={[p('Mora Tello', 6), p('Nico Arce', 7)]} />
           <Folder label="Con un icono" meta="4 archivos" badges={<Icon name="attach_file" size={16} className="text-ink" />} />
         </Card>
-        <p className="mt-3 max-w-[70ch] text-2xs text-ink-muted">
+        <p className="mt-3 max-w-[70ch] text-meta text-ink-muted">
           El anillo de los avatares va del color del cuerpo y no del papel: acá están apoyados sobre
           la carpeta, no sobre la página, y con el anillo blanco se ven recortados. El tamaño sale
           del ancho de la carpeta, como todo lo demás.
@@ -89,7 +89,7 @@ export function FolderStory() {
       >
         <Card surface="muted" className="flex items-center gap-6 px-6 py-6">
           <Folder size={88} />
-          <span className="text-xs text-ink-muted">la pieza · el glifo</span>
+          <span className="text-body text-ink-muted">la pieza · el glifo</span>
         </Card>
       </Section>
     

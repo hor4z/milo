@@ -17,8 +17,8 @@ export function Row({ label, hint, children }: {
     <FieldCtx.Provider value={{ id, labelId, describedBy: hint ? hintId : undefined, invalid: false }}>
       <div className="flex min-h-14 items-center gap-4 border-t border-line px-6 py-4 first:border-t-0">
         <div className="min-w-0 flex-1">
-          <label id={labelId} htmlFor={id} className="block cursor-pointer text-xs font-medium text-ink">{label}</label>
-          {hint && <span id={hintId} className="mt-1 block text-2xs text-ink-muted">{hint}</span>}
+          <label id={labelId} htmlFor={id} className="block cursor-pointer text-body font-medium text-ink">{label}</label>
+          {hint && <span id={hintId} className="mt-1 block text-meta text-ink-muted">{hint}</span>}
         </div>
         {children}
       </div>

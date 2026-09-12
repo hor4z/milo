@@ -118,9 +118,9 @@ export function Filter({ label, options, value, onValueChange }: FilterProps) {
                 onChange={() => toggle(o.value)}
               />
               {o.person && <Avatar name={o.person.name} src={o.person.src} size={22} className="shrink-0" />}
-              <span aria-hidden="true" className="min-w-0 flex-1 truncate text-xs font-medium text-ink">{o.value}</span>
+              <span aria-hidden="true" className="min-w-0 flex-1 truncate text-body font-medium text-ink">{o.value}</span>
               {o.count !== undefined && (
-                <span aria-hidden="true" className="tabular shrink-0 text-2xs font-medium text-ink-muted">{o.count}</span>
+                <span aria-hidden="true" className="tabular shrink-0 text-meta font-medium text-ink-muted">{o.count}</span>
               )}
             </label>
           ))}
@@ -128,7 +128,7 @@ export function Filter({ label, options, value, onValueChange }: FilterProps) {
             <button
               type="button"
               onClick={() => onValueChange([])}
-              className="mt-1 flex h-8 w-full items-center rounded-lg px-2 text-xs font-medium text-ink-muted transition-colors hover:bg-hover hover:text-ink"
+              className="mt-1 flex h-8 w-full items-center rounded-lg px-2 text-body font-medium text-ink-muted transition-colors hover:bg-hover hover:text-ink"
             >
               Quitar este filtro
             </button>
@@ -184,7 +184,7 @@ export function ColumnPicker({ columns, value, onValueChange, label = 'Columnas'
     >
       {() => (
         <div className="ui-pop max-h-[320px] overflow-y-auto overscroll-contain rounded-xl border border-line bg-popover p-1.5 shadow-popover">
-          <p className="px-2 pt-1 pb-1.5 text-2xs font-semibold tracking-wide text-ink">{label}</p>
+          <p className="px-2 pt-1 pb-1.5 text-label font-semibold text-ink">{label}</p>
           {columns.map(c => (
             <label
               key={c.id}
@@ -199,7 +199,7 @@ export function ColumnPicker({ columns, value, onValueChange, label = 'Columnas'
                 onChange={() => !c.locked && toggle(c.id)}
                 disabled={c.locked}
               />
-              <span aria-hidden="true" className="min-w-0 flex-1 truncate text-xs font-medium text-ink">{c.label}</span>
+              <span aria-hidden="true" className="min-w-0 flex-1 truncate text-body font-medium text-ink">{c.label}</span>
             </label>
           ))}
         </div>

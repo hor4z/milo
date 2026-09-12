@@ -18,7 +18,7 @@ final son lo único que hay que tocar.
 npm install
 npm run dev        # el sitio · http://localhost:5190
 npm run typecheck  # todo el monorepo de una
-npm test           # 255 tests con vitest y testing-library
+npm test           # 271 tests con vitest y testing-library
 npm run props      # regenera la tabla de props desde los tipos
 ```
 
@@ -69,39 +69,81 @@ efecto y no hay error.
 
 ## El sistema
 
-**Tipografía.** **Instrument Sans y nada más**: interfaz, portadas y el rol `mono`, una sola
-familia por Google Fonts. Display y cuerpo son la misma a propósito: a 40px lo que separa un título
-del cuerpo es el tamaño y el tracking, no un dibujo distinto de la letra, y dos familias que se
-parecen es lo peor de los dos mundos. Por acá pasaron Inter + Inter Tight + JetBrains Mono, después
-Geist + Geist Mono, y ahora una sola.
+**Tipografía.** Siete roles, y **cada uno carga tamaño, interlineado y tracking juntos**. Ese es
+todo el punto: escritos por separado se despegan, y se despegaron — `text-lg` llegó a ser 20px de
+letra dentro de una caja de línea de 16 porque el interlineado era un token aparte que nadie tenía
+que recordar.
+
+| rol | px | leading | tracking | para qué |
+|---|---|---|---|---|
+| `text-meta` | 12 | 16 · 1.33 | `+0.01em` | metadatos, kbd, contadores, ayuda de campo. **El piso: nunca para leer.** |
+| `text-label` | 13 | 18 · 1.38 | `+0.005em` | rótulos: cabecera de tabla, chip, badge, título de grupo |
+| `text-body` | 14 | 20 · 1.43 | `0` | **la interfaz.** Si dudás, es este |
+| `text-reading` | 16 | 24 · 1.5 | `0` | lo que se lee de corrido, títulos de superficie, botón de `md` para arriba |
+| `text-title` | 20 | 28 · 1.4 | `-0.01em` | título de pantalla |
+| `text-heading` | 28 | 36 · 1.29 | `-0.015em` | encabezado de sección |
+| `text-display` | 40 | 44 · 1.1 | `-0.02em` | portadas |
+
+Tres cosas que hay que saber antes de tocar un número:
+
+- **La base es 14 y hay un escalón de 16 para lo que se lee.** Es el modelo de Carbon (14
+  productivo, 16 expresivo) y es la decisión edtech: un panel docente es denso, un enunciado que
+  lee un estudiante no. Estuvo en 12, que es el piso de un metadato y no el tamaño en el que se
+  mira una interfaz ocho horas.
+- **El tracking cruza el cero en la base**: positivo donde la letra es chica y se empasta, negativo
+  donde es grande y se despega. Es lo que hace el eje óptico de San Francisco y lo que Carbon
+  escribe a mano. La regla vieja hacía lo contrario —`-0.015em` a todos los `h1-h3`, medido contra
+  Inter a 12px— y apretar la letra chica es exactamente cómo se pierde nitidez.
+- **La curva de interlineado tiene su máximo en `reading`** (1.5, el número de WCAG 1.4.12), no en
+  el rol más chico. Los dos de abajo son cromo de una sola línea donde lo que importa es que la
+  caja no crezca; de `reading` para arriba se aprieta porque a 40px el aire sobra solo.
+
+**Los tamaños van en `rem`, la geometría del shell en px.** Quien agranda la letra en su navegador
+la ve agrandada — el zoom ya escalaba los px y cubría WCAG 1.4.4, pero la preferencia de tamaño de
+fuente no, y esa es la que usa quien tiene baja visión. Las piezas que llevan texto en una caja
+chica (`Badge`, `Kbd`, `Chip`, `Segmented`) usan `min-h` y no alto fijo, justamente por eso.
+
+**Los nombres viejos están apagados con `--text-*: initial` en el `@theme`.** No es higiene: vivían
+en `:root` de `scales.css` y funcionaban solo porque *pisaban* variables que Tailwind ya emite, así
+que al sacarlos de ahí los valores de Tailwind resucitan solos. Sin ese `initial`, un `text-xs`
+olvidado seguiría andando con 12px, en silencio.
+
+**La familia está en revisión.** Hoy es Instrument Sans —la tercera del proyecto: Inter → Geist →
+Instrument Sans— y se eligió mirando una referencia comercial, no pensando en quién va a leer esto.
+El comparador de **Fundamentos › Tipografía** tiene cuatro candidatas cargadas (Inter, IBM Plex
+Sans, Atkinson Hyperlegible Next, Public Sans) y cambia el sitio entero, porque un cambio de
+identidad se decide mirando. Esas cuatro se cargan **solo en el kit** y se van el día que haya una
+elegida.
+
+Mientras tanto, una sola familia para los tres roles: interfaz, portadas y `mono`. A 40px lo que
+separa un título del cuerpo es el tamaño y el tracking, no un dibujo distinto de la letra, y dos
+familias que se parecen es lo peor de los dos mundos.
 
 El rol `mono` pierde el ancho fijo, y hay que saber qué se pierde con él: una columna de valores ya
-no alinea sola. La alinea `--tabular` (`font-variant-numeric: tabular-nums`), que da ancho fijo a
-los **números** sin cambiar de letra — verificado, el 1 y el 4 miden lo mismo. Alcanza para lo que
-el rol hace de verdad (precios, métricas, una columna de tabla) y no alcanza para un bloque de
-código, que no existe en el sistema.
+no alinea sola. La alinea la clase `.tabular` (`font-variant-numeric: tabular-nums`), que da ancho
+fijo a los **números** sin cambiar de letra — verificado, el 1 y el 4 miden lo mismo. Alcanza para
+lo que el rol hace de verdad (precios, métricas, una columna de tabla) y no alcanza para un bloque
+de código, que no existe en el sistema.
 
-**Densidad.** Base 12px, peso 400, line-height fijo de 16. Estuvo en 500, decidido contra Inter,
-donde el 400 a 12px se leía lavado sobre un fondo casi blanco. Instrument Sans dibuja más grueso al
-mismo número —x más alta, trazo más ancho— así que la pantalla entera se veía en negrita: **los
-tres escalones bajaron uno entero**, a 400 · 500 · 600. Se cambió en el `@theme` y no en los call
-sites, así que las utilidades siguen llamándose `font-medium` · `font-semibold` · `font-bold`: el
-nombre es del rol, no del número. El line-height único es para que dos filas de 12 y de 14 sigan
-alineadas entre sí.
+**Pesos.** 400 la interfaz · 500 lo accionable y los títulos de fila · 600 solo display. Bajaron un
+escalón entero al pasar de Inter a Instrument Sans, que dibuja más grueso al mismo número —x más
+alta, trazo más ancho— y con los tres anteriores la pantalla entera se veía en negrita. Se cambia
+en el `@theme` y no en los call sites, así que las utilidades siguen llamándose `font-medium` ·
+`font-semibold` · `font-bold`: el nombre es del rol, no del número. **Ese número se calibró a 12px
+y la base ahora es 14**, así que hay que volver a mirarlo cuando se elija la familia.
 
-Escala de texto: `2xs` 11 (kbd, metadatos) · `xs` 12 (la interfaz) · `base` 14 (botones y
-énfasis) · `md` 16 (lo que se lee primero de una fila alta, y el campo donde se escribe un texto
-largo) · `lg` 20 (título de pantalla) · `display` 40 (portadas). El `md` estuvo sin escribir acá
-un tiempo largo y en uso en cinco lugares, que es la forma de que un escalón se vuelva
-folclore.
+**Sin `-webkit-font-smoothing: antialiased` y sin `text-rendering: optimizeLegibility`**, y las dos
+ausencias son la decisión. El primero no mejora el antialias: lo apaga, y pide rasterizar en escala
+de grises en vez de usar el subpíxel, que es justo lo que da nitidez en 1x. Si algo se ve lavado, el
+problema es el peso o el contraste.
 
 **Medidas del shell.** Sidebar 220 `fixed` (72 contraído) · topbar 80 · padding lateral 20 ·
 item de nav 40 con radio 12 y el icono en un cuadro de 34 · sangría de subitems 48.
 
 **Controles.** Tres alturas y un rol cada una: `sm` 32 inline en una fila densa · `md` 36
-acciones dentro de un panel · `lg` 40 la acción principal. Del `md` para arriba el texto es
-14/600 y el radio 12: un botón con el mismo tamaño de letra que su entorno no se lee como
-accionable.
+acciones dentro de un panel · `lg` 40 la acción principal. El `sm` va en `text-body` y del `md`
+para arriba en `text-reading` con radio 12: un botón con el mismo tamaño de letra que su entorno
+no se lee como accionable, así que cuando subió la base subió también el botón.
 
 **Radios.** `sm` 6 marcas hundidas · `md` 10 lo cuadrado que se toca · `lg` 12 lo que se toca
 con texto · `xl` 16 lo que va adentro de una tarjeta · `2xl` 24 contenedores.
@@ -367,8 +409,8 @@ packages/ui/src/        theme.css (el puente) · index.ts (la puerta) ·
 packages/ui/scripts/    icons.mjs (search · add · sync · check) + catalog.json
 apps/kit/src/           el sitio: App.tsx (shell y riel) · kit.tsx (Page, Section,
                         Canvas, Props, A11y, Note) · intro.tsx (la portada) ·
-                        dashboard.tsx · guide/ (principios, escritura) ·
-                        tokens/ (color · type · measure · relief) ·
+                        dashboard.tsx · foundations/ (tipografía, escritura) ·
+                        guide/ (principios) · tokens/ (color · measure · relief) ·
                         stories/ (una por pieza)
 ```
 
@@ -398,8 +440,10 @@ vista se llama por otra pieza. Donde la comparación importa, queda escrita en l
 cada una linkea a la otra: solapas o acordeón, alert o toast, sheet o modal, link o button.
 
 Las piezas se agrupan por el trabajo que hacen
-—Guía, Acciones, Formularios, Navegación, Datos, Avisos, Superficies— y no por su tipo
-técnico. Cada vista abre con una portada: el nombre, una línea de qué es y cuándo se usa, la
+—Fundamentos, Guía, Acciones, Formularios, Navegación, Datos, Avisos, Superficies— y no por su
+tipo técnico. **Fundamentos va primero**: es la capa de la que sale todo lo demás, y hoy tiene las
+dos caras del texto —cómo se ve y cómo suena—. Color, medidas y relieve siguen en Guía, que es tan
+arbitrario como suena: son fundamentos igual y les toca mudarse. Cada vista abre con una portada: el nombre, una línea de qué es y cuándo se usa, la
 categoría y el `import` para copiar; y cierra con lo que la pieza resuelve en accesibilidad.
 Dos tests verifican que ninguna vista se quede sin portada ni sin import.
 
@@ -432,16 +476,25 @@ Lo mismo vale para los tipos que una pieza recibe como argumento —`ToastOption
 
 ## Los tests
 
-`npm test` corre vitest con jsdom y testing-library. 255 tests, y lo que prueban es el
+`npm test` corre vitest con jsdom y testing-library. 271 tests, y lo que prueban es el
 comportamiento —teclado, nombres accesibles, estados— y no el markup, que cambia con cada
 ajuste de estilo. El test de cada pieza vive en su carpeta, al lado del componente.
 
-Seis de ellos leen el paquete entero y fallan si alguien:
+Ocho de ellos leen el paquete entero y fallan si alguien:
 
 - escribe un color a mano en un componente,
 - se sale de la escala de radios o de tamaños de texto,
+- **usa un nombre de la escala vieja** (`text-xs`, `text-base`…), que no genera nada y por eso no
+  se nota solo,
+- **escribe el interlineado o el tracking sueltos** (`leading-*`, `tracking-*`) en vez de dejar que
+  los traiga el rol — que es el bug que la escala nueva vino a matar,
 - exporta algo sin sacarlo por `index.ts`,
 - deja una carpeta sin el componente que le da nombre, o un componente sin su test al lado.
+
+Trece más leen los tokens de tipografía: que cada rol declare sus tres valores y llegue entero al
+`@theme`, que ninguno baje de 12px, que la curva de interlineado tenga su máximo en `reading`, que
+el tracking cruce el cero en la base. Y uno del lado del kit repite los guardianes de escala sobre
+`apps/kit`, que hasta ahora se escapaba.
 
 Y veintinueve leen los tokens y calculan contraste: cada tono de estado contra su fondo, el gris
 del texto secundario contra las cuatro superficies claras sobre las que se escribe, y la tinta de
@@ -471,9 +524,16 @@ alguien cambia un tono y rompe un par, falla antes de llegar a una pantalla.
   La recomendación es la 1 acotada al botón. No se hizo porque cambia un color de identidad que
   se eligió mirando, y eso se decide mirando.
 
-- **El `--tracking-tight` sigue calibrado contra Inter.** Los -0.015em salieron de mirar Inter a
-  12px y no se volvieron a mirar en tres familias. El peso ya se corrigió al pasar a Instrument
-  Sans; el tracking es el que queda.
+- **Elegir la familia.** El comparador de Fundamentos › Tipografía está armado y la calibración es
+  agnóstica: sirve igual para cualquiera de las cinco. Falta sentarse a mirarlo. Los argumentos
+  cortos: **Inter** es la única con eje óptico, que es la cura estructural de la nitidez a tamaños
+  chicos; **Atkinson Hyperlegible Next** es el argumento edtech más fuerte y la que hay que mirar
+  contra el relieve, porque tiene personalidad y el sistema es sobrio; **IBM Plex Sans** trae una
+  monoespaciada hermana de verdad, que recuperaría el rol `mono`. Mientras no se decida, el kit
+  carga cuatro familias que nadie usa.
+- **Los pesos se calibraron a 12px y la base ahora es 14.** Los tres escalones (400 · 500 · 600)
+  salieron de mirar Instrument Sans a 12px sobre fondo casi blanco. A 14 el argumento cambia, y
+  cambia otra vez con la familia, así que las dos cosas se miran juntas o ninguna.
 - Portar los tokens a `~/melu/packages/ui`, que es para lo que existe todo esto. Ojo con el
   nombre: ese repo es otro y sigue llamándose `melu`.
 

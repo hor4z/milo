@@ -126,14 +126,14 @@ function Family({ title, detail, tokens }: { title: string; detail: string; toke
   return (
     <div className="flex flex-col gap-3 rounded-2xl border border-line bg-surface p-5">
       <div className="flex flex-col gap-1">
-        <code className="font-mono text-xs font-semibold text-ink">{title}</code>
-        <p className="max-w-[70ch] text-2xs font-medium text-ink-muted">{detail}</p>
+        <code className="font-mono text-body font-semibold text-ink">{title}</code>
+        <p className="max-w-[70ch] text-meta font-medium text-ink-muted">{detail}</p>
       </div>
       <div className="flex flex-wrap gap-2">
         {tokens.map(t => (
           <div key={t} className="flex items-center gap-2 rounded-lg border border-line px-2 py-1.5">
             <span className="size-5 rounded-md" style={{ background: `var(${t})` }} />
-            <code className="font-mono text-2xs text-ink-muted">{vals[t] || t.replace('--', '')}</code>
+            <code className="font-mono text-meta text-ink-muted">{vals[t] || t.replace('--', '')}</code>
           </div>
         ))}
       </div>

@@ -21,13 +21,13 @@ export function TabsStory() {
               <Tab value="ajustes">Ajustes</Tab>
             </TabList>
             <TabPanel value="entregas">
-              <p className="text-xs font-medium text-ink-muted">Dieciocho entregas, cuatro sin mirar.</p>
+              <p className="text-body font-medium text-ink-muted">Dieciocho entregas, cuatro sin mirar.</p>
             </TabPanel>
             <TabPanel value="rubrica">
-              <p className="text-xs font-medium text-ink-muted">Cuatro criterios, cada uno de 1 a 4.</p>
+              <p className="text-body font-medium text-ink-muted">Cuatro criterios, cada uno de 1 a 4.</p>
             </TabPanel>
             <TabPanel value="ajustes">
-              <p className="text-xs font-medium text-ink-muted">Quién puede ver la actividad y hasta cuándo.</p>
+              <p className="text-body font-medium text-ink-muted">Quién puede ver la actividad y hasta cuándo.</p>
             </TabPanel>
           </Tabs>
         </Canvas>
@@ -45,13 +45,13 @@ export function TabsStory() {
               <Tab value="todo">Todo</Tab>
             </TabList>
             <TabPanel value="semana">
-              <p className="text-xs font-medium text-ink-muted">79 entregas en cuatro espacios.</p>
+              <p className="text-body font-medium text-ink-muted">79 entregas en cuatro espacios.</p>
             </TabPanel>
             <TabPanel value="mes">
-              <p className="text-xs font-medium text-ink-muted">312 entregas, 289 corregidas.</p>
+              <p className="text-body font-medium text-ink-muted">312 entregas, 289 corregidas.</p>
             </TabPanel>
             <TabPanel value="todo">
-              <p className="text-xs font-medium text-ink-muted">Desde marzo: 1.204 entregas.</p>
+              <p className="text-body font-medium text-ink-muted">Desde marzo: 1.204 entregas.</p>
             </TabPanel>
           </Tabs>
         </Canvas>

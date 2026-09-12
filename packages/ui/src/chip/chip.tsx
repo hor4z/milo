@@ -18,7 +18,7 @@ export function Chip({
   onClick?: () => void
 }) {
   const box = cx(
-    'inline-flex h-7 items-center gap-1.5 rounded-md px-2.5 text-xs font-semibold',
+    'inline-flex min-h-7 items-center gap-1.5 rounded-md px-2.5 text-body font-semibold',
     'transition-[background-color,color,filter] duration-[120ms] ease-out',
     active
       ? 'bg-solid text-on-solid'

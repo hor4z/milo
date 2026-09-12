@@ -25,8 +25,8 @@ export function Progress({ value, max = 100, label, hint, tone = 'brand', classN
     <div className={cx('flex flex-col gap-1.5', className)} {...props}>
       {(label || hint) && (
         <div className="flex items-baseline justify-between gap-3">
-          <span id={id} className="text-xs font-medium text-ink">{label}</span>
-          {hint && <span className="tabular text-2xs font-medium text-ink-muted">{hint}</span>}
+          <span id={id} className="text-body font-medium text-ink">{label}</span>
+          {hint && <span className="tabular text-meta font-medium text-ink-muted">{hint}</span>}
         </div>
       )}
       <div

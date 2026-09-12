@@ -67,7 +67,7 @@ export function BookStory() {
         <div className="flex flex-wrap items-end gap-8 rounded-xl border border-line bg-surface px-6 py-8">
           <Book variant="simple" color="var(--label-orange)" textColor="var(--on-label)" textured title="Diseño de sistemas" />
           <Book variant="simple" color="var(--label-purple)" textColor="var(--on-label)" title="Diseño de sistemas" />
-          <span className="self-center text-xs text-ink-muted">con textura · sin textura</span>
+          <span className="self-center text-body text-ink-muted">con textura · sin textura</span>
         </div>
       </Section>
 

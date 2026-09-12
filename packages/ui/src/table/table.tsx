@@ -116,7 +116,7 @@ export function TableHead({ children, scope = 'col', className, ...rest }: CellP
   return (
     <th
       scope={scope}
-      className={cx('h-10 px-4 first:pl-6 last:pr-6 text-2xs font-semibold tracking-wide text-ink', className)}
+      className={cx('h-10 px-4 first:pl-6 last:pr-6 text-label font-semibold text-ink', className)}
       {...rest}
     >
       {children}
@@ -127,7 +127,7 @@ export function TableHead({ children, scope = 'col', className, ...rest }: CellP
 /** Una celda: 12/500, con el alto de fila de 56. */
 export function TableCell({ children, className, ...rest }: CellProps & TdHTMLAttributes<HTMLTableCellElement>) {
   return (
-    <td className={cx('h-14 px-4 first:pl-6 last:pr-6 text-xs font-medium text-ink', className)} {...rest}>
+    <td className={cx('h-14 px-4 first:pl-6 last:pr-6 text-body font-medium text-ink', className)} {...rest}>
       {children}
     </td>
   )
@@ -135,18 +135,18 @@ export function TableCell({ children, className, ...rest }: CellProps & TdHTMLAt
 
 /** Lo que se lee primero de una fila. */
 export function TableTitle({ children, className }: CellProps) {
-  return <span className={cx('block truncate text-base font-semibold text-ink', className)}>{children}</span>
+  return <span className={cx('block truncate text-reading font-semibold text-ink', className)}>{children}</span>
 }
 
 /** La línea de apoyo debajo del título, en gris. */
 export function TableHint({ children, className }: CellProps) {
-  return <span className={cx('mt-0.5 block truncate text-xs font-medium text-ink-muted', className)}>{children}</span>
+  return <span className={cx('mt-0.5 block truncate text-body font-medium text-ink-muted', className)}>{children}</span>
 }
 
 /** Una columna de números. */
 export function TableNum({ children, className, ...rest }: CellProps & TdHTMLAttributes<HTMLTableCellElement>) {
   return (
-    <td className={cx('tabular h-14 px-4 first:pl-6 last:pr-6 text-right text-xs font-medium text-ink', className)} {...rest}>
+    <td className={cx('tabular h-14 px-4 first:pl-6 last:pr-6 text-right text-body font-medium text-ink', className)} {...rest}>
       {children}
     </td>
   )

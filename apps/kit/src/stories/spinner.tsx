@@ -33,7 +33,7 @@ export function SpinnerStory() {
             <Button variant="raised" aria-busy><Spinner size={16} />Guardando</Button>
           </Variant>
           <Variant name="en una fila">
-            <span className="flex items-center gap-2.5 text-xs font-medium text-ink-muted">
+            <span className="flex items-center gap-2.5 text-body font-medium text-ink-muted">
               <Spinner size={16} />
               Buscando en siete espacios
             </span>

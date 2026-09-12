@@ -20,8 +20,8 @@ export function PopoverStory() {
             >
               {close => (
                 <div className="ui-pop rounded-xl border border-line bg-popover p-4 shadow-popover">
-                  <div className="text-xs font-semibold">Un panel de 320</div>
-                  <p className="mt-2 text-2xs text-ink-muted">
+                  <div className="text-body font-semibold">Un panel de 320</div>
+                  <p className="mt-2 text-meta text-ink-muted">
                     Cierra con Escape, con un click afuera, o al scrollear la página — pero no al
                     scrollear su propio contenido. Un resize sí lo cierra siempre.
                   </p>
@@ -41,8 +41,8 @@ export function PopoverStory() {
             >
               {close => (
                 <div className="ui-pop rounded-xl border border-line bg-popover p-4 shadow-popover">
-                  <div className="text-xs font-semibold">Una lista que pide leerse entera</div>
-                  <p className="mt-2 text-2xs text-ink-muted">
+                  <div className="text-body font-semibold">Una lista que pide leerse entera</div>
+                  <p className="mt-2 text-meta text-ink-muted">
                     El resto de la pantalla se atenúa para ganar la mirada. Un menú de cuatro items
                     no necesita esto.
                   </p>

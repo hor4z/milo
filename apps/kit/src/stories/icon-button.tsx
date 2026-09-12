@@ -22,11 +22,11 @@ export function IconButtonStory() {
           <Variant name="al lado de su botón">
             <span className="flex items-center gap-2">
               <IconButton icon="tune" label="Ajustes" size="md" variant="raised" />
-              <span className="text-2xs text-ink-muted">md · 36</span>
+              <span className="text-meta text-ink-muted">md · 36</span>
             </span>
             <span className="flex items-center gap-2">
               <IconButton icon="tune" label="Ajustes" size="lg" variant="raised" />
-              <span className="text-2xs text-ink-muted">lg · 40</span>
+              <span className="text-meta text-ink-muted">lg · 40</span>
             </span>
           </Variant>
         </Panel>

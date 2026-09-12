@@ -23,8 +23,8 @@ export function ModalStory() {
             <Button variant="raised" onClick={() => setOpen(true)}>Abrir modal</Button>
             <Modal open={open} onClose={() => setOpen(false)} label="Ejemplo" width={620}>
               <div className="p-6">
-                <div className="text-lg font-medium">Un modal de 620</div>
-                <p className="mt-2 max-w-[52ch] text-xs font-medium text-ink-muted">
+                <div className="text-title font-medium">Un modal de 620</div>
+                <p className="mt-2 max-w-[52ch] text-body font-medium text-ink-muted">
                   Probá Escape, y probá hacer scroll en la página de atrás: está bloqueado, y no hay
                   salto lateral al abrir.
                 </p>
@@ -40,8 +40,8 @@ export function ModalStory() {
             <Button variant="raised" onClick={() => setNarrowOpen(true)}>Confirmación</Button>
             <Modal open={narrowOpen} onClose={() => setNarrowOpen(false)} label="Confirmar" width={420}>
               <div className="p-6">
-                <div className="text-base font-semibold">¿Eliminar la actividad?</div>
-                <p className="mt-2 text-xs font-medium text-ink-muted">Se va a borrar para todo el equipo.</p>
+                <div className="text-reading font-semibold">¿Eliminar la actividad?</div>
+                <p className="mt-2 text-body font-medium text-ink-muted">Se va a borrar para todo el equipo.</p>
                 <div className="mt-6 flex justify-end gap-2">
                   <Button variant="ghost" size="sm" onClick={() => setNarrowOpen(false)}>Cancelar</Button>
                   <Button variant="bad" size="sm" onClick={() => setNarrowOpen(false)}>Eliminar</Button>
@@ -71,7 +71,7 @@ export function ModalStory() {
             />
           </Demo>
         </div>
-        <p className="mt-3 max-w-[70ch] text-2xs text-ink-muted">
+        <p className="mt-3 max-w-[70ch] text-meta text-ink-muted">
           Vive en el paquete y no en la app por la misma regla que deja al shell afuera: no lee
           `data.ts` ni el router. Lo único que necesita son las preferencias —que ya viven acá— y
           quién está mirando, que va por prop: el nombre y el correo de una persona real no son

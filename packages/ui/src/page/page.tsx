@@ -27,8 +27,8 @@ export function PageHeader({
   return (
     <div className="mb-5 flex min-h-10 flex-wrap items-center justify-between gap-4">
       <div className="min-w-0">
-        <h1 className="text-lg font-medium">{title}</h1>
-        {subtitle && <p className="mt-1.5 text-xs font-medium text-ink-muted">{subtitle}</p>}
+        <h1 className="text-title font-medium">{title}</h1>
+        {subtitle && <p className="mt-1.5 text-body font-medium text-ink-muted">{subtitle}</p>}
       </div>
       {actions && <div className="flex shrink-0 items-center gap-2">{actions}</div>}
     </div>
@@ -43,8 +43,8 @@ export function SectionLabel({ children, count }: {
 }) {
   return (
     <div className="mb-3 mt-8 flex items-center gap-2.5 first:mt-0">
-      <span className="text-xs font-medium text-ink-muted">{children}</span>
-      {count !== undefined && <span className="tabular text-2xs text-ink-muted">{count}</span>}
+      <span className="text-body font-medium text-ink-muted">{children}</span>
+      {count !== undefined && <span className="tabular text-meta text-ink-muted">{count}</span>}
       <span className="h-px flex-1 bg-line" />
     </div>
   )

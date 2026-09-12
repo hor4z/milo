@@ -2,10 +2,10 @@ import { useEffect, useMemo, useRef, useState, type ReactNode } from 'react'
 import { Icon, IconButton, Kbd, ToastProvider, cx, fold, usePrefs } from '@milo/ui'
 import { Intro } from './intro'
 import { Dashboard } from './dashboard'
-import { Foundations } from './guide/foundations'
-import { Writing } from './guide/writing'
+import { Principles } from './guide/principles'
+import { TypographySection } from './foundations/typography'
+import { Writing } from './foundations/writing'
 import { ColorSection } from './tokens/color'
-import { TypeSection } from './tokens/type'
 import { MeasureSection } from './tokens/measure'
 import { ReliefSection } from './tokens/relief'
 import { ButtonStory } from './stories/button'
@@ -57,16 +57,25 @@ type Group = { label: string; stories: Story[] }
 const INTRO = 'intro'
 
 const groups: Group[] = [
+  // Fundamentos va primero y arriba de Guía a propósito: es la capa de la que
+  // sale todo lo demás. Hoy tiene las dos caras del texto —cómo se ve y cómo
+  // suena— y color, medidas y relieve siguen en Guía, que es tan arbitrario
+  // como suena: son fundamentos igual y les toca mudarse.
+  {
+    label: 'Fundamentos',
+    stories: [
+      { id: 'typography', label: 'Tipografía', alias: 'tipografía fuente texto escala pesos interlineado tracking familia legibilidad', render: () => <TypographySection /> },
+      { id: 'writing', label: 'Cómo se escribe', alias: 'texto redacción copy mensajes tono escritura', render: () => <Writing /> },
+    ],
+  },
   {
     label: 'Guía',
     stories: [
-      { id: 'foundations', label: 'Principios', alias: 'principios fundamentos reglas decisiones', render: () => <Foundations /> },
+      { id: 'principles', label: 'Principios', alias: 'principios fundamentos reglas decisiones', render: () => <Principles /> },
       { id: 'color', label: 'Color', alias: 'paleta tokens rampa tonos', render: () => <ColorSection /> },
-      { id: 'type', label: 'Tipografía', alias: 'tipografía fuente texto escala pesos', render: () => <TypeSection /> },
       { id: 'measure', label: 'Medidas y radios', alias: 'espaciado medidas radios tamaños', render: () => <MeasureSection /> },
       { id: 'relief', label: 'Relieve', alias: 'sombra relieve elevación profundidad', render: () => <ReliefSection /> },
       { id: 'icon', label: 'Iconos', alias: 'iconos glifos símbolos', render: () => <IconStory /> },
-      { id: 'writing', label: 'Cómo se escribe', alias: 'texto redacción copy mensajes tono', render: () => <Writing /> },
     ],
   },
   {
@@ -215,8 +224,8 @@ export function App() {
         >
           <div className="flex flex-col gap-3 px-4 pt-5 pb-3">
             <button onClick={() => go(INTRO)} className="flex items-baseline gap-1.5 self-start rounded-md px-1 text-left">
-              <span className="text-base font-bold tracking-tight text-ink">milo</span>
-              <span className="text-2xs font-semibold text-ink-muted">design system</span>
+              <span className="text-reading font-bold text-ink">milo</span>
+              <span className="text-meta font-semibold text-ink-muted">design system</span>
             </button>
 
             <label className="field flex h-8 cursor-text items-center gap-2 rounded-lg border border-field-line bg-field px-2.5">
@@ -244,7 +253,7 @@ export function App() {
                 }}
                 placeholder="Buscar"
                 aria-label="Buscar una pieza"
-                className="min-w-0 flex-1 bg-transparent text-xs font-normal text-ink outline-none placeholder:text-ink-muted"
+                className="min-w-0 flex-1 bg-transparent text-body font-normal text-ink outline-none placeholder:text-ink-muted"
               />
               {query
                 ? (
@@ -262,7 +271,7 @@ export function App() {
 
             {filtered.map(g => (
               <div key={g.label} className="mt-5 first:mt-4">
-                <div className="px-2.5 pb-1.5 text-2xs font-semibold tracking-wide text-ink-muted uppercase">
+                <div className="px-2.5 pb-1.5 text-label font-semibold text-ink-muted uppercase">
                   {g.label}
                 </div>
                 <div className="flex flex-col gap-px">
@@ -274,12 +283,12 @@ export function App() {
             ))}
 
             {filtered.length === 0 && (
-              <p className="px-2.5 py-6 text-xs font-medium text-ink-muted">Nada con «{query}».</p>
+              <p className="px-2.5 py-6 text-body font-medium text-ink-muted">Nada con «{query}».</p>
             )}
           </div>
 
           <div className="flex items-center justify-between gap-2 border-t border-line px-4 py-3">
-            <span className="text-2xs font-medium text-ink-muted">
+            <span className="text-meta font-medium text-ink-muted">
               {everything.length} piezas
             </span>
             <IconButton
@@ -302,7 +311,7 @@ export function App() {
             aria-controls="riel"
             onClick={() => setRailOpen(true)}
           />
-          <span className="text-xs font-semibold text-ink">milo · design system</span>
+          <span className="text-body font-semibold text-ink">milo · design system</span>
         </div>
 
         <main ref={main} className="min-w-0 flex-1 px-5 py-8 lg:ml-[248px] lg:px-10 lg:py-10">
@@ -338,7 +347,7 @@ function SideLink({ active, onClick, icon, piece, children }: {
       }}
       aria-current={active ? 'page' : undefined}
       className={cx(
-        'flex h-8 w-full items-center gap-2 rounded-lg px-2.5 text-left text-xs transition-colors',
+        'flex h-8 w-full items-center gap-2 rounded-lg px-2.5 text-left text-body transition-colors',
         active ? 'bg-muted font-semibold text-ink' : 'font-medium text-ink-muted hover:bg-hover hover:text-ink',
       )}
     >

@@ -36,8 +36,27 @@ describe('coherencia del sistema', () => {
 
   it('los tamaños de texto salen de la escala', () => {
     const offenders = sources
-      .filter(f => /text-\[\d+px\]/.test(f.text))
+      .filter(f => /text-\[/.test(f.text))
       .map(f => f.name)
+    expect(offenders).toEqual([])
+  })
+
+  it('nadie usa un nombre de la escala vieja', () => {
+    // La escala pasó de nueve escalones anónimos a siete roles. El nombre viejo
+    // no genera ninguna utilidad —`--text-*: initial` en el `@theme` los apaga—,
+    // así que un call site olvidado no rompe: se queda sin tamaño y hereda el del
+    // body, que es casi el correcto. Casi. Por eso lo mira un test.
+    const viejos = /\btext-(2xs|xs|sm|base|md|lg|xl|2xl)\b/
+    const offenders = sources.filter(f => viejos.test(f.text)).map(f => f.name)
+    expect(offenders).toEqual([])
+  })
+
+  it('el interlineado y el tracking vienen del rol, no sueltos', () => {
+    // El bug que la escala nueva viene a matar: escritos por separado se
+    // despegan del tamaño. `text-lg` llegó a ser 20px de letra en una caja de
+    // línea de 16 porque el interlineado era un token aparte.
+    const sueltos = /\b(leading|tracking)-(\[|none|tight|normal|snug|relaxed|loose|wide|wider|widest)/
+    const offenders = sources.filter(f => sueltos.test(f.text)).map(f => f.name)
     expect(offenders).toEqual([])
   })
 

@@ -68,7 +68,7 @@ export function TooltipStory() {
         title="Lo que no hace"
         note="En touch no aparece: no hay hover que lo abra ni forma de cerrarlo sin tocar otra cosa. Por eso lo que el tooltip diga tiene que estar también en el aria-label del control, y por eso no lleva información que no esté en otro lado. Para un lector de pantalla el control ya se nombra solo; el tooltip es la ayuda de quien ve el icono y no sabe qué hace."
       >
-        <p className="max-w-[70ch] text-xs text-ink-muted">
+        <p className="max-w-[70ch] text-body text-ink-muted">
           Queda un <code>title</code> nativo en el <code>Segmented</code> de solo iconos, que es la
           misma caja del sistema operativo que se le sacó al <code>IconButton</code>. Pasarlo a{' '}
           <code>Tooltip</code> ata <code>primitives</code> a <code>overlay</code>, que hoy importa

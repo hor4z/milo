@@ -25,8 +25,8 @@
 
    · `font-weight`/`font-style` normal — si no, un contexto en `font-semibold`
      o en itálica sintetiza negrita u oblicua sobre el glifo.
-   · `letter-spacing: normal` — los h1/h2/h3 del sistema traen
-     `--tracking-tight`, y el tracking suma avance y rompe la caja de size×size.
+   · `letter-spacing: normal` — casi todos los roles de texto traen tracking
+     propio, y el tracking suma avance y rompe la caja de size×size.
    · `line-height: 1` — hace que la caja de línea mida exactamente 1em, así el
      `align-items: center` centra contra la caja y no contra la baseline.
    · `user-select: none` — un glifo es texto: sin esto entra en un Ctrl+A y en
@@ -102,12 +102,15 @@
   --font-weight-semibold: 500;  /* lo accionable y los títulos de fila */
   --font-weight-bold: 600;      /* solo display */
 
-  --text-2xs: 11px;
-  --text-2xs--line-height: 16px;
-  --text-md: 16px;
-  --text-md--line-height: 24px;
-  --text-display: 40px;
-  --text-display--line-height: 1.05;
+  /* Se apaga la escala que trae Tailwind, con el mismo argumento que la paleta
+     de más abajo: si `text-xs` sigue existiendo, alguien la va a usar y el
+     sistema deja de ser la única fuente de tamaño. Y acá hace falta de verdad,
+     no por higiene: los nombres viejos vivían en `:root` de `tokens/scales.css`
+     y funcionaban solo porque **pisaban** variables que Tailwind ya emite. Al
+     sacarlos de ahí, los valores de Tailwind resucitan solos —`text-xs` volvería
+     a ser 12px, `text-base` 16— y un call site olvidado seguiría andando con el
+     tamaño equivocado, en silencio. Con esto, no anda: se ve. */
+  --text-*: initial;
 }
 
 @theme inline {
@@ -174,6 +177,44 @@
   --font-display: var(--font-display);
   --font-mono: var(--font-mono);
 
+  /* Los siete roles. Cada utilidad escribe los tres valores de una —tamaño,
+     interlineado y tracking—, que es todo el punto: escritos por separado se
+     despegan, y se despegaron. `text-lg` llegó a ser 20px de letra dentro de una
+     caja de línea de 16 porque el line-height era un token aparte que nadie
+     tenía que recordar.
+
+     Tienen que ir sí o sí adentro de un bloque `@theme`: son nombres que
+     Tailwind no conoce, así que declararlos en `:root` no genera ninguna
+     utilidad. El `inline` es para que sigan leyendo el token en vivo y el tema
+     pueda moverlos. */
+  --text-meta: var(--type-meta);
+  --text-meta--line-height: var(--type-meta-lh);
+  --text-meta--letter-spacing: var(--type-meta-ls);
+
+  --text-label: var(--type-label);
+  --text-label--line-height: var(--type-label-lh);
+  --text-label--letter-spacing: var(--type-label-ls);
+
+  --text-body: var(--type-body);
+  --text-body--line-height: var(--type-body-lh);
+  --text-body--letter-spacing: var(--type-body-ls);
+
+  --text-reading: var(--type-reading);
+  --text-reading--line-height: var(--type-reading-lh);
+  --text-reading--letter-spacing: var(--type-reading-ls);
+
+  --text-title: var(--type-title);
+  --text-title--line-height: var(--type-title-lh);
+  --text-title--letter-spacing: var(--type-title-ls);
+
+  --text-heading: var(--type-heading);
+  --text-heading--line-height: var(--type-heading-lh);
+  --text-heading--letter-spacing: var(--type-heading-ls);
+
+  --text-display: var(--type-display);
+  --text-display--line-height: var(--type-display-lh);
+  --text-display--letter-spacing: var(--type-display-ls);
+
   /* `xs` hay que declararlo: Tailwind v4 ya trae un --radius-xs propio de 2px,
      así que sin esta línea `rounded-xs` sale con el valor de Tailwind y no con
      el del sistema. */
@@ -231,12 +272,18 @@
 * { box-sizing: border-box; }
 html, body, #root { min-height: 100%; margin: 0; }
 
-/* La interfaz entera es 12px con peso 400 y line-height fijo de 16. Estuvo años
-   en 500, y ese 500 se decidió mirando **Inter**, donde el 400 a 12px se leía
-   lavado sobre un fondo casi blanco. Instrument Sans dibuja más grueso al mismo
-   número, así que el 500 que con Inter apenas alcanzaba acá pesaba: la pantalla
-   entera se veía en negrita. Bajaron los tres escalones juntos, no solo este:
-   400 la interfaz, 500 lo accionable, 600 el display. */
+/* La interfaz entera es el rol `body`: 14px, peso 400, 20 de interlineado.
+   Estuvo en 12 sobre una caja de línea de 16 fija para todos los tamaños, y de
+   ahí salían las dos quejas juntas —«se lee chico» y «falta nitidez»—: lo
+   segundo no era la letra, eran los renglones pisándose.
+
+   El peso estuvo años en 500, decidido mirando **Inter**, donde el 400 a 12px se
+   leía lavado sobre un fondo casi blanco. Instrument Sans dibuja más grueso al
+   mismo número, así que el 500 que con Inter apenas alcanzaba acá pesaba: la
+   pantalla entera se veía en negrita. Bajaron los tres escalones juntos, no solo
+   este: 400 la interfaz, 500 lo accionable, 600 el display. Ese número hay que
+   volver a mirarlo cuando se elija la familia, porque se calibró a 12px y ahora
+   la base es 14. */
 /* **Sin `-webkit-font-smoothing: antialiased` y sin `text-rendering:
    optimizeLegibility`**, y las dos ausencias son la decisión.
 
@@ -254,11 +301,17 @@ body {
   background: var(--canvas);
   color: var(--text);
   font-family: var(--font-sans);
-  font-size: var(--text-xs);
+  font-size: var(--type-body);
   font-weight: 400;
-  line-height: var(--leading-ui);
+  line-height: var(--type-body-lh);
+  letter-spacing: var(--type-body-ls);
 }
-h1, h2, h3 { font-family: var(--font-sans); font-weight: 400; letter-spacing: var(--tracking-tight); margin: 0; }
+
+/* Sin `letter-spacing` acá, y es a propósito. La regla vieja apretaba todos los
+   h1-h3 con -0.015em, un número medido contra Inter a 12px dos familias atrás,
+   y se lo aplicaba igual a un título de 20 que a uno de 40. El tracking es parte
+   del rol: lo trae `text-title` o `text-heading`, que saben de qué tamaño son. */
+h1, h2, h3 { font-family: var(--font-sans); font-weight: 400; margin: 0; }
 
 /* Los números de un precio o de una métrica se alinean en columna: sin esto, el
    1 es más angosto que el 4 y una tabla de números baila. */
@@ -452,8 +505,8 @@ h1, h2, h3 { font-family: var(--font-sans); font-weight: 400; letter-spacing: va
   gap: 2px;
   max-width: calc(var(--folder-w) * 1.1);
 }
-.folder-name { font-size: var(--text-xs); font-weight: 500; color: var(--text); }
-.folder-meta { font-size: var(--text-2xs); font-weight: 400; color: var(--text-muted); }
+.folder-name { font-size: var(--type-body); line-height: var(--type-body-lh); font-weight: 500; color: var(--text); }
+.folder-meta { font-size: var(--type-meta); line-height: var(--type-meta-lh); letter-spacing: var(--type-meta-ls); font-weight: 400; color: var(--text-muted); }
 
 @media (prefers-reduced-motion: reduce) {
   /* Sin movimiento no se puede abanicar, así que las hojas se quedan afuera:

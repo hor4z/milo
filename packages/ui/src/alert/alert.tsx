@@ -37,12 +37,12 @@ export function Alert({ tone = 'info', icon, onDismiss, className, children, ...
 
 /** El renglón que nombra el aviso. */
 export function AlertTitle({ className, ...props }: ComponentPropsWithoutRef<'p'>) {
-  return <p className={cx('text-base font-semibold text-ink', className)} {...props} />
+  return <p className={cx('text-reading font-semibold text-ink', className)} {...props} />
 }
 
 /** Qué pasó y qué se puede hacer. */
 export function AlertBody({ className, ...props }: ComponentPropsWithoutRef<'p'>) {
-  return <p className={cx('text-xs font-medium text-ink-muted', className)} {...props} />
+  return <p className={cx('text-body font-medium text-ink-muted', className)} {...props} />
 }
 
 /** La fila de botones del aviso. */

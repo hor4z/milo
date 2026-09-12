@@ -44,7 +44,7 @@ export function MeasureSection() {
                 <span className="w-10 shrink-0"><Mono>{c.name}</Mono></span>
                 <div className="rounded-lg bg-muted" style={{ height: c.h, width: 132 }} />
                 <span className="tabular"><Mono>{c.h}px</Mono></span>
-                <span className="text-2xs text-ink-muted">{c.role}</span>
+                <span className="text-meta text-ink-muted">{c.role}</span>
               </div>
             ))}
           </div>
@@ -72,7 +72,7 @@ export function MeasureSection() {
                 <span className={`size-14 shrink-0 bg-ink ${r.cls}`} />
                 <span className="w-28 shrink-0"><Mono>{r.token.replace('--radius-', '')}</Mono></span>
                 <Value token={r.token} />
-                <span className="text-2xs text-ink-muted">{r.role}</span>
+                <span className="text-meta text-ink-muted">{r.role}</span>
               </div>
             ))}
           </div>
@@ -102,7 +102,7 @@ function Measure({ token, role }: { token: string; role: string }) {
       <span className="w-52 shrink-0"><Mono>{token}</Mono></span>
       <span className="w-12 shrink-0 tabular"><Mono>{raw || '—'}</Mono></span>
       <span className="h-2 rounded-full bg-muted" style={{ width: Math.min(Number.isNaN(px) ? 0 : px, 220) }} />
-      <span className="text-2xs text-ink-muted">{role}</span>
+      <span className="text-meta text-ink-muted">{role}</span>
     </div>
   )
 }
@@ -119,7 +119,7 @@ function NestDemo({ child, label, verdict, ok }: { child: string; label: string;
         <div className={`size-24 bg-canvas ${child}`} />
       </div>
       <Mono>{label}</Mono>
-      <span className={ok ? 'text-2xs font-semibold text-ok-ink' : 'text-2xs font-semibold text-bad-ink'}>{verdict}</span>
+      <span className={ok ? 'text-meta font-semibold text-ok-ink' : 'text-meta font-semibold text-bad-ink'}>{verdict}</span>
     </div>
   )
 }

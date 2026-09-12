@@ -15,7 +15,7 @@ export function Badge({ tone = 'neutral', icon, className, children, ...props }:
   return (
     <span
       className={cx(
-        'inline-flex h-5 items-center gap-1 rounded-sm px-1.5 text-2xs font-semibold',
+        'inline-flex min-h-5 items-center gap-1 rounded-sm px-1.5 text-meta font-semibold',
         badgeTone[tone],
         className,
       )}

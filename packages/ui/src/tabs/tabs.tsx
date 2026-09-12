@@ -78,7 +78,7 @@ export function Tab({ value, className, children, ...props }: ComponentPropsWith
       tabIndex={active ? 0 : -1}
       onClick={() => setValue(value)}
       className={cx(
-        'relative -mb-px h-9 px-3 text-xs font-semibold transition-colors',
+        'relative -mb-px h-9 px-3 text-body font-semibold transition-colors',
         active ? 'text-ink' : 'text-ink-muted hover:text-ink',
         className,
       )}

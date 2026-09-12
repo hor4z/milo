@@ -27,7 +27,7 @@ export function ChipStory() {
             {chips.map(c => (
               <Chip key={c} onRemove={() => setChips(cs => cs.filter(x => x !== c))}>{c}</Chip>
             ))}
-            {chips.length === 0 && <span className="text-2xs text-ink-muted">se fueron todos — recargá para volver a verlos</span>}
+            {chips.length === 0 && <span className="text-meta text-ink-muted">se fueron todos — recargá para volver a verlos</span>}
           </Variant>
           <Variant name="las dos cosas">
             <Chip color="blue" onClick={() => {}} onRemove={() => {}}>Matemática</Chip>

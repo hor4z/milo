@@ -24,12 +24,12 @@ export function ReliefSection() {
         <div className="grid gap-3 sm:grid-cols-2">
           {recipes.map(r => (
             <div key={r.token} className="flex flex-col gap-3 rounded-2xl border border-line bg-surface p-5">
-              <div className={`${r.cls} ${r.back} flex h-14 items-center justify-center rounded-xl text-xs font-semibold`}>
+              <div className={`${r.cls} ${r.back} flex h-14 items-center justify-center rounded-xl text-body font-semibold`}>
                 {r.role}
               </div>
               <div className="flex flex-col gap-1">
-                <code className="font-mono text-2xs font-semibold text-ink">{r.token}</code>
-                <span className="text-2xs font-medium text-ink-muted">{r.detail}</span>
+                <code className="font-mono text-meta font-semibold text-ink">{r.token}</code>
+                <span className="text-meta font-medium text-ink-muted">{r.detail}</span>
               </div>
             </div>
           ))}
@@ -45,8 +45,8 @@ export function ReliefSection() {
             <div key={c.token} className="flex flex-col items-center gap-4 rounded-2xl border border-line bg-muted p-6">
               <div className="size-20 rounded-xl bg-surface" style={{ boxShadow: `var(${c.token})` }} />
               <div className="flex flex-col items-center gap-1 text-center">
-                <code className="font-mono text-2xs font-semibold text-ink">{c.token}</code>
-                <span className="text-2xs font-medium text-ink-muted">{c.role}</span>
+                <code className="font-mono text-meta font-semibold text-ink">{c.token}</code>
+                <span className="text-meta font-medium text-ink-muted">{c.role}</span>
               </div>
             </div>
           ))}
@@ -59,16 +59,16 @@ export function ReliefSection() {
       >
         <div className="grid gap-3 sm:grid-cols-2">
           <div className="flex flex-col gap-2 rounded-2xl border border-line bg-surface p-5">
-            <span className="text-xs font-semibold text-ink">El canto no es un escalón de la rampa</span>
-            <p className="text-2xs font-medium text-ink-muted">
+            <span className="text-body font-semibold text-ink">El canto no es un escalón de la rampa</span>
+            <p className="text-meta font-medium text-ink-muted">
               <code className="font-mono">--edge</code> es más oscuro que el borde más oscuro, porque tiene
               que dibujar el filo de algo que sobresale. Con el paso 05 puesto ahí, el botón gris se ve
               plano sobre un fondo casi blanco.
             </p>
           </div>
           <div className="flex flex-col gap-2 rounded-2xl border border-line bg-surface p-5">
-            <span className="text-xs font-semibold text-ink">Hundido son dos cosas distintas</span>
-            <p className="text-2xs font-medium text-ink-muted">
+            <span className="text-body font-semibold text-ink">Hundido son dos cosas distintas</span>
+            <p className="text-meta font-medium text-ink-muted">
               Una marca lleva canto y sombra de caída; algo que se aprieta, no. Mezclarlas hace que un
               kbd y un toggle activo se vean igual, que son dos cosas que no tienen nada que ver.
             </p>

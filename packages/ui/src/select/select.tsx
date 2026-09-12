@@ -117,7 +117,7 @@ export function Select({
           if (e.key === 'ArrowDown' || e.key === 'ArrowUp') { e.preventDefault(); setOpen(true) }
         }}
         style={{ width }}
-        className="field-focus inline-flex h-9 items-center justify-between gap-2 rounded-md border border-field-line bg-field px-3 text-xs font-medium text-ink transition-colors duration-[120ms] hover:bg-field-hover aria-disabled:cursor-default aria-disabled:hover:bg-field"
+        className="field-focus inline-flex h-9 items-center justify-between gap-2 rounded-md border border-field-line bg-field px-3 text-body font-medium text-ink transition-colors duration-[120ms] hover:bg-field-hover aria-disabled:cursor-default aria-disabled:hover:bg-field"
       >
         <span className="flex min-w-0 items-center gap-2">
           {leadingNode && <span className="flex shrink-0 items-center">{leadingNode}</span>}
@@ -149,7 +149,7 @@ export function Select({
                   onMouseMove={() => setActive(i)}
                   onClick={() => { onChange?.(o); setOpen(false); btn.current?.focus() }}
                   className={cx(
-                    'flex w-full items-center gap-2 rounded-sm px-2.5 py-2 text-left text-xs font-medium',
+                    'flex w-full items-center gap-2 rounded-sm px-2.5 py-2 text-left text-body font-medium',
                     i === active ? 'bg-hover text-ink' : 'text-ink-muted',
                   )}
                 >

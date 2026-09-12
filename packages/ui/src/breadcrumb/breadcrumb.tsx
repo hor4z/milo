@@ -7,7 +7,7 @@ type BreadcrumbProps = ComponentPropsWithoutRef<'nav'> & {
   items: { label: string; href?: string; onClick?: () => void }[]
 }
 
-const step = 'truncate rounded-sm text-xs font-medium text-ink-muted transition-colors hover:text-ink'
+const step = 'truncate rounded-sm text-body font-medium text-ink-muted transition-colors hover:text-ink'
 
 /** Dónde estás parado y cómo volver. */
 export function Breadcrumb({ items, className, ...props }: BreadcrumbProps) {
@@ -19,7 +19,7 @@ export function Breadcrumb({ items, className, ...props }: BreadcrumbProps) {
           return (
             <li key={i} className="flex min-w-0 items-center gap-1">
               {last
-                ? <span aria-current="page" className="truncate text-xs font-semibold text-ink">{it.label}</span>
+                ? <span aria-current="page" className="truncate text-body font-semibold text-ink">{it.label}</span>
                 : it.href
                   ? <a href={it.href} onClick={it.onClick} className={step}>{it.label}</a>
                   : it.onClick

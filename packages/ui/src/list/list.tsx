@@ -50,8 +50,8 @@ export function ListItem({
       </span>
 
       <span className="min-w-0 flex-1">
-        <span className="block truncate text-md font-semibold text-ink">{title}</span>
-        {hint && <span className="mt-0.5 block truncate text-base font-medium text-ink-muted">{hint}</span>}
+        <span className="block truncate text-reading font-semibold text-ink">{title}</span>
+        {hint && <span className="mt-0.5 block truncate text-reading font-medium text-ink-muted">{hint}</span>}
       </span>
 
       {trailing && <span className="shrink-0">{trailing}</span>}

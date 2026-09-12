@@ -35,7 +35,7 @@ export function CardStory() {
               <CardTitle>Sin partes</CardTitle>
             </CardHeader>
             <CardBody>
-              <p className="text-xs font-medium text-ink-muted">
+              <p className="text-body font-medium text-ink-muted">
                 La tarjeta sigue aceptando cualquier contenido suelto para lo que no tiene esa forma —
                 una portada, un gráfico, una grilla de fotos.
               </p>
@@ -52,15 +52,15 @@ export function CardStory() {
           <Card className="w-[260px]">
             <div className="rounded-xl bg-tint-2" style={{ height: 120 }} />
             <div className="px-2 pt-3 pb-1.5">
-              <div className="text-xs font-semibold">El barrio como mapa</div>
-              <div className="mt-1 text-2xs text-ink-muted">Geografía · 6.º · Indagación</div>
+              <div className="text-body font-semibold">El barrio como mapa</div>
+              <div className="mt-1 text-meta text-ink-muted">Geografía · 6.º · Indagación</div>
             </div>
           </Card>
           <Card className="w-[260px]" interactive>
             <div className="rounded-xl bg-tint-3" style={{ height: 120 }} />
             <div className="px-2 pt-3 pb-1.5">
-              <div className="text-xs font-semibold">Con interactive</div>
-              <div className="mt-1 text-2xs text-ink-muted">Se levanta en hover — para donde haga falta</div>
+              <div className="text-body font-semibold">Con interactive</div>
+              <div className="mt-1 text-meta text-ink-muted">Se levanta en hover — para donde haga falta</div>
             </div>
           </Card>
         </div>
@@ -72,12 +72,12 @@ export function CardStory() {
       >
         <div className="flex flex-wrap gap-4">
           <Card className="w-[260px] p-4" surface="paper">
-            <div className="text-xs font-semibold">paper</div>
-            <div className="mt-1 text-2xs text-ink-muted">Sobresale. El default.</div>
+            <div className="text-body font-semibold">paper</div>
+            <div className="mt-1 text-meta text-ink-muted">Sobresale. El default.</div>
           </Card>
           <Card className="w-[260px] p-4" surface="muted">
-            <div className="text-xs font-semibold">muted</div>
-            <div className="mt-1 text-2xs text-ink-muted">Un hueco, para lo que agrupa.</div>
+            <div className="text-body font-semibold">muted</div>
+            <div className="mt-1 text-meta text-ink-muted">Un hueco, para lo que agrupa.</div>
           </Card>
         </div>
       </Section>
