@@ -33,7 +33,11 @@ export function Menu({ children, width, className }: {
       role="menu"
       style={width ? { width } : undefined}
       className={cx(
-        'ui-pop rounded-[20px] border border-line bg-popover p-2 shadow-popover',
+        /* Radio 16 y no 20: la escala del sistema es 6·10·12·16·24 y el 20 era
+           el único valor inventado que quedaba. Con 8 de padding, el 16 además
+           cierra la regla del anidado — la fila de adentro lleva 12 y las dos
+           curvas se ven como una sola pieza. */
+        'ui-pop rounded-xl border border-line bg-popover p-2 shadow-popover',
         /* El separador se estira hasta el borde del panel, y la cuenta la hace
            el panel porque es el que conoce su padding: 8 de cada lado. Si la
            hiciera el separador, cada call site tendría que acordarse de un

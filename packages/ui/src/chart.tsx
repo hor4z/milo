@@ -66,6 +66,10 @@ export function BarChart({ data, highlight, title, height = 220, className }: {
 }) {
   const [activa, setActiva] = useState<number | null>(null)
   const tablaId = useId()
+  /* El id del patrón sale de `useId` y no de una constante: dos gráficos en la
+     misma pantalla con el mismo id hacen que el segundo apunte al `<pattern>`
+     del primero, y si ese se desmonta, el rayado del que queda desaparece. */
+  const tramaId = `trama-${useId().replace(/:/g, '')}`
   /* La escala sale del total más alto y no del valor más alto: si la altura la
      mandara lo hecho, un día con 4 de 4 dibujaría una barra más alta que uno con
      30 de 60, y el gráfico diría lo contrario de lo que pasó. */
@@ -73,6 +77,21 @@ export function BarChart({ data, highlight, title, height = 220, className }: {
 
   return (
     <figure className={cx('m-0', className)} aria-describedby={tablaId}>
+      {/* Las defs viven en un svg de tamaño cero: un `<pattern>` no dibuja nada
+          por su cuenta, solo lo referencian los rects de abajo por id. */}
+      <svg width="0" height="0" aria-hidden="true" className="absolute">
+        <defs>
+          {/* El tile lleva una sola línea vertical y el `patternTransform` lo
+              gira 45°: dibujar la diagonal a mano adentro del cuadrado deja los
+              extremos sin empalmar con el tile de al lado, y la trama se ve
+              cortada en una cuadrícula. Rotando el patrón entero, las líneas
+              siguen de largo. */}
+          <pattern id={tramaId} width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+            <line x1="0" y1="0" x2="0" y2="6" stroke="var(--text)" strokeWidth="1" strokeOpacity="0.18" />
+          </pattern>
+        </defs>
+      </svg>
+
       <div className="relative flex items-end gap-3" style={{ height }}>
         {data.map((d, i) => {
           const alto = Math.max(6, Math.round((d.total / max) * 100))
@@ -99,9 +118,24 @@ export function BarChart({ data, highlight, title, height = 220, className }: {
                 /* `overflow-hidden` para que el relleno tome la curva de la
                    pista: sin eso, el azul dibuja sus propias esquinas adentro y
                    quedan dos radios distintos en la misma barra. */
-                className="relative w-full overflow-hidden rounded-xl bg-track transition-[filter] duration-[120ms] ease-out group-hover:brightness-95"
+                className={cx(
+                  'relative w-full overflow-hidden rounded-xl bg-track',
+                  /* El fondo plano se va en el hover y queda el rayado: lo que
+                     falta deja de ser un bloque y pasa a ser una trama, que es
+                     como se dibuja «esto todavía no está» sin agregar un color
+                     nuevo. La transición va sobre el color y sobre la opacidad
+                     de la trama, no sobre las dos capas a la vez, o se ve un
+                     parpadeo en el cruce. */
+                  'transition-colors duration-[140ms] ease-out group-hover:bg-transparent',
+                )}
                 style={{ height: `${alto}%` }}
               >
+                <svg
+                  aria-hidden="true"
+                  className="absolute inset-0 h-full w-full opacity-0 transition-opacity duration-[140ms] ease-out group-hover:opacity-100"
+                >
+                  <rect width="100%" height="100%" fill={`url(#${tramaId})`} />
+                </svg>
                 <span
                   className="absolute inset-x-0 bottom-0 rounded-xl bg-brand"
                   style={{ height: `${hecho}%` }}
@@ -160,9 +194,15 @@ export function BarChart({ data, highlight, title, height = 220, className }: {
 /**
  * La caja del tooltip.
  *
- * El filo azul de la izquierda es lo único que la ata al gráfico: sin él es una
- * tarjeta blanca flotando sobre cualquier cosa. Va del color de la serie, que es
- * el único lugar donde el color del dato entra en una superficie de texto.
+ * La marca azul de la izquierda es lo único que la ata al gráfico: sin ella es
+ * una tarjeta blanca flotando sobre cualquier cosa. Va del color de la serie —el
+ * único lugar donde el color del dato toca una superficie de texto— y es un
+ * trazo corto en la línea del número, no un filo pegado al borde: un filo tiene
+ * que seguir la curva de la caja para no verse torcido, y con el radio de un
+ * tooltip no hay curva que seguir.
+ *
+ * El radio es el de un tooltip (10) y no el de un panel: una caja de dos
+ * renglones con el radio de un menú se ve como una pastilla.
  *
  * El número va primero y grande, y la frase abajo en gris. Es la jerarquía de un
  * tooltip al revés de la de una leyenda: acá el lector ya sabe qué tocó y lo que
@@ -175,16 +215,21 @@ function ChartTooltip({ datum, style }: { datum: BarDatum; style?: React.CSSProp
       /* `pointer-events-none` o el tooltip se mete entre el mouse y la barra que
          explica, y el hover parpadea. `-translate-x-1/2` para centrarlo en su
          columna, y el margen de abajo lo despega del tope de la barra. */
-      className="ui-fade pointer-events-none absolute z-20 mb-2 -translate-x-1/2 whitespace-nowrap rounded-xl bg-surface py-2 pr-3.5 pl-3 shadow-popover"
+      className="ui-fade pointer-events-none absolute z-20 mb-2 -translate-x-1/2 whitespace-nowrap rounded-md bg-surface px-3 py-2 shadow-popover"
       style={style}
     >
-      <span className="absolute top-2 bottom-2 left-0 w-[3px] rounded-full bg-brand" />
-      <div className="flex items-center gap-2 pl-2">
+      <div className="flex items-center gap-2">
+        {/* Una marca corta del color de la serie y no un filo pegado al borde.
+            El filo tenía que seguir la curva de la caja para no verse torcido, y
+            con el radio chico de un tooltip no hay curva que seguir: quedaba un
+            palito azul cortando una esquina. Esta marca va en la línea del
+            número, que es lo que colorea. */}
+        <span className="h-3 w-[3px] shrink-0 rounded-full bg-brand" />
         <span className="tabular text-base font-bold text-ink">{datum.value}</span>
         <span className="tabular text-2xs font-medium text-ink-muted">de {datum.total}</span>
         {datum.detail}
       </div>
-      <div className="pl-2 text-2xs font-medium text-ink-muted">{datum.caption ?? datum.label}</div>
+      <div className="pl-[11px] text-2xs font-medium text-ink-muted">{datum.caption ?? datum.label}</div>
     </div>
   )
 }
