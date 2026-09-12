@@ -9,9 +9,10 @@ otras son los tokens y lo que el sitio documenta alrededor. Acá adentro no vive
 prototipo de la app que hubo hasta ahora se borró, y cuando haga falta uno de nuevo se arma
 aparte.
 
-Lo que se decida acá se porta a `~/melu/packages/ui`, que es el design system de verdad. Ese
-repo todavía se llama `melu` en el disco y en GitHub: el nombre nuevo es de acá para adelante, y
-el día que se renombre allá esta línea es la única que hay que tocar.
+Lo que se decide acá se porta a `~/melu/packages/ui`, que es el paquete que hoy consume el
+producto. **Ese es otro repo y todavía se llama `melu`**, en el disco y en GitHub; este pasó a
+llamarse `milo` —`hor4z/milo`— y el día que se renombre el otro, estas dos líneas y la del
+final son lo único que hay que tocar.
 
 ```sh
 npm install
@@ -474,7 +475,7 @@ alguien cambia un tono y rompe un par, falla antes de llegar a una pantalla.
   12px y no se volvieron a mirar en tres familias. El peso ya se corrigió al pasar a Instrument
   Sans; el tracking es el que queda.
 - Portar los tokens a `~/melu/packages/ui`, que es para lo que existe todo esto. Ojo con el
-  nombre: ese repo sigue siendo `melu`.
+  nombre: ese repo es otro y sigue llamándose `melu`.
 
 ## Lo que no está
 
