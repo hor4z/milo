@@ -14,11 +14,17 @@ export type BarDatum = {
 /**
  * El gráfico de barras.
  *
- * **Una sola serie y un solo tono.** El azul del sistema, más opaco cuanto más
- * alta la barra: es la receta de un gráfico de magnitud —un hue, más es más
- * oscuro— y la que se lee bien sin depender de distinguir colores. Por eso
- * tampoco lleva leyenda: con una serie, el título ya dice qué se está mirando, y
- * una caja con un solo cuadradito repite el título y ocupa lugar.
+ * **Las barras de contexto van en tinta y la destacada en azul.** No es un
+ * gradiente de azules: la interfaz es monocroma y el azul está reservado para
+ * una cosa por pantalla, así que gastarlo en las cinco barras lo deja sin decir
+ * nada — con todo azul, la que importa es apenas un azul más fuerte entre
+ * azules. En gris, la llena se ve desde el otro lado de la habitación.
+ *
+ * Las de contexto igual suben de tono con la altura: el tamaño y el tono dicen
+ * lo mismo, así que la comparación sobrevive a una impresión en blanco y negro y
+ * a cualquier daltonismo. Por eso tampoco lleva leyenda: con una serie, el
+ * título ya dice qué se está mirando, y una caja con un solo cuadradito repite
+ * el título y ocupa lugar.
  *
  * **La barra destacada es el único azul lleno.** `highlight` no es decoración:
  * es la que la pantalla vino a contar —el día que más entregas tuvo, el que
@@ -60,11 +66,13 @@ export function BarChart({ data, highlight, title, height = 220, className }: {
         {data.map((d, i) => {
           const lleno = i === highlight
           const alto = Math.max(6, Math.round((d.value / max) * 100))
-          /* El tono acompaña a la altura: más alta, más opaca. Es lo que hace
-             que la comparación se lea aunque alguien no distinga el azul —el
+          /* El tono acompaña a la altura: más alta, más oscura. Es lo que hace
+             que la comparación se lea aunque alguien no distinga colores —el
              tamaño y el tono dicen lo mismo— y lo que evita que una barra corta
-             y una larga del mismo color se vean como dos categorías. */
-          const opacidad = 0.16 + (d.value / max) * 0.24
+             y una larga del mismo tono se vean como dos categorías.
+             En tinta al 10-26%: más abajo no se despega del papel, más arriba
+             compite con el texto de la tarjeta. */
+          const opacidad = 0.10 + (d.value / max) * 0.16
           return (
             <button
               key={d.label}
@@ -90,7 +98,7 @@ export function BarChart({ data, highlight, title, height = 220, className }: {
                 )}
                 style={{
                   height: `${alto}%`,
-                  ...(lleno ? null : { backgroundColor: `color-mix(in srgb, var(--brand) ${opacidad * 100}%, transparent)` }),
+                  ...(lleno ? null : { backgroundColor: `color-mix(in srgb, var(--text) ${opacidad * 100}%, transparent)` }),
                 }}
               />
             </button>
@@ -115,9 +123,13 @@ export function BarChart({ data, highlight, title, height = 220, className }: {
         {data.map((d, i) => (
           <div
             key={d.label}
+            /* Todas en tinta, y la que importa un paso más pesada. En gris, una
+               fila de etiquetas debajo de barras claras se lee como si el
+               gráfico estuviera deshabilitado — y son el único texto que dice
+               qué es cada barra, así que no acompañan a un dato: lo nombran. */
             className={cx(
-              'flex-1 text-center text-xs font-medium transition-colors',
-              i === activa || i === highlight ? 'text-ink' : 'text-ink-muted',
+              'flex-1 text-center text-xs text-ink transition-[font-weight]',
+              i === activa || i === highlight ? 'font-bold' : 'font-semibold',
             )}
           >
             {d.label}
