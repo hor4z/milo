@@ -28,7 +28,7 @@ export function NavStory() {
               </button>
             ))}
 
-            <div className="px-2.5 py-2.5 text-xs font-medium text-ink-muted/70">Mis espacios</div>
+            <div className="px-2.5 py-2.5 text-xs font-medium text-ink-muted">Mis espacios</div>
 
             {([
               { id: 'ciencias', color: 'green', label: 'Ciencias · 5.º B' },

@@ -118,7 +118,7 @@ function Sidebar() {
         </nav>
 
         {!collapsed && (
-          <div className="px-2.5 py-2.5 text-xs font-medium text-ink-muted/70">Mis espacios</div>
+          <div className="px-2.5 py-2.5 text-xs font-medium text-ink-muted">Mis espacios</div>
         )}
 
         <nav className="flex flex-col gap-0.5">
