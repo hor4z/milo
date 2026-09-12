@@ -34,6 +34,7 @@ import { TableStory } from './stories/table'
 import { ContainersStory } from './stories/containers'
 import { NavStory } from './stories/nav'
 import { FeedbackStory } from './stories/feedback'
+import { FormStory } from './stories/form'
 import { TabsStory } from './stories/tabs'
 import { StatusStory } from './stories/status'
 import { DropdownStory, ModalStory, PopoverStory, TooltipStory } from './stories/overlays'
@@ -68,6 +69,7 @@ const groups: Group[] = [
   {
     label: 'Formularios',
     stories: [
+      { id: 'form', label: 'Field y Sheet', render: () => <FormStory /> },
       { id: 'text-field', label: 'TextField', render: () => <TextFieldStory /> },
       { id: 'textarea', label: 'Textarea', render: () => <TextareaStory /> },
       { id: 'select', label: 'Select', render: () => <SelectStory /> },

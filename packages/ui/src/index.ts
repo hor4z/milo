@@ -28,7 +28,10 @@ export type { FolderColor, IconWeight } from './icon'
 export { codepoints, iconNames } from './icons.gen'
 export type { IconName } from './icons.gen'
 
-export { Portal, Dropdown, Popover, Tooltip, Modal, useScrollLock, useEscape, useFocusTrap } from './overlay'
+export {
+  Portal, Dropdown, Popover, Tooltip, Modal, Sheet, SheetHeader, SheetBody, SheetFooter,
+  useScrollLock, useEscape, useFocusTrap,
+} from './overlay'
 export type { DropdownItem } from './overlay'
 
 export { Menu, MenuItem, MenuLabel } from './menu'
@@ -45,6 +48,7 @@ export { Book } from './book'
 export { Folder } from './folder'
 export { Alert, AlertTitle, AlertBody, AlertActions, ToastProvider, useToast } from './feedback'
 export type { Tone, ToastOptions } from './feedback'
+export { Field, FieldSet, useField } from './form'
 export { Tabs, TabList, Tab, TabPanel, Accordion, AccordionItem } from './disclosure'
 export { Badge, Progress, Skeleton, Breadcrumb } from './status'
 export { BarChart } from './chart'

@@ -80,3 +80,27 @@ describe('Tooltip', () => {
     await waitFor(() => expect(screen.queryByRole('tooltip')).not.toBeInTheDocument())
   })
 })
+
+describe('Sheet', () => {
+  it('abre, se nombra y cierra con Escape', async () => {
+    const onClose = vi.fn()
+    const { Sheet, SheetHeader, SheetBody, SheetFooter } = await import('../overlay')
+    render(
+      <Sheet open onClose={onClose} label="Nueva actividad">
+        <SheetHeader title="Nueva actividad" onClose={onClose} />
+        <SheetBody>contenido</SheetBody>
+        <SheetFooter><Button>Guardar</Button></SheetFooter>
+      </Sheet>,
+    )
+    expect(screen.getByRole('dialog', { name: 'Nueva actividad' })).toBeInTheDocument()
+    expect(screen.getByText('contenido')).toBeInTheDocument()
+    await userEvent.keyboard('{Escape}')
+    expect(onClose).toHaveBeenCalled()
+  })
+
+  it('cerrado no monta nada', async () => {
+    const { Sheet } = await import('../overlay')
+    render(<Sheet open={false} onClose={() => {}} label="x"><p>hola</p></Sheet>)
+    expect(screen.queryByRole('dialog')).not.toBeInTheDocument()
+  })
+})

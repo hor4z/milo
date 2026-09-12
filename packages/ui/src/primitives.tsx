@@ -3,6 +3,7 @@ import type { ButtonHTMLAttributes, ComponentPropsWithoutRef, CSSProperties, Inp
 import { useEscape } from './esc'
 import { Portal } from './overlay'
 import { Icon, type IconName } from './icon'
+import { useField } from './form'
 
 /** La familia viva de lo chico: un chip, la inicial de un avatar, el cuadradito de icono de una tarjeta. */
 export const labelFill = {
@@ -677,6 +678,7 @@ const fieldSizes = {
 /** El campo de texto. */
 export function TextField({ icon, suffix, size = 'lg', className, ref, ...rest }: TextFieldProps) {
   const iconSize = size === 'sm' ? 16 : size === 'md' ? 18 : 20
+  const campo = useField()
   return (
     <div
       ref={ref}
@@ -692,6 +694,7 @@ export function TextField({ icon, suffix, size = 'lg', className, ref, ...rest }
           'h-full min-w-0 flex-1 bg-transparent font-normal text-ink outline-none placeholder:text-ink-muted',
           size === 'sm' ? '-mx-1.5 px-1.5' : '-mx-2 px-2',
         )}
+        {...campo}
         {...rest}
       />
       {suffix}
@@ -713,6 +716,7 @@ export function Textarea({
   rows = 3, maxRows, resize = 'auto', className, onChange, value, ...rest
 }: TextareaProps) {
   const ref = useRef<HTMLTextAreaElement>(null)
+  const campo = useField()
 
   const medir = useCallback(() => {
     const el = ref.current
@@ -760,6 +764,7 @@ export function Textarea({
           'placeholder:text-ink-muted',
           resize === 'vertical' ? 'resize-y px-3 py-2.5' : 'resize-none',
         )}
+        {...campo}
         {...rest}
       />
     </div>
