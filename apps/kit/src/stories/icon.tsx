@@ -1,7 +1,7 @@
 import { useMemo, useState } from 'react'
 import type { CSSProperties } from 'react'
 import {
-  EmptyState, Icon, Input, Segmented, Slider, fold,
+  EmptyState, Icon, Segmented, Slider, TextField, fold,
   iconNames, type IconName, type IconWeight,
 } from '@melu/ui'
 import { iconTags } from '@melu/ui/icons.meta'
@@ -72,7 +72,7 @@ export function IconStory() {
       >
         <div className="flex flex-wrap items-center gap-4">
           <span className="w-[260px]">
-            <Input icon="search" value={q} onChange={e => setQ(e.target.value)} placeholder="buscar por nombre o por tag…" />
+            <TextField icon="search" value={q} onChange={e => setQ(e.target.value)} placeholder="buscar por nombre o por tag…" />
           </span>
           <Segmented
             value={weight}

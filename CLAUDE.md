@@ -160,11 +160,13 @@ Dos aprendizajes que quedaron escritos al lado de cada token:
   botón gris se ve plano sobre un fondo casi blanco.
 - **Hundido son dos cosas distintas.** Una marca lleva canto y sombra de caída; algo que se
   aprieta, no. Mezclarlas hace que un kbd y un toggle activo se vean igual.
-- **Un campo no lleva relieve.** El `Input` fue un hueco (canto en tinta, luz arriba, labio
+- **Un campo no lleva relieve.** El `TextField` fue un hueco (canto en tinta, luz arriba, labio
   abajo) y se planchó: el relieve dice "esto sobresale" o "esto se aprieta", y un campo no es
-  ninguna de las dos. Los tres campos del sistema —el `Input`, el `Select` y el buscador de la
-  topbar— se dibujan igual: fondo (`--field-bg`) y una línea de un píxel (`--field-border`, tinta
-  en alpha, la misma que el relieve usaba de canto). Lo único que aparece al enfocar es el anillo.
+  ninguna de las dos. Los cuatro campos del sistema —`TextField`, `Textarea`, `Select` y el
+  buscador de la topbar— se dibujan igual: fondo (`--field-bg`) y una línea de un píxel
+  (`--field-border`, tinta en alpha, la misma que el relieve usaba de canto). Lo único que aparece
+  al enfocar es el anillo, y lo pone la caja de afuera: la regla que apaga el del control de
+  adentro nombra `input` **y** `textarea`, o el multilínea se enciende con dos.
 
 **Iconos.** Material Symbols Rounded, subseteado a los 152 que usamos y servido desde el repo
 (57 KB de woff2). El peso es un eje real de la fuente —`wght` de 100 a 700—, no un set de

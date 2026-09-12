@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useId, useLayoutEffect, useRef, useState } from 'react'
-import type { ButtonHTMLAttributes, CSSProperties, InputHTMLAttributes, ReactNode, Ref } from 'react'
+import type { ButtonHTMLAttributes, CSSProperties, InputHTMLAttributes, ReactNode, Ref, TextareaHTMLAttributes } from 'react'
 import { useEscape } from './esc'
 import { Portal } from './overlay'
 import { Icon, type IconName } from './icon'
@@ -769,7 +769,7 @@ export function Segmented<T extends string>({
  * extremos. Sin eso el control queda inutilizable sin mouse.
  *
  * **`leading` es un nodo y no un `IconName`**, al revés que el `icon` del
- * `Input`. Ahí el icono es siempre un glifo del set; acá lo que se muestra
+ * `TextField`. Ahí el icono es siempre un glifo del set; acá lo que se muestra
  * adelante del valor es de quien lo usa: el glifo de la categoría elegida, la
  * carpeta de color de un espacio, el avatar de una persona, un spinner. Tipar
  * la unión de glifos dejaba afuera a los otros tres y no ahorraba nada.
@@ -1137,9 +1137,9 @@ export function AvatarGroup({
   )
 }
 
-/* ------------------------------------------------------------------- Input */
+/* --------------------------------------------------------------- TextField */
 
-type InputProps = Omit<InputHTMLAttributes<HTMLInputElement>, 'size'> & {
+type TextFieldProps = Omit<InputHTMLAttributes<HTMLInputElement>, 'size'> & {
   icon?: IconName
   suffix?: ReactNode
   size?: 'sm' | 'md' | 'lg'
@@ -1195,7 +1195,7 @@ const fieldSizes = {
  * afuera le gana a lo de adentro por más específico que sea. Un
  * `focus-visible:shadow-none` en el input se lee bien y no hace nada.
  */
-export function Input({ icon, suffix, size = 'lg', className, ...rest }: InputProps) {
+export function TextField({ icon, suffix, size = 'lg', className, ...rest }: TextFieldProps) {
   const iconSize = size === 'sm' ? 16 : size === 'md' ? 18 : 20
   return (
     <div
@@ -1220,6 +1220,111 @@ export function Input({ icon, suffix, size = 'lg', className, ...rest }: InputPr
         {...rest}
       />
       {suffix}
+    </div>
+  )
+}
+
+/* ---------------------------------------------------------------- Textarea */
+
+type TextareaProps = Omit<TextareaHTMLAttributes<HTMLTextAreaElement>, 'rows' | 'style' | 'resize'> & {
+  /** Las filas de arranque: el alto mínimo del campo. */
+  rows?: number
+  /** Hasta cuántas filas crece antes de scrollear. Sin esto, crece sin techo. */
+  maxRows?: number
+  /**
+   * Quién decide el alto. Son tres modos y no una suma: o lo decide el
+   * contenido, o lo decide quien arrastra, o no lo decide nadie.
+   *
+   * · `auto` — crece con lo que escribís hasta `maxRows`. El default.
+   * · `vertical` — el tirador nativo de la esquina. `maxRows` no aplica: el alto
+   *   pasa a ser de quien arrastra, y medirlo además sería pisárselo en la
+   *   tecla siguiente.
+   * · `none` — alto fijo de `rows`, y lo que sobra scrollea.
+   */
+  resize?: 'auto' | 'vertical' | 'none'
+}
+
+/**
+ * El campo de varias líneas. Es el `TextField` estirado: la misma caja, el mismo
+ * borde, el mismo fondo y el mismo anillo de foco, porque un campo de una línea
+ * y uno de varias que no se parecen se leen como dos sistemas.
+ *
+ * **Crece con lo que escribís.** Un textarea de alto fijo obliga a elegir mal
+ * dos veces: corto, y escribís mirando por una ranura; largo, y hay un rectángulo
+ * vacío ocupando media pantalla hasta que alguien lo llene. Creciendo, el campo
+ * mide lo que hay adentro.
+ *
+ * Tres cosas que no son obvias y que se pagan si faltan:
+ *
+ * · **Primero `height: auto`, después leer `scrollHeight`.** `scrollHeight` nunca
+ *   es menor que el alto puesto, así que midiendo sin resetear el campo crece y
+ *   no vuelve: borrás tres líneas y la caja se queda con el alto de antes.
+ * · **El techo prende el scroll.** Al llegar a `maxRows` hay que pasar el
+ *   `overflow-y` a `auto`, o el texto sigue existiendo sin forma de llegar a él.
+ *   Abajo del techo va en `hidden`, o aparece una barra que titila en cada
+ *   tecla mientras el campo todavía tiene lugar para crecer.
+ * · **Se mide en un layout effect y no en un effect normal.** Midiendo después
+ *   del paint, cada tecla que agranda el campo se ve como un salto: primero el
+ *   cuadro con el alto viejo y el texto ya desbordado, y recién en el siguiente
+ *   el alto nuevo.
+ *
+ * **El `resize` nativo se va.** Es una esquina que solo existe con mouse, y
+ * arrastrarla deja al campo de un alto que el autogrow después pisa: dos cosas
+ * peleando por lo mismo. El alto lo decide el contenido.
+ */
+export function Textarea({
+  rows = 3, maxRows, resize = 'auto', className, onChange, value, ...rest
+}: TextareaProps) {
+  const ref = useRef<HTMLTextAreaElement>(null)
+
+  const medir = useCallback(() => {
+    const el = ref.current
+    if (!el || resize !== 'auto') return
+    const cs = getComputedStyle(el)
+    const line = parseFloat(cs.lineHeight) || 16
+    const marco = parseFloat(cs.paddingTop) + parseFloat(cs.paddingBottom)
+      + parseFloat(cs.borderTopWidth) + parseFloat(cs.borderBottomWidth)
+    el.style.height = 'auto'
+    const alto = el.scrollHeight
+    const techo = maxRows ? line * maxRows + marco : Infinity
+    el.style.height = `${Math.min(alto, techo)}px`
+    el.style.overflowY = alto > techo ? 'auto' : 'hidden'
+  }, [maxRows, resize])
+
+  /* Se remide cuando cambia el valor y no solo al tipear: un campo controlado
+     puede recibir texto de afuera —un borrador que se carga, un reset del
+     formulario— y ahí no pasa ningún `onChange` por el que colgarse. */
+  useLayoutEffect(medir, [medir, value, rows])
+
+  return (
+    <div
+      className={cx(
+        'field flex cursor-text border border-field-line bg-field',
+        'has-[textarea:disabled]:pointer-events-none has-[textarea:disabled]:opacity-45',
+        'rounded-lg px-3 py-2.5 text-base',
+        className,
+      )}
+    >
+      <textarea
+        ref={ref}
+        rows={rows}
+        value={value}
+        onChange={e => { medir(); onChange?.(e) }}
+        className={cx(
+          'min-w-0 flex-1 bg-transparent font-normal text-ink outline-none',
+          /* El tirador nativo se dibuja en la esquina del `<textarea>`, y el
+             padding del contenedor lo dejaría flotando adentro de la caja: por
+             eso el campo llega hasta el borde y el aire lo pone el propio
+             control. */
+          resize === 'vertical' ? 'resize-y' : 'resize-none',
+          'placeholder:text-ink-muted',
+          /* El leading de la interfaz es 16 sobre 12px, que apretado para un
+             bloque de varias líneas: en un párrafo, los renglones se tocan. Este
+             es el único lugar del sistema donde el texto respira más. */
+          'leading-[1.45]',
+        )}
+        {...rest}
+      />
     </div>
   )
 }

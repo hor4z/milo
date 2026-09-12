@@ -640,20 +640,34 @@ h1, h2, h3 { font-family: var(--font-sans); font-weight: 400; letter-spacing: va
 /* El campo de texto. En reposo no escribe ninguna sombra: la caja es el fondo y
    el borde de un píxel, y eso lo ponen dos utilidades en el componente. Lo
    único que queda acá es el foco, y sigue siendo una clase y no una utilidad
-   porque el anillo NO va cuando el foco lo tiene un botón de adentro del campo:
-   ahí la marca es del botón. Eso es un `:has()`, y como utilidad no se escribe.
-   Va con `:focus` y no con `:focus-visible` a propósito: clickear ese botón
-   igual mueve el foco adentro del campo, y si el campo se enciende por un click
-   que no es suyo, la marca deja de querer decir "acá escribís". */
+   porque la marca NO va cuando el foco lo tiene un botón de adentro del campo:
+   ahí es del botón. Eso es un `:has()`, y como utilidad no se escribe. Va con
+   `:focus` y no con `:focus-visible` a propósito: clickear ese botón igual mueve
+   el foco adentro del campo, y si el campo se enciende por un click que no es
+   suyo, la marca deja de querer decir "acá escribís".
+
+   **Un campo enfocado se tiñe el borde, no se rodea de un anillo.** El anillo
+   del sistema es para una pieza que no tiene borde propio: aparece afuera y no
+   choca con nada. Un campo ya tiene una línea en los cuatro lados, así que el
+   anillo le dibujaba una segunda a dos píxeles de la primera —dos cosas azules
+   alrededor de la misma caja, con un hueco blanco en el medio— y eso es lo que
+   se veía raro. El `inset` engrosa esa misma línea hacia adentro en vez de
+   agregar una afuera, así que el campo no cambia de tamaño ni empuja a nadie. */
 .field:focus-within:not(:has(button:focus, a:focus, [tabindex]:focus)) {
-  box-shadow: var(--focus-ring);
+  border-color: var(--focus-border);
+  box-shadow: inset 0 0 0 1px var(--focus-border);
 }
-/* Y el input de adentro se queda sin el suyo. Tiene que estar acá y no como
+/* Y el control de adentro se queda sin el suyo. Tiene que estar acá y no como
    utilidad en el componente: la regla global de foco no vive en ninguna capa, y
    una utilidad de Tailwind sí — lo que está fuera de capa le gana a lo que está
    adentro por más específico que sea. Un `focus-visible:shadow-none` puesto en
-   el input no hace nada, en silencio. */
-.field input:focus-visible { box-shadow: none; }
+   el control no hace nada, en silencio.
+
+   Van los dos, `input` y `textarea`: con la regla escrita solo para el primero,
+   el `Textarea` se encendía con dos anillos, el de su caja y un rectángulo azul
+   pegado al texto adentro. */
+.field input:focus-visible,
+.field textarea:focus-visible { box-shadow: none; }
 
 /* El anillo de foco, una vez y para todos los roles. `:focus-visible` y no
    `:focus`: con el segundo, un click deja el anillo puesto.
