@@ -127,6 +127,12 @@ export function BarChart({ data, highlight, title, height = 220, className }: {
                      de la trama, no sobre las dos capas a la vez, o se ve un
                      parpadeo en el cruce. */
                   'transition-colors duration-[140ms] ease-out group-hover:bg-transparent',
+                  /* Y toma un contorno. Con el fondo yéndose y la trama
+                     entrando, la barra se queda sin silueta justo en el momento
+                     en que la estás señalando: el borde es lo que la sostiene
+                     mientras el relleno se vacía. Va `inset` para que no empuje
+                     ni se coma el aire que la separa de la de al lado. */
+                  'group-hover:ring-1 group-hover:ring-line-strong group-hover:ring-inset',
                 )}
                 style={{ height: `${alto}%` }}
               >
