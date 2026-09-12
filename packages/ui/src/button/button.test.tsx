@@ -16,25 +16,25 @@ describe('Button', () => {
   })
 
   it('adentro de un form no manda el form sin querer', async () => {
-    const enviar = vi.fn(e => e.preventDefault())
+    const onSubmit = vi.fn(e => e.preventDefault())
     render(
-      <form onSubmit={enviar}>
+      <form onSubmit={onSubmit}>
         <Button>Cancelar</Button>
       </form>,
     )
     await userEvent.click(screen.getByRole('button', { name: 'Cancelar' }))
-    expect(enviar).not.toHaveBeenCalled()
+    expect(onSubmit).not.toHaveBeenCalled()
   })
 
   it('el que sí manda lo pide', async () => {
-    const enviar = vi.fn(e => e.preventDefault())
+    const onSubmit = vi.fn(e => e.preventDefault())
     render(
-      <form onSubmit={enviar}>
+      <form onSubmit={onSubmit}>
         <Button type="submit">Crear</Button>
       </form>,
     )
     await userEvent.click(screen.getByRole('button', { name: 'Crear' }))
-    expect(enviar).toHaveBeenCalledOnce()
+    expect(onSubmit).toHaveBeenCalledOnce()
   })
 
   it('los iconos acompañan al texto sin robarle el nombre', () => {

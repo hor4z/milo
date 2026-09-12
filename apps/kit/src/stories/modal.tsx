@@ -4,8 +4,8 @@ import { A11y, Demo, Page, Props, Section } from '../kit'
 
 export function ModalStory() {
   const [open, setOpen] = useState(false)
-  const [angosto, setAngosto] = useState(false)
-  const [ajustes, setAjustes] = useState(false)
+  const [narrowOpen, setNarrowOpen] = useState(false)
+  const [settingsOpen, setSettingsOpen] = useState(false)
 
   return (
     <Page
@@ -37,14 +37,14 @@ export function ModalStory() {
           </Demo>
 
           <Demo label="width 420">
-            <Button variant="raised" onClick={() => setAngosto(true)}>Confirmación</Button>
-            <Modal open={angosto} onClose={() => setAngosto(false)} label="Confirmar" width={420}>
+            <Button variant="raised" onClick={() => setNarrowOpen(true)}>Confirmación</Button>
+            <Modal open={narrowOpen} onClose={() => setNarrowOpen(false)} label="Confirmar" width={420}>
               <div className="p-6">
                 <div className="text-base font-semibold">¿Eliminar la actividad?</div>
                 <p className="mt-2 text-xs font-medium text-ink-muted">Se va a borrar para todo el equipo.</p>
                 <div className="mt-6 flex justify-end gap-2">
-                  <Button variant="ghost" size="sm" onClick={() => setAngosto(false)}>Cancelar</Button>
-                  <Button variant="bad" size="sm" onClick={() => setAngosto(false)}>Eliminar</Button>
+                  <Button variant="ghost" size="sm" onClick={() => setNarrowOpen(false)}>Cancelar</Button>
+                  <Button variant="bad" size="sm" onClick={() => setNarrowOpen(false)}>Eliminar</Button>
                 </div>
               </div>
             </Modal>
@@ -58,10 +58,10 @@ export function ModalStory() {
       >
         <div className="flex flex-wrap items-start gap-3">
           <Demo label="width 594">
-            <Button variant="raised" icon="tune" onClick={() => setAjustes(true)}>Ajustes</Button>
+            <Button variant="raised" icon="tune" onClick={() => setSettingsOpen(true)}>Ajustes</Button>
             <SettingsModal
-              open={ajustes}
-              onClose={() => setAjustes(false)}
+              open={settingsOpen}
+              onClose={() => setSettingsOpen(false)}
               user={{
                 name: 'Ana Pérez',
                 email: 'ana.perez@ejemplo.edu',

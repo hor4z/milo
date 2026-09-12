@@ -5,11 +5,11 @@ import { notifications, type Notif, type NotifKind } from '../data'
 
 /** Cada tipo de aviso trae su chapita y su color. */
 const badges: Record<NotifKind, { icon: IconName; className: string }> = {
-  entrega:     { icon: 'check',   className: 'bg-ok text-white' },
-  traba:       { icon: 'schedule',   className: 'bg-warn text-white' },
-  invitacion:  { icon: 'group',   className: 'bg-ink text-ink-inverted' },
-  comentario:  { icon: 'menu_book',    className: 'bg-accent text-white' },
-  publicada:   { icon: 'star_shine', className: 'bg-ink text-ink-inverted' },
+  submission:     { icon: 'check',   className: 'bg-ok text-white' },
+  stuck:       { icon: 'schedule',   className: 'bg-warn text-white' },
+  invite:  { icon: 'group',   className: 'bg-ink text-ink-inverted' },
+  comment:  { icon: 'menu_book',    className: 'bg-accent text-white' },
+  published:   { icon: 'star_shine', className: 'bg-ink text-ink-inverted' },
 }
 
 /** El panel de avisos. */

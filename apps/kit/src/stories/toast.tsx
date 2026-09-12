@@ -60,8 +60,8 @@ export function ToastStory() {
           <Button
             variant="raised"
             onClick={() => {
-              const nombres = ['Fracciones', 'El sistema solar', 'Cuento policial', 'Mapa de América', 'Ecosistemas']
-              nombres.forEach((n, i) => setTimeout(() => toast({ title: `Se corrigió «${n}»`, tone: 'ok' }), i * 260))
+              const names = ['Fracciones', 'El sistema solar', 'Cuento policial', 'Mapa de América', 'Ecosistemas']
+              names.forEach((n, i) => setTimeout(() => toast({ title: `Se corrigió «${n}»`, tone: 'ok' }), i * 260))
             }}
           >
             Cinco de una

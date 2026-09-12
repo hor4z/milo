@@ -3,16 +3,16 @@ import { Avatar, FolderIcon, Icon, Select } from '@melu/ui'
 import { A11y, Demo, Page, Props, Section } from '../kit'
 
 export function SelectStory() {
-  const [nivel, setNivel] = useState('6.º grado')
-  const [area, setArea] = useState('Matemática')
-  const [largo, setLargo] = useState('Cualquiera con el link puede ver y comentar')
-  const [conIcono, setConIcono] = useState('Matemática')
-  const [espacio, setEspacio] = useState('Matemática · 4.º A')
-  const [docente, setDocente] = useState('Melina Rivero')
+  const [level, setLevel] = useState('6.º grado')
+  const [subject, setSubject] = useState('Matemática')
+  const [long, setLong] = useState('Cualquiera con el link puede ver y comentar')
+  const [withIcon, setWithIcon] = useState('Matemática')
+  const [space, setSpace] = useState('Matemática · 4.º A')
+  const [teacher, setTeacher] = useState('Melina Rivero')
 
-  const [cargando, setCargando] = useState(true)
+  const [loading, setLoading] = useState(true)
   useEffect(() => {
-    const t = setInterval(() => setCargando(c => !c), 2200)
+    const t = setInterval(() => setLoading(c => !c), 2200)
     return () => clearInterval(t)
   }, [])
 
@@ -29,16 +29,16 @@ export function SelectStory() {
       >
         <div className="flex flex-wrap items-start gap-3">
           <Demo label="width 160">
-            <Select value={nivel} onChange={setNivel} width={160} options={['4.º grado', '5.º grado', '6.º grado', '7.º grado']} />
+            <Select value={level} onChange={setLevel} width={160} options={['4.º grado', '5.º grado', '6.º grado', '7.º grado']} />
           </Demo>
           <Demo label="al ancho del contenido">
-            <Select value={area} onChange={setArea} options={['Matemática', 'Lengua', 'Ciencias', 'Geografía', 'Convivencia']} />
+            <Select value={subject} onChange={setSubject} options={['Matemática', 'Lengua', 'Ciencias', 'Geografía', 'Convivencia']} />
           </Demo>
           <div className="w-full max-w-[300px]">
             <Demo label="valor largo · se trunca">
               <Select
-                value={largo}
-                onChange={setLargo}
+                value={long}
+                onChange={setLong}
                 width={280}
                 options={['Solo yo', 'Todo el equipo', 'Cualquiera con el link puede ver y comentar']}
               />
@@ -54,8 +54,8 @@ export function SelectStory() {
         <div className="flex flex-wrap items-start gap-3">
           <Demo label="un glifo">
             <Select
-              value={conIcono}
-              onChange={setConIcono}
+              value={withIcon}
+              onChange={setWithIcon}
               width={180}
               leading={<Icon name="calculate" size={16} />}
               options={['Matemática', 'Lengua', 'Ciencias']}
@@ -63,8 +63,8 @@ export function SelectStory() {
           </Demo>
           <Demo label="una carpeta de color">
             <Select
-              value={espacio}
-              onChange={setEspacio}
+              value={space}
+              onChange={setSpace}
               width={200}
               leading={<FolderIcon color="blue" size={16} />}
               options={['Matemática · 4.º A', 'Lengua · 6.º', 'Ciencias · 5.º B']}
@@ -72,8 +72,8 @@ export function SelectStory() {
           </Demo>
           <Demo label="un avatar">
             <Select
-              value={docente}
-              onChange={setDocente}
+              value={teacher}
+              onChange={setTeacher}
               width={190}
               leading={<Avatar name="Melina Rivero" size={20} />}
               options={['Melina Rivero', 'Juan Pérez', 'Ana Gómez']}
@@ -101,10 +101,10 @@ export function SelectStory() {
           </Demo>
           <Demo label="en vivo · alterna cada 2s">
             <Select
-              value={cargando ? 'Buscando espacios…' : espacio}
-              onChange={setEspacio}
+              value={loading ? 'Buscando espacios…' : space}
+              onChange={setSpace}
               width={200}
-              loading={cargando}
+              loading={loading}
               options={['Matemática · 4.º A', 'Lengua · 6.º', 'Ciencias · 5.º B']}
             />
           </Demo>

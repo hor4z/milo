@@ -74,9 +74,9 @@ export function SettingsModal({ open, onClose, user }: {
           </header>
           <div className="min-h-0 flex-1 overflow-y-auto">
             {section === 'general' && <GeneralSection user={user} />}
-            {section === 'perfil' && <PerfilSection user={user} />}
-            {section === 'seguridad' && <SeguridadSection />}
-            {section === 'avisos' && <AvisosSection />}
+            {section === 'perfil' && <ProfileSection user={user} />}
+            {section === 'seguridad' && <SecuritySection />}
+            {section === 'avisos' && <NoticesSection />}
           </div>
         </div>
       </div>
@@ -116,7 +116,7 @@ function GeneralSection({ user }: { user: SettingsUser }) {
   )
 }
 
-function PerfilSection({ user }: { user: SettingsUser }) {
+function ProfileSection({ user }: { user: SettingsUser }) {
   const { prefs, set } = usePrefs()
   return (
     <div>
@@ -137,7 +137,7 @@ function PerfilSection({ user }: { user: SettingsUser }) {
   )
 }
 
-function SeguridadSection() {
+function SecuritySection() {
   const { prefs, set } = usePrefs()
   return (
     <div>
@@ -167,7 +167,7 @@ function SeguridadSection() {
   )
 }
 
-function AvisosSection() {
+function NoticesSection() {
   const { prefs, set } = usePrefs()
   return (
     <div>

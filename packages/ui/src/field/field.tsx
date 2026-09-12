@@ -2,8 +2,8 @@ import { createContext, useContext, useId, type ComponentPropsWithoutRef, type R
 import { Icon } from '../icon/icon'
 import { cx } from '../lib/cx'
 
-type Campo = { id: string; labelId: string; describedBy?: string; invalid: boolean }
-export const FieldCtx = createContext<Campo | null>(null)
+type FieldState = { id: string; labelId: string; describedBy?: string; invalid: boolean }
+export const FieldCtx = createContext<FieldState | null>(null)
 
 /** Lo que un grupo de opciones necesita: no toma el id, se nombra con la etiqueta. */
 export function useFieldGroup() {

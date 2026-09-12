@@ -18,8 +18,8 @@ describe('TextField', () => {
 
   it('tocar la caja enfoca el campo, que es lo que promete el cursor', async () => {
     const { container } = render(<TextField icon="search" placeholder="Buscar" />)
-    const caja = container.querySelector('.field') as HTMLElement
-    await userEvent.click(caja)
+    const box = container.querySelector('.field') as HTMLElement
+    await userEvent.click(box)
     expect(screen.getByPlaceholderText('Buscar')).toHaveFocus()
   })
 

@@ -34,16 +34,16 @@ export function useToast() {
 
 /** Monta la región de avisos pasajeros y el `useToast` que los empuja. */
 export function ToastProvider({ children, max = 3 }: { children: ReactNode; max?: number }) {
-  const [lista, setLista] = useState<ToastRecord[]>([])
-  const contador = useRef(0)
+  const [list, setList] = useState<ToastRecord[]>([])
+  const counter = useRef(0)
 
   const dismiss = useCallback((id: string) => {
-    setLista(l => l.filter(t => t.id !== id))
+    setList(l => l.filter(t => t.id !== id))
   }, [])
 
   const toast = useCallback((o: ToastOptions) => {
-    const id = `toast-${++contador.current}`
-    setLista(l => [...l, { ...o, id }].slice(-max))
+    const id = `toast-${++counter.current}`
+    setList(l => [...l, { ...o, id }].slice(-max))
     return id
   }, [max])
 
@@ -52,14 +52,14 @@ export function ToastProvider({ children, max = 3 }: { children: ReactNode; max?
   return (
     <ToastCtx.Provider value={api}>
       {children}
-      {lista.length > 0 && (
+      {list.length > 0 && (
         <Portal>
           <ol
             aria-live="polite"
             aria-label="Avisos"
             className="fixed right-4 bottom-4 z-[70] flex w-[min(380px,calc(100vw-2rem))] flex-col gap-2"
           >
-            {lista.map(t => <ToastItem key={t.id} toast={t} onDismiss={dismiss} />)}
+            {list.map(t => <ToastItem key={t.id} toast={t} onDismiss={dismiss} />)}
           </ol>
         </Portal>
       )}
@@ -69,26 +69,26 @@ export function ToastProvider({ children, max = 3 }: { children: ReactNode; max?
 
 function ToastItem({ toast, onDismiss }: { toast: ToastRecord; onDismiss: (id: string) => void }) {
   const { id: toastId, title, body, tone = 'info', action, duration = 5000 } = toast
-  const [pausado, setPausado] = useState(false)
+  const [paused, setPaused] = useState(false)
   const id = useId()
 
   // Sin el `useCallback`, cada aviso nuevo reinicia el reloj de los que ya
   // estaban: con un goteo constante, el primero no se va nunca.
-  const cerrar = useCallback(() => onDismiss(toastId), [onDismiss, toastId])
+  const close = useCallback(() => onDismiss(toastId), [onDismiss, toastId])
 
   useEffect(() => {
-    if (!duration || pausado) return
-    const t = setTimeout(cerrar, duration)
+    if (!duration || paused) return
+    const t = setTimeout(close, duration)
     return () => clearTimeout(t)
-  }, [duration, pausado, cerrar])
+  }, [duration, paused, close])
 
   return (
     <li
       className="ui-rise flex gap-3 rounded-xl border border-line bg-popover p-3.5 shadow-popover"
-      onPointerEnter={() => setPausado(true)}
-      onPointerLeave={() => setPausado(false)}
-      onFocus={() => setPausado(true)}
-      onBlur={() => setPausado(false)}
+      onPointerEnter={() => setPaused(true)}
+      onPointerLeave={() => setPaused(false)}
+      onFocus={() => setPaused(true)}
+      onBlur={() => setPaused(false)}
       aria-labelledby={id}
     >
       <span className={cx('flex size-7 shrink-0 items-center justify-center rounded-md', toneClass[tone])}>
@@ -99,13 +99,13 @@ function ToastItem({ toast, onDismiss }: { toast: ToastRecord; onDismiss: (id: s
         {body && <p className="text-xs font-medium text-ink-muted">{body}</p>}
         {action && (
           <div className="mt-1.5 flex items-center gap-2">
-            <Button size="sm" variant="raised" onClick={() => { action.onClick?.(); cerrar() }}>
+            <Button size="sm" variant="raised" onClick={() => { action.onClick?.(); close() }}>
               {action.label}
             </Button>
           </div>
         )}
       </div>
-      <IconButton icon="close" label="Cerrar el aviso" size="sm" variant="ghost" onClick={cerrar} className="-mt-0.5 -mr-1" />
+      <IconButton icon="close" label="Cerrar el aviso" size="sm" variant="ghost" onClick={close} className="-mt-0.5 -mr-1" />
     </li>
   )
 }

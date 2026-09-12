@@ -11,12 +11,12 @@ describe('Folder', () => {
   })
 
   it('con onClick es un botón de verdad, y responde al teclado', async () => {
-    const abrir = vi.fn()
-    render(<Folder label="Matemática" onClick={abrir} />)
+    const onOpen = vi.fn()
+    render(<Folder label="Matemática" onClick={onOpen} />)
     const b = screen.getByRole('button', { name: /Matemática/ })
     b.focus()
     await userEvent.keyboard('{Enter}')
-    expect(abrir).toHaveBeenCalledOnce()
+    expect(onOpen).toHaveBeenCalledOnce()
   })
 
   it('sin onClick no aparenta ser accionable', () => {
@@ -26,9 +26,9 @@ describe('Folder', () => {
 
   it('el ancho y el color viajan como tokens', () => {
     const { container } = render(<Folder label="Matemática" size={96} color="var(--space-blue)" />)
-    const carpeta = container.firstElementChild as HTMLElement
-    expect(carpeta.style.getPropertyValue('--folder-w')).toBe('96px')
-    expect(carpeta.style.getPropertyValue('--folder-top')).toBe('var(--space-blue)')
+    const folder = container.firstElementChild as HTMLElement
+    expect(folder.style.getPropertyValue('--folder-w')).toBe('96px')
+    expect(folder.style.getPropertyValue('--folder-top')).toBe('var(--space-blue)')
   })
 
   it('las hojas se abanican en la cantidad pedida', () => {

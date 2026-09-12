@@ -9,7 +9,7 @@ const onboarding: { icon: IconName; color: MarkColor; title: string; hint: strin
   { icon: 'lightbulb', color: 'blue', title: 'Mirá lo que hicieron otros', hint: 'Actividades públicas de docentes de tu área.' },
 ]
 
-const espacios: { icon: IconName; color: MarkColor; title: string; hint: string }[] = [
+const spaces: { icon: IconName; color: MarkColor; title: string; hint: string }[] = [
   { icon: 'adjust', color: 'orange', title: 'Matemática · 4.º A', hint: 'Doce actividades · cuatro sin mirar' },
   { icon: 'menu_book', color: 'purple', title: 'Lengua · 6.º', hint: 'Ocho actividades · todas al día' },
   { icon: 'explore', color: 'blue', title: 'Ciencias · 5.º B', hint: 'Cinco actividades · dos abiertas' },
@@ -53,7 +53,7 @@ export function ListStory() {
       <Section title="Como índice" note="La misma pieza con contenido de melu: acá el color identifica el espacio, no el estado.">
         <div className="max-w-[460px]">
           <List>
-            {espacios.map(e => (
+            {spaces.map(e => (
               <ListItem
                 key={e.title}
                 icon={e.icon} color={e.color} title={e.title} hint={e.hint}

@@ -1,12 +1,12 @@
 import { useRef } from 'react'
 
-type Opcion<T extends string> = { value: T; disabled?: boolean }
+type Option<T extends string> = { value: T; disabled?: boolean }
 
 /** La receta de un grupo donde se elige una opción: flechas para moverse y una sola parada de tabulación. */
 export function useRovingRadio<T extends string>(
   value: T,
   onChange: (v: T) => void,
-  options: readonly Opcion<T>[],
+  options: readonly Option<T>[],
 ) {
   const refs = useRef<Record<string, HTMLButtonElement | null>>({})
   const live = options.filter(o => !o.disabled)

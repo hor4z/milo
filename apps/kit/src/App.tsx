@@ -142,14 +142,14 @@ const groups: Group[] = [
   },
 ]
 
-const todas = groups.flatMap(g => g.stories.map(s => ({ ...s, grupo: g.label })))
+const everything = groups.flatMap(g => g.stories.map(s => ({ ...s, group: g.label })))
 
 export function App() {
   const [current, setCurrent] = useState(() => location.hash.slice(1) || INTRO)
-  const [busqueda, setBusqueda] = useState('')
-  const [rielAbierto, setRielAbierto] = useState(false)
+  const [query, setQuery] = useState('')
+  const [railOpen, setRailOpen] = useState(false)
   const { prefs, set } = usePrefs()
-  const buscador = useRef<HTMLInputElement>(null)
+  const searchRef = useRef<HTMLInputElement>(null)
   const main = useRef<HTMLElement>(null)
 
   useEffect(() => {
@@ -160,11 +160,11 @@ export function App() {
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
-      const donde = document.activeElement as HTMLElement | null
-      const escribiendo = donde?.tagName === 'INPUT' || donde?.tagName === 'TEXTAREA' || donde?.isContentEditable
-      if (e.key === '/' && !escribiendo) {
+      const where = document.activeElement as HTMLElement | null
+      const typing = where?.tagName === 'INPUT' || where?.tagName === 'TEXTAREA' || where?.isContentEditable
+      if (e.key === '/' && !typing) {
         e.preventDefault()
-        buscador.current?.focus()
+        searchRef.current?.focus()
       }
     }
     addEventListener('keydown', onKey)
@@ -174,12 +174,12 @@ export function App() {
   const go = (id: string) => {
     location.hash = id
     setCurrent(id)
-    setRielAbierto(false)
+    setRailOpen(false)
     window.scrollTo({ top: 0 })
   }
 
-  const filtrados = useMemo(() => {
-    const q = fold(busqueda.trim())
+  const filtered = useMemo(() => {
+    const q = fold(query.trim())
     if (!q) return groups
     return groups
       .map(g => ({
@@ -190,17 +190,17 @@ export function App() {
           || (s.alias ? fold(s.alias).includes(q) : false)),
       }))
       .filter(g => g.stories.length > 0)
-  }, [busqueda])
+  }, [query])
 
-  const story = todas.find(s => s.id === current)
+  const story = everything.find(s => s.id === current)
 
   return (
     <ToastProvider>
       <div className="flex min-h-screen flex-col bg-canvas lg:flex-row">
-        {rielAbierto && (
+        {railOpen && (
           <div
             className="ui-fade fixed inset-0 z-30 bg-veil lg:hidden"
-            onClick={() => setRielAbierto(false)}
+            onClick={() => setRailOpen(false)}
             aria-hidden="true"
           />
         )}
@@ -210,7 +210,7 @@ export function App() {
           className={cx(
             'fixed top-0 bottom-0 left-0 z-40 flex w-[248px] shrink-0 flex-col border-r border-line bg-canvas',
             'transition-transform duration-[190ms] ease-out lg:translate-x-0',
-            rielAbierto ? 'translate-x-0 shadow-popover' : '-translate-x-full',
+            railOpen ? 'translate-x-0 shadow-popover' : '-translate-x-full',
           )}
         >
           <div className="flex flex-col gap-3 px-4 pt-5 pb-3">
@@ -222,33 +222,33 @@ export function App() {
             <label className="field flex h-8 cursor-text items-center gap-2 rounded-lg border border-field-line bg-field px-2.5">
               <Icon name="search" size={14} className="icon-muted shrink-0" />
               <input
-                ref={buscador}
-                value={busqueda}
-                onChange={e => setBusqueda(e.target.value)}
+                ref={searchRef}
+                value={query}
+                onChange={e => setQuery(e.target.value)}
                 onKeyDown={e => {
-                  const encontrados = filtrados.flatMap(g => g.stories)
-                  if (e.key === 'Enter' && encontrados.length > 0) {
-                    go(encontrados[0].id)
-                    setBusqueda('')
-                    buscador.current?.blur()
+                  const found = filtered.flatMap(g => g.stories)
+                  if (e.key === 'Enter' && found.length > 0) {
+                    go(found[0].id)
+                    setQuery('')
+                    searchRef.current?.blur()
                   }
                   if (e.key === 'Escape') {
-                    if (busqueda) setBusqueda('')
-                    else buscador.current?.blur()
+                    if (query) setQuery('')
+                    else searchRef.current?.blur()
                   }
                   if (e.key === 'ArrowDown') {
                     e.preventDefault()
-                    const primero = document.querySelector<HTMLButtonElement>('nav [data-pieza]')
-                    primero?.focus()
+                    const first = document.querySelector<HTMLButtonElement>('nav [data-pieza]')
+                    first?.focus()
                   }
                 }}
                 placeholder="Buscar"
                 aria-label="Buscar una pieza"
                 className="min-w-0 flex-1 bg-transparent text-xs font-normal text-ink outline-none placeholder:text-ink-muted"
               />
-              {busqueda
+              {query
                 ? (
-                  <button type="button" onClick={() => setBusqueda('')} aria-label="Limpiar" className="shrink-0 text-ink-muted hover:text-ink">
+                  <button type="button" onClick={() => setQuery('')} aria-label="Limpiar" className="shrink-0 text-ink-muted hover:text-ink">
                     <Icon name="close" size={14} />
                   </button>
                 )
@@ -260,27 +260,27 @@ export function App() {
             <SideLink active={current === INTRO} onClick={() => go(INTRO)} icon="deployed_code">Introducción</SideLink>
             <SideLink active={current === 'dashboard'} onClick={() => go('dashboard')} icon="dashboard">Dashboard</SideLink>
 
-            {filtrados.map(g => (
+            {filtered.map(g => (
               <div key={g.label} className="mt-5 first:mt-4">
                 <div className="px-2.5 pb-1.5 text-2xs font-semibold tracking-wide text-ink-muted uppercase">
                   {g.label}
                 </div>
                 <div className="flex flex-col gap-px">
                   {g.stories.map(s => (
-                    <SideLink key={s.id} active={current === s.id} onClick={() => go(s.id)} pieza>{s.label}</SideLink>
+                    <SideLink key={s.id} active={current === s.id} onClick={() => go(s.id)} piece>{s.label}</SideLink>
                   ))}
                 </div>
               </div>
             ))}
 
-            {filtrados.length === 0 && (
-              <p className="px-2.5 py-6 text-xs font-medium text-ink-muted">Nada con «{busqueda}».</p>
+            {filtered.length === 0 && (
+              <p className="px-2.5 py-6 text-xs font-medium text-ink-muted">Nada con «{query}».</p>
             )}
           </div>
 
           <div className="flex items-center justify-between gap-2 border-t border-line px-4 py-3">
             <span className="text-2xs font-medium text-ink-muted">
-              {todas.length} piezas
+              {everything.length} piezas
             </span>
             <IconButton
               icon={prefs.theme === 'dark' ? 'light_mode' : 'dark_mode'}
@@ -298,16 +298,16 @@ export function App() {
             label="Abrir el índice"
             size="sm"
             variant="ghost"
-            aria-expanded={rielAbierto}
+            aria-expanded={railOpen}
             aria-controls="riel"
-            onClick={() => setRielAbierto(true)}
+            onClick={() => setRailOpen(true)}
           />
           <span className="text-xs font-semibold text-ink">melu · ui kit</span>
         </div>
 
         <main ref={main} className="min-w-0 flex-1 px-5 py-8 lg:ml-[248px] lg:px-10 lg:py-10">
           <div key={current} className="mx-auto flex max-w-[980px] flex-col">
-            {current === INTRO && <Intro go={go} piezas={todas.length} />}
+            {current === INTRO && <Intro go={go} pieces={everything.length} />}
             {current === 'dashboard' && <Dashboard />}
             {story?.render()}
           </div>
@@ -317,24 +317,24 @@ export function App() {
   )
 }
 
-function SideLink({ active, onClick, icon, pieza, children }: {
+function SideLink({ active, onClick, icon, piece, children }: {
   active: boolean
   onClick: () => void
   icon?: 'deployed_code' | 'dashboard'
-  pieza?: boolean
+  piece?: boolean
   children: ReactNode
 }) {
   return (
     <button
       onClick={onClick}
-      data-pieza={pieza ? '' : undefined}
+      data-pieza={piece ? '' : undefined}
       onKeyDown={e => {
         if (e.key !== 'ArrowDown' && e.key !== 'ArrowUp') return
         e.preventDefault()
-        const todos = [...document.querySelectorAll<HTMLButtonElement>('nav [data-pieza]')]
-        const i = todos.indexOf(e.currentTarget)
-        const siguiente = todos[i + (e.key === 'ArrowDown' ? 1 : -1)]
-        siguiente?.focus()
+        const all = [...document.querySelectorAll<HTMLButtonElement>('nav [data-pieza]')]
+        const i = all.indexOf(e.currentTarget)
+        const next = all[i + (e.key === 'ArrowDown' ? 1 : -1)]
+        next?.focus()
       }}
       aria-current={active ? 'page' : undefined}
       className={cx(

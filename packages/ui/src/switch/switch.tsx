@@ -5,15 +5,15 @@ import { cx } from '../lib/cx'
 export function Switch({
   checked, onChange, label, disabled, id,
 }: { checked: boolean; onChange: (v: boolean) => void; label?: string; disabled?: boolean; id?: string }) {
-  const campo = useField()
+  const field = useField()
   return (
     <button
-      {...campo}
-      id={id ?? campo.id}
+      {...field}
+      id={id ?? field.id}
       type="button"
       role="switch"
       aria-checked={checked}
-      aria-label={campo.id ? undefined : label}
+      aria-label={field.id ? undefined : label}
       disabled={disabled}
       onClick={() => onChange(!checked)}
       className={cx(

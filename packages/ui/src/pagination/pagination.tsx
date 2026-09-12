@@ -33,17 +33,17 @@ type PaginationStatusProps = Omit<ComponentPropsWithoutRef<'p'>, 'children'> & {
 export function PaginationStatus({
   to, from = 1, total, noun, className, children, ...props
 }: PaginationStatusProps) {
-  const cuantos = total ?? to
-  const palabra = Array.isArray(noun) ? (cuantos === 1 ? noun[0] : noun[1]) : noun
-  const cola = palabra ? ` ${palabra}` : ''
-  const frase = total !== undefined && from <= 1 && to >= total
-    ? `${total}${cola}`
+  const howMany = total ?? to
+  const word = Array.isArray(noun) ? (howMany === 1 ? noun[0] : noun[1]) : noun
+  const tail = word ? ` ${word}` : ''
+  const phrase = total !== undefined && from <= 1 && to >= total
+    ? `${total}${tail}`
     : total !== undefined
-      ? `${from} a ${to} de ${total}${cola}`
-      : `${from} a ${to}${cola}`
+      ? `${from} a ${to} de ${total}${tail}`
+      : `${from} a ${to}${tail}`
   return (
     <p role="status" className={cx('tabular text-xs font-medium text-ink-muted', className)} {...props}>
-      {children ?? frase}
+      {children ?? phrase}
     </p>
   )
 }

@@ -6,29 +6,29 @@ export function useTokens(names: readonly string[]) {
   // La dependencia es el contenido y no el arreglo: con la identidad, un
   // `useTokens(['--x'])` escrito inline arma uno nuevo en cada render y el
   // effect se vuelve a disparar para siempre.
-  const clave = names.join('|')
+  const key = names.join('|')
 
   useEffect(() => {
-    const leer = () => {
+    const read = () => {
       const cs = getComputedStyle(document.documentElement)
       const next: Record<string, string> = {}
-      for (const n of clave.split('|')) next[n] = cs.getPropertyValue(n).trim()
+      for (const n of key.split('|')) next[n] = cs.getPropertyValue(n).trim()
       setVals(next)
     }
-    leer()
-    const obs = new MutationObserver(leer)
+    read()
+    const obs = new MutationObserver(read)
     obs.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] })
     return () => obs.disconnect()
-  }, [clave])
+  }, [key])
 
   return vals
 }
 
-function Rico({ texto }: { texto: string }) {
-  const partes = texto.split(/(`[^`]+`)/g)
+function Rich({ text }: { text: string }) {
+  const parts = text.split(/(`[^`]+`)/g)
   return (
     <>
-      {partes.map((t, i) =>
+      {parts.map((t, i) =>
         t.startsWith('`') && t.endsWith('`')
           ? <code key={i} className="rounded-sm bg-muted px-1 py-0.5 font-mono text-[0.92em] text-ink">{t.slice(1, -1)}</code>
           : t)}
@@ -57,7 +57,7 @@ export function Page({ title, lead, imports, kind, children }: PageProps) {
           <h1 className="text-display font-bold tracking-tight text-ink">{title}</h1>
           {kind && <Badge>{kind}</Badge>}
         </div>
-        <p className="max-w-[68ch] text-base font-medium text-ink-muted"><Rico texto={lead} /></p>
+        <p className="max-w-[68ch] text-base font-medium text-ink-muted"><Rich text={lead} /></p>
         {imports && <Code>{imports}</Code>}
       </header>
       {children}
@@ -67,24 +67,24 @@ export function Page({ title, lead, imports, kind, children }: PageProps) {
 
 /** Una línea de código que se puede copiar. */
 export function Code({ children }: { children: string }) {
-  const [copiado, setCopiado] = useState(false)
+  const [copied, setCopied] = useState(false)
   return (
     <button
       type="button"
       onClick={() => {
         navigator.clipboard?.writeText(children)
-        setCopiado(true)
-        setTimeout(() => setCopiado(false), 1400)
+        setCopied(true)
+        setTimeout(() => setCopied(false), 1400)
       }}
       className="group inline-flex max-w-full items-center gap-2.5 self-start rounded-lg border border-line bg-muted py-1.5 pr-2.5 pl-3 text-left transition-colors hover:bg-sunken"
     >
       <code className="truncate font-mono text-2xs text-ink">{children}</code>
       <Icon
-        name={copiado ? 'check' : 'content_copy'}
+        name={copied ? 'check' : 'content_copy'}
         size={14}
         className="icon-muted shrink-0 transition-colors group-hover:text-ink"
       />
-      <span className="sr-only">{copiado ? 'Copiado' : 'Copiar'}</span>
+      <span className="sr-only">{copied ? 'Copiado' : 'Copiar'}</span>
     </button>
   )
 }
@@ -95,7 +95,7 @@ export function Section({ title, note, children }: { title: string; note?: strin
     <section className="flex flex-col gap-4">
       <div className="flex flex-col gap-1.5">
         <h2 className="text-lg font-semibold tracking-tight text-ink">{title}</h2>
-        {note && <p className="max-w-[72ch] text-xs font-medium text-ink-muted"><Rico texto={note} /></p>}
+        {note && <p className="max-w-[72ch] text-xs font-medium text-ink-muted"><Rich text={note} /></p>}
       </div>
       {children}
     </section>
@@ -214,7 +214,7 @@ export function A11y({ items }: { items: string[] }) {
       {items.map(t => (
         <li key={t} className="flex gap-2.5 text-xs font-medium text-ink-muted">
           <Icon name="check" size={16} className="mt-px shrink-0 text-ok" />
-          <span className="max-w-[70ch]"><Rico texto={t} /></span>
+          <span className="max-w-[70ch]"><Rich text={t} /></span>
         </li>
       ))}
     </ul>

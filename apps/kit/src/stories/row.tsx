@@ -3,9 +3,9 @@ import { Button, Row, Select, Switch } from '@melu/ui'
 import { A11y, Note, Page, Props, Section } from '../kit'
 
 export function RowStory() {
-  const [uno, setUno] = useState(true)
-  const [dos, setDos] = useState(false)
-  const [nivel, setNivel] = useState('Todo el equipo')
+  const [first, setFirst] = useState(true)
+  const [second, setSecond] = useState(false)
+  const [level, setLevel] = useState('Todo el equipo')
 
   return (
     <Page
@@ -20,13 +20,13 @@ export function RowStory() {
       >
         <div className="max-w-[520px] overflow-hidden rounded-2xl border border-line bg-surface">
           <Row label="Sugerir mejoras" hint="Mientras escribís una consigna">
-            <Switch checked={uno} onChange={setUno} label="Sugerir mejoras" />
+            <Switch checked={first} onChange={setFirst} label="Sugerir mejoras" />
           </Row>
           <Row label="Aparecer en el directorio" hint="Otras escuelas pueden encontrarte">
-            <Switch checked={dos} onChange={setDos} label="Directorio" />
+            <Switch checked={second} onChange={setSecond} label="Directorio" />
           </Row>
           <Row label="Quién ve mis recetas">
-            <Select value={nivel} onChange={setNivel} width={180} options={['Solo yo', 'Todo el equipo', 'Cualquiera con el link']} />
+            <Select value={level} onChange={setLevel} width={180} options={['Solo yo', 'Todo el equipo', 'Cualquiera con el link']} />
           </Row>
         </div>
       </Section>
@@ -37,7 +37,7 @@ export function RowStory() {
       >
         <div className="max-w-[520px] overflow-hidden rounded-2xl border border-line bg-surface">
           <Row label="Avisos por mail" hint="Cuando llega una entrega">
-            <Switch checked={uno} onChange={setUno} label="Avisos por mail" />
+            <Switch checked={first} onChange={setFirst} label="Avisos por mail" />
           </Row>
         </div>
       </Section>

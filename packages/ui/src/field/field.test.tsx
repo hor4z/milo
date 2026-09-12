@@ -28,9 +28,9 @@ describe('Field', () => {
 
   it('el error marca el campo y reemplaza a la ayuda', () => {
     render(<Field label="Nombre" hint="Lo ven los estudiantes" error="Poné un nombre"><TextField /></Field>)
-    const campo = screen.getByRole('textbox')
-    expect(campo).toHaveAttribute('aria-invalid', 'true')
-    expect(campo).toHaveAccessibleDescription('Poné un nombre')
+    const field = screen.getByRole('textbox')
+    expect(field).toHaveAttribute('aria-invalid', 'true')
+    expect(field).toHaveAccessibleDescription('Poné un nombre')
     expect(screen.queryByText('Lo ven los estudiantes')).not.toBeInTheDocument()
   })
 

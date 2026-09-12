@@ -3,8 +3,8 @@ import { Button, ConfirmDialog, useToast } from '@melu/ui'
 import { A11y, Canvas, Note, Page, Props, Section } from '../kit'
 
 export function ConfirmStory() {
-  const [abierto, setAbierto] = useState(false)
-  const [publicar, setPublicar] = useState(false)
+  const [open, setOpen] = useState(false)
+  const [publishOpen, setPublishOpen] = useState(false)
   const { toast } = useToast()
   return (
     <Page
@@ -18,13 +18,13 @@ export function ConfirmStory() {
         note="El título nombra lo que se va a tocar: «¿Borrar esta actividad?» obliga a acordarse de cuál estabas mirando. Va como `alertdialog` y no como `dialog` — un lector de pantalla lo anuncia con más urgencia, que es lo que corresponde cuando lo que sigue no tiene vuelta atrás."
       >
         <Canvas className="flex justify-center">
-          <Button variant="bad" icon="delete" onClick={() => setAbierto(true)}>Borrar la actividad</Button>
+          <Button variant="bad" icon="delete" onClick={() => setOpen(true)}>Borrar la actividad</Button>
         </Canvas>
         <ConfirmDialog
-          open={abierto}
-          onCancel={() => setAbierto(false)}
+          open={open}
+          onCancel={() => setOpen(false)}
           onConfirm={() => {
-            setAbierto(false)
+            setOpen(false)
             toast({ title: 'Actividad borrada', tone: 'ok' })
           }}
           title="¿Borrar «Fracciones equivalentes»?"
@@ -39,13 +39,13 @@ export function ConfirmStory() {
         note="`neutral` es para lo que se puede deshacer pero conviene mirar dos veces: publicar, cerrar, invitar. El botón de confirmar va sólido y el foco arranca ahí, porque la respuesta esperada es que sí."
       >
         <Canvas className="flex justify-center">
-          <Button variant="solid" icon="send" onClick={() => setPublicar(true)}>Publicar sin fecha</Button>
+          <Button variant="solid" icon="send" onClick={() => setPublishOpen(true)}>Publicar sin fecha</Button>
         </Canvas>
         <ConfirmDialog
-          open={publicar}
-          onCancel={() => setPublicar(false)}
+          open={publishOpen}
+          onCancel={() => setPublishOpen(false)}
           onConfirm={() => {
-            setPublicar(false)
+            setPublishOpen(false)
             toast({ title: 'Actividad publicada', body: 'Queda abierta hasta que la cierres', tone: 'ok' })
           }}
           title="¿Publicar sin fecha de cierre?"

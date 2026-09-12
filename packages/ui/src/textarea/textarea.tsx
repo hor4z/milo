@@ -16,33 +16,33 @@ export function Textarea({
   rows = 3, maxRows, resize = 'auto', className, onChange, value, ...rest
 }: TextareaProps) {
   const ref = useRef<HTMLTextAreaElement>(null)
-  const campo = useField()
+  const field = useField()
 
-  const medir = useCallback(() => {
+  const measure = useCallback(() => {
     const el = ref.current
     if (!el || resize !== 'auto') return
     const cs = getComputedStyle(el)
     const line = parseFloat(cs.lineHeight) || 16
-    const marco = parseFloat(cs.paddingTop) + parseFloat(cs.paddingBottom)
+    const frame = parseFloat(cs.paddingTop) + parseFloat(cs.paddingBottom)
       + parseFloat(cs.borderTopWidth) + parseFloat(cs.borderBottomWidth)
     el.style.height = 'auto'
-    const alto = el.scrollHeight
-    const techo = maxRows ? line * maxRows + marco : Infinity
-    el.style.height = `${Math.min(alto, techo)}px`
-    el.style.overflowY = alto > techo ? 'auto' : 'hidden'
+    const height = el.scrollHeight
+    const cap = maxRows ? line * maxRows + frame : Infinity
+    el.style.height = `${Math.min(height, cap)}px`
+    el.style.overflowY = height > cap ? 'auto' : 'hidden'
   }, [maxRows, resize])
 
-  useLayoutEffect(medir, [medir, value, rows])
+  useLayoutEffect(measure, [measure, value, rows])
 
   // Sin esto, angostar la ventana o el swap de la fuente deja texto cortado y sin scroll.
   useEffect(() => {
     const el = ref.current
     if (!el || resize !== 'auto' || typeof ResizeObserver === 'undefined') return
-    const ro = new ResizeObserver(medir)
+    const ro = new ResizeObserver(measure)
     ro.observe(el)
-    document.fonts?.ready.then(medir).catch(() => {})
+    document.fonts?.ready.then(measure).catch(() => {})
     return () => ro.disconnect()
-  }, [medir, resize])
+  }, [measure, resize])
 
   return (
     <div
@@ -63,13 +63,13 @@ export function Textarea({
         ref={ref}
         rows={rows}
         value={value}
-        onChange={e => { medir(); onChange?.(e) }}
+        onChange={e => { measure(); onChange?.(e) }}
         className={cx(
           'min-w-0 flex-1 bg-transparent font-normal leading-[1.45] text-ink outline-none',
           'placeholder:text-ink-muted',
           resize === 'vertical' ? 'resize-y px-3 py-2.5' : 'resize-none',
         )}
-        {...campo}
+        {...field}
         {...rest}
       />
     </div>

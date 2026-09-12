@@ -42,8 +42,8 @@ describe('Select', () => {
     expect(trigger).not.toHaveAttribute('aria-activedescendant')
     await userEvent.click(trigger)
     await userEvent.keyboard('{ArrowDown}')
-    const activa = trigger.getAttribute('aria-activedescendant')
-    expect(document.getElementById(activa!)).toHaveTextContent('Dos')
+    const activeId = trigger.getAttribute('aria-activedescendant')
+    expect(document.getElementById(activeId!)).toHaveTextContent('Dos')
   })
 
   it('la flecha abajo abre la lista con el teclado', async () => {
@@ -72,12 +72,12 @@ describe('Select', () => {
     const trigger = screen.getByRole('button', { name: /Uno/ })
     await userEvent.click(trigger)
     await userEvent.keyboard('{ArrowDown}')
-    const antes = trigger.getAttribute('aria-activedescendant')
-    expect(document.getElementById(antes!)).toHaveTextContent('Dos')
+    const before = trigger.getAttribute('aria-activedescendant')
+    expect(document.getElementById(before!)).toHaveTextContent('Dos')
 
     // Un `options={[...]}` escrito inline arma un arreglo nuevo en cada render
     // del padre: es el caso que reseteaba la opción señalada.
     rerender(<Select value="Uno" onChange={() => {}} options={['Uno', 'Dos', 'Tres']} />)
-    expect(trigger.getAttribute('aria-activedescendant')).toBe(antes)
+    expect(trigger.getAttribute('aria-activedescendant')).toBe(before)
   })
 })

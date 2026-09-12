@@ -7,16 +7,16 @@ import {
 import { iconTags } from '@melu/ui/icons.meta'
 import { A11y, Mono, Page, Panel, Props, Section, Variant } from '../kit'
 
-const escala = [
-  { px: 12, rol: 'un badge, la cruz de un chip' },
-  { px: 14, rol: 'la marca de un Select, un tilde' },
-  { px: 16, rol: 'adentro de un control chico' },
-  { px: 18, rol: 'adentro de un botón mediano' },
-  { px: 20, rol: 'el default: la interfaz' },
-  { px: 22, rol: 'el glifo de una marca de lista' },
+const sizes = [
+  { px: 12, role: 'un badge, la cruz de un chip' },
+  { px: 14, role: 'la marca de un Select, un tilde' },
+  { px: 16, role: 'adentro de un control chico' },
+  { px: 18, role: 'adentro de un botón mediano' },
+  { px: 20, role: 'el default: la interfaz' },
+  { px: 22, role: 'el glifo de una marca de lista' },
 ] as const
 
-const pesos = [
+const weights = [
   { value: '300', label: '300' }, { value: '400', label: '400' },
   { value: '500', label: '500' }, { value: '700', label: '700' },
 ] as const
@@ -25,18 +25,18 @@ export function IconStory() {
   const [q, setQ] = useState('')
   const [size, setSize] = useState(24)
   const [weight, setWeight] = useState<'300' | '400' | '500' | '700'>('300')
-  const [copiado, setCopiado] = useState<string | null>(null)
+  const [copied, setCopied] = useState<string | null>(null)
 
-  const visibles = useMemo(() => {
+  const visible = useMemo(() => {
     const n = fold(q.trim())
     if (!n) return iconNames
     return iconNames.filter(k => fold(k).includes(n) || fold(iconTags[k] ?? '').includes(n))
   }, [q])
 
-  const copiar = (name: IconName) => {
+  const copy = (name: IconName) => {
     navigator.clipboard?.writeText(`<Icon name="${name}" />`)
-    setCopiado(name)
-    setTimeout(() => setCopiado(c => (c === name ? null : c)), 1200)
+    setCopied(name)
+    setTimeout(() => setCopied(c => (c === name ? null : c)), 1200)
   }
 
   return (
@@ -74,7 +74,7 @@ export function IconStory() {
             label="Peso del glifo"
             value={weight}
             onChange={setWeight}
-            options={pesos.map(p => ({ value: p.value, label: p.label }))}
+            options={weights.map(p => ({ value: p.value, label: p.label }))}
             size="sm"
           />
           <span className="flex w-[180px] items-center gap-3 text-xs text-ink-muted">
@@ -83,7 +83,7 @@ export function IconStory() {
           </span>
         </div>
 
-        {visibles.length === 0 ? (
+        {visible.length === 0 ? (
           <div className="mt-4">
             <EmptyState
               size="sm"
@@ -100,11 +100,11 @@ export function IconStory() {
               '--icon-wght': weight,
             } as CSSProperties}
           >
-            {visibles.map(name => (
+            {visible.map(name => (
               <button
                 key={name}
                 type="button"
-                onClick={() => copiar(name)}
+                onClick={() => copy(name)}
                 title={iconTags[name] || name}
                 className="flex flex-col items-center gap-2 rounded-xl border border-line bg-surface px-2 py-3 transition-colors hover:bg-muted"
               >
@@ -112,7 +112,7 @@ export function IconStory() {
                   <Icon name={name} size={size} />
                 </span>
                 <span className="w-full truncate text-center font-mono text-2xs text-ink-muted">
-                  {copiado === name ? 'copiado' : name}
+                  {copied === name ? 'copiado' : name}
                 </span>
               </button>
             ))}
@@ -129,10 +129,10 @@ export function IconStory() {
         note="Seis pasos pares. Antes eran nueve valores y tres de ellos impares, que salieron de encajar ópticamente dibujos propios; con una fuente un tamaño impar cae en media grilla de píxeles y se ve borroso."
       >
         <Panel>
-          {escala.map(e => (
+          {sizes.map(e => (
             <Variant key={e.px} name={`${e.px}`}>
               <Icon name="calendar_month" size={e.px} />
-              <span className="text-xs text-ink-muted">{e.rol}</span>
+              <span className="text-xs text-ink-muted">{e.role}</span>
             </Variant>
           ))}
         </Panel>

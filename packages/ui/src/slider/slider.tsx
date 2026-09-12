@@ -16,7 +16,7 @@ export function Slider({
   id?: string
   className?: string
 }) {
-  const campo = useField()
+  const field = useField()
   const t = max === min ? 0 : Math.min(1, Math.max(0, (value - min) / (max - min)))
   const thumbAt = 'calc(var(--t) * (100% - 24px) + 12px)'
   const fillTo = 'calc(var(--t) * (100% - 24px) + 24px)'
@@ -34,9 +34,9 @@ export function Slider({
       />
       <input
         type="range"
-        {...campo}
-        id={id ?? campo.id}
-        aria-label={campo.id ? undefined : label}
+        {...field}
+        id={id ?? field.id}
+        aria-label={field.id ? undefined : label}
         min={min} max={max} step={step} value={value}
         disabled={disabled}
         onChange={e => onChange(Number(e.target.value))}

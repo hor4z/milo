@@ -14,15 +14,15 @@ export function Checkbox({
   indeterminate?: boolean
 }) {
   const on = checked || indeterminate
-  const campo = useField()
+  const field = useField()
   return (
     <button
-      {...campo}
-      id={id ?? campo.id}
+      {...field}
+      id={id ?? field.id}
       type="button"
       role="checkbox"
       aria-checked={indeterminate ? 'mixed' : checked}
-      aria-label={campo.id ? undefined : label}
+      aria-label={field.id ? undefined : label}
       disabled={disabled}
       onClick={() => onChange(!checked)}
       className={cx(

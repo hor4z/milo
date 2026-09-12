@@ -4,10 +4,10 @@ import { NavItemBody, navItemClass, navSubItemClass } from './nav'
 
 describe('navItemClass', () => {
   it('el activo se marca con relieve y canto, no con color', () => {
-    const activo = navItemClass({ active: true })
-    expect(activo).toContain('bg-muted')
-    expect(activo).toContain('shadow-[0_0_0_1px_var(--border)]')
-    expect(activo).not.toContain('text-brand')
+    const active = navItemClass({ active: true })
+    expect(active).toContain('bg-muted')
+    expect(active).toContain('shadow-[0_0_0_1px_var(--border)]')
+    expect(active).not.toContain('text-brand')
   })
 
   it('el inactivo va en tinta, no en gris', () => {

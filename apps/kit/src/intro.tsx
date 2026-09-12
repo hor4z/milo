@@ -4,16 +4,16 @@ import {
 } from '@melu/ui'
 import { useState } from 'react'
 
-const cara = (n: number) => `/avatars/${String(n).padStart(2, '0')}.webp`
+const face = (n: number) => `/avatars/${String(n).padStart(2, '0')}.webp`
 
-const atajos: { id: string; icon: IconName; title: string; body: string }[] = [
+const shortcuts: { id: string; icon: IconName; title: string; body: string }[] = [
   { id: 'foundations', icon: 'target', title: 'Principios', body: 'Las seis decisiones de las que sale todo lo demás.' },
   { id: 'color', icon: 'palette', title: 'Color', body: 'Una rampa casi neutra y tres familias acotadas.' },
   { id: 'button', icon: 'touch_app', title: 'Componentes', body: 'Cada una con su teclado, sus estados y sus tests.' },
   { id: 'dashboard', icon: 'dashboard', title: 'Dashboard', body: 'Todo junto, funcionando en una pantalla real.' },
 ]
 
-export function Intro({ go, piezas }: { go: (id: string) => void; piezas: number }) {
+export function Intro({ go, pieces }: { go: (id: string) => void; pieces: number }) {
   const [demo, setDemo] = useState(true)
 
   return (
@@ -43,7 +43,7 @@ export function Intro({ go, piezas }: { go: (id: string) => void; piezas: number
           </div>
 
           <dl className="mt-1 flex flex-wrap gap-x-9 gap-y-3 border-t border-line pt-6">
-            {[[String(piezas), 'piezas'], ['251', 'tests'], ['160', 'iconos'], ['2', 'temas']].map(([n, l]) => (
+            {[[String(pieces), 'piezas'], ['251', 'tests'], ['160', 'iconos'], ['2', 'temas']].map(([n, l]) => (
               <div key={l} className="flex items-baseline gap-2">
                 <dt className="tabular text-lg font-bold text-ink">{n}</dt>
                 <dd className="text-xs font-medium text-ink-muted">{l}</dd>
@@ -54,7 +54,7 @@ export function Intro({ go, piezas }: { go: (id: string) => void; piezas: number
       </section>
 
       <section className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-        {atajos.map(a => (
+        {shortcuts.map(a => (
           <button
             key={a.id}
             onClick={() => go(a.id)}
@@ -114,9 +114,9 @@ export function Intro({ go, piezas }: { go: (id: string) => void; piezas: number
             <Card className="flex items-center justify-between gap-4 p-5">
               <div className="flex items-center gap-2.5">
                 <AvatarGroup people={[
-                  { name: 'Ana Pérez', src: cara(1) },
-                  { name: 'Bruno Díaz', src: cara(2) },
-                  { name: 'Carla Sosa', src: cara(3) },
+                  { name: 'Ana Pérez', src: face(1) },
+                  { name: 'Bruno Díaz', src: face(2) },
+                  { name: 'Carla Sosa', src: face(3) },
                 ]} />
                 <span className="text-2xs font-medium text-ink-muted">tres entregaron</span>
               </div>

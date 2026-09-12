@@ -3,10 +3,10 @@ import { Checkbox, Radio, RadioGroup } from '@melu/ui'
 import { A11y, Page, Panel, Props, Section, Variant } from '../kit'
 
 export function RadioStory() {
-  const [uno, setUno] = useState<'a' | 'b'>('b')
-  const [modo, setModo] = useState<'todas' | 'abiertas' | 'cerradas'>('abiertas')
-  const [suelto, setSuelto] = useState<'si' | 'no'>('si')
-  const [con, setCon] = useState(true)
+  const [one, setOne] = useState<'a' | 'b'>('b')
+  const [mode, setMode] = useState<'todas' | 'abiertas' | 'cerradas'>('abiertas')
+  const [loose, setLoose] = useState<'si' | 'no'>('si')
+  const [withHint, setWithHint] = useState(true)
 
   return (
     <Page
@@ -23,16 +23,16 @@ export function RadioStory() {
           <Variant name="dos opciones">
             <RadioGroup
               label="Dos opciones"
-              value={uno}
-              onChange={setUno}
+              value={one}
+              onChange={setOne}
               options={[{ value: 'a', label: 'La primera' }, { value: 'b', label: 'La segunda' }]}
             />
           </Variant>
           <Variant name="tres">
             <RadioGroup
               label="Tres opciones"
-              value={modo}
-              onChange={setModo}
+              value={mode}
+              onChange={setMode}
               options={[
                 { value: 'todas', label: 'Todas' },
                 { value: 'abiertas', label: 'Abiertas' },
@@ -49,8 +49,8 @@ export function RadioStory() {
       >
         <Panel>
           <Variant name="radio vs checkbox">
-            <Radio checked={con} onChange={() => setCon(true)} label="Prendido" />
-            <Radio checked={!con} onChange={() => setCon(false)} label="Apagado" />
+            <Radio checked={withHint} onChange={() => setWithHint(true)} label="Prendido" />
+            <Radio checked={!withHint} onChange={() => setWithHint(false)} label="Apagado" />
             <span className="ml-4 inline-flex items-center gap-3">
               <Checkbox checked onChange={() => {}} label="Checkbox prendido" />
               <Checkbox checked={false} onChange={() => {}} label="Checkbox apagado" />
@@ -73,11 +73,11 @@ export function RadioStory() {
           <Variant name="con etiqueta">
             <span className="flex items-center gap-5">
               <label className="flex items-center gap-2 text-xs font-medium text-ink">
-                <Radio checked={suelto === 'si'} onChange={() => setSuelto('si')} label="Sí, avisarme" />
+                <Radio checked={loose === 'si'} onChange={() => setLoose('si')} label="Sí, avisarme" />
                 Sí, avisarme
               </label>
               <label className="flex items-center gap-2 text-xs font-medium text-ink">
-                <Radio checked={suelto === 'no'} onChange={() => setSuelto('no')} label="No hace falta" />
+                <Radio checked={loose === 'no'} onChange={() => setLoose('no')} label="No hace falta" />
                 No hace falta
               </label>
             </span>
@@ -97,8 +97,8 @@ export function RadioStory() {
           <Variant name="probalo">
             <RadioGroup
               label="Probá las flechas"
-              value={modo}
-              onChange={setModo}
+              value={mode}
+              onChange={setMode}
               options={[
                 { value: 'todas', label: 'Todas' },
                 { value: 'abiertas', label: 'Abiertas' },

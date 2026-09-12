@@ -6,8 +6,8 @@ import {
 import { A11y, Canvas, Note, Page, Props, Section } from '../kit'
 
 export function SheetStory() {
-  const [abierto, setAbierto] = useState(false)
-  const [izquierdo, setIzquierdo] = useState(false)
+  const [open, setOpen] = useState(false)
+  const [leftOpen, setLeftOpen] = useState(false)
   const { toast } = useToast()
 
   return (
@@ -22,11 +22,11 @@ export function SheetStory() {
         note="Se arma en tres partes: la cabecera con el título y la X, el cuerpo que scrollea, y el pie con las acciones, que no scrollea nunca. Un formulario de seis campos donde el botón de guardar hay que ir a buscarlo abajo de todo es un formulario que se abandona."
       >
         <Canvas className="flex justify-center">
-          <Button variant="solid" icon="add" onClick={() => setAbierto(true)}>Nueva actividad</Button>
+          <Button variant="solid" icon="add" onClick={() => setOpen(true)}>Nueva actividad</Button>
         </Canvas>
 
-        <Sheet open={abierto} onClose={() => setAbierto(false)} label="Nueva actividad">
-          <SheetHeader title="Nueva actividad" onClose={() => setAbierto(false)} />
+        <Sheet open={open} onClose={() => setOpen(false)} label="Nueva actividad">
+          <SheetHeader title="Nueva actividad" onClose={() => setOpen(false)} />
           <SheetBody>
             <FieldSet legend="Lo básico">
               <Field label="Nombre" required>
@@ -44,11 +44,11 @@ export function SheetStory() {
             </FieldSet>
           </SheetBody>
           <SheetFooter>
-            <Button variant="ghost" onClick={() => setAbierto(false)}>Cancelar</Button>
+            <Button variant="ghost" onClick={() => setOpen(false)}>Cancelar</Button>
             <Button
               variant="solid"
               onClick={() => {
-                setAbierto(false)
+                setOpen(false)
                 toast({ title: 'Actividad creada', body: 'Quedó en borrador', tone: 'ok' })
               }}
             >
@@ -63,11 +63,11 @@ export function SheetStory() {
         note="Por defecto de la derecha, que es de donde vienen las cosas nuevas. El izquierdo es para lo que acompaña a la navegación —un filtro, un índice— y no para un formulario: entrar por donde está el menú se lee como que el menú creció."
       >
         <Canvas className="flex justify-center">
-          <Button variant="raised" icon="filter_list" onClick={() => setIzquierdo(true)}>Filtros</Button>
+          <Button variant="raised" icon="filter_list" onClick={() => setLeftOpen(true)}>Filtros</Button>
         </Canvas>
 
-        <Sheet open={izquierdo} onClose={() => setIzquierdo(false)} side="left" width={360} label="Filtros">
-          <SheetHeader title="Filtros" onClose={() => setIzquierdo(false)} />
+        <Sheet open={leftOpen} onClose={() => setLeftOpen(false)} side="left" width={360} label="Filtros">
+          <SheetHeader title="Filtros" onClose={() => setLeftOpen(false)} />
           <SheetBody>
             <div className="flex flex-col gap-5">
               <Field label="Espacio">
@@ -79,8 +79,8 @@ export function SheetStory() {
             </div>
           </SheetBody>
           <SheetFooter>
-            <Button variant="ghost" onClick={() => setIzquierdo(false)}>Limpiar</Button>
-            <Button variant="solid" onClick={() => setIzquierdo(false)}>Aplicar</Button>
+            <Button variant="ghost" onClick={() => setLeftOpen(false)}>Limpiar</Button>
+            <Button variant="solid" onClick={() => setLeftOpen(false)}>Aplicar</Button>
           </SheetFooter>
         </Sheet>
       </Section>

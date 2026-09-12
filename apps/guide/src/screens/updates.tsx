@@ -1,11 +1,11 @@
 import { cx } from '@melu/ui'
 import { updates } from '../data'
 
-const tagLabel = { nuevo: 'Nuevo', mejora: 'Mejora', arreglo: 'Arreglo' } as const
+const tagLabel = { feature: 'Nuevo', improvement: 'Mejora', fix: 'Arreglo' } as const
 const tagStyle = {
-  nuevo: 'bg-accent-subtle text-accent',
-  mejora: 'bg-muted text-ink-muted',
-  arreglo: 'bg-muted text-ink-muted',
+  feature: 'bg-accent-subtle text-accent',
+  improvement: 'bg-muted text-ink-muted',
+  fix: 'bg-muted text-ink-muted',
 } as const
 
 /** Novedades. */

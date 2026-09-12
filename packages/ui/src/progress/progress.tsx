@@ -15,8 +15,8 @@ const fillTone = { brand: 'bg-brand', ok: 'bg-ok', warn: 'bg-warn', bad: 'bg-bad
 
 /** Cuánto de algo va hecho. La pista es el resto, no un segundo dato. */
 export function Progress({ value, max = 100, label, hint, tone = 'brand', className, ...props }: ProgressProps) {
-  const dentro = Math.min(max, Math.max(0, value))
-  const pct = (dentro / (max || 1)) * 100
+  const clamped = Math.min(max, Math.max(0, value))
+  const pct = (clamped / (max || 1)) * 100
   const id = useId()
   return (
     <div className={cx('flex flex-col gap-1.5', className)} {...props}>
@@ -29,7 +29,7 @@ export function Progress({ value, max = 100, label, hint, tone = 'brand', classN
       <div
         role="progressbar"
         aria-labelledby={id}
-        aria-valuenow={Math.round(dentro)}
+        aria-valuenow={Math.round(clamped)}
         aria-valuemin={0}
         aria-valuemax={max}
         className="h-1.5 w-full overflow-hidden rounded-full bg-track"

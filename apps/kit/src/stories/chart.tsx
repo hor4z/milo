@@ -1,9 +1,9 @@
 import { AvatarGroup, BarChart, Card } from '@melu/ui'
 import { A11y, Page, Props, Section } from '../kit'
 
-const cara = (n: number) => `/avatars/${String(n).padStart(2, '0')}.webp`
+const face = (n: number) => `/avatars/${String(n).padStart(2, '0')}.webp`
 
-const semana = [
+const week = [
   { label: 'Lunes', value: 18, total: 24, caption: 'Actividades corregidas' },
   { label: 'Martes', value: 6, total: 14, caption: 'Actividades corregidas' },
   { label: 'Miércoles', value: 27, total: 29, caption: 'Actividades corregidas' },
@@ -16,9 +16,9 @@ const semana = [
           size={18}
           max={3}
           people={[
-            { name: 'Ana Pérez', src: cara(1) },
-            { name: 'Bruno Díaz', src: cara(2) },
-            { name: 'Carla Sosa', src: cara(3) },
+            { name: 'Ana Pérez', src: face(1) },
+            { name: 'Bruno Díaz', src: face(2) },
+            { name: 'Carla Sosa', src: face(3) },
           ]}
         />
       </>
@@ -27,7 +27,7 @@ const semana = [
   { label: 'Viernes', value: 17, total: 17, caption: 'Actividades corregidas' },
 ]
 
-const meses = [
+const months = [
   { label: 'Ene', value: 31, total: 42 }, { label: 'Feb', value: 49, total: 58 },
   { label: 'Mar', value: 24, total: 51 }, { label: 'Abr', value: 64, total: 64 },
   { label: 'May', value: 12, total: 47 }, { label: 'Jun', value: 40, total: 73 },
@@ -50,7 +50,7 @@ export function ChartStory() {
             <div className="text-base font-semibold text-ink">Corregidas esta semana</div>
             <div className="text-xs font-medium text-ink-muted">El azul es lo corregido; el gris, lo que entró ese día</div>
           </div>
-          <BarChart title="Corregidas sobre entregadas, por día" data={semana} highlight={3} />
+          <BarChart title="Corregidas sobre entregadas, por día" data={week} highlight={3} />
         </Card>
       </Section>
 
@@ -59,7 +59,7 @@ export function ChartStory() {
         note="Con todas las barras llevando azul, marcar una con color no queda disponible: `highlight` le pone la etiqueta un paso más pesada, que alcanza para decir «esta es de la que estamos hablando» sin agregar un tercer tono. Acá va sin ninguna: cuando lo que importa es la forma de la serie y no un mes, se deja afuera."
       >
         <Card className="max-w-2xl p-6">
-          <BarChart title="Corregidas sobre entregadas, por mes" data={meses} height={160} />
+          <BarChart title="Corregidas sobre entregadas, por mes" data={months} height={160} />
         </Card>
       </Section>
 

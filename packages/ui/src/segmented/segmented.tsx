@@ -45,7 +45,7 @@ export function Segmented<T extends string>({
       {options.map(o => {
         const active = o.value === value
         const iconOnly = !o.label && !!o.icon
-        const boton = (
+        const option = (
           <button
             key={o.value}
             ref={roving.ref(o.value)}
@@ -75,8 +75,8 @@ export function Segmented<T extends string>({
           </button>
         )
         return iconOnly && o.title
-          ? <Tooltip key={o.value} label={o.title}>{boton}</Tooltip>
-          : boton
+          ? <Tooltip key={o.value} label={o.title}>{option}</Tooltip>
+          : option
       })}
     </div>
   )

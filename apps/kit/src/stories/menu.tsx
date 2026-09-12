@@ -3,7 +3,7 @@ import { Button, Divider, Menu, MenuItem, MenuLabel, Popover } from '@melu/ui'
 import { A11y, Mono, Page, Panel, Props, Section, Variant } from '../kit'
 
 export function MenuStory() {
-  const [vista, setVista] = useState<'grilla' | 'lista'>('grilla')
+  const [view, setView] = useState<'grilla' | 'lista'>('grilla')
 
   return (
     <Page
@@ -40,10 +40,10 @@ export function MenuStory() {
               <MenuItem icon="visibility">Ver como estudiante</MenuItem>
               <Divider />
               <MenuLabel>Vista</MenuLabel>
-              <MenuItem icon="grid_view" checked={vista === 'grilla'} onSelect={() => setVista('grilla')}>
+              <MenuItem icon="grid_view" checked={view === 'grilla'} onSelect={() => setView('grilla')}>
                 Grilla
               </MenuItem>
-              <MenuItem icon="view_list" checked={vista === 'lista'} onSelect={() => setVista('lista')}>
+              <MenuItem icon="view_list" checked={view === 'lista'} onSelect={() => setView('lista')}>
                 Lista
               </MenuItem>
               <Divider />

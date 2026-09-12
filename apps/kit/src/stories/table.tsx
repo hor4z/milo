@@ -8,57 +8,57 @@ import {
 } from '@melu/ui'
 import { A11y, Mono, Page, Props, Section } from '../kit'
 
-const cara = (n: number) => `/avatars/${String(n).padStart(2, '0')}.webp`
+const face = (n: number) => `/avatars/${String(n).padStart(2, '0')}.webp`
 
-const p = (name: string, foto?: number) => ({ name, src: foto ? cara(foto) : undefined })
+const p = (name: string, photo?: number) => ({ name, src: photo ? face(photo) : undefined })
 
-const tono = { Abierta: 'green', Corregida: 'blue' } as const
+const tone = { 'Abierta': 'green', 'Corregida': 'blue' } as const
 
-const espacios = [
+const spaces = [
   {
-    nombre: 'Fracciones equivalentes', espacio: 'Matemática · 4.º A', estado: 'Abierta',
-    estudiantes: [p('Ana Pérez', 1), p('Bruno Díaz', 2), p('Carla Sosa', 3), p('Damián Ruiz', 4), p('Elena Vega', 5)],
-    entregas: 18,
-    docente: p('Valeria Ochoa', 7), corregidas: 11, cuando: 'hace 2 h'
+    name: 'Fracciones equivalentes', space: 'Matemática · 4.º A', status: 'Abierta',
+    students: [p('Ana Pérez', 1), p('Bruno Díaz', 2), p('Carla Sosa', 3), p('Damián Ruiz', 4), p('Elena Vega', 5)],
+    total: 18,
+    teacher: p('Valeria Ochoa', 7), done: 11, when: 'hace 2 h'
   },
   {
-    nombre: 'El sistema solar', espacio: 'Ciencias · 5.º B', estado: 'Corregida',
-    estudiantes: [p('Franco Gil', 6), p('Gabriela Mota', 7), p('Hugo Paz', 8)],
-    entregas: 24,
-    docente: p('Martín Roldán', 6), corregidas: 24, cuando: 'ayer'
+    name: 'El sistema solar', space: 'Ciencias · 5.º B', status: 'Corregida',
+    students: [p('Franco Gil', 6), p('Gabriela Mota', 7), p('Hugo Paz', 8)],
+    total: 24,
+    teacher: p('Martín Roldán', 6), done: 24, when: 'ayer'
   },
   {
-    nombre: 'Cuento policial', espacio: 'Lengua · 6.º', estado: 'Borrador',
-    estudiantes: [p('Irene Lopez'), p('Julián Cruz'), p('Karen Ortiz'), p('Leo Nuñez')],
-    entregas: 0,
-    docente: p('Valeria Ochoa', 7), corregidas: 0, cuando: 'hace 5 días'
+    name: 'Cuento policial', space: 'Lengua · 6.º', status: 'Borrador',
+    students: [p('Irene Lopez'), p('Julián Cruz'), p('Karen Ortiz'), p('Leo Nuñez')],
+    total: 0,
+    teacher: p('Valeria Ochoa', 7), done: 0, when: 'hace 5 días'
   },
   {
-    nombre: 'Mapa de América', espacio: 'Sociales · 5.º A', estado: 'Abierta',
-    estudiantes: [p('Mora Tello', 2), p('Nico Arce'), p('Olivia Rey', 4)],
-    entregas: 7,
-    docente: p('Nadia Britos'), corregidas: 3, cuando: 'hace 1 h'
+    name: 'Mapa de América', space: 'Sociales · 5.º A', status: 'Abierta',
+    students: [p('Mora Tello', 2), p('Nico Arce'), p('Olivia Rey', 4)],
+    total: 7,
+    teacher: p('Nadia Britos'), done: 3, when: 'hace 1 h'
   },
 ]
 
-const todas = [
-  ...espacios,
-  { nombre: 'La Revolución de Mayo', espacio: 'Sociales · 6.º', estado: 'Corregida', estudiantes: [p('Pablo Vera', 7), p('Rita Coll', 1)], entregas: 21, docente: p('Martín Roldán', 6), corregidas: 21, cuando: 'hace 3 días' },
-  { nombre: 'Ecuaciones de primer grado', espacio: 'Matemática · 6.º', estado: 'Abierta', estudiantes: [p('Sara Luna', 3), p('Tomás Gil'), p('Ulises Paz', 5), p('Vera Ruiz', 6)], entregas: 12, docente: p('Valeria Ochoa', 7), corregidas: 5, cuando: 'hace 20 min' },
-  { nombre: 'El ciclo del agua', espacio: 'Ciencias · 4.º A', estado: 'Borrador', estudiantes: [p('Wanda Ise'), p('Ximena Roa', 8)], entregas: 0, docente: p('Nadia Britos'), corregidas: 0, cuando: 'la semana pasada' },
-  { nombre: 'Poesía de vanguardia', espacio: 'Lengua · 6.º', estado: 'Corregida', estudiantes: [p('Yago Prat', 4), p('Zoe Marín', 2), p('Aldo Sanz')], entregas: 16, docente: p('Martín Roldán', 6), corregidas: 16, cuando: 'hace 4 h' },
-  { nombre: 'Los climas del mundo', espacio: 'Sociales · 5.º A', estado: 'Abierta', estudiantes: [p('Bianca Toro', 6), p('Ciro Vega')], entregas: 9, docente: p('Nadia Britos'), corregidas: 2, cuando: 'hace 6 días' },
+const all = [
+  ...spaces,
+  { name: 'La Revolución de Mayo', space: 'Sociales · 6.º', status: 'Corregida', students: [p('Pablo Vera', 7), p('Rita Coll', 1)], total: 21, teacher: p('Martín Roldán', 6), done: 21, when: 'hace 3 días' },
+  { name: 'Ecuaciones de primer grado', space: 'Matemática · 6.º', status: 'Abierta', students: [p('Sara Luna', 3), p('Tomás Gil'), p('Ulises Paz', 5), p('Vera Ruiz', 6)], total: 12, teacher: p('Valeria Ochoa', 7), done: 5, when: 'hace 20 min' },
+  { name: 'El ciclo del agua', space: 'Ciencias · 4.º A', status: 'Borrador', students: [p('Wanda Ise'), p('Ximena Roa', 8)], total: 0, teacher: p('Nadia Britos'), done: 0, when: 'la semana pasada' },
+  { name: 'Poesía de vanguardia', space: 'Lengua · 6.º', status: 'Corregida', students: [p('Yago Prat', 4), p('Zoe Marín', 2), p('Aldo Sanz')], total: 16, teacher: p('Martín Roldán', 6), done: 16, when: 'hace 4 h' },
+  { name: 'Los climas del mundo', space: 'Sociales · 5.º A', status: 'Abierta', students: [p('Bianca Toro', 6), p('Ciro Vega')], total: 9, teacher: p('Nadia Britos'), done: 2, when: 'hace 6 días' },
 ]
 
-const TRAMO = 4
+const PAGE_SIZE = 4
 
 export function TableStory() {
-  const [texto, setTexto] = useState('')
-  const [estados, setEstados] = useState<string[]>([])
-  const [espaciosElegidos, setEspaciosElegidos] = useState<string[]>([])
-  const [gente, setGente] = useState<string[]>([])
+  const [query, setQuery] = useState('')
+  const [statuses, setStatuses] = useState<string[]>([])
+  const [pickedSpaces, setPickedSpaces] = useState<string[]>([])
+  const [pickedPeople, setPickedPeople] = useState<string[]>([])
 
-  const columnas = [
+  const columns = [
     { id: 'actividad', label: 'Actividad', locked: true },
     { id: 'estudiantes', label: 'Estudiantes' },
     { id: 'docente', label: 'Docente' },
@@ -67,55 +67,55 @@ export function TableStory() {
     { id: 'entregas', label: 'Entregas' },
     { id: 'acciones', label: 'Acciones' },
   ]
-  const [visibles, setVisibles] = useState(columnas.map(c => c.id))
-  const ver = (id: string) => visibles.includes(id)
-  const [pagina, setPagina] = useState(0)
+  const [visible, setVisible] = useState(columns.map(c => c.id))
+  const view = (id: string) => visible.includes(id)
+  const [page, setPage] = useState(0)
 
-  const filtrar = <T,>(set: (v: T) => void) => (v: T) => { set(v); setPagina(0) }
+  const narrow = <T,>(set: (v: T) => void) => (v: T) => { set(v); setPage(0) }
 
-  const materia = (a: typeof todas[number]) => a.espacio.split(' · ')[0]
+  const subject = (a: typeof all[number]) => a.space.split(' · ')[0]
 
-  const personas = useMemo(() => {
-    const vistas = new Map<string, { name: string; src?: string }>()
-    for (const a of todas) for (const e of a.estudiantes) if (!vistas.has(e.name)) vistas.set(e.name, e)
-    return [...vistas.values()]
+  const people = useMemo(() => {
+    const views = new Map<string, { name: string; src?: string }>()
+    for (const a of all) for (const e of a.students) if (!views.has(e.name)) views.set(e.name, e)
+    return [...views.values()]
   }, [])
 
-  const porTexto = useMemo(
-    () => todas.filter(a => !texto.trim() || fold(a.nombre + ' ' + a.espacio).includes(fold(texto))),
-    [texto],
+  const byText = useMemo(
+    () => all.filter(a => !query.trim() || fold(a.name + ' ' + a.space).includes(fold(query))),
+    [query],
   )
-  const conGente = (a: typeof todas[number]) =>
-    !gente.length || a.estudiantes.some(e => gente.includes(e.name))
+  const withPeople = (a: typeof all[number]) =>
+    !pickedPeople.length || a.students.some(e => pickedPeople.includes(e.name))
 
-  const cuentaEstados = facets(
-    porTexto.filter(a => (!espaciosElegidos.length || espaciosElegidos.includes(materia(a))) && conGente(a)),
-    a => a.estado,
+  const statusCounts = facets(
+    byText.filter(a => (!pickedSpaces.length || pickedSpaces.includes(subject(a))) && withPeople(a)),
+    a => a.status,
   )
-  const cuentaEspacios = facets(
-    porTexto.filter(a => (!estados.length || estados.includes(a.estado)) && conGente(a)),
-    materia,
+  const spaceCounts = facets(
+    byText.filter(a => (!statuses.length || statuses.includes(a.status)) && withPeople(a)),
+    subject,
   )
-  const cuentaGente = useMemo(() => {
+  const peopleCounts = useMemo(() => {
     const n: Record<string, number> = {}
-    for (const a of porTexto) {
-      if (estados.length && !estados.includes(a.estado)) continue
-      if (espaciosElegidos.length && !espaciosElegidos.includes(materia(a))) continue
-      for (const e of a.estudiantes) n[e.name] = (n[e.name] ?? 0) + 1
+    for (const a of byText) {
+      if (statuses.length && !statuses.includes(a.status)) continue
+      if (pickedSpaces.length && !pickedSpaces.includes(subject(a))) continue
+      for (const e of a.students) n[e.name] = (n[e.name] ?? 0) + 1
     }
     return n
-  }, [porTexto, estados, espaciosElegidos])
+  }, [byText, statuses, pickedSpaces])
 
-  const lista = porTexto.filter(a =>
-    (!estados.length || estados.includes(a.estado))
-    && (!espaciosElegidos.length || espaciosElegidos.includes(materia(a)))
-    && conGente(a))
+  const list = byText.filter(a =>
+    (!statuses.length || statuses.includes(a.status))
+    && (!pickedSpaces.length || pickedSpaces.includes(subject(a)))
+    && withPeople(a))
 
-  const desde = pagina * TRAMO
-  const aLaVista = lista.slice(desde, desde + TRAMO)
-  const hayMas = desde + TRAMO < lista.length
-  const filtrando = texto.trim() !== '' || estados.length > 0 || espaciosElegidos.length > 0 || gente.length > 0
-  const limpiar = () => { setTexto(''); setEstados([]); setEspaciosElegidos([]); setGente([]); setPagina(0) }
+  const from = page * PAGE_SIZE
+  const onScreen = list.slice(from, from + PAGE_SIZE)
+  const hasMore = from + PAGE_SIZE < list.length
+  const filtering = query.trim() !== '' || statuses.length > 0 || pickedSpaces.length > 0 || pickedPeople.length > 0
+  const clear = () => { setQuery(''); setStatuses([]); setPickedSpaces([]); setPickedPeople([]); setPage(0) }
 
   return (
     <Page
@@ -130,33 +130,33 @@ export function TableStory() {
       >
         <FilterBar className="mb-3">
           <FilterSearch
-            value={texto}
-            onValueChange={filtrar(setTexto)}
+            value={query}
+            onValueChange={narrow(setQuery)}
             placeholder="Buscar por actividad o espacio"
           />
           <Filter
             label="Estado"
-            value={estados}
-            onValueChange={filtrar(setEstados)}
-            options={['Abierta', 'Corregida', 'Borrador'].map(v => ({ value: v, count: cuentaEstados[v] ?? 0 }))}
+            value={statuses}
+            onValueChange={narrow(setStatuses)}
+            options={['Abierta', 'Corregida', 'Borrador'].map(v => ({ value: v, count: statusCounts[v] ?? 0 }))}
           />
           <Filter
             label="Materia"
-            value={espaciosElegidos}
-            onValueChange={filtrar(setEspaciosElegidos)}
-            options={['Matemática', 'Ciencias', 'Lengua', 'Sociales'].map(v => ({ value: v, count: cuentaEspacios[v] ?? 0 }))}
+            value={pickedSpaces}
+            onValueChange={narrow(setPickedSpaces)}
+            options={['Matemática', 'Ciencias', 'Lengua', 'Sociales'].map(v => ({ value: v, count: spaceCounts[v] ?? 0 }))}
           />
           <Filter
             label="Estudiantes"
-            value={gente}
-            onValueChange={filtrar(setGente)}
-            options={personas.map(p => ({ value: p.name, count: cuentaGente[p.name] ?? 0, person: p }))}
+            value={pickedPeople}
+            onValueChange={narrow(setPickedPeople)}
+            options={people.map(p => ({ value: p.name, count: peopleCounts[p.name] ?? 0, person: p }))}
           />
-          {filtrando && <FilterReset onClick={limpiar} />}
+          {filtering && <FilterReset onClick={clear} />}
           <ColumnPicker
-            columns={columnas}
-            value={visibles}
-            onValueChange={setVisibles}
+            columns={columns}
+            value={visible}
+            onValueChange={setVisible}
           />
         </FilterBar>
 
@@ -165,51 +165,51 @@ export function TableStory() {
           footer={(
             <Pagination>
               <PaginationStatus
-                from={desde + 1}
-                to={desde + aLaVista.length}
-                total={lista.length}
+                from={from + 1}
+                to={from + onScreen.length}
+                total={list.length}
                 noun={['actividad', 'actividades']}
               />
-              <PaginationPrev disabled={pagina === 0} onClick={() => setPagina(p => p - 1)} />
-              <PaginationNext disabled={!hayMas} onClick={() => setPagina(p => p + 1)} />
+              <PaginationPrev disabled={page === 0} onClick={() => setPage(p => p - 1)} />
+              <PaginationNext disabled={!hasMore} onClick={() => setPage(p => p + 1)} />
             </Pagination>
           )}
         >
           <TableHeader>
             <TableRow>
               <TableHead>Actividad</TableHead>
-              {ver('estudiantes') && <TableHead>Estudiantes</TableHead>}
-              {ver('docente') && <TableHead>Docente</TableHead>}
-              {ver('estado') && <TableHead>Estado</TableHead>}
-              {ver('corregidas') && <TableHead className="text-right">Corregidas</TableHead>}
-              {ver('entregas') && <TableHead className="text-right">Entregas</TableHead>}
-              {ver('acciones') && <TableHead><span className="sr-only">Acciones</span></TableHead>}
+              {view('estudiantes') && <TableHead>Estudiantes</TableHead>}
+              {view('docente') && <TableHead>Docente</TableHead>}
+              {view('estado') && <TableHead>Estado</TableHead>}
+              {view('corregidas') && <TableHead className="text-right">Corregidas</TableHead>}
+              {view('entregas') && <TableHead className="text-right">Entregas</TableHead>}
+              {view('acciones') && <TableHead><span className="sr-only">Acciones</span></TableHead>}
             </TableRow>
           </TableHeader>
           <TableBody>
-            {aLaVista.map(a => (
-              <TableRow key={a.nombre} onClick={() => {}}>
+            {onScreen.map(a => (
+              <TableRow key={a.name} onClick={() => {}}>
                 <TableCell>
-                  <TableTitle>{a.nombre}</TableTitle>
-                  <TableHint>{a.espacio}</TableHint>
+                  <TableTitle>{a.name}</TableTitle>
+                  <TableHint>{a.space}</TableHint>
                 </TableCell>
-                {ver('estudiantes') && <TableCell><AvatarGroup people={a.estudiantes} /></TableCell>}
-                {ver('docente') && (
+                {view('estudiantes') && <TableCell><AvatarGroup people={a.students} /></TableCell>}
+                {view('docente') && (
                   <TableCell>
                     <span className="flex items-center gap-2">
-                      <Avatar name={a.docente.name} src={a.docente.src} size={24} />
-                      <span className="truncate">{a.docente.name}</span>
+                      <Avatar name={a.teacher.name} src={a.teacher.src} size={24} />
+                      <span className="truncate">{a.teacher.name}</span>
                     </span>
                   </TableCell>
                 )}
-                {ver('estado') && <TableCell><Chip color={tono[a.estado as keyof typeof tono]}>{a.estado}</Chip></TableCell>}
-                {ver('corregidas') && (
+                {view('estado') && <TableCell><Chip color={tone[a.status as keyof typeof tone]}>{a.status}</Chip></TableCell>}
+                {view('corregidas') && (
                   <TableNum>
-                    {a.entregas ? <>{a.corregidas}<span className="text-ink-muted"> / {a.entregas}</span></> : '—'}
+                    {a.total ? <>{a.done}<span className="text-ink-muted"> / {a.total}</span></> : '—'}
                   </TableNum>
                 )}
-                {ver('entregas') && <TableNum>{a.entregas || '—'}</TableNum>}
-                {ver('acciones') && (
+                {view('entregas') && <TableNum>{a.total || '—'}</TableNum>}
+                {view('acciones') && (
                 <TableCell className="w-0 pr-4">
                   <Dropdown
                     items={[
@@ -223,7 +223,7 @@ export function TableStory() {
                         onClick={e => { e.stopPropagation(); onClick() }}
                         {...rest}
                         icon="more_horiz"
-                        label={`Acciones de ${a.nombre}`}
+                        label={`Acciones de ${a.name}`}
                         size="sm"
                       />
                     )}
@@ -232,29 +232,29 @@ export function TableStory() {
                 )}
               </TableRow>
             ))}
-            {aLaVista.length === 0 && (
+            {onScreen.length === 0 && (
               <tr>
-                <td colSpan={visibles.length} className="px-6 py-10">
+                <td colSpan={visible.length} className="px-6 py-10">
                   <EmptyState
                     size="sm"
                     icon="search_off"
                     title="Ninguna actividad con eso"
                     body="Probá con otras palabras, o sacá alguno de los filtros puestos."
-                    action={<FilterReset onClick={limpiar}>Limpiar los filtros</FilterReset>}
+                    action={<FilterReset onClick={clear}>Limpiar los filtros</FilterReset>}
                   />
                 </td>
               </tr>
             )}
           </TableBody>
-          {aLaVista.length > 0 && (
+          {onScreen.length > 0 && (
             <TableFooter>
               <TableRow>
-                <TableCell colSpan={1 + ['estudiantes', 'docente', 'estado'].filter(ver).length}>
-                  Total{filtrando ? ' de lo filtrado' : ''}
+                <TableCell colSpan={1 + ['estudiantes', 'docente', 'estado'].filter(view).length}>
+                  Total{filtering ? ' de lo filtrado' : ''}
                 </TableCell>
-                {ver('corregidas') && <TableNum>{lista.reduce((n, a) => n + a.corregidas, 0)}</TableNum>}
-                {ver('entregas') && <TableNum>{lista.reduce((n, a) => n + a.entregas, 0)}</TableNum>}
-                {ver('acciones') && <TableCell />}
+                {view('corregidas') && <TableNum>{list.reduce((n, a) => n + a.done, 0)}</TableNum>}
+                {view('entregas') && <TableNum>{list.reduce((n, a) => n + a.total, 0)}</TableNum>}
+                {view('acciones') && <TableCell />}
               </TableRow>
             </TableFooter>
           )}
@@ -275,19 +275,19 @@ export function TableStory() {
             </TableRow>
           </TableHeader>
           <TableBody>
-            {espacios.map(a => (
-              <TableRow key={a.nombre} onClick={() => {}}>
+            {spaces.map(a => (
+              <TableRow key={a.name} onClick={() => {}}>
                 <TableCell>
-                  <TableTitle>{a.nombre}</TableTitle>
-                  <TableHint>{a.espacio}</TableHint>
+                  <TableTitle>{a.name}</TableTitle>
+                  <TableHint>{a.space}</TableHint>
                 </TableCell>
                 <TableCell>
-                  <AvatarGroup people={a.estudiantes} />
+                  <AvatarGroup people={a.students} />
                 </TableCell>
                 <TableCell>
-                  <Chip color={tono[a.estado as keyof typeof tono]}>{a.estado}</Chip>
+                  <Chip color={tone[a.status as keyof typeof tone]}>{a.status}</Chip>
                 </TableCell>
-                <TableNum>{a.entregas || '—'}</TableNum>
+                <TableNum>{a.total || '—'}</TableNum>
               </TableRow>
             ))}
           </TableBody>

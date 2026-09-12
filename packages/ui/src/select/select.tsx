@@ -19,15 +19,15 @@ export function Select({
   /** Mientras los datos no están: no abre, y el spinner va solo si no hay `leading`. */
   loading?: boolean
 }) {
-  const campo = useField()
+  const field = useField()
   const [open, setOpen] = useState(false)
   const [active, setActive] = useState(() => Math.max(0, options.indexOf(value)))
   const btn = useRef<HTMLButtonElement>(null)
   const list = useRef<HTMLDivElement>(null)
   const [pos, setPos] = useState({ top: 0, left: 0, width: 0 })
   const listId = useId()
-  const opcionId = (i: number) => `${listId}-${i}`
-  const tecleo = useRef({ texto: '', hasta: 0 })
+  const optionId = (i: number) => `${listId}-${i}`
+  const typeahead = useRef({ text: '', until: 0 })
 
   useLayoutEffect(() => {
     if (!open || !btn.current) return
@@ -69,11 +69,11 @@ export function Select({
       // Teclear salta a la opción que empieza así, que es lo que hace un
       // select nativo y lo único que vuelve usable una lista de veinte.
       if (e.key.length === 1 && !e.ctrlKey && !e.metaKey && !e.altKey) {
-        const ahora = Date.now()
-        tecleo.current.texto = ahora > tecleo.current.hasta ? e.key : tecleo.current.texto + e.key
-        tecleo.current.hasta = ahora + 600
-        const buscado = fold(tecleo.current.texto)
-        const i = options.findIndex(o => fold(o).startsWith(buscado))
+        const now = Date.now()
+        typeahead.current.text = now > typeahead.current.until ? e.key : typeahead.current.text + e.key
+        typeahead.current.until = now + 600
+        const needle = fold(typeahead.current.text)
+        const i = options.findIndex(o => fold(o).startsWith(needle))
         if (i >= 0) { e.preventDefault(); setActive(i) }
       }
     }
@@ -103,8 +103,8 @@ export function Select({
         aria-haspopup="listbox"
         aria-expanded={open}
         aria-controls={open ? listId : undefined}
-        aria-activedescendant={open ? opcionId(active) : undefined}
-        {...campo}
+        aria-activedescendant={open ? optionId(active) : undefined}
+        {...field}
         aria-busy={loading || undefined}
         aria-disabled={loading || undefined}
         onClick={() => { if (!loading) setOpen(o => !o) }}
@@ -136,7 +136,7 @@ export function Select({
               return (
                 <button
                   key={o}
-                  id={opcionId(i)}
+                  id={optionId(i)}
                   type="button"
                   role="option"
                   tabIndex={-1}

@@ -11,10 +11,10 @@ export function Avatar({ name, src, size = 40, className }: {
 }) {
   const initials = name.trim().split(/\s+/).slice(0, 2).map(w => w[0]).join('').toUpperCase()
   const i = [...name].reduce((a, c) => a + c.charCodeAt(0), 0)
-  const relleno = markFill[markColors[i % markColors.length]]
+  const fill = markFill[markColors[i % markColors.length]]
   return (
     <span
-      className={cx('mark relative inline-flex items-center justify-center overflow-hidden rounded-full font-semibold select-none', relleno, className)}
+      className={cx('mark relative inline-flex items-center justify-center overflow-hidden rounded-full font-semibold select-none', fill, className)}
       style={{ width: size, height: size, fontSize: Math.max(10, Math.round(size * 0.3)) }}
       aria-hidden="true"
     >

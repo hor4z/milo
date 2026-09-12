@@ -1,11 +1,11 @@
 import { Note, Page, Section, useTokens } from '../kit'
 
-const escala = [
-  { token: '--text-2xs', cls: 'text-2xs', px: '11', rol: 'kbd, metadatos, la línea de apoyo de una fila' },
-  { token: '--text-xs', cls: 'text-xs', px: '12', rol: 'la interfaz entera' },
-  { token: '--text-base', cls: 'text-base', px: '14', rol: 'botones, títulos de fila, lo que se lee primero' },
-  { token: '--text-lg', cls: 'text-lg', px: '20', rol: 'título de una sección' },
-  { token: '--text-display', cls: 'text-display', px: '40', rol: 'portadas' },
+const scale = [
+  { token: '--text-2xs', cls: 'text-2xs', px: '11', role: 'kbd, metadatos, la línea de apoyo de una fila' },
+  { token: '--text-xs', cls: 'text-xs', px: '12', role: 'la interfaz entera' },
+  { token: '--text-base', cls: 'text-base', px: '14', role: 'botones, títulos de fila, lo que se lee primero' },
+  { token: '--text-lg', cls: 'text-lg', px: '20', role: 'título de una sección' },
+  { token: '--text-display', cls: 'text-display', px: '40', role: 'portadas' },
 ] as const
 
 export function TypeSection() {
@@ -17,13 +17,13 @@ export function TypeSection() {
     >
       <Section title="La escala">
         <div className="overflow-hidden rounded-2xl border border-line bg-surface">
-          {escala.map(e => (
+          {scale.map(e => (
             <div key={e.token} className="flex flex-wrap items-baseline gap-x-5 gap-y-1 border-b border-line px-5 py-4 last:border-0">
               <span className="w-14 shrink-0">
                 <code className="font-mono text-2xs text-ink-muted">{e.px}px</code>
               </span>
               <span className={`${e.cls} min-w-0 flex-1 font-semibold text-ink`}>Doce actividades</span>
-              <span className="w-[34ch] shrink-0 text-2xs font-medium text-ink-muted">{e.rol}</span>
+              <span className="w-[34ch] shrink-0 text-2xs font-medium text-ink-muted">{e.role}</span>
             </div>
           ))}
         </div>
@@ -38,11 +38,11 @@ export function TypeSection() {
             ['font-medium', '400', 'la interfaz'],
             ['font-semibold', '500', 'lo accionable'],
             ['font-bold', '600', 'la portada'],
-          ].map(([cls, n, rol]) => (
+          ].map(([cls, n, role]) => (
             <div key={cls} className="flex flex-col gap-2 rounded-2xl border border-line bg-surface p-5">
               <span className={`${cls} text-display leading-none text-ink`}>Aa</span>
               <code className="font-mono text-2xs text-ink">{cls}</code>
-              <span className="text-2xs font-medium text-ink-muted">{n} · {rol}</span>
+              <span className="text-2xs font-medium text-ink-muted">{n} · {role}</span>
             </div>
           ))}
         </div>
@@ -86,7 +86,7 @@ export function TypeSection() {
         </div>
       </Section>
 
-      <Familias />
+      <Families />
 
       <Note title="Lo que queda por mirar">
         El <code>--tracking-tight</code> de -0.015em salió de mirar Inter a 12px y no se volvió a mirar
@@ -97,16 +97,16 @@ export function TypeSection() {
   )
 }
 
-function Familias() {
+function Families() {
   const vals = useTokens(['--font-sans', '--font-mono'])
   return (
     <Section title="Las familias">
       <div className="flex flex-col gap-3">
-        {[['--font-sans', 'la interfaz, las portadas'], ['--font-mono', 'tokens, valores y atajos']].map(([t, rol]) => (
+        {[['--font-sans', 'la interfaz, las portadas'], ['--font-mono', 'tokens, valores y atajos']].map(([t, role]) => (
           <div key={t} className="flex flex-wrap items-center justify-between gap-4 rounded-2xl border border-line bg-surface px-5 py-4">
             <div className="flex min-w-0 flex-col gap-1">
               <code className="font-mono text-2xs font-semibold text-ink">{t}</code>
-              <span className="text-2xs font-medium text-ink-muted">{rol}</span>
+              <span className="text-2xs font-medium text-ink-muted">{role}</span>
             </div>
             <code className="truncate font-mono text-2xs text-ink-muted">{vals[t]}</code>
           </div>

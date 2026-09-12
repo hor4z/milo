@@ -11,24 +11,24 @@ export function Table({ children, minWidth = 640, footer, className }: {
   className?: string
 }) {
   const scroller = useRef<HTMLDivElement>(null)
-  const [corte, setCorte] = useState(false)
-  const [scrollea, setScrollea] = useState(false)
+  const [clipped, setClipped] = useState(false)
+  const [scrolls, setScrolls] = useState(false)
 
   // Sin barra visible, un degradado en el canto es lo único que avisa que hay
   // más columnas a la derecha.
   useEffect(() => {
     const el = scroller.current
     if (!el) return
-    const medir = () => {
-      setCorte(el.scrollWidth - el.clientWidth - el.scrollLeft > 1)
-      setScrollea(el.scrollWidth > el.clientWidth + 1)
+    const measure = () => {
+      setClipped(el.scrollWidth - el.clientWidth - el.scrollLeft > 1)
+      setScrolls(el.scrollWidth > el.clientWidth + 1)
     }
-    medir()
-    el.addEventListener('scroll', medir, { passive: true })
-    const ro = typeof ResizeObserver !== 'undefined' ? new ResizeObserver(medir) : null
+    measure()
+    el.addEventListener('scroll', measure, { passive: true })
+    const ro = typeof ResizeObserver !== 'undefined' ? new ResizeObserver(measure) : null
     ro?.observe(el)
     return () => {
-      el.removeEventListener('scroll', medir)
+      el.removeEventListener('scroll', measure)
       ro?.disconnect()
     }
   }, [children])
@@ -40,16 +40,16 @@ export function Table({ children, minWidth = 640, footer, className }: {
           columnas de la derecha sin mouse. */}
       <div
         ref={scroller}
-        tabIndex={scrollea ? 0 : undefined}
-        role={scrollea ? 'region' : undefined}
-        aria-label={scrollea ? 'Tabla, scrolleable' : undefined}
+        tabIndex={scrolls ? 0 : undefined}
+        role={scrolls ? 'region' : undefined}
+        aria-label={scrolls ? 'Tabla, scrolleable' : undefined}
         className="zebra no-scrollbar overflow-x-auto overflow-y-hidden"
       >
         <table className="w-full border-collapse text-left" style={{ minWidth }}>
           {children}
         </table>
       </div>
-      {corte && (
+      {clipped && (
         <span
           aria-hidden="true"
           className="pointer-events-none absolute top-0 right-0 bottom-0 w-10 bg-gradient-to-l from-surface to-transparent"

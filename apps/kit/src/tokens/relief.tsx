@@ -1,16 +1,16 @@
 import { Note, Page, Section } from '../kit'
 
-const recetas = [
-  { cls: 'raised', fondo: 'bg-muted text-ink', token: '--relief-raised', rol: 'el botón gris que sobresale', detalle: 'degradado, luz al 33%, canto y caída corta' },
-  { cls: 'raised-solid', fondo: 'bg-solid text-on-solid', token: '--relief-solid', rol: 'el botón oscuro', detalle: 'luz al 15% arriba, labio oscuro abajo, canto un paso más claro' },
-  { cls: 'pressed', fondo: 'bg-muted text-ink', token: '--relief-pressed', rol: 'un toggle con su panel abierto', detalle: 'la sombra entra desde abajo, sin canto' },
-  { cls: 'inset-relief', fondo: 'bg-muted text-ink', token: '--relief-inset', rol: 'lo hundido que es una marca', detalle: 'kbd, la pista de un segmented: lleva canto y caída' },
+const recipes = [
+  { cls: 'raised', back: 'bg-muted text-ink', token: '--relief-raised', role: 'el botón gris que sobresale', detail: 'degradado, luz al 33%, canto y caída corta' },
+  { cls: 'raised-solid', back: 'bg-solid text-on-solid', token: '--relief-solid', role: 'el botón oscuro', detail: 'luz al 15% arriba, labio oscuro abajo, canto un paso más claro' },
+  { cls: 'pressed', back: 'bg-muted text-ink', token: '--relief-pressed', role: 'un toggle con su panel abierto', detail: 'la sombra entra desde abajo, sin canto' },
+  { cls: 'inset-relief', back: 'bg-muted text-ink', token: '--relief-inset', role: 'lo hundido que es una marca', detail: 'kbd, la pista de un segmented: lleva canto y caída' },
 ] as const
 
-const capas = [
-  { token: '--relief-card', rol: 'una tarjeta apoyada' },
-  { token: '--relief-toolbar', rol: 'una barra flotante' },
-  { token: '--relief-popover', rol: 'lo que flota sobre todo' },
+const layers = [
+  { token: '--relief-card', role: 'una tarjeta apoyada' },
+  { token: '--relief-toolbar', role: 'una barra flotante' },
+  { token: '--relief-popover', role: 'lo que flota sobre todo' },
 ] as const
 
 export function ReliefSection() {
@@ -22,14 +22,14 @@ export function ReliefSection() {
     >
       <Section title="Las recetas que se tocan">
         <div className="grid gap-3 sm:grid-cols-2">
-          {recetas.map(r => (
+          {recipes.map(r => (
             <div key={r.token} className="flex flex-col gap-3 rounded-2xl border border-line bg-surface p-5">
-              <div className={`${r.cls} ${r.fondo} flex h-14 items-center justify-center rounded-xl text-xs font-semibold`}>
-                {r.rol}
+              <div className={`${r.cls} ${r.back} flex h-14 items-center justify-center rounded-xl text-xs font-semibold`}>
+                {r.role}
               </div>
               <div className="flex flex-col gap-1">
                 <code className="font-mono text-2xs font-semibold text-ink">{r.token}</code>
-                <span className="text-2xs font-medium text-ink-muted">{r.detalle}</span>
+                <span className="text-2xs font-medium text-ink-muted">{r.detail}</span>
               </div>
             </div>
           ))}
@@ -41,12 +41,12 @@ export function ReliefSection() {
         note="Alpha bajo y spread negativo. Cuanto más alto flota algo, más difusa y más lejos cae su sombra."
       >
         <div className="grid gap-3 sm:grid-cols-3">
-          {capas.map(c => (
+          {layers.map(c => (
             <div key={c.token} className="flex flex-col items-center gap-4 rounded-2xl border border-line bg-muted p-6">
               <div className="size-20 rounded-xl bg-surface" style={{ boxShadow: `var(${c.token})` }} />
               <div className="flex flex-col items-center gap-1 text-center">
                 <code className="font-mono text-2xs font-semibold text-ink">{c.token}</code>
-                <span className="text-2xs font-medium text-ink-muted">{c.rol}</span>
+                <span className="text-2xs font-medium text-ink-muted">{c.role}</span>
               </div>
             </div>
           ))}

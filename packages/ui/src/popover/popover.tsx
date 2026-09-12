@@ -30,14 +30,14 @@ export function Popover({
 
   useEscape(open, close)
 
-  const [alto, setAlto] = useState(0)
+  const [height, setHeight] = useState(0)
 
   // El panel cambia de alto mientras está abierto (una opción que aparece), y
   // abierto hacia arriba eso lo estira sobre su propio disparador.
   useEffect(() => {
     const el = panelRef.current
     if (!open || !el || typeof ResizeObserver === 'undefined') return
-    const ro = new ResizeObserver(() => setAlto(el.offsetHeight))
+    const ro = new ResizeObserver(() => setHeight(el.offsetHeight))
     ro.observe(el)
     return () => ro.disconnect()
   }, [open])
@@ -48,13 +48,13 @@ export function Popover({
     const w = width ?? panelRef.current?.offsetWidth ?? 0
     const h = panelRef.current?.offsetHeight ?? 0
     const left = align === 'end' ? r.right - w : r.left
-    const cabeAbajo = r.bottom + offset + h <= window.innerHeight - 8
-    const cabeArriba = r.top - offset - h >= 8
+    const fitsBelow = r.bottom + offset + h <= window.innerHeight - 8
+    const fitsAbove = r.top - offset - h >= 8
     setPos({
-      top: cabeAbajo || !cabeArriba ? r.bottom + offset : r.top - offset - h,
+      top: fitsBelow || !fitsAbove ? r.bottom + offset : r.top - offset - h,
       left: Math.max(8, Math.min(left, window.innerWidth - w - 8)),
     })
-  }, [open, align, width, offset, alto])
+  }, [open, align, width, offset, height])
 
   useEffect(() => {
     if (!open) return

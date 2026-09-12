@@ -1,8 +1,8 @@
 import { Avatar, AvatarGroup } from '@melu/ui'
 import { A11y, Demo, Page, Props, Section } from '../kit'
 
-const cara = (n: number) => `/avatars/${String(n).padStart(2, '0')}.webp`
-const persona = (name: string, foto?: number) => ({ name, src: foto ? cara(foto) : undefined })
+const face = (n: number) => `/avatars/${String(n).padStart(2, '0')}.webp`
+const person = (name: string, photo?: number) => ({ name, src: photo ? face(photo) : undefined })
 
 export function AvatarStory() {
   return (
@@ -30,12 +30,12 @@ export function AvatarStory() {
         note="Con `src`, la etiqueta de color no se reemplaza: se queda de fondo. Es lo que se ve mientras la imagen carga y lo que queda si no carga nunca — un hueco gris en una fila de cinco se lee como una persona sin nombre, y una inicial sobre su color no."
       >
         <Demo>
-          <Avatar name="Ana Pérez" src={cara(1)} size={24} />
-          <Avatar name="Ana Pérez" src={cara(1)} size={34} />
-          <Avatar name="Ana Pérez" src={cara(1)} size={44} />
-          <Avatar name="Bruno Díaz" src={cara(2)} size={44} />
-          <Avatar name="Carla Sosa" src={cara(3)} size={44} />
-          <Avatar name="Damián Ruiz" src={cara(4)} size={44} />
+          <Avatar name="Ana Pérez" src={face(1)} size={24} />
+          <Avatar name="Ana Pérez" src={face(1)} size={34} />
+          <Avatar name="Ana Pérez" src={face(1)} size={44} />
+          <Avatar name="Bruno Díaz" src={face(2)} size={44} />
+          <Avatar name="Carla Sosa" src={face(3)} size={44} />
+          <Avatar name="Damián Ruiz" src={face(4)} size={44} />
         </Demo>
       </Section>
 
@@ -44,16 +44,16 @@ export function AvatarStory() {
         note="Se montan un tercio de su tamaño y cada uno lleva un anillo del color del fondo de atrás: sin el anillo, dos vecinos de tonos parecidos se leen como una mancha sola en vez de como dos personas. Tres caras como máximo y el resto en un círculo neutro — un «+4» no identifica a nadie, así que no va en la familia viva de las etiquetas, que es la de identificar."
       >
         <Demo label="todos con foto">
-          <AvatarGroup people={[persona('Ana Pérez', 1), persona('Bruno Díaz', 2), persona('Carla Sosa', 3), persona('Damián Ruiz', 4), persona('Elena Vega', 5)]} />
+          <AvatarGroup people={[person('Ana Pérez', 1), person('Bruno Díaz', 2), person('Carla Sosa', 3), person('Damián Ruiz', 4), person('Elena Vega', 5)]} />
         </Demo>
         <Demo label="ninguno con foto">
-          <AvatarGroup people={[persona('Irene Lopez'), persona('Julián Cruz'), persona('Karen Ortiz'), persona('Leo Nuñez')]} />
+          <AvatarGroup people={[person('Irene Lopez'), person('Julián Cruz'), person('Karen Ortiz'), person('Leo Nuñez')]} />
         </Demo>
         <Demo label="mezclados · el caso que importa mirar">
-          <AvatarGroup people={[persona('Mora Tello', 6), persona('Nico Arce'), persona('Olivia Rey', 7)]} />
+          <AvatarGroup people={[person('Mora Tello', 6), person('Nico Arce'), person('Olivia Rey', 7)]} />
         </Demo>
         <Demo label="con un solo sobrante va la cuarta cara, no un «+1»">
-          <AvatarGroup people={[persona('Ana Pérez', 1), persona('Bruno Díaz', 2), persona('Carla Sosa', 3), persona('Damián Ruiz', 4)]} />
+          <AvatarGroup people={[person('Ana Pérez', 1), person('Bruno Díaz', 2), person('Carla Sosa', 3), person('Damián Ruiz', 4)]} />
         </Demo>
       </Section>
 
@@ -64,7 +64,7 @@ export function AvatarStory() {
         <Demo label='ring="ring-muted" sobre bg-muted'>
           <span className="flex items-center gap-4 rounded-xl bg-muted p-3">
             <AvatarGroup
-              people={[persona('Ana Pérez', 1), persona('Bruno Díaz', 2), persona('Carla Sosa', 3), persona('Damián Ruiz', 4), persona('Elena Vega', 5)]}
+              people={[person('Ana Pérez', 1), person('Bruno Díaz', 2), person('Carla Sosa', 3), person('Damián Ruiz', 4), person('Elena Vega', 5)]}
               size={40}
               ring="ring-muted"
             />
@@ -73,7 +73,7 @@ export function AvatarStory() {
         <Demo label="el mismo grupo con el anillo por default: se corta contra el fondo">
           <span className="flex items-center gap-4 rounded-xl bg-muted p-3">
             <AvatarGroup
-              people={[persona('Ana Pérez', 1), persona('Bruno Díaz', 2), persona('Carla Sosa', 3), persona('Damián Ruiz', 4), persona('Elena Vega', 5)]}
+              people={[person('Ana Pérez', 1), person('Bruno Díaz', 2), person('Carla Sosa', 3), person('Damián Ruiz', 4), person('Elena Vega', 5)]}
               size={40}
             />
           </span>

@@ -1,31 +1,31 @@
 import { Icon } from '@melu/ui'
 import { Page, Section } from '../kit'
 
-const pares: { mal: string; bien: string; por: string }[] = [
+const pairs: { bad: string; good: string; by: string }[] = [
   {
-    mal: 'Error: la operación no pudo ser completada.',
-    bien: 'No se pudieron traer las entregas.',
-    por: 'Decí qué pasó, no que hubo un error. La palabra «error» no agrega información y asusta.',
+    bad: 'Error: la operación no pudo ser completada.',
+    good: 'No se pudieron traer las entregas.',
+    by: 'Decí qué pasó, no que hubo un error. La palabra «error» no agrega información y asusta.',
   },
   {
-    mal: '¿Está seguro de que desea eliminar este elemento?',
-    bien: '¿Borrar «Fracciones equivalentes»?',
-    por: 'Nombrá lo que se va a borrar. «Este elemento» obliga a recordar qué estabas tocando.',
+    bad: '¿Está seguro de que desea eliminar este elemento?',
+    good: '¿Borrar «Fracciones equivalentes»?',
+    by: 'Nombrá lo que se va a borrar. «Este elemento» obliga a recordar qué estabas tocando.',
   },
   {
-    mal: 'No hay datos disponibles.',
-    bien: 'Todavía no llegó ninguna entrega.',
-    por: 'Un vacío es una etapa, no una falla. Decí qué falta para que deje de estar vacío.',
+    bad: 'No hay datos disponibles.',
+    good: 'Todavía no llegó ninguna entrega.',
+    by: 'Un vacío es una etapa, no una falla. Decí qué falta para que deje de estar vacío.',
   },
   {
-    mal: 'Se ha guardado exitosamente.',
-    bien: 'Guardado.',
-    por: 'Lo que salió bien no necesita explicación. Una palabra alcanza.',
+    bad: 'Se ha guardado exitosamente.',
+    good: 'Guardado.',
+    by: 'Lo que salió bien no necesita explicación. Una palabra alcanza.',
   },
   {
-    mal: 'Campo requerido',
-    bien: 'Poné un nombre para la actividad',
-    por: 'Un error de campo dice qué hacer, no qué categoría de error es.',
+    bad: 'Campo requerido',
+    good: 'Poné un nombre para la actividad',
+    by: 'Un error de campo dice qué hacer, no qué categoría de error es.',
   },
 ]
 
@@ -61,17 +61,17 @@ export function Writing() {
         note="Los mismos mensajes escritos de las dos maneras. La diferencia nunca es de tono: es de información."
       >
         <div className="flex flex-col gap-3">
-          {pares.map(p => (
-            <div key={p.bien} className="overflow-hidden rounded-xl border border-line">
+          {pairs.map(p => (
+            <div key={p.good} className="overflow-hidden rounded-xl border border-line">
               <div className="flex items-start gap-3 border-b border-line bg-bad-subtle/40 px-4 py-3">
                 <Icon name="close" size={16} className="mt-px shrink-0 text-bad" />
-                <span className="text-xs font-medium text-ink line-through decoration-bad/40">{p.mal}</span>
+                <span className="text-xs font-medium text-ink line-through decoration-bad/40">{p.bad}</span>
               </div>
               <div className="flex items-start gap-3 px-4 py-3">
                 <Icon name="check" size={16} className="mt-px shrink-0 text-ok" />
                 <div className="flex min-w-0 flex-col gap-1">
-                  <span className="text-xs font-semibold text-ink">{p.bien}</span>
-                  <span className="text-2xs font-medium text-ink-muted">{p.por}</span>
+                  <span className="text-xs font-semibold text-ink">{p.good}</span>
+                  <span className="text-2xs font-medium text-ink-muted">{p.by}</span>
                 </div>
               </div>
             </div>

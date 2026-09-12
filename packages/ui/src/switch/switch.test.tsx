@@ -40,13 +40,13 @@ describe('Switch', () => {
   })
 
   it('adentro de un form no manda el form', async () => {
-    const enviar = vi.fn(e => e.preventDefault())
+    const onSubmit = vi.fn(e => e.preventDefault())
     render(
-      <form onSubmit={enviar}>
+      <form onSubmit={onSubmit}>
         <Switch checked={false} onChange={() => {}} label="Oscuro" />
       </form>,
     )
     await userEvent.click(screen.getByRole('switch'))
-    expect(enviar).not.toHaveBeenCalled()
+    expect(onSubmit).not.toHaveBeenCalled()
   })
 })

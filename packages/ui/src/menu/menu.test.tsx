@@ -29,14 +29,14 @@ describe('Menu', () => {
         <MenuItem danger>Borrar</MenuItem>
       </Menu>,
     )
-    const [uno, dos, tres] = screen.getAllByRole('menuitem')
-    uno.focus()
+    const [first, second, third] = screen.getAllByRole('menuitem')
+    first.focus()
     await userEvent.keyboard('{ArrowDown}')
-    expect(dos).toHaveFocus()
+    expect(second).toHaveFocus()
     await userEvent.keyboard('{ArrowDown}{ArrowDown}')
-    expect(uno).toHaveFocus()
+    expect(first).toHaveFocus()
     await userEvent.keyboard('{ArrowUp}')
-    expect(tres).toHaveFocus()
+    expect(third).toHaveFocus()
   })
 
   it('Home y End van a los extremos', async () => {

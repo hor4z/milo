@@ -3,11 +3,11 @@ import { Page, PageHeader, SectionLabel, Card, Chip, cx, Icon , labelColors, lab
 import { ActivityCard } from '../ui/activity-card'
 import { activities, recipes } from '../data'
 
-const areas = ['Todas', 'Ciencias', 'Matemática', 'Lengua', 'Historia', 'Convivencia'] as const
+const subjects = ['Todas', 'Ciencias', 'Matemática', 'Lengua', 'Historia', 'Convivencia'] as const
 
 export function ExploreScreen() {
-  const [area, setArea] = useState<string>('Todas')
-  const shown = area === 'Todas' ? activities : activities.filter(a => a.space.startsWith(area))
+  const [subject, setSubject] = useState<string>('Todas')
+  const shown = subject === 'Todas' ? activities : activities.filter(a => a.space.startsWith(subject))
 
   return (
     <Page wide>
@@ -18,8 +18,8 @@ export function ExploreScreen() {
 
       <div className="relative -mx-6 mb-6 overflow-x-auto px-6 pb-1">
         <div className="flex gap-2">
-          {areas.map(a => (
-            <Chip key={a} active={a === area} onClick={() => setArea(a)}>{a}</Chip>
+          {subjects.map(a => (
+            <Chip key={a} active={a === subject} onClick={() => setSubject(a)}>{a}</Chip>
           ))}
         </div>
       </div>

@@ -2,9 +2,9 @@ import { cloneElement, isValidElement, useEffect, useId, useLayoutEffect, useRef
 import { useEscape } from '../lib/esc'
 import { Portal } from '../portal/portal'
 
-let ultimoCierre = 0
+let lastClosedAt = 0
 
-const VENTANA_TIBIA = 400
+const WARM_WINDOW = 400
 
 /** La etiqueta que dice qué hace un control que no lo dice solo: un icono suelto, un valor truncado, una acción con una consecuencia que conviene aclarar. */
 export function Tooltip({ label, children, side = 'top', delay = 500 }: {
@@ -22,47 +22,47 @@ export function Tooltip({ label, children, side = 'top', delay = 500 }: {
   const visible = useRef(false)
   const id = useId()
 
-  const cancelar = () => {
+  const cancel = () => {
     if (timer.current) clearTimeout(timer.current)
     timer.current = null
   }
-  const abrir = () => {
-    cancelar()
-    const espera = Date.now() - ultimoCierre < VENTANA_TIBIA ? 0 : delay
-    timer.current = setTimeout(() => { visible.current = true; setOpen(true) }, espera)
+  const show = () => {
+    cancel()
+    const delayed = Date.now() - lastClosedAt < WARM_WINDOW ? 0 : delay
+    timer.current = setTimeout(() => { visible.current = true; setOpen(true) }, delayed)
   }
-  const cerrar = () => {
-    cancelar()
-    if (visible.current) ultimoCierre = Date.now()
+  const close = () => {
+    cancel()
+    if (visible.current) lastClosedAt = Date.now()
     visible.current = false
     setOpen(false)
   }
 
-  useEffect(() => cancelar, [])
+  useEffect(() => cancel, [])
 
-  useEscape(open, cerrar)
+  useEscape(open, close)
 
   useLayoutEffect(() => {
     if (!open || !anchor.current) return
     const r = anchor.current.getBoundingClientRect()
     const w = bubble.current?.offsetWidth ?? 0
     const h = bubble.current?.offsetHeight ?? 0
-    const cabeArriba = r.top - 8 - h >= 8
-    const cabeAbajo = r.bottom + 8 + h <= window.innerHeight - 8
-    const arriba = side === 'top' ? cabeArriba || !cabeAbajo : !cabeAbajo && cabeArriba
+    const fitsAbove = r.top - 8 - h >= 8
+    const fitsBelow = r.bottom + 8 + h <= window.innerHeight - 8
+    const above = side === 'top' ? fitsAbove || !fitsBelow : !fitsBelow && fitsAbove
     setPos({
-      top: arriba ? r.top - 8 - h : r.bottom + 8,
+      top: above ? r.top - 8 - h : r.bottom + 8,
       left: Math.max(8, Math.min(r.left + r.width / 2 - w / 2, window.innerWidth - w - 8)),
     })
   }, [open, side])
 
   useEffect(() => {
     if (!open) return
-    window.addEventListener('scroll', cerrar, true)
-    window.addEventListener('resize', cerrar)
+    window.addEventListener('scroll', close, true)
+    window.addEventListener('resize', close)
     return () => {
-      window.removeEventListener('scroll', cerrar, true)
-      window.removeEventListener('resize', cerrar)
+      window.removeEventListener('scroll', close, true)
+      window.removeEventListener('resize', close)
     }
   }, [open])
 
@@ -71,11 +71,11 @@ export function Tooltip({ label, children, side = 'top', delay = 500 }: {
       <span
         ref={anchor}
         className="inline-flex"
-        onPointerEnter={e => { if (e.pointerType === 'mouse') abrir() }}
-        onPointerLeave={cerrar}
-        onPointerDown={cerrar}
-        onFocus={e => { if ((e.target as HTMLElement).matches?.(':focus-visible')) abrir() }}
-        onBlur={cerrar}
+        onPointerEnter={e => { if (e.pointerType === 'mouse') show() }}
+        onPointerLeave={close}
+        onPointerDown={close}
+        onFocus={e => { if ((e.target as HTMLElement).matches?.(':focus-visible')) show() }}
+        onBlur={close}
       >
         {isValidElement(children)
           ? cloneElement(children as ReactElement<{ 'aria-describedby'?: string }>,

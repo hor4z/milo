@@ -1,10 +1,10 @@
 import { Note, Page, Ramp, Section, Swatch, useTokens } from '../kit'
 
-const rampa = ['--shade-01', '--shade-02', '--shade-03', '--shade-04', '--shade-05', '--shade-06', '--shade-07', '--shade-08', '--shade-09'] as const
-const marcas = ['--mark-green', '--mark-purple', '--mark-orange', '--mark-blue', '--mark-pink'] as const
-const etiquetas = ['--label-green', '--label-teal', '--label-blue', '--label-purple', '--label-pink', '--label-orange'] as const
-const tintes = ['--tint-1', '--tint-2', '--tint-3', '--tint-4', '--tint-5'] as const
-const espacios = ['--space-green', '--space-purple', '--space-orange', '--space-blue', '--space-pink'] as const
+const ramp = ['--shade-01', '--shade-02', '--shade-03', '--shade-04', '--shade-05', '--shade-06', '--shade-07', '--shade-08', '--shade-09'] as const
+const marks = ['--mark-green', '--mark-purple', '--mark-orange', '--mark-blue', '--mark-pink'] as const
+const labels = ['--label-green', '--label-teal', '--label-blue', '--label-purple', '--label-pink', '--label-orange'] as const
+const tints = ['--tint-1', '--tint-2', '--tint-3', '--tint-4', '--tint-5'] as const
+const spaces = ['--space-green', '--space-purple', '--space-orange', '--space-blue', '--space-pink'] as const
 
 export function ColorSection() {
   return (
@@ -17,7 +17,7 @@ export function ColorSection() {
         title="La rampa"
         note="Nueve pasos de #fcfcfc a #121212. El salto de 05 a 06 es violento a propósito: entre el borde más oscuro y el texto más claro no tiene que haber nada, o aparecen grises que no se distinguen entre sí."
       >
-        <Ramp tokens={rampa} />
+        <Ramp tokens={ramp} />
       </Section>
 
       <Section
@@ -88,25 +88,25 @@ export function ColorSection() {
         note="Las tres son de categoría y no se mezclan. La que decide cuál va no es el gusto: es el tamaño de la pieza y qué se apoya encima."
       >
         <div className="flex flex-col gap-5">
-          <Familia
-            titulo="mark · la marca de 44 de una fila"
-            detalle="Relleno pastel y glifo del mismo tono varios pasos más oscuro. La marca vive dentro de una fila clara y tiene lugar para leerse entera sin gritarle al título de al lado."
-            tokens={marcas}
+          <Family
+            title="mark · la marca de 44 de una fila"
+            detail="Relleno pastel y glifo del mismo tono varios pasos más oscuro. La marca vive dentro de una fila clara y tiene lugar para leerse entera sin gritarle al título de al lado."
+            tokens={marks}
           />
-          <Familia
-            titulo="label · lo chico"
-            detalle="Un chip, el cuadradito de icono de una tarjeta. Van vivos y todos llevan el mismo texto blanco encima. En orden de rueda, porque quien las usa reparte por hash: desordenadas, dos nombres consecutivos caían en dos tonos casi iguales."
-            tokens={etiquetas}
+          <Family
+            title="label · lo chico"
+            detail="Un chip, el cuadradito de icono de una tarjeta. Van vivos y todos llevan el mismo texto blanco encima. En orden de rueda, porque quien las usa reparte por hash: desordenadas, dos nombres consecutivos caían en dos tonos casi iguales."
+            tokens={labels}
           />
-          <Familia
-            titulo="tint · la superficie grande"
-            detalle="El hueco 4:3 de una tarjeta, el mock de una novedad. Llevan un dibujo en tinta al 14% encima: saturados, el dibujo desaparece y una grilla de doce tarjetas se vuelve un arcoíris."
-            tokens={tintes}
+          <Family
+            title="tint · la superficie grande"
+            detail="El hueco 4:3 de una tarjeta, el mock de una novedad. Llevan un dibujo en tinta al 14% encima: saturados, el dibujo desaparece y una grilla de doce tarjetas se vuelve un arcoíris."
+            tokens={tints}
           />
-          <Familia
-            titulo="space · la carpeta de un espacio"
-            detalle="El único color que se dibuja con SVG, porque la carpeta es bicolor y una fuente monocroma no puede. El color propio por espacio es lo que las deja reconocer de reojo en una lista de siete."
-            tokens={espacios}
+          <Family
+            title="space · la carpeta de un espacio"
+            detail="El único color que se dibuja con SVG, porque la carpeta es bicolor y una fuente monocroma no puede. El color propio por espacio es lo que las deja reconocer de reojo en una lista de siete."
+            tokens={spaces}
           />
         </div>
       </Section>
@@ -121,13 +121,13 @@ export function ColorSection() {
   )
 }
 
-function Familia({ titulo, detalle, tokens }: { titulo: string; detalle: string; tokens: readonly string[] }) {
+function Family({ title, detail, tokens }: { title: string; detail: string; tokens: readonly string[] }) {
   const vals = useTokens(tokens)
   return (
     <div className="flex flex-col gap-3 rounded-2xl border border-line bg-surface p-5">
       <div className="flex flex-col gap-1">
-        <code className="font-mono text-xs font-semibold text-ink">{titulo}</code>
-        <p className="max-w-[70ch] text-2xs font-medium text-ink-muted">{detalle}</p>
+        <code className="font-mono text-xs font-semibold text-ink">{title}</code>
+        <p className="max-w-[70ch] text-2xs font-medium text-ink-muted">{detail}</p>
       </div>
       <div className="flex flex-wrap gap-2">
         {tokens.map(t => (

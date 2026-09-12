@@ -7,7 +7,7 @@ type BreadcrumbProps = ComponentPropsWithoutRef<'nav'> & {
   items: { label: string; href?: string; onClick?: () => void }[]
 }
 
-const paso = 'truncate rounded-sm text-xs font-medium text-ink-muted transition-colors hover:text-ink'
+const step = 'truncate rounded-sm text-xs font-medium text-ink-muted transition-colors hover:text-ink'
 
 /** Dónde estás parado y cómo volver. */
 export function Breadcrumb({ items, className, ...props }: BreadcrumbProps) {
@@ -15,17 +15,17 @@ export function Breadcrumb({ items, className, ...props }: BreadcrumbProps) {
     <nav aria-label="Ruta" className={cx('flex min-w-0 items-center gap-1', className)} {...props}>
       <ol className="flex min-w-0 items-center gap-1">
         {items.map((it, i) => {
-          const ultimo = i === items.length - 1
+          const last = i === items.length - 1
           return (
             <li key={i} className="flex min-w-0 items-center gap-1">
-              {ultimo
+              {last
                 ? <span aria-current="page" className="truncate text-xs font-semibold text-ink">{it.label}</span>
                 : it.href
-                  ? <a href={it.href} onClick={it.onClick} className={paso}>{it.label}</a>
+                  ? <a href={it.href} onClick={it.onClick} className={step}>{it.label}</a>
                   : it.onClick
-                    ? <button type="button" onClick={it.onClick} className={paso}>{it.label}</button>
-                    : <span className={paso}>{it.label}</span>}
-              {!ultimo && <Icon name="chevron_right" size={14} className="icon-muted shrink-0" />}
+                    ? <button type="button" onClick={it.onClick} className={step}>{it.label}</button>
+                    : <span className={step}>{it.label}</span>}
+              {!last && <Icon name="chevron_right" size={14} className="icon-muted shrink-0" />}
             </li>
           )
         })}

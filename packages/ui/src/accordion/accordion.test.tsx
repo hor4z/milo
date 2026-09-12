@@ -10,10 +10,10 @@ describe('Accordion', () => {
         <AccordionItem summary="¿Cómo entrego?">Desde la actividad.</AccordionItem>
       </Accordion>,
     )
-    const detalle = screen.getByText('¿Cómo entrego?').closest('details')!
-    expect(detalle.open).toBe(false)
+    const details = screen.getByText('¿Cómo entrego?').closest('details')!
+    expect(details.open).toBe(false)
     await userEvent.click(screen.getByText('¿Cómo entrego?'))
-    expect(detalle.open).toBe(true)
+    expect(details.open).toBe(true)
   })
 
   it('una fila no cierra a las otras', async () => {
@@ -23,12 +23,12 @@ describe('Accordion', () => {
         <AccordionItem summary="Dos" defaultOpen>Contenido dos</AccordionItem>
       </Accordion>,
     )
-    const [uno, dos] = screen.getAllByText(/^(Uno|Dos)$/).map(s => s.closest('details')!)
-    expect(uno.open).toBe(true)
-    expect(dos.open).toBe(true)
+    const [first, second] = screen.getAllByText(/^(Uno|Dos)$/).map(s => s.closest('details')!)
+    expect(first.open).toBe(true)
+    expect(second.open).toBe(true)
     await userEvent.click(screen.getByText('Uno'))
-    expect(uno.open).toBe(false)
-    expect(dos.open).toBe(true)
+    expect(first.open).toBe(false)
+    expect(second.open).toBe(true)
   })
 
   it('lo cerrado sigue en el documento, así que Ctrl+F lo encuentra', () => {

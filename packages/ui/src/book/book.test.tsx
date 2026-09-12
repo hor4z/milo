@@ -17,12 +17,12 @@ describe('Book', () => {
 
   it('el ancho viaja como token y acepta dos medidas', () => {
     const { container, rerender } = render(<Book title="Fracciones" width={196} />)
-    const tapa = container.firstElementChild as HTMLElement
-    expect(tapa.style.getPropertyValue('--book-sm')).toBe('196')
-    expect(tapa.style.getPropertyValue('--book-md')).toBe('196')
+    const cover = container.firstElementChild as HTMLElement
+    expect(cover.style.getPropertyValue('--book-sm')).toBe('196')
+    expect(cover.style.getPropertyValue('--book-md')).toBe('196')
     rerender(<Book title="Fracciones" width={{ sm: 120, md: 220 }} />)
-    expect(tapa.style.getPropertyValue('--book-sm')).toBe('120')
-    expect(tapa.style.getPropertyValue('--book-md')).toBe('220')
+    expect(cover.style.getPropertyValue('--book-sm')).toBe('120')
+    expect(cover.style.getPropertyValue('--book-md')).toBe('220')
   })
 
   it('simple no dibuja la franja', () => {

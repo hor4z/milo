@@ -5,10 +5,10 @@ import {
   TableRow, TableTitle, Tooltip, useToast, type IconName,
 } from '@melu/ui'
 
-const cara = (n: number) => `/avatars/${String(n).padStart(2, '0')}.webp`
-const p = (name: string, foto?: number) => ({ name, src: foto ? cara(foto) : undefined })
+const face = (n: number) => `/avatars/${String(n).padStart(2, '0')}.webp`
+const p = (name: string, photo?: number) => ({ name, src: photo ? face(photo) : undefined })
 
-const semana = [
+const week = [
   { label: 'Lun', value: 18, total: 24, caption: 'Corregidas ese día' },
   { label: 'Mar', value: 6, total: 14, caption: 'Corregidas ese día' },
   { label: 'Mié', value: 27, total: 29, caption: 'Corregidas ese día' },
@@ -16,22 +16,22 @@ const semana = [
   { label: 'Vie', value: 17, total: 17, caption: 'Corregidas ese día' },
 ]
 
-const mes = [
+const month = [
   { label: 'S1', value: 61, total: 84 }, { label: 'S2', value: 74, total: 91 },
   { label: 'S3', value: 38, total: 77 }, { label: 'S4', value: 84, total: 96 },
 ]
 
-const filas = [
-  { nombre: 'Fracciones equivalentes', espacio: 'Matemática · 4.º A', estado: 'Abierta', gente: [p('Ana Pérez', 1), p('Bruno Díaz', 2), p('Carla Sosa', 3), p('Elena Vega', 5)], hechas: 11, total: 18 },
-  { nombre: 'El sistema solar', espacio: 'Ciencias · 5.º B', estado: 'Corregida', gente: [p('Franco Gil', 6), p('Gabriela Mota', 7), p('Hugo Paz', 8)], hechas: 24, total: 24 },
-  { nombre: 'Cuento policial', espacio: 'Lengua · 6.º', estado: 'Borrador', gente: [p('Irene Lopez'), p('Julián Cruz')], hechas: 0, total: 0 },
-  { nombre: 'Mapa de América', espacio: 'Sociales · 5.º A', estado: 'Abierta', gente: [p('Mora Tello', 2), p('Nico Arce'), p('Olivia Rey', 4)], hechas: 3, total: 7 },
+const rows = [
+  { name: 'Fracciones equivalentes', space: 'Matemática · 4.º A', status: 'Abierta', people: [p('Ana Pérez', 1), p('Bruno Díaz', 2), p('Carla Sosa', 3), p('Elena Vega', 5)], done: 11, total: 18 },
+  { name: 'El sistema solar', space: 'Ciencias · 5.º B', status: 'Corregida', people: [p('Franco Gil', 6), p('Gabriela Mota', 7), p('Hugo Paz', 8)], done: 24, total: 24 },
+  { name: 'Cuento policial', space: 'Lengua · 6.º', status: 'Borrador', people: [p('Irene Lopez'), p('Julián Cruz')], done: 0, total: 0 },
+  { name: 'Mapa de América', space: 'Sociales · 5.º A', status: 'Abierta', people: [p('Mora Tello', 2), p('Nico Arce'), p('Olivia Rey', 4)], done: 3, total: 7 },
 ]
 
-const tono = { Abierta: 'green', Corregida: 'blue' } as const
+const tone = { 'Abierta': 'green', 'Corregida': 'blue' } as const
 
 export function Dashboard() {
-  const [rango, setRango] = useState('semana')
+  const [range, setRange] = useState('semana')
   const { toast } = useToast()
 
   return (
@@ -47,8 +47,8 @@ export function Dashboard() {
           <Segmented
             size="sm"
             label="Rango"
-            value={rango}
-            onChange={setRango}
+            value={range}
+            onChange={setRange}
             options={[{ value: 'semana', label: 'Semana' }, { value: 'mes', label: 'Mes' }]}
           />
           <Tooltip label="Exportar a CSV">
@@ -83,8 +83,8 @@ export function Dashboard() {
           </div>
           <BarChart
             title="Corregidas sobre entregadas"
-            data={rango === 'semana' ? semana : mes}
-            highlight={rango === 'semana' ? 2 : 3}
+            data={range === 'semana' ? week : month}
+            highlight={range === 'semana' ? 2 : 3}
             height={200}
           />
         </Card>
@@ -119,15 +119,15 @@ export function Dashboard() {
             </TableRow>
           </TableHeader>
           <TableBody>
-            {filas.map(f => (
-              <TableRow key={f.nombre} onClick={() => {}}>
+            {rows.map(f => (
+              <TableRow key={f.name} onClick={() => {}}>
                 <TableCell>
-                  <TableTitle>{f.nombre}</TableTitle>
-                  <TableHint>{f.espacio}</TableHint>
+                  <TableTitle>{f.name}</TableTitle>
+                  <TableHint>{f.space}</TableHint>
                 </TableCell>
-                <TableCell><AvatarGroup people={f.gente} /></TableCell>
-                <TableCell><Chip color={tono[f.estado as keyof typeof tono]}>{f.estado}</Chip></TableCell>
-                <TableNum>{f.total ? <>{f.hechas}<span className="text-ink-muted"> / {f.total}</span></> : '—'}</TableNum>
+                <TableCell><AvatarGroup people={f.people} /></TableCell>
+                <TableCell><Chip color={tone[f.status as keyof typeof tone]}>{f.status}</Chip></TableCell>
+                <TableNum>{f.total ? <>{f.done}<span className="text-ink-muted"> / {f.total}</span></> : '—'}</TableNum>
               </TableRow>
             ))}
           </TableBody>
@@ -136,18 +136,18 @@ export function Dashboard() {
 
       <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
         {[
-          { name: 'Valeria Ochoa', foto: 7, rol: 'Matemática · 4.º A', pend: 7 },
-          { name: 'Martín Roldán', foto: 6, rol: 'Ciencias · 5.º B', pend: 0 },
-          { name: 'Nadia Britos', rol: 'Sociales · 5.º A', pend: 4 },
+          { name: 'Valeria Ochoa', photo: 7, role: 'Matemática · 4.º A', pending: 7 },
+          { name: 'Martín Roldán', photo: 6, role: 'Ciencias · 5.º B', pending: 0 },
+          { name: 'Nadia Britos', role: 'Sociales · 5.º A', pending: 4 },
         ].map(d => (
           <Card key={d.name} className="flex items-center gap-3 p-4">
-            <Avatar name={d.name} src={d.foto ? cara(d.foto) : undefined} size={38} />
+            <Avatar name={d.name} src={d.photo ? face(d.photo) : undefined} size={38} />
             <div className="flex min-w-0 flex-1 flex-col">
               <span className="truncate text-xs font-semibold text-ink">{d.name}</span>
-              <span className="truncate text-2xs font-medium text-ink-muted">{d.rol}</span>
+              <span className="truncate text-2xs font-medium text-ink-muted">{d.role}</span>
             </div>
-            {d.pend > 0
-              ? <Badge>{d.pend}</Badge>
+            {d.pending > 0
+              ? <Badge>{d.pending}</Badge>
               : <Badge tone="ok" icon="check">al día</Badge>}
           </Card>
         ))}

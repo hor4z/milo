@@ -3,12 +3,12 @@ import { Textarea } from '@melu/ui'
 import { A11y, Demo, Page, Props, Section } from '../kit'
 
 export function TextareaStory() {
-  const [corto, setCorto] = useState('')
-  const [conTecho, setConTecho] = useState(
+  const [short, setShort] = useState('')
+  const [withCap, setWithCap] = useState(
     'Este campo crece hasta seis filas y después scrollea.\nBorrá líneas y mirá cómo se achica: el alto vuelve, que es la mitad que se olvida.',
   )
-  const [sinTecho, setSinTecho] = useState('Sin maxRows crece todo lo que haga falta.')
-  const [modo, setModo] = useState('Crece con lo que escribís.')
+  const [noCap, setNoCap] = useState('Sin maxRows crece todo lo que haga falta.')
+  const [mode, setMode] = useState('Crece con lo que escribís.')
 
   return (
     <Page
@@ -25,8 +25,8 @@ export function TextareaStory() {
           <div className="w-full max-w-[320px]">
             <Demo label="rows 3 · maxRows 6">
               <Textarea
-                value={conTecho}
-                onChange={e => setConTecho(e.target.value)}
+                value={withCap}
+                onChange={e => setWithCap(e.target.value)}
                 rows={3}
                 maxRows={6}
                 className="w-full"
@@ -36,8 +36,8 @@ export function TextareaStory() {
           <div className="w-full max-w-[320px]">
             <Demo label="sin techo">
               <Textarea
-                value={sinTecho}
-                onChange={e => setSinTecho(e.target.value)}
+                value={noCap}
+                onChange={e => setNoCap(e.target.value)}
                 rows={2}
                 className="w-full"
               />
@@ -54,8 +54,8 @@ export function TextareaStory() {
           <div className="w-full max-w-[300px]">
             <Demo label="con placeholder">
               <Textarea
-                value={corto}
-                onChange={e => setCorto(e.target.value)}
+                value={short}
+                onChange={e => setShort(e.target.value)}
                 placeholder="Escribí la consigna de la actividad…"
                 rows={3}
                 maxRows={8}
@@ -78,7 +78,7 @@ export function TextareaStory() {
         <div className="flex flex-wrap items-start gap-3">
           <div className="w-full max-w-[260px]">
             <Demo label="auto · el default">
-              <Textarea value={modo} onChange={e => setModo(e.target.value)} rows={2} maxRows={6} className="w-full" />
+              <Textarea value={mode} onChange={e => setMode(e.target.value)} rows={2} maxRows={6} className="w-full" />
             </Demo>
           </div>
           <div className="w-full max-w-[260px]">

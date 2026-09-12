@@ -25,12 +25,12 @@ describe('Dropdown', () => {
         trigger={({ onClick, ref, ...r }) => <Button ref={ref} onClick={onClick} {...r}>Menú</Button>}
       />,
     )
-    const disparador = screen.getByRole('button', { name: 'Menú' })
-    await userEvent.click(disparador)
+    const trigger = screen.getByRole('button', { name: 'Menú' })
+    await userEvent.click(trigger)
     expect(screen.getByText('Salir')).toBeInTheDocument()
     await userEvent.keyboard('{Escape}')
     expect(screen.queryByText('Salir')).not.toBeInTheDocument()
-    expect(disparador).toHaveFocus()
+    expect(trigger).toHaveFocus()
   })
 
   it('elegir una opción cierra el menú', async () => {
@@ -65,9 +65,9 @@ describe('Dropdown', () => {
         trigger={({ onClick, ref, ...r }) => <Button ref={ref} onClick={onClick} {...r}>Menú</Button>}
       />,
     )
-    const disparador = screen.getByRole('button', { name: 'Menú' })
-    expect(disparador).toHaveAttribute('aria-expanded', 'false')
-    await userEvent.click(disparador)
-    expect(disparador).toHaveAttribute('aria-expanded', 'true')
+    const trigger = screen.getByRole('button', { name: 'Menú' })
+    expect(trigger).toHaveAttribute('aria-expanded', 'false')
+    await userEvent.click(trigger)
+    expect(trigger).toHaveAttribute('aria-expanded', 'true')
   })
 })

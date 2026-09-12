@@ -1,8 +1,8 @@
 import { Card, Folder, Icon } from '@melu/ui'
 import { A11y, Mono, Page, Props, Section } from '../kit'
 
-const cara = (n: number) => `/avatars/${String(n).padStart(2, '0')}.webp`
-const p = (name: string, foto?: number) => ({ name, src: foto ? cara(foto) : undefined })
+const face = (n: number) => `/avatars/${String(n).padStart(2, '0')}.webp`
+const p = (name: string, photo?: number) => ({ name, src: photo ? face(photo) : undefined })
 
 export function FolderStory() {
   return (

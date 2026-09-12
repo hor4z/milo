@@ -15,7 +15,7 @@ type TextFieldProps = Omit<InputHTMLAttributes<HTMLInputElement>, 'size'> & {
 /** El campo de texto. */
 export function TextField({ icon, suffix, size = 'lg', className, ref, ...rest }: TextFieldProps) {
   const iconSize = size === 'sm' ? 16 : size === 'md' ? 18 : 20
-  const campo = useField()
+  const field = useField()
   return (
     <div
       ref={ref}
@@ -38,7 +38,7 @@ export function TextField({ icon, suffix, size = 'lg', className, ref, ...rest }
           'h-full min-w-0 flex-1 bg-transparent font-normal text-ink outline-none placeholder:text-ink-muted',
           size === 'sm' ? '-mx-1.5 px-1.5' : '-mx-2 px-2',
         )}
-        {...campo}
+        {...field}
         {...rest}
       />
       {suffix}

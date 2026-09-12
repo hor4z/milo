@@ -5,29 +5,29 @@ import { FolderIcon, Icon } from './icon'
 describe('Icon', () => {
   it('se esconde de la lectura: el glifo no es contenido', () => {
     const { container } = render(<Icon name="search" />)
-    const glifo = container.querySelector('.ms-icon')
-    expect(glifo).toHaveAttribute('aria-hidden', 'true')
-    expect(glifo).toHaveAttribute('translate', 'no')
+    const glyph = container.querySelector('.ms-icon')
+    expect(glyph).toHaveAttribute('aria-hidden', 'true')
+    expect(glyph).toHaveAttribute('translate', 'no')
   })
 
   it('el tamaño cuadra la caja con la letra', () => {
     const { container } = render(<Icon name="search" size={16} />)
-    const glifo = container.querySelector<HTMLElement>('.ms-icon')!
-    expect(glifo.style.fontSize).toBe('16px')
-    expect(glifo.style.width).toBe('16px')
-    expect(glifo.style.height).toBe('16px')
+    const glyph = container.querySelector<HTMLElement>('.ms-icon')!
+    expect(glyph.style.fontSize).toBe('16px')
+    expect(glyph.style.width).toBe('16px')
+    expect(glyph.style.height).toBe('16px')
   })
 
   it('sin weight no escribe --icon-wght, para que icon-muted pueda', () => {
     const { container } = render(<Icon name="search" />)
-    const glifo = container.querySelector<HTMLElement>('.ms-icon')!
-    expect(glifo.style.getPropertyValue('--icon-wght')).toBe('')
+    const glyph = container.querySelector<HTMLElement>('.ms-icon')!
+    expect(glyph.style.getPropertyValue('--icon-wght')).toBe('')
   })
 
   it('con weight sí lo escribe', () => {
     const { container } = render(<Icon name="search" weight={300} />)
-    const glifo = container.querySelector<HTMLElement>('.ms-icon')!
-    expect(glifo.style.getPropertyValue('--icon-wght')).toBe('300')
+    const glyph = container.querySelector<HTMLElement>('.ms-icon')!
+    expect(glyph.style.getPropertyValue('--icon-wght')).toBe('300')
   })
 })
 

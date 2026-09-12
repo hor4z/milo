@@ -13,16 +13,16 @@ type AlertProps = ComponentPropsWithoutRef<'div'> & {
 
 /** Un aviso fijo en la página: algo pasó o algo hay que saber antes de seguir. */
 export function Alert({ tone = 'info', icon, onDismiss, className, children, ...props }: AlertProps) {
-  const glifo = icon === null ? null : icon ?? toneIcon[tone]
+  const glyph = icon === null ? null : icon ?? toneIcon[tone]
   return (
     <div
       role={tone === 'bad' ? 'alert' : 'status'}
       className={cx('flex gap-3 rounded-xl border border-line bg-surface p-3.5 shadow-card', className)}
       {...props}
     >
-      {glifo && (
+      {glyph && (
         <span className={cx('flex size-7 shrink-0 items-center justify-center rounded-md', toneClass[tone])}>
-          <Icon name={glifo} size={18} />
+          <Icon name={glyph} size={18} />
         </span>
       )}
       <div className="flex min-w-0 flex-1 flex-col gap-1 py-0.5">{children}</div>

@@ -13,7 +13,7 @@ export function Chip({
   active?: boolean
   onClick?: () => void
 }) {
-  const caja = cx(
+  const box = cx(
     'inline-flex h-7 items-center gap-1.5 rounded-md px-2.5 text-xs font-semibold',
     'transition-[background-color,color,filter] duration-[120ms] ease-out',
     active
@@ -24,7 +24,7 @@ export function Chip({
     onClick && !active && (color ? 'hover:brightness-90' : 'hover:bg-sunken'),
   )
 
-  const cruz = onRemove && (
+  const cross = onRemove && (
     <button type="button" onClick={onRemove} aria-label="Quitar" className="-mr-0.5 rounded-sm p-0.5 hover:bg-active">
       <Icon name="close" size={12} />
     </button>
@@ -35,20 +35,20 @@ export function Chip({
   // la cruz dispara también el click del chip.
   if (onClick && onRemove) {
     return (
-      <span className={cx(caja, 'pr-1.5')}>
+      <span className={cx(box, 'pr-1.5')}>
         <button type="button" onClick={onClick} className="-my-1 -ml-1 rounded-sm py-1 pl-1">
           {children}
         </button>
-        {cruz}
+        {cross}
       </span>
     )
   }
 
   const Tag = onClick ? 'button' : 'span'
   return (
-    <Tag type={onClick ? 'button' : undefined} onClick={onClick} className={caja}>
+    <Tag type={onClick ? 'button' : undefined} onClick={onClick} className={box}>
       {children}
-      {cruz}
+      {cross}
     </Tag>
   )
 }

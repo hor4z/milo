@@ -12,15 +12,15 @@ describe('Portal', () => {
   })
 
   it('el hijo ya se puede medir en su layout effect, no un frame después', () => {
-    let medido: HTMLElement | null = null
-    function Sonda() {
+    let measured: HTMLElement | null = null
+    function Probe() {
       const ref = useRef<HTMLDivElement>(null)
-      useLayoutEffect(() => { medido = ref.current }, [])
+      useLayoutEffect(() => { measured = ref.current }, [])
       return <div ref={ref}>medible</div>
     }
-    render(<Portal><Sonda /></Portal>)
-    expect(medido).not.toBeNull()
-    expect(medido!.isConnected).toBe(true)
+    render(<Portal><Probe /></Portal>)
+    expect(measured).not.toBeNull()
+    expect(measured!.isConnected).toBe(true)
   })
 
   it('anidado sube el z-index un escalón', () => {
@@ -31,8 +31,8 @@ describe('Portal', () => {
     )
     const hosts = [...document.querySelectorAll<HTMLElement>('[data-portal]')]
     expect(hosts.map(h => h.dataset.portal).sort()).toEqual(['0', '1'])
-    const [fuera, dentro] = hosts.sort((a, b) => Number(a.dataset.portal) - Number(b.dataset.portal))
-    expect(Number(dentro.style.zIndex)).toBeGreaterThan(Number(fuera.style.zIndex))
+    const [outer, inner] = hosts.sort((a, b) => Number(a.dataset.portal) - Number(b.dataset.portal))
+    expect(Number(inner.style.zIndex)).toBeGreaterThan(Number(outer.style.zIndex))
   })
 
   it('al desmontar se lleva su host', () => {

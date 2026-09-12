@@ -28,19 +28,19 @@ describe('Table', () => {
   })
 
   it('una fila que se toca se toca también con el teclado', async () => {
-    const abrir = vi.fn()
+    const onOpen = vi.fn()
     render(
       <Table>
-        <TableBody><TableRow onClick={abrir}><TableCell>Ana</TableCell></TableRow></TableBody>
+        <TableBody><TableRow onClick={onOpen}><TableCell>Ana</TableCell></TableRow></TableBody>
       </Table>,
     )
-    const fila = screen.getByText('Ana').closest('tr')!
-    expect(fila).toHaveAttribute('tabindex', '0')
-    fila.focus()
+    const row = screen.getByText('Ana').closest('tr')!
+    expect(row).toHaveAttribute('tabindex', '0')
+    row.focus()
     await userEvent.keyboard('{Enter}')
-    expect(abrir).toHaveBeenCalledOnce()
+    expect(onOpen).toHaveBeenCalledOnce()
     await userEvent.keyboard(' ')
-    expect(abrir).toHaveBeenCalledTimes(2)
+    expect(onOpen).toHaveBeenCalledTimes(2)
   })
 
   it('una fila que no hace nada no es una parada de tabulación', () => {

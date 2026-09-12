@@ -6,8 +6,8 @@ import { ColumnPicker, Filter, FilterSearch, facets } from './filter'
 
 describe('facets', () => {
   it('cuenta por clave y saltea nulos', () => {
-    const filas = [{ e: 'a' }, { e: 'b' }, { e: 'a' }, { e: undefined }]
-    expect(facets(filas, f => f.e)).toEqual({ a: 2, b: 1 })
+    const rows = [{ e: 'a' }, { e: 'b' }, { e: 'a' }, { e: undefined }]
+    expect(facets(rows, f => f.e)).toEqual({ a: 2, b: 1 })
   })
 })
 

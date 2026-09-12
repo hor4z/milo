@@ -3,9 +3,9 @@ import { Checkbox, Field, FieldSet, Select, Switch, TextField, Textarea } from '
 import { A11y, Canvas, Note, Page, Props, Section } from '../kit'
 
 export function FieldStory() {
-  const [nombre, setNombre] = useState('')
-  const [tocado, setTocado] = useState(false)
-  const error = tocado && !nombre.trim() ? 'Poné un nombre para la actividad' : undefined
+  const [name, setName] = useState('')
+  const [touched, setTouched] = useState(false)
+  const error = touched && !name.trim() ? 'Poné un nombre para la actividad' : undefined
 
   return (
     <Page
@@ -22,9 +22,9 @@ export function FieldStory() {
           <div className="flex max-w-[420px] flex-col gap-5">
             <Field label="Nombre de la actividad" hint="Lo ven los estudiantes" required error={error}>
               <TextField
-                value={nombre}
-                onChange={e => setNombre(e.target.value)}
-                onBlur={() => setTocado(true)}
+                value={name}
+                onChange={e => setName(e.target.value)}
+                onBlur={() => setTouched(true)}
                 placeholder="Fracciones equivalentes"
               />
             </Field>

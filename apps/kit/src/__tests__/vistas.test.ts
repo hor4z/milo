@@ -3,101 +3,101 @@ import { readFileSync, readdirSync } from 'node:fs'
 import { join } from 'node:path'
 
 const stories = join(import.meta.dirname, '../stories')
-const archivos = readdirSync(stories).filter((f: string) => f.endsWith('.tsx'))
+const files = readdirSync(stories).filter((f: string) => f.endsWith('.tsx'))
 
 describe('las vistas del kit', () => {
   it('cada historia abre con una portada', () => {
-    const sinPortada: string[] = []
-    for (const f of archivos) {
-      const texto = readFileSync(join(stories, f), 'utf8')
-      const historias = [...texto.matchAll(/export function (\w+Story)\(/g)].length
-      const portadas = [...texto.matchAll(/<Page\b/g)].length
-      if (historias !== portadas) sinPortada.push(`${f}: ${historias} historias, ${portadas} portadas`)
+    const withoutCover: string[] = []
+    for (const f of files) {
+      const text = readFileSync(join(stories, f), 'utf8')
+      const storyCount = [...text.matchAll(/export function (\w+Story)\(/g)].length
+      const coverCount = [...text.matchAll(/<Page\b/g)].length
+      if (storyCount !== coverCount) withoutCover.push(`${f}: ${storyCount} historias, ${coverCount} portadas`)
     }
-    expect(sinPortada).toEqual([])
+    expect(withoutCover).toEqual([])
   })
 
   it('cada portada dice cómo se importa la pieza', () => {
-    const sinImport: string[] = []
-    for (const f of archivos) {
-      const texto = readFileSync(join(stories, f), 'utf8')
-      const portadas = [...texto.matchAll(/<Page\b/g)].length
-      const imports = [...texto.matchAll(/imports="/g)].length
-      if (portadas !== imports) sinImport.push(`${f}: ${portadas} portadas, ${imports} imports`)
+    const withoutImport: string[] = []
+    for (const f of files) {
+      const text = readFileSync(join(stories, f), 'utf8')
+      const covers = [...text.matchAll(/<Page\b/g)].length
+      const imports = [...text.matchAll(/imports="/g)].length
+      if (covers !== imports) withoutImport.push(`${f}: ${covers} portadas, ${imports} imports`)
     }
-    expect(sinImport).toEqual([])
+    expect(withoutImport).toEqual([])
   })
 })
 
 describe('el riel', () => {
   it('cada pieza tiene sinónimos para buscarla', () => {
     const app = readFileSync(join(import.meta.dirname, '../App.tsx'), 'utf8')
-    const piezas = [...app.matchAll(/\{ id: '([\w-]+)', label: '[^']*',( alias: '[^']*',)?/g)]
-    const sinAlias = piezas.filter(m => !m[2]).map(m => m[1])
-    expect(sinAlias).toEqual([])
+    const pieces = [...app.matchAll(/\{ id: '([\w-]+)', label: '[^']*',( alias: '[^']*',)?/g)]
+    const withoutAlias = pieces.filter(m => !m[2]).map(m => m[1])
+    expect(withoutAlias).toEqual([])
   })
 })
 
 describe('accesibilidad documentada', () => {
-  const sinTeclado = new Set(['book.tsx', 'folder.tsx', 'icon.tsx', 'chart.tsx'])
+  const noKeyboard = new Set(['book.tsx', 'folder.tsx', 'icon.tsx', 'chart.tsx'])
 
   it('cada historia dice qué resuelve en accesibilidad', () => {
-    const faltan: string[] = []
-    for (const f of archivos) {
-      const texto = readFileSync(join(stories, f), 'utf8')
-      const historias = [...texto.matchAll(/<Page\b/g)].length
-      const bloques = [...texto.matchAll(/<A11y\b/g)].length
-      if (bloques < historias) faltan.push(`${f}: ${historias} historias, ${bloques} bloques`)
+    const missing: string[] = []
+    for (const f of files) {
+      const text = readFileSync(join(stories, f), 'utf8')
+      const pageCount = [...text.matchAll(/<Page\b/g)].length
+      const blocks = [...text.matchAll(/<A11y\b/g)].length
+      if (blocks < pageCount) missing.push(`${f}: ${pageCount} historias, ${blocks} bloques`)
     }
-    expect(faltan).toEqual([])
+    expect(missing).toEqual([])
   })
 
   it('las listas de accesibilidad no están vacías', () => {
-    const vacias: string[] = []
-    for (const f of archivos) {
-      const texto = readFileSync(join(stories, f), 'utf8')
-      for (const m of texto.matchAll(/<A11y items=\{\[([\s\S]*?)\]\}/g)) {
-        if (m[1].trim().length < 10) vacias.push(f)
+    const empty: string[] = []
+    for (const f of files) {
+      const text = readFileSync(join(stories, f), 'utf8')
+      for (const m of text.matchAll(/<A11y items=\{\[([\s\S]*?)\]\}/g)) {
+        if (m[1].trim().length < 10) empty.push(f)
       }
     }
-    expect(vacias).toEqual([])
+    expect(empty).toEqual([])
   })
 
   it('el conjunto no se olvida de ninguna historia con teclado', () => {
-    const sospechosas = archivos.filter(f => !sinTeclado.has(f))
-    expect(sospechosas.length).toBeGreaterThan(20)
+    const candidates = files.filter(f => !noKeyboard.has(f))
+    expect(candidates.length).toBeGreaterThan(20)
   })
 })
 
 describe('los números de la portada', () => {
   it('la landing no anuncia menos tests de los que hay', () => {
     const intro = readFileSync(join(import.meta.dirname, '../intro.tsx'), 'utf8')
-    const anunciados = Number(intro.match(/\['(\d+)', 'tests'\]/)?.[1])
+    const announced = Number(intro.match(/\['(\d+)', 'tests'\]/)?.[1])
 
-    const raiz = join(import.meta.dirname, '../../../..')
-    const recorrer = (base: string): string[] =>
+    const root = join(import.meta.dirname, '../../../..')
+    const walk = (base: string): string[] =>
       readdirSync(base, { withFileTypes: true }).flatMap(e =>
-        e.isDirectory() ? recorrer(join(base, e.name)) : /\.test\.tsx?$/.test(e.name) ? [join(base, e.name)] : [])
-    const archivos = [...recorrer(join(raiz, 'packages/ui/src')), ...recorrer(import.meta.dirname)]
-    const escritos = archivos.reduce(
+        e.isDirectory() ? walk(join(base, e.name)) : /\.test\.tsx?$/.test(e.name) ? [join(base, e.name)] : [])
+    const files = [...walk(join(root, 'packages/ui/src')), ...walk(import.meta.dirname)]
+    const written = files.reduce(
       (n, f) => n + [...readFileSync(f, 'utf8').matchAll(/^\s*it\(/gm)].length, 0)
 
 
     expect(
-      anunciados,
-      `la landing dice ${anunciados} y hay al menos ${escritos} tests escritos`,
-    ).toBeGreaterThanOrEqual(escritos)
+      announced,
+      `la landing dice ${announced} y hay al menos ${written} tests escritos`,
+    ).toBeGreaterThanOrEqual(written)
   })
 
   it('la cantidad de iconos que anuncia es la del manifiesto', () => {
     const intro = readFileSync(join(import.meta.dirname, '../intro.tsx'), 'utf8')
-    const anunciados = Number(intro.match(/\['(\d+)', 'iconos'\]/)?.[1])
+    const announced = Number(intro.match(/\['(\d+)', 'iconos'\]/)?.[1])
     const gen = readFileSync(
       join(import.meta.dirname, '../../../../packages/ui/src/icons.gen.ts'),
       'utf8',
     )
     const reales = [...gen.matchAll(/^\s+\w+: 0x[0-9a-f]+,/gm)].length
-    expect(anunciados).toBe(reales)
+    expect(announced).toBe(reales)
   })
 })
 
@@ -106,27 +106,27 @@ describe('useTokens', () => {
     const kit = readFileSync(join(import.meta.dirname, '../kit.tsx'), 'utf8')
     const hook = kit.slice(kit.indexOf('export function useTokens'), kit.indexOf('type PageProps'))
     expect(hook, 'la dependencia tiene que ser el contenido, no el arreglo').not.toMatch(/\}, \[names\]\)/)
-    expect(hook).toMatch(/\[clave\]/)
+    expect(hook).toMatch(/\[key\]/)
   })
 })
 
 describe('cobertura del kit', () => {
-  const internos = new Set(['Portal', 'PageHeader', 'SectionLabel'])
+  const internal = new Set(['Portal', 'PageHeader', 'SectionLabel'])
 
   it('cada componente exportado se muestra en alguna vista', () => {
     const index = readFileSync(
       join(import.meta.dirname, '../../../../packages/ui/src/index.ts'),
       'utf8',
     )
-    const exportados = new Set<string>()
+    const exported = new Set<string>()
     for (const m of index.matchAll(/export \{([^}]*)\} from/g)) {
       for (const n of m[1].split(',')) {
-        const nombre = n.trim()
-        if (nombre && /^[A-Z]/.test(nombre) && !internos.has(nombre)) exportados.add(nombre)
+        const name = n.trim()
+        if (name && /^[A-Z]/.test(name) && !internal.has(name)) exported.add(name)
       }
     }
 
-    const fuentes = [
+    const sources = [
       ...readdirSync(stories).map((f: string) => join(stories, f)),
       join(import.meta.dirname, '../dashboard.tsx'),
       join(import.meta.dirname, '../intro.tsx'),
@@ -135,9 +135,9 @@ describe('cobertura del kit', () => {
       join(import.meta.dirname, '../guide/foundations.tsx'),
       join(import.meta.dirname, '../guide/writing.tsx'),
     ]
-    const texto = fuentes.map((f: string) => readFileSync(f, 'utf8')).join('\n')
+    const text = sources.map((f: string) => readFileSync(f, 'utf8')).join('\n')
 
-    const sinMostrar = [...exportados].filter(n => !new RegExp(`<${n}[\\s/>]`).test(texto))
-    expect(sinMostrar).toEqual([])
+    const hidden = [...exported].filter(n => !new RegExp(`<${n}[\\s/>]`).test(text))
+    expect(hidden).toEqual([])
   })
 })

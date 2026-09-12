@@ -1,7 +1,7 @@
 import { Icon, type IconName } from '@melu/ui'
 import { Page, Section } from '../kit'
 
-const principios: { icon: IconName; title: string; body: string }[] = [
+const principles: { icon: IconName; title: string; body: string }[] = [
   {
     icon: 'contrast',
     title: 'Monocroma, con el color contado',
@@ -41,7 +41,7 @@ export function Foundations() {
       lead="Seis decisiones de las que sale casi todo lo demás. No son gustos: cada una se rompió al menos una vez y dejó una cicatriz que conviene no repetir."
     >
       <div className="grid gap-3 md:grid-cols-2">
-        {principios.map(p => (
+        {principles.map(p => (
           <div key={p.title} className="flex flex-col gap-3 rounded-2xl border border-line bg-surface p-5">
             <span className="inset-relief flex size-9 items-center justify-center rounded-xl bg-muted">
               <Icon name={p.icon} size={20} className="icon-muted" />

@@ -9,27 +9,27 @@ export function Menu({ children, width, className }: {
   width?: number
   className?: string
 }) {
-  const caja = useRef<HTMLDivElement>(null)
+  const box = useRef<HTMLDivElement>(null)
 
   // Un `role="menu"` promete flechas. Sin esto, las prometía y no las traía:
   // se recorría con Tab, que es lo que un menú justamente no hace.
-  const mover = (e: KeyboardEvent<HTMLDivElement>) => {
-    const paso = e.key === 'ArrowDown' ? 1 : e.key === 'ArrowUp' ? -1 : 0
-    const extremo = e.key === 'Home' ? 0 : e.key === 'End' ? -1 : null
-    if (!paso && extremo === null) return
-    const items = [...(caja.current?.querySelectorAll<HTMLButtonElement>('[role^="menuitem"]:not(:disabled)') ?? [])]
+  const move = (e: KeyboardEvent<HTMLDivElement>) => {
+    const step = e.key === 'ArrowDown' ? 1 : e.key === 'ArrowUp' ? -1 : 0
+    const edge = e.key === 'Home' ? 0 : e.key === 'End' ? -1 : null
+    if (!step && edge === null) return
+    const items = [...(box.current?.querySelectorAll<HTMLButtonElement>('[role^="menuitem"]:not(:disabled)') ?? [])]
     if (!items.length) return
     e.preventDefault()
-    if (extremo !== null) return items.at(extremo)!.focus()
+    if (edge !== null) return items.at(edge)!.focus()
     const i = items.indexOf(document.activeElement as HTMLButtonElement)
-    items[(i + paso + items.length) % items.length].focus()
+    items[(i + step + items.length) % items.length].focus()
   }
 
   return (
     <div
-      ref={caja}
+      ref={box}
       role="menu"
-      onKeyDown={mover}
+      onKeyDown={move}
       style={width ? { width } : undefined}
       className={cx(
         'ui-pop rounded-xl border border-line bg-popover p-1 shadow-popover',

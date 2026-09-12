@@ -3,10 +3,10 @@ import { Segmented } from '@melu/ui'
 import { A11y, Page, Panel, Props, Section, Variant } from '../kit'
 
 export function SegmentedStory() {
-  const [filtro, setFiltro] = useState<'todas' | 'abiertas'>('todas')
-  const [vista, setVista] = useState<'grilla' | 'lista'>('grilla')
-  const [rango, setRango] = useState<'semana' | 'mes'>('semana')
-  const [chico, setChico] = useState<'semana' | 'mes'>('semana')
+  const [filter, setFilter] = useState<'todas' | 'abiertas'>('todas')
+  const [view, setView] = useState<'grilla' | 'lista'>('grilla')
+  const [range, setRange] = useState<'semana' | 'mes'>('semana')
+  const [small, setSmall] = useState<'semana' | 'mes'>('semana')
 
   return (
     <Page
@@ -21,19 +21,19 @@ export function SegmentedStory() {
       >
         <Panel>
           <Variant name="md · texto">
-            <Segmented label="Filtro" value={filtro} onChange={setFiltro}
+            <Segmented label="Filtro" value={filter} onChange={setFilter}
               options={[{ value: 'todas', label: 'Todas' }, { value: 'abiertas', label: 'Abiertas' }]} />
           </Variant>
           <Variant name="md · iconos">
-            <Segmented label="Vista" value={vista} onChange={setVista}
+            <Segmented label="Vista" value={view} onChange={setView}
               options={[{ value: 'grilla', icon: 'grid_view', title: 'Grilla' }, { value: 'lista', icon: 'layers', title: 'Lista' }]} />
           </Variant>
           <Variant name="sm">
-            <Segmented size="sm" label="Rango" value={rango} onChange={setRango}
+            <Segmented size="sm" label="Rango" value={range} onChange={setRange}
               options={[{ value: 'semana', label: 'Semana' }, { value: 'mes', label: 'Mes' }]} />
           </Variant>
           <Variant name="xs · sin pista">
-            <Segmented size="xs" label="Rango" value={chico} onChange={setChico}
+            <Segmented size="xs" label="Rango" value={small} onChange={setSmall}
               options={[{ value: 'semana', label: 'Semana' }, { value: 'mes', label: 'Mes', dot: true }]} />
           </Variant>
         </Panel>

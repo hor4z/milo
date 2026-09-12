@@ -6,7 +6,7 @@ export function SliderStory() {
   const [a, setA] = useState(59)
   const [b, setB] = useState(0)
   const [c, setC] = useState(100)
-  const [pasos, setPasos] = useState(3)
+  const [steps, setSteps] = useState(3)
 
   return (
     <Page
@@ -45,8 +45,8 @@ export function SliderStory() {
         note="`step` es del input nativo, igual que las flechas del teclado y el arrastre: adentro hay un `<input type=&quot;range&quot;>` de verdad, transparente y encima de todo. No es el caso del Select —ahí la lista desplegada la dibuja el sistema operativo y no hay forma de estilarla—; un range se tapa entero con un div y a cambio el teclado y el rol vienen gratis."
       >
         <Panel>
-          <Variant name={`${pasos} de 5 · step 1, max 5`}>
-            <Slider value={pasos} onChange={setPasos} min={0} max={5} step={1} label="Dificultad" className="max-w-[320px]" />
+          <Variant name={`${steps} de 5 · step 1, max 5`}>
+            <Slider value={steps} onChange={setSteps} min={0} max={5} step={1} label="Dificultad" className="max-w-[320px]" />
           </Variant>
         </Panel>
         <p className="mt-3 max-w-[70ch] text-2xs text-ink-muted">

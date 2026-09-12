@@ -22,10 +22,10 @@ type FilterSearchProps = {
 
 /** El buscador de la barra. */
 export function FilterSearch({ value, onValueChange, placeholder = 'Buscar…', className }: FilterSearchProps) {
-  const campo = useRef<HTMLDivElement>(null)
+  const field = useRef<HTMLDivElement>(null)
   return (
     <TextField
-      ref={campo}
+      ref={field}
       size="sm"
       icon="search"
       value={value}
@@ -40,7 +40,7 @@ export function FilterSearch({ value, onValueChange, placeholder = 'Buscar…', 
             onClick={() => {
               onValueChange('')
               // La X se desmonta al vaciarse: sin esto el foco se cae al <body>.
-              campo.current?.querySelector('input')?.focus()
+              field.current?.querySelector('input')?.focus()
             }}
             className="-mr-1 rounded-sm p-0.5 text-ink-muted transition-colors hover:bg-hover hover:text-ink"
           >
@@ -72,10 +72,10 @@ type FilterProps = {
 
 /** Un filtro: un botón que dice qué filtra, y un panel para elegir. */
 export function Filter({ label, options, value, onValueChange }: FilterProps) {
-  const alternar = (v: string) =>
+  const toggle = (v: string) =>
     onValueChange(value.includes(v) ? value.filter(x => x !== v) : [...value, v])
 
-  const caras = options.filter(o => o.person && value.includes(o.value)).map(o => o.person!)
+  const faces = options.filter(o => o.person && value.includes(o.value)).map(o => o.person!)
 
   return (
     <Popover
@@ -90,8 +90,8 @@ export function Filter({ label, options, value, onValueChange }: FilterProps) {
           size="sm"
           iconEnd="keyboard_arrow_down"
         >
-          {caras.length > 0 && <AvatarGroup people={caras} size={18} max={3} ring="ring-brand" className="-ml-0.5" />}
-          {label}{value.length > 0 && caras.length === 0 && ` · ${value.length}`}
+          {faces.length > 0 && <AvatarGroup people={faces} size={18} max={3} ring="ring-brand" className="-ml-0.5" />}
+          {label}{value.length > 0 && faces.length === 0 && ` · ${value.length}`}
         </Button>
       )}
     >
@@ -111,7 +111,7 @@ export function Filter({ label, options, value, onValueChange }: FilterProps) {
               <Checkbox
                 label={o.count === undefined ? o.value : `${o.value}, ${o.count}`}
                 checked={value.includes(o.value)}
-                onChange={() => alternar(o.value)}
+                onChange={() => toggle(o.value)}
               />
               {o.person && <Avatar name={o.person.name} src={o.person.src} size={22} className="shrink-0" />}
               <span aria-hidden="true" className="min-w-0 flex-1 truncate text-xs font-medium text-ink">{o.value}</span>
@@ -156,7 +156,7 @@ type ColumnPickerProps = {
 
 /** Elegir qué columnas se ven. */
 export function ColumnPicker({ columns, value, onValueChange, label = 'Columnas', className }: ColumnPickerProps) {
-  const alternar = (id: string) =>
+  const toggle = (id: string) =>
     onValueChange(value.includes(id) ? value.filter(x => x !== id) : [...value, id])
 
   return (
@@ -190,7 +190,7 @@ export function ColumnPicker({ columns, value, onValueChange, label = 'Columnas'
               <Checkbox
                 label={c.label}
                 checked={c.locked || value.includes(c.id)}
-                onChange={() => !c.locked && alternar(c.id)}
+                onChange={() => !c.locked && toggle(c.id)}
                 disabled={c.locked}
               />
               <span aria-hidden="true" className="min-w-0 flex-1 truncate text-xs font-medium text-ink">{c.label}</span>
@@ -204,11 +204,11 @@ export function ColumnPicker({ columns, value, onValueChange, label = 'Columnas'
 
 /** Cuántas filas caen en cada opción, que es el número que muestra el filtro. */
 export function facets<T>(rows: T[], of: (row: T) => string | undefined | null): Record<string, number> {
-  const cuenta: Record<string, number> = {}
+  const tally: Record<string, number> = {}
   for (const row of rows) {
     const k = of(row)
     if (k == null) continue
-    cuenta[k] = (cuenta[k] ?? 0) + 1
+    tally[k] = (tally[k] ?? 0) + 1
   }
-  return cuenta
+  return tally
 }
