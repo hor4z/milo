@@ -38,9 +38,31 @@ export function DropdownStory() {
         </div>
       </Section>
 
+      <Section
+        title="Lo que puede llevar una opción"
+        note="Un glifo adelante, el atajo de teclado a la derecha, el tilde de «esta es la que está puesta», y el rojo de lo que no se deshace. Lo apagado se queda a la vista y no desaparece: una opción que aparece y desaparece según el estado obliga a aprender el menú de nuevo cada vez."
+      >
+        <div className="flex flex-wrap items-start gap-3">
+          <Demo label="con atajos y una peligrosa">
+            <Dropdown
+              width={240}
+              items={[
+                { label: 'Duplicar', icon: 'content_copy', shortcut: '⌘D' },
+                { label: 'Descargar', icon: 'download', shortcut: '⌘S' },
+                { label: 'Archivar', icon: 'inventory_2', disabled: true },
+                { label: 'Borrar', icon: 'delete', danger: true },
+              ]}
+              trigger={({ onClick, ref, ...rest }) => (
+                <Button ref={ref} onClick={onClick} {...rest} variant="raised" icon="more_horiz">Acciones</Button>
+              )}
+            />
+          </Demo>
+        </div>
+      </Section>
+
       <Section title="Props">
         <Props rows={[
-          { name: 'items', type: '{ label, icon?, onSelect? }[]', note: 'obligatorio' },
+          { name: 'items', type: '{ label, icon?, shortcut?, danger?, disabled?, onSelect? }[]', required: true },
           { name: 'trigger', type: '(props) => ReactNode', note: 'obligatorio: recibe onClick, ref y aria-expanded' },
           { name: 'align', type: "'start' | 'end'", def: "'end'" },
           { name: 'width', type: 'number', def: '220' },
@@ -50,6 +72,8 @@ export function DropdownStory() {
       <Section title="Accesibilidad">
         <A11y items={[
           'El panel es role="menu" y cada opción un menuitem.',
+          'Las flechas recorren las opciones y dan la vuelta; Home y End van a los extremos, y las dos saltean lo apagado.',
+          'El disparador dice si está abierto con `aria-expanded`, y al cerrar el foco vuelve a él.',
           'Escape cierra solo este menú y deja abierto lo que haya detrás, por la pila global.',
           'Cierra con pointerdown y no con click: el mismo gesto que abre otro menú no lo reabre.',
         ]} />

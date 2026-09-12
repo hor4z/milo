@@ -1,9 +1,10 @@
 import { useState } from 'react'
 import { Button, ConfirmDialog, useToast } from '@melu/ui'
-import { A11y, Canvas, Page, Props, Section } from '../kit'
+import { A11y, Canvas, Note, Page, Props, Section } from '../kit'
 
 export function ConfirmStory() {
   const [abierto, setAbierto] = useState(false)
+  const [publicar, setPublicar] = useState(false)
   const { toast } = useToast()
   return (
     <Page
@@ -33,12 +34,43 @@ export function ConfirmStory() {
         />
       </Section>
 
+      <Section
+        title="El otro tono"
+        note="`neutral` es para lo que se puede deshacer pero conviene mirar dos veces: publicar, cerrar, invitar. El botón de confirmar va sólido y el foco arranca ahí, porque la respuesta esperada es que sí."
+      >
+        <Canvas className="flex justify-center">
+          <Button variant="solid" icon="send" onClick={() => setPublicar(true)}>Publicar sin fecha</Button>
+        </Canvas>
+        <ConfirmDialog
+          open={publicar}
+          onCancel={() => setPublicar(false)}
+          onConfirm={() => {
+            setPublicar(false)
+            toast({ title: 'Actividad publicada', body: 'Queda abierta hasta que la cierres', tone: 'ok' })
+          }}
+          title="¿Publicar sin fecha de cierre?"
+          body="La actividad queda abierta hasta que la cierres a mano, y los estudiantes pueden seguir entregando."
+          confirmLabel="Publicar"
+        />
+      </Section>
+
+      <Note title="Antes de preguntar, fijate si se puede deshacer">
+        Preguntar cuesta un click siempre; deshacer cuesta un click solo cuando alguien se
+        equivocó. Si la acción se puede revertir, va derecho con un
+        {' '}<a className="underline underline-offset-2" href="#toast">Toast</a> que ofrezca
+        «Deshacer». El diálogo se guarda para lo que no tiene vuelta.
+      </Note>
+
       <Section title="Props">
         <Props rows={[
+          { name: 'open', type: 'boolean', required: true },
+          { name: 'onCancel', type: '() => void', required: true, note: 'lo llaman Cancelar, el velo y Escape' },
+          { name: 'onConfirm', type: '() => void', required: true },
           { name: 'title', type: 'string', required: true, note: 'la pregunta, con el nombre de lo que se toca' },
           { name: 'body', type: 'ReactNode', note: 'qué más se lleva puesto' },
           { name: 'confirmLabel', type: 'string', def: "'Aceptar'", note: 'el verbo de lo que va a pasar, no «Sí»' },
-          { name: 'tone', type: "'neutral' | 'bad'", def: "'neutral'", note: 'bad pinta el botón de confirmar' },
+          { name: 'cancelLabel', type: 'string', def: "'Cancelar'" },
+          { name: 'tone', type: "'neutral' | 'bad'", def: "'neutral'", note: 'bad pinta el botón de confirmar y arranca el foco en Cancelar' },
         ]} />
       </Section>
 
