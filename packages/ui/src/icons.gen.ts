@@ -147,6 +147,7 @@ export const codepoints = {
   undo: 0xe166,
   upload: 0xf09b,
   verified_user: 0xe8e8,
+  view_column: 0xe8ec,
   view_list: 0xe8ef,
   visibility: 0xe8f4,
   visibility_off: 0xe8f5,

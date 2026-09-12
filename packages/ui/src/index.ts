@@ -38,7 +38,7 @@ export {
 } from './table'
 
 export { Pagination, PaginationStatus, PaginationPrev, PaginationNext } from './pagination'
-export { FilterBar, FilterSearch, Filter, FilterReset, facets } from './filter'
+export { FilterBar, FilterSearch, Filter, FilterReset, ColumnPicker, facets } from './filter'
 
 export { Book } from './book'
 export { Folder } from './folder'

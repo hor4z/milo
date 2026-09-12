@@ -144,6 +144,7 @@
     "undo",
     "upload",
     "verified_user",
+    "view_column",
     "view_list",
     "visibility",
     "visibility_off",
@@ -157,9 +158,9 @@
     "zoom_out"
   ],
   "font": {
-    "url": "https://fonts.gstatic.com/l/font?kit=sykO-zNym6YjUruM-QrEh7-nyTnjDwKNJ_190FjpZIvLgyidOK7BDB_Qb9vUdV6_gjDK-P3JuEXXiQX53EITjFf5yxbHx4bUZ_6-qf7E3zuTCWXbVeIInq8rQSmVrsvZhSmReV-W3lx_Fi7tbdADm1W7U-tlb_-cL0eh1xKpM9NNpyoxwcXOkoRluJB0J3PECbwlnhOCv_6Eba4R22JPp4tWQphsA29ZDr9xUNNMNDssAScCC5Z7W5CQPReQaEBLr2bYZvri6K3ZdSQQCk2uKm3UYJOqRB4FgBzJdt1W-5c&skey=70ddea8fe54d532e&v=v372",
-    "bytes": 58964,
-    "sha256": "0f0bed10b4677f21d0d643598ab3dfb829c5c8b041bbf15964c98d2da67aa744",
-    "fetchedAt": "2026-09-11"
+    "url": "https://fonts.gstatic.com/l/font?kit=sykO-zNym6YjUruM-QrEh7-nyTnjDwKNJ_190FjpZIvLgyidOK7BDB_Qb9vUdV6_gjDK-P3JuEXXiQX53EITjFf5yxbHx4bUZ_6-qf7E3zuTCWXbVeIInq8rQSmVrsvZhSmReV-W3lx_Fi7tbdADm1W7U-tlb_-cL0eh1xKpM9NNpyoxwcXOkoRluJB0J3PECbwlnhOCv_6Eba4R22JPp4tWQphsA29ZDr9xUNNMNDssAScCC5Z7W5CQPReQaEBLr2bYZvri6K3ZdSQQCk2vKm3UYJOqRB4FgBzJdt1W-5c&skey=70ddea8fe54d532e&v=v372",
+    "bytes": 59368,
+    "sha256": "d2a1c935b38fc67e499ac5ced574590ef5208ca95ac25dc2cdfff477d74d9ae4",
+    "fetchedAt": "2026-09-12"
   }
 }

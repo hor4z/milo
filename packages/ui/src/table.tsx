@@ -57,7 +57,7 @@ export function Table({ children, minWidth = 640, footer, className }: {
 }) {
   return (
     <div className={cx('overflow-hidden rounded-md bg-surface ring-1 ring-line', className)}>
-      <div className="zebra overflow-x-auto overflow-y-hidden">
+      <div className="zebra no-scrollbar overflow-x-auto overflow-y-hidden">
         <table className="w-full border-collapse text-left" style={{ minWidth }}>
           {children}
         </table>
