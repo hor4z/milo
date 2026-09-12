@@ -1,14 +1,14 @@
 import { Button } from '@melu/ui'
-import { Block, Demo, Panel, Props, Section, Variant } from '../kit'
+import { Demo, Page, Panel, Props, Section, Variant } from '../kit'
 
 export function ButtonStory() {
   return (
-    <Section
+    <Page
       title="Button"
-      note="El texto va en 14/600 aunque la interfaz sea de 12: un botón con el mismo tamaño de letra que su entorno no se lee como accionable."
+      lead="El texto va en 14/600 aunque la interfaz sea de 12: un botón con el mismo tamaño de letra que su entorno no se lee como accionable."
     >
-      <Block
-        label="Variantes"
+      <Section
+        title="Variantes"
         note="`solid` es el que manda y hay uno por pantalla. `brand` es el mismo rol en azul, así que va uno o el otro, nunca los dos en la misma pantalla, o la mirada no sabe cuál es. `raised` es el secundario y el que le da el carácter físico a la interfaz."
       >
         <Panel>
@@ -19,10 +19,10 @@ export function ButtonStory() {
           <Variant name="ghost"><Button variant="ghost">Crear actividad</Button></Variant>
           <Variant name="bad"><Button variant="bad">Eliminar</Button></Variant>
         </Panel>
-      </Block>
+      </Section>
 
-      <Block
-        label="Tamaños"
+      <Section
+        title="Tamaños"
         note="Tres alturas y un rol cada una: 32 inline en una fila densa, 36 acciones dentro de un panel, 40 la acción principal. Ninguna es un número elegido — el alto es la línea de la interfaz (16) más el aire vertical, que sube de a 2: 16+8×2, 16+10×2, 16+12×2. El padding lateral sube al mismo paso que el alto, de a 4: 16 · 20 · 24. Del 36 para arriba el texto es 14/600 y el radio 12; el 32 baja a 12px porque convive con texto de interfaz. La escalera es una sola y la comparte el IconButton, así que `md` mide 36 en las dos piezas."
       >
         <Panel>
@@ -39,9 +39,9 @@ export function ButtonStory() {
             <Button size="lg" variant="raised">Guardar</Button>
           </Variant>
         </Panel>
-      </Block>
+      </Section>
 
-      <Block label="Iconos, ancho completo y deshabilitado">
+      <Section title="Iconos, ancho completo y deshabilitado">
         <div className="flex flex-wrap items-start gap-3">
           <Demo label="icon"><Button variant="raised" icon="add">Nuevo espacio</Button></Demo>
           <Demo label="iconEnd"><Button variant="raised" iconEnd="chevron_right">Siguiente</Button></Demo>
@@ -53,9 +53,9 @@ export function ButtonStory() {
             <Demo label="block"><Button variant="solid" block>Entrar</Button></Demo>
           </div>
         </div>
-      </Block>
+      </Section>
 
-      <Block label="Props">
+      <Section title="Props">
         <Props rows={[
           { name: 'variant', type: "'solid' | 'raised' | 'brand' | 'ghost' | 'muted' | 'bad'", def: "'raised'", note: 'solid y brand son el mismo rol' },
           { name: 'size', type: "'sm' | 'md' | 'lg'", def: "'md'", note: '32 · 36 · 40' },
@@ -64,7 +64,7 @@ export function ButtonStory() {
           { name: 'block', type: 'boolean', note: 'ocupa el ancho del contenedor' },
           { name: 'ref', type: 'Ref<HTMLButtonElement>', note: 'para usarlo como disparador de Dropdown o Popover' },
         ]} />
-      </Block>
-    </Section>
+      </Section>
+    </Page>
   )
 }

@@ -1,112 +1,149 @@
-import { Icon, cx, type IconName } from '@melu/ui'
-import { Mono } from './kit'
+import {
+  Alert, AlertTitle, AvatarGroup, Badge, BarChart, Button, Card, Chip, Icon,
+  Progress, Switch, TextField, type IconName,
+} from '@melu/ui'
+import { useState } from 'react'
 
-/** La portada. */
+const cara = (n: number) => `/avatars/${String(n).padStart(2, '0')}.webp`
 
-const decisiones: { title: string; body: string }[] = [
-  {
-    title: 'Base 12, peso 400, leading fijo de 16',
-    body: 'Estuvo en 500, decidido contra Inter, donde el 400 a 12px se leía lavado sobre un fondo casi blanco; Instrument Sans dibuja más grueso al mismo número, así que los tres escalones bajaron uno: 400 la interfaz, 500 lo accionable, 600 el display. El line-height único es para que una fila de 12 y una de 14 sigan alineadas entre sí.',
-  },
-  {
-    title: 'Monocroma, con dos excepciones acotadas',
-    body: 'Rampa casi neutra de nueve pasos. El ámbar señala y se usa poquísimo; el azul es el CTA y el arco del spinner; las marcas de color identifican una fila en una lista. Nada más lleva color.',
-  },
-  {
-    title: 'El estado activo se marca con relieve, no con color',
-    body: 'En una interfaz monocroma eso distingue más que teñir el texto, y no gasta el único acento que hay. Corolario: el texto de un item inactivo va en tinta, no en gris.',
-  },
-  {
-    title: 'El radio de un hijo es el del padre menos su padding',
-    body: 'Un 24 con 8 de padding pide 16 adentro. Si el hijo repite el radio del padre, la curva se ve doble; si queda más cuadrado, se ven dos curvas distintas.',
-  },
-]
-
-const grupos: { icon: IconName; label: string; body: string; first: string }[] = [
-  {
-    icon: 'image', label: 'Tokens', first: 'color',
-    body: 'La identidad: la rampa, los roles, la tipografía, las medidas del shell, los radios y las cinco recetas de relieve. Los valores se leen del navegador en vivo, así que un rol roto aparece vacío en vez de aparecer correcto.',
-  },
-  {
-    icon: 'tune', label: 'Componentes', first: 'button',
-    body: 'Una historia por pieza, con sus variantes, sus estados y una tabla de props que dice cuándo usar cada una — no solo su tipo.',
-  },
-  {
-    icon: 'deployed_code', label: 'Patrones', first: 'list',
-    body: 'Lo compuesto: la lista de acciones, los contenedores, el item de nav y los tres overlays. Los overlays van con disparadores vivos porque casi todo lo que costó en ellos solo se ve abriéndolos.',
-  },
+const atajos: { id: string; icon: IconName; title: string; body: string }[] = [
+  { id: 'foundations', icon: 'target', title: 'Principios', body: 'Las seis decisiones de las que sale todo lo demás.' },
+  { id: 'color', icon: 'palette', title: 'Color', body: 'Una rampa casi neutra y tres familias acotadas.' },
+  { id: 'button', icon: 'touch_app', title: 'Componentes', body: '40 piezas con su teclado y sus estados.' },
+  { id: 'dashboard', icon: 'dashboard', title: 'Dashboard', body: 'Todo junto, funcionando en una pantalla real.' },
 ]
 
 export function Intro({ go }: { go: (id: string) => void }) {
+  const [demo, setDemo] = useState(true)
+
   return (
     <div className="flex flex-col gap-10">
-      <header>
-        <Mono>melu · design system</Mono>
-        <h1 className="mt-3 max-w-[26ch] font-display text-display font-bold tracking-[-0.03em]">
-          El sistema, funcionando
-        </h1>
-        <p className="mt-4 max-w-[68ch] text-base font-medium text-ink-muted">
-          Esto no es una lámina de estilos: cada pieza de acá es el componente real, con su
-          estado y su teclado. Lo que se decida en este kit se porta a{' '}
-          <span className="font-mono text-xs text-ink">packages/ui</span> de melu, que es el
-          design system de verdad.
-        </p>
-      </header>
+      <section className="relative overflow-hidden rounded-[28px] border border-line bg-surface">
+        <div className="pointer-events-none absolute inset-0 opacity-[0.55]">
+          <div className="absolute -top-24 -right-16 size-72 rounded-full bg-brand/10 blur-3xl" />
+          <div className="absolute -bottom-24 -left-10 size-64 rounded-full bg-accent/10 blur-3xl" />
+        </div>
 
-      <section>
-        <h2 className="text-xs font-semibold">Las cuatro decisiones que explican el resto</h2>
-        <div className="mt-3 grid gap-2.5" style={{ gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))' }}>
-          {decisiones.map((d, i) => (
-            <div key={d.title} className="rounded-xl border border-line bg-surface p-4">
-              <div className="flex items-baseline gap-2.5">
-                <span className="tabular font-mono text-2xs text-ink-muted">0{i + 1}</span>
-                <div className="text-xs font-semibold text-ink">{d.title}</div>
+        <div className="relative flex flex-col gap-7 px-9 py-11">
+          <Badge tone="info" icon="bolt" className="self-start">Instrument Sans · Material Symbols · Tailwind v4</Badge>
+
+          <div className="flex flex-col gap-4">
+            <h1 className="max-w-[20ch] text-[clamp(2.25rem,5vw,3.25rem)] leading-[1.04] font-bold tracking-tight text-ink">
+              El sistema de melu, funcionando
+            </h1>
+            <p className="max-w-[62ch] text-base font-medium text-ink-muted">
+              No es una lámina de estilos: cada pieza de acá es el componente real, con su teclado, sus
+              estados y sus tests. Lo que se decide en este kit se porta a <code className="font-mono text-xs text-ink">packages/ui</code>.
+            </p>
+          </div>
+
+          <div className="flex flex-wrap items-center gap-2.5">
+            <Button variant="solid" icon="arrow_forward" onClick={() => go('foundations')}>Ver los principios</Button>
+            <Button variant="raised" icon="dashboard" onClick={() => go('dashboard')}>Ver el dashboard</Button>
+          </div>
+
+          <dl className="mt-1 flex flex-wrap gap-x-9 gap-y-3 border-t border-line pt-6">
+            {[['38', 'piezas'], ['55', 'tests'], ['160', 'iconos'], ['2', 'temas']].map(([n, l]) => (
+              <div key={l} className="flex items-baseline gap-2">
+                <dt className="tabular text-lg font-bold text-ink">{n}</dt>
+                <dd className="text-xs font-medium text-ink-muted">{l}</dd>
               </div>
-              <p className="mt-2 text-2xs text-ink-muted">{d.body}</p>
+            ))}
+          </dl>
+        </div>
+      </section>
+
+      <section className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+        {atajos.map(a => (
+          <button
+            key={a.id}
+            onClick={() => go(a.id)}
+            className="group flex flex-col gap-3 rounded-2xl border border-line bg-surface p-5 text-left transition-[background-color,box-shadow] hover:bg-muted"
+          >
+            <span className="inset-relief flex size-9 items-center justify-center rounded-xl bg-muted">
+              <Icon name={a.icon} size={20} className="icon-muted" />
+            </span>
+            <span className="flex items-center gap-1 text-base font-semibold text-ink">
+              {a.title}
+              <Icon name="chevron_right" size={16} className="icon-muted transition-transform group-hover:translate-x-0.5" />
+            </span>
+            <span className="text-xs font-medium text-ink-muted">{a.body}</span>
+          </button>
+        ))}
+      </section>
+
+      <section className="flex flex-col gap-4">
+        <div className="flex items-end justify-between gap-4">
+          <div className="flex flex-col gap-1.5">
+            <h2 className="text-lg font-semibold tracking-tight text-ink">Una muestra</h2>
+            <p className="max-w-[70ch] text-xs font-medium text-ink-muted">
+              Las mismas piezas que hay en el riel, apoyadas juntas. Si algo de acá no se ve como el resto,
+              es un bug del sistema y no de la pantalla.
+            </p>
+          </div>
+          <Button size="sm" variant="ghost" iconEnd="chevron_right" onClick={() => go('button')}>Ver todas</Button>
+        </div>
+
+        <div className="grid gap-3 lg:grid-cols-[1fr_1fr]">
+          <Card className="flex flex-col gap-4 p-5">
+            <BarChart
+              title="Corregidas esta semana"
+              height={150}
+              highlight={2}
+              data={[
+                { label: 'Lun', value: 18, total: 24 },
+                { label: 'Mar', value: 6, total: 14 },
+                { label: 'Mié', value: 27, total: 29 },
+                { label: 'Jue', value: 16, total: 32 },
+                { label: 'Vie', value: 17, total: 17 },
+              ]}
+            />
+          </Card>
+
+          <div className="flex flex-col gap-3">
+            <Card className="flex flex-col gap-4 p-5">
+              <TextField size="md" icon="search" placeholder="Buscar una actividad…" />
+              <div className="flex flex-wrap items-center gap-2">
+                <Chip color="green">Abierta</Chip>
+                <Chip color="blue">Corregida</Chip>
+                <Badge tone="warn" icon="schedule">Vence mañana</Badge>
+              </div>
+              <Progress label="Corregidas" value={18} max={24} hint="18 de 24" />
+            </Card>
+
+            <Card className="flex items-center justify-between gap-4 p-5">
+              <div className="flex items-center gap-2.5">
+                <AvatarGroup people={[
+                  { name: 'Ana Pérez', src: cara(1) },
+                  { name: 'Bruno Díaz', src: cara(2) },
+                  { name: 'Carla Sosa', src: cara(3) },
+                ]} />
+                <span className="text-2xs font-medium text-ink-muted">tres entregaron</span>
+              </div>
+              <Switch checked={demo} onChange={setDemo} label="Avisos" />
+            </Card>
+          </div>
+        </div>
+
+        <Alert tone="ok">
+          <AlertTitle>Todo lo de arriba es el componente real: tocalo.</AlertTitle>
+        </Alert>
+      </section>
+
+      <section className="flex flex-col gap-4">
+        <h2 className="text-lg font-semibold tracking-tight text-ink">Lo que no es</h2>
+        <div className="grid gap-3 sm:grid-cols-3">
+          {[
+            ['No es una librería publicada', 'Los paquetes son privados y las apps consumen el .tsx directo, sin build intermedio.'],
+            ['No tiene backend', 'Nada persiste salvo las preferencias, y el tema vive en localStorage.'],
+            ['No es un clon terminado', 'De la referencia salieron medidas y recetas de sombra; el resto se resolvió con criterio propio.'],
+          ].map(([t, d]) => (
+            <div key={t} className="flex flex-col gap-2 rounded-2xl border border-line border-dashed p-5">
+              <span className="text-xs font-semibold text-ink">{t}</span>
+              <span className="text-2xs font-medium text-ink-muted">{d}</span>
             </div>
           ))}
         </div>
-      </section>
-
-      <section>
-        <h2 className="text-xs font-semibold">Cómo está organizado</h2>
-        <div className="mt-3 flex flex-col gap-2">
-          {grupos.map(g => (
-            <button
-              key={g.label}
-              onClick={() => go(g.first)}
-              className={cx(
-                'flex items-start gap-3.5 rounded-xl bg-muted p-4 text-left',
-                'transition-[background-color,box-shadow] duration-[120ms] ease-out',
-                'hover:bg-surface hover:shadow-card',
-              )}
-            >
-              <span className="inline-flex size-11 shrink-0 items-center justify-center rounded-full bg-surface shadow-[0_0_0_1px_var(--border)]">
-                <Icon name={g.icon} size={22} className="text-ink" />
-              </span>
-              <span className="min-w-0">
-                <span className="block text-md font-semibold text-ink">{g.label}</span>
-                <span className="mt-1 block max-w-[68ch] text-base font-medium text-ink-muted">{g.body}</span>
-              </span>
-            </button>
-          ))}
-        </div>
-      </section>
-
-      <section>
-        <h2 className="text-xs font-semibold">Lo que no es</h2>
-        <ul className="mt-3 flex max-w-[68ch] flex-col gap-2">
-          {[
-            'No es una librería publicada. Los paquetes son privados y las apps consumen el .tsx directo, sin build intermedio.',
-            'No tiene backend ni datos reales. Nada persiste salvo las preferencias, y el tema vive en localStorage.',
-            'No es un clon terminado de la referencia de UI8. De ahí salieron medidas y recetas de sombra; las pantallas que falten se resuelven con criterio propio.',
-          ].map(t => (
-            <li key={t} className="flex gap-2.5 text-xs font-medium text-ink-muted">
-              <span className="mt-[7px] size-1 shrink-0 rounded-full bg-ink-muted" />
-              {t}
-            </li>
-          ))}
-        </ul>
       </section>
     </div>
   )

@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { Avatar, FolderIcon, Icon, Select } from '@melu/ui'
-import { Block, Demo, Props, Section } from '../kit'
+import { Demo, Page, Props, Section } from '../kit'
 
 export function SelectStory() {
   const [nivel, setNivel] = useState('6.º grado')
@@ -17,12 +17,12 @@ export function SelectStory() {
   }, [])
 
   return (
-    <Section
+    <Page
       title="Select"
-      note="Es un botón con un listbox propio, no un `<select>` nativo. `appearance: none` te saca la flecha, pero la lista desplegada la sigue dibujando el sistema operativo, así que en Linux aparece un control de GTK en medio de la interfaz: el campo se ve «sin estilo» por más que la caja esté bien."
+      lead="Es un botón con un listbox propio, no un `<select>` nativo. `appearance: none` te saca la flecha, pero la lista desplegada la sigue dibujando el sistema operativo, así que en Linux aparece un control de GTK en medio de la interfaz: el campo se ve «sin estilo» por más que la caja esté bien."
     >
-      <Block
-        label="Variantes"
+      <Section
+        title="Variantes"
         note="El costo de no usar el nativo es traer el teclado a mano, que es lo que el nativo regalaba: flechas para moverse, Enter para elegir, Escape para salir, Home y End a los extremos. Probalo con el teclado."
       >
         <div className="flex flex-wrap items-start gap-3">
@@ -43,10 +43,10 @@ export function SelectStory() {
             </Demo>
           </div>
         </div>
-      </Block>
+      </Section>
 
-      <Block
-        label="Adelante del valor"
+      <Section
+        title="Adelante del valor"
         note="`leading` es un nodo y no un `IconName`, al revés que el `icon` del TextField: ahí el icono es siempre un glifo del set, acá lo que va adelante del valor es de quien lo usa — el glifo de la categoría, la carpeta de color de un espacio, el avatar de una persona."
       >
         <div className="flex flex-wrap items-start gap-3">
@@ -78,10 +78,10 @@ export function SelectStory() {
             />
           </Demo>
         </div>
-      </Block>
+      </Section>
 
-      <Block
-        label="Mientras los datos no están"
+      <Section
+        title="Mientras los datos no están"
         note="`loading` no es lo mismo que pasar un spinner por `leading`. Un spinner suelto se dibuja y nada más: el control sigue abriendo, y lo que abre es una lista vacía o —peor— la lista vieja, que se puede elegir. Eso no lo arregla el nodo porque no es contenido, es el estado del control. Con `loading` el select no abre, avisa `aria-busy`, cierra el panel si estaba abierto y pone el spinner solo si nadie pasó un leading propio. Lo que el componente no hace es enterarse solo: no recibe promesas ni sabe de fetch."
       >
         <div className="flex flex-wrap items-start gap-3">
@@ -107,9 +107,9 @@ export function SelectStory() {
             />
           </Demo>
         </div>
-      </Block>
+      </Section>
 
-      <Block label="Props">
+      <Section title="Props">
         <Props rows={[
           { name: 'value', type: 'string', note: 'obligatorio' },
           { name: 'onChange', type: '(v: string) => void' },
@@ -118,7 +118,7 @@ export function SelectStory() {
           { name: 'leading', type: 'ReactNode', note: 'adelante del valor: un Icon, una FolderIcon, un Avatar, un Spinner' },
           { name: 'loading', type: 'boolean', note: 'no abre, avisa aria-busy y pone el spinner si no hay leading' },
         ]} />
-      </Block>
-    </Section>
+      </Section>
+    </Page>
   )
 }

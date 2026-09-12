@@ -1,4 +1,4 @@
-import { Block, Mono, Section } from '../kit'
+import { Mono, Page, Section } from '../kit'
 
 const recipes = [
   {
@@ -38,12 +38,12 @@ const recipes = [
 
 export function ReliefSection() {
   return (
-    <Section
+    <Page
       title="Relieve"
-      note="Es lo que le da carácter al sistema y lo que más costó acertar. Todas las recetas mezclan luz interior arriba y sombra abajo: es lo que hace que una pieza se sienta física en vez de dibujada."
+      lead="Es lo que le da carácter al sistema y lo que más costó acertar. Todas las recetas mezclan luz interior arriba y sombra abajo: es lo que hace que una pieza se sienta física en vez de dibujada."
     >
-      <Block
-        label="Las recetas"
+      <Section
+        title="Las recetas"
         note="Dos cosas que conviene no volver a pelear: el canto (--edge) no es un escalón de la rampa, es más oscuro que el borde más oscuro porque dibuja el filo de algo que sobresale. Y hundido son dos cosas distintas: una marca lleva canto y caída, algo que se aprieta no."
       >
         <div className="grid gap-4" style={{ gridTemplateColumns: 'repeat(auto-fill, minmax(260px, 1fr))' }}>
@@ -60,9 +60,9 @@ export function ReliefSection() {
             </div>
           ))}
         </div>
-      </Block>
+      </Section>
 
-      <Block label="El degradado" note="Va como token porque el día que cambie, el botón, el select y el chip activo tienen que cambiar juntos.">
+      <Section title="El degradado" note="Va como token porque el día que cambie, el botón, el select y el chip activo tienen que cambiar juntos.">
         <div className="flex flex-wrap gap-4">
           <div className="flex flex-col gap-2">
             <div className="h-16 w-40 rounded-xl" style={{ background: 'var(--grad-raised)' }} />
@@ -73,14 +73,14 @@ export function ReliefSection() {
             <Mono>--grad-brand</Mono>
           </div>
         </div>
-      </Block>
+      </Section>
 
-      <Block label="El anillo de foco" note="Una vez y para todos los roles, y con `:focus-visible` y no `:focus`: con el segundo, un click deja el anillo puesto.">
+      <Section title="El anillo de foco" note="Una vez y para todos los roles, y con `:focus-visible` y no `:focus`: con el segundo, un click deja el anillo puesto.">
         <div className="flex items-center gap-4 rounded-xl border border-line bg-surface p-5">
           <span className="size-11 rounded-md bg-muted" style={{ boxShadow: 'var(--focus-ring)' }} />
           <Mono>--focus-ring</Mono>
         </div>
-      </Block>
-    </Section>
+      </Section>
+    </Page>
   )
 }

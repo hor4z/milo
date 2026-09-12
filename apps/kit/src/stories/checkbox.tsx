@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { Checkbox } from '@melu/ui'
-import { Block, Panel, Props, Section, Variant } from '../kit'
+import { Page, Panel, Props, Section, Variant } from '../kit'
 
 export function CheckboxStory() {
   const [a, setA] = useState(true)
@@ -8,12 +8,12 @@ export function CheckboxStory() {
   const [c, setC] = useState(true)
 
   return (
-    <Section
+    <Page
       title="Checkbox"
-      note="Caja de 18, la medida del pulgar del switch. El radio es `xs` (5) y no `sm` (6), que es el del kbd: sobre un cuadrado de 18, un radio de 6 deja solo 6px de lado plano de los 18 y la casilla se lee redonda. El kbd puede llevar 6 porque es más ancho que alto y le sobran lados rectos."
+      lead="Caja de 18, la medida del pulgar del switch. El radio es `xs` (5) y no `sm` (6), que es el del kbd: sobre un cuadrado de 18, un radio de 6 deja solo 6px de lado plano de los 18 y la casilla se lee redonda. El kbd puede llevar 6 porque es más ancho que alto y le sobran lados rectos."
     >
-      <Block
-        label="Estados"
+      <Section
+        title="Estados"
         note="Apagada es un campo hundido, igual que un kbd. Prendida pasa al azul de marca con el tilde en blanco y pierde el relieve, y eso es deliberado: lo hundido invita a apretar, y una casilla ya marcada no invita a nada, informa. El azul porque es el único control que confirma una elección de quien lo usa, y el azul es lo que el sistema reserva para eso."
       >
         <Panel>
@@ -27,9 +27,9 @@ export function CheckboxStory() {
             <Checkbox checked={false} onChange={() => {}} disabled label="Fija" />
           </Variant>
         </Panel>
-      </Block>
+      </Section>
 
-      <Block label="En una fila" note="El `<label>` envolviendo la casilla hace que el texto también sea zona de click, que es la mitad del área útil del control. El tilde va a 12: el tamaño hay que calcularlo con el trazo incluido, porque agrega media línea de cada lado. A 16 ocupaba 12 de los 18 de la caja y quedaba casi tocando las esquinas; a 12 ocupa 9 y deja 4.5 de aire por lado.">
+      <Section title="En una fila" note="El `<label>` envolviendo la casilla hace que el texto también sea zona de click, que es la mitad del área útil del control. El tilde va a 12: el tamaño hay que calcularlo con el trazo incluido, porque agrega media línea de cada lado. A 16 ocupaba 12 de los 18 de la caja y quedaba casi tocando las esquinas; a 12 ocupa 9 y deja 4.5 de aire por lado.">
         <Panel>
           <Variant name="con etiqueta">
             <label className="flex items-center gap-2.5 text-xs font-medium">
@@ -48,9 +48,9 @@ export function CheckboxStory() {
             </div>
           </Variant>
         </Panel>
-      </Block>
+      </Section>
 
-      <Block label="Props">
+      <Section title="Props">
         <Props rows={[
           { name: 'checked', type: 'boolean', note: 'obligatorio' },
           { name: 'onChange', type: '(v: boolean) => void', note: 'obligatorio' },
@@ -58,7 +58,7 @@ export function CheckboxStory() {
           { name: 'indeterminate', type: 'boolean', note: 'pinta la raya y manda aria-checked="mixed"' },
           { name: 'disabled', type: 'boolean' },
         ]} />
-      </Block>
-    </Section>
+      </Section>
+    </Page>
   )
 }

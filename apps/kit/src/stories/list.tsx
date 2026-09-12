@@ -1,5 +1,5 @@
 import { Icon, List, ListItem, type IconName, type MarkColor } from '@melu/ui'
-import { Block, Mono, Props, Section } from '../kit'
+import { Mono, Page, Props, Section } from '../kit'
 
 const onboarding: { icon: IconName; color: MarkColor; title: string; hint: string; active?: boolean }[] = [
   { icon: 'check', color: 'green', title: 'Update your profile', hint: 'Add a photo and connect your social links.' },
@@ -17,12 +17,12 @@ const espacios: { icon: IconName; color: MarkColor; title: string; hint: string 
 
 export function ListStory() {
   return (
-    <Section
+    <Page
       title="List · ListItem"
-      note="Filas altas, cada una con una marca de color, un título y una línea de apoyo. No es `Row`: acá no hay divisores —cada fila es su propia caja con aire alrededor—, el título sube a 16 porque es lo que se lee primero, y la marca de color es lo que te deja encontrar una fila de reojo sin leerla."
+      lead="Filas altas, cada una con una marca de color, un título y una línea de apoyo. No es `Row`: acá no hay divisores —cada fila es su propia caja con aire alrededor—, el título sube a 16 porque es lo que se lee primero, y la marca de color es lo que te deja encontrar una fila de reojo sin leerla."
     >
-      <Block
-        label="La pieza"
+      <Section
+        title="La pieza"
         note="Las medidas salen de la regla del anidado: contenedor de radio 24 con 8 de padding, así que la fila lleva 16. El alto de 72 tampoco es arbitrario — la marca es de 44 y el aire de 14 arriba y abajo. Cambiar la marca cambia el alto, no el padding."
       >
         <div className="max-w-[460px]">
@@ -36,9 +36,9 @@ export function ListStory() {
           La cuarta fila está en <Mono>active</Mono>: queda hundida, no teñida — el color ya lo gasta la marca.
           Pasá el mouse por cualquier otra para ver el hover, que levanta la fila al papel en vez de oscurecerla.
         </p>
-      </Block>
+      </Section>
 
-      <Block label="Estados de una fila">
+      <Section title="Estados de una fila">
         <div className="max-w-[460px]">
           <List>
             <ListItem icon="check" color="green" title="En reposo" hint="Fondo apagado, sin sombra." />
@@ -46,9 +46,9 @@ export function ListStory() {
             <ListItem icon="star_shine" color="blue" title="Se toca" hint="Pasá el mouse: sube al papel y toma sombra." onClick={() => {}} />
           </List>
         </div>
-      </Block>
+      </Section>
 
-      <Block label="Como índice" note="La misma pieza con contenido de melu: acá el color identifica el espacio, no el estado.">
+      <Section title="Como índice" note="La misma pieza con contenido de melu: acá el color identifica el espacio, no el estado.">
         <div className="max-w-[460px]">
           <List>
             {espacios.map(e => (
@@ -61,9 +61,9 @@ export function ListStory() {
             ))}
           </List>
         </div>
-      </Block>
+      </Section>
 
-      <Block label="Props">
+      <Section title="Props">
         <Props rows={[
           { name: 'ListItem · icon', type: 'IconName', note: 'obligatorio' },
           { name: 'ListItem · color', type: "'green' | 'purple' | 'orange' | 'blue' | 'pink'", note: 'obligatorio: el par relleno/glifo de la marca' },
@@ -73,7 +73,7 @@ export function ListStory() {
           { name: 'ListItem · onClick', type: '() => void', note: 'sin esto la fila es un <div> y no toma hover' },
           { name: 'ListItem · trailing', type: 'ReactNode', note: 'a la derecha: un chevron, un contador' },
         ]} />
-      </Block>
-    </Section>
+      </Section>
+    </Page>
   )
 }

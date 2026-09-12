@@ -1,14 +1,14 @@
 import { IconButton } from '@melu/ui'
-import { Block, Panel, Props, Section, Variant } from '../kit'
+import { Page, Panel, Props, Section, Variant } from '../kit'
 
 export function IconButtonStory() {
   return (
-    <Section
+    <Page
       title="IconButton"
-      note="Cuadrado del alto de su paso, y los pasos son los del Button: el mismo nombre de tamaño da el mismo alto en las dos piezas, así que un icono al lado de un botón en la misma fila apoya en la misma línea sin que nadie lo calcule. El radio es 10 en los tres y no el del paso — es la regla del sistema: `md` es lo cuadrado que se toca, `lg` lo que se toca con texto."
+      lead="Cuadrado del alto de su paso, y los pasos son los del Button: el mismo nombre de tamaño da el mismo alto en las dos piezas, así que un icono al lado de un botón en la misma fila apoya en la misma línea sin que nadie lo calcule. El radio es 10 en los tres y no el del paso — es la regla del sistema: `md` es lo cuadrado que se toca, `lg` lo que se toca con texto."
     >
-      <Block
-        label="Los tres tamaños"
+      <Section
+        title="Los tres tamaños"
         note="32 · 36 · 40, los del Button, con el icono de cada paso: 16 · 18 · 20. El `md` medía 40 —el `lg` del Button— así que los dos `md` del sistema no coincidían."
       >
         <Panel>
@@ -28,9 +28,9 @@ export function IconButtonStory() {
             </span>
           </Variant>
         </Panel>
-      </Block>
+      </Section>
 
-      <Block label="Variantes" note="`label` es obligatorio. Un botón que solo tiene un icono no dice nada sin él, ni para un lector de pantalla ni para quien duda qué hace.">
+      <Section title="Variantes" note="`label` es obligatorio. Un botón que solo tiene un icono no dice nada sin él, ni para un lector de pantalla ni para quien duda qué hace.">
         <Panel>
           <Variant name="ghost">
             <IconButton icon="tune" label="Ajustes" />
@@ -43,9 +43,9 @@ export function IconButtonStory() {
           <Variant name="solid"><IconButton icon="check" label="Aceptar" variant="solid" /></Variant>
           <Variant name="muted"><IconButton icon="more_horiz" label="Más" variant="muted" /></Variant>
         </Panel>
-      </Block>
+      </Section>
 
-      <Block label="Estados" note="`dot` es el puntito de «hay algo nuevo», y es uno de los pocos usos del acento en toda la interfaz.">
+      <Section title="Estados" note="`dot` es el puntito de «hay algo nuevo», y es uno de los pocos usos del acento en toda la interfaz.">
         <Panel>
           <Variant name="active"><IconButton icon="filter_alt" label="Filtrar" active /></Variant>
           <Variant name="dot">
@@ -55,9 +55,9 @@ export function IconButtonStory() {
           </Variant>
           <Variant name="disabled"><IconButton icon="delete" label="Eliminar" disabled /></Variant>
         </Panel>
-      </Block>
+      </Section>
 
-      <Block label="Props">
+      <Section title="Props">
         <Props rows={[
           { name: 'icon', type: 'IconName', note: 'obligatorio' },
           { name: 'label', type: 'string', note: 'obligatorio: va al aria-label y al title' },
@@ -66,7 +66,7 @@ export function IconButtonStory() {
           { name: 'dot', type: 'boolean', note: 'el punto de acento arriba a la derecha' },
           { name: 'active', type: 'boolean', note: 'solo cambia el ghost, que pasa a muted' },
         ]} />
-      </Block>
-    </Section>
+      </Section>
+    </Page>
   )
 }

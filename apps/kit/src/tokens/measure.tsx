@@ -1,4 +1,4 @@
-import { Block, Mono, Section, useTokens } from '../kit'
+import { Mono, Page, Section, useTokens } from '../kit'
 
 const shell = [
   { token: '--sidebar-w', role: 'sidebar, fijo' },
@@ -20,19 +20,18 @@ const radii = [
 
 export function MeasureSection() {
   return (
-    <>
-      <Section
-        title="Espaciado y medidas"
-        note="El espaciado es la base de 4 que trae Tailwind. Lo que el sistema fija son las medidas del shell y el ladder de alturas de control: esas no se eligen por pantalla, porque si cada una elige la suya el contenido baila al navegar."
+    <Page
+      title="Espaciado y medidas"
+      lead="El espaciado es la base de 4 que trae Tailwind. Lo que el sistema fija son las medidas del shell y el ladder de alturas de control: esas no se eligen por pantalla, porque si cada una elige la suya el contenido baila al navegar."
       >
-        <Block label="Medidas del shell">
+        <Section title="Medidas del shell">
           <div className="flex flex-col rounded-xl border border-line bg-surface px-4">
             {shell.map(m => <Measure key={m.token} {...m} />)}
           </div>
-        </Block>
+        </Section>
 
-        <Block
-          label="Alturas de control"
+        <Section
+          title="Alturas de control"
           note="Tres alturas y un rol cada una. La de 36 y la de 40 comparten texto de 14/600 y radio 12; la de 32 baja a 12px porque va inline en una fila densa."
         >
           <div className="flex flex-col gap-3">
@@ -49,9 +48,9 @@ export function MeasureSection() {
               </div>
             ))}
           </div>
-        </Block>
+        </Section>
 
-        <Block label="La base de 4" note="Los pasos que se usan de verdad. Todo lo que no está acá es un valor puesto a mano y conviene mirarlo dos veces.">
+        <Section title="La base de 4" note="Los pasos que se usan de verdad. Todo lo que no está acá es un valor puesto a mano y conviene mirarlo dos veces.">
           <div className="flex flex-wrap items-end gap-4">
             {[2, 4, 6, 8, 10, 12, 14, 16, 20, 24, 32, 40].map(px => (
               <div key={px} className="flex flex-col items-center gap-1.5">
@@ -60,14 +59,13 @@ export function MeasureSection() {
               </div>
             ))}
           </div>
-        </Block>
-      </Section>
+        </Section>
 
       <Section
         title="Radios"
         note="Cinco pasos y un rol cada uno. La regla que los ata: el radio de un hijo es el del padre menos el padding del padre."
       >
-        <Block label="La escala">
+        <Section title="La escala">
           <div className="flex flex-col rounded-xl border border-line bg-surface px-4">
             {radii.map(r => (
               <div key={r.token} className="flex flex-wrap items-center gap-x-4 gap-y-2 border-t border-line py-3.5 first:border-t-0">
@@ -78,10 +76,10 @@ export function MeasureSection() {
               </div>
             ))}
           </div>
-        </Block>
+        </Section>
 
-        <Block
-          label="La regla del anidado"
+        <Section
+          title="La regla del anidado"
           note="Un contenedor de 24 con 8 de padding pide 16 adentro. Si el hijo repite el radio del padre, la curva se ve doble; si queda más cuadrado, se ven dos curvas distintas. Los dos errores ya pasaron en este repo."
         >
           <div className="flex flex-wrap gap-4">
@@ -89,9 +87,9 @@ export function MeasureSection() {
             <NestDemo child="rounded-2xl" label="24 con hijo de 24" verdict="curva doble" />
             <NestDemo child="rounded-sm" label="24 con hijo de 6" verdict="dos curvas distintas" />
           </div>
-        </Block>
+        </Section>
       </Section>
-    </>
+    </Page>
   )
 }
 

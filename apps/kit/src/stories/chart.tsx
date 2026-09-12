@@ -1,5 +1,5 @@
 import { AvatarGroup, BarChart, Card } from '@melu/ui'
-import { Block, Props, Section } from '../kit'
+import { Page, Props, Section } from '../kit'
 
 const cara = (n: number) => `/avatars/${String(n).padStart(2, '0')}.webp`
 
@@ -35,12 +35,12 @@ const meses = [
 
 export function ChartStory() {
   return (
-    <Section
+    <Page
       title="BarChart"
-      note="Cada barra son dos cosas: el gris es el total y el azul es lo hecho. No son dos series compitiendo, es una parte adentro de su todo — y por eso el azul va dentro del gris y no al lado: apoyados uno junto al otro habría que compararlos con la vista para saber cuánto falta, y metido adentro, lo que falta es el gris que se ve arriba. La pista va clarísima porque es el resto, no un dato que compita: con el mismo peso que el relleno, la barra se lee como dos bloques apilados."
+      lead="Cada barra son dos cosas: el gris es el total y el azul es lo hecho. No son dos series compitiendo, es una parte adentro de su todo — y por eso el azul va dentro del gris y no al lado: apoyados uno junto al otro habría que compararlos con la vista para saber cuánto falta, y metido adentro, lo que falta es el gris que se ve arriba. La pista va clarísima porque es el resto, no un dato que compita: con el mismo peso que el relleno, la barra se lee como dos bloques apilados."
     >
-      <Block
-        label="Vivo"
+      <Section
+        title="Vivo"
         note="Pasá el mouse por las barras, y después tabulá hasta ellas. El tooltip aparece igual con el teclado: un dato que solo existe al pasar el mouse no existe para quien no usa mouse. Y el blanco del hover es la columna entera, no el rectángulo pintado — apuntarle a una barra baja no obliga a bajar hasta el piso."
       >
         <Card className="max-w-2xl p-6">
@@ -50,19 +50,19 @@ export function ChartStory() {
           </div>
           <BarChart title="Corregidas sobre entregadas, por día" data={semana} highlight={3} />
         </Card>
-      </Block>
+      </Section>
 
-      <Block
-        label="Sin destacada"
+      <Section
+        title="Sin destacada"
         note="Con todas las barras llevando azul, marcar una con color no queda disponible: `highlight` le pone la etiqueta un paso más pesada, que alcanza para decir «esta es de la que estamos hablando» sin agregar un tercer tono. Acá va sin ninguna: cuando lo que importa es la forma de la serie y no un mes, se deja afuera."
       >
         <Card className="max-w-2xl p-6">
           <BarChart title="Corregidas sobre entregadas, por mes" data={meses} height={160} />
         </Card>
-      </Block>
+      </Section>
 
-      <Block
-        label="Lo que el tooltip puede llevar"
+      <Section
+        title="Lo que el tooltip puede llevar"
         note="`detail` entra al lado del número: un porcentaje, un grupo de caras, lo que la fila necesite. El número va primero y grande y la frase abajo en gris — es la jerarquía de una leyenda al revés, porque acá el lector ya sabe qué tocó y lo que fue a buscar es cuánto."
       >
         <p className="max-w-[70ch] text-xs text-ink-muted">
@@ -70,19 +70,19 @@ export function ChartStory() {
           blanca flotando sobre cualquier cosa. Es el único lugar del sistema donde el color del
           dato entra en una superficie de texto.
         </p>
-      </Block>
+      </Section>
 
-      <Block label="Props">
+      <Section title="Props">
         <Props rows={[
           { name: 'data', type: 'BarDatum[]', note: 'obligatorio: label, value (lo hecho), total, y opcionales detail y caption' },
           { name: 'title', type: 'string', note: 'obligatorio: nombra el gráfico y encabeza la tabla escondida' },
           { name: 'highlight', type: 'number', note: 'el índice del que habla la pantalla: le pesa la etiqueta' },
           { name: 'height', type: 'number', def: '220', note: 'el alto del área de barras, sin las etiquetas' },
         ]} />
-      </Block>
+      </Section>
 
-      <Block
-        label="Lo que no hace"
+      <Section
+        title="Lo que no hace"
         note="No tiene eje Y ni grilla: con cinco barras y el tooltip, una grilla es tinta que no es dato."
       >
         <p className="max-w-[70ch] text-xs text-ink-muted">
@@ -91,7 +91,7 @@ export function ChartStory() {
           los valores viven también en una tabla <code>sr-only</code>: un lector de pantalla no puede
           hoverear, y una altura no se lee.
         </p>
-      </Block>
-    </Section>
+      </Section>
+    </Page>
   )
 }

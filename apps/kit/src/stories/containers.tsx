@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { Card, Row, Select, Switch } from '@melu/ui'
-import { Block, Props, Section } from '../kit'
+import { Page, Props, Section } from '../kit'
 
 export function ContainersStory() {
   const [uno, setUno] = useState(true)
@@ -8,12 +8,12 @@ export function ContainersStory() {
   const [nivel, setNivel] = useState('Todo el equipo')
 
   return (
-    <Section
+    <Page
       title="Card · Row"
-      note="Los dos contenedores del sistema: la tarjeta de una grilla y la fila de un panel."
+      lead="Los dos contenedores del sistema: la tarjeta de una grilla y la fila de un panel."
     >
-      <Block
-        label="Card"
+      <Section
+        title="Card"
         note="Radio 24 con 8 de padding, así que lo que va adentro lleva 16. Las tarjetas no se mueven en hover y no tienen acciones flotando encima: una grilla que salta hace temblar la vista, y un botón que aparece al pasar el mouse no se descubre sin mouse y tapa justo lo que estabas mirando."
       >
         <div className="flex flex-wrap gap-4">
@@ -32,10 +32,10 @@ export function ContainersStory() {
             </div>
           </Card>
         </div>
-      </Block>
+      </Section>
 
-      <Block
-        label="Row"
+      <Section
+        title="Row"
         note="56 de alto, padding 16/24, label a la izquierda y control a la derecha. El divisor va como borde superior de cada fila menos la primera, y no como borde inferior de todas: así la última no deja una línea suelta contra el fondo del panel."
       >
         <div className="max-w-[520px] overflow-hidden rounded-2xl border border-line bg-surface">
@@ -49,9 +49,9 @@ export function ContainersStory() {
             <Select value={nivel} onChange={setNivel} width={180} options={['Solo yo', 'Todo el equipo', 'Cualquiera con el link']} />
           </Row>
         </div>
-      </Block>
+      </Section>
 
-      <Block label="Props">
+      <Section title="Props">
         <Props rows={[
           { name: 'Card · interactive', type: 'boolean', note: 'levanta la tarjeta en hover; por defecto no se mueve' },
           { name: 'Card · className', type: 'string', note: 'para el ancho' },
@@ -59,7 +59,7 @@ export function ContainersStory() {
           { name: 'Row · hint', type: 'string', note: 'segunda línea en 11px gris' },
           { name: 'Row · children', type: 'ReactNode', note: 'el control, alineado a la derecha' },
         ]} />
-      </Block>
-    </Section>
+      </Section>
+    </Page>
   )
 }

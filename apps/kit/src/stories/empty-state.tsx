@@ -1,14 +1,14 @@
 import { Button, EmptyState, FilterReset } from '@melu/ui'
-import { Block, Demo, Props, Section } from '../kit'
+import { Demo, Page, Props, Section } from '../kit'
 
 export function EmptyStateStory() {
   return (
-    <Section
+    <Page
       title="EmptyState"
-      note="Lo que se ve cuando no hay nada, siempre con una salida: un vacío que no dice qué hacer es una pantalla rota con buena redacción. El icono va adentro de un hueco y en gris — suelto y grande se ve como una imagen que no cargó, que es justo lo que uno teme cuando una pantalla aparece vacía, y el hueco lo convierte en una marca puesta a propósito."
+      lead="Lo que se ve cuando no hay nada, siempre con una salida: un vacío que no dice qué hacer es una pantalla rota con buena redacción. El icono va adentro de un hueco y en gris — suelto y grande se ve como una imagen que no cargó, que es justo lo que uno teme cuando una pantalla aparece vacía, y el hueco lo convierte en una marca puesta a propósito."
     >
-      <Block
-        label="Los dos tamaños"
+      <Section
+        title="Los dos tamaños"
         note="La diferencia no es sólo el padding. `md` es el de una pantalla: dice «esto está vacío y podés empezar acá». `sm` es el de adentro de una pieza —una tabla filtrada, una galería sin coincidencias— donde el vacío es de una búsqueda y no del lugar: con el aire del grande, filtrar y no encontrar nada empuja la paginación media pantalla para abajo y parece que la tabla desapareció."
       >
         <div className="flex flex-col gap-4">
@@ -32,10 +32,10 @@ export function EmptyStateStory() {
             </div>
           </Demo>
         </div>
-      </Block>
+      </Section>
 
-      <Block
-        label="La caja punteada"
+      <Section
+        title="La caja punteada"
         note="Opcional, con una regla: adentro de algo que ya tiene marco, no va. El borde punteado dice «acá va a haber contenido», y dibujado dentro de una tabla o de una tarjeta son dos marcos anidados discutiendo cuál es el borde de qué. Por eso `sm` la apaga sola — el lugar donde se usa `sm` es, casi por definición, adentro de otra cosa."
       >
         <div className="flex flex-col gap-4">
@@ -53,10 +53,10 @@ export function EmptyStateStory() {
             </div>
           </Demo>
         </div>
-      </Block>
+      </Section>
 
-      <Block
-        label="Sin icono"
+      <Section
+        title="Sin icono"
         note="Sigue funcionando, y es lo que había antes: un bloque de texto centrado. Con icono se reconoce de qué tipo de vacío se trata antes de leerlo — no es lo mismo «no hay nada todavía» que «no encontré nada con eso»."
       >
         <Demo label="solo texto">
@@ -66,9 +66,9 @@ export function EmptyStateStory() {
             action={<Button variant="raised">Volver</Button>}
           />
         </Demo>
-      </Block>
+      </Section>
 
-      <Block label="Props">
+      <Section title="Props">
         <Props rows={[
           { name: 'title', type: 'string', note: 'obligatorio' },
           { name: 'body', type: 'string', note: 'obligatorio: qué pasó y qué se puede hacer' },
@@ -77,7 +77,7 @@ export function EmptyStateStory() {
           { name: 'bordered', type: 'boolean', def: 'md → true, sm → false', note: 'la caja punteada' },
           { name: 'action', type: 'ReactNode', note: 'la salida. Siempre conviene que haya una' },
         ]} />
-      </Block>
-    </Section>
+      </Section>
+    </Page>
   )
 }

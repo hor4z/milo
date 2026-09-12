@@ -1,9 +1,9 @@
-import { useMemo, useState, type ReactNode } from 'react'
-import {
-  FolderIcon, Icon, IconButton, cx, usePrefs, navItemClass, navSubItemClass, NavItemBody,
-  type FolderColor,
-} from '@melu/ui'
+import { useEffect, useMemo, useRef, useState, type ReactNode } from 'react'
+import { Icon, IconButton, Kbd, ToastProvider, cx, fold, usePrefs } from '@melu/ui'
 import { Intro } from './intro'
+import { Dashboard } from './dashboard'
+import { Foundations } from './guide/foundations'
+import { Writing } from './guide/writing'
 import { ColorSection } from './tokens/color'
 import { TypeSection } from './tokens/type'
 import { MeasureSection } from './tokens/measure'
@@ -33,29 +33,41 @@ import { ListStory } from './stories/list'
 import { TableStory } from './stories/table'
 import { ContainersStory } from './stories/containers'
 import { NavStory } from './stories/nav'
+import { FeedbackStory } from './stories/feedback'
+import { TabsStory } from './stories/tabs'
+import { StatusStory } from './stories/status'
 import { DropdownStory, ModalStory, PopoverStory, TooltipStory } from './stories/overlays'
 
-/** Una historia por pieza, y el riel las agrupa. */
-
 type Story = { id: string; label: string; render: () => ReactNode }
-/** El grupo lleva un color de carpeta y no un icono del set, que es lo mismo que hace el sidebar del producto con los espacios. */
-type Group = { label: string; color: FolderColor; stories: Story[] }
+type Group = { label: string; stories: Story[] }
+
+const INTRO = 'intro'
 
 const groups: Group[] = [
   {
-    label: 'Tokens', color: 'purple',
+    label: 'Guía',
     stories: [
+      { id: 'foundations', label: 'Principios', render: () => <Foundations /> },
       { id: 'color', label: 'Color', render: () => <ColorSection /> },
       { id: 'type', label: 'Tipografía', render: () => <TypeSection /> },
       { id: 'measure', label: 'Medidas y radios', render: () => <MeasureSection /> },
       { id: 'relief', label: 'Relieve', render: () => <ReliefSection /> },
+      { id: 'icon', label: 'Iconos', render: () => <IconStory /> },
+      { id: 'writing', label: 'Cómo se escribe', render: () => <Writing /> },
     ],
   },
   {
-    label: 'Componentes', color: 'blue',
+    label: 'Acciones',
     stories: [
       { id: 'button', label: 'Button', render: () => <ButtonStory /> },
       { id: 'icon-button', label: 'IconButton', render: () => <IconButtonStory /> },
+      { id: 'menu', label: 'Menu', render: () => <MenuStory /> },
+      { id: 'dropdown', label: 'Dropdown', render: () => <DropdownStory /> },
+    ],
+  },
+  {
+    label: 'Formularios',
+    stories: [
       { id: 'text-field', label: 'TextField', render: () => <TextFieldStory /> },
       { id: 'textarea', label: 'Textarea', render: () => <TextareaStory /> },
       { id: 'select', label: 'Select', render: () => <SelectStory /> },
@@ -64,137 +76,186 @@ const groups: Group[] = [
       { id: 'switch', label: 'Switch', render: () => <SwitchStory /> },
       { id: 'slider', label: 'Slider', render: () => <SliderStory /> },
       { id: 'segmented', label: 'Segmented', render: () => <SegmentedStory /> },
-      { id: 'chip', label: 'Chip', render: () => <ChipStory /> },
-      { id: 'spinner', label: 'Spinner', render: () => <SpinnerStory /> },
-      { id: 'avatar', label: 'Avatar', render: () => <AvatarStory /> },
-      { id: 'icon', label: 'Icon', render: () => <IconStory /> },
-      { id: 'kbd', label: 'Kbd', render: () => <KbdStory /> },
-      { id: 'divider', label: 'Divider', render: () => <DividerStory /> },
-      { id: 'empty-state', label: 'EmptyState', render: () => <EmptyStateStory /> },
     ],
   },
   {
-    label: 'Charts', color: 'orange',
+    label: 'Navegación',
     stories: [
-      { id: 'bar-chart', label: 'BarChart', render: () => <ChartStory /> },
+      { id: 'tabs', label: 'Tabs y Accordion', render: () => <TabsStory /> },
+      { id: 'nav', label: 'NavItem', render: () => <NavStory /> },
     ],
   },
   {
-    label: 'Patrones', color: 'green',
+    label: 'Datos',
     stories: [
+      { id: 'table', label: 'Table', render: () => <TableStory /> },
       { id: 'list', label: 'List', render: () => <ListStory /> },
+      { id: 'bar-chart', label: 'BarChart', render: () => <ChartStory /> },
+      { id: 'status', label: 'Badge y Progress', render: () => <StatusStory /> },
+      { id: 'avatar', label: 'Avatar', render: () => <AvatarStory /> },
+      { id: 'chip', label: 'Chip', render: () => <ChipStory /> },
+    ],
+  },
+  {
+    label: 'Avisos',
+    stories: [
+      { id: 'feedback', label: 'Alert y Toast', render: () => <FeedbackStory /> },
+      { id: 'empty-state', label: 'EmptyState', render: () => <EmptyStateStory /> },
+      { id: 'spinner', label: 'Spinner', render: () => <SpinnerStory /> },
+      { id: 'tooltip', label: 'Tooltip', render: () => <TooltipStory /> },
+    ],
+  },
+  {
+    label: 'Superficies',
+    stories: [
+      { id: 'containers', label: 'Card y Row', render: () => <ContainersStory /> },
+      { id: 'modal', label: 'Modal', render: () => <ModalStory /> },
+      { id: 'popover', label: 'Popover', render: () => <PopoverStory /> },
+      { id: 'divider', label: 'Divider', render: () => <DividerStory /> },
+      { id: 'kbd', label: 'Kbd', render: () => <KbdStory /> },
       { id: 'book', label: 'Book', render: () => <BookStory /> },
       { id: 'folder', label: 'Folder', render: () => <FolderStory /> },
-      { id: 'table', label: 'Table', render: () => <TableStory /> },
-      { id: 'containers', label: 'Card y Row', render: () => <ContainersStory /> },
-      { id: 'nav', label: 'NavItem', render: () => <NavStory /> },
-      { id: 'menu', label: 'Menu', render: () => <MenuStory /> },
-      { id: 'dropdown', label: 'Dropdown', render: () => <DropdownStory /> },
-      { id: 'tooltip', label: 'Tooltip', render: () => <TooltipStory /> },
-      { id: 'popover', label: 'Popover', render: () => <PopoverStory /> },
-      { id: 'modal', label: 'Modal', render: () => <ModalStory /> },
     ],
   },
 ]
 
-const INTRO = 'intro'
+const todas = groups.flatMap(g => g.stories.map(s => ({ ...s, grupo: g.label })))
 
 export function App() {
-  const [current, setCurrent] = useState<string>(INTRO)
+  const [current, setCurrent] = useState(() => location.hash.slice(1) || INTRO)
+  const [busqueda, setBusqueda] = useState('')
   const { prefs, set } = usePrefs()
+  const buscador = useRef<HTMLInputElement>(null)
+  const main = useRef<HTMLElement>(null)
 
-  const [open, setOpen] = useState<string[]>(() => ['Componentes'])
-  const groupOf = useMemo(
-    () => Object.fromEntries(groups.flatMap(g => g.stories.map(s => [s.id, g.label]))),
-    [],
-  )
+  useEffect(() => {
+    const onHash = () => setCurrent(location.hash.slice(1) || INTRO)
+    addEventListener('hashchange', onHash)
+    return () => removeEventListener('hashchange', onHash)
+  }, [])
+
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === '/' && document.activeElement?.tagName !== 'INPUT') {
+        e.preventDefault()
+        buscador.current?.focus()
+      }
+    }
+    addEventListener('keydown', onKey)
+    return () => removeEventListener('keydown', onKey)
+  }, [])
 
   const go = (id: string) => {
+    location.hash = id
     setCurrent(id)
-    const g = groupOf[id]
-    if (g) setOpen(o => (o.includes(g) ? o : [...o, g]))
+    main.current?.scrollTo({ top: 0 })
   }
 
-  const story = groups.flatMap(g => g.stories).find(s => s.id === current)
+  const filtrados = useMemo(() => {
+    const q = fold(busqueda.trim())
+    if (!q) return groups
+    return groups
+      .map(g => ({ ...g, stories: g.stories.filter(s => fold(s.label).includes(q)) }))
+      .filter(g => g.stories.length > 0)
+  }, [busqueda])
+
+  const story = todas.find(s => s.id === current)
 
   return (
-    <div className="flex min-h-screen">
-      <nav className="fixed top-0 bottom-0 left-0 flex w-[220px] shrink-0 flex-col overflow-y-auto border-r border-line bg-canvas px-5 py-5">
-        <button onClick={() => setCurrent(INTRO)} className="mb-4 pl-[3px] text-left">
-          <div className="font-display text-base font-bold tracking-[-0.015em]">melu · ui kit</div>
-          <div className="mt-1 text-2xs text-ink-muted">Los tokens y las piezas, en vivo</div>
-        </button>
+    <ToastProvider>
+      <div className="flex min-h-screen bg-canvas">
+        <nav className="fixed top-0 bottom-0 left-0 flex w-[248px] shrink-0 flex-col border-r border-line bg-canvas">
+          <div className="flex flex-col gap-3 px-4 pt-5 pb-3">
+            <button onClick={() => go(INTRO)} className="flex items-baseline gap-1.5 self-start rounded-md px-1 text-left">
+              <span className="text-base font-bold tracking-tight text-ink">melu</span>
+              <span className="text-2xs font-semibold text-ink-muted">ui kit</span>
+            </button>
 
-        <div className="flex flex-col gap-0.5">
-          <button onClick={() => setCurrent(INTRO)} className={navItemClass({ active: current === INTRO })}>
-            <NavItemBody icon="star_shine" label="Introducción" active={current === INTRO} />
-          </button>
+            <label className="field flex h-8 cursor-text items-center gap-2 rounded-lg border border-field-line bg-field px-2.5">
+              <Icon name="search" size={14} className="icon-muted shrink-0" />
+              <input
+                ref={buscador}
+                value={busqueda}
+                onChange={e => setBusqueda(e.target.value)}
+                placeholder="Buscar"
+                aria-label="Buscar una pieza"
+                className="min-w-0 flex-1 bg-transparent text-xs font-normal text-ink outline-none placeholder:text-ink-muted"
+              />
+              {busqueda
+                ? (
+                  <button type="button" onClick={() => setBusqueda('')} aria-label="Limpiar" className="shrink-0 text-ink-muted hover:text-ink">
+                    <Icon name="close" size={14} />
+                  </button>
+                )
+                : <Kbd>/</Kbd>}
+            </label>
+          </div>
 
-          {groups.map(g => {
-            const isOpen = open.includes(g.label)
-            const hasCurrent = g.stories.some(s => s.id === current)
-            return (
-              <div key={g.label}>
-                <div className="relative flex items-center">
-                  <div className="min-w-0 flex-1">
-                    <button
-                      onClick={() => setOpen(o => (isOpen ? o.filter(x => x !== g.label) : [...o, g.label]))}
-                      aria-expanded={isOpen}
-                      className={cx('w-full', navItemClass({ active: hasCurrent && !isOpen }))}
-                    >
-                      <NavItemBody
-                        glyph={<FolderIcon color={g.color} size={20} />}
-                        label={g.label}
-                        active={hasCurrent && !isOpen}
-                        chip={false}
-                      />
-                    </button>
-                  </div>
-                  <span className="pointer-events-none absolute right-1.5 p-1 text-ink-muted">
-                    <Icon
-                      name="keyboard_arrow_down"
-                      size={16}
-                      className={cx('transition-transform duration-[190ms] ease-out', isOpen && 'rotate-180')}
-                    />
-                  </span>
+          <div className="flex-1 overflow-y-auto px-3 pb-4">
+            <SideLink active={current === INTRO} onClick={() => go(INTRO)} icon="deployed_code">Introducción</SideLink>
+            <SideLink active={current === 'dashboard'} onClick={() => go('dashboard')} icon="dashboard">Dashboard</SideLink>
+
+            {filtrados.map(g => (
+              <div key={g.label} className="mt-5 first:mt-4">
+                <div className="px-2.5 pb-1.5 text-[10px] font-semibold tracking-[0.06em] text-ink-muted uppercase">
+                  {g.label}
                 </div>
-
-                {isOpen && (
-                  <div className="flex flex-col gap-0.5">
-                    {g.stories.map(s => (
-                      <button
-                        key={s.id}
-                        onClick={() => go(s.id)}
-                        aria-current={s.id === current ? 'page' : undefined}
-                        className={navSubItemClass({ active: s.id === current })}
-                      >
-                        {s.label}
-                      </button>
-                    ))}
-                  </div>
-                )}
+                <div className="flex flex-col gap-px">
+                  {g.stories.map(s => (
+                    <SideLink key={s.id} active={current === s.id} onClick={() => go(s.id)}>{s.label}</SideLink>
+                  ))}
+                </div>
               </div>
-            )
-          })}
-        </div>
+            ))}
 
-        <div className="mt-auto flex items-center justify-between gap-2 pt-6 pl-[3px]">
-          <span className="text-2xs text-ink-muted">{prefs.theme === 'dark' ? 'Oscuro' : 'Claro'}</span>
-          <IconButton
-            icon={prefs.theme === 'dark' ? 'light_mode' : 'dark_mode'}
-            label={prefs.theme === 'dark' ? 'Tema claro' : 'Tema oscuro'}
-            size="sm"
-            variant="raised"
-            onClick={() => set('theme', prefs.theme === 'dark' ? 'light' : 'dark')}
-          />
-        </div>
-      </nav>
+            {filtrados.length === 0 && (
+              <p className="px-2.5 py-6 text-xs font-medium text-ink-muted">Nada con «{busqueda}».</p>
+            )}
+          </div>
 
-      <main className="ml-[220px] min-w-0 flex-1 px-8 py-9">
-        <div key={current} className="mx-auto flex max-w-[1100px] flex-col gap-10">
-          {story ? story.render() : <Intro go={go} />}
-        </div>
-      </main>
-    </div>
+          <div className="flex items-center justify-between gap-2 border-t border-line px-4 py-3">
+            <span className="text-2xs font-medium text-ink-muted">
+              {todas.length} piezas
+            </span>
+            <IconButton
+              icon={prefs.theme === 'dark' ? 'light_mode' : 'dark_mode'}
+              label={prefs.theme === 'dark' ? 'Tema claro' : 'Tema oscuro'}
+              size="sm"
+              variant="ghost"
+              onClick={() => set('theme', prefs.theme === 'dark' ? 'light' : 'dark')}
+            />
+          </div>
+        </nav>
+
+        <main ref={main} className="ml-[248px] min-w-0 flex-1 px-10 py-10">
+          <div key={current} className="mx-auto flex max-w-[980px] flex-col">
+            {current === INTRO && <Intro go={go} />}
+            {current === 'dashboard' && <Dashboard />}
+            {story?.render()}
+          </div>
+        </main>
+      </div>
+    </ToastProvider>
+  )
+}
+
+function SideLink({ active, onClick, icon, children }: {
+  active: boolean
+  onClick: () => void
+  icon?: 'deployed_code' | 'dashboard'
+  children: ReactNode
+}) {
+  return (
+    <button
+      onClick={onClick}
+      aria-current={active ? 'page' : undefined}
+      className={cx(
+        'flex h-8 w-full items-center gap-2 rounded-lg px-2.5 text-left text-xs transition-colors',
+        active ? 'bg-muted font-semibold text-ink' : 'font-medium text-ink-muted hover:bg-hover hover:text-ink',
+      )}
+    >
+      {icon && <Icon name={icon} size={16} className={active ? undefined : 'icon-muted'} />}
+      <span className="min-w-0 flex-1 truncate">{children}</span>
+    </button>
   )
 }

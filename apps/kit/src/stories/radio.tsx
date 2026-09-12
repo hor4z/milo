@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { Checkbox, Radio, RadioGroup } from '@melu/ui'
-import { Block, Panel, Props, Section, Variant } from '../kit'
+import { Page, Panel, Props, Section, Variant } from '../kit'
 
 export function RadioStory() {
   const [uno, setUno] = useState<'a' | 'b'>('b')
@@ -9,12 +9,12 @@ export function RadioStory() {
   const [con, setCon] = useState(true)
 
   return (
-    <Section
+    <Page
       title="Radio · RadioGroup"
-      note="La elección de una entre varias. Es 18, la misma medida del Checkbox y del pulgar del switch, así una fila con los tres queda pareja."
+      lead="La elección de una entre varias. Es 18, la misma medida del Checkbox y del pulgar del switch, así una fila con los tres queda pareja."
     >
-      <Block
-        label="El grupo"
+      <Section
+        title="El grupo"
         note="Las opciones van sueltas sobre el papel, sin píldora gris detrás. Una pista apagada con la pieza elegida flotando adentro es la receta del Segmented, y un radio metido ahí es el mismo control dibujado dos veces: opciones cortas que se comparan de un vistazo son un Segmented; opciones que necesitan su propio texto al lado son este grupo."
       >
         <Panel>
@@ -39,10 +39,10 @@ export function RadioStory() {
             />
           </Variant>
         </Panel>
-      </Block>
+      </Section>
 
-      <Block
-        label="Es el checkbox en redondo"
+      <Section
+        title="Es el checkbox en redondo"
         note="Mismo relleno azul prendido, misma receta hundida apagado, misma medida de 18. Lo único que cambia es la forma y la marca de adentro: el checkbox lleva un tilde, el radio un disco blanco. Dos piezas que dicen lo mismo — «esto lo elegí yo» — no pueden dibujarse con dos recetas distintas, o la fila que las tiene juntas se lee como dos sistemas."
       >
         <Panel>
@@ -61,10 +61,10 @@ export function RadioStory() {
           único que cambia es el disco del medio. Con el relleno afuera, la elegida se ve de una en
           toda la fila. Y va sin anillo, que era justo lo que lo separaba del checkbox.
         </p>
-      </Block>
+      </Section>
 
-      <Block
-        label="Con etiqueta al lado"
+      <Section
+        title="Con etiqueta al lado"
         note="El caso para el que existe el radio y no el Segmented: cada opción con su propio texto."
       >
         <Panel>
@@ -85,10 +85,10 @@ export function RadioStory() {
             <Radio checked={false} onChange={() => {}} disabled label="Apagado deshabilitado" />
           </Variant>
         </Panel>
-      </Block>
+      </Section>
 
-      <Block
-        label="El teclado"
+      <Section
+        title="El teclado"
         note="Es el de un grupo de radios y no el de una lista de botones: una sola parada de tabulación para todo el grupo —la elegida— y las flechas mueven y eligen a la vez. Es la diferencia entre tabular cuatro veces para pasar un grupo y tabular una. El foco se mueve con la elección: si se quedara atrás, la flecha siguiente saldría del lugar equivocado."
       >
         <Panel>
@@ -105,9 +105,9 @@ export function RadioStory() {
             />
           </Variant>
         </Panel>
-      </Block>
+      </Section>
 
-      <Block label="Props">
+      <Section title="Props">
         <Props rows={[
           { name: 'Radio · checked', type: 'boolean', note: 'obligatorio: es controlado' },
           { name: 'Radio · onChange', type: '() => void', note: 'sin valor: el radio solo se prende' },
@@ -118,7 +118,7 @@ export function RadioStory() {
           { name: 'RadioGroup · options', type: '{ value, label, disabled? }[]', note: 'obligatorio' },
           { name: 'RadioGroup · label', type: 'string', note: 'al aria-label del grupo' },
         ]} />
-      </Block>
-    </Section>
+      </Section>
+    </Page>
   )
 }

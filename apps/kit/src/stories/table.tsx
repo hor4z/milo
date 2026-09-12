@@ -6,7 +6,7 @@ import {
   Table, TableBody, TableCell, TableFooter, TableHead, TableHeader,
   TableHint, TableNum, TableRow, TableTitle, facets, fold,
 } from '@melu/ui'
-import { Block, Mono, Props, Section } from '../kit'
+import { Mono, Page, Props, Section } from '../kit'
 
 const cara = (n: number) => `/avatars/${String(n).padStart(2, '0')}.webp`
 
@@ -118,12 +118,12 @@ export function TableStory() {
   const limpiar = () => { setTexto(''); setEstados([]); setEspaciosElegidos([]); setGente([]); setPagina(0) }
 
   return (
-    <Section
+    <Page
       title="Table"
-      note="Piezas que se arman, no un componente que recibe `columns` y `rows`. Una tabla de datos y una de personas con un grupo de avatares y un menú al final no comparten nada más que la grilla, y una API de columnas termina con un `render` por columna: el mismo JSX, pero metido en un objeto y sin poder leerlo de arriba abajo."
+      lead="Piezas que se arman, no un componente que recibe `columns` y `rows`. Una tabla de datos y una de personas con un grupo de avatares y un menú al final no comparten nada más que la grilla, y una API de columnas termina con un `render` por columna: el mismo JSX, pero metido en un objeto y sin poder leerlo de arriba abajo."
     >
-      <Block
-        label="La tabla entera"
+      <Section
+        title="La tabla entera"
         note="Una tabla de trabajo son tres cosas más que la grilla: con qué se recorta, cuántas hay, y cómo se pasa al tramo siguiente. Buscá, filtrá y paginá — los tres se llevan entre sí, que es la parte que se rompe cuando cada uno se escribe por su lado. Y si las columnas no entran, la tabla scrollea de costado sin dibujar una barra: scrolleá con la rueda y mirá que los botones de paginar no se van con la tabla. Esa franja vive adentro del marco pero afuera del scroll, que es un lugar al que el call site no llega solo."
       >
         <FilterBar className="mb-3">
@@ -257,10 +257,10 @@ export function TableStory() {
             </TableFooter>
           )}
         </Table>
-      </Block>
+      </Section>
 
-      <Block
-        label="La pieza"
+      <Section
+        title="La pieza"
         note="La fila es de 56, la misma que `Row` en un panel de ajustes: las dos son una línea de contenido con un divisor de un píxel, así que compartir el alto es lo que hace que una tabla y un panel puestos uno arriba del otro no se vean de dos sistemas distintos. La cabecera va en 11 con `tracking-wide` y en tinta: en 11 el tamaño ya dice que es un rótulo, y el gris encima lo apagaba tanto que había que buscar de qué era cada columna. Las filas alternan papel y un paso más oscuro — en una tabla ancha el divisor de un píxel no alcanza para seguir una fila hasta la última columna, la banda sí. Y contra los bordes las celdas llevan 24 en vez de 16: entre dos columnas el aire se reparte entre las dos, contra el canto hay uno solo."
       >
         <Table minWidth={720}>
@@ -290,10 +290,10 @@ export function TableStory() {
             ))}
           </TableBody>
         </Table>
-      </Block>
+      </Section>
 
-      <Block
-        label="La columna de estudiantes"
+      <Section
+        title="La columna de estudiantes"
         note="Los avatares se montan un tercio de su tamaño y cada uno lleva un anillo del color de la fila: sin el anillo, dos vecinos de tonos parecidos se leen como una mancha sola en vez de como dos personas. El resto va en un círculo neutro y no en otra etiqueta de color — un `+4` no identifica a nadie, y en la familia viva se leería como una persona más del grupo. Con foto, la etiqueta de color se queda de fondo: es lo que se ve mientras la imagen carga y lo que queda si no carga nunca, y una inicial sobre su color pesa lo mismo que una cara — un hueco gris, no."
       >
         <div className="flex flex-col gap-4">
@@ -319,19 +319,19 @@ export function TableStory() {
           exactamente lo mismo que la persona que estaría escondiendo, así que no ahorra nada y
           dice menos.
         </p>
-      </Block>
+      </Section>
 
-      <Block
-        label="Sobre otro fondo"
+      <Section
+        title="Sobre otro fondo"
         note="El anillo es del color de la fila y no blanco fijo, así que sobre un fondo distinto hay que pasarle `ring`. Es la única forma: un avatar no puede saber sobre qué lo pusieron."
       >
         <div className="flex items-center gap-6 rounded-xl bg-muted p-4">
           <AvatarGroup people={[p('Ana Pérez', 1), p('Bruno Díaz', 2), p('Carla Sosa', 3), p('Damián Ruiz', 4)]} ring="ring-muted" />
           <Mono>ring="ring-muted"</Mono>
         </div>
-      </Block>
+      </Section>
 
-      <Block label="Props">
+      <Section title="Props">
         <Props rows={[
           { name: 'Table · minWidth', type: 'number', def: '640', note: 'abajo de eso scrollea en vez de apretar' },
           { name: 'TableRow · onClick', type: '() => void', note: 'sin esto la fila no toma hover ni cursor' },
@@ -347,7 +347,7 @@ export function TableStory() {
           { name: 'AvatarGroup · size', type: 'number', def: '28', note: 'el monte sale de acá' },
           { name: 'AvatarGroup · ring', type: 'string', def: "'ring-surface'", note: 'la utilidad del fondo de atrás' },
         ]} />
-      </Block>
-    </Section>
+      </Section>
+    </Page>
   )
 }

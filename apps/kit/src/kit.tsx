@@ -1,147 +1,178 @@
 import { useEffect, useState, type ReactNode } from 'react'
-import { cx, usePrefs } from '@melu/ui'
+import { Badge, Icon, cx, type IconName } from '@melu/ui'
 
-/** Los andamios de la galería. */
-
-/** Lee el valor real de un token del `<html>`, no el que está escrito en el CSS. */
 export function useTokens(names: readonly string[]) {
-  const { prefs } = usePrefs()
-  const [values, setValues] = useState<Record<string, string>>({})
-  const key = names.join(',')
-
+  const [vals, setVals] = useState<Record<string, string>>({})
   useEffect(() => {
     const cs = getComputedStyle(document.documentElement)
     const next: Record<string, string> = {}
-    for (const n of key.split(',')) next[n] = cs.getPropertyValue(n).trim()
-    setValues(next)
-  }, [key, prefs.theme])
-
-  return values
+    for (const n of names) next[n] = cs.getPropertyValue(n).trim()
+    setVals(next)
+    const obs = new MutationObserver(() => {
+      const cs2 = getComputedStyle(document.documentElement)
+      const n2: Record<string, string> = {}
+      for (const n of names) n2[n] = cs2.getPropertyValue(n).trim()
+      setVals(n2)
+    })
+    obs.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] })
+    return () => obs.disconnect()
+  }, [names])
+  return vals
 }
 
-export function Section({ title, note, children }: { title: string; note?: string; children: ReactNode }) {
+type PageProps = {
+  /** El nombre de la pieza, tal como se importa. */
+  title: string
+  /** Una línea: qué es y cuándo se usa. */
+  lead: string
+  /** Lo que hay que escribir para traerla. */
+  imports?: string
+  /** Categoría, para ubicarla de un vistazo. */
+  kind?: string
+  children: ReactNode
+}
+
+/** La cabecera de una pieza y el cuerpo de su página. */
+export function Page({ title, lead, imports, kind, children }: PageProps) {
   return (
-    <section className="scroll-mt-6 border-t border-line pt-8 first:border-t-0 first:pt-0">
-      <h2 className="font-display text-xl font-semibold tracking-[-0.015em]">{title}</h2>
-      {note && <p className="mt-2 max-w-[70ch] text-xs font-medium text-ink-muted">{note}</p>}
-      <div className="mt-5 flex flex-col gap-7">{children}</div>
+    <article className="flex flex-col gap-8">
+      <header className="flex flex-col gap-4 border-b border-line pb-7">
+        <div className="flex flex-wrap items-center gap-2.5">
+          <h1 className="text-display font-bold tracking-tight text-ink">{title}</h1>
+          {kind && <Badge>{kind}</Badge>}
+        </div>
+        <p className="max-w-[68ch] text-base font-medium text-ink-muted">{lead}</p>
+        {imports && <Code>{imports}</Code>}
+      </header>
+      {children}
+    </article>
+  )
+}
+
+/** Una línea de código que se puede copiar. */
+export function Code({ children }: { children: string }) {
+  const [copiado, setCopiado] = useState(false)
+  return (
+    <button
+      type="button"
+      onClick={() => {
+        navigator.clipboard?.writeText(children)
+        setCopiado(true)
+        setTimeout(() => setCopiado(false), 1400)
+      }}
+      className="group inline-flex max-w-full items-center gap-2.5 self-start rounded-lg border border-line bg-muted py-1.5 pr-2.5 pl-3 text-left transition-colors hover:bg-sunken"
+    >
+      <code className="truncate font-mono text-2xs text-ink">{children}</code>
+      <Icon
+        name={copiado ? 'check' : 'content_copy'}
+        size={14}
+        className="icon-muted shrink-0 transition-colors group-hover:text-ink"
+      />
+      <span className="sr-only">{copiado ? 'Copiado' : 'Copiar'}</span>
+    </button>
+  )
+}
+
+/** Compatibilidad con las vistas que todavía no se migraron. */
+export function Block({ label, note, children }: { label: string; note?: string; children?: ReactNode }) {
+  return <Section title={label} note={note}>{children}</Section>
+}
+
+/** Un bloque con título, una explicación y lo que se muestra. */
+export function Section({ title, note, children }: { title: string; note?: string; children?: ReactNode }) {
+  return (
+    <section className="flex flex-col gap-4">
+      <div className="flex flex-col gap-1.5">
+        <h2 className="text-lg font-semibold tracking-tight text-ink">{title}</h2>
+        {note && <p className="max-w-[72ch] text-xs font-medium text-ink-muted">{note}</p>}
+      </div>
+      {children}
     </section>
   )
 }
 
-/** Un tramo dentro de una sección: rótulo chico y su contenido. */
-export function Block({ label, note, children }: { label: string; note?: string; children: ReactNode }) {
+/** El lienzo donde se apoya un ejemplo. */
+export function Canvas({ children, className, pad = true }: { children: ReactNode; className?: string; pad?: boolean }) {
   return (
-    <div>
-      <div className="mb-3 flex items-center gap-2.5">
-        <span className="text-xs font-semibold text-ink">{label}</span>
-        <span className="h-px flex-1 bg-line" />
-      </div>
-      {note && <p className="mb-3 max-w-[70ch] text-xs font-medium text-ink-muted">{note}</p>}
+    <div
+      className={cx(
+        'relative overflow-hidden rounded-2xl border border-line bg-muted',
+        pad && 'p-6',
+        className,
+      )}
+    >
       {children}
     </div>
   )
 }
 
-export function Grid({ children, min = 200 }: { children: ReactNode; min?: number }) {
-  return (
-    <div className="grid gap-2.5" style={{ gridTemplateColumns: `repeat(auto-fill, minmax(${min}px, 1fr))` }}>
-      {children}
-    </div>
-  )
-}
-
-/** La celda que enmarca un componente vivo. */
+/** Un ejemplo con su etiqueta abajo. */
 export function Demo({ label, children, className }: { label?: string; children: ReactNode; className?: string }) {
   return (
-    <div className="flex flex-col gap-2">
-      <div
-        className={cx(
-          'flex min-h-[76px] flex-wrap items-center gap-3 rounded-xl border border-line bg-surface px-4 py-4',
-          className,
-        )}
-      >
-        {children}
-      </div>
-      {label && <Mono>{label}</Mono>}
+    <div className="flex min-w-0 flex-col gap-2">
+      <Canvas className={cx('flex min-h-[92px] items-center justify-center', className)}>{children}</Canvas>
+      {label && <div className="px-0.5 text-2xs font-medium text-ink-muted">{label}</div>}
     </div>
   )
 }
 
-/** La caja que contiene una lista de `Variant`. */
+/** Varios ejemplos en grilla. */
+export function Grid({ children, min = 220 }: { children: ReactNode; min?: number }) {
+  return (
+    <div className="grid gap-3" style={{ gridTemplateColumns: `repeat(auto-fill, minmax(${min}px, 1fr))` }}>
+      {children}
+    </div>
+  )
+}
+
+/** Una fila de variantes con su nombre al costado. */
+export function Variant({ name, children }: { name: string; children: ReactNode }) {
+  return (
+    <div className="flex flex-wrap items-center gap-4 border-b border-line py-3.5 last:border-0">
+      <code className="w-[168px] shrink-0 font-mono text-2xs text-ink-muted">{name}</code>
+      <div className="flex min-w-0 flex-wrap items-center gap-3">{children}</div>
+    </div>
+  )
+}
+
+/** El contenedor de una lista de variantes. */
 export function Panel({ children }: { children: ReactNode }) {
-  return <div className="rounded-xl border border-line bg-surface px-4">{children}</div>
+  return <Canvas className="px-6 py-1">{children}</Canvas>
 }
 
 export function Mono({ children }: { children: ReactNode }) {
-  return <span className="font-mono text-2xs text-ink-muted">{children}</span>
+  return <code className="font-mono text-2xs text-ink-muted">{children}</code>
 }
 
-/** El cuadrado de color con su token y su valor resuelto. */
-export function Swatch({ token, note }: { token: string; note?: string }) {
-  const values = useTokens([token])
-  const value = values[token] ?? ''
-  return (
-    <div className="flex items-center gap-3 rounded-lg border border-line bg-surface p-2">
-      <span
-        className="size-11 shrink-0 rounded-md border border-line-alpha"
-        style={{ background: `var(${token})` }}
-      />
-      <span className="min-w-0">
-        <span className="block truncate font-mono text-2xs text-ink">{token}</span>
-        <span className="block truncate font-mono text-2xs text-ink-muted">{value || '—'}</span>
-        {note && <span className="mt-0.5 block truncate text-2xs text-ink-muted">{note}</span>}
-      </span>
-    </div>
-  )
-}
+type Row = { name: string; type: string; def?: string; note?: string; required?: boolean }
 
-/** La rampa entera en una tira, que es como se ve si los pasos están parejos. */
-export function Ramp({ tokens }: { tokens: readonly string[] }) {
-  const values = useTokens(tokens)
+/** La tabla de props. */
+export function Props({ rows }: { rows: readonly Row[] }) {
   return (
-    <div className="overflow-x-auto">
-      <div className="flex min-w-[640px]">
-        {tokens.map((t, i) => (
-          <div key={t} className="flex-1">
-            <div
-              className={cx(
-                'h-20 border-y border-line-alpha',
-                i === 0 && 'rounded-l-lg border-l',
-                i === tokens.length - 1 && 'rounded-r-lg border-r',
-              )}
-              style={{ background: `var(${t})` }}
-            />
-            <div className="px-1 pt-2">
-              <div className="font-mono text-2xs text-ink">{t.replace('--shade-', '')}</div>
-              <div className="font-mono text-2xs text-ink-muted">{values[t] ?? ''}</div>
-            </div>
-          </div>
-        ))}
-      </div>
-    </div>
-  )
-}
-
-/** La tabla de props de una historia. */
-export function Props({ rows }: { rows: readonly { name: string; type: string; def?: string; note?: string }[] }) {
-  return (
-    <div className="overflow-x-auto">
-      <table className="w-full min-w-[560px] border-collapse text-left">
+    <div className="overflow-hidden rounded-xl border border-line">
+      <table className="w-full border-collapse text-left">
         <thead>
-          <tr className="border-b border-line">
-            {['prop', 'tipo', 'default', ''].map((h, i) => (
-              <th key={i} className="pb-2 pr-4 text-2xs font-semibold text-ink-muted">{h}</th>
-            ))}
+          <tr className="bg-muted">
+            <th className="px-4 py-2.5 text-2xs font-semibold tracking-wide text-ink">Prop</th>
+            <th className="px-4 py-2.5 text-2xs font-semibold tracking-wide text-ink">Tipo</th>
+            <th className="hidden px-4 py-2.5 text-2xs font-semibold tracking-wide text-ink sm:table-cell">Default</th>
+            <th className="px-4 py-2.5 text-2xs font-semibold tracking-wide text-ink">Qué hace</th>
           </tr>
         </thead>
         <tbody>
           {rows.map(r => (
-            <tr key={r.name} className="border-b border-line last:border-b-0">
-              <td className="py-2.5 pr-4 align-top font-mono text-2xs text-ink">{r.name}</td>
-              <td className="py-2.5 pr-4 align-top font-mono text-2xs text-ink-muted">{r.type}</td>
-              <td className="py-2.5 pr-4 align-top font-mono text-2xs text-ink-muted">{r.def ?? '—'}</td>
-              <td className="py-2.5 align-top text-2xs text-ink-muted">{r.note ?? ''}</td>
+            <tr key={r.name} className="border-t border-line align-top">
+              <td className="px-4 py-3">
+                <span className="flex items-baseline gap-1.5">
+                  <code className="font-mono text-2xs font-semibold text-ink">{r.name}</code>
+                  {r.required && <span className="text-2xs font-semibold text-bad">·</span>}
+                </span>
+              </td>
+              <td className="px-4 py-3"><code className="font-mono text-2xs text-brand-ink">{r.type}</code></td>
+              <td className="hidden px-4 py-3 sm:table-cell">
+                <code className="font-mono text-2xs text-ink-muted">{r.def ?? '—'}</code>
+              </td>
+              <td className="px-4 py-3 text-2xs font-medium text-ink-muted">{r.note}</td>
             </tr>
           ))}
         </tbody>
@@ -150,12 +181,68 @@ export function Props({ rows }: { rows: readonly { name: string; type: string; d
   )
 }
 
-/** Una fila etiquetada: el nombre de la variante a la izquierda, la pieza a la derecha. */
-export function Variant({ name, children }: { name: string; children: ReactNode }) {
+/** Una nota al costado: lo que conviene saber sin que sea parte del ejemplo. */
+export function Note({ icon = 'lightbulb', title, children }: { icon?: IconName; title?: string; children: ReactNode }) {
   return (
-    <div className="flex flex-wrap items-center gap-x-4 gap-y-2 border-t border-line py-3 first:border-t-0">
-      <span className="w-28 shrink-0 font-mono text-2xs text-ink-muted">{name}</span>
-      <div className="flex min-w-0 flex-1 flex-wrap items-center gap-3">{children}</div>
+    <div className="flex gap-3 rounded-xl border border-line bg-surface p-4">
+      <Icon name={icon} size={18} className="icon-muted mt-px shrink-0" />
+      <div className="flex min-w-0 flex-col gap-1">
+        {title && <p className="text-xs font-semibold text-ink">{title}</p>}
+        <div className="max-w-[70ch] text-xs font-medium text-ink-muted">{children}</div>
+      </div>
+    </div>
+  )
+}
+
+/** Lo que la pieza hace por accesibilidad, en una lista corta. */
+export function A11y({ items }: { items: string[] }) {
+  return (
+    <ul className="flex flex-col gap-2">
+      {items.map(t => (
+        <li key={t} className="flex gap-2.5 text-xs font-medium text-ink-muted">
+          <Icon name="check" size={16} className="mt-px shrink-0 text-ok" />
+          <span className="max-w-[70ch]">{t}</span>
+        </li>
+      ))}
+    </ul>
+  )
+}
+
+export function Swatch({ token, note }: { token: string; note?: string }) {
+  const vals = useTokens([token])
+  const v = vals[token]
+  return (
+    <div className="flex items-center gap-3">
+      <span
+        className="size-9 shrink-0 rounded-lg border border-line"
+        style={{ background: v ? `var(${token})` : undefined }}
+      />
+      <div className="flex min-w-0 flex-col">
+        <code className="truncate font-mono text-2xs text-ink">{token}</code>
+        <code className="truncate font-mono text-2xs text-ink-muted">{v || '—'}</code>
+        {note && <span className="mt-0.5 text-2xs text-ink-muted">{note}</span>}
+      </div>
+    </div>
+  )
+}
+
+export function Ramp({ tokens }: { tokens: readonly string[] }) {
+  const vals = useTokens(tokens)
+  return (
+    <div className="overflow-hidden rounded-xl border border-line">
+      <div className="flex h-16">
+        {tokens.map(t => (
+          <div key={t} className="flex-1" style={{ background: `var(${t})` }} />
+        ))}
+      </div>
+      <div className="flex border-t border-line">
+        {tokens.map(t => (
+          <div key={t} className="min-w-0 flex-1 px-1.5 py-2 text-center">
+            <code className="block truncate font-mono text-[10px] text-ink-muted">{t.replace('--', '')}</code>
+            <code className="block truncate font-mono text-[10px] text-ink">{vals[t]}</code>
+          </div>
+        ))}
+      </div>
     </div>
   )
 }

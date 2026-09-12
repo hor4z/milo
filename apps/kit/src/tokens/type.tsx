@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { Block, Mono, Section, useTokens } from '../kit'
+import { Mono, Page, Section, useTokens } from '../kit'
 
 const scale = [
   { cls: 'text-2xs', px: 11, role: 'kbd, metadatos, contadores' },
@@ -15,12 +15,12 @@ const scale = [
 
 export function TypeSection() {
   return (
-    <Section
+    <Page
       title="Tipografía"
-      note="Base 12px con peso 400 y line-height fijo de 16. Estuvo en 500, que se decidió contra Inter: ahí el 400 a 12px se leía lavado sobre un fondo casi blanco. Instrument Sans dibuja más grueso al mismo número, así que los tres escalones bajaron uno entero. El leading único es para que una fila de 12 y una de 14 sigan alineadas entre sí."
+      lead="Base 12px con peso 400 y line-height fijo de 16. Estuvo en 500, que se decidió contra Inter: ahí el 400 a 12px se leía lavado sobre un fondo casi blanco. Instrument Sans dibuja más grueso al mismo número, así que los tres escalones bajaron uno entero. El leading único es para que una fila de 12 y una de 14 sigan alineadas entre sí."
     >
-      <Block
-        label="Familias"
+      <Section
+        title="Familias"
         note="Instrument Sans y nada más: los tres roles son la misma familia. Display y cuerpo lo eran ya a propósito —a 40px lo que separa un título del cuerpo es el tamaño y el tracking, no un dibujo distinto de la letra— y ahora el rol `mono` también. Lo que ese rol pierde es el ancho fijo, y lo que alinea una columna de valores pasa a ser `tabular`: ancho fijo para los números sin cambiar de letra. Alcanza para precios, métricas y una columna de tabla; no alcanzaría para un bloque de código, que en el sistema no hay. Por acá pasaron Inter + Inter Tight + JetBrains Mono, después Geist + Geist Mono, y ahora una sola."
       >
         <div className="flex flex-col gap-3">
@@ -28,9 +28,9 @@ export function TypeSection() {
           <Specimen family="font-display" token="--font-display" rol="las portadas, a 40" muestra="El sistema" px={40} />
           <Specimen family="font-mono" token="--font-mono" rol="tokens, valores y atajos" muestra="0123456789 · --shade-05" px={24} mono />
         </div>
-      </Block>
+      </Section>
 
-      <Block label="Escala" note="Del md para arriba el texto de un control es 14/600: un botón con el mismo tamaño de letra que su entorno no se lee como accionable.">
+      <Section title="Escala" note="Del md para arriba el texto de un control es 14/600: un botón con el mismo tamaño de letra que su entorno no se lee como accionable.">
         <div className="rounded-xl border border-line bg-surface px-4">
           {scale.map(s => (
             <div key={s.cls} className="flex flex-wrap items-baseline gap-x-4 gap-y-1 border-t border-line py-3.5 first:border-t-0">
@@ -41,17 +41,17 @@ export function TypeSection() {
             </div>
           ))}
         </div>
-      </Block>
+      </Section>
 
-      <Block label="Pesos" note="Tres y nada más: 400 la interfaz, 500 lo accionable y los títulos de fila, 600 solo en display. Las utilidades siguen llamándose medium · semibold · bold porque son el nombre del rol, no del número: el número se cambia en un lugar, el rol no se renombra en doscientos call sites.">
+      <Section title="Pesos" note="Tres y nada más: 400 la interfaz, 500 lo accionable y los títulos de fila, 600 solo en display. Las utilidades siguen llamándose medium · semibold · bold porque son el nombre del rol, no del número: el número se cambia en un lugar, el rol no se renombra en doscientos call sites.">
         <div className="flex flex-wrap gap-6 rounded-xl border border-line bg-surface p-4">
           <div><div className="text-base font-medium">Peso 400</div><Mono>font-medium · la interfaz</Mono></div>
           <div><div className="text-base font-semibold">Peso 500</div><Mono>font-semibold · lo accionable</Mono></div>
           <div><div className="font-display text-base font-bold">Peso 600</div><Mono>font-bold · display</Mono></div>
         </div>
-      </Block>
+      </Section>
 
-      <Block label="Interletrado y leading">
+      <Section title="Interletrado y leading">
         <div className="flex flex-col gap-3 rounded-xl border border-line bg-surface p-4">
           <div>
             <div className="text-xl font-semibold tracking-[-0.015em]">Título con tracking cerrado</div>
@@ -66,8 +66,8 @@ export function TypeSection() {
             <Mono>--leading-ui · 16px</Mono>
           </div>
         </div>
-      </Block>
-    </Section>
+      </Section>
+    </Page>
   )
 }
 

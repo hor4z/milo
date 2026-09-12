@@ -1,18 +1,18 @@
 import { useState } from 'react'
 import { Switch } from '@melu/ui'
-import { Block, Panel, Props, Section, Variant } from '../kit'
+import { Page, Panel, Props, Section, Variant } from '../kit'
 
 export function SwitchStory() {
   const [on, setOn] = useState(true)
   const [off, setOff] = useState(false)
 
   return (
-    <Section
+    <Page
       title="Switch"
-      note="Pista de 40×22 con 2 de padding, así que el pulgar es de 18 y viaja 18 exactos. La pista prendida va en el azul de marca, el mismo que el checkbox marcado: el ámbar señala algo que pasó y no eligió nadie, y un switch prendido es lo contrario — es una decisión de quien lo usa."
+      lead="Pista de 40×22 con 2 de padding, así que el pulgar es de 18 y viaja 18 exactos. La pista prendida va en el azul de marca, el mismo que el checkbox marcado: el ámbar señala algo que pasó y no eligió nadie, y un switch prendido es lo contrario — es una decisión de quien lo usa."
     >
-      <Block
-        label="Estados"
+      <Section
+        title="Estados"
         note="Lo que lo hace verse como una pieza física y no como un círculo pintado son las tres capas del pulgar: luz interior arriba, un halo corto alrededor y una sombra de contacto un píxel más abajo. La pista además lleva su propia sombra interior —más marcada en on que en off— para que el pulgar parezca hundido dentro."
       >
         <Panel>
@@ -23,9 +23,9 @@ export function SwitchStory() {
             <Switch checked={false} onChange={() => {}} disabled label="Fijo" />
           </Variant>
         </Panel>
-      </Block>
+      </Section>
 
-      <Block label="Props">
+      <Section title="Props">
         <Props rows={[
           { name: 'checked', type: 'boolean', note: 'obligatorio' },
           { name: 'onChange', type: '(v: boolean) => void', note: 'obligatorio' },
@@ -33,7 +33,7 @@ export function SwitchStory() {
           { name: 'disabled', type: 'boolean' },
           { name: 'id', type: 'string', note: 'para asociarlo a una etiqueta externa' },
         ]} />
-      </Block>
-    </Section>
+      </Section>
+    </Page>
   )
 }

@@ -1,17 +1,17 @@
 import { useState } from 'react'
 import { Chip, labelColors } from '@melu/ui'
-import { Block, Panel, Props, Section, Variant } from '../kit'
+import { Page, Panel, Props, Section, Variant } from '../kit'
 
 export function ChipStory() {
   const [chips, setChips] = useState(['Indagación', 'Proyecto', 'Taller'])
 
   return (
-    <Section
+    <Page
       title="Chip"
-      note="28 de alto y radio 10. Es una etiqueta, no un botón: solo se vuelve accionable si recibe `onClick` o `onRemove`."
+      lead="28 de alto y radio 10. Es una etiqueta, no un botón: solo se vuelve accionable si recibe `onClick` o `onRemove`."
     >
-      <Block
-        label="Variantes"
+      <Section
+        title="Variantes"
         note="`color` toma una etiqueta de la familia viva, no un tinte lavado. Antes tomaba `tint: 1..6` y ahí estaba el bug: los tintes son el lavado de una superficie grande con un dibujo oscuro encima, y un chip es una marca chica que tiene que identificar de reojo. Con el tinte puesto, seis chips en una fila se veían todos del mismo gris apenas teñido."
       >
         <Panel>
@@ -28,16 +28,16 @@ export function ChipStory() {
             {chips.length === 0 && <span className="text-2xs text-ink-muted">se fueron todos — recargá para volver a verlos</span>}
           </Variant>
         </Panel>
-      </Block>
+      </Section>
 
-      <Block label="Props">
+      <Section title="Props">
         <Props rows={[
           { name: 'color', type: 'LabelColor', def: '—', note: 'una de las seis etiquetas vivas; sin esto va gris' },
           { name: 'active', type: 'boolean', note: 'pasa a tinta plena y pisa el color' },
           { name: 'onClick', type: '() => void', note: 'lo convierte en <button>' },
           { name: 'onRemove', type: '() => void', note: 'agrega la cruz' },
         ]} />
-      </Block>
-    </Section>
+      </Section>
+    </Page>
   )
 }

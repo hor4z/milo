@@ -5,7 +5,7 @@ import {
   iconNames, type IconName, type IconWeight,
 } from '@melu/ui'
 import { iconTags } from '@melu/ui/icons.meta'
-import { Block, Mono, Panel, Props, Section, Variant } from '../kit'
+import { Mono, Page, Panel, Props, Section, Variant } from '../kit'
 
 const escala = [
   { px: 12, rol: 'un badge, la cruz de un chip' },
@@ -40,12 +40,12 @@ export function IconStory() {
   }
 
   return (
-    <Section
+    <Page
       title="Icon"
-      note="Material Symbols Rounded, subseteado a lo que usamos y servido desde el repo. Peso 300 de base, y peso y relleno son ejes reales de la fuente, no variantes generadas."
+      lead="Material Symbols Rounded, subseteado a lo que usamos y servido desde el repo. Peso 300 de base, y peso y relleno son ejes reales de la fuente, no variantes generadas."
     >
-      <Block
-        label="El eje"
+      <Section
+        title="El eje"
         note="El peso va de 100 a 700 y es continuo porque es una fuente variable: con SVG haría falta un archivo por escalón — por eso el set es una fuente, y por eso Google la distribuye así: sus SVG estáticos, dice su propio repo, «do not have all the variations available». El otro eje de Material, FILL, está clavado en 0: todos los glifos son de contorno, sin excepciones y sin prop para moverlo."
       >
         <Panel>
@@ -58,10 +58,10 @@ export function IconStory() {
             ))}
           </Variant>
         </Panel>
-      </Block>
+      </Section>
 
-      <Block
-        label={`El set · ${iconNames.length} iconos`}
+      <Section
+        title={`El set · ${iconNames.length} iconos`}
         note="Buscá por nombre o por lo que el icono es. Los controles escriben las variables una sola vez en el contenedor de la grilla y los glifos las heredan: cambiar `font-variation-settings` en cada instancia invalida la rasterización de cada glifo, y serían 152 por cada movimiento del control."
       >
         <div className="flex flex-wrap items-center gap-4">
@@ -119,10 +119,10 @@ export function IconStory() {
           Click en un icono copia <Mono>{'<Icon name="…" />'}</Mono>. El title trae los tags con los
           que se puede buscar.
         </p>
-      </Block>
+      </Section>
 
-      <Block
-        label="Los tamaños"
+      <Section
+        title="Los tamaños"
         note="Seis pasos pares. Antes eran nueve valores y tres de ellos impares, que salieron de encajar ópticamente dibujos propios; con una fuente un tamaño impar cae en media grilla de píxeles y se ve borroso."
       >
         <Panel>
@@ -133,10 +133,10 @@ export function IconStory() {
             </Variant>
           ))}
         </Panel>
-      </Block>
+      </Section>
 
-      <Block
-        label="El gris no es una prop"
+      <Section
+        title="El gris no es una prop"
         note="La regla vieja decía «icono en gris ⇒ weight 1.5», y era imposible de cumplir: el gris muchas veces lo hereda de un ancestro —un IconButton apagado, un item de nav inactivo, el placeholder de un Select— y desde el call site no hay forma de saberlo. Ahora es la utilidad `icon-muted`, que pone el color y sube el peso a 400 juntos. Se cumple sola."
       >
         <Panel>
@@ -153,10 +153,10 @@ export function IconStory() {
             <span className="text-xs text-ink-muted">gris sin la utilidad: queda en 300 y se apaga</span>
           </Variant>
         </Panel>
-      </Block>
+      </Section>
 
-      <Block
-        label="Cómo se agrega uno"
+      <Section
+        title="Cómo se agrega uno"
         note="Hay más de tres mil novecientos en el catálogo y el set trae los que usamos. Agregar uno es un comando, no dibujar un path."
       >
         <Panel>
@@ -178,23 +178,23 @@ export function IconStory() {
           escribir <Mono>--yes</Mono>. El catálogo está versionado, así que buscar funciona sin
           internet.
         </p>
-      </Block>
+      </Section>
 
-      <Block label="Props">
+      <Section title="Props">
         <Props rows={[
           { name: 'name', type: 'IconName', note: 'obligatorio; la unión de los 152 del set' },
           { name: 'size', type: 'number', def: '20', note: 'la escala 12 · 14 · 16 · 18 · 20 · 22' },
           { name: 'weight', type: '100…700', def: '300', note: 'el eje wght; el gris lo sube solo' },
           { name: 'className', type: 'string', note: 'para el color; `icon-muted` para el gris' },
         ]} />
-      </Block>
+      </Section>
 
-      <Block
-        label="El costo, que conviene saber"
+      <Section
+        title="El costo, que conviene saber"
         note="Firefox deja desactivar «permitir que las páginas elijan sus propias fuentes», y hay gente que lo usa por dislexia o baja visión. Con esa opción todos los iconos desaparecen y quedan cuadraditos. Un <svg> era inmune. No tiene mitigación dentro de este enfoque: es el precio de que el peso y el relleno sean ejes de verdad, y está acá escrito y no escondido."
       >
         <div />
-      </Block>
-    </Section>
+      </Section>
+    </Page>
   )
 }
