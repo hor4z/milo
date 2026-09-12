@@ -224,6 +224,16 @@ sistema se enganchan solos por contexto. Lo obligatorio se dice con la palabra �
 además del asterisco: un asterisco es una convención que no significa nada para quien no la
 conoce, y un lector de pantalla lo lee como «asterisco».
 
+**Las piezas que se parecen dicen cuál va.** `Chip` identifica —una categoría, una persona— y
+`Badge` dice en qué estado está algo: si el texto cambia según lo que pasó, es un badge. El
+`Switch` aplica en el momento y el `Checkbox` es parte de un formulario que se confirma con un
+botón. El `Modal` interrumpe para una decisión corta y el `Sheet` es para trabajar un rato. El
+`ConfirmDialog` es la pregunta de lo que no se deshace, y con `tone="bad"` el foco arranca en
+Cancelar.
+
+**Un enlace lleva subrayado siempre.** En una interfaz monocroma no hay color que lo distinga
+del texto que lo rodea. El externo avisa que abre en otra pestaña, con el glifo y con texto.
+
 **Lo que se compone se expone en partes.** `Alert` es `AlertTitle`, `AlertBody` y `AlertActions`;
 una tarjeta es `CardHeader`, `CardTitle`, `CardHint`, `CardBody` y `CardFooter`; unas solapas son
 `Tabs`, `TabList`, `Tab` y `TabPanel`. Cuesta dos líneas más de escribir y evita la prop número
