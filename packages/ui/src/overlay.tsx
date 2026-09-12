@@ -372,6 +372,11 @@ export function Tooltip({ label, children, side = 'top', delay = 500 }: {
   const bubble = useRef<HTMLDivElement>(null)
   const [pos, setPos] = useState({ top: 0, left: 0 })
   const timer = useRef<ReturnType<typeof setTimeout> | null>(null)
+  /* Espejo de `open` para leerlo desde los handlers sin volver a suscribirlos.
+     Lo que se necesita saber al cerrar es si el tooltip llegó a verse, y eso el
+     estado no lo cuenta a tiempo: dentro del mismo handler todavía es el valor
+     del render anterior. */
+  const visible = useRef(false)
   const id = useId()
 
   const cancelar = () => {
@@ -381,11 +386,16 @@ export function Tooltip({ label, children, side = 'top', delay = 500 }: {
   const abrir = () => {
     cancelar()
     const espera = Date.now() - ultimoCierre < VENTANA_TIBIA ? 0 : delay
-    timer.current = setTimeout(() => setOpen(true), espera)
+    timer.current = setTimeout(() => { visible.current = true; setOpen(true) }, espera)
   }
   const cerrar = () => {
     cancelar()
-    ultimoCierre = Date.now()
+    /* La ventana tibia solo cuenta si este tooltip llegó a mostrarse. Marcándola
+       siempre, cruzar la fila de iconos a las apuradas —sin que ninguno alcance
+       a abrir— dejaba el grupo caliente igual, y el siguiente que tocaras abría
+       de golpe sin que nunca se hubiera visto uno. */
+    if (visible.current) ultimoCierre = Date.now()
+    visible.current = false
     setOpen(false)
   }
 
