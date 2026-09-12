@@ -233,7 +233,7 @@
 
   /* En oscuro el azul sube un paso: el mismo relleno que funciona sobre papel
      casi blanco se apaga sobre #131313. */
-  --blue-050: #11202f;
+  --blue-050: #15283a;
   --blue-700: #7cb2fa;
   --blue-400: #599ef9;
   --blue-500: #2f86f9;
@@ -270,14 +270,14 @@
 
   --ok-500: #05b646;
   --ok-700: #3ad472;
-  --ok-050: #112a1a;
+  --ok-050: #15351f;
   --warn-500: #c89106;
   --warn-700: #e3ab1f;
-  --warn-050: #2a2311;
+  --warn-050: #352c14;
   --bad-500: #fa534e;
   --bad-600: #f7726e;
   --bad-700: #fb827e;
-  --bad-050: #2a1211;
+  --bad-050: #351816;
 
   --tint-1: #1b201d;
   --tint-2: #191f27;

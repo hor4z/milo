@@ -175,9 +175,11 @@ export function Props({ rows }: { rows: readonly Row[] }) {
           {rows.map(r => (
             <tr key={r.name} className="border-t border-line align-top">
               <td className="px-4 py-3">
-                <span className="flex items-baseline gap-1.5">
+                <span className="flex flex-col gap-1">
                   <code className="font-mono text-2xs font-semibold text-ink">{r.name}</code>
-                  {r.required && <span className="text-2xs font-semibold text-bad">·</span>}
+                  {r.required && (
+                    <span className="text-[10px] font-semibold tracking-wide text-bad-ink uppercase">obligatorio</span>
+                  )}
                 </span>
               </td>
               <td className="px-4 py-3"><code className="font-mono text-2xs text-brand-ink">{r.type}</code></td>
