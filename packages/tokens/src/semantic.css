@@ -51,6 +51,10 @@
   --text: var(--shade-09);
   --text-muted: var(--shade-06);
   --text-subtle: var(--shade-06);
+  /* El texto sugerido de un campo. No es `--text-muted`: con el gris del texto
+     secundario puesto ahí, lo que el campo propone se leía igual de firme que lo
+     que alguien escribió, y un campo vacío parecía lleno. */
+  --text-placeholder: var(--shade-placeholder);
   --text-disabled: var(--shade-05);
   --text-inverted: var(--shade-01);
 
@@ -300,8 +304,8 @@
      el call site tenga que saber dónde cayó. */
   --field-bg: var(--shade-01);        /* el default: el campo vive sobre el escritorio */
   --field-bg-hover: var(--shade-02);
-  --field-bg-on-surface: var(--shade-03);   /* cuando cae adentro de una pieza de papel */
-  --field-bg-on-surface-hover: var(--shade-04);
+  --field-bg-on-surface: var(--shade-02);   /* cuando cae adentro de una pieza de papel */
+  --field-bg-on-surface-hover: var(--shade-03);
   /* El borde deja de ser una insinuación. En alpha 11 sobre papel blanco la
      línea no se dibujaba y un `Select` se leía como texto suelto — que es
      exactamente lo que pasaba. */

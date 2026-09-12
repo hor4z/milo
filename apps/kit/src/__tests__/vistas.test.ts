@@ -164,6 +164,7 @@ describe('cobertura del kit', () => {
       join(import.meta.dirname, '../foundations/measure.tsx'),
       join(import.meta.dirname, '../foundations/relief.tsx'),
       join(import.meta.dirname, '../foundations/motion.tsx'),
+      join(import.meta.dirname, '../foundations/states.tsx'),
       join(import.meta.dirname, '../foundations/writing.tsx'),
     ]
     const text = sources.map((f: string) => readFileSync(f, 'utf8')).join('\n')

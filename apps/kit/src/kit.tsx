@@ -25,14 +25,20 @@ export function useTokens(names: readonly string[]) {
   return vals
 }
 
+// Dos marcas y ninguna más: backticks para el código y `**` para lo que hay que
+// leer sí o sí. No es un renderizador de markdown y no tiene que serlo — en
+// cuanto acepte tres marcas, las notas del kit se van a escribir en un markdown
+// a medias que nadie documentó.
 function Rich({ text }: { text: string }) {
-  const parts = text.split(/(`[^`]+`)/g)
+  const parts = text.split(/(`[^`]+`|\*\*[^*]+\*\*)/g)
   return (
     <>
       {parts.map((t, i) =>
         t.startsWith('`') && t.endsWith('`')
           ? <code key={i} className="rounded-sm bg-muted px-1 py-0.5 font-mono text-[0.92em] text-ink">{t.slice(1, -1)}</code>
-          : t)}
+          : t.startsWith('**') && t.endsWith('**')
+            ? <strong key={i} className="font-semibold text-ink">{t.slice(2, -2)}</strong>
+            : t)}
     </>
   )
 }

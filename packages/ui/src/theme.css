@@ -138,6 +138,7 @@
   --color-ink-muted: var(--text-muted);
   --color-icon-muted: var(--icon-muted);
   --color-ink-subtle: var(--text-subtle);
+  --color-ink-placeholder: var(--text-placeholder);
   --color-ink-disabled: var(--text-disabled);
   --color-ink-inverted: var(--text-inverted);
 
@@ -146,6 +147,10 @@
   --color-on-solid: var(--on-solid);
 
   --color-brand: var(--brand);
+  --color-brand-hover: var(--brand-hover);
+  --color-brand-soft: var(--brand-soft);
+  --color-brand-soft-strong: var(--brand-soft-strong);
+  --color-brand-border: var(--brand-border);
   --color-on-brand: var(--on-brand);
 
   --color-accent: var(--accent);

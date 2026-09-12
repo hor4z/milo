@@ -11,18 +11,34 @@ const shell = [
 ] as const
 
 const radii = [
-  { token: '--radius-sm', cls: 'rounded-sm', role: 'marcas hundidas: un kbd, un badge' },
-  { token: '--radius-md', cls: 'rounded-lg', role: 'lo cuadrado que se toca: botón de icono' },
-  { token: '--radius-lg', cls: 'rounded-lg', role: 'lo que se toca y tiene texto: botón, nav, buscador' },
+  { token: '--radius-sm', cls: 'rounded-sm', role: 'marcas hundidas y cuadraditos: un kbd, un badge, un checkbox' },
+  { token: '--radius-lg', cls: 'rounded-lg', role: 'todo lo que se toca: botón, botón de icono, item de nav, campo' },
   { token: '--radius-xl', cls: 'rounded-xl', role: 'lo que va adentro de una tarjeta' },
   { token: '--radius-2xl', cls: 'rounded-2xl', role: 'contenedores: tarjeta, modal, popover' },
+  { token: '--radius-full', cls: 'rounded-full', role: 'lo que es redondo de verdad: un avatar, un punto, un pulgar' },
+] as const
+
+/** Los once pasos, con el rol que los justifica. El rol es lo que hay que leer. */
+const espaciado = [
+  { px: 2, role: 'el pelo: el inset de una pista, el aire de un punto' },
+  { px: 4, role: 'adentro de una marca: un badge, un kbd' },
+  { px: 6, role: 'lo que separa un glifo de su texto' },
+  { px: 8, role: 'lo que separa dos cosas de la misma fila' },
+  { px: 12, role: 'lo que separa dos filas, y el aire de un control chico' },
+  { px: 16, role: 'el padding de una pieza chica, y la separación entre dos piezas' },
+  { px: 20, role: 'el padding de una tarjeta' },
+  { px: 24, role: 'el padding de un panel, y la separación entre dos bloques' },
+  { px: 32, role: 'la separación entre dos secciones' },
+  { px: 40, role: 'el aire de una pantalla' },
+  { px: 48, role: 'el respiro de una portada' },
 ] as const
 
 export function MeasureSection() {
   return (
     <Page
       title="Espaciado y medidas"
-      lead="El espaciado es la base de 4 que trae Tailwind. Lo que el sistema fija son las medidas del shell y el ladder de alturas de control: esas no se eligen por pantalla, porque si cada una elige la suya el contenido baila al navegar."
+      kind="Fundamentos"
+      lead="Once pasos de espaciado, cuatro radios y un puñado de medidas de shell. Lo que las tres escalas tienen en común es que no dan a elegir entre dos cosas iguales: cada paso existe porque hace algo que el de al lado no hace."
       >
         <Section title="Medidas del shell">
           <div className="flex flex-col rounded-xl border border-line bg-surface px-4">
@@ -50,12 +66,33 @@ export function MeasureSection() {
           </div>
         </Section>
 
-        <Section title="La base de 4" note="Los pasos que se usan de verdad. Todo lo que no está acá es un valor puesto a mano y conviene mirarlo dos veces.">
-          <div className="flex flex-wrap items-end gap-4">
-            {[2, 4, 6, 8, 10, 12, 14, 16, 20, 24, 32, 40].map(px => (
-              <div key={px} className="flex flex-col items-center gap-2">
-                <div className="rounded-sm bg-solid" style={{ width: px, height: px }} />
-                <Mono>{px}</Mono>
+        <Section
+          title="El espaciado: once pasos"
+          note="Antes esto no era una escala. Los call sites tomaban los dieciocho valores que trae Tailwind, así que dos cosas que hacen lo mismo quedaban separadas por 10 en un lado y por 12 en el otro — y eso no se ve como un error, se ve como desprolijidad, que es peor porque no se puede señalar. La grilla es de 4 con dos sub-pasos abajo: a 2 y a 6 píxeles todavía hay decisiones reales que tomar, y de 8 para arriba la diferencia entre 28 y 32 no la ve nadie."
+        >
+          <div className="flex flex-col overflow-hidden rounded-xl border border-line bg-surface">
+            {espaciado.map(e => (
+              <div key={e.px} className="flex flex-wrap items-center gap-x-4 gap-y-2 border-t border-line px-4 py-3 first:border-t-0">
+                <span className="w-12 shrink-0"><Mono>{e.px}</Mono></span>
+                <span className="h-4 shrink-0 rounded-sm bg-brand" style={{ width: e.px }} />
+                <span className="min-w-0 flex-1 text-meta text-ink-muted">{e.role}</span>
+              </div>
+            ))}
+          </div>
+        </Section>
+
+        <Section
+          title="Lo que la escala no manda"
+          note="Las alturas de pieza. Un control de 36, una fila de tabla de 56, una marca de 44: esas salen de la escalera de controles y de lo que la pieza tiene que contener, no de la grilla del aire. Mezclarlas es lo que lleva a subir un padding para arreglar una altura."
+        >
+          <div className="flex flex-wrap gap-3">
+            {[['h-8', 32, 'control sm'], ['h-9', 36, 'control md'], ['h-10', 40, 'control lg'], ['size-11', 44, 'marca de lista'], ['h-14', 56, 'fila de tabla']].map(([cls, px, role]) => (
+              <div key={cls as string} className="flex items-center gap-3 rounded-xl border border-line bg-surface px-4 py-3">
+                <span className="w-1.5 shrink-0 rounded-sm bg-ink-muted" style={{ height: px as number }} />
+                <span className="flex flex-col gap-0.5">
+                  <Mono>{px}</Mono>
+                  <span className="text-meta text-ink-muted">{role}</span>
+                </span>
               </div>
             ))}
           </div>
@@ -63,7 +100,7 @@ export function MeasureSection() {
 
       <Section
         title="Radios"
-        note="Cinco pasos y un rol cada uno. La regla que los ata: el radio de un hijo es el del padre menos el padding del padre."
+        note="Cuatro pasos y el círculo. Había seis: murieron un `md` de 10 y un `xs` de 5, los dos por la misma razón — estaban a dos y a un píxel de su vecino, y a esa distancia nadie ve una diferencia. Lo único que hacían era dar a elegir entre dos cosas iguales, que es cómo una pantalla termina con cuatro curvas distintas sin que nadie lo haya decidido. La regla que los ata: el radio de un hijo es el del padre menos el padding del padre."
       >
         <Section title="La escala">
           <div className="flex flex-col rounded-xl border border-line bg-surface px-4">

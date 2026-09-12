@@ -1,5 +1,7 @@
 import { Note, Page, Ramp, Section, Swatch, useTokens } from '../kit'
 
+const azul = ['--blue-050', '--blue-100', '--blue-200', '--blue-300', '--blue-400', '--blue-500', '--blue-600', '--blue-700', '--blue-800', '--blue-900'] as const
+
 const ramp = ['--shade-01', '--shade-02', '--shade-03', '--shade-04', '--shade-05', '--shade-06', '--shade-07', '--shade-08', '--shade-09'] as const
 const marks = ['--mark-green', '--mark-purple', '--mark-orange', '--mark-blue', '--mark-pink'] as const
 const labels = ['--label-green', '--label-teal', '--label-blue', '--label-purple', '--label-pink', '--label-orange'] as const
@@ -10,23 +12,38 @@ export function ColorSection() {
   return (
     <Page
       title="Color"
-      kind="Guía"
-      lead="La interfaz es monocroma. Una rampa casi neutra de nueve pasos dibuja todo, y el color aparece contado: el azul manda, el ámbar señala y tres familias identifican espacios y personas."
+      kind="Fundamentos"
+      lead="El azul es el color primario y tiene rampa de diez pasos. Todo lo demás lo dibuja una rampa casi neutra de nueve: el sistema sigue siendo sobrio, pero ya no es monocromo con una excepción."
     >
       <Section
         title="La rampa"
-        note="Nueve pasos de #fcfcfc a #121212. El salto de 05 a 06 es violento a propósito: entre el borde más oscuro y el texto más claro no tiene que haber nada, o aparecen grises que no se distinguen entre sí."
+        note="Nueve pasos, y **casi** neutra: lleva C 0.0025 del tono del azul en OKLCH. Es un susurro y tiene que seguir siéndolo — un gris exactamente neutro al lado de un azul saturado se ve de otro sistema, y un gris que se nota azul convierte una interfaz de dos colores en una de tres. Estuvo en 0.006 y era demasiado: los campos se veían celestes. El salto de 05 a 06 es violento a propósito: entre el borde más oscuro y el texto más claro no tiene que haber nada."
       >
         <Ramp tokens={ramp} />
       </Section>
 
       <Section
-        title="Superficies"
-        note="El shell y las piezas comparten el papel. Lo que separa una tarjeta del fondo no es un tono distinto: es el relieve."
+        title="El azul primario"
+        note="Diez pasos, derivados y no elegidos: se toman el tono y el croma del azul de siempre, se fija una curva de luminosidad que baja parejo, y el croma sube hacia el medio y cae en los extremos — si no, los pasos claros salen lavados y los oscuros embarrados. **El 600 está anclado**: es el escalón donde el blanco encima llega exactamente a 4.5:1, y por eso es el relleno del botón que manda. Antes eran tres valores sueltos elegidos para un botón, y tres no alcanzan para vestir un estado elegido, un fondo suave, una tinta que se lea encima y un borde."
+      >
+        <Ramp tokens={azul} />
+        <div className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          <Swatch token="--brand" note="el relleno del CTA · 4.5:1 con blanco" />
+          <Swatch token="--brand-hover" note="el mismo, un paso más" />
+          <Swatch token="--brand-edge" note="el filo y el labio" />
+          <Swatch token="--brand-soft" note="el fondo suave: un estado elegido" />
+          <Swatch token="--brand-ink" note="la tinta que va sobre el suave" />
+          <Swatch token="--brand-border" note="la línea de una pieza de marca" />
+        </div>
+      </Section>
+
+      <Section
+        title="Superficies: el papel y el escritorio"
+        note="**Son dos tonos distintos, y esto cambió.** `--canvas` y `--surface` apuntaban al mismo token con el argumento de que lo que separa una tarjeta del fondo es el relieve. No alcanzaba: con el relieve en alpha bajo y a 1x, el resultado se lee como un campo blanco enorme con líneas encima, y cada widget parece recortado en vez de apoyado. Ahora una pieza es papel y la página es el escritorio, que es como se separan dos superficies desde que existe el papel. El relieve sigue estando y vuelve a decir solo cuánto se levanta algo, en vez de tener que decir si existe."
       >
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          <Swatch token="--canvas" note="el fondo de la app" />
-          <Swatch token="--surface" note="el papel de una pieza" />
+          <Swatch token="--canvas" note="el escritorio: el fondo de la página" />
+          <Swatch token="--surface" note="el papel: una tarjeta, un panel" />
           <Swatch token="--surface-alt" note="la banda alterna de una tabla" />
           <Swatch token="--surface-muted" note="lo apagado: una bandeja, un hueco" />
           <Swatch token="--surface-sunken" note="el fondo de algo hundido" />
@@ -52,6 +69,7 @@ export function ColorSection() {
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           <Swatch token="--text" note="lo que se lee" />
           <Swatch token="--text-muted" note="lo que acompaña" />
+          <Swatch token="--text-placeholder" note="lo que el campo sugiere" />
           <Swatch token="--icon-muted" note="el gris de un glifo" />
           <Swatch token="--text-inverted" note="sobre tinta" />
         </div>

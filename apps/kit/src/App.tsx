@@ -9,6 +9,7 @@ import { ColorSection } from './foundations/color'
 import { MeasureSection } from './foundations/measure'
 import { ReliefSection } from './foundations/relief'
 import { MotionSection } from './foundations/motion'
+import { StatesSection } from './foundations/states'
 import { Writing } from './foundations/writing'
 import { ButtonStory } from './stories/button'
 import { IconButtonStory } from './stories/icon-button'
@@ -77,6 +78,7 @@ const groups: Group[] = [
       { id: 'measure', label: 'Medidas y radios', alias: 'espaciado medidas radios tamaños layout grilla', render: () => <MeasureSection /> },
       { id: 'relief', label: 'Relieve', alias: 'sombra relieve elevación profundidad', render: () => <ReliefSection /> },
       { id: 'motion', label: 'Movimiento', alias: 'movimiento animación transición duración curva easing reduced motion', render: () => <MotionSection /> },
+      { id: 'states', label: 'Estados', alias: 'estados hover foco pressed disabled vacío cargando error skeleton empty loading', render: () => <StatesSection /> },
       { id: 'icon', label: 'Iconos', alias: 'iconos glifos símbolos', render: () => <IconStory /> },
       { id: 'writing', label: 'Cómo se escribe', alias: 'texto redacción copy mensajes tono escritura', render: () => <Writing /> },
     ],

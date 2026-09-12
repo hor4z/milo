@@ -63,6 +63,30 @@ describe('el texto secundario se lee sobre cualquier superficie', () => {
   }
 })
 
+describe('el texto sugerido de un campo se lee', () => {
+  // Es el paso más claro del sistema que todavía lleva texto, así que es el que
+  // está más cerca de romperse. Va contra el campo sobre papel —la superficie
+  // más clara donde aparece— y contra el papel mismo.
+  for (const theme of ['light', 'dark'] as const) {
+    for (const back of ['--shade-01', '--shade-02']) {
+      it(`--shade-placeholder sobre ${back} en ${theme} llega a AA`, () => {
+        const ph = value('--shade-placeholder', theme)
+        const paper = value(back, theme)
+        expect(ph, `falta --shade-placeholder en ${theme}`).toBeTruthy()
+        expect(ratio(ph!, paper!)).toBeGreaterThanOrEqual(4.5)
+      })
+    }
+  }
+
+  it('es más claro que el gris del texto: si no, no se distingue de lo escrito', () => {
+    for (const theme of ['light', 'dark'] as const) {
+      const ph = ratio(value('--shade-placeholder', theme)!, value('--shade-01', theme)!)
+      const gris = ratio(value('--shade-06', theme)!, value('--shade-01', theme)!)
+      expect(ph, theme).toBeLessThan(gris)
+    }
+  })
+})
+
 const labels = ['--label-green', '--label-teal', '--label-blue', '--label-purple', '--label-pink', '--label-orange']
 
 describe('el texto de una etiqueta de color se lee', () => {

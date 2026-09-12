@@ -2,10 +2,12 @@
  * Primitive tokens: valores crudos. Nadie los usa directo — están para que
  * `semantic.css` les ponga un rol. Un componente que lea de acá es un bug.
  *
- * La rampa es de nueve pasos y **no es neutra**: lleva una pizca del tono del
- * azul primario (C 0.006 en OKLCH, el mismo H). Es poquísimo y se nota — un gris
- * exactamente neutro al lado de un azul saturado se ve sucio, como si fuera de
- * otro sistema. Con la pizca, la pantalla entera se lee de una familia.
+ * La rampa es de nueve pasos y **casi neutra**: lleva una pizca del tono del
+ * azul primario (C 0.0025 en OKLCH, el mismo H). Es un susurro y tiene que
+ * seguir siéndolo — un gris exactamente neutro al lado de un azul saturado se ve
+ * de otro sistema, y un gris que se nota azul convierte una interfaz de dos
+ * colores en una de tres. Estuvo en 0.006 y era demasiado: los campos se veían
+ * celestes y la pantalla entera parecía teñida.
  *
  * **El 01 es el papel de una pieza y el 02 es el escritorio.** Eso es nuevo y es
  * la corrección más grande de toda la rampa: antes `--canvas` y `--surface`
@@ -21,35 +23,42 @@
  */
 :root {
   --shade-01: #ffffff;  /* el papel: una tarjeta, un panel, un popover */
-  --shade-02: #f0f3f7;  /* el escritorio: el fondo de la página */
-  --shade-03: #e7ebef;
-  --shade-04: #dce0e6;
-  --shade-05: #cdd1d7;
+  --shade-02: #f1f2f4;  /* el escritorio: el fondo de la página */
+  --shade-03: #e9eaec;
+  --shade-04: #dee0e2;
+  --shade-05: #cfd1d4;
   /* El gris del texto secundario: el más claro que llega a 4.5:1 sobre la
      superficie más oscura donde se escribe, que es --shade-04. Sale de una
      búsqueda, no de elegirlo mirando. */
-  --shade-06: #5f6267;  /* texto secundario e iconos apagados */
-  --shade-07: #47494d;
-  --shade-08: #36383b;
+  --shade-06: #616264;  /* texto secundario e iconos apagados */
+  --shade-07: #48494a;
+  --shade-08: #363738;
   /* La tinta, y **ya no es casi negro**. Estaba en #121212, que sobre el papel
      daba 18.26:1 — AAA pide 7, así que era más del doble del techo. Eso no se
      lee mejor: se lee duro. El borde entre una letra muy oscura y un fondo muy
      claro produce halación —el texto parece vibrar o brillar— y le pega más
      fuerte a quien lee con dificultad, que es justo a quien hay que cuidar acá.
      14:1 sigue siendo el doble de AAA y se lee sin que la pantalla empuje. */
-  --shade-09: #2a2c2f;  /* la tinta */
+  --shade-09: #2b2b2d;  /* la tinta */
+  /* El gris del placeholder: **el más claro que todavía llega a 4.5:1 sobre el
+     campo**, por la misma regla que el gris del texto. Existe como paso propio
+     porque con `--shade-06` puesto ahí el texto sugerido se leía igual de firme
+     que el que alguien escribió, y un campo con placeholder parecía un campo
+     lleno. La distancia real la pone la tinta: el valor escrito va a 14:1, este
+     a 4.6. */
+  --shade-placeholder: #6d6e70;
 
   /* Bordes y hovers se pintan con tinta transparente, no con un gris opaco:
      sobre un tinte, el gris opaco se ve como una línea sucia. */
-  --shade-09-a04: rgb(42 44 47 / 0.04);
-  --shade-09-a06: rgb(42 44 47 / 0.06);
-  --shade-09-a08: rgb(42 44 47 / 0.08);
-  --shade-09-a11: rgb(42 44 47 / 0.11);
+  --shade-09-a04: rgb(43 43 45 / 0.04);
+  --shade-09-a06: rgb(43 43 45 / 0.06);
+  --shade-09-a08: rgb(43 43 45 / 0.08);
+  --shade-09-a11: rgb(43 43 45 / 0.11);
   /* El paso que usa el contorno de un control vacío. Invierte como los de
      arriba —en oscuro pasa a luz— y por eso no reusa el `a35`, que es el del
      velo y se queda negro a propósito en los dos temas. */
-  --shade-09-a28: rgb(42 44 47 / 0.28);
-  --shade-09-a35: rgb(42 44 47 / 0.35);
+  --shade-09-a28: rgb(43 43 45 / 0.28);
+  --shade-09-a35: rgb(43 43 45 / 0.35);
 
   /* El relieve se arma con estas: luz arriba, sombra abajo, y un canto propio.
      El canto NO es un escalón de la rampa: tiene que ser más oscuro que el
@@ -57,8 +66,8 @@
      Con el 05 puesto acá, el botón gris se ve plano sobre un fondo casi blanco. */
   --light-a33: rgb(255 255 255 / 0.33);
   --light-a27: rgb(255 255 255 / 0.27);
-  --edge: #c3c8cf;
-  --solid-edge: #4a4d51;
+  --edge: #c5c7ca;
+  --solid-edge: #4a4b4c;
   /* El gris de un icono. No es --shade-06 (el del texto secundario): un
      contorno encierra aire, así que con el gris del texto se lee más apagado
      que ese mismo texto. Un paso más oscuro lo empareja sin tocar el dibujo.
@@ -74,7 +83,7 @@
      un trazo de 1px queda casi en el color del papel. El gris del icono sigue
      existiendo —hay una jerarquía que sostener— pero ahora es un gris que se
      ve, y la distancia con el texto que acompaña la pone el peso, no el tono. */
-  --icon-muted: #47494d;
+  --icon-muted: #48494a;
 
   /* ------- el azul: el color primario -------
      Dejó de ser "el azul de marca acotado al CTA" y pasó a ser **el color
@@ -270,30 +279,31 @@
      que la tarjeta**. Una superficie que se levanta se aclara; el fondo de la
      página es lo que está más al fondo. Antes los dos eran #131313 y una tarjeta
      no existía sin su borde. */
-  --shade-01: #1b1e23;  /* el papel */
-  --shade-02: #111418;  /* el escritorio */
-  --shade-03: #26292e;
-  --shade-04: #32363c;
-  --shade-05: #43484f;
-  --shade-06: #9da0a4;
-  --shade-07: #c2c4c8;
-  --shade-08: #dfe0e3;
-  --shade-09: #f2f3f5;
+  --shade-01: #1d1e20;  /* el papel */
+  --shade-02: #131415;  /* el escritorio */
+  --shade-03: #27292b;
+  --shade-04: #343538;
+  --shade-05: #46484b;
+  --shade-06: #9d9fa0;
+  --shade-07: #c3c4c5;
+  --shade-08: #dfe0e1;
+  --shade-09: #f3f3f4;
+  --shade-placeholder: #848687;
 
-  --shade-09-a04: rgb(242 243 245 / 0.05);
-  --shade-09-a06: rgb(242 243 245 / 0.08);
-  --shade-09-a08: rgb(242 243 245 / 0.10);
-  --shade-09-a11: rgb(242 243 245 / 0.14);
-  --shade-09-a28: rgb(242 243 245 / 0.30);
+  --shade-09-a04: rgb(243 243 244 / 0.05);
+  --shade-09-a06: rgb(243 243 244 / 0.08);
+  --shade-09-a08: rgb(243 243 244 / 0.10);
+  --shade-09-a11: rgb(243 243 244 / 0.14);
+  --shade-09-a28: rgb(243 243 244 / 0.30);
   --shade-09-a35: rgb(0 0 0 / 0.6);
 
   --light-a33: rgb(255 255 255 / 0.07);
   --light-a27: rgb(255 255 255 / 0.05);
-  --edge: #4e535a;
-  --solid-edge: #cfd2d6;
+  --edge: #4f5052;
+  --solid-edge: #d0d1d2;
   /* El espejo de 07 en oscuro, por el mismo motivo que en claro: a #a0a0a0 un
      contorno de 1px sobre #131313 no llegaba a dibujarse. */
-  --icon-muted: #c2c4c8;
+  --icon-muted: #c3c4c5;
 
   /* En oscuro el azul sube un paso: el mismo relleno que funciona sobre papel
      casi blanco se apaga sobre #131313. */
