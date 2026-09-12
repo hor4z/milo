@@ -1,6 +1,7 @@
 import { useMemo, useState } from 'react'
 import {
-  AvatarGroup, Chip, EmptyState, Filter, FilterBar, FilterReset, FilterSearch,
+  Avatar, AvatarGroup, Chip, Dropdown, EmptyState, Filter, FilterBar, FilterReset, FilterSearch,
+  IconButton,
   Pagination, PaginationNext, PaginationPrev, PaginationStatus,
   Table, TableBody, TableCell, TableFooter, TableHead, TableHeader,
   TableHint, TableNum, TableRow, TableTitle, facets, fold,
@@ -32,11 +33,13 @@ const espacios = [
     nombre: 'Fracciones equivalentes', espacio: 'Matemática · 4.º A', estado: 'Abierta',
     estudiantes: [p('Ana Pérez', 1), p('Bruno Díaz', 2), p('Carla Sosa', 3), p('Damián Ruiz', 4), p('Elena Vega', 5)],
     entregas: 18,
+    docente: p('Valeria Ochoa', 7), corregidas: 11, cuando: 'hace 2 h'
   },
   {
     nombre: 'El sistema solar', espacio: 'Ciencias · 5.º B', estado: 'Corregida',
     estudiantes: [p('Franco Gil', 6), p('Gabriela Mota', 7), p('Hugo Paz', 8)],
     entregas: 24,
+    docente: p('Martín Roldán', 6), corregidas: 24, cuando: 'ayer'
   },
   {
     nombre: 'Cuento policial', espacio: 'Lengua · 6.º', estado: 'Borrador',
@@ -44,6 +47,7 @@ const espacios = [
        grupo tiene que seguir leyéndose como cinco personas. */
     estudiantes: [p('Irene Lopez'), p('Julián Cruz'), p('Karen Ortiz'), p('Leo Nuñez')],
     entregas: 0,
+    docente: p('Valeria Ochoa', 7), corregidas: 0, cuando: 'hace 5 días'
   },
   {
     nombre: 'Mapa de América', espacio: 'Sociales · 5.º A', estado: 'Abierta',
@@ -51,6 +55,7 @@ const espacios = [
        lo mismo que una cara, o la persona sin foto se lee como un hueco. */
     estudiantes: [p('Mora Tello', 2), p('Nico Arce'), p('Olivia Rey', 4)],
     entregas: 7,
+    docente: p('Nadia Britos'), corregidas: 3, cuando: 'hace 1 h'
   },
 ]
 
@@ -59,11 +64,11 @@ const espacios = [
    par vive en las puntas. */
 const todas = [
   ...espacios,
-  { nombre: 'La Revolución de Mayo', espacio: 'Sociales · 6.º', estado: 'Corregida', estudiantes: [p('Pablo Vera', 7), p('Rita Coll', 1)], entregas: 21 },
-  { nombre: 'Ecuaciones de primer grado', espacio: 'Matemática · 6.º', estado: 'Abierta', estudiantes: [p('Sara Luna', 3), p('Tomás Gil'), p('Ulises Paz', 5), p('Vera Ruiz', 6)], entregas: 12 },
-  { nombre: 'El ciclo del agua', espacio: 'Ciencias · 4.º A', estado: 'Borrador', estudiantes: [p('Wanda Ise'), p('Ximena Roa', 8)], entregas: 0 },
-  { nombre: 'Poesía de vanguardia', espacio: 'Lengua · 6.º', estado: 'Corregida', estudiantes: [p('Yago Prat', 4), p('Zoe Marín', 2), p('Aldo Sanz')], entregas: 16 },
-  { nombre: 'Los climas del mundo', espacio: 'Sociales · 5.º A', estado: 'Abierta', estudiantes: [p('Bianca Toro', 6), p('Ciro Vega')], entregas: 9 },
+  { nombre: 'La Revolución de Mayo', espacio: 'Sociales · 6.º', estado: 'Corregida', estudiantes: [p('Pablo Vera', 7), p('Rita Coll', 1)], entregas: 21, docente: p('Martín Roldán', 6), corregidas: 21, cuando: 'hace 3 días' },
+  { nombre: 'Ecuaciones de primer grado', espacio: 'Matemática · 6.º', estado: 'Abierta', estudiantes: [p('Sara Luna', 3), p('Tomás Gil'), p('Ulises Paz', 5), p('Vera Ruiz', 6)], entregas: 12, docente: p('Valeria Ochoa', 7), corregidas: 5, cuando: 'hace 20 min' },
+  { nombre: 'El ciclo del agua', espacio: 'Ciencias · 4.º A', estado: 'Borrador', estudiantes: [p('Wanda Ise'), p('Ximena Roa', 8)], entregas: 0, docente: p('Nadia Britos'), corregidas: 0, cuando: 'la semana pasada' },
+  { nombre: 'Poesía de vanguardia', espacio: 'Lengua · 6.º', estado: 'Corregida', estudiantes: [p('Yago Prat', 4), p('Zoe Marín', 2), p('Aldo Sanz')], entregas: 16, docente: p('Martín Roldán', 6), corregidas: 16, cuando: 'hace 4 h' },
+  { nombre: 'Los climas del mundo', espacio: 'Sociales · 5.º A', estado: 'Abierta', estudiantes: [p('Bianca Toro', 6), p('Ciro Vega')], entregas: 9, docente: p('Nadia Britos'), corregidas: 2, cuando: 'hace 6 días' },
 ]
 
 const TRAMO = 4
@@ -140,7 +145,7 @@ export function TableStory() {
     >
       <Block
         label="La tabla entera"
-        note="Una tabla de trabajo son tres cosas más que la grilla: con qué se recorta, cuántas hay, y cómo se pasa al tramo siguiente. Buscá, filtrá y paginá — los tres se llevan entre sí, que es la parte que se rompe cuando cada uno se escribe por su lado."
+        note="Una tabla de trabajo son tres cosas más que la grilla: con qué se recorta, cuántas hay, y cómo se pasa al tramo siguiente. Buscá, filtrá y paginá — los tres se llevan entre sí, que es la parte que se rompe cuando cada uno se escribe por su lado. Con ocho columnas además se pasa del ancho del cuerpo y aparece el scroll de costado: scrolleá y mirá que los botones de paginar no se van con la tabla. Esa franja vive adentro del marco pero afuera del scroll, que es un lugar al que el call site no llega solo."
       >
         <FilterBar className="mb-3">
           <FilterSearch
@@ -170,7 +175,7 @@ export function TableStory() {
         </FilterBar>
 
         <Table
-          minWidth={720}
+          minWidth={1100}
           footer={(
             <Pagination>
               <PaginationStatus
@@ -188,8 +193,16 @@ export function TableStory() {
             <TableRow>
               <TableHead>Actividad</TableHead>
               <TableHead>Estudiantes</TableHead>
+              <TableHead>Docente</TableHead>
               <TableHead>Estado</TableHead>
+              <TableHead>Última edición</TableHead>
+              <TableHead className="text-right">Corregidas</TableHead>
               <TableHead className="text-right">Entregas</TableHead>
+              {/* La columna de acciones no lleva rótulo: el título de una
+                  columna dice qué hay en ella, y lo que hay acá es el mismo
+                  botón repetido. «Acciones» escrito arriba no agrega nada y le
+                  da peso de columna a lo que es un margen. */}
+              <TableHead><span className="sr-only">Acciones</span></TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
@@ -200,13 +213,51 @@ export function TableStory() {
                   <TableHint>{a.espacio}</TableHint>
                 </TableCell>
                 <TableCell><AvatarGroup people={a.estudiantes} /></TableCell>
+                {/* Un avatar solo y su nombre: la misma persona que en la
+                    columna de al lado va en grupo, acá va sola, y las dos tienen
+                    que pesar igual. */}
+                <TableCell>
+                  <span className="flex items-center gap-2">
+                    <Avatar name={a.docente.name} src={a.docente.src} size={24} />
+                    <span className="truncate">{a.docente.name}</span>
+                  </span>
+                </TableCell>
                 <TableCell><Chip color={tono[a.estado as keyof typeof tono]}>{a.estado}</Chip></TableCell>
+                {/* Cuándo se tocó es de lo poco que sí va en gris: acompaña a la
+                    fila y no la nombra. Y no lleva `tabular` — no es una columna
+                    de números que tenga que alinear, son frases. */}
+                <TableCell className="whitespace-nowrap text-ink-muted">{a.cuando}</TableCell>
+                {/* Corregidas contra entregas, no un número suelto: 11 no dice
+                    nada sin saber sobre cuántas, y dos columnas que hay que
+                    cruzar con la vista son dos lecturas para un solo dato. */}
+                <TableNum>
+                  {a.entregas ? <>{a.corregidas}<span className="text-ink-muted"> / {a.entregas}</span></> : '—'}
+                </TableNum>
                 <TableNum>{a.entregas || '—'}</TableNum>
+                <TableCell className="w-0 pr-4">
+                  <Dropdown
+                    items={[
+                      { label: 'Abrir', icon: 'open_in_new' },
+                      { label: 'Duplicar', icon: 'content_copy' },
+                      { label: 'Archivar', icon: 'inventory_2' },
+                    ]}
+                    trigger={({ onClick, ref, ...rest }) => (
+                      <IconButton
+                        ref={ref}
+                        onClick={e => { e.stopPropagation(); onClick() }}
+                        {...rest}
+                        icon="more_horiz"
+                        label={`Acciones de ${a.nombre}`}
+                        size="sm"
+                      />
+                    )}
+                  />
+                </TableCell>
               </TableRow>
             ))}
             {aLaVista.length === 0 && (
               <tr>
-                <td colSpan={4} className="px-6 py-10">
+                <td colSpan={8} className="px-6 py-10">
                   <EmptyState
                     title="Ninguna actividad con eso"
                     body="Probá con otras palabras, o sacá alguno de los filtros puestos."
@@ -222,10 +273,10 @@ export function TableStory() {
           {aLaVista.length > 0 && (
             <TableFooter>
               <TableRow>
-                <TableCell>Total{filtrando ? ' de lo filtrado' : ''}</TableCell>
-                <TableCell />
-                <TableCell />
+                <TableCell colSpan={5}>Total{filtrando ? ' de lo filtrado' : ''}</TableCell>
+                <TableNum>{lista.reduce((n, a) => n + a.corregidas, 0)}</TableNum>
                 <TableNum>{lista.reduce((n, a) => n + a.entregas, 0)}</TableNum>
+                <TableCell />
               </TableRow>
             </TableFooter>
           )}
