@@ -37,17 +37,32 @@ import { cx } from './primitives'
  * diagrama y un bloque de código—, y siempre dentro de su propio contenedor:
  * la página no scrollea de costado.
  */
-export function Table({ children, minWidth = 640, className }: {
+export function Table({ children, minWidth = 640, footer, className }: {
   children: ReactNode
   /** Abajo de esto la tabla scrollea en vez de apretar las columnas. */
   minWidth?: number
+  /**
+   * La franja de abajo: la paginación, un resumen, un botón de exportar.
+   *
+   * **Va por prop y no como un hermano del `<Table>`**, y no es comodidad: el
+   * marco —el radio, el fondo y el anillo— es uno solo para la tabla y su
+   * franja, y puesta afuera queda una caja con esquinas redondeadas y otra caja
+   * pegada abajo. Pero sobre todo, va **fuera del scroll horizontal y adentro
+   * del marco**, que es un lugar que el call site no puede alcanzar: con la
+   * franja adentro del scroller, scrollear una tabla ancha de costado se lleva
+   * los botones de paginar, y quedan a mitad de camino de la pantalla.
+   */
+  footer?: ReactNode
   className?: string
 }) {
   return (
-    <div className={cx('zebra overflow-x-auto overflow-y-hidden rounded-md bg-surface ring-1 ring-line', className)}>
-      <table className="w-full border-collapse text-left" style={{ minWidth }}>
-        {children}
-      </table>
+    <div className={cx('overflow-hidden rounded-md bg-surface ring-1 ring-line', className)}>
+      <div className="zebra no-scrollbar overflow-x-auto overflow-y-hidden">
+        <table className="w-full border-collapse text-left" style={{ minWidth }}>
+          {children}
+        </table>
+      </div>
+      {footer}
     </div>
   )
 }
@@ -64,6 +79,31 @@ export function TableHeader({ children }: { children: ReactNode }) {
 
 export function TableBody({ children }: { children: ReactNode }) {
   return <tbody>{children}</tbody>
+}
+
+/**
+ * La fila del total, abajo de todo.
+ *
+ * **Va adentro de la tabla y no abajo**, porque un total es de las columnas: el
+ * número tiene que caer en la misma columna que los números que suma, o hay que
+ * seguir la línea con el dedo para saber de qué es. Eso es lo que una franja
+ * afuera no puede hacer.
+ *
+ * Lleva el fondo apagado de la cabecera —es el otro borde de la tabla— y una
+ * línea arriba en vez de un divisor entre filas: separa el cuerpo del resumen.
+ * El `bg-muted` además lo saca de la alternancia de bandas, que si no le tocaba
+ * el color que le siguiera a la última fila y el total se leía como una fila
+ * más de datos.
+ *
+ * El `<tfoot>` va en el HTML después del `<tbody>` y el navegador lo dibuja
+ * abajo igual: no hay que moverlo de lugar para que se vea donde va.
+ */
+export function TableFooter({ children }: { children: ReactNode }) {
+  return (
+    <tfoot className="border-t border-line bg-muted [&_td]:font-semibold [&_tr]:border-0">
+      {children}
+    </tfoot>
+  )
 }
 
 /**

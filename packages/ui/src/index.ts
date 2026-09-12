@@ -33,9 +33,12 @@ export type { DropdownItem } from './overlay'
 export { Menu, MenuItem, MenuLabel } from './menu'
 
 export {
-  Table, TableHeader, TableBody, TableRow, TableHead, TableCell,
+  Table, TableHeader, TableBody, TableFooter, TableRow, TableHead, TableCell,
   TableTitle, TableHint, TableNum,
 } from './table'
+
+export { Pagination, PaginationStatus, PaginationPrev, PaginationNext } from './pagination'
+export { FilterBar, FilterSearch, Filter, FilterReset, ColumnPicker, facets } from './filter'
 
 export { Book } from './book'
 export { Folder } from './folder'

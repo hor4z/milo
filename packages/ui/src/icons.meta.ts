@@ -148,6 +148,7 @@ export const iconTags: Record<IconName, string> = {
   undo: "action arrow back backward cancel change command correction",
   upload: "add arrow arrows attach backup cloud data direction",
   verified_user: "approve badge certified check complete confirmation data done",
+  view_column: "alignment arrangement columns data data display design display divide",
   view_list: "arrangement bulleted catalog compact content data design directory",
   visibility: "display eye glance hidden hidden text insight look observe",
   visibility_off: "conceal crossed out eye diagonal line disabled disabled view enabled eye form",
