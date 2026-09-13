@@ -4,6 +4,7 @@ import { join } from 'node:path'
 
 const scales = readFileSync(join(import.meta.dirname, '../../../tokens/src/scales.css'), 'utf8')
 const theme = readFileSync(join(import.meta.dirname, '../theme.css'), 'utf8')
+  + readFileSync(join(import.meta.dirname, '../styles/base.css'), 'utf8')
 
 /** Los siete roles, del más chico al más grande. El orden es lo que se mide. */
 const roles = ['meta', 'label', 'body', 'reading', 'title', 'heading', 'display'] as const

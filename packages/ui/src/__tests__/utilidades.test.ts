@@ -19,6 +19,8 @@ const fuentes = [
 ]
 
 const puente = readFileSync(join(ui, 'theme.css'), 'utf8')
+  + readFileSync(join(ui, 'styles/base.css'), 'utf8')
+  + readFileSync(join(ui, 'styles/reset.css'), 'utf8')
 const colores = new Set([...puente.matchAll(/^\s*--color-([a-z0-9-]+):/gm)].map(m => m[1]))
 
 const noSonColor = /^(transparent|current|none|clip-|origin-|repeat|no-repeat|cover|contain|center|top|bottom|left|right|fixed|local|scroll|auto|gradient-|linear-|radial-|conic-)/

@@ -17,7 +17,7 @@ const sources: Source[] = walk(dir).map((f): Source => ({ name: f, text: readFil
 
 const folders = readdirSync(dir)
   .filter((f: string) => statSync(join(dir, f)).isDirectory())
-  .filter((f: string) => f !== '__tests__' && f !== 'lib' && f !== 'assets')
+  .filter((f: string) => !['__tests__', 'lib', 'assets', 'styles'].includes(f))
 
 describe('coherencia del sistema', () => {
   it('ningún componente escribe un color a mano', () => {
