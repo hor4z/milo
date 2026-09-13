@@ -4,7 +4,7 @@ El sistema de interfaz de milo: la identidad en tokens, las piezas que la usan, 
 donde se ve todo funcionando. No es una lámina de estilos — cada pieza de acá es el componente
 real, con su teclado, sus estados y sus tests.
 
-**El repo es del design system y de nada más.** El UI kit —las 67 piezas— es una parte; las
+**El repo es del design system y de nada más.** El UI kit —las 68 piezas— es una parte; las
 otras son los tokens y lo que el sitio documenta alrededor. Acá adentro no vive producto: el
 prototipo de la app que hubo hasta ahora se borró, y cuando haga falta uno de nuevo se arma
 aparte.
@@ -18,7 +18,7 @@ final son lo único que hay que tocar.
 npm install
 npm run dev        # el sitio · http://localhost:5190
 npm run typecheck  # todo el monorepo de una
-npm test           # 539 tests con vitest y testing-library
+npm test           # 548 tests con vitest y testing-library
 npm run props      # regenera la tabla de props desde los tipos
 ```
 
@@ -243,7 +243,7 @@ Monorepo de npm workspaces. Dos paquetes y una app:
 packages/tokens/src/    la identidad, en CSS puro. Sin Tailwind y sin JS.
 packages/ui/src/        theme.css (el puente) · index.ts (la puerta) ·
                         una carpeta por pieza: button/button.tsx + button/button.test.tsx,
-                        y así las 67 (select, modal, toast, chart, table…)
+                        y así las 68 (select, modal, toast, chart, table…)
                         lib/ lo compartido que no es un componente: cx · colors ·
                         control · tone · esc · overlay-hooks · roving ·
                         side-scroll · dismiss
@@ -328,7 +328,7 @@ Lo mismo vale para los tipos que una pieza recibe como argumento —`ToastOption
 
 ## Los tests
 
-`npm test` corre vitest con jsdom y testing-library. 539 tests, y lo que prueban es el
+`npm test` corre vitest con jsdom y testing-library. 548 tests, y lo que prueban es el
 comportamiento —teclado, nombres accesibles, estados— y no el markup, que cambia con cada
 ajuste de estilo. El test de cada pieza vive en su carpeta, al lado del componente.
 
@@ -388,14 +388,16 @@ pantalla completa, arranque, multitarea, y los catorce componentes que son de un
 —widgets, complicaciones, barra de menú, dock—. Esto corre en un navegador.
 
 **Entró en esta vuelta**, porque el propósito del sistema lo pedía: `Formula` y `CodeBlock` y
-`Heatmap` y `DatePicker` y `Tree` y `Stepper`, más el `Documento` que las prueba juntas.
+`Heatmap` y `DatePicker` y `Tree` y `Stepper` y `Reorder`, más el `Documento` que las prueba
+juntas. De arrastrar y soltar entró la mitad que importa: reordenar una lista, con el teclado como
+pieza y el arrastre como comodidad. Lo que sigue afuera es soltar algo **adentro** de otra cosa
+—un archivo en una carpeta— que es otro problema.
 
 **Queda afuera por ahora, y esta es la lista corta de lo que falta**, en orden de cuánto lo pide
 un aula:
 
 | | por qué todavía no |
 |---|---|
-| arrastrar y soltar | reordenar bloques de un editor y actividades de una lista. Es la pieza que más se va a extrañar, y es cara: pide una capa de accesibilidad propia —mover con el teclado— o no sirve para media aula |
 | campo de fichas | asignar personas a una entrega. `Chip` ya dibuja la ficha; falta el campo que las arma |
 | menú contextual | el clic derecho sobre un bloque. `Menu` y `Popover` ya están: falta la posición y la tecla de menú |
 | puntuación de rúbrica | corregir con criterios y no con un número. Es más una decisión pedagógica que de interfaz, y todavía no está tomada |

@@ -2106,6 +2106,56 @@ export const propsByComponent: Record<string, ComponentDoc> = {
     ],
     "doc": "El grupo va suelto: las opciones sobre el papel, cada una con su etiqueta al lado."
   },
+  "Reorder": {
+    "props": [
+      {
+        "name": "items",
+        "type": "T[]",
+        "required": true,
+        "doc": "En el orden actual."
+      },
+      {
+        "name": "onReorder",
+        "type": "(items: T[]) => void",
+        "required": true,
+        "doc": "Recibe la lista entera en el orden nuevo."
+      },
+      {
+        "name": "label",
+        "type": "string",
+        "required": true,
+        "doc": "De qué es la lista. Sin esto un lector dice «lista» y nada más."
+      },
+      {
+        "name": "children",
+        "type": "(item: T, i: number) => ReactNode",
+        "required": true,
+        "doc": "Lo que va adentro de cada fila, a la derecha de la manija."
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "required": false
+      }
+    ],
+    "doc": "Una lista que se reordena: los bloques de una consigna, las etapas de una entrega."
+  },
+  "ReorderItem": {
+    "props": [
+      {
+        "name": "id",
+        "type": "string",
+        "required": true,
+        "doc": "Único en la lista: es lo que vuelve en el orden nuevo."
+      },
+      {
+        "name": "label",
+        "type": "string",
+        "required": true,
+        "doc": "Cómo se llama esta fila cuando se la anuncia al moverla."
+      }
+    ]
+  },
   "Row": {
     "props": [
       {

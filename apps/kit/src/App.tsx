@@ -27,6 +27,7 @@ import { HeatmapStory } from './stories/heatmap'
 import { DatePickerStory } from './stories/date-picker'
 import { TreeStory } from './stories/tree'
 import { StepperStory } from './stories/stepper'
+import { ReorderStory } from './stories/reorder'
 import { CommandMenuStory } from './stories/command-menu'
 import { ToolbarStory } from './stories/toolbar'
 import { StepsStory } from './stories/steps'
@@ -160,6 +161,7 @@ const groups: Group[] = [
       { id: 'accordion', label: 'Accordion', alias: 'acordeón desplegable details preguntas frecuentes', render: () => <AccordionStory /> },
       { id: 'breadcrumb', label: 'Breadcrumb', alias: 'ruta migas volver jerarquía', render: () => <BreadcrumbStory /> },
       { id: 'tree', label: 'Tree', alias: 'árbol jerarquía carpetas anidado índice esquema outline ramas', render: () => <TreeStory /> },
+      { id: 'reorder', label: 'Reorder', alias: 'reordenar arrastrar soltar mover orden bloques manija drag', render: () => <ReorderStory /> },
       { id: 'steps', label: 'Steps', alias: 'etapas pasos proceso wizard progreso secuencia', render: () => <StepsStory /> },
       { id: 'nav', label: 'NavItem', alias: 'navegación item sidebar riel', render: () => <NavStory /> },
     ],
