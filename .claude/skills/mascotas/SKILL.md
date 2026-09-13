@@ -25,6 +25,12 @@ codificar ciento veinte cuadros.
 El umbral se mide solo, del borde del cuadro. Si algo sale mal se corrige con
 `--claro`: subirlo deja más mascota, bajarlo saca más fondo.
 
+`revisar` también avisa cuando **el primer cuadro es una toma suelta**. Pasa
+porque estos videos se producen pasándole una imagen de referencia al generador,
+y a veces el generador la devuelve como cuadro cero — pero **no siempre**, así
+que no se tira el primero por las dudas: se mira el aviso y se anima con
+`--desde 1` solo cuando corresponde.
+
 ## Lo que ya se probó y no funciona
 
 Antes de proponer una alternativa, esto ya se intentó:

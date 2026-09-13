@@ -101,13 +101,20 @@ def cuadros(fuente: Path, fps: int):
     ancho, alto = medidas(fuente)
     ffmpeg = subprocess.Popen(
         ['ffmpeg', '-v', 'error', '-i', str(fuente), '-vf', f'fps={fps}',
-         '-f', 'rawvideo', '-pix_fmt', 'rgb24', '-'], stdout=subprocess.PIPE)
-    while True:
-        crudo = ffmpeg.stdout.read(ancho * alto * 3)
-        if len(crudo) < ancho * alto * 3:
-            break
-        yield np.frombuffer(crudo, np.uint8).reshape(alto, ancho, 3).astype(int)
-    ffmpeg.wait()
+         '-f', 'rawvideo', '-pix_fmt', 'rgb24', '-'],
+        stdout=subprocess.PIPE, stderr=subprocess.DEVNULL)
+    try:
+        while True:
+            crudo = ffmpeg.stdout.read(ancho * alto * 3)
+            if len(crudo) < ancho * alto * 3:
+                break
+            yield np.frombuffer(crudo, np.uint8).reshape(alto, ancho, 3).astype(int)
+    finally:
+        # Quien lee solo los primeros cuadros corta acá, y sin esto ffmpeg sigue
+        # escribiendo contra un caño cerrado y llena la consola de «broken pipe».
+        ffmpeg.stdout.close()
+        ffmpeg.terminate()
+        ffmpeg.wait()
 
 
 def leer(fuente: Path) -> np.ndarray:
@@ -125,6 +132,28 @@ def alto_de(im: Image.Image, alto: int) -> Image.Image:
     """Se recorta a resolución completa y recién después se achica: así el borde
     del alfa lo suaviza el remuestreo y no queda escalonado."""
     return im.resize((max(round(im.width * alto / im.height), 1), alto), Image.LANCZOS)
+
+
+def toma_suelta(fuente: Path) -> bool:
+    """¿El primer cuadro es una toma pegada y no el arranque de la animación?
+
+    Estos videos se producen pasándole una imagen de referencia al generador, y
+    a veces el generador la devuelve como cuadro cero. No siempre: depende de
+    cómo se haya producido, así que no se puede tirar el primero por las dudas.
+
+    Se nota igual. Entre dos cuadros seguidos de una animación hay poca
+    diferencia; entre una toma suelta y el arranque hay un corte. Si el salto
+    del cero al uno es mucho más grande que los de al lado, es un corte.
+    """
+    primeros = []
+    for i, c in enumerate(cuadros(fuente, 24)):
+        primeros.append(c)
+        if i == 4:
+            break
+    if len(primeros) < 5:
+        return False
+    saltos = [float(np.abs(a - b).mean()) for a, b in zip(primeros, primeros[1:])]
+    return saltos[0] > 4 * max(saltos[1:] + [0.5])
 
 
 def revisar(fuente: Path, salida: Path | None, claro: int | None) -> None:
@@ -149,6 +178,9 @@ def revisar(fuente: Path, salida: Path | None, claro: int | None) -> None:
 
     destino = salida or Path(f'/tmp/{fuente.stem}-revision.png')
     tira.save(destino)
+    if es_video(fuente) and toma_suelta(fuente):
+        print('ojo: el primer cuadro parece una toma suelta y no el arranque.')
+        print('     Miralo, y si es la imagen de referencia, animá con --desde 1.')
     print(f'umbral de fondo: {claro}   (el borde del cuadro mide {claro + CAIDA})')
     print(f'mirá {destino} — arriba sobre naranja, abajo sobre el fondo del sitio.')
     print('Si le falta un pedazo subí el umbral con --claro; si queda fondo, bajalo.')
@@ -252,7 +284,8 @@ def main() -> None:
     a.add_argument('fuente', type=Path)
     a.add_argument('nombre')
     a.add_argument('--claro', type=int)
-    a.add_argument('--desde', type=int, default=0, help='cuántos cuadros del principio tirar')
+    a.add_argument('--desde', type=int, default=0,
+                   help='cuántos cuadros del principio tirar; `revisar` avisa cuándo hace falta')
 
     t = sub.add_parser('retrato', help='imagen o video → retrato con alfa')
     t.add_argument('fuente', type=Path)
