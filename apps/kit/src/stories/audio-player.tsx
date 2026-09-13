@@ -1,20 +1,20 @@
 import { AudioPlayer, IconButton, Tooltip } from '@milo/ui'
-import { A11y, Note, Page, Panel, Props, Section, Variant } from '../kit'
+import { A11y, Note, Page, Panel, Props, Section } from '../kit'
 
-/** Salen de `python3 apps/kit/scripts/picos.py apps/kit/public/audio/consigna.mp3 --barras 44`. */
+/** Salen de `python3 apps/kit/scripts/picos.py apps/kit/public/audio/consigna.mp3 --barras 40`. */
 const picos = [
-  0.793, 1.000, 0.870, 0.939, 1.000, 0.703, 0.453, 1.000, 0.446, 0.229, 0.314, 0.901,
-  0.421, 0.735, 0.582, 0.731, 0.572, 0.314, 0.886, 0.112, 0.003, 0.000, 0.000, 0.519,
-  0.722, 0.537, 0.606, 0.790, 0.180, 0.000, 0.000, 0.512, 0.602, 0.769, 0.697, 0.428,
-  0.446, 0.001, 0.575, 0.691, 0.880, 0.071, 0.008, 0.000,
+  0.771, 1.000, 0.699, 1.000, 0.996, 0.450, 0.696, 0.776, 0.297, 0.296, 0.861, 0.441,
+  0.662, 0.536, 0.836, 0.296, 0.786, 0.394, 0.003, 0.000, 0.000, 0.510, 0.747, 0.590,
+  0.591, 0.594, 0.001, 0.000, 0.482, 0.568, 0.725, 0.698, 0.368, 0.385, 0.531, 0.585,
+  0.879, 0.118, 0.014, 0.000,
 ] as const
 
-/** Los del archivo largo, con las mismas 44 barras: la cantidad la decide el ancho y no la duración. */
+/** Los del archivo largo, con las mismas cuarenta: la cantidad la decide el ancho y no la duración. */
 const picosLargos = [
-  0.806, 0.660, 0.664, 0.753, 0.878, 0.848, 0.300, 0.936, 0.758, 1.000, 0.042, 1.000,
-  0.897, 0.873, 1.000, 0.736, 0.395, 0.692, 0.565, 0.789, 0.577, 0.924, 0.604, 0.583,
-  0.370, 0.549, 0.793, 0.633, 0.623, 0.872, 0.715, 0.037, 0.967, 0.797, 0.708, 0.980,
-  0.477, 0.716, 0.703, 0.556, 0.496, 0.543, 0.526, 0.347,
+  0.799, 0.702, 0.772, 0.780, 0.736, 0.805, 0.754, 0.787, 1.000, 0.049, 1.000, 0.871,
+  0.936, 0.968, 0.713, 0.658, 0.493, 0.831, 0.598, 0.934, 0.594, 0.573, 0.356, 0.817,
+  0.720, 0.305, 0.996, 0.774, 0.072, 0.948, 0.782, 0.731, 0.991, 0.322, 0.861, 0.480,
+  0.710, 0.403, 0.635, 0.349,
 ] as const
 
 const AUDIO = '/audio/consigna.mp3'
@@ -30,12 +30,12 @@ export function AudioPlayerStory() {
     >
       <Section
         title="La pieza"
-        note="La onda no es decoración: es el archivo. Los dos huecos de esta consigna son las pausas entre frases, así que se ve cuántas cosas se piden y se puede volver a la segunda sin escuchar la primera de nuevo."
+        note="La onda no es decoración: es el archivo. Los huecos de esta consigna son las pausas entre frases, así que se ve cuántas cosas se piden y se puede volver a la segunda sin escuchar la primera de nuevo. Las barras se reparten el ancho: cuantos menos picos se pasen, más gordas salen."
       >
         <Panel>
-          <Variant name="con onda y nombre">
-            <AudioPlayer src={AUDIO} title="Consigna · Matemática 4.º A" peaks={picos} className="max-w-[520px]" />
-          </Variant>
+          <div className="py-4">
+            <AudioPlayer src={AUDIO} title="Consigna · Matemática 4.º A" peaks={picos} />
+          </div>
         </Panel>
       </Section>
 
@@ -44,69 +44,33 @@ export function AudioPlayerStory() {
         note="Los picos se calculan antes y se pasan por prop. Cuando no están, la pieza dibuja una pista pelada: no inventa una onda que no es la de ese audio, porque una onda falsa dice «acá hay voz» donde no hay nada."
       >
         <Panel>
-          <Variant name="pista pelada">
-            <AudioPlayer src={AUDIO} title="Consigna · Matemática 4.º A" className="max-w-[520px]" />
-          </Variant>
+          <div className="py-4">
+            <AudioPlayer src={AUDIO} title="Consigna · Matemática 4.º A" />
+          </div>
         </Panel>
       </Section>
 
       <Section
         title="Sin nombre y en una fila"
-        note="Sin `title` el reproductor ocupa una sola fila, para cuando va adentro de otra cosa que ya dice de qué audio se trata — una fila de lista, una tarjeta, un mensaje."
+        note="Sin `title` el reproductor ocupa una sola fila, para cuando va adentro de otra cosa que ya dice de qué audio se trata — una fila de lista, una tarjeta, un mensaje. Los tres talles cambian el botón y el alto de la onda; el ancho siempre lo pone lo que lo contiene."
       >
         <Panel>
-          <Variant name="sm">
-            <AudioPlayer src={AUDIO} peaks={picos} size="sm" className="max-w-[420px]" />
-          </Variant>
-          <Variant name="md">
-            <AudioPlayer src={AUDIO} peaks={picos} className="max-w-[420px]" />
-          </Variant>
-          <Variant name="lg">
-            <AudioPlayer src={AUDIO} peaks={picos} size="lg" className="max-w-[420px]" />
-          </Variant>
-        </Panel>
-      </Section>
-
-      <Section
-        title="Lo que va al costado"
-        note="Descargar, un menú, borrar. Va por `actions` y no como props propias: cada pantalla necesita otras, y una prop por cada una termina en la número catorce."
-      >
-        <Panel>
-          <Variant name="con descarga">
-            <AudioPlayer
-              src={AUDIO}
-              title="Devolución para Ana Pérez"
-              peaks={picos}
-              className="max-w-[520px]"
-              actions={(
-                <Tooltip label="Descargar">
-                  <IconButton icon="download" label="Descargar el audio" size="sm" />
-                </Tooltip>
-              )}
-            />
-          </Variant>
-        </Panel>
-      </Section>
-
-      <Section
-        title="Cuando el archivo no está"
-        note="Un audio roto es un caso de todos los días: el archivo se borró, la red se cayó, el formato no va en ese navegador. La pieza lo dice con palabras y apaga lo que no se puede usar."
-      >
-        <Panel>
-          <Variant name="error">
-            <AudioPlayer src="/audio/no-existe.mp3" title="Consigna · Matemática 4.º A" className="max-w-[520px]" />
-          </Variant>
+          <div className="flex flex-col gap-4 py-4">
+            <AudioPlayer src={AUDIO} peaks={picos} size="sm" />
+            <AudioPlayer src={AUDIO} peaks={picos} />
+            <AudioPlayer src={AUDIO} peaks={picos} size="lg" />
+          </div>
         </Panel>
       </Section>
 
       <Section
         title="Un archivo largo"
-        note="Cuarenta y nueve segundos con las mismas cuarenta y cuatro barras. La cantidad la decide el ancho del reproductor y no la duración: con el doble de barras en el mismo ancho quedan hilos que no se leen, y los silencios —que son lo que sirve— se pierden entre medio."
+        note="Cuarenta y nueve segundos con las mismas cuarenta barras. La cantidad la decide el ancho del reproductor y no la duración: con el doble de barras en el mismo ancho quedan hilos que no se leen, y los silencios —que son lo que sirve— se pierden entre medio."
       >
         <Panel>
-          <Variant name="0:49">
-            <AudioPlayer src={LARGO} title="Explicación grabada" peaks={picosLargos} className="max-w-[520px]" />
-          </Variant>
+          <div className="py-4">
+            <AudioPlayer src={LARGO} title="Explicación grabada" peaks={picosLargos} />
+          </div>
         </Panel>
       </Section>
 
@@ -115,12 +79,41 @@ export function AudioPlayerStory() {
         note="Arrancar el segundo pausa el primero. Dos audios encimados no se entienden, y el que arranca segundo tapa al primero sin que nadie lo haya pedido."
       >
         <Panel>
-          <Variant name="dos en la misma pantalla">
-            <div className="flex w-full max-w-[520px] flex-col gap-3">
-              <AudioPlayer src={AUDIO} title="Devolución para Ana Pérez" peaks={picos} size="sm" />
-              <AudioPlayer src={AUDIO} title="Devolución para Bruno Díaz" peaks={picos} size="sm" />
-            </div>
-          </Variant>
+          <div className="flex flex-col gap-3 py-4">
+            <AudioPlayer src={AUDIO} title="Devolución para Ana Pérez" peaks={picos} size="sm" />
+            <AudioPlayer src={LARGO} title="Devolución para Bruno Díaz" peaks={picosLargos} size="sm" />
+          </div>
+        </Panel>
+      </Section>
+
+      <Section
+        title="Lo que va al costado"
+        note="Descargar, un menú, borrar. Va por `actions` y no como props propias: cada pantalla necesita otras, y una prop por cada una termina en la número catorce."
+      >
+        <Panel>
+          <div className="py-4">
+            <AudioPlayer
+              src={AUDIO}
+              title="Devolución para Ana Pérez"
+              peaks={picos}
+              actions={(
+                <Tooltip label="Descargar">
+                  <IconButton icon="download" label="Descargar el audio" size="sm" />
+                </Tooltip>
+              )}
+            />
+          </div>
+        </Panel>
+      </Section>
+
+      <Section
+        title="Cuando el archivo no está"
+        note="Un audio roto es un caso de todos los días: el archivo se borró, la red se cayó, el formato no va en ese navegador. La pieza lo dice con palabras y apaga lo que no se puede usar."
+      >
+        <Panel>
+          <div className="py-4">
+            <AudioPlayer src="/audio/no-existe.mp3" title="Consigna · Matemática 4.º A" />
+          </div>
         </Panel>
       </Section>
 
@@ -129,7 +122,7 @@ export function AudioPlayerStory() {
         ofrece algo que el del sistema no</strong>. Acá eso es la onda — el reproductor nativo no
         deja ver dónde hay voz y dónde hay silencio, que es lo único que permite volver a la segunda
         consigna sin escuchar la primera de nuevo. Si eso no hiciera falta, correspondería el
-        <code>{'<audio controls>'}</code> pelado.
+        {' '}<code>{'<audio controls>'}</code> pelado.
         {' '}
         De ahí salen otras dos: <strong>el volumen es del sistema</strong> y una app no lo toca, así
         que la pieza no trae control de volumen a propósito; y <strong>los controles de audio no se
@@ -151,8 +144,8 @@ export function AudioPlayerStory() {
         El `Slider` es el hermano del `Switch`: una píldora de 22 con un pulgar de 24 encima, y eso
         dice «elegí un valor». Acá no se elige un valor, se mira un archivo y se salta a un lugar:
         lo que se dibuja es el contenido. Lo que sí comparten es el fondo — los dos son un
-        <code>input type=range</code> transparente encima de lo que se ve, así que el teclado, el
-        arrastre y el foco son los del navegador y no un invento.
+        {' '}<code>input type=range</code> transparente encima de lo que se ve, así que el teclado,
+        el arrastre y el foco son los del navegador y no un invento.
       </Note>
 
       <Props of="AudioPlayer" />

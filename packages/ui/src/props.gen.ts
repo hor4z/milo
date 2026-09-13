@@ -108,7 +108,7 @@ export const propsByComponent: Record<string, ComponentDoc> = {
         "name": "peaks",
         "type": "readonly number[]",
         "required": false,
-        "doc": "Los picos del archivo, de 0 a 1, para dibujar la onda. Sin esto se dibuja una pista pelada — no se inventa una onda que no es la del audio."
+        "doc": "Los picos del archivo, de 0 a 1, para dibujar la onda. Se reparten el ancho, así que cuantos menos, más gordas salen las barras. Sin esto se dibuja una pista pelada — no se inventa una onda que no es la del audio."
       },
       {
         "name": "actions",
@@ -1007,6 +1007,12 @@ export const propsByComponent: Record<string, ComponentDoc> = {
         "type": "boolean",
         "required": false,
         "doc": "Solo cambia el ghost, que pasa a muted."
+      },
+      {
+        "name": "round",
+        "type": "boolean",
+        "required": false,
+        "doc": "Círculo en vez de cuadrado con las esquinas redondeadas. Para el botón que manda de una pieza de medios."
       },
       {
         "name": "ref",

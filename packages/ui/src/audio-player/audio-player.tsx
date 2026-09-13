@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState, type ReactNode } from 'react'
 import { IconButton } from '../icon-button/icon-button'
 import { Spinner } from '../spinner/spinner'
+import { control } from '../lib/control'
 import { cx } from '../lib/cx'
 
 /** Segundos a reloj. La hora aparece solo si hace falta: `1:02:03` para algo largo, `0:07` para lo normal. */
@@ -18,7 +19,7 @@ function reloj(s: number) {
 type Estado = 'cargando' | 'listo' | 'error'
 
 /** El alto de la onda. No sale de la escalera de controles: eso mide botones, y esto es un gráfico que hay que poder leer. */
-const onda = { sm: 'h-8', md: 'h-10', lg: 'h-12' } as const
+const onda = { sm: 'h-10', md: 'h-12', lg: 'h-14' } as const
 
 // Solo uno suena a la vez. Dos audios encimados no se entienden, y el segundo
 // tapa al primero sin que nadie lo haya pedido.
@@ -27,20 +28,26 @@ const abiertos = new Set<HTMLAudioElement>()
 /** La onda. Cada barra es un pico del archivo; las que quedaron atrás van en el color de marca. */
 function Onda({ peaks, avance }: { peaks: readonly number[]; avance: number }) {
   return (
-    <span aria-hidden className="pointer-events-none absolute inset-0 flex items-center gap-px">
+    <span aria-hidden className="pointer-events-none absolute inset-0 flex items-stretch overflow-hidden">
       {peaks.map((p, i) => (
-        <span
-          key={i}
-          className={cx(
-            'min-w-px flex-1 rounded-full transition-colors duration-fast ease-out',
-            // Gris claro lo que falta, marca lo que ya sonó: el avance se lee
-            // en el color y no hace falta una cabecita que lo marque.
-            i / peaks.length < avance ? 'bg-brand' : 'bg-line-strong',
-          )}
-          // Un pico en silencio mide cero y la barra desaparece; el mínimo la
-          // deja como un punto, que es lo que dibuja la línea de la pista.
-          style={{ height: `${Math.max(p, 0.06) * 100}%`, minHeight: 3 }}
-        />
+        // El hueco entre barras es una fracción del lugar que a cada una le toca
+        // y no un `gap` de píxeles: con un gap fijo, treinta y un huecos de
+        // cuatro no entran en un contenedor angosto y la fila se desborda.
+        <span key={i} className="flex flex-1 items-center justify-center">
+          <span
+            className={cx(
+              // La mitad del lugar que le toca: la barra y el hueco miden igual,
+            // así se leen separadas a cualquier ancho.
+            'w-1/2 rounded-full transition-colors duration-fast ease-out',
+              // Gris claro lo que falta, marca lo que ya sonó: el avance se lee
+              // en el color y no hace falta una cabecita que lo marque.
+              i / peaks.length < avance ? 'bg-brand' : 'bg-line-strong',
+            )}
+            // Un pico en silencio mide cero y la barra desaparece; el mínimo la
+            // deja como un punto, que es lo que dibuja la línea de la pista.
+            style={{ height: `${Math.max(p, 0.05) * 100}%`, minHeight: 4 }}
+          />
+        </span>
       ))}
     </span>
   )
@@ -60,7 +67,7 @@ type AudioPlayerProps = {
   src: string
   /** El nombre de la pista, arriba de la onda. Sin esto el reproductor va en una sola fila. */
   title?: string
-  /** Los picos del archivo, de 0 a 1, para dibujar la onda. Sin esto se dibuja una pista pelada — no se inventa una onda que no es la del audio. */
+  /** Los picos del archivo, de 0 a 1, para dibujar la onda. Se reparten el ancho, así que cuantos menos, más gordas salen las barras. Sin esto se dibuja una pista pelada — no se inventa una onda que no es la del audio. */
   peaks?: readonly number[]
   /** A la derecha del tiempo: descargar, un menú, lo que haga falta. */
   actions?: ReactNode
@@ -134,7 +141,10 @@ export function AudioPlayer({ src, title, peaks, actions, size = 'md', className
   return (
     <div
       className={cx(
-        'flex items-center gap-3 rounded-xl border border-line bg-surface px-3 py-2',
+        // La caja es una columna: el título arriba, y abajo una sola fila con el
+        // botón, la onda y el reloj. Con todo en una fila, el botón se centraba
+        // contra la columna —título incluido— y quedaba arriba de la onda.
+        'flex flex-col gap-2 rounded-xl border border-line bg-surface px-3 py-2',
         estado === 'error' && 'border-bad-border',
         className,
       )}
@@ -164,60 +174,58 @@ export function AudioPlayer({ src, title, peaks, actions, size = 'md', className
         onError={() => setEstado('error')}
       />
 
-      {estado === 'cargando'
-        ? (
-          <span className={cx('inline-flex shrink-0 items-center justify-center', size === 'sm' ? 'size-8' : size === 'md' ? 'size-9' : 'size-10')}>
-            <Spinner size={size === 'sm' ? 16 : 18} label="Cargando el audio" />
-          </span>
-        )
-        : (
-          <IconButton
-            icon={sonando ? 'pause' : 'play_arrow'}
-            label={sonando ? 'Pausar' : 'Reproducir'}
-            variant="raised"
-            size={size}
-            disabled={estado === 'error'}
-            onClick={alternar}
-            className="shrink-0 rounded-full"
-          />
-        )}
+      {title && <span className="truncate text-body font-medium text-ink">{title}</span>}
 
-      <div className="flex min-w-0 flex-1 flex-col gap-1">
-        {title && <span className="truncate text-body font-medium text-ink">{title}</span>}
-        {/* El reloj va en la misma fila que la onda y no al costado de todo: con
-            un título arriba, la columna es más alta que la onda y el reloj
-            quedaba centrado contra la columna en vez de contra el gráfico. */}
-        <div className="flex items-center gap-3">
-          {estado === 'error'
-            ? <span className={cx('flex flex-1 items-center text-body text-bad-ink', onda[size])}>No se pudo cargar el audio</span>
-            : (
-              <span className={cx('relative flex min-w-0 flex-1 items-center', onda[size])}>
-                {peaks?.length ? <Onda peaks={peaks} avance={avance} /> : <Pista avance={avance} />}
-                <input
-                  type="range"
-                  min={0}
-                  max={listo ? dur : 0}
-                  step={0.1}
-                  value={t}
-                  disabled={!listo}
-                  aria-label={title ? `Buscar en ${title}` : 'Buscar en el audio'}
-                  aria-valuetext={`${reloj(t)} de ${reloj(dur)}`}
-                  onChange={e => buscar(Number(e.target.value))}
-                  className={cx(
-                    'absolute inset-0 h-full w-full cursor-pointer appearance-none bg-transparent opacity-0',
-                    'disabled:cursor-default',
-                    'focus-visible:opacity-100 focus-visible:outline-none focus-visible:rounded-md focus-visible:shadow-[var(--focus-ring)]',
-                  )}
-                />
-              </span>
-            )}
-          <span className="tabular shrink-0 text-meta text-ink-muted">
-            {reloj(t)} / {reloj(dur)}
-          </span>
-        </div>
+      <div className="flex items-center gap-3">
+        {estado === 'cargando'
+          ? (
+            <span className={cx('inline-flex shrink-0 items-center justify-center', control[size].square)}>
+              <Spinner size={size === 'sm' ? 16 : 18} label="Cargando el audio" />
+            </span>
+          )
+          : (
+            <IconButton
+              icon={sonando ? 'pause' : 'play_arrow'}
+              label={sonando ? 'Pausar' : 'Reproducir'}
+              variant="raised"
+              size={size}
+              round
+              disabled={estado === 'error'}
+              onClick={alternar}
+              className="shrink-0"
+            />
+          )}
+
+        {estado === 'error'
+          ? <span className={cx('flex flex-1 items-center text-body text-bad-ink', onda[size])}>No se pudo cargar el audio</span>
+          : (
+            <span className={cx('relative flex min-w-0 flex-1 items-center', onda[size])}>
+              {peaks?.length ? <Onda peaks={peaks} avance={avance} /> : <Pista avance={avance} />}
+              <input
+                type="range"
+                min={0}
+                max={listo ? dur : 0}
+                step={0.1}
+                value={t}
+                disabled={!listo}
+                aria-label={title ? `Buscar en ${title}` : 'Buscar en el audio'}
+                aria-valuetext={`${reloj(t)} de ${reloj(dur)}`}
+                onChange={e => buscar(Number(e.target.value))}
+                className={cx(
+                  'absolute inset-0 h-full w-full cursor-pointer appearance-none bg-transparent opacity-0',
+                  'disabled:cursor-default',
+                  'focus-visible:opacity-100 focus-visible:outline-none focus-visible:rounded-md focus-visible:shadow-[var(--focus-ring)]',
+                )}
+              />
+            </span>
+          )}
+
+        <span className="tabular shrink-0 text-meta text-ink-muted">
+          {reloj(t)} / {reloj(dur)}
+        </span>
+
+        {actions && <span className="flex shrink-0 items-center gap-1">{actions}</span>}
       </div>
-
-      {actions && <span className="flex shrink-0 items-center gap-1">{actions}</span>}
     </div>
   )
 }
