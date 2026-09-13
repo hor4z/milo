@@ -15,7 +15,7 @@ const clips = [
     archivo: 'amelia-saluda',
     titulo: 'Saluda',
     para: 'La bienvenida, una sola vez',
-    nota: 'Entra desde afuera de cuadro, saluda y se queda. Arranca con la pantalla vacía, así que va sobre el fondo y no adentro de una caja.',
+    nota: 'Entra desde afuera de cuadro, saluda y se queda. Como arranca con el cuadro vacío, es la que más pide el recorte: hoy la caja se le nota justo cuando no hay nada adentro.',
     bucle: false,
   },
   {
@@ -133,9 +133,10 @@ export function AmeliaStory() {
           </div>
         </div>
         <p className="mt-3 max-w-[64ch] text-body text-ink-muted">
-          Los tres traen su propio fondo y no son transparentes, así que van adentro de una caja con
-          su borde — salvo «Saluda», que arranca vacío y por eso se banca ir suelta sobre el fondo
-          de la pantalla. El retrato sí tiene alfa y se apoya donde sea.
+          Los tres traen su propio fondo y no son transparentes, así que van adentro de una caja
+          con su borde: sueltos sobre el canvas se vería el rectángulo, y en tema oscuro se vería
+          peor. El retrato sí tiene alfa y se apoya donde sea. El bucle de Otto ya pasó por
+          <code>npm run mascotas -- animar</code> y estos tres son lo que falta.
         </p>
         <p className="mt-2 max-w-[64ch] text-body text-ink-muted">
           Los tres van <code>muted</code> y <code>playsInline</code>. Los dos hacen falta: sin el

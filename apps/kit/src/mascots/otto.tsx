@@ -41,7 +41,7 @@ export function OttoStory() {
             <span className="text-meta text-ink-muted">una tarjeta cualquiera</span>
             {quieto
               ? <img src="/mascotas/otto.webp" alt="Otto, quieto: pediste menos movimiento" className="absolute left-full top-8 h-32 w-auto" />
-              : <img src="/mascotas/otto-anima.webp" alt="" aria-hidden className="absolute left-full top-8 h-32 w-auto" />}
+              : <img src="/mascotas/otto-anima.webp" alt="" className="absolute left-full top-8 h-32 w-auto" />}
           </div>
           <div className="flex min-w-0 flex-1 flex-col gap-3">
             <p className="max-w-[52ch] text-body text-ink">

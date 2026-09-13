@@ -254,7 +254,6 @@ function Otto() {
     <img
       src="/mascotas/otto-anima.webp"
       alt=""
-      aria-hidden
       className="pointer-events-none absolute left-full top-12 z-20 hidden h-32 w-auto xl:block"
     />
   )
