@@ -268,6 +268,10 @@
   --color-field-hover: var(--field-bg-hover);
   --color-field-line: var(--field-border);
   --color-track: var(--track);
+  --color-chart-fill: var(--chart-fill);
+  --color-chart-ok: var(--chart-ok);
+  --color-chart-warn: var(--chart-warn);
+  --color-chart-bad: var(--chart-bad);
 
   /* Dos familias y las dos entran enteras, porque los componentes las eligen
      por nombre y una utilidad que no se genera no avisa: queda la clase en el

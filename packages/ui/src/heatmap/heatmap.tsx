@@ -97,7 +97,7 @@ function Cell({ value, levels, empty }: { value: number | null; levels: string[]
         : (
           <span
             aria-hidden="true"
-            className="w-full rounded-md bg-label-blue"
+            className="w-full rounded-md bg-chart-fill"
             style={{ height: `${alto}%`, opacity: nivelTono(value, levels.length) }}
           />
         )}
@@ -114,7 +114,7 @@ function Legend({ levels, empty }: { levels: string[]; empty: string }) {
         <span key={l} className="flex items-center gap-2 text-meta font-medium text-ink-muted">
           <span className="flex h-4 w-4 items-end overflow-hidden rounded-sm bg-track">
             <span
-              className="w-full rounded-sm bg-label-blue"
+              className="w-full rounded-sm bg-chart-fill"
               style={{ height: `${nivelAlto(i, levels.length)}%`, opacity: nivelTono(i, levels.length) }}
             />
           </span>

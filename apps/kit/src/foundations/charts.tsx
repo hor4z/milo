@@ -85,6 +85,16 @@ export function ChartsSection() {
         </div>
       </Section>
 
+      <Note title="El relleno de un dato no es el azul del botón">
+        Lo parece, y en el tema claro es el mismo. Pero el azul de marca está anclado en el escalón
+        donde el blanco encima llega a 4,5:1 —lo que un botón necesita— y un relleno de dato no
+        lleva texto encima: lo que necesita es despegarse de su pista, que son los 3:1 de la WCAG
+        para un elemento gráfico. En oscuro los dos requisitos dejan de coincidir: ahí el azul de
+        marca contra la pista daba 2,34:1 y el rojo 2,45, así que la misma barra se leía clara en
+        un tema y pareja en el otro. Por eso los rellenos salen de `--chart-*`, que en claro
+        coincide con los tonos de estado y en oscuro sube el azul y el rojo. Hay ocho tests.
+      </Note>
+
       <Note title="Dónde arranca el eje cambia lo que se lee">
         Forzar el cero sirve para «cuánto»; ajustarlo al dato sirve para «cuándo cambió». Ninguna de
         las dos miente, pero dicen cosas distintas, así que la decisión es del que arma la pantalla

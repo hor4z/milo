@@ -176,3 +176,59 @@ describe('el glifo de una marca se lee sobre su propio relleno', () => {
     }
   }
 })
+
+describe('el relleno de un dato se despega de su pista', () => {
+  // WCAG pide 3:1 para un elemento gráfico cuya distinción lleva información, y
+  // la parte llena de una barra es exactamente eso. No lo miraba nadie: en
+  // oscuro el azul de marca daba 2.34:1 contra la pista y el rojo 2.45, así que
+  // la misma barra se leía clara en un tema y pareja en el otro. De ahí sale la
+  // familia `--chart-*`: en claro coincide con los tonos de estado y en oscuro
+  // el azul y el rojo suben, porque un relleno de dato no lleva texto encima y
+  // lo que necesita no es lo mismo que necesita un botón.
+  const semantic = readFileSync(join(import.meta.dirname, '../../../tokens/src/semantic.css'), 'utf8')
+  // Cada archivo se parte por su cuenta: pegarlos y partir después mezcla el
+  // bloque oscuro de uno con el claro del otro.
+  const mitades = (f: string) => {
+    const [claro, ...resto] = f.split('[data-theme="dark"]')
+    return { claro, oscuro: resto.join('') }
+  }
+  const capas = [mitades(css), mitades(semantic)]
+
+  /** Resuelve un token hasta su valor literal, saltando los `var()` del camino. */
+  function literal(token: string, theme: 'light' | 'dark', visto = 0): string {
+    if (visto > 12) throw new Error(`${token} da vueltas`)
+    const orden = theme === 'light'
+      ? capas.map(c => c.claro)
+      : [...capas.map(c => c.oscuro), ...capas.map(c => c.claro)]
+    for (const texto of orden) {
+      const m = texto.match(new RegExp(`${token}:\\s*([^;]+);`))
+      if (!m) continue
+      const crudo = m[1].trim()
+      const ref = crudo.match(/^var\((--[\w-]+)\)$/)
+      return ref ? literal(ref[1], theme, visto + 1) : crudo
+    }
+    throw new Error(`no encuentro ${token} en ${theme}`)
+  }
+
+  const canal = (hex: string) => {
+    const h = hex.replace('#', '')
+    const n = h.length === 3 ? h.split('').map(c => c + c).join('') : h
+    return [0, 2, 4].map(i => parseInt(n.slice(i, i + 2), 16))
+  }
+
+  /** La pista es tinta en alpha: se compone sobre el papel antes de medir. */
+  function pista(theme: 'light' | 'dark') {
+    const [r, g, b, a] = literal('--track', theme).match(/[\d.]+/g)!.map(Number)
+    const fondo = canal(literal('--shade-01', theme))
+    const mezcla = [r, g, b].map((c, i) => Math.round(c * a + fondo[i] * (1 - a)))
+    return '#' + mezcla.map(c => c.toString(16).padStart(2, '0')).join('')
+  }
+
+  for (const theme of ['light', 'dark'] as const) {
+    for (const tono of ['--chart-fill', '--chart-ok', '--chart-warn', '--chart-bad']) {
+      it(`${tono} sobre la pista en ${theme} llega a 3:1`, () => {
+        expect(ratio(literal(tono, theme), pista(theme))).toBeGreaterThanOrEqual(3)
+      })
+    }
+  }
+})

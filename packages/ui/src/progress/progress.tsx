@@ -14,7 +14,7 @@ type ProgressProps = ComponentPropsWithoutRef<'div'> & {
   tone?: 'brand' | 'ok' | 'warn' | 'bad'
 }
 
-const fillTone = { brand: 'bg-brand', ok: 'bg-ok', warn: 'bg-warn', bad: 'bg-bad' }
+const fillTone = { brand: 'bg-chart-fill', ok: 'bg-chart-ok', warn: 'bg-chart-warn', bad: 'bg-chart-bad' }
 
 /** Cuánto de algo va hecho. La pista es el resto, no un segundo dato. */
 export function Progress({ value, max = 100, label, hint, tone = 'brand', className, ...props }: ProgressProps) {

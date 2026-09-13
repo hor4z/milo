@@ -351,6 +351,18 @@
      relleno, una barra de progreso se lee como dos bloques apilados en vez de
      como una parte adentro de su todo. */
   --track: var(--shade-09-a08);
+  /* El relleno de un dato: la parte azul de una barra, el nivel de una celda.
+     No es `--brand` aunque acá coincida. `--brand` está anclado en el escalón
+     donde el blanco encima llega a 4.5:1, que es lo que un botón necesita; un
+     relleno de dato no lleva texto encima y lo que necesita es despegarse de su
+     pista, que son los 3:1 de la WCAG para un elemento gráfico. En claro los dos
+     requisitos caen en el mismo azul y en oscuro no: ahí `--brand` contra la
+     pista daba 2.33:1, y la misma barra se leía clara en un tema y pareja en el
+     otro. */
+  --chart-fill: var(--brand);
+  --chart-ok: var(--ok);
+  --chart-warn: var(--warn);
+  --chart-bad: var(--bad);
 }
 
 [data-theme="dark"] {
@@ -375,6 +387,11 @@
   --field-border: var(--shade-09-a28);
   /* En oscuro la pista sube un paso: al 8% sobre #131313 no se ve. */
   --track: var(--shade-09-a11);
+  /* Y los rellenos suben con ella. El azul de marca se queda abajo —2.34:1
+     contra la pista— y el de dato llega a 3.44. El rojo de relleno da 2.45 y el
+     de tinta 4.52. El verde y el ámbar pasan como están: 4.10 y 3.96. */
+  --chart-fill: var(--label-blue);
+  --chart-bad: var(--bad-700);
   --brand-subtle: var(--blue-050);
   --brand-ink: var(--blue-700);
   --brand-soft: var(--blue-050);

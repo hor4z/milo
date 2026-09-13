@@ -18,7 +18,7 @@ final son lo único que hay que tocar.
 npm install
 npm run dev        # el sitio · http://localhost:5190
 npm run typecheck  # todo el monorepo de una
-npm test           # 420 tests con vitest y testing-library
+npm test           # 428 tests con vitest y testing-library
 npm run props      # regenera la tabla de props desde los tipos
 ```
 
@@ -317,7 +317,7 @@ Lo mismo vale para los tipos que una pieza recibe como argumento —`ToastOption
 
 ## Los tests
 
-`npm test` corre vitest con jsdom y testing-library. 420 tests, y lo que prueban es el
+`npm test` corre vitest con jsdom y testing-library. 428 tests, y lo que prueban es el
 comportamiento —teclado, nombres accesibles, estados— y no el markup, que cambia con cada
 ajuste de estilo. El test de cada pieza vive en su carpeta, al lado del componente.
 
@@ -345,10 +345,10 @@ Trece más leen los tokens de tipografía: que cada rol declare sus tres valores
 el tracking cruce el cero en la base. Y uno del lado del kit repite los guardianes de escala sobre
 `apps/kit`, que hasta ahora se escapaba.
 
-Y cincuenta y uno leen los tokens y calculan contraste: cada tono de estado contra su fondo, el gris
+Y cincuenta y nueve leen los tokens y calculan contraste: cada tono de estado contra su fondo, el gris
 del texto secundario contra las cuatro superficies claras sobre las que se escribe, la tinta de
 una etiqueta de color contra los seis rellenos de la familia viva, y el glifo de una marca contra
-su propio pastel — todo en los dos temas. Ese último faltaba, y la regla estaba escrita desde
+su propio pastel, y el relleno de un dato contra su pista — todo en los dos temas. Ese último faltaba, y la regla estaba escrita desde
 antes de que los cinco tonos la cumplieran. Si alguien cambia un tono y rompe un par, falla antes
 de llegar a una pantalla.
 
