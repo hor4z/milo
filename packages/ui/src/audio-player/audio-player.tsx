@@ -33,10 +33,17 @@ function Onda({ peaks, avance }: { peaks: readonly number[]; avance: number }) {
         // píxeles: con un gap fijo, sesenta huecos no entran en un contenedor
         // angosto y la fila se desborda.
         <span key={i} className="flex flex-1 items-center justify-center">
+          {/* Lo que falta va en la línea fuerte y no en la pista de los
+              gráficos: una barra de dos píxeles necesita más tono que un bloque
+              de treinta para verse igual, y con la pista la onda desaparecía.
+              Lo reproducido usa el relleno de dato, que es el que aguanta el
+              tema oscuro. Contra la línea fuerte da 2.85:1 y no los 3 de la
+              WCAG, y se acepta porque el color no lo dice solo: el reloj de al
+              lado dice lo mismo. */}
           <span
             className={cx(
               'w-1/2 rounded-full transition-colors duration-fast ease-out',
-              i / peaks.length < avance ? 'bg-brand' : 'bg-line-strong',
+              i / peaks.length < avance ? 'bg-chart-fill' : 'bg-line-strong',
             )}
             style={{ height: `${Math.max(p, 0.04) * 100}%`, minHeight: 2 }}
           />
@@ -50,7 +57,7 @@ function Onda({ peaks, avance }: { peaks: readonly number[]; avance: number }) {
 function Pista({ avance }: { avance: number }) {
   return (
     <span aria-hidden className="pointer-events-none absolute inset-x-0 top-1/2 h-1 -translate-y-1/2 rounded-full bg-line-strong">
-      <span className="absolute inset-y-0 left-0 rounded-full bg-brand" style={{ width: `${avance * 100}%` }} />
+      <span className="absolute inset-y-0 left-0 rounded-full bg-chart-fill" style={{ width: `${avance * 100}%` }} />
     </span>
   )
 }
