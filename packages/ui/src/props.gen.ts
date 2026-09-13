@@ -1795,6 +1795,33 @@ export const propsByComponent: Record<string, ComponentDoc> = {
     "html": "div",
     "doc": "Cuánto de algo va hecho. La pista es el resto, no un segundo dato."
   },
+  "Quote": {
+    "props": [
+      {
+        "name": "children",
+        "type": "ReactNode",
+        "required": true
+      },
+      {
+        "name": "source",
+        "type": "ReactNode",
+        "required": false,
+        "doc": "Quién lo dijo o de dónde salió. Va abajo, en gris y más chico."
+      },
+      {
+        "name": "cite",
+        "type": "string",
+        "required": false,
+        "doc": "La dirección de donde se sacó. Con esto, la cita lo declara en el markup además de escribirlo."
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "required": false
+      }
+    ],
+    "doc": "Palabras de otro: lo que dijo alguien, un fragmento de un texto, la respuesta de un estudiante."
+  },
   "Radio": {
     "props": [
       {

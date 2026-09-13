@@ -16,6 +16,7 @@ import { LineChartStory } from './stories/line-chart'
 import { ChartsSection } from './foundations/charts'
 import { CalloutStory } from './stories/callout'
 import { FigureStory } from './stories/figure'
+import { QuoteStory } from './stories/quote'
 import { CommandMenuStory } from './stories/command-menu'
 import { ToolbarStory } from './stories/toolbar'
 import { StepsStory } from './stories/steps'
@@ -107,6 +108,7 @@ const groups: Group[] = [
       { id: 'command-menu', label: 'CommandMenu', alias: 'comandos paleta barra slash menú buscar bloques editor notion', render: () => <CommandMenuStory /> },
       { id: 'callout', label: 'Callout', alias: 'bloque destacado aclaración pista recordar contenido editor', render: () => <CalloutStory /> },
       { id: 'figure', label: 'Figure', alias: 'imagen figura pie epígrafe foto alt caption editor', render: () => <FigureStory /> },
+      { id: 'quote', label: 'Quote', alias: 'cita blockquote fuente atribución textual editor', render: () => <QuoteStory /> },
     ],
   },
   {
