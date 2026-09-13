@@ -95,7 +95,10 @@ describe('coherencia del sistema', () => {
   it('los iconos salen de la escala', () => {
     // 12·14·16·18·20·22 la interfaz, 28·40 un specimen o un `EmptyState`. Hace
     // falta un test porque el tamaño va como número y ningún linter lo mira.
-    const escala = new Set([12, 14, 16, 18, 20, 22, 28, 40])
+    // Los seis pasos pares que la escala declara, y ninguno más. El 28 y el 40
+    // estaban permitidos y no los usaba nadie: un permiso que nadie ejerce
+    // termina siendo el que alguien ejerce sin darse cuenta.
+    const escala = new Set([12, 14, 16, 18, 20, 22])
     const offenders: string[] = []
     for (const f of sources) {
       for (const m of f.text.matchAll(/<Icon\b[^>]*?size=\{(\d+)\}/gs)) {

@@ -19,6 +19,8 @@ export function Avatar({ name, src, size = 40, className }: {
   return (
     <span
       className={cx('mark relative inline-flex items-center justify-center overflow-hidden rounded-full font-semibold select-none', fill, className)}
+      // La inicial es el 30% del disco, con piso de 10: abajo del piso del
+      // sistema a propósito, porque es una marca y no un texto — nadie la lee.
       style={{ width: size, height: size, fontSize: Math.max(10, Math.round(size * 0.3)) }}
       aria-hidden="true"
     >

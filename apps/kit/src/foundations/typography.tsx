@@ -194,7 +194,7 @@ export function TypographySection() {
 
       <A11y
         items={[
-          'El piso del sistema es 12px y es un rol con nombre —`text-meta`— para que se note cuándo se está usando abajo de lo que corresponde. Debajo de eso no hay nada que elegir.',
+          'El piso del sistema es 12px y es un rol con nombre —`text-meta`— para que se note cuándo se está usando abajo de lo que corresponde. La única cosa que baja de ahí es la inicial de un avatar chico, que es una marca y no un texto: nadie la lee, identifica.',
           'Los tamaños van en `rem` y no en píxeles: quien agranda la letra en las preferencias de su navegador la ve agrandada. El zoom ya escalaba los píxeles y cubría WCAG 1.4.4; la preferencia de tamaño de fuente no, y esa es la que usa quien tiene baja visión.',
           'El escalón de lectura tiene 1.5 de interlineado, el número de WCAG 1.4.12, y las piezas que llevan texto encima usan `min-h` en vez de alto fijo, así que aguantan que alguien fuerce más espaciado sin que se corte nada.',
           'El tracking es positivo en los dos escalones más chicos. La letra apretada a 12px es la que más se empasta, y es la que peor le cae a quien lee con dificultad.',
