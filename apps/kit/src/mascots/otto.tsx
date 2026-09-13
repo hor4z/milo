@@ -34,38 +34,29 @@ export function OttoStory() {
 
       <Section
         title="En movimiento"
-        note="Diez segundos, sin audio. Va en las pantallas donde la persona está esperando o recién llega — nunca en una donde está haciendo algo, porque algo que se mueve al lado de lo que estás leyendo se lleva la atención y no la devuelve."
+        note="Diez segundos, sin audio y recortado: entra corriendo desde afuera de cuadro, frena y se queda. Va en las pantallas donde la persona está esperando o recién llega — nunca en una donde está haciendo algo, porque algo que se mueve al lado de lo que estás leyendo se lleva la atención y no la devuelve."
       >
         <div className="flex flex-wrap items-start gap-6">
-          {quieto
-            ? (
-              <img
-                src="/mascotas/otto.webp"
-                alt="Otto, quieto: pediste menos movimiento"
-                className="h-[280px] w-auto rounded-xl border border-line bg-sunken"
-              />
-            )
-            : (
-              <video
-                src="/mascotas/otto.mp4"
-                autoPlay
-                loop
-                muted
-                playsInline
-                aria-label="Otto saluda y se acomoda"
-                className="h-[280px] w-auto rounded-xl border border-line"
-              />
-            )}
+          <div className="flex justify-center rounded-xl bg-sunken p-4">
+            {quieto
+              ? <img src="/mascotas/otto.webp" alt="Otto, quieto: pediste menos movimiento" className="h-[280px] w-auto" />
+              : <img src="/mascotas/otto-anima.webp" alt="" aria-hidden className="h-[280px] w-auto" />}
+          </div>
           <div className="flex min-w-0 flex-1 flex-col gap-3">
             <p className="max-w-[52ch] text-body text-ink-muted">
-              El video trae su propio fondo y no es transparente, así que no se puede apoyar sobre
-              cualquier superficie: va adentro de una caja con su borde, como acá. El retrato en
-              cambio sí tiene alfa y se apoya en donde sea.
+              Tiene alfa, así que se apoya sobre cualquier superficie: acá está sobre el fondo
+              hundido y no adentro de una caja con borde. El fondo gris del original se sacó por
+              conectividad y no con un croma plano — un umbral de color le abría agujeros en la
+              panza y en los ojos, que son casi tan claros como el fondo.
             </p>
             <p className="max-w-[52ch] text-body text-ink-muted">
-              Va <code>muted</code>, <code>loop</code> y <code>playsInline</code>. Los tres hacen
-              falta: sin el primero el navegador no lo deja arrancar solo, y sin el tercero iOS lo
-              abre en pantalla completa.
+              El costo de tener alfa es que es un <code>img</code> y no un <code>video</code>: pesa
+              el doble que el mp4 que reemplazó y no se puede pausar. Por eso quien pidió menos
+              movimiento no lo ve atenuado, lo ve reemplazado por el retrato.
+            </p>
+            <p className="max-w-[52ch] text-meta text-ink-muted">
+              La receta está en <code>apps/kit/scripts/recortar-mascota.py</code>. Los clips de
+              Amelia todavía no pasaron por ahí: siguen trayendo su fondo.
             </p>
           </div>
         </div>
@@ -108,7 +99,7 @@ export function OttoStory() {
         <div className="flex flex-col overflow-hidden rounded-xl border border-line bg-surface">
           {[
             ['/mascotas/otto.webp', '686 × 1200 · 150 KB', 'El retrato, con alfa. Se apoya en cualquier superficie.'],
-            ['/mascotas/otto.mp4', '540 × 960 · 10 s · 228 KB', 'Sin audio y con su propio fondo. Va adentro de una caja.'],
+            ['/mascotas/otto-anima.webp', '162 × 240 · 10 s · 472 KB', 'El bucle, con alfa. 120 cuadros a 12 por segundo.'],
           ].map(([ruta, peso, nota]) => (
             <div key={ruta} className="flex flex-wrap items-center gap-x-5 gap-y-1 border-t border-line px-5 py-4 first:border-t-0">
               <code className="w-56 shrink-0 font-mono text-meta font-semibold text-ink">{ruta}</code>
@@ -131,8 +122,8 @@ export function OttoStory() {
       <A11y
         items={[
           'El retrato va con `alt=""`: es decorativo, y lo que la pantalla quiere decir ya está en el texto de al lado. Describirlo obliga a escuchar «ilustración de una nutria» antes de llegar al mensaje.',
-          'El video lleva `aria-label` porque no es decorativo del todo —se mueve, y quien no lo ve merece saber qué hay ahí—, pero tampoco es contenido: si se saca, la pantalla sigue diciendo lo mismo.',
-          'Va `muted` y `loop`, y respeta `prefers-reduced-motion` como el resto del sistema: quien pidió menos movimiento ve el retrato quieto en vez del video.',
+          'El bucle también va con `alt=""`: dice lo mismo que el retrato y no agrega información, así que anunciarlo es ruido.',
+          'Respeta `prefers-reduced-motion`, y con un `img` animado eso no se negocia: no se puede pausar ni frenar desde el teclado, así que quien pidió menos movimiento ve el retrato quieto en su lugar.',
           'Nunca es la única forma de entender algo: si Otto desaparece, no se pierde ni una palabra de lo que la pantalla dice.',
         ]}
       />

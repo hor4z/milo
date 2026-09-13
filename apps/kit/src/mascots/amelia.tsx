@@ -209,7 +209,7 @@ export function AmeliaStory() {
 
       <Section
         title="Los archivos"
-        note="Cada clip se nombra por lo que hace y no por un número: `amelia-quieta`, no `amelia-1`. Otto sigue siendo `otto.mp4` porque tiene uno solo — el día que tenga el segundo se renombra igual."
+        note="Cada clip se nombra por lo que hace y no por un número: `amelia-quieta`, no `amelia-1`. Los tres todavía traen su fondo — el de Otto ya está recortado y estos tres son lo que falta."
       >
         <div className="flex flex-col overflow-hidden rounded-xl border border-line bg-surface">
           {[

@@ -236,22 +236,21 @@ function Avisos() {
 }
 
 /**
- * Otto flota adelante de todo, en la esquina de la tarjeta. El video trae su
- * propio fondo y no es transparente, así que va adentro de una caja con su
- * borde y su radio — suelto se vería el rectángulo gris.
+ * Otto flota adelante de todo, apoyado en la esquina de la tarjeta. Va suelto y
+ * sin caja: el WebP tiene alfa, así que no hay rectángulo que esconder.
+ *
+ * Es un `img` y no un `video`, y eso tiene un costo: no se puede pausar ni
+ * frenar desde el teclado. Por eso `useQuieto` no lo atenúa, lo saca.
  */
 function Otto() {
   const quieto = useQuieto()
   if (quieto) return null
   return (
-    <video
-      src="/mascotas/otto.mp4"
-      autoPlay
-      loop
-      muted
-      playsInline
+    <img
+      src="/mascotas/otto-anima.webp"
+      alt=""
       aria-hidden
-      className="absolute -top-8 right-4 z-20 h-40 w-auto rounded-xl border border-line shadow-card"
+      className="pointer-events-none absolute -top-20 right-2 z-20 h-40 w-auto"
     />
   )
 }
