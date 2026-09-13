@@ -7,7 +7,7 @@ export function BookStory() {
       title="Book"
       kind="Superficies"
       imports="import { Book } from '@milo/ui'"
-      lead="Una tapa en tres dimensiones, con su lomo y su canto de hojas. Es una portada —un tema, una guía, una colección— y no una tarjeta: en una grilla de doce filas iguales, doce libros son doce objetos pidiendo atención y ninguno la consigue. Para eso está Card."
+      lead="Una tapa en tres dimensiones, con su lomo y su canto de hojas. Es una portada (un tema, una guía, una colección) y no una tarjeta: en una grilla de doce filas iguales, doce libros son doce objetos pidiendo atención y ninguno la consigue. Para eso está Card."
     >
       <Section
         title="Las dos variantes"
@@ -32,7 +32,7 @@ export function BookStory() {
 
       <Section
         title="El color sale de un token"
-        note="Un hex escrito a mano en una tapa es el mismo bug que en cualquier otro lado: con un token, la tapa sigue al tema. La familia de etiquetas es la que corresponde acá — es la de lo chico y lo que identifica, y una portada identifica."
+        note="Un hex escrito a mano en una tapa es el mismo bug que en cualquier otro lado: con un token, la tapa sigue al tema. La familia de etiquetas es la que corresponde acá: es la de lo chico y lo que identifica, y una portada identifica."
       >
         <div className="flex flex-wrap items-end gap-8 rounded-xl border border-line bg-surface px-6 py-8">
           {([
@@ -48,7 +48,7 @@ export function BookStory() {
 
       <Section
         title="El ancho manda"
-        note="Adentro del libro no hay un solo px suelto: todo está en por ciento de su propio ancho, incluido el título. Por eso el mismo libro a 140 y a 260 es el mismo dibujo y no dos. Es el único texto del sistema que no usa la escala tipográfica, y es a propósito — la tapa es un dibujo y el título es parte del dibujo."
+        note="Adentro del libro no hay un solo px suelto: todo está en por ciento de su propio ancho, incluido el título. Por eso el mismo libro a 140 y a 260 es el mismo dibujo y no dos. Es el único texto del sistema que no usa la escala tipográfica, y es a propósito: la tapa es un dibujo y el título es parte del dibujo."
       >
         <div className="flex flex-wrap items-end gap-8 rounded-xl border border-line bg-surface px-6 py-8">
           {[140, 180, 220, 260].map(w => (
@@ -62,7 +62,7 @@ export function BookStory() {
 
       <Section
         title="Con textura"
-        note="Para una portada sola. En una fila de libros la textura le compite al título, que es lo que hay que leer. El grano es de acá —dos tramas cruzadas a alpha muy bajo— y no una imagen traída de afuera: no cuesta un request y sigue al tema."
+        note="Para una portada sola. En una fila de libros la textura le compite al título, que es lo que hay que leer. El grano es de acá (dos tramas cruzadas a alpha muy bajo) y no una imagen traída de afuera: no cuesta un request y sigue al tema."
       >
         <div className="flex flex-wrap items-end gap-8 rounded-xl border border-line bg-surface px-6 py-8">
           <Book variant="simple" color="var(--label-orange)" textColor="var(--on-label)" textured title="Diseño de sistemas" />

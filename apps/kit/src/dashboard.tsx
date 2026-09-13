@@ -37,8 +37,8 @@ const espacios = [
 ] as const
 
 const pendientes = [
-  { icon: 'edit', color: 'orange', title: 'Corregir «El sistema solar»', hint: '24 entregas esperando' },
-  { icon: 'schedule', color: 'purple', title: 'Cerrar «Fracciones equivalentes»', hint: 'Vence mañana a las 23:59' },
+  { icon: 'edit', color: 'orange', title: 'Corregir "El sistema solar"', hint: '24 entregas esperando' },
+  { icon: 'schedule', color: 'purple', title: 'Cerrar "Fracciones equivalentes"', hint: 'Vence mañana a las 23:59' },
   { icon: 'group_add', color: 'green', title: 'Sumar a Lengua · 6.º', hint: 'Dos aprendices pidieron entrar' },
 ] as const
 
@@ -220,7 +220,7 @@ function Avisos() {
       items={[
         { label: '24 entregas sin corregir', icon: 'inbox', onSelect: () => {} },
         { label: 'Nadia Britos pidió entrar a Lengua', icon: 'person_add', onSelect: () => {} },
-        { label: '«Fracciones equivalentes» vence mañana', icon: 'schedule', onSelect: () => {} },
+        { label: '"Fracciones equivalentes" vence mañana', icon: 'schedule', onSelect: () => {} },
         { label: 'Marcar todo como leído', icon: 'check', onSelect: () => {} },
       ]}
     />

@@ -33,7 +33,7 @@ export function ToolbarStory() {
 
       <Section
         title="Interruptor o acción"
-        note="Con `pressed` el botón es un interruptor y queda marcado; sin él es algo que pasa y no queda. La diferencia se anuncia: «negrita, activado» contra «enlace, botón»."
+        note="Con `pressed` el botón es un interruptor y queda marcado; sin él es algo que pasa y no queda. La diferencia se anuncia: 'negrita, activado' contra 'enlace, botón'."
       >
         <div className="flex justify-center rounded-xl border border-line bg-sunken p-8">
           <Toolbar label="Dos clases de botón">

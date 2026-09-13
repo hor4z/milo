@@ -96,8 +96,8 @@ const extraer = (archivo) => {
     if (filas.length || html) piezas[nombre] = { props: filas, ...(html ? { html } : {}), ...(doc ? { doc } : {}) }
   })
 
-  // Los tipos que una pieza recibe como argumento —las opciones de un toast, el
-  // item de un dropdown— se documentan igual: son la API pública de esa pieza.
+  // Los tipos que una pieza recibe como argumento (las opciones de un toast, el
+  // item de un dropdown) se documentan igual: son la API pública de esa pieza.
   ts.forEachChild(sf, (n) => {
     if (!ts.isTypeAliasDeclaration(n)) return
     if (!n.modifiers?.some(m => m.kind === ts.SyntaxKind.ExportKeyword)) return
@@ -131,7 +131,7 @@ for (const c of carpetas) {
   Object.assign(todo, extraer(archivo))
 }
 
-const cuerpo = `/* Generado por scripts/props.mjs — no se edita a mano.
+const cuerpo = `/* Generado por scripts/props.mjs: no se edita a mano.
    La descripción de cada prop vive en su docblock, al lado del tipo. */
 
 export type PropDoc = {
@@ -155,7 +155,7 @@ export const propsByComponent: Record<string, ComponentDoc> = ${JSON.stringify(t
 if (process.argv.includes('--check')) {
   const viejo = readFileSync(salida, 'utf8')
   if (viejo !== cuerpo) {
-    console.error('✗ props.gen.ts quedó viejo — corré `npm run props -w @milo/ui`')
+    console.error('✗ props.gen.ts quedó viejo: corré `npm run props -w @milo/ui`')
     process.exit(1)
   }
   console.log(`✓ props.gen.ts al día (${Object.keys(todo).length} piezas)`)

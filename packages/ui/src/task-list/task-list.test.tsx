@@ -10,7 +10,7 @@ const pasos = [
 ]
 
 describe('TaskList', () => {
-  it('es una lista con nombre: «lista, tres elementos» no dice de qué', () => {
+  it('es una lista con nombre: "lista, tres elementos" no dice de qué', () => {
     render(<TaskList items={pasos} onToggle={() => {}} label="Pasos de la entrega" />)
     expect(screen.getByRole('list', { name: 'Pasos de la entrega' })).toBeInTheDocument()
     expect(screen.getAllByRole('listitem')).toHaveLength(3)

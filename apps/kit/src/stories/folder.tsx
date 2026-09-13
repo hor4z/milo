@@ -14,7 +14,7 @@ export function FolderStory() {
     >
       <Section
         title="Pasá el mouse"
-        note="El sistema tiene escrito que las tarjetas no se mueven en hover, porque una grilla que salta hace temblar la vista. Esto no lo contradice: lo que se mueve no es la pieza, es el contenido de la pieza. La carpeta no cambia de tamaño ni de lugar, así que la grilla se queda quieta — y lo que se gana es información, cuántas hojas hay."
+        note="El sistema tiene escrito que las tarjetas no se mueven en hover, porque una grilla que salta hace temblar la vista. Esto no lo contradice: lo que se mueve no es la pieza, es el contenido de la pieza. La carpeta no cambia de tamaño ni de lugar, así que la grilla se queda quieta, y lo que se gana es información, cuántas hojas hay."
       >
         <Card surface="muted" className="flex flex-wrap gap-4 px-6 py-8">
           <Folder label="Onboarding" meta="15 archivos" onClick={() => {}} />
@@ -43,7 +43,7 @@ export function FolderStory() {
 
       <Section
         title="El amarillo sale de una regla"
-        note="Amarillo propio en H 89.6 de OKLCH. `--warn-500` está en 82.2 y a esa luminosidad sale dorado: siete grados son poco para dos colores de estado y mucho para una carpeta. La croma va al 81% del techo y no al tope — al límite deja de ser una carpeta y pasa a ser un resaltador."
+        note="Amarillo propio en H 89.6 de OKLCH. `--warn-500` está en 82.2 y a esa luminosidad sale dorado: siete grados son poco para dos colores de estado y mucho para una carpeta. La croma va al 81% del techo y no al tope: al límite deja de ser una carpeta y pasa a ser un resaltador."
       >
         <Card surface="muted" className="flex flex-wrap items-end gap-6 px-6 py-8">
           <Folder label="Amarillo" meta="el default" />
@@ -55,15 +55,15 @@ export function FolderStory() {
           Se elige <strong className="font-semibold text-ink">un solo color</strong>, el del cuerpo:
           la pestaña y el canto salen de él con color relativo, así que la carpeta queda pintada
           entera. Antes solo se teñía el cuerpo y quedaba con la oreja amarilla, que se veía como un
-          error. Sirve igual para distinguir una carpeta puntual y no para pintar una grilla entera
-          — doce carpetas de doce colores es un arcoíris, que es lo mismo que dice la nota de los
+          error. Sirve igual para distinguir una carpeta puntual y no para pintar una grilla entera:
+          doce carpetas de doce colores es un arcoíris, que es lo mismo que dice la nota de los
           tintes.
         </p>
       </Section>
 
       <Section
         title="Con avatares"
-        note="Abajo a la izquierda de la solapa va quién tiene acceso. Es un `AvatarGroup`, así que hereda todo lo suyo: tres caras como máximo, el resto en un círculo neutro, y con un solo sobrante se muestra la cuarta cara en vez de un «+1». La prop `badges` sigue estando para lo que no es una persona."
+        note="Abajo a la izquierda de la solapa va quién tiene acceso. Es un `AvatarGroup`, así que hereda todo lo suyo: tres caras como máximo, el resto en un círculo neutro, y con un solo sobrante se muestra la cuarta cara en vez de un '+1'. La prop `badges` sigue estando para lo que no es una persona."
       >
         <Card surface="muted" className="flex flex-wrap gap-4 px-6 py-8">
           <Folder label="Con dos" meta="6 archivos" avatars={[p('Ana Pérez', 1), p('Bruno Díaz', 2)]} />

@@ -17,7 +17,7 @@ export function TypographySection() {
     <Page
       title="Tipografía"
       kind="Fundamentos"
-      lead="Una familia —Inter— y siete roles, cada uno cargando tamaño, interlineado y tracking juntos. La base es 14 y hay un escalón explícito de 16 para lo que un estudiante lee de corrido."
+      lead="Una familia (Inter) y siete roles, cada uno cargando tamaño, interlineado y tracking juntos. La base es 14 y hay un escalón explícito de 16 para lo que un estudiante lee de corrido."
       imports="import { Icon } from '@milo/ui'"
     >
       <Section
@@ -149,13 +149,13 @@ export function TypographySection() {
         <div className="flex flex-col gap-4 rounded-xl border border-line bg-surface p-5">
           <p className="max-w-[65ch] text-reading text-ink">
             Esta columna mide 65 caracteres. Es la que va cuando lo que hay abajo es un enunciado, una
-            consigna o una devolución — cualquier cosa que alguien lee entera en vez de barrer con
+            consigna o una devolución: cualquier cosa que alguien lee entera en vez de barrer con
             la vista. El ojo vuelve al principio del renglón siguiente sin tener que buscarlo.
           </p>
           <p className="text-reading text-ink">
             Esta no tiene medida y ocupa todo lo que le den. En una pantalla ancha el renglón se
             estira hasta que volver al principio deja de ser automático, y la lectura se vuelve
-            trabajo — el mismo texto, la misma letra, y cuesta más. Es el error más barato de
+            trabajo: el mismo texto, la misma letra, y cuesta más. Es el error más barato de
             cometer y el más barato de arreglar.
           </p>
         </div>
@@ -192,14 +192,14 @@ export function TypographySection() {
         Ni <code>-webkit-font-smoothing: antialiased</code> ni <code>text-rendering:
         optimizeLegibility</code>, y las dos ausencias son la decisión. El primero no mejora el
         antialias: lo apaga, y le pide al navegador que rasterice en escala de grises en vez de
-        usar el subpíxel — que es justo lo que da nitidez en una pantalla de 1x, que es donde se
+        usar el subpíxel, que es justo lo que da nitidez en una pantalla de 1x, que es donde se
         está mirando esto. La receta circula porque en un panel 2x adelgazar el texto queda mejor.
         Si alguna vez esto se ve lavado, el problema es el peso o el contraste, no el suavizado.
       </Note>
 
       <A11y
         items={[
-          'El piso del sistema es 12px y es un rol con nombre —`text-meta`— para que se note cuándo se está usando abajo de lo que corresponde. La única cosa que baja de ahí es la inicial de un avatar chico, que es una marca y no un texto: nadie la lee, identifica.',
+          'El piso del sistema es 12px y es un rol con nombre (`text-meta`) para que se note cuándo se está usando abajo de lo que corresponde. La única cosa que baja de ahí es la inicial de un avatar chico, que es una marca y no un texto: nadie la lee, identifica.',
           'Los tamaños van en `rem` y no en píxeles: quien agranda la letra en las preferencias de su navegador la ve agrandada. El zoom ya escalaba los píxeles y cubría WCAG 1.4.4; la preferencia de tamaño de fuente no, y esa es la que usa quien tiene baja visión.',
           'El escalón de lectura tiene 1.5 de interlineado, el número de WCAG 1.4.12, y las piezas que llevan texto encima usan `min-h` en vez de alto fijo, así que aguantan que alguien fuerce más espaciado sin que se corte nada.',
           'El tracking es positivo en los dos escalones más chicos. La letra apretada a 12px es la que más se empasta, y es la que peor le cae a quien lee con dificultad.',
@@ -258,8 +258,8 @@ function PorQueInter() {
             <span className="text-label font-semibold text-ink">Lo que el CDN no trae</span>
           </div>
           <p className="mb-4 max-w-[70ch] text-body text-ink-muted">
-            Inter tiene un set de desambiguación —<code>ss04</code>: la ele minúscula con cola y la
-            i mayúscula con serifas— y un cero barrado. Serían ideales acá: separan{' '}
+            Inter tiene un set de desambiguación (<code>ss04</code>: la ele minúscula con cola y la
+            i mayúscula con serifas) y un cero barrado. Serían ideales acá: separan{' '}
             <span className="text-ink">1 l I</span> y <span className="text-ink">0 O</span> de un
             vistazo, que es exactamente lo que le cuesta a quien está aprendiendo a leer.{' '}
             <strong className="font-semibold text-ink">El build que sirve Google los recorta.</strong>{' '}
@@ -269,7 +269,7 @@ function PorQueInter() {
           </p>
           <p className="max-w-[70ch] text-body text-ink-muted">
             Lo que sí sobrevive es <code>tnum</code>, así que <code>.tabular</code> funciona.
-            Recuperar los otros dos pide auto-alojar la fuente —unos 69 KB subseteada a latín— y se
+            Recuperar los otros dos pide auto-alojar la fuente (unos 69 KB subseteada a latín) y se
             decidió que tener CDN vale más: una red escolar cachea Google Fonts, y la primera visita
             de cada alumno no paga la descarga.
           </p>

@@ -18,7 +18,7 @@ export function StepperStory() {
     >
       <Section
         title="En un campo"
-        note="El `Field` de alrededor le pone el nombre y la ayuda, igual que a cualquier otro control. El sufijo va adentro y se lee con el número —«45 min»— y no como una palabra suelta después."
+        note="El `Field` de alrededor le pone el nombre y la ayuda, igual que a cualquier otro control. El sufijo va adentro y se lee con el número ('45 min') y no como una palabra suelta después."
       >
         <Canvas>
           <div className="flex max-w-[420px] flex-col gap-5">
@@ -75,9 +75,9 @@ export function StepperStory() {
 
       <Section title="Accesibilidad">
         <A11y items={[
-          'El campo del medio es un `spinbutton` que dice dónde está y hasta dónde llega, así que un lector anuncia «5, mínimo 1, máximo 10» sin que haga falta mirar los topes.',
+          'El campo del medio es un `spinbutton` que dice dónde está y hasta dónde llega, así que un lector anuncia "5, mínimo 1, máximo 10" sin que haga falta mirar los topes.',
           'Las flechas suben y bajan sin tocar los botones, y por eso los botones no son paradas de tabulación: con ellas serían tres paradas para un solo dato.',
-          'El sufijo viaja en `aria-valuetext` y no como texto aparte: se escucha «45 min» y no «45» y después «min».',
+          'El sufijo viaja en `aria-valuetext` y no como texto aparte: se escucha "45 min" y no "45" y después "min".',
           'En el tope el botón de ese lado se deshabilita, que es lo que dice que no hay más para ese lado.',
         ]} />
       </Section>

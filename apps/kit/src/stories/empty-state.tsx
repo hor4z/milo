@@ -7,11 +7,11 @@ export function EmptyStateStory() {
       title="EmptyState"
       kind="Avisos"
       imports="import { EmptyState } from '@milo/ui'"
-      lead="Lo que se ve cuando no hay nada, siempre con una salida: un vacío que no dice qué hacer es una pantalla rota con buena redacción. El icono va adentro de un hueco y en gris — suelto y grande se ve como una imagen que no cargó, que es justo lo que uno teme."
+      lead="Lo que se ve cuando no hay nada, siempre con una salida: un vacío que no dice qué hacer es una pantalla rota con buena redacción. El icono va adentro de un hueco y en gris: suelto y grande se ve como una imagen que no cargó, que es justo lo que uno teme."
     >
       <Section
         title="Los dos tamaños"
-        note="La diferencia no es el padding. `md` es el de una pantalla: «esto está vacío y podés empezar acá». `sm` es el de adentro de una pieza, donde el vacío es de una búsqueda y no del lugar — con el aire del grande, filtrar y no encontrar nada empuja la paginación media pantalla para abajo."
+        note="La diferencia no es el padding. `md` es el de una pantalla: 'esto está vacío y podés empezar acá'. `sm` es el de adentro de una pieza, donde el vacío es de una búsqueda y no del lugar: con el aire del grande, filtrar y no encontrar nada empuja la paginación media pantalla para abajo."
       >
         <div className="flex flex-col gap-4">
           <Demo label="md · una pantalla">
@@ -38,7 +38,7 @@ export function EmptyStateStory() {
 
       <Section
         title="La caja punteada"
-        note="Opcional, con una regla: adentro de algo que ya tiene marco, no va. El borde punteado dice «acá va a haber contenido», y dibujado dentro de una tabla o de una tarjeta son dos marcos anidados discutiendo cuál es el borde de qué. Por eso `sm` la apaga sola — el lugar donde se usa `sm` es, casi por definición, adentro de otra cosa."
+        note="Opcional, con una regla: adentro de algo que ya tiene marco, no va. El borde punteado dice 'acá va a haber contenido', y dibujado dentro de una tabla o de una tarjeta son dos marcos anidados discutiendo cuál es el borde de qué. Por eso `sm` la apaga sola: el lugar donde se usa `sm` es, casi por definición, adentro de otra cosa."
       >
         <div className="flex flex-col gap-4">
           <Demo label="bordered · el default de md">
@@ -59,7 +59,7 @@ export function EmptyStateStory() {
 
       <Section
         title="Sin icono"
-        note="Sigue funcionando, y es lo que había antes: un bloque de texto centrado. Con icono se reconoce de qué tipo de vacío se trata antes de leerlo — no es lo mismo «no hay nada todavía» que «no encontré nada con eso»."
+        note="Sigue funcionando, y es lo que había antes: un bloque de texto centrado. Con icono se reconoce de qué tipo de vacío se trata antes de leerlo: no es lo mismo 'no hay nada todavía' que 'no encontré nada con eso'."
       >
         <Demo label="solo texto">
           <EmptyState

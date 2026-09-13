@@ -201,10 +201,10 @@ export function Props({ of }: { of: string | readonly string[] }) {
                     </td>
                     <td className="px-4 py-3"><code className="font-mono text-meta text-brand-ink">{r.type}</code></td>
                     <td className="hidden px-4 py-3 sm:table-cell">
-                      <code className="font-mono text-meta text-ink-muted">{r.def ?? '—'}</code>
+                      <code className="font-mono text-meta text-ink-muted">{r.def ?? '-'}</code>
                     </td>
                     <td className="px-4 py-3 text-meta font-medium text-ink-muted">
-                      {r.doc ? <Rich text={r.doc} /> : '—'}
+                      {r.doc ? <Rich text={r.doc} /> : '-'}
                     </td>
                   </tr>
                 ))}
@@ -263,7 +263,7 @@ export function Swatch({ token, note }: { token: string; note?: string }) {
       />
       <div className="flex min-w-0 flex-col">
         <code className="truncate font-mono text-meta text-ink">{token}</code>
-        <code className="truncate font-mono text-meta text-ink-muted">{v || '—'}</code>
+        <code className="truncate font-mono text-meta text-ink-muted">{v || '-'}</code>
         {note && <span className="mt-0.5 text-meta text-ink-muted">{note}</span>}
       </div>
     </div>

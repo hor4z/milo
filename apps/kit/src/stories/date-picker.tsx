@@ -74,9 +74,9 @@ export function DatePickerStory() {
 
       <Section title="Accesibilidad">
         <A11y items={[
-          'Cada día se nombra entero —«lunes, 9 de marzo de 2026»— en vez de leerse como un número suelto sin contexto.',
+          'Cada día se nombra entero ("lunes, 9 de marzo de 2026") en vez de leerse como un número suelto sin contexto.',
           'El mes entero se recorre con el teclado: flechas de a un día y de a una semana, Re Pág y Av Pág de a un mes, con Shift de a un año, Inicio y Fin a los extremos de la semana.',
-          'Una sola parada de tabulación en la grilla —el día del cursor— en vez de treinta para llegar al final del mes. Escape cierra y el foco vuelve al campo.',
+          'Una sola parada de tabulación en la grilla (el día del cursor) en vez de treinta para llegar al final del mes. Escape cierra y el foco vuelve al campo.',
           'El mes se anuncia al cambiar: con el teclado lo único que cambia es el título, y sin `aria-live` el salto es mudo.',
           'Hoy lleva un punto además del color, y lo elegido va en relleno: dos señales distintas para dos cosas distintas.',
         ]} />

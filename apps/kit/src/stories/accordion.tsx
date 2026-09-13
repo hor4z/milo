@@ -11,7 +11,7 @@ export function AccordionStory() {
     >
       <Section
         title="Cómo se arma"
-        note="Es un `<details>` nativo, así que abre sin JavaScript y el buscador del navegador —Ctrl+F— encuentra lo que hay adentro aunque esté cerrado. El chevron gira, que es lo único que hace falta para saber si una fila está abierta."
+        note="Es un `<details>` nativo, así que abre sin JavaScript y el buscador del navegador (Ctrl+F) encuentra lo que hay adentro aunque esté cerrado. El chevron gira, que es lo único que hace falta para saber si una fila está abierta."
       >
         <Accordion>
           <AccordionItem summary="¿Qué pasa si publico sin fecha de cierre?" defaultOpen>

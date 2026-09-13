@@ -7,7 +7,7 @@ export function KbdStory() {
       title="Kbd"
       kind="Superficies"
       imports="import { Kbd } from '@milo/ui'"
-      lead="La tecla dibujada. Es una marca hundida —la misma receta que la pista de un segmented— porque una tecla es algo que se aprieta: lleva canto, luz arriba y una sombra de caída corta."
+      lead="La tecla dibujada. Es una marca hundida (la misma receta que la pista de un segmented) porque una tecla es algo que se aprieta: lleva canto, luz arriba y una sombra de caída corta."
     >
       <Section
         title="Cómo se ve"
@@ -39,8 +39,8 @@ export function KbdStory() {
       </Section>
 
       <Note title="El símbolo antes que el nombre">
-        <Kbd>⌘</Kbd> y no «Cmd», <Kbd>⇧</Kbd> y no «Shift»: el símbolo es lo que está impreso en la
-        tecla que hay que apretar. La excepción son las que no tienen símbolo —Esc, Tab, Enter— donde
+        <Kbd>⌘</Kbd> y no "Cmd", <Kbd>⇧</Kbd> y no "Shift": el símbolo es lo que está impreso en la
+        tecla que hay que apretar. La excepción son las que no tienen símbolo (Esc, Tab, Enter) donde
         el nombre es lo que está impreso.
       </Note>
 

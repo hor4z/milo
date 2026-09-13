@@ -43,7 +43,7 @@ export function CalloutStory() {
       <Note title="Callout o Alert">
         El `Alert` lo pone el sistema cuando pasa algo: se guardó, falló, falta algo. El `Callout` es
         parte de lo que se está leyendo y sigue ahí aunque nadie haga nada. Por eso no usa los tonos
-        de estado: un bloque de contenido en rojo diría «error» sin que haya ninguno.
+        de estado: un bloque de contenido en rojo diría "error" sin que haya ninguno.
       </Note>
 
       <Props of="Callout" />

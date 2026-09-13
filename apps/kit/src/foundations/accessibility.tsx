@@ -6,12 +6,12 @@ const reglas = [
   {
     icon: 'contrast',
     title: 'El contraste se mide, no se estima',
-    body: 'AA —4.5:1— para todo lo que sea texto, en los dos temas. No es una intención: hay cincuenta y un tests que leen los tokens y calculan el ratio, y fallan antes de que un tono roto llegue a una pantalla. AAA queda afuera a propósito, y abajo está la cuenta.',
+    body: 'AA (4.5:1) para todo lo que sea texto, en los dos temas. No es una intención: hay cincuenta y un tests que leen los tokens y calculan el ratio, y fallan antes de que un tono roto llegue a una pantalla. AAA queda afuera a propósito, y abajo está la cuenta.',
   },
   {
     icon: 'keyboard',
     title: 'Todo se hace con el teclado',
-    body: 'Cada cosa accionable se alcanza con Tab, se activa con Enter o espacio y se abandona con Escape. Donde hay una lista —un menú, un select, un segmented— las flechas la recorren y Home y End van a los extremos.',
+    body: 'Cada cosa accionable se alcanza con Tab, se activa con Enter o espacio y se abandona con Escape. Donde hay una lista (un menú, un select, un segmented) las flechas la recorren y Home y End van a los extremos.',
   },
   {
     icon: 'visibility',
@@ -21,7 +21,7 @@ const reglas = [
   {
     icon: 'palette',
     title: 'El color nunca viaja solo',
-    body: 'Cada tono de estado trae su glifo y su texto. Un aviso rojo sin la palabra «error» y sin el símbolo no dice nada a quien no distingue colores, que es una de cada doce personas con visión masculina.',
+    body: 'Cada tono de estado trae su glifo y su texto. Un aviso rojo sin la palabra "error" y sin el símbolo no dice nada a quien no distingue colores, que es una de cada doce personas con visión masculina.',
   },
   {
     icon: 'zoom_in',
@@ -93,7 +93,7 @@ export function AccessibilitySection() {
         <Note icon="warning" title="La deuda, dicha en voz alta">
           Ninguna altura llega a los 44×44 que Apple recomienda para el dedo. En un panel docente con
           mouse eso está bien; en una tablet de aula, el <code>sm</code> de 32 es chico. La salida no
-          es agrandar los tres —la densidad es real y hace falta— sino decidir que en táctil el piso
+          es agrandar los tres (la densidad es real y hace falta) sino decidir que en táctil el piso
           es <code>lg</code>. No está hecho: hoy la elección del tamaño la hace cada call site sin
           saber con qué se va a tocar.
         </Note>
@@ -101,16 +101,16 @@ export function AccessibilitySection() {
 
       <Section
         title="Lo obligatorio se dice con la palabra"
-        note="Un asterisco es una convención que no significa nada para quien no la conoce, y un lector de pantalla lo lee como «asterisco». Va el asterisco para quien lo reconoce y la palabra para todos los demás."
+        note="Un asterisco es una convención que no significa nada para quien no la conoce, y un lector de pantalla lo lee como 'asterisco'. Va el asterisco para quien lo reconoce y la palabra para todos los demás."
       >
         <div className="flex max-w-[460px] flex-col gap-3 rounded-xl border border-line bg-surface p-5">
           <Field label="Nombre de la actividad" required hint="Lo que van a ver los aprendices en su lista.">
             <TextField placeholder="Informe del experimento" />
           </Field>
           <p className="text-meta text-ink-muted">
-            El asterisco va <code>aria-hidden</code> y al lado viaja un «(obligatorio)» que solo
+            El asterisco va <code>aria-hidden</code> y al lado viaja un "(obligatorio)" que solo
             existe para el lector de pantalla. Quien ve la pantalla lee la convención que ya conoce;
-            quien la escucha oye la palabra y no «asterisco».
+            quien la escucha oye la palabra y no "asterisco".
           </p>
         </div>
       </Section>
@@ -128,7 +128,7 @@ export function AccessibilitySection() {
           <div className="flex items-center gap-2">
             <Icon name="info" size={16} />
             <code className="font-mono text-meta font-semibold text-ink">role="status"</code>
-            <span className="text-meta text-ink-muted">«Guardado», «3 resultados»</span>
+            <span className="text-meta text-ink-muted">"Guardado", "3 resultados"</span>
           </div>
         </div>
       </Section>
@@ -161,7 +161,7 @@ export function AccessibilitySection() {
 
       <Note title="Por qué el objetivo es AA y no AAA">
         El gris del texto secundario da 6,94:1 sobre el fondo del tema oscuro: le faltan seis
-        centésimas para AAA. Subirlo parece gratis y no lo es — para llegar a 7:1 sobre las cuatro
+        centésimas para AAA. Subirlo parece gratis y no lo es: para llegar a 7:1 sobre las cuatro
         superficies oscuras hay que aclararlo hasta un punto donde queda a 1,84:1 del texto
         principal, y ahí deja de distinguirse el título del cuerpo. Se gana un número y se pierde la
         jerarquía, que es lo que el gris estaba haciendo. Medido, no estimado.
@@ -169,8 +169,8 @@ export function AccessibilitySection() {
 
       <Note icon="warning" title="Los dos números que no llegan, con la cuenta">
         **El texto sugerido de un campo, en oscuro y con el mouse encima: 3,82:1.** Se mide contra
-        los cuatro fondos de campo —sobre el escritorio y adentro de una pieza de papel, cada uno
-        con y sin mouse— y llega a 4,5 en tres. Para pasar el cuarto hay que aclarar el gris hasta
+        los cuatro fondos de campo (sobre el escritorio y adentro de una pieza de papel, cada uno
+        con y sin mouse) y llega a 4,5 en tres. Para pasar el cuarto hay que aclarar el gris hasta
         1,02:1 del texto escrito, y ahí un campo con sugerencia se lee como un campo lleno, que es
         lo que este paso de la rampa vino a evitar. Antes se medía contra dos de los cuatro: los
         otros dos daban 4,24 y 3,99 y ya están corregidos.
@@ -178,7 +178,7 @@ export function AccessibilitySection() {
         **El borde de un campo contra el papel: 1,75:1 en claro y 2,57 en oscuro**, contra los 3:1
         que la WCAG pide para identificar un control. Subirlo a 3:1 convierte cada campo en una
         caja dibujada y cambia el aire de todas las pantallas. El campo no depende solo del borde
-        —se hunde contra su superficie, tiene su propia altura y su etiqueta— pero el número es el
+        (se hunde contra su superficie, tiene su propia altura y su etiqueta) pero el número es el
         número y queda acá escrito.
       </Note>
 

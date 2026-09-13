@@ -7,7 +7,7 @@ export function BreadcrumbStory() {
       title="Breadcrumb"
       kind="Navegación"
       imports="import { Breadcrumb } from '@milo/ui'"
-      lead="Dónde estás parado y cómo volver. Sirve cuando lo que estás mirando vive adentro de algo —una actividad adentro de un espacio— y no sirve cuando la pantalla es un destino suelto: una miga de un solo paso es ruido."
+      lead="Dónde estás parado y cómo volver. Sirve cuando lo que estás mirando vive adentro de algo (una actividad adentro de un espacio) y no sirve cuando la pantalla es un destino suelto: una miga de un solo paso es ruido."
     >
       <Section
         title="De la raíz hasta acá"
@@ -49,7 +49,7 @@ export function BreadcrumbStory() {
         <A11y items={[
           'Es un <nav> con su nombre, así que un lector lo anuncia como la navegación de la página y lo puede saltear.',
           'El item actual lleva aria-current="page" y no es un link: no se puede ir a donde ya estás.',
-          'Los separadores son decorativos y no se leen: entre item e item no se escucha «barra».',
+          'Los separadores son decorativos y no se leen: entre item e item no se escucha "barra".',
         ]} />
       </Section>
     </Page>

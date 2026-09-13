@@ -21,11 +21,11 @@ export function SelectStory() {
       title="Select"
       kind="Formularios"
       imports="import { Select } from '@milo/ui'"
-      lead="Es un botón con un listbox propio, no un `<select>` nativo. `appearance: none` te saca la flecha, pero la lista desplegada la sigue dibujando el sistema operativo, así que en Linux aparece un control de GTK en medio de la interfaz: el campo se ve «sin estilo» por más que la caja esté bien."
+      lead="Es un botón con un listbox propio, no un `<select>` nativo. `appearance: none` te saca la flecha, pero la lista desplegada la sigue dibujando el sistema operativo, así que en Linux aparece un control de GTK en medio de la interfaz: el campo se ve 'sin estilo' por más que la caja esté bien."
     >
       <Section
         title="Variantes"
-        note="El costo de no usar el nativo es traer el teclado a mano, que es lo que el nativo regalaba: flechas para moverse, Enter para elegir, Escape para salir, Home y End a los extremos, y teclear para saltar a la opción que empieza así. Probalo con el teclado: abrí el de al lado y escribí «ci»."
+        note="El costo de no usar el nativo es traer el teclado a mano, que es lo que el nativo regalaba: flechas para moverse, Enter para elegir, Escape para salir, Home y End a los extremos, y teclear para saltar a la opción que empieza así. Probalo con el teclado: abrí el de al lado y escribí 'ci'."
       >
         <div className="flex flex-wrap items-start gap-3">
           <Demo label="width 160">
@@ -49,7 +49,7 @@ export function SelectStory() {
 
       <Section
         title="Adelante del valor"
-        note="`leading` es un nodo y no un `IconName`, al revés que el `icon` del TextField: ahí el icono es siempre un glifo del set, acá lo que va adelante del valor es de quien lo usa — el glifo de la categoría, la carpeta de color de un espacio, el avatar de una persona."
+        note="`leading` es un nodo y no un `IconName`, al revés que el `icon` del TextField: ahí el icono es siempre un glifo del set, acá lo que va adelante del valor es de quien lo usa, el glifo de la categoría, la carpeta de color de un espacio, el avatar de una persona."
       >
         <div className="flex flex-wrap items-start gap-3">
           <Demo label="un glifo">
@@ -118,7 +118,7 @@ export function SelectStory() {
       <Section title="Accesibilidad">
         <A11y items={[
           'Flechas para moverse, Enter para elegir, Escape para salir, Home y End a los extremos. La flecha abajo también abre la lista.',
-          'Teclear salta a la opción que empieza así, sin tildes y sin distinguir mayúsculas — con veinte opciones es la diferencia entre usable y no.',
+          'Teclear salta a la opción que empieza así, sin tildes y sin distinguir mayúsculas: con veinte opciones es la diferencia entre usable y no.',
           'El foco se queda en el control y la opción activa se anuncia con `aria-activedescendant`: un lector de pantalla dice cuál está señalada.',
           'Las opciones no son paradas de tabulación: Tab sale del control, no recorre las veinte.',
           'Escape entra en la pila global: cierra la lista y deja abierto el modal que haya detrás.',

@@ -25,7 +25,7 @@ export function ButtonStory() {
 
       <Section
         title="Tamaños"
-        note="Tres alturas y un rol cada una: 32 inline en una fila densa, 36 dentro de un panel, 40 la acción principal. Ninguna es un número elegido — es la línea de la interfaz (16) más aire que sube de a 2, y el padding lateral de a 4. La escalera la comparte el `IconButton`, así que `md` mide 36 en las dos piezas."
+        note="Tres alturas y un rol cada una: 32 inline en una fila densa, 36 dentro de un panel, 40 la acción principal. Ninguna es un número elegido: es la línea de la interfaz (16) más aire que sube de a 2, y el padding lateral de a 4. La escalera la comparte el `IconButton`, así que `md` mide 36 en las dos piezas."
       >
         <Panel>
           <Variant name="sm · 32">

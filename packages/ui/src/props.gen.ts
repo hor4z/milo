@@ -1,4 +1,4 @@
-/* Generado por scripts/props.mjs — no se edita a mano.
+/* Generado por scripts/props.mjs: no se edita a mano.
    La descripción de cada prop vive en su docblock, al lado del tipo. */
 
 export type PropDoc = {
@@ -108,7 +108,7 @@ export const propsByComponent: Record<string, ComponentDoc> = {
         "name": "peaks",
         "type": "readonly number[]",
         "required": false,
-        "doc": "Los picos del archivo, de 0 a 1, para dibujar la onda. Se reparten el ancho, así que cuantos menos, más gordas salen las barras. Sin esto se dibuja una pista pelada — no se inventa una onda que no es la del audio."
+        "doc": "Los picos del archivo, de 0 a 1, para dibujar la onda. Se reparten el ancho, así que cuantos menos, más gordas salen las barras. Sin esto se dibuja una pista pelada: no se inventa una onda que no es la del audio."
       },
       {
         "name": "actions",
@@ -404,7 +404,7 @@ export const propsByComponent: Record<string, ComponentDoc> = {
         "doc": "Papel sobresale y tira sombra; muted es un hueco."
       }
     ],
-    "doc": "El contenedor de radio 16: lo que se apoya en la página. Lo que flota sobre un velo —un modal, un diálogo— va en 24."
+    "doc": "El contenedor de radio 16: lo que se apoya en la página. Lo que flota sobre un velo (un modal, un diálogo) va en 24."
   },
   "CardHeader": {
     "props": [],
@@ -585,7 +585,7 @@ export const propsByComponent: Record<string, ComponentDoc> = {
         "doc": "Lo convierte en <button>."
       }
     ],
-    "doc": "El chip: 28 de alto y radio 10. Identifica —una categoría, una persona, un espacio—; si el texto cambia según lo que pasó, es un `Badge`."
+    "doc": "El chip: 28 de alto y radio 10. Identifica (una categoría, una persona, un espacio); si el texto cambia según lo que pasó, es un `Badge`."
   },
   "ColumnPicker": {
     "props": [
@@ -661,7 +661,7 @@ export const propsByComponent: Record<string, ComponentDoc> = {
         "name": "query",
         "type": "string",
         "required": false,
-        "doc": "El texto de búsqueda, si lo maneja quien lo usa —un editor que ya viene escribiendo detrás de la barra."
+        "doc": "El texto de búsqueda, si lo maneja quien lo usa, un editor que ya viene escribiendo detrás de la barra."
       },
       {
         "name": "maxHeight",
@@ -674,7 +674,7 @@ export const propsByComponent: Record<string, ComponentDoc> = {
         "name": "autoFocus",
         "type": "boolean",
         "required": false,
-        "doc": "El buscador se lleva el foco al aparecer. Va donde el menú abre por un gesto —una barra, un atajo—; suelto en una página, roba el foco y el scroll. Adentro de un overlay alcanza con esto: el `data-autofocus` que esos paneles miran lo pone la pieza."
+        "doc": "El buscador se lleva el foco al aparecer. Va donde el menú abre por un gesto (una barra, un atajo); suelto en una página, roba el foco y el scroll. Adentro de un overlay alcanza con esto: el `data-autofocus` que esos paneles miran lo pone la pieza."
       },
       {
         "name": "className",
@@ -720,7 +720,7 @@ export const propsByComponent: Record<string, ComponentDoc> = {
         "name": "keywords",
         "type": "string[]",
         "required": false,
-        "doc": "Palabras que también lo encuentran y que no están en el nombre: «foto» para Imagen."
+        "doc": "Palabras que también lo encuentran y que no están en el nombre: \"foto\" para Imagen."
       },
       {
         "name": "disabled",
@@ -766,7 +766,7 @@ export const propsByComponent: Record<string, ComponentDoc> = {
         "type": "string",
         "required": false,
         "def": "'Aceptar'",
-        "doc": "El verbo de lo que va a pasar, no «Sí»."
+        "doc": "El verbo de lo que va a pasar, no \"Sí\"."
       },
       {
         "name": "cancelLabel",
@@ -884,7 +884,7 @@ export const propsByComponent: Record<string, ComponentDoc> = {
         "type": "string",
         "required": false,
         "def": "'Opciones'",
-        "doc": "Qué menú es, para quien lo escucha. Por defecto, «Opciones»."
+        "doc": "Qué menú es, para quien lo escucha. Por defecto, \"Opciones\"."
       }
     ],
     "doc": "El menú de opciones escrito como lista, que es lo más corto cuando el menú no tiene nada raro: cuatro filas con su icono y su acción."
@@ -1118,7 +1118,7 @@ export const propsByComponent: Record<string, ComponentDoc> = {
         "name": "meta",
         "type": "string",
         "required": false,
-        "doc": "La línea de apoyo: «15 archivos»."
+        "doc": "La línea de apoyo: \"15 archivos\"."
       },
       {
         "name": "sheets",
@@ -1245,7 +1245,7 @@ export const propsByComponent: Record<string, ComponentDoc> = {
         "name": "dot",
         "type": "boolean",
         "required": false,
-        "doc": "El puntito de «hay algo nuevo», adentro del botón. Para un contador o un glifo, `Indicator`."
+        "doc": "El puntito de \"hay algo nuevo\", adentro del botón. Para un contador o un glifo, `Indicator`."
       },
       {
         "name": "active",
@@ -1388,7 +1388,7 @@ export const propsByComponent: Record<string, ComponentDoc> = {
         "name": "trailing",
         "type": "ReactNode",
         "required": false,
-        "doc": "A la derecha: un chevron, un `Switch`. Un contador no — el número ya está en `hint`, y repetirlo al lado obliga a leer dos veces lo mismo."
+        "doc": "A la derecha: un chevron, un `Switch`. Un contador no: el número ya está en `hint`, y repetirlo al lado obliga a leer dos veces lo mismo."
       }
     ]
   },
@@ -1437,7 +1437,7 @@ export const propsByComponent: Record<string, ComponentDoc> = {
         "name": "label",
         "type": "string",
         "required": false,
-        "doc": "Qué menú es. Sin esto un lector lo anuncia como «menú» y nada más, y con dos abiertos en una pantalla no se distinguen."
+        "doc": "Qué menú es. Sin esto un lector lo anuncia como \"menú\" y nada más, y con dos abiertos en una pantalla no se distinguen."
       },
       {
         "name": "width",
@@ -1722,7 +1722,7 @@ export const propsByComponent: Record<string, ComponentDoc> = {
         "def": "'Siguiente'"
       }
     ],
-    "doc": "Su `disabled` es el «hay más» que contesta el back: mientras haya, hay siguiente."
+    "doc": "Su `disabled` es el \"hay más\" que contesta el back: mientras haya, hay siguiente."
   },
   "Popover": {
     "props": [
@@ -1736,7 +1736,7 @@ export const propsByComponent: Record<string, ComponentDoc> = {
         "name": "children",
         "type": "(close: () => void) => ReactNode",
         "required": true,
-        "doc": "Recibe el cierre. El panel lo dibuja el call site — fondo, borde, radio y sombra — porque Popover no tiene aspecto."
+        "doc": "Recibe el cierre. El panel lo dibuja el call site: fondo, borde, radio y sombra, porque Popover no tiene aspecto."
       },
       {
         "name": "align",
@@ -1955,7 +1955,7 @@ export const propsByComponent: Record<string, ComponentDoc> = {
         "name": "label",
         "type": "string",
         "required": true,
-        "doc": "De qué es la lista. Sin esto un lector dice «lista» y nada más."
+        "doc": "De qué es la lista. Sin esto un lector dice \"lista\" y nada más."
       },
       {
         "name": "children",
@@ -2029,7 +2029,7 @@ export const propsByComponent: Record<string, ComponentDoc> = {
         "type": "string",
         "required": false,
         "def": "'Buscar…'",
-        "doc": "Qué se busca, no «Buscar…» a secas."
+        "doc": "Qué se busca, no \"Buscar…\" a secas."
       },
       {
         "name": "size",
@@ -2042,7 +2042,7 @@ export const propsByComponent: Record<string, ComponentDoc> = {
         "name": "shortcut",
         "type": "string",
         "required": false,
-        "doc": "El atajo que lo enfoca, a la derecha: `/`. Es un recordatorio, no la tecla — esa la escucha quien lo pone."
+        "doc": "El atajo que lo enfoca, a la derecha: `/`. Es un recordatorio, no la tecla: esa la escucha quien lo pone."
       },
       {
         "name": "block",
@@ -2061,7 +2061,7 @@ export const propsByComponent: Record<string, ComponentDoc> = {
         "required": false
       }
     ],
-    "doc": "El buscador: un campo con la lupa y una cruz que aparece cuando hay algo escrito. Es un `TextField` y no otro campo — se dibuja igual que los demás y hereda su inversión contra el fondo."
+    "doc": "El buscador: un campo con la lupa y una cruz que aparece cuando hay algo escrito. Es un `TextField` y no otro campo: se dibuja igual que los demás y hereda su inversión contra el fondo."
   },
   "Segmented": {
     "props": [
@@ -2081,7 +2081,7 @@ export const propsByComponent: Record<string, ComponentDoc> = {
         "name": "options",
         "type": "SegmentedOption<T>[]",
         "required": true,
-        "doc": "Sin label la opción queda cuadrada, solo icono — y title pasa a obligatorio."
+        "doc": "Sin label la opción queda cuadrada, solo icono, y title pasa a obligatorio."
       },
       {
         "name": "size",
@@ -2370,7 +2370,7 @@ export const propsByComponent: Record<string, ComponentDoc> = {
         "name": "suffix",
         "type": "string",
         "required": false,
-        "doc": "Lo que va después del número: «min», «pts». No se escribe ni se lee aparte."
+        "doc": "Lo que va después del número: \"min\", \"pts\". No se escribe ni se lee aparte."
       },
       {
         "name": "disabled",
@@ -2660,7 +2660,7 @@ export const propsByComponent: Record<string, ComponentDoc> = {
         "name": "label",
         "type": "string",
         "required": false,
-        "doc": "De qué son estas solapas. Sin esto un lector las anuncia como «lista de solapas» y con dos en una pantalla no se distinguen."
+        "doc": "De qué son estas solapas. Sin esto un lector las anuncia como \"lista de solapas\" y con dos en una pantalla no se distinguen."
       }
     ],
     "html": "div",
@@ -2708,7 +2708,7 @@ export const propsByComponent: Record<string, ComponentDoc> = {
         "name": "label",
         "type": "string",
         "required": true,
-        "doc": "De qué es la lista. Sin esto un lector anuncia «lista, cuatro elementos» y nada más."
+        "doc": "De qué es la lista. Sin esto un lector anuncia \"lista, cuatro elementos\" y nada más."
       },
       {
         "name": "readOnly",
@@ -2888,7 +2888,7 @@ export const propsByComponent: Record<string, ComponentDoc> = {
         "required": false
       }
     ],
-    "doc": "Un botón de la barra. Con `pressed` es un interruptor y lo dice: «negrita, activado»."
+    "doc": "Un botón de la barra. Con `pressed` es un interruptor y lo dice: \"negrita, activado\"."
   },
   "Tooltip": {
     "props": [
@@ -2933,7 +2933,7 @@ export const propsByComponent: Record<string, ComponentDoc> = {
         "name": "label",
         "type": "string",
         "required": true,
-        "doc": "De qué es el árbol. Sin esto un lector dice «árbol» y nada más."
+        "doc": "De qué es el árbol. Sin esto un lector dice \"árbol\" y nada más."
       },
       {
         "name": "expanded",

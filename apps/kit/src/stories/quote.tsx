@@ -11,7 +11,7 @@ export function QuoteStory() {
     >
       <Section
         title="La pieza"
-        note="La barra va del lado de la lectura y no alrededor: una caja cerrada se lee como un aviso, y esto es texto adentro del texto. Va en el azul de marca y no en gris — en una página de texto corrido un gris más es una línea entre otras, y lo que la barra tiene que hacer es cortar la lectura."
+        note="La barra va del lado de la lectura y no alrededor: una caja cerrada se lee como un aviso, y esto es texto adentro del texto. Va en el azul de marca y no en gris: en una página de texto corrido un gris más es una línea entre otras, y lo que la barra tiene que hacer es cortar la lectura."
       >
         <div className="flex max-w-[640px] flex-col gap-6">
           <Quote source="Ana, 6.º B">

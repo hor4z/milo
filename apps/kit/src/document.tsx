@@ -149,7 +149,7 @@ export function Documento() {
         <h2 className="text-title font-semibold text-ink">Para los que quieran ir más lejos</h2>
         <p className="text-reading text-ink">
           Con el cronómetro del celular el error es grande. Se puede filmar a cámara lenta y contar
-          los cuadros — a 240 por segundo, cada cuadro son cuatro milésimas.
+          los cuadros: a 240 por segundo, cada cuadro son cuatro milésimas.
         </p>
 
       </div>

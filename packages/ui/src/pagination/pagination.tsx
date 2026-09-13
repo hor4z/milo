@@ -61,7 +61,7 @@ export function PaginationPrev({ className, children = 'Anterior', ...props }: P
   )
 }
 
-/** Su `disabled` es el «hay más» que contesta el back: mientras haya, hay siguiente. */
+/** Su `disabled` es el "hay más" que contesta el back: mientras haya, hay siguiente. */
 export function PaginationNext({ className, children = 'Siguiente', ...props }: PaginationNavProps) {
   return (
     <Button type="button" variant="ghost" size="sm" iconEnd="chevron_right" className={cx('!text-ink', className)} {...props}>

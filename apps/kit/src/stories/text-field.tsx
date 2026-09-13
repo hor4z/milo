@@ -10,7 +10,7 @@ export function TextFieldStory() {
       title="TextField"
       kind="Formularios"
       imports="import { TextField } from '@milo/ui'"
-      lead="Plano: un fondo y una línea de un píxel, sin relieve. El volumen se fue a propósito — el relieve dice «esto sobresale» o «esto se aprieta», y un campo no es ninguna de las dos. Al enfocarse se le tiñe el borde que ya tenía: el anillo es para una pieza sin borde propio, y acá dibujaba una segunda línea a dos píxeles."
+      lead="Plano: un fondo y una línea de un píxel, sin relieve. El volumen se fue a propósito: el relieve dice 'esto sobresale' o 'esto se aprieta', y un campo no es ninguna de las dos. Al enfocarse se le tiñe el borde que ya tenía: el anillo es para una pieza sin borde propio, y acá dibujaba una segunda línea a dos píxeles."
     >
       <Section title="Variantes">
         <div className="flex flex-wrap gap-3">
@@ -29,7 +29,7 @@ export function TextFieldStory() {
 
       <Section
         title="Las tres alturas"
-        note="Las mismas del Button, con los mismos radios, iconos y tamaños de letra: un campo y el botón que lo acompaña en la misma fila tienen que medir lo mismo. Lo único distinto es el padding lateral — el texto de un botón está centrado y necesita aire de los dos lados, el de un campo arranca pegado a la izquierda."
+        note="Las mismas del Button, con los mismos radios, iconos y tamaños de letra: un campo y el botón que lo acompaña en la misma fila tienen que medir lo mismo. Lo único distinto es el padding lateral: el texto de un botón está centrado y necesita aire de los dos lados, el de un campo arranca pegado a la izquierda."
       >
         <div className="flex flex-wrap gap-3">
           {(['sm', 'md', 'lg'] as const).map(s => (
@@ -44,7 +44,7 @@ export function TextFieldStory() {
 
       <Section
         title="El click y el foco"
-        note="El input tapa la caja entera: mide lo que mide su línea de texto —16px— y adentro de una caja de 40 dejaba 12 muertos arriba y abajo, así que media caja no recibía el click. El anillo de foco es del campo y no del input: si no, queda un rectángulo flotando adentro."
+        note="El input tapa la caja entera: mide lo que mide su línea de texto (16px) y adentro de una caja de 40 dejaba 12 muertos arriba y abajo, así que media caja no recibía el click. El anillo de foco es del campo y no del input: si no, queda un rectángulo flotando adentro."
       >
         <div className="flex flex-wrap gap-3">
           <div className="w-full max-w-[320px]">

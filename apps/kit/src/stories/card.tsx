@@ -7,7 +7,7 @@ export function CardStory() {
       title="Card"
       kind="Superficies"
       imports="import { Card, CardHeader, CardTitle, CardHint, CardBody, CardFooter } from '@milo/ui'"
-      lead="La superficie de una grilla: una cosa por tarjeta, y la tarjeta entera es la unidad que se escanea. Radio 16 con 8 de padding, así que lo que va adentro lleva 8 — la regla del anidado, no un número elegido a ojo."
+      lead="La superficie de una grilla: una cosa por tarjeta, y la tarjeta entera es la unidad que se escanea. Radio 16 con 8 de padding, así que lo que va adentro lleva 8: la regla del anidado, no un número elegido a ojo."
     >
       <Section
         title="Se arma con partes"
@@ -36,7 +36,7 @@ export function CardStory() {
             </CardHeader>
             <CardBody>
               <p className="text-body font-medium text-ink-muted">
-                La tarjeta sigue aceptando cualquier contenido suelto para lo que no tiene esa forma —
+                La tarjeta sigue aceptando cualquier contenido suelto para lo que no tiene esa forma,
                 una portada, un gráfico, una grilla de fotos.
               </p>
             </CardBody>
@@ -68,7 +68,7 @@ export function CardStory() {
 
       <Section
         title="Papel o hueco"
-        note="`paper` sobresale del fondo y tira su sombra: es una cosa apoyada arriba. `muted` es lo contrario, un hueco hundido en la pantalla, y sirve para lo que agrupa sin ser protagonista — un resumen, un bloque de ayuda."
+        note="`paper` sobresale del fondo y tira su sombra: es una cosa apoyada arriba. `muted` es lo contrario, un hueco hundido en la pantalla, y sirve para lo que agrupa sin ser protagonista: un resumen, un bloque de ayuda."
       >
         <div className="flex flex-wrap gap-4">
           <Card className="w-[260px] p-4" surface="paper">
@@ -84,7 +84,7 @@ export function CardStory() {
 
       <Note title="Card o Row">
         La tarjeta es para una grilla de cosas que se comparan de reojo. Si lo que hay es una lista
-        de ajustes —etiqueta a la izquierda, control a la derecha— eso es un
+        de ajustes (etiqueta a la izquierda, control a la derecha) eso es un
         {' '}<a className="underline underline-offset-2" href="#row">Row</a> adentro de un panel, y
         no seis tarjetas apiladas.
       </Note>
@@ -97,7 +97,7 @@ export function CardStory() {
         <A11y items={[
           'CardTitle es un <h3>: la tarjeta entra en el esquema de encabezados de la página en vez de ser texto en negrita.',
           'La tarjeta no se mueve en hover ni esconde acciones detrás del puntero, así que se descubre igual sin mouse.',
-          'Con interactive, lo que se toca sigue siendo un control de verdad —un link o un botón— y no un div con onClick.',
+          'Con interactive, lo que se toca sigue siendo un control de verdad (un link o un botón) y no un div con onClick.',
         ]} />
       </Section>
     </Page>

@@ -9,7 +9,7 @@ export function Folder({
 }: {
   /** El nombre, debajo. */
   label?: string
-  /** La línea de apoyo: «15 archivos». */
+  /** La línea de apoyo: "15 archivos". */
   meta?: string
   /** Cuántas hojas se abanican. */
   sheets?: 2 | 3

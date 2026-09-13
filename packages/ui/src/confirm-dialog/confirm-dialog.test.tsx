@@ -12,7 +12,7 @@ describe('ConfirmDialog', () => {
         open
         onCancel={onCancel}
         onConfirm={onConfirm}
-        title="¿Borrar «Fracciones equivalentes»?"
+        title="¿Borrar 'Fracciones equivalentes'?"
         body="Se borran también las 18 entregas."
         confirmLabel="Borrar"
         tone="bad"

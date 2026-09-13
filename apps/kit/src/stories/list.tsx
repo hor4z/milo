@@ -21,11 +21,11 @@ export function ListStory() {
       title="List · ListItem"
       kind="Datos"
       imports="import { List, ListItem } from '@milo/ui'"
-      lead="Filas altas, cada una con una marca de color, un título y una línea de apoyo. No es `Row`: acá no hay divisores —cada fila es su propia caja con aire alrededor—, el título sube a 16 porque es lo que se lee primero, y la marca de color es lo que te deja encontrar una fila de reojo sin leerla."
+      lead="Filas altas, cada una con una marca de color, un título y una línea de apoyo. No es `Row`: acá no hay divisores (cada fila es su propia caja con aire alrededor), el título sube a 16 porque es lo que se lee primero, y la marca de color es lo que te deja encontrar una fila de reojo sin leerla."
     >
       <Section
         title="La pieza"
-        note="El contenedor es una bandeja transparente y las que flotan son las filas, cada una en papel con radio 16 — el mismo de la `Card`, porque las dos se apoyan en la página. El alto de 72 tampoco es arbitrario — la marca es de 44 y el aire de 14 arriba y abajo. Cambiar la marca cambia el alto, no el padding."
+        note="El contenedor es una bandeja transparente y las que flotan son las filas, cada una en papel con radio 16: el mismo de la `Card`, porque las dos se apoyan en la página. El alto de 72 tampoco es arbitrario: la marca es de 44 y el aire de 14 arriba y abajo. Cambiar la marca cambia el alto, no el padding."
       >
         <div className="max-w-[460px]">
           <List>
@@ -35,7 +35,7 @@ export function ListStory() {
           </List>
         </div>
         <p className="mt-3 max-w-[70ch] text-meta text-ink-muted">
-          La cuarta fila está en <Mono>active</Mono>: queda hundida, no teñida — el color ya lo gasta la marca.
+          La cuarta fila está en <Mono>active</Mono>: queda hundida, no teñida, el color ya lo gasta la marca.
           Pasá el mouse por cualquier otra para ver el hover, que levanta la fila al papel en vez de oscurecerla.
         </p>
       </Section>

@@ -41,7 +41,7 @@ export function FigureStory() {
 
       <Note title="`alt` y epígrafe no son lo mismo">
         El `alt` dice qué se ve, y lo escucha solo quien no ve la imagen. El epígrafe agrega algo
-        que la imagen no dice sola —de dónde salió, qué hay que mirar— y lo lee todo el mundo.
+        que la imagen no dice sola (de dónde salió, qué hay que mirar) y lo lee todo el mundo.
         Repetir el epígrafe en el `alt` hace que quien usa un lector escuche la misma frase dos
         veces. Y si la imagen no aporta nada que el texto ya no diga, el `alt` va vacío: ahí es
         decoración, y anunciarla interrumpe.
@@ -51,7 +51,7 @@ export function FigureStory() {
 
       <A11y
         items={[
-          'El `alt` es obligatorio, y vacío es una respuesta válida: dice «esto es decorativo» en vez de dejar que un lector invente el nombre del archivo.',
+          'El `alt` es obligatorio, y vacío es una respuesta válida: dice "esto es decorativo" en vez de dejar que un lector invente el nombre del archivo.',
           'El epígrafe va en un `figcaption` atado a la figura, así que quien lo escucha sabe de qué imagen habla.',
           'La imagen carga en diferido y el hueco ya tiene su proporción: la página no salta.',
         ]}

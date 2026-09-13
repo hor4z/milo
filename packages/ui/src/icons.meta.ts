@@ -1,4 +1,4 @@
-/* GENERADO por scripts/icons.mjs — no editar a mano.
+/* GENERADO por scripts/icons.mjs: no editar a mano.
 
    Los tags de cada icono, para el buscador de la galería del kit. Va aparte de
    icons.gen.ts a propósito: si los tags viajaran con los codepoints, la app de

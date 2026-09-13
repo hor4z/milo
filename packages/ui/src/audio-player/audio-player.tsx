@@ -56,7 +56,7 @@ type AudioPlayerProps = {
   src: string
   /** El nombre de la pista, arriba de la onda. Sin esto el reproductor va en una sola fila. */
   title?: string
-  /** Los picos del archivo, de 0 a 1, para dibujar la onda. Se reparten el ancho, así que cuantos menos, más gordas salen las barras. Sin esto se dibuja una pista pelada — no se inventa una onda que no es la del audio. */
+  /** Los picos del archivo, de 0 a 1, para dibujar la onda. Se reparten el ancho, así que cuantos menos, más gordas salen las barras. Sin esto se dibuja una pista pelada: no se inventa una onda que no es la del audio. */
   peaks?: readonly number[]
   /** A la derecha del tiempo: descargar, un menú, lo que haga falta. */
   actions?: ReactNode

@@ -85,7 +85,7 @@ async function bajarFuente(names, axes) {
 
 function escribirGen(names, cat) {
   const filas = names.map(n => `  ${n}: 0x${cat.get(n).c.toString(16)},`).join('\n')
-  writeFileSync(P.gen, `/* GENERADO por scripts/icons.mjs — no editar a mano.
+  writeFileSync(P.gen, `/* GENERADO por scripts/icons.mjs: no editar a mano.
    Se regenera con: npm run icons -w @milo/ui -- sync
 
    Son codepoints y no ligaduras a propósito: con ligaduras, el instante previo
@@ -101,7 +101,7 @@ export const iconNames = Object.keys(codepoints) as IconName[]
 `)
 
   const metaFilas = names.map(n => `  ${n}: ${JSON.stringify(cat.get(n).t.join(' '))},`).join('\n')
-  writeFileSync(P.meta, `/* GENERADO por scripts/icons.mjs — no editar a mano.
+  writeFileSync(P.meta, `/* GENERADO por scripts/icons.mjs: no editar a mano.
 
    Los tags de cada icono, para el buscador de la galería del kit. Va aparte de
    icons.gen.ts a propósito: si los tags viajaran con los codepoints, la app de
@@ -170,7 +170,7 @@ async function add(args) {
       .slice(0, 3)
     if (parecidos.length && !yes) {
       console.error(`? "${n}" se parece a lo que ya tenés:`)
-      for (const [c, k] of parecidos) console.error(`    ${k} — ${c} tags en común (${cat.get(k).t.slice(0, 5).join(', ')})`)
+      for (const [c, k] of parecidos) console.error(`    ${k}: ${c} tags en común (${cat.get(k).t.slice(0, 5).join(', ')})`)
       console.error(`  Si igual lo querés: icons add ${n} --yes`)
       process.exit(1)
     }
@@ -207,11 +207,11 @@ function check() {
     }
     // Y cualquier string suelto que coincida con un nombre del manifiesto. Las
     // formas de arriba son precisas y por eso se perdían los usos que no tienen
-    // esa forma: un ternario —`icon={oscuro ? 'light_mode' : 'dark_mode'}`—, el
+    // esa forma: un ternario (`icon={oscuro ? 'light_mode' : 'dark_mode'}`), el
     // valor de un `Record<…, IconName>`, un dato en un array. Los cuatro de ese
     // ejemplo se reportaban sin uso y estaban en uso.
     //
-    // Esto cuenta de más —un `'search'` que no sea un icono también entra— y
+    // Esto cuenta de más (un `'search'` que no sea un icono también entra) y
     // está bien que así sea: equivocarse para el otro lado significa borrar del
     // set un glifo que alguien está dibujando.
     for (const mm of src.matchAll(/['"`]([a-z][a-z0-9_]{2,})['"`]/g)) {

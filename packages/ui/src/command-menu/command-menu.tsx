@@ -15,7 +15,7 @@ export type CommandItem = {
   icon?: IconName
   /** El atajo, a la derecha. Es un recordatorio: la tecla la escucha quien la pone. */
   shortcut?: string
-  /** Palabras que también lo encuentran y que no están en el nombre: «foto» para Imagen. */
+  /** Palabras que también lo encuentran y que no están en el nombre: "foto" para Imagen. */
   keywords?: string[]
   disabled?: boolean
 }
@@ -51,11 +51,11 @@ type CommandMenuProps = {
   empty?: string
   /** Sin esto la lista arranca sin buscador, para cuando lo que se escribe ya está afuera. */
   search?: boolean
-  /** El texto de búsqueda, si lo maneja quien lo usa —un editor que ya viene escribiendo detrás de la barra. */
+  /** El texto de búsqueda, si lo maneja quien lo usa, un editor que ya viene escribiendo detrás de la barra. */
   query?: string
   /** Cuánto mide la lista antes de scrollear. */
   maxHeight?: number
-  /** El buscador se lleva el foco al aparecer. Va donde el menú abre por un gesto —una barra, un atajo—; suelto en una página, roba el foco y el scroll. Adentro de un overlay alcanza con esto: el `data-autofocus` que esos paneles miran lo pone la pieza. */
+  /** El buscador se lleva el foco al aparecer. Va donde el menú abre por un gesto (una barra, un atajo); suelto en una página, roba el foco y el scroll. Adentro de un overlay alcanza con esto: el `data-autofocus` que esos paneles miran lo pone la pieza. */
   autoFocus?: boolean
   className?: string
 }

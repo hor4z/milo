@@ -14,7 +14,7 @@ export function Popover({
     ref: React.Ref<HTMLButtonElement>
     'data-open': boolean
   }) => ReactNode
-  /** Recibe el cierre. El panel lo dibuja el call site — fondo, borde, radio y sombra — porque Popover no tiene aspecto. */
+  /** Recibe el cierre. El panel lo dibuja el call site: fondo, borde, radio y sombra, porque Popover no tiene aspecto. */
   children: (close: () => void) => ReactNode
   /** Contra qué borde del disparador se alinea el panel. */
   align?: 'start' | 'end'

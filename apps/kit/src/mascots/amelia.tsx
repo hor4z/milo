@@ -31,7 +31,7 @@ export function AmeliaStory() {
 
       <Section
         title="Los clips"
-        note="Solo «Quieta» se repite: es el único que termina donde empezó. Las vueltas van adentro del archivo — un `img` no tiene `loop` como un `video`."
+        note="Solo 'Quieta' se repite: es el único que termina donde empezó. Las vueltas van adentro del archivo: un `img` no tiene `loop` como un `video`."
       >
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {clips.map(c => (

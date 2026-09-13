@@ -15,7 +15,7 @@ export function ConfirmStory() {
     >
       <Section
         title="Vivo"
-        note="El título nombra lo que se va a tocar: «¿Borrar esta actividad?» obliga a acordarse de cuál estabas mirando. Va como `alertdialog` y no como `dialog` — un lector de pantalla lo anuncia con más urgencia, que es lo que corresponde cuando lo que sigue no tiene vuelta atrás."
+        note="El título nombra lo que se va a tocar: '¿Borrar esta actividad?' obliga a acordarse de cuál estabas mirando. Va como `alertdialog` y no como `dialog`: un lector de pantalla lo anuncia con más urgencia, que es lo que corresponde cuando lo que sigue no tiene vuelta atrás."
       >
         <Canvas className="flex justify-center">
           <Button variant="bad" icon="delete" onClick={() => setOpen(true)}>Borrar la actividad</Button>
@@ -27,7 +27,7 @@ export function ConfirmStory() {
             setOpen(false)
             toast({ title: 'Actividad borrada', tone: 'ok' })
           }}
-          title="¿Borrar «Fracciones equivalentes»?"
+          title="¿Borrar 'Fracciones equivalentes'?"
           body="Se borran también las 18 entregas que ya llegaron. No se puede deshacer."
           confirmLabel="Borrar"
           tone="bad"
@@ -58,7 +58,7 @@ export function ConfirmStory() {
         Preguntar cuesta un click siempre; deshacer cuesta un click solo cuando alguien se
         equivocó. Si la acción se puede revertir, va derecho con un
         {' '}<a className="underline underline-offset-2" href="#toast">Toast</a> que ofrezca
-        «Deshacer». El diálogo se guarda para lo que no tiene vuelta.
+        "Deshacer". El diálogo se guarda para lo que no tiene vuelta.
       </Note>
 
       <Section title="Props">
@@ -68,10 +68,10 @@ export function ConfirmStory() {
       <Section title="Accesibilidad">
         <A11y items={[
           'Va como role="alertdialog": se anuncia con más urgencia que un diálogo común.',
-          'Con tone="bad" el foco arranca en Cancelar: con el foco en «Borrar», un Enter de más lo borra.',
+          'Con tone="bad" el foco arranca en Cancelar: con el foco en "Borrar", un Enter de más lo borra.',
           'El foco no se escapa del diálogo mientras está abierto.',
           'Escape cancela, que es la salida segura.',
-          'El botón dice el verbo de lo que va a pasar: «Borrar» y no «Aceptar».',
+          'El botón dice el verbo de lo que va a pasar: "Borrar" y no "Aceptar".',
         ]} />
       </Section>
     </Page>

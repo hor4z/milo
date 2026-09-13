@@ -38,15 +38,15 @@ export function TaskListStory() {
       <Note title="TaskList o Checkbox suelto">
         Un `Checkbox` solo es una decisión dentro de un formulario: se confirma con un botón. Una
         `TaskList` es una lista de cosas que se van haciendo, y cada marca vale sola en el momento.
-        Si al final hay un «Guardar», son casillas; si no, es esta lista.
+        Si al final hay un "Guardar", son casillas; si no, es esta lista.
       </Note>
 
       <Props of={['TaskList', 'Task']} />
 
       <A11y
         items={[
-          'La lista lleva nombre: «lista, cuatro elementos» no dice de qué.',
-          'Cada casilla se nombra con su propio texto, y el texto es zona de click — que es la mitad del área útil del control.',
+          'La lista lleva nombre: "lista, cuatro elementos" no dice de qué.',
+          'Cada casilla se nombra con su propio texto, y el texto es zona de click, que es la mitad del área útil del control.',
           'Lo hecho se dice con el tachado además del gris: quien no separa el gris del negro ve igual que la línea está cruzada.',
         ]}
       />

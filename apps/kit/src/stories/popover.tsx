@@ -5,7 +5,7 @@ export function PopoverStory() {
   return (
     <Page
       title="Popover"
-      lead="El panel anclado. Cierra con `pointerdown` y no con `click`: con click, el mismo gesto que abre otro panel lo cierra y lo reabre, y parpadea. Y el scroll de la página lo cierra, pero el de su propio contenido no — el listener va en captura y se filtra por origen."
+      lead="El panel anclado. Cierra con `pointerdown` y no con `click`: con click, el mismo gesto que abre otro panel lo cierra y lo reabre, y parpadea. Y el scroll de la página lo cierra, pero el de su propio contenido no: el listener va en captura y se filtra por origen."
       kind="Superficies"
       imports="import { Popover } from '@milo/ui'"
     >
@@ -22,7 +22,7 @@ export function PopoverStory() {
                 <div className="ui-pop rounded-xl border border-line bg-popover p-4 shadow-popover">
                   <div className="text-body font-semibold">Un panel de 320</div>
                   <p className="mt-2 text-meta text-ink-muted">
-                    Cierra con Escape, con un click afuera, o al scrollear la página — pero no al
+                    Cierra con Escape, con un click afuera, o al scrollear la página, pero no al
                     scrollear su propio contenido. Un resize sí lo cierra siempre.
                   </p>
                   <div className="mt-4"><Button size="sm" variant="raised" onClick={close}>Cerrar</Button></div>

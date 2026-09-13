@@ -7,11 +7,11 @@ export function LinkStory() {
       title="Link"
       kind="Superficies"
       imports="import { Link } from '@milo/ui'"
-      lead="Azul **y** subrayado, las dos cosas. El color solo no alcanza —hay quien no lo distingue— y el subrayado solo dejaba al enlace confundido con el texto en negrita de al lado. Con las dos señales, un enlace se reconoce sin leerlo y sin depender de ver el tono."
+      lead="Azul **y** subrayado, las dos cosas. El color solo no alcanza (hay quien no lo distingue) y el subrayado solo dejaba al enlace confundido con el texto en negrita de al lado. Con las dos señales, un enlace se reconoce sin leerlo y sin depender de ver el tono."
     >
       <Section
         title="Adentro de un párrafo"
-        note="Es el caso para el que existe la pieza: un enlace suelto en medio de una frase. Fuera de un párrafo —una fila de una lista, una acción de una barra— lo que corresponde es un `Button` con variante `ghost`, que tiene el alto y el blanco de click de un control."
+        note="Es el caso para el que existe la pieza: un enlace suelto en medio de una frase. Fuera de un párrafo (una fila de una lista, una acción de una barra) lo que corresponde es un `Button` con variante `ghost`, que tiene el alto y el blanco de click de un control."
       >
         <Canvas className="flex-col items-start gap-3">
           <p className="max-w-[60ch] text-body font-medium text-ink-muted">
@@ -23,7 +23,7 @@ export function LinkStory() {
 
       <Section
         title="El de afuera avisa"
-        note="`external` agrega el glifo, el `target` y el `rel`, y —lo que no se ve— el texto «se abre en otra pestaña» para el lector de pantalla. Abrir una pestaña sin avisar rompe el botón de volver, que es el control que más se usa de todo el navegador."
+        note="`external` agrega el glifo, el `target` y el `rel`, y (lo que no se ve) el texto 'se abre en otra pestaña' para el lector de pantalla. Abrir una pestaña sin avisar rompe el botón de volver, que es el control que más se usa de todo el navegador."
       >
         <Canvas className="flex-col items-start gap-3">
           <Link href="https://m3.material.io/styles/icons" external>Material Symbols</Link>
@@ -47,8 +47,8 @@ export function LinkStory() {
       <Section title="Accesibilidad">
         <A11y items={[
           'El subrayado no depende del color: en monocromo o en alto contraste el enlace se sigue reconociendo.',
-          'Un link externo dice «se abre en otra pestaña» además de mostrar el glifo.',
-          'El texto dice a dónde lleva: «los ajustes de la actividad» y no «hacé click acá», que fuera de la frase no significa nada.',
+          'Un link externo dice "se abre en otra pestaña" además de mostrar el glifo.',
+          'El texto dice a dónde lleva: "los ajustes de la actividad" y no "hacé click acá", que fuera de la frase no significa nada.',
           'El foco se ve con el mismo anillo azul que el resto del sistema.',
         ]} />
       </Section>

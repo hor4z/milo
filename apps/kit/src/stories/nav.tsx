@@ -10,11 +10,11 @@ export function NavStory() {
       title="NavItem"
       kind="Navegación"
       imports="import { NavItemBody, navItemClass } from '@milo/ui'"
-      lead="El item del sidebar, y es la pieza que usa el riel de este mismo kit. Va partido en dos —`navItemClass` para el contenedor y `NavItemBody` para el contenido— porque NavLink recibe className y children como funciones de su propio estado: partirlo deja que quien navega elija el elemento y que el sistema decida cómo se ve."
+      lead="El item del sidebar, y es la pieza que usa el riel de este mismo kit. Va partido en dos (`navItemClass` para el contenedor y `NavItemBody` para el contenido) porque NavLink recibe className y children como funciones de su propio estado: partirlo deja que quien navega elija el elemento y que el sistema decida cómo se ve."
     >
       <Section
         title="El item"
-        note="40 de alto, radio 12, el icono en un cuadrado de 34 y la etiqueta en `text-body`. El activo va en azul suave con su canto. Estuvo en gris, con la regla «el activo nunca se marca con color» — esa regla existía cuando el azul era el único acento, y dejó de valer cuando pasó a ser el color primario: en un riel de doce, el gris hay que buscarlo."
+        note="40 de alto, radio 12, el icono en un cuadrado de 34 y la etiqueta en `text-body`. El activo va en azul suave con su canto. Estuvo en gris, con la regla 'el activo nunca se marca con color': esa regla existía cuando el azul era el único acento, y dejó de valer cuando pasó a ser el color primario: en un riel de doce, el gris hay que buscarlo."
       >
         <div className="w-[220px] rounded-xl border border-line bg-canvas px-5 py-4">
           <div className="flex flex-col gap-0.5">

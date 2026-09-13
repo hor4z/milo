@@ -30,7 +30,7 @@ export function ListItem({
   active?: boolean
   /** Sin esto la fila es un <div> y no toma hover. */
   onClick?: () => void
-  /** A la derecha: un chevron, un `Switch`. Un contador no — el número ya está en `hint`, y repetirlo al lado obliga a leer dos veces lo mismo. */
+  /** A la derecha: un chevron, un `Switch`. Un contador no: el número ya está en `hint`, y repetirlo al lado obliga a leer dos veces lo mismo. */
   trailing?: ReactNode
 }) {
   const Tag = onClick ? 'button' : 'div'

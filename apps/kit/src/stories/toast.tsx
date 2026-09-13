@@ -35,14 +35,14 @@ export function ToastStory() {
 
       <Section
         title="Deshacer"
-        note="Un toast con acción es lo que reemplaza al «¿estás seguro?» de lo que se puede revertir. Preguntar antes cuesta un click siempre; deshacer después cuesta un click solo cuando alguien se equivocó."
+        note="Un toast con acción es lo que reemplaza al '¿estás seguro?' de lo que se puede revertir. Preguntar antes cuesta un click siempre; deshacer después cuesta un click solo cuando alguien se equivocó."
       >
         <Demo label="con salida">
           <Button
             variant="raised"
             icon="delete"
             onClick={() => toast({
-              title: 'Se archivó «Fracciones equivalentes»',
+              title: 'Se archivó "Fracciones equivalentes"',
               action: { label: 'Deshacer', onClick: () => toast({ title: 'Volvió a tus actividades', tone: 'ok' }) },
               duration: 8000,
             })}
@@ -61,7 +61,7 @@ export function ToastStory() {
             variant="raised"
             onClick={() => {
               const names = ['Fracciones', 'El sistema solar', 'Cuento policial', 'Mapa de América', 'Ecosistemas']
-              names.forEach((n, i) => setTimeout(() => toast({ title: `Se corrigió «${n}»`, tone: 'ok' }), i * 260))
+              names.forEach((n, i) => setTimeout(() => toast({ title: `Se corrigió "${n}"`, tone: 'ok' }), i * 260))
             }}
           >
             Cinco de una

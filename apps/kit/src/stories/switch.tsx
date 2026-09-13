@@ -11,11 +11,11 @@ export function SwitchStory() {
       title="Switch"
       kind="Formularios"
       imports="import { Row, Switch } from '@milo/ui'"
-      lead="Pista de 40×22 con 2 de padding, así que el pulgar es de 18 y viaja 18 exactos. La pista prendida va en el azul de marca, el mismo que el checkbox marcado: el ámbar señala algo que pasó y no eligió nadie, y un switch prendido es lo contrario — es una decisión de quien lo usa."
+      lead="Pista de 40×22 con 2 de padding, así que el pulgar es de 18 y viaja 18 exactos. La pista prendida va en el azul de marca, el mismo que el checkbox marcado: el ámbar señala algo que pasó y no eligió nadie, y un switch prendido es lo contrario, es una decisión de quien lo usa."
     >
       <Section
         title="Estados"
-        note="Lo que lo hace verse como una pieza física y no como un círculo pintado son las tres capas del pulgar: luz interior arriba, un halo corto alrededor y una sombra de contacto un píxel más abajo. La pista además lleva su propia sombra interior —más marcada en on que en off— para que el pulgar parezca hundido dentro."
+        note="Lo que lo hace verse como una pieza física y no como un círculo pintado son las tres capas del pulgar: luz interior arriba, un halo corto alrededor y una sombra de contacto un píxel más abajo. La pista además lleva su propia sombra interior (más marcada en on que en off) para que el pulgar parezca hundido dentro."
       >
         <Panel>
           <Variant name="on"><Switch checked={on} onChange={setOn} label="Sugerencias" /></Variant>
@@ -43,7 +43,7 @@ export function SwitchStory() {
 
       <Note title="Switch o Checkbox">
         El switch aplica en el momento: lo prendés y ya está. La casilla es parte de un formulario que
-        se confirma después, con un botón. Si hay un «Guardar» abajo, va casilla; si el cambio pasa
+        se confirma después, con un botón. Si hay un "Guardar" abajo, va casilla; si el cambio pasa
         solo, va switch.
       </Note>
 
@@ -53,7 +53,7 @@ export function SwitchStory() {
     
       <Section title="Accesibilidad">
         <A11y items={[
-          'role="switch" con aria-checked: un lector dice «activado» y no «casilla marcada».',
+          'role="switch" con aria-checked: un lector dice "activado" y no "casilla marcada".',
           'El `label` lo nombra aunque en pantalla no haya texto al lado.',
         ]} />
       </Section>

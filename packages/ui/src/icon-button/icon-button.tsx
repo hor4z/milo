@@ -12,7 +12,7 @@ type IconButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
   variant?: 'ghost' | 'raised' | 'solid' | 'muted'
   /** 32 · 36 · 40, los del Button. */
   size?: 'sm' | 'md' | 'lg'
-  /** El puntito de «hay algo nuevo», adentro del botón. Para un contador o un glifo, `Indicator`. */
+  /** El puntito de "hay algo nuevo", adentro del botón. Para un contador o un glifo, `Indicator`. */
   dot?: boolean
   /** Solo cambia el ghost, que pasa a muted. */
   active?: boolean

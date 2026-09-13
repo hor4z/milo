@@ -19,12 +19,12 @@ export function MotionSection() {
     <Page
       title="Movimiento"
       kind="Fundamentos"
-      lead="Dos duraciones para la interfaz y una tercera para el contenido, y dos curvas. El movimiento de la interfaz no decora: dice de dónde vino algo y adónde se fue. Cuando no dice eso, no va — y lo que se mueve porque sí es contenido y se rige por la regla de abajo."
+      lead="Dos duraciones para la interfaz y una tercera para el contenido, y dos curvas. El movimiento de la interfaz no decora: dice de dónde vino algo y adónde se fue. Cuando no dice eso, no va, y lo que se mueve porque sí es contenido y se rige por la regla de abajo."
       imports="import { Popover } from '@milo/ui'"
     >
       <Section
         title="Dos duraciones"
-        note="120, 190 y 280 milisegundos. El corte no es estético: por debajo de unos 100ms el ojo no llega a ver el movimiento y solo registra el salto; por encima de unos 250ms la interfaz empieza a hacerse esperar. Lo que pasa de ahí ya no es interfaz: es contenido que se está mostrando, y por eso tiene su propio paso. Las tres estuvieron escritas a mano con valores distintos —250, 280 y 340— hasta que se contaron."
+        note="120, 190 y 280 milisegundos. El corte no es estético: por debajo de unos 100ms el ojo no llega a ver el movimiento y solo registra el salto; por encima de unos 250ms la interfaz empieza a hacerse esperar. Lo que pasa de ahí ya no es interfaz: es contenido que se está mostrando, y por eso tiene su propio paso. Las tres estuvieron escritas a mano con valores distintos (250, 280 y 340) hasta que se contaron."
       >
         <div className="flex flex-col gap-3">
           {duraciones.map(d => (
@@ -46,7 +46,7 @@ export function MotionSection() {
 
       <Section
         title="Salir es más corto que entrar"
-        note="Abrir se mira; cerrar estorba. Lo que entra usa ease-out —arranca rápido y frena, así que la pieza está donde va antes de terminar de moverse— y lo que sale usa ease-in y se va antes."
+        note="Abrir se mira; cerrar estorba. Lo que entra usa ease-out (arranca rápido y frena, así que la pieza está donde va antes de terminar de moverse) y lo que sale usa ease-in y se va antes."
       >
         <div className="flex flex-col gap-3">
           {curvas.map(c => (
@@ -90,7 +90,7 @@ export function MotionSection() {
         <div className="flex flex-col gap-3">
           {[
             ['El spinner', 'gira lento, 2.4s por vuelta', 'Es lo único que avisa que algo está pasando: quieto no dice nada, y quieto parece colgado.'],
-            ['Las carpetas', 'las hojas quedan afuera, sin abanicar', 'La información —cuántas hay— se sigue viendo, que era el punto del abanico.'],
+            ['Las carpetas', 'las hojas quedan afuera, sin abanicar', 'La información (cuántas hay) se sigue viendo, que era el punto del abanico.'],
             ['El libro', 'no rota', 'La rotación era gusto y nada más, así que se va entera.'],
             ['Todo lo demás', 'aparece y desaparece', 'Un panel que llega en 1ms sigue llegando: lo que se pierde es el recorrido, no el estado.'],
           ].map(([q, comoQueda, porque]) => (
@@ -106,7 +106,7 @@ export function MotionSection() {
       <Note icon="campaign" title="Lo que se mueve porque sí">
         La regla de arriba es para la interfaz. Una mascota que saluda, una ilustración que respira,
         una celebración cuando algo salió bien: eso es contenido, no interfaz, y ahí el movimiento
-        no tiene que explicar nada — puede simplemente dar gusto. Es la parte del sistema que le
+        no tiene que explicar nada: puede simplemente dar gusto. Es la parte del sistema que le
         habla a alguien de doce años.
         {' '}
         Lo que no cambia son tres cosas. <strong>Nunca al lado de una tarea</strong>: algo que se

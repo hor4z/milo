@@ -324,7 +324,7 @@ export function App() {
             ))}
 
             {filtered.length === 0 && (
-              <p className="px-2 py-6 text-body font-medium text-ink-muted">Nada con «{query}».</p>
+              <p className="px-2 py-6 text-body font-medium text-ink-muted">Nada con "{query}".</p>
             )}
           </div>
 
@@ -365,7 +365,7 @@ export function App() {
               <EmptyState
                 icon="search_off"
                 title="Esa vista ya no está acá"
-                body={`No hay ninguna pieza que se llame «${current}». Puede que se haya renombrado: el buscador del riel encuentra por nombre y por sinónimo.`}
+                body={`No hay ninguna pieza que se llame "${current}". Puede que se haya renombrado: el buscador del riel encuentra por nombre y por sinónimo.`}
                 action={<Button variant="raised" icon="arrow_back" onClick={() => go(INTRO)}>Volver a la introducción</Button>}
               />
             )}

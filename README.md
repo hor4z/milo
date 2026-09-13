@@ -1,10 +1,10 @@
 # milo · design system
 
 El sistema de interfaz de **milo**: la identidad en tokens, las piezas que la usan y el sitio
-donde se ve todo funcionando. No es una lámina de estilos — cada pieza de acá es el componente
+donde se ve todo funcionando. No es una lámina de estilos: cada pieza de acá es el componente
 real, con su teclado, sus estados y sus tests.
 
-El UI kit —las 51 piezas— es **una parte** del sistema, no el sistema. Acá adentro no vive
+El UI kit (las 51 piezas) es **una parte** del sistema, no el sistema. Acá adentro no vive
 producto: este repo es del design system y de nada más.
 
 ```sh
@@ -39,10 +39,10 @@ test que falla si alguien exporta algo de un archivo sin sacarlo por esa puerta.
   `text-reading` 16/24 para lo que se lee de corrido; portadas en 40. En `rem`, para que la
   preferencia del navegador cuente. El rol `mono` alinea números con la clase `.tabular`.
 - **Shell:** sidebar 220 `fixed` (72 contraído), topbar 80, padding lateral 20, item de nav 40.
-- **Controles:** tres alturas con un rol cada una — 32 inline, 36 en panel, 40 la principal.
+- **Controles:** tres alturas con un rol cada una, 32 inline, 36 en panel, 40 la principal.
 - **Radios:** 6 · 10 · 12 · 16 · 24. El radio de un hijo es el del padre menos su padding.
 - **Color:** rampa casi neutra de nueve pasos (`#fcfcfc` → `#121212`). La interfaz es monocroma;
-  las tres excepciones —el azul de marca, las marcas de una lista y las etiquetas de color—
+  las tres excepciones (el azul de marca, las marcas de una lista y las etiquetas de color)
   están acotadas a una pieza cada una. Bordes y hovers en alpha, nunca gris opaco.
 - **Relieve:** cinco recetas (`raised`, `solid`, `pressed`, `inset` y la elevación en capas). El
   estado activo se marca con relieve o canto, no tiñendo el texto.
@@ -50,7 +50,7 @@ test que falla si alguien exporta algo de un archivo sin sacarlo por esa puerta.
   (57 KB). Se agregan con `npm run icons -w @milo/ui -- add <nombre>`, nunca a mano.
 
 El código va en inglés y los comentarios en castellano: lo que es código se escribe en inglés,
-lo que se lee —comentarios, textos de la interfaz, nombres de los tests— en castellano.
+lo que se lee (comentarios, textos de la interfaz, nombres de los tests) en castellano.
 
 La documentación de cada prop vive en su docblock y el kit la extrae con `npm run props`: la
 tabla que se ve en cada vista es el tipo real, no una copia escrita al lado.
@@ -76,14 +76,14 @@ Superficies: `Card` · `Row` · `Modal` · `ConfirmDialog` · `Popover` · `Divi
 
 Y siete que se consumen pero todavía no tienen vista propia en el kit: `Filter`, `Pagination`,
 `SettingsModal`, `Page`, `Portal`, `Icon` y los dos proveedores, `ToastProvider` y
-`PrefsProvider`. Lo que se compone se expone en partes —`AlertTitle`, `CardHeader`, `TabPanel`—
+`PrefsProvider`. Lo que se compone se expone en partes (`AlertTitle`, `CardHeader`, `TabPanel`)
 y esas partes se documentan en la vista de la pieza que las arma.
 
 ## Accesibilidad
 
 No es un párrafo de buenas intenciones: cada vista del kit cierra con lo que la pieza resuelve,
-y los tests lo sostienen. El teclado de cada control está probado —flechas, Escape, la pila que
-cierra un overlay y no todos, el foco que vuelve a donde estaba—, el contraste de los tokens se
+y los tests lo sostienen. El teclado de cada control está probado (flechas, Escape, la pila que
+cierra un overlay y no todos, el foco que vuelve a donde estaba), el contraste de los tokens se
 calcula en los dos temas, y axe da 100 sobre las pantallas del kit. Lo que todavía no llega está
 escrito con sus números en [CLAUDE.md](CLAUDE.md).
 

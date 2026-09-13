@@ -5,7 +5,7 @@ export function DropdownStory() {
   return (
     <Page
       title="Dropdown"
-      lead="Un menú de cuatro items. No lleva velo: el velo va para lo que pide leerse entero, y un menú corto no lo pide. Cierra con Escape, que usa una pila global — cierra el overlay de arriba y no todos."
+      lead="Un menú de cuatro items. No lleva velo: el velo va para lo que pide leerse entero, y un menú corto no lo pide. Cierra con Escape, que usa una pila global: cierra el overlay de arriba y no todos."
       kind="Acciones"
       imports="import { Dropdown } from '@milo/ui'"
     >
@@ -40,7 +40,7 @@ export function DropdownStory() {
 
       <Section
         title="Lo que puede llevar una opción"
-        note="Un glifo adelante, el atajo de teclado a la derecha, el tilde de «esta es la que está puesta», y el rojo de lo que no se deshace. Lo apagado se queda a la vista y no desaparece: una opción que aparece y desaparece según el estado obliga a aprender el menú de nuevo cada vez."
+        note="Un glifo adelante, el atajo de teclado a la derecha, el tilde de 'esta es la que está puesta', y el rojo de lo que no se deshace. Lo apagado se queda a la vista y no desaparece: una opción que aparece y desaparece según el estado obliga a aprender el menú de nuevo cada vez."
       >
         <div className="flex flex-wrap items-start gap-3">
           <Demo label="con atajos y una peligrosa">

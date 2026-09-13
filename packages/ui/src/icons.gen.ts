@@ -1,4 +1,4 @@
-/* GENERADO por scripts/icons.mjs — no editar a mano.
+/* GENERADO por scripts/icons.mjs: no editar a mano.
    Se regenera con: npm run icons -w @milo/ui -- sync
 
    Son codepoints y no ligaduras a propósito: con ligaduras, el instante previo
