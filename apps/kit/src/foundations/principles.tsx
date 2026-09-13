@@ -46,7 +46,7 @@ export function Principles() {
             <span className="inset-relief flex size-9 items-center justify-center rounded-xl bg-muted">
               <Icon name={p.icon} size={20} className="icon-muted" />
             </span>
-            <h3 className="text-reading font-semibold text-ink">{p.title}</h3>
+            <h2 className="text-reading font-semibold text-ink">{p.title}</h2>
             <p className="text-body font-medium text-ink-muted">{p.body}</p>
           </div>
         ))}

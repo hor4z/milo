@@ -15,10 +15,10 @@ export function TextFieldStory() {
       <Section title="Variantes">
         <div className="flex flex-wrap gap-3">
           {[
-            { label: 'solo', el: <TextField value={text} onChange={e => setText(e.target.value)} className="w-full" /> },
-            { label: 'con icono', el: <TextField icon="search" placeholder="Buscar una actividad…" className="w-full" /> },
-            { label: 'con suffix', el: <TextField placeholder="Duración" suffix={<Kbd>min</Kbd>} className="w-full" /> },
-            { label: 'disabled', el: <TextField placeholder="No editable" disabled className="w-full" /> },
+            { label: 'solo', el: <TextField value={text} onChange={e => setText(e.target.value)} aria-label="Nombre de la actividad" className="w-full" /> },
+            { label: 'con icono', el: <TextField icon="search" aria-label="Buscar una actividad" placeholder="Buscar una actividad…" className="w-full" /> },
+            { label: 'con suffix', el: <TextField aria-label="Duración en minutos" placeholder="Duración" suffix={<Kbd>min</Kbd>} className="w-full" /> },
+            { label: 'disabled', el: <TextField aria-label="Campo no editable" placeholder="No editable" disabled className="w-full" /> },
           ].map(v => (
             <div key={v.label} className="w-full max-w-[320px]">
               <Demo label={v.label}>{v.el}</Demo>
@@ -35,7 +35,7 @@ export function TextFieldStory() {
           {(['sm', 'md', 'lg'] as const).map(s => (
             <div key={s} className="w-full max-w-[320px]">
               <Demo label={s}>
-                <TextField size={s} icon="search" placeholder="Buscar una actividad…" className="w-full" />
+                <TextField size={s} icon="search" aria-label={`Buscar una actividad, alto ${s}`} placeholder="Buscar una actividad…" className="w-full" />
               </Demo>
             </div>
           ))}

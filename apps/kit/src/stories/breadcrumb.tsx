@@ -14,12 +14,12 @@ export function BreadcrumbStory() {
         note="El último item no es un link: es dónde estás, y va marcado con `aria-current`. Los de atrás sí lo son, porque son la única forma de subir un nivel sin usar el botón del navegador."
       >
         <Canvas className="flex-col items-start gap-4">
-          <Breadcrumb items={[
+          <Breadcrumb label="Ruta completa" items={[
             { label: 'Espacios', onClick: () => {} },
             { label: 'Matemática · 4.º A', onClick: () => {} },
             { label: 'Fracciones equivalentes' },
           ]} />
-          <Breadcrumb items={[{ label: 'Espacios', onClick: () => {} }, { label: 'Lengua · 6.º' }]} />
+          <Breadcrumb label="Ruta corta" items={[{ label: 'Espacios', onClick: () => {} }, { label: 'Lengua · 6.º' }]} />
         </Canvas>
       </Section>
 
@@ -28,7 +28,7 @@ export function BreadcrumbStory() {
         note="`href` es lo correcto cuando hay una URL de verdad: el click del medio abre en otra pestaña y el navegador la puede guardar. `onClick` es para cuando la navegación la maneja la app y no hay dirección que dar."
       >
         <Canvas className="flex-col items-start gap-4">
-          <Breadcrumb items={[
+          <Breadcrumb label="Ruta con nombres largos" items={[
             { label: 'Espacios', href: '#breadcrumb' },
             { label: 'Ciencias · 5.º B', href: '#breadcrumb' },
             { label: 'El sistema solar' },

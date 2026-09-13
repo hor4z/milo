@@ -25,6 +25,7 @@ export function TextareaStory() {
           <div className="w-full max-w-[320px]">
             <Demo label="rows 3 · maxRows 6">
               <Textarea
+                aria-label="Consigna, con techo de seis filas"
                 value={withCap}
                 onChange={e => setWithCap(e.target.value)}
                 rows={3}
@@ -36,6 +37,7 @@ export function TextareaStory() {
           <div className="w-full max-w-[320px]">
             <Demo label="sin techo">
               <Textarea
+                aria-label="Consigna, sin techo"
                 value={noCap}
                 onChange={e => setNoCap(e.target.value)}
                 rows={2}
@@ -54,6 +56,7 @@ export function TextareaStory() {
           <div className="w-full max-w-[300px]">
             <Demo label="con placeholder">
               <Textarea
+                aria-label="Consigna de la actividad"
                 value={short}
                 onChange={e => setShort(e.target.value)}
                 placeholder="Escribí la consigna de la actividad…"
@@ -65,7 +68,8 @@ export function TextareaStory() {
           </div>
           <div className="w-full max-w-[300px]">
             <Demo label="disabled">
-              <Textarea value="No editable" disabled rows={3} className="w-full" />
+              <Textarea aria-label="Consigna no editable"
+                value="No editable" disabled rows={3} className="w-full" />
             </Demo>
           </div>
         </div>
@@ -78,17 +82,20 @@ export function TextareaStory() {
         <div className="flex flex-wrap items-start gap-3">
           <div className="w-full max-w-[260px]">
             <Demo label="auto · el default">
-              <Textarea value={mode} onChange={e => setMode(e.target.value)} rows={2} maxRows={6} className="w-full" />
+              <Textarea aria-label="Consigna, alto automático"
+                value={mode} onChange={e => setMode(e.target.value)} rows={2} maxRows={6} className="w-full" />
             </Demo>
           </div>
           <div className="w-full max-w-[260px]">
             <Demo label="vertical · el tirador nativo">
-              <Textarea defaultValue="Arrastrá la esquina." rows={2} resize="vertical" className="w-full" />
+              <Textarea aria-label="Consigna, alto arrastrable"
+                defaultValue="Arrastrá la esquina." rows={2} resize="vertical" className="w-full" />
             </Demo>
           </div>
           <div className="w-full max-w-[260px]">
             <Demo label="none · fijo, y scrollea">
               <Textarea
+                aria-label="Consigna, alto fijo"
                 defaultValue={'Alto fijo de dos filas.\nLo que sobra scrollea y el campo no se mueve.'}
                 rows={2}
                 resize="none"

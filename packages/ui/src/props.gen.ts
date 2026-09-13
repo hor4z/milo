@@ -284,6 +284,13 @@ export const propsByComponent: Record<string, ComponentDoc> = {
   "Breadcrumb": {
     "props": [
       {
+        "name": "label",
+        "type": "string",
+        "required": false,
+        "def": "'Ruta'",
+        "doc": "El nombre de la ruta. Dos `nav` con el mismo nombre en una pantalla se leen como uno solo, así que con más de una hay que distinguirlas."
+      },
+      {
         "name": "items",
         "type": "{ label: string; href?: string; onClick?: () => void }[]",
         "required": true,
