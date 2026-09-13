@@ -16,14 +16,12 @@ type IconButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
   dot?: boolean
   /** Solo cambia el ghost, que pasa a muted. */
   active?: boolean
-  /** Círculo en vez de cuadrado con las esquinas redondeadas. Para el botón que manda de una pieza de medios. */
-  round?: boolean
   /** Para usarlo como disparador de un `Dropdown` o un `Popover`. */
   ref?: Ref<HTMLButtonElement>
 }
 
 export function IconButton({
-  icon, label, variant = 'ghost', size = 'md', dot, active, round, type = 'button', className, ...rest
+  icon, label, variant = 'ghost', size = 'md', dot, active, type = 'button', className, ...rest
 }: IconButtonProps) {
   const c = control[size]
   return (
@@ -36,9 +34,7 @@ export function IconButton({
         variants[variant === 'ghost' && active ? 'muted' : variant],
         // El radio es 10 y no el 12 del Button: sobre un cuadrado de 32, esos dos
         // píxeles de más se comen tanto lado plano que la pieza se lee redonda.
-        // El radio va acá y no en el `className` de quien lo usa: `rounded-full`
-        // se genera antes que `rounded-md`, así que pasarlo de afuera pierde.
-        c.square, round ? 'rounded-full' : 'rounded-md',
+        c.square, 'rounded-md',
         className,
       )}
       {...rest}

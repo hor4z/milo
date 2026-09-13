@@ -189,10 +189,9 @@ export function AudioPlayer({ src, title, peaks, actions, size = 'md', className
               label={sonando ? 'Pausar' : 'Reproducir'}
               variant="solid"
               size={size}
-              round
               disabled={estado === 'error'}
               onClick={alternar}
-              className="icon-filled shrink-0"
+              className="shrink-0"
             />
           )}
 

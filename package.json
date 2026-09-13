@@ -12,6 +12,7 @@
     "typecheck": "tsc -b",
     "props": "npm run props -w @milo/ui",
     "mascotas": "python3 apps/kit/scripts/mascotas.py",
+    "picos": "python3 apps/kit/scripts/picos.py",
     "test": "vitest run",
     "test:watch": "vitest"
   },

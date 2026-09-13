@@ -51,14 +51,6 @@
    Con la utilidad, poner el gris sube el peso solo. Un contorno fino en gris
    claro encierra aire y se apaga al lado del texto; a 400 pesa lo mismo que el
    texto que acompaña. */
-/* La única excepción a «FILL clavado en 0», y por eso es una utilidad y no una
-   prop: hay que escribirla a mano donde se usa, se ve en el diff, y no se puede
-   pasar sin querer. Es para un glifo que hace de forma y no de icono —el
-   triángulo de play adentro de su círculo—, donde el contorno se lee hueco. */
-@utility icon-filled {
-  & .ms-icon { font-variation-settings: "FILL" 1, "wght" var(--icon-wght, 300); }
-}
-
 @utility icon-muted {
   color: var(--icon-muted);
   --icon-wght: 400;

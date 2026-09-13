@@ -1009,12 +1009,6 @@ export const propsByComponent: Record<string, ComponentDoc> = {
         "doc": "Solo cambia el ghost, que pasa a muted."
       },
       {
-        "name": "round",
-        "type": "boolean",
-        "required": false,
-        "doc": "Círculo en vez de cuadrado con las esquinas redondeadas. Para el botón que manda de una pieza de medios."
-      },
-      {
         "name": "ref",
         "type": "Ref<HTMLButtonElement>",
         "required": false,
