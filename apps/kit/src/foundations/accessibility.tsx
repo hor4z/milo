@@ -167,6 +167,16 @@ export function AccessibilitySection() {
         jerarquía, que es lo que el gris estaba haciendo. Medido, no estimado.
       </Note>
 
+      <Note icon="warning" title="Lo único que axe marca y no se corrige">
+        Con un menú abierto aparece <code>region</code>, que pide que todo el contenido esté adentro
+        de una landmark. El panel se dibuja en un portal colgado del <code>body</code>, así que no
+        lo está. Meterlo adentro de una landmark sería peor: una landmark por cada menú abierto
+        llena la lista de saltos, que es el mismo error que ya se corrigió en los bloques
+        destacados. Y moverlo adentro del contenido significa reescribir el sistema de overlays
+        para ganar una regla de buena práctica que no es de la WCAG. El panel se enfoca, se cierra
+        con Escape y se anuncia con nombre propio, que es lo que la persona necesita.
+      </Note>
+
       <A11y
         items={[
           'Cada vista de una pieza cierra con lo que esa pieza resuelve: acá están las reglas del sistema, no las de cada una.',

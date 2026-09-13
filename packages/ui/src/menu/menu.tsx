@@ -4,8 +4,10 @@ import { Kbd } from '../kbd/kbd'
 import { Icon, type IconName } from '../icon/icon'
 
 /** El menú, en piezas. */
-export function Menu({ children, width, className }: {
+export function Menu({ children, label, width, className }: {
   children: ReactNode
+  /** Qué menú es. Sin esto un lector lo anuncia como «menú» y nada más, y con dos abiertos en una pantalla no se distinguen. */
+  label?: string
   /** Opcional: sin él, el panel mide lo que su contenido. */
   width?: number
   className?: string
@@ -30,6 +32,7 @@ export function Menu({ children, width, className }: {
     <div
       ref={box}
       role="menu"
+      aria-label={label}
       onKeyDown={move}
       style={width ? { width } : undefined}
       className={cx(

@@ -4,6 +4,11 @@ import { describe, expect, it } from 'vitest'
 import { Menu, MenuItem, MenuLabel } from './menu'
 
 describe('Menu', () => {
+  it('tiene nombre: con dos abiertos, «menú» y «menú» no se distinguen', () => {
+    render(<Menu label="Acciones de la actividad"><MenuItem>Editar</MenuItem></Menu>)
+    expect(screen.getByRole('menu', { name: 'Acciones de la actividad' })).toBeInTheDocument()
+  })
+
   it('marca la opción elegida para un lector', () => {
     render(
       <Menu>

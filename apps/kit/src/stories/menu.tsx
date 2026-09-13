@@ -18,7 +18,7 @@ export function MenuStory() {
       >
         <Panel>
           <Variant name="suelta">
-            <Menu width={260}>
+            <Menu label="Acciones de la actividad" width={260}>
               <MenuItem icon="edit">Renombrar</MenuItem>
               <MenuItem icon="content_copy" shortcut="⌘D">Duplicar</MenuItem>
               <MenuItem icon="group" hint="7">Compartir</MenuItem>
@@ -34,7 +34,7 @@ export function MenuStory() {
       >
         <Panel>
           <Variant name="armado entero">
-            <Menu width={260}>
+            <Menu label="Acciones con grupos" width={260}>
               <MenuLabel>Esta actividad</MenuLabel>
               <MenuItem icon="edit" shortcut="E">Editar</MenuItem>
               <MenuItem icon="visibility">Ver como estudiante</MenuItem>
@@ -74,7 +74,7 @@ export function MenuStory() {
               )}
             >
               {close => (
-                <Menu width={240}>
+                <Menu label="Acciones de la fila" width={240}>
                   <MenuItem icon="edit" shortcut="E" onSelect={close}>Editar</MenuItem>
                   <MenuItem icon="link" shortcut="⌘L" onSelect={close}>Copiar enlace</MenuItem>
                   <Divider />

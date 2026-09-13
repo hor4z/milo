@@ -830,6 +830,13 @@ export const propsByComponent: Record<string, ComponentDoc> = {
         "required": false,
         "def": "220",
         "doc": "El ancho del panel en px."
+      },
+      {
+        "name": "label",
+        "type": "string",
+        "required": false,
+        "def": "'Opciones'",
+        "doc": "Qué menú es, para quien lo escucha. Por defecto, «Opciones»."
       }
     ],
     "doc": "El menú de opciones escrito como lista, que es lo más corto cuando el menú no tiene nada raro: cuatro filas con su icono y su acción."
@@ -1349,6 +1356,12 @@ export const propsByComponent: Record<string, ComponentDoc> = {
         "name": "children",
         "type": "ReactNode",
         "required": true
+      },
+      {
+        "name": "label",
+        "type": "string",
+        "required": false,
+        "doc": "Qué menú es. Sin esto un lector lo anuncia como «menú» y nada más, y con dos abiertos en una pantalla no se distinguen."
       },
       {
         "name": "width",

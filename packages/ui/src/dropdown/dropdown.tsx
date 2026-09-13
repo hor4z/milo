@@ -21,7 +21,7 @@ export type DropdownItem = {
 
 /** El menú de opciones escrito como lista, que es lo más corto cuando el menú no tiene nada raro: cuatro filas con su icono y su acción. */
 export function Dropdown({
-  trigger, items, align = 'end', width = 220,
+  trigger, items, align = 'end', width = 220, label = 'Opciones',
 }: {
   /** Recibe onClick, ref y aria-expanded. */
   trigger: (props: { onClick: () => void; 'aria-expanded': boolean; ref: React.Ref<HTMLButtonElement> }) => ReactNode
@@ -31,6 +31,8 @@ export function Dropdown({
   align?: 'start' | 'end'
   /** El ancho del panel en px. */
   width?: number
+  /** Qué menú es, para quien lo escucha. Por defecto, «Opciones». */
+  label?: string
 }) {
   return (
     <Popover
@@ -39,7 +41,7 @@ export function Dropdown({
       trigger={({ onClick, ref, 'aria-expanded': expanded }) => trigger({ onClick, ref, 'aria-expanded': expanded })}
     >
       {close => (
-        <Menu>
+        <Menu label={label}>
           {items.map((item, i) => (
             <MenuItem
               key={i}
