@@ -48,7 +48,7 @@ export function FormulaStory() {
     >
       <Section
         title="En la frase"
-        note="No abre renglón: una fracción o un subíndice entran en el interlineado del párrafo, y los renglones de arriba y de abajo siguen a la misma distancia. Es la misma prueba que se le hace a una mención."
+        note="No abre renglón: una fracción o un subíndice entran en el interlineado del párrafo, y los renglones de arriba y de abajo siguen a la misma distancia."
       >
         <div className="max-w-[640px] rounded-xl border border-line bg-surface p-6">
           <p className="text-reading text-ink">
@@ -82,7 +82,7 @@ export function FormulaStory() {
 
       <Section
         title="Con número"
-        note="El número es la dirección de la fórmula: lo que permite escribir «reemplazando en (2)» tres párrafos más abajo. Va afuera del desplazamiento, así que sigue a la vista cuando la ecuación se corrió de costado."
+        note="El número es la dirección de la fórmula: lo que permite escribir «reemplazando en (2)» tres párrafos más abajo. Va afuera del desplazamiento, así que no se pierde al correrla."
       >
         <div className="flex max-w-[640px] flex-col gap-5 rounded-xl border border-line bg-surface p-6">
           <Formula display number={1} alt="ve igual a ve sub cero más a por te">{cinematica}</Formula>
@@ -105,9 +105,8 @@ export function FormulaStory() {
 
       <Note icon="lightbulb" title="Por qué MathML y no LaTeX">
         Un intérprete de LaTeX es una biblioteca entera y lo que devuelve termina siendo MathML
-        igual. Acá la pieza recibe el MathML directo: el que escribe una consigna no lo teclea, lo
-        genera el editor. Los tipos que faltaban en `@types/react` los declara el sistema en
-        `formula/mathml.d.ts`, y un elemento que falte se agrega ahí y en ningún otro lado.
+        igual. Acá la pieza lo recibe directo: el que escribe una consigna no lo teclea, lo genera
+        el editor. Los tipos que `@types/react` no trae los declara `formula/mathml.d.ts`.
       </Note>
 
       <Note title="Las variables van en itálica con serifas, y está bien">
@@ -124,10 +123,8 @@ export function FormulaStory() {
       <Section title="Accesibilidad">
         <A11y items={[
           'El MathML es la versión accesible: quien lo soporta recorre la fórmula por partes —numerador, denominador, exponente— en vez de escuchar una cadena de símbolos.',
-          '`alt` viaja como `alttext` del propio MathML y no como `aria-label`: un `aria-label` sobre el `<math>` tapa esa estructura y deja a todos con la frase plana, incluso a quien podía navegarla.',
-          'La fórmula que desborda es una región enfocable con nombre, y solo cuando desborda: una parada de tabulación en algo que entra entero es ruido.',
-          'El número de la ecuación queda fuera del desplazamiento, así que no se pierde al correr la fórmula de costado.',
-          'Se selecciona y se copia como texto, porque son caracteres y no una imagen: quien la necesita en otro lado no tiene que volver a escribirla.',
+          '`alt` viaja como `alttext` del propio MathML y no como `aria-label`: el label tapa esa estructura y deja a todos con la frase plana, incluso a quien podía navegarla.',
+          'La que desborda es una región enfocable con nombre, y solo cuando desborda: una parada de tabulación en algo que entra entero es ruido.',
         ]} />
       </Section>
     </Page>

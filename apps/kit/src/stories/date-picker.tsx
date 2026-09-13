@@ -40,7 +40,7 @@ export function DatePickerStory() {
 
       <Section
         title="Suelto"
-        note="Sin `Field` alrededor hay que nombrarlo con `label`. El campo dice la fecha en palabras y no en números: «9 de marzo de 2026» no se confunde con nada, y 03/09/2026 quiere decir dos cosas distintas según de dónde sea quien lo lee."
+        note="Sin `Field` alrededor hay que nombrarlo con `label`. El campo dice la fecha en palabras: 03/09/2026 quiere decir dos cosas distintas según de dónde sea quien lo lee."
       >
         <Canvas>
           <DatePicker value={suelta} onChange={setSuelta} label="Fecha del examen" width={260} />
@@ -57,18 +57,15 @@ export function DatePickerStory() {
       </Section>
 
       <Note icon="lightbulb" title="Por qué el valor es texto y no un `Date`">
-        `new Date('2026-03-09')` se interpreta en UTC, así que en Argentina es el 8 a las 21. Una
-        fecha de vencimiento no tiene hora ni zona: es un día del calendario y nada más. El texto
-        `AAAA-MM-DD` lo dice tal cual, se ordena solo comparando cadenas y viaja a cualquier base
-        de datos sin traducción. Adentro de la pieza el único `Date` que aparece es para
-        preguntarle al calendario qué día de la semana cae.
+        `new Date('2026-03-09')` se interpreta en UTC, así que acá es el 8 a las 21. Una fecha de
+        vencimiento no tiene hora ni zona: es un día del calendario. El texto `AAAA-MM-DD` lo dice
+        tal cual, se ordena comparando cadenas y viaja a cualquier base sin traducción.
       </Note>
 
       <Note title="La semana empieza el lunes">
-        Es la convención de acá y de casi todo el mundo salvo Estados Unidos, y no sale de la
-        configuración del navegador: una grilla que a veces arranca el domingo y a veces el lunes
-        se lee mal justo cuando hay que contar días. Si algún día hay que soportar las dos, es una
-        prop y no una pieza nueva.
+        Y no sale de la configuración del navegador: una grilla que a veces arranca el domingo y a
+        veces el lunes se lee mal justo cuando hay que contar días. Si hace falta soportar las dos,
+        es una prop y no una pieza nueva.
       </Note>
 
       <Section title="Props">
@@ -77,13 +74,11 @@ export function DatePickerStory() {
 
       <Section title="Accesibilidad">
         <A11y items={[
-          'La grilla es un `grid` con su nombre, y cada día se nombra entero —«lunes, 9 de marzo de 2026»— en vez de leerse como un número suelto sin contexto.',
-          'Las flechas mueven de a un día y de a una semana, y cruzan de mes solas; Re Pág y Av Pág cambian el mes, con Shift el año, e Inicio y Fin van a los extremos de la semana.',
-          'Una sola parada de tabulación en la grilla: el día donde está el cursor, que es lo que evita treinta paradas para llegar al final del mes.',
-          'El mes se anuncia al cambiar con `aria-live`: con el teclado lo único que cambia es el título, y sin eso el salto es mudo.',
-          'Hoy se marca con un punto además del color, y lo elegido con relleno: dos señales distintas para dos cosas distintas.',
-          'Lo que está fuera de rango se apaga con `aria-disabled` y sigue estando: un día que desaparece deja buscando.',
-          'Escape cierra y el foco vuelve al campo.',
+          'Cada día se nombra entero —«lunes, 9 de marzo de 2026»— en vez de leerse como un número suelto sin contexto.',
+          'El mes entero se recorre con el teclado: flechas de a un día y de a una semana, Re Pág y Av Pág de a un mes, con Shift de a un año, Inicio y Fin a los extremos de la semana.',
+          'Una sola parada de tabulación en la grilla —el día del cursor— en vez de treinta para llegar al final del mes. Escape cierra y el foco vuelve al campo.',
+          'El mes se anuncia al cambiar: con el teclado lo único que cambia es el título, y sin `aria-live` el salto es mudo.',
+          'Hoy lleva un punto además del color, y lo elegido va en relleno: dos señales distintas para dos cosas distintas.',
         ]} />
       </Section>
     </Page>
