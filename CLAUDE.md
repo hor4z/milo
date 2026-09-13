@@ -18,7 +18,7 @@ final son lo único que hay que tocar.
 npm install
 npm run dev        # el sitio · http://localhost:5190
 npm run typecheck  # todo el monorepo de una
-npm test           # 441 tests con vitest y testing-library
+npm test           # 513 tests con vitest y testing-library
 npm run props      # regenera la tabla de props desde los tipos
 ```
 
@@ -328,7 +328,7 @@ Lo mismo vale para los tipos que una pieza recibe como argumento —`ToastOption
 
 ## Los tests
 
-`npm test` corre vitest con jsdom y testing-library. 441 tests, y lo que prueban es el
+`npm test` corre vitest con jsdom y testing-library. 513 tests, y lo que prueban es el
 comportamiento —teclado, nombres accesibles, estados— y no el markup, que cambia con cada
 ajuste de estilo. El test de cada pieza vive en su carpeta, al lado del componente.
 
@@ -360,6 +360,10 @@ el tracking cruce el cero en la base. Del lado del kit hay diecisiete más: los 
 escala repetidos sobre `apps/kit` —que hasta ahora se escapaba—, el peso de display fuera de su
 tamaño, las transiciones sin duración ni curva, un control de estado sin su manija, y que cada
 vista tenga portada, import y sinónimos para buscarla.
+
+Y hay uno que **renderiza las setenta y dos vistas**, una por test. Encuentra dos cosas que
+ninguna lectura encuentra: una vista que tira al dibujarse —eso antes se veía solo abriéndola— y
+un backtick o un `**` que quedó a la vista porque ese texto no pasó por `Rich`. Había diez.
 
 Y cincuenta y nueve leen los tokens y calculan contraste: cada tono de estado contra su fondo, el
 gris del texto secundario contra las superficies sobre las que se escribe, el gris del texto

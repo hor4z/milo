@@ -17,12 +17,12 @@ export function FigureStory() {
           <Figure
             src="/avatars/03.webp"
             alt="Una persona sonriendo, de frente"
-            caption="Con una foto va `cover`: llena el hueco y el borde no importa"
+            caption="Con una foto va cover: llena el hueco y el borde no importa"
           />
           <Figure
             src="/mascotas/otto.webp"
             alt="Otto, una nutria de pie con un pañuelo azul"
-            caption="Con un dibujo va `contain`: recortar se lleva justo lo que hay que ver"
+            caption="Con un dibujo va contain: recortar se lleva justo lo que hay que ver"
             fit="contain"
           />
         </div>

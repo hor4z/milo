@@ -81,7 +81,7 @@ export function ChartsSection() {
           <span className="text-body font-semibold text-ink">Las tres cosas que trae cada gráfico</span>
           <span>Una tabla escondida con todos los valores y los huecos marcados.</span>
           <span>Un recorrido con el teclado, que en cada paso dice dónde está y cuánto vale.</span>
-          <span>Un `title` que lo nombra para quien lo escucha antes de entrar.</span>
+          <span>Un <code>title</code> que lo nombra para quien lo escucha antes de entrar.</span>
         </div>
       </Section>
 

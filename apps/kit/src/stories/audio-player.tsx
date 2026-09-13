@@ -1,5 +1,5 @@
 import { AudioPlayer, IconButton, Tooltip } from '@milo/ui'
-import { A11y, Note, Page, Panel, Props, Section } from '../kit'
+import { A11y, Note, Page, Panel, Props, Section, Rich } from '../kit'
 
 /** Salen de `npm run picos -- apps/kit/public/audio/consigna.mp3 --barras 64`. */
 const picos = [
@@ -123,7 +123,7 @@ export function AudioPlayerStory() {
           {reglas.map(([regla, porque]) => (
             <div key={regla} className="flex flex-col gap-1 border-t border-line px-5 py-4 first:border-t-0">
               <span className="text-body font-semibold text-ink">{regla}</span>
-              <span className="max-w-[70ch] text-meta text-ink-muted">{porque}</span>
+              <span className="max-w-[70ch] text-meta text-ink-muted"><Rich text={porque} /></span>
             </div>
           ))}
         </div>
