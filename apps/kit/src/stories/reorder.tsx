@@ -24,7 +24,7 @@ export function ReorderStory() {
     >
       <Section
         title="Los bloques de una consigna"
-        note="Agarrá una manija y arrastrá. O tabulá hasta una y usá las flechas: es la misma operación y hace lo mismo. Después de mover, el foco se queda en la fila que se movió, que es donde está mirando quien la movió."
+        note="Agarrá una manija y arrastrá. O tabulá hasta una y usá las flechas: es la misma operación y hace lo mismo. Lo que se agarra se levanta en papel y deja su hueco gris abajo, que es donde va a caer; las otras se corren solas. Después de mover, el foco se queda en la fila que se movió, que es donde está mirando quien la movió."
       >
         <Canvas>
           <div className="w-full max-w-[520px]">
@@ -40,6 +40,15 @@ export function ReorderStory() {
           </div>
         </Canvas>
       </Section>
+
+      <Note title="Cómo se mueve, y por qué así">
+        Lo que se agarra queda pegado al dedo exactamente: cada cuadro se lo vuelve a medir contra
+        el lugar donde el layout lo dejó, así que sigue estando bajo el puntero aunque el orden
+        haya cambiado abajo. Las otras no se dibujan una por una: se anota dónde estaban, se las
+        devuelve ahí con un `transform`, y se las suelta con la transición puesta — el navegador
+        anima entre las dos posiciones y nadie calcula nada por cuadro. Con el movimiento reducido
+        apagado, las filas cambian de lugar de una: lo que se apaga es la animación, no el gesto.
+      </Note>
 
       <Note icon="lightbulb" title="Arrastrar solo con el puntero no alcanza">
         Es la interacción que más fácil deja gente afuera: quien usa el teclado, quien usa un lector
