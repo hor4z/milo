@@ -150,7 +150,8 @@ export function DatePicker({ value, onChange, min, max, placeholder = 'Elegir fe
     }
   }
 
-  // La celda del cursor es la única parada de tabulación, y el foco la sigue.
+  // La celda del cursor es la única parada de tabulación, y el foco la sigue al
+  // moverse con las flechas. El aterrizaje al abrir lo hace `data-autofocus`.
   useEffect(() => {
     if (!open) return
     panel.current?.querySelector<HTMLElement>('[data-cursor="true"]')?.focus({ preventScroll: true })
@@ -231,6 +232,11 @@ export function DatePicker({ value, onChange, min, max, placeholder = 'Elegir fe
                         type="button"
                         role="gridcell"
                         data-cursor={iso === cursor}
+                        // `data-autofocus` es lo que `useFocusTrap` busca al
+                        // abrir. Sin eso el foco caía en el panel y las flechas
+                        // no hacían nada hasta tabular adentro de la grilla —
+                        // en jsdom no se ve, porque lo que pelea es un rAF.
+                        data-autofocus={iso === cursor ? true : undefined}
                         tabIndex={iso === cursor ? 0 : -1}
                         aria-selected={elegido}
                         aria-disabled={bloqueado || undefined}

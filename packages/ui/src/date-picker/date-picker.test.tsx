@@ -104,4 +104,12 @@ describe('DatePicker', () => {
     expect(vacias.length).toBeGreaterThan(0)
     expect(screen.queryByRole('gridcell', { name: /de febrero/i })).toBeNull()
   })
+
+  it('al abrir, el foco aterriza en el día del cursor y no en el panel', async () => {
+    // Lo hace `data-autofocus`, que es lo que `useFocusTrap` busca. Con un
+    // efecto propio peleando contra su rAF, en el navegador el foco quedaba en
+    // el panel y las flechas no hacían nada hasta tabular adentro de la grilla.
+    await abrir()
+    expect(screen.getByRole('gridcell', { name: /lunes, 9 de marzo de 2026/i })).toHaveFocus()
+  })
 })
