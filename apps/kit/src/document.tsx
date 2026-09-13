@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import {
-  Callout, CodeBlock, Figure, Formula, Mention, Popover, Quote, TaskList, Toolbar,
+  Callout, Figure, Mention, Popover, Quote, TaskList, Toolbar,
   ToolbarButton, ToolbarSeparator, CommandMenu, Divider, Icon, IconButton, Tooltip,
   type CommandGroup, type Task,
 } from '@milo/ui'
@@ -20,9 +20,7 @@ const bloques: CommandGroup[] = [
   {
     label: 'Ciencia',
     items: [
-      { id: 'formula', label: 'Fórmula', hint: 'Matemática en línea o en bloque', icon: 'functions', keywords: ['ecuación', 'latex'] },
       { id: 'chart', label: 'Gráfico', hint: 'Barras o líneas', icon: 'bar_chart' },
-      { id: 'code', label: 'Código', hint: 'Con su nombre de archivo', icon: 'code' },
     ],
   },
   {
@@ -41,15 +39,6 @@ const tareasIniciales: Task[] = [
   { id: 'graficar', label: 'Graficar altura contra tiempo al cuadrado' },
   { id: 'escribir', label: 'Escribir en dos párrafos por qué la pendiente da la mitad de g' },
 ]
-
-const caida = (
-  <>
-    <mi>h</mi><mo>=</mo>
-    <mfrac><mn>1</mn><mn>2</mn></mfrac>
-    <mi>g</mi><mo>&#8290;</mo>
-    <msup><mi>t</mi><mn>2</mn></msup>
-  </>
-)
 
 
 export function Documento() {
@@ -139,13 +128,9 @@ export function Documento() {
         <h2 className="text-title font-semibold text-ink">De dónde sale el número</h2>
         <p className="text-reading text-ink">
           Si la pelota arranca quieta y el rozamiento del aire se puede ignorar, la altura que cae
-          en un tiempo <Formula alt="te"><mi>t</mi></Formula> es
-        </p>
-        <Formula display number={1} alt="hache igual a un medio ge por te al cuadrado">{caida}</Formula>
-        <p className="text-reading text-ink">
-          Así que si grafican la altura contra el tiempo al cuadrado les tiene que dar una recta, y
-          la pendiente va a ser <Formula alt="ge sobre dos"><mi>g</mi><mo>/</mo><mn>2</mn></Formula>.
-          Eso es lo que hay que comparar con los 9,8 del libro.
+          es la mitad de la gravedad por el tiempo al cuadrado. Así que si grafican la altura contra
+          el tiempo al cuadrado les tiene que dar una recta, y la pendiente va a ser la mitad de la
+          gravedad. Eso es lo que hay que comparar con los 9,8 del libro.
         </p>
 
         <Quote source="Galileo, Diálogos sobre dos nuevas ciencias" cite="#quote">
@@ -172,20 +157,6 @@ export function Documento() {
           Con el cronómetro del celular el error es grande. Se puede filmar a cámara lenta y contar
           los cuadros — a 240 por segundo, cada cuadro son cuatro milésimas.
         </p>
-        <CodeBlock
-          lang="python"
-          filename="cuadros.py"
-          numbered
-          code={`FPS = 240
-
-def altura(cuadros, g=9.8):
-    t = cuadros / FPS
-    return 0.5 * g * t ** 2
-
-for c in (12, 24, 36):
-    print(c, round(altura(c), 3), "m")
-`}
-        />
 
       </div>
     </article>

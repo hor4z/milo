@@ -1,4 +1,4 @@
-import { CodeBlock, Icon, type IconName } from '@milo/ui'
+import { Icon, type IconName } from '@milo/ui'
 import { Page, Section } from '../kit'
 
 const principles: { icon: IconName; title: string; body: string }[] = [
@@ -56,18 +56,18 @@ export function Principles() {
         title="Cómo se arma una pieza"
         note="Todo lo que se compone se expone en partes en vez de recibir un objeto de configuración. Un Alert es AlertTitle, AlertBody y AlertActions; unas solapas son Tabs, TabList, Tab y TabPanel. Cuesta dos líneas más de escribir y evita la prop número catorce."
       >
-        <CodeBlock
-          lang="tsx"
-          label="Cómo se arma una pieza"
-          code={`<Alert tone="warn">
+        {/* Un `pre` escrito acá y no una pieza: el bloque de código se sacó del
+            sistema, y esto es un ejemplo adentro de la documentación y no un
+            componente que alguien vaya a consumir. */}
+        <pre className="m-0 overflow-x-auto rounded-xl border border-line bg-sunken p-5 font-mono text-body text-ink">
+{`<Alert tone="warn">
   <AlertTitle>Tres entregas vencen mañana</AlertTitle>
   <AlertBody>Después de esa fecha nadie puede subir nada.</AlertBody>
   <AlertActions>
     <Button size="sm" variant="raised">Ver las entregas</Button>
   </AlertActions>
-</Alert>
-`}
-        />
+</Alert>`}
+        </pre>
       </Section>
     </Page>
   )

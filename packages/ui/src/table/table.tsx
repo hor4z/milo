@@ -14,7 +14,7 @@ export function Table({ children, label, minWidth = 640, footer, className }: {
   className?: string
 }) {
   // Sin barra visible, un degradado en el canto es lo único que avisa que hay
-  // más columnas a la derecha. La medición la comparte con `Formula`.
+  // más columnas a la derecha.
   const { ref: scroller, scrolls, clipped } = useSideScroll<HTMLDivElement>(children)
 
   return (

@@ -387,31 +387,6 @@ strong, b { font-weight: var(--font-weight-semibold); }
    1 es más angosto que el 4 y una tabla de números baila. */
 .tabular { font-variant-numeric: tabular-nums; }
 
-/* El 2 de una ecuación y el 2 del párrafo de al lado tienen que ser el mismo 2,
-   así que la familia del sistema va sobre los números y el texto. Y va sobre
-   esos elementos y no sobre el `<math>` entero: puesta arriba, la raíz se queda
-   sin su signo, porque el radical que se estira lo saca el navegador de la
-   fuente del propio elemento e Inter no lo tiene.
-
-   Las variables son la excepción y se dejan estar. Una `<mi>` de una sola letra
-   lleva `text-transform: math-auto`, que la mapea a la itálica matemática de
-   Unicode; Inter no tiene ese bloque, así que cae igual en la fuente de
-   matemática. No se pelea: una variable en itálica con serifas es como se lee
-   la matemática, acá y en cualquier libro. */
-.formula { font-size: 1em; color: var(--text); }
-.formula mi,
-.formula mn,
-.formula mtext { font-family: var(--font-sans); }
-
-/* En bloque va un escalón más arriba que el texto que la rodea: una ecuación
-   que es el objeto del párrafo y se lee del mismo tamaño que el párrafo no se
-   distingue de él. */
-.formula-block {
-  font-size: var(--type-title);
-  line-height: var(--type-title-lh);
-  margin: 0;
-}
-
 /* La inversión del campo. Una pieza de papel le dice a los campos que tiene
    adentro que se hundan; sobre el escritorio, el default ya los pinta de papel.
 

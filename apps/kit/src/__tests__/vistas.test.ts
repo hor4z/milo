@@ -113,29 +113,6 @@ describe('las vistas del kit', () => {
     expect(inertes).toEqual([])
   })
 
-  it('ninguna fórmula en línea lleva algo apilado', () => {
-    // Adentro de un renglón, MathML achica lo apilado para que entre: el
-    // numerador de una fracción cae a 11,36px, abajo del piso de 12 del
-    // sistema. En una frase va con barra —`3/4`— y lo apilado es de `display`.
-    const dir = join(import.meta.dirname, '..')
-    const walk = (base: string, prefix = ''): string[] =>
-      readdirSync(base, { withFileTypes: true }).flatMap(e =>
-        e.isDirectory()
-          ? (e.name === '__tests__' ? [] : walk(join(base, e.name), `${prefix}${e.name}/`))
-          : /\.tsx$/.test(e.name) ? [`${prefix}${e.name}`] : [],
-      )
-    const apilado = /<(mfrac|msqrt|mroot|munderover|munder|mover)\b/
-    const offenders: string[] = []
-    for (const f of walk(dir)) {
-      const texto = readFileSync(join(dir, f), 'utf8')
-      for (const m of texto.matchAll(/<Formula\b([^>]*)>([\s\S]*?)<\/Formula>/g)) {
-        if (/\bdisplay\b/.test(m[1])) continue
-        if (apilado.test(m[2])) offenders.push(`${f}: ${m[2].trim().slice(0, 44)}`)
-      }
-    }
-    expect(offenders).toEqual([])
-  })
-
   it('cada portada dice cómo se importa la pieza', () => {
     const withoutImport: string[] = []
     for (const f of files) {

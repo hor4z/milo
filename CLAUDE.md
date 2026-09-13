@@ -4,7 +4,7 @@ El sistema de interfaz de milo: la identidad en tokens, las piezas que la usan, 
 donde se ve todo funcionando. No es una lámina de estilos — cada pieza de acá es el componente
 real, con su teclado, sus estados y sus tests.
 
-**El repo es del design system y de nada más.** El UI kit —las 67 piezas— es una parte; las
+**El repo es del design system y de nada más.** El UI kit —las 65 piezas— es una parte; las
 otras son los tokens y lo que el sitio documenta alrededor. Acá adentro no vive producto: el
 prototipo de la app que hubo hasta ahora se borró, y cuando haga falta uno de nuevo se arma
 aparte.
@@ -18,7 +18,7 @@ final son lo único que hay que tocar.
 npm install
 npm run dev        # el sitio · http://localhost:5190
 npm run typecheck  # todo el monorepo de una
-npm test           # 539 tests con vitest y testing-library
+npm test           # 522 tests con vitest y testing-library
 npm run props      # regenera la tabla de props desde los tipos
 ```
 
@@ -94,14 +94,15 @@ Se abre con `npm run dev` y está en `apps/kit/src/foundations/`. Si una decisi�
 ninguna de esas vistas, es que todavía no se tomó.
 
 **El grupo Editor** son las piezas del editor de texto enriquecido: la barra de formato, la lista
-de comandos que abre la barra, el bloque destacado, la imagen con pie, la fórmula y el bloque de
-código. `document.tsx` las arma en una consigna de verdad, que es al editor lo que el dashboard es
-a la app: la prueba de que juntas funcionan. De ahí salió que una fracción apilada adentro de un
-renglón cae a 11,36px — abajo del piso del sistema— y que en una frase va con barra. Se documentan
-igual que las demás y la diferencia es de quién las usa — ahí el contenido lo escribe una persona,
-no el sistema, y eso cambia las reglas: un `Callout` no usa los tonos de estado porque no está
-avisando de nada, y una `Formula` deja las variables en la itálica matemática porque así se lee la
-matemática y no porque el sistema lo haya elegido.
+de comandos que abre la barra, el bloque destacado, la imagen con pie y la cita. `document.tsx` las
+arma en una consigna de verdad, que es al editor lo que el dashboard es a la app: la prueba de que
+juntas funcionan. Se documentan igual que las demás y la diferencia es de quién las usa — ahí el
+contenido lo escribe una persona, no el sistema, y eso cambia las reglas: un `Callout` no usa los
+tonos de estado porque no está avisando de nada.
+
+La fórmula y el bloque de código estuvieron y se sacaron: son las dos piezas del editor que traen
+un lenguaje propio —MathML una, la gramática de cada lenguaje la otra— y eso es un trabajo aparte
+del sistema. Cuando vuelvan, vuelven con esa decisión tomada.
 
 ## Las reglas al escribir código
 
@@ -243,7 +244,7 @@ Monorepo de npm workspaces. Dos paquetes y una app:
 packages/tokens/src/    la identidad, en CSS puro. Sin Tailwind y sin JS.
 packages/ui/src/        theme.css (el puente) · index.ts (la puerta) ·
                         una carpeta por pieza: button/button.tsx + button/button.test.tsx,
-                        y así las 67 (select, modal, toast, chart, table…)
+                        y así las 65 (select, modal, toast, chart, table…)
                         lib/ lo compartido que no es un componente: cx · colors ·
                         control · tone · esc · overlay-hooks · roving ·
                         side-scroll · dismiss
@@ -328,7 +329,7 @@ Lo mismo vale para los tipos que una pieza recibe como argumento —`ToastOption
 
 ## Los tests
 
-`npm test` corre vitest con jsdom y testing-library. 539 tests, y lo que prueban es el
+`npm test` corre vitest con jsdom y testing-library. 522 tests, y lo que prueban es el
 comportamiento —teclado, nombres accesibles, estados— y no el markup, que cambia con cada
 ajuste de estilo. El test de cada pieza vive en su carpeta, al lado del componente.
 
@@ -361,7 +362,7 @@ escala repetidos sobre `apps/kit` —que hasta ahora se escapaba—, el peso de 
 tamaño, las transiciones sin duración ni curva, un control de estado sin su manija, y que cada
 vista tenga portada, import y sinónimos para buscarla.
 
-Y hay uno que **renderiza las setenta y tres vistas**, una por test. Encuentra dos cosas que
+Y hay uno que **renderiza las setenta y una vistas**, una por test. Encuentra dos cosas que
 ninguna lectura encuentra: una vista que tira al dibujarse —eso antes se veía solo abriéndola— y
 un backtick o un `**` que quedó a la vista porque ese texto no pasó por `Rich`. Había diez.
 
@@ -387,9 +388,8 @@ modalidad, feedback, cargando, ajustes, buscar, audio y gráficos.
 pantalla completa, arranque, multitarea, y los catorce componentes que son de un sistema operativo
 —widgets, complicaciones, barra de menú, dock—. Esto corre en un navegador.
 
-**Entró en esta vuelta**, porque el propósito del sistema lo pedía: `Formula` y `CodeBlock` y
-`DatePicker` y `Tree` y `Stepper` y `Reorder`, más el `Documento` que las prueba
-juntas. De arrastrar y soltar entró la mitad que importa: reordenar una lista, con el teclado como
+**Entró en esta vuelta**, porque el propósito del sistema lo pedía: `DatePicker` y `Tree` y
+`Stepper` y `Reorder`, más el `Documento` que las prueba juntas. De arrastrar y soltar entró la mitad que importa: reordenar una lista, con el teclado como
 pieza y el arrastre como comodidad. Lo que sigue afuera es soltar algo **adentro** de otra cosa
 —un archivo en una carpeta— que es otro problema.
 
@@ -415,7 +415,7 @@ un aula:
 - **Recuperar `ss04` y el cero barrado** pide auto-alojar Inter: 69 KB subseteada a latín, con la
   receta de `pyftsubset` anotada. Se eligió el CDN; si algún día una red escolar filtra Google
   Fonts, la decisión se da vuelta y el trabajo ya está pensado.
-- **El sitio entra en un solo bundle de 667 KB —195 gzip— y `vite build` avisa.** Son las 73
+- **El sitio entra en un solo bundle de 667 KB —195 gzip— y `vite build` avisa.** Son las 71
   vistas importadas de una: nada está mal, está todo junto. La salida es `lazy` por historia con
   un `Skeleton` de espera, y el costo es un parpadeo por navegación en una pantalla que hoy es
   instantánea. No se hizo porque es una decisión sobre cómo se siente el sitio y no un bug.
