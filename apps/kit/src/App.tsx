@@ -15,6 +15,7 @@ import { AudioPlayerStory } from './stories/audio-player'
 import { LineChartStory } from './stories/line-chart'
 import { ChartsSection } from './foundations/charts'
 import { CalloutStory } from './stories/callout'
+import { FigureStory } from './stories/figure'
 import { CommandMenuStory } from './stories/command-menu'
 import { ToolbarStory } from './stories/toolbar'
 import { StepsStory } from './stories/steps'
@@ -105,6 +106,7 @@ const groups: Group[] = [
       { id: 'toolbar', label: 'Toolbar', alias: 'barra herramientas formato negrita cursiva editor texto enriquecido', render: () => <ToolbarStory /> },
       { id: 'command-menu', label: 'CommandMenu', alias: 'comandos paleta barra slash menú buscar bloques editor notion', render: () => <CommandMenuStory /> },
       { id: 'callout', label: 'Callout', alias: 'bloque destacado aclaración pista recordar contenido editor', render: () => <CalloutStory /> },
+      { id: 'figure', label: 'Figure', alias: 'imagen figura pie epígrafe foto alt caption editor', render: () => <FigureStory /> },
     ],
   },
   {

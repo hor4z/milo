@@ -977,6 +977,48 @@ export const propsByComponent: Record<string, ComponentDoc> = {
     "html": "fieldset",
     "doc": "Varios campos, uno debajo del otro, con el aire del sistema."
   },
+  "Figure": {
+    "props": [
+      {
+        "name": "src",
+        "type": "string",
+        "required": true,
+        "doc": "El archivo."
+      },
+      {
+        "name": "alt",
+        "type": "string",
+        "required": true,
+        "doc": "Qué se ve, para quien no la ve. No es el epígrafe: si la imagen no aporta nada que el texto no diga, va vacío y la imagen queda decorativa."
+      },
+      {
+        "name": "caption",
+        "type": "ReactNode",
+        "required": false,
+        "doc": "Lo que se lee abajo, para todo el mundo. Agrega algo que la imagen no dice sola: de dónde salió, qué hay que mirar."
+      },
+      {
+        "name": "ratio",
+        "type": "'16/9' | '4/3' | '1/1' | '3/2'",
+        "required": false,
+        "def": "'4/3'",
+        "doc": "La proporción del hueco. Sin esto, la imagen manda y la página salta cuando carga."
+      },
+      {
+        "name": "fit",
+        "type": "'cover' | 'contain'",
+        "required": false,
+        "def": "'cover'",
+        "doc": "`cover` llena el hueco y recorta lo que sobra: va para una foto, donde el borde no importa. `contain` entra entera: va para un dibujo o un diagrama, donde recortar se lleva justo lo que hay que ver."
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "required": false
+      }
+    ],
+    "doc": "Una imagen con su pie: lo que ilustra una consigna, una foto de un experimento, el gráfico que alguien dibujó a mano."
+  },
   "FilterBar": {
     "props": [],
     "html": "div",

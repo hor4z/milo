@@ -41,6 +41,7 @@ export { Avatar, AvatarGroup } from './avatar/avatar'
 export { Chip } from './chip/chip'
 
 export { Callout } from './callout/callout'
+export { Figure } from './figure/figure'
 export { Alert, AlertTitle, AlertBody, AlertActions } from './alert/alert'
 export type { Tone } from './lib/tone'
 export { ToastProvider, useToast } from './toast/toast'

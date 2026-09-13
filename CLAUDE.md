@@ -85,11 +85,18 @@ cosa—, así que ahora dirige en vez de explicar.
 | hover, foco, vacío, cargando, error | **Fundamentos › Estados** | — |
 | contraste, teclado, lectores | **Fundamentos › Accesibilidad** | `__tests__/contraste.test.ts` |
 | el set y cómo crece | **Fundamentos › Iconos** | `scripts/icons.mjs` |
+| qué gráfico va y cuándo una tabla | **Fundamentos › Gráficos** | `chart/` · `line-chart/` |
 | el texto de la interfaz | **Fundamentos › Cómo se escribe** | — |
 | a quién le hablamos | **Fundamentos › Inclusión** | — |
 
 Se abre con `npm run dev` y está en `apps/kit/src/foundations/`. Si una decisión no está en
 ninguna de esas vistas, es que todavía no se tomó.
+
+**El grupo Editor** son las piezas del editor de texto enriquecido: la barra de formato, la lista
+de comandos que abre la barra, el bloque destacado y la imagen con pie. Se documentan igual que
+las demás y la diferencia es de quién las usa — ahí el contenido lo escribe una persona, no el
+sistema, y eso cambia las reglas: un `Callout` no usa los tonos de estado porque no está avisando
+de nada.
 
 ## Las reglas al escribir código
 
@@ -261,8 +268,8 @@ vista se llama por otra pieza. Donde la comparación importa, queda escrita en l
 cada una linkea a la otra: solapas o acordeón, alert o toast, sheet o modal, link o button.
 
 Las piezas se agrupan por el trabajo que hacen
-—Fundamentos, Acciones, Formularios, Navegación, Datos, Avisos, Superficies— y no por su tipo
-técnico. **Fundamentos va primero** y es la capa de la que sale todo lo demás: Principios ·
+—Fundamentos, Mascotas, Editor, Acciones, Formularios, Navegación, Datos, Avisos, Superficies— y
+no por su tipo técnico. **Fundamentos va primero** y es la capa de la que sale todo lo demás: Principios ·
 Accesibilidad · Tipografía · Color · Medidas y radios · Relieve · Movimiento · Iconos · Cómo se
 escribe. El orden adentro no es alfabético: las dos primeras son las que hay que leer antes de
 tocar nada, y después van las capas en el orden en que se construye una pantalla.
