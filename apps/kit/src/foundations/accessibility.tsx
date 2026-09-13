@@ -6,7 +6,7 @@ const reglas = [
   {
     icon: 'contrast',
     title: 'El contraste se mide, no se estima',
-    body: 'AA —4.5:1— para todo lo que sea texto, en los dos temas. No es una intención: hay veintinueve tests que leen los tokens y calculan el ratio, y fallan antes de que un tono roto llegue a una pantalla. AAA queda afuera a propósito, y abajo está la cuenta.',
+    body: 'AA —4.5:1— para todo lo que sea texto, en los dos temas. No es una intención: hay cincuenta y un tests que leen los tokens y calculan el ratio, y fallan antes de que un tono roto llegue a una pantalla. AAA queda afuera a propósito, y abajo está la cuenta.',
   },
   {
     icon: 'keyboard',
@@ -165,6 +165,17 @@ export function AccessibilitySection() {
         superficies oscuras hay que aclararlo hasta un punto donde queda a 1,84:1 del texto
         principal, y ahí deja de distinguirse el título del cuerpo. Se gana un número y se pierde la
         jerarquía, que es lo que el gris estaba haciendo. Medido, no estimado.
+      </Note>
+
+      <Note icon="warning" title="El único texto que no llega a AA, y por qué">
+        El gris del texto sugerido de un campo se mide contra cuatro fondos: el campo sobre el
+        escritorio, ese con el mouse encima, el campo adentro de una pieza de papel y ese con el
+        mouse encima. Llega a 4,5:1 en los cuatro salvo en el último del tema oscuro, donde da
+        3,82:1. Para pasarlo hay que aclarar el gris hasta 1,02:1 del gris del texto escrito, y ahí
+        un campo con sugerencia se lee igual que un campo lleno — que es exactamente lo que este
+        paso de la rampa vino a evitar. Es la misma cuenta que la de AAA: se gana el número y se
+        pierde lo que el color estaba diciendo. Los otros tres se corrigieron: adentro de una
+        tarjeta daban 4,24 en claro y 3,99 en oscuro, y ninguno se medía.
       </Note>
 
       <Note icon="warning" title="Lo único que axe marca y no se corrige">

@@ -105,9 +105,19 @@ describe('el hover no deshace el anclaje', () => {
 })
 
 describe('el texto sugerido de un campo se lee', () => {
-  // El paso más claro que todavía lleva texto: el que está más cerca de romperse.
+  // «Sobre el campo» son cuatro fondos y no dos: sobre el escritorio y adentro
+  // de una pieza de papel, cada uno con y sin el mouse encima. Se medían solo
+  // los dos primeros, y adentro de una tarjeta el gris daba 4.24 en claro y
+  // 3.99 en oscuro. El cuarto —papel con el mouse encima, en oscuro— es el
+  // único que no llega, y no llega por el otro lado: para pasarlo el gris tiene
+  // que subir hasta donde deja de distinguirse del texto escrito. Está anotado
+  // en Fundamentos › Accesibilidad con el número.
+  const fondos = {
+    light: ['--shade-01', '--shade-02', '--shade-02', '--shade-03'],
+    dark: ['--shade-01', '--shade-03', '--shade-03'],
+  } as const
   for (const theme of ['light', 'dark'] as const) {
-    for (const back of ['--shade-01', '--shade-02']) {
+    for (const back of [...new Set(fondos[theme])]) {
       it(`--shade-placeholder sobre ${back} en ${theme} llega a AA`, () => {
         const ph = value('--shade-placeholder', theme)
         const paper = value(back, theme)

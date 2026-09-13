@@ -831,6 +831,54 @@ export const propsByComponent: Record<string, ComponentDoc> = {
     ],
     "doc": "El diálogo que pregunta antes de algo que no se puede deshacer."
   },
+  "DatePicker": {
+    "props": [
+      {
+        "name": "value",
+        "type": "string",
+        "required": true,
+        "doc": "La fecha elegida como `AAAA-MM-DD`, o vacío."
+      },
+      {
+        "name": "onChange",
+        "type": "(v: string) => void",
+        "required": true,
+        "doc": "Recibe la fecha nueva en el mismo formato."
+      },
+      {
+        "name": "min",
+        "type": "string",
+        "required": false,
+        "doc": "Nada antes de este día. Para un vencimiento, el de hoy."
+      },
+      {
+        "name": "max",
+        "type": "string",
+        "required": false,
+        "doc": "Nada después de este día."
+      },
+      {
+        "name": "placeholder",
+        "type": "string",
+        "required": false,
+        "def": "'Elegir fecha'",
+        "doc": "Lo que dice el campo mientras no hay fecha."
+      },
+      {
+        "name": "label",
+        "type": "string",
+        "required": false,
+        "doc": "De qué es la fecha. Sin esto lo pone el `Field` de alrededor."
+      },
+      {
+        "name": "width",
+        "type": "number",
+        "required": false,
+        "doc": "Sin esto toma el ancho del contenido."
+      }
+    ],
+    "doc": "Elegir una fecha: un campo que abre un mes."
+  },
   "Divider": {
     "props": [
       {

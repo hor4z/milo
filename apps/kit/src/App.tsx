@@ -23,6 +23,7 @@ import { MentionStory } from './stories/mention'
 import { FormulaStory } from './stories/formula'
 import { CodeBlockStory } from './stories/code-block'
 import { HeatmapStory } from './stories/heatmap'
+import { DatePickerStory } from './stories/date-picker'
 import { CommandMenuStory } from './stories/command-menu'
 import { ToolbarStory } from './stories/toolbar'
 import { StepsStory } from './stories/steps'
@@ -140,6 +141,7 @@ const groups: Group[] = [
       { id: 'text-field', label: 'TextField', alias: 'input campo texto entrada', render: () => <TextFieldStory /> },
       { id: 'textarea', label: 'Textarea', alias: 'campo multilínea texto largo', render: () => <TextareaStory /> },
       { id: 'select', label: 'Select', alias: 'combo desplegable elegir opción', render: () => <SelectStory /> },
+      { id: 'date-picker', label: 'DatePicker', alias: 'fecha calendario vencimiento día mes entrega cuándo almanaque', render: () => <DatePickerStory /> },
       { id: 'checkbox', label: 'Checkbox', alias: 'casilla marcar tilde', render: () => <CheckboxStory /> },
       { id: 'radio', label: 'Radio', alias: 'opción única elegir', render: () => <RadioStory /> },
       { id: 'switch', label: 'Switch', alias: 'toggle interruptor prender apagar', render: () => <SwitchStory /> },

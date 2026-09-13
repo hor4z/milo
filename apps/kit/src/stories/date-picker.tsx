@@ -1,0 +1,91 @@
+import { useState } from 'react'
+import { DatePicker, Field, FieldSet } from '@milo/ui'
+import { A11y, Canvas, Note, Page, Props, Section } from '../kit'
+
+const hoy = () => {
+  const d = new Date()
+  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`
+}
+
+export function DatePickerStory() {
+  const [vence, setVence] = useState('')
+  const [desde, setDesde] = useState(hoy())
+  const [suelta, setSuelta] = useState('2026-03-09')
+  const [acotada, setAcotada] = useState('')
+
+  return (
+    <Page
+      title="DatePicker"
+      kind="Formularios"
+      imports="import { DatePicker } from '@milo/ui'"
+      lead="Un campo que abre un mes. El valor es el texto `AAAA-MM-DD` y no un `Date`: una fecha de entrega no tiene hora ni zona, y un `Date` arrastra las dos."
+    >
+      <Section
+        title="En un campo"
+        note="Como cualquier otro control del sistema: el `Field` de alrededor le pone el nombre y la ayuda, y el campo se hunde o no según la superficie donde caiga."
+      >
+        <Canvas>
+          <div className="flex max-w-[420px] flex-col gap-5">
+            <FieldSet legend="Cuándo">
+              <Field label="Abre" hint="Desde cuándo se puede entregar">
+                <DatePicker value={desde} onChange={setDesde} />
+              </Field>
+              <Field label="Vence" hint="Después de esta fecha no entra nada">
+                <DatePicker value={vence} onChange={setVence} min={desde} placeholder="Sin fecha de cierre" />
+              </Field>
+            </FieldSet>
+          </div>
+        </Canvas>
+      </Section>
+
+      <Section
+        title="Suelto"
+        note="Sin `Field` alrededor hay que nombrarlo con `label`. El campo dice la fecha en palabras y no en números: «9 de marzo de 2026» no se confunde con nada, y 03/09/2026 quiere decir dos cosas distintas según de dónde sea quien lo lee."
+      >
+        <Canvas>
+          <DatePicker value={suelta} onChange={setSuelta} label="Fecha del examen" width={260} />
+        </Canvas>
+      </Section>
+
+      <Section
+        title="Acotado"
+        note="`min` y `max` apagan lo que queda afuera en vez de esconderlo: un día que desaparece deja a quien mira buscando dónde está, y uno apagado dice que existe y que no se puede."
+      >
+        <Canvas>
+          <DatePicker value={acotada} onChange={setAcotada} min={hoy()} label="Nueva entrega" placeholder="No se puede antes de hoy" width={260} />
+        </Canvas>
+      </Section>
+
+      <Note icon="lightbulb" title="Por qué el valor es texto y no un `Date`">
+        `new Date('2026-03-09')` se interpreta en UTC, así que en Argentina es el 8 a las 21. Una
+        fecha de vencimiento no tiene hora ni zona: es un día del calendario y nada más. El texto
+        `AAAA-MM-DD` lo dice tal cual, se ordena solo comparando cadenas y viaja a cualquier base
+        de datos sin traducción. Adentro de la pieza el único `Date` que aparece es para
+        preguntarle al calendario qué día de la semana cae.
+      </Note>
+
+      <Note title="La semana empieza el lunes">
+        Es la convención de acá y de casi todo el mundo salvo Estados Unidos, y no sale de la
+        configuración del navegador: una grilla que a veces arranca el domingo y a veces el lunes
+        se lee mal justo cuando hay que contar días. Si algún día hay que soportar las dos, es una
+        prop y no una pieza nueva.
+      </Note>
+
+      <Section title="Props">
+        <Props of="DatePicker" />
+      </Section>
+
+      <Section title="Accesibilidad">
+        <A11y items={[
+          'La grilla es un `grid` con su nombre, y cada día se nombra entero —«lunes, 9 de marzo de 2026»— en vez de leerse como un número suelto sin contexto.',
+          'Las flechas mueven de a un día y de a una semana, y cruzan de mes solas; Re Pág y Av Pág cambian el mes, con Shift el año, e Inicio y Fin van a los extremos de la semana.',
+          'Una sola parada de tabulación en la grilla: el día donde está el cursor, que es lo que evita treinta paradas para llegar al final del mes.',
+          'El mes se anuncia al cambiar con `aria-live`: con el teclado lo único que cambia es el título, y sin eso el salto es mudo.',
+          'Hoy se marca con un punto además del color, y lo elegido con relleno: dos señales distintas para dos cosas distintas.',
+          'Lo que está fuera de rango se apaga con `aria-disabled` y sigue estando: un día que desaparece deja buscando.',
+          'Escape cierra y el foco vuelve al campo.',
+        ]} />
+      </Section>
+    </Page>
+  )
+}

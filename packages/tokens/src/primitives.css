@@ -45,8 +45,13 @@
      porque con `--shade-06` puesto ahí el texto sugerido se leía igual de firme
      que el que alguien escribió, y un campo con placeholder parecía un campo
      lleno. La distancia real la pone la tinta: el valor escrito va a 14:1, este
-     a 4.6. */
-  --shade-placeholder: #6d6e70;
+     a 4.6.
+
+     «Sobre el campo» son cuatro fondos y no uno: el campo sobre el escritorio,
+     el mismo con el mouse encima, el campo adentro de una pieza de papel y ese
+     con el mouse encima. Se medía contra los dos primeros, y adentro de una
+     tarjeta —que es donde vive la mitad de los campos— daba 4.24. */
+  --shade-placeholder: #68696b;
 
   /* Bordes y hovers se pintan con tinta transparente, no con un gris opaco:
      sobre un tinte, el gris opaco se ve como una línea sucia. */
@@ -306,7 +311,7 @@
   --shade-07: #c3c4c5;
   --shade-08: #dfe0e1;
   --shade-09: #f3f3f4;
-  --shade-placeholder: #848687;
+  --shade-placeholder: #8e9091;
 
   --shade-09-a04: rgb(243 243 244 / 0.05);
   --shade-09-a06: rgb(243 243 244 / 0.08);
