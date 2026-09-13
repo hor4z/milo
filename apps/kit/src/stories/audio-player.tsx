@@ -1,17 +1,24 @@
 import { AudioPlayer, IconButton, Tooltip } from '@milo/ui'
 import { A11y, Note, Page, Panel, Props, Section, Variant } from '../kit'
 
-/** Salen de `python3 apps/kit/scripts/picos.py apps/kit/public/audio/consigna.mp3 --barras 72`. */
+/** Salen de `python3 apps/kit/scripts/picos.py apps/kit/public/audio/consigna.mp3 --barras 44`. */
 const picos = [
-  0.770, 0.921, 0.855, 1.000, 0.455, 0.916, 1.000, 0.944, 0.967, 0.222, 0.553, 0.741,
-  0.996, 0.594, 0.357, 0.163, 0.002, 0.391, 0.538, 1.000, 0.403, 0.743, 0.613, 0.402,
-  0.590, 0.638, 0.901, 0.383, 0.230, 0.353, 1.000, 0.189, 0.008, 0.000, 0.000, 0.000,
-  0.000, 0.000, 0.646, 0.651, 0.679, 0.375, 0.630, 0.634, 0.643, 0.758, 0.175, 0.000,
-  0.000, 0.000, 0.000, 0.583, 0.569, 0.562, 0.610, 0.731, 0.838, 0.573, 0.086, 0.537,
-  0.144, 0.000, 0.702, 0.236, 0.829, 0.570, 0.945, 0.027, 0.084, 0.002, 0.000, 0.000,
+  0.793, 1.000, 0.870, 0.939, 1.000, 0.703, 0.453, 1.000, 0.446, 0.229, 0.314, 0.901,
+  0.421, 0.735, 0.582, 0.731, 0.572, 0.314, 0.886, 0.112, 0.003, 0.000, 0.000, 0.519,
+  0.722, 0.537, 0.606, 0.790, 0.180, 0.000, 0.000, 0.512, 0.602, 0.769, 0.697, 0.428,
+  0.446, 0.001, 0.575, 0.691, 0.880, 0.071, 0.008, 0.000,
+] as const
+
+/** Los del archivo largo, con las mismas 44 barras: la cantidad la decide el ancho y no la duración. */
+const picosLargos = [
+  0.806, 0.660, 0.664, 0.753, 0.878, 0.848, 0.300, 0.936, 0.758, 1.000, 0.042, 1.000,
+  0.897, 0.873, 1.000, 0.736, 0.395, 0.692, 0.565, 0.789, 0.577, 0.924, 0.604, 0.583,
+  0.370, 0.549, 0.793, 0.633, 0.623, 0.872, 0.715, 0.037, 0.967, 0.797, 0.708, 0.980,
+  0.477, 0.716, 0.703, 0.556, 0.496, 0.543, 0.526, 0.347,
 ] as const
 
 const AUDIO = '/audio/consigna.mp3'
+const LARGO = '/audio/explicacion.mp3'
 
 export function AudioPlayerStory() {
   return (
@@ -88,6 +95,17 @@ export function AudioPlayerStory() {
         <Panel>
           <Variant name="error">
             <AudioPlayer src="/audio/no-existe.mp3" title="Consigna · Matemática 4.º A" className="max-w-[520px]" />
+          </Variant>
+        </Panel>
+      </Section>
+
+      <Section
+        title="Un archivo largo"
+        note="Cuarenta y nueve segundos con las mismas cuarenta y cuatro barras. La cantidad la decide el ancho del reproductor y no la duración: con el doble de barras en el mismo ancho quedan hilos que no se leen, y los silencios —que son lo que sirve— se pierden entre medio."
+      >
+        <Panel>
+          <Variant name="0:49">
+            <AudioPlayer src={LARGO} title="Explicación grabada" peaks={picosLargos} className="max-w-[520px]" />
           </Variant>
         </Panel>
       </Section>

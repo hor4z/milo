@@ -17,6 +17,9 @@ function reloj(s: number) {
 
 type Estado = 'cargando' | 'listo' | 'error'
 
+/** El alto de la onda. No sale de la escalera de controles: eso mide botones, y esto es un gráfico que hay que poder leer. */
+const onda = { sm: 'h-8', md: 'h-10', lg: 'h-12' } as const
+
 // Solo uno suena a la vez. Dos audios encimados no se entienden, y el segundo
 // tapa al primero sin que nadie lo haya pedido.
 const abiertos = new Set<HTMLAudioElement>()
@@ -30,11 +33,13 @@ function Onda({ peaks, avance }: { peaks: readonly number[]; avance: number }) {
           key={i}
           className={cx(
             'min-w-px flex-1 rounded-full transition-colors duration-fast ease-out',
-            i / peaks.length < avance ? 'bg-brand' : 'bg-border-strong',
+            // Gris claro lo que falta, marca lo que ya sonó: el avance se lee
+            // en el color y no hace falta una cabecita que lo marque.
+            i / peaks.length < avance ? 'bg-brand' : 'bg-line-strong',
           )}
-          // Un pico en silencio mide cero y la barra desaparece; el 8% la deja
-          // como una marca, que es lo que dibuja la línea de la pista.
-          style={{ height: `${Math.max(p, 0.08) * 100}%` }}
+          // Un pico en silencio mide cero y la barra desaparece; el mínimo la
+          // deja como un punto, que es lo que dibuja la línea de la pista.
+          style={{ height: `${Math.max(p, 0.06) * 100}%`, minHeight: 3 }}
         />
       ))}
     </span>
@@ -179,34 +184,38 @@ export function AudioPlayer({ src, title, peaks, actions, size = 'md', className
 
       <div className="flex min-w-0 flex-1 flex-col gap-1">
         {title && <span className="truncate text-body font-medium text-ink">{title}</span>}
-        {estado === 'error'
-          ? <span className="text-body text-bad-ink">No se pudo cargar el audio</span>
-          : (
-            <span className={cx('relative flex w-full items-center', size === 'lg' ? 'h-10' : 'h-8')}>
-              {peaks?.length ? <Onda peaks={peaks} avance={avance} /> : <Pista avance={avance} />}
-              <input
-                type="range"
-                min={0}
-                max={listo ? dur : 0}
-                step={0.1}
-                value={t}
-                disabled={!listo}
-                aria-label={title ? `Buscar en ${title}` : 'Buscar en el audio'}
-                aria-valuetext={`${reloj(t)} de ${reloj(dur)}`}
-                onChange={e => buscar(Number(e.target.value))}
-                className={cx(
-                  'absolute inset-0 h-full w-full cursor-pointer appearance-none bg-transparent opacity-0',
-                  'disabled:cursor-default',
-                  'focus-visible:opacity-100 focus-visible:outline-none focus-visible:shadow-[var(--focus-ring)] focus-visible:rounded-md',
-                )}
-              />
-            </span>
-          )}
+        {/* El reloj va en la misma fila que la onda y no al costado de todo: con
+            un título arriba, la columna es más alta que la onda y el reloj
+            quedaba centrado contra la columna en vez de contra el gráfico. */}
+        <div className="flex items-center gap-3">
+          {estado === 'error'
+            ? <span className={cx('flex flex-1 items-center text-body text-bad-ink', onda[size])}>No se pudo cargar el audio</span>
+            : (
+              <span className={cx('relative flex min-w-0 flex-1 items-center', onda[size])}>
+                {peaks?.length ? <Onda peaks={peaks} avance={avance} /> : <Pista avance={avance} />}
+                <input
+                  type="range"
+                  min={0}
+                  max={listo ? dur : 0}
+                  step={0.1}
+                  value={t}
+                  disabled={!listo}
+                  aria-label={title ? `Buscar en ${title}` : 'Buscar en el audio'}
+                  aria-valuetext={`${reloj(t)} de ${reloj(dur)}`}
+                  onChange={e => buscar(Number(e.target.value))}
+                  className={cx(
+                    'absolute inset-0 h-full w-full cursor-pointer appearance-none bg-transparent opacity-0',
+                    'disabled:cursor-default',
+                    'focus-visible:opacity-100 focus-visible:outline-none focus-visible:rounded-md focus-visible:shadow-[var(--focus-ring)]',
+                  )}
+                />
+              </span>
+            )}
+          <span className="tabular shrink-0 text-meta text-ink-muted">
+            {reloj(t)} / {reloj(dur)}
+          </span>
+        </div>
       </div>
-
-      <span className="tabular shrink-0 text-meta text-ink-muted">
-        {reloj(t)} / {reloj(dur)}
-      </span>
 
       {actions && <span className="flex shrink-0 items-center gap-1">{actions}</span>}
     </div>
