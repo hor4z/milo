@@ -587,6 +587,52 @@ export const propsByComponent: Record<string, ComponentDoc> = {
     ],
     "doc": "El chip: 28 de alto y radio 10. Identifica —una categoría, una persona, un espacio—; si el texto cambia según lo que pasó, es un `Badge`."
   },
+  "CodeBlock": {
+    "props": [
+      {
+        "name": "code",
+        "type": "string",
+        "required": true,
+        "doc": "El código como texto. Es lo que se copia, y lo que se lee si no hay `children`."
+      },
+      {
+        "name": "children",
+        "type": "ReactNode",
+        "required": false,
+        "doc": "El mismo código ya coloreado por quien sepa hacerlo. Sin esto se muestra `code` tal cual."
+      },
+      {
+        "name": "lang",
+        "type": "string",
+        "required": false,
+        "doc": "El lenguaje: se muestra arriba y viaja como `language-*`, que es lo que espera un coloreador."
+      },
+      {
+        "name": "filename",
+        "type": "string",
+        "required": false,
+        "doc": "El nombre del archivo, en la franja de arriba."
+      },
+      {
+        "name": "numbered",
+        "type": "boolean",
+        "required": false,
+        "doc": "La columna de números a la izquierda. No se copia ni se lee en voz alta, y se arma desde `code`: con números, `children` no se usa."
+      },
+      {
+        "name": "label",
+        "type": "string",
+        "required": false,
+        "doc": "De qué es el código, para quien lo escucha. Sin esto se anuncia por el lenguaje."
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "required": false
+      }
+    ],
+    "doc": "Un bloque de código, con su nombre de archivo y su botón de copiar."
+  },
   "ColumnPicker": {
     "props": [
       {

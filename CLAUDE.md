@@ -4,7 +4,7 @@ El sistema de interfaz de milo: la identidad en tokens, las piezas que la usan, 
 donde se ve todo funcionando. No es una lámina de estilos — cada pieza de acá es el componente
 real, con su teclado, sus estados y sus tests.
 
-**El repo es del design system y de nada más.** El UI kit —las 62 piezas— es una parte; las
+**El repo es del design system y de nada más.** El UI kit —las 63 piezas— es una parte; las
 otras son los tokens y lo que el sitio documenta alrededor. Acá adentro no vive producto: el
 prototipo de la app que hubo hasta ahora se borró, y cuando haga falta uno de nuevo se arma
 aparte.
@@ -18,7 +18,7 @@ final son lo único que hay que tocar.
 npm install
 npm run dev        # el sitio · http://localhost:5190
 npm run typecheck  # todo el monorepo de una
-npm test           # 382 tests con vitest y testing-library
+npm test           # 387 tests con vitest y testing-library
 npm run props      # regenera la tabla de props desde los tipos
 ```
 
@@ -94,7 +94,7 @@ Se abre con `npm run dev` y está en `apps/kit/src/foundations/`. Si una decisi�
 ninguna de esas vistas, es que todavía no se tomó.
 
 **El grupo Editor** son las piezas del editor de texto enriquecido: la barra de formato, la lista
-de comandos que abre la barra, el bloque destacado, la imagen con pie y la fórmula. Se documentan
+de comandos que abre la barra, el bloque destacado, la imagen con pie, la fórmula y el bloque de código. Se documentan
 igual que las demás y la diferencia es de quién las usa — ahí el contenido lo escribe una persona,
 no el sistema, y eso cambia las reglas: un `Callout` no usa los tonos de estado porque no está
 avisando de nada, y una `Formula` deja las variables en la itálica matemática porque así se lee la
@@ -317,7 +317,7 @@ Lo mismo vale para los tipos que una pieza recibe como argumento —`ToastOption
 
 ## Los tests
 
-`npm test` corre vitest con jsdom y testing-library. 382 tests, y lo que prueban es el
+`npm test` corre vitest con jsdom y testing-library. 387 tests, y lo que prueban es el
 comportamiento —teclado, nombres accesibles, estados— y no el markup, que cambia con cada
 ajuste de estilo. El test de cada pieza vive en su carpeta, al lado del componente.
 
