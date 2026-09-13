@@ -192,7 +192,7 @@ export function AudioPlayer({ src, title, peaks, actions, size = 'md', className
               round
               disabled={estado === 'error'}
               onClick={alternar}
-              className="shrink-0"
+              className="icon-filled shrink-0"
             />
           )}
 

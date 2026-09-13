@@ -1,20 +1,22 @@
 import { AudioPlayer, IconButton, Tooltip } from '@milo/ui'
 import { A11y, Note, Page, Panel, Props, Section } from '../kit'
 
-/** Salen de `python3 apps/kit/scripts/picos.py apps/kit/public/audio/consigna.mp3 --barras 40`. */
+/** Salen de `python3 apps/kit/scripts/picos.py apps/kit/public/audio/consigna.mp3 --barras 56`. */
 const picos = [
-  0.771, 1.000, 0.699, 1.000, 0.996, 0.450, 0.696, 0.776, 0.297, 0.296, 0.861, 0.441,
-  0.662, 0.536, 0.836, 0.296, 0.786, 0.394, 0.003, 0.000, 0.000, 0.510, 0.747, 0.590,
-  0.591, 0.594, 0.001, 0.000, 0.482, 0.568, 0.725, 0.698, 0.368, 0.385, 0.531, 0.585,
-  0.879, 0.118, 0.014, 0.000,
+  0.848, 0.896, 1.000, 0.544, 0.906, 1.000, 1.000, 0.202, 0.584, 0.971, 0.665, 0.342,
+  0.061, 0.347, 0.906, 0.466, 0.659, 0.641, 0.612, 0.136, 0.978, 0.346, 0.302, 0.960,
+  0.217, 0.005, 0.000, 0.000, 0.000, 0.474, 0.599, 0.713, 0.447, 0.686, 0.570, 0.689,
+  0.022, 0.000, 0.000, 0.000, 0.565, 0.665, 0.824, 0.647, 0.621, 0.233, 0.492, 0.006,
+  0.622, 0.409, 0.656, 0.970, 0.056, 0.069, 0.000, 0.000,
 ] as const
 
-/** Los del archivo largo, con las mismas cuarenta: la cantidad la decide el ancho y no la duración. */
+/** Los del archivo largo, con las mismas cincuenta y seis: la cantidad la decide el ancho y no la duración. */
 const picosLargos = [
-  0.799, 0.702, 0.772, 0.780, 0.736, 0.805, 0.754, 0.787, 1.000, 0.049, 1.000, 0.871,
-  0.936, 0.968, 0.713, 0.658, 0.493, 0.831, 0.598, 0.934, 0.594, 0.573, 0.356, 0.817,
-  0.720, 0.305, 0.996, 0.774, 0.072, 0.948, 0.782, 0.731, 0.991, 0.322, 0.861, 0.480,
-  0.710, 0.403, 0.635, 0.349,
+  0.737, 0.604, 0.706, 0.571, 0.761, 0.787, 0.616, 0.845, 0.180, 0.943, 0.602, 0.798,
+  0.909, 0.038, 1.000, 0.793, 0.796, 0.953, 1.000, 0.654, 0.500, 0.593, 0.550, 0.531,
+  0.741, 0.553, 0.595, 0.918, 0.553, 0.561, 0.428, 0.355, 0.495, 0.859, 0.617, 0.326,
+  0.655, 0.870, 0.785, 0.182, 0.046, 1.000, 0.749, 0.380, 0.995, 0.852, 0.383, 0.586,
+  0.715, 0.514, 0.626, 0.443, 0.253, 0.665, 0.487, 0.204,
 ] as const
 
 const AUDIO = '/audio/consigna.mp3'
@@ -30,7 +32,7 @@ export function AudioPlayerStory() {
     >
       <Section
         title="La pieza"
-        note="La onda no es decoración: es el archivo. Los huecos de esta consigna son las pausas entre frases, así que se ve cuántas cosas se piden y se puede volver a la segunda sin escuchar la primera de nuevo. Las barras se reparten el ancho: cuantos menos picos se pasen, más gordas salen."
+        note="La onda no es decoración: es el archivo. Los huecos de esta consigna son las pausas entre frases, así que se ve cuántas cosas se piden y se puede volver a la segunda sin escuchar la primera de nuevo. Las barras se reparten el ancho y el hueco mide lo mismo que la barra, así que la cantidad de picos es lo que decide si salen finas o gordas."
       >
         <Panel>
           <div className="py-4">
