@@ -11,6 +11,7 @@ import { ReliefSection } from './foundations/relief'
 import { MotionSection } from './foundations/motion'
 import { StatesSection } from './foundations/states'
 import { InclusionSection } from './foundations/inclusion'
+import { AudioPlayerStory } from './stories/audio-player'
 import { AmeliaStory } from './mascots/amelia'
 import { OttoStory } from './mascots/otto'
 import { Writing } from './foundations/writing'
@@ -135,6 +136,7 @@ const groups: Group[] = [
       { id: 'indicator', label: 'Indicator', alias: 'indicador marca punto contador aviso notificación campana', render: () => <IndicatorStory /> },
       { id: 'badge', label: 'Badge', alias: 'etiqueta marca estado', render: () => <BadgeStory /> },
       { id: 'progress', label: 'Progress', alias: 'progreso barra porcentaje avance', render: () => <ProgressStory /> },
+      { id: 'audio-player', label: 'AudioPlayer', alias: 'audio reproductor sonido onda waveform grabación consigna mp3', render: () => <AudioPlayerStory /> },
       { id: 'skeleton', label: 'Skeleton', alias: 'esqueleto carga hueco placeholder', render: () => <SkeletonStory /> },
       { id: 'avatar', label: 'Avatar', alias: 'foto persona iniciales grupo', render: () => <AvatarStory /> },
       { id: 'chip', label: 'Chip', alias: 'etiqueta pill categoría', render: () => <ChipStory /> },
