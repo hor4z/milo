@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import {
-  Callout, CodeBlock, Figure, Formula, Heatmap, Mention, Popover, Quote, TaskList, Toolbar,
+  Callout, CodeBlock, Figure, Formula, Mention, Popover, Quote, TaskList, Toolbar,
   ToolbarButton, ToolbarSeparator, CommandMenu, Divider, Icon, IconButton, Tooltip,
   type CommandGroup, type Task,
 } from '@milo/ui'
@@ -22,7 +22,6 @@ const bloques: CommandGroup[] = [
     items: [
       { id: 'formula', label: 'Fórmula', hint: 'Matemática en línea o en bloque', icon: 'functions', keywords: ['ecuación', 'latex'] },
       { id: 'chart', label: 'Gráfico', hint: 'Barras o líneas', icon: 'bar_chart' },
-      { id: 'heatmap', label: 'Grilla de dominio', hint: 'El curso por tema', icon: 'grid_view', keywords: ['mapa', 'calor'] },
       { id: 'code', label: 'Código', hint: 'Con su nombre de archivo', icon: 'code' },
     ],
   },
@@ -52,7 +51,6 @@ const caida = (
   </>
 )
 
-const niveles = ['Sin empezar', 'Inicial', 'En camino', 'Logrado']
 
 export function Documento() {
   const [formato, setFormato] = useState({ bold: false, italic: false })
@@ -189,22 +187,6 @@ for c in (12, 24, 36):
 `}
         />
 
-        <h2 className="text-title font-semibold text-ink">Cómo viene el curso</h2>
-        <p className="text-reading text-ink">
-          Esto no va en la consigna de los estudiantes: es la grilla del docente, para saber con
-          quién sentarse antes de salir al patio.
-        </p>
-        <Heatmap
-          title="Dominio por tema en Física · 5.º B"
-          columns={['Cinemática', 'Gráficos', 'Error', 'Energía']}
-          rows={[
-            { label: 'Ana Pérez', values: [3, 2, 1, 1] },
-            { label: 'Bruno Díaz', values: [2, 2, 2, 0] },
-            { label: 'Carla Sosa', values: [1, 1, 0, null] },
-            { label: 'Diego Rey', values: [3, 3, 2, 2] },
-          ]}
-          levels={niveles}
-        />
       </div>
     </article>
   )

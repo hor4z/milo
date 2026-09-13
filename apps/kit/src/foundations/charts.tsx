@@ -14,7 +14,6 @@ const avance = [{ label: '6.º A', points: [1, 2, 3, 4, 5, 6].map(s => ({ x: s, 
 const cual = [
   ['Comparar cantidades sueltas', 'Cuántas entregas por día, cuántos por curso', 'BarChart'],
   ['Cómo cambia algo a lo largo de otra cosa', 'Una función, una medición en el tiempo, dos grupos', 'LineChart'],
-  ['Dos ejes categóricos cruzados', 'Un curso contra los temas, alguien semana a semana', 'Heatmap'],
   ['Una parte de un total, y una sola', 'Cuánto de lo entregado está corregido', 'Progress'],
   ['Valores exactos que alguien va a leer uno por uno', 'Las notas de treinta personas', 'Table'],
 ]
