@@ -5,6 +5,8 @@ const recipes = [
   { cls: 'raised-solid', back: 'bg-solid text-on-solid', token: '--relief-solid', role: 'el botón oscuro', detail: 'luz al 15% arriba, labio oscuro abajo, canto un paso más claro' },
   { cls: 'pressed', back: 'bg-muted text-ink', token: '--relief-pressed', role: 'un toggle con su panel abierto', detail: 'la sombra entra desde abajo, sin canto' },
   { cls: 'inset-relief', back: 'bg-muted text-ink', token: '--relief-inset', role: 'lo hundido que es una marca', detail: 'kbd, la pista de un segmented: lleva canto y caída' },
+  { cls: 'raised-brand', back: 'bg-brand text-on-brand', token: '--relief-brand', role: 'el botón azul', detail: 'el mismo volumen que el oscuro, con el labio y el canto en azul; apretado baja a --relief-brand-pressed' },
+  { cls: 'mark', back: 'bg-mark-blue text-mark-blue-ink', token: '--relief-mark', role: 'una marca de fila o la inicial de un avatar', detail: 'canto adentro, labio abajo y una caída de un píxel, todo en el tono de la marca' },
 ] as const
 
 const layers = [
