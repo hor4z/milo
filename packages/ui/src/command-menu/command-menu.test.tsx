@@ -17,9 +17,17 @@ const grupos: CommandGroup[] = [
 
 describe('CommandMenu', () => {
   it('no roba el foco salvo que se lo pidan', () => {
-    const { rerender } = render(<CommandMenu groups={grupos} onSelect={() => {}} />)
+    render(<CommandMenu groups={grupos} onSelect={() => {}} />)
     expect(screen.getByRole('combobox')).not.toHaveFocus()
-    rerender(<CommandMenu autoFocus groups={grupos} onSelect={() => {}} />)
+  })
+
+  it('con `autoFocus` el buscador se lleva el foco al montar', () => {
+    // Se pide en un effect y no con el `autoFocus` de React: adentro de un panel
+    // que vive en un portal, el de React corre antes de que el host esté colgado
+    // del documento y no enfoca nada. Probado en el navegador dentro de un
+    // `Popover`, que es donde pasaba.
+    render(<CommandMenu autoFocus groups={grupos} onSelect={() => {}} />)
+    expect(screen.getByRole('combobox')).toHaveFocus()
   })
 
   it('es un listbox con un buscador que lo maneja', () => {

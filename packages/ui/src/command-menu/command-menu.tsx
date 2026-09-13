@@ -55,7 +55,7 @@ type CommandMenuProps = {
   query?: string
   /** Cuánto mide la lista antes de scrollear. */
   maxHeight?: number
-  /** El buscador se lleva el foco al aparecer. Va donde el menú abre por un gesto —una barra, un atajo—; suelto en una página, roba el foco y el scroll. */
+  /** El buscador se lleva el foco al aparecer. Va donde el menú abre por un gesto —una barra, un atajo—; suelto en una página, roba el foco y el scroll. Adentro de un overlay alcanza con esto: el `data-autofocus` que esos paneles miran lo pone la pieza. */
   autoFocus?: boolean
   className?: string
 }
@@ -72,11 +72,19 @@ export function CommandMenu({
 
   const [activo, setActivo] = useState(0)
   const lista = useRef<HTMLDivElement>(null)
+  const campo = useRef<HTMLInputElement>(null)
   const listaId = useId()
 
   // Al cambiar lo buscado, el elegido vuelve al principio: dejarlo donde estaba
   // deja marcado un item que ya no es el que se está mirando.
   useEffect(() => { setActivo(0) }, [q])
+
+  // El foco se pide acá y no con el `autoFocus` de React. Adentro de un panel
+  // que vive en un portal, el de React corre antes de que el host esté colgado
+  // del documento, y enfocar un nodo suelto no hace nada.
+  useEffect(() => {
+    if (autoFocus) campo.current?.focus()
+  }, [autoFocus])
 
   const actual = planos[Math.min(activo, planos.length - 1)]
 
@@ -119,7 +127,10 @@ export function CommandMenu({
             aria-expanded
             aria-controls={listaId}
             aria-activedescendant={actual ? `${listaId}-${actual.id}` : undefined}
-            autoFocus={autoFocus}
+            ref={campo}
+            // Los paneles que sí atrapan el foco —un `Modal`— miran esta marca
+            // para dejárselo al campo en vez de quedárselo el contenedor.
+            data-autofocus={autoFocus || undefined}
           />
         </div>
       )}

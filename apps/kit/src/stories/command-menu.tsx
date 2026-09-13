@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { CommandMenu, Kbd, type CommandGroup, type CommandItem } from '@milo/ui'
+import { Button, CommandMenu, Kbd, Popover, type CommandGroup, type CommandItem } from '@milo/ui'
 import { A11y, Note, Page, Props, Section } from '../kit'
 
 const bloques: CommandGroup[] = [
@@ -72,10 +72,33 @@ export function CommandMenuStory() {
         </div>
       </Section>
 
+      <Section
+        title="Anclado a su disparador"
+        note="Es lo que hace la barra en un editor: el menú cuelga de donde se escribió el «/». La pieza no se posiciona sola — de eso se encarga el `Popover`, que es el que ya sabe encajar un panel contra un borde."
+      >
+        <div className="flex flex-wrap items-center gap-4">
+          <Popover
+            align="start"
+            width={380}
+            trigger={p => <Button {...p} variant="raised" icon="add">Insertar un bloque</Button>}
+          >
+            {close => (
+              <CommandMenu
+                autoFocus
+                groups={bloques}
+                maxHeight={280}
+                onSelect={item => { setUltimo(item); close() }}
+              />
+            )}
+          </Popover>
+          <span className="text-meta text-ink-muted">Abrí, escribí, movete con las flechas y elegí con Enter.</span>
+        </div>
+      </Section>
+
       <Note title="Esto no abre nada">
-        La pieza es la lista y nada más: no se posiciona sola ni se cierra sola. Adentro de un
-        `Popover` queda anclada a la barra; adentro de un `Modal` es la paleta de la app. Separarlo
-        es lo que deja usar la misma lista en los dos lados.
+        La pieza es la lista y nada más: no se posiciona ni se cierra sola — el cierre lo decide
+        quien la usa, como en el ejemplo de arriba. Adentro de un `Modal` la misma lista es la
+        paleta de atajos de la app, sin cambiarle una línea.
       </Note>
 
       <Props of={['CommandMenu', 'CommandGroup', 'CommandItem']} />

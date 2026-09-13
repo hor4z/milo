@@ -674,7 +674,7 @@ export const propsByComponent: Record<string, ComponentDoc> = {
         "name": "autoFocus",
         "type": "boolean",
         "required": false,
-        "doc": "El buscador se lleva el foco al aparecer. Va donde el menú abre por un gesto —una barra, un atajo—; suelto en una página, roba el foco y el scroll."
+        "doc": "El buscador se lleva el foco al aparecer. Va donde el menú abre por un gesto —una barra, un atajo—; suelto en una página, roba el foco y el scroll. Adentro de un overlay alcanza con esto: el `data-autofocus` que esos paneles miran lo pone la pieza."
       },
       {
         "name": "className",
