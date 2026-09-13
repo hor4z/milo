@@ -1,0 +1,12 @@
+@layer milo.app {
+  .div {
+    width: 100%;
+    max-width: 380px;
+  }
+
+  .div2 {
+    width: 100%;
+    max-width: 420px;
+  }
+
+}

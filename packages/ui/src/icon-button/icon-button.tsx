@@ -1,3 +1,4 @@
+import s from './icon-button.module.css'
 import type { ButtonHTMLAttributes, Ref } from 'react'
 import { Icon, type IconName } from '../icon/icon'
 import { control, variants } from '../lib/control'
@@ -29,16 +30,16 @@ export function IconButton({
       type={type}
       aria-label={label}
       className={cx(
-        'relative inline-flex items-center justify-center transition-[background-color,color,box-shadow] duration-fast ease-out',
-        'disabled:opacity-45 disabled:pointer-events-none',
+        s.button,
+        s.box,
         variants[variant === 'ghost' && active ? 'muted' : variant],
-        c.square, 'rounded-md',
+        c.square, s.box2,
         className,
       )}
       {...rest}
     >
       <Icon name={icon} size={c.icon} />
-      {dot && <span className={cx('absolute size-1.5 rounded-full bg-accent ring-2 ring-surface', c.dot)} />}
+      {dot && <span className={cx(s.span, c.dot)} />}
     </button>
   )
 }

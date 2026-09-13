@@ -1,3 +1,4 @@
+import cls from './document.module.css'
 import { useState } from 'react'
 import {
   Callout, Figure, Mention, Popover, Quote, TaskList, Toolbar,
@@ -50,14 +51,14 @@ export function Documento() {
     setTareas(ts => ts.map(t => (t.id === id ? { ...t, done } : t)))
 
   return (
-    <article className="flex flex-col gap-8">
-      <header className="flex flex-col gap-4">
-        <div className="flex flex-wrap items-end justify-between gap-4">
-          <div className="flex min-w-0 flex-col gap-2">
-            <span className="text-meta font-medium text-ink-muted">Física · 5.º B · Borrador</span>
-            <h1 className="text-display font-bold text-ink">Caída libre: medir g en el patio</h1>
+    <article className={cls.article}>
+      <header className={cls.header}>
+        <div className={cls.div}>
+          <div className={cls.div2}>
+            <span className={cls.span}>Física · 5.º B · Borrador</span>
+            <h1 className={cls.h1}>Caída libre: medir g en el patio</h1>
           </div>
-          <div className="flex shrink-0 items-center gap-2">
+          <div className={cls.div3}>
             <Tooltip label="Quién puede verlo">
               <IconButton icon="group" label="Compartir" size="sm" variant="muted" />
             </Tooltip>
@@ -67,7 +68,7 @@ export function Documento() {
                 <button
                   {...p}
                   type="button"
-                  className="field-focus inline-flex h-8 items-center gap-2 rounded-md border border-line bg-surface px-3 text-body font-semibold text-ink transition-colors duration-fast ease-out hover:bg-hover"
+                  className={`${cls.button} field-focus bg-surface`}
                 >
                   <Icon name="add" size={16} className="icon-muted" />
                   Insertar
@@ -75,7 +76,7 @@ export function Documento() {
               )}
             >
               {close => (
-                <div className="w-[320px] overflow-hidden rounded-xl border border-line bg-popover shadow-popover">
+                <div className={`${cls.div4} bg-popover`}>
                   <CommandMenu
                     autoFocus
                     groups={bloques}
@@ -87,7 +88,7 @@ export function Documento() {
           </div>
         </div>
 
-        <div className="flex flex-wrap items-center gap-3 border-y border-line py-2">
+        <div className={cls.div5}>
           <Toolbar label="Formato del texto">
             <ToolbarButton icon="format_bold" label="Negrita" pressed={formato.bold} onClick={() => alternar('bold')} />
             <ToolbarButton icon="format_italic" label="Cursiva" pressed={formato.italic} onClick={() => alternar('italic')} />
@@ -100,15 +101,15 @@ export function Documento() {
             <ToolbarButton icon="image" label="Imagen" />
           </Toolbar>
           {ultimo && (
-            <span className="text-meta font-medium text-ink-muted">
+            <span className={cls.span2}>
               Último bloque elegido: {ultimo}
             </span>
           )}
         </div>
       </header>
 
-      <div className="flex max-w-[68ch] flex-col gap-6">
-        <p className="text-reading text-ink">
+      <div className={cls.div6}>
+        <p className={cls.p}>
           La semana que viene medimos la aceleración de la gravedad soltando una pelota desde el
           primer piso. Traigan el celular con cronómetro. Lo arma{' '}
           <Mention name="Ana Pérez" src={face(1)} href="#mention" /> con{' '}
@@ -121,8 +122,8 @@ export function Documento() {
           abajo, a tres metros del punto de caída.
         </Callout>
 
-        <h2 className="text-title font-semibold text-ink">De dónde sale el número</h2>
-        <p className="text-reading text-ink">
+        <h2 className={cls.h2}>De dónde sale el número</h2>
+        <p className={cls.p2}>
           Si la pelota arranca quieta y el rozamiento del aire se puede ignorar, la altura que cae
           es la mitad de la gravedad por el tiempo al cuadrado. Así que si grafican la altura contra
           el tiempo al cuadrado les tiene que dar una recta, y la pendiente va a ser la mitad de la
@@ -135,7 +136,7 @@ export function Documento() {
 
         <Divider />
 
-        <h2 className="text-title font-semibold text-ink">Qué hay que entregar</h2>
+        <h2 className={cls.h22}>Qué hay que entregar</h2>
         <TaskList items={tareas} onToggle={marcar} label="Lo que hay que entregar" />
 
         <Figure
@@ -146,8 +147,8 @@ export function Documento() {
           fit="contain"
         />
 
-        <h2 className="text-title font-semibold text-ink">Para los que quieran ir más lejos</h2>
-        <p className="text-reading text-ink">
+        <h2 className={cls.h23}>Para los que quieran ir más lejos</h2>
+        <p className={cls.p3}>
           Con el cronómetro del celular el error es grande. Se puede filmar a cámara lenta y contar
           los cuadros: a 240 por segundo, cada cuadro son cuatro milésimas.
         </p>

@@ -1,32 +1,33 @@
+import cls from './colors.module.css'
 /** El par suave de cada tono: fondo apagado y tinta del mismo tono. Es lo que usa un chip. */
 export const labelSoft = {
-  green: 'bg-label-green-soft text-label-green-ink',
-  teal: 'bg-label-teal-soft text-label-teal-ink',
-  blue: 'bg-label-blue-soft text-label-blue-ink',
-  purple: 'bg-label-purple-soft text-label-purple-ink',
-  pink: 'bg-label-pink-soft text-label-pink-ink',
-  orange: 'bg-label-orange-soft text-label-orange-ink',
+  green: cls.labelSoft,
+  teal: cls.labelSoft2,
+  blue: cls.labelSoft3,
+  purple: cls.labelSoft4,
+  pink: cls.labelSoft5,
+  orange: cls.labelSoft6,
 } as const
 
 /** La familia viva de lo chico: el cuadradito de icono de una tarjeta, la inicial de un avatar. Lleva glifo blanco. */
 export const labelFill = {
-  green: 'bg-label-green',
-  teal: 'bg-label-teal',
-  blue: 'bg-label-blue',
-  purple: 'bg-label-purple',
-  pink: 'bg-label-pink',
-  orange: 'bg-label-orange',
+  green: cls.labelFill,
+  teal: cls.labelFill2,
+  blue: cls.labelFill3,
+  purple: cls.labelFill4,
+  pink: cls.labelFill5,
+  orange: cls.labelFill6,
 } as const
 
 export type LabelColor = keyof typeof labelFill
 
 /** La otra familia: pares relleno/glifo, pastel con el glifo del mismo tono varios pasos más oscuro. */
 export const markFill = {
-  green: 'bg-mark-green text-mark-green-ink',
-  purple: 'bg-mark-purple text-mark-purple-ink',
-  orange: 'bg-mark-orange text-mark-orange-ink',
-  blue: 'bg-mark-blue text-mark-blue-ink',
-  pink: 'bg-mark-pink text-mark-pink-ink',
+  green: cls.markFill,
+  purple: cls.markFill2,
+  orange: cls.markFill3,
+  blue: cls.markFill4,
+  pink: cls.markFill5,
 } as const
 
 export type MarkColor = keyof typeof markFill

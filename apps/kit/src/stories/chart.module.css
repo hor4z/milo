@@ -1,0 +1,56 @@
+@layer milo.app {
+  .span {
+    font-size: var(--type-meta);
+    line-height: var(--type-meta-lh);
+    letter-spacing: var(--type-meta-ls);
+    font-weight: var(--font-weight-medium);
+    color: var(--text-muted);
+  }
+
+  .card {
+    max-width: 42rem;
+    padding: 1.5rem;
+  }
+
+  .div {
+    margin-bottom: 1.25rem;
+  }
+
+  .div2 {
+    font-size: var(--type-reading);
+    line-height: var(--type-reading-lh);
+    letter-spacing: var(--type-reading-ls);
+    font-weight: var(--font-weight-semibold);
+    color: var(--text);
+  }
+
+  .div3 {
+    font-size: var(--type-body);
+    line-height: var(--type-body-lh);
+    letter-spacing: var(--type-body-ls);
+    font-weight: var(--font-weight-medium);
+    color: var(--text-muted);
+  }
+
+  .card2 {
+    max-width: 42rem;
+    padding: 1.5rem;
+  }
+
+  .p {
+    max-width: 70ch;
+    font-size: var(--type-body);
+    line-height: var(--type-body-lh);
+    letter-spacing: var(--type-body-ls);
+    color: var(--text-muted);
+  }
+
+  .p2 {
+    max-width: 70ch;
+    font-size: var(--type-body);
+    line-height: var(--type-body-lh);
+    letter-spacing: var(--type-body-ls);
+    color: var(--text-muted);
+  }
+
+}

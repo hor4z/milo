@@ -1,3 +1,4 @@
+import cls from './confirm-dialog.module.css'
 import { useRef, type ReactNode } from 'react'
 import { Button } from '../button/button'
 import { useEscape } from '../lib/esc'
@@ -32,21 +33,21 @@ export function ConfirmDialog({
   if (!open) return null
   return (
     <Portal>
-      <div className="fixed inset-0 z-40 flex items-center justify-center p-4">
-        <div className="ui-fade absolute inset-0 bg-scrim backdrop-blur-[3px]" onClick={onCancel} />
+      <div className={cls.div}>
+        <div className={`${cls.div2} ui-fade`} onClick={onCancel} />
         <div
           ref={panel}
           role="alertdialog"
           aria-modal="true"
           aria-label={title}
           tabIndex={-1}
-          className="ui-zoom relative z-10 flex w-full max-w-[420px] flex-col gap-4 rounded-2xl bg-surface p-5 shadow-popover ring-1 ring-line"
+          className={`${cls.box} ui-zoom bg-surface`}
         >
-          <div className="flex flex-col gap-2">
-            <h2 className="text-reading font-semibold text-ink">{title}</h2>
-            {body && <div className="text-body font-medium text-ink-muted">{body}</div>}
+          <div className={cls.div3}>
+            <h2 className={cls.h2}>{title}</h2>
+            {body && <div className={cls.div4}>{body}</div>}
           </div>
-          <div className="flex items-center justify-end gap-2">
+          <div className={cls.div5}>
             <Button variant="ghost" size="sm" data-autofocus={tone === 'bad' || undefined} onClick={onCancel}>
               {cancelLabel}
             </Button>

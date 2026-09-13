@@ -1,0 +1,101 @@
+@layer milo.app {
+  .div {
+    display: grid;
+    gap: 1rem;
+    border-radius: var(--radius-xl);
+    border-style: solid;
+    border-width: 1px;
+    border-color: var(--border);
+    padding: 1.25rem;
+  }
+
+  .div2 {
+    display: grid;
+    gap: 0.75rem;
+  }
+
+  .code {
+    border-radius: var(--radius-md);
+    background-color: var(--surface-muted);
+    padding-inline: 0.5rem;
+    padding-block: 0.25rem;
+    font-family: var(--font-mono);
+    font-size: var(--type-meta);
+    line-height: var(--type-meta-lh);
+    letter-spacing: var(--type-meta-ls);
+    color: var(--text);
+  }
+
+  .div3 {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .span {
+    font-size: var(--type-meta);
+    line-height: var(--type-meta-lh);
+    letter-spacing: var(--type-meta-ls);
+    font-weight: var(--font-weight-medium);
+    color: var(--text-muted);
+  }
+
+  .div4 {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    border-radius: var(--radius-xl);
+    border-style: solid;
+    border-width: 1px;
+    border-color: var(--border);
+    padding: 1rem;
+  }
+
+  .span2 {
+    font-size: var(--type-body);
+    line-height: var(--type-body-lh);
+    letter-spacing: var(--type-body-ls);
+    color: var(--text-muted);
+    text-decoration-line: line-through;
+  }
+
+  .span3 {
+    font-size: var(--type-reading);
+    line-height: var(--type-reading-lh);
+    letter-spacing: var(--type-reading-ls);
+    font-weight: var(--font-weight-semibold);
+    color: var(--text);
+  }
+
+  .span4 {
+    font-size: var(--type-meta);
+    line-height: var(--type-meta-lh);
+    letter-spacing: var(--type-meta-ls);
+    font-weight: var(--font-weight-medium);
+    color: var(--text-muted);
+  }
+
+  @media (min-width:40rem) {
+    .div {
+        grid-template-columns: repeat(2,minmax(0,1fr));
+    }
+  }
+
+  @media (min-width:40rem) {
+    .div2 {
+        grid-template-columns: repeat(2,minmax(0,1fr));
+    }
+  }
+
+  .columna {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 0.25rem;
+    font-size: var(--type-reading);
+    line-height: var(--type-reading-lh);
+    letter-spacing: var(--type-reading-ls);
+    color: var(--text);
+  }
+
+}

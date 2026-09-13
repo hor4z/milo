@@ -1,3 +1,4 @@
+import s from './radio.module.css'
 import type { Ref } from 'react'
 import { cx } from '../lib/cx'
 import { useRovingRadio } from '../lib/roving'
@@ -33,16 +34,16 @@ export function Radio({
       tabIndex={tabIndex}
       onClick={onChange}
       className={cx(
-        'inline-flex size-[18px] shrink-0 items-center justify-center rounded-full',
-        'transition-[background-color,box-shadow] duration-fast ease-out',
-        'disabled:opacity-45 disabled:pointer-events-none',
-        checked ? 'bg-brand' : 'inset-relief bg-muted',
+        s.root,
+        s.box,
+        s.box2,
+        checked ? s.box3 : `${s.box4} inset-relief`,
       )}
     >
       <span
         className={cx(
-          'size-[8px] rounded-full bg-on-brand transition-transform duration-fast ease-out',
-          checked ? 'scale-100' : 'scale-0',
+          s.span,
+          checked ? s.box5 : s.box6,
         )}
       />
     </button>
@@ -69,7 +70,7 @@ export function RadioGroup<T extends string>({
       role="radiogroup"
       aria-label={label}
       onKeyDown={roving.onKeyDown}
-      className={cx('inline-flex items-center gap-3', className)}
+      className={cx(s.div, className)}
     >
       {options.map(o => (
         <Radio

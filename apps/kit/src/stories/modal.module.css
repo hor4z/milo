@@ -1,0 +1,80 @@
+@layer milo.app {
+  .div {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    gap: 0.75rem;
+  }
+
+  .div2 {
+    padding: 1.5rem;
+  }
+
+  .div3 {
+    font-size: var(--type-title);
+    line-height: var(--type-title-lh);
+    letter-spacing: var(--type-title-ls);
+    font-weight: var(--font-weight-medium);
+  }
+
+  .p {
+    margin-top: 0.5rem;
+    max-width: 52ch;
+    font-size: var(--type-body);
+    line-height: var(--type-body-lh);
+    letter-spacing: var(--type-body-ls);
+    font-weight: var(--font-weight-medium);
+    color: var(--text-muted);
+  }
+
+  .div4 {
+    margin-top: 1.5rem;
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.5rem;
+  }
+
+  .div5 {
+    padding: 1.5rem;
+  }
+
+  .div6 {
+    font-size: var(--type-reading);
+    line-height: var(--type-reading-lh);
+    letter-spacing: var(--type-reading-ls);
+    font-weight: var(--font-weight-semibold);
+  }
+
+  .p2 {
+    margin-top: 0.5rem;
+    font-size: var(--type-body);
+    line-height: var(--type-body-lh);
+    letter-spacing: var(--type-body-ls);
+    font-weight: var(--font-weight-medium);
+    color: var(--text-muted);
+  }
+
+  .div7 {
+    margin-top: 1.5rem;
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.5rem;
+  }
+
+  .div8 {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    gap: 0.75rem;
+  }
+
+  .p3 {
+    margin-top: 0.75rem;
+    max-width: 70ch;
+    font-size: var(--type-meta);
+    line-height: var(--type-meta-lh);
+    letter-spacing: var(--type-meta-ls);
+    color: var(--text-muted);
+  }
+
+}

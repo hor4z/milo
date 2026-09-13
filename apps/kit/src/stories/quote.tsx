@@ -1,3 +1,4 @@
+import cls from './quote.module.css'
 import { Quote } from '@milo/ui'
 import { A11y, Note, Page, Props, Section } from '../kit'
 
@@ -13,7 +14,7 @@ export function QuoteStory() {
         title="La pieza"
         note="La barra va del lado de la lectura y no alrededor: una caja cerrada se lee como un aviso, y esto es texto adentro del texto. Va en el azul de marca y no en gris: en una página de texto corrido un gris más es una línea entre otras, y lo que la barra tiene que hacer es cortar la lectura."
       >
-        <div className="flex max-w-[640px] flex-col gap-6">
+        <div className={cls.div}>
           <Quote source="Ana, 6.º B">
             Me di cuenta de que si dibujaba el triángulo adentro del rectángulo, la mitad se veía
             sola y no hacía falta la fórmula.
@@ -26,7 +27,7 @@ export function QuoteStory() {
         title="Con la fuente declarada"
         note="`cite` deja la dirección en el markup además de escribirla. No se ve, y es lo que permite que alguien la recupere."
       >
-        <div className="max-w-[640px]">
+        <div className={cls.div2}>
           <Quote cite="https://es.wikipedia.org/wiki/Principio_de_Arquímedes" source="Principio de Arquímedes">
             Todo cuerpo sumergido en un fluido experimenta un empuje vertical hacia arriba igual al
             peso del fluido que desaloja.

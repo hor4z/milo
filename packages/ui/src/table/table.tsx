@@ -1,3 +1,4 @@
+import cls from './table.module.css'
 import { type ReactNode, type ThHTMLAttributes, type TdHTMLAttributes } from 'react'
 import { cx } from '../lib/cx'
 import { useSideScroll } from '../lib/side-scroll'
@@ -16,22 +17,22 @@ export function Table({ children, label, minWidth = 640, footer, className }: {
   const { ref: scroller, scrolls, clipped } = useSideScroll<HTMLDivElement>(children)
 
   return (
-    <div className={cx('relative overflow-hidden rounded-md bg-surface ring-1 ring-line', className)}>
+    <div className={cx(`${cls.div} bg-surface`, className)}>
       <div
         ref={scroller}
         tabIndex={scrolls ? 0 : undefined}
         role={scrolls ? 'region' : undefined}
         aria-label={scrolls ? `${label ?? 'Tabla'}, se desplaza de costado` : undefined}
-        className="zebra no-scrollbar overflow-x-auto overflow-y-hidden"
+        className={`${cls.box} zebra`}
       >
-        <table className="w-full border-collapse text-left" style={{ minWidth }}>
+        <table className={cls.table} style={{ minWidth }}>
           {children}
         </table>
       </div>
       {clipped && (
         <span
           aria-hidden="true"
-          className="pointer-events-none absolute top-0 right-0 bottom-0 w-10 bg-gradient-to-l from-surface to-transparent"
+          className={cls.span}
         />
       )}
       {footer}
@@ -41,7 +42,7 @@ export function Table({ children, label, minWidth = 640, footer, className }: {
 
 /** La cabecera va sobre `--surface-muted` y no sobre el papel: es lo que la separa del cuerpo sin gastar un divisor más grueso. */
 export function TableHeader({ children }: { children: ReactNode }) {
-  return <thead className="bg-muted">{children}</thead>
+  return <thead className={cls.thead}>{children}</thead>
 }
 
 /** El cuerpo de la tabla. */
@@ -52,13 +53,13 @@ export function TableBody({ children }: { children: ReactNode }) {
 /** La fila del total, abajo de todo. */
 export function TableFooter({ children }: { children: ReactNode }) {
   return (
-    <tfoot className="border-t border-line bg-muted [&_td]:font-semibold [&_tr]:border-0">
+    <tfoot className={cls.tfoot}>
       {children}
     </tfoot>
   )
 }
 
-/** `last:border-0` saca el divisor de la última fila. */
+/** La última fila se queda sin divisor: abajo ya está el borde de la tabla. */
 export function TableRow({ children, onClick, active, className }: {
   children: ReactNode
   /** Sin esto la fila no toma hover ni cursor. */
@@ -75,9 +76,9 @@ export function TableRow({ children, onClick, active, className }: {
         ? e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); onClick() } }
         : undefined}
       className={cx(
-        'border-b border-line transition-colors ease-out duration-fast last:border-0',
-        active && 'bg-muted',
-        onClick && !active && 'cursor-pointer hover:bg-muted',
+        cls.box2,
+        active && cls.active,
+        onClick && !active && cls.active2,
         className,
       )}
     >
@@ -93,7 +94,7 @@ export function TableHead({ children, scope = 'col', className, ...rest }: CellP
   return (
     <th
       scope={scope}
-      className={cx('h-10 px-4 first:pl-6 last:pr-6 text-label font-semibold text-ink', className)}
+      className={cx(cls.th, className)}
       {...rest}
     >
       {children}
@@ -104,7 +105,7 @@ export function TableHead({ children, scope = 'col', className, ...rest }: CellP
 /** Una celda: 12/500, con el alto de fila de 56. */
 export function TableCell({ children, className, ...rest }: CellProps & TdHTMLAttributes<HTMLTableCellElement>) {
   return (
-    <td className={cx('h-14 px-4 first:pl-6 last:pr-6 text-body font-medium text-ink', className)} {...rest}>
+    <td className={cx(cls.td, className)} {...rest}>
       {children}
     </td>
   )
@@ -112,18 +113,18 @@ export function TableCell({ children, className, ...rest }: CellProps & TdHTMLAt
 
 /** Lo que se lee primero de una fila. */
 export function TableTitle({ children, className }: CellProps) {
-  return <span className={cx('block truncate text-reading font-semibold text-ink', className)}>{children}</span>
+  return <span className={cx(cls.span2, className)}>{children}</span>
 }
 
 /** La línea de apoyo debajo del título, en gris. */
 export function TableHint({ children, className }: CellProps) {
-  return <span className={cx('mt-0.5 block truncate text-body font-medium text-ink-muted', className)}>{children}</span>
+  return <span className={cx(cls.span3, className)}>{children}</span>
 }
 
 /** Una columna de números. */
 export function TableNum({ children, className, ...rest }: CellProps & TdHTMLAttributes<HTMLTableCellElement>) {
   return (
-    <td className={cx('tabular h-14 px-4 first:pl-6 last:pr-6 text-right text-body font-medium text-ink', className)} {...rest}>
+    <td className={cx(`${cls.td2} tabular`, className)} {...rest}>
       {children}
     </td>
   )

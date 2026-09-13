@@ -1,4 +1,5 @@
 import { render, screen } from '@testing-library/react'
+import s from './empty-state.module.css'
 import { describe, expect, it } from 'vitest'
 import { EmptyState } from './empty-state'
 
@@ -11,9 +12,9 @@ describe('EmptyState', () => {
 
   it('el chico no lleva la caja punteada y el grande sí', () => {
     const { container, rerender } = render(<EmptyState title="Nada" body="Nada acá" size="sm" />)
-    expect((container.firstChild as HTMLElement).className).not.toContain('border-dashed')
+    expect((container.firstChild as HTMLElement).className).not.toContain(s.bordered)
     rerender(<EmptyState title="Nada" body="Nada acá" />)
-    expect((container.firstChild as HTMLElement).className).toContain('border-dashed')
+    expect((container.firstChild as HTMLElement).className).toContain(s.bordered)
   })
 
   it('el título y el cuerpo se leen los dos', () => {

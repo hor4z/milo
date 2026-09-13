@@ -1,3 +1,4 @@
+import cls from './intro.module.css'
 import {
   Alert, AlertTitle, AvatarGroup, BarChart, Button, Card, Chip, Icon,
   Progress, Switch, TextField, type IconName,
@@ -17,67 +18,67 @@ export function Intro({ go, views }: { go: (id: string) => void; views: number }
   const [demo, setDemo] = useState(true)
 
   return (
-    <div className="flex flex-col gap-10">
-      <section className="relative overflow-hidden rounded-xl border border-line bg-surface">
-        <div className="pointer-events-none absolute inset-0 opacity-[0.55]">
-          <div className="absolute -top-24 -right-16 size-72 rounded-full bg-brand/10 blur-3xl" />
-          <div className="absolute -bottom-24 -left-10 size-64 rounded-full bg-accent/10 blur-3xl" />
+    <div className={cls.div}>
+      <section className={`${cls.section} bg-surface`}>
+        <div className={cls.div2}>
+          <div className={cls.div3} />
+          <div className={cls.div4} />
         </div>
 
-        <div className="relative flex flex-col gap-8 px-8 py-12">
-          <Chip size="sm" color="info" icon="bolt" className="self-start">Inter · Material Symbols · Tailwind v4</Chip>
+        <div className={cls.div5}>
+          <Chip size="sm" color="info" icon="bolt" className={cls.chip}>Inter · Material Symbols · CSS nativo</Chip>
 
-          <div className="flex flex-col gap-4">
-            <h1 className="max-w-[20ch] text-display font-bold text-ink">
+          <div className={cls.div6}>
+            <h1 className={cls.h1}>
               El sistema de milo, funcionando
             </h1>
-            <p className="max-w-[62ch] text-reading font-medium text-ink-muted">
+            <p className={cls.p}>
               No es una lámina de estilos: cada pieza de acá es el componente real, con su teclado, sus
-              estados y sus tests. Lo que se decide acá se porta a <code className="font-mono text-body text-ink">packages/ui</code>.
+              estados y sus tests. Lo que se decide acá se porta a <code className={cls.code}>packages/ui</code>.
             </p>
           </div>
 
-          <div className="flex flex-wrap items-center gap-2">
+          <div className={cls.div7}>
             <Button variant="solid" icon="arrow_forward" onClick={() => go('principles')}>Ver los principios</Button>
             <Button variant="raised" icon="dashboard" onClick={() => go('dashboard')}>Ver el dashboard</Button>
             <Button variant="raised" icon="description" onClick={() => go('documento')}>Ver un documento</Button>
           </div>
 
-          <dl className="mt-1 flex flex-wrap gap-x-8 gap-y-3 border-t border-line pt-6">
-            {[[String(views), 'vistas'], ['598', 'tests'], ['172', 'iconos'], ['2', 'temas']].map(([n, l]) => (
-              <div key={l} className="flex items-baseline gap-2">
-                <dt className="tabular text-title font-semibold text-ink">{n}</dt>
-                <dd className="text-body font-medium text-ink-muted">{l}</dd>
+          <dl className={cls.dl}>
+            {[[String(views), 'vistas'], ['673', 'tests'], ['172', 'iconos'], ['2', 'temas']].map(([n, l]) => (
+              <div key={l} className={cls.div8}>
+                <dt className={`${cls.dt} tabular`}>{n}</dt>
+                <dd className={cls.dd}>{l}</dd>
               </div>
             ))}
           </dl>
         </div>
       </section>
 
-      <section className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+      <section className={cls.section2}>
         {shortcuts.map(a => (
           <button
             key={a.id}
             onClick={() => go(a.id)}
-            className="group flex flex-col gap-3 rounded-xl border border-line bg-surface p-5 text-left transition-[background-color,box-shadow] duration-fast ease-out hover:bg-muted"
+            className={`${cls.box} group bg-surface`}
           >
-            <span className="inset-relief flex size-9 items-center justify-center rounded-xl bg-muted">
+            <span className={`${cls.span} inset-relief`}>
               <Icon name={a.icon} size={20} className="icon-muted" />
             </span>
-            <span className="flex items-center gap-1 text-reading font-semibold text-ink">
+            <span className={cls.span2}>
               {a.title}
-              <Icon name="chevron_right" size={16} className="icon-muted transition-transform duration-fast ease-out group-hover:translate-x-0.5" />
+              <Icon name="chevron_right" size={16} className={`${cls.icon2} icon-muted`} />
             </span>
-            <span className="text-body font-medium text-ink-muted">{a.body}</span>
+            <span className={cls.span3}>{a.body}</span>
           </button>
         ))}
       </section>
 
-      <section className="flex flex-col gap-4">
-        <div className="flex items-end justify-between gap-4">
-          <div className="flex flex-col gap-2">
-            <h2 className="text-title font-semibold text-ink">Una muestra</h2>
-            <p className="max-w-[70ch] text-body font-medium text-ink-muted">
+      <section className={cls.section3}>
+        <div className={cls.div9}>
+          <div className={cls.div10}>
+            <h2 className={cls.h2}>Una muestra</h2>
+            <p className={cls.p2}>
               Las mismas piezas que hay en el riel, apoyadas juntas. Si algo de acá no se ve como el resto,
               es un bug del sistema y no de la pantalla.
             </p>
@@ -85,8 +86,8 @@ export function Intro({ go, views }: { go: (id: string) => void; views: number }
           <Button size="sm" variant="ghost" iconEnd="chevron_right" onClick={() => go('button')}>Ver todas</Button>
         </div>
 
-        <div className="grid gap-3 lg:grid-cols-[1fr_1fr]">
-          <Card className="flex flex-col gap-4 p-5">
+        <div className={cls.div11}>
+          <Card className={cls.card}>
             <BarChart
               title="Corregidas esta semana"
               height={150}
@@ -101,10 +102,10 @@ export function Intro({ go, views }: { go: (id: string) => void; views: number }
             />
           </Card>
 
-          <div className="flex flex-col gap-3">
-            <Card className="flex flex-col gap-4 p-5">
+          <div className={cls.div12}>
+            <Card className={cls.card2}>
               <TextField size="md" icon="search" placeholder="Buscar una actividad…" />
-              <div className="flex flex-wrap items-center gap-2">
+              <div className={cls.div13}>
                 <Chip color="green">Abierta</Chip>
                 <Chip color="blue">Corregida</Chip>
                 <Chip size="sm" color="warn" icon="schedule">Vence mañana</Chip>
@@ -112,14 +113,14 @@ export function Intro({ go, views }: { go: (id: string) => void; views: number }
               <Progress label="Corregidas" value={18} max={24} hint="18 de 24" />
             </Card>
 
-            <Card className="flex items-center justify-between gap-4 p-5">
-              <div className="flex items-center gap-2">
+            <Card className={cls.card3}>
+              <div className={cls.div14}>
                 <AvatarGroup people={[
                   { name: 'Ana Pérez', src: face(1) },
                   { name: 'Bruno Díaz', src: face(2) },
                   { name: 'Carla Sosa', src: face(3) },
                 ]} />
-                <span className="text-meta font-medium text-ink-muted">tres entregaron</span>
+                <span className={cls.span4}>tres entregaron</span>
               </div>
               <Switch checked={demo} onChange={setDemo} label="Avisos" />
             </Card>
@@ -131,17 +132,17 @@ export function Intro({ go, views }: { go: (id: string) => void; views: number }
         </Alert>
       </section>
 
-      <section className="flex flex-col gap-4">
-        <h2 className="text-title font-semibold text-ink">Lo que no es</h2>
-        <div className="grid gap-3 sm:grid-cols-3">
+      <section className={cls.section4}>
+        <h2 className={cls.h22}>Lo que no es</h2>
+        <div className={cls.div15}>
           {[
             ['No es una librería publicada', 'Los paquetes son privados y las apps consumen el .tsx directo, sin build intermedio.'],
             ['No tiene backend', 'Nada persiste salvo las preferencias, y el tema vive en localStorage.'],
             ['No es un clon terminado', 'De la referencia salieron medidas y recetas de sombra; el resto se resolvió con criterio propio.'],
           ].map(([t, d]) => (
-            <div key={t} className="flex flex-col gap-2 rounded-xl border border-line border-dashed p-5">
-              <span className="text-body font-semibold text-ink">{t}</span>
-              <span className="text-meta font-medium text-ink-muted">{d}</span>
+            <div key={t} className={cls.div16}>
+              <span className={cls.span5}>{t}</span>
+              <span className={cls.span6}>{d}</span>
             </div>
           ))}
         </div>

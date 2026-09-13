@@ -1,3 +1,4 @@
+import cls from './radio.module.css'
 import { useState } from 'react'
 import { Checkbox, Radio, RadioGroup } from '@milo/ui'
 import { A11y, Page, Panel, Props, Section, Variant } from '../kit'
@@ -52,13 +53,13 @@ export function RadioStory() {
           <Variant name="radio vs checkbox">
             <Radio checked={withHint} onChange={() => setWithHint(true)} label="Prendido" />
             <Radio checked={!withHint} onChange={() => setWithHint(false)} label="Apagado" />
-            <span className="ml-4 inline-flex items-center gap-3">
+            <span className={cls.span}>
               <Checkbox checked={comparado} onChange={setComparado} label="Checkbox prendido" />
               <Checkbox checked={!comparado} onChange={v => setComparado(!v)} label="Checkbox apagado" />
             </span>
           </Variant>
         </Panel>
-        <p className="mt-3 max-w-[70ch] text-meta text-ink-muted">
+        <p className={cls.p}>
           El azul es el círculo de afuera y el blanco el de adentro, no al revés: con el papel
           afuera y el punto azul adentro la pieza pesa lo mismo prendida que apagada, porque lo
           único que cambia es el disco del medio. Con el relleno afuera, la elegida se ve de una en
@@ -72,12 +73,12 @@ export function RadioStory() {
       >
         <Panel>
           <Variant name="con etiqueta">
-            <span className="flex items-center gap-5">
-              <label className="flex items-center gap-2 text-body font-medium text-ink">
+            <span className={cls.span2}>
+              <label className={cls.label}>
                 <Radio checked={loose === 'si'} onChange={() => setLoose('si')} label="Sí, avisarme" />
                 Sí, avisarme
               </label>
-              <label className="flex items-center gap-2 text-body font-medium text-ink">
+              <label className={cls.label2}>
                 <Radio checked={loose === 'no'} onChange={() => setLoose('no')} label="No hace falta" />
                 No hace falta
               </label>

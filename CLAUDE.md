@@ -18,7 +18,7 @@ final son lo único que hay que tocar.
 npm install
 npm run dev        # el sitio · http://localhost:5190
 npm run typecheck  # todo el monorepo de una
-npm test           # 598 tests con vitest y testing-library
+npm test           # 673 tests con vitest y testing-library
 npm run props      # regenera la tabla de props desde los tipos
 ```
 
@@ -56,25 +56,34 @@ código fuente). Si no, las pantallas que falten se resuelven con criterio propi
 
 ## Arquitectura
 
-El stack es el de milo a propósito (React 19 + Tailwind v4 + Vite) y la capa de tokens tiene
-la misma forma que `packages/ui`, así portar es copiar valores y no traducir un sistema:
+El stack es React 19 + Vite y **nada más**: el sistema no usa ninguna librería de estilo. El
+estilo es CSS nativo, en módulos, contra tokens que también son CSS nativo.
 
 ```
 packages/tokens/src/primitives.css   valores crudos: la rampa, el canto, los tintes, el azul
 packages/tokens/src/semantic.css     los roles: --surface, --border, --text, --relief-*, --switch-*
-packages/tokens/src/scales.css       radios, medidas del shell, tipografía, movimiento
-packages/ui/src/theme.css            el puente: Tailwind leyendo los tokens + las clases de relieve
+packages/tokens/src/scales.css       radios, medidas del shell, tipografía, pesos, movimiento
+packages/ui/src/styles/reset.css     lo que un navegador trae y no queremos
+packages/ui/src/styles/base.css      lo que el sistema define para todos: .mark, .raised, .tabular
+packages/ui/src/theme.css            el orden de las capas y los tres imports de arriba
+<pieza>/<pieza>.module.css           el estilo de esa pieza y de ninguna otra
 ```
 
 Los componentes se estilan **solo** contra roles: ninguno sabe que existe `--shade-03`, sabe
 que hay un `--surface-muted`. Un hex escrito a mano en un componente es un bug.
 
-Con el monorepo, el `@source` va **dos veces** y las dos hacen falta: el de
-`packages/ui/src/theme.css` cubre los componentes del paquete, y el `app.css` de cada app
-declara los archivos de esa app. Tailwind v4 arranca la detección automática en el root de
-Vite, que ahora es la carpeta de la app y no la del CSS, así que ninguno de los dos alcanza
-solo. Cuando falta uno **falla en silencio, sin estilos**: la clase queda en el HTML sin
-efecto y no hay error.
+**Una app sí puede usar Tailwind, y para eso están los tokens.** El sistema exporta valores en
+CSS puro; quien quiera utilidades las arma encima con un `@theme` propio. Lo que no vuelve es
+tener las dos cosas: acá adentro un estilo se escribe una vez, en el módulo de su pieza.
+
+**El orden de las capas se declara en `theme.css` y antes que nada.** Una capa vale por dónde se
+la declara, no por dónde se usa, y lo que está en una capa siempre pierde contra lo que no está
+en ninguna. Las dos veces que esto mordió fueron la misma: el reset ganándole a todo porque su
+capa se registró tarde. De ahí que `app.css` se importe en la **primera** línea de `main.tsx`.
+
+El corolario que cuesta ver: una clase global de `base.css` va sin capa, así que le gana a
+cualquier módulo. Cuando las dos tienen que convivir (el anillo de un avatar sobre el relieve de
+`.mark`) la receta se compone en `base.css`, no se pelea desde el módulo.
 
 ## El sistema: dónde está escrito cada porqué
 
@@ -132,7 +141,7 @@ Estas sí van acá: no se ven en una pantalla, así que el kit no puede mostrarl
   y dos eran controles sueltos (el buscador y el selector de columnas): como no tenían vista
   propia, nadie los encontraba y el buscador terminó dibujado a mano en tres lugares con tres
   alturas distintas. Una carpeta con el nombre de un caso de uso es un cajón.
-- **El gris de un icono no es una prop, es la utilidad `icon-muted`.** El gris se hereda de un
+- **El gris de un icono no es una prop, es la clase `icon-muted`.** El gris se hereda de un
   ancestro (un `IconButton` apagado, un item de nav inactivo) y el call site no tiene cómo saberlo.
   Corolario que cuesta ver: **`Icon` no escribe `--icon-wght` salvo que le pasen `weight`**, porque
   un estilo inline le gana a una clase y con un default escrito siempre, `icon-muted` no podría
@@ -205,14 +214,13 @@ cuando el repo está perfecto. `npm run typecheck`, `npm test` y `vite build` pa
 navegador muestra otra cosa: **lo que se ve en localhost no es prueba de nada si el servidor
 lleva rato corriendo.**
 
-**Cara 1, el token que no genera su clase.** Si tocás un token dentro del bloque `@theme` con el
-dev server corriendo, Tailwind puede quedarse con el CSS viejo y la utilidad no se genera, en
-silencio y sin error: la clase queda en el HTML sin efecto. Así estuvo `bg-scrim` sin aplicar
-durante varias rondas, con el backdrop del modal en solo blur. Antes de dar por bueno un color
-nuevo, verificar que la regla exista de verdad:
+**Cara 1, el CSS que se quedó viejo.** El servidor puede seguir sirviendo la hoja anterior, así
+que un token recién tocado no llega y el elemento se dibuja con el valor de antes, en silencio.
+Antes de dar por bueno un valor nuevo, medirlo en el navegador y no leerlo en el archivo:
 
 ```sh
-curl -s http://localhost:5190/src/app.css | grep -o '\.text-icon-muted[^}]*}'
+# en la consola del sitio
+getComputedStyle(document.documentElement).getPropertyValue('--chart-warn')
 ```
 
 **Cara 2, el módulo que quedó viejo.** El servidor se guarda cada archivo ya transformado, y esa
@@ -278,8 +286,8 @@ no encuentra nada.
 Monorepo de npm workspaces. Dos paquetes y una app:
 
 ```
-packages/tokens/src/    la identidad, en CSS puro. Sin Tailwind y sin JS.
-packages/ui/src/        theme.css (el puente) · index.ts (la puerta) ·
+packages/tokens/src/    la identidad, en CSS puro. Sin librerías y sin JS.
+packages/ui/src/        theme.css (las capas) · styles/ (reset y base) · index.ts (la puerta) ·
                         una carpeta por pieza: button/button.tsx + button/button.test.tsx,
                         y así las 63 (select, modal, toast, chart, table…)
                         lib/ lo compartido que no es un componente: cx · colors ·
@@ -367,34 +375,35 @@ Lo mismo vale para los tipos que una pieza recibe como argumento (`ToastOptions`
 
 ## Los tests
 
-`npm test` corre vitest con jsdom y testing-library. 598 tests, y lo que prueban es el
+`npm test` corre vitest con jsdom y testing-library. 673 tests, y lo que prueban es el
 comportamiento (teclado, nombres accesibles, estados) y no el markup, que cambia con cada
 ajuste de estilo. El test de cada pieza vive en su carpeta, al lado del componente.
 
 Diecisiete de ellos leen el paquete entero y fallan si alguien:
 
-- escribe un color a mano en un componente, o nombra en `bg-`, `text-`, `border-`, `ring-` o
-  `fill-` un color que el puente no declara: la clase queda en el HTML, no genera nada y no hay
-  error,
+- escribe un color a mano en un componente, o nombra en un `var()` un token que no existe: eso no
+  falla, resuelve a vacío y el elemento se queda sin color, sin error y sin que nadie se entere,
 - se sale de la escala de radios o de tamaños de texto,
-- **usa un nombre de la escala vieja** (`text-xs`, `text-base`…), que no genera nada y por eso no
-  se nota solo,
-- **escribe el interlineado o el tracking sueltos** (`leading-*`, `tracking-*`) en vez de dejar que
-  los traiga el rol, que es el bug que la escala nueva vino a matar,
-- **escribe una duración o una curva a mano** (`duration-[120ms]`, `ease-[cubic-bezier(…)]`) en vez
-  de usar las tres duraciones y las dos curvas del sistema,
-- **se sale de la grilla de espaciado** (un `gap-2.5`, un `p-3.5`),
+- **escribe un tamaño de letra sin su interlineado y su tracking**, que es el bug que los roles
+  vinieron a matar: escritos por separado se despegan, y ya se despegaron una vez,
+- **nombra un rol, una duración o una curva que el sistema no declara**,
+- **se sale de la grilla de espaciado**,
 - **usa un tamaño de icono que no está en la escala**: el tamaño se pasa como número, así que
   ningún linter lo mira,
-- **usa el peso de la portada fuera del tamaño display** (`font-bold` a 16px), que se lee como
-  negrita y aplasta los otros dos escalones de énfasis,
+- **usa el peso de la portada fuera del tamaño display**, que se lee como negrita y aplasta los
+  otros dos escalones de énfasis,
 - deja un `<button>` sin `type`, que adentro de un `form` lo manda,
-- deja una clase del puente sin usar: CSS muerto no rompe nada y por eso se queda,
+- deja una clase de un módulo sin usar: CSS muerto no rompe nada y por eso se queda,
 - exporta algo sin sacarlo por `index.ts`,
 - deja una carpeta sin el componente que le da nombre, o un componente sin su test al lado.
 
-Trece más leen los tokens de tipografía: que cada rol declare sus tres valores y llegue entero al
-`@theme`, que ninguno baje de 12px, que la curva de interlineado tenga su máximo en `reading`, que
+Y hay uno que no se puede escribir leyendo archivos: **dibuja las setenta y cuatro vistas y falla
+si a algún elemento le quedó una clase que no resuelve a nada.** Una clase que no existe no falla,
+no avisa y deja la pieza sin estilo; leer las fuentes no alcanza porque una clase puede llegar por
+una prop o por una constante. Lo que se mira es lo que quedó dibujado.
+
+Catorce más leen los tokens de tipografía: que cada rol declare sus tres valores y que quien
+escriba un tamaño escriba los tres, que ninguno baje de 12px, que la curva de interlineado tenga su máximo en `reading`, que
 el tracking cruce el cero en la base. Del lado del kit hay diecisiete más: los guardianes de
 escala repetidos sobre `apps/kit` (que hasta ahora se escapaba), el peso de display fuera de su
 tamaño, las transiciones sin duración ni curva, un control de estado sin su manija, y que cada

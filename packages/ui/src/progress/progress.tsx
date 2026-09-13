@@ -1,3 +1,4 @@
+import s from './progress.module.css'
 import { useId, type ComponentPropsWithoutRef, type ReactNode } from 'react'
 import { cx } from '../lib/cx'
 
@@ -14,7 +15,7 @@ type ProgressProps = ComponentPropsWithoutRef<'div'> & {
   tone?: 'brand' | 'ok' | 'warn' | 'bad'
 }
 
-const fillTone = { brand: 'bg-chart-fill', ok: 'bg-chart-ok', warn: 'bg-chart-warn', bad: 'bg-chart-bad' }
+const fillTone = { brand: s.fillTone, ok: s.fillTone2, warn: s.fillTone3, bad: s.fillTone4 }
 
 /** Cuánto de algo va hecho. La pista es el resto, no un segundo dato. */
 export function Progress({ value, max = 100, label, hint, tone = 'brand', className, ...props }: ProgressProps) {
@@ -22,11 +23,11 @@ export function Progress({ value, max = 100, label, hint, tone = 'brand', classN
   const pct = (clamped / (max || 1)) * 100
   const id = useId()
   return (
-    <div className={cx('flex flex-col gap-2', className)} {...props}>
+    <div className={cx(s.div, className)} {...props}>
       {(label || hint) && (
-        <div className="flex items-baseline justify-between gap-3">
-          <span id={id} className="text-body font-medium text-ink">{label}</span>
-          {hint && <span className="tabular text-meta font-medium text-ink-muted">{hint}</span>}
+        <div className={s.div2}>
+          <span id={id} className={s.span}>{label}</span>
+          {hint && <span className={`${s.span2} tabular`}>{hint}</span>}
         </div>
       )}
       <div
@@ -35,9 +36,9 @@ export function Progress({ value, max = 100, label, hint, tone = 'brand', classN
         aria-valuenow={Math.round(clamped)}
         aria-valuemin={0}
         aria-valuemax={max}
-        className="h-1.5 w-full overflow-hidden rounded-full bg-track"
+        className={s.box}
       >
-        <div className={cx('h-full rounded-full transition-[width] duration-normal ease-out', fillTone[tone])} style={{ width: `${pct}%` }} />
+        <div className={cx(s.div3, fillTone[tone])} style={{ width: `${pct}%` }} />
       </div>
     </div>
   )

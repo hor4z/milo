@@ -1,3 +1,4 @@
+import cls from './alert.module.css'
 import { useState } from 'react'
 import { Alert, AlertActions, AlertBody, AlertTitle, Button } from '@milo/ui'
 import { A11y, Demo, Note, Page, Props, Section } from '../kit'
@@ -18,7 +19,7 @@ export function AlertStory() {
         title="Los cuatro tonos"
         note="El tono nunca va solo: cada uno trae su glifo, porque un color de estado sin forma ni texto no dice nada a quien no distingue colores. El de error va como `role=alert` y los otros tres como `status`: la diferencia entre interrumpir a un lector de pantalla y esperar a que termine la frase."
       >
-        <div className="flex flex-col gap-3">
+        <div className={cls.div}>
           <Alert tone="info">
             <AlertTitle>La corrección automática está en prueba</AlertTitle>
             <AlertBody>Podés desactivarla desde Ajustes mientras la probamos.</AlertBody>
@@ -51,12 +52,12 @@ export function AlertStory() {
         title="Se arma con partes"
         note="El título solo alcanza para lo que se entiende de un vistazo. El cuerpo es para lo que hay que explicar, y las acciones para lo que se puede hacer al respecto: un aviso que no ofrece salida deja al lector con el problema y con nada para tocar."
       >
-        <div className="flex flex-col gap-3">
+        <div className={cls.div2}>
           <Demo label="solo título">
-            <Alert tone="ok" className="w-full max-w-[520px]"><AlertTitle>Listo</AlertTitle></Alert>
+            <Alert tone="ok" className={cls.alert}><AlertTitle>Listo</AlertTitle></Alert>
           </Demo>
           <Demo label="título y cuerpo">
-            <Alert tone="info" className="w-full max-w-[520px]">
+            <Alert tone="info" className={cls.alert2}>
               <AlertTitle>Quedó en borrador</AlertTitle>
               <AlertBody>Nadie lo ve hasta que lo publiques.</AlertBody>
             </Alert>
@@ -64,7 +65,7 @@ export function AlertStory() {
           <Demo label="con salida y con X">
             {abierto('amarillo')
               ? (
-                <Alert tone="warn" className="w-full max-w-[520px]" onDismiss={() => cerrar('amarillo')}>
+                <Alert tone="warn" className={cls.alert3} onDismiss={() => cerrar('amarillo')}>
                   <AlertTitle>Quedaste sin lugar</AlertTitle>
                   <AlertBody>El próximo archivo que subas no va a entrar.</AlertBody>
                   <AlertActions>
@@ -81,14 +82,14 @@ export function AlertStory() {
         title="El glifo se puede cambiar, o sacar"
         note="El default sale del tono y casi siempre es el correcto. `icon` lo cambia cuando el aviso es de algo concreto (una fecha, un archivo, una persona) y `null` lo saca para el aviso que ya vive adentro de algo que tiene su propio icono."
       >
-        <div className="flex flex-col gap-3">
+        <div className={cls.div3}>
           <Demo label="glifo propio">
-            <Alert tone="info" icon="schedule" className="w-full max-w-[520px]">
+            <Alert tone="info" icon="schedule" className={cls.alert4}>
               <AlertTitle>Cierra el viernes a las 23:59</AlertTitle>
             </Alert>
           </Demo>
           <Demo label="sin glifo">
-            <Alert tone="info" icon={null} className="w-full max-w-[520px]">
+            <Alert tone="info" icon={null} className={cls.alert5}>
               <AlertTitle>Cuatro entregas nuevas desde ayer</AlertTitle>
             </Alert>
           </Demo>
@@ -97,7 +98,7 @@ export function AlertStory() {
 
       <Note title="Alert o Toast">
         Si el aviso es consecuencia de algo que la persona acaba de hacer y no necesita respuesta, va
-        un <a className="underline underline-offset-2" href="#toast">Toast</a>. Si describe el estado
+        un <a className={cls.a} href="#toast">Toast</a>. Si describe el estado
         de la pantalla, va acá: el toast se va solo a los cinco segundos, y un error importante que
         desaparece solo es un error que nadie leyó.
       </Note>

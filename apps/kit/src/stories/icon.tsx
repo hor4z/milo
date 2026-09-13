@@ -1,3 +1,4 @@
+import cls from './icon.module.css'
 import { useMemo, useState } from 'react'
 import type { CSSProperties } from 'react'
 import {
@@ -53,7 +54,7 @@ export function IconStory() {
         <Panel>
           <Variant name="wght 100…700">
             {([100, 200, 300, 400, 500, 600, 700] as IconWeight[]).map(w => (
-              <span key={w} className="flex flex-col items-center gap-1">
+              <span key={w} className={cls.span}>
                 <Icon name="notifications" size={28} weight={w} />
                 <Mono>{w}</Mono>
               </span>
@@ -66,8 +67,8 @@ export function IconStory() {
         title={`El set · ${iconNames.length} iconos`}
         note="Buscá por nombre o por lo que el icono es. Los controles escriben las variables una sola vez en el contenedor de la grilla y los glifos las heredan: cambiar `font-variation-settings` en cada instancia invalida la rasterización de cada glifo, y serían todos los del set por cada movimiento del control."
       >
-        <div className="flex flex-wrap items-center gap-4">
-          <span className="w-[260px]">
+        <div className={cls.div}>
+          <span className={cls.span2}>
             <TextField icon="search" value={q} onChange={e => setQ(e.target.value)} placeholder="buscar por nombre o por tag…" />
           </span>
           <Segmented
@@ -77,14 +78,14 @@ export function IconStory() {
             options={weights.map(p => ({ value: p.value, label: p.label }))}
             size="sm"
           />
-          <span className="flex w-[180px] items-center gap-3 text-body text-ink-muted">
+          <span className={cls.span3}>
             <Slider value={size} onChange={setSize} min={12} max={40} label="Tamaño" />
             <Mono>{size}</Mono>
           </span>
         </div>
 
         {visible.length === 0 ? (
-          <div className="mt-4">
+          <div className={cls.div2}>
             <EmptyState
               size="sm"
               icon="search_off"
@@ -94,7 +95,7 @@ export function IconStory() {
           </div>
         ) : (
           <div
-            className="mt-4 grid gap-2"
+            className={cls.div3}
             style={{
               gridTemplateColumns: 'repeat(auto-fill, minmax(104px, 1fr))',
               '--icon-wght': weight,
@@ -106,19 +107,19 @@ export function IconStory() {
                 type="button"
                 onClick={() => copy(name)}
                 title={iconTags[name] || name}
-                className="flex flex-col items-center gap-2 rounded-xl border border-line bg-surface px-2 py-3 transition-colors duration-fast ease-out hover:bg-muted"
+                className={`${cls.box} bg-surface`}
               >
-                <span className="flex items-center justify-center" style={{ height: 40 }}>
+                <span className={cls.span4} style={{ height: 40 }}>
                   <Icon name={name} size={size} />
                 </span>
-                <span className="w-full truncate text-center font-mono text-meta text-ink-muted">
+                <span className={cls.span5}>
                   {copied === name ? 'copiado' : name}
                 </span>
               </button>
             ))}
           </div>
         )}
-        <p className="mt-3 max-w-[70ch] text-meta text-ink-muted">
+        <p className={cls.p}>
           Click en un icono copia <Mono>{'<Icon name="…" />'}</Mono>. El title trae los tags con los
           que se puede buscar.
         </p>
@@ -132,7 +133,7 @@ export function IconStory() {
           {sizes.map(e => (
             <Variant key={e.px} name={`${e.px}`}>
               <Icon name="calendar_month" size={e.px} />
-              <span className="text-body text-ink-muted">{e.role}</span>
+              <span className={cls.span6}>{e.role}</span>
             </Variant>
           ))}
         </Panel>
@@ -145,15 +146,15 @@ export function IconStory() {
         <Panel>
           <Variant name="en tinta">
             <Icon name="search" size={20} />
-            <span className="text-body text-ink-muted">peso 300</span>
+            <span className={cls.span7}>peso 300</span>
           </Variant>
           <Variant name="icon-muted">
             <Icon name="search" size={20} className="icon-muted" />
-            <span className="text-body text-ink-muted">el peso sube a 400 solo, sin prop</span>
+            <span className={cls.span8}>el peso sube a 400 solo, sin prop</span>
           </Variant>
           <Variant name="el error">
-            <Icon name="search" size={20} className="text-ink-muted" />
-            <span className="text-body text-ink-muted">gris sin la utilidad: queda en 300 y se apaga</span>
+            <Icon name="search" size={20} className={cls.icon2} />
+            <span className={cls.span9}>gris sin la utilidad: queda en 300 y se apaga</span>
           </Variant>
         </Panel>
       </Section>
@@ -173,8 +174,8 @@ export function IconStory() {
             <Mono>npm run icons -w @milo/ui -- check</Mono>
           </Variant>
         </Panel>
-        <p className="mt-3 max-w-[70ch] text-body text-ink-muted">
-          <code className="font-mono text-meta">add</code> hace tres preguntas antes de bajar nada:
+        <p className={cls.p2}>
+          <code className={cls.code}>add</code> hace tres preguntas antes de bajar nada:
           si el nombre existe (y si no, sugiere los cinco más parecidos), si ya lo tenemos, y si hay
           uno en el set que comparta tags y probablemente sirva igual. La tercera es la que evita
           llegar a doscientos iconos con seis variantes de engranaje, y para saltearla hay que

@@ -1,3 +1,4 @@
+import s from './popover.module.css'
 import { useEffect, useLayoutEffect, useRef, useState, type ReactNode } from 'react'
 import { useDismiss } from '../lib/dismiss'
 import { useEscape } from '../lib/esc'
@@ -78,11 +79,11 @@ export function Popover({
       })}
       {open && (
         <Portal>
-          {veil && <div className="ui-fade fixed inset-0 z-40 bg-veil" onClick={close} />}
+          {veil && <div className={`${s.div} ui-fade`} onClick={close} />}
           <div
             ref={panelRef}
             style={{ top: pos.top, left: pos.left, width }}
-            className="fixed z-50"
+            className={s.div2}
           >
             {children(close)}
           </div>

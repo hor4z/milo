@@ -1,3 +1,4 @@
+import cls from './checkbox.module.css'
 import { useState } from 'react'
 import { Checkbox } from '@milo/ui'
 import { A11y, Page, Panel, Props, Section, Variant } from '../kit'
@@ -36,15 +37,15 @@ export function CheckboxStory() {
       <Section title="En una fila" note="El `<label>` envolviendo la casilla hace que el texto también sea zona de click, que es la mitad del área útil. El tilde va a 14 y no a 16: el tamaño hay que mirarlo con el trazo incluido, que agrega media línea de cada lado, y a 16 tocaba las esquinas de la caja de 18.">
         <Panel>
           <Variant name="con etiqueta">
-            <label className="flex items-center gap-2 text-body font-medium">
+            <label className={cls.label}>
               <Checkbox checked={c} onChange={setC} />
               Compartir la receta con el equipo
             </label>
           </Variant>
           <Variant name="lista">
-            <div className="flex flex-col gap-2">
+            <div className={cls.div}>
               {['Geografía', 'Ciencias', 'Matemática'].map(x => (
-                <label key={x} className="flex items-center gap-2 text-body font-medium">
+                <label key={x} className={cls.label2}>
                   <Checkbox
                     checked={espacios.includes(x)}
                     onChange={v => setEspacios(e => (v ? [...e, x] : e.filter(n => n !== x)))}

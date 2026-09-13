@@ -1,3 +1,4 @@
+import s from './checkbox.module.css'
 import { useField } from '../field/field'
 import { Icon } from '../icon/icon'
 import { cx } from '../lib/cx'
@@ -32,20 +33,20 @@ export function Checkbox({
       disabled={disabled}
       onClick={() => onChange(!checked)}
       className={cx(
-        'inline-flex size-[18px] shrink-0 items-center justify-center rounded-sm',
-        'transition-[background-color,box-shadow] duration-fast ease-out',
-        'disabled:opacity-45 disabled:pointer-events-none',
-        on ? 'bg-brand text-on-brand' : 'inset-relief bg-muted text-on-brand',
+        s.root,
+        s.box,
+        s.box2,
+        on ? s.box3 : `${s.box4} inset-relief`,
       )}
     >
       <span
         className={cx(
-          'inline-flex transition-transform duration-fast ease-out',
-          on ? 'scale-100' : 'scale-0',
+          s.span,
+          on ? s.span2 : s.box5,
         )}
       >
         {indeterminate
-          ? <span className="block h-0.5 w-2.5 rounded-full bg-current" />
+          ? <span className={s.span3} />
           : <Icon name="check" size={14} weight={700} />}
       </span>
     </button>

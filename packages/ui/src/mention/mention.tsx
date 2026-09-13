@@ -1,3 +1,4 @@
+import s from './mention.module.css'
 import { Avatar } from '../avatar/avatar'
 import { Icon, type IconName } from '../icon/icon'
 import { cx } from '../lib/cx'
@@ -21,17 +22,17 @@ export function Mention({ name, src, icon, href, className }: MentionProps) {
     <Tag
       href={href}
       className={cx(
-        'inline-flex items-center gap-1 rounded-sm px-0.5 align-baseline',
-        'bg-brand-soft text-brand-ink',
+        s.tag,
+        s.box,
         href
-          ? 'underline decoration-current underline-offset-[3px] transition-colors duration-fast ease-out hover:bg-brand-soft hover:decoration-2'
-          : 'no-underline',
+          ? s.box2
+          : s.box3,
         className,
       )}
     >
       {icon
-        ? <Icon name={icon} size={14} className="shrink-0" />
-        : <Avatar name={name} src={src} size={16} className="shrink-0" />}
+        ? <Icon name={icon} size={14} className={s.icon} />
+        : <Avatar name={name} src={src} size={16} className={s.avatar} />}
       {name}
     </Tag>
   )

@@ -1,0 +1,60 @@
+@layer milo.components {
+  .div {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .label {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    font-size: var(--type-body);
+    line-height: var(--type-body-lh);
+    letter-spacing: var(--type-body-ls);
+    font-weight: var(--font-weight-semibold);
+    color: var(--text);
+  }
+
+  .span {
+    color: var(--bad-ink);
+  }
+
+  .p {
+    font-size: var(--type-meta);
+    line-height: var(--type-meta-lh);
+    letter-spacing: var(--type-meta-ls);
+    font-weight: var(--font-weight-medium);
+    color: var(--text-muted);
+  }
+
+  .p2 {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: var(--type-meta);
+    line-height: var(--type-meta-lh);
+    letter-spacing: var(--type-meta-ls);
+    font-weight: var(--font-weight-medium);
+    color: var(--bad-ink);
+  }
+
+  .fieldset {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    border-style: solid;
+    border-width: 0;
+    padding: 0;
+  }
+
+  .legend {
+    margin-bottom: 0.25rem;
+    font-size: var(--type-reading);
+    line-height: var(--type-reading-lh);
+    letter-spacing: var(--type-reading-ls);
+    font-weight: var(--font-weight-semibold);
+    color: var(--text);
+  }
+
+}

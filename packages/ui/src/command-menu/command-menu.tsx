@@ -1,3 +1,4 @@
+import cls from './command-menu.module.css'
 import { useEffect, useId, useMemo, useRef, useState, type KeyboardEvent } from 'react'
 import { Icon, type IconName } from '../icon/icon'
 import { Kbd } from '../kbd/kbd'
@@ -107,11 +108,11 @@ export function CommandMenu({
 
   return (
     <div
-      className={cx('flex flex-col overflow-hidden rounded-xl border border-line bg-popover shadow-popover', className)}
+      className={cx(`${cls.div} bg-popover`, className)}
       onKeyDown={teclas}
     >
       {search && (
-        <div className="border-b border-line p-2">
+        <div className={cls.div2}>
           <Search
             block
             size="sm"
@@ -128,12 +129,12 @@ export function CommandMenu({
         </div>
       )}
 
-      <div ref={lista} id={listaId} role="listbox" aria-label={placeholder} className="overflow-y-auto p-1" style={{ maxHeight }}>
+      <div ref={lista} id={listaId} role="listbox" aria-label={placeholder} className={cls.div3} style={{ maxHeight }}>
         {planos.length === 0
-          ? <p className="px-3 py-6 text-center text-body text-ink-muted">{empty}</p>
+          ? <p className={cls.p}>{empty}</p>
           : visibles.map(g => (
             <div key={g.label} role="group" aria-label={g.label}>
-              <div className="px-3 pt-3 pb-1 text-label font-semibold text-ink-muted">{g.label}</div>
+              <div className={cls.div4}>{g.label}</div>
               {g.items.map(item => {
                 const elegido = item.id === actual?.id
                 return (
@@ -150,14 +151,14 @@ export function CommandMenu({
                     }}
                     onClick={() => !item.disabled && onSelect(item)}
                     className={cx(
-                      'flex cursor-default items-center gap-3 rounded-lg px-3 py-2',
-                      item.disabled ? 'opacity-45' : elegido && 'bg-hover',
+                      cls.box,
+                      item.disabled ? cls.box2 : elegido && cls.elegido,
                     )}
                   >
-                    {item.icon && <Icon name={item.icon} size={18} className="icon-muted shrink-0" />}
-                    <span className="flex min-w-0 flex-1 flex-col">
-                      <span className="truncate text-body font-medium text-ink">{item.label}</span>
-                      {item.hint && <span className="truncate text-meta text-ink-muted">{item.hint}</span>}
+                    {item.icon && <Icon name={item.icon} size={18} className={`${cls.icon} icon-muted`} />}
+                    <span className={cls.span}>
+                      <span className={cls.span2}>{item.label}</span>
+                      {item.hint && <span className={cls.span3}>{item.hint}</span>}
                     </span>
                     {item.shortcut && <Kbd>{item.shortcut}</Kbd>}
                   </div>

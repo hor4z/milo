@@ -1,3 +1,4 @@
+import cls from './switch.module.css'
 import { useState } from 'react'
 import { Row, Switch } from '@milo/ui'
 import { A11y, Note, Page, Panel, Props, Section, Variant } from '../kit'
@@ -31,7 +32,7 @@ export function SwitchStory() {
         title="Con su etiqueta al lado"
         note="Un switch suelto no dice qué prende. En un panel va dentro de una `Row`, que pone la etiqueta a la izquierda y el control contra el borde derecho; en un formulario va dentro de un `Field`."
       >
-        <div className="overflow-hidden rounded-xl border border-line bg-surface">
+        <div className={`${cls.div} bg-surface`}>
           <Row label="Avisos por mail" hint="Cuando llega una entrega nueva">
             <Switch checked={on} onChange={setOn} label="Avisos por mail" />
           </Row>

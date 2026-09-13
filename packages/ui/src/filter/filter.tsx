@@ -1,3 +1,4 @@
+import s from './filter.module.css'
 import type { ComponentPropsWithoutRef } from 'react'
 import { Avatar, AvatarGroup } from '../avatar/avatar'
 import { Button } from '../button/button'
@@ -7,7 +8,7 @@ import { Popover } from '../popover/popover'
 
 /** La barra de arriba de una tabla: el buscador y los filtros, en una línea. */
 export function FilterBar({ className, ...props }: ComponentPropsWithoutRef<'div'>) {
-  return <div className={cx('flex flex-wrap items-center gap-2', className)} {...props} />
+  return <div className={cx(s.div, className)} {...props} />
 }
 
 type FilterOption = {
@@ -49,19 +50,19 @@ export function Filter({ label, options, value, onValueChange }: FilterProps) {
           size="sm"
           iconEnd="keyboard_arrow_down"
         >
-          {faces.length > 0 && <AvatarGroup people={faces} size={18} max={3} ring="ring-brand" className="-ml-0.5" />}
+          {faces.length > 0 && <AvatarGroup people={faces} size={18} max={3} ring="var(--brand)" className={s.avatarGroup} />}
           {label}{value.length > 0 && faces.length === 0 && ` · ${value.length}`}
         </Button>
       )}
     >
       {() => (
-        <div className="ui-pop max-h-[320px] overflow-y-auto overscroll-contain rounded-xl border border-line bg-popover p-2 shadow-popover">
+        <div className={`${s.div2} ui-pop bg-popover`}>
           {options.map(o => (
             <label
               key={o.value}
               className={cx(
-                'flex cursor-pointer items-center gap-2 rounded-lg px-2 transition-colors duration-fast ease-out hover:bg-hover',
-                o.person ? 'h-10' : 'h-9',
+                s.label,
+                o.person ? s.box : s.box2,
               )}
             >
               <Checkbox
@@ -69,10 +70,10 @@ export function Filter({ label, options, value, onValueChange }: FilterProps) {
                 checked={value.includes(o.value)}
                 onChange={() => toggle(o.value)}
               />
-              {o.person && <Avatar name={o.person.name} src={o.person.src} size={22} className="shrink-0" />}
-              <span aria-hidden="true" className="min-w-0 flex-1 truncate text-body font-medium text-ink">{o.value}</span>
+              {o.person && <Avatar name={o.person.name} src={o.person.src} size={22} className={s.avatar} />}
+              <span aria-hidden="true" className={s.span}>{o.value}</span>
               {o.count !== undefined && (
-                <span aria-hidden="true" className="tabular shrink-0 text-meta font-medium text-ink-muted">{o.count}</span>
+                <span aria-hidden="true" className={`${s.span2} tabular`}>{o.count}</span>
               )}
             </label>
           ))}
@@ -80,7 +81,7 @@ export function Filter({ label, options, value, onValueChange }: FilterProps) {
             <button
               type="button"
               onClick={() => onValueChange([])}
-              className="mt-1 flex h-8 w-full items-center rounded-lg px-2 text-body font-medium text-ink-muted transition-colors duration-fast ease-out hover:bg-hover hover:text-ink"
+              className={s.box3}
             >
               Quitar este filtro
             </button>

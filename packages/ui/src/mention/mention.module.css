@@ -1,0 +1,46 @@
+@layer milo.components {
+  .tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    border-radius: var(--radius-sm);
+    padding-inline: 0.125rem;
+    vertical-align: baseline;
+  }
+
+  .box {
+    background-color: var(--brand-soft);
+    color: var(--brand-ink);
+  }
+
+  .box2 {
+    text-decoration-line: underline;
+    text-decoration-color: currentColor;
+    text-underline-offset: 3px;
+    transition-property: color,background-color,border-color,outline-color,text-decoration-color,fill,stroke,--milo-gradient-from,--milo-gradient-via,--milo-gradient-to;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 150ms;
+    transition-duration: var(--duration-fast);
+    transition-timing-function: var(--ease-out);
+  }
+
+  .box3 {
+    text-decoration-line: none;
+  }
+
+  .icon {
+    flex-shrink: 0;
+  }
+
+  .avatar {
+    flex-shrink: 0;
+  }
+
+  @media (hover:hover) {
+    .box2:hover {
+        background-color: var(--brand-soft);
+        text-decoration-thickness: 2px;
+    }
+  }
+
+}

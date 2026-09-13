@@ -1,3 +1,4 @@
+import cls from './button.module.css'
 import { Button } from '@milo/ui'
 import { A11y, Demo, Page, Panel, Props, Section, Variant } from '../kit'
 
@@ -44,14 +45,14 @@ export function ButtonStory() {
       </Section>
 
       <Section title="Iconos, ancho completo y deshabilitado">
-        <div className="flex flex-wrap items-start gap-3">
+        <div className={cls.div}>
           <Demo label="icon"><Button variant="raised" icon="add">Nuevo espacio</Button></Demo>
           <Demo label="iconEnd"><Button variant="raised" iconEnd="chevron_right">Siguiente</Button></Demo>
           <Demo label="disabled">
             <Button variant="solid" disabled>Guardar</Button>
             <Button variant="raised" disabled>Guardar</Button>
           </Demo>
-          <div className="w-full max-w-[280px]">
+          <div className={cls.div2}>
             <Demo label="block"><Button variant="solid" block>Entrar</Button></Demo>
           </div>
         </div>

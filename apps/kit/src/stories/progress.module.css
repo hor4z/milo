@@ -1,0 +1,29 @@
+@layer milo.app {
+  .div {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    border-radius: var(--radius-xl);
+    border-style: solid;
+    border-width: 1px;
+    border-color: var(--border);
+    padding: 1.25rem;
+  }
+
+  .div2 {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    border-radius: var(--radius-xl);
+    border-style: solid;
+    border-width: 1px;
+    border-color: var(--border);
+    padding: 1.25rem;
+  }
+
+  .a {
+    text-decoration-line: underline;
+    text-underline-offset: 2px;
+  }
+
+}

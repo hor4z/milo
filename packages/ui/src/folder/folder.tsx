@@ -46,7 +46,7 @@ export function Folder({
                 <AvatarGroup
                   people={avatars}
                   size={Math.round(size * 0.17)}
-                  ring="ring-[var(--folder-top)]"
+                  ring="var(--folder-top)"
                 />
               ) : null}
               {badges}

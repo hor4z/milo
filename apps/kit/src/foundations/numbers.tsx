@@ -1,3 +1,4 @@
+import cls from './numbers.module.css'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@milo/ui'
 import { bytes, count, decimals, delta, share, span, withUnit } from '@milo/ui'
 import { A11y, Note, Page, Panel, Rich, Section, Variant } from '../kit'
@@ -72,7 +73,7 @@ export function NumbersSection() {
         title="Un número que se compara va en columna, y los dígitos tienen que medir lo mismo"
         note="Sin la cifra tabular el 1 es más angosto que el 4 y una columna de números baila. Lo pone la utilidad `tabular`, y va en toda tabla, todo contador y todo reloj."
       >
-        <div className="grid gap-4 rounded-xl border border-line bg-surface p-5 sm:grid-cols-2">
+        <div className={`${cls.div} bg-surface`}>
           <Columna titulo="sin tabular" clase="">
             {[1250, 918, 1111, 444].map(n => <span key={n}>{count(n)}</span>)}
           </Columna>
@@ -86,7 +87,7 @@ export function NumbersSection() {
         title="Un número solo casi nunca alcanza"
         note="Es la misma regla que Cómo se escribe: un contador informa y una frase orienta. El número va cuando cambia una decisión, y va con aquello contra lo que se mide."
       >
-        <div className="grid gap-3 sm:grid-cols-2">
+        <div className={cls.div2}>
           <Caso mal="45%" bien="11 de 24 corregidas" por="El porcentaje esconde el tamaño: 45% de 24 y 45% de 300 no son el mismo trabajo." />
           <Caso mal="Quedan 3" bien="Quedan 3 de 18 por corregir" por="Un número sin su total no dice si es mucho o poco." />
           <Caso mal="9,80000" bien="9,8" por="Los decimales que no se midieron son ruido que se lee como precisión." />
@@ -114,24 +115,24 @@ export function NumbersSection() {
 }
 
 function Muestra({ children }: { children: React.ReactNode }) {
-  return <code className="rounded-md bg-muted px-2 py-1 font-mono text-meta text-ink">{children}</code>
+  return <code className={cls.code}>{children}</code>
 }
 
 function Columna({ titulo, clase, children }: { titulo: string; clase: string; children: React.ReactNode }) {
   return (
-    <div className="flex flex-col gap-2">
-      <span className="text-meta font-medium text-ink-muted">{titulo}</span>
-      <div className={`flex flex-col items-end gap-1 text-reading text-ink ${clase}`}>{children}</div>
+    <div className={cls.div3}>
+      <span className={cls.span}>{titulo}</span>
+      <div className={`${cls.columna} ${clase}`}>{children}</div>
     </div>
   )
 }
 
 function Caso({ mal, bien, por }: { mal: string; bien: string; por: string }) {
   return (
-    <div className="flex flex-col gap-2 rounded-xl border border-line bg-surface p-4">
-      <span className="text-body text-ink-muted line-through">{mal}</span>
-      <span className="text-reading font-semibold text-ink">{bien}</span>
-      <span className="text-meta font-medium text-ink-muted">{por}</span>
+    <div className={`${cls.div4} bg-surface`}>
+      <span className={cls.span2}>{mal}</span>
+      <span className={cls.span3}>{bien}</span>
+      <span className={cls.span4}>{por}</span>
     </div>
   )
 }

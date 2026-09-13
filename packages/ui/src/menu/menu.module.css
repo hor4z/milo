@@ -1,0 +1,102 @@
+@layer milo.components {
+  .root {
+    border-radius: var(--radius-xl);
+    border-style: solid;
+    border-width: 1px;
+    border-color: var(--border);
+    padding: 0.25rem;
+    --milo-shadow: var(--relief-popover);
+    box-shadow: var(--milo-inset-shadow),var(--milo-inset-ring-shadow),var(--milo-ring-offset-shadow),var(--milo-ring-shadow),var(--milo-shadow);
+  }
+
+  .box {
+
+    &>[data-divider] {
+      margin-inline: calc(0.25rem * -1);
+      margin-block: 0.5rem;
+    }
+  }
+
+  .box2 {
+    display: flex;
+    height: 2.5rem;
+    width: 100%;
+    align-items: center;
+    gap: 1rem;
+    border-radius: var(--radius-lg);
+    padding-inline: 0.5rem;
+    text-align: left;
+    font-size: var(--type-body);
+    line-height: var(--type-body-lh);
+    letter-spacing: var(--type-body-ls);
+  }
+
+  .box3 {
+    transition-property: color,background-color,border-color,outline-color,text-decoration-color,fill,stroke,--milo-gradient-from,--milo-gradient-via,--milo-gradient-to;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 150ms;
+    transition-timing-function: var(--ease-out);
+    transition-duration: var(--duration-fast);
+  }
+
+  .box4 {
+
+    &:disabled {
+      pointer-events: none;
+      opacity: .45;
+    }
+  }
+
+  .box5 {
+    color: var(--bad-ink);
+  }
+
+  .box6 {
+    color: var(--text);
+  }
+
+  .span {
+    min-width: 0;
+    flex: 1;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+  }
+
+  .span2 {
+    flex-shrink: 0;
+    font-size: var(--type-meta);
+    line-height: var(--type-meta-lh);
+    letter-spacing: var(--type-meta-ls);
+    font-weight: var(--font-weight-medium);
+    color: var(--text-muted);
+  }
+
+  .icon2 {
+    margin-right: calc(0.25rem * -1);
+  }
+
+  .div {
+    padding-inline: 0.5rem;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    font-size: var(--type-label);
+    line-height: var(--type-label-lh);
+    letter-spacing: var(--type-label-ls);
+    font-weight: var(--font-weight-semibold);
+    color: var(--text);
+  }
+
+  @media (hover:hover) {
+    .box5:hover {
+        background-color: var(--bad-subtle);
+    }
+  }
+
+  @media (hover:hover) {
+    .box6:hover {
+        background-color: var(--surface-hover);
+    }
+  }
+
+}

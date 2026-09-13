@@ -1,3 +1,4 @@
+import cls from './time.module.css'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@milo/ui'
 import { clock, day, dayAndTime, duration, machineTime, timeAgo, zoneLabel } from '@milo/ui'
 import { A11y, Note, Page, Panel, Rich, Section, Variant } from '../kit'
@@ -80,7 +81,7 @@ export function TimeSection() {
         title="La zona es la del curso, no la del navegador"
         note="Es el error que cuesta una entrega. Una consigna que cierra a las 23:59 en el aula cierra a las 03:59 del día siguiente para quien está dos husos al este, y el navegador se lo va a mostrar en su hora local sin avisar."
       >
-        <div className="flex flex-col gap-3 rounded-xl border border-line bg-surface p-5">
+        <div className={`${cls.div} bg-surface`}>
           <Linea etiqueta="El mismo instante, en la zona del curso">
             {clock('2026-03-09T23:59:00-03:00', { zone: AR })} · {zoneLabel(AR, ahora)}
           </Linea>
@@ -99,14 +100,14 @@ export function TimeSection() {
         title="Lo que ve una máquina viaja con lo que ve una persona"
         note="Una fecha escrita va adentro de un `time` con su `dateTime`: ahí viaja el instante exacto en UTC, que es lo único que no depende de quién mire. Un lector de pantalla, un calendario y un buscador leen ese, no el texto."
       >
-        <div className="rounded-xl border border-line bg-surface p-5">
-          <p className="text-reading text-ink">
+        <div className={`${cls.div2} bg-surface`}>
+          <p className={cls.p}>
             La entrega cierra{' '}
-            <time dateTime={machineTime('2026-03-09T23:59:00-03:00')} className="font-semibold">
+            <time dateTime={machineTime('2026-03-09T23:59:00-03:00')} className={cls.time}>
               el {dayAndTime('2026-03-09T23:59:00-03:00', { zone: AR })}
             </time>.
           </p>
-          <code className="mt-3 block font-mono text-meta text-ink-muted">
+          <code className={cls.code}>
             dateTime=&quot;{machineTime('2026-03-09T23:59:00-03:00')}&quot;
           </code>
         </div>
@@ -131,14 +132,14 @@ export function TimeSection() {
 }
 
 function Muestra({ children }: { children: React.ReactNode }) {
-  return <code className="rounded-md bg-muted px-2 py-1 font-mono text-meta text-ink">{children}</code>
+  return <code className={cls.code2}>{children}</code>
 }
 
 function Linea({ etiqueta, children }: { etiqueta: string; children: React.ReactNode }) {
   return (
-    <div className="flex flex-wrap items-baseline justify-between gap-3 border-b border-line pb-3 last:border-0 last:pb-0">
-      <span className="text-body text-ink-muted">{etiqueta}</span>
-      <span className="tabular text-reading font-semibold text-ink">{children}</span>
+    <div className={cls.div3}>
+      <span className={cls.span}>{etiqueta}</span>
+      <span className={`${cls.span2} tabular`}>{children}</span>
     </div>
   )
 }

@@ -1,0 +1,58 @@
+@layer milo.components {
+  .info {
+    background-color: var(--brand-soft);
+    border-color: var(--info-border);
+  }
+
+  .ok {
+    background-color: var(--ok-subtle);
+    border-color: var(--ok-border);
+  }
+
+  .warn {
+    background-color: var(--warn-subtle);
+    border-color: var(--warn-border);
+  }
+
+  .bad {
+    background-color: var(--bad-subtle);
+    border-color: var(--bad-border);
+  }
+
+  .info2 {
+    color: var(--brand-ink);
+  }
+
+  .ok2 {
+    color: var(--ok-ink);
+  }
+
+  .warn2 {
+    color: var(--warn-ink);
+  }
+
+  .bad2 {
+    color: var(--bad-ink);
+  }
+
+  .info3 {
+    background-color: var(--brand-soft);
+    color: var(--brand-ink);
+  }
+
+  .ok3 {
+    background-color: var(--ok-subtle);
+    color: var(--ok-ink);
+  }
+
+  .warn3 {
+    background-color: var(--warn-subtle);
+    color: var(--warn-ink);
+  }
+
+  .bad3 {
+    background-color: var(--bad-subtle);
+    color: var(--bad-ink);
+  }
+
+}

@@ -1,3 +1,4 @@
+import s from './empty-state.module.css'
 import type { ReactNode } from 'react'
 import { Icon, type IconName } from '../icon/icon'
 import { cx } from '../lib/cx'
@@ -21,24 +22,24 @@ export function EmptyState({ title, body, action, icon, size = 'md', bordered = 
   return (
     <div
       className={cx(
-        'flex flex-col items-center text-center',
-        small ? 'px-4 py-8' : 'px-6 py-16',
-        bordered && 'rounded-xl border border-dashed border-line-strong',
+        s.div,
+        small ? s.div2 : s.div3,
+        bordered && s.bordered,
       )}
     >
       {icon && (
         <span
           className={cx(
-            'inset-relief mb-4 inline-flex items-center justify-center rounded-xl bg-muted',
-            small ? 'size-9' : 'size-11',
+            `${s.span} inset-relief`,
+            small ? s.box : s.box2,
           )}
         >
           <Icon name={icon} size={small ? 18 : 22} className="icon-muted" />
         </span>
       )}
-      <div className={small ? 'text-body font-semibold' : 'text-reading font-semibold'}>{title}</div>
-      <p className={cx('mt-2 max-w-[42ch] font-medium text-ink-muted', small ? 'text-meta' : 'text-body')}>{body}</p>
-      {action && <div className={small ? 'mt-4' : 'mt-5'}>{action}</div>}
+      <div className={small ? s.div4 : s.div5}>{title}</div>
+      <p className={cx(s.p, small ? s.p2 : s.p3)}>{body}</p>
+      {action && <div className={small ? s.div6 : s.div7}>{action}</div>}
     </div>
   )
 }

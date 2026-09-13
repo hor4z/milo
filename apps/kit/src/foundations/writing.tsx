@@ -1,3 +1,4 @@
+import cls from './writing.module.css'
 import { Icon } from '@milo/ui'
 import { Page, Section } from '../kit'
 
@@ -39,7 +40,7 @@ export function Writing() {
         title="Las reglas"
         note="Nueve, y se revisan leyendo en voz alta."
       >
-        <div className="grid gap-3 sm:grid-cols-2">
+        <div className={cls.div}>
           {[
             ['Vos, no usted', 'Escribí, elegí, mirá. Es como habla la gente con la que trabajamos.'],
             ['Presente', '"Se publicó" y no "ha sido publicado".'],
@@ -51,9 +52,9 @@ export function Writing() {
             ['Decí qué pasa, no cuánto hay', 'Un contador informa; una frase orienta. "Tres entregas vencen mañana" se entiende de una, "3 · 12 · 79" hay que interpretarlo.'],
             ['Sin raya ni comillas angulares', 'Ni la raya larga ni las comillas angulares. Nadie las tiene a mano en un teclado, así que no aparecen en lo que escribe una persona: cuando aparecen, quien lee siente que el texto lo escribió una máquina y deja de creerle. En su lugar van los dos puntos, la coma, el paréntesis y las comillas dobles, que dicen lo mismo y no llaman la atención.'],
           ].map(([t, d]) => (
-            <div key={t} className="flex flex-col gap-1 rounded-xl border border-line bg-surface p-4">
-              <span className="text-body font-semibold text-ink">{t}</span>
-              <span className="text-meta font-medium text-ink-muted">{d}</span>
+            <div key={t} className={`${cls.div2} bg-surface`}>
+              <span className={cls.span}>{t}</span>
+              <span className={cls.span2}>{d}</span>
             </div>
           ))}
         </div>
@@ -63,18 +64,18 @@ export function Writing() {
         title="Antes y después"
         note="Los mismos mensajes escritos de las dos maneras. La diferencia nunca es de tono: es de información."
       >
-        <div className="flex flex-col gap-3">
+        <div className={cls.div3}>
           {pairs.map(p => (
-            <div key={p.good} className="overflow-hidden rounded-xl border border-line">
-              <div className="flex items-start gap-3 border-b border-line bg-bad-subtle/40 px-4 py-3">
-                <Icon name="close" size={16} className="mt-px shrink-0 text-bad" />
-                <span className="text-body font-medium text-ink line-through decoration-bad/40">{p.bad}</span>
+            <div key={p.good} className={cls.div4}>
+              <div className={cls.div5}>
+                <Icon name="close" size={16} className={cls.icon} />
+                <span className={cls.span3}>{p.bad}</span>
               </div>
-              <div className="flex items-start gap-3 px-4 py-3">
-                <Icon name="check" size={16} className="mt-px shrink-0 text-ok" />
-                <div className="flex min-w-0 flex-col gap-1">
-                  <span className="text-body font-semibold text-ink">{p.good}</span>
-                  <span className="text-meta font-medium text-ink-muted">{p.by}</span>
+              <div className={cls.div6}>
+                <Icon name="check" size={16} className={cls.icon2} />
+                <div className={cls.div7}>
+                  <span className={cls.span4}>{p.good}</span>
+                  <span className={cls.span5}>{p.by}</span>
                 </div>
               </div>
             </div>

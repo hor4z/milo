@@ -1,3 +1,4 @@
+import s from './toolbar.module.css'
 import { useLayoutEffect, useRef, type FocusEvent, type KeyboardEvent, type ReactNode } from 'react'
 import { Icon, type IconName } from '../icon/icon'
 import { cx } from '../lib/cx'
@@ -43,7 +44,7 @@ export function Toolbar({ label, children, className }: {
       aria-label={label}
       onKeyDown={mover}
       onFocus={(e: FocusEvent<HTMLDivElement>) => rodar(e.target.closest('button') ?? undefined)}
-      className={cx('flex items-center gap-1 rounded-xl border border-line bg-popover p-1 shadow-toolbar', className)}
+      className={cx(`${s.root} bg-popover`, className)}
     >
       {children}
     </div>
@@ -69,9 +70,9 @@ export function ToolbarButton({ icon, label, pressed, disabled, onClick }: {
       onClick={onClick}
       tabIndex={-1}
       className={cx(
-        'inline-flex size-8 items-center justify-center rounded-md transition-colors duration-fast ease-out',
-        'disabled:pointer-events-none disabled:opacity-45',
-        pressed ? 'bg-muted text-ink' : 'text-ink-muted hover:bg-hover hover:text-ink',
+        s.box,
+        s.box2,
+        pressed ? s.box3 : s.box4,
       )}
     >
       <Icon name={icon} size={18} />
@@ -81,5 +82,5 @@ export function ToolbarButton({ icon, label, pressed, disabled, onClick }: {
 
 /** El corte entre dos grupos de la barra. */
 export function ToolbarSeparator() {
-  return <span aria-hidden className="mx-1 h-5 w-px shrink-0 bg-line" />
+  return <span aria-hidden className={s.span} />
 }

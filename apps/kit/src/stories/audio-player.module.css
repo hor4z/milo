@@ -1,0 +1,85 @@
+@layer milo.app {
+  .div {
+    max-width: 440px;
+    padding-block: 1rem;
+  }
+
+  .div2 {
+    max-width: 440px;
+    padding-block: 1rem;
+  }
+
+  .div3 {
+    display: flex;
+    max-width: 440px;
+    flex-direction: column;
+    gap: 1rem;
+    padding-block: 1rem;
+  }
+
+  .div4 {
+    max-width: 440px;
+    padding-block: 1rem;
+  }
+
+  .div5 {
+    display: flex;
+    max-width: 440px;
+    flex-direction: column;
+    gap: 0.75rem;
+    padding-block: 1rem;
+  }
+
+  .div6 {
+    max-width: 440px;
+    padding-block: 1rem;
+  }
+
+  .div7 {
+    max-width: 440px;
+    padding-block: 1rem;
+  }
+
+  .div8 {
+    display: flex;
+    max-width: 720px;
+    flex-direction: column;
+    overflow: hidden;
+    border-radius: var(--radius-xl);
+    border-style: solid;
+    border-width: 1px;
+    border-color: var(--border);
+  }
+
+  .div9 {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    border-top-style: solid;
+    border-top-width: 1px;
+    border-color: var(--border);
+    padding-inline: 1.25rem;
+    padding-block: 1rem;
+    &:first-child {
+      border-top-style: solid;
+      border-top-width: 0;
+    }
+  }
+
+  .span {
+    font-size: var(--type-body);
+    line-height: var(--type-body-lh);
+    letter-spacing: var(--type-body-ls);
+    font-weight: var(--font-weight-semibold);
+    color: var(--text);
+  }
+
+  .span2 {
+    max-width: 70ch;
+    font-size: var(--type-meta);
+    line-height: var(--type-meta-lh);
+    letter-spacing: var(--type-meta-ls);
+    color: var(--text-muted);
+  }
+
+}

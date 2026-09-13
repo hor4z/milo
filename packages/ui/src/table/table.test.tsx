@@ -23,7 +23,8 @@ describe('Table', () => {
         <TableBody><TableRow><TableCell>x</TableCell></TableRow></TableBody>
       </Table>,
     )
-    const scroller = container.querySelector('.overflow-x-auto')!
+    const scroller = [...container.querySelectorAll('div')]
+      .find(d => getComputedStyle(d).overflowX === 'auto' || /_box_/.test(d.className))!
     expect(scroller.contains(screen.getByTestId('franja'))).toBe(false)
   })
 

@@ -1,3 +1,4 @@
+import cls from './spinner.module.css'
 import { useId } from 'react'
 import { cx } from '../lib/cx'
 
@@ -21,7 +22,7 @@ export function Spinner({ size = 20, label = 'Cargando', on = 'surface', classNa
   const r = (24 - e) / 2
   const arc = 40
   return (
-    <span role="status" aria-label={label} className={cx('inline-flex', className)}>
+    <span role="status" aria-label={label} className={cx(cls.span, className)}>
       <svg width={size} height={size} viewBox="0 0 24 24" className="spin" aria-hidden="true">
         <defs>
           <linearGradient id={gid} x1="0.5" y1="0" x2="1" y2="1">

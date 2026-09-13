@@ -1,3 +1,4 @@
+import cls from './task-list.module.css'
 import { useState } from 'react'
 import { TaskList, type Task } from '@milo/ui'
 import { A11y, Note, Page, Props, Section } from '../kit'
@@ -21,7 +22,7 @@ export function TaskListStory() {
       lead="Cosas para hacer que se marcan al hacerlas: los pasos de una entrega, lo que falta de una actividad, el checklist de un experimento."
     >
       <Section title="La pieza" note="Marcá y desmarcá: lo hecho se apaga y se tacha, que son dos avisos y no uno.">
-        <div className="max-w-[520px] rounded-xl border border-line bg-surface p-5">
+        <div className={`${cls.div} bg-surface`}>
           <TaskList items={tareas} onToggle={marcar} label="Pasos del experimento" />
         </div>
       </Section>
@@ -30,7 +31,7 @@ export function TaskListStory() {
         title="Solo de lectura"
         note="La consigna que escribió otro, o una entrega ya cerrada. Se lee igual y no se toca."
       >
-        <div className="max-w-[520px] rounded-xl border border-line bg-surface p-5">
+        <div className={`${cls.div2} bg-surface`}>
           <TaskList items={inicial} onToggle={() => {}} label="Pasos, ya cerrados" readOnly />
         </div>
       </Section>

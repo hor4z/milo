@@ -1,3 +1,4 @@
+import s from './text-field.module.css'
 import type { InputHTMLAttributes, ReactNode, Ref } from 'react'
 import { useField } from '../field/field'
 import { Icon, type IconName } from '../icon/icon'
@@ -30,17 +31,17 @@ export function TextField({ icon, suffix, size = 'lg', className, ref, inputRef,
         e.currentTarget.querySelector('input')?.focus()
       }}
       className={cx(
-        'field flex cursor-text items-center border border-field-line bg-field',
-        'has-[input:disabled]:pointer-events-none has-[input:disabled]:opacity-45',
+        `${s.root} field`,
+        s.box,
         fieldSizes[size], className,
       )}
     >
-      {icon && <Icon name={icon} size={iconSize} className="icon-muted shrink-0" />}
+      {icon && <Icon name={icon} size={iconSize} className={`${s.icon} icon-muted`} />}
       <input
         ref={inputRef}
         className={cx(
-          'h-full min-w-0 flex-1 bg-transparent font-medium text-ink outline-none placeholder:text-ink-placeholder',
-          '-mx-2 px-2',
+          s.input,
+          s.box2,
         )}
         {...field}
         {...rest}

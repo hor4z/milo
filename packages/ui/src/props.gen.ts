@@ -186,8 +186,8 @@ export const propsByComponent: Record<string, ComponentDoc> = {
         "name": "ring",
         "type": "string",
         "required": false,
-        "def": "'ring-surface'",
-        "doc": "La utilidad de color del anillo, que tiene que ser la del fondo de atrás."
+        "def": "'var(--surface)'",
+        "doc": "El color del anillo, que tiene que ser el del fondo de atrás."
       },
       {
         "name": "className",
@@ -828,7 +828,7 @@ export const propsByComponent: Record<string, ComponentDoc> = {
         "type": "'horizontal' | 'vertical'",
         "required": false,
         "def": "'horizontal'",
-        "doc": "El vertical lleva `self-stretch` adentro: en una fila con `items-center` mediría cero."
+        "doc": "El vertical se estira solo: en una fila que centra a sus hijos mediría cero."
       },
       {
         "name": "className",
@@ -2539,7 +2539,7 @@ export const propsByComponent: Record<string, ComponentDoc> = {
         "required": false
       }
     ],
-    "doc": "`last:border-0` saca el divisor de la última fila."
+    "doc": "La última fila se queda sin divisor: abajo ya está el borde de la tabla."
   },
   "TableHead": {
     "props": [

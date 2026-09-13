@@ -1,3 +1,4 @@
+import cls from './nav.module.css'
 import type { ReactNode } from 'react'
 import { cx } from '../lib/cx'
 import { Icon, type IconName } from '../icon/icon'
@@ -8,14 +9,14 @@ export function navItemClass({
   active, collapsed, muted,
 }: { active?: boolean; collapsed?: boolean; muted?: boolean } = {}) {
   return cx(
-    'flex h-10 items-center gap-3 rounded-lg text-left text-body',
-    'transition-[background-color,box-shadow] duration-fast ease-out',
-    collapsed ? 'justify-center px-0' : 'pr-3 pl-[calc((var(--nav-item-h)-34px)/2)]',
+    cls.root,
+    cls.box,
+    collapsed ? cls.box2 : cls.box3,
     active
-      ? 'bg-brand-soft font-semibold text-brand-ink shadow-[0_0_0_1px_var(--brand-border)]'
+      ? cls.box4
       : muted
-        ? 'text-ink-muted hover:bg-hover hover:text-ink'
-        : 'text-ink hover:bg-hover',
+        ? cls.box5
+        : cls.box6,
   )
 }
 
@@ -39,21 +40,21 @@ export function NavItemBody({
 }) {
   return (
     <>
-      <span className="flex size-[34px] shrink-0 items-center justify-center">
+      <span className={cls.span}>
         <span
           className={cx(
-            'flex size-[26px] items-center justify-center rounded-md transition-[background-color,box-shadow] ease-out duration-fast',
-            active && chip && 'bg-surface shadow-[0_0_0_1px_var(--border)]',
+            cls.span2,
+            active && chip && `${cls.chip} bg-surface`,
           )}
         >
-          {glyph ?? (icon && <Icon name={icon} size={20} className="text-ink" />)}
+          {glyph ?? (icon && <Icon name={icon} size={20} className={cls.icon} />)}
         </span>
       </span>
 
-      {!collapsed && <span className="min-w-0 flex-1 truncate">{label}</span>}
+      {!collapsed && <span className={cls.span3}>{label}</span>}
 
       {!collapsed && badge && (
-        <span className="inset-relief tabular rounded-sm bg-muted px-2 py-0.5 text-meta font-medium text-ink-muted">
+        <span className={`${cls.span4} inset-relief tabular`}>
           {badge}
         </span>
       )}
@@ -64,10 +65,10 @@ export function NavItemBody({
 /** La sangría de los subitems: la columna del texto del padre, no un valor nuevo. */
 export function navSubItemClass({ active }: { active?: boolean } = {}) {
   return cx(
-    'flex h-9 items-center rounded-lg pr-3 pl-12 text-left text-body',
-    'transition-[background-color,box-shadow] duration-fast ease-out',
+    cls.box7,
+    cls.box8,
     active
-      ? 'bg-brand-soft font-semibold text-brand-ink shadow-[0_0_0_1px_var(--brand-border)]'
-      : 'text-ink hover:bg-hover',
+      ? cls.box9
+      : cls.box10,
   )
 }

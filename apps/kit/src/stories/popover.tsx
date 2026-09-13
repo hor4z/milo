@@ -1,3 +1,4 @@
+import cls from './popover.module.css'
 import { Button, Popover } from '@milo/ui'
 import { A11y, Demo, Page, Props, Section } from '../kit'
 
@@ -10,7 +11,7 @@ export function PopoverStory() {
       imports="import { Popover } from '@milo/ui'"
     >
       <Section title="Vivo" note="Con `veil`, el resto de la pantalla se apaga. El velo va sin blur: el fondo se sigue reconociendo, que es lo que te dice de dónde salió el panel.">
-        <div className="flex flex-wrap items-start gap-3">
+        <div className={cls.div}>
           <Demo label="sin velo">
             <Popover
               width={320}
@@ -19,13 +20,13 @@ export function PopoverStory() {
               )}
             >
               {close => (
-                <div className="ui-pop rounded-xl border border-line bg-popover p-4 shadow-popover">
-                  <div className="text-body font-semibold">Un panel de 320</div>
-                  <p className="mt-2 text-meta text-ink-muted">
+                <div className={`${cls.div2} ui-pop bg-popover`}>
+                  <div className={cls.div3}>Un panel de 320</div>
+                  <p className={cls.p}>
                     Cierra con Escape, con un click afuera, o al scrollear la página, pero no al
                     scrollear su propio contenido. Un resize sí lo cierra siempre.
                   </p>
-                  <div className="mt-4"><Button size="sm" variant="raised" onClick={close}>Cerrar</Button></div>
+                  <div className={cls.div4}><Button size="sm" variant="raised" onClick={close}>Cerrar</Button></div>
                 </div>
               )}
             </Popover>
@@ -40,13 +41,13 @@ export function PopoverStory() {
               )}
             >
               {close => (
-                <div className="ui-pop rounded-xl border border-line bg-popover p-4 shadow-popover">
-                  <div className="text-body font-semibold">Una lista que pide leerse entera</div>
-                  <p className="mt-2 text-meta text-ink-muted">
+                <div className={`${cls.div5} ui-pop bg-popover`}>
+                  <div className={cls.div6}>Una lista que pide leerse entera</div>
+                  <p className={cls.p2}>
                     El resto de la pantalla se atenúa para ganar la mirada. Un menú de cuatro items
                     no necesita esto.
                   </p>
-                  <div className="mt-4"><Button size="sm" variant="raised" onClick={close}>Cerrar</Button></div>
+                  <div className={cls.div7}><Button size="sm" variant="raised" onClick={close}>Cerrar</Button></div>
                 </div>
               )}
             </Popover>

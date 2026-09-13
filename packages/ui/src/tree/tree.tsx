@@ -1,3 +1,4 @@
+import cls from './tree.module.css'
 import { useMemo, useRef, useState } from 'react'
 import { Icon, type IconName } from '../icon/icon'
 import { cx } from '../lib/cx'
@@ -95,7 +96,7 @@ export function Tree({ nodes, label, expanded, onExpandedChange, selected, onSel
   }
 
   return (
-    <div role="tree" aria-label={label} className={cx('flex flex-col', className)}>
+    <div role="tree" aria-label={label} className={cx(cls.div, className)}>
       {filas.map((f, i) => {
         const esActual = f.node.id === actual
         const elegido = f.node.id === selected
@@ -113,16 +114,16 @@ export function Tree({ nodes, label, expanded, onExpandedChange, selected, onSel
             onClick={() => { if (!f.hoja) abrirCerrar(f.node.id, !f.abierto); onSelect?.(f.node.id) }}
             style={{ paddingLeft: 8 + (f.nivel - 1) * 16 }}
             className={cx(
-              'flex h-9 cursor-default items-center gap-2 rounded-md pr-2 text-body transition-colors duration-fast ease-out',
-              elegido ? 'bg-brand-soft font-semibold text-brand-ink' : 'font-medium text-ink hover:bg-hover',
+              cls.box,
+              elegido ? cls.box2 : cls.box3,
             )}
           >
             {f.hoja
-              ? <span aria-hidden="true" className="size-4 shrink-0" />
-              : <Icon name={f.abierto ? 'keyboard_arrow_down' : 'chevron_right'} size={16} className="shrink-0 icon-muted" />}
-            {f.node.icon && <Icon name={f.node.icon} size={16} className="shrink-0 icon-muted" />}
-            <span className="min-w-0 flex-1 truncate">{f.node.label}</span>
-            {f.node.meta && <span className="shrink-0 text-meta font-medium text-ink-muted">{f.node.meta}</span>}
+              ? <span aria-hidden="true" className={cls.span} />
+              : <Icon name={f.abierto ? 'keyboard_arrow_down' : 'chevron_right'} size={16} className={`${cls.icon} icon-muted`} />}
+            {f.node.icon && <Icon name={f.node.icon} size={16} className={`${cls.icon2} icon-muted`} />}
+            <span className={cls.span2}>{f.node.label}</span>
+            {f.node.meta && <span className={cls.span3}>{f.node.meta}</span>}
           </div>
         )
       })}

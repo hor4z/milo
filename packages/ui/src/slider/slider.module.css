@@ -1,0 +1,98 @@
+@layer milo.components {
+  .span {
+    position: relative;
+    display: flex;
+    height: 2rem;
+    width: 100%;
+    min-width: 120px;
+    align-items: center;
+  }
+
+  .disabled {
+    opacity: .45;
+  }
+
+  .span2 {
+    pointer-events: none;
+    position: absolute;
+    inset-inline: 0;
+    height: 22px;
+    border-radius: var(--radius-full);
+  }
+
+  .span3 {
+    pointer-events: none;
+    position: absolute;
+    left: 0;
+    height: 22px;
+    border-radius: var(--radius-full);
+  }
+
+  .box {
+    position: absolute;
+    inset: 0;
+    height: 100%;
+    width: 100%;
+    cursor: pointer;
+    appearance: none;
+    background-color: #0000;
+    opacity: 0;
+    &:disabled {
+      cursor: default;
+    }
+  }
+
+  .span4 {
+    pointer-events: none;
+    position: absolute;
+    width: 1.5rem;
+    height: 1.5rem;
+    --milo-translate-x: -50%;
+    translate: var(--milo-translate-x) var(--milo-translate-y);
+    border-radius: var(--radius-full);
+  }
+
+  .box2 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .box3 {
+
+    &:is(:where(:global(.peer)):focus-visible~*) {
+      --milo-shadow: var(--switch-thumb-shadow), var(--focus-ring);
+      box-shadow: var(--milo-inset-shadow),var(--milo-inset-ring-shadow),var(--milo-ring-offset-shadow),var(--milo-ring-shadow),var(--milo-shadow);
+    }
+  }
+
+  .span5 {
+    width: 0.75rem;
+    height: 0.75rem;
+    border-radius: var(--radius-full);
+    background-color: var(--brand);
+    transition-property: transform,translate,scale,rotate;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 150ms;
+    transition-duration: var(--duration-fast);
+    transition-timing-function: var(--ease-out);
+  }
+
+  .box4 {
+    scale: 1.18;
+  }
+
+  .box5 {
+    --milo-scale-x: 100%;
+    --milo-scale-y: 100%;
+    --milo-scale-z: 100%;
+    scale: var(--milo-scale-x) var(--milo-scale-y);
+  }
+
+  .move {
+    transition-property: left,width;
+    transition-duration: var(--duration-fast);
+    transition-timing-function: var(--ease-out);
+  }
+
+}

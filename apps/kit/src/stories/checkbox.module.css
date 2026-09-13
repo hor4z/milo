@@ -1,0 +1,28 @@
+@layer milo.app {
+  .label {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: var(--type-body);
+    line-height: var(--type-body-lh);
+    letter-spacing: var(--type-body-ls);
+    font-weight: var(--font-weight-medium);
+  }
+
+  .div {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .label2 {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: var(--type-body);
+    line-height: var(--type-body-lh);
+    letter-spacing: var(--type-body-ls);
+    font-weight: var(--font-weight-medium);
+  }
+
+}

@@ -1,0 +1,108 @@
+@layer milo.app {
+  .div {
+    display: flex;
+    width: 100%;
+    max-width: 420px;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .div2 {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .skeleton {
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: var(--radius-full);
+  }
+
+  .div3 {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .skeleton2 {
+    height: 0.875rem;
+    width: 50%;
+  }
+
+  .skeleton3 {
+    height: 0.75rem;
+    width: 75%;
+  }
+
+  .div4 {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  .card {
+    width: 260px;
+  }
+
+  .skeleton4 {
+    height: 120px;
+    width: 100%;
+    border-radius: var(--radius-xl);
+  }
+
+  .div5 {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding-inline: 0.5rem;
+    padding-top: 0.75rem;
+    padding-bottom: 0.5rem;
+  }
+
+  .skeleton5 {
+    height: 0.875rem;
+    width: 75%;
+  }
+
+  .skeleton6 {
+    height: 0.75rem;
+    width: 50%;
+  }
+
+  .card2 {
+    width: 260px;
+  }
+
+  .skeleton7 {
+    height: 120px;
+    width: 100%;
+    border-radius: var(--radius-xl);
+  }
+
+  .div6 {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding-inline: 0.5rem;
+    padding-top: 0.75rem;
+    padding-bottom: 0.5rem;
+  }
+
+  .skeleton8 {
+    height: 0.875rem;
+    width: 66.6667%;
+  }
+
+  .skeleton9 {
+    height: 0.75rem;
+    width: 40%;
+  }
+
+  .a {
+    text-decoration-line: underline;
+    text-underline-offset: 2px;
+  }
+
+}

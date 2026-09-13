@@ -1,3 +1,4 @@
+import s from './mention.module.css'
 import { Mention } from '@milo/ui'
 import { A11y, Note, Page, Props, Section } from '../kit'
 
@@ -15,8 +16,8 @@ export function MentionStory() {
         title="En un párrafo"
         note="Es la prueba que importa: los renglones de arriba y de abajo tienen que seguir a la misma distancia. Con la caja de un chip, el renglón que lleva una mención se separa de los otros y el párrafo se ve roto."
       >
-        <div className="max-w-[640px] rounded-xl border border-line bg-surface p-6">
-          <p className="text-reading text-ink">
+        <div className={`${s.div} bg-surface`}>
+          <p className={s.p}>
             Para el jueves, <Mention name="Ana Pérez" src={face(1)} href="#avatar" /> y{' '}
             <Mention name="Bruno Díaz" src={face(2)} href="#avatar" /> tienen que subir el informe
             del experimento a <Mention name="Ciencias · 5.º B" icon="folder" href="#folder" />. Si
@@ -29,7 +30,7 @@ export function MentionStory() {
       </Section>
 
       <Section title="Sueltas" note="Una persona lleva su foto o su inicial; lo que no es una persona lleva un glifo.">
-        <div className="flex flex-wrap items-center gap-4 rounded-xl border border-line bg-surface p-6 text-reading">
+        <div className={`${s.div2} bg-surface`}>
           <Mention name="Ana Pérez" src={face(1)} href="#avatar" />
           <Mention name="Elena Vega" />
           <Mention name="Matemática · 4.º A" icon="folder" href="#folder" />

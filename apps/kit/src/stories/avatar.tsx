@@ -1,3 +1,4 @@
+import cls from './avatar.module.css'
 import { Avatar, AvatarGroup } from '@milo/ui'
 import { A11y, Demo, Page, Props, Section } from '../kit'
 
@@ -61,17 +62,17 @@ export function AvatarStory() {
         title="Sobre otro fondo"
         note="El anillo es del color de lo que hay atrás y no blanco fijo, así que fuera del papel hay que pasarle `ring`. Es la única forma: un avatar no puede saber sobre qué lo pusieron."
       >
-        <Demo label='ring="ring-muted" sobre bg-muted'>
-          <span className="flex items-center gap-4 rounded-xl bg-muted p-3">
+        <Demo label='ring="var(--surface-muted)" sobre una superficie apagada'>
+          <span className={cls.span}>
             <AvatarGroup
               people={[person('Ana Pérez', 1), person('Bruno Díaz', 2), person('Carla Sosa', 3), person('Damián Ruiz', 4), person('Elena Vega', 5)]}
               size={40}
-              ring="ring-muted"
+              ring="var(--surface-muted)"
             />
           </span>
         </Demo>
         <Demo label="el mismo grupo con el anillo por default: se corta contra el fondo">
-          <span className="flex items-center gap-4 rounded-xl bg-muted p-3">
+          <span className={cls.span2}>
             <AvatarGroup
               people={[person('Ana Pérez', 1), person('Bruno Díaz', 2), person('Carla Sosa', 3), person('Damián Ruiz', 4), person('Elena Vega', 5)]}
               size={40}

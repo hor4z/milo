@@ -1,3 +1,4 @@
+import cls from './icon-button.module.css'
 import { IconButton } from '@milo/ui'
 import { A11y, Page, Panel, Props, Section, Variant } from '../kit'
 
@@ -20,13 +21,13 @@ export function IconButtonStory() {
             <IconButton icon="tune" label="Ajustes" size="lg" variant="raised" />
           </Variant>
           <Variant name="al lado de su botón">
-            <span className="flex items-center gap-2">
+            <span className={cls.span}>
               <IconButton icon="tune" label="Ajustes" size="md" variant="raised" />
-              <span className="text-meta text-ink-muted">md · 36</span>
+              <span className={cls.span2}>md · 36</span>
             </span>
-            <span className="flex items-center gap-2">
+            <span className={cls.span3}>
               <IconButton icon="tune" label="Ajustes" size="lg" variant="raised" />
-              <span className="text-meta text-ink-muted">lg · 40</span>
+              <span className={cls.span4}>lg · 40</span>
             </span>
           </Variant>
         </Panel>

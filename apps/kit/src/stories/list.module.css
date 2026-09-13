@@ -1,0 +1,23 @@
+@layer milo.app {
+  .div {
+    max-width: 460px;
+  }
+
+  .p {
+    margin-top: 0.75rem;
+    max-width: 70ch;
+    font-size: var(--type-meta);
+    line-height: var(--type-meta-lh);
+    letter-spacing: var(--type-meta-ls);
+    color: var(--text-muted);
+  }
+
+  .div2 {
+    max-width: 460px;
+  }
+
+  .div3 {
+    max-width: 460px;
+  }
+
+}

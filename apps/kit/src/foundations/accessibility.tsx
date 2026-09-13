@@ -1,3 +1,4 @@
+import cls from './accessibility.module.css'
 import { Button, Chip, Field, Icon, Kbd, TextField } from '@milo/ui'
 import { A11y, Note, Page, Section } from '../kit'
 
@@ -44,14 +45,14 @@ export function AccessibilitySection() {
       imports="import { Field, Alert } from '@milo/ui'"
     >
       <Section title="Las seis reglas">
-        <div className="grid gap-3 md:grid-cols-2">
+        <div className={cls.div}>
           {reglas.map(r => (
-            <div key={r.title} className="flex flex-col gap-2 rounded-xl border border-line bg-surface p-5">
-              <span className="inset-relief mb-1 inline-flex size-9 items-center justify-center rounded-lg">
+            <div key={r.title} className={`${cls.div2} bg-surface`}>
+              <span className={`${cls.span} inset-relief`}>
                 <Icon name={r.icon} size={18} />
               </span>
-              <span className="text-reading font-semibold text-ink">{r.title}</span>
-              <p className="max-w-[46ch] text-body text-ink-muted">{r.body}</p>
+              <span className={cls.span2}>{r.title}</span>
+              <p className={cls.p}>{r.body}</p>
             </div>
           ))}
         </div>
@@ -61,11 +62,11 @@ export function AccessibilitySection() {
         title="El anillo de foco"
         note="Dos píxeles de superficie y después el azul. Los dos píxeles de papel en el medio son lo que lo deja ver también sobre un botón azul, donde un anillo pegado al borde se perdería contra el relleno. Probalo: hacé Tab acá adentro."
       >
-        <div className="flex flex-wrap items-center gap-4 rounded-xl border border-line bg-surface p-5">
+        <div className={`${cls.div3} bg-surface`}>
           <Button variant="solid">Guardar</Button>
           <Button variant="brand">Publicar</Button>
           <Button variant="raised">Cancelar</Button>
-          <span className="max-w-[38ch] text-meta text-ink-muted">
+          <span className={cls.span3}>
             Va con <code>:focus-visible</code> y no con <code>:focus</code>: el anillo aparece cuando
             se navega con el teclado y no cuando se clickea, que es cuando estorba y no informa.
           </span>
@@ -76,17 +77,17 @@ export function AccessibilitySection() {
         title="El tamaño del objetivo, y dónde el sistema queda corto"
         note="Es la regla que este sistema cumple más justo, así que va escrita en vez de escondida. WCAG 2.2 pide 24×24 como mínimo; Apple recomienda 44×44 para lo que se toca con el dedo."
       >
-        <div className="flex flex-col gap-3">
+        <div className={cls.div4}>
           {[
             ['sm', 32, 'ok', 'Pasa WCAG con holgura y queda por debajo de lo que Apple recomienda. Es para una fila densa y con mouse.'],
             ['md', 36, 'ok', 'La acción dentro de un panel.'],
             ['lg', 40, 'ok', 'La acción principal. Es el que más se acerca a los 44 del dedo.'],
           ].map(([size, px, tone, nota]) => (
-            <div key={size as string} className="flex flex-wrap items-center gap-4 rounded-xl border border-line bg-surface px-5 py-4">
-              <code className="w-10 shrink-0 font-mono text-meta font-semibold text-ink">{size}</code>
-              <span className="w-14 shrink-0 tabular text-body text-ink">{px}px</span>
+            <div key={size as string} className={`${cls.div5} bg-surface`}>
+              <code className={cls.code}>{size}</code>
+              <span className={`${cls.span4} tabular`}>{px}px</span>
               <Chip size="sm" color={tone as 'ok'}>≥ 24</Chip>
-              <span className="min-w-0 flex-1 text-meta text-ink-muted">{nota}</span>
+              <span className={cls.span5}>{nota}</span>
             </div>
           ))}
         </div>
@@ -103,11 +104,11 @@ export function AccessibilitySection() {
         title="Lo obligatorio se dice con la palabra"
         note="Un asterisco es una convención que no significa nada para quien no la conoce, y un lector de pantalla lo lee como 'asterisco'. Va el asterisco para quien lo reconoce y la palabra para todos los demás."
       >
-        <div className="flex max-w-[460px] flex-col gap-3 rounded-xl border border-line bg-surface p-5">
+        <div className={`${cls.div6} bg-surface`}>
           <Field label="Nombre de la actividad" required hint="Lo que van a ver los aprendices en su lista.">
             <TextField placeholder="Informe del experimento" />
           </Field>
-          <p className="text-meta text-ink-muted">
+          <p className={cls.p2}>
             El asterisco va <code>aria-hidden</code> y al lado viaja un "(obligatorio)" que solo
             existe para el lector de pantalla. Quien ve la pantalla lee la convención que ya conoce;
             quien la escucha oye la palabra y no "asterisco".
@@ -119,16 +120,16 @@ export function AccessibilitySection() {
         title="Lo urgente interrumpe, lo demás espera"
         note="Un error va como role=alert y un lector lo anuncia cortando lo que esté leyendo; todo lo demás va como role=status y espera su turno. Elegir mal es lo que hace que una confirmación de guardado le pise a alguien la frase que estaba escuchando."
       >
-        <div className="flex flex-wrap items-center gap-6 rounded-xl border border-line bg-surface p-5">
-          <div className="flex items-center gap-2">
-            <Icon name="error" size={16} className="text-bad" />
-            <code className="font-mono text-meta font-semibold text-ink">role="alert"</code>
-            <span className="text-meta text-ink-muted">el error de un campo</span>
+        <div className={`${cls.div7} bg-surface`}>
+          <div className={cls.div8}>
+            <Icon name="error" size={16} className={cls.icon} />
+            <code className={cls.code2}>role="alert"</code>
+            <span className={cls.span6}>el error de un campo</span>
           </div>
-          <div className="flex items-center gap-2">
+          <div className={cls.div9}>
             <Icon name="info" size={16} />
-            <code className="font-mono text-meta font-semibold text-ink">role="status"</code>
-            <span className="text-meta text-ink-muted">"Guardado", "3 resultados"</span>
+            <code className={cls.code3}>role="status"</code>
+            <span className={cls.span7}>"Guardado", "3 resultados"</span>
           </div>
         </div>
       </Section>
@@ -137,15 +138,15 @@ export function AccessibilitySection() {
         title="Las salidas"
         note="Escape usa una pila global: cierra el overlay de arriba y no todos. Un menú abierto adentro de un modal se cierra solo él, y el modal queda. Sin la pila, un Escape de más te saca de la tarea entera."
       >
-        <div className="flex flex-wrap items-center gap-3 rounded-xl border border-line bg-surface p-5">
+        <div className={`${cls.div10} bg-surface`}>
           <Kbd>Esc</Kbd>
-          <span className="text-body text-ink-muted">cierra lo de más arriba</span>
-          <span className="text-ink-disabled">·</span>
+          <span className={cls.span8}>cierra lo de más arriba</span>
+          <span className={cls.span9}>·</span>
           <Kbd>Tab</Kbd>
-          <span className="text-body text-ink-muted">no se escapa de un diálogo abierto</span>
-          <span className="text-ink-disabled">·</span>
+          <span className={cls.span10}>no se escapa de un diálogo abierto</span>
+          <span className={cls.span11}>·</span>
           <Kbd>/</Kbd>
-          <span className="text-body text-ink-muted">busca, salvo que estés escribiendo</span>
+          <span className={cls.span12}>busca, salvo que estés escribiendo</span>
         </div>
       </Section>
 
@@ -153,7 +154,7 @@ export function AccessibilitySection() {
         El blanco sobre los dos rellenos saturados no llegaba a AA: el botón <code>brand</code> iba
         de 2.89:1 arriba del degradado a 3.75:1 abajo, y el <code>bad</code> daba 3.75:1. El texto
         de un botón es de 16/600, que para WCAG no es texto grande, así que el mínimo era 4.5 y no 3.
-        Los dos rellenos ahora están <strong className="font-semibold text-ink">anclados</strong>:
+        Los dos rellenos ahora están <strong className={cls.strong}>anclados</strong>:
         son el escalón donde el blanco encima llega exactamente a 4.5:1, derivado por búsqueda en
         OKLCH y no elegido mirando. El degradado del azul va de 600 a 700, así que pasa de punta a
         punta y no solo en la mitad de abajo. Hay un test que lo mide en los dos temas.

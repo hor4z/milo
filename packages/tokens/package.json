@@ -2,7 +2,7 @@
   "name": "@milo/tokens",
   "version": "0.0.0",
   "private": true,
-  "description": "La identidad: valores crudos, roles y escalas. Sin Tailwind y sin JS.",
+  "description": "La identidad: valores crudos, roles y escalas. Sin librerías y sin JS.",
   "exports": {
     ".": "./src/index.css",
     "./*": "./src/*"

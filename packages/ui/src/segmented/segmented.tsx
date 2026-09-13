@@ -1,3 +1,4 @@
+import s from './segmented.module.css'
 import { Icon, type IconName } from '../icon/icon'
 import { useFieldGroup } from '../field/field'
 import { cx } from '../lib/cx'
@@ -40,10 +41,10 @@ export function Segmented<T extends string>({
       {...(label ? {} : group)}
       onKeyDown={roving.onKeyDown}
       className={cx(
-        'inline-flex items-center',
-        size === 'xs' ? 'gap-1' : 'gap-0.5 bg-muted',
-        size === 'sm' && 'rounded-lg p-0.5',
-        size === 'md' && 'rounded-lg p-0.5',
+        s.root,
+        size === 'xs' ? s.xs : s.box,
+        size === 'sm' && s.box2,
+        size === 'md' && s.box3,
       )}
     >
       {options.map(o => {
@@ -61,21 +62,21 @@ export function Segmented<T extends string>({
             tabIndex={roving.tabIndex(o.value)}
             onClick={() => onChange(o.value)}
             className={cx(
-              'relative inline-flex items-center justify-center gap-2',
-              'transition-[background-color,color,box-shadow] duration-normal ease-out',
-              'disabled:pointer-events-none disabled:opacity-45',
-              size === 'xs' ? 'min-h-6 rounded-md text-meta' : size === 'sm' ? 'min-h-7 rounded-md text-body' : 'min-h-8 rounded-md text-body',
+              s.box4,
+              s.box5,
+              s.box6,
+              size === 'xs' ? s.xs2 : size === 'sm' ? s.sm : s.box7,
               iconOnly
-                ? (size === 'xs' ? 'w-6' : size === 'sm' ? 'w-7' : 'w-8')
-                : (size === 'xs' ? 'px-2' : size === 'sm' ? 'px-3' : 'px-4'),
+                ? (size === 'xs' ? s.iconOnlyXs : size === 'sm' ? s.iconOnlySm : s.iconOnlyMd)
+                : (size === 'xs' ? s.padXs : size === 'sm' ? s.padSm : s.padMd),
               active
-                ? (size === 'xs' ? 'bg-muted font-semibold text-ink' : 'bg-surface font-semibold text-ink [--relief:var(--relief-raised)] shadow-(--relief)')
-                : 'text-ink-muted hover:text-ink',
+                ? (size === 'xs' ? s.activeXs : s.active)
+                : s.box8,
             )}
           >
             {o.icon && <Icon name={o.icon} size={size === 'md' ? 20 : 18} />}
             {o.label}
-            {o.dot && <span className="size-1.5 rounded-full bg-ok" />}
+            {o.dot && <span className={s.span} />}
           </button>
         )
         return iconOnly && o.title

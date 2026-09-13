@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "type": "module",
-  "description": "Los componentes del sistema y el puente a Tailwind.",
+  "description": "Los componentes del sistema, sus tokens y su CSS.",
   "exports": {
     ".": "./src/index.ts",
     "./theme.css": "./src/theme.css",

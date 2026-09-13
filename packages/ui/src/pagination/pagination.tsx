@@ -1,3 +1,4 @@
+import cls from './pagination.module.css'
 import type { ComponentPropsWithoutRef, ReactNode } from 'react'
 import { Button } from '../button/button'
 import { cx } from '../lib/cx'
@@ -8,7 +9,7 @@ export function Pagination({ className, 'aria-label': label = 'Paginación', ...
     <nav
       aria-label={label}
       className={cx(
-        'flex flex-wrap items-center gap-3 border-t border-line px-4 py-3',
+        cls.nav,
         className,
       )}
       {...props}
@@ -42,7 +43,7 @@ export function PaginationStatus({
       ? `${from} a ${to} de ${total}${tail}`
       : `${from} a ${to}${tail}`
   return (
-    <p role="status" className={cx('tabular text-body font-medium text-ink-muted', className)} {...props}>
+    <p role="status" className={cx(`${cls.p} tabular`, className)} {...props}>
       {children ?? phrase}
     </p>
   )
@@ -55,7 +56,7 @@ type PaginationNavProps = Omit<ComponentPropsWithoutRef<'button'>, 'children'> &
 /** Los dos viajan juntos y están siempre, apagados en las puntas. */
 export function PaginationPrev({ className, children = 'Anterior', ...props }: PaginationNavProps) {
   return (
-    <Button type="button" variant="ghost" size="sm" icon="chevron_left" className={cx('ml-auto !text-ink', className)} {...props}>
+    <Button type="button" variant="ghost" size="sm" icon="chevron_left" className={cx(cls.button, className)} {...props}>
       {children}
     </Button>
   )
@@ -64,7 +65,7 @@ export function PaginationPrev({ className, children = 'Anterior', ...props }: P
 /** Su `disabled` es el "hay más" que contesta el back: mientras haya, hay siguiente. */
 export function PaginationNext({ className, children = 'Siguiente', ...props }: PaginationNavProps) {
   return (
-    <Button type="button" variant="ghost" size="sm" iconEnd="chevron_right" className={cx('!text-ink', className)} {...props}>
+    <Button type="button" variant="ghost" size="sm" iconEnd="chevron_right" className={cx(cls.button2, className)} {...props}>
       {children}
     </Button>
   )

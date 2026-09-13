@@ -1,3 +1,4 @@
+import cls from './toast.module.css'
 import { createContext, useCallback, useContext, useEffect, useId, useMemo, useRef, useState, type ReactNode } from 'react'
 import { Button } from '../button/button'
 import { IconButton } from '../icon-button/icon-button'
@@ -65,7 +66,7 @@ export function ToastProvider({ children, max = 3 }: {
           <ol
             aria-live="polite"
             aria-label="Avisos"
-            className="fixed right-4 bottom-4 z-[70] flex w-[min(380px,calc(100vw-2rem))] flex-col gap-2"
+            className={cls.ol}
           >
             {list.map(t => <ToastItem key={t.id} toast={t} onDismiss={dismiss} />)}
           </ol>
@@ -90,28 +91,28 @@ function ToastItem({ toast, onDismiss }: { toast: ToastRecord; onDismiss: (id: s
 
   return (
     <li
-      className="ui-rise flex gap-3 rounded-xl border border-line bg-popover p-4 shadow-popover"
+      className={`${cls.li} ui-rise bg-popover`}
       onPointerEnter={() => setPaused(true)}
       onPointerLeave={() => setPaused(false)}
       onFocus={() => setPaused(true)}
       onBlur={() => setPaused(false)}
       aria-labelledby={id}
     >
-      <span className={cx('flex size-7 shrink-0 items-center justify-center rounded-md', toneClass[tone])}>
+      <span className={cx(cls.span, toneClass[tone])}>
         <Icon name={toneIcon[tone]} size={18} />
       </span>
-      <div className="flex min-w-0 flex-1 flex-col gap-1 py-0.5">
-        <p id={id} className="text-reading font-semibold text-ink">{title}</p>
-        {body && <p className="text-body font-medium text-ink-muted">{body}</p>}
+      <div className={cls.div}>
+        <p id={id} className={cls.p}>{title}</p>
+        {body && <p className={cls.p2}>{body}</p>}
         {action && (
-          <div className="mt-2 flex items-center gap-2">
+          <div className={cls.div2}>
             <Button size="sm" variant="raised" onClick={() => { action.onClick?.(); close() }}>
               {action.label}
             </Button>
           </div>
         )}
       </div>
-      <IconButton icon="close" label="Cerrar el aviso" size="sm" variant="ghost" onClick={close} className="-mt-0.5 -mr-1" />
+      <IconButton icon="close" label="Cerrar el aviso" size="sm" variant="ghost" onClick={close} className={cls.iconButton} />
     </li>
   )
 }

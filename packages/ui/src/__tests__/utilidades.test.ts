@@ -18,69 +18,81 @@ const fuentes = [
   ...walk(kit).map(f => ({ nombre: `kit/${f}`, texto: readFileSync(join(kit, f), 'utf8') })),
 ]
 
-const puente = readFileSync(join(ui, 'theme.css'), 'utf8')
-const colores = new Set([...puente.matchAll(/^\s*--color-([a-z0-9-]+):/gm)].map(m => m[1]))
+/* Todo lo que el sistema declara: los tokens crudos, los roles, las escalas y
+   lo que define el propio puente. */
+const tokens = join(ui, '../../tokens/src')
+const puente = [
+  join(ui, 'theme.css'),
+  join(ui, 'styles/base.css'),
+  join(ui, 'styles/reset.css'),
+  join(tokens, 'primitives.css'),
+  join(tokens, 'semantic.css'),
+  join(tokens, 'scales.css'),
+].map(f => readFileSync(f, 'utf8')).join('\n')
 
-const noSonColor = /^(transparent|current|none|clip-|origin-|repeat|no-repeat|cover|contain|center|top|bottom|left|right|fixed|local|scroll|auto|gradient-|linear-|radial-|conic-)/
+/* Los módulos de las piezas y los del kit: es donde ahora vive todo el estilo. */
+function modulos(base: string, prefijo = ''): { nombre: string; texto: string }[] {
+  return readdirSync(base, { withFileTypes: true }).flatMap(e =>
+    e.isDirectory() ? (e.name === 'node_modules' ? [] : modulos(join(base, e.name), `${prefijo}${e.name}/`))
+    : e.name.endsWith('.module.css')
+      ? [{ nombre: `${prefijo}${e.name}`, texto: readFileSync(join(base, e.name), 'utf8') }]
+      : [])
+}
 
-describe('las utilidades de color existen', () => {
-  it('ningún `bg-` nombra un color que el puente no declara', () => {
-    const huerfanos: string[] = []
-    for (const f of fuentes) {
-      for (const m of f.texto.matchAll(/\bbg-([a-z][a-z0-9-]*)(?:\/\d+)?\b/g)) {
-        const nombre = m[1]
-        if (noSonColor.test(nombre) || colores.has(nombre)) continue
-        huerfanos.push(`${f.nombre}: bg-${nombre}`)
-      }
-    }
-    expect([...new Set(huerfanos)]).toEqual([])
-  })
+const css = [...modulos(ui), ...modulos(kit)]
 
-  it('ningún `text-`, `border-`, `ring-` ni `fill-` nombra un color que no existe', () => {
-    const tipos = new Set([...puente.matchAll(/^\s*--text-([a-z0-9-]+):/gm)].map(m => m[1]))
-    const comunes = /^(transparent|current|inherit|none)$/
-    const deTexto = /^(left|center|right|justify|start|end|nowrap|wrap|balance|pretty|ellipsis|clip)$/
-    const deBorde = /^([trblxyse](-\d+)?|\d+|solid|dashed|dotted|double|hidden|separate|collapse|spacing(-\d+)?)$/
-    const deAnillo = /^(inset|offset(-\d+)?|\d+)$/
-
-    const ejes: [string, (n: string) => boolean][] = [
-      ['text', n => colores.has(n) || tipos.has(n) || deTexto.test(n)],
-      ['border', n => colores.has(n) || deBorde.test(n)],
-      ['ring', n => colores.has(n) || deAnillo.test(n)],
-      ['fill', n => colores.has(n)],
-      ['stroke', n => colores.has(n)],
-    ]
-
-    const huerfanos: string[] = []
-    for (const f of fuentes) {
-      const limpio = f.texto
-        .replace(/--[a-z0-9-]+/g, ' ')
-        .replace(/transition-\[[^\]]*\]/g, ' ')
-        .replace(/`[^`]*`/g, ' ')
-        .replace(/<code[^>]*>[\s\S]*?<\/code>/g, ' ')
-      for (const [eje, vale] of ejes) {
-        for (const m of limpio.matchAll(new RegExp(`(?<![\\w-])${eje}-([a-z][a-z0-9-]*)(?:/\\d+)?(?![\\w-])`, 'g'))) {
-          if (comunes.test(m[1]) || vale(m[1])) continue
-          huerfanos.push(`${f.nombre}: ${eje}-${m[1]}`)
-        }
-      }
-    }
-    expect([...new Set(huerfanos)]).toEqual([])
-  })
-
-  it('ninguna clase del puente se quedó sin usar', () => {
-    const clases = new Set([
-      ...[...puente.matchAll(/^\.([a-z][a-z0-9-]*)\s*[,{]/gm)].map(m => m[1]),
-      ...[...puente.matchAll(/^@utility ([a-z][a-z0-9-]*)/gm)].map(m => m[1]),
+describe('el CSS del sistema se sostiene solo', () => {
+  it('ningún módulo nombra un token que no existe', () => {
+    /* Es el mismo bug que antes atrapaba el puente, con otra forma: un
+       `var(--surface-mutado)` no falla, resuelve a vacío y el elemento se queda
+       sin color, sin error y sin que nadie se entere. */
+    const declarados = new Set([
+      /* Sin `^`: hay líneas con dos declaraciones, que es como está escrito el
+         par suave de cada color. */
+      ...[...puente.matchAll(/(--[a-z][\w-]*)\s*:/g)].map(m => m[1]),
+      ...[...puente.matchAll(/@property\s+(--[\w-]+)/g)].map(m => m[1]),
+      /* Y las que una pieza pone por `style`, que existen solo en tiempo de uso. */
+      ...fuentes.flatMap(f => [...f.texto.matchAll(/'(--[a-z][\w-]*)'\s*:/g)].map(m => m[1])),
     ])
+    const propios = /^--milo-/
+
+    const huerfanos: string[] = []
+    for (const f of css) {
+      for (const m of f.texto.matchAll(/var\((--[a-z][\w-]*)/g)) {
+        if (declarados.has(m[1]) || propios.test(m[1])) continue
+        huerfanos.push(`${f.nombre}: ${m[1]}`)
+      }
+    }
+    expect([...new Set(huerfanos)]).toEqual([])
+  })
+
+  it('ninguna clase de un módulo se quedó sin usar', () => {
+    /* CSS muerto no rompe nada y por eso se queda. */
     const muertas: string[] = []
-    for (const c of clases) {
-      const suelta = new RegExp(`(?<![\\w-])${c}(?![\\w-])`)
-      if (fuentes.some(f => suelta.test(f.texto))) continue
-      if (puente.split(c).length - 1 > 1) continue
-      muertas.push(c)
+    for (const f of css) {
+      const fuente = fuentes.find(s => s.nombre.endsWith(f.nombre.replace('.module.css', '.tsx'))
+        || s.nombre.endsWith(f.nombre.replace('.module.css', '.ts')))
+      if (!fuente) continue
+      for (const m of f.texto.matchAll(/^\s*\.([A-Za-z][\w]*)\s*\{/gm)) {
+        if (new RegExp(`\\.${m[1]}(?![\\w])`).test(fuente.texto)) continue
+        muertas.push(`${f.nombre}: .${m[1]}`)
+      }
     }
     expect(muertas).toEqual([])
+  })
+
+  it('no queda nada de Tailwind', () => {
+    /* Las directivas son lo que más caro sale: `@theme` y `@utility` no son CSS,
+       así que sin Tailwind el navegador se saltea el bloque entero y lo que había
+       adentro deja de existir, sin un error en ningún lado. Así estuvieron los
+       tres pesos, con el sistema dibujando 400 donde pedía 450. */
+    const restos: string[] = []
+    for (const f of [...css, { nombre: 'theme.css', texto: puente }]) {
+      if (/--tw-|@tailwind|@apply\b|@source\b|@utility\b|@theme\b|var\(--spacing\)|var\(--default-/.test(f.texto)) {
+        restos.push(f.nombre)
+      }
+    }
+    expect(restos).toEqual([])
   })
 
   it('el anillo de foco vive fuera de toda capa', () => {
@@ -97,9 +109,10 @@ describe('las utilidades de color existen', () => {
     expect(profundidad, 'la regla quedó anidada adentro de otro bloque').toBe(0)
   })
 
-  it('el puente declara los colores que el sistema promete', () => {
-    for (const n of ['surface', 'canvas', 'muted', 'sunken', 'brand', 'line', 'line-strong', 'ink', 'ink-muted']) {
-      expect(colores.has(n), `falta --color-${n}`).toBe(true)
+  it('el sistema declara los roles que promete', () => {
+    const roles = new Set([...puente.matchAll(/(--[a-z][\w-]*)\s*:/g)].map(m => m[1]))
+    for (const n of ['--surface', '--canvas', '--surface-muted', '--surface-sunken', '--brand', '--border', '--border-strong', '--text', '--text-muted']) {
+      expect(roles.has(n), `falta ${n}`).toBe(true)
     }
   })
 })

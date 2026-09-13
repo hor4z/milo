@@ -1,3 +1,4 @@
+import cls from './principles.module.css'
 import { Icon, type IconName } from '@milo/ui'
 import { Page, Section } from '../kit'
 
@@ -40,14 +41,14 @@ export function Principles() {
       title="Principios"
       lead="Seis decisiones de las que sale casi todo lo demás. No son gustos: cada una se rompió al menos una vez y dejó una cicatriz que conviene no repetir."
     >
-      <div className="grid gap-3 md:grid-cols-2">
+      <div className={cls.div}>
         {principles.map(p => (
-          <div key={p.title} className="flex flex-col gap-3 rounded-xl border border-line bg-surface p-5">
-            <span className="inset-relief flex size-9 items-center justify-center rounded-xl bg-muted">
+          <div key={p.title} className={`${cls.div2} bg-surface`}>
+            <span className={`${cls.span} inset-relief`}>
               <Icon name={p.icon} size={20} className="icon-muted" />
             </span>
-            <h2 className="text-reading font-semibold text-ink">{p.title}</h2>
-            <p className="text-body font-medium text-ink-muted">{p.body}</p>
+            <h2 className={cls.h2}>{p.title}</h2>
+            <p className={cls.p}>{p.body}</p>
           </div>
         ))}
       </div>
@@ -56,7 +57,7 @@ export function Principles() {
         title="Cómo se arma una pieza"
         note="Todo lo que se compone se expone en partes en vez de recibir un objeto de configuración. Un Alert es AlertTitle, AlertBody y AlertActions; unas solapas son Tabs, TabList, Tab y TabPanel. Cuesta dos líneas más de escribir y evita la prop número catorce."
       >
-        <pre className="m-0 overflow-x-auto rounded-xl border border-line bg-sunken p-5 font-mono text-body text-ink">
+        <pre className={cls.pre}>
 {`<Alert tone="warn">
   <AlertTitle>Tres entregas vencen mañana</AlertTitle>
   <AlertBody>Después de esa fecha nadie puede subir nada.</AlertBody>

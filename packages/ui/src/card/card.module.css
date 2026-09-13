@@ -1,0 +1,78 @@
+@layer milo.components {
+  .div {
+    border-radius: var(--radius-xl);
+    padding: 0.5rem;
+  }
+
+  .muted {
+    background-color: var(--surface-muted);
+  }
+
+  .div2 {
+    border-style: solid;
+    border-width: 1px;
+    border-color: var(--border);
+    --milo-shadow: var(--relief-card);
+    box-shadow: var(--milo-inset-shadow),var(--milo-inset-ring-shadow),var(--milo-ring-offset-shadow),var(--milo-ring-shadow),var(--milo-shadow);
+  }
+
+  .interactive {
+    transition-property: box-shadow;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 150ms;
+    transition-duration: var(--duration-normal);
+    transition-timing-function: var(--ease-out);
+  }
+
+  .div3 {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 1rem;
+    padding-inline: 0.75rem;
+    padding-top: 0.75rem;
+    padding-bottom: 0.25rem;
+  }
+
+  .h3 {
+    font-size: var(--type-reading);
+    line-height: var(--type-reading-lh);
+    letter-spacing: var(--type-reading-ls);
+    font-weight: var(--font-weight-semibold);
+    color: var(--text);
+  }
+
+  .p {
+    font-size: var(--type-body);
+    line-height: var(--type-body-lh);
+    letter-spacing: var(--type-body-ls);
+    font-weight: var(--font-weight-medium);
+    color: var(--text-muted);
+  }
+
+  .div4 {
+    padding-inline: 0.75rem;
+    padding-block: 0.5rem;
+  }
+
+  .div5 {
+    margin-top: 0.25rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    border-top-style: solid;
+    border-top-width: 1px;
+    border-color: var(--border);
+    padding-inline: 0.75rem;
+    padding-top: 0.75rem;
+    padding-bottom: 0.5rem;
+  }
+
+  @media (hover:hover) {
+    .interactive:hover {
+        --milo-shadow: var(--relief-toolbar);
+        box-shadow: var(--milo-inset-shadow),var(--milo-inset-ring-shadow),var(--milo-ring-offset-shadow),var(--milo-ring-shadow),var(--milo-shadow);
+    }
+  }
+
+}

@@ -1,3 +1,4 @@
+import css from './layout.module.css'
 import { Card, CardBody } from '@milo/ui'
 import { A11y, Note, Page, Section } from '../kit'
 
@@ -28,12 +29,12 @@ export function LayoutSection() {
         title="Cuatro cortes, y cada uno hace algo distinto"
         note="Son los de siempre. Lo que no es de siempre es cuál usar: elegirlos por costumbre es lo que hace que dos grillas iguales cambien en momentos distintos."
       >
-        <div className="flex flex-col overflow-hidden rounded-xl border border-line bg-surface">
+        <div className={`${css.div} bg-surface`}>
           {cortes.map(c => (
-            <div key={c.cls} className="flex flex-wrap items-baseline gap-x-5 gap-y-1 border-t border-line px-5 py-4 first:border-t-0">
-              <code className="w-16 shrink-0 font-mono text-body font-semibold text-ink">{c.cls}</code>
-              <span className="w-20 shrink-0 tabular text-meta text-ink-muted">{c.px}px</span>
-              <span className="min-w-0 flex-1 text-body text-ink-muted">{c.para}</span>
+            <div key={c.cls} className={css.div2}>
+              <code className={css.code}>{c.cls}</code>
+              <span className={`${css.span} tabular`}>{c.px}px</span>
+              <span className={css.span2}>{c.para}</span>
             </div>
           ))}
         </div>
@@ -43,12 +44,12 @@ export function LayoutSection() {
         title="Las medidas del mueble"
         note="No se eligen por pantalla: son las mismas siempre, y lo que cambia con el ancho es si están o no."
       >
-        <div className="flex flex-col overflow-hidden rounded-xl border border-line bg-surface">
+        <div className={`${css.div3} bg-surface`}>
           {shell.map(([que, px, nota]) => (
-            <div key={que} className="flex flex-wrap items-baseline gap-x-5 gap-y-1 border-t border-line px-5 py-4 first:border-t-0">
-              <span className="w-48 shrink-0 text-body font-medium text-ink">{que}</span>
-              <span className="w-16 shrink-0 tabular text-body text-ink">{px}</span>
-              <span className="min-w-0 flex-1 text-meta text-ink-muted">{nota}</span>
+            <div key={que} className={css.div4}>
+              <span className={css.span3}>{que}</span>
+              <span className={`${css.span4} tabular`}>{px}</span>
+              <span className={css.span5}>{nota}</span>
             </div>
           ))}
         </div>
@@ -58,15 +59,15 @@ export function LayoutSection() {
         title="Una pantalla es una columna de secciones"
         note="Esto es la estructura de la pantalla, no las grillas de adentro: una sección puede tener sus tarjetas en tres o cuatro columnas. Lo que no llega a tres es la estructura: dos columnas ya piden decidir por dónde se empieza a leer, y la segunda solo se justifica cuando acompaña a la primera en vez de competirle."
       >
-        <div className="grid gap-4 lg:grid-cols-[1.55fr_1fr]">
+        <div className={css.div5}>
           <Card>
             <CardBody>
-              <div className="flex h-28 items-center justify-center rounded-lg bg-sunken text-body text-ink-muted">Lo que la pantalla viene a mostrar</div>
+              <div className={css.div6}>Lo que la pantalla viene a mostrar</div>
             </CardBody>
           </Card>
           <Card surface="muted">
             <CardBody>
-              <div className="flex h-28 items-center justify-center rounded-lg text-body text-ink-muted">Lo que acompaña</div>
+              <div className={css.div7}>Lo que acompaña</div>
             </CardBody>
           </Card>
         </div>

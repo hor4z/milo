@@ -1,3 +1,4 @@
+import cls from './field.module.css'
 import { useState } from 'react'
 import { Checkbox, Field, FieldSet, Select, Switch, TextField, Textarea } from '@milo/ui'
 import { A11y, Canvas, Note, Page, Props, Section } from '../kit'
@@ -23,7 +24,7 @@ export function FieldStory() {
         note="La etiqueta enfoca el campo al tocarla, la ayuda se anuncia junto con el control y el error la reemplaza además de marcar el campo como inválido. Los campos del sistema se atan solos: no hay que pasarles `id` ni `aria-describedby`."
       >
         <Canvas>
-          <div className="flex max-w-[420px] flex-col gap-5">
+          <div className={cls.div}>
             <Field label="Nombre de la actividad" hint="Lo ven los estudiantes" required error={error}>
               <TextField
                 value={name}
@@ -44,7 +45,7 @@ export function FieldStory() {
         note="No solo para los campos de texto: el select, el switch y la casilla también toman el `id` y la descripción del Field. Es la diferencia entre una etiqueta que enfoca y una etiqueta que es texto al lado de un control."
       >
         <Canvas>
-          <div className="flex max-w-[420px] flex-col gap-5">
+          <div className={cls.div2}>
             <Field label="Espacio" hint="Dónde se publica">
               <Select value={espacio} onChange={setEspacio} options={['Matemática · 4.º A', 'Lengua · 6.º']} />
             </Field>
@@ -63,7 +64,7 @@ export function FieldStory() {
         note="El asterisco es una convención que no significa nada para quien no la conoce y que un lector de pantalla lee como 'asterisco'. Acá va el asterisco para la vista y la palabra 'obligatorio' para el lector."
       >
         <Canvas>
-          <div className="w-full max-w-[320px]">
+          <div className={cls.div3}>
             <Field label="Espacio" required>
               <Select value={donde} onChange={setDonde} options={['Matemática · 4.º A', 'Lengua · 6.º']} />
             </Field>
@@ -76,7 +77,7 @@ export function FieldStory() {
         note="Agrupa los campos que van juntos y les pone un título que el lector anuncia al entrar al grupo. En un formulario de tres campos sobra; en uno de doce es lo que lo hace legible."
       >
         <Canvas>
-          <div className="w-full max-w-[420px]">
+          <div className={cls.div4}>
             <FieldSet legend="Lo básico">
               <Field label="Nombre" required>
                 <TextField placeholder="Fracciones equivalentes" />
@@ -92,7 +93,7 @@ export function FieldStory() {
       <Note title="Field o Row">
         El Field es para un formulario que se completa y se envía. Un ajuste que se guarda solo al
         tocarlo (etiqueta a la izquierda, switch a la derecha) es un
-        {' '}<a className="underline underline-offset-2" href="#row">Row</a>.
+        {' '}<a className={cls.a} href="#row">Row</a>.
       </Note>
 
       <Section title="Props">

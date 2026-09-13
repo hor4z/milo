@@ -1,0 +1,10 @@
+@layer milo.app {
+  .div {
+    overflow: hidden;
+    border-radius: var(--radius-xl);
+    border-style: solid;
+    border-width: 1px;
+    border-color: var(--border);
+  }
+
+}

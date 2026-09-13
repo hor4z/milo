@@ -1,3 +1,4 @@
+import cls from './breadcrumb.module.css'
 import { Breadcrumb } from '@milo/ui'
 import { A11y, Canvas, Note, Page, Props, Section } from '../kit'
 
@@ -13,7 +14,7 @@ export function BreadcrumbStory() {
         title="De la raíz hasta acá"
         note="El último item no es un link: es dónde estás, y va marcado con `aria-current`. Los de atrás sí lo son, porque son la única forma de subir un nivel sin usar el botón del navegador."
       >
-        <Canvas className="flex-col items-start gap-4">
+        <Canvas className={cls.canvas}>
           <Breadcrumb label="Ruta completa" items={[
             { label: 'Espacios', onClick: () => {} },
             { label: 'Matemática · 4.º A', onClick: () => {} },
@@ -27,7 +28,7 @@ export function BreadcrumbStory() {
         title="Con href o con onClick"
         note="`href` es lo correcto cuando hay una URL de verdad: el click del medio abre en otra pestaña y el navegador la puede guardar. `onClick` es para cuando la navegación la maneja la app y no hay dirección que dar."
       >
-        <Canvas className="flex-col items-start gap-4">
+        <Canvas className={cls.canvas2}>
           <Breadcrumb label="Ruta con nombres largos" items={[
             { label: 'Espacios', href: '#breadcrumb' },
             { label: 'Ciencias · 5.º B', href: '#breadcrumb' },

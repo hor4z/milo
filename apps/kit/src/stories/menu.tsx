@@ -1,3 +1,4 @@
+import cls from './menu.module.css'
 import { useState } from 'react'
 import { Button, Divider, Menu, MenuItem, MenuLabel, Popover } from '@milo/ui'
 import { A11y, Mono, Page, Panel, Props, Section, Variant } from '../kit'
@@ -52,7 +53,7 @@ export function MenuStory() {
             </Menu>
           </Variant>
         </Panel>
-        <p className="mt-3 max-w-[70ch] text-meta text-ink-muted">
+        <p className={cls.p}>
           El separador se estira hasta el borde del panel, y esa cuenta la hace el panel porque es
           el que conoce su padding. Si la hiciera el separador, cada call site tendría que
           acordarse de un número que no es suyo.
@@ -84,7 +85,7 @@ export function MenuStory() {
             </Popover>
           </Variant>
         </Panel>
-        <p className="mt-3 max-w-[70ch] text-meta text-ink-muted">
+        <p className={cls.p2}>
           Sin <Mono>width</Mono> el Popover mide el panel ya montado para alinearlo y para que
           entre en la ventana. Y si abajo del disparador no hay lugar y arriba sí, el panel sube
           solo.

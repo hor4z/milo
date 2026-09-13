@@ -18,6 +18,12 @@
   --font-display: var(--font-sans);
   --font-mono: var(--font-sans);
 
+  /* Tres pesos y nada más. El 450 y no 500 porque el 500 ya se lee como negrita,
+     y el 600 solo entra en el tamaño display. */
+  --font-weight-medium: 400;
+  --font-weight-semibold: 450;
+  --font-weight-bold: 600;
+
   --type-meta: 0.75rem;        
   --type-meta-lh: 1rem;        
   --type-meta-ls: 0.01em;

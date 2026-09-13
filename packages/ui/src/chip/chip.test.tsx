@@ -1,4 +1,6 @@
 import { render, screen } from '@testing-library/react'
+import { estilo } from '../__tests__/estilo'
+import s from './chip.module.css'
 import userEvent from '@testing-library/user-event'
 import { describe, expect, it, vi } from 'vitest'
 import { Chip } from './chip'
@@ -50,20 +52,20 @@ describe('Chip', () => {
       </>,
     )
     const [estado, categoria] = [...container.children] as HTMLElement[]
-    expect(estado.className).toContain('warn')
-    expect(categoria.className).toContain('label-purple')
+    expect(estilo(estado)).toContain('var(--warn')
+    expect(estado.className).not.toBe(categoria.className)
   })
 
   it('sm es más chico que md y es el que va pegado a un título', () => {
     const { container: sm } = render(<Chip size="sm">Borrador</Chip>)
     const { container: md } = render(<Chip>Borrador</Chip>)
-    expect(sm.querySelector('span')!.className).toContain('min-h-5')
-    expect(md.querySelector('span')!.className).toContain('min-h-7')
+    expect(sm.querySelector('span')!.className).toContain(s.chipSizeSm)
+    expect(md.querySelector('span')!.className).toContain(s.chipSizeMd)
   })
 
   it('no se achica: el que envuelve el renglón es el título, no la marca', () => {
     const { container } = render(<Chip size="sm">Vence mañana</Chip>)
-    expect(container.querySelector('span')!.className).toContain('shrink-0')
+    expect(container.querySelector('span')!.className).toContain(s.box)
   })
 
   it('pasa de largo lo que le pongan de la etiqueta nativa', () => {

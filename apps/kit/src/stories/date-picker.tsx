@@ -1,3 +1,4 @@
+import cls from './date-picker.module.css'
 import { useState } from 'react'
 import { DatePicker, Field, FieldSet } from '@milo/ui'
 import { A11y, Canvas, Note, Page, Props, Section } from '../kit'
@@ -25,7 +26,7 @@ export function DatePickerStory() {
         note="Como cualquier otro control del sistema: el `Field` de alrededor le pone el nombre y la ayuda, y el campo se hunde o no según la superficie donde caiga."
       >
         <Canvas>
-          <div className="flex max-w-[420px] flex-col gap-5">
+          <div className={cls.div}>
             <FieldSet legend="Cuándo">
               <Field label="Abre" hint="Desde cuándo se puede entregar">
                 <DatePicker value={desde} onChange={setDesde} />

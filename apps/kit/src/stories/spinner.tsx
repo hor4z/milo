@@ -1,3 +1,4 @@
+import cls from './spinner.module.css'
 import { Button, Spinner } from '@milo/ui'
 import { A11y, Page, Panel, Props, Section, Variant } from '../kit'
 
@@ -33,7 +34,7 @@ export function SpinnerStory() {
             <Button variant="raised" aria-busy><Spinner size={16} />Guardando</Button>
           </Variant>
           <Variant name="en una fila">
-            <span className="flex items-center gap-2 text-body font-medium text-ink-muted">
+            <span className={cls.span}>
               <Spinner size={16} />
               Buscando en siete espacios
             </span>

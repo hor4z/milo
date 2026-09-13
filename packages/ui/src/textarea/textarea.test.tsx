@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { estilo } from '../__tests__/estilo'
 import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { describe, expect, it } from 'vitest'
@@ -18,12 +19,12 @@ describe('Textarea', () => {
   it('con resize vertical no mide y deja el tirador', () => {
     render(<Textarea defaultValue="x" resize="vertical" />)
     const ta = screen.getByRole('textbox') as HTMLTextAreaElement
-    expect(ta.className).toContain('resize-y')
+    expect(estilo(ta)).toContain('resize: vertical')
   })
 
   it('con resize none no deja el tirador', () => {
     render(<Textarea defaultValue="x" resize="none" />)
-    expect((screen.getByRole('textbox') as HTMLTextAreaElement).className).toContain('resize-none')
+    expect(estilo(screen.getByRole('textbox'))).toContain('resize: none')
   })
 
   const cuenta = (c: HTMLElement) => {
@@ -67,9 +68,9 @@ describe('Textarea', () => {
 
   it('con la cuenta no lleva flex-1: en una caja en columna el flex le gana al alto que el campo calcula, y el texto queda cortado', () => {
     const { container, rerender } = render(<Textarea aria-label="Devolución" counter maxLength={100} />)
-    expect(container.querySelector('textarea')!.className).not.toContain('flex-1')
+    expect(estilo(container.querySelector('textarea')!)).not.toContain('flex: 1')
     rerender(<Textarea aria-label="Devolución" />)
-    expect(container.querySelector('textarea')!.className).toContain('flex-1')
+    expect(estilo(container.querySelector('textarea')!)).toContain('flex: 1')
   })
 
   it('mide en caracteres y no en unidades de código: un emoji es uno', () => {

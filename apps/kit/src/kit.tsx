@@ -1,3 +1,4 @@
+import s from './kit.module.css'
 import { Children, useEffect, useState, type ReactNode } from 'react'
 import { Chip, Icon, cx, type IconName } from '@milo/ui'
 import { propsByComponent } from '@milo/ui/props'
@@ -29,9 +30,9 @@ export function Rich({ text }: { text: string }) {
     <>
       {parts.map((t, i) =>
         t.startsWith('`') && t.endsWith('`')
-          ? <code key={i} className="rounded-sm bg-muted px-1 py-0.5 font-mono text-[0.92em] text-ink">{t.slice(1, -1)}</code>
+          ? <code key={i} className={s.code}>{t.slice(1, -1)}</code>
           : t.startsWith('**') && t.endsWith('**')
-            ? <strong key={i} className="font-semibold text-ink">{t.slice(2, -2)}</strong>
+            ? <strong key={i} className={s.strong}>{t.slice(2, -2)}</strong>
             : t)}
     </>
   )
@@ -52,13 +53,13 @@ type PageProps = {
 /** La cabecera de una pieza y el cuerpo de su página. */
 export function Page({ title, lead, imports, kind, children }: PageProps) {
   return (
-    <article className="flex flex-col gap-8">
-      <header className="flex flex-col gap-4 border-b border-line pb-8">
-        <div className="flex flex-wrap items-center gap-2">
-          <h1 className="text-display font-bold text-ink">{title}</h1>
+    <article className={s.article}>
+      <header className={s.header}>
+        <div className={s.div}>
+          <h1 className={s.h1}>{title}</h1>
           {kind && <Chip size="sm">{kind}</Chip>}
         </div>
-        <p className="max-w-[68ch] text-reading font-medium text-ink-muted"><Rich text={lead} /></p>
+        <p className={s.p}><Rich text={lead} /></p>
         {imports && <Code>{imports}</Code>}
       </header>
       {children}
@@ -77,13 +78,13 @@ export function Code({ children }: { children: string }) {
         setCopied(true)
         setTimeout(() => setCopied(false), 1400)
       }}
-      className="group inline-flex h-8 max-w-full items-center gap-2 self-start rounded-lg border border-line bg-muted pr-2 pl-3 text-left transition-colors duration-fast ease-out hover:bg-sunken"
+      className={`${s.box} group`}
     >
-      <code className="truncate font-mono text-meta text-ink">{children}</code>
+      <code className={s.code2}>{children}</code>
       <Icon
         name={copied ? 'check' : 'content_copy'}
         size={14}
-        className="icon-muted shrink-0 transition-colors duration-fast ease-out group-hover:text-ink"
+        className={`${s.icon} icon-muted`}
       />
       <span className="sr-only">{copied ? 'Copiado' : 'Copiar'}</span>
     </button>
@@ -93,10 +94,10 @@ export function Code({ children }: { children: string }) {
 /** Un bloque con título, una explicación y lo que se muestra. */
 export function Section({ title, note, children }: { title: string; note?: string; children?: ReactNode }) {
   return (
-    <section className="flex flex-col gap-4">
-      <div className="flex flex-col gap-2">
-        <h2 className="text-title font-semibold text-ink"><Rich text={title} /></h2>
-        {note && <p className="max-w-[72ch] text-body font-medium text-ink-muted"><Rich text={note} /></p>}
+    <section className={s.section}>
+      <div className={s.div2}>
+        <h2 className={s.h2}><Rich text={title} /></h2>
+        {note && <p className={s.p2}><Rich text={note} /></p>}
       </div>
       {children}
     </section>
@@ -108,8 +109,8 @@ export function Canvas({ children, className, pad = true }: { children: ReactNod
   return (
     <div
       className={cx(
-        'relative overflow-hidden rounded-xl border border-line bg-surface',
-        pad && 'p-6',
+        `${s.div3} bg-surface`,
+        pad && s.pad,
         className,
       )}
     >
@@ -121,9 +122,9 @@ export function Canvas({ children, className, pad = true }: { children: ReactNod
 /** Un ejemplo con su etiqueta abajo. */
 export function Demo({ label, children, className }: { label?: string; children: ReactNode; className?: string }) {
   return (
-    <div className="flex min-w-0 flex-col gap-2">
-      <Canvas className={cx('flex min-h-[92px] items-center justify-center', className)}>{children}</Canvas>
-      {label && <div className="px-0.5 text-meta font-medium text-ink-muted"><Rich text={label} /></div>}
+    <div className={s.div4}>
+      <Canvas className={cx(s.canvas, className)}>{children}</Canvas>
+      {label && <div className={s.div5}><Rich text={label} /></div>}
     </div>
   )
 }
@@ -131,7 +132,7 @@ export function Demo({ label, children, className }: { label?: string; children:
 /** Varios ejemplos en grilla. */
 export function Grid({ children, min = 220 }: { children: ReactNode; min?: number }) {
   return (
-    <div className="grid gap-3" style={{ gridTemplateColumns: `repeat(auto-fill, minmax(${min}px, 1fr))` }}>
+    <div className={s.div6} style={{ gridTemplateColumns: `repeat(auto-fill, minmax(${min}px, 1fr))` }}>
       {children}
     </div>
   )
@@ -140,20 +141,20 @@ export function Grid({ children, min = 220 }: { children: ReactNode; min?: numbe
 /** Una fila de variantes con su nombre al costado. */
 export function Variant({ name, children }: { name: string; children: ReactNode }) {
   return (
-    <div className="flex flex-wrap items-center gap-4 border-b border-line py-4 last:border-0">
-      <code className="w-[168px] shrink-0 font-mono text-meta text-ink-muted">{name}</code>
-      <div className="flex min-w-0 flex-wrap items-center gap-3">{children}</div>
+    <div className={s.div7}>
+      <code className={s.code3}>{name}</code>
+      <div className={s.div8}>{children}</div>
     </div>
   )
 }
 
 /** El contenedor de una lista de variantes. */
 export function Panel({ children }: { children: ReactNode }) {
-  return <Canvas className="px-6 py-1">{children}</Canvas>
+  return <Canvas className={s.canvas2}>{children}</Canvas>
 }
 
 export function Mono({ children }: { children: ReactNode }) {
-  return <code className="font-mono text-meta text-ink-muted">{children}</code>
+  return <code className={s.code4}>{children}</code>
 }
 
 /** La tabla de props. Las filas salen del código: tipo, default y descripción
@@ -161,49 +162,49 @@ export function Mono({ children }: { children: ReactNode }) {
 export function Props({ of }: { of: string | readonly string[] }) {
   const piezas = typeof of === 'string' ? [of] : of
   return (
-    <div className="flex flex-col gap-4">
+    <div className={s.div9}>
       {piezas.map(pieza => {
         const doc = propsByComponent[pieza]
         const rows = doc?.props ?? []
         return (
-          <div key={pieza} className="overflow-hidden rounded-xl border border-line">
+          <div key={pieza} className={s.div10}>
             {piezas.length > 1 && (
-              <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1 border-b border-line bg-muted px-4 py-2">
-                <code className="font-mono text-meta font-semibold text-ink">{pieza}</code>
-                {doc?.doc && <span className="text-meta font-medium text-ink-muted"><Rich text={doc.doc} /></span>}
+              <div className={s.div11}>
+                <code className={s.code5}>{pieza}</code>
+                {doc?.doc && <span className={s.span2}><Rich text={doc.doc} /></span>}
               </div>
             )}
             {rows.length === 0 ? (
-              <p className="px-4 py-3 text-meta font-medium text-ink-muted">
+              <p className={s.p3}>
                 No tiene props propias: toma los atributos de un{' '}
-                <code className="font-mono text-meta text-ink">{`<${doc?.html ?? 'div'}>`}</code>.
+                <code className={s.code6}>{`<${doc?.html ?? 'div'}>`}</code>.
               </p>
             ) : (
-            <table className="w-full border-collapse text-left">
+            <table className={s.table}>
               <thead>
-                <tr className="bg-muted">
-                  <th scope="col" className="px-4 py-2 text-label font-semibold text-ink">Prop</th>
-                  <th scope="col" className="px-4 py-2 text-label font-semibold text-ink">Tipo</th>
-                  <th scope="col" className="hidden px-4 py-2 text-label font-semibold text-ink sm:table-cell">Default</th>
-                  <th scope="col" className="px-4 py-2 text-label font-semibold text-ink">Qué hace</th>
+                <tr className={s.tr}>
+                  <th scope="col" className={s.th}>Prop</th>
+                  <th scope="col" className={s.th2}>Tipo</th>
+                  <th scope="col" className={s.th3}>Default</th>
+                  <th scope="col" className={s.th4}>Qué hace</th>
                 </tr>
               </thead>
               <tbody>
                 {rows.map(r => (
-                  <tr key={r.name} className="border-t border-line align-top">
-                    <td className="px-4 py-3">
-                      <span className="flex flex-col gap-1">
-                        <code className="font-mono text-meta font-semibold text-ink">{r.name}</code>
+                  <tr key={r.name} className={s.tr2}>
+                    <td className={s.td}>
+                      <span className={s.span3}>
+                        <code className={s.code7}>{r.name}</code>
                         {r.required && (
-                          <span className="text-label font-semibold text-bad-ink uppercase">obligatorio</span>
+                          <span className={s.span4}>obligatorio</span>
                         )}
                       </span>
                     </td>
-                    <td className="px-4 py-3"><code className="font-mono text-meta text-brand-ink">{r.type}</code></td>
-                    <td className="hidden px-4 py-3 sm:table-cell">
-                      <code className="font-mono text-meta text-ink-muted">{r.def ?? '-'}</code>
+                    <td className={s.td2}><code className={s.code8}>{r.type}</code></td>
+                    <td className={s.td3}>
+                      <code className={s.code9}>{r.def ?? '-'}</code>
                     </td>
-                    <td className="px-4 py-3 text-meta font-medium text-ink-muted">
+                    <td className={s.td4}>
                       {r.doc ? <Rich text={r.doc} /> : '-'}
                     </td>
                   </tr>
@@ -212,9 +213,9 @@ export function Props({ of }: { of: string | readonly string[] }) {
             </table>
             )}
             {rows.length > 0 && doc?.html && (
-              <p className="border-t border-line px-4 py-2 text-meta font-medium text-ink-muted">
+              <p className={s.p4}>
                 Y los atributos de un{' '}
-                <code className="font-mono text-meta text-ink">{`<${doc.html}>`}</code>.
+                <code className={s.code10}>{`<${doc.html}>`}</code>.
               </p>
             )}
           </div>
@@ -226,11 +227,11 @@ export function Props({ of }: { of: string | readonly string[] }) {
 
 export function Note({ icon = 'lightbulb', title, children }: { icon?: IconName; title?: string; children: ReactNode }) {
   return (
-    <div className="flex gap-3 rounded-xl border border-line bg-surface p-4">
-      <Icon name={icon} size={18} className="icon-muted mt-px shrink-0" />
-      <div className="flex min-w-0 flex-col gap-1">
-        {title && <p className="text-body font-semibold text-ink"><Rich text={title} /></p>}
-        <div className="max-w-[70ch] text-body font-medium text-ink-muted">
+    <div className={`${s.div12} bg-surface`}>
+      <Icon name={icon} size={18} className={`${s.icon2} icon-muted`} />
+      <div className={s.div13}>
+        {title && <p className={s.p5}><Rich text={title} /></p>}
+        <div className={s.div14}>
           {Children.map(children, c => (typeof c === 'string' ? <Rich text={c} /> : c))}
         </div>
       </div>
@@ -241,11 +242,11 @@ export function Note({ icon = 'lightbulb', title, children }: { icon?: IconName;
 /** Lo que la pieza hace por accesibilidad, en una lista corta. */
 export function A11y({ items }: { items: string[] }) {
   return (
-    <ul className="flex flex-col gap-2">
+    <ul className={s.ul}>
       {items.map(t => (
-        <li key={t} className="flex gap-2 text-body font-medium text-ink-muted">
-          <Icon name="check" size={16} className="mt-px shrink-0 text-ok" />
-          <span className="max-w-[70ch]"><Rich text={t} /></span>
+        <li key={t} className={s.li}>
+          <Icon name="check" size={16} className={s.icon3} />
+          <span className={s.span5}><Rich text={t} /></span>
         </li>
       ))}
     </ul>
@@ -256,15 +257,15 @@ export function Swatch({ token, note }: { token: string; note?: string }) {
   const vals = useTokens([token])
   const v = vals[token]
   return (
-    <div className="flex items-center gap-3">
+    <div className={s.div15}>
       <span
-        className="size-9 shrink-0 rounded-lg border border-line"
+        className={s.span6}
         style={{ background: v ? `var(${token})` : undefined }}
       />
-      <div className="flex min-w-0 flex-col">
-        <code className="truncate font-mono text-meta text-ink">{token}</code>
-        <code className="truncate font-mono text-meta text-ink-muted">{v || '-'}</code>
-        {note && <span className="mt-0.5 text-meta text-ink-muted">{note}</span>}
+      <div className={s.div16}>
+        <code className={s.code11}>{token}</code>
+        <code className={s.code12}>{v || '-'}</code>
+        {note && <span className={s.span7}>{note}</span>}
       </div>
     </div>
   )
@@ -273,17 +274,17 @@ export function Swatch({ token, note }: { token: string; note?: string }) {
 export function Ramp({ tokens }: { tokens: readonly string[] }) {
   const vals = useTokens(tokens)
   return (
-    <div className="overflow-hidden rounded-xl border border-line">
-      <div className="flex h-16">
+    <div className={s.div17}>
+      <div className={s.div18}>
         {tokens.map(t => (
-          <div key={t} className="flex-1" style={{ background: `var(${t})` }} />
+          <div key={t} className={s.div19} style={{ background: `var(${t})` }} />
         ))}
       </div>
-      <div className="flex border-t border-line">
+      <div className={s.div20}>
         {tokens.map(t => (
-          <div key={t} className="min-w-0 flex-1 px-2 py-2 text-center">
-            <code className="block truncate font-mono text-meta text-ink-muted">{t.replace('--', '')}</code>
-            <code className="block truncate font-mono text-meta text-ink">{vals[t]}</code>
+          <div key={t} className={s.div21}>
+            <code className={s.code13}>{t.replace('--', '')}</code>
+            <code className={s.code14}>{vals[t]}</code>
           </div>
         ))}
       </div>

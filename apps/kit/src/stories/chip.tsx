@@ -1,3 +1,4 @@
+import cls from './chip.module.css'
 import { useState } from 'react'
 import { Card, CardBody, CardHeader, CardTitle, Chip, labelColors } from '@milo/ui'
 import { A11y, Demo, Note, Page, Panel, Props, Section, Variant } from '../kit'
@@ -68,7 +69,7 @@ export function ChipStory() {
             {chips.map(c => (
               <Chip key={c} onRemove={() => setChips(cs => cs.filter(x => x !== c))}>{c}</Chip>
             ))}
-            {chips.length === 0 && <span className="text-meta text-ink-muted">se fueron todos: recargá para volver a verlos</span>}
+            {chips.length === 0 && <span className={cls.span}>se fueron todos: recargá para volver a verlos</span>}
           </Variant>
           <Variant name="las dos cosas">
             <Chip color="blue" onClick={() => {}} onRemove={() => {}}>Matemática</Chip>
@@ -82,23 +83,23 @@ export function ChipStory() {
         note="Pegado a lo que describe, no suelto en una esquina: una marca lejos de su sujeto obliga a adivinar de qué está hablando. En una tarjeta va en la cabecera, al lado del título; en una fila de tabla, en su columna."
       >
         <Demo label="en la cabecera de una tarjeta">
-          <div className="flex flex-wrap items-start gap-4">
-            <Card className="w-[300px]">
+          <div className={cls.div}>
+            <Card className={cls.card}>
               <CardHeader>
                 <CardTitle>Fracciones equivalentes</CardTitle>
                 <Chip size="sm" color="ok" icon="check_circle">Corregida</Chip>
               </CardHeader>
               <CardBody>
-                <p className="text-body font-medium text-ink-muted">Matemática · 4.º A · 24 entregas</p>
+                <p className={cls.p}>Matemática · 4.º A · 24 entregas</p>
               </CardBody>
             </Card>
-            <Card className="w-[300px]">
+            <Card className={cls.card2}>
               <CardHeader>
                 <CardTitle>Mapa de América</CardTitle>
                 <Chip size="sm" color="warn" icon="schedule">Vence mañana</Chip>
               </CardHeader>
               <CardBody>
-                <p className="text-body font-medium text-ink-muted">Sociales · 5.º A · 3 de 7</p>
+                <p className={cls.p2}>Sociales · 5.º A · 3 de 7</p>
               </CardBody>
             </Card>
           </div>

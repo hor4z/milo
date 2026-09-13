@@ -1,3 +1,4 @@
+import cls from './search.module.css'
 import { useRef, type ComponentPropsWithoutRef, type Ref } from 'react'
 import { Icon } from '../icon/icon'
 import { Kbd } from '../kbd/kbd'
@@ -38,14 +39,14 @@ export function Search({
       value={value}
       onChange={e => onValueChange(e.target.value)}
       placeholder={placeholder}
-      className={cx(block ? 'w-full' : 'w-[240px]', className)}
+      className={cx(block ? cls.root : cls.box, className)}
       suffix={value
         ? (
           <button
             type="button"
             aria-label="Limpiar la búsqueda"
             onClick={() => { onValueChange(''); foco() }}
-            className="-mr-1 inline-flex size-5 shrink-0 items-center justify-center rounded-sm text-ink-muted transition-colors ease-out duration-fast hover:bg-hover hover:text-ink"
+            className={cls.box2}
           >
             <Icon name="close" size={14} />
           </button>
