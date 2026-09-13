@@ -1,5 +1,3 @@
-/* Cómo el sistema dice cuándo. La doctrina está en Fundamentos › Fecha y hora;
-   acá está lo que la hace cumplir. */
 
 /** La zona en la que vive lo que se está mirando: la del curso, no la del navegador. */
 export type Zone = string
@@ -37,10 +35,7 @@ export function dayAndTime(value: string | Date, o: TimeOptions & { full?: boole
   return `${day(value, o)} a las ${clock(value, o)}`
 }
 
-/**
- * Cuánto hace, en palabras enteras: `recién`, `hace 20 minutos`, `ayer`.
- * Solo para el pasado y solo hasta una semana: más lejos, la fecha dice más.
- */
+/** Cuánto hace, en palabras: `recién`, `hace 20 minutos`, `ayer`. Solo el pasado, y solo hasta una semana. */
 export function timeAgo(value: string | Date, { zone, now = new Date() }: TimeOptions = {}) {
   const d = parse(value)
   const delta = now.getTime() - d.getTime()
@@ -56,11 +51,7 @@ export function timeAgo(value: string | Date, { zone, now = new Date() }: TimeOp
 
 const plural = (n: number, unidad: string) => `hace ${n} ${unidad}${n === 1 ? '' : 's'}`
 
-/**
- * Cuánto dura algo, en reloj: `1:30`, `0:07`. Es una duración y no una hora del
- * día, así que no lleva zona. Lo que todavía no se sabe cuánto dura va `--:--`
- * y no `0:00`: cero es un valor y esto es la ausencia de uno.
- */
+/** Cuánto dura algo, en reloj: `1:30`. Lo que no se sabe cuánto dura va `--:--`, porque cero es un valor. */
 export function duration(seconds: number) {
   if (!Number.isFinite(seconds) || seconds < 0) return '--:--'
   const s = Math.floor(seconds)

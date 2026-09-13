@@ -93,8 +93,19 @@ Verificado rompiendo el `Segmented` a propósito.
 
 ## Lo que falta
 
-1. Nombres: la generación mecánica da `chipSizeSm`, `box2` y `noHorizontal`. Se
-   leen, pero un design system merece nombres escritos a mano.
+**Los nombres.** Es lo único grande que queda, y es grande: **1302 de 1582 clases
+(el 82%)** salieron con el nombre de la etiqueta y un número, `div2`, `span7`,
+`box4`, `p3`. Un generador no puede hacer otra cosa, porque el nombre de una clase
+dice *por qué* existe la regla y eso no está en el CSS que lee.
+
+El costo no es estético. `div2` no se puede buscar, no se puede reusar, y en dos
+archivos son dos cosas que no tienen nada que ver. Donde más duele es en las vistas
+del kit, que son justo las que alguien abre para aprender el sistema: `typography`
+71, `kit` 67, `color` 41, `dashboard` 38, `intro` 37, `measure` 37.
+
+Se hace módulo por módulo, y hay dos guardianes que lo sostienen mientras dure: el
+que dibuja las setenta y cuatro vistas y falla si una clase dejó de resolver, y el
+que exige que ninguna clase de un módulo quede sin usar.
 
 ## Lo que queda del lado de las apps
 

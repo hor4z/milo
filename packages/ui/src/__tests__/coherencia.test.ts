@@ -107,9 +107,6 @@ describe('coherencia del sistema', () => {
   })
 
   it('nada suena solo', () => {
-    /* Un `autoplay` en un aula de treinta dispositivos, o al lado de alguien con
-       un lector de pantalla, es dos voces encimadas. Está escrito en
-       Fundamentos › Voz y sonido y acá se hace cumplir. */
     const offenders = sources
       .filter(f => /\bautoplay\b/i.test(f.text))
       .map(f => f.name)
@@ -117,8 +114,6 @@ describe('coherencia del sistema', () => {
   })
 
   it('nadie escribe un reloj ni un relativo a mano', () => {
-    /* `23:59` y `hace 2 h` escritos adentro de una pieza son una zona horaria y
-       un idioma clavados. Lo que dice cuándo sale de `lib/time`. */
     const reloj = /(?<![\w:/-])\d{1,2}:\d{2}(?![\w:/-])/
     const relativo = /\bhace \d+ ?(min\b|h\b|hs\b|d\b|mins\b)/
     const offenders: string[] = []

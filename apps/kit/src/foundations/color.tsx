@@ -185,6 +185,12 @@ export function ColorSection() {
           estado y no como un ocre. En oscuro no hay nada que discutir: ahí da 4,88.
         </Note>
 
+        <Note title="Encima del verde y del naranja va tinta, no blanco, y en los dos temas">
+          Es la misma decisión que `--on-label` y por el mismo motivo: el relleno es claro en
+          claro y en oscuro, así que lo de encima no puede cambiar con el tema. El blanco se probó
+          y no llega: da 3,78 sobre el verde y 2,65 sobre el naranja.
+        </Note>
+
         <div className={cls.div7}>
           <Swatch token="--ok" note="salió bien" />
           <Swatch token="--warn" note="cuidado" />

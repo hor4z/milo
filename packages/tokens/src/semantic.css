@@ -43,9 +43,6 @@
   --accent-hover: var(--accent-600);
   --accent-subtle: var(--accent-050);
   --on-accent: #ffffff;
-  /* Van literales y en los dos temas, como `--on-label` y por el mismo motivo:
-     el relleno es claro en los dos, así que encima va tinta en los dos. Sobre
-     el verde el blanco daba 3.78 y sobre el naranja 2.65: no alcanza. */
   --on-ok: #121212;
   --on-warn: #121212;
   --brand-ink: var(--blue-700);

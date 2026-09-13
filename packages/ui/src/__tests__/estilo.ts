@@ -9,12 +9,6 @@ const modulos = (function leer(base: string): string[] {
     : e.name.endsWith('.module.css') ? [readFileSync(join(base, e.name), 'utf8')] : [])
 })(raiz)
 
-/* Con módulos, el nombre de la clase que llega al DOM está hasheado, así que un
-   test no puede asertar sobre él sin volverse ilegible. Lo que sí se puede, y es
-   lo que el test quería decir desde el principio, es asertar sobre lo que esa
-   clase declara. El nombre original viaja adentro del hash (`_radio_ab12`), así
-   que se lo saca de ahí y se lo busca en los módulos del paquete: una pieza
-   puede traer clases de `lib`, como la escalera de tamaños o el par de tono. */
 export function estilo(el: Element): string {
   const nombres = String(el.className)
     .split(/\s+/)

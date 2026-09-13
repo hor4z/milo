@@ -234,16 +234,7 @@ function Avisos() {
 /** Lo que dura una pasada del bucle: 100 cuadros a 12 por segundo. */
 const PASADA = 8333
 
-/**
- * Que salga pegado al borde derecho de la tarjeta no es una preferencia: el
- * recorte lo deja cortado por donde estaba el canto, así que su borde izquierdo
- * tiene que caer sobre uno. Y solo en pantalla ancha, que es cuando sobra lugar
- * a la derecha de la grilla.
- *
- * Se asoma una vez y se esconde un rato largo al azar. En bucle continuo deja
- * de ser una aparición y pasa a ser algo que se mueve al costado mientras
- * trabajás, que es lo que hay que evitar.
- */
+/** Se asoma una vez y se esconde un rato largo al azar: en bucle deja de ser una aparición. */
 function Otto() {
   const quieto = useQuieto()
   const [vuelta, setVuelta] = useState(0)
