@@ -1006,8 +1006,6 @@ tr[tabindex]:focus-visible {
 .ui-zoom { animation: ui-zoom-in var(--duration-normal) var(--ease-out) }
 .ui-rise { animation: ui-rise var(--duration-content) var(--ease-out) both }
 .ui-slide { animation: ui-slide-in var(--duration-normal) var(--ease-out) }
-.ui-d1 { animation-delay: 30ms } .ui-d2 { animation-delay: 60ms } .ui-d3 { animation-delay: 90ms }
-.ui-d4 { animation-delay: 120ms } .ui-d5 { animation-delay: 150ms } .ui-d6 { animation-delay: 180ms }
 
 @media (prefers-reduced-motion: reduce) {
   .ui-pop, .ui-fade, .ui-zoom, .ui-rise, .ui-pulse, .ui-slide { animation: none !important }

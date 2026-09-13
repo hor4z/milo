@@ -18,7 +18,7 @@ final son lo único que hay que tocar.
 npm install
 npm run dev        # el sitio · http://localhost:5190
 npm run typecheck  # todo el monorepo de una
-npm test           # 440 tests con vitest y testing-library
+npm test           # 441 tests con vitest y testing-library
 npm run props      # regenera la tabla de props desde los tipos
 ```
 
@@ -328,7 +328,7 @@ Lo mismo vale para los tipos que una pieza recibe como argumento —`ToastOption
 
 ## Los tests
 
-`npm test` corre vitest con jsdom y testing-library. 440 tests, y lo que prueban es el
+`npm test` corre vitest con jsdom y testing-library. 441 tests, y lo que prueban es el
 comportamiento —teclado, nombres accesibles, estados— y no el markup, que cambia con cada
 ajuste de estilo. El test de cada pieza vive en su carpeta, al lado del componente.
 
@@ -350,6 +350,7 @@ Diecisiete de ellos leen el paquete entero y fallan si alguien:
 - **usa el peso de la portada fuera del tamaño display** (`font-bold` a 16px), que se lee como
   negrita y aplasta los otros dos escalones de énfasis,
 - deja un `<button>` sin `type`, que adentro de un `form` lo manda,
+- deja una clase del puente sin usar — CSS muerto no rompe nada y por eso se queda,
 - exporta algo sin sacarlo por `index.ts`,
 - deja una carpeta sin el componente que le da nombre, o un componente sin su test al lado.
 

@@ -79,6 +79,26 @@ describe('las utilidades de color existen', () => {
     expect([...new Set(huerfanos)]).toEqual([])
   })
 
+  it('ninguna clase del puente se quedó sin usar', () => {
+    // CSS muerto no rompe nada y por eso se queda: había seis clases de retardo
+    // —`ui-d1` a `ui-d6`— que no usaba ninguna pieza ni ninguna vista, con seis
+    // duraciones escritas a mano que la doctrina dice que no existen.
+    const clases = new Set([
+      ...[...puente.matchAll(/^\.([a-z][a-z0-9-]*)\s*[,{]/gm)].map(m => m[1]),
+      ...[...puente.matchAll(/^@utility ([a-z][a-z0-9-]*)/gm)].map(m => m[1]),
+    ])
+    const muertas: string[] = []
+    for (const c of clases) {
+      const suelta = new RegExp(`(?<![\\w-])${c}(?![\\w-])`)
+      // Vale que la use una pieza, una vista, o el propio puente componiéndola
+      // con otra regla.
+      if (fuentes.some(f => suelta.test(f.texto))) continue
+      if (puente.split(c).length - 1 > 1) continue
+      muertas.push(c)
+    }
+    expect(muertas).toEqual([])
+  })
+
   it('el anillo de foco vive fuera de toda capa', () => {
     // Es lo único que lo hace ganarle a una utilidad de sombra: `:where()` no
     // suma especificidad, así que si esta regla cayera dentro de `@layer`, un
