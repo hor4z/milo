@@ -13,6 +13,7 @@ import { StatesSection } from './foundations/states'
 import { InclusionSection } from './foundations/inclusion'
 import { AudioPlayerStory } from './stories/audio-player'
 import { LineChartStory } from './stories/line-chart'
+import { ChartsSection } from './foundations/charts'
 import { CalloutStory } from './stories/callout'
 import { CommandMenuStory } from './stories/command-menu'
 import { ToolbarStory } from './stories/toolbar'
@@ -85,6 +86,7 @@ const groups: Group[] = [
       { id: 'motion', label: 'Movimiento', alias: 'movimiento animación transición duración curva easing reduced motion', render: () => <MotionSection /> },
       { id: 'states', label: 'Estados', alias: 'estados hover foco pressed disabled vacío cargando error skeleton empty loading', render: () => <StatesSection /> },
       { id: 'icon', label: 'Iconos', alias: 'iconos glifos símbolos', render: () => <IconStory /> },
+      { id: 'charts', label: 'Gráficos', alias: 'gráficos datos barras línea ejes leyenda visualización', render: () => <ChartsSection /> },
       { id: 'writing', label: 'Cómo se escribe', alias: 'texto redacción copy mensajes tono escritura', render: () => <Writing /> },
       { id: 'inclusion', label: 'Inclusión', alias: 'inclusión género lenguaje nombres personas diversidad edtech', render: () => <InclusionSection /> },
     ],

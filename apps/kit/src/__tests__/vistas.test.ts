@@ -161,6 +161,7 @@ describe('cobertura del kit', () => {
       join(import.meta.dirname, '../foundations/motion.tsx'),
       join(import.meta.dirname, '../foundations/states.tsx'),
       join(import.meta.dirname, '../foundations/inclusion.tsx'),
+      join(import.meta.dirname, '../foundations/charts.tsx'),
       join(import.meta.dirname, '../mascots/otto.tsx'),
       join(import.meta.dirname, '../mascots/amelia.tsx'),
       join(import.meta.dirname, '../foundations/writing.tsx'),

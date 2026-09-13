@@ -50,7 +50,7 @@ export function CalloutStory() {
 
       <A11y
         items={[
-          'Es un `aside`: contenido al costado del hilo principal. Quien navega por regiones lo encuentra y puede saltearlo.',
+          'Lleva `role="note"`: se anuncia como una nota al margen sin sumar una región. Con once bloques en una página, once regiones dejarían la lista de saltos inservible.',
           'El glifo es decorativo. Lo que el bloque dice está en su texto, así que sacarlo no pierde nada.',
           'El color nunca es la única diferencia: el título y el glifo dicen de qué se trata.',
         ]}

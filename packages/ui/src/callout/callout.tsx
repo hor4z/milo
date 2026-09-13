@@ -22,7 +22,10 @@ const papel: Record<LabelColor | 'neutral', string> = {
 /** Un bloque de contenido que pide detenerse: una aclaración, una pista, algo para recordar. */
 export function Callout({ icon, color = 'neutral', title, children, className }: CalloutProps) {
   return (
-    <aside className={cx('flex gap-3 rounded-xl p-4', papel[color], className)}>
+    // `role="note"` y no el `complementary` que un `aside` trae solo: una página
+    // con once bloques destacados llenaba la lista de regiones con once entradas
+    // y dejaba de servir para saltar. `note` dice lo mismo sin ser una región.
+    <aside role="note" className={cx('flex gap-3 rounded-xl p-4', papel[color], className)}>
       {icon && <Icon name={icon} size={20} className="mt-px shrink-0" />}
       <div className="flex min-w-0 flex-col gap-1 text-ink">
         {title && <span className="text-reading font-semibold">{title}</span>}
