@@ -83,6 +83,12 @@ function Cell({ value, levels, empty }: { value: number | null; levels: string[]
   // El principio del sistema es que el color nunca dice algo solo, así que el
   // nivel sube el relleno y el tono a la vez — igual que una barra de gráfico.
   // En blanco y negro, o con cualquier daltonismo, el alto sigue diciéndolo.
+  //
+  // El relleno es el azul de dato y no el de marca, como en el `LineChart`: el
+  // de marca está anclado para que el blanco encima llegue a 4.5:1, y sobre un
+  // fondo oscuro eso lo deja tan cerca de la pista que la escala se aplana.
+  // Medido, el paso entre niveles pasó de 1.18 a 1.25 en oscuro, que es el
+  // mismo que tiene en claro.
   const alto = value == null ? 0 : nivelAlto(value, levels.length)
   return (
     <span className="relative flex h-8 w-full min-w-8 items-end overflow-hidden rounded-md bg-track">
@@ -91,7 +97,7 @@ function Cell({ value, levels, empty }: { value: number | null; levels: string[]
         : (
           <span
             aria-hidden="true"
-            className="w-full rounded-md bg-brand"
+            className="w-full rounded-md bg-label-blue"
             style={{ height: `${alto}%`, opacity: nivelTono(value, levels.length) }}
           />
         )}
@@ -108,7 +114,7 @@ function Legend({ levels, empty }: { levels: string[]; empty: string }) {
         <span key={l} className="flex items-center gap-2 text-meta font-medium text-ink-muted">
           <span className="flex h-4 w-4 items-end overflow-hidden rounded-sm bg-track">
             <span
-              className="w-full rounded-sm bg-brand"
+              className="w-full rounded-sm bg-label-blue"
               style={{ height: `${nivelAlto(i, levels.length)}%`, opacity: nivelTono(i, levels.length) }}
             />
           </span>
