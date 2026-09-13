@@ -58,14 +58,21 @@ strong, b { font-weight: var(--font-weight-semibold); }
   textarea.field-focus {
     font-size: var(--type-reading);
     line-height: var(--type-reading-lh);
+    letter-spacing: var(--type-reading-ls);
   }
 }
 
+/* Las dos cosas a la vez: pintan la superficie y le avisan a los campos que
+   tienen adentro que se hundan. El fondo lo daba la librería y la inversión era
+   nuestra; ahora las dos viven acá. */
 .bg-surface,
 .bg-popover {
   --field-bg: var(--field-bg-on-surface);
   --field-bg-hover: var(--field-bg-on-surface-hover);
 }
+
+.bg-surface { background-color: var(--surface); }
+.bg-popover { background-color: var(--popover); }
 
 @property --relief {
   syntax: "*";
@@ -98,6 +105,14 @@ strong, b { font-weight: var(--font-weight-semibold); }
 .mark {
   background-image: var(--grad-mark);
   box-shadow: var(--relief-mark);
+}
+
+/* El anillo de un avatar montado sobre otro. Va acá y no en el módulo porque
+   tiene que componerse con el relieve de `.mark`, que vive fuera de toda capa:
+   desde adentro de una capa la regla del módulo no le gana y el anillo no se
+   dibuja, que es lo que venía pasando. */
+.mark-ring {
+  box-shadow: var(--relief-mark), 0 0 0 2px var(--ring);
 }
 
 .folder {
@@ -186,7 +201,7 @@ strong, b { font-weight: var(--font-weight-semibold); }
   gap: 2px;
   max-width: calc(var(--folder-w) * 1.1);
 }
-.folder-name { font-size: var(--type-body); line-height: var(--type-body-lh); font-weight: var(--font-weight-semibold); color: var(--text); }
+.folder-name { font-size: var(--type-body); line-height: var(--type-body-lh); letter-spacing: var(--type-body-ls); font-weight: var(--font-weight-semibold); color: var(--text); }
 .folder-meta { font-size: var(--type-meta); line-height: var(--type-meta-lh); letter-spacing: var(--type-meta-ls); font-weight: 400; color: var(--text-muted); }
 
 @media (prefers-reduced-motion: reduce) {
@@ -328,7 +343,7 @@ strong, b { font-weight: var(--font-weight-semibold); }
 .switch-track-off { background: var(--switch-off); box-shadow: var(--switch-off-inset); }
 .switch-thumb { background: var(--switch-thumb); box-shadow: var(--switch-thumb-shadow); }
 
-@layer base {
+@layer milo.reset {
   .zebra tbody tr:nth-child(even) { background: var(--surface-alt); }
 }
 
@@ -355,7 +370,7 @@ tr[tabindex]:focus-visible {
   box-shadow: none;
 }
 
-@layer base {
+@layer milo.reset {
   button, summary, select,
   [role="button"], [role="radio"], [role="checkbox"], [role="switch"], [role="tab"],
   [role="menuitem"], [role="menuitemcheckbox"], [role="option"],
@@ -363,17 +378,10 @@ tr[tabindex]:focus-visible {
   :disabled, [aria-disabled="true"], [data-disabled] { cursor: not-allowed; }
 }
 
-@utility tinted {
-  background-image: linear-gradient(var(--surface-hover), var(--surface-hover));
-}
-
-@utility duration-fast { transition-duration: var(--duration-fast); }
-@utility duration-normal { transition-duration: var(--duration-normal); }
-
-@utility no-scrollbar {
-  scrollbar-width: none;
-  &::-webkit-scrollbar { display: none; }
-}
+/* Marcadores: no dibujan nada. Existen para que un módulo pueda colgar de ellos
+   con `:global(.group)` y estilar a un hijo según el estado del padre, que es lo
+   único que un módulo no puede expresar solo. */
+.group, .peer { }
 
 @supports selector(::-webkit-scrollbar) {
   ::-webkit-scrollbar { width: 10px; height: 10px; }

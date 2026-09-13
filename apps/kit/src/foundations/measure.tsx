@@ -87,8 +87,8 @@ export function MeasureSection() {
           note="Las alturas de pieza. Un control de 36, una fila de tabla de 56, una marca de 44: esas salen de la escalera de controles y de lo que la pieza tiene que contener, no de la grilla del aire. Mezclarlas es lo que lleva a subir un padding para arreglar una altura."
         >
           <div className={css.div7}>
-            {[['h-8', 32, 'control sm'], ['h-9', 36, 'control md'], ['h-10', 40, 'control lg'], ['size-11', 44, 'marca de lista'], ['h-14', 56, 'fila de tabla']].map(([cls, px, role]) => (
-              <div key={cls as string} className={`${css.div8} bg-surface`}>
+            {[[32, 'control sm'], [36, 'control md'], [40, 'control lg'], [44, 'marca de lista'], [56, 'fila de tabla']].map(([px, role]) => (
+              <div key={role as string} className={`${css.div8} bg-surface`}>
                 <span className={css.span7} style={{ height: px as number }} />
                 <span className={css.span8}>
                   <Mono>{px}</Mono>
@@ -107,7 +107,7 @@ export function MeasureSection() {
           <div className={`${css.div9} bg-surface`}>
             {radii.map(r => (
               <div key={r.token} className={css.div10}>
-                <span className={`size-14 shrink-0 bg-ink ${r.cls}`} />
+                <span className={`${css.muestraRadio} ${r.cls}`} />
                 <span className={css.span10}><Mono>{r.token.replace('--radius-', '')}</Mono></span>
                 <Value token={r.token} />
                 <span className={css.span11}>{r.role}</span>
@@ -121,9 +121,9 @@ export function MeasureSection() {
           note="Un contenedor de 24 con 8 de padding pide 16 adentro. Si el hijo repite el radio del padre, la curva se ve doble; si queda más cuadrado, se ven dos curvas distintas. Los dos errores ya pasaron en este repo."
         >
           <div className={css.div11}>
-            <NestDemo child="rounded-xl" label="24 − 8 = 16" verdict="bien" ok />
-            <NestDemo child="rounded-2xl" label="24 con hijo de 24" verdict="curva doble" />
-            <NestDemo child="rounded-sm" label="24 con hijo de 6" verdict="dos curvas distintas" />
+            <NestDemo child={css.cls4} label="24 − 8 = 16" verdict="bien" ok />
+            <NestDemo child={css.cls5} label="24 con hijo de 24" verdict="curva doble" />
+            <NestDemo child={css.cls} label="24 con hijo de 6" verdict="dos curvas distintas" />
           </div>
         </Section>
       </Section>
@@ -154,7 +154,7 @@ function NestDemo({ child, label, verdict, ok }: { child: string; label: string;
   return (
     <div className={css.div13}>
       <div className={css.div14}>
-        <div className={`size-24 bg-canvas ${child}`} />
+        <div className={`${css.nido} ${child}`} />
       </div>
       <Mono>{label}</Mono>
       <span className={ok ? css.span17 : css.span18}>{verdict}</span>

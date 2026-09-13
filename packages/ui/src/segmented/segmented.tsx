@@ -67,10 +67,10 @@ export function Segmented<T extends string>({
               s.box6,
               size === 'xs' ? s.xs2 : size === 'sm' ? s.sm : s.box7,
               iconOnly
-                ? (size === 'xs' ? 'w-6' : size === 'sm' ? 'w-7' : 'w-8')
-                : (size === 'xs' ? 'px-2' : size === 'sm' ? 'px-3' : 'px-4'),
+                ? (size === 'xs' ? s.iconOnlyXs : size === 'sm' ? s.iconOnlySm : s.iconOnlyMd)
+                : (size === 'xs' ? s.padXs : size === 'sm' ? s.padSm : s.padMd),
               active
-                ? (size === 'xs' ? 'bg-muted font-semibold text-ink' : 'bg-surface font-semibold text-ink [--relief:var(--relief-raised)] shadow-(--relief)')
+                ? (size === 'xs' ? s.activeXs : s.active)
                 : s.box8,
             )}
           >

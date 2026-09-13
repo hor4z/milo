@@ -2,15 +2,15 @@ import css from './typography.module.css'
 import { Icon, Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@milo/ui'
 import { A11y, Note, Page, Section, useTokens } from '../kit'
 
-/** Los siete roles, en orden de tamaño. `cls` es la utilidad y el resto es lo que documenta. */
+/** Los siete roles, en orden de tamaño. `name` es el token y el resto es lo que documenta. */
 const roles = [
-  { cls: css.cls, px: 12, lh: 16, ls: '+0.01em', role: 'Metadatos, kbd, contadores, la ayuda de un campo. El piso del sistema: nunca para leer.' },
-  { cls: css.cls2, px: 13, lh: 18, ls: '+0.005em', role: 'Rótulos: la cabecera de una tabla, un chip, un badge, el título de un grupo del menú.' },
-  { cls: css.cls3, px: 14, lh: 20, ls: '0', role: 'La interfaz. Si dudás, es este.' },
-  { cls: css.cls4, px: 16, lh: 24, ls: '0', role: 'Lo que se lee de corrido: un enunciado, una consigna. También el título de una superficie y el botón de md para arriba.' },
-  { cls: css.cls5, px: 20, lh: 28, ls: '-0.01em', role: 'El título de una pantalla.' },
-  { cls: css.cls6, px: 28, lh: 36, ls: '-0.015em', role: 'El encabezado de una sección larga.' },
-  { cls: css.cls7, px: 40, lh: 44, ls: '-0.02em', role: 'Portadas.' },
+  { name: '--type-meta', cls: css.cls, px: 12, lh: 16, ls: '+0.01em', role: 'Metadatos, kbd, contadores, la ayuda de un campo. El piso del sistema: nunca para leer.' },
+  { name: '--type-label', cls: css.cls2, px: 13, lh: 18, ls: '+0.005em', role: 'Rótulos: la cabecera de una tabla, un chip, un badge, el título de un grupo del menú.' },
+  { name: '--type-body', cls: css.cls3, px: 14, lh: 20, ls: '0', role: 'La interfaz. Si dudás, es este.' },
+  { name: '--type-reading', cls: css.cls4, px: 16, lh: 24, ls: '0', role: 'Lo que se lee de corrido: un enunciado, una consigna. También el título de una superficie y el botón de md para arriba.' },
+  { name: '--type-title', cls: css.cls5, px: 20, lh: 28, ls: '-0.01em', role: 'El título de una pantalla.' },
+  { name: '--type-heading', cls: css.cls6, px: 28, lh: 36, ls: '-0.015em', role: 'El encabezado de una sección larga.' },
+  { name: '--type-display', cls: css.cls7, px: 40, lh: 44, ls: '-0.02em', role: 'Portadas.' },
 ] as const
 
 export function TypographySection() {
@@ -23,7 +23,7 @@ export function TypographySection() {
     >
       <Section
         title="Los siete roles"
-        note="La utilidad escribe los tres valores de una. Escritos por separado se despegan, y se despegaron: `text-lg` llegó a ser 20px de letra dentro de una caja de línea de 16px porque el interlineado era un token aparte que nadie tenía que recordar."
+        note="El rol escribe los tres valores de una. Escritos por separado se despegan, y se despegaron: el escalón de 20px llegó a ser 20 de letra dentro de una caja de línea de 16, porque el interlineado era un token aparte que nadie tenía que recordar."
       >
         <div
           tabIndex={0}
@@ -32,10 +32,10 @@ export function TypographySection() {
           className={`${css.div} bg-surface`}
         >
           {roles.map(r => (
-            <div key={r.cls} className={css.div2}>
+            <div key={r.name} className={css.div2}>
               <code className={css.code}>{r.px}/{r.lh}</code>
-              <span className={`${r.cls} min-w-0 flex-1 font-semibold text-ink`}>Doce actividades</span>
-              <code className={css.code2}>{r.cls}</code>
+              <span className={`${r.cls} ${css.muestra}`}>Doce actividades</span>
+              <code className={css.code2}>{r.name}</code>
               <span className={css.span}>{r.role}</span>
             </div>
           ))}
@@ -56,11 +56,11 @@ export function TypographySection() {
             </TableHeader>
             <TableBody>
               {[
-                ['se lee de corrido, en párrafos', 'text-reading'],
-                ['es el título de la pantalla', 'text-title'],
-                ['nombra una columna, un chip o un grupo', 'text-label'],
-                ['es un dato de apoyo que se mira de reojo', 'text-meta'],
-                ['es cualquier otra cosa', 'text-body'],
+                ['se lee de corrido, en párrafos', '--type-reading'],
+                ['es el título de la pantalla', '--type-title'],
+                ['nombra una columna, un chip o un grupo', '--type-label'],
+                ['es un dato de apoyo que se mira de reojo', '--type-meta'],
+                ['es cualquier otra cosa', '--type-body'],
               ].map(([q, a]) => (
                 <TableRow key={a}>
                   <TableCell>{q}</TableCell>
@@ -116,9 +116,9 @@ export function TypographySection() {
       >
         <div className={`${css.div8} bg-surface`}>
           {roles.map(r => (
-            <div key={r.cls} className={css.div9}>
+            <div key={r.name} className={css.div9}>
               <code className={css.code4}>{r.ls}</code>
-              <span className={`${r.cls} text-ink`}>Hola, ¿cómo anduvo la entrega?</span>
+              <span className={`${r.cls} ${css.frase}`}>Hola, ¿cómo anduvo la entrega?</span>
             </div>
           ))}
         </div>
@@ -130,13 +130,13 @@ export function TypographySection() {
       >
         <div className={css.div10}>
           {[
-            ['font-medium', '400', 'la interfaz'],
-            ['font-semibold', '450', 'lo elegido'],
-            ['font-bold', '600', 'la portada'],
-          ].map(([cls, n, role]) => (
-            <div key={cls} className={`${css.div11} bg-surface`}>
-              <span className={`${cls} text-display text-ink`}>Aa</span>
-              <code className={css.code5}>{cls}</code>
+            [css.pesoMedium, '--font-weight-medium', '400', 'la interfaz'],
+            [css.pesoSemibold, '--font-weight-semibold', '450', 'lo elegido'],
+            [css.pesoBold, '--font-weight-bold', '600', 'la portada'],
+          ].map(([cls, name, n, role]) => (
+            <div key={name} className={`${css.div11} bg-surface`}>
+              <span className={`${cls} ${css.peso}`}>Aa</span>
+              <code className={css.code5}>{name}</code>
               <span className={css.span4}>{n} · {role}</span>
             </div>
           ))}
@@ -145,7 +145,7 @@ export function TypographySection() {
 
       <Section
         title="La medida de una línea"
-        note="Entre 60 y 75 caracteres para lo que se lee de corrido. Más largo y el ojo pierde el renglón al volver; más corto y el salto de línea interrumpe cada tres palabras. Se fija con `max-w-[65ch]` y no con un ancho en píxeles, porque `ch` sigue al tamaño de la letra: si el rol cambia, la medida se acomoda sola."
+        note="Entre 60 y 75 caracteres para lo que se lee de corrido. Más largo y el ojo pierde el renglón al volver; más corto y el salto de línea interrumpe cada tres palabras. Se fija en `ch` y no en píxeles, porque `ch` sigue al tamaño de la letra: si el rol cambia, la medida se acomoda sola."
       >
         <div className={`${css.div12} bg-surface`}>
           <p className={css.p5}>
@@ -200,7 +200,7 @@ export function TypographySection() {
 
       <A11y
         items={[
-          'El piso del sistema es 12px y es un rol con nombre (`text-meta`) para que se note cuándo se está usando abajo de lo que corresponde. La única cosa que baja de ahí es la inicial de un avatar chico, que es una marca y no un texto: nadie la lee, identifica.',
+          'El piso del sistema es 12px y es un rol con nombre (`--type-meta`) para que se note cuándo se está usando abajo de lo que corresponde. La única cosa que baja de ahí es la inicial de un avatar chico, que es una marca y no un texto: nadie la lee, identifica.',
           'Los tamaños van en `rem` y no en píxeles: quien agranda la letra en las preferencias de su navegador la ve agrandada. El zoom ya escalaba los píxeles y cubría WCAG 1.4.4; la preferencia de tamaño de fuente no, y esa es la que usa quien tiene baja visión.',
           'El escalón de lectura tiene 1.5 de interlineado, el número de WCAG 1.4.12, y las piezas que llevan texto encima usan `min-h` en vez de alto fijo, así que aguantan que alguien fuerce más espaciado sin que se corte nada.',
           'El tracking es positivo en los dos escalones más chicos. La letra apretada a 12px es la que más se empasta, y es la que peor le cae a quien lee con dificultad.',

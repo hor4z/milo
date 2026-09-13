@@ -119,6 +119,14 @@
     .button:hover {
         background-color: var(--surface-active);
     }
+
+    .hoverRing:hover {
+        box-shadow: 0 0 0 2px color-mix(in oklab, currentColor 25%, transparent);
+    }
+
+    .hoverSunken:hover {
+        background-color: var(--surface-sunken);
+    }
   }
 
 }

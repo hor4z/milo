@@ -75,6 +75,28 @@
     color: var(--text-muted);
   }
 
+  .iconOnlyXs { width: 1.5rem; }
+  .iconOnlySm { width: 1.75rem; }
+  .iconOnlyMd { width: 2rem; }
+
+  .padXs { padding-inline: 0.5rem; }
+  .padSm { padding-inline: 0.75rem; }
+  .padMd { padding-inline: 1rem; }
+
+  .activeXs {
+    background-color: var(--surface-muted);
+    font-weight: var(--font-weight-semibold);
+    color: var(--text);
+  }
+
+  .active {
+    background-color: var(--surface);
+    font-weight: var(--font-weight-semibold);
+    color: var(--text);
+    --relief: var(--relief-raised);
+    box-shadow: var(--relief);
+  }
+
   .span {
     width: 0.375rem;
     height: 0.375rem;

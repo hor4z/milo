@@ -1,20 +1,4 @@
 @layer milo.app {
-  .cls {
-    transition-duration: var(--duration-fast);
-  }
-
-  .cls2 {
-    transition-duration: var(--duration-normal);
-  }
-
-  .cls3 {
-    transition-timing-function: var(--ease-out);
-  }
-
-  .cls4 {
-    transition-timing-function: var(--ease-in);
-  }
-
   .div {
     display: flex;
     flex-direction: column;

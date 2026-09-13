@@ -10,8 +10,6 @@ type BreadcrumbProps = ComponentPropsWithoutRef<'nav'> & {
   items: { label: string; href?: string; onClick?: () => void }[]
 }
 
-const step = 'truncate rounded-sm text-body font-medium text-ink-muted transition-colors duration-fast ease-out hover:text-ink'
-
 /** Dónde estás parado y cómo volver. */
 export function Breadcrumb({ items, label = 'Ruta', className, ...props }: BreadcrumbProps) {
   return (
@@ -24,10 +22,10 @@ export function Breadcrumb({ items, label = 'Ruta', className, ...props }: Bread
               {last
                 ? <span aria-current="page" className={cls.span}>{it.label}</span>
                 : it.href
-                  ? <a href={it.href} onClick={it.onClick} className={step}>{it.label}</a>
+                  ? <a href={it.href} onClick={it.onClick} className={cls.step}>{it.label}</a>
                   : it.onClick
-                    ? <button type="button" onClick={it.onClick} className={step}>{it.label}</button>
-                    : <span className={step}>{it.label}</span>}
+                    ? <button type="button" onClick={it.onClick} className={cls.step}>{it.label}</button>
+                    : <span className={cls.step}>{it.label}</span>}
               {!last && <Icon name="chevron_right" size={14} className={`${cls.icon} icon-muted`} />}
             </li>
           )

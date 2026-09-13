@@ -89,4 +89,10 @@
     scale: var(--milo-scale-x) var(--milo-scale-y);
   }
 
+  .move {
+    transition-property: left,width;
+    transition-duration: var(--duration-fast);
+    transition-timing-function: var(--ease-out);
+  }
+
 }

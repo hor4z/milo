@@ -31,7 +31,7 @@ export function Slider({
   const thumbAt = 'calc(var(--t) * (100% - 24px) + 12px)'
   const fillTo = 'calc(var(--t) * (100% - 24px) + 24px)'
   const [dragging, setDragging] = useState(false)
-  const move = dragging ? '' : 'transition-[left,width] duration-fast ease-out'
+  const move = dragging ? '' : s.move
   return (
     <span
       className={cx(s.span, disabled && s.disabled, className)}

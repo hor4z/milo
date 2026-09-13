@@ -43,7 +43,7 @@ export function ReliefSection() {
         <div className={css.div}>
           {recipes.map(r => (
             <div key={r.token} className={`${css.div2} bg-surface`}>
-              <div className={`${r.cls} ${r.back} flex h-14 items-center justify-center rounded-xl text-body font-semibold`}>
+              <div className={`${r.cls} ${r.back} ${css.muestra}`}>
                 {r.role}
               </div>
               <div className={css.div3}>

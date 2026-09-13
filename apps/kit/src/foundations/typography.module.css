@@ -567,4 +567,26 @@
     }
   }
 
+  .muestra {
+    min-width: 0;
+    flex: 1;
+    font-weight: var(--font-weight-semibold);
+    color: var(--text);
+  }
+
+  .frase {
+    color: var(--text);
+  }
+
+  .peso {
+    font-size: var(--type-display);
+    line-height: var(--type-display-lh);
+    letter-spacing: var(--type-display-ls);
+    color: var(--text);
+  }
+
+  .pesoMedium { font-weight: var(--font-weight-medium); }
+  .pesoSemibold { font-weight: var(--font-weight-semibold); }
+  .pesoBold { font-weight: var(--font-weight-bold); }
+
 }

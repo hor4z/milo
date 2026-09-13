@@ -1,4 +1,5 @@
 import { render, screen } from '@testing-library/react'
+import { estilo } from '../__tests__/estilo'
 import userEvent from '@testing-library/user-event'
 import { describe, expect, it, vi } from 'vitest'
 import { Field } from '../field/field'
@@ -64,18 +65,18 @@ describe('Segmented', () => {
   })
 
   it.each([
-    ['sm', 'p-0.5', 'min-h-7'],  // 28 + 2 + 2 = 32, el `sm` de la escalera
-    ['md', 'p-0.5', 'min-h-8'],  // 32 + 2 + 2 = 36, el `md` de la escalera
-  ] as const)('el alto de afuera en %s es el de la escalera', (size, pad, inner) => {
+    ['sm', '1.75rem'],  // 28 + 2 + 2 = 32, el `sm` de la escalera
+    ['md', '2rem'],     // 32 + 2 + 2 = 36, el `md` de la escalera
+  ] as const)('el alto de afuera en %s es el de la escalera', (size, alto) => {
     render(<Segmented value="a" onChange={() => {}} options={filters.slice(0, 2)} label="Rango" size={size} />)
-    expect(screen.getByRole('radiogroup')).toHaveClass(pad)
-    expect(screen.getByRole('radio', { name: 'Todas' })).toHaveClass(inner)
+    expect(estilo(screen.getByRole('radiogroup'))).toContain('padding: 0.125rem')
+    expect(estilo(screen.getByRole('radio', { name: 'Todas' }))).toContain(`min-height: ${alto}`)
   })
 
   it('el pulgar lleva el radio de lo cuadrado, que es el de la pista menos su padding', () => {
     render(<Segmented value="a" onChange={() => {}} options={filters.slice(0, 2)} label="Rango" size="sm" />)
-    expect(screen.getByRole('radiogroup')).toHaveClass('rounded-lg')
-    expect(screen.getByRole('radio', { name: 'Todas' })).toHaveClass('rounded-md')
+    expect(estilo(screen.getByRole('radiogroup'))).toContain('border-radius: var(--radius-lg)')
+    expect(estilo(screen.getByRole('radio', { name: 'Todas' }))).toContain('border-radius: var(--radius-md)')
   })
 
   it('una opción apagada no se elige ni recibe el foco', async () => {

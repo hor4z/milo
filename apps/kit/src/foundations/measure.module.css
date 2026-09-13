@@ -266,4 +266,17 @@
     color: var(--bad-ink);
   }
 
+  .muestraRadio {
+    width: 3.5rem;
+    height: 3.5rem;
+    flex-shrink: 0;
+    background-color: var(--text);
+  }
+
+  .nido {
+    width: 6rem;
+    height: 6rem;
+    background-color: var(--canvas);
+  }
+
 }

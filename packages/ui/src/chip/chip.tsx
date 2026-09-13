@@ -57,7 +57,7 @@ export function Chip({
       : color
         ? chipColor[color]
         : cls.box4,
-    onClick && !active && (color ? 'hover:ring-2 hover:ring-current/25' : 'hover:bg-sunken'),
+    onClick && !active && (color ? cls.hoverRing : cls.hoverSunken),
     className,
   )
 

@@ -3,7 +3,7 @@ import { cx } from '../lib/cx'
 
 /** La línea que separa. */
 export function Divider({ orientation = 'horizontal', className }: {
-  /** El vertical lleva `self-stretch` adentro: en una fila con `items-center` mediría cero. */
+  /** El vertical se estira solo: en una fila que centra a sus hijos mediría cero. */
   orientation?: 'horizontal' | 'vertical'
   /** Para el margen, que depende de dónde esté. */
   className?: string

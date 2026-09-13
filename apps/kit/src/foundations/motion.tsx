@@ -5,14 +5,14 @@ import { A11y, Note, Page, Section } from '../kit'
 
 /** Dos duraciones de interfaz, una de contenido, y dos curvas. */
 const duraciones = [
-  { cls: css.cls, ms: 120, role: 'lo que acompaña al dedo: un hover, un color que cambia, un check que se marca. Tiene que sentirse instantáneo.' },
-  { cls: css.cls2, ms: 190, role: 'lo que aparece o se va: un panel, un modal, una hoja. Acá el ojo necesita ver de dónde vino.' },
-  { cls: 'duration-content', ms: 280, role: 'lo que no es interfaz: una carpeta que se abre, un libro que gira. No informa de un cambio de estado, muestra qué es la cosa, y eso pide más tiempo.' },
+  { name: '--duration-fast', ms: 120, role: 'lo que acompaña al dedo: un hover, un color que cambia, un check que se marca. Tiene que sentirse instantáneo.' },
+  { name: '--duration-normal', ms: 190, role: 'lo que aparece o se va: un panel, un modal, una hoja. Acá el ojo necesita ver de dónde vino.' },
+  { name: '--duration-content', ms: 280, role: 'lo que no es interfaz: una carpeta que se abre, un libro que gira. No informa de un cambio de estado, muestra qué es la cosa, y eso pide más tiempo.' },
 ] as const
 
 const curvas = [
-  { cls: css.cls3, value: 'cubic-bezier(0.24, 1, 0.4, 1)', role: 'todo lo que entra. Arranca rápido y frena: la pieza ya está donde va antes de terminar de moverse.' },
-  { cls: css.cls4, value: 'cubic-bezier(0.4, 0, 1, 1)', role: 'lo que se va. Arranca lento y acelera hacia afuera.' },
+  { name: '--ease-out', value: 'cubic-bezier(0.24, 1, 0.4, 1)', role: 'todo lo que entra. Arranca rápido y frena: la pieza ya está donde va antes de terminar de moverse.' },
+  { name: '--ease-in', value: 'cubic-bezier(0.4, 0, 1, 1)', role: 'lo que se va. Arranca lento y acelera hacia afuera.' },
 ] as const
 
 export function MotionSection() {
@@ -29,19 +29,18 @@ export function MotionSection() {
       >
         <div className={css.div}>
           {duraciones.map(d => (
-            <div key={d.cls} className={`${css.div2} bg-surface`}>
-              <code className={css.code}>{d.cls}</code>
+            <div key={d.name} className={`${css.div2} bg-surface`}>
+              <code className={css.code}>{d.name}</code>
               <span className={`${css.span} tabular`}>{d.ms}ms</span>
               <span className={css.span2}>{d.role}</span>
             </div>
           ))}
         </div>
-        <Note icon="build" title="Por qué van con @utility y no en el @theme">
-          <code>--duration-*</code> no es un namespace de Tailwind, así que declarar el token no
-          genera ninguna utilidad: <code>duration-fast</code> no existiría por más que el token esté.
-          Se declaran con <code>@utility</code>, que es el mismo mecanismo que ya usan{' '}
-          <code>icon-muted</code> y <code>no-scrollbar</code>. La alternativa era escribir{' '}
-          <code>duration-(--duration-fast)</code> en cada call site: dice lo mismo y se lee peor.
+        <Note icon="build" title="Son tokens, y se leen como tokens">
+          Una pieza escribe <code>transition-duration: var(--duration-fast)</code> en su módulo y
+          nada más. No hay una capa de utilidades en el medio, así que no hay dos nombres para lo
+          mismo ni un paso donde el token esté y la clase no se genere. Una app que quiera
+          utilidades las arma sobre estos tokens, que es de dónde salen los tres valores.
         </Note>
       </Section>
 
@@ -51,8 +50,8 @@ export function MotionSection() {
       >
         <div className={css.div3}>
           {curvas.map(c => (
-            <div key={c.cls} className={`${css.div4} bg-surface`}>
-              <code className={css.code2}>{c.cls}</code>
+            <div key={c.name} className={`${css.div4} bg-surface`}>
+              <code className={css.code2}>{c.name}</code>
               <code className={css.code3}>{c.value}</code>
               <span className={css.span3}>{c.role}</span>
             </div>
@@ -144,9 +143,9 @@ function Probador() {
             {abierto ? 'Cerrar' : 'Abrir'}
           </Button>
           <span className={css.span8}>
-            <Switch checked={lento} onChange={setLento} label="Usar duration-normal" />
+            <Switch checked={lento} onChange={setLento} label="Usar la duración de panel" />
             <button type="button" onClick={() => setLento(v => !v)} className={css.box}>
-              Usar <code className={css.code4}>duration-normal</code>
+              Usar <code className={css.code4}>--duration-normal</code>
             </button>
           </span>
         </div>

@@ -2,9 +2,27 @@ import { describe, expect, it } from 'vitest'
 import { readFileSync } from 'node:fs'
 import { join } from 'node:path'
 
+import { readdirSync } from 'node:fs'
+
 const scales = readFileSync(join(import.meta.dirname, '../../../tokens/src/scales.css'), 'utf8')
 const theme = readFileSync(join(import.meta.dirname, '../theme.css'), 'utf8')
   + readFileSync(join(import.meta.dirname, '../styles/base.css'), 'utf8')
+
+/* Todo el CSS que escribe estilo: los módulos de las piezas, los del kit, y la
+   base. Es donde un rol se usa y donde se puede usar a medias. */
+function modulos(base: string, prefijo = ''): { nombre: string; texto: string }[] {
+  return readdirSync(base, { withFileTypes: true }).flatMap(e =>
+    e.isDirectory() ? (e.name === 'node_modules' ? [] : modulos(join(base, e.name), `${prefijo}${e.name}/`))
+    : e.name.endsWith('.module.css')
+      ? [{ nombre: `${prefijo}${e.name}`, texto: readFileSync(join(base, e.name), 'utf8') }]
+      : [])
+}
+
+const estilo = [
+  ...modulos(join(import.meta.dirname, '..')),
+  ...modulos(join(import.meta.dirname, '../../../../apps/kit/src')),
+  { nombre: 'base.css', texto: readFileSync(join(import.meta.dirname, '../styles/base.css'), 'utf8') },
+]
 
 /** Los siete roles, del más chico al más grande. El orden es lo que se mide. */
 const roles = ['meta', 'label', 'body', 'reading', 'title', 'heading', 'display'] as const
@@ -32,17 +50,41 @@ describe('la escala tipográfica', () => {
     expect(incompletos).toEqual([])
   })
 
-  it('cada rol llega al @theme con los tres, o la utilidad sale coja', () => {
-    const incompletos = roles.filter(r =>
-      !new RegExp(`--text-${r}:\\s*var\\(--type-${r}\\)`).test(theme) ||
-      !new RegExp(`--text-${r}--line-height:`).test(theme) ||
-      !new RegExp(`--text-${r}--letter-spacing:`).test(theme),
-    )
-    expect(incompletos).toEqual([])
+  it('el que escribe un tamaño escribe los tres', () => {
+    /* Es la razón de ser de los roles: el bug que vinieron a matar fue un tamaño
+       de 20px adentro de una caja de línea de 16, porque el interlineado era un
+       token aparte que nadie tenía que acordarse de escribir. Un rol a medias lo
+       trae de vuelta, y en pantalla se ve como renglones que se pisan. */
+    const cojos: string[] = []
+    for (const f of estilo) {
+      for (const bloque of f.texto.split(/(?<=\})/)) {
+        const m = bloque.match(/font-size:\s*var\(--type-([a-z]+)\)/)
+        if (!m) continue
+        const r = m[1]
+        if (!bloque.includes(`--type-${r}-lh`)) cojos.push(`${f.nombre}: --type-${r} sin interlineado`)
+        else if (!bloque.includes(`--type-${r}-ls`)) cojos.push(`${f.nombre}: --type-${r} sin tracking`)
+      }
+    }
+    expect([...new Set(cojos)]).toEqual([])
   })
 
-  it('los nombres viejos están apagados', () => {
-    expect(theme).toMatch(/--text-\*:\s*initial/)
+  it('nadie nombra un rol que no existe', () => {
+    const inventados: string[] = []
+    for (const f of estilo) {
+      for (const m of f.texto.matchAll(/var\(--type-([a-z]+)(?:-lh|-ls)?\)/g)) {
+        if (!(roles as readonly string[]).includes(m[1])) inventados.push(`${f.nombre}: --type-${m[1]}`)
+      }
+    }
+    expect([...new Set(inventados)]).toEqual([])
+  })
+
+  it('no quedó el puente que Tailwind leía', () => {
+    /* `--text-meta` y compañía existían solo para que Tailwind emitiera una
+       utilidad. El rol es `--type-meta` y no hay dos nombres para lo mismo. */
+    for (const f of estilo) {
+      for (const r of roles) expect(f.texto, f.nombre).not.toMatch(new RegExp(`var\\(--text-${r}\\b`))
+    }
+    expect(theme).not.toMatch(/@theme/)
   })
 
   it('ningún rol baja de 12px', () => {

@@ -122,7 +122,7 @@ function Columna({ titulo, clase, children }: { titulo: string; clase: string; c
   return (
     <div className={cls.div3}>
       <span className={cls.span}>{titulo}</span>
-      <div className={`flex flex-col items-end gap-1 text-reading text-ink ${clase}`}>{children}</div>
+      <div className={`${cls.columna} ${clase}`}>{children}</div>
     </div>
   )
 }

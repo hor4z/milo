@@ -334,8 +334,8 @@ export function TableStory() {
         note="El anillo es del color de la fila y no blanco fijo, así que sobre un fondo distinto hay que pasarle `ring`. Es la única forma: un avatar no puede saber sobre qué lo pusieron."
       >
         <div className={cls.div6}>
-          <AvatarGroup people={[p('Ana Pérez', 1), p('Bruno Díaz', 2), p('Carla Sosa', 3), p('Damián Ruiz', 4)]} ring="ring-muted" />
-          <Mono>ring="ring-muted"</Mono>
+          <AvatarGroup people={[p('Ana Pérez', 1), p('Bruno Díaz', 2), p('Carla Sosa', 3), p('Damián Ruiz', 4)]} ring="var(--surface-muted)" />
+          <Mono>ring="var(--surface-muted)"</Mono>
         </div>
       </Section>
 

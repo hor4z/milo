@@ -24,11 +24,6 @@
     align-items: center;
   }
 
-  .box {
-    --milo-ring-shadow: var(--milo-ring-inset,) 0 0 0 calc(2px + var(--milo-ring-offset-width)) var(--milo-ring-color,currentcolor);
-    box-shadow: var(--milo-inset-shadow),var(--milo-inset-ring-shadow),var(--milo-ring-offset-shadow),var(--milo-ring-shadow),var(--milo-shadow);
-  }
-
   .box2 {
     margin-left: calc(var(--overlap) * -1);
   }
@@ -42,8 +37,7 @@
     background-color: var(--surface-sunken);
     font-weight: var(--font-weight-semibold);
     color: var(--text-muted);
-    --milo-ring-shadow: var(--milo-ring-inset,) 0 0 0 calc(2px + var(--milo-ring-offset-width)) var(--milo-ring-color,currentcolor);
-    box-shadow: var(--milo-inset-shadow),var(--milo-inset-ring-shadow),var(--milo-ring-offset-shadow),var(--milo-ring-shadow),var(--milo-shadow);
+    box-shadow: 0 0 0 2px var(--ring);
   }
 
 }

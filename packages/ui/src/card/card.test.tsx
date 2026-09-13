@@ -1,4 +1,5 @@
 import { render, screen } from '@testing-library/react'
+import s from './card.module.css'
 import { describe, expect, it } from 'vitest'
 import { Card, CardBody, CardFooter, CardHeader, CardHint, CardTitle } from './card'
 
@@ -23,20 +24,20 @@ describe('Card', () => {
 
   it('quieta por defecto, y se levanta solo si se lo piden', () => {
     const { container, rerender } = render(<Card>x</Card>)
-    expect((container.firstChild as HTMLElement).className).not.toContain('hover:')
+    expect((container.firstChild as HTMLElement).className).not.toContain(s.interactive)
     rerender(<Card interactive>x</Card>)
-    expect((container.firstChild as HTMLElement).className).toContain('hover:')
+    expect((container.firstChild as HTMLElement).className).toContain(s.interactive)
   })
 
   it('el hueco es otra superficie, no otra tarjeta', () => {
     const { container } = render(<Card surface="muted">x</Card>)
-    expect((container.firstChild as HTMLElement).className).toContain('bg-muted')
+    expect((container.firstChild as HTMLElement).className).toContain(s.muted)
   })
 
   it('el papel lleva su línea: adentro de otra superficie la sombra sola no dice dónde empieza', () => {
     const { container, rerender } = render(<Card>x</Card>)
-    expect((container.firstChild as HTMLElement).className).toContain('border-line')
+    expect((container.firstChild as HTMLElement).className).toContain(s.div2)
     rerender(<Card surface="muted">x</Card>)
-    expect((container.firstChild as HTMLElement).className).not.toContain('border-line')
+    expect((container.firstChild as HTMLElement).className).not.toContain(s.div2)
   })
 })

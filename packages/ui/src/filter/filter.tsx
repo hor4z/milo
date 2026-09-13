@@ -50,7 +50,7 @@ export function Filter({ label, options, value, onValueChange }: FilterProps) {
           size="sm"
           iconEnd="keyboard_arrow_down"
         >
-          {faces.length > 0 && <AvatarGroup people={faces} size={18} max={3} ring="ring-brand" className={s.avatarGroup} />}
+          {faces.length > 0 && <AvatarGroup people={faces} size={18} max={3} ring="var(--brand)" className={s.avatarGroup} />}
           {label}{value.length > 0 && faces.length === 0 && ` · ${value.length}`}
         </Button>
       )}

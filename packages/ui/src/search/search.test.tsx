@@ -1,4 +1,5 @@
 import { describe, expect, it, vi } from 'vitest'
+import { estilo } from '../__tests__/estilo'
 import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { Search } from './search'
@@ -23,7 +24,7 @@ describe('Search', () => {
   it('la cruz está centrada: es cuadrada y centra su glifo', () => {
     render(<Search value="frac" onValueChange={() => {}} />)
     const cruz = screen.getByRole('button', { name: 'Limpiar la búsqueda' })
-    expect(cruz).toHaveClass('inline-flex', 'items-center', 'justify-center', 'size-5')
+    expect(estilo(cruz)).toContain('justify-content: center')
   })
 
   it('`inputRef` llega al input: es lo que un atajo necesita para enfocarlo', () => {

@@ -31,6 +31,25 @@
     color: var(--text);
   }
 
+  .step {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    border-radius: var(--radius-sm);
+    font-size: var(--type-body);
+    line-height: var(--type-body-lh);
+    letter-spacing: var(--type-body-ls);
+    font-weight: var(--font-weight-medium);
+    color: var(--text-muted);
+    transition-property: color,background-color,border-color,outline-color,text-decoration-color,fill,stroke;
+    transition-duration: var(--duration-fast);
+    transition-timing-function: var(--ease-out);
+
+    &:hover {
+      color: var(--text);
+    }
+  }
+
   .icon {
     flex-shrink: 0;
   }

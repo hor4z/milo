@@ -235,9 +235,10 @@ function Avisos() {
 const PASADA = 8333
 
 /**
- * `left-full` no es una preferencia: el recorte lo deja cortado por donde estaba
- * el canto, así que su borde izquierdo tiene que caer sobre uno. Y solo de `xl`
- * para arriba, que es cuando sobra lugar a la derecha de la grilla.
+ * Que salga pegado al borde derecho de la tarjeta no es una preferencia: el
+ * recorte lo deja cortado por donde estaba el canto, así que su borde izquierdo
+ * tiene que caer sobre uno. Y solo en pantalla ancha, que es cuando sobra lugar
+ * a la derecha de la grilla.
  *
  * Se asoma una vez y se esconde un rato largo al azar. En bucle continuo deja
  * de ser una aparición y pasa a ser algo que se mueve al costado mientras

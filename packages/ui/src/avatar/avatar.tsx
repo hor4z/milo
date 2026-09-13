@@ -31,7 +31,7 @@ export function Avatar({ name, src, size = 40, className }: {
 
 /** Varias personas en el lugar de una. */
 export function AvatarGroup({
-  people, max = 3, size = 28, ring = 'ring-surface', className,
+  people, max = 3, size = 28, ring = 'var(--surface)', className,
 }: {
   /** Sin `src` cae a la inicial. */
   /** Sin `src` cae a la inicial. */
@@ -42,7 +42,7 @@ export function AvatarGroup({
   /** El monte sale de acá. */
   /** El monte sale de acá. */
   size?: number
-  /** La utilidad de color del anillo, que tiene que ser la del fondo de atrás. */
+  /** El color del anillo, que tiene que ser el del fondo de atrás. */
   ring?: string
   className?: string
 }) {
@@ -52,7 +52,7 @@ export function AvatarGroup({
   return (
     <span
       className={cx(cls.span2, className)}
-      style={{ '--overlap': `${overlap}px` } as CSSProperties}
+      style={{ '--overlap': `${overlap}px`, '--ring': ring } as CSSProperties}
     >
       {shown.map((p, i) => (
         <Avatar
@@ -60,12 +60,12 @@ export function AvatarGroup({
           name={p.name}
           src={p.src}
           size={size}
-          className={cx(cls.box, ring, i > 0 && cls.box2)}
+          className={cx('mark-ring', i > 0 && cls.box2)}
         />
       ))}
       {rest > 0 && (
         <span
-          className={cx(cls.span3, ring)}
+          className={cls.span3}
           style={{ width: size, height: size, fontSize: Math.max(10, Math.round(size * 0.3)), lineHeight: 1 }}
         >
           +{rest}
