@@ -80,8 +80,6 @@ function ToastItem({ toast, onDismiss }: { toast: ToastRecord; onDismiss: (id: s
   const [paused, setPaused] = useState(false)
   const id = useId()
 
-  // Sin el `useCallback`, cada aviso nuevo reinicia el reloj de los que ya
-  // estaban: con un goteo constante, el primero no se va nunca.
   const close = useCallback(() => onDismiss(toastId), [onDismiss, toastId])
 
   useEffect(() => {

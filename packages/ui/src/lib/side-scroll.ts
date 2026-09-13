@@ -23,8 +23,5 @@ export function useSideScroll<T extends HTMLElement>(deps?: unknown) {
     }
   }, [deps])
 
-  // `scrolls` decide si la caja es una parada de tabulación: lo que se corta a
-  // la derecha no se alcanza con el teclado de ninguna otra forma, y una parada
-  // de más en algo que entra entero es ruido.
   return { ref, scrolls, clipped }
 }

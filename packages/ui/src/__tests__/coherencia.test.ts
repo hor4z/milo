@@ -42,23 +42,18 @@ describe('coherencia del sistema', () => {
   })
 
   it('nadie usa un nombre de la escala vieja', () => {
-    // No rompen: se quedan sin tamaño y heredan el del body, que es casi el
-    // correcto. Casi — por eso lo mira un test y no la pantalla.
     const viejos = /\btext-(2xs|xs|sm|base|md|lg|xl|2xl)\b/
     const offenders = sources.filter(f => viejos.test(f.text)).map(f => f.name)
     expect(offenders).toEqual([])
   })
 
   it('el interlineado y el tracking vienen del rol, no sueltos', () => {
-    // Sueltos se despegan del tamaño: `text-lg` llegó a ser 20px en una caja de 16.
     const sueltos = /\b(leading|tracking)-(\[|none|tight|normal|snug|relaxed|loose|wide|wider|widest)/
     const offenders = sources.filter(f => sueltos.test(f.text)).map(f => f.name)
     expect(offenders).toEqual([])
   })
 
   it('las duraciones salen de las dos del sistema', () => {
-    // Los tokens estaban desde el principio y no los leía nadie: diecisiete call
-    // sites escribían `duration-[120ms]` a mano, cuatro con números fuera de escala.
     const sueltas = /\bduration-(\[|\d)/
     const offenders = sources.filter(f => sueltas.test(f.text)).map(f => f.name)
     expect(offenders).toEqual([])
@@ -71,8 +66,6 @@ describe('coherencia del sistema', () => {
   })
 
   it('el espaciado sale de la grilla', () => {
-    // Once pasos: 2 4 6 8 12 16 20 24 32 40 48. Mira solo el aire — las alturas
-    // de pieza salen de la escalera de controles y no de acá.
     const eje = 'p|px|py|pt|pb|pl|pr|m|mx|my|mt|mb|ml|mr|gap|gap-x|gap-y|space-y|space-x'
     const fuera = new RegExp(`(?<![\\w-])-?(${eje})-(1\\.5|2\\.5|3\\.5|7|9|11|13|14|15)(?![\\w.])`)
     const offenders = sources.filter(f => fuera.test(f.text)).map(f => f.name)
@@ -80,9 +73,6 @@ describe('coherencia del sistema', () => {
   })
 
   it('un espaciado arbitrario va con un token adentro, no con un número', () => {
-    // El guardián de arriba miraba solo los escalones con nombre, así que
-    // `pl-[30px]` pasaba por al lado. Un `var()` o un `calc()` sí valen: no son
-    // números mágicos, son una derivación que se lee. El píxel suelto no.
     const eje = 'p|px|py|pt|pb|pl|pr|m|mx|my|mt|mb|ml|mr|gap|gap-x|gap-y|space-y|space-x'
     const magico = new RegExp(`(?<![\\w-])-?(${eje})-\\[(?!var\\(|calc\\()`, 'g')
     const offenders: string[] = []
@@ -93,10 +83,6 @@ describe('coherencia del sistema', () => {
   })
 
   it('una transición declara su duración y su curva', () => {
-    // Sin `duration-*` y `ease-*`, Tailwind pone 150ms y una curva que no es
-    // ninguna de las dos del sistema. No falla ni se ve: simplemente hay una
-    // tercera duración y una tercera curva que la doctrina dice que no existen.
-    // Había doce, cinco de ellas en piezas del paquete.
     const offenders: string[] = []
     for (const f of sources) {
       for (const m of f.text.matchAll(/(['"`])((?:(?!\1)[\s\S])*?\btransition-[\w[\],-]+(?:(?!\1)[\s\S])*?)\1/g)) {
@@ -110,11 +96,6 @@ describe('coherencia del sistema', () => {
   })
 
   it('los iconos salen de la escala', () => {
-    // 12·14·16·18·20·22 la interfaz, 28·40 un specimen o un `EmptyState`. Hace
-    // falta un test porque el tamaño va como número y ningún linter lo mira.
-    // Los seis pasos pares que la escala declara, y ninguno más. El 28 y el 40
-    // estaban permitidos y no los usaba nadie: un permiso que nadie ejerce
-    // termina siendo el que alguien ejerce sin darse cuenta.
     const escala = new Set([12, 14, 16, 18, 20, 22])
     const offenders: string[] = []
     for (const f of sources) {
@@ -126,26 +107,16 @@ describe('coherencia del sistema', () => {
   })
 
   it('los pesos salen de los tres roles', () => {
-    // Tres pesos y tres nombres. Un `font-[500]` o un `font-weight: 600` a mano
-    // mete un cuarto escalón que nadie eligió y que no se mueve cuando se
-    // recalibra la familia — que es justo lo que pasó al volver a Inter.
     const fuera = /font-\[\d|font-(thin|extralight|light|normal|extrabold|black)\b/
     const offenders = sources.filter(f => fuera.test(f.text)).map(f => f.name)
     expect(offenders).toEqual([])
   })
 
   it('el peso de display solo aparece en tamaño display', () => {
-    // 600 es el peso de la portada y existe para el escalón `display`. A 16px se
-    // lee como negrita y aplasta la escala de énfasis: el número de un tooltip
-    // pesaba más que el título de la pantalla que lo contiene.
-    // Mira línea por línea y no la cadena entera a propósito: la prosa de las
-    // notas usa backticks, así que emparejar comillas a lo largo del archivo se
-    // desincroniza. Un `font-bold` va siempre con su tamaño al lado.
     const offenders: string[] = []
     for (const f of sources) {
       for (const linea of f.text.split('\n')) {
         if (!/\bfont-bold\b/.test(linea)) continue
-        // El nombre suelto es la clase documentándose, no aplicándose.
         if (/(['"`])font-bold\1/.test(linea)) continue
         if (!/\btext-display\b/.test(linea)) offenders.push(`${f.name}: ${linea.trim().slice(0, 56)}`)
       }
@@ -174,8 +145,6 @@ describe('coherencia del sistema', () => {
   it('ningún botón se olvida el type, que adentro de un form manda el form', () => {
     const offenders: string[] = []
     for (const f of sources) {
-      // Sin sacar los comentarios, un `<button>` escrito adentro de un docblock
-      // cuenta como una etiqueta más.
       const code = f.text.replace(/\/\*[\s\S]*?\*\//g, ' ').replace(/(?<!:)\/\/.*$/gm, ' ')
       for (const m of code.matchAll(/<button\b[^>]*?>/gs)) {
         if (!m[0].includes('type=')) offenders.push(f.name)

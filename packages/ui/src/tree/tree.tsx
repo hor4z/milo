@@ -47,8 +47,6 @@ export function Tree({ nodes, label, expanded, onExpandedChange, selected, onSel
   const abiertos = useMemo(() => new Set(expanded ?? propios), [expanded, propios])
   const filas = useMemo(() => aplanar(nodes, abiertos), [nodes, abiertos])
 
-  // El cursor es la única parada de tabulación: sin eso, un árbol de cuarenta
-  // ramas son cuarenta paradas para llegar a lo que sigue en la página.
   const [cursor, setCursor] = useState<string | null>(null)
   const actual = cursor && filas.some(f => f.node.id === cursor) ? cursor : (selected ?? filas[0]?.node.id ?? null)
   const refs = useRef<Record<string, HTMLDivElement | null>>({})
@@ -73,14 +71,11 @@ export function Tree({ nodes, label, expanded, onExpandedChange, selected, onSel
       case 'End': e.preventDefault(); ir(filas.length - 1); break
       case 'ArrowRight':
         e.preventDefault()
-        // Cerrada abre; abierta entra. Es lo que evita tener que volver a
-        // bajar con la flecha después de abrir una rama.
         if (!f.hoja && !f.abierto) abrirCerrar(f.node.id, true)
         else if (f.abierto) ir(i + 1)
         break
       case 'ArrowLeft':
         e.preventDefault()
-        // Abierta cierra; cerrada sube al padre, que es de donde vino.
         if (!f.hoja && f.abierto) abrirCerrar(f.node.id, false)
         else if (f.padre) mover(f.padre)
         break
@@ -91,7 +86,6 @@ export function Tree({ nodes, label, expanded, onExpandedChange, selected, onSel
         onSelect?.(f.node.id)
         break
       default:
-        // Teclear salta a la rama que empieza así, como en una lista de verdad.
         if (e.key.length === 1 && !e.ctrlKey && !e.metaKey && !e.altKey) {
           const desde = filas.slice(i + 1).concat(filas.slice(0, i + 1))
           const d = desde.find(x => x.node.label.toLowerCase().startsWith(e.key.toLowerCase()))
@@ -117,17 +111,12 @@ export function Tree({ nodes, label, expanded, onExpandedChange, selected, onSel
             onFocus={() => setCursor(f.node.id)}
             onKeyDown={e => teclas(e, i, f)}
             onClick={() => { if (!f.hoja) abrirCerrar(f.node.id, !f.abierto); onSelect?.(f.node.id) }}
-            // El nivel se dibuja con padding y no con anidado: un `div` por
-            // nivel mete cajas vacías entre el árbol y sus ramas, y un lector
-            // de pantalla las cuenta.
             style={{ paddingLeft: 8 + (f.nivel - 1) * 16 }}
             className={cx(
               'flex h-9 cursor-default items-center gap-2 rounded-md pr-2 text-body transition-colors duration-fast ease-out',
               elegido ? 'bg-brand-soft font-semibold text-brand-ink' : 'font-medium text-ink hover:bg-hover',
             )}
           >
-            {/* La hoja no lleva flecha, pero sí su lugar: sin el hueco, los
-                nombres de un mismo nivel no arrancan alineados. */}
             {f.hoja
               ? <span aria-hidden="true" className="size-4 shrink-0" />
               : <Icon name={f.abierto ? 'keyboard_arrow_down' : 'chevron_right'} size={16} className="shrink-0 icon-muted" />}

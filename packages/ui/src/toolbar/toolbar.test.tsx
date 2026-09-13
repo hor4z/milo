@@ -57,7 +57,6 @@ describe('Toolbar', () => {
     render(<Barra />)
     screen.getByRole('button', { name: 'Enlace' }).focus()
     await userEvent.keyboard('{ArrowRight}')
-    // «Borrar» está apagado, así que la vuelta cae en el primero.
     expect(screen.getByRole('button', { name: 'Negrita' })).toHaveFocus()
   })
 

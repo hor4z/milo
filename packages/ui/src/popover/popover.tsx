@@ -35,10 +35,6 @@ export function Popover({
   const set = (v: boolean) => { setOpen(v); onOpenChange?.(v) }
 
   const close = () => {
-    // Si el foco estaba adentro del panel, al desmontarlo se cae al `<body>` y
-    // quien usa el teclado queda arriba de todo, lejos de donde estaba. Se
-    // pregunta antes de cerrar, que es cuando el panel todavía existe. Cuando
-    // el foco está afuera —alguien tocó en otro lado— no se le mueve nada.
     const adentro = panelRef.current?.contains(document.activeElement)
     set(false)
     if (adentro) triggerRef.current?.focus()
@@ -48,8 +44,6 @@ export function Popover({
 
   const [height, setHeight] = useState(0)
 
-  // El panel cambia de alto mientras está abierto (una opción que aparece), y
-  // abierto hacia arriba eso lo estira sobre su propio disparador.
   useEffect(() => {
     const el = panelRef.current
     if (!open || !el || typeof ResizeObserver === 'undefined') return

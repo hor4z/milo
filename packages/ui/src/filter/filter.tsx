@@ -64,9 +64,6 @@ export function Filter({ label, options, value, onValueChange }: FilterProps) {
                 o.person ? 'h-10' : 'h-9',
               )}
             >
-              {/* El nombre lo lleva la casilla: el texto de al lado es el
-                  mismo y, sin esconderlo, un lector anuncia la opción dos
-                  veces y el número suelto una tercera. */}
               <Checkbox
                 label={o.count === undefined ? o.value : `${o.value}, ${o.count}`}
                 checked={value.includes(o.value)}

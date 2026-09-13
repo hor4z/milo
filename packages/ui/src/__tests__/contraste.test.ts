@@ -64,13 +64,11 @@ describe('el texto secundario se lee sobre cualquier superficie', () => {
 })
 
 describe('el relleno que lleva texto encima llega a AA', () => {
-  // Los dos están anclados: son el escalón donde el blanco llega a 4.5:1.
   for (const theme of ['light', 'dark'] as const) {
     for (const fill of ['--blue-600', '--bad-fill']) {
       it(`blanco sobre ${fill} en ${theme}`, () => {
         const f = value(fill, theme)
         expect(f, `falta ${fill} en ${theme}`).toBeTruthy()
-        // En oscuro el azul baja a 400 porque la rampa se da vuelta.
         const usado = theme === 'dark' && fill === '--blue-600' ? value('--blue-400', theme)! : f!
         expect(ratio('#ffffff', usado)).toBeGreaterThanOrEqual(4.5)
       })
@@ -79,10 +77,6 @@ describe('el relleno que lleva texto encima llega a AA', () => {
 })
 
 describe('el hover no deshace el anclaje', () => {
-  // El relleno del CTA está en el escalón exacto donde el blanco llega a 4.5:1,
-  // así que no tiene aire para arriba. Un `filter: brightness(1.06)` en hover lo
-  // dejaba en 4.07 todo el tiempo que el puntero estaba encima — sobre el botón
-  // que más se mira. El hover **oscurece**, y esto lo mide.
   const theme = readFileSync(join(import.meta.dirname, '../theme.css'), 'utf8')
 
   it('ningún relleno con texto encima se aclara al pasar el mouse', () => {
@@ -105,13 +99,6 @@ describe('el hover no deshace el anclaje', () => {
 })
 
 describe('el texto sugerido de un campo se lee', () => {
-  // «Sobre el campo» son cuatro fondos y no dos: sobre el escritorio y adentro
-  // de una pieza de papel, cada uno con y sin el mouse encima. Se medían solo
-  // los dos primeros, y adentro de una tarjeta el gris daba 4.24 en claro y
-  // 3.99 en oscuro. El cuarto —papel con el mouse encima, en oscuro— es el
-  // único que no llega, y no llega por el otro lado: para pasarlo el gris tiene
-  // que subir hasta donde deja de distinguirse del texto escrito. Está anotado
-  // en Fundamentos › Accesibilidad con el número.
   const fondos = {
     light: ['--shade-01', '--shade-02', '--shade-02', '--shade-03'],
     dark: ['--shade-01', '--shade-03', '--shade-03'],
@@ -159,11 +146,6 @@ describe('el texto de una etiqueta de color se lee', () => {
 const marks = ['green', 'purple', 'orange', 'blue', 'pink']
 
 describe('el glifo de una marca se lee sobre su propio relleno', () => {
-  // La familia pastel no la miraba ningún test, y la regla estaba escrita: el
-  // glifo es el mismo tono a 4.5:1 contra su relleno en claro, y a 7:1 en
-  // oscuro, porque un trazo claro y fino sobre un relleno profundo se apaga.
-  // Estaba escrita y no se cumplía: verde 4.45 y azul 4.40 en claro, naranja y
-  // rosa 6.95 en oscuro.
   for (const [theme, piso] of [['light', 4.5], ['dark', 7]] as const) {
     for (const m of marks) {
       it(`--mark-${m}-ink sobre --mark-${m} en ${theme} llega a ${piso}:1`, () => {
@@ -178,16 +160,7 @@ describe('el glifo de una marca se lee sobre su propio relleno', () => {
 })
 
 describe('el relleno de un dato se despega de su pista', () => {
-  // WCAG pide 3:1 para un elemento gráfico cuya distinción lleva información, y
-  // la parte llena de una barra es exactamente eso. No lo miraba nadie: en
-  // oscuro el azul de marca daba 2.34:1 contra la pista y el rojo 2.45, así que
-  // la misma barra se leía clara en un tema y pareja en el otro. De ahí sale la
-  // familia `--chart-*`: en claro coincide con los tonos de estado y en oscuro
-  // el azul y el rojo suben, porque un relleno de dato no lleva texto encima y
-  // lo que necesita no es lo mismo que necesita un botón.
   const semantic = readFileSync(join(import.meta.dirname, '../../../tokens/src/semantic.css'), 'utf8')
-  // Cada archivo se parte por su cuenta: pegarlos y partir después mezcla el
-  // bloque oscuro de uno con el claro del otro.
   const mitades = (f: string) => {
     const [claro, ...resto] = f.split('[data-theme="dark"]')
     return { claro, oscuro: resto.join('') }

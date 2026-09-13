@@ -62,9 +62,6 @@ export function BarChart({ data, highlight, title, height = 220, className }: {
                   'relative w-full overflow-hidden rounded-xl bg-track',
                   'transition-colors duration-normal ease-out group-hover:bg-transparent',
                   'group-hover:ring-1 group-hover:ring-line-strong group-hover:ring-inset',
-                  // Con el teclado pasa lo mismo que con el mouse: la barra no
-                  // lleva anillo de foco —se decidió así— así que lo que avisa
-                  // dónde estás parado es la trama y el canto, más el globo.
                   'group-focus-visible:bg-transparent group-focus-visible:ring-1',
                   'group-focus-visible:ring-line-strong group-focus-visible:ring-inset',
                 )}
@@ -101,8 +98,6 @@ export function BarChart({ data, highlight, title, height = 220, className }: {
             key={i}
             className={cx(
               'flex-1 text-center text-body text-ink transition-[font-weight] duration-fast ease-out',
-              // 450 la elegida y 400 el resto: el 600 es de display, y una
-              // etiqueta de 14 en ese escalón pesa más que el número que explica.
               i === hover || i === focused || i === highlight ? 'font-semibold' : 'font-medium',
             )}
           >

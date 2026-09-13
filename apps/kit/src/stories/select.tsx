@@ -34,8 +34,6 @@ export function SelectStory() {
           <Demo label="al ancho del contenido">
             <Select value={subject} onChange={setSubject} options={['Matemática', 'Lengua', 'Ciencias', 'Geografía', 'Convivencia']} />
           </Demo>
-          {/* 280 de select más los 24 de aire de cada lado de la caja: con 300
-              la demo le cortaba los cantos a la pieza que está mostrando. */}
           <div className="w-full max-w-[328px]">
             <Demo label="valor largo · se trunca">
               <Select
@@ -116,7 +114,7 @@ export function SelectStory() {
       <Section title="Props">
         <Props of="Select" />
       </Section>
-    
+
       <Section title="Accesibilidad">
         <A11y items={[
           'Flechas para moverse, Enter para elegir, Escape para salir, Home y End a los extremos. La flecha abajo también abre la lista.',

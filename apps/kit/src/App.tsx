@@ -83,8 +83,6 @@ type Group = { label: string; stories: Story[] }
 const INTRO = 'intro'
 
 const groups: Group[] = [
-  // El orden no es alfabético: las dos primeras son las que hay que leer antes
-  // de tocar nada, y después van las capas en el orden en que se arma una pantalla.
   {
     label: 'Fundamentos',
     stories: [
@@ -346,8 +344,6 @@ export function App() {
           </div>
         </nav>
 
-        {/* `header` y no `div`: es la cabecera de la página, y como `div` dejaba
-            el nombre del sitio fuera de toda landmark en pantalla chica. */}
         <header className="sticky top-0 z-20 flex items-center gap-2 border-b border-line bg-canvas/90 px-4 py-3 backdrop-blur-md lg:hidden">
           <IconButton
             icon="menu"
@@ -368,10 +364,6 @@ export function App() {
             {current === 'documento' && <Documento />}
             {story?.render()}
             {!story && current !== INTRO && current !== 'dashboard' && current !== 'documento' && (
-              // Cada vista es un link que alguien puede tener guardado, y una
-              // pieza que se renombra deja ese link apuntando a nada. Sin esto
-              // el canvas quedaba en blanco, que se lee como que el sitio está
-              // roto y no como que la dirección cambió.
               <EmptyState
                 icon="search_off"
                 title="Esa vista ya no está acá"

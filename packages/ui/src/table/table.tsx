@@ -13,15 +13,10 @@ export function Table({ children, label, minWidth = 640, footer, className }: {
   footer?: ReactNode
   className?: string
 }) {
-  // Sin barra visible, un degradado en el canto es lo único que avisa que hay
-  // más columnas a la derecha.
   const { ref: scroller, scrolls, clipped } = useSideScroll<HTMLDivElement>(children)
 
   return (
     <div className={cx('relative overflow-hidden rounded-md bg-surface ring-1 ring-line', className)}>
-      {/* Solo es una parada de tabulación cuando de verdad hay algo que
-          scrollear: sin la barra a la vista, es la única forma de llegar a las
-          columnas de la derecha sin mouse. */}
       <div
         ref={scroller}
         tabIndex={scrolls ? 0 : undefined}
@@ -75,8 +70,6 @@ export function TableRow({ children, onClick, active, className }: {
   return (
     <tr
       onClick={onClick}
-      // Una fila que se toca tiene que poder tocarse sin mouse: entra en el
-      // orden de tabulación y contesta a Enter y a la barra.
       tabIndex={onClick ? 0 : undefined}
       onKeyDown={onClick
         ? e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); onClick() } }

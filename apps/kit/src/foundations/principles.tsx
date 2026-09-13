@@ -56,9 +56,6 @@ export function Principles() {
         title="Cómo se arma una pieza"
         note="Todo lo que se compone se expone en partes en vez de recibir un objeto de configuración. Un Alert es AlertTitle, AlertBody y AlertActions; unas solapas son Tabs, TabList, Tab y TabPanel. Cuesta dos líneas más de escribir y evita la prop número catorce."
       >
-        {/* Un `pre` escrito acá y no una pieza: el bloque de código se sacó del
-            sistema, y esto es un ejemplo adentro de la documentación y no un
-            componente que alguien vaya a consumir. */}
         <pre className="m-0 overflow-x-auto rounded-xl border border-line bg-sunken p-5 font-mono text-body text-ink">
 {`<Alert tone="warn">
   <AlertTitle>Tres entregas vencen mañana</AlertTitle>

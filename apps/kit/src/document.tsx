@@ -40,7 +40,6 @@ const tareasIniciales: Task[] = [
   { id: 'escribir', label: 'Escribir en dos párrafos por qué la pendiente da la mitad de g' },
 ]
 
-
 export function Documento() {
   const [formato, setFormato] = useState({ bold: false, italic: false })
   const [tareas, setTareas] = useState(tareasIniciales)
@@ -88,9 +87,6 @@ export function Documento() {
           </div>
         </div>
 
-        {/* La barra vive arriba del texto y no flotando: en una pantalla táctil
-            no hay selección que la haga aparecer, y un control que solo existe
-            con mouse no existe para media aula. */}
         <div className="flex flex-wrap items-center gap-3 border-y border-line py-2">
           <Toolbar label="Formato del texto">
             <ToolbarButton icon="format_bold" label="Negrita" pressed={formato.bold} onClick={() => alternar('bold')} />
@@ -142,8 +138,6 @@ export function Documento() {
         <h2 className="text-title font-semibold text-ink">Qué hay que entregar</h2>
         <TaskList items={tareas} onToggle={marcar} label="Lo que hay que entregar" />
 
-        {/* `contain` y no `cover`: el retrato es vertical y en una caja apaisada
-            recortado deja un pedazo de nutria sin cabeza. */}
         <Figure
           src="/mascotas/otto.webp"
           alt="Otto, una nutria de pie con las manos juntas"

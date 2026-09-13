@@ -181,8 +181,6 @@ export function LineChart({ series, title, xLabel, yLabel, height = 260, zeroY =
               <span
                 key={v}
                 className="absolute tabular text-meta text-ink-muted"
-                // Centrada sobre su corte, salvo en los extremos: ahí la mitad
-                // que sobresale empuja el ancho de la fila y desborda.
                 style={{ left: `${pos}%`, transform: pos < 2 ? 'none' : pos > 98 ? 'translateX(-100%)' : 'translateX(-50%)' }}
               >
                 {v}

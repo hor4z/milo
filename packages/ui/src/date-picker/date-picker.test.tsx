@@ -60,7 +60,6 @@ describe('DatePicker', () => {
   })
 
   it('Inicio y Fin van a los extremos de la semana, que empieza el lunes', async () => {
-    // El 9 de marzo de 2026 es lunes: Inicio se queda y Fin va al domingo 15.
     await abrir()
     await userEvent.keyboard('{Home}')
     expect(screen.getByRole('gridcell', { name: /lunes, 9 de marzo/i })).toHaveAttribute('tabindex', '0')
@@ -97,8 +96,6 @@ describe('DatePicker', () => {
   })
 
   it('los días de otro mes no ocupan celdas con número', async () => {
-    // Marzo de 2026 arranca domingo: los seis huecos de adelante van vacíos y
-    // no con los días de febrero, que se leen como si fueran de este mes.
     await abrir()
     const vacias = [...screen.getAllByRole('gridcell')].filter(c => !c.textContent?.trim())
     expect(vacias.length).toBeGreaterThan(0)
@@ -106,9 +103,6 @@ describe('DatePicker', () => {
   })
 
   it('al abrir, el foco aterriza en el día del cursor y no en el panel', async () => {
-    // Lo hace `data-autofocus`, que es lo que `useFocusTrap` busca. Con un
-    // efecto propio peleando contra su rAF, en el navegador el foco quedaba en
-    // el panel y las flechas no hacían nada hasta tabular adentro de la grilla.
     await abrir()
     expect(screen.getByRole('gridcell', { name: /lunes, 9 de marzo de 2026/i })).toHaveFocus()
   })

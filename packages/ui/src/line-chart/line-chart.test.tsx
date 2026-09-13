@@ -50,7 +50,6 @@ describe('LineChart', () => {
     const { container, rerender } = render(<LineChart series={plano} title="Temperatura" zeroY />)
     expect(container.textContent).toContain('0')
     rerender(<LineChart series={plano} title="Temperatura" />)
-    // Sin cero, el eje se ajusta al dato y el grado de diferencia se ve.
     expect(container.textContent).toContain('20')
   })
 })

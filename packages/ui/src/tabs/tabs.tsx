@@ -60,7 +60,6 @@ export function TabList({ label, className, children, ...props }: ComponentProps
       onKeyDown={e => {
         if (e.key === 'ArrowRight') { e.preventDefault(); move(1) }
         if (e.key === 'ArrowLeft') { e.preventDefault(); move(-1) }
-        // Con seis solapas, llegar a la última con la flecha son cinco golpes.
         if (e.key === 'Home' || e.key === 'End') { e.preventDefault(); borde(e.key === 'Home' ? 0 : -1) }
       }}
       className={cx('flex items-center gap-1 border-b border-line', className)}

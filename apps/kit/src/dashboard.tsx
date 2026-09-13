@@ -30,8 +30,6 @@ const yo = {
 }
 
 const espacios = [
-  // Sin color: el ámbar de manila es el default de la pieza, y el azul de un
-  // espacio compite con el azul primario, que ya significa otra cosa.
   { label: 'Matemática', meta: '4.º A · 18 archivos', color: undefined, avatars: [p('Ana Pérez', 1), p('Bruno Díaz', 2), p('Carla Sosa', 3)] },
   { label: 'Ciencias', meta: '5.º B · 24 archivos', color: 'var(--space-green)', avatars: [p('Franco Gil', 6), p('Hugo Paz', 8)] },
   { label: 'Lengua', meta: '6.º · 9 archivos', color: 'var(--space-purple)', avatars: [p('Irene Lopez'), p('Julián Cruz')] },
@@ -52,13 +50,7 @@ export function Dashboard() {
 
   return (
     <div className="flex flex-col gap-6">
-      {/* La barra de la pantalla: el buscador a la izquierda, los avisos y la
-          cuenta a la derecha. Mide lo que dice `--topbar-h` y se despega del
-          contenido con una línea, no con relieve — es el borde de la página,
-          no una pieza apoyada encima. */}
       <div className="-mx-5 -mt-5 mb-2 flex h-20 items-center gap-4 border-b border-line px-5">
-        {/* El buscador achica y los controles no: en un teléfono, el ancho fijo
-            del campo empujaba la campana y el avatar fuera de la pantalla. */}
         <Search
           block
           size="md"
@@ -133,10 +125,7 @@ export function Dashboard() {
         <Stat label="Estudiantes" value="96" delta="+4" icon="group" />
       </div>
 
-      {/* `items-start`: sin esto el chart se estira para igualar a la de al lado. */}
       <div className="grid items-start gap-6 lg:grid-cols-[1.55fr_1fr]">
-        {/* `min-w-0`: un hijo de grilla no baja de su contenido sin esto, y en un
-            teléfono el chart empujaba la columna cuatro píxeles más que la pantalla. */}
         <div className="flex min-w-0 flex-col gap-6">
           <Card className="flex flex-col gap-5 p-6">
             <div className="flex items-start justify-between gap-4">
@@ -175,7 +164,6 @@ export function Dashboard() {
           </section>
         </div>
 
-        {/* En `muted` y no en papel: adentro lleva `ListItem`s, que son papel. */}
         <div className="relative min-w-0">
           <Otto />
           <Card surface="muted" className="relative flex flex-col gap-5 p-6">
@@ -213,7 +201,6 @@ export function Dashboard() {
           </Card>
         </div>
       </div>
-
 
       <SettingsModal open={settings} onClose={() => setSettings(false)} user={yo} />
     </div>
@@ -265,8 +252,6 @@ function Otto() {
       setAsomado(true)
       reloj = setTimeout(esconder, PASADA)
     }
-    // Entre cuarenta segundos y dos minutos. A intervalo fijo se vuelve
-    // previsible y deja de sorprender, que es lo único que tiene para dar.
     const esconder = () => {
       setAsomado(false)
       reloj = setTimeout(asomar, 40000 + Math.random() * 80000)
@@ -276,8 +261,6 @@ function Otto() {
   }, [quieto])
 
   if (quieto || !asomado) return null
-  // La `key` fuerza un elemento nuevo, que es lo que hace que el bucle arranque
-  // del primer cuadro y no de la mitad.
   return (
     <img
       key={vuelta}
@@ -287,7 +270,6 @@ function Otto() {
     />
   )
 }
-
 
 function Stat({ label, value, delta, icon, tone = 'ok' }: {
   label: string

@@ -18,9 +18,6 @@ describe('las vistas del kit', () => {
   })
 
   it('el sitio usa la misma escala que el paquete', () => {
-    // El guardián de `packages/ui` mira solo el paquete y el kit se escapaba. La
-    // única excepción es el tamaño en `em`: el código inline tiene que ser más
-    // chico que la prosa que lo rodea, y eso ningún rol fijo lo expresa.
     const dir = join(import.meta.dirname, '..')
     const walk = (base: string, prefix = ''): string[] =>
       readdirSync(base, { withFileTypes: true }).flatMap(e =>
@@ -30,17 +27,12 @@ describe('las vistas del kit', () => {
       )
 
     const prohibido = /\btext-(2xs|xs|sm|base|md|lg|xl|2xl)\b|text-\[(?![\d.]+em\])|\b(leading|tracking)-(\[|none|tight|normal|snug|relaxed|loose|wide|wider|widest)|\bduration-(\[|\d)/
-    // Lo que va entre backticks es prosa, no clase: sin esto, documentar el
-    // nombre viejo lo reintroduce.
     const offenders = walk(dir)
       .filter(f => prohibido.test(readFileSync(join(dir, f), 'utf8').replace(/`[^`]*`/g, '')))
     expect(offenders).toEqual([])
   })
 
   it('el sitio declara la duración y la curva de cada transición', () => {
-    // El guardián del paquete mira solo `packages/ui` y el kit se escapaba: una
-    // transición sin `duration-*` ni `ease-*` corre a 150ms con una curva que no
-    // es ninguna de las dos del sistema, sin fallar y sin verse.
     const dir = join(import.meta.dirname, '..')
     const walk = (base: string, prefix = ''): string[] =>
       readdirSync(base, { withFileTypes: true }).flatMap(e =>
@@ -62,10 +54,6 @@ describe('las vistas del kit', () => {
   })
 
   it('el sitio tampoco usa el peso de display fuera del tamaño display', () => {
-    // El mismo guardián que el del paquete, que mira solo `packages/ui`: el
-    // nombre del sistema en el riel iba a 16 en el peso de la portada. La tabla
-    // de pesos de Tipografía nombra la clase como dato, y ese es el único caso
-    // en el que aparece sin aplicarse.
     const dir = join(import.meta.dirname, '..')
     const walk = (base: string, prefix = ''): string[] =>
       readdirSync(base, { withFileTypes: true }).flatMap(e =>
@@ -85,10 +73,6 @@ describe('las vistas del kit', () => {
   })
 
   it('ninguna demo muestra un control que no responde', () => {
-    // Un `Select` con `value` y sin `onChange` abre, deja recorrer la lista y al
-    // elegir no cambia nada. La prop es opcional a propósito —hay lugares donde
-    // el control es de solo lectura— pero en el kit una pieza apagada enseña que
-    // la pieza no funciona. Había cinco, en Field y en Sheet.
     const controlados = /^(Select|Search|TextField|Textarea|Slider|Segmented|Checkbox|Radio|Switch)$/
     const dir = join(import.meta.dirname, '..')
     const walk = (base: string, prefix = ''): string[] =>
@@ -105,7 +89,6 @@ describe('las vistas del kit', () => {
         if (!controlados.test(nombre)) continue
         if (!/\b(value|checked)=/.test(attrs)) continue
         if (/\bon(Change|ValueChange|Input)=/.test(attrs)) continue
-        // `loading` no abre y `disabled` no se toca: los dos son el estado y no un olvido.
         if (/\b(loading|disabled|readOnly)\b/.test(attrs)) continue
         inertes.push(`${f}: <${nombre} ${attrs.trim().slice(0, 40)}`)
       }
@@ -178,7 +161,6 @@ describe('los números de la portada', () => {
     const written = files.reduce(
       (n, f) => n + [...readFileSync(f, 'utf8').matchAll(/^\s*it\(/gm)].length, 0)
 
-
     expect(
       announced,
       `la landing dice ${announced} y hay al menos ${written} tests escritos`,
@@ -222,9 +204,6 @@ describe('cobertura del kit', () => {
       }
     }
 
-    // El sitio entero y no una lista escrita a mano: la lista había que
-    // acordarse de actualizarla, y una vista nueva que se olvidara dejaba de
-    // contar sin que nada fallara.
     const raiz = join(import.meta.dirname, '..')
     const recorrer = (base: string): string[] =>
       readdirSync(base, { withFileTypes: true }).flatMap(e =>

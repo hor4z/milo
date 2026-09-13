@@ -75,13 +75,8 @@ export function CommandMenu({
   const campo = useRef<HTMLInputElement>(null)
   const listaId = useId()
 
-  // Al cambiar lo buscado, el elegido vuelve al principio: dejarlo donde estaba
-  // deja marcado un item que ya no es el que se está mirando.
   useEffect(() => { setActivo(0) }, [q])
 
-  // El foco se pide acá y no con el `autoFocus` de React. Adentro de un panel
-  // que vive en un portal, el de React corre antes de que el host esté colgado
-  // del documento, y enfocar un nodo suelto no hace nada.
   useEffect(() => {
     if (autoFocus) campo.current?.focus()
   }, [autoFocus])
@@ -128,8 +123,6 @@ export function CommandMenu({
             aria-controls={listaId}
             aria-activedescendant={actual ? `${listaId}-${actual.id}` : undefined}
             ref={campo}
-            // Los paneles que sí atrapan el foco —un `Modal`— miran esta marca
-            // para dejárselo al campo en vez de quedárselo el contenedor.
             data-autofocus={autoFocus || undefined}
           />
         </div>

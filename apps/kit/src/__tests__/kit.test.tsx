@@ -4,9 +4,6 @@ import { A11y, Note } from '../kit'
 
 describe('las piezas del propio kit', () => {
   it('una nota interpreta los backticks igual que el resto del sitio', () => {
-    // El `lead`, el `note` de una sección y la lista de accesibilidad reciben
-    // texto y lo pasan por el mismo lector; la nota recibe hijos y durante un
-    // tiempo los dejaba crudos. Trece notas mostraban el backtick escrito.
     const { container } = render(<Note title="Algo">El tipo va en `lib/side-scroll.ts` y listo.</Note>)
     expect(container.querySelector('code')?.textContent).toBe('lib/side-scroll.ts')
     expect(container.textContent).not.toContain('`')

@@ -27,12 +27,8 @@ export function TaskList({ items, onToggle, label, readOnly, className }: TaskLi
     <ul aria-label={label} className={cx('flex flex-col', className)}>
       {items.map(t => (
         <li key={t.id}>
-          {/* El texto va adentro del `label`, así que también es zona de click y
-              es lo que nombra a la casilla — que es la mitad del área útil. */}
           <label className={cx('flex items-start gap-3 py-1', !readOnly && 'cursor-pointer')}>
             <Checkbox checked={!!t.done} disabled={readOnly} onChange={v => onToggle(t.id, v)} />
-            {/* El tachado es la otra mitad del aviso: quien no separa el gris del
-                negro ve igual que la línea está cruzada. */}
             <span className={cx('text-reading', t.done ? 'text-ink-muted line-through' : 'text-ink')}>{t.label}</span>
           </label>
         </li>

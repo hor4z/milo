@@ -16,14 +16,10 @@ describe('Popover', () => {
 
     await userEvent.keyboard('{Escape}')
     await waitFor(() => expect(screen.queryByText('Contenido')).not.toBeInTheDocument())
-    // El test se llamaba así y no lo miraba: el foco quedaba donde caía.
     expect(screen.getByRole('button', { name: 'Abrir' })).toHaveFocus()
   })
 
   it('al cerrar con el foco adentro, el foco vuelve al disparador', async () => {
-    // Sin esto, un panel con un campo adentro —la lista de bloques de un
-    // editor— dejaba el foco en el `<body>` al elegir, y quien navega con
-    // teclado volvía a arrancar desde arriba de la página.
     render(
       <Popover trigger={({ onClick, ref, ...r }) => <Button ref={ref} onClick={onClick} {...r}>Insertar</Button>}>
         {close => <button type="button" onClick={close}>Elegir</button>}

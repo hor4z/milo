@@ -1,18 +1,7 @@
-/* Los tokens primero, después Tailwind leyéndolos.
-   El @source es obligatorio: Tailwind v4 arranca el escaneo en el root de Vite,
-   no en el directorio de este archivo. Sin esto, las clases que solo usan los
-   componentes de este directorio no se generan y falla en silencio, sin estilos. */
 @import "../../tokens/src/index.css";
 @import "tailwindcss";
 @source "./**/*.{ts,tsx}";
 
-/* La fuente de iconos. Va commiteada y no pedida a Google en cada carga, y el
-   motivo no es el mismo que el de una fuente de texto: una de texto que no carga
-   degrada a system-ui y se sigue leyendo; una fuente de iconos que no carga
-   deja tofu. Los iconos no tienen fallback.
-
-   `font-display: block` y no `swap`: con swap el navegador dibuja el fallback
-   primero, y el fallback de un codepoint del área privada es un cuadradito. */
 @font-face {
   font-family: "Material Symbols Rounded";
   src: url("./assets/material-symbols-rounded.woff2") format("woff2");
@@ -20,37 +9,6 @@
   font-display: block;
 }
 
-/* La receta es casi la de `md-icon`, el componente oficial de Google, y cada
-   línea está por algo:
-
-   · `font-weight`/`font-style` normal — si no, un contexto en `font-semibold`
-     o en itálica sintetiza negrita u oblicua sobre el glifo.
-   · `letter-spacing: normal` — casi todos los roles de texto traen tracking
-     propio, y el tracking suma avance y rompe la caja de size×size.
-   · `line-height: 1` — hace que la caja de línea mida exactamente 1em, así el
-     `align-items: center` centra contra la caja y no contra la baseline.
-   · `user-select: none` — un glifo es texto: sin esto entra en un Ctrl+A y en
-     el portapapeles. Un <svg> no tenía el problema.
-   · `font-variant-ligatures: none` — direccionamos por codepoint, así que las
-     ligaduras del set no hacen falta.
-
-   Los ejes van en custom properties y no escritos en `font-variation-settings`
-   de cada instancia: cambiar esa propiedad invalida el shaping y la
-   rasterización del glifo, así que la galería del kit con sus controles vivos
-   pasaría de una mutación a ciento cincuenta por evento. Con variables, el
-   contenedor las escribe una vez y los glifos heredan. */
-/* El gris de un icono y su peso viajan juntos, y por eso esto es una utilidad y
-   no una prop.
-
-   La doctrina vieja decía "icono en gris ⇒ weight 1.5", pero era imposible de
-   cumplir: el gris muchas veces lo hereda de un ancestro —un `IconButton`
-   apagado, un item de nav inactivo, el placeholder de un `Select`— y el call
-   site no tiene forma de saberlo. Había 6 sitios que cumplían la regla y al
-   menos 5 que no.
-
-   Con la utilidad, poner el gris sube el peso solo. Un contorno fino en gris
-   claro encierra aire y se apaga al lado del texto; a 400 pesa lo mismo que el
-   texto que acompaña. */
 @utility icon-muted {
   color: var(--icon-muted);
   --icon-wght: 400;
@@ -72,61 +30,22 @@
   user-select: none;
   font-variant-ligatures: none;
   -webkit-font-smoothing: antialiased;
-  /* `FILL` clavado en 0 y sin variable: todos los glifos son de contorno. Con
-     un `var(--icon-fill, 0)` el relleno quedaba a un paso de distancia y el set
-     se mezclaba solo — el mismo corazón relleno en la nav y hueco en la paleta.
-     Lo que separa una marca de un acompañante es el peso y el tamaño. */
   font-variation-settings: "FILL" 0, "wght" var(--icon-wght, 300);
 }
 
-/* La única excepción, para un glifo que hace de forma y no de icono: el
-   triángulo de play, que en contorno se lee hueco. Va acá y no como `@utility`
-   porque `.ms-icon` está fuera de toda capa y a eso no le gana ninguna utilidad.
-   Es una clase y no una prop para que haya que escribirla a mano. */
 .icon-filled .ms-icon {
   font-variation-settings: "FILL" 1, "wght" var(--icon-wght, 300);
 }
 
-/* Los escalones que Tailwind no trae por nombre. El resto de la escala vive en
-   `tokens/scales.css` y funciona porque solo redefine variables que Tailwind ya
-   usa; estas no existen para él, así que si no se declaran acá el token queda
-   definido y la utilidad no hace nada. */
 @theme {
-  /* Tres pesos y dos reglas, y la segunda importa más que los números.
+  --font-weight-medium: 400;    
+  --font-weight-semibold: 450;  
+  --font-weight-bold: 600;      
 
-     **El peso lo lleva el elegido, no la lista.** Un riel de doce entradas, un
-     menú de seis, unas solapas, seis chips en una fila: si todos van en el peso
-     de énfasis, ninguno está enfatizado y la pantalla entera se lee agresiva. Se
-     llegó a ese estado —el 44% del texto de una pantalla estaba en el escalón de
-     arriba— y la salida no fue bajar el número: fue sacarle el peso a los
-     hermanos y dejárselo al que está elegido.
-
-     **Y el escalón de énfasis es corto a propósito.** 450 y no 500: con Inter,
-     el 500 sobre una base de 400 es un salto que se nota como negrita, y lo que
-     hace falta es que se note como énfasis. El 600 se queda donde está porque su
-     trabajo es otro —una portada, un número grande— y ahí sí conviene el salto
-     largo.
-
-     Los nombres de las utilidades mienten sobre el número y dicen la verdad
-     sobre el rol, que es lo que se elige al escribir. */
-  --font-weight-medium: 400;    /* la interfaz */
-  --font-weight-semibold: 450;  /* lo accionable, los títulos, lo elegido */
-  --font-weight-bold: 600;      /* solo display */
-
-  /* Se apaga la escala que trae Tailwind, con el mismo argumento que la paleta
-     de más abajo: si `text-xs` sigue existiendo, alguien la va a usar y el
-     sistema deja de ser la única fuente de tamaño. Y acá hace falta de verdad,
-     no por higiene: los nombres viejos vivían en `:root` de `tokens/scales.css`
-     y funcionaban solo porque **pisaban** variables que Tailwind ya emite. Al
-     sacarlos de ahí, los valores de Tailwind resucitan solos —`text-xs` volvería
-     a ser 12px, `text-base` 16— y un call site olvidado seguiría andando con el
-     tamaño equivocado, en silencio. Con esto, no anda: se ve. */
   --text-*: initial;
 }
 
 @theme inline {
-  /* Se apaga la paleta que trae Tailwind: si `bg-slate-200` sigue existiendo,
-     alguien la va a usar y el sistema deja de ser la única fuente de color. */
   --color-*: initial;
 
   --color-canvas: var(--canvas);
@@ -199,22 +118,9 @@
   --font-display: var(--font-display);
   --font-mono: var(--font-mono);
 
-  /* Las dos curvas. Estas sí son un namespace de Tailwind, así que alcanza con
-     declararlas y `ease-out` sale sola. Las duraciones no: `--duration-*` no
-     existe como namespace, y van más abajo con `@utility`. */
   --ease-out: var(--ease-out);
   --ease-in: var(--ease-in);
 
-  /* Los siete roles. Cada utilidad escribe los tres valores de una —tamaño,
-     interlineado y tracking—, que es todo el punto: escritos por separado se
-     despegan, y se despegaron. `text-lg` llegó a ser 20px de letra dentro de una
-     caja de línea de 16 porque el line-height era un token aparte que nadie
-     tenía que recordar.
-
-     Tienen que ir sí o sí adentro de un bloque `@theme`: son nombres que
-     Tailwind no conoce, así que declararlos en `:root` no genera ninguna
-     utilidad. El `inline` es para que sigan leyendo el token en vivo y el tema
-     pueda moverlos. */
   --text-meta: var(--type-meta);
   --text-meta--line-height: var(--type-meta-lh);
   --text-meta--letter-spacing: var(--type-meta-ls);
@@ -243,20 +149,14 @@
   --text-display--line-height: var(--type-display-lh);
   --text-display--letter-spacing: var(--type-display-ls);
 
-  /* Se apaga lo que Tailwind trae y el sistema no usa: sin el `initial`, `xs`
-     vuelve solo con el valor de Tailwind, que es peor que tenerlo — la clase
-     anda y escribe una curva que no es del sistema. */
   --radius-*: initial;
   --radius-sm: var(--radius-sm);
   --radius-md: var(--radius-md);
   --radius-lg: var(--radius-lg);
   --radius-xl: var(--radius-xl);
   --radius-2xl: var(--radius-2xl);
-  /* `rounded-full` es una utilidad estática de Tailwind, así que sin esta línea
-     el token existe, el kit lo muestra y la clase escribe otro número. */
   --radius-full: var(--radius-full);
 
-  /* El relieve entra a Tailwind como sombra: `shadow-raised`, `shadow-inset`. */
   --shadow-raised: var(--relief-raised);
   --shadow-inset: var(--relief-inset);
   --shadow-card: var(--relief-card);
@@ -272,12 +172,6 @@
   --color-chart-warn: var(--chart-warn);
   --color-chart-bad: var(--chart-bad);
 
-  /* Dos familias y las dos entran enteras, porque los componentes las eligen
-     por nombre y una utilidad que no se genera no avisa: queda la clase en el
-     HTML sin efecto.
-
-     `mark` va en pares relleno/glifo — es la marca pastel de una fila de lista.
-     `label` es la familia viva de lo chico, con un solo texto para las seis. */
   --color-mark-green: var(--mark-green);
   --color-mark-green-ink: var(--mark-green-ink);
   --color-mark-purple: var(--mark-purple);
@@ -289,7 +183,6 @@
   --color-mark-pink: var(--mark-pink);
   --color-mark-pink-ink: var(--mark-pink-ink);
 
-  /* El par suave de cada tono: lo que usa un chip. */
   --color-label-green-soft: var(--label-green-soft);
   --color-label-green-ink: var(--label-green-ink);
   --color-label-teal-soft: var(--label-teal-soft);
@@ -317,31 +210,6 @@
 * { box-sizing: border-box; }
 html, body, #root { min-height: 100%; margin: 0; }
 
-/* La interfaz entera es el rol `body`: 14px, peso 400, 20 de interlineado.
-   Estuvo en 12 sobre una caja de línea de 16 fija para todos los tamaños, y de
-   ahí salían las dos quejas juntas —«se lee chico» y «falta nitidez»—: lo
-   segundo no era la letra, eran los renglones pisándose.
-
-   El peso estuvo años en 500, decidido mirando **Inter**, donde el 400 a 12px se
-   leía lavado sobre un fondo casi blanco. Instrument Sans dibuja más grueso al
-   mismo número, así que el 500 que con Inter apenas alcanzaba acá pesaba: la
-   pantalla entera se veía en negrita. Bajaron los tres escalones juntos, no solo
-   este: 400 la interfaz, 500 lo accionable, 600 el display. Ese número hay que
-   volver a mirarlo cuando se elija la familia, porque se calibró a 12px y ahora
-   la base es 14. */
-/* **Sin `-webkit-font-smoothing: antialiased` y sin `text-rendering:
-   optimizeLegibility`**, y las dos ausencias son la decisión.
-
-   `antialiased` no mejora el antialias: lo apaga. Le dice a Chrome que deje el
-   subpíxel y rasterice en escala de grises, y el subpíxel es exactamente lo que
-   da nitidez cuando la pantalla tiene un píxel físico por píxel CSS. La receta
-   circula porque en un panel 2x adelgazar el texto queda mejor, y ahí sobra
-   resolución para perder; en 1x, que es donde se está mirando esto, el mismo
-   ajuste deja la interfaz entera lavada — que es lo que se veía. `auto` decide
-   por pantalla, que es lo que hay que dejarlo hacer.
-
-   `optimizeLegibility` tampoco agrega: el kerning y las ligaduras ya vienen
-   prendidos, así que lo único que quedaba era su costo. */
 body {
   background: var(--canvas);
   color: var(--text);
@@ -351,60 +219,15 @@ body {
   line-height: var(--type-body-lh);
   letter-spacing: var(--type-body-ls);
 
-  /* El eje óptico de Inter v4: la letra se redibuja más abierta a 12px y más
-     cerrada a 40px. `auto` ya es el default del navegador y se escribe igual,
-     porque es media razón por la que la familia es esta y no se deduce de
-     ningún otro lado del archivo.
-
-     **Lo que no se puede pedir acá, y conviene saberlo antes de intentarlo.**
-     Inter trae un set de desambiguación (`ss04`: ele con cola, i mayúscula con
-     serifas) y un cero barrado (`zero`) que serían ideales para esto — separan
-     `1 l I` y `0 O` de un vistazo, que es justo lo que le cuesta a quien está
-     aprendiendo a leer. **El build que sirve Google los recorta**: su GSUB queda
-     en `calt ccmp dnom frac locl numr pnum tnum` y nada más. Escribir
-     `font-feature-settings: "ss04"` acá no rompe: no hace nada, en silencio.
-
-     Lo que sí sobrevive es `tnum`, así que `.tabular` funciona. Recuperar los
-     otros dos pide auto-alojar la fuente (unos 69 KB subseteada a latín), y se
-     decidió que el CDN vale más. */
   font-optical-sizing: auto;
 }
 
-/* Sin `letter-spacing` acá, y es a propósito. La regla vieja apretaba todos los
-   h1-h3 con -0.015em, un número medido contra Inter a 12px dos familias atrás,
-   y se lo aplicaba igual a un título de 20 que a uno de 40. El tracking es parte
-   del rol: lo trae `text-title` o `text-heading`, que saben de qué tamaño son. */
 h1, h2, h3 { font-family: var(--font-sans); font-weight: 400; margin: 0; }
-/* El `th` trae `bold` del navegador. Es un peso que el sistema no tiene, y se
-   cuela en cualquier tabla —incluso en una `sr-only`— sin que nadie lo elija. */
 th { font-weight: var(--font-weight-semibold); }
-/* Y `strong` y `b` traen el mismo bold de fábrica: 700, que tampoco existe acá.
-   Una palabra destacada en medio de un párrafo se veía dos escalones más pesada
-   que el énfasis del sistema. */
 strong, b { font-weight: var(--font-weight-semibold); }
 
-/* Los números de un precio o de una métrica se alinean en columna: sin esto, el
-   1 es más angosto que el 4 y una tabla de números baila. */
 .tabular { font-variant-numeric: tabular-nums; }
 
-/* La inversión del campo. Una pieza de papel le dice a los campos que tiene
-   adentro que se hundan; sobre el escritorio, el default ya los pinta de papel.
-
-   Va como regla sobre la clase de Tailwind y no como prop de cada componente a
-   propósito: el call site no sabe dónde va a caer su campo —un `TextField`
-   dentro de un `Card` dentro de un `Modal`— y preguntárselo sería la prop número
-   catorce. La superficie lo sabe sola, y la herencia de custom properties hace
-   el resto. */
-/* **En táctil el campo sube a 16, y no es una preferencia estética.** Safari en
-   iOS hace zoom sobre la página al enfocar un campo cuya letra mide menos de 16,
-   y ese zoom no se deshace solo: la persona queda con la pantalla corrida a la
-   mitad de un formulario. La salida conocida —`maximum-scale=1`— apaga el pinch
-   para todo el mundo, así que no es una salida.
-
-   Con `pointer: coarse` el que paga los 2px de más es solo quien iba a sufrir el
-   zoom, y en un escritorio el campo sigue midiendo lo mismo que el texto que lo
-   rodea. Va sobre el elemento que escribe y no sobre la caja, porque lo que
-   dispara el zoom es la letra del `input`. */
 @media (pointer: coarse) {
   .field input,
   .field textarea,
@@ -421,24 +244,11 @@ strong, b { font-weight: var(--font-weight-semibold); }
   --field-bg-hover: var(--field-bg-on-surface-hover);
 }
 
-/* Ninguna receta de relieve escribe `box-shadow` directo: escriben `--relief`,
-   y el `box-shadow` sale de ahí. El motivo es el foco. El anillo también es un
-   `box-shadow`, así que la regla de `:focus-visible` pisaba la sombra entera y
-   un botón enfocado con teclado quedaba plano — justo en el momento en que lo
-   estás mirando. Con el relieve en una variable, la regla de foco lo suma en
-   vez de reemplazarlo, una vez y para todas las variantes.
-
-   `inherits: false` es la mitad que importa: las custom properties se heredan,
-   y sin esto el relieve de un botón se lo comía cualquier hijo enfocable que
-   tuviera adentro. */
 @property --relief {
   syntax: "*";
   inherits: false;
 }
 
-/* El botón gris con relieve: degradado, luz interior arriba, anillo y una
-   sombra corta. Va como clase y no como utilidad porque son cuatro capas que
-   tienen que viajar juntas. */
 .raised {
   --relief: var(--relief-raised);
   background: var(--grad-raised);
@@ -447,65 +257,31 @@ strong, b { font-weight: var(--font-weight-semibold); }
 .raised:hover { filter: brightness(0.985); }
 .raised:active { --relief: var(--relief-inset); filter: brightness(0.97); }
 
-/* El sólido oscuro con su relieve. */
 .raised-solid { --relief: var(--relief-solid); box-shadow: var(--relief); }
 .raised-solid:active { --relief: var(--relief-inset); }
 
-/* El CTA azul: el degradado y las cuatro capas del relieve de marca. Al
-   apretarlo NO pasa a `--relief-inset`, que es gris y sobre azul se ve como una
-   mancha: se hunde con su propio labio, oscureciendo el relleno un punto. */
 .raised-brand {
   --relief: var(--relief-brand);
   background: var(--grad-brand);
   box-shadow: var(--relief);
 }
-/* El hover **oscurece**, no aclara, y esto no es gusto: el relleno del CTA está
-   anclado al escalón exacto donde el blanco encima llega a 4.5:1, así que no
-   tiene aire para arriba. Con el `brightness(1.06)` que había acá, el botón
-   caía a 4.07:1 todo el tiempo que el puntero estaba encima — justo sobre el
-   botón que más se mira. Se aclaraba el único color del sistema que no se
-   podía aclarar. */
 .raised-brand:hover { background: var(--grad-brand-hover); }
 .raised-brand:active { background: var(--grad-brand-hover); --relief: var(--relief-brand-pressed); }
 
-/* Un toggle activo: hundido mientras su panel está abierto. */
 .pressed { --relief: var(--relief-pressed); box-shadow: var(--relief); }
 
-/* Lo hundido: un kbd, la pista de un segmented. */
 .inset-relief { --relief: var(--relief-inset); box-shadow: var(--relief); }
 
-/* La marca de una fila de lista: el degradado y las tres capas del relieve.
-   Va como clase por lo mismo que las otras —las capas viajan juntas— y además
-   porque las dos se escriben contra `currentColor`: la clase tiene que ir en el
-   mismo nodo que lleva el `text-mark-*-ink`, no en un padre. */
 .mark {
   background-image: var(--grad-mark);
   box-shadow: var(--relief-mark);
 }
 
-/* La carpeta. Las medidas son las del original, tomadas midiendo los cuadros
-   del video: proporción 1.3 del cuerpo, pestaña al 46% del ancho y al 12% del
-   alto, radio al 9% del ancho. Todo va en por ciento del ancho, así que el mismo
-   dibujo sirve a 88 y a 220. */
 .folder {
-  /* Las dos derivaciones van acá y no en `:root`: una custom property sustituye
-     sus `var()` donde se declara, así que en `:root` estas dos quedarían atadas
-     al amarillo para siempre y una carpeta teñida cambiaría el cuerpo pero no la
-     pestaña. Declaradas en la clase, cada carpeta deriva contra el color que le
-     pasaron.
-
-     · el pie del degradado: 0.024 de luminosidad menos, y nada más;
-     · la pestaña y el canto: 0.033 menos y **un tercio más de croma**. Que sean
-       más saturados y no solo más oscuros es lo que los hace leer como la misma
-       cartulina doblada en vez de dos cartones apilados. */
   --folder-bottom: oklch(from var(--folder-top) calc(l - 0.024) c h);
   --folder-back: oklch(from var(--folder-top) calc(l - 0.033) calc(c * 1.33) h);
   --folder-h: calc(var(--folder-w) / 1.3);
   --folder-r: calc(var(--folder-w) * 0.09);
-  /* Dónde arranca la solapa. El borde de la contratapa está en el 9% y la
-     pestaña sube hasta el 0, así que entre el 9 y el 17 queda la franja del
-     canto: la tira saturada que cruza de lado a lado y es lo que hace que se
-     vea una carpeta y no una tarjeta con una oreja. */
   --folder-tab-h: calc(var(--folder-h) * 0.17);
   display: inline-flex;
   flex-direction: column;
@@ -514,12 +290,6 @@ strong, b { font-weight: var(--font-weight-semibold); }
   padding: calc(var(--folder-w) * 0.1);
 }
 .folder-clickable { cursor: pointer; text-align: center; }
-/* La carpeta NO pinta fondo en hover. Lo tuvo, y sobraba: el aviso de que es
-   tocable son las hojas abriéndose, que es información —cuántas hay— y no una
-   superficie. Un fondo gris además la ata a dónde está apoyada: sobre papel se
-   veía, sobre una superficie apagada del mismo gris desaparecía, y sobre
-   cualquier otra cosa aparecía un rectángulo que no le corresponde a la pieza
-   sino al contenedor. Sin fondo, la carpeta se puede poner en cualquier lado. */
 
 .folder-stack {
   position: relative;
@@ -528,9 +298,6 @@ strong, b { font-weight: var(--font-weight-semibold); }
   height: var(--folder-h);
 }
 
-/* La contratapa con su pestaña: un solo path, así el relleno es uniforme y en
-   el doblez no queda costura. Ocupa toda la caja; lo que asoma por arriba de la
-   solapa es la pestaña y la franja del canto. */
 .folder-shell {
   position: absolute;
   inset: 0;
@@ -540,19 +307,9 @@ strong, b { font-weight: var(--font-weight-semibold); }
   fill: var(--folder-back);
 }
 
-/* Las hojas. En reposo asoman apenas por arriba del borde de la solapa; en
-   hover suben y se abanican. El origen de la rotación va abajo, que es donde
-   estaría el pliegue si salieran de verdad de adentro. */
 .folder-sheet {
   position: absolute;
   left: 50%;
-  /* En reposo la hoja queda entera detrás de la solapa. Estuvo asomando, con el
-     argumento de que si no la carpeta cerrada se ve maciza y el hover sorprende
-     en vez de confirmar. Pero el papel blanco cortaba la franja del canto justo
-     al medio y la carpeta cerrada se leía como tres pedazos sueltos: la
-     pestaña, una mancha blanca y el resto del canto. La silueta limpia vale más
-     que el anticipo — y el anticipo igual lo da el pie, que dice cuántos
-     archivos hay. */
   bottom: 26%;
   width: 56%;
   height: 56%;
@@ -564,8 +321,6 @@ strong, b { font-weight: var(--font-weight-semibold); }
   transform: translateY(0) rotate(0deg);
   transition: transform var(--duration-content) var(--ease-out);
 }
-/* El glifo de hoja, para que no sea un rectángulo blanco. Dos líneas en tinta
-   al 10% alcanzan: es un papel visto de lejos, no un documento. */
 .folder-sheet::after {
   content: "";
   position: absolute;
@@ -576,19 +331,12 @@ strong, b { font-weight: var(--font-weight-semibold); }
                     var(--border-strong) 34% 42%, transparent 42% 68%,
                     var(--border-strong) 68% 76%, transparent 76%);
 }
-/* El abanico necesita corrimiento horizontal y no solo giro: con las tres
-   hojas en el mismo x, rotarlas las deja apiladas y no se cuentan. El de los
-   costados va antes del giro para que la hoja salga hacia afuera y después se
-   incline, que es el orden en que se abre un abanico de verdad. */
 .folder:hover .folder-sheet[data-sheet="-1"] { transform: translate(calc(var(--folder-w) * -0.20), calc(var(--folder-h) * -0.30)) rotate(-11deg); }
 .folder:hover .folder-sheet[data-sheet="0"]  { transform: translate(0, calc(var(--folder-h) * -0.42)) rotate(0deg); }
 .folder:hover .folder-sheet[data-sheet="1"]  { transform: translate(calc(var(--folder-w) * 0.20), calc(var(--folder-h) * -0.30)) rotate(11deg); }
 .folder:hover .folder-sheet[data-sheet="-0.5"] { transform: translate(calc(var(--folder-w) * -0.13), calc(var(--folder-h) * -0.36)) rotate(-8deg); }
 .folder:hover .folder-sheet[data-sheet="0.5"]  { transform: translate(calc(var(--folder-w) * 0.13), calc(var(--folder-h) * -0.36)) rotate(8deg); }
 
-/* La solapa: el rectángulo de abajo más la pestaña arriba a la izquierda,
-   pegadas con el mismo degradado para que la unión no se vea. El degradado va
-   en diagonal porque es lo que da el brillo de la cartulina. */
 .folder-front {
   position: absolute;
   inset: var(--folder-tab-h) 0 0;
@@ -619,31 +367,15 @@ strong, b { font-weight: var(--font-weight-semibold); }
 .folder-meta { font-size: var(--type-meta); line-height: var(--type-meta-lh); letter-spacing: var(--type-meta-ls); font-weight: 400; color: var(--text-muted); }
 
 @media (prefers-reduced-motion: reduce) {
-  /* Sin movimiento no se puede abanicar, así que las hojas se quedan afuera:
-     la información —cuántas hay— se sigue viendo, que es el punto. */
   .folder-sheet { transition: none; }
   .folder:hover .folder-sheet { transform: translateY(calc(var(--folder-h) * -0.22)); }
 }
 
-/* El libro. Va como clases y no como utilidades porque son cuatro caras en 3D
-   que solo tienen sentido juntas, y porque la mitad de las medidas son
-   proporciones del propio libro y no valores de la escala.
-
-   Las medidas salen del `Book` de Geist, que es la referencia: proporción 49/60,
-   lomo al 29% del ancho, radio más redondo del lado del pliegue que del lado del
-   corte —porque un lomo es un doblez y un canto es un corte—, perspectiva de 900
-   y el giro de -20° al pasar por encima. El dibujo usa nuestros tokens.
-
-   `container-type: inline-size` en dos niveles es lo que deja escribir todo en
-   `cqw`: el ancho manda y adentro no hay un solo px suelto, así que el mismo
-   libro a 140 y a 300 es el mismo dibujo y no dos. */
 .book-perspective {
   --book-width: var(--book-sm);
   --book-depth: 29cqw;
   --book-radius: var(--radius-sm) calc(var(--radius-sm) / 1.5) calc(var(--radius-sm) / 1.5) var(--radius-sm);
   --book-color: var(--surface-muted);
-  /* Lo que va encima del color: el glifo de la franja, y el título solo en
-     `simple`. En `stripe` el título va sobre papel y usa la tinta de siempre. */
   --book-on-color: var(--on-label);
   perspective: 900px;
   display: inline-block;
@@ -660,8 +392,6 @@ strong, b { font-weight: var(--font-weight-semibold); }
   position: relative;
   transition: transform var(--duration-content) var(--ease-out);
 }
-/* Girar es lo que muestra que es un volumen: aparecen el lomo y las hojas. Sin
-   esto, un libro quieto es un rectángulo con sombra. */
 .book-perspective:hover .book-rotate,
 .book-perspective:focus-visible .book-rotate {
   transform: rotateY(-20deg) scale(1.066) translateX(-8px);
@@ -680,7 +410,6 @@ strong, b { font-weight: var(--font-weight-semibold); }
   transform: translateZ(calc(-1 * var(--book-depth)));
 }
 
-/* El canto: las hojas vistas de costado, giradas 90° contra el borde derecho. */
 .book-pages {
   position: absolute;
   top: 3px;
@@ -694,7 +423,6 @@ strong, b { font-weight: var(--font-weight-semibold); }
     linear-gradient(90deg, var(--surface-sunken) 0%, transparent 70%),
     linear-gradient(var(--surface), var(--surface-muted));
 }
-/* Hojas sueltas en vez de bloque parejo. */
 .book-pages-rough {
   background: repeating-linear-gradient(90deg,
     var(--surface), var(--surface-muted) 1px, var(--surface) 3px, var(--border-strong) 4px);
@@ -707,8 +435,6 @@ strong, b { font-weight: var(--font-weight-semibold); }
   box-shadow: var(--relief-toolbar);
   display: flex;
 }
-/* El canto de la tapa, con el mismo filo de un píxel que usa todo lo que
-   sobresale en este sistema. */
 .book-cover::after {
   content: "";
   position: absolute;
@@ -718,8 +444,6 @@ strong, b { font-weight: var(--font-weight-semibold); }
   pointer-events: none;
 }
 
-/* El pliegue. Es la sombra del doblez contra el lomo, y es lo que hace que la
-   tapa se lea doblada y no pegada al canto. */
 .book-bind {
   width: 8.2%;
   height: 100%;
@@ -749,11 +473,6 @@ strong, b { font-weight: var(--font-weight-semibold); }
 .book-content-full { flex: 1; background: var(--book-color); }
 .book-content-full .book-icon { width: 22cqw; height: 22cqw; margin-bottom: auto; }
 
-/* El único texto del sistema que no usa la escala tipográfica. Va en por ciento
-   del ancho del libro porque la tapa es un dibujo y el título es parte del
-   dibujo: con un cuerpo fijo, el mismo título se ve enorme a 140 y perdido a 300. */
-/* Sobre papel, la tinta de siempre. Solo `simple` la pisa, porque ahí el título
-   está sobre el color. */
 .book-title {
   color: var(--text);
   font-weight: var(--font-weight-semibold);
@@ -764,8 +483,6 @@ strong, b { font-weight: var(--font-weight-semibold); }
 }
 .book-simple .book-title { font-size: 12cqw; color: var(--book-on-color); }
 
-/* El grano del papel. Es de acá y no una imagen traída de afuera: dos tramas
-   cruzadas a alpha muy bajo alcanzan, y no cuesta un request. */
 .book-grain {
   position: absolute;
   inset: 0;
@@ -784,113 +501,37 @@ strong, b { font-weight: var(--font-weight-semibold); }
   .book-perspective:focus-visible .book-rotate { transform: none; }
 }
 
-/* El switch. Va como clases y no como utilidades porque el pulgar lleva tres
-   capas de sombra que tienen que cambiar juntas el día que cambien. */
 .switch-track-on { background: var(--switch-on); box-shadow: var(--switch-on-inset); }
 .switch-track-off { background: var(--switch-off); box-shadow: var(--switch-off-inset); }
 .switch-thumb { background: var(--switch-thumb); box-shadow: var(--switch-thumb-shadow); }
 
-/* Las filas alternadas de una tabla.
-
-   Va **adentro de `@layer base`**, y ahí está todo el asunto. Como regla suelta
-   —fuera de capa— le gana a cualquier utilidad de Tailwind por más específica
-   que sea, porque lo que está fuera de capa gana siempre: la cebra se comía el
-   hover y la fila elegida, que son `bg-muted`. Adentro de `base` pasa lo
-   contrario, que es lo que queremos: la banda es el fondo de descanso y
-   cualquier estado la tapa.
-
-   Y es una regla y no un `even:` de utilidad porque entre dos utilidades de la
-   misma capa decide el orden en que Tailwind las emite, que no es algo que uno
-   elija. */
 @layer base {
   .zebra tbody tr:nth-child(even) { background: var(--surface-alt); }
 }
 
-/* El campo de texto. En reposo no escribe ninguna sombra: la caja es el fondo y
-   el borde de un píxel, y eso lo ponen dos utilidades en el componente. Lo
-   único que queda acá es el foco, y sigue siendo una clase y no una utilidad
-   porque la marca NO va cuando el foco lo tiene un botón de adentro del campo:
-   ahí es del botón. Eso es un `:has()`, y como utilidad no se escribe. Va con
-   `:focus` y no con `:focus-visible` a propósito: clickear ese botón igual mueve
-   el foco adentro del campo, y si el campo se enciende por un click que no es
-   suyo, la marca deja de querer decir "acá escribís".
-
-   **Un campo enfocado se tiñe el borde, no se rodea de un anillo.** El anillo
-   del sistema es para una pieza que no tiene borde propio: aparece afuera y no
-   choca con nada. Un campo ya tiene una línea en los cuatro lados, así que el
-   anillo le dibujaba una segunda a dos píxeles de la primera —dos cosas azules
-   alrededor de la misma caja, con un hueco blanco en el medio— y eso es lo que
-   se veía raro. El `inset` engrosa esa misma línea hacia adentro en vez de
-   agregar una afuera, así que el campo no cambia de tamaño ni empuja a nadie. */
 .field:focus-within:not(:has(button:focus, a:focus, [tabindex]:focus)),
 .field-focus:focus-visible {
   border-color: var(--focus-border);
   box-shadow: inset 0 0 0 1px var(--focus-border);
 }
-/* Y el control de adentro se queda sin el suyo. Tiene que estar acá y no como
-   utilidad en el componente: la regla global de foco no vive en ninguna capa, y
-   una utilidad de Tailwind sí — lo que está fuera de capa le gana a lo que está
-   adentro por más específico que sea. Un `focus-visible:shadow-none` puesto en
-   el control no hace nada, en silencio.
-
-   Van los dos, `input` y `textarea`: con la regla escrita solo para el primero,
-   el `Textarea` se encendía con dos anillos, el de su caja y un rectángulo azul
-   pegado al texto adentro. */
 .field input:focus-visible,
 .field textarea:focus-visible { box-shadow: none; }
 
-/* La barra de un gráfico no lleva anillo de foco, y es la única pieza del
-   sistema que se lo saca.
-
-   El `<button>` de cada barra ocupa la columna entera —incluido el aire de
-   arriba— para que apuntarle a una barra baja no obligue a bajar hasta el piso,
-   así que el anillo encerraba una caja alta y flaca de la que la barra ocupaba
-   un cuarto. Puesto sobre la barra de adentro tampoco servía: un rectángulo
-   azul alrededor de un rectángulo azul son dos bordes discutiendo.
-
-   Lo que marca el foco acá es más fuerte que un anillo: **al enfocarse se abre
-   el tooltip**, que es una caja con sombra que aparece sobre la barra y dice su
-   valor. Ninguna otra pieza tiene una marca así de grande, y por eso ninguna
-   otra puede darse este lujo.
-
-   Va acá y no como utilidad por lo de siempre: la regla global de foco no vive
-   en ninguna capa y le gana a cualquier utilidad de Tailwind, así que apagarla
-   desde el componente no hace nada, en silencio. */
 .chart-bar:focus-visible { box-shadow: none; }
 
-/* El anillo de foco, una vez y para todos los roles. `:focus-visible` y no
-   `:focus`: con el segundo, un click deja el anillo puesto.
-
-   El relieve de la pieza va adelante del anillo y en la misma declaración. Sin
-   eso, esta regla reemplazaba la sombra entera y el botón enfocado quedaba
-   plano: se le iba el degradado del canto, la luz de arriba y la caída, o sea
-   todo lo que lo hace un botón. El `0 0 #0000` es para las piezas que no tienen
-   relieve — un link, un item de nav— donde `--relief` no está puesto. */
 :where(a, button, input, select, textarea, [tabindex]):focus-visible {
   outline: none;
   box-shadow: var(--relief, 0 0 #0000), var(--focus-ring);
 }
 
-/* El contenedor del diálogo no muestra anillo. Tiene `tabindex="-1"` y se
-   enfoca solo para atrapar el foco —nadie tabuló hasta él— así que el anillo no
-   avisa de nada: dibuja un halo de 4px alrededor de un panel de 620 apenas se
-   abre. La regla va suelta y no como utilidad por lo de siempre: la de foco
-   tampoco está en ninguna capa, y lo que está fuera de capa le gana a lo que
-   está adentro. */
 [role="dialog"]:focus-visible { box-shadow: none; }
 
-/* Una fila de tabla enfocada: el anillo va adentro y no alrededor. Un `tr` con
-   `border-collapse` no dibuja `box-shadow` —la receta de arriba se pierde— y
-   un anillo por afuera lo cortaría el scroll lateral de la tabla. El outline
-   con offset negativo se ve entero y no mueve ni una columna. */
 tr[tabindex]:focus-visible {
   outline: 2px solid var(--blue-500);
   outline-offset: -2px;
   box-shadow: none;
 }
 
-/* En Tailwind v4 el preflight deja los <button> con la flecha del navegador:
-   nada se siente clickeable. Se resuelve una vez acá, sobre los roles. */
 @layer base {
   button, summary, select,
   [role="button"], [role="radio"], [role="checkbox"], [role="switch"], [role="tab"],
@@ -899,33 +540,6 @@ tr[tabindex]:focus-visible {
   :disabled, [aria-disabled="true"], [data-disabled] { cursor: not-allowed; }
 }
 
-/* El scroller de la tabla no muestra su barra. Una tabla ancha es de las pocas
-   piezas que scrollean de costado, y en un escritorio con barras clásicas —las
-   de Linux y Windows, que ocupan lugar siempre— esa barra queda dibujada abajo
-   del cuerpo aunque nadie la esté usando: una línea gris permanente entre la
-   última fila y la franja de paginación, que se lee como un divisor más de la
-   tabla. La rueda, el trackpad y las flechas siguen scrolleando igual.
-
-   Lo que se pierde es el aviso de que hay más a la derecha, y la respuesta a eso
-   no es la barra: es no necesitarla — la tabla elige su `minWidth` para entrar,
-   y las columnas que sobran se apagan con el `ColumnPicker`. */
-/* Las dos duraciones del sistema. Van con `@utility` y no en el `@theme` porque
-   `--duration-*` no es un namespace de Tailwind: `duration-fast` no se genera
-   por más que el token exista. La alternativa era escribir
-   `duration-(--duration-fast)` en cada call site, que dice lo mismo y se lee
-   peor.
-
-   Los tokens estaban desde el principio y no los leía nadie: los call sites
-   escribían `duration-[120ms]` a mano —diecisiete veces— y cuatro de ellos con
-   números que no estaban en ninguna escala (90, 140, 160, 200). Es el mismo bug
-   que tenía la tipografía: el token definido y el call site esquivándolo. */
-/* Oscurece una superficie **sobre sí misma**, sin importar qué tiene abajo.
-
-   Un hover pintado con un paso opaco de la rampa tiene que saber contra qué
-   fondo cae: `bg-muted` sobre el escritorio se ve, y sobre una bandeja del mismo
-   tono desaparece — pasó, y la fila de una lista se esfumaba al pasarle el
-   mouse. Esto pinta tinta en alpha *encima* del fondo propio de la pieza en vez
-   de reemplazarlo, así que siempre oscurece un paso y nunca coincide con nada. */
 @utility tinted {
   background-image: linear-gradient(var(--surface-hover), var(--surface-hover));
 }
@@ -945,29 +559,13 @@ tr[tabindex]:focus-visible {
   ::-webkit-scrollbar-thumb:hover { background: var(--shade-06); background-clip: content-box; }
 }
 
-/* El spinner: una sola animación, porque el arco es de largo fijo y lo único
-   que pasa es que gira. Tuvo dos —la vuelta y un latido que abría y cerraba el
-   arco— y el latido se fue: parecerse a una barra de progreso que no avanza es
-   peor que no parecerse a nada, y en el extremo cerrado el arco se encogía
-   hasta ser un punto, que se lee como un glitch y no como una espera.
-
-   La vuelta va pareja, y esto quedó probado a la mala. Se intentaron dos
-   versiones con la velocidad modulada —un ciclo de tres vueltas con curva, y
-   una base constante con un vaivén sumado— con el argumento de que a velocidad
-   constante el arco no le da al ojo dónde engancharse. Las dos se vieron peor:
-   la primera frena tanto en el valle que se lee trabada, y la segunda vibra.
-   Un arco de largo fijo girando parejo dice una sola cosa y la dice siempre
-   igual, que es todo lo que un spinner tiene que hacer. */
 @keyframes ui-spin { to { transform: rotate(360deg) } }
 .spin { animation: ui-spin 600ms linear infinite; }
 
 @media (prefers-reduced-motion: reduce) {
-  /* Sin movimiento el spinner no puede decir nada —es lo único que avisa que
-     algo está pasando— así que en vez de quedarse quieto gira lento. */
   .spin { animation: ui-spin 2.4s linear infinite; }
 }
 
-/* ------- movimiento ------- */
 @keyframes ui-pop-in { from { opacity: 0; transform: translateY(-4px) scale(.97) } to { opacity: 1; transform: none } }
 @keyframes ui-fade-in { from { opacity: 0 } to { opacity: 1 } }
 @keyframes ui-zoom-in { from { opacity: 0; transform: scale(.97) translateY(6px) } to { opacity: 1; transform: none } }

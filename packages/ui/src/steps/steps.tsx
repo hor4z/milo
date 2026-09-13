@@ -40,8 +40,6 @@ export function Steps({ steps, current, label, orientation = 'horizontal', onSel
             aria-current={actual ? 'step' : undefined}
             className={cx('relative flex min-w-0', acostada ? 'flex-1 flex-col gap-2' : 'gap-3 pb-6 last:pb-0')}
           >
-            {/* La línea que une dos etapas es del hueco entre ellas, no de una
-                etapa: dibujada adentro, la última deja una línea colgando. */}
             {i > 0 && (
               <span
                 aria-hidden
@@ -50,9 +48,6 @@ export function Steps({ steps, current, label, orientation = 'horizontal', onSel
                   acostada ? 'top-[13px] hidden h-px sm:block' : 'left-[13px] top-0 h-6 w-px -translate-y-6',
                   hecha || actual ? 'bg-brand' : 'bg-line-strong',
                 )}
-                // Va de una marca a la siguiente y no media etapa: la marca mide
-                // 28 y arranca en el borde de su columna, así que la línea sale
-                // 28 después de la anterior y frena 8 antes de esta.
                 style={acostada ? { left: 'calc(-100% + 36px)', right: 'calc(100% + 8px)' } : undefined}
               />
             )}

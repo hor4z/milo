@@ -20,17 +20,9 @@ export function Mention({ name, src, icon, href, className }: MentionProps) {
   return (
     <Tag
       href={href}
-      // `align-baseline` y un alto de línea heredado: con la caja de un chip, un
-      // nombre en el medio de un párrafo separaría ese renglón de los de al lado.
       className={cx(
-        // El aire lateral es el mínimo: con más, el punto que sigue a una
-        // mención queda separado de ella y se lee como si faltara una palabra.
         'inline-flex items-center gap-1 rounded-sm px-0.5 align-baseline',
         'bg-brand-subtle text-brand-ink',
-        // Con `href` es un enlace y el sistema tiene escrito que un enlace lleva
-        // subrayado siempre: el fondo teñido solo lo distingue por color, y eso
-        // no le llega a quien no separa el azul del negro. Mismo subrayado que
-        // el `Link`, para que se lean como la misma cosa.
         href
           ? 'underline decoration-current underline-offset-[3px] transition-colors duration-fast ease-out hover:bg-brand-soft hover:decoration-2'
           : 'no-underline',

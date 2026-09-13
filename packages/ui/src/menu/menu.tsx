@@ -14,8 +14,6 @@ export function Menu({ children, label, width, className }: {
 }) {
   const box = useRef<HTMLDivElement>(null)
 
-  // Un `role="menu"` promete flechas. Sin esto, las prometía y no las traía:
-  // se recorría con Tab, que es lo que un menú justamente no hace.
   const move = (e: KeyboardEvent<HTMLDivElement>) => {
     const step = e.key === 'ArrowDown' ? 1 : e.key === 'ArrowUp' ? -1 : 0
     const edge = e.key === 'Home' ? 0 : e.key === 'End' ? -1 : null

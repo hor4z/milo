@@ -22,10 +22,6 @@ describe('CommandMenu', () => {
   })
 
   it('con `autoFocus` el buscador se lleva el foco al montar', () => {
-    // Se pide en un effect y no con el `autoFocus` de React: adentro de un panel
-    // que vive en un portal, el de React corre antes de que el host esté colgado
-    // del documento y no enfoca nada. Probado en el navegador dentro de un
-    // `Popover`, que es donde pasaba.
     render(<CommandMenu autoFocus groups={grupos} onSelect={() => {}} />)
     expect(screen.getByRole('combobox')).toHaveFocus()
   })
@@ -47,7 +43,6 @@ describe('CommandMenu', () => {
   it('las flechas saltean lo apagado', async () => {
     render(<CommandMenu autoFocus groups={grupos} onSelect={() => {}} />)
     await userEvent.keyboard('{ArrowDown}{ArrowDown}')
-    // Título, Imagen, y después Tabla: «Todavía no» está apagado y no recibe la marca.
     expect(screen.getByRole('option', { name: /Tabla/ })).toHaveAttribute('aria-selected', 'true')
   })
 

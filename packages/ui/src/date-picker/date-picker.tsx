@@ -7,12 +7,6 @@ import { useDismiss } from '../lib/dismiss'
 import { useFocusTrap } from '../lib/overlay-hooks'
 import { Portal } from '../portal/portal'
 
-/* Una fecha de entrega no tiene hora ni zona, así que el valor es el texto
-   `AAAA-MM-DD` y no un `Date`. Un `Date` arrastra las dos cosas: `new Date('2026-03-09')`
-   se interpreta en UTC y en Argentina es el 8 a las 21. Todo lo de acá adentro
-   trabaja con año, mes y día sueltos, y el único `Date` que aparece es para
-   preguntarle al calendario qué día de la semana cae. */
-
 const DIAS = ['lu', 'ma', 'mi', 'ju', 'vi', 'sá', 'do']
 
 const partes = (iso: string) => iso.split('-').map(Number) as [number, number, number]
@@ -66,13 +60,8 @@ export function DatePicker({ value, onChange, min, max, placeholder = 'Elegir fe
   useEscape(open, cerrar)
   useFocusTrap(open, panel)
 
-  // Al abrir, el mes que se muestra es el de la fecha elegida, no donde quedó
-  // la última vez.
   useEffect(() => { if (open) setCursor(value || hoy()) }, [open, value])
 
-  // Se mide después de pintar el panel porque hace falta su alto: un mes cerca
-  // del borde de abajo no entra, y en vez de salirse de la pantalla se da
-  // vuelta y abre para arriba.
   useLayoutEffect(() => {
     if (!open) return
     const medir = () => {
@@ -89,14 +78,9 @@ export function DatePicker({ value, onChange, min, max, placeholder = 'Elegir fe
     medir()
   }, [open, cursor])
 
-  // Tocar afuera, scrollear o cambiar el tamaño cierran: el panel está anclado
-  // al campo, así que con la página corrida se queda flotando lejos de lo que
-  // estaba explicando. Es la misma receta que usa el `Popover`.
   useDismiss(open, () => setOpen(false), [panel, btn])
 
   const [ay, am] = partes(cursor)
-  // En semanas y no en una tira de días: un `grid` pide `row` adentro, y sin
-  // filas los encabezados de columna quedan colgando de nada.
   const semanas = useMemo(() => {
     const hueco = primerDia(ay, am)
     const total = largo(ay, am)
@@ -140,8 +124,6 @@ export function DatePicker({ value, onChange, min, max, placeholder = 'Elegir fe
     }
   }
 
-  // La celda del cursor es la única parada de tabulación, y el foco la sigue al
-  // moverse con las flechas. El aterrizaje al abrir lo hace `data-autofocus`.
   useEffect(() => {
     if (!open) return
     panel.current?.querySelector<HTMLElement>('[data-cursor="true"]')?.focus({ preventScroll: true })
@@ -171,10 +153,6 @@ export function DatePicker({ value, onChange, min, max, placeholder = 'Elegir fe
           <div
             ref={panel}
             role="dialog"
-            // Sin `aria-modal`: el fondo no se apaga ni se bloquea, así que
-            // declararlo modal sería mentir; y declararlo no-modal, con el foco
-            // adentro y Escape como salida, sería lo mismo al revés. Sin el
-            // atributo, lo que hay es un diálogo y nada más.
             aria-labelledby={tituloId}
             tabIndex={-1}
             style={{ top: pos.top, left: pos.left }}
@@ -189,8 +167,6 @@ export function DatePicker({ value, onChange, min, max, placeholder = 'Elegir fe
               >
                 <Icon name="chevron_left" size={18} className="icon-muted" />
               </button>
-              {/* `aria-live`: al cambiar de mes con el teclado, lo que cambia es
-                  el título, y sin esto el cambio no se anuncia. */}
               <span id={tituloId} aria-live="polite" className="text-body font-semibold text-ink first-letter:uppercase">
                 {mesLargo.format(new Date(ay, am - 1, 1))}
               </span>
@@ -225,10 +201,6 @@ export function DatePicker({ value, onChange, min, max, placeholder = 'Elegir fe
                         type="button"
                         role="gridcell"
                         data-cursor={iso === cursor}
-                        // `data-autofocus` es lo que `useFocusTrap` busca al
-                        // abrir. Sin eso el foco caía en el panel y las flechas
-                        // no hacían nada hasta tabular adentro de la grilla —
-                        // en jsdom no se ve, porque lo que pelea es un rAF.
                         data-autofocus={iso === cursor ? true : undefined}
                         tabIndex={iso === cursor ? 0 : -1}
                         aria-selected={elegido}
@@ -244,9 +216,6 @@ export function DatePicker({ value, onChange, min, max, placeholder = 'Elegir fe
                         )}
                       >
                         {partes(iso)[2]}
-                        {/* Hoy se marca con un punto y no solo con color: es la
-                            misma regla que el resto del sistema, y acá compite
-                            con el azul del elegido. */}
                         {esHoy && !elegido && (
                           <span aria-hidden="true" className="absolute bottom-1 size-1 rounded-full bg-brand" />
                         )}

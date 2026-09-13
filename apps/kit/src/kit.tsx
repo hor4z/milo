@@ -4,9 +4,6 @@ import { propsByComponent } from '@milo/ui/props'
 
 export function useTokens(names: readonly string[]) {
   const [vals, setVals] = useState<Record<string, string>>({})
-  // La dependencia es el contenido y no el arreglo: con la identidad, un
-  // `useTokens(['--x'])` escrito inline arma uno nuevo en cada render y el
-  // effect se vuelve a disparar para siempre.
   const key = names.join('|')
 
   useEffect(() => {
@@ -25,7 +22,6 @@ export function useTokens(names: readonly string[]) {
   return vals
 }
 
-// Dos marcas y ninguna más: con tres, las notas pasan a ser markdown a medias.
 /** El texto del sitio: los backticks salen como código y `**` como énfasis. */
 export function Rich({ text }: { text: string }) {
   const parts = text.split(/(`[^`]+`|\*\*[^*]+\*\*)/g)
@@ -81,8 +77,6 @@ export function Code({ children }: { children: string }) {
         setCopied(true)
         setTimeout(() => setCopied(false), 1400)
       }}
-      // `h-8` y no `py-2`: con padding, el borde de un píxel de cada lado dejaba el
-      // botón en 34 y la escalera de controles es 32 · 36 · 40.
       className="group inline-flex h-8 max-w-full items-center gap-2 self-start rounded-lg border border-line bg-muted pr-2 pl-3 text-left transition-colors duration-fast ease-out hover:bg-sunken"
     >
       <code className="truncate font-mono text-meta text-ink">{children}</code>
@@ -114,9 +108,6 @@ export function Canvas({ children, className, pad = true }: { children: ReactNod
   return (
     <div
       className={cx(
-        // El lienzo va en papel y no en `bg-muted`: con el hueco puesto acá, un
-        // botón `muted` quedaba del mismo tono que su propio fondo. Y en 16 como
-        // la `Card`: el mueble del kit se dibuja con las reglas del sistema.
         'relative overflow-hidden rounded-xl border border-line bg-surface',
         pad && 'p-6',
         className,
@@ -239,10 +230,6 @@ export function Note({ icon = 'lightbulb', title, children }: { icon?: IconName;
       <Icon name={icon} size={18} className="icon-muted mt-px shrink-0" />
       <div className="flex min-w-0 flex-col gap-1">
         {title && <p className="text-body font-semibold text-ink"><Rich text={title} /></p>}
-        {/* Los backticks se interpretan acá igual que en un `lead` o en un
-            `note`, que era la única forma de escribir un nombre de prop en las
-            otras tres y quedaba literal en esta. El resto de los hijos —un
-            enlace, un `strong`— pasa de largo. */}
         <div className="max-w-[70ch] text-body font-medium text-ink-muted">
           {Children.map(children, c => (typeof c === 'string' ? <Rich text={c} /> : c))}
         </div>

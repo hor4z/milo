@@ -27,9 +27,6 @@ export function Stepper({
   width?: number
 }) {
   const field = useField()
-  // Mientras se escribe, el texto puede no ser un número todavía —vacío, un
-  // signo suelto— así que el campo tiene su propio texto y el valor solo cambia
-  // cuando lo escrito es un número.
   const [texto, setTexto] = useState(String(value))
   useEffect(() => { setTexto(String(value)) }, [value])
 
@@ -48,9 +45,6 @@ export function Stepper({
     <div
       style={{ width }}
       className={cx(
-        // `field` y no `field-focus`: la regla del sistema le pone el anillo a
-        // la caja cuando el foco cae adentro, y se lo saca al control de
-        // adentro para que no se dibujen dos.
         'field inline-flex h-9 items-center rounded-md border border-field-line bg-field',
         disabled && 'pointer-events-none opacity-45',
       )}
@@ -72,7 +66,6 @@ export function Stepper({
           const n = Number(e.target.value)
           if (e.target.value.trim() !== '' && Number.isFinite(n)) poner(n)
         }}
-        // Al salir, lo que quedó a medio escribir vuelve al último número bueno.
         onBlur={() => setTexto(String(value))}
         onKeyDown={teclas}
         className="tabular min-w-0 flex-1 bg-transparent text-center text-body font-medium text-ink outline-none"

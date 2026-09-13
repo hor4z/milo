@@ -47,8 +47,6 @@ export function ConfirmDialog({
             {body && <div className="text-body font-medium text-ink-muted">{body}</div>}
           </div>
           <div className="flex items-center justify-end gap-2">
-            {/* En una acción destructiva el foco arranca en la salida segura:
-                con el foco en «Borrar», un Enter de más lo borra. */}
             <Button variant="ghost" size="sm" data-autofocus={tone === 'bad' || undefined} onClick={onCancel}>
               {cancelLabel}
             </Button>

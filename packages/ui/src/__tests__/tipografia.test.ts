@@ -23,8 +23,6 @@ function tracking(role: string): number {
 
 describe('la escala tipográfica', () => {
   it('cada rol declara sus tres valores', () => {
-    // De los nueve escalones viejos solo tres declaraban interlineado, y Tailwind
-    // le ponía el de la casa a los otros sin que nadie se enterara.
     const incompletos = roles.filter(r =>
       !new RegExp(`--type-${r}:`).test(scales) ||
       !new RegExp(`--type-${r}-lh:`).test(scales) ||
@@ -43,7 +41,6 @@ describe('la escala tipográfica', () => {
   })
 
   it('los nombres viejos están apagados', () => {
-    // Sin esto los valores de Tailwind resucitan y `text-xs` vuelve a ser 12px.
     expect(theme).toMatch(/--text-\*:\s*initial/)
   })
 
@@ -59,22 +56,18 @@ describe('la escala tipográfica', () => {
   })
 
   it('los tamaños son enteros y pares', () => {
-    // Un tamaño impar cae en media grilla de píxeles, igual que los iconos.
     const raros = roles.filter(r => {
       const px = size(`type-${r}`)
       return !Number.isInteger(px) || px % 2 !== 0
     })
-    // `label` es 13 a propósito: el escalón entre 12 y 14 no existe de otra forma.
     expect(raros).toEqual(['label'])
   })
 
   it('el rol de lectura llega a 1.5 de interlineado', () => {
-    // El número de WCAG 1.4.12, y el piso de cualquier guía de lectura larga.
     expect(size('type-reading-lh') / size('type-reading')).toBeGreaterThanOrEqual(1.5)
   })
 
   it('la curva de interlineado tiene su máximo en el rol de lectura', () => {
-    // No es «más chico, más aire» sino «el que se lee de corrido, más aire».
     const ratios = roles.map(r => size(`type-${r}-lh`) / size(`type-${r}`))
     const pico = ratios.indexOf(Math.max(...ratios))
     expect(roles[pico]).toBe('reading')
@@ -91,7 +84,6 @@ describe('la escala tipográfica', () => {
   })
 
   it('el tracking cruza el cero en la base y nunca sube', () => {
-    // Positivo donde la letra se empasta, negativo donde se despega.
     const ls = roles.map(tracking)
     expect(ls).toEqual([...ls].sort((a, b) => b - a))
     expect(tracking('meta')).toBeGreaterThan(0)

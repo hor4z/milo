@@ -41,9 +41,6 @@ export function Segmented<T extends string>({
       onKeyDown={roving.onKeyDown}
       className={cx(
         'inline-flex items-center',
-        // El alto de afuera es el de la escalera: la pista no agrega altura, la
-        // contiene. Antes el padding se sumaba y `sm` medía 36 —el alto de `md`—
-        // así que un Segmented y un Button del mismo talle no alineaban.
         size === 'xs' ? 'gap-1' : 'gap-0.5 bg-muted',
         size === 'sm' && 'rounded-lg p-0.5',
         size === 'md' && 'rounded-lg p-0.5',

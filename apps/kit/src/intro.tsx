@@ -13,7 +13,6 @@ const shortcuts: { id: string; icon: IconName; title: string; body: string }[] =
   { id: 'documento', icon: 'description', title: 'Documento', body: 'Las del editor, juntas en una consigna de verdad.' },
 ]
 
-// `views` y no `pieces`: el riel tiene vistas de documentación además de piezas.
 export function Intro({ go, views }: { go: (id: string) => void; views: number }) {
   const [demo, setDemo] = useState(true)
 

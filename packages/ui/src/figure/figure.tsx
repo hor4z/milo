@@ -21,8 +21,6 @@ export function Figure({ src, alt, caption, ratio = '4/3', fit = 'cover', classN
     <figure className={cx('m-0 flex flex-col gap-2', className)}>
       <div
         className="overflow-hidden rounded-xl border border-line bg-sunken"
-        // El hueco se reserva antes de que la imagen llegue: sin esto, todo lo
-        // que está abajo salta cuando carga y alguien pierde el renglón.
         style={{ aspectRatio: ratio }}
       >
         <img src={src} alt={alt} loading="lazy" className={cx('size-full', fit === 'cover' ? 'object-cover' : 'object-contain')} />

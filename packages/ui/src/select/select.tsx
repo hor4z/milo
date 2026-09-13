@@ -43,13 +43,8 @@ export function Select({
     })
   }, [open, options, value])
 
-  // La opción señalada se pone al abrir y no en cada render. Junto a la
-  // medición —que sí depende de `options`— el cursor del teclado volvía a la
-  // opción elegida cada vez que el padre volvía a renderizar, porque un
-  // `options={[...]}` escrito inline arma un arreglo nuevo cada vez.
   useLayoutEffect(() => {
     if (open) setActive(Math.max(0, options.indexOf(value)))
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [open])
 
   useEffect(() => {
@@ -70,8 +65,6 @@ export function Select({
         setOpen(false)
         btn.current?.focus()
       }
-      // Teclear salta a la opción que empieza así, que es lo que hace un
-      // select nativo y lo único que vuelve usable una lista de veinte.
       if (e.key.length === 1 && !e.ctrlKey && !e.metaKey && !e.altKey) {
         const now = Date.now()
         typeahead.current.text = now > typeahead.current.until ? e.key : typeahead.current.text + e.key

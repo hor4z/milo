@@ -75,8 +75,6 @@ describe('Select', () => {
     const before = trigger.getAttribute('aria-activedescendant')
     expect(document.getElementById(before!)).toHaveTextContent('Dos')
 
-    // Un `options={[...]}` escrito inline arma un arreglo nuevo en cada render
-    // del padre: es el caso que reseteaba la opción señalada.
     rerender(<Select value="Uno" onChange={() => {}} options={['Uno', 'Dos', 'Tres']} />)
     expect(trigger.getAttribute('aria-activedescendant')).toBe(before)
   })

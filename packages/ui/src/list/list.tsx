@@ -9,7 +9,6 @@ export type { MarkColor } from '../lib/colors'
 
 export function List({ children, className }: { children: ReactNode; className?: string }) {
   return (
-    // La bandeja va transparente: las que flotan son las filas.
     <div className={cx('flex flex-col gap-2', className)}>
       {children}
     </div>
@@ -42,12 +41,6 @@ export function ListItem({
         'flex min-h-[72px] w-full items-center gap-4 rounded-xl px-4 py-4 text-left',
         'transition-[background-image,background-color,box-shadow] duration-fast ease-out',
         active ? 'bg-sunken shadow-none' : 'bg-surface shadow-card',
-        // El hover **levanta** en vez de teñir, y no es gusto: la fila es papel y
-        // puede estar apoyada sobre el escritorio o sobre una bandeja `muted`.
-        // Cualquier gris opaco acierta contra un fondo y choca contra el otro —
-        // con `bg-muted` puesto acá, la fila quedaba exactamente del color de la
-        // tarjeta que la contiene y desaparecía al pasar el mouse. La sombra no
-        // necesita saber qué hay abajo.
         onClick && !active && 'hover:tinted hover:shadow-toolbar',
       )}
     >

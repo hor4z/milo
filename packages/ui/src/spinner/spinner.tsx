@@ -15,15 +15,10 @@ export function Spinner({ size = 20, label = 'Cargando', on = 'surface', classNa
   const [edge, track] = on === 'solid'
     ? ['var(--solid)', 'color-mix(in oklab, var(--on-solid) 22%, transparent)']
     : ['var(--surface)', 'var(--border-strong)']
-  // El trazo, en unidades del viewBox. Como es una fracción del diámetro y el
-  // viewBox es de 24, sale directo: no hay que deshacer la escala del svg
-  // porque no hay ningún número en px de por medio.
   const w = Math.max((2 * 24) / size, 24 * 0.17)
   const rim = 0.85
   const e = w + rim * 2
   const r = (24 - e) / 2
-  // `pathLength` normaliza la vuelta a 100, así el largo se escribe en por
-  // ciento del anillo y no en unidades de un radio que cambia con el trazo.
   const arc = 40
   return (
     <span role="status" aria-label={label} className={cx('inline-flex', className)}>

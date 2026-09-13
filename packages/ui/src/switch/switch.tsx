@@ -28,8 +28,6 @@ export function Switch({
       disabled={disabled}
       onClick={() => onChange(!checked)}
       className={cx(
-        // El pulgar viaja y pedía una curva simétrica; una tercera curva para una
-        // sola pieza es peor que la asimetría, que a 190ms y 18px no se ve.
         'relative inline-flex h-[22px] w-10 shrink-0 items-center rounded-full p-0.5',
         'transition-[background-color,box-shadow] duration-normal ease-out',
         'disabled:opacity-45 disabled:pointer-events-none',

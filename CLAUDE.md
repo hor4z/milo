@@ -27,10 +27,12 @@ parámetros, tipos, funciones, props— se escribe en inglés; lo que se lee —
 textos de la interfaz, los nombres de los tests, el contenido de ejemplo— va en castellano. Esa
 es la línea, y no hay una tercera categoría.
 
-**El código no lleva comentarios de más.** Queda un docblock de una línea por export y por prop
-—lo que el editor usa para autocompletar, y lo que el kit muestra como documentación— y algún
-`//` donde el motivo no se deduce leyendo. El porqué de cada decisión vive en dos lugares que sí
-se leen: este archivo y las notas de cada vista del kit.
+**El código no lleva comentarios.** Lo único que queda es el docblock `/** */` de una línea por
+export y por prop, que no es prosa: lo lee `npm run props` para armar la tabla de cada vista, y lo
+muestra el editor al autocompletar. Todo lo demás se sacó — eran mil quinientas líneas de
+explicación adentro de los archivos, una tercera copia de lo que ya dicen este archivo y el kit, y
+la que se despegaba primero porque nada la verifica. El porqué de cada decisión vive en dos
+lugares que sí se leen: acá y las notas de cada vista del kit.
 
 ## De dónde salió
 
@@ -415,7 +417,7 @@ un aula:
 - **Recuperar `ss04` y el cero barrado** pide auto-alojar Inter: 69 KB subseteada a latín, con la
   receta de `pyftsubset` anotada. Se eligió el CDN; si algún día una red escolar filtra Google
   Fonts, la decisión se da vuelta y el trabajo ya está pensado.
-- **El sitio entra en un solo bundle de 667 KB —195 gzip— y `vite build` avisa.** Son las 71
+- **El sitio entra en un solo bundle de 687 KB —202 gzip— y `vite build` avisa.** Son las 71
   vistas importadas de una: nada está mal, está todo junto. La salida es `lazy` por historia con
   un `Skeleton` de espera, y el costo es un parpadeo por navegación en una pantalla que hoy es
   instantánea. No se hizo porque es una decisión sobre cómo se siente el sitio y no un bug.
