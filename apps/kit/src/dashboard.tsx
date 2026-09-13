@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import {
-  Avatar, AvatarGroup, BarChart, Badge, Button, Card, Dropdown, Folder, Heatmap, Icon, IconButton,
+  Avatar, AvatarGroup, BarChart, Badge, Button, Card, Dropdown, Folder, Icon, IconButton,
   Indicator, Link, List, ListItem, Progress, Search, Segmented, SettingsModal, Tooltip, useToast,
   type IconName,
 } from '@milo/ui'
@@ -43,16 +43,6 @@ const pendientes = [
   { icon: 'schedule', color: 'purple', title: 'Cerrar «Fracciones equivalentes»', hint: 'Vence mañana a las 23:59' },
   { icon: 'group_add', color: 'green', title: 'Sumar a Lengua · 6.º', hint: 'Dos aprendices pidieron entrar' },
 ] as const
-
-const niveles = ['Sin empezar', 'Inicial', 'En camino', 'Logrado']
-const temas = ['Fracciones', 'Decimales', 'Porcentaje', 'Proporción', 'Ecuaciones']
-const curso = [
-  { label: 'Ana Pérez', values: [3, 3, 2, 2, 1] },
-  { label: 'Bruno Díaz', values: [3, 2, 2, 1, 0] },
-  { label: 'Carla Sosa', values: [2, 2, 1, null, null] },
-  { label: 'Diego Rey', values: [3, 3, 3, 3, 2] },
-  { label: 'Elena Vega', values: [1, 1, 0, 0, null] },
-]
 
 export function Dashboard() {
   const [settings, setSettings] = useState(false)
@@ -163,25 +153,6 @@ export function Dashboard() {
               height={180}
             />
           </Card>
-
-          {/* La grilla trae su propia superficie, como la `Table`: adentro de un
-              `Card` se dibujarían dos marcos. El título va afuera, igual que en
-              «Tus espacios». */}
-          <section className="flex min-w-0 flex-col gap-4">
-            <div className="flex items-start justify-between gap-4">
-              <div>
-                <h2 className="text-reading font-semibold text-ink">Dónde está parado 4.º A</h2>
-                <p className="text-body font-medium text-ink-muted">Proporción es lo que hay que volver a dar</p>
-              </div>
-              <Link href="#heatmap" className="shrink-0 text-body">Ver todo</Link>
-            </div>
-            <Heatmap
-              title="Dominio por tema en Matemática · 4.º A"
-              columns={temas}
-              rows={curso}
-              levels={niveles}
-            />
-          </section>
 
           <section className="flex flex-col gap-4">
             <div className="flex items-center justify-between gap-4">
