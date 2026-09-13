@@ -1,0 +1,83 @@
+@layer milo.app {
+  .div {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.75rem;
+  }
+
+  .commandMenu {
+    width: 100%;
+    max-width: 380px;
+  }
+
+  .p {
+    font-size: var(--type-meta);
+    line-height: var(--type-meta-lh);
+    letter-spacing: var(--type-meta-ls);
+    color: var(--text-muted);
+  }
+
+  .strong {
+    font-weight: var(--font-weight-semibold);
+    color: var(--text);
+  }
+
+  .div2 {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    gap: 1.5rem;
+  }
+
+  .div3 {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    border-radius: var(--radius-xl);
+    border-style: solid;
+    border-width: 1px;
+    border-color: var(--border);
+    padding-inline: 1rem;
+    padding-block: 0.75rem;
+    font-size: var(--type-reading);
+    line-height: var(--type-reading-lh);
+    letter-spacing: var(--type-reading-ls);
+    color: var(--text);
+  }
+
+  .span {
+    color: var(--text-muted);
+  }
+
+  .span2 {
+    color: var(--text-muted);
+  }
+
+  .span3 {
+    font-family: var(--font-mono);
+    font-size: var(--type-body);
+    line-height: var(--type-body-lh);
+    letter-spacing: var(--type-body-ls);
+  }
+
+  .commandMenu2 {
+    width: 100%;
+    max-width: 380px;
+  }
+
+  .div4 {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .span4 {
+    font-size: var(--type-meta);
+    line-height: var(--type-meta-lh);
+    letter-spacing: var(--type-meta-ls);
+    color: var(--text-muted);
+  }
+
+}

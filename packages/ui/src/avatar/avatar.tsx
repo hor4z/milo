@@ -1,3 +1,4 @@
+import cls from './avatar.module.css'
 import type { CSSProperties } from 'react'
 import { markColors, markFill } from '../lib/colors'
 import { cx } from '../lib/cx'
@@ -18,12 +19,12 @@ export function Avatar({ name, src, size = 40, className }: {
   const fill = markFill[markColors[i % markColors.length]]
   return (
     <span
-      className={cx('mark relative inline-flex items-center justify-center overflow-hidden rounded-full font-semibold select-none', fill, className)}
+      className={cx(`${cls.span} mark`, fill, className)}
       style={{ width: size, height: size, fontSize: Math.max(10, Math.round(size * 0.3)), lineHeight: 1 }}
       aria-hidden="true"
     >
       {initials}
-      {src && <img src={src} alt="" loading="lazy" decoding="async" className="absolute inset-0 size-full object-cover" />}
+      {src && <img src={src} alt="" loading="lazy" decoding="async" className={cls.img} />}
     </span>
   )
 }
@@ -50,7 +51,7 @@ export function AvatarGroup({
   const overlap = Math.round(size / 3)
   return (
     <span
-      className={cx('inline-flex items-center', className)}
+      className={cx(cls.span2, className)}
       style={{ '--overlap': `${overlap}px` } as CSSProperties}
     >
       {shown.map((p, i) => (
@@ -59,12 +60,12 @@ export function AvatarGroup({
           name={p.name}
           src={p.src}
           size={size}
-          className={cx('ring-2', ring, i > 0 && '-ml-[var(--overlap)]')}
+          className={cx(cls.box, ring, i > 0 && cls.box2)}
         />
       ))}
       {rest > 0 && (
         <span
-          className={cx('-ml-[var(--overlap)] inline-flex items-center justify-center rounded-full bg-sunken font-semibold text-ink-muted ring-2', ring)}
+          className={cx(cls.span3, ring)}
           style={{ width: size, height: size, fontSize: Math.max(10, Math.round(size * 0.3)), lineHeight: 1 }}
         >
           +{rest}

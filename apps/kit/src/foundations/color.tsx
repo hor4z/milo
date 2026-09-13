@@ -1,3 +1,4 @@
+import cls from './color.module.css'
 import {
   Alert, AlertTitle, Button, Chip, Progress, Table, TableBody, TableCell, TableHead,
   TableHeader, TableRow,
@@ -33,7 +34,7 @@ export function ColorSection() {
         title="Los tres"
         note="Si algo no entra en ninguno de los tres, no lleva color: lleva gris."
       >
-        <div className="grid gap-3 lg:grid-cols-3">
+        <div className={cls.div}>
           <Cabeza
             titulo="Azul · el primario"
             token="--brand"
@@ -46,8 +47,8 @@ export function ColorSection() {
             token="--accent"
             linea="Señala. No es un estado: no dice que algo salió mal, dice mirá esto."
           >
-            <span className="inline-flex items-center gap-2 text-body font-medium text-ink">
-              <span className="size-2 rounded-full bg-accent" />
+            <span className={cls.span}>
+              <span className={cls.span2} />
               Hay algo nuevo
             </span>
           </Cabeza>
@@ -56,7 +57,7 @@ export function ColorSection() {
             token="--shade-06"
             linea="Dibuja el resto: fondos, líneas, texto, iconos. Es casi todo lo que ves."
           >
-            <span className="text-body font-medium text-ink-muted">Matemática · 4.º A · 24 entregas</span>
+            <span className={cls.span3}>Matemática · 4.º A · 24 entregas</span>
           </Cabeza>
         </div>
       </Section>
@@ -90,7 +91,7 @@ export function ColorSection() {
         note="Diez pasos derivados y no elegidos. **El 600 está anclado**: es el escalón donde el blanco encima llega exactamente a 4,5:1, y de ahí sale `--brand`."
       >
         <Ramp tokens={azul} />
-        <div className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <div className={cls.div2}>
           <Swatch token="--brand" note="el relleno del botón que manda" />
           <Swatch token="--brand-hover" note="el mismo, un paso más" />
           <Swatch token="--brand-edge" note="el filo y el labio" />
@@ -117,7 +118,7 @@ export function ColorSection() {
         note="Es el único acento y está acotado a propósito: un punto de aviso, una marca de que algo cambió. Si empieza a aparecer en botones y en fondos, deja de señalar."
       >
         <Ramp tokens={ambar} />
-        <div className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <div className={cls.div3}>
           <Swatch token="--accent" note="el punto que señala" />
           <Swatch token="--accent-hover" note="el mismo, un paso más" />
           <Swatch token="--accent-subtle" note="el fondo suave" />
@@ -129,7 +130,7 @@ export function ColorSection() {
         note="Nueve pasos, y **casi** neutra: lleva C 0.0025 del tono del azul. Un gris exactamente neutro al lado de un azul saturado se ve de otro sistema; uno que se nota azul convierte una interfaz de dos colores en una de tres."
       >
         <Ramp tokens={gris} />
-        <div className="mt-4 grid gap-5 lg:grid-cols-3">
+        <div className={cls.div4}>
           <Grupo titulo="Superficies">
             <Swatch token="--canvas" note="el escritorio: la página" />
             <Swatch token="--surface" note="el papel: una tarjeta" />
@@ -164,8 +165,8 @@ export function ColorSection() {
         title="Estado"
         note="Cuatro, y ninguno viaja solo: cada uno trae su glifo y su texto, porque un color de estado sin forma no dice nada a quien no distingue colores."
       >
-        <div className="flex flex-col gap-4 rounded-xl border border-line bg-surface p-5">
-          <div className="flex flex-wrap items-center gap-2">
+        <div className={`${cls.div5} bg-surface`}>
+          <div className={cls.div6}>
             <Chip size="sm" color="info" icon="info">En prueba</Chip>
             <Chip size="sm" color="ok" icon="check_circle">Corregida</Chip>
             <Chip size="sm" color="warn" icon="schedule">Vence mañana</Chip>
@@ -184,7 +185,7 @@ export function ColorSection() {
           estado y no como un ocre. En oscuro no hay nada que discutir: ahí da 4,88.
         </Note>
 
-        <div className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <div className={cls.div7}>
           <Swatch token="--ok" note="salió bien" />
           <Swatch token="--warn" note="cuidado" />
           <Swatch token="--bad" note="se rompió" />
@@ -198,7 +199,7 @@ export function ColorSection() {
         title="Categoría"
         note="Cuatro familias, y no se mezclan. Lo que decide cuál va no es el gusto: es **de qué tamaño es la pieza y qué se apoya encima**."
       >
-        <div className="flex flex-col gap-3">
+        <div className={cls.div8}>
           <Familia
             nombre="mark"
             para="La marca de 44 de una fila, la inicial de un avatar"
@@ -235,11 +236,11 @@ export function ColorSection() {
         title="Dato"
         note="La pista es lo que había para hacer y el relleno es lo hecho. **No son los tonos de estado aunque en claro coincidan**: un tono de estado está anclado donde el blanco encima se lee, y un relleno no lleva texto encima, así que lo que necesita es despegarse de su pista."
       >
-        <div className="flex flex-col gap-4 rounded-xl border border-line bg-surface p-5">
+        <div className={`${cls.div9} bg-surface`}>
           <Progress label="Corregidas" value={18} max={24} hint="18 de 24" />
           <Progress label="Espacio usado" value={22} max={24} tone="warn" hint="22 de 24 GB" />
         </div>
-        <div className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <div className={cls.div10}>
           <Swatch token="--track" note="lo que había para hacer" />
           <Swatch token="--chart-fill" note="lo hecho, el default" />
           <Swatch token="--chart-ok" note="lo terminado" />
@@ -254,38 +255,38 @@ export function ColorSection() {
 function Cabeza({ titulo, token, linea, children }: { titulo: string; token: string; linea: string; children: React.ReactNode }) {
   const vals = useTokens([token])
   return (
-    <div className="flex flex-col gap-3 rounded-xl border border-line bg-surface p-5">
-      <span className="h-12 w-full rounded-lg border border-line" style={{ background: `var(${token})` }} />
-      <div className="flex flex-col gap-1">
-        <span className="text-reading font-semibold text-ink">{titulo}</span>
-        <code className="font-mono text-meta text-ink-muted">{token} · {vals[token]}</code>
+    <div className={`${cls.div11} bg-surface`}>
+      <span className={cls.span4} style={{ background: `var(${token})` }} />
+      <div className={cls.div12}>
+        <span className={cls.span5}>{titulo}</span>
+        <code className={cls.code}>{token} · {vals[token]}</code>
       </div>
-      <p className="text-meta font-medium text-ink-muted">{linea}</p>
-      <div className="mt-auto pt-1">{children}</div>
+      <p className={cls.p}>{linea}</p>
+      <div className={cls.div13}>{children}</div>
     </div>
   )
 }
 
 function Grupo({ titulo, children }: { titulo: string; children: React.ReactNode }) {
   return (
-    <div className="flex flex-col gap-3">
-      <span className="text-body font-semibold text-ink">{titulo}</span>
-      <div className="flex flex-col gap-3">{children}</div>
+    <div className={cls.div14}>
+      <span className={cls.span6}>{titulo}</span>
+      <div className={cls.div15}>{children}</div>
     </div>
   )
 }
 
 function Familia({ nombre, para, linea, tokens }: { nombre: string; para: string; linea: string; tokens: readonly string[] }) {
   return (
-    <div className="flex flex-col gap-3 rounded-xl border border-line bg-surface p-5 lg:flex-row lg:items-start lg:gap-6">
-      <div className="flex min-w-0 flex-1 flex-col gap-1">
-        <code className="font-mono text-body font-semibold text-ink">{nombre}</code>
-        <span className="text-meta font-semibold text-ink">{para}</span>
-        <p className="max-w-[62ch] text-meta font-medium text-ink-muted">{linea}</p>
+    <div className={`${cls.div16} bg-surface`}>
+      <div className={cls.div17}>
+        <code className={cls.code2}>{nombre}</code>
+        <span className={cls.span7}>{para}</span>
+        <p className={cls.p2}>{linea}</p>
       </div>
-      <div className="flex shrink-0 flex-wrap gap-2">
+      <div className={cls.div18}>
         {tokens.map(t => (
-          <span key={t} className="size-8 rounded-lg border border-line" style={{ background: `var(${t})` }} title={t} />
+          <span key={t} className={cls.span8} style={{ background: `var(${t})` }} title={t} />
         ))}
       </div>
     </div>

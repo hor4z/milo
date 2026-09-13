@@ -1,0 +1,19 @@
+@layer milo.components {
+  .kbd {
+    display: inline-flex;
+    min-height: 1.25rem;
+    min-width: 21px;
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--radius-sm);
+    background-color: var(--surface-muted);
+    padding-inline: 0.5rem;
+    font-family: var(--font-sans);
+    font-size: var(--type-meta);
+    line-height: var(--type-meta-lh);
+    letter-spacing: var(--type-meta-ls);
+    font-weight: var(--font-weight-medium);
+    color: var(--text-muted);
+  }
+
+}

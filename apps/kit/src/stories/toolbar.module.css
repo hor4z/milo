@@ -1,0 +1,24 @@
+@layer milo.app {
+  .div {
+    display: flex;
+    justify-content: center;
+    border-radius: var(--radius-xl);
+    border-style: solid;
+    border-width: 1px;
+    border-color: var(--border);
+    background-color: var(--surface-sunken);
+    padding: 2rem;
+  }
+
+  .div2 {
+    display: flex;
+    justify-content: center;
+    border-radius: var(--radius-xl);
+    border-style: solid;
+    border-width: 1px;
+    border-color: var(--border);
+    background-color: var(--surface-sunken);
+    padding: 2rem;
+  }
+
+}

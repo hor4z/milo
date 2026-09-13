@@ -1,0 +1,24 @@
+@layer milo.components {
+  .span {
+    display: inline-flex;
+  }
+
+  .box {
+    pointer-events: none;
+    position: fixed;
+    z-index: 60;
+    max-width: 240px;
+    border-radius: var(--radius-md);
+    background-color: var(--solid);
+    padding-inline: 0.5rem;
+    padding-block: 0.25rem;
+    font-size: var(--type-body);
+    line-height: var(--type-body-lh);
+    letter-spacing: var(--type-body-ls);
+    font-weight: var(--font-weight-medium);
+    color: var(--on-solid);
+    --milo-shadow: var(--relief-popover);
+    box-shadow: var(--milo-inset-shadow),var(--milo-inset-ring-shadow),var(--milo-ring-offset-shadow),var(--milo-ring-shadow),var(--milo-shadow);
+  }
+
+}

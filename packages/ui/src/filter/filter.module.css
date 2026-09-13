@@ -1,0 +1,107 @@
+@layer milo.components {
+  .div {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .avatarGroup {
+    margin-left: calc(0.25rem * -.5);
+  }
+
+  .div2 {
+    max-height: 320px;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    border-radius: var(--radius-xl);
+    border-style: solid;
+    border-width: 1px;
+    border-color: var(--border);
+    padding: 0.5rem;
+    --milo-shadow: var(--relief-popover);
+    box-shadow: var(--milo-inset-shadow),var(--milo-inset-ring-shadow),var(--milo-ring-offset-shadow),var(--milo-ring-shadow),var(--milo-shadow);
+  }
+
+  .label {
+    display: flex;
+    cursor: pointer;
+    align-items: center;
+    gap: 0.5rem;
+    border-radius: var(--radius-lg);
+    padding-inline: 0.5rem;
+    transition-property: color,background-color,border-color,outline-color,text-decoration-color,fill,stroke,--milo-gradient-from,--milo-gradient-via,--milo-gradient-to;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 150ms;
+    transition-duration: var(--duration-fast);
+    transition-timing-function: var(--ease-out);
+  }
+
+  .box {
+    height: 2.5rem;
+  }
+
+  .box2 {
+    height: 2.25rem;
+  }
+
+  .avatar {
+    flex-shrink: 0;
+  }
+
+  .span {
+    min-width: 0;
+    flex: 1;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    font-size: var(--type-body);
+    line-height: var(--type-body-lh);
+    letter-spacing: var(--type-body-ls);
+    font-weight: var(--font-weight-medium);
+    color: var(--text);
+  }
+
+  .span2 {
+    flex-shrink: 0;
+    font-size: var(--type-meta);
+    line-height: var(--type-meta-lh);
+    letter-spacing: var(--type-meta-ls);
+    font-weight: var(--font-weight-medium);
+    color: var(--text-muted);
+  }
+
+  .box3 {
+    margin-top: 0.25rem;
+    display: flex;
+    height: 2rem;
+    width: 100%;
+    align-items: center;
+    border-radius: var(--radius-lg);
+    padding-inline: 0.5rem;
+    font-size: var(--type-body);
+    line-height: var(--type-body-lh);
+    letter-spacing: var(--type-body-ls);
+    font-weight: var(--font-weight-medium);
+    color: var(--text-muted);
+    transition-property: color,background-color,border-color,outline-color,text-decoration-color,fill,stroke,--milo-gradient-from,--milo-gradient-via,--milo-gradient-to;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 150ms;
+    transition-duration: var(--duration-fast);
+    transition-timing-function: var(--ease-out);
+  }
+
+  @media (hover:hover) {
+    .label:hover {
+        background-color: var(--surface-hover);
+    }
+  }
+
+  @media (hover:hover) {
+    .box3:hover {
+        background-color: var(--surface-hover);
+        color: var(--text);
+    }
+  }
+
+}

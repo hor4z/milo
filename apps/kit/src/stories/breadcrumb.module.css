@@ -1,0 +1,14 @@
+@layer milo.app {
+  .canvas {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  .canvas2 {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+}

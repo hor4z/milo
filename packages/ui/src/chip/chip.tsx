@@ -1,3 +1,4 @@
+import cls from './chip.module.css'
 import type { ComponentPropsWithoutRef, ReactNode } from 'react'
 import { Icon, type IconName } from '../icon/icon'
 import { type LabelColor, labelSoft } from '../lib/colors'
@@ -11,15 +12,15 @@ const chipColor: Record<ChipColor, string> = { ...labelSoft, ...toneClass }
 
 const chipSize = {
   sm: {
-    box: 'min-h-5 gap-1 rounded-sm px-2 text-meta font-semibold',
+    box: cls.chipSizeSm,
     icon: 12,
-    dot: 'size-1',
+    dot: cls.chipSizeSm2,
     cross: 12,
   },
   md: {
-    box: 'min-h-7 gap-2 rounded-md px-2 text-body',
+    box: cls.chipSizeMd,
     icon: 14,
-    dot: 'size-1.5',
+    dot: cls.chipSizeMd2,
     cross: 12,
   },
 } as const
@@ -48,36 +49,36 @@ export function Chip({
 }: ChipProps) {
   const s = chipSize[size]
   const box = cx(
-    'inline-flex max-w-full shrink-0 items-center whitespace-nowrap',
+    cls.box,
     s.box,
-    'transition-[background-color,color] duration-fast ease-out',
+    cls.box2,
     active
-      ? 'bg-solid font-semibold text-on-solid'
+      ? cls.box3
       : color
         ? chipColor[color]
-        : 'bg-muted text-ink',
+        : cls.box4,
     onClick && !active && (color ? 'hover:ring-2 hover:ring-current/25' : 'hover:bg-sunken'),
     className,
   )
 
   const mark = dot
-    ? <span aria-hidden="true" className={cx(s.dot, 'shrink-0 rounded-full bg-current')} />
+    ? <span aria-hidden="true" className={cx(s.dot, cls.span)} />
     : icon
-      ? <Icon name={icon} size={s.icon} className="-ml-0.5 shrink-0" />
+      ? <Icon name={icon} size={s.icon} className={cls.icon} />
       : null
 
   const cross = onRemove && (
-    <button type="button" onClick={onRemove} aria-label="Quitar" className="-mr-0.5 rounded-sm p-0.5 hover:bg-active">
+    <button type="button" onClick={onRemove} aria-label="Quitar" className={cls.button}>
       <Icon name="close" size={s.cross} />
     </button>
   )
 
   if (onClick && onRemove) {
     return (
-      <span className={cx(box, 'pr-2')} {...props}>
-        <button type="button" onClick={onClick} className={cx('-my-1 -ml-1 flex min-w-0 items-center rounded-sm py-1 pl-1', size === 'sm' ? 'gap-1' : 'gap-2')}>
+      <span className={cx(box, cls.span2)} {...props}>
+        <button type="button" onClick={onClick} className={cx(cls.button2, size === 'sm' ? cls.sm : cls.box5)}>
           {mark}
-          <span className="truncate">{children}</span>
+          <span className={cls.span3}>{children}</span>
         </button>
         {cross}
       </span>
@@ -88,7 +89,7 @@ export function Chip({
     return (
       <button type="button" onClick={onClick} className={box} {...(props as ComponentPropsWithoutRef<'button'>)}>
         {mark}
-        <span className="truncate">{children}</span>
+        <span className={cls.span4}>{children}</span>
         {cross}
       </button>
     )
@@ -97,7 +98,7 @@ export function Chip({
   return (
     <span className={box} {...props}>
       {mark}
-      <span className="truncate">{children}</span>
+      <span className={cls.span5}>{children}</span>
       {cross}
     </span>
   )

@@ -1,0 +1,6 @@
+@layer milo.components {
+  .span {
+    display: inline-flex;
+  }
+
+}

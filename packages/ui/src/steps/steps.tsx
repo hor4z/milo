@@ -1,3 +1,4 @@
+import cls from './steps.module.css'
 import { Icon } from '../icon/icon'
 import { cx } from '../lib/cx'
 
@@ -28,7 +29,7 @@ export function Steps({ steps, current, label, orientation = 'horizontal', onSel
   return (
     <ol
       aria-label={label}
-      className={cx('flex', acostada ? 'flex-col gap-2 sm:flex-row sm:gap-0' : 'flex-col gap-0', className)}
+      className={cx(cls.ol, acostada ? cls.ol2 : cls.ol3, className)}
     >
       {steps.map((s, i) => {
         const hecha = i < current
@@ -38,15 +39,15 @@ export function Steps({ steps, current, label, orientation = 'horizontal', onSel
           <li
             key={s.label}
             aria-current={actual ? 'step' : undefined}
-            className={cx('relative flex min-w-0', acostada ? 'flex-1 flex-col gap-2' : 'gap-3 pb-6 last:pb-0')}
+            className={cx(cls.li, acostada ? cls.box : cls.box2)}
           >
             {i > 0 && (
               <span
                 aria-hidden
                 className={cx(
-                  'absolute',
-                  acostada ? 'top-[13px] hidden h-px sm:block' : 'left-[13px] top-0 h-6 w-px -translate-y-6',
-                  hecha || actual ? 'bg-brand' : 'bg-line-strong',
+                  cls.span,
+                  acostada ? cls.box3 : cls.box4,
+                  hecha || actual ? cls.box5 : cls.box6,
                 )}
                 style={acostada ? { left: 'calc(-100% + 36px)', right: 'calc(100% + 8px)' } : undefined}
               />
@@ -55,11 +56,11 @@ export function Steps({ steps, current, label, orientation = 'horizontal', onSel
             <Marca
               {...(onSelect ? { type: 'button' as const, onClick: () => onSelect(i) } : {})}
               className={cx(
-                'relative z-10 flex size-7 shrink-0 items-center justify-center rounded-full text-meta font-semibold tabular',
-                onSelect && 'transition-colors duration-fast ease-out',
-                hecha && 'bg-brand text-on-brand',
-                actual && 'bg-brand-soft text-brand-ink ring-2 ring-brand',
-                !hecha && !actual && 'bg-muted text-ink-muted',
+                `${cls.box7} tabular`,
+                onSelect && cls.onSelect,
+                hecha && cls.hecha,
+                actual && cls.actual,
+                !hecha && !actual && cls.actual2,
               )}
             >
               {hecha ? <Icon name="check" size={16} weight={700} /> : i + 1}
@@ -68,9 +69,9 @@ export function Steps({ steps, current, label, orientation = 'horizontal', onSel
               </span>
             </Marca>
 
-            <span className={cx('flex min-w-0 flex-col gap-0.5', acostada && 'sm:pr-4')}>
-              <span className={cx('text-body', actual ? 'font-semibold text-ink' : 'font-medium text-ink-muted')}>{s.label}</span>
-              {s.hint && <span className="text-meta text-ink-muted">{s.hint}</span>}
+            <span className={cx(cls.span3, acostada && cls.acostada)}>
+              <span className={cx(cls.span4, actual ? cls.span5 : cls.span6)}>{s.label}</span>
+              {s.hint && <span className={cls.span7}>{s.hint}</span>}
             </span>
           </li>
         )

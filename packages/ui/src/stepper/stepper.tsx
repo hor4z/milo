@@ -1,3 +1,4 @@
+import cls from './stepper.module.css'
 import { useEffect, useState } from 'react'
 import { useField } from '../field/field'
 import { Icon } from '../icon/icon'
@@ -45,8 +46,8 @@ export function Stepper({
     <div
       style={{ width }}
       className={cx(
-        'field inline-flex h-9 items-center rounded-md border border-field-line bg-field',
-        disabled && 'pointer-events-none opacity-45',
+        `${cls.div} field`,
+        disabled && cls.disabled,
       )}
     >
       <Paso icon="remove" label={`Bajar${label ? ` ${label}` : ''}`} onClick={() => poner(value - step)} disabled={value <= min} />
@@ -68,9 +69,9 @@ export function Stepper({
         }}
         onBlur={() => setTexto(String(value))}
         onKeyDown={teclas}
-        className="tabular min-w-0 flex-1 bg-transparent text-center text-body font-medium text-ink outline-none"
+        className={`${cls.box} tabular`}
       />
-      {suffix && <span aria-hidden="true" className="shrink-0 pr-1 text-meta font-medium text-ink-muted">{suffix}</span>}
+      {suffix && <span aria-hidden="true" className={cls.span}>{suffix}</span>}
       <Paso icon="add" label={`Subir${label ? ` ${label}` : ''}`} onClick={() => poner(value + step)} disabled={value >= max} />
     </div>
   )
@@ -90,7 +91,7 @@ function Paso({ icon, label, onClick, disabled }: {
       aria-label={label}
       disabled={disabled}
       onClick={onClick}
-      className="inline-flex size-8 shrink-0 items-center justify-center rounded-md transition-colors duration-fast ease-out hover:bg-field-hover disabled:opacity-40 disabled:hover:bg-transparent"
+      className={cls.box2}
     >
       <Icon name={icon} size={16} className="icon-muted" />
     </button>

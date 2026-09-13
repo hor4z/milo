@@ -1,0 +1,20 @@
+@layer milo.app {
+  .div {
+    max-width: 520px;
+    border-radius: var(--radius-xl);
+    border-style: solid;
+    border-width: 1px;
+    border-color: var(--border);
+    padding: 1.25rem;
+  }
+
+  .div2 {
+    max-width: 520px;
+    border-radius: var(--radius-xl);
+    border-style: solid;
+    border-width: 1px;
+    border-color: var(--border);
+    padding: 1.25rem;
+  }
+
+}

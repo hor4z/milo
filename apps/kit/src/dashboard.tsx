@@ -1,3 +1,4 @@
+import cls from './dashboard.module.css'
 import { useEffect, useState } from 'react'
 import {
   Avatar, AvatarGroup, BarChart, Button, Card, Chip, Dropdown, Folder, Icon, IconButton,
@@ -52,8 +53,8 @@ export function Dashboard() {
   const { toast } = useToast()
 
   return (
-    <div className="flex flex-col gap-6">
-      <div className="-mx-5 -mt-5 mb-2 flex h-20 items-center gap-4 border-b border-line px-5">
+    <div className={cls.div}>
+      <div className={cls.div2}>
         <Search
           block
           size="md"
@@ -61,10 +62,10 @@ export function Dashboard() {
           onValueChange={setBusca}
           placeholder="Buscar una actividad o un espacio"
           aria-label="Buscar"
-          className="min-w-0 max-w-[320px]"
+          className={cls.box}
         />
 
-        <div className="ml-auto flex shrink-0 items-center gap-2">
+        <div className={cls.div3}>
           <Avisos />
           <Dropdown
             align="end"
@@ -76,7 +77,7 @@ export function Dashboard() {
                 onClick={onClick}
                 aria-expanded={expanded}
                 aria-label={`Cuenta de ${yo.name}`}
-                className="flex items-center gap-2 rounded-full transition-shadow duration-fast ease-out hover:shadow-card"
+                className={cls.box2}
               >
                 <Avatar name={yo.name} src={face(4)} size={34} />
               </button>
@@ -91,14 +92,14 @@ export function Dashboard() {
         </div>
       </div>
 
-      <header className="flex flex-wrap items-end justify-between gap-4">
-        <div className="flex flex-col gap-2">
-          <h1 className="text-display font-bold text-ink">Tu semana</h1>
-          <p className="text-reading font-medium text-ink-muted">
+      <header className={cls.header}>
+        <div className={cls.div4}>
+          <h1 className={cls.h1}>Tu semana</h1>
+          <p className={cls.p}>
             Ciencias ya está al día. Lo que falta mirar está en Matemática y Lengua.
           </p>
         </div>
-        <div className="flex items-center gap-2">
+        <div className={cls.div5}>
           <Segmented
             size="sm"
             label="Rango"
@@ -121,20 +122,20 @@ export function Dashboard() {
         </div>
       </header>
 
-      <div className="grid grid-cols-2 gap-3 lg:grid-cols-4">
+      <div className={cls.div6}>
         <Stat label="Entregas" value={count(79)} delta={delta(12, { percent: true })} icon="inbox" />
         <Stat label="Corregidas" value={count(67)} delta={delta(8, { percent: true })} icon="check_circle" />
         <Stat label="Sin mirar" value={count(12)} delta={delta(-3)} icon="schedule" tone="warn" />
         <Stat label="Estudiantes" value={count(96)} delta={delta(4)} icon="group" />
       </div>
 
-      <div className="grid items-start gap-6 lg:grid-cols-[1.55fr_1fr]">
-        <div className="flex min-w-0 flex-col gap-6">
-          <Card className="flex flex-col gap-5 p-6">
-            <div className="flex items-start justify-between gap-4">
+      <div className={cls.div7}>
+        <div className={cls.div8}>
+          <Card className={cls.card}>
+            <div className={cls.div9}>
               <div>
-                <h2 className="text-reading font-semibold text-ink">Corregidas sobre entregadas</h2>
-                <p className="text-body font-medium text-ink-muted">El azul es lo corregido; el gris, lo que entró</p>
+                <h2 className={cls.h2}>Corregidas sobre entregadas</h2>
+                <p className={cls.p2}>El azul es lo corregido; el gris, lo que entró</p>
               </div>
               <Chip size="sm" color="ok" icon="trending_up">84%</Chip>
             </div>
@@ -146,12 +147,12 @@ export function Dashboard() {
             />
           </Card>
 
-          <section className="flex flex-col gap-4">
-            <div className="flex items-center justify-between gap-4">
-              <h2 className="text-reading font-semibold text-ink">Tus espacios</h2>
-              <Link href="#folder" className="text-body">Ver todos</Link>
+          <section className={cls.section}>
+            <div className={cls.div10}>
+              <h2 className={cls.h22}>Tus espacios</h2>
+              <Link href="#folder" className={cls.link}>Ver todos</Link>
             </div>
-            <div className="grid grid-cols-2 gap-4 sm:grid-cols-4">
+            <div className={cls.div11}>
               {espacios.map(e => (
                 <Folder
                   key={e.label}
@@ -167,13 +168,13 @@ export function Dashboard() {
           </section>
         </div>
 
-        <div className="relative min-w-0">
+        <div className={cls.div12}>
           <Otto />
-          <Card surface="muted" className="relative flex flex-col gap-5 p-6">
-            <div className="flex flex-col gap-3">
-              <div className="flex items-center justify-between gap-4">
-                <h2 className="text-reading font-semibold text-ink">Para hoy</h2>
-                <Link href="#list" className="text-body">Ver todas</Link>
+          <Card surface="muted" className={cls.card2}>
+            <div className={cls.div13}>
+              <div className={cls.div14}>
+                <h2 className={cls.h23}>Para hoy</h2>
+                <Link href="#list" className={cls.link2}>Ver todas</Link>
               </div>
               <List>
                 {pendientes.map(t => (
@@ -189,17 +190,17 @@ export function Dashboard() {
               </List>
             </div>
 
-            <div className="flex flex-col gap-4 border-t border-line pt-5">
-              <h2 className="text-reading font-semibold text-ink">Cómo va cada espacio</h2>
+            <div className={cls.div15}>
+              <h2 className={cls.h24}>Cómo va cada espacio</h2>
               <Progress label="Matemática · 4.º A" value={11} max={18} hint="11/18" />
               <Progress label="Ciencias · 5.º B" value={24} max={24} hint="listo" tone="ok" />
               <Progress label="Sociales · 5.º A" value={3} max={7} hint="3/7" />
               <Progress label="Lengua · 6.º" value={0} max={12} hint="sin entregas" />
             </div>
 
-            <div className="mt-auto flex items-center gap-2 border-t border-line pt-4">
+            <div className={cls.div16}>
               <AvatarGroup size={24} people={[p('Ana Pérez', 1), p('Bruno Díaz', 2), p('Carla Sosa', 3), p('Elena Vega', 5)]} />
-              <span className="text-meta font-medium text-ink-muted">96 estudiantes en total</span>
+              <span className={cls.span}>96 estudiantes en total</span>
             </div>
           </Card>
         </div>
@@ -269,7 +270,7 @@ function Otto() {
       key={vuelta}
       src="/mascotas/otto-anima.webp"
       alt=""
-      className="pointer-events-none absolute left-full top-12 z-20 hidden h-32 w-auto xl:block"
+      className={cls.img}
     />
   )
 }
@@ -282,14 +283,14 @@ function Stat({ label, value, delta, icon, tone = 'ok' }: {
   tone?: 'ok' | 'warn'
 }) {
   return (
-    <Card className="flex flex-col gap-3 p-5">
-      <div className="flex items-center justify-between">
-        <span className="text-body font-medium text-ink-muted">{label}</span>
+    <Card className={cls.card3}>
+      <div className={cls.div17}>
+        <span className={cls.span2}>{label}</span>
         <Icon name={icon} size={16} className="icon-muted" />
       </div>
-      <div className="flex items-baseline gap-2">
-        <span className="tabular text-display font-bold text-ink">{value}</span>
-        <span className={tone === 'ok' ? 'text-meta font-semibold text-ok-ink' : 'text-meta font-semibold text-warn-ink'}>{delta}</span>
+      <div className={cls.div18}>
+        <span className={`${cls.span3} tabular`}>{value}</span>
+        <span className={tone === 'ok' ? cls.ok : cls.span4}>{delta}</span>
       </div>
     </Card>
   )

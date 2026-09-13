@@ -1,3 +1,4 @@
+import s from './row.module.css'
 import { useId, type ReactNode } from 'react'
 import { FieldCtx } from '../field/field'
 
@@ -15,10 +16,10 @@ export function Row({ label, hint, children }: {
   const hintId = `${id}-hint`
   return (
     <FieldCtx.Provider value={{ id, labelId, describedBy: hint ? hintId : undefined, invalid: false }}>
-      <div className="flex min-h-14 items-center gap-4 border-t border-line px-6 py-4 first:border-t-0">
-        <div className="min-w-0 flex-1">
-          <label id={labelId} htmlFor={id} className="block cursor-pointer text-body font-medium text-ink">{label}</label>
-          {hint && <span id={hintId} className="mt-1 block text-meta text-ink-muted">{hint}</span>}
+      <div className={s.div}>
+        <div className={s.div2}>
+          <label id={labelId} htmlFor={id} className={s.label}>{label}</label>
+          {hint && <span id={hintId} className={s.span}>{hint}</span>}
         </div>
         {children}
       </div>

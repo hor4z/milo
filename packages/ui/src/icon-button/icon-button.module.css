@@ -1,0 +1,37 @@
+@layer milo.components {
+  .button {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition-property: background-color,color,box-shadow;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 150ms;
+    transition-duration: var(--duration-fast);
+    transition-timing-function: var(--ease-out);
+  }
+
+  .box {
+
+    &:disabled {
+      opacity: .45;
+      pointer-events: none;
+    }
+  }
+
+  .box2 {
+    border-radius: var(--radius-md);
+  }
+
+  .span {
+    position: absolute;
+    width: 0.375rem;
+    height: 0.375rem;
+    border-radius: var(--radius-full);
+    background-color: var(--accent);
+    --milo-ring-shadow: var(--milo-ring-inset,) 0 0 0 calc(2px + var(--milo-ring-offset-width)) var(--milo-ring-color,currentcolor);
+    box-shadow: var(--milo-inset-shadow),var(--milo-inset-ring-shadow),var(--milo-ring-offset-shadow),var(--milo-ring-shadow),var(--milo-shadow);
+    --milo-ring-color: var(--surface);
+  }
+
+}

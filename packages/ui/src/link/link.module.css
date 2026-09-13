@@ -1,0 +1,27 @@
+@layer milo.components {
+  .a {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    border-radius: var(--radius-sm);
+    color: var(--brand-ink);
+    text-decoration-line: underline;
+    text-decoration-color: currentColor;
+    text-underline-offset: 3px;
+  }
+
+  .box {
+    transition-property: text-decoration-thickness;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 150ms;
+    transition-timing-function: var(--ease-out);
+    transition-duration: var(--duration-fast);
+  }
+
+  @media (hover:hover) {
+    .box:hover {
+        text-decoration-thickness: 2px;
+    }
+  }
+
+}

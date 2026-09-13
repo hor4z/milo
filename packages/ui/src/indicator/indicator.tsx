@@ -1,13 +1,14 @@
+import cls from './indicator.module.css'
 import type { ReactNode } from 'react'
 import { Icon, type IconName } from '../icon/icon'
 import { cx } from '../lib/cx'
 
 const tones = {
-  accent: 'bg-accent-fill text-on-accent',
-  ok: 'bg-ok text-on-ok',
-  warn: 'bg-warn text-on-warn',
-  bad: 'bg-bad text-on-bad',
-  neutral: 'bg-solid text-on-solid',
+  accent: cls.tones,
+  ok: cls.tones2,
+  warn: cls.tones3,
+  bad: cls.tones4,
+  neutral: cls.tones5,
 } as const
 
 /** Una marca chica pegada a la esquina de otra cosa: un punto, un contador o un glifo. Lo que marca sigue siendo lo que se toca. */
@@ -34,17 +35,17 @@ export function Indicator({
   const pelado = !icon && count == null
 
   return (
-    <span className={cx('relative inline-flex', className)}>
+    <span className={cx(cls.span, className)}>
       {children}
       <span
         aria-hidden={label ? undefined : 'true'}
         role={label ? 'status' : undefined}
         className={cx(
-          'pointer-events-none absolute inline-flex items-center justify-center rounded-full ring-2 ring-surface',
+          cls.box,
           tones[tone],
           pelado
-            ? 'top-0 right-0 size-2.5'
-            : '-top-1 -right-1 min-h-4 min-w-4 px-1 text-meta font-semibold',
+            ? cls.box2
+            : cls.box3,
         )}
       >
         {label && <span className="sr-only">{label}</span>}

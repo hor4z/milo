@@ -1,3 +1,4 @@
+import cls from './App.module.css'
 import { useEffect, useMemo, useRef, useState, type ReactNode } from 'react'
 import { Button, EmptyState, Icon, IconButton, Search, ToastProvider, cx, fold, usePrefs } from '@milo/ui'
 import { Intro } from './intro'
@@ -261,10 +262,10 @@ export function App() {
 
   return (
     <ToastProvider>
-      <div className="flex min-h-screen flex-col bg-canvas lg:flex-row">
+      <div className={cls.div}>
         {railOpen && (
           <div
-            className="ui-fade fixed inset-0 z-30 bg-veil lg:hidden"
+            className={`${cls.div2} ui-fade`}
             onClick={() => setRailOpen(false)}
             aria-hidden="true"
           />
@@ -273,15 +274,15 @@ export function App() {
         <nav
           id="riel"
           className={cx(
-            'fixed top-0 bottom-0 left-0 z-40 flex w-[248px] shrink-0 flex-col border-r border-line bg-canvas',
-            'transition-transform duration-normal ease-out lg:translate-x-0',
-            railOpen ? 'translate-x-0 shadow-popover' : '-translate-x-full',
+            cls.nav,
+            cls.box,
+            railOpen ? cls.box2 : cls.box3,
           )}
         >
-          <div className="flex flex-col gap-3 px-4 pt-5 pb-3">
-            <button onClick={() => go(INTRO)} className="flex items-baseline gap-2 self-start rounded-md px-1 text-left">
-              <span className="text-reading font-semibold text-ink">milo</span>
-              <span className="text-meta font-medium text-ink-muted">design system</span>
+          <div className={cls.div3}>
+            <button onClick={() => go(INTRO)} className={cls.box4}>
+              <span className={cls.span}>milo</span>
+              <span className={cls.span2}>design system</span>
             </button>
 
             <Search
@@ -311,17 +312,17 @@ export function App() {
             />
           </div>
 
-          <div className="flex-1 overflow-y-auto px-3 pb-4">
+          <div className={cls.div4}>
             <SideLink active={current === INTRO} onClick={() => go(INTRO)} icon="deployed_code">Introducción</SideLink>
             <SideLink active={current === 'dashboard'} onClick={() => go('dashboard')} icon="dashboard">Dashboard</SideLink>
             <SideLink active={current === 'documento'} onClick={() => go('documento')} icon="description">Documento</SideLink>
 
             {filtered.map(g => (
-              <div key={g.label} className="mt-5 first:mt-4">
-                <div className="px-2 pb-2 text-label font-semibold text-ink-muted uppercase">
+              <div key={g.label} className={cls.div5}>
+                <div className={cls.div6}>
                   {g.label}
                 </div>
-                <div className="flex flex-col gap-px">
+                <div className={cls.div7}>
                   {g.stories.map(s => (
                     <SideLink key={s.id} active={current === s.id} onClick={() => go(s.id)} piece>{s.label}</SideLink>
                   ))}
@@ -330,12 +331,12 @@ export function App() {
             ))}
 
             {filtered.length === 0 && (
-              <p className="px-2 py-6 text-body font-medium text-ink-muted">Nada con "{query}".</p>
+              <p className={cls.p}>Nada con "{query}".</p>
             )}
           </div>
 
-          <div className="flex items-center justify-between gap-2 border-t border-line px-4 py-3">
-            <span className="text-meta font-medium text-ink-muted">
+          <div className={cls.div8}>
+            <span className={cls.span3}>
               {everything.length} vistas
             </span>
             <IconButton
@@ -348,7 +349,7 @@ export function App() {
           </div>
         </nav>
 
-        <header className="sticky top-0 z-20 flex items-center gap-2 border-b border-line bg-canvas/90 px-4 py-3 backdrop-blur-md lg:hidden">
+        <header className={cls.header}>
           <IconButton
             icon="menu"
             label="Abrir el índice"
@@ -358,11 +359,11 @@ export function App() {
             aria-controls="riel"
             onClick={() => setRailOpen(true)}
           />
-          <span className="text-body font-semibold text-ink">milo · design system</span>
+          <span className={cls.span4}>milo · design system</span>
         </header>
 
-        <main ref={main} className="min-w-0 flex-1 px-5 py-8 lg:ml-[248px] lg:px-10 lg:py-10">
-          <div key={current} className="mx-auto flex max-w-[980px] flex-col">
+        <main ref={main} className={cls.main}>
+          <div key={current} className={cls.div9}>
             {current === INTRO && <Intro go={go} views={everything.length} />}
             {current === 'dashboard' && <Dashboard />}
             {current === 'documento' && <Documento />}
@@ -406,12 +407,12 @@ function SideLink({ active, onClick, icon, piece, children }: {
       }}
       aria-current={active ? 'page' : undefined}
       className={cx(
-        'flex h-8 w-full items-center gap-2 rounded-lg px-2 text-left text-body transition-colors duration-fast ease-out',
-        active ? 'bg-brand-soft font-semibold text-brand-ink shadow-[0_0_0_1px_var(--brand-border)]' : 'font-medium text-ink hover:bg-hover',
+        cls.box5,
+        active ? cls.box6 : cls.box7,
       )}
     >
       {icon && <Icon name={icon} size={16} className={active ? undefined : 'icon-muted'} />}
-      <span className="min-w-0 flex-1 truncate">{children}</span>
+      <span className={cls.span5}>{children}</span>
     </button>
   )
 }

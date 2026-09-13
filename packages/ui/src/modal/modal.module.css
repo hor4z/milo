@@ -1,0 +1,42 @@
+@layer milo.components {
+  .div {
+    position: fixed;
+    inset: 0;
+    z-index: 40;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+  }
+
+  .div2 {
+    position: absolute;
+    inset: 0;
+    background-color: var(--scrim);
+    --milo-backdrop-blur: blur(3px);
+    -webkit-backdrop-filter: var(--milo-backdrop-blur,) var(--milo-backdrop-brightness,) var(--milo-backdrop-contrast,) var(--milo-backdrop-grayscale,) var(--milo-backdrop-hue-rotate,) var(--milo-backdrop-invert,) var(--milo-backdrop-opacity,) var(--milo-backdrop-saturate,) var(--milo-backdrop-sepia,);
+    backdrop-filter: var(--milo-backdrop-blur,) var(--milo-backdrop-brightness,) var(--milo-backdrop-contrast,) var(--milo-backdrop-grayscale,) var(--milo-backdrop-hue-rotate,) var(--milo-backdrop-invert,) var(--milo-backdrop-opacity,) var(--milo-backdrop-saturate,) var(--milo-backdrop-sepia,);
+  }
+
+  .box {
+    position: relative;
+    z-index: 10;
+    max-height: calc(100vh - 2rem);
+    overflow: hidden;
+    border-radius: var(--radius-2xl);
+    --milo-shadow: var(--relief-popover);
+    box-shadow: var(--milo-inset-shadow),var(--milo-inset-ring-shadow),var(--milo-ring-offset-shadow),var(--milo-ring-shadow),var(--milo-shadow);
+    --milo-ring-shadow: var(--milo-ring-inset,) 0 0 0 calc(1px + var(--milo-ring-offset-width)) var(--milo-ring-color,currentcolor);
+    box-shadow: var(--milo-inset-shadow),var(--milo-inset-ring-shadow),var(--milo-ring-offset-shadow),var(--milo-ring-shadow),var(--milo-shadow);
+    --milo-ring-color: var(--border);
+  }
+
+  .box2 {
+    position: absolute!important;
+    top: 1rem;
+    right: 1rem;
+    z-index: 20;
+    border-radius: var(--radius-lg)!important;
+  }
+
+}

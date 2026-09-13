@@ -1,3 +1,4 @@
+import cls from './sound.module.css'
 import { AudioPlayer, Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@milo/ui'
 import { A11y, Note, Page, Rich, Section } from '../kit'
 
@@ -28,19 +29,19 @@ export function SoundSection() {
         title="La regla que manda sobre todas"
         note="Nada suena sin que alguien lo pida. Ni un audio, ni un aviso, ni un efecto."
       >
-        <div className="flex flex-col gap-3 rounded-xl border border-line bg-surface p-5">
-          <p className="max-w-[70ch] text-reading text-ink">
+        <div className={`${cls.div} bg-surface`}>
+          <p className={cls.p}>
             Esto se usa en un aula con treinta personas y un solo proyector, en un colectivo, y al
             lado de alguien que tiene un lector de pantalla hablando. Un audio que arranca solo es,
             en el mejor caso, alguien apagando el volumen; en el peor, dos voces encimadas para
             quien depende de una de las dos.
           </p>
-          <p className="max-w-[70ch] text-reading text-ink">
+          <p className={cls.p2}>
             El corolario, que se olvida: si dos audios pueden sonar juntos, van a sonar juntos.
             Arrancar uno para el otro, y el sistema ya lo hace: probá abrir los dos de abajo.
           </p>
         </div>
-        <div className="mt-4 grid gap-3 lg:grid-cols-2">
+        <div className={cls.div2}>
           <AudioPlayer src="/audio/consigna.mp3" title="Consigna de Física, grabada" peaks={picos} />
           <AudioPlayer src="/audio/consigna.mp3" title="Devolución para Ana" peaks={picos} />
         </div>
@@ -50,7 +51,7 @@ export function SoundSection() {
         title="La voz"
         note="Sea una persona grabando o una voz sintética leyendo, las decisiones son las mismas."
       >
-        <div className="grid gap-3 sm:grid-cols-2">
+        <div className={cls.div3}>
           <Punto titulo="Cálida antes que correcta">{`Tiene que sonar a alguien hablándole a quien escucha, no a un anuncio de aeropuerto. La voz institucional se lee como que el mensaje no es para vos.`}</Punto>
           <Punto titulo="En el castellano de acá">{`Rioplatense. Una voz neutra latina o peninsular hace que un chico de diez años deje de escuchar en la primera frase, porque no le habla a él.`}</Punto>
           <Punto titulo="Más lenta que una charla">{`Una consigna se escucha una vez y hay que poder seguirla. Alrededor de ciento cuarenta palabras por minuto, que es más lento de lo que suena natural leyendo en voz alta.`}</Punto>
@@ -90,13 +91,13 @@ export function SoundSection() {
         title="El sistema no tiene sonidos de aviso, y es una decisión"
         note="No es que falten: no van."
       >
-        <div className="flex flex-col gap-3 rounded-xl border border-line bg-surface p-5">
-          <p className="max-w-[70ch] text-reading text-ink">
+        <div className={`${cls.div4} bg-surface`}>
+          <p className={cls.p3}>
             Treinta dispositivos en un aula haciendo el mismo tintineo cuando el docente publica
             una actividad es un aula que se detiene. Lo que pasa se dice en pantalla, que es donde
             alguien lo puede volver a mirar.
           </p>
-          <p className="max-w-[70ch] text-reading text-ink">
+          <p className={cls.p4}>
             Si algún día hace falta uno: corto, apagado por defecto, y nunca la única señal de que
             algo pasó. Un sonido que lleva información solo es información que no le llega a quien
             no oye.
@@ -108,7 +109,7 @@ export function SoundSection() {
         title="El volumen no lo pone el sistema"
         note="Es del dispositivo y de quien lo tiene en la mano."
       >
-        <div className="grid gap-3 sm:grid-cols-2">
+        <div className={cls.div5}>
           <Punto titulo="No se normaliza para arriba">{`Subirle el volumen a un audio bajo para que se escuche igual que el resto es decidir por alguien que ya decidió.`}</Punto>
           <Punto titulo="No se pisa el silencio">{`Si el dispositivo está en silencio, está en silencio. No hay contenido tan importante como para sonar en una clase.`}</Punto>
         </div>
@@ -118,7 +119,7 @@ export function SoundSection() {
         title="Todo lo que suena tiene su equivalente escrito"
         note="No es un extra de accesibilidad: es lo que hace que el contenido se pueda buscar, citar y leer en un colectivo."
       >
-        <div className="grid gap-3 sm:grid-cols-2">
+        <div className={cls.div6}>
           <Punto titulo="Una devolución grabada lleva su texto">{`Aunque sea un resumen de dos líneas. Sin eso, un estudiante sordo pierde la devolución entera y nadie se entera.`}</Punto>
           <Punto titulo="Lo hablado lleva subtítulos">{`Y el subtítulo es el texto de verdad, no una transcripción automática sin revisar: una consigna con una palabra mal transcrita es una consigna distinta.`}</Punto>
         </div>
@@ -160,9 +161,9 @@ export function SoundSection() {
 
 function Punto({ titulo, children }: { titulo: string; children: string }) {
   return (
-    <div className="flex flex-col gap-2 rounded-xl border border-line bg-surface p-4">
-      <span className="text-body font-semibold text-ink">{titulo}</span>
-      <span className="text-meta font-medium text-ink-muted"><Rich text={children} /></span>
+    <div className={`${cls.div7} bg-surface`}>
+      <span className={cls.span}>{titulo}</span>
+      <span className={cls.span2}><Rich text={children} /></span>
     </div>
   )
 }

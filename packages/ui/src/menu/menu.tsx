@@ -1,3 +1,4 @@
+import cls from './menu.module.css'
 import { useRef, type KeyboardEvent, type ReactNode } from 'react'
 import { cx } from '../lib/cx'
 import { Kbd } from '../kbd/kbd'
@@ -34,8 +35,8 @@ export function Menu({ children, label, width, className }: {
       onKeyDown={move}
       style={width ? { width } : undefined}
       className={cx(
-        'ui-pop rounded-xl border border-line bg-popover p-1 shadow-popover',
-        '[&>[data-divider]]:-mx-1 [&>[data-divider]]:my-2',
+        `${cls.root} ui-pop bg-popover`,
+        cls.box,
         className,
       )}
     >
@@ -75,19 +76,19 @@ export function MenuItem({
       aria-checked={checked}
       onClick={onSelect}
       className={cx(
-        'flex h-10 w-full items-center gap-4 rounded-lg px-2 text-left text-body',
-        'transition-colors ease-out duration-fast',
-        'disabled:pointer-events-none disabled:opacity-45',
-        danger ? 'text-bad-ink hover:bg-bad-subtle' : 'text-ink hover:bg-hover',
+        cls.box2,
+        cls.box3,
+        cls.box4,
+        danger ? cls.box5 : cls.box6,
         className,
       )}
     >
       {icon && <Icon name={icon} size={20} className={danger ? undefined : 'icon-muted'} />}
-      <span className="min-w-0 flex-1 truncate">{children}</span>
+      <span className={cls.span}>{children}</span>
       {shortcut && <Kbd>{shortcut}</Kbd>}
-      {hint && <span className="shrink-0 text-meta font-medium text-ink-muted">{hint}</span>}
+      {hint && <span className={cls.span2}>{hint}</span>}
       {checked && <Icon name="check" size={18} />}
-      {submenu && <Icon name="chevron_right" size={18} className="icon-muted -mr-1" />}
+      {submenu && <Icon name="chevron_right" size={18} className={`${cls.icon2} icon-muted`} />}
     </button>
   )
 }
@@ -95,7 +96,7 @@ export function MenuItem({
 /** El rótulo de un grupo de opciones. */
 export function MenuLabel({ children }: { children: ReactNode }) {
   return (
-    <div role="presentation" className="px-2 pt-2 pb-2 text-label font-semibold text-ink">
+    <div role="presentation" className={cls.div}>
       {children}
     </div>
   )

@@ -1,3 +1,4 @@
+import cls from './card.module.css'
 import { Button, Card, CardBody, CardFooter, CardHeader, CardHint, CardTitle, Chip, Progress } from '@milo/ui'
 import { A11y, Note, Page, Props, Section } from '../kit'
 
@@ -13,10 +14,10 @@ export function CardStory() {
         title="Se arma con partes"
         note="`CardHeader`, `CardTitle`, `CardHint`, `CardBody` y `CardFooter` traen el espaciado y la tipografía del sistema. Sin ellas, cada pantalla inventaba su propia cabecera: tres tamaños de título distintos en tres tarjetas vecinas."
       >
-        <div className="flex flex-wrap items-start gap-4">
-          <Card className="w-[320px]">
+        <div className={cls.div}>
+          <Card className={cls.card}>
             <CardHeader>
-              <div className="flex flex-col">
+              <div className={cls.div2}>
                 <CardTitle>Entregas de la semana</CardTitle>
                 <CardHint>De todos tus espacios</CardHint>
               </div>
@@ -30,12 +31,12 @@ export function CardStory() {
             </CardFooter>
           </Card>
 
-          <Card className="w-[320px]">
+          <Card className={cls.card2}>
             <CardHeader>
               <CardTitle>Sin partes</CardTitle>
             </CardHeader>
             <CardBody>
-              <p className="text-body font-medium text-ink-muted">
+              <p className={cls.p}>
                 La tarjeta sigue aceptando cualquier contenido suelto para lo que no tiene esa forma,
                 una portada, un gráfico, una grilla de fotos.
               </p>
@@ -48,19 +49,19 @@ export function CardStory() {
         title="Quieta, y sin acciones escondidas"
         note="Las tarjetas no se mueven en hover y no tienen botones flotando encima: una grilla que salta hace temblar la vista, y un botón que aparece con el mouse no se descubre sin mouse. `interactive` es para la tarjeta que es un link entero: sube la sombra sin mover el contenido. Llegó a llevar un `-translate-y` que contradecía esta misma regla."
       >
-        <div className="flex flex-wrap gap-4">
-          <Card className="w-[260px]">
-            <div className="rounded-sm bg-tint-2" style={{ height: 120 }} />
-            <div className="px-2 pt-3 pb-2">
-              <div className="text-body font-semibold">El barrio como mapa</div>
-              <div className="mt-1 text-meta text-ink-muted">Geografía · 6.º · Indagación</div>
+        <div className={cls.div3}>
+          <Card className={cls.card3}>
+            <div className={cls.div4} style={{ height: 120 }} />
+            <div className={cls.div5}>
+              <div className={cls.div6}>El barrio como mapa</div>
+              <div className={cls.div7}>Geografía · 6.º · Indagación</div>
             </div>
           </Card>
-          <Card className="w-[260px]" interactive>
-            <div className="rounded-sm bg-tint-3" style={{ height: 120 }} />
-            <div className="px-2 pt-3 pb-2">
-              <div className="text-body font-semibold">Con interactive</div>
-              <div className="mt-1 text-meta text-ink-muted">Sube la sombra en hover, sin moverse</div>
+          <Card className={cls.card4} interactive>
+            <div className={cls.div8} style={{ height: 120 }} />
+            <div className={cls.div9}>
+              <div className={cls.div10}>Con interactive</div>
+              <div className={cls.div11}>Sube la sombra en hover, sin moverse</div>
             </div>
           </Card>
         </div>
@@ -70,14 +71,14 @@ export function CardStory() {
         title="Papel o hueco"
         note="`paper` sobresale del fondo, lleva su línea y tira su sombra: es una cosa apoyada arriba. `muted` es lo contrario, un hueco hundido en la pantalla, y sirve para lo que agrupa sin ser protagonista: un resumen, un bloque de ayuda. El hueco no lleva línea, porque un hueco no tiene contorno: lo que lo dibuja es el cambio de fondo."
       >
-        <div className="flex flex-wrap gap-4">
-          <Card className="w-[260px] p-4" surface="paper">
-            <div className="text-body font-semibold">paper</div>
-            <div className="mt-1 text-meta text-ink-muted">Sobresale. El default.</div>
+        <div className={cls.div12}>
+          <Card className={cls.card5} surface="paper">
+            <div className={cls.div13}>paper</div>
+            <div className={cls.div14}>Sobresale. El default.</div>
           </Card>
-          <Card className="w-[260px] p-4" surface="muted">
-            <div className="text-body font-semibold">muted</div>
-            <div className="mt-1 text-meta text-ink-muted">Un hueco, para lo que agrupa.</div>
+          <Card className={cls.card6} surface="muted">
+            <div className={cls.div15}>muted</div>
+            <div className={cls.div16}>Un hueco, para lo que agrupa.</div>
           </Card>
         </div>
       </Section>
@@ -85,7 +86,7 @@ export function CardStory() {
       <Note title="Card o Row">
         La tarjeta es para una grilla de cosas que se comparan de reojo. Si lo que hay es una lista
         de ajustes (etiqueta a la izquierda, control a la derecha) eso es un
-        {' '}<a className="underline underline-offset-2" href="#row">Row</a> adentro de un panel, y
+        {' '}<a className={cls.a} href="#row">Row</a> adentro de un panel, y
         no seis tarjetas apiladas.
       </Note>
 

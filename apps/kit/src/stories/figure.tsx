@@ -1,3 +1,4 @@
+import s from './figure.module.css'
 import { Figure } from '@milo/ui'
 import { A11y, Note, Page, Props, Section } from '../kit'
 
@@ -13,7 +14,7 @@ export function FigureStory() {
         title="La pieza"
         note="El hueco reserva su proporción antes de que la imagen llegue. Sin eso, todo lo que está abajo salta cuando carga y alguien pierde el renglón que estaba leyendo."
       >
-        <div className="grid max-w-[680px] gap-4 sm:grid-cols-2">
+        <div className={s.div}>
           <Figure
             src="/avatars/03.webp"
             alt="Una persona sonriendo, de frente"
@@ -32,7 +33,7 @@ export function FigureStory() {
         title="Las proporciones"
         note="Cuatro, y la elige quien arma la pantalla. Una grilla donde cada imagen trae la suya se ve como una pila de recortes."
       >
-        <div className="grid max-w-[760px] gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        <div className={s.div2}>
           {(['16/9', '4/3', '3/2', '1/1'] as const).map((r, i) => (
             <Figure key={r} src={`/avatars/0${i + 1}.webp`} alt="" caption={r} ratio={r} />
           ))}

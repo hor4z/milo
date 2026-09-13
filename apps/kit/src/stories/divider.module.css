@@ -1,0 +1,97 @@
+@layer milo.app {
+  .div {
+    width: 100%;
+    max-width: 420px;
+  }
+
+  .div2 {
+    padding-bottom: 0.75rem;
+    font-size: var(--type-body);
+    line-height: var(--type-body-lh);
+    letter-spacing: var(--type-body-ls);
+    font-weight: var(--font-weight-medium);
+    color: var(--text);
+  }
+
+  .div3 {
+    padding-top: 0.75rem;
+    font-size: var(--type-body);
+    line-height: var(--type-body-lh);
+    letter-spacing: var(--type-body-ls);
+    font-weight: var(--font-weight-medium);
+    color: var(--text-muted);
+  }
+
+  .div4 {
+    display: flex;
+    height: 2.25rem;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .span {
+    font-size: var(--type-body);
+    line-height: var(--type-body-lh);
+    letter-spacing: var(--type-body-ls);
+    font-weight: var(--font-weight-medium);
+    color: var(--text);
+  }
+
+  .span2 {
+    font-size: var(--type-body);
+    line-height: var(--type-body-lh);
+    letter-spacing: var(--type-body-ls);
+    font-weight: var(--font-weight-medium);
+    color: var(--text);
+  }
+
+  .span3 {
+    font-size: var(--type-body);
+    line-height: var(--type-body-lh);
+    letter-spacing: var(--type-body-ls);
+    font-weight: var(--font-weight-medium);
+    color: var(--text-muted);
+  }
+
+  .div5 {
+    display: flex;
+    height: 2.5rem;
+    align-items: center;
+    gap: 0.5rem;
+    border-radius: var(--radius-xl);
+    border-style: solid;
+    border-width: 1px;
+    border-color: var(--border);
+    padding-inline: 0.75rem;
+  }
+
+  .span4 {
+    font-size: var(--type-body);
+    line-height: var(--type-body-lh);
+    letter-spacing: var(--type-body-ls);
+    font-weight: var(--font-weight-medium);
+    color: var(--text-muted);
+  }
+
+  .divider {
+    margin-inline: 0.25rem;
+  }
+
+  .divider2 {
+    margin-inline: 0.25rem;
+  }
+
+  .p {
+    margin-top: 0.75rem;
+    max-width: 70ch;
+    font-size: var(--type-meta);
+    line-height: var(--type-meta-lh);
+    letter-spacing: var(--type-meta-ls);
+    color: var(--text-muted);
+  }
+
+  .code {
+    font-family: var(--font-mono);
+  }
+
+}

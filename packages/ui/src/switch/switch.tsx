@@ -1,3 +1,4 @@
+import s from './switch.module.css'
 import { useField } from '../field/field'
 import { cx } from '../lib/cx'
 
@@ -28,17 +29,17 @@ export function Switch({
       disabled={disabled}
       onClick={() => onChange(!checked)}
       className={cx(
-        'relative inline-flex h-[22px] w-10 shrink-0 items-center rounded-full p-0.5',
-        'transition-[background-color,box-shadow] duration-normal ease-out',
-        'disabled:opacity-45 disabled:pointer-events-none',
+        s.root,
+        s.box,
+        s.box2,
         checked ? 'switch-track-on' : 'switch-track-off',
       )}
     >
       <span
         className={cx(
-          'switch-thumb size-[18px] rounded-full',
-          'transition-transform duration-normal ease-out',
-          checked ? 'translate-x-[18px]' : 'translate-x-0',
+          `${s.span} switch-thumb`,
+          s.span2,
+          checked ? s.box5 : s.box6,
         )}
       />
     </button>

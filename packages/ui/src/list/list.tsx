@@ -1,3 +1,4 @@
+import s from './list.module.css'
 import type { ReactNode } from 'react'
 import { cx } from '../lib/cx'
 import { markFill, type MarkColor } from '../lib/colors'
@@ -9,7 +10,7 @@ export type { MarkColor } from '../lib/colors'
 
 export function List({ children, className }: { children: ReactNode; className?: string }) {
   return (
-    <div className={cx('flex flex-col gap-2', className)}>
+    <div className={cx(s.div, className)}>
       {children}
     </div>
   )
@@ -38,22 +39,22 @@ export function ListItem({
     <Tag
       onClick={onClick}
       className={cx(
-        'flex min-h-[72px] w-full items-center gap-4 rounded-xl px-4 py-4 text-left',
-        'transition-[background-image,background-color,box-shadow] duration-fast ease-out',
-        active ? 'bg-sunken shadow-none' : 'bg-surface shadow-card',
-        onClick && !active && 'hover:tinted hover:shadow-toolbar',
+        s.tag,
+        s.box,
+        active ? s.box2 : `${s.box3} bg-surface`,
+        onClick && !active && s.active,
       )}
     >
-      <span className={cx('mark inline-flex size-11 shrink-0 items-center justify-center rounded-full', markFill[color])}>
+      <span className={cx(`${s.span} mark`, markFill[color])}>
         <Icon name={icon} size={22} weight={400} />
       </span>
 
-      <span className="min-w-0 flex-1">
-        <span className="block truncate text-reading font-semibold text-ink">{title}</span>
-        {hint && <span className="mt-0.5 block truncate text-reading font-medium text-ink-muted">{hint}</span>}
+      <span className={s.span2}>
+        <span className={s.span3}>{title}</span>
+        {hint && <span className={s.span4}>{hint}</span>}
       </span>
 
-      {trailing && <span className="shrink-0">{trailing}</span>}
+      {trailing && <span className={s.span5}>{trailing}</span>}
     </Tag>
   )
 }

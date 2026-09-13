@@ -1,0 +1,128 @@
+@layer milo.app {
+  .div {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    border-radius: var(--radius-xl);
+    border-style: solid;
+    border-width: 1px;
+    border-color: var(--border);
+    padding: 1.25rem;
+  }
+
+  .p {
+    max-width: 70ch;
+    font-size: var(--type-reading);
+    line-height: var(--type-reading-lh);
+    letter-spacing: var(--type-reading-ls);
+    color: var(--text);
+  }
+
+  .p2 {
+    max-width: 70ch;
+    font-size: var(--type-reading);
+    line-height: var(--type-reading-lh);
+    letter-spacing: var(--type-reading-ls);
+    color: var(--text);
+  }
+
+  .div2 {
+    margin-top: 1rem;
+    display: grid;
+    gap: 0.75rem;
+  }
+
+  .div3 {
+    display: grid;
+    gap: 0.75rem;
+  }
+
+  .div4 {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    border-radius: var(--radius-xl);
+    border-style: solid;
+    border-width: 1px;
+    border-color: var(--border);
+    padding: 1.25rem;
+  }
+
+  .p3 {
+    max-width: 70ch;
+    font-size: var(--type-reading);
+    line-height: var(--type-reading-lh);
+    letter-spacing: var(--type-reading-ls);
+    color: var(--text);
+  }
+
+  .p4 {
+    max-width: 70ch;
+    font-size: var(--type-reading);
+    line-height: var(--type-reading-lh);
+    letter-spacing: var(--type-reading-ls);
+    color: var(--text);
+  }
+
+  .div5 {
+    display: grid;
+    gap: 0.75rem;
+  }
+
+  .div6 {
+    display: grid;
+    gap: 0.75rem;
+  }
+
+  .div7 {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    border-radius: var(--radius-xl);
+    border-style: solid;
+    border-width: 1px;
+    border-color: var(--border);
+    padding: 1rem;
+  }
+
+  .span {
+    font-size: var(--type-body);
+    line-height: var(--type-body-lh);
+    letter-spacing: var(--type-body-ls);
+    font-weight: var(--font-weight-semibold);
+    color: var(--text);
+  }
+
+  .span2 {
+    font-size: var(--type-meta);
+    line-height: var(--type-meta-lh);
+    letter-spacing: var(--type-meta-ls);
+    font-weight: var(--font-weight-medium);
+    color: var(--text-muted);
+  }
+
+  @media (min-width:64rem) {
+    .div2 {
+        grid-template-columns: repeat(2,minmax(0,1fr));
+    }
+  }
+
+  @media (min-width:40rem) {
+    .div3 {
+        grid-template-columns: repeat(2,minmax(0,1fr));
+    }
+  }
+
+  @media (min-width:40rem) {
+    .div5 {
+        grid-template-columns: repeat(2,minmax(0,1fr));
+    }
+  }
+
+  @media (min-width:40rem) {
+    .div6 {
+        grid-template-columns: repeat(2,minmax(0,1fr));
+    }
+  }
+
+}

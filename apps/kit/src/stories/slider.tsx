@@ -1,3 +1,4 @@
+import cls from './slider.module.css'
 import { useState } from 'react'
 import { Slider } from '@milo/ui'
 import { A11y, Mono, Page, Panel, Props, Section, Variant } from '../kit'
@@ -21,7 +22,7 @@ export function SliderStory() {
       >
         <Panel>
           <Variant name={`valor ${a}`}>
-            <Slider value={a} onChange={setA} label="Volumen" className="max-w-[320px]" />
+            <Slider value={a} onChange={setA} label="Volumen" className={cls.slider} />
           </Variant>
         </Panel>
       </Section>
@@ -32,10 +33,10 @@ export function SliderStory() {
       >
         <Panel>
           <Variant name="en 0">
-            <Slider value={b} onChange={setB} label="En cero" className="max-w-[320px]" />
+            <Slider value={b} onChange={setB} label="En cero" className={cls.slider2} />
           </Variant>
           <Variant name="en 100">
-            <Slider value={c} onChange={setC} label="En cien" className="max-w-[320px]" />
+            <Slider value={c} onChange={setC} label="En cien" className={cls.slider3} />
           </Variant>
         </Panel>
       </Section>
@@ -46,10 +47,10 @@ export function SliderStory() {
       >
         <Panel>
           <Variant name={`${steps} de 5 · step 1, max 5`}>
-            <Slider value={steps} onChange={setSteps} min={0} max={5} step={1} label="Dificultad" className="max-w-[320px]" />
+            <Slider value={steps} onChange={setSteps} min={0} max={5} step={1} label="Dificultad" className={cls.slider4} />
           </Variant>
         </Panel>
-        <p className="mt-3 max-w-[70ch] text-meta text-ink-muted">
+        <p className={cls.p}>
           Probalo con el teclado: tabulá hasta el slider y usá las flechas. El anillo de foco se
           suma al relieve del pulgar en vez de reemplazarlo: la regla global de <code>:focus-visible</code>
           pisa el <code>box-shadow</code> entero y deja la pieza plana, que es el bug que está anotado en
@@ -60,7 +61,7 @@ export function SliderStory() {
       <Section title="Deshabilitado">
         <Panel>
           <Variant name="disabled">
-            <Slider value={40} onChange={() => {}} disabled label="Deshabilitado" className="max-w-[320px]" />
+            <Slider value={40} onChange={() => {}} disabled label="Deshabilitado" className={cls.box} />
           </Variant>
         </Panel>
       </Section>
@@ -70,7 +71,7 @@ export function SliderStory() {
       </Section>
 
       <Section title="El azul no se elige acá">
-        <p className="max-w-[70ch] text-body text-ink-muted">
+        <p className={cls.p2}>
           Es la regla de rol que ya está escrita: el azul es lo que el usuario prendió o
           confirmó (el switch, el checkbox, el CTA) y el valor de un slider es exactamente eso.
           El punto azul del pulgar es la misma frase dicha en la pieza que se agarra.{' '}

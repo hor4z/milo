@@ -1,0 +1,178 @@
+@layer milo.components {
+  .onda {
+    height: 2rem;
+  }
+
+  .onda2 {
+    height: 2.5rem;
+  }
+
+  .onda3 {
+    height: 3rem;
+  }
+
+  .span {
+    pointer-events: none;
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: stretch;
+    overflow: hidden;
+  }
+
+  .span2 {
+    display: flex;
+    flex: 1;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .span3 {
+    width: 50%;
+    border-radius: var(--radius-full);
+    transition-property: color,background-color,border-color,outline-color,text-decoration-color,fill,stroke,--milo-gradient-from,--milo-gradient-via,--milo-gradient-to;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 150ms;
+    transition-duration: var(--duration-fast);
+    transition-timing-function: var(--ease-out);
+  }
+
+  .box {
+    background-color: var(--chart-fill);
+  }
+
+  .box2 {
+    background-color: var(--border-strong);
+  }
+
+  .span4 {
+    pointer-events: none;
+    position: absolute;
+    inset-inline: 0;
+    top: 50%;
+    height: 0.25rem;
+    --milo-translate-y: -50%;
+    translate: var(--milo-translate-x) var(--milo-translate-y);
+    border-radius: var(--radius-full);
+    background-color: var(--border-strong);
+  }
+
+  .span5 {
+    position: absolute;
+    inset-block: 0;
+    left: 0;
+    border-radius: var(--radius-full);
+    background-color: var(--chart-fill);
+  }
+
+  .div {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    border-radius: var(--radius-xl);
+    border-style: solid;
+    border-width: 1px;
+    border-color: var(--border);
+    padding-inline: 0.75rem;
+    padding-block: 0.5rem;
+  }
+
+  .box3 {
+    border-color: var(--bad-border);
+  }
+
+  .span6 {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    font-size: var(--type-body);
+    line-height: var(--type-body-lh);
+    letter-spacing: var(--type-body-ls);
+    font-weight: var(--font-weight-medium);
+    color: var(--text);
+  }
+
+  .div2 {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .span7 {
+    display: inline-flex;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .box4 {
+    flex-shrink: 0;
+    & .ms-icon {
+      font-variation-settings: "FILL" 1,"wght" var(--icon-wght,300);
+    }
+  }
+
+  .span8 {
+    display: flex;
+    flex: 1;
+    align-items: center;
+    font-size: var(--type-body);
+    line-height: var(--type-body-lh);
+    letter-spacing: var(--type-body-ls);
+    color: var(--bad-ink);
+  }
+
+  .span9 {
+    position: relative;
+    display: flex;
+    min-width: 0;
+    flex: 1;
+    align-items: center;
+  }
+
+  .box5 {
+    position: absolute;
+    inset: 0;
+    height: 100%;
+    width: 100%;
+    cursor: pointer;
+    appearance: none;
+    background-color: #0000;
+    opacity: 0;
+  }
+
+  .box6 {
+
+    &:disabled {
+      cursor: default;
+    }
+  }
+
+  .box7 {
+
+    &:focus-visible {
+      border-radius: var(--radius-md);
+      opacity: 1;
+      --milo-outline-style: none;
+      outline-style: none;
+      --milo-shadow: var(--focus-ring);
+      box-shadow: var(--milo-inset-shadow),var(--milo-inset-ring-shadow),var(--milo-ring-offset-shadow),var(--milo-ring-shadow),var(--milo-shadow);
+    }
+  }
+
+  .span10 {
+    flex-shrink: 0;
+    font-size: var(--type-meta);
+    line-height: var(--type-meta-lh);
+    letter-spacing: var(--type-meta-ls);
+    color: var(--text-muted);
+  }
+
+  .span11 {
+    display: flex;
+    flex-shrink: 0;
+    align-items: center;
+    gap: 0.25rem;
+  }
+
+}

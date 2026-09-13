@@ -1,3 +1,4 @@
+import cls from './nav.module.css'
 import { useState } from 'react'
 import { FolderIcon, NavItemBody, navItemClass, navSubItemClass } from '@milo/ui'
 import { A11y, Page, Props, Section } from '../kit'
@@ -16,8 +17,8 @@ export function NavStory() {
         title="El item"
         note="40 de alto, radio 12, el icono en un cuadrado de 34 y la etiqueta en `text-body`. El activo va en azul suave con su canto. Estuvo en gris, con la regla 'el activo nunca se marca con color': esa regla existía cuando el azul era el único acento, y dejó de valer cuando pasó a ser el color primario: en un riel de doce, el gris hay que buscarlo."
       >
-        <div className="w-[220px] rounded-xl border border-line bg-canvas px-5 py-4">
-          <div className="flex flex-col gap-0.5">
+        <div className={cls.div}>
+          <div className={cls.div2}>
             {[
               { id: 'explorar', icon: 'explore', label: 'Explorar' },
               { id: 'recursos', icon: 'layers', label: 'Recursos', badge: '84' },
@@ -28,7 +29,7 @@ export function NavStory() {
               </button>
             ))}
 
-            <div className="px-2 py-2 text-body font-medium text-ink-muted">Mis espacios</div>
+            <div className={cls.div3}>Mis espacios</div>
 
             {([
               { id: 'ciencias', color: 'green', label: 'Ciencias · 5.º B' },
@@ -48,8 +49,8 @@ export function NavStory() {
       </Section>
 
       <Section title="Subitems" note="Sangría de 48: la columna del texto del padre, para que las etiquetas queden alineadas entre sí.">
-        <div className="w-[220px] rounded-xl border border-line bg-canvas px-5 py-4">
-          <div className="flex flex-col gap-0.5">
+        <div className={cls.div4}>
+          <div className={cls.div5}>
             <button className={navItemClass({ active: true })}>
               <NavItemBody icon="explore" label="Explorar" active />
             </button>
@@ -60,8 +61,8 @@ export function NavStory() {
       </Section>
 
       <Section title="Contraído" note="A 72 de ancho el item se centra y pierde etiqueta y badge; el `title` pasa a ser lo único que dice qué es.">
-        <div className="w-[72px] rounded-xl border border-line bg-canvas px-3 py-4">
-          <div className="flex flex-col gap-0.5">
+        <div className={cls.div6}>
+          <div className={cls.div7}>
             <button className={navItemClass({ active: true, collapsed: true })} title="Explorar">
               <NavItemBody icon="explore" label="Explorar" active collapsed />
             </button>

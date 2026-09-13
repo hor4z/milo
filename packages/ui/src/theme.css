@@ -2,12 +2,10 @@
    por dónde se declara y no por dónde se usa. `milo.reset` va primera y por eso
    es lo más débil del sistema: declarada después, el `margin: 0` del reset le
    ganaba a cualquier margen de una pieza y la pantalla se caía entera. */
-@layer milo.reset, theme, base, components, utilities;
+@layer milo.reset, milo.components, milo.app;
 
 @import "../../tokens/src/index.css";
-@import "tailwindcss";
 @import "./styles/base.css";
-@source "./**/*.{ts,tsx}";
 
 @font-face {
   font-family: "Material Symbols Rounded";

@@ -1,0 +1,76 @@
+@layer milo.components {
+  .div {
+    position: fixed;
+    inset: 0;
+    z-index: 40;
+  }
+
+  .div2 {
+    position: absolute;
+    inset: 0;
+    background-color: var(--scrim);
+  }
+
+  .box {
+    position: absolute;
+    inset-block: 0;
+    display: flex;
+    flex-direction: column;
+    --milo-shadow: var(--relief-popover);
+    box-shadow: var(--milo-inset-shadow),var(--milo-inset-ring-shadow),var(--milo-ring-offset-shadow),var(--milo-ring-shadow),var(--milo-shadow);
+  }
+
+  .right {
+    right: 0;
+    border-left-style: solid;
+    border-left-width: 1px;
+    border-color: var(--border);
+  }
+
+  .box2 {
+    left: 0;
+    border-right-style: solid;
+    border-right-width: 1px;
+    border-color: var(--border);
+  }
+
+  .div3 {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
+    border-color: var(--border);
+    padding-inline: 1.25rem;
+    padding-block: 1rem;
+  }
+
+  .h2 {
+    font-size: var(--type-reading);
+    line-height: var(--type-reading-lh);
+    letter-spacing: var(--type-reading-ls);
+    font-weight: var(--font-weight-semibold);
+    color: var(--text);
+  }
+
+  .div4 {
+    flex: 1;
+    overflow-y: auto;
+    padding-inline: 1.25rem;
+    padding-block: 1.25rem;
+  }
+
+  .div5 {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 0.5rem;
+    border-top-style: solid;
+    border-top-width: 1px;
+    border-color: var(--border);
+    padding-inline: 1.25rem;
+    padding-block: 1rem;
+  }
+
+}

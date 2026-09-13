@@ -1,0 +1,63 @@
+@layer milo.components {
+  .tones {
+    background-color: var(--accent-fill);
+    color: var(--on-accent);
+  }
+
+  .tones2 {
+    background-color: var(--ok);
+    color: var(--on-ok);
+  }
+
+  .tones3 {
+    background-color: var(--warn);
+    color: var(--on-warn);
+  }
+
+  .tones4 {
+    background-color: var(--bad);
+    color: var(--on-bad);
+  }
+
+  .tones5 {
+    background-color: var(--solid);
+    color: var(--on-solid);
+  }
+
+  .span {
+    position: relative;
+    display: inline-flex;
+  }
+
+  .box {
+    pointer-events: none;
+    position: absolute;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--radius-full);
+    --milo-ring-shadow: var(--milo-ring-inset,) 0 0 0 calc(2px + var(--milo-ring-offset-width)) var(--milo-ring-color,currentcolor);
+    box-shadow: var(--milo-inset-shadow),var(--milo-inset-ring-shadow),var(--milo-ring-offset-shadow),var(--milo-ring-shadow),var(--milo-shadow);
+    --milo-ring-color: var(--surface);
+  }
+
+  .box2 {
+    top: 0;
+    right: 0;
+    width: 0.625rem;
+    height: 0.625rem;
+  }
+
+  .box3 {
+    top: calc(0.25rem * -1);
+    right: calc(0.25rem * -1);
+    min-height: 1rem;
+    min-width: 1rem;
+    padding-inline: 0.25rem;
+    font-size: var(--type-meta);
+    line-height: var(--type-meta-lh);
+    letter-spacing: var(--type-meta-ls);
+    font-weight: var(--font-weight-semibold);
+  }
+
+}

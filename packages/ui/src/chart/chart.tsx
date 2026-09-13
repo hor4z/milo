@@ -1,3 +1,4 @@
+import cls from './chart.module.css'
 import { useId, useState, type ReactNode } from 'react'
 import { cx } from '../lib/cx'
 
@@ -33,8 +34,8 @@ export function BarChart({ data, highlight, title, height = 220, className }: {
   const max = Math.max(...data.map(d => d.total), 1)
 
   return (
-    <figure className={cx('m-0', className)} aria-describedby={tableId}>
-      <svg width="0" height="0" aria-hidden="true" className="absolute">
+    <figure className={cx(cls.figure, className)} aria-describedby={tableId}>
+      <svg width="0" height="0" aria-hidden="true" className={cls.svg}>
         <defs>
           <pattern id={hatchId} width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
             <line x1="0" y1="0" x2="0" y2="6" stroke="var(--text)" strokeWidth="1" strokeOpacity="0.18" />
@@ -42,7 +43,7 @@ export function BarChart({ data, highlight, title, height = 220, className }: {
         </defs>
       </svg>
 
-      <div className="relative flex items-end gap-3" style={{ height }}>
+      <div className={cls.div} style={{ height }}>
         {data.map((d, i) => {
           const trackPct = Math.max(6, Math.round((d.total / max) * 100))
           const donePct = Math.min(100, Math.round((d.value / Math.max(d.total, 1)) * 100))
@@ -50,7 +51,7 @@ export function BarChart({ data, highlight, title, height = 220, className }: {
             <button
               key={i}
               type="button"
-              className="chart-bar group relative flex h-full flex-1 cursor-default flex-col justify-end outline-none"
+              className={`${cls.button} chart-bar group`}
               onPointerEnter={() => setHover(i)}
               onPointerLeave={() => setHover(h => (h === i ? null : h))}
               onFocus={() => setFocused(i)}
@@ -59,22 +60,22 @@ export function BarChart({ data, highlight, title, height = 220, className }: {
             >
               <span
                 className={cx(
-                  'relative w-full overflow-hidden rounded-xl bg-track',
-                  'transition-colors duration-normal ease-out group-hover:bg-transparent',
-                  'group-hover:ring-1 group-hover:ring-line-strong group-hover:ring-inset',
-                  'group-focus-visible:bg-transparent group-focus-visible:ring-1',
-                  'group-focus-visible:ring-line-strong group-focus-visible:ring-inset',
+                  cls.span,
+                  cls.box,
+                  cls.box2,
+                  cls.box3,
+                  cls.box4,
                 )}
                 style={{ height: `${trackPct}%` }}
               >
                 <svg
                   aria-hidden="true"
-                  className="absolute inset-0 h-full w-full opacity-0 transition-opacity duration-normal ease-out group-hover:opacity-100 group-focus-visible:opacity-100"
+                  className={cls.svg2}
                 >
                   <rect width="100%" height="100%" fill={`url(#${hatchId})`} />
                 </svg>
                 <span
-                  className="absolute inset-x-0 bottom-0 rounded-xl bg-chart-fill"
+                  className={cls.span2}
                   style={{ height: `${donePct}%` }}
                 />
               </span>
@@ -92,13 +93,13 @@ export function BarChart({ data, highlight, title, height = 220, className }: {
         })}
       </div>
 
-      <div className="mt-3 flex gap-3">
+      <div className={cls.div2}>
         {data.map((d, i) => (
           <div
             key={i}
             className={cx(
-              'flex-1 text-center text-body text-ink transition-[font-weight] duration-fast ease-out',
-              i === hover || i === focused || i === highlight ? 'font-semibold' : 'font-medium',
+              cls.div3,
+              i === hover || i === focused || i === highlight ? cls.box5 : cls.box6,
             )}
           >
             {d.label}
@@ -133,19 +134,19 @@ function ChartTooltip({ datum, style, align = 'center', clamped }: {
     <div
       role="tooltip"
       className={cx(
-        'ui-fade pointer-events-none absolute z-20 whitespace-nowrap rounded-md bg-surface px-3 py-2 shadow-popover',
-        clamped ? 'translate-y-full -mb-2' : 'mb-2',
-        align === 'center' ? '-translate-x-1/2' : align === 'end' ? '-translate-x-full' : '',
+        `${cls.div4} ui-fade bg-surface`,
+        clamped ? cls.box7 : cls.box8,
+        align === 'center' ? cls.center : align === 'end' ? cls.end : '',
       )}
       style={style}
     >
-      <div className="flex items-center gap-2">
-        <span className="h-3 w-[3px] shrink-0 rounded-full bg-chart-fill" />
-        <span className="tabular text-reading font-semibold text-ink">{datum.value}</span>
-        <span className="tabular text-meta font-medium text-ink-muted">de {datum.total}</span>
+      <div className={cls.div5}>
+        <span className={cls.span3} />
+        <span className={`${cls.span4} tabular`}>{datum.value}</span>
+        <span className={`${cls.span5} tabular`}>de {datum.total}</span>
         {datum.detail}
       </div>
-      <div className="pl-[calc(22px/2)] text-meta font-medium text-ink-muted">{datum.caption ?? datum.label}</div>
+      <div className={cls.div6}>{datum.caption ?? datum.label}</div>
     </div>
   )
 }

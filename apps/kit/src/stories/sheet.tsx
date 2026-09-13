@@ -1,3 +1,4 @@
+import cls from './sheet.module.css'
 import { useState } from 'react'
 import {
   Button, Field, FieldSet, Select, Sheet, SheetBody, SheetFooter, SheetHeader, Switch,
@@ -25,7 +26,7 @@ export function SheetStory() {
         title="Un formulario entero"
         note="Se arma en tres partes: la cabecera con el título y la X, el cuerpo que scrollea, y el pie con las acciones, que no scrollea nunca. Un formulario de seis campos donde el botón de guardar hay que ir a buscarlo abajo de todo es un formulario que se abandona."
       >
-        <Canvas className="flex justify-center">
+        <Canvas className={cls.canvas}>
           <Button variant="solid" icon="add" onClick={() => setOpen(true)}>Nueva actividad</Button>
         </Canvas>
 
@@ -66,14 +67,14 @@ export function SheetStory() {
         title="De qué lado entra"
         note="Por defecto de la derecha, que es de donde vienen las cosas nuevas. El izquierdo es para lo que acompaña a la navegación (un filtro, un índice) y no para un formulario: entrar por donde está el menú se lee como que el menú creció."
       >
-        <Canvas className="flex justify-center">
+        <Canvas className={cls.canvas2}>
           <Button variant="raised" icon="filter_list" onClick={() => setLeftOpen(true)}>Filtros</Button>
         </Canvas>
 
         <Sheet open={leftOpen} onClose={() => setLeftOpen(false)} side="left" width={360} label="Filtros">
           <SheetHeader title="Filtros" onClose={() => setLeftOpen(false)} />
           <SheetBody>
-            <div className="flex flex-col gap-5">
+            <div className={cls.div}>
               <Field label="Espacio">
                 <Select value={filtroEspacio} onChange={setFiltroEspacio} options={['Todos', 'Matemática · 4.º A', 'Lengua · 6.º']} />
               </Field>
@@ -90,7 +91,7 @@ export function SheetStory() {
       </Section>
 
       <Note title="Sheet o Modal">
-        El <a className="underline underline-offset-2" href="#modal">Modal</a> interrumpe y pide una
+        El <a className={cls.a} href="#modal">Modal</a> interrumpe y pide una
         decisión corta: confirmá, elegí, mirá esto. El panel lateral es para trabajar un rato: un
         formulario de seis campos en un modal centrado tapa la pantalla y no deja ver aquello sobre
         lo que estás escribiendo.

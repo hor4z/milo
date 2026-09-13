@@ -1,3 +1,4 @@
+import s from './figure.module.css'
 import type { ReactNode } from 'react'
 import { cx } from '../lib/cx'
 
@@ -18,14 +19,14 @@ type FigureProps = {
 /** Una imagen con su pie: lo que ilustra una consigna, una foto de un experimento, el gráfico que alguien dibujó a mano. */
 export function Figure({ src, alt, caption, ratio = '4/3', fit = 'cover', className }: FigureProps) {
   return (
-    <figure className={cx('m-0 flex flex-col gap-2', className)}>
+    <figure className={cx(s.figure, className)}>
       <div
-        className="overflow-hidden rounded-xl border border-line bg-sunken"
+        className={s.div}
         style={{ aspectRatio: ratio }}
       >
-        <img src={src} alt={alt} loading="lazy" className={cx('size-full', fit === 'cover' ? 'object-cover' : 'object-contain')} />
+        <img src={src} alt={alt} loading="lazy" className={cx(s.img, fit === 'cover' ? s.cover : s.img2)} />
       </div>
-      {caption && <figcaption className="text-meta text-ink-muted">{caption}</figcaption>}
+      {caption && <figcaption className={s.figcaption}>{caption}</figcaption>}
     </figure>
   )
 }

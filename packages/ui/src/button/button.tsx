@@ -1,3 +1,4 @@
+import cls from './button.module.css'
 import type { ButtonHTMLAttributes, Ref } from 'react'
 import { Icon, type IconName } from '../icon/icon'
 import { control, variants } from '../lib/control'
@@ -26,10 +27,10 @@ export function Button({
     <button
       type={type}
       className={cx(
-        'inline-flex items-center justify-center font-semibold whitespace-nowrap',
-        'transition-[background-color,color,box-shadow,filter] duration-fast ease-out',
-        'disabled:opacity-45 disabled:pointer-events-none',
-        variants[variant], c.box, c.px, c.text, c.gap, c.radius, block && 'w-full', className,
+        cls.button,
+        cls.box,
+        cls.box2,
+        variants[variant], c.box, c.px, c.text, c.gap, c.radius, block && cls.block, className,
       )}
       {...rest}
     >

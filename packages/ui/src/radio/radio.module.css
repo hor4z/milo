@@ -1,0 +1,68 @@
+@layer milo.components {
+  .root {
+    display: inline-flex;
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--radius-full);
+  }
+
+  .box {
+    transition-property: background-color,box-shadow;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 150ms;
+    transition-duration: var(--duration-fast);
+    transition-timing-function: var(--ease-out);
+  }
+
+  .box2 {
+
+    &:disabled {
+      opacity: .45;
+      pointer-events: none;
+    }
+  }
+
+  .box3 {
+    background-color: var(--brand);
+  }
+
+  .box4 {
+    background-color: var(--surface-muted);
+  }
+
+  .span {
+    width: 8px;
+    height: 8px;
+    border-radius: var(--radius-full);
+    background-color: var(--on-brand);
+    transition-property: transform,translate,scale,rotate;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 150ms;
+    transition-duration: var(--duration-fast);
+    transition-timing-function: var(--ease-out);
+  }
+
+  .box5 {
+    --milo-scale-x: 100%;
+    --milo-scale-y: 100%;
+    --milo-scale-z: 100%;
+    scale: var(--milo-scale-x) var(--milo-scale-y);
+  }
+
+  .box6 {
+    --milo-scale-x: 0%;
+    --milo-scale-y: 0%;
+    --milo-scale-z: 0%;
+    scale: var(--milo-scale-x) var(--milo-scale-y);
+  }
+
+  .div {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+}

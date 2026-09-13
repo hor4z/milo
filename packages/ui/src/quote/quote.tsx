@@ -1,3 +1,4 @@
+import cls from './quote.module.css'
 import type { ReactNode } from 'react'
 import { cx } from '../lib/cx'
 
@@ -13,12 +14,12 @@ type QuoteProps = {
 /** Palabras de otro: lo que dijo alguien, un fragmento de un texto, la respuesta de un estudiante. */
 export function Quote({ children, source, cite, className }: QuoteProps) {
   return (
-    <figure className={cx('m-0 flex flex-col gap-2', className)}>
-      <blockquote cite={cite} className="m-0 border-l-2 border-brand pl-4 text-reading text-ink">
+    <figure className={cx(cls.figure, className)}>
+      <blockquote cite={cite} className={cls.blockquote}>
         {children}
       </blockquote>
       {source && (
-        <figcaption className="pl-4 text-meta text-ink-muted">
+        <figcaption className={cls.figcaption}>
           - {cite ? <cite className="not-italic">{source}</cite> : source}
         </figcaption>
       )}

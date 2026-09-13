@@ -1,3 +1,4 @@
+import cls from './list.module.css'
 import { Icon, List, ListItem, type IconName, type MarkColor } from '@milo/ui'
 import { A11y, Mono, Page, Props, Section } from '../kit'
 
@@ -27,21 +28,21 @@ export function ListStory() {
         title="La pieza"
         note="El contenedor es una bandeja transparente y las que flotan son las filas, cada una en papel con radio 16: el mismo de la `Card`, porque las dos se apoyan en la página. El alto de 72 tampoco es arbitrario: la marca es de 44 y el aire de 14 arriba y abajo. Cambiar la marca cambia el alto, no el padding."
       >
-        <div className="max-w-[460px]">
+        <div className={cls.div}>
           <List>
             {onboarding.map(i => (
               <ListItem key={i.title} icon={i.icon} color={i.color} title={i.title} hint={i.hint} active={i.active} onClick={() => {}} />
             ))}
           </List>
         </div>
-        <p className="mt-3 max-w-[70ch] text-meta text-ink-muted">
+        <p className={cls.p}>
           La cuarta fila está en <Mono>active</Mono>: queda hundida, no teñida, el color ya lo gasta la marca.
           Pasá el mouse por cualquier otra para ver el hover, que levanta la fila al papel en vez de oscurecerla.
         </p>
       </Section>
 
       <Section title="Estados de una fila">
-        <div className="max-w-[460px]">
+        <div className={cls.div2}>
           <List>
             <ListItem icon="check" color="green" title="En reposo" hint="Fondo apagado, sin sombra." />
             <ListItem icon="menu_book" color="purple" title="Elegida" hint="Hundida un paso." active />
@@ -51,7 +52,7 @@ export function ListStory() {
       </Section>
 
       <Section title="Como índice" note="La misma pieza con contenido de milo: acá el color identifica el espacio, no el estado.">
-        <div className="max-w-[460px]">
+        <div className={cls.div3}>
           <List>
             {spaces.map(e => (
               <ListItem

@@ -1,3 +1,4 @@
+import s from './sheet.module.css'
 import { useRef, type ReactNode } from 'react'
 import { IconButton } from '../icon-button/icon-button'
 import { cx } from '../lib/cx'
@@ -28,8 +29,8 @@ export function Sheet({
   if (!open) return null
   return (
     <Portal>
-      <div className="fixed inset-0 z-40">
-        <div className="ui-fade absolute inset-0 bg-scrim" onClick={onClose} />
+      <div className={s.div}>
+        <div className={`${s.div2} ui-fade`} onClick={onClose} />
         <div
           ref={panel}
           role="dialog"
@@ -38,8 +39,8 @@ export function Sheet({
           tabIndex={-1}
           style={{ width, maxWidth: '100%', ['--slide-from' as string]: side === 'right' ? '12px' : '-12px' }}
           className={cx(
-            'ui-slide absolute inset-y-0 flex flex-col bg-surface shadow-popover',
-            side === 'right' ? 'right-0 border-l border-line' : 'left-0 border-r border-line',
+            `${s.box} ui-slide bg-surface`,
+            side === 'right' ? s.right : s.box2,
           )}
         >
           {children}
@@ -57,8 +58,8 @@ export function SheetHeader({ title, onClose }: {
   Escape y el velo hacen lo mismo. */ onClose: () => void
 }) {
   return (
-    <div className="flex items-center justify-between gap-4 border-b border-line px-5 py-4">
-      <h2 className="text-reading font-semibold text-ink">{title}</h2>
+    <div className={s.div3}>
+      <h2 className={s.h2}>{title}</h2>
       <IconButton icon="close" label="Cerrar" size="sm" variant="ghost" onClick={onClose} />
     </div>
   )
@@ -66,10 +67,10 @@ export function SheetHeader({ title, onClose }: {
 
 /** El cuerpo del panel: lo único que scrollea. */
 export function SheetBody({ className, ...props }: React.ComponentPropsWithoutRef<'div'>) {
-  return <div className={cx('flex-1 overflow-y-auto px-5 py-5', className)} {...props} />
+  return <div className={cx(s.div4, className)} {...props} />
 }
 
 /** La fila de acciones, abajo y siempre a la vista. */
 export function SheetFooter({ className, ...props }: React.ComponentPropsWithoutRef<'div'>) {
-  return <div className={cx('flex items-center justify-end gap-2 border-t border-line px-5 py-4', className)} {...props} />
+  return <div className={cx(s.div5, className)} {...props} />
 }

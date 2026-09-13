@@ -1,0 +1,95 @@
+@layer milo.components {
+  .div {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .tag {
+    display: flex;
+    min-height: 72px;
+    width: 100%;
+    align-items: center;
+    gap: 1rem;
+    border-radius: var(--radius-xl);
+    padding-inline: 1rem;
+    padding-block: 1rem;
+    text-align: left;
+  }
+
+  .box {
+    transition-property: background-image,background-color,box-shadow;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 150ms;
+    transition-duration: var(--duration-fast);
+    transition-timing-function: var(--ease-out);
+  }
+
+  .box2 {
+    background-color: var(--surface-sunken);
+    --milo-shadow: 0 0 #0000;
+    box-shadow: var(--milo-inset-shadow),var(--milo-inset-ring-shadow),var(--milo-ring-offset-shadow),var(--milo-ring-shadow),var(--milo-shadow);
+  }
+
+  .box3 {
+    --milo-shadow: var(--relief-card);
+    box-shadow: var(--milo-inset-shadow),var(--milo-inset-ring-shadow),var(--milo-ring-offset-shadow),var(--milo-ring-shadow),var(--milo-shadow);
+  }
+
+  .active {
+
+  }
+
+  .span {
+    display: inline-flex;
+    width: 2.75rem;
+    height: 2.75rem;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--radius-full);
+  }
+
+  .span2 {
+    min-width: 0;
+    flex: 1;
+  }
+
+  .span3 {
+    display: block;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    font-size: var(--type-reading);
+    line-height: var(--type-reading-lh);
+    letter-spacing: var(--type-reading-ls);
+    font-weight: var(--font-weight-semibold);
+    color: var(--text);
+  }
+
+  .span4 {
+    margin-top: 0.125rem;
+    display: block;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    font-size: var(--type-reading);
+    line-height: var(--type-reading-lh);
+    letter-spacing: var(--type-reading-ls);
+    font-weight: var(--font-weight-medium);
+    color: var(--text-muted);
+  }
+
+  .span5 {
+    flex-shrink: 0;
+  }
+
+  @media (hover:hover) {
+    .active:hover {
+        background-image: linear-gradient(var(--surface-hover),var(--surface-hover));
+        --milo-shadow: var(--relief-toolbar);
+        box-shadow: var(--milo-inset-shadow),var(--milo-inset-ring-shadow),var(--milo-ring-offset-shadow),var(--milo-ring-shadow),var(--milo-shadow);
+    }
+  }
+
+}

@@ -1,0 +1,40 @@
+@layer milo.app {
+  .span {
+    font-size: var(--type-meta);
+    line-height: var(--type-meta-lh);
+    letter-spacing: var(--type-meta-ls);
+    color: var(--text-muted);
+  }
+
+  .div {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  .card {
+    width: 300px;
+  }
+
+  .p {
+    font-size: var(--type-body);
+    line-height: var(--type-body-lh);
+    letter-spacing: var(--type-body-ls);
+    font-weight: var(--font-weight-medium);
+    color: var(--text-muted);
+  }
+
+  .card2 {
+    width: 300px;
+  }
+
+  .p2 {
+    font-size: var(--type-body);
+    line-height: var(--type-body-lh);
+    letter-spacing: var(--type-body-ls);
+    font-weight: var(--font-weight-medium);
+    color: var(--text-muted);
+  }
+
+}

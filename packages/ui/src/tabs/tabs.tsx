@@ -1,3 +1,4 @@
+import s from './tabs.module.css'
 import { createContext, useContext, useId, useRef, useState, type ComponentPropsWithoutRef } from 'react'
 import { cx } from '../lib/cx'
 
@@ -31,7 +32,7 @@ export function Tabs({ value, defaultValue, onValueChange, className, children, 
   }
   return (
     <Ctx.Provider value={{ value: current, setValue, name }}>
-      <div className={cx('flex flex-col gap-4', className)} {...props}>{children}</div>
+      <div className={cx(s.div, className)} {...props}>{children}</div>
     </Ctx.Provider>
   )
 }
@@ -62,7 +63,7 @@ export function TabList({ label, className, children, ...props }: ComponentProps
         if (e.key === 'ArrowLeft') { e.preventDefault(); move(-1) }
         if (e.key === 'Home' || e.key === 'End') { e.preventDefault(); borde(e.key === 'Home' ? 0 : -1) }
       }}
-      className={cx('flex items-center gap-1 border-b border-line', className)}
+      className={cx(s.box, className)}
       {...props}
     >
       {children}
@@ -87,14 +88,14 @@ export function Tab({ value, className, children, ...props }: ComponentPropsWith
       tabIndex={active ? 0 : -1}
       onClick={() => setValue(value)}
       className={cx(
-        'relative -mb-px h-9 px-3 text-body transition-colors duration-fast ease-out',
-        active ? 'font-semibold text-brand-ink' : 'text-ink-muted hover:text-ink',
+        s.box2,
+        active ? s.box3 : s.box4,
         className,
       )}
       {...props}
     >
       {children}
-      {active && <span className="absolute inset-x-0 -bottom-px h-0.5 rounded-full bg-brand" />}
+      {active && <span className={s.span} />}
     </button>
   )
 }
@@ -112,7 +113,7 @@ export function TabPanel({ value, className, children, ...props }: ComponentProp
       id={`${name}-panel-${value}`}
       aria-labelledby={`${name}-tab-${value}`}
       tabIndex={0}
-      className={cx('outline-none', className)}
+      className={cx(s.box5, className)}
       {...props}
     >
       {children}

@@ -1,3 +1,4 @@
+import s from './callout.module.css'
 import { Callout } from '@milo/ui'
 import { A11y, Note, Page, Props, Section } from '../kit'
 
@@ -10,7 +11,7 @@ export function CalloutStory() {
       lead="Un bloque de contenido que pide detenerse: una aclaración, una pista, algo para recordar. Lo escribe quien arma el material, no el sistema."
     >
       <Section title="La pieza">
-        <div className="flex max-w-[680px] flex-col gap-3">
+        <div className={s.div}>
           <Callout icon="lightbulb" color="blue" title="Para acordarse">
             La velocidad límite no depende de la masa: depende de la forma y del aire.
           </Callout>
@@ -24,7 +25,7 @@ export function CalloutStory() {
       </Section>
 
       <Section title="Sin título y sin glifo" note="Cuando lo que hay que decir entra en una línea.">
-        <div className="max-w-[680px]">
+        <div className={s.div2}>
           <Callout>Todo lo que sigue supone que el rozamiento es despreciable.</Callout>
         </div>
       </Section>
@@ -33,7 +34,7 @@ export function CalloutStory() {
         title="Los colores"
         note="Salen de la familia de categorías, la misma de los chips. Son para distinguir un bloque de otro cuando hay varios en una página, no para decir si algo está bien o mal."
       >
-        <div className="grid max-w-[680px] gap-3 sm:grid-cols-2">
+        <div className={s.div3}>
           {(['neutral', 'blue', 'green', 'teal', 'purple', 'pink', 'orange'] as const).map(c => (
             <Callout key={c} color={c} icon="label">{c}</Callout>
           ))}

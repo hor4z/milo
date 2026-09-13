@@ -1,0 +1,158 @@
+@layer milo.components {
+  .ol {
+    display: flex;
+  }
+
+  .ol2 {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .ol3 {
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .li {
+    position: relative;
+    display: flex;
+    min-width: 0;
+  }
+
+  .box {
+    flex: 1;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .box2 {
+    gap: 0.75rem;
+    padding-bottom: 1.5rem;
+    &:last-child {
+      padding-bottom: 0;
+    }
+  }
+
+  .span {
+    position: absolute;
+  }
+
+  .box3 {
+    top: 13px;
+    display: none;
+    height: 1px;
+  }
+
+  .box4 {
+    left: 13px;
+    top: 0;
+    height: 1.5rem;
+    width: 1px;
+    --milo-translate-y: calc(0.25rem * -6);
+    translate: var(--milo-translate-x) var(--milo-translate-y);
+  }
+
+  .box5 {
+    background-color: var(--brand);
+  }
+
+  .box6 {
+    background-color: var(--border-strong);
+  }
+
+  .box7 {
+    position: relative;
+    z-index: 10;
+    display: flex;
+    width: 1.75rem;
+    height: 1.75rem;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--radius-full);
+    font-size: var(--type-meta);
+    line-height: var(--type-meta-lh);
+    letter-spacing: var(--type-meta-ls);
+    font-weight: var(--font-weight-semibold);
+  }
+
+  .onSelect {
+    transition-property: color,background-color,border-color,outline-color,text-decoration-color,fill,stroke,--milo-gradient-from,--milo-gradient-via,--milo-gradient-to;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 150ms;
+    transition-duration: var(--duration-fast);
+    transition-timing-function: var(--ease-out);
+  }
+
+  .hecha {
+    background-color: var(--brand);
+    color: var(--on-brand);
+  }
+
+  .actual {
+    background-color: var(--brand-soft);
+    color: var(--brand-ink);
+    --milo-ring-shadow: var(--milo-ring-inset,) 0 0 0 calc(2px + var(--milo-ring-offset-width)) var(--milo-ring-color,currentcolor);
+    box-shadow: var(--milo-inset-shadow),var(--milo-inset-ring-shadow),var(--milo-ring-offset-shadow),var(--milo-ring-shadow),var(--milo-shadow);
+    --milo-ring-color: var(--brand);
+  }
+
+  .actual2 {
+    background-color: var(--surface-muted);
+    color: var(--text-muted);
+  }
+
+  .span3 {
+    display: flex;
+    min-width: 0;
+    flex-direction: column;
+    gap: 0.125rem;
+  }
+
+  .acostada {
+
+  }
+
+  .span4 {
+    font-size: var(--type-body);
+    line-height: var(--type-body-lh);
+    letter-spacing: var(--type-body-ls);
+  }
+
+  .span5 {
+    font-weight: var(--font-weight-semibold);
+    color: var(--text);
+  }
+
+  .span6 {
+    font-weight: var(--font-weight-medium);
+    color: var(--text-muted);
+  }
+
+  .span7 {
+    font-size: var(--type-meta);
+    line-height: var(--type-meta-lh);
+    letter-spacing: var(--type-meta-ls);
+    color: var(--text-muted);
+  }
+
+  @media (min-width:40rem) {
+    .ol2 {
+        flex-direction: row;
+        gap: 0;
+    }
+  }
+
+  @media (min-width:40rem) {
+    .box3 {
+        display: block;
+    }
+  }
+
+  @media (min-width:40rem) {
+    .acostada {
+        padding-right: 1rem;
+    }
+  }
+
+}

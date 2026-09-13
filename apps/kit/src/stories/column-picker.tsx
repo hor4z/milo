@@ -1,3 +1,4 @@
+import s from './column-picker.module.css'
 import { useState } from 'react'
 import { ColumnPicker } from '@milo/ui'
 import { A11y, Page, Panel, Props, Section, Variant } from '../kit'
@@ -29,7 +30,7 @@ export function ColumnPickerStory() {
             <ColumnPicker columns={columnas} value={value} onValueChange={setValue} />
           </Variant>
           <Variant name="lo elegido">
-            <span className="text-body text-ink-muted">{value.join(' · ')}</span>
+            <span className={s.span}>{value.join(' · ')}</span>
           </Variant>
         </Panel>
       </Section>

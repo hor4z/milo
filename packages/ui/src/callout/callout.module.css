@@ -1,0 +1,44 @@
+@layer milo.components {
+  .neutral {
+    background-color: var(--surface-muted);
+    color: var(--text-muted);
+  }
+
+  .aside {
+    display: flex;
+    gap: 0.75rem;
+    border-radius: var(--radius-xl);
+    padding: 1rem;
+  }
+
+  .span {
+    display: flex;
+    height: 1.5rem;
+    width: 1.25rem;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .div {
+    display: flex;
+    min-width: 0;
+    flex-direction: column;
+    gap: 0.25rem;
+    color: var(--text);
+  }
+
+  .span2 {
+    font-size: var(--type-reading);
+    line-height: var(--type-reading-lh);
+    letter-spacing: var(--type-reading-ls);
+    font-weight: var(--font-weight-semibold);
+  }
+
+  .div2 {
+    font-size: var(--type-reading);
+    line-height: var(--type-reading-lh);
+    letter-spacing: var(--type-reading-ls);
+  }
+
+}

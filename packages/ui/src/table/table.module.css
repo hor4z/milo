@@ -1,0 +1,162 @@
+@layer milo.components {
+  .div {
+    position: relative;
+    overflow: hidden;
+    border-radius: var(--radius-md);
+    --milo-ring-shadow: var(--milo-ring-inset,) 0 0 0 calc(1px + var(--milo-ring-offset-width)) var(--milo-ring-color,currentcolor);
+    box-shadow: var(--milo-inset-shadow),var(--milo-inset-ring-shadow),var(--milo-ring-offset-shadow),var(--milo-ring-shadow),var(--milo-shadow);
+    --milo-ring-color: var(--border);
+  }
+
+  .box {
+    scrollbar-width: none;
+    overflow-x: auto;
+    overflow-y: hidden;
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
+
+  .table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+  }
+
+  .span {
+    pointer-events: none;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 2.5rem;
+    --milo-gradient-position: to left in oklab;
+    background-image: linear-gradient(var(--milo-gradient-stops));
+    --milo-gradient-from: var(--surface);
+    --milo-gradient-stops: var(--milo-gradient-via-stops,var(--milo-gradient-position), var(--milo-gradient-from) var(--milo-gradient-from-position), var(--milo-gradient-to) var(--milo-gradient-to-position));
+    --milo-gradient-to: transparent;
+    --milo-gradient-stops: var(--milo-gradient-via-stops,var(--milo-gradient-position), var(--milo-gradient-from) var(--milo-gradient-from-position), var(--milo-gradient-to) var(--milo-gradient-to-position));
+  }
+
+  .thead {
+    background-color: var(--surface-muted);
+  }
+
+  .tfoot {
+    border-top-style: solid;
+    border-top-width: 1px;
+    border-color: var(--border);
+    background-color: var(--surface-muted);
+    & td {
+      font-weight: var(--font-weight-semibold);
+    }
+    & tr {
+      border-style: solid;
+      border-width: 0;
+    }
+  }
+
+  .box2 {
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
+    border-color: var(--border);
+    transition-property: color,background-color,border-color,outline-color,text-decoration-color,fill,stroke,--milo-gradient-from,--milo-gradient-via,--milo-gradient-to;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 150ms;
+    transition-timing-function: var(--ease-out);
+    transition-duration: var(--duration-fast);
+    &:last-child {
+      border-style: solid;
+      border-width: 0;
+    }
+  }
+
+  .active {
+    background-color: var(--surface-muted);
+  }
+
+  .active2 {
+    cursor: pointer;
+  }
+
+  .th {
+    height: 2.5rem;
+    padding-inline: 1rem;
+    font-size: var(--type-label);
+    line-height: var(--type-label-lh);
+    letter-spacing: var(--type-label-ls);
+    font-weight: var(--font-weight-semibold);
+    color: var(--text);
+    &:first-child {
+      padding-left: 1.5rem;
+    }
+    &:last-child {
+      padding-right: 1.5rem;
+    }
+  }
+
+  .td {
+    height: 3.5rem;
+    padding-inline: 1rem;
+    font-size: var(--type-body);
+    line-height: var(--type-body-lh);
+    letter-spacing: var(--type-body-ls);
+    font-weight: var(--font-weight-medium);
+    color: var(--text);
+    &:first-child {
+      padding-left: 1.5rem;
+    }
+    &:last-child {
+      padding-right: 1.5rem;
+    }
+  }
+
+  .span2 {
+    display: block;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    font-size: var(--type-reading);
+    line-height: var(--type-reading-lh);
+    letter-spacing: var(--type-reading-ls);
+    font-weight: var(--font-weight-semibold);
+    color: var(--text);
+  }
+
+  .span3 {
+    margin-top: 0.125rem;
+    display: block;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    font-size: var(--type-body);
+    line-height: var(--type-body-lh);
+    letter-spacing: var(--type-body-ls);
+    font-weight: var(--font-weight-medium);
+    color: var(--text-muted);
+  }
+
+  .td2 {
+    height: 3.5rem;
+    padding-inline: 1rem;
+    text-align: right;
+    font-size: var(--type-body);
+    line-height: var(--type-body-lh);
+    letter-spacing: var(--type-body-ls);
+    font-weight: var(--font-weight-medium);
+    color: var(--text);
+    &:first-child {
+      padding-left: 1.5rem;
+    }
+    &:last-child {
+      padding-right: 1.5rem;
+    }
+  }
+
+  @media (hover:hover) {
+    .active2:hover {
+        background-color: var(--surface-muted);
+    }
+  }
+
+}

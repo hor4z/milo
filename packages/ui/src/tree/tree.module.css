@@ -1,0 +1,73 @@
+@layer milo.components {
+  .div {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .box {
+    display: flex;
+    height: 2.25rem;
+    cursor: default;
+    align-items: center;
+    gap: 0.5rem;
+    border-radius: var(--radius-md);
+    padding-right: 0.5rem;
+    font-size: var(--type-body);
+    line-height: var(--type-body-lh);
+    letter-spacing: var(--type-body-ls);
+    transition-property: color,background-color,border-color,outline-color,text-decoration-color,fill,stroke,--milo-gradient-from,--milo-gradient-via,--milo-gradient-to;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 150ms;
+    transition-duration: var(--duration-fast);
+    transition-timing-function: var(--ease-out);
+  }
+
+  .box2 {
+    background-color: var(--brand-soft);
+    font-weight: var(--font-weight-semibold);
+    color: var(--brand-ink);
+  }
+
+  .box3 {
+    font-weight: var(--font-weight-medium);
+    color: var(--text);
+  }
+
+  .span {
+    width: 1rem;
+    height: 1rem;
+    flex-shrink: 0;
+  }
+
+  .icon {
+    flex-shrink: 0;
+  }
+
+  .icon2 {
+    flex-shrink: 0;
+  }
+
+  .span2 {
+    min-width: 0;
+    flex: 1;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+  }
+
+  .span3 {
+    flex-shrink: 0;
+    font-size: var(--type-meta);
+    line-height: var(--type-meta-lh);
+    letter-spacing: var(--type-meta-ls);
+    font-weight: var(--font-weight-medium);
+    color: var(--text-muted);
+  }
+
+  @media (hover:hover) {
+    .box3:hover {
+        background-color: var(--surface-hover);
+    }
+  }
+
+}

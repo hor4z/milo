@@ -1,3 +1,4 @@
+import s from './column-picker.module.css'
 import { Checkbox } from '../checkbox/checkbox'
 import { IconButton } from '../icon-button/icon-button'
 import { Popover } from '../popover/popover'
@@ -33,19 +34,19 @@ export function ColumnPicker({ columns, value, onValueChange, label = 'Columnas'
           label={label}
           size="sm"
           variant="muted"
-          className={cx('ml-auto', className)}
+          className={cx(s.root, className)}
         />
       )}
     >
       {() => (
-        <div className="ui-pop max-h-[320px] overflow-y-auto overscroll-contain rounded-xl border border-line bg-popover p-2 shadow-popover">
-          <p className="px-2 pt-1 pb-2 text-label font-semibold text-ink">{label}</p>
+        <div className={`${s.div} ui-pop bg-popover`}>
+          <p className={s.p}>{label}</p>
           {columns.map(c => (
             <label
               key={c.id}
               className={cx(
-                'flex h-9 items-center gap-2 rounded-lg px-2 transition-colors duration-fast ease-out',
-                c.locked ? 'cursor-default opacity-45' : 'cursor-pointer hover:bg-hover',
+                s.label,
+                c.locked ? s.box : s.box2,
               )}
             >
               <Checkbox
@@ -54,7 +55,7 @@ export function ColumnPicker({ columns, value, onValueChange, label = 'Columnas'
                 onChange={() => !c.locked && toggle(c.id)}
                 disabled={c.locked}
               />
-              <span aria-hidden="true" className="min-w-0 flex-1 truncate text-body font-medium text-ink">{c.label}</span>
+              <span aria-hidden="true" className={s.span}>{c.label}</span>
             </label>
           ))}
         </div>

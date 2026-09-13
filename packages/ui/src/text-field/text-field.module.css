@@ -1,0 +1,43 @@
+@layer milo.components {
+  .root {
+    display: flex;
+    cursor: text;
+    align-items: center;
+    border-style: solid;
+    border-width: 1px;
+    border-color: var(--field-border);
+    background-color: var(--field-bg);
+  }
+
+  .box {
+
+    &:has(:is(input:disabled)) {
+      pointer-events: none;
+      opacity: .45;
+    }
+  }
+
+  .icon {
+    flex-shrink: 0;
+  }
+
+  .input {
+    height: 100%;
+    min-width: 0;
+    flex: 1;
+    background-color: #0000;
+    font-weight: var(--font-weight-medium);
+    color: var(--text);
+    --milo-outline-style: none;
+    outline-style: none;
+    &::placeholder {
+      color: var(--text-placeholder);
+    }
+  }
+
+  .box2 {
+    margin-inline: calc(0.25rem * -2);
+    padding-inline: 0.5rem;
+  }
+
+}

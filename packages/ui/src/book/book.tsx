@@ -1,3 +1,4 @@
+import s from './book.module.css'
 import type { CSSProperties, ReactNode } from 'react'
 import { cx } from '../lib/cx'
 
@@ -36,7 +37,7 @@ export function Book({
   return (
     <Tag
       href={href}
-      className={cx('book-perspective', href && 'rounded-sm no-underline', className)}
+      className={cx('book-perspective', href && s.href, className)}
       style={{ '--book-sm': sm, '--book-md': md, '--book-color': color, '--book-on-color': textColor } as CSSProperties}
     >
       <div className={cx('book-rotate', variant === 'simple' && 'book-simple')}>

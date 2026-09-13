@@ -1,3 +1,4 @@
+import s from './select.module.css'
 import { useCallback, useEffect, useId, useLayoutEffect, useRef, useState, type ReactNode } from 'react'
 import { useField } from '../field/field'
 import { Icon } from '../icon/icon'
@@ -104,13 +105,13 @@ export function Select({
           if (e.key === 'ArrowDown' || e.key === 'ArrowUp') { e.preventDefault(); setOpen(true) }
         }}
         style={{ width }}
-        className="field-focus inline-flex h-9 items-center justify-between gap-2 rounded-md border border-field-line bg-field px-3 text-body font-medium text-ink transition-colors ease-out duration-fast hover:bg-field-hover aria-disabled:cursor-default aria-disabled:hover:bg-field"
+        className={`${s.root} field-focus`}
       >
-        <span className="flex min-w-0 items-center gap-2">
-          {leadingNode && <span className="flex shrink-0 items-center">{leadingNode}</span>}
-          <span className="min-w-0 truncate">{value}</span>
+        <span className={s.span}>
+          {leadingNode && <span className={s.span2}>{leadingNode}</span>}
+          <span className={s.span3}>{value}</span>
         </span>
-        <Icon name="keyboard_arrow_down" size={16} className="shrink-0 text-ink" />
+        <Icon name="keyboard_arrow_down" size={16} className={s.icon} />
       </button>
 
       {open && (
@@ -120,7 +121,7 @@ export function Select({
             id={listId}
             role="listbox"
             style={{ top: pos.top, left: pos.left, minWidth: pos.width }}
-            className="ui-pop fixed z-50 max-h-[240px] overflow-y-auto rounded-xl border border-line bg-popover p-2 shadow-popover"
+            className={`${s.box} ui-pop bg-popover`}
           >
             {options.map((o, i) => {
               const selected = o === value
@@ -136,12 +137,12 @@ export function Select({
                   onMouseMove={() => setActive(i)}
                   onClick={() => { onChange?.(o); setOpen(false); btn.current?.focus() }}
                   className={cx(
-                    'flex w-full items-center gap-2 rounded-sm px-2 py-2 text-left text-body font-medium',
-                    i === active ? 'bg-hover text-ink' : 'text-ink-muted',
+                    s.box2,
+                    i === active ? s.box3 : s.box4,
                   )}
                 >
-                  <span className="min-w-0 flex-1 truncate">{o}</span>
-                  {selected && <Icon name="check" size={14} className="shrink-0 text-ink" />}
+                  <span className={s.span4}>{o}</span>
+                  {selected && <Icon name="check" size={14} className={s.icon2} />}
                 </button>
               )
             })}

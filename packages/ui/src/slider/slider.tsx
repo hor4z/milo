@@ -1,3 +1,4 @@
+import s from './slider.module.css'
 import { useState, type CSSProperties } from 'react'
 import { useField } from '../field/field'
 import { cx } from '../lib/cx'
@@ -33,12 +34,12 @@ export function Slider({
   const move = dragging ? '' : 'transition-[left,width] duration-fast ease-out'
   return (
     <span
-      className={cx('relative flex h-8 w-full min-w-[120px] items-center', disabled && 'opacity-45', className)}
+      className={cx(s.span, disabled && s.disabled, className)}
       style={{ '--t': t } as CSSProperties}
     >
-      <span className="switch-track-off pointer-events-none absolute inset-x-0 h-[22px] rounded-full" />
+      <span className={`${s.span2} switch-track-off`} />
       <span
-        className={cx('switch-track-on pointer-events-none absolute left-0 h-[22px] rounded-full', move)}
+        className={cx(`${s.span3} switch-track-on`, move)}
         style={{ width: fillTo }}
       />
       <input
@@ -53,21 +54,21 @@ export function Slider({
         onPointerUp={() => setDragging(false)}
         onPointerCancel={() => setDragging(false)}
         onBlur={() => setDragging(false)}
-        className="peer absolute inset-0 h-full w-full cursor-pointer appearance-none bg-transparent opacity-0 disabled:cursor-default"
+        className={`${s.box} peer`}
       />
       <span
         className={cx(
-          'switch-thumb pointer-events-none absolute size-6 -translate-x-1/2 rounded-full',
-          'flex items-center justify-center',
+          `${s.span4} switch-thumb`,
+          s.box2,
           move,
-          'peer-focus-visible:shadow-[var(--switch-thumb-shadow),var(--focus-ring)]',
+          s.box3,
         )}
         style={{ left: thumbAt }}
       >
         <span
           className={cx(
-            'size-3 rounded-full bg-brand transition-transform duration-fast ease-out',
-            dragging ? 'scale-[1.18]' : 'scale-100',
+            s.span5,
+            dragging ? s.box4 : s.box5,
           )}
         />
       </span>

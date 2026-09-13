@@ -1,3 +1,4 @@
+import cls from './date-picker.module.css'
 import { useEffect, useId, useLayoutEffect, useMemo, useRef, useState } from 'react'
 import { useField } from '../field/field'
 import { Icon } from '../icon/icon'
@@ -140,12 +141,12 @@ export function DatePicker({ value, onChange, min, max, placeholder = 'Elegir fe
         {...field}
         onClick={() => setOpen(o => !o)}
         style={{ width }}
-        className="field-focus inline-flex h-9 items-center justify-between gap-2 rounded-md border border-field-line bg-field px-3 text-body font-medium text-ink transition-colors duration-fast ease-out hover:bg-field-hover"
+        className={`${cls.root} field-focus`}
       >
-        <span className={cx('min-w-0 truncate', !value && 'text-ink-placeholder')}>
+        <span className={cx(cls.span, !value && cls.value)}>
           {value ? enPalabras(value) : placeholder}
         </span>
-        <Icon name="calendar_month" size={16} className="shrink-0 icon-muted" />
+        <Icon name="calendar_month" size={16} className={`${cls.icon} icon-muted`} />
       </button>
 
       {open && (
@@ -156,40 +157,40 @@ export function DatePicker({ value, onChange, min, max, placeholder = 'Elegir fe
             aria-labelledby={tituloId}
             tabIndex={-1}
             style={{ top: pos.top, left: pos.left }}
-            className="ui-pop fixed z-50 w-[300px] rounded-xl border border-line bg-popover p-3 shadow-popover"
+            className={`${cls.box} ui-pop bg-popover`}
           >
-            <div className="flex items-center justify-between gap-2 pb-2">
+            <div className={cls.div}>
               <button
                 type="button"
                 onClick={() => moverMes(-1)}
                 aria-label="Mes anterior"
-                className="inline-flex size-8 items-center justify-center rounded-md transition-colors duration-fast ease-out hover:bg-hover"
+                className={cls.box2}
               >
                 <Icon name="chevron_left" size={18} className="icon-muted" />
               </button>
-              <span id={tituloId} aria-live="polite" className="text-body font-semibold text-ink first-letter:uppercase">
+              <span id={tituloId} aria-live="polite" className={cls.span2}>
                 {mesLargo.format(new Date(ay, am - 1, 1))}
               </span>
               <button
                 type="button"
                 onClick={() => moverMes(1)}
                 aria-label="Mes siguiente"
-                className="inline-flex size-8 items-center justify-center rounded-md transition-colors duration-fast ease-out hover:bg-hover"
+                className={cls.box3}
               >
                 <Icon name="chevron_right" size={18} className="icon-muted" />
               </button>
             </div>
 
-            <div role="grid" id={gridId} aria-labelledby={tituloId} className="flex flex-col gap-1">
-              <div role="row" className="grid grid-cols-7 gap-1">
+            <div role="grid" id={gridId} aria-labelledby={tituloId} className={cls.div2}>
+              <div role="row" className={cls.div3}>
                 {DIAS.map(d => (
-                  <span key={d} role="columnheader" aria-label={d} className="pb-1 text-center text-meta font-medium text-ink-muted">
+                  <span key={d} role="columnheader" aria-label={d} className={cls.span3}>
                     {d}
                   </span>
                 ))}
               </div>
               {semanas.map((semana, s) => (
-                <div key={s} role="row" className="grid grid-cols-7 gap-1">
+                <div key={s} role="row" className={cls.div4}>
                   {semana.map((iso, i) => {
                     if (!iso) return <span key={`h${i}`} role="gridcell" />
                     const elegido = iso === value
@@ -209,15 +210,15 @@ export function DatePicker({ value, onChange, min, max, placeholder = 'Elegir fe
                         onKeyDown={teclas}
                         onClick={() => { if (!bloqueado) { onChange(iso); cerrar() } }}
                         className={cx(
-                          'relative inline-flex size-9 w-full items-center justify-center rounded-md text-body font-medium transition-colors duration-fast ease-out',
-                          elegido ? 'bg-brand text-on-brand'
-                            : bloqueado ? 'text-ink-disabled'
-                              : 'text-ink hover:bg-hover',
+                          cls.box4,
+                          elegido ? cls.box5
+                            : bloqueado ? cls.box6
+                              : cls.box7,
                         )}
                       >
                         {partes(iso)[2]}
                         {esHoy && !elegido && (
-                          <span aria-hidden="true" className="absolute bottom-1 size-1 rounded-full bg-brand" />
+                          <span aria-hidden="true" className={cls.span4} />
                         )}
                       </button>
                     )

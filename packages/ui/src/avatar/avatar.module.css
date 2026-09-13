@@ -1,0 +1,49 @@
+@layer milo.components {
+  .span {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    border-radius: var(--radius-full);
+    font-weight: var(--font-weight-semibold);
+    -webkit-user-select: none;
+    user-select: none;
+  }
+
+  .img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .span2 {
+    display: inline-flex;
+    align-items: center;
+  }
+
+  .box {
+    --milo-ring-shadow: var(--milo-ring-inset,) 0 0 0 calc(2px + var(--milo-ring-offset-width)) var(--milo-ring-color,currentcolor);
+    box-shadow: var(--milo-inset-shadow),var(--milo-inset-ring-shadow),var(--milo-ring-offset-shadow),var(--milo-ring-shadow),var(--milo-shadow);
+  }
+
+  .box2 {
+    margin-left: calc(var(--overlap) * -1);
+  }
+
+  .span3 {
+    margin-left: calc(var(--overlap) * -1);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--radius-full);
+    background-color: var(--surface-sunken);
+    font-weight: var(--font-weight-semibold);
+    color: var(--text-muted);
+    --milo-ring-shadow: var(--milo-ring-inset,) 0 0 0 calc(2px + var(--milo-ring-offset-width)) var(--milo-ring-color,currentcolor);
+    box-shadow: var(--milo-inset-shadow),var(--milo-inset-ring-shadow),var(--milo-ring-offset-shadow),var(--milo-ring-shadow),var(--milo-shadow);
+  }
+
+}

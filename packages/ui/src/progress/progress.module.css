@@ -1,0 +1,65 @@
+@layer milo.components {
+  .fillTone {
+    background-color: var(--chart-fill);
+  }
+
+  .fillTone2 {
+    background-color: var(--chart-ok);
+  }
+
+  .fillTone3 {
+    background-color: var(--chart-warn);
+  }
+
+  .fillTone4 {
+    background-color: var(--chart-bad);
+  }
+
+  .div {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .div2 {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 0.75rem;
+  }
+
+  .span {
+    font-size: var(--type-body);
+    line-height: var(--type-body-lh);
+    letter-spacing: var(--type-body-ls);
+    font-weight: var(--font-weight-medium);
+    color: var(--text);
+  }
+
+  .span2 {
+    font-size: var(--type-meta);
+    line-height: var(--type-meta-lh);
+    letter-spacing: var(--type-meta-ls);
+    font-weight: var(--font-weight-medium);
+    color: var(--text-muted);
+  }
+
+  .box {
+    height: 0.375rem;
+    width: 100%;
+    overflow: hidden;
+    border-radius: var(--radius-full);
+    background-color: var(--track);
+  }
+
+  .div3 {
+    height: 100%;
+    border-radius: var(--radius-full);
+    transition-property: width;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 150ms;
+    transition-duration: var(--duration-normal);
+    transition-timing-function: var(--ease-out);
+  }
+
+}

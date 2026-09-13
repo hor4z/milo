@@ -1,3 +1,4 @@
+import cls from './row.module.css'
 import { useState } from 'react'
 import { Button, Row, Select, Switch } from '@milo/ui'
 import { A11y, Note, Page, Props, Section } from '../kit'
@@ -18,7 +19,7 @@ export function RowStory() {
         title="Una lista de ajustes"
         note="El divisor va como borde superior de cada fila menos la primera, y no como borde inferior de todas: así la última no deja una línea suelta contra el fondo del panel. Es un detalle de un píxel que se nota en cuanto falta."
       >
-        <div className="max-w-[520px] overflow-hidden rounded-xl border border-line bg-surface">
+        <div className={`${cls.div} bg-surface`}>
           <Row label="Sugerir mejoras" hint="Mientras escribís una consigna">
             <Switch checked={first} onChange={setFirst} label="Sugerir mejoras" />
           </Row>
@@ -35,7 +36,7 @@ export function RowStory() {
         title="La etiqueta enfoca el control"
         note="El `label` es un `<label>` de verdad atado al control que lleva adentro: tocar el texto prende el switch, que además agranda muchísimo el blanco del click. Adentro de la etiqueta va solo el nombre: con la ayuda adentro, el nombre accesible pasaría a ser las dos frases pegadas."
       >
-        <div className="max-w-[520px] overflow-hidden rounded-xl border border-line bg-surface">
+        <div className={`${cls.div2} bg-surface`}>
           <Row label="Avisos por mail" hint="Cuando llega una entrega">
             <Switch checked={first} onChange={setFirst} label="Avisos por mail" />
           </Row>
@@ -46,9 +47,9 @@ export function RowStory() {
         title="Lo que va a la derecha no siempre es un control"
         note="Un valor que no se edita acá, un botón que lleva a otro lado, un dato: la fila sirve igual, y el que decide si hay algo que tocar es el contenido."
       >
-        <div className="max-w-[520px] overflow-hidden rounded-xl border border-line bg-surface">
+        <div className={`${cls.div3} bg-surface`}>
           <Row label="Correo">
-            <span className="text-body text-ink-muted">melina@milo.app</span>
+            <span className={cls.span}>melina@milo.app</span>
           </Row>
           <Row label="Contraseña" hint="La última vez que la cambiaste fue en marzo">
             <Button size="sm" variant="raised">Cambiar</Button>
@@ -59,7 +60,7 @@ export function RowStory() {
       <Note title="Row o Field">
         La fila es para un ajuste que se guarda solo al tocarlo. Si lo que hay es un formulario que
         se completa y se envía (con su ayuda, su error y su asterisco) eso es un
-        {' '}<a className="underline underline-offset-2" href="#field">Field</a>, que es otra pieza y
+        {' '}<a className={cls.a} href="#field">Field</a>, que es otra pieza y
         otra forma de leer.
       </Note>
 

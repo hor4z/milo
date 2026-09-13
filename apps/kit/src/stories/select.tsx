@@ -1,3 +1,4 @@
+import cls from './select.module.css'
 import { useEffect, useState } from 'react'
 import { Avatar, FolderIcon, Icon, Select } from '@milo/ui'
 import { A11y, Demo, Page, Props, Section } from '../kit'
@@ -27,14 +28,14 @@ export function SelectStory() {
         title="Variantes"
         note="El costo de no usar el nativo es traer el teclado a mano, que es lo que el nativo regalaba: flechas para moverse, Enter para elegir, Escape para salir, Home y End a los extremos, y teclear para saltar a la opción que empieza así. Probalo con el teclado: abrí el de al lado y escribí 'ci'."
       >
-        <div className="flex flex-wrap items-start gap-3">
+        <div className={cls.div}>
           <Demo label="width 160">
             <Select value={level} onChange={setLevel} width={160} options={['4.º grado', '5.º grado', '6.º grado', '7.º grado']} />
           </Demo>
           <Demo label="al ancho del contenido">
             <Select value={subject} onChange={setSubject} options={['Matemática', 'Lengua', 'Ciencias', 'Geografía', 'Convivencia']} />
           </Demo>
-          <div className="w-full max-w-[328px]">
+          <div className={cls.div2}>
             <Demo label="valor largo · se trunca">
               <Select
                 value={long}
@@ -51,7 +52,7 @@ export function SelectStory() {
         title="Adelante del valor"
         note="`leading` es un nodo y no un `IconName`, al revés que el `icon` del TextField: ahí el icono es siempre un glifo del set, acá lo que va adelante del valor es de quien lo usa, el glifo de la categoría, la carpeta de color de un espacio, el avatar de una persona."
       >
-        <div className="flex flex-wrap items-start gap-3">
+        <div className={cls.div3}>
           <Demo label="un glifo">
             <Select
               value={withIcon}
@@ -86,7 +87,7 @@ export function SelectStory() {
         title="Mientras los datos no están"
         note="`loading` no es lo mismo que pasar un spinner por `leading`. Un spinner suelto se dibuja y nada más: el control sigue abriendo, y lo que abre es una lista vieja que se puede elegir. Con `loading` el select no abre, avisa `aria-busy` y cierra el panel. Lo que no hace es enterarse solo: no recibe promesas."
       >
-        <div className="flex flex-wrap items-start gap-3">
+        <div className={cls.div4}>
           <Demo label="loading · el spinner es el default">
             <Select value="Cargando espacios…" width={200} loading options={[]} />
           </Demo>

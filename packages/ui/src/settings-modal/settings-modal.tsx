@@ -1,3 +1,4 @@
+import cls from './settings-modal.module.css'
 import { useState } from 'react'
 import { cx } from '../lib/cx'
 import { Button } from '../button/button'
@@ -41,8 +42,8 @@ export function SettingsModal({ open, onClose, user }: {
 
   return (
     <Modal open={open} onClose={onClose} width={594} label="Ajustes">
-      <div className="flex h-[448px] max-h-[calc(100vh-2rem)]">
-        <nav className="flex w-[180px] shrink-0 flex-col gap-0.5 border-r border-line p-3">
+      <div className={cls.div}>
+        <nav className={cls.nav}>
           {sections.map(s => {
             const active = s.id === section
             return (
@@ -52,18 +53,18 @@ export function SettingsModal({ open, onClose, user }: {
                 onClick={() => setSection(s.id)}
                 aria-current={active ? 'page' : undefined}
                 className={cx(
-                  'flex h-10 items-center gap-3 rounded-lg border pr-2 pl-[calc((2.5rem-2rem)/2)] text-left text-body font-semibold',
-                  'transition-[background-color,border-color,color] duration-fast ease-out',
+                  cls.box,
+                  cls.box2,
                   active
-                    ? 'border-brand-border bg-brand-soft text-brand-ink'
-                    : 'border-transparent text-ink hover:bg-hover',
+                    ? cls.box3
+                    : cls.box4,
                 )}
               >
                 <span className={cx(
-                  'flex size-8 shrink-0 items-center justify-center rounded-md transition-[background-color,box-shadow] duration-fast',
-                  active && 'bg-surface shadow-[0_0_0_1px_var(--brand-border)]',
+                  cls.span,
+                  active && `${cls.active} bg-surface`,
                 )}>
-                  <Icon name={s.icon} size={20} className={active ? 'text-brand-ink' : 'icon-muted'} />
+                  <Icon name={s.icon} size={20} className={active ? cls.icon : 'icon-muted'} />
                 </span>
                 {s.label}
               </button>
@@ -71,11 +72,11 @@ export function SettingsModal({ open, onClose, user }: {
           })}
         </nav>
 
-        <div className="flex min-w-0 flex-1 flex-col">
-          <header className="flex h-14 shrink-0 items-center border-b border-line px-6">
-            <h2 className="text-body font-semibold">{sections.find(s => s.id === section)!.label}</h2>
+        <div className={cls.div2}>
+          <header className={cls.header}>
+            <h2 className={cls.h2}>{sections.find(s => s.id === section)!.label}</h2>
           </header>
-          <div className="min-h-0 flex-1 overflow-y-auto">
+          <div className={cls.div3}>
             {section === 'general' && <GeneralSection user={user} />}
             {section === 'perfil' && <ProfileSection user={user} />}
             {section === 'seguridad' && <SecuritySection />}
@@ -93,7 +94,7 @@ function GeneralSection({ user }: { user: SettingsUser }) {
     <div>
       <EditableRow label="Nombre" value={user.name} />
       <Row label="Correo">
-        <span className="text-body text-ink-muted">{user.email}</span>
+        <span className={cls.span2}>{user.email}</span>
       </Row>
       <Row label="Tema">
         <Segmented
@@ -128,7 +129,7 @@ function ProfileSection({ user }: { user: SettingsUser }) {
         <Chip color="green">Guía</Chip>
       </Row>
       <Row label="Escuela">
-        <span className="text-body text-ink-muted">{user.school}</span>
+        <span className={cls.span3}>{user.school}</span>
       </Row>
       <Row label="Dejar que otros guías vean mis recetas" hint="Solo las que publiques, nunca los borradores.">
         <Switch checked={prefs.shareRecipes} onChange={v => set('shareRecipes', v)} label="Compartir recetas" />
@@ -156,14 +157,14 @@ function SecuritySection() {
       <Row label="Registro de accesos">
         <Button size="sm" variant="ghost" iconEnd="download">Descargar</Button>
       </Row>
-      <div className="border-t border-line px-6 py-4">
-        <div className="rounded-xl bg-bad-subtle p-4">
-          <div className="text-body font-semibold text-ink">Borrar la cuenta</div>
-          <p className="mt-2 text-body text-ink-muted">
+      <div className={cls.div4}>
+        <div className={cls.div5}>
+          <div className={cls.div6}>Borrar la cuenta</div>
+          <p className={cls.p}>
             Se van los espacios que coordinás y las actividades que escribiste. Las entregas de los
             aprendices quedan con su autor, no con vos.
           </p>
-          <Button size="sm" variant="bad" className="mt-3">Borrar la cuenta</Button>
+          <Button size="sm" variant="bad" className={cls.button}>Borrar la cuenta</Button>
         </div>
       </div>
     </div>
@@ -202,8 +203,8 @@ function EditableRow({ label, value: initial }: { label: string; value: string }
   const commit = () => { setValue(draft.trim() || value); setEditing(false) }
 
   return (
-    <div className="group flex min-h-14 items-center gap-4 border-t border-line px-6 py-4 first:border-t-0">
-      <div className="min-w-0 flex-1 text-body font-medium text-ink">{label}</div>
+    <div className={`${cls.div7} group`}>
+      <div className={cls.div8}>{label}</div>
       {editing ? (
         <input
           autoFocus
@@ -214,16 +215,16 @@ function EditableRow({ label, value: initial }: { label: string; value: string }
             if (e.key === 'Enter') commit()
             if (e.key === 'Escape') { setDraft(value); setEditing(false) }
           }}
-          className="inset-relief h-8 w-48 rounded-md bg-muted px-2 text-right text-body font-medium text-ink outline-none"
+          className={`${cls.box5} inset-relief`}
         />
       ) : (
         <button
           type="button"
           onClick={() => { setDraft(value); setEditing(true) }}
-          className="flex items-center gap-2 rounded-md px-2 py-1 text-body font-medium text-ink hover:bg-hover"
+          className={cls.box6}
         >
           {value}
-          <Icon name="edit" size={16} className="icon-muted opacity-0 transition-opacity duration-fast ease-out group-hover:opacity-100" />
+          <Icon name="edit" size={16} className={`${cls.icon3} icon-muted`} />
         </button>
       )}
     </div>

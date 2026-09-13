@@ -1,0 +1,206 @@
+@layer milo.app {
+  .back {
+    background-color: var(--surface-muted);
+    color: var(--text);
+  }
+
+  .back2 {
+    background-color: var(--solid);
+    color: var(--on-solid);
+  }
+
+  .back3 {
+    background-color: var(--surface-muted);
+    color: var(--text);
+  }
+
+  .back4 {
+    background-color: var(--surface-muted);
+    color: var(--text);
+  }
+
+  .back5 {
+    background-color: var(--brand);
+    color: var(--on-brand);
+  }
+
+  .back6 {
+    background-color: var(--mark-blue);
+    color: var(--mark-blue-ink);
+  }
+
+  .strong {
+    font-weight: var(--font-weight-semibold);
+    color: var(--text);
+  }
+
+  .div {
+    display: grid;
+    gap: 0.75rem;
+  }
+
+  .div2 {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    border-radius: var(--radius-xl);
+    border-style: solid;
+    border-width: 1px;
+    border-color: var(--border);
+    padding: 1.25rem;
+  }
+
+  .div3 {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .code {
+    font-family: var(--font-mono);
+    font-size: var(--type-meta);
+    line-height: var(--type-meta-lh);
+    letter-spacing: var(--type-meta-ls);
+    font-weight: var(--font-weight-semibold);
+    color: var(--text);
+  }
+
+  .span {
+    font-size: var(--type-meta);
+    line-height: var(--type-meta-lh);
+    letter-spacing: var(--type-meta-ls);
+    font-weight: var(--font-weight-medium);
+    color: var(--text-muted);
+  }
+
+  .div4 {
+    display: grid;
+    gap: 0.75rem;
+  }
+
+  .div5 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    border-radius: var(--radius-xl);
+    border-style: solid;
+    border-width: 1px;
+    border-color: var(--border);
+    background-color: var(--surface-muted);
+    padding: 1.5rem;
+  }
+
+  .div6 {
+    width: 5rem;
+    height: 5rem;
+    border-radius: var(--radius-xl);
+  }
+
+  .div7 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.25rem;
+    text-align: center;
+  }
+
+  .code2 {
+    font-family: var(--font-mono);
+    font-size: var(--type-meta);
+    line-height: var(--type-meta-lh);
+    letter-spacing: var(--type-meta-ls);
+    font-weight: var(--font-weight-semibold);
+    color: var(--text);
+  }
+
+  .span2 {
+    font-size: var(--type-meta);
+    line-height: var(--type-meta-lh);
+    letter-spacing: var(--type-meta-ls);
+    font-weight: var(--font-weight-medium);
+    color: var(--text-muted);
+  }
+
+  .div8 {
+    display: grid;
+    gap: 0.75rem;
+  }
+
+  .div9 {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    border-radius: var(--radius-xl);
+    border-style: solid;
+    border-width: 1px;
+    border-color: var(--border);
+    padding: 1.25rem;
+  }
+
+  .span3 {
+    font-size: var(--type-body);
+    line-height: var(--type-body-lh);
+    letter-spacing: var(--type-body-ls);
+    font-weight: var(--font-weight-semibold);
+    color: var(--text);
+  }
+
+  .p {
+    font-size: var(--type-meta);
+    line-height: var(--type-meta-lh);
+    letter-spacing: var(--type-meta-ls);
+    font-weight: var(--font-weight-medium);
+    color: var(--text-muted);
+  }
+
+  .code3 {
+    font-family: var(--font-mono);
+  }
+
+  .div10 {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    border-radius: var(--radius-xl);
+    border-style: solid;
+    border-width: 1px;
+    border-color: var(--border);
+    padding: 1.25rem;
+  }
+
+  .span4 {
+    font-size: var(--type-body);
+    line-height: var(--type-body-lh);
+    letter-spacing: var(--type-body-ls);
+    font-weight: var(--font-weight-semibold);
+    color: var(--text);
+  }
+
+  .p2 {
+    font-size: var(--type-meta);
+    line-height: var(--type-meta-lh);
+    letter-spacing: var(--type-meta-ls);
+    font-weight: var(--font-weight-medium);
+    color: var(--text-muted);
+  }
+
+  @media (min-width:40rem) {
+    .div {
+        grid-template-columns: repeat(2,minmax(0,1fr));
+    }
+  }
+
+  @media (min-width:40rem) {
+    .div4 {
+        grid-template-columns: repeat(3,minmax(0,1fr));
+    }
+  }
+
+  @media (min-width:40rem) {
+    .div8 {
+        grid-template-columns: repeat(2,minmax(0,1fr));
+    }
+  }
+
+}

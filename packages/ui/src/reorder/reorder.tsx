@@ -1,3 +1,4 @@
+import cls from './reorder.module.css'
 import { useEffect, useLayoutEffect, useRef, useState, type ReactNode } from 'react'
 import { Icon } from '../icon/icon'
 import { cx } from '../lib/cx'
@@ -166,19 +167,19 @@ export function Reorder<T extends ReorderItem>({ items, onReorder, label, childr
 
   return (
     <>
-      <ul aria-label={label} className={cx('flex flex-col gap-1 [overflow-anchor:none]', className)}>
+      <ul aria-label={label} className={cx(cls.ul, className)}>
         {items.map((item, i) => (
           <li
             key={item.id}
             ref={el => { filas.current[item.id] = el }}
-            className={cx('rounded-lg', agarrado === item.id && 'bg-track')}
+            className={cx(cls.box, agarrado === item.id && cls.id)}
           >
           <div
             ref={el => { cuerpos.current[item.id] = el }}
             className={cx(
-              'flex items-center gap-2 rounded-lg border border-line bg-surface p-2',
-              'transition-[transform,box-shadow] duration-normal ease-out',
-              agarrado === item.id ? 'relative z-10 shadow-popover' : 'z-0',
+              `${cls.box2} bg-surface`,
+              cls.box3,
+              agarrado === item.id ? cls.box4 : cls.box5,
             )}
           >
             <button
@@ -188,11 +189,11 @@ export function Reorder<T extends ReorderItem>({ items, onReorder, label, childr
               aria-describedby="reorder-ayuda"
               onKeyDown={e => teclas(e, item.id)}
               onPointerDown={e => arrastrar(e, item.id)}
-              className="inline-flex size-8 shrink-0 cursor-grab touch-none items-center justify-center rounded-md transition-colors duration-fast ease-out hover:bg-hover active:cursor-grabbing"
+              className={cls.box6}
             >
-              <Icon name="drag_indicator" size={18} weight={400} className="text-brand" />
+              <Icon name="drag_indicator" size={18} weight={400} className={cls.icon} />
             </button>
-            <div className="min-w-0 flex-1">{children(item, i)}</div>
+            <div className={cls.div}>{children(item, i)}</div>
           </div>
           </li>
         ))}

@@ -1,3 +1,4 @@
+import cls from './states.module.css'
 import { useState } from 'react'
 import { Button, Card, Chip, EmptyState, Icon, Skeleton, Spinner, Switch, TextField } from '@milo/ui'
 import { A11y, Note, Page, Section, Rich } from '../kit'
@@ -24,12 +25,12 @@ export function StatesSection() {
         title="La regla que ordena todo esto"
         note="Cada estado tiene una forma además de un tono. Un cambio de color solo es una señal que no llega a quien no distingue colores, a quien mira de reojo, ni a quien está en una pantalla mal calibrada de un aula. La forma puede ser el relieve, la opacidad, un glifo o una palabra, pero alguna hay."
       >
-        <div className="flex flex-col overflow-hidden rounded-xl border border-line bg-surface">
+        <div className={`${cls.div} bg-surface`}>
           {interaccion.map(e => (
-            <div key={e.name} className="flex flex-wrap gap-x-5 gap-y-2 border-t border-line px-5 py-4 first:border-t-0">
-              <code className="w-24 shrink-0 font-mono text-meta font-semibold text-ink">{e.name}</code>
-              <span className="w-[34ch] shrink-0 text-body text-ink">{e.how}</span>
-              <span className="min-w-0 flex-1 text-meta text-ink-muted"><Rich text={e.why} /></span>
+            <div key={e.name} className={cls.div2}>
+              <code className={cls.code}>{e.name}</code>
+              <span className={cls.span}>{e.how}</span>
+              <span className={cls.span2}><Rich text={e.why} /></span>
             </div>
           ))}
         </div>
@@ -41,19 +42,19 @@ export function StatesSection() {
         title="Los cuatro estados de una pantalla que espera"
         note="Ninguno es el caso feliz y los cuatro pasan todos los días. Elegir mal entre ellos es lo que hace que alguien recargue una página que estaba bien."
       >
-        <div className="grid gap-4 lg:grid-cols-2">
+        <div className={cls.div3}>
           <Estado
             titulo="Cargando, y sabemos qué va a venir"
             tag="Skeleton"
             nota="El esqueleto ocupa el lugar exacto de lo que falta, así que cuando llega no se mueve nada. Solo va cuando la forma es previsible: una fila, una tarjeta, un avatar."
           >
-            <div className="flex flex-col gap-3">
+            <div className={cls.div4}>
               {[0, 1].map(i => (
-                <div key={i} className="flex items-center gap-3 rounded-xl bg-surface p-4 shadow-card">
-                  <Skeleton className="size-10 shrink-0 rounded-full" />
-                  <div className="flex min-w-0 flex-1 flex-col gap-2">
-                    <Skeleton className="h-3 w-1/2" />
-                    <Skeleton className="h-3 w-1/3" />
+                <div key={i} className={`${cls.div5} bg-surface`}>
+                  <Skeleton className={cls.skeleton} />
+                  <div className={cls.div6}>
+                    <Skeleton className={cls.skeleton2} />
+                    <Skeleton className={cls.skeleton3} />
                   </div>
                 </div>
               ))}
@@ -65,9 +66,9 @@ export function StatesSection() {
             tag="Spinner"
             nota="Cuando no se puede dibujar la forma de lo que viene (una acción, un cálculo, una búsqueda sin resultados todavía) el esqueleto mentiría. El spinner no promete nada, solo dice que algo está pasando."
           >
-            <div className="flex flex-col items-center justify-center gap-3 rounded-xl bg-surface p-8 shadow-card">
+            <div className={`${cls.div7} bg-surface`}>
               <Spinner size={28} />
-              <span className="text-body text-ink-muted">Corrigiendo 24 entregas…</span>
+              <span className={cls.span3}>Corrigiendo 24 entregas…</span>
             </div>
           </Estado>
 
@@ -103,29 +104,29 @@ export function StatesSection() {
         title="Cuando se rompe"
         note="Un error tiene que decir tres cosas: qué pasó, si se perdió algo, y qué se puede hacer ahora. La tercera es la que más se olvida, y sin ella el aviso solo informa que la persona no puede seguir."
       >
-        <div className="grid gap-4 sm:grid-cols-2">
-          <div className="rounded-xl border border-line bg-surface p-5">
-            <div className="mb-3 flex items-center gap-2">
-              <Icon name="close" size={14} className="text-bad" />
-              <span className="text-label font-semibold text-ink">Lo que no alcanza</span>
+        <div className={cls.div8}>
+          <div className={`${cls.div9} bg-surface`}>
+            <div className={cls.div10}>
+              <Icon name="close" size={14} className={cls.icon} />
+              <span className={cls.span4}>Lo que no alcanza</span>
             </div>
-            <p className="rounded-xl bg-bad-subtle p-4 text-body text-bad-ink">Error al cargar los datos.</p>
-            <p className="mt-3 max-w-[42ch] text-meta text-ink-muted">
+            <p className={cls.p}>Error al cargar los datos.</p>
+            <p className={cls.p2}>
               No dice qué datos, no dice si lo que había sigue estando, y no ofrece nada. Quien lo
               lee solo se entera de que no puede seguir.
             </p>
           </div>
-          <div className="rounded-xl border border-line bg-surface p-5">
-            <div className="mb-3 flex items-center gap-2">
-              <Icon name="check" size={14} className="text-ok" />
-              <span className="text-label font-semibold text-ink">Lo que sí</span>
+          <div className={`${cls.div11} bg-surface`}>
+            <div className={cls.div12}>
+              <Icon name="check" size={14} className={cls.icon2} />
+              <span className={cls.span5}>Lo que sí</span>
             </div>
-            <div className="rounded-xl bg-bad-subtle p-4">
-              <p className="text-body font-semibold text-bad-ink">No se pudieron traer las entregas</p>
-              <p className="mt-1 text-body text-bad-ink">Puede ser la conexión. Lo que ya estaba corregido sigue estando.</p>
-              <Button size="sm" variant="raised" icon="refresh" className="mt-3">Reintentar</Button>
+            <div className={cls.div13}>
+              <p className={cls.p3}>No se pudieron traer las entregas</p>
+              <p className={cls.p4}>Puede ser la conexión. Lo que ya estaba corregido sigue estando.</p>
+              <Button size="sm" variant="raised" icon="refresh" className={cls.button}>Reintentar</Button>
             </div>
-            <p className="mt-3 max-w-[42ch] text-meta text-ink-muted">
+            <p className={cls.p5}>
               Qué pasó, qué no se perdió, y la salida. Las tres.
             </p>
           </div>
@@ -156,13 +157,13 @@ export function StatesSection() {
 
 function Estado({ titulo, tag, nota, children }: { titulo: string; tag: string; nota: string; children: React.ReactNode }) {
   return (
-    <div className="flex flex-col gap-3">
-      <div className="flex flex-wrap items-center gap-2">
-        <span className="text-reading font-semibold text-ink">{titulo}</span>
+    <div className={cls.div14}>
+      <div className={cls.div15}>
+        <span className={cls.span6}>{titulo}</span>
         <Chip color="blue">{tag}</Chip>
       </div>
-      <p className="max-w-[54ch] text-body text-ink-muted">{nota}</p>
-      <div className="mt-1">{children}</div>
+      <p className={cls.p6}>{nota}</p>
+      <div className={cls.div16}>{children}</div>
     </div>
   )
 }
@@ -174,17 +175,17 @@ function Vivo() {
       title="Verlos"
       note="Pasá el mouse, hacé Tab, apretá. Uno que manda, uno que acompaña y uno que casi no está, y los tres con el interruptor puesto en deshabilitado. `solid` no aparece acá porque es el mismo rol que `brand`: va uno o el otro, nunca los dos en la misma pantalla."
     >
-      <Card className="flex flex-col gap-5 p-6">
-        <span className="flex w-fit items-center gap-2 text-body text-ink">
+      <Card className={cls.card}>
+        <span className={cls.span7}>
           <Switch checked={off} onChange={setOff} label="Deshabilitar todo" />
-          <button type="button" onClick={() => setOff(v => !v)} className="rounded-sm">Deshabilitar todo</button>
+          <button type="button" onClick={() => setOff(v => !v)} className={cls.box}>Deshabilitar todo</button>
         </span>
-        <div className="flex flex-wrap items-center gap-3">
+        <div className={cls.div17}>
           <Button variant="brand" disabled={off}>Publicar</Button>
           <Button variant="raised" disabled={off}>Cancelar</Button>
           <Button variant="ghost" disabled={off}>Descartar</Button>
         </div>
-        <div className="flex flex-wrap items-center gap-3">
+        <div className={cls.div18}>
           <TextField placeholder="Nombre de la actividad" disabled={off} />
           <Chip color="green" icon="check">Corregida</Chip>
           <Chip color="orange" dot>En curso</Chip>

@@ -1,3 +1,4 @@
+import s from './link.module.css'
 import type { ComponentPropsWithoutRef } from 'react'
 import { Icon } from '../icon/icon'
 import { cx } from '../lib/cx'
@@ -10,8 +11,8 @@ export function Link({ external, className, children, ...props }: ComponentProps
   return (
     <a
       className={cx(
-        'inline-flex items-center gap-1 rounded-sm text-brand-ink underline decoration-current underline-offset-[3px]',
-        'transition-[text-decoration-thickness] ease-out duration-fast hover:decoration-2',
+        s.a,
+        s.box,
         className,
       )}
       {...(external ? { target: '_blank', rel: 'noreferrer noopener' } : null)}

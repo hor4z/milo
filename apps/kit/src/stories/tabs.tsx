@@ -1,3 +1,4 @@
+import cls from './tabs.module.css'
 import { Tab, TabList, TabPanel, Tabs } from '@milo/ui'
 import { A11y, Canvas, Note, Page, Props, Section } from '../kit'
 
@@ -21,13 +22,13 @@ export function TabsStory() {
               <Tab value="ajustes">Ajustes</Tab>
             </TabList>
             <TabPanel value="entregas">
-              <p className="text-body font-medium text-ink-muted">Dieciocho entregas, cuatro sin mirar.</p>
+              <p className={cls.p}>Dieciocho entregas, cuatro sin mirar.</p>
             </TabPanel>
             <TabPanel value="rubrica">
-              <p className="text-body font-medium text-ink-muted">Cuatro criterios, cada uno de 1 a 4.</p>
+              <p className={cls.p2}>Cuatro criterios, cada uno de 1 a 4.</p>
             </TabPanel>
             <TabPanel value="ajustes">
-              <p className="text-body font-medium text-ink-muted">Quién puede ver la actividad y hasta cuándo.</p>
+              <p className={cls.p3}>Quién puede ver la actividad y hasta cuándo.</p>
             </TabPanel>
           </Tabs>
         </Canvas>
@@ -45,13 +46,13 @@ export function TabsStory() {
               <Tab value="todo">Todo</Tab>
             </TabList>
             <TabPanel value="semana">
-              <p className="text-body font-medium text-ink-muted">79 entregas en cuatro espacios.</p>
+              <p className={cls.p4}>79 entregas en cuatro espacios.</p>
             </TabPanel>
             <TabPanel value="mes">
-              <p className="text-body font-medium text-ink-muted">312 entregas, 289 corregidas.</p>
+              <p className={cls.p5}>312 entregas, 289 corregidas.</p>
             </TabPanel>
             <TabPanel value="todo">
-              <p className="text-body font-medium text-ink-muted">Desde marzo: 1.204 entregas.</p>
+              <p className={cls.p6}>Desde marzo: 1.204 entregas.</p>
             </TabPanel>
           </Tabs>
         </Canvas>
@@ -60,7 +61,7 @@ export function TabsStory() {
       <Note title="Solapas o acordeón">
         Si las opciones se comparan entre sí (el mismo tipo de contenido para distintos recortes) van
         solapas. Si son preguntas sueltas que se leen de a una y la mayoría no se va a abrir nunca, va
-        un <a className="underline underline-offset-2" href="#accordion">Accordion</a>.
+        un <a className={cls.a} href="#accordion">Accordion</a>.
       </Note>
 
       <Section title="Props">

@@ -1,0 +1,63 @@
+@layer milo.app {
+  .div {
+    width: 220px;
+    border-radius: var(--radius-xl);
+    border-style: solid;
+    border-width: 1px;
+    border-color: var(--border);
+    background-color: var(--canvas);
+    padding-inline: 1.25rem;
+    padding-block: 1rem;
+  }
+
+  .div2 {
+    display: flex;
+    flex-direction: column;
+    gap: 0.125rem;
+  }
+
+  .div3 {
+    padding-inline: 0.5rem;
+    padding-block: 0.5rem;
+    font-size: var(--type-body);
+    line-height: var(--type-body-lh);
+    letter-spacing: var(--type-body-ls);
+    font-weight: var(--font-weight-medium);
+    color: var(--text-muted);
+  }
+
+  .div4 {
+    width: 220px;
+    border-radius: var(--radius-xl);
+    border-style: solid;
+    border-width: 1px;
+    border-color: var(--border);
+    background-color: var(--canvas);
+    padding-inline: 1.25rem;
+    padding-block: 1rem;
+  }
+
+  .div5 {
+    display: flex;
+    flex-direction: column;
+    gap: 0.125rem;
+  }
+
+  .div6 {
+    width: 72px;
+    border-radius: var(--radius-xl);
+    border-style: solid;
+    border-width: 1px;
+    border-color: var(--border);
+    background-color: var(--canvas);
+    padding-inline: 0.75rem;
+    padding-block: 1rem;
+  }
+
+  .div7 {
+    display: flex;
+    flex-direction: column;
+    gap: 0.125rem;
+  }
+
+}
