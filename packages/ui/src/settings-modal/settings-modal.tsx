@@ -223,7 +223,7 @@ function EditableRow({ label, value: initial }: { label: string; value: string }
           className="flex items-center gap-2 rounded-md px-2 py-1 text-body font-medium text-ink hover:bg-hover"
         >
           {value}
-          <Icon name="edit" size={16} className="icon-muted opacity-0 transition-opacity group-hover:opacity-100" />
+          <Icon name="edit" size={16} className="icon-muted opacity-0 transition-opacity duration-fast ease-out group-hover:opacity-100" />
         </button>
       )}
     </div>

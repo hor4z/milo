@@ -3,7 +3,11 @@ import { Checkbox, Field, FieldSet, Select, Switch, TextField, Textarea } from '
 import { A11y, Canvas, Note, Page, Props, Section } from '../kit'
 
 export function FieldStory() {
+  const [fueraDeFecha, setFueraDeFecha] = useState(true)
+  const [avisar, setAvisar] = useState(true)
   const [name, setName] = useState('')
+  const [espacio, setEspacio] = useState('Matemática · 4.º A')
+  const [donde, setDonde] = useState('Matemática · 4.º A')
   const [touched, setTouched] = useState(false)
   const error = touched && !name.trim() ? 'Poné un nombre para la actividad' : undefined
 
@@ -42,13 +46,13 @@ export function FieldStory() {
         <Canvas>
           <div className="flex max-w-[420px] flex-col gap-5">
             <Field label="Espacio" hint="Dónde se publica">
-              <Select value="Matemática · 4.º A" options={['Matemática · 4.º A', 'Lengua · 6.º']} />
+              <Select value={espacio} onChange={setEspacio} options={['Matemática · 4.º A', 'Lengua · 6.º']} />
             </Field>
             <Field label="Entregas fuera de fecha" hint="Permitir que entreguen después del cierre">
-              <Switch checked onChange={() => {}} label="Entregas fuera de fecha" />
+              <Switch checked={fueraDeFecha} onChange={setFueraDeFecha} label="Entregas fuera de fecha" />
             </Field>
             <Field label="Avisar al publicar">
-              <Checkbox checked onChange={() => {}} label="Avisar al publicar" />
+              <Checkbox checked={avisar} onChange={setAvisar} label="Avisar al publicar" />
             </Field>
           </div>
         </Canvas>
@@ -61,7 +65,7 @@ export function FieldStory() {
         <Canvas>
           <div className="w-full max-w-[320px]">
             <Field label="Espacio" required>
-              <Select value="Matemática · 4.º A" options={['Matemática · 4.º A', 'Lengua · 6.º']} />
+              <Select value={donde} onChange={setDonde} options={['Matemática · 4.º A', 'Lengua · 6.º']} />
             </Field>
           </div>
         </Canvas>

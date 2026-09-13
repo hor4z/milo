@@ -7,7 +7,7 @@ export function IconButtonStory() {
       title="IconButton"
       kind="Acciones"
       imports="import { IconButton } from '@milo/ui'"
-      lead="Cuadrado del alto de su paso, y los pasos son los del Button: el mismo nombre de tamaño da el mismo alto en las dos piezas, así que un icono al lado de un botón en la misma fila apoya en la misma línea sin que nadie lo calcule. El radio es 10 en los tres y no el 12 del `Button`: sobre un cuadrado de 32, esos dos píxeles de más se comen tanto lado plano que la pieza se lee redonda. El mismo radio se lee más redondo cuanto más corto es el lado, y por eso `md` existe."
+      lead="Cuadrado del alto de su paso, y los pasos son los del `Button`: un icono al lado de un botón en la misma fila apoya en la misma línea sin que nadie lo calcule. El radio es 10 y no el 12 del Button — sobre un cuadrado de 32, esos dos píxeles se comen tanto lado plano que la pieza se lee redonda."
     >
       <Section
         title="Los tres tamaños"
@@ -32,7 +32,7 @@ export function IconButtonStory() {
         </Panel>
       </Section>
 
-      <Section title="Variantes" note="`label` es obligatorio. Un botón que solo tiene un icono no dice nada sin él, ni para un lector de pantalla ni para quien duda qué hace. Sobre `raised` en una barra: el canto de un píxel que en un botón ancho es un remate, acá rodea un cuadrado de 32 y pesa mucho más por área — al lado de un `Segmented`, que tiene pista plana, se lee como de otra librería. En una barra va `muted`, que es la misma pista.">
+      <Section title="Variantes" note="`label` es obligatorio: un botón que solo tiene un icono no dice nada sin él. Y en una barra va `muted` y no `raised`: el canto de un píxel que en un botón ancho es un remate, sobre un cuadrado de 32 pesa mucho más por área y se lee como de otra librería.">
         <Panel>
           <Variant name="ghost">
             <IconButton icon="tune" label="Ajustes" />

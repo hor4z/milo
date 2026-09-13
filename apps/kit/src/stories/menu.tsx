@@ -18,7 +18,7 @@ export function MenuStory() {
       >
         <Panel>
           <Variant name="suelta">
-            <Menu width={260}>
+            <Menu label="Acciones de la actividad" width={260}>
               <MenuItem icon="edit">Renombrar</MenuItem>
               <MenuItem icon="content_copy" shortcut="⌘D">Duplicar</MenuItem>
               <MenuItem icon="group" hint="7">Compartir</MenuItem>
@@ -30,11 +30,11 @@ export function MenuStory() {
 
       <Section
         title="Rótulo, separador y opción destructiva"
-        note="El rótulo va en tinta y no en gris, igual que la cabecera de la Table: en 11 con tracking abierto el tamaño ya dice que es un rótulo, y el gris encima obliga a buscar de qué es cada grupo. La opción destructiva es la única que cambia de color en todo el sistema, y por eso se ve; su icono no va en gris, porque el gris es lo que apaga y esto es lo contrario."
+        note="El rótulo va en tinta y no en gris, igual que la cabecera de la Table: apagado, obliga a buscar de qué es cada grupo. La opción destructiva es la única que cambia de color en todo el sistema, y su icono no va en gris — el gris es lo que apaga y esto es lo contrario."
       >
         <Panel>
           <Variant name="armado entero">
-            <Menu width={260}>
+            <Menu label="Acciones con grupos" width={260}>
               <MenuLabel>Esta actividad</MenuLabel>
               <MenuItem icon="edit" shortcut="E">Editar</MenuItem>
               <MenuItem icon="visibility">Ver como estudiante</MenuItem>
@@ -74,7 +74,7 @@ export function MenuStory() {
               )}
             >
               {close => (
-                <Menu width={240}>
+                <Menu label="Acciones de la fila" width={240}>
                   <MenuItem icon="edit" shortcut="E" onSelect={close}>Editar</MenuItem>
                   <MenuItem icon="link" shortcut="⌘L" onSelect={close}>Copiar enlace</MenuItem>
                   <Divider />

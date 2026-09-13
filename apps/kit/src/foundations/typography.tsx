@@ -24,7 +24,12 @@ export function TypographySection() {
         title="Los siete roles"
         note="La utilidad escribe los tres valores de una. Escritos por separado se despegan, y se despegaron: `text-lg` llegó a ser 20px de letra dentro de una caja de línea de 16px porque el interlineado era un token aparte que nadie tenía que recordar."
       >
-        <div className="overflow-x-auto rounded-xl border border-line bg-surface">
+        <div
+          tabIndex={0}
+          role="region"
+          aria-label="La escala de texto"
+          className="overflow-x-auto rounded-xl border border-line bg-surface"
+        >
           {roles.map(r => (
             <div key={r.cls} className="flex flex-wrap items-baseline gap-x-5 gap-y-2 border-b border-line px-5 py-4 last:border-0">
               <code className="w-24 shrink-0 font-mono text-meta text-ink-muted">{r.px}/{r.lh}</code>
@@ -70,7 +75,7 @@ export function TypographySection() {
 
       <Section
         title="El interlineado dejó de ser uno solo"
-        note="Era 16px fijo para todo, y el argumento era bueno: con interlineado proporcional, una fila de 12 y una de 14 dejan de alinearse entre sí. Dejó de importar por dos razones. Los interlineados nuevos son todos pares y casi todos múltiplos de cuatro, así que apilan predecible; y las filas del sistema centran sus hijos con flex, no haciendo coincidir cajas de línea."
+        note="Era 16px fijo para todo, y el argumento era bueno: con interlineado proporcional, una fila de 12 y una de 14 dejan de alinearse. Dejó de importar porque los interlineados nuevos son todos pares, así que apilan predecible, y porque las filas del sistema centran con flex y no haciendo coincidir cajas de línea."
       >
         <div className="grid gap-4 sm:grid-cols-2">
           <div className="rounded-xl border border-line bg-surface p-5">
@@ -106,7 +111,7 @@ export function TypographySection() {
 
       <Section
         title="El tracking cruza el cero en la base"
-        note="Positivo donde la letra es chica y se empasta, cero en la interfaz, negativo donde es grande y se despega. Antes era al revés: -0.015em aplicado a todos los h1, h2 y h3 por igual, un número medido contra Inter a 12px dos familias atrás. Apretar la letra chica es exactamente cómo se pierde nitidez. Es lo que hace el eje óptico de San Francisco, y lo que Carbon escribe a mano."
+        note="Positivo donde la letra es chica y se empasta, cero en la interfaz, negativo donde es grande y se despega. Antes era al revés: −0.015em en todos los títulos por igual, un número medido contra otra familia a 12px. Apretar la letra chica es exactamente cómo se pierde nitidez."
       >
         <div className="flex flex-col gap-3 rounded-xl border border-line bg-surface p-5">
           {roles.map(r => (
@@ -120,7 +125,7 @@ export function TypographySection() {
 
       <Section
         title="Tres pesos, y una regla que pesa más que los tres"
-        note="400 la interfaz · 450 lo accionable, los títulos y lo elegido · 600 solo display. **El peso lo lleva el elegido, no la lista**: un riel de doce entradas, un menú de seis, seis chips en una fila — si todos van en el escalón de énfasis, ninguno está enfatizado y la pantalla se lee agresiva. Se llegó a medir un 44% del texto de una pantalla en el escalón de arriba. Y el escalón es corto a propósito: 450 y no 500, porque con Inter el 500 sobre una base de 400 salta a algo que se lee como negrita cuando lo que hace falta es que se lea como énfasis."
+        note="400 la interfaz · 450 lo accionable y los títulos · 600 solo display. **El peso lo lleva el elegido, no la lista**: si las doce entradas de un riel van en el escalón de énfasis, ninguna está enfatizada. Se llegó a medir un 44% de una pantalla ahí arriba. Y es 450 y no 500 porque el 500 ya se lee como negrita."
       >
         <div className="grid gap-3 sm:grid-cols-3">
           {[
@@ -194,7 +199,7 @@ export function TypographySection() {
 
       <A11y
         items={[
-          'El piso del sistema es 12px y es un rol con nombre —`text-meta`— para que se note cuándo se está usando abajo de lo que corresponde. Debajo de eso no hay nada que elegir.',
+          'El piso del sistema es 12px y es un rol con nombre —`text-meta`— para que se note cuándo se está usando abajo de lo que corresponde. La única cosa que baja de ahí es la inicial de un avatar chico, que es una marca y no un texto: nadie la lee, identifica.',
           'Los tamaños van en `rem` y no en píxeles: quien agranda la letra en las preferencias de su navegador la ve agrandada. El zoom ya escalaba los píxeles y cubría WCAG 1.4.4; la preferencia de tamaño de fuente no, y esa es la que usa quien tiene baja visión.',
           'El escalón de lectura tiene 1.5 de interlineado, el número de WCAG 1.4.12, y las piezas que llevan texto encima usan `min-h` en vez de alto fijo, así que aguantan que alguien fuerce más espaciado sin que se corte nada.',
           'El tracking es positivo en los dos escalones más chicos. La letra apretada a 12px es la que más se empasta, y es la que peor le cae a quien lee con dificultad.',
@@ -209,7 +214,7 @@ function PorQueInter() {
   return (
     <Section
       title="Por qué Inter, y por qué una sola"
-      note="Cuarta y última familia del proyecto: Inter → Geist → Instrument Sans → Inter. Volver no es andar en círculo, porque lo que se fue no vuelve: aquella vez eran tres familias —Inter, Inter Tight y JetBrains Mono— y el motivo de dejarla fue justamente ese. Inter v4 trae eje óptico, así que una sola instancia cubre el cuerpo y el display, y el argumento viejo se cae solo."
+      note="Cuarta familia del proyecto: Inter → Geist → Instrument Sans → Inter. Volver no es andar en círculo: aquella vez eran tres familias, y ese era justamente el motivo de dejarla. Inter v4 trae eje óptico, así que una sola instancia cubre el cuerpo y el display."
     >
       <div className="flex flex-col gap-4">
         <div className="grid gap-4 sm:grid-cols-2">

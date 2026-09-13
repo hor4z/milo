@@ -63,9 +63,6 @@ describe('Segmented', () => {
     expect(screen.getByRole('radiogroup', { name: 'Rango' })).toBeInTheDocument()
   })
 
-  // La pista contiene su padding, no lo suma: el alto de afuera tiene que ser el
-  // de la escalera de controles. Sumándolo, `sm` medía 36 —el alto de `md`— y un
-  // Segmented al lado de un Button del mismo talle no apoyaban en la misma línea.
   it.each([
     ['sm', 'p-0.5', 'min-h-7'],  // 28 + 2 + 2 = 32, el `sm` de la escalera
     ['md', 'p-0.5', 'min-h-8'],  // 32 + 2 + 2 = 36, el `md` de la escalera

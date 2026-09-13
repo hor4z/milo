@@ -32,8 +32,6 @@ export function IconButton({
         'relative inline-flex items-center justify-center transition-[background-color,color,box-shadow] duration-fast ease-out',
         'disabled:opacity-45 disabled:pointer-events-none',
         variants[variant === 'ghost' && active ? 'muted' : variant],
-        // El radio es 10 y no el 12 del Button: sobre un cuadrado de 32, esos dos
-        // píxeles de más se comen tanto lado plano que la pieza se lee redonda.
         c.square, 'rounded-md',
         className,
       )}

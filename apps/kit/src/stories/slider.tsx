@@ -42,7 +42,7 @@ export function SliderStory() {
 
       <Section
         title="Con pasos"
-        note="`step` es del input nativo, igual que las flechas del teclado y el arrastre: adentro hay un `<input type=&quot;range&quot;>` de verdad, transparente y encima de todo. No es el caso del Select —ahí la lista desplegada la dibuja el sistema operativo y no hay forma de estilarla—; un range se tapa entero con un div y a cambio el teclado y el rol vienen gratis."
+        note="`step`, las flechas y el arrastre son del input nativo: adentro hay un `range` de verdad, transparente y encima de todo. No es el caso del `Select`, donde la lista la dibuja el sistema operativo y no hay forma de estilarla — un range se tapa entero con un div y el teclado viene gratis."
       >
         <Panel>
           <Variant name={`${steps} de 5 · step 1, max 5`}>
@@ -51,8 +51,8 @@ export function SliderStory() {
         </Panel>
         <p className="mt-3 max-w-[70ch] text-meta text-ink-muted">
           Probalo con el teclado: tabulá hasta el slider y usá las flechas. El anillo de foco se
-          suma al relieve del pulgar en vez de reemplazarlo — la regla global de `:focus-visible`
-          pisa el `box-shadow` entero y deja la pieza plana, que es el bug que está anotado en
+          suma al relieve del pulgar en vez de reemplazarlo — la regla global de <code>:focus-visible</code>
+          pisa el <code>box-shadow</code> entero y deja la pieza plana, que es el bug que está anotado en
           Pendiente para el resto de los controles.
         </p>
       </Section>

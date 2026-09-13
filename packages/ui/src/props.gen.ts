@@ -284,6 +284,13 @@ export const propsByComponent: Record<string, ComponentDoc> = {
   "Breadcrumb": {
     "props": [
       {
+        "name": "label",
+        "type": "string",
+        "required": false,
+        "def": "'Ruta'",
+        "doc": "El nombre de la ruta. Dos `nav` con el mismo nombre en una pantalla se leen como uno solo, así que con más de una hay que distinguirlas."
+      },
+      {
         "name": "items",
         "type": "{ label: string; href?: string; onClick?: () => void }[]",
         "required": true,
@@ -335,6 +342,40 @@ export const propsByComponent: Record<string, ComponentDoc> = {
       }
     ],
     "html": "button"
+  },
+  "Callout": {
+    "props": [
+      {
+        "name": "icon",
+        "type": "IconName",
+        "required": false,
+        "doc": "El glifo de la izquierda. Elegilo por lo que dice el bloque, no por el color."
+      },
+      {
+        "name": "color",
+        "type": "LabelColor | 'neutral'",
+        "required": false,
+        "def": "'neutral'",
+        "doc": "El color del papel. Sale de la familia de categorías y no de los tonos de estado: un bloque de contenido no está avisando de nada."
+      },
+      {
+        "name": "title",
+        "type": "string",
+        "required": false,
+        "doc": "La primera línea, en negrita. Sin esto el bloque arranca directo con el texto."
+      },
+      {
+        "name": "children",
+        "type": "ReactNode",
+        "required": true
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "required": false
+      }
+    ],
+    "doc": "Un bloque de contenido que pide detenerse: una aclaración, una pista, algo para recordar."
   },
   "Card": {
     "props": [
@@ -581,6 +622,113 @@ export const propsByComponent: Record<string, ComponentDoc> = {
     ],
     "doc": "Elegir qué columnas se ven."
   },
+  "CommandMenu": {
+    "props": [
+      {
+        "name": "groups",
+        "type": "CommandGroup[]",
+        "required": true,
+        "doc": "Agrupados por lo que hacen. Un grupo que queda sin resultados no se muestra."
+      },
+      {
+        "name": "onSelect",
+        "type": "(item: CommandItem) => void",
+        "required": true,
+        "doc": "Recibe el elegido."
+      },
+      {
+        "name": "placeholder",
+        "type": "string",
+        "required": false,
+        "def": "'Buscar un bloque…'",
+        "doc": "Qué se busca."
+      },
+      {
+        "name": "empty",
+        "type": "string",
+        "required": false,
+        "def": "'Nada con esas palabras'",
+        "doc": "Lo que se ve cuando no queda nada."
+      },
+      {
+        "name": "search",
+        "type": "boolean",
+        "required": false,
+        "def": "true",
+        "doc": "Sin esto la lista arranca sin buscador, para cuando lo que se escribe ya está afuera."
+      },
+      {
+        "name": "query",
+        "type": "string",
+        "required": false,
+        "doc": "El texto de búsqueda, si lo maneja quien lo usa —un editor que ya viene escribiendo detrás de la barra."
+      },
+      {
+        "name": "maxHeight",
+        "type": "number",
+        "required": false,
+        "def": "320",
+        "doc": "Cuánto mide la lista antes de scrollear."
+      },
+      {
+        "name": "autoFocus",
+        "type": "boolean",
+        "required": false,
+        "doc": "El buscador se lleva el foco al aparecer. Va donde el menú abre por un gesto —una barra, un atajo—; suelto en una página, roba el foco y el scroll. Adentro de un overlay alcanza con esto: el `data-autofocus` que esos paneles miran lo pone la pieza."
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "required": false
+      }
+    ],
+    "doc": "La lista de comandos: se escribe, se filtra y se elige con las flechas. Es el menú de la barra en un editor, y la paleta de atajos de una app."
+  },
+  "CommandItem": {
+    "props": [
+      {
+        "name": "id",
+        "type": "string",
+        "required": true,
+        "doc": "Único en toda la lista: es lo que se anuncia y lo que vuelve al elegir."
+      },
+      {
+        "name": "label",
+        "type": "string",
+        "required": true,
+        "doc": "Lo que se lee y lo que se busca."
+      },
+      {
+        "name": "hint",
+        "type": "string",
+        "required": false,
+        "doc": "Una línea abajo, para cuando el nombre no alcanza."
+      },
+      {
+        "name": "icon",
+        "type": "IconName",
+        "required": false,
+        "doc": "A la izquierda."
+      },
+      {
+        "name": "shortcut",
+        "type": "string",
+        "required": false,
+        "doc": "El atajo, a la derecha. Es un recordatorio: la tecla la escucha quien la pone."
+      },
+      {
+        "name": "keywords",
+        "type": "string[]",
+        "required": false,
+        "doc": "Palabras que también lo encuentran y que no están en el nombre: «foto» para Imagen."
+      },
+      {
+        "name": "disabled",
+        "type": "boolean",
+        "required": false
+      }
+    ]
+  },
   "ConfirmDialog": {
     "props": [
       {
@@ -637,6 +785,54 @@ export const propsByComponent: Record<string, ComponentDoc> = {
     ],
     "doc": "El diálogo que pregunta antes de algo que no se puede deshacer."
   },
+  "DatePicker": {
+    "props": [
+      {
+        "name": "value",
+        "type": "string",
+        "required": true,
+        "doc": "La fecha elegida como `AAAA-MM-DD`, o vacío."
+      },
+      {
+        "name": "onChange",
+        "type": "(v: string) => void",
+        "required": true,
+        "doc": "Recibe la fecha nueva en el mismo formato."
+      },
+      {
+        "name": "min",
+        "type": "string",
+        "required": false,
+        "doc": "Nada antes de este día. Para un vencimiento, el de hoy."
+      },
+      {
+        "name": "max",
+        "type": "string",
+        "required": false,
+        "doc": "Nada después de este día."
+      },
+      {
+        "name": "placeholder",
+        "type": "string",
+        "required": false,
+        "def": "'Elegir fecha'",
+        "doc": "Lo que dice el campo mientras no hay fecha."
+      },
+      {
+        "name": "label",
+        "type": "string",
+        "required": false,
+        "doc": "De qué es la fecha. Sin esto lo pone el `Field` de alrededor."
+      },
+      {
+        "name": "width",
+        "type": "number",
+        "required": false,
+        "doc": "Sin esto toma el ancho del contenido."
+      }
+    ],
+    "doc": "Elegir una fecha: un campo que abre un mes."
+  },
   "Divider": {
     "props": [
       {
@@ -682,6 +878,13 @@ export const propsByComponent: Record<string, ComponentDoc> = {
         "required": false,
         "def": "220",
         "doc": "El ancho del panel en px."
+      },
+      {
+        "name": "label",
+        "type": "string",
+        "required": false,
+        "def": "'Opciones'",
+        "doc": "Qué menú es, para quien lo escucha. Por defecto, «Opciones»."
       }
     ],
     "doc": "El menú de opciones escrito como lista, que es lo más corto cuando el menú no tiene nada raro: cuatro filas con su icono y su acción."
@@ -821,6 +1024,48 @@ export const propsByComponent: Record<string, ComponentDoc> = {
     ],
     "html": "fieldset",
     "doc": "Varios campos, uno debajo del otro, con el aire del sistema."
+  },
+  "Figure": {
+    "props": [
+      {
+        "name": "src",
+        "type": "string",
+        "required": true,
+        "doc": "El archivo."
+      },
+      {
+        "name": "alt",
+        "type": "string",
+        "required": true,
+        "doc": "Qué se ve, para quien no la ve. No es el epígrafe: si la imagen no aporta nada que el texto no diga, va vacío y la imagen queda decorativa."
+      },
+      {
+        "name": "caption",
+        "type": "ReactNode",
+        "required": false,
+        "doc": "Lo que se lee abajo, para todo el mundo. Agrega algo que la imagen no dice sola: de dónde salió, qué hay que mirar."
+      },
+      {
+        "name": "ratio",
+        "type": "'16/9' | '4/3' | '1/1' | '3/2'",
+        "required": false,
+        "def": "'4/3'",
+        "doc": "La proporción del hueco. Sin esto, la imagen manda y la página salta cuando carga."
+      },
+      {
+        "name": "fit",
+        "type": "'cover' | 'contain'",
+        "required": false,
+        "def": "'cover'",
+        "doc": "`cover` llena el hueco y recorta lo que sobra: va para una foto, donde el borde no importa. `contain` entra entera: va para un dibujo o un diagrama, donde recortar se lleva justo lo que hay que ver."
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "required": false
+      }
+    ],
+    "doc": "Una imagen con su pie: lo que ilustra una consigna, una foto de un experimento, el gráfico que alguien dibujó a mano."
   },
   "FilterBar": {
     "props": [],
@@ -1147,12 +1392,52 @@ export const propsByComponent: Record<string, ComponentDoc> = {
       }
     ]
   },
+  "Mention": {
+    "props": [
+      {
+        "name": "name",
+        "type": "string",
+        "required": true,
+        "doc": "Lo que se lee: el nombre de la persona o del espacio."
+      },
+      {
+        "name": "src",
+        "type": "string",
+        "required": false,
+        "doc": "La foto, para una persona. Sin ella se dibuja la inicial sobre su color."
+      },
+      {
+        "name": "icon",
+        "type": "IconName",
+        "required": false,
+        "doc": "El glifo, para lo que no es una persona: un espacio, una actividad."
+      },
+      {
+        "name": "href",
+        "type": "string",
+        "required": false,
+        "doc": "Adónde lleva. Sin esto es texto y no un enlace."
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "required": false
+      }
+    ],
+    "doc": "Una referencia adentro del texto: quién o qué. Va en el renglón, no lo interrumpe."
+  },
   "Menu": {
     "props": [
       {
         "name": "children",
         "type": "ReactNode",
         "required": true
+      },
+      {
+        "name": "label",
+        "type": "string",
+        "required": false,
+        "doc": "Qué menú es. Sin esto un lector lo anuncia como «menú» y nada más, y con dos abiertos en una pantalla no se distinguen."
       },
       {
         "name": "width",
@@ -1544,6 +1829,33 @@ export const propsByComponent: Record<string, ComponentDoc> = {
     "html": "div",
     "doc": "Cuánto de algo va hecho. La pista es el resto, no un segundo dato."
   },
+  "Quote": {
+    "props": [
+      {
+        "name": "children",
+        "type": "ReactNode",
+        "required": true
+      },
+      {
+        "name": "source",
+        "type": "ReactNode",
+        "required": false,
+        "doc": "Quién lo dijo o de dónde salió. Va abajo, en gris y más chico."
+      },
+      {
+        "name": "cite",
+        "type": "string",
+        "required": false,
+        "doc": "La dirección de donde se sacó. Con esto, la cita lo declara en el markup además de escribirlo."
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "required": false
+      }
+    ],
+    "doc": "Palabras de otro: lo que dijo alguien, un fragmento de un texto, la respuesta de un estudiante."
+  },
   "Radio": {
     "props": [
       {
@@ -1624,6 +1936,56 @@ export const propsByComponent: Record<string, ComponentDoc> = {
       }
     ],
     "doc": "El grupo va suelto: las opciones sobre el papel, cada una con su etiqueta al lado."
+  },
+  "Reorder": {
+    "props": [
+      {
+        "name": "items",
+        "type": "T[]",
+        "required": true,
+        "doc": "En el orden actual."
+      },
+      {
+        "name": "onReorder",
+        "type": "(items: T[]) => void",
+        "required": true,
+        "doc": "Recibe la lista entera en el orden nuevo."
+      },
+      {
+        "name": "label",
+        "type": "string",
+        "required": true,
+        "doc": "De qué es la lista. Sin esto un lector dice «lista» y nada más."
+      },
+      {
+        "name": "children",
+        "type": "(item: T, i: number) => ReactNode",
+        "required": true,
+        "doc": "Lo que va adentro de cada fila, a la derecha de la manija."
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "required": false
+      }
+    ],
+    "doc": "Una lista que se reordena: los bloques de una consigna, las etapas de una entrega."
+  },
+  "ReorderItem": {
+    "props": [
+      {
+        "name": "id",
+        "type": "string",
+        "required": true,
+        "doc": "Único en la lista: es lo que vuelve en el orden nuevo."
+      },
+      {
+        "name": "label",
+        "type": "string",
+        "required": true,
+        "doc": "Cómo se llama esta fila cuando se la anuncia al moverla."
+      }
+    ]
   },
   "Row": {
     "props": [
@@ -1958,6 +2320,113 @@ export const propsByComponent: Record<string, ComponentDoc> = {
     ],
     "doc": "Pista completa más un arco encima."
   },
+  "Stepper": {
+    "props": [
+      {
+        "name": "value",
+        "type": "number",
+        "required": true,
+        "doc": "El número."
+      },
+      {
+        "name": "onChange",
+        "type": "(v: number) => void",
+        "required": true,
+        "doc": "Recibe el número nuevo, siempre dentro de `min` y `max`."
+      },
+      {
+        "name": "min",
+        "type": "number",
+        "required": false,
+        "def": "0"
+      },
+      {
+        "name": "max",
+        "type": "number",
+        "required": false,
+        "def": "99"
+      },
+      {
+        "name": "step",
+        "type": "number",
+        "required": false,
+        "def": "1",
+        "doc": "Cuánto suben las flechas y los botones."
+      },
+      {
+        "name": "salto",
+        "type": "number",
+        "required": false,
+        "def": "10",
+        "doc": "Cuánto suben Re Pág y Av Pág: para llegar lejos sin apretar veinte veces."
+      },
+      {
+        "name": "label",
+        "type": "string",
+        "required": false,
+        "doc": "De qué es el número. Sin esto lo pone el `Field` de alrededor."
+      },
+      {
+        "name": "suffix",
+        "type": "string",
+        "required": false,
+        "doc": "Lo que va después del número: «min», «pts». No se escribe ni se lee aparte."
+      },
+      {
+        "name": "disabled",
+        "type": "boolean",
+        "required": false
+      },
+      {
+        "name": "width",
+        "type": "number",
+        "required": false,
+        "def": "132"
+      }
+    ],
+    "doc": "Un número chico que se sube y se baja: cuántos intentos, cuántas preguntas, una nota."
+  },
+  "Steps": {
+    "props": [
+      {
+        "name": "steps",
+        "type": "Step[]",
+        "required": true,
+        "doc": "En orden."
+      },
+      {
+        "name": "current",
+        "type": "number",
+        "required": true,
+        "doc": "El índice de la que se está haciendo. Las anteriores quedan hechas."
+      },
+      {
+        "name": "label",
+        "type": "string",
+        "required": true,
+        "doc": "Qué es esta secuencia. Sin esto, un lector la anuncia como una lista suelta."
+      },
+      {
+        "name": "orientation",
+        "type": "'horizontal' | 'vertical'",
+        "required": false,
+        "def": "'horizontal'",
+        "doc": "Parada, deja lugar para el texto de cada etapa; acostada entra en una franja."
+      },
+      {
+        "name": "onSelect",
+        "type": "(i: number) => void",
+        "required": false,
+        "doc": "Recibe el índice. Sin esto las etapas no se tocan: son un indicador y no una navegación."
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "required": false
+      }
+    ],
+    "doc": "Por dónde va algo que tiene etapas: una actividad en partes, un proceso de diseño, un formulario largo."
+  },
   "Switch": {
     "props": [
       {
@@ -1999,6 +2468,12 @@ export const propsByComponent: Record<string, ComponentDoc> = {
         "name": "children",
         "type": "ReactNode",
         "required": true
+      },
+      {
+        "name": "label",
+        "type": "string",
+        "required": false,
+        "doc": "De qué es la tabla. Cuando scrollea se vuelve una región enfocable, y dos regiones que se llaman igual se leen como una sola."
       },
       {
         "name": "minWidth",
@@ -2180,7 +2655,14 @@ export const propsByComponent: Record<string, ComponentDoc> = {
     "doc": "Paneles hermanos donde solo se ve uno. Controlado o no, como el resto."
   },
   "TabList": {
-    "props": [],
+    "props": [
+      {
+        "name": "label",
+        "type": "string",
+        "required": false,
+        "doc": "De qué son estas solapas. Sin esto un lector las anuncia como «lista de solapas» y con dos en una pantalla no se distinguen."
+      }
+    ],
     "html": "div",
     "doc": "La fila de solapas. Las flechas se mueven entre ellas, como pide un tablist."
   },
@@ -2207,6 +2689,40 @@ export const propsByComponent: Record<string, ComponentDoc> = {
     ],
     "html": "div",
     "doc": "El contenido de una solapa."
+  },
+  "TaskList": {
+    "props": [
+      {
+        "name": "items",
+        "type": "Task[]",
+        "required": true,
+        "doc": "En el orden en que van."
+      },
+      {
+        "name": "onToggle",
+        "type": "(id: string, done: boolean) => void",
+        "required": true,
+        "doc": "Recibe el id y si quedó hecha."
+      },
+      {
+        "name": "label",
+        "type": "string",
+        "required": true,
+        "doc": "De qué es la lista. Sin esto un lector anuncia «lista, cuatro elementos» y nada más."
+      },
+      {
+        "name": "readOnly",
+        "type": "boolean",
+        "required": false,
+        "doc": "Apagada se lee y no se toca: la consigna de otro, una entrega ya cerrada."
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "required": false
+      }
+    ],
+    "doc": "Cosas para hacer, que se marcan al hacerlas: los pasos de una entrega, lo que falta de una actividad."
   },
   "TextField": {
     "props": [
@@ -2321,6 +2837,59 @@ export const propsByComponent: Record<string, ComponentDoc> = {
     ],
     "doc": "Lo que recibe `toast()`."
   },
+  "Toolbar": {
+    "props": [
+      {
+        "name": "label",
+        "type": "string",
+        "required": true,
+        "doc": "Qué controla esta barra. Dos barras sin nombre en una pantalla se leen como una sola."
+      },
+      {
+        "name": "children",
+        "type": "ReactNode",
+        "required": true
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "required": false
+      }
+    ],
+    "doc": "La barra de herramientas: una sola parada de tabulación y flechas adentro, como manda un `toolbar`."
+  },
+  "ToolbarButton": {
+    "props": [
+      {
+        "name": "icon",
+        "type": "IconName",
+        "required": true
+      },
+      {
+        "name": "label",
+        "type": "string",
+        "required": true,
+        "doc": "Sin esto el botón no dice nada: adentro solo hay un glifo."
+      },
+      {
+        "name": "pressed",
+        "type": "boolean",
+        "required": false,
+        "doc": "Presente lo vuelve un interruptor. Ausente es una acción que pasa y no queda."
+      },
+      {
+        "name": "disabled",
+        "type": "boolean",
+        "required": false
+      },
+      {
+        "name": "onClick",
+        "type": "() => void",
+        "required": false
+      }
+    ],
+    "doc": "Un botón de la barra. Con `pressed` es un interruptor y lo dice: «negrita, activado»."
+  },
   "Tooltip": {
     "props": [
       {
@@ -2351,5 +2920,51 @@ export const propsByComponent: Record<string, ComponentDoc> = {
       }
     ],
     "doc": "La etiqueta que dice qué hace un control que no lo dice solo: un icono suelto, un valor truncado, una acción con una consecuencia que conviene aclarar."
+  },
+  "Tree": {
+    "props": [
+      {
+        "name": "nodes",
+        "type": "TreeNode[]",
+        "required": true,
+        "doc": "Las ramas de arriba. Cada una puede traer `children`."
+      },
+      {
+        "name": "label",
+        "type": "string",
+        "required": true,
+        "doc": "De qué es el árbol. Sin esto un lector dice «árbol» y nada más."
+      },
+      {
+        "name": "expanded",
+        "type": "string[]",
+        "required": false,
+        "doc": "Los ids abiertos. Sin esto el árbol los maneja solo."
+      },
+      {
+        "name": "onExpandedChange",
+        "type": "(ids: string[]) => void",
+        "required": false,
+        "doc": "Recibe la lista nueva de ids abiertos."
+      },
+      {
+        "name": "selected",
+        "type": "string",
+        "required": false,
+        "doc": "El id elegido."
+      },
+      {
+        "name": "onSelect",
+        "type": "(id: string) => void",
+        "required": false,
+        "doc": "Recibe el id al elegir con Enter, espacio o el mouse."
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "required": false
+      }
+    ],
+    "doc": "Una jerarquía que se abre y se cierra: los espacios de alguien, el índice de un documento."
   }
 }

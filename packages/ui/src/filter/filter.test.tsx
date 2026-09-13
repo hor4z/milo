@@ -40,7 +40,6 @@ describe('Filter', () => {
     )
     await userEvent.click(screen.getByRole('button', { name: 'Estado' }))
     expect(screen.getByRole('checkbox', { name: 'Abierta, 4' })).toBeInTheDocument()
-    // El texto de al lado es el mismo y no se anuncia de nuevo.
     expect(screen.queryAllByText('Abierta')).toHaveLength(1)
     expect(screen.getByText('Abierta')).toHaveAttribute('aria-hidden', 'true')
   })

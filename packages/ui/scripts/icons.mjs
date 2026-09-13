@@ -205,10 +205,17 @@ function check() {
     for (const re of [/\bicon(?:End)?=["']([a-z0-9_]+)["']/g, /\bname=["']([a-z0-9_]+)["']/g, /\bicon:\s*'([a-z0-9_]+)'/g]) {
       for (const mm of src.matchAll(re)) usados.add(mm[1])
     }
-    // Un mapa tipado `Record<…, IconName>` también son usos: los glifos están
-    // del lado de los valores y ninguna de las formas de arriba los ve.
-    for (const mapa of src.matchAll(/Record<[^>]*IconName>\s*=\s*\{([^}]*)\}/g)) {
-      for (const mm of mapa[1].matchAll(/'([a-z0-9_]+)'/g)) usados.add(mm[1])
+    // Y cualquier string suelto que coincida con un nombre del manifiesto. Las
+    // formas de arriba son precisas y por eso se perdían los usos que no tienen
+    // esa forma: un ternario —`icon={oscuro ? 'light_mode' : 'dark_mode'}`—, el
+    // valor de un `Record<…, IconName>`, un dato en un array. Los cuatro de ese
+    // ejemplo se reportaban sin uso y estaban en uso.
+    //
+    // Esto cuenta de más —un `'search'` que no sea un icono también entra— y
+    // está bien que así sea: equivocarse para el otro lado significa borrar del
+    // set un glifo que alguien está dibujando.
+    for (const mm of src.matchAll(/['"`]([a-z][a-z0-9_]{2,})['"`]/g)) {
+      if (enManifiesto.has(mm[1])) usados.add(mm[1])
     }
   }
   const faltantes = [...usados].filter(n => !enManifiesto.has(n) && catalog().has(n)).sort()

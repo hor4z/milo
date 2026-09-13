@@ -14,7 +14,7 @@ export function AvatarStory() {
     >
       <Section
         title="Sin foto"
-        note="Círculo pastel con relieve y la inicial en el mismo tono varios pasos más oscuro: es la familia de las marcas de una fila de lista, no la familia viva. Se cambió después de medirlo — la inicial sobre pastel se lee mejor que el blanco sobre relleno vivo (4.51:1 contra su propio disco, contra 3.78:1), y a cambio el avatar deja de gritarle al texto de al lado, que es el problema real de una fila con cinco. Lo que se pierde es presencia del disco: 1.91:1 contra el papel donde el vivo daba 3.68:1. El tono sale del nombre y no de un random: si saliera de un random, la misma persona cambiaría de color en cada render y el color dejaría de identificar a nadie."
+        note="Círculo pastel con la inicial en el mismo tono: es la familia de las marcas de fila, no la viva. Medido, la inicial sobre pastel se lee mejor que el blanco sobre relleno vivo —los cinco pares pasan de 4.5:1 y el blanco sobre el vivo no llega a 3.8:1 en ninguno— y deja de gritarle al texto de al lado. El tono sale del nombre: de un random, la misma persona cambiaría de color en cada render."
       >
         <Demo>
           <Avatar name="Horacio Rivero" size={24} />
@@ -41,7 +41,7 @@ export function AvatarStory() {
 
       <Section
         title="El grupo"
-        note="Se montan un tercio de su tamaño y cada uno lleva un anillo del color del fondo de atrás: sin el anillo, dos vecinos de tonos parecidos se leen como una mancha sola en vez de como dos personas. Tres caras como máximo y el resto en un círculo neutro — un «+4» no identifica a nadie, así que no va en la familia viva de las etiquetas, que es la de identificar."
+        note="Se montan un tercio y cada uno lleva un anillo del color del fondo de atrás: sin él, dos vecinos de tonos parecidos se leen como una mancha sola y no como dos personas. Tres caras y el resto en un círculo neutro — un «+4» no identifica a nadie."
       >
         <Demo label="todos con foto">
           <AvatarGroup people={[person('Ana Pérez', 1), person('Bruno Díaz', 2), person('Carla Sosa', 3), person('Damián Ruiz', 4), person('Elena Vega', 5)]} />

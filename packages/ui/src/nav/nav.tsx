@@ -11,7 +11,6 @@ export function navItemClass({
     'flex h-10 items-center gap-3 rounded-lg text-left text-body',
     'transition-[background-color,box-shadow] duration-fast ease-out',
     collapsed ? 'justify-center px-0' : 'pr-3 pl-[calc((var(--nav-item-h)-34px)/2)]',
-    // Orientación va en azul; preferencia, en relieve. La regla está en CLAUDE.md.
     active
       ? 'bg-brand-soft font-semibold text-brand-ink shadow-[0_0_0_1px_var(--brand-border)]'
       : muted
@@ -43,7 +42,7 @@ export function NavItemBody({
       <span className="flex size-[34px] shrink-0 items-center justify-center">
         <span
           className={cx(
-            'flex size-[26px] items-center justify-center rounded-md transition-[background-color,box-shadow] duration-fast',
+            'flex size-[26px] items-center justify-center rounded-md transition-[background-color,box-shadow] ease-out duration-fast',
             active && chip && 'bg-surface shadow-[0_0_0_1px_var(--border)]',
           )}
         >
@@ -64,7 +63,6 @@ export function NavItemBody({
 
 /** La sangría de los subitems: la columna del texto del padre, no un valor nuevo. */
 export function navSubItemClass({ active }: { active?: boolean } = {}) {
-  // El inactivo va en tinta: en gris, una lista de siete se lee deshabilitada.
   return cx(
     'flex h-9 items-center rounded-lg pr-3 pl-12 text-left text-body',
     'transition-[background-color,box-shadow] duration-fast ease-out',

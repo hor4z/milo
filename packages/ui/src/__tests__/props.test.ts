@@ -8,8 +8,6 @@ const root = join(import.meta.dirname, '../..')
 
 describe('la tabla de props sale del código', () => {
   it('props.gen.ts está al día', () => {
-    // El script escribe lo mismo que ya está o falla: así la tabla del kit no
-    // puede quedar diciendo una prop que la pieza ya no tiene.
     expect(() => execFileSync('node', ['scripts/props.mjs', '--check'], { cwd: root, stdio: 'pipe' })).not.toThrow()
   })
 

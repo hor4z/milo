@@ -3,16 +3,18 @@ import { Icon } from '../icon/icon'
 import { cx } from '../lib/cx'
 
 type BreadcrumbProps = ComponentPropsWithoutRef<'nav'> & {
+  /** El nombre de la ruta. Dos `nav` con el mismo nombre en una pantalla se leen como uno solo, así que con más de una hay que distinguirlas. */
+  label?: string
   /** De la raíz hasta acá. El último es dónde estás. */
   items: { label: string; href?: string; onClick?: () => void }[]
 }
 
-const step = 'truncate rounded-sm text-body font-medium text-ink-muted transition-colors hover:text-ink'
+const step = 'truncate rounded-sm text-body font-medium text-ink-muted transition-colors duration-fast ease-out hover:text-ink'
 
 /** Dónde estás parado y cómo volver. */
-export function Breadcrumb({ items, className, ...props }: BreadcrumbProps) {
+export function Breadcrumb({ items, label = 'Ruta', className, ...props }: BreadcrumbProps) {
   return (
-    <nav aria-label="Ruta" className={cx('flex min-w-0 items-center gap-1', className)} {...props}>
+    <nav aria-label={label} className={cx('flex min-w-0 items-center gap-1', className)} {...props}>
       <ol className="flex min-w-0 items-center gap-1">
         {items.map((it, i) => {
           const last = i === items.length - 1

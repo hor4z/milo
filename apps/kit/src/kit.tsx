@@ -1,12 +1,9 @@
-import { useEffect, useState, type ReactNode } from 'react'
+import { Children, useEffect, useState, type ReactNode } from 'react'
 import { Badge, Icon, cx, type IconName } from '@milo/ui'
 import { propsByComponent } from '@milo/ui/props'
 
 export function useTokens(names: readonly string[]) {
   const [vals, setVals] = useState<Record<string, string>>({})
-  // La dependencia es el contenido y no el arreglo: con la identidad, un
-  // `useTokens(['--x'])` escrito inline arma uno nuevo en cada render y el
-  // effect se vuelve a disparar para siempre.
   const key = names.join('|')
 
   useEffect(() => {
@@ -25,8 +22,8 @@ export function useTokens(names: readonly string[]) {
   return vals
 }
 
-// Dos marcas y ninguna más: con tres, las notas pasan a ser markdown a medias.
-function Rich({ text }: { text: string }) {
+/** El texto del sitio: los backticks salen como código y `**` como énfasis. */
+export function Rich({ text }: { text: string }) {
   const parts = text.split(/(`[^`]+`|\*\*[^*]+\*\*)/g)
   return (
     <>
@@ -80,13 +77,13 @@ export function Code({ children }: { children: string }) {
         setCopied(true)
         setTimeout(() => setCopied(false), 1400)
       }}
-      className="group inline-flex max-w-full items-center gap-2 self-start rounded-lg border border-line bg-muted py-2 pr-2 pl-3 text-left transition-colors hover:bg-sunken"
+      className="group inline-flex h-8 max-w-full items-center gap-2 self-start rounded-lg border border-line bg-muted pr-2 pl-3 text-left transition-colors duration-fast ease-out hover:bg-sunken"
     >
       <code className="truncate font-mono text-meta text-ink">{children}</code>
       <Icon
         name={copied ? 'check' : 'content_copy'}
         size={14}
-        className="icon-muted shrink-0 transition-colors group-hover:text-ink"
+        className="icon-muted shrink-0 transition-colors duration-fast ease-out group-hover:text-ink"
       />
       <span className="sr-only">{copied ? 'Copiado' : 'Copiar'}</span>
     </button>
@@ -98,7 +95,7 @@ export function Section({ title, note, children }: { title: string; note?: strin
   return (
     <section className="flex flex-col gap-4">
       <div className="flex flex-col gap-2">
-        <h2 className="text-title font-semibold text-ink">{title}</h2>
+        <h2 className="text-title font-semibold text-ink"><Rich text={title} /></h2>
         {note && <p className="max-w-[72ch] text-body font-medium text-ink-muted"><Rich text={note} /></p>}
       </div>
       {children}
@@ -111,9 +108,6 @@ export function Canvas({ children, className, pad = true }: { children: ReactNod
   return (
     <div
       className={cx(
-        // El lienzo va en papel y no en `bg-muted`: con el hueco puesto acá, un
-        // botón `muted` quedaba del mismo tono que su propio fondo. Y en 16 como
-        // la `Card`: el mueble del kit se dibuja con las reglas del sistema.
         'relative overflow-hidden rounded-xl border border-line bg-surface',
         pad && 'p-6',
         className,
@@ -129,7 +123,7 @@ export function Demo({ label, children, className }: { label?: string; children:
   return (
     <div className="flex min-w-0 flex-col gap-2">
       <Canvas className={cx('flex min-h-[92px] items-center justify-center', className)}>{children}</Canvas>
-      {label && <div className="px-0.5 text-meta font-medium text-ink-muted">{label}</div>}
+      {label && <div className="px-0.5 text-meta font-medium text-ink-muted"><Rich text={label} /></div>}
     </div>
   )
 }
@@ -235,8 +229,10 @@ export function Note({ icon = 'lightbulb', title, children }: { icon?: IconName;
     <div className="flex gap-3 rounded-xl border border-line bg-surface p-4">
       <Icon name={icon} size={18} className="icon-muted mt-px shrink-0" />
       <div className="flex min-w-0 flex-col gap-1">
-        {title && <p className="text-body font-semibold text-ink">{title}</p>}
-        <div className="max-w-[70ch] text-body font-medium text-ink-muted">{children}</div>
+        {title && <p className="text-body font-semibold text-ink"><Rich text={title} /></p>}
+        <div className="max-w-[70ch] text-body font-medium text-ink-muted">
+          {Children.map(children, c => (typeof c === 'string' ? <Rich text={c} /> : c))}
+        </div>
       </div>
     </div>
   )

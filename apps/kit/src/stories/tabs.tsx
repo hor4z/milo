@@ -11,11 +11,11 @@ export function TabsStory() {
     >
       <Section
         title="Cómo se arma"
-        note="El activo se marca con la línea **y** con el azul: unas solapas dicen dónde estás dentro de una pantalla, y eso es orientación. Un `Segmented` se le parece y no lleva azul, porque ahí lo que se elige es un filtro — una decisión que cambia diez veces por minuto y no un lugar donde estás parado. `value` ata cada solapa con su panel, y es lo mismo que un lector de pantalla usa para decir cuál de los tres estás leyendo."
+        note="El activo se marca con la línea **y** con el azul: unas solapas dicen dónde estás, y eso es orientación. Un `Segmented` se le parece y no lleva azul, porque ahí se elige un filtro —una decisión que cambia diez veces por minuto— y no un lugar donde estás parado."
       >
         <Canvas>
           <Tabs defaultValue="entregas">
-            <TabList>
+            <TabList label="Secciones de la actividad">
               <Tab value="entregas">Entregas</Tab>
               <Tab value="rubrica">Rúbrica</Tab>
               <Tab value="ajustes">Ajustes</Tab>
@@ -39,7 +39,7 @@ export function TabsStory() {
       >
         <Canvas>
           <Tabs defaultValue="semana" onValueChange={() => {}}>
-            <TabList>
+            <TabList label="Rango del panel">
               <Tab value="semana">Esta semana</Tab>
               <Tab value="mes">Este mes</Tab>
               <Tab value="todo">Todo</Tab>

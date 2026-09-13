@@ -56,7 +56,7 @@ export function PrefsProvider({ children }: { children: ReactNode }) {
   const [prefs, setPrefs] = useState<Prefs>(read)
 
   useEffect(() => {
-    try { localStorage.setItem(KEY, JSON.stringify(prefs)) } catch { /* ventana privada */ }
+    try { localStorage.setItem(KEY, JSON.stringify(prefs)) } catch {}
   }, [prefs])
 
   useEffect(() => {

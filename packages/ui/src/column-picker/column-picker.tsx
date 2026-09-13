@@ -44,7 +44,7 @@ export function ColumnPicker({ columns, value, onValueChange, label = 'Columnas'
             <label
               key={c.id}
               className={cx(
-                'flex h-9 items-center gap-2 rounded-lg px-2 transition-colors',
+                'flex h-9 items-center gap-2 rounded-lg px-2 transition-colors duration-fast ease-out',
                 c.locked ? 'cursor-default opacity-45' : 'cursor-pointer hover:bg-hover',
               )}
             >

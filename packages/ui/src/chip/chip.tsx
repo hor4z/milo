@@ -29,13 +29,9 @@ export function Chip({
       : color
         ? labelSoft[color]
         : 'bg-muted text-ink',
-    // Sin `brightness` sobre un chip de color: las doce tintas están ancladas a
-    // 4.6:1 sobre su propio fondo, y filtrar los dos juntos las deja en 4.46.
-    // El anillo dice lo mismo y no toca ningún color.
     onClick && !active && (color ? 'hover:ring-2 hover:ring-current/25' : 'hover:bg-sunken'),
   )
 
-  // Sin clase de color: heredan el del texto y se apagan con él cuando va activo.
   const mark = dot
     ? <span aria-hidden="true" className="size-1.5 shrink-0 rounded-full bg-current" />
     : icon
@@ -48,9 +44,6 @@ export function Chip({
     </button>
   )
 
-  // Un chip que se toca y se saca son dos acciones, así que son dos botones
-  // hermanos y no uno adentro del otro: anidados, el HTML es inválido y tocar
-  // la cruz dispara también el click del chip.
   if (onClick && onRemove) {
     return (
       <span className={cx(box, 'pr-2')}>

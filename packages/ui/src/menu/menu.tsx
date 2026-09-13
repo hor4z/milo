@@ -4,16 +4,16 @@ import { Kbd } from '../kbd/kbd'
 import { Icon, type IconName } from '../icon/icon'
 
 /** El menú, en piezas. */
-export function Menu({ children, width, className }: {
+export function Menu({ children, label, width, className }: {
   children: ReactNode
+  /** Qué menú es. Sin esto un lector lo anuncia como «menú» y nada más, y con dos abiertos en una pantalla no se distinguen. */
+  label?: string
   /** Opcional: sin él, el panel mide lo que su contenido. */
   width?: number
   className?: string
 }) {
   const box = useRef<HTMLDivElement>(null)
 
-  // Un `role="menu"` promete flechas. Sin esto, las prometía y no las traía:
-  // se recorría con Tab, que es lo que un menú justamente no hace.
   const move = (e: KeyboardEvent<HTMLDivElement>) => {
     const step = e.key === 'ArrowDown' ? 1 : e.key === 'ArrowUp' ? -1 : 0
     const edge = e.key === 'Home' ? 0 : e.key === 'End' ? -1 : null
@@ -30,6 +30,7 @@ export function Menu({ children, width, className }: {
     <div
       ref={box}
       role="menu"
+      aria-label={label}
       onKeyDown={move}
       style={width ? { width } : undefined}
       className={cx(
@@ -75,7 +76,7 @@ export function MenuItem({
       onClick={onSelect}
       className={cx(
         'flex h-10 w-full items-center gap-4 rounded-lg px-2 text-left text-body',
-        'transition-colors duration-fast',
+        'transition-colors ease-out duration-fast',
         'disabled:pointer-events-none disabled:opacity-45',
         danger ? 'text-bad-ink hover:bg-bad-subtle' : 'text-ink hover:bg-hover',
         className,

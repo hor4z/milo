@@ -21,7 +21,6 @@ type Estado = 'cargando' | 'listo' | 'error'
 /** El alto de la onda. No sale de la escalera de controles: eso mide botones, y esto es un gráfico que hay que poder leer. */
 const onda = { sm: 'h-8', md: 'h-10', lg: 'h-12' } as const
 
-// Dos audios encimados no se entienden, así que el que arranca pausa al resto.
 const abiertos = new Set<HTMLAudioElement>()
 
 /** La onda. Cada barra es un pico del archivo; las que quedaron atrás van en el color de marca. */
@@ -29,14 +28,11 @@ function Onda({ peaks, avance }: { peaks: readonly number[]; avance: number }) {
   return (
     <span aria-hidden className="pointer-events-none absolute inset-0 flex items-stretch overflow-hidden">
       {peaks.map((p, i) => (
-        // El hueco es una fracción del lugar de cada barra y no un `gap` de
-        // píxeles: con un gap fijo, sesenta huecos no entran en un contenedor
-        // angosto y la fila se desborda.
         <span key={i} className="flex flex-1 items-center justify-center">
           <span
             className={cx(
               'w-1/2 rounded-full transition-colors duration-fast ease-out',
-              i / peaks.length < avance ? 'bg-brand' : 'bg-line-strong',
+              i / peaks.length < avance ? 'bg-chart-fill' : 'bg-line-strong',
             )}
             style={{ height: `${Math.max(p, 0.04) * 100}%`, minHeight: 2 }}
           />
@@ -50,7 +46,7 @@ function Onda({ peaks, avance }: { peaks: readonly number[]; avance: number }) {
 function Pista({ avance }: { avance: number }) {
   return (
     <span aria-hidden className="pointer-events-none absolute inset-x-0 top-1/2 h-1 -translate-y-1/2 rounded-full bg-line-strong">
-      <span className="absolute inset-y-0 left-0 rounded-full bg-brand" style={{ width: `${avance * 100}%` }} />
+      <span className="absolute inset-y-0 left-0 rounded-full bg-chart-fill" style={{ width: `${avance * 100}%` }} />
     </span>
   )
 }
@@ -86,23 +82,16 @@ export function AudioPlayer({ src, title, peaks, actions, size = 'md', className
     const el = audio.current
     setSonando(false)
     setT(0)
-    // Un archivo en caché puede tener la duración antes de que React enganche el
-    // evento, y entonces `loadedmetadata` no llega nunca y queda cargando para
-    // siempre. HAVE_METADATA es 1.
     if (el && el.readyState >= 1) return cargado(el)
     setEstado('cargando')
     setDur(0)
   }, [src])
 
-  // El elemento se agarra al montar y no en la limpieza: para entonces React ya
-  // soltó la ref y no habría a quién sacar del registro.
   useEffect(() => {
     const el = audio.current
     return () => { if (el) abiertos.delete(el) }
   }, [])
 
-  // Mientras suena, este es el audio del sistema: el botón del auricular y la
-  // pantalla bloqueada tienen que caer acá. Se sueltan al pausar.
   useEffect(() => {
     const ms = typeof navigator !== 'undefined' && 'mediaSession' in navigator ? navigator.mediaSession : null
     if (!ms || !sonando) return
@@ -126,7 +115,6 @@ export function AudioPlayer({ src, title, peaks, actions, size = 'md', className
     const el = audio.current
     if (!el) return
     if (sonando) return el.pause()
-    // Al final, el play de nuevo vuelve a empezar; si no, no pasa nada y parece roto.
     if (dur && el.currentTime >= dur - 0.05) el.currentTime = 0
     void el.play().catch(() => setEstado('error'))
   }
@@ -170,8 +158,6 @@ export function AudioPlayer({ src, title, peaks, actions, size = 'md', className
 
       {title && <span className="truncate text-body font-medium text-ink">{title}</span>}
 
-      {/* El reloj va en la fila de la onda: con un título arriba, la columna es
-          más alta que el gráfico y quedaba centrado contra ella. */}
       <div className="flex items-center gap-3">
         {estado === 'cargando'
           ? (

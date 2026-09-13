@@ -18,9 +18,6 @@ describe('las vistas del kit', () => {
   })
 
   it('el sitio usa la misma escala que el paquete', () => {
-    // El guardián de `packages/ui` mira solo el paquete y el kit se escapaba. La
-    // única excepción es el tamaño en `em`: el código inline tiene que ser más
-    // chico que la prosa que lo rodea, y eso ningún rol fijo lo expresa.
     const dir = join(import.meta.dirname, '..')
     const walk = (base: string, prefix = ''): string[] =>
       readdirSync(base, { withFileTypes: true }).flatMap(e =>
@@ -30,11 +27,73 @@ describe('las vistas del kit', () => {
       )
 
     const prohibido = /\btext-(2xs|xs|sm|base|md|lg|xl|2xl)\b|text-\[(?![\d.]+em\])|\b(leading|tracking)-(\[|none|tight|normal|snug|relaxed|loose|wide|wider|widest)|\bduration-(\[|\d)/
-    // Lo que va entre backticks es prosa, no clase: sin esto, documentar el
-    // nombre viejo lo reintroduce.
     const offenders = walk(dir)
       .filter(f => prohibido.test(readFileSync(join(dir, f), 'utf8').replace(/`[^`]*`/g, '')))
     expect(offenders).toEqual([])
+  })
+
+  it('el sitio declara la duración y la curva de cada transición', () => {
+    const dir = join(import.meta.dirname, '..')
+    const walk = (base: string, prefix = ''): string[] =>
+      readdirSync(base, { withFileTypes: true }).flatMap(e =>
+        e.isDirectory()
+          ? (e.name === '__tests__' ? [] : walk(join(base, e.name), `${prefix}${e.name}/`))
+          : /\.tsx?$/.test(e.name) ? [`${prefix}${e.name}`] : [],
+      )
+    const offenders: string[] = []
+    for (const f of walk(dir)) {
+      const texto = readFileSync(join(dir, f), 'utf8')
+      for (const m of texto.matchAll(/(['"`])((?:(?!\1)[\s\S])*?\btransition-[\w[\],-]+(?:(?!\1)[\s\S])*?)\1/g)) {
+        const frag = m[2]
+        if (!/\bduration-(fast|normal)\b/.test(frag) || !/\bease-(out|in)\b/.test(frag)) {
+          offenders.push(`${f}: ${/transition-[\w[\],-]+/.exec(frag)?.[0]}`)
+        }
+      }
+    }
+    expect([...new Set(offenders)]).toEqual([])
+  })
+
+  it('el sitio tampoco usa el peso de display fuera del tamaño display', () => {
+    const dir = join(import.meta.dirname, '..')
+    const walk = (base: string, prefix = ''): string[] =>
+      readdirSync(base, { withFileTypes: true }).flatMap(e =>
+        e.isDirectory()
+          ? (e.name === '__tests__' ? [] : walk(join(base, e.name), `${prefix}${e.name}/`))
+          : /\.tsx?$/.test(e.name) ? [`${prefix}${e.name}`] : [],
+      )
+    const offenders: string[] = []
+    for (const f of walk(dir)) {
+      for (const linea of readFileSync(join(dir, f), 'utf8').split('\n')) {
+        if (!/\bfont-bold\b/.test(linea)) continue
+        if (/(['"`])font-bold\1/.test(linea)) continue
+        if (!/\btext-display\b/.test(linea)) offenders.push(`${f}: ${linea.trim().slice(0, 56)}`)
+      }
+    }
+    expect(offenders).toEqual([])
+  })
+
+  it('ninguna demo muestra un control que no responde', () => {
+    const controlados = /^(Select|Search|TextField|Textarea|Slider|Segmented|Checkbox|Radio|Switch)$/
+    const dir = join(import.meta.dirname, '..')
+    const walk = (base: string, prefix = ''): string[] =>
+      readdirSync(base, { withFileTypes: true }).flatMap(e =>
+        e.isDirectory()
+          ? (e.name === '__tests__' ? [] : walk(join(base, e.name), `${prefix}${e.name}/`))
+          : /\.tsx$/.test(e.name) ? [`${prefix}${e.name}`] : [],
+      )
+    const inertes: string[] = []
+    for (const f of walk(dir)) {
+      const texto = readFileSync(join(dir, f), 'utf8')
+      for (const m of texto.matchAll(/<([A-Z]\w+)((?:[^<>]|\{[^{}]*\})*?)\/>/gs)) {
+        const [, nombre, attrs] = m
+        if (!controlados.test(nombre)) continue
+        if (!/\b(value|checked)=/.test(attrs)) continue
+        if (/\bon(Change|ValueChange|Input)=/.test(attrs)) continue
+        if (/\b(loading|disabled|readOnly)\b/.test(attrs)) continue
+        inertes.push(`${f}: <${nombre} ${attrs.trim().slice(0, 40)}`)
+      }
+    }
+    expect(inertes).toEqual([])
   })
 
   it('cada portada dice cómo se importa la pieza', () => {
@@ -102,7 +161,6 @@ describe('los números de la portada', () => {
     const written = files.reduce(
       (n, f) => n + [...readFileSync(f, 'utf8').matchAll(/^\s*it\(/gm)].length, 0)
 
-
     expect(
       announced,
       `la landing dice ${announced} y hay al menos ${written} tests escritos`,
@@ -146,25 +204,14 @@ describe('cobertura del kit', () => {
       }
     }
 
-    const sources = [
-      ...readdirSync(stories).map((f: string) => join(stories, f)),
-      join(import.meta.dirname, '../dashboard.tsx'),
-      join(import.meta.dirname, '../intro.tsx'),
-      join(import.meta.dirname, '../App.tsx'),
-      join(import.meta.dirname, '../main.tsx'),
-      join(import.meta.dirname, '../foundations/principles.tsx'),
-      join(import.meta.dirname, '../foundations/accessibility.tsx'),
-      join(import.meta.dirname, '../foundations/typography.tsx'),
-      join(import.meta.dirname, '../foundations/color.tsx'),
-      join(import.meta.dirname, '../foundations/measure.tsx'),
-      join(import.meta.dirname, '../foundations/relief.tsx'),
-      join(import.meta.dirname, '../foundations/motion.tsx'),
-      join(import.meta.dirname, '../foundations/states.tsx'),
-      join(import.meta.dirname, '../foundations/inclusion.tsx'),
-      join(import.meta.dirname, '../mascots/otto.tsx'),
-      join(import.meta.dirname, '../mascots/amelia.tsx'),
-      join(import.meta.dirname, '../foundations/writing.tsx'),
-    ]
+    const raiz = join(import.meta.dirname, '..')
+    const recorrer = (base: string): string[] =>
+      readdirSync(base, { withFileTypes: true }).flatMap(e =>
+        e.isDirectory()
+          ? (e.name === '__tests__' ? [] : recorrer(join(base, e.name)))
+          : /\.tsx?$/.test(e.name) ? [join(base, e.name)] : [],
+      )
+    const sources = recorrer(raiz)
     const text = sources.map((f: string) => readFileSync(f, 'utf8')).join('\n')
 
     const hidden = [...exported].filter(n => !new RegExp(`<${n}[\\s/>]`).test(text))

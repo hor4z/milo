@@ -62,9 +62,6 @@ export function BarChart({ data, highlight, title, height = 220, className }: {
                   'relative w-full overflow-hidden rounded-xl bg-track',
                   'transition-colors duration-normal ease-out group-hover:bg-transparent',
                   'group-hover:ring-1 group-hover:ring-line-strong group-hover:ring-inset',
-                  // Con el teclado pasa lo mismo que con el mouse: la barra no
-                  // lleva anillo de foco —se decidió así— así que lo que avisa
-                  // dónde estás parado es la trama y el canto, más el globo.
                   'group-focus-visible:bg-transparent group-focus-visible:ring-1',
                   'group-focus-visible:ring-line-strong group-focus-visible:ring-inset',
                 )}
@@ -77,7 +74,7 @@ export function BarChart({ data, highlight, title, height = 220, className }: {
                   <rect width="100%" height="100%" fill={`url(#${hatchId})`} />
                 </svg>
                 <span
-                  className="absolute inset-x-0 bottom-0 rounded-xl bg-brand"
+                  className="absolute inset-x-0 bottom-0 rounded-xl bg-chart-fill"
                   style={{ height: `${donePct}%` }}
                 />
               </span>
@@ -100,8 +97,8 @@ export function BarChart({ data, highlight, title, height = 220, className }: {
           <div
             key={i}
             className={cx(
-              'flex-1 text-center text-body text-ink transition-[font-weight]',
-              i === hover || i === focused || i === highlight ? 'font-bold' : 'font-semibold',
+              'flex-1 text-center text-body text-ink transition-[font-weight] duration-fast ease-out',
+              i === hover || i === focused || i === highlight ? 'font-semibold' : 'font-medium',
             )}
           >
             {d.label}
@@ -143,8 +140,8 @@ function ChartTooltip({ datum, style, align = 'center', clamped }: {
       style={style}
     >
       <div className="flex items-center gap-2">
-        <span className="h-3 w-[3px] shrink-0 rounded-full bg-brand" />
-        <span className="tabular text-reading font-bold text-ink">{datum.value}</span>
+        <span className="h-3 w-[3px] shrink-0 rounded-full bg-chart-fill" />
+        <span className="tabular text-reading font-semibold text-ink">{datum.value}</span>
         <span className="tabular text-meta font-medium text-ink-muted">de {datum.total}</span>
         {datum.detail}
       </div>

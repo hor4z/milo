@@ -34,7 +34,6 @@ export function Textarea({
 
   useLayoutEffect(measure, [measure, value, rows])
 
-  // Sin esto, angostar la ventana o el swap de la fuente deja texto cortado y sin scroll.
   useEffect(() => {
     const el = ref.current
     if (!el || resize !== 'auto' || typeof ResizeObserver === 'undefined') return

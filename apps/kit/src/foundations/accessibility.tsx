@@ -6,7 +6,7 @@ const reglas = [
   {
     icon: 'contrast',
     title: 'El contraste se mide, no se estima',
-    body: 'AA —4.5:1— para todo lo que sea texto, en los dos temas. No es una intención: hay veintinueve tests que leen los tokens y calculan el ratio, y fallan antes de que un tono roto llegue a una pantalla.',
+    body: 'AA —4.5:1— para todo lo que sea texto, en los dos temas. No es una intención: hay cincuenta y un tests que leen los tokens y calculan el ratio, y fallan antes de que un tono roto llegue a una pantalla. AAA queda afuera a propósito, y abajo está la cuenta.',
   },
   {
     icon: 'keyboard',
@@ -157,6 +157,40 @@ export function AccessibilitySection() {
         son el escalón donde el blanco encima llega exactamente a 4.5:1, derivado por búsqueda en
         OKLCH y no elegido mirando. El degradado del azul va de 600 a 700, así que pasa de punta a
         punta y no solo en la mitad de abajo. Hay un test que lo mide en los dos temas.
+      </Note>
+
+      <Note title="Por qué el objetivo es AA y no AAA">
+        El gris del texto secundario da 6,94:1 sobre el fondo del tema oscuro: le faltan seis
+        centésimas para AAA. Subirlo parece gratis y no lo es — para llegar a 7:1 sobre las cuatro
+        superficies oscuras hay que aclararlo hasta un punto donde queda a 1,84:1 del texto
+        principal, y ahí deja de distinguirse el título del cuerpo. Se gana un número y se pierde la
+        jerarquía, que es lo que el gris estaba haciendo. Medido, no estimado.
+      </Note>
+
+      <Note icon="warning" title="Los dos números que no llegan, con la cuenta">
+        **El texto sugerido de un campo, en oscuro y con el mouse encima: 3,82:1.** Se mide contra
+        los cuatro fondos de campo —sobre el escritorio y adentro de una pieza de papel, cada uno
+        con y sin mouse— y llega a 4,5 en tres. Para pasar el cuarto hay que aclarar el gris hasta
+        1,02:1 del texto escrito, y ahí un campo con sugerencia se lee como un campo lleno, que es
+        lo que este paso de la rampa vino a evitar. Antes se medía contra dos de los cuatro: los
+        otros dos daban 4,24 y 3,99 y ya están corregidos.
+        {' '}
+        **El borde de un campo contra el papel: 1,75:1 en claro y 2,57 en oscuro**, contra los 3:1
+        que la WCAG pide para identificar un control. Subirlo a 3:1 convierte cada campo en una
+        caja dibujada y cambia el aire de todas las pantallas. El campo no depende solo del borde
+        —se hunde contra su superficie, tiene su propia altura y su etiqueta— pero el número es el
+        número y queda acá escrito.
+      </Note>
+
+
+      <Note icon="warning" title="Lo único que axe marca y no se corrige">
+        Con un menú abierto aparece <code>region</code>, que pide que todo el contenido esté adentro
+        de una landmark. El panel se dibuja en un portal colgado del <code>body</code>, así que no
+        lo está. Meterlo adentro de una landmark sería peor: una landmark por cada menú abierto
+        llena la lista de saltos, que es el mismo error que ya se corrigió en los bloques
+        destacados. Y moverlo adentro del contenido significa reescribir el sistema de overlays
+        para ganar una regla de buena práctica que no es de la WCAG. El panel se enfoca, se cierra
+        con Escape y se anuncia con nombre propio, que es lo que la persona necesita.
       </Note>
 
       <A11y

@@ -49,7 +49,7 @@ export function MeasureSection() {
 
         <Section
           title="Alturas de control"
-          note="Tres alturas y un rol cada una. La de 36 y la de 40 comparten texto de 14/600 y radio 12; la de 32 baja a 12px porque va inline en una fila densa."
+          note="Tres alturas y un rol cada una. La de 36 y la de 40 comparten el escalón de lectura —16— y radio 12; la de 32 baja a 14 y a radio 10, porque va inline en una fila densa y el radio sigue al alto. El peso es el mismo en las tres: 450, que es el de lo accionable."
         >
           <div className="flex flex-col gap-3">
             {[
@@ -69,7 +69,7 @@ export function MeasureSection() {
 
         <Section
           title="El espaciado: once pasos"
-          note="Antes esto no era una escala. Los call sites tomaban los dieciocho valores que trae Tailwind, así que dos cosas que hacen lo mismo quedaban separadas por 10 en un lado y por 12 en el otro — y eso no se ve como un error, se ve como desprolijidad, que es peor porque no se puede señalar. La grilla es de 4 con dos sub-pasos abajo: a 2 y a 6 píxeles todavía hay decisiones reales que tomar, y de 8 para arriba la diferencia entre 28 y 32 no la ve nadie."
+          note="Antes esto no era una escala: los call sites tomaban los dieciocho valores de Tailwind, y dos cosas que hacen lo mismo quedaban separadas por 10 en un lado y por 12 en el otro. Eso no se ve como un error, se ve como desprolijidad, que es peor porque no se puede señalar. La grilla es de 4, con dos sub-pasos abajo."
         >
           <div className="flex flex-col overflow-hidden rounded-xl border border-line bg-surface">
             {espaciado.map(e => (
@@ -101,7 +101,7 @@ export function MeasureSection() {
 
       <Section
         title="Radios"
-        note="Cinco pasos y el círculo. **El radio sigue al alto**: el radio se lee en proporción al lado más corto de la pieza, no en píxeles. Sobre un botón de 40, 12 deja 16 de lado plano y se lee como un remate; sobre uno de 32 deja 8, y la misma curva se lee como una pastilla. El `md` de 10 llegó a morir con el argumento de que 10 y 12 están a dos píxeles y nadie ve la diferencia — sacarlo hizo dos píxeles más redondas a dieciséis piezas de golpe y la interfaz entera se vio más blanda. La otra regla, la del anidado: el radio de un hijo es el del padre menos el padding del padre."
+        note="Cinco pasos y el círculo. **El radio sigue al alto**: 12 sobre un botón de 40 se lee como un remate, y sobre uno de 32, como una pastilla. Matar el `md` de 10 —«nadie ve dos píxeles»— hizo más redondas dieciséis piezas de golpe. La otra regla: el radio de un hijo es el del padre menos su padding."
       >
         <Section title="La escala">
           <div className="flex flex-col rounded-xl border border-line bg-surface px-4">

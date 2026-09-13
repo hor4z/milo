@@ -25,7 +25,7 @@ export function FolderStory() {
 
       <Section
         title="Las tres capas"
-        note="Contratapa, hojas, y solapa. La contratapa y la pestaña son UN solo path de SVG y no dos rectángulos: con dos, cada uno trae sus esquinas y en el doblez queda un corte a la vista. La pestaña y el canto van en el amarillo MÁS saturado y no en uno más oscuro — es lo que hace que se lea como una sola cartulina doblada. Las hojas suben entre la contratapa y la solapa, que es lo que hace que parezca que salen de adentro y no que aparecen encima."
+        note="Contratapa, hojas y solapa. La contratapa y la pestaña son UN solo path y no dos rectángulos: con dos, cada uno trae sus esquinas y en el doblez queda un corte a la vista. Las hojas suben entre la contratapa y la solapa, que es lo que hace que parezca que salen de adentro."
       >
         <Card surface="muted" className="flex flex-wrap items-end gap-8 px-6 py-8">
           {[88, 128, 168, 220].map(s => (
@@ -43,7 +43,7 @@ export function FolderStory() {
 
       <Section
         title="El amarillo sale de una regla"
-        note="Va en H 89.6 de OKLCH, y es un tono nuevo del sistema. `--warn-500` está en 82.2 y a la misma luminosidad y croma sale dorado, no amarillo: medido contra la referencia, el tono de casa queda diez veces más lejos (0.031 contra 0.003 de distancia perceptual). Siete grados son poco para dos colores de estado y mucho para una pieza cuyo único trabajo es leerse como una carpeta. La croma va al 81% del techo en el cuerpo y al 89% en la pestaña, no al tope — el amarillo es el tono que más croma aguanta a luminosidad alta, y empujado al límite deja de ser una carpeta y pasa a ser un resaltador."
+        note="Amarillo propio en H 89.6 de OKLCH. `--warn-500` está en 82.2 y a esa luminosidad sale dorado: siete grados son poco para dos colores de estado y mucho para una carpeta. La croma va al 81% del techo y no al tope — al límite deja de ser una carpeta y pasa a ser un resaltador."
       >
         <Card surface="muted" className="flex flex-wrap items-end gap-6 px-6 py-8">
           <Folder label="Amarillo" meta="el default" />

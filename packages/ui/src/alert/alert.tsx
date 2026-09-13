@@ -23,13 +23,13 @@ export function Alert({ tone = 'info', icon, onDismiss, className, children, ...
       {...props}
     >
       {glyph && (
-        <span className={cx('flex size-5 shrink-0 items-center justify-center', toneInk[tone])}>
+        <span className={cx('flex h-6 w-5 shrink-0 items-center justify-center', toneInk[tone])}>
           <Icon name={glyph} size={18} />
         </span>
       )}
-      <div className="flex min-w-0 flex-1 flex-col gap-1 py-0.5">{children}</div>
+      <div className="flex min-w-0 flex-1 flex-col gap-1">{children}</div>
       {onDismiss && (
-        <IconButton icon="close" label="Descartar" size="sm" variant="ghost" onClick={onDismiss} className="-mt-0.5 -mr-1" />
+        <IconButton icon="close" label="Descartar" size="sm" variant="ghost" onClick={onDismiss} className="-mt-1 -mr-1" />
       )}
     </div>
   )

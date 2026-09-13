@@ -7,7 +7,7 @@ export function DividerStory() {
       title="Divider"
       kind="Superficies"
       imports="import { Divider } from '@milo/ui'"
-      lead="Un píxel de --border, y nada más. Existe como pieza y no como una clase suelta por algo práctico: la línea estaba escrita a mano en varios lugares —border-t, border-b, un hr con el borde apagado— y no todas con el mismo gris. Cuál gris es la línea del sistema es una decisión, y una decisión escrita seis veces se desincroniza a la quinta."
+      lead="Un píxel de `--border`, y nada más. Existe como pieza porque la línea estaba escrita a mano en varios lugares y no todas con el mismo gris: cuál es la línea del sistema es una decisión, y una decisión escrita seis veces se desincroniza a la quinta."
     >
       <Section
         title="Las dos orientaciones"

@@ -64,13 +64,11 @@ describe('el texto secundario se lee sobre cualquier superficie', () => {
 })
 
 describe('el relleno que lleva texto encima llega a AA', () => {
-  // Los dos están anclados: son el escalón donde el blanco llega a 4.5:1.
   for (const theme of ['light', 'dark'] as const) {
     for (const fill of ['--blue-600', '--bad-fill']) {
       it(`blanco sobre ${fill} en ${theme}`, () => {
         const f = value(fill, theme)
         expect(f, `falta ${fill} en ${theme}`).toBeTruthy()
-        // En oscuro el azul baja a 400 porque la rampa se da vuelta.
         const usado = theme === 'dark' && fill === '--blue-600' ? value('--blue-400', theme)! : f!
         expect(ratio('#ffffff', usado)).toBeGreaterThanOrEqual(4.5)
       })
@@ -79,10 +77,6 @@ describe('el relleno que lleva texto encima llega a AA', () => {
 })
 
 describe('el hover no deshace el anclaje', () => {
-  // El relleno del CTA está en el escalón exacto donde el blanco llega a 4.5:1,
-  // así que no tiene aire para arriba. Un `filter: brightness(1.06)` en hover lo
-  // dejaba en 4.07 todo el tiempo que el puntero estaba encima — sobre el botón
-  // que más se mira. El hover **oscurece**, y esto lo mide.
   const theme = readFileSync(join(import.meta.dirname, '../theme.css'), 'utf8')
 
   it('ningún relleno con texto encima se aclara al pasar el mouse', () => {
@@ -105,9 +99,12 @@ describe('el hover no deshace el anclaje', () => {
 })
 
 describe('el texto sugerido de un campo se lee', () => {
-  // El paso más claro que todavía lleva texto: el que está más cerca de romperse.
+  const fondos = {
+    light: ['--shade-01', '--shade-02', '--shade-02', '--shade-03'],
+    dark: ['--shade-01', '--shade-03', '--shade-03'],
+  } as const
   for (const theme of ['light', 'dark'] as const) {
-    for (const back of ['--shade-01', '--shade-02']) {
+    for (const back of [...new Set(fondos[theme])]) {
       it(`--shade-placeholder sobre ${back} en ${theme} llega a AA`, () => {
         const ph = value('--shade-placeholder', theme)
         const paper = value(back, theme)
@@ -144,4 +141,67 @@ describe('el texto de una etiqueta de color se lee', () => {
     const semantic = readFileSync(join(import.meta.dirname, '../../../tokens/src/semantic.css'), 'utf8')
     expect(semantic).toMatch(/--on-label:\s*#121212/)
   })
+})
+
+const marks = ['green', 'purple', 'orange', 'blue', 'pink']
+
+describe('el glifo de una marca se lee sobre su propio relleno', () => {
+  for (const [theme, piso] of [['light', 4.5], ['dark', 7]] as const) {
+    for (const m of marks) {
+      it(`--mark-${m}-ink sobre --mark-${m} en ${theme} llega a ${piso}:1`, () => {
+        const fill = value(`--mark-${m}`, theme)
+        const ink = value(`--mark-${m}-ink`, theme)
+        expect(fill, `falta --mark-${m} en ${theme}`).toBeTruthy()
+        expect(ink, `falta --mark-${m}-ink en ${theme}`).toBeTruthy()
+        expect(ratio(ink!, fill!)).toBeGreaterThanOrEqual(piso)
+      })
+    }
+  }
+})
+
+describe('el relleno de un dato se despega de su pista', () => {
+  const semantic = readFileSync(join(import.meta.dirname, '../../../tokens/src/semantic.css'), 'utf8')
+  const mitades = (f: string) => {
+    const [claro, ...resto] = f.split('[data-theme="dark"]')
+    return { claro, oscuro: resto.join('') }
+  }
+  const capas = [mitades(css), mitades(semantic)]
+
+  /** Resuelve un token hasta su valor literal, saltando los `var()` del camino. */
+  function literal(token: string, theme: 'light' | 'dark', visto = 0): string {
+    if (visto > 12) throw new Error(`${token} da vueltas`)
+    const orden = theme === 'light'
+      ? capas.map(c => c.claro)
+      : [...capas.map(c => c.oscuro), ...capas.map(c => c.claro)]
+    for (const texto of orden) {
+      const m = texto.match(new RegExp(`${token}:\\s*([^;]+);`))
+      if (!m) continue
+      const crudo = m[1].trim()
+      const ref = crudo.match(/^var\((--[\w-]+)\)$/)
+      return ref ? literal(ref[1], theme, visto + 1) : crudo
+    }
+    throw new Error(`no encuentro ${token} en ${theme}`)
+  }
+
+  const canal = (hex: string) => {
+    const h = hex.replace('#', '')
+    const n = h.length === 3 ? h.split('').map(c => c + c).join('') : h
+    return [0, 2, 4].map(i => parseInt(n.slice(i, i + 2), 16))
+  }
+
+  /** La pista es tinta en alpha: se compone sobre el papel antes de medir. */
+  function pista(theme: 'light' | 'dark') {
+    const [r, g, b, a] = literal('--track', theme).match(/[\d.]+/g)!.map(Number)
+    const fondo = canal(literal('--shade-01', theme))
+    const mezcla = [r, g, b].map((c, i) => Math.round(c * a + fondo[i] * (1 - a)))
+    return '#' + mezcla.map(c => c.toString(16).padStart(2, '0')).join('')
+  }
+
+  for (const theme of ['light', 'dark'] as const) {
+    for (const tono of ['--chart-fill', '--chart-ok', '--chart-warn', '--chart-bad']) {
+      it(`${tono} sobre la pista en ${theme} llega a 3:1`, () => {
+        expect(ratio(literal(tono, theme), pista(theme))).toBeGreaterThanOrEqual(3)
+      })
+    }
+  }
 })

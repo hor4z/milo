@@ -3,8 +3,6 @@ import userEvent from '@testing-library/user-event'
 import { beforeAll, describe, expect, it, vi } from 'vitest'
 import { AudioPlayer } from './audio-player'
 
-// jsdom no reproduce nada: `play` no está implementado y `duration` es NaN. Se
-// reemplazan para poder contar el comportamiento, que es lo que importa.
 const play = vi.fn(() => Promise.resolve())
 const pause = vi.fn()
 beforeAll(() => {
@@ -83,8 +81,6 @@ describe('AudioPlayer', () => {
   })
 
   it('un archivo que ya tiene la duración no se queda cargando', () => {
-    // Con el archivo en caché, `loadedmetadata` puede haber pasado antes de que
-    // React enganche el evento. Sin mirar `readyState`, queda cargando para siempre.
     const { unmount } = render(<AudioPlayer src="/x.mp3" />)
     const el = document.querySelector('audio')!
     Object.defineProperty(el, 'duration', { value: 12, configurable: true })
@@ -119,8 +115,6 @@ describe('AudioPlayer', () => {
     fireEvent.play(a)
     expect(screen.getByRole('button', { name: 'Pausar' })).toBeInTheDocument()
 
-    // Dos audios encimados no se entienden: al arrancar el segundo, el primero
-    // recibe el pause y vuelve a decir «Reproducir».
     const pausados = pause.mock.calls.length
     fireEvent.play(b)
     expect(pause.mock.calls.length).toBe(pausados + 1)

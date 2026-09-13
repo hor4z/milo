@@ -1,48 +1,27 @@
-import { useEffect, useRef, useState, type ReactNode, type ThHTMLAttributes, type TdHTMLAttributes } from 'react'
+import { type ReactNode, type ThHTMLAttributes, type TdHTMLAttributes } from 'react'
 import { cx } from '../lib/cx'
+import { useSideScroll } from '../lib/side-scroll'
 
 /** La tabla, en piezas. */
-export function Table({ children, minWidth = 640, footer, className }: {
+export function Table({ children, label, minWidth = 640, footer, className }: {
   children: ReactNode
+  /** De qué es la tabla. Cuando scrollea se vuelve una región enfocable, y dos regiones que se llaman igual se leen como una sola. */
+  label?: string
   /** Abajo de esto la tabla scrollea en vez de apretar las columnas. */
   minWidth?: number
   /** La franja de abajo: vive adentro del marco pero fuera del scroll. */
   footer?: ReactNode
   className?: string
 }) {
-  const scroller = useRef<HTMLDivElement>(null)
-  const [clipped, setClipped] = useState(false)
-  const [scrolls, setScrolls] = useState(false)
-
-  // Sin barra visible, un degradado en el canto es lo único que avisa que hay
-  // más columnas a la derecha.
-  useEffect(() => {
-    const el = scroller.current
-    if (!el) return
-    const measure = () => {
-      setClipped(el.scrollWidth - el.clientWidth - el.scrollLeft > 1)
-      setScrolls(el.scrollWidth > el.clientWidth + 1)
-    }
-    measure()
-    el.addEventListener('scroll', measure, { passive: true })
-    const ro = typeof ResizeObserver !== 'undefined' ? new ResizeObserver(measure) : null
-    ro?.observe(el)
-    return () => {
-      el.removeEventListener('scroll', measure)
-      ro?.disconnect()
-    }
-  }, [children])
+  const { ref: scroller, scrolls, clipped } = useSideScroll<HTMLDivElement>(children)
 
   return (
     <div className={cx('relative overflow-hidden rounded-md bg-surface ring-1 ring-line', className)}>
-      {/* Solo es una parada de tabulación cuando de verdad hay algo que
-          scrollear: sin la barra a la vista, es la única forma de llegar a las
-          columnas de la derecha sin mouse. */}
       <div
         ref={scroller}
         tabIndex={scrolls ? 0 : undefined}
         role={scrolls ? 'region' : undefined}
-        aria-label={scrolls ? 'Tabla, scrolleable' : undefined}
+        aria-label={scrolls ? `${label ?? 'Tabla'}, se desplaza de costado` : undefined}
         className="zebra no-scrollbar overflow-x-auto overflow-y-hidden"
       >
         <table className="w-full border-collapse text-left" style={{ minWidth }}>
@@ -91,14 +70,12 @@ export function TableRow({ children, onClick, active, className }: {
   return (
     <tr
       onClick={onClick}
-      // Una fila que se toca tiene que poder tocarse sin mouse: entra en el
-      // orden de tabulación y contesta a Enter y a la barra.
       tabIndex={onClick ? 0 : undefined}
       onKeyDown={onClick
         ? e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); onClick() } }
         : undefined}
       className={cx(
-        'border-b border-line transition-colors duration-fast last:border-0',
+        'border-b border-line transition-colors ease-out duration-fast last:border-0',
         active && 'bg-muted',
         onClick && !active && 'cursor-pointer hover:bg-muted',
         className,

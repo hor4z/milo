@@ -1,32 +1,8 @@
-/**
- * Semantic tokens: la capa de roles. Los componentes se estilan SOLO contra
- * esto. Ninguno sabe que existe `--shade-03`; sabe que hay un `--surface-muted`.
- */
 :root {
   color-scheme: light;
 
-  /* ------- superficies -------
-     **El escritorio y el papel son dos tonos distintos, y esto cambió.** Antes
-     `--canvas` y `--surface` apuntaban al mismo token con el argumento de que lo
-     que separa una tarjeta del fondo es el relieve. No alcanzaba: en una
-     pantalla densa, con el relieve en alpha bajo y a 1x, el resultado se lee
-     como un campo blanco enorme con líneas encima, y cada widget parece
-     recortado en vez de apoyado.
-
-     Ahora una pieza es papel y la página es el escritorio, que es como se
-     separan dos superficies desde que existe el papel. El relieve sigue
-     estando y ahora hace lo suyo: decir cuánto se levanta algo, no si existe. */
   --canvas: var(--shade-02);
   --surface: var(--shade-01);
-  /* La banda alterna de una tabla: **tinta en alpha y no un escalón de la
-     rampa**. Apuntaba a `--shade-02`, que desde que el escritorio existe es el
-     fondo de la página: una fila alterna adentro de una tarjeta de papel quedaba
-     pintada del color del fondo, y en oscuro peor todavía —la banda era más
-     oscura que el papel, así que las filas pares se leían como agujeros—.
-
-     En alpha funciona en los dos temas sin dos valores: sobre papel claro oscurece
-     un cuarto de paso, sobre papel oscuro aclara lo mismo. Es la regla de siempre:
-     lo que se apoya sobre otra superficie va en alpha. */
   --surface-alt: var(--shade-09-a04);
   --surface-muted: var(--shade-03);
   --surface-sunken: var(--shade-04);
@@ -35,82 +11,37 @@
   --surface-inverted: var(--shade-09);
   --popover: var(--shade-01);
   --scrim: rgb(18 18 18 / 0.14);
-  /* El velo de un panel anclado es más oscuro que el de un modal y no lleva
-     blur: el modal ya se separa por tamaño, un panel de 384 necesita que el
-     resto se apague para ganar la mirada. */
   --veil: rgb(58 58 58 / 0.4);
 
-  /* ------- bordes ------- */
   --border: var(--shade-04);
   --border-strong: var(--shade-05);
   --border-alpha: var(--shade-09-a08);
-  /* El contorno de un control vacío: el anillo de un radio sin elegir. No es
-     `--border-strong`: ese es un gris opaco y el radio vive tanto sobre el
-     papel como adentro de una pista apagada, donde #e2e2e2 sobre #f1f1f1 no se
-     ve. Y no es `--border-alpha` tampoco: al 8% pasa lo mismo. Va en tinta y no
-     en gris por la regla de siempre — sobre un tinte, el opaco se ve como una
-     línea sucia. */
   --border-control: var(--shade-09-a28);
 
-  /* ------- texto ------- */
   --text: var(--shade-09);
   --text-muted: var(--shade-06);
-  --text-subtle: var(--shade-06);
-  /* El texto sugerido de un campo. No es `--text-muted`: con el gris del texto
-     secundario puesto ahí, lo que el campo propone se leía igual de firme que lo
-     que alguien escribió, y un campo vacío parecía lleno. */
   --text-placeholder: var(--shade-placeholder);
   --text-disabled: var(--shade-05);
   --text-inverted: var(--shade-01);
 
-  /* ------- sólidos y acento -------
-     La interfaz es monocroma: el botón que manda es tinta, el que acompaña es
-     gris con relieve, y el acento queda libre para señalar lo poco que importa. */
   --solid: var(--shade-09);
   --solid-hover: #000000;
   --on-solid: var(--shade-01);
 
-  /* El azul primario. El relleno es el 600 y no el 500, y el motivo es medible:
-     el 600 es el escalón donde el blanco encima llega a 4.5:1. Con el 500 el CTA
-     daba 3.45:1, que para WCAG no alcanza porque el texto de un botón no es
-     texto grande. Era la única deuda de accesibilidad que quedaba y se salda
-     acá. */
   --brand: var(--blue-600);
   --brand-hover: var(--blue-700);
-  /* El canto y el labio comparten escalón. No es que falte un paso: el labio es
-     el mismo filo visto desde abajo, y con un azul más oscuro que el canto el
-     botón se veía sobrerrelevado. */
   --brand-edge: var(--blue-800);
   --brand-lip: var(--blue-800);
   --on-brand: #ffffff;
-  /* El fondo suave del azul y la tinta que va encima: un estado seleccionado, un
-     aviso de marca, un chip. Es lo que tres valores sueltos no podían dar. */
   --brand-soft: var(--blue-050);
   --brand-soft-strong: var(--blue-100);
   --brand-border: var(--blue-200);
 
-  /* El texto de una etiqueta de color. Uno solo para las seis, y es tinta.
-
-     Era blanco, y con la familia anclada al mismo contraste que el azul
-     —3.75:1— las seis fallaban AA para el texto de 12 de un chip. La tinta da
-     entre 4.96 y 5.01 sobre esos mismos seis rellenos en claro, y entre 5.26 y
-     7.07 en oscuro, donde la familia es más viva. Fue lo más barato de las dos
-     salidas: la otra era bajar la luminosidad de los seis tonos, que es la
-     identidad, para no tocar el color del texto.
-
-     Las marcas de la lista no usan esto: van en pares relleno/glifo, porque son
-     pasteles y el glifo tiene que ser del mismo tono varios pasos más oscuro. */
-  /* Va literal y no `var(--shade-09)`: la rampa se da vuelta con el tema y la
-     familia viva no. En los dos temas el relleno es claro, así que encima va
-     tinta en los dos. */
   --on-label: #121212;
 
   --accent: var(--accent-500);
   --accent-hover: var(--accent-600);
   --accent-subtle: var(--accent-050);
-  /* Ojo: no se reescribe `--accent-fill` acá. Ya es un primitivo, y una custom
-     property que se apunta a sí misma en la misma capa es un ciclo — resuelve a
-     inválido y el color desaparece sin error. Pasó. */
   --on-accent: #ffffff;
 
   --brand-subtle: var(--blue-050);
@@ -121,11 +52,6 @@
   --space-blue: #3b7dd8;
   --space-purple: #8b5cd6;
   --space-pink: #d1568f;
-  /* El aviso que se queda tiene su propio papel y su propio borde. Antes era
-     `--surface` con solo el cuadradito del glifo teñido, y arriba del papel
-     blanco de una tarjeta eso es blanco sobre blanco: el aviso no se
-     diferenciaba de lo que lo rodeaba, que es justo lo único que un aviso tiene
-     que hacer. */
   --ok: var(--ok-500);
   --ok-ink: var(--ok-700);
   --ok-subtle: var(--ok-050);
@@ -138,39 +64,18 @@
   --bad-subtle: var(--bad-050);
   --on-bad: #ffffff;
 
-  /* ------- relieve -------
-     Las cuatro recetas del sistema. Todas mezclan luz interior arriba y sombra
-     abajo: es lo que hace que una pieza se sienta física en vez de dibujada.
-
-     `--relief-raised`  el botón gris que sobresale: degradado + brillo interior
-                        arriba + anillo + una sombra corta y marcada.
-     `--relief-inset`   lo hundido: un kbd, la pista de un segmented.
-     `--relief-toolbar` la barra que flota sobre el contenido.
-     `--relief-popover` un menú o un modal, lejos del plano del fondo. */
   --relief-raised:
     0 0 0 1px var(--edge),
     inset 0 1px 0 0 var(--light-a33),
     0 3px 4px -1px rgb(0 0 0 / 0.15);
-  /* El sólido oscuro tiene su propio relieve, y no es el del gris invertido:
-     un filo de luz muy tenue arriba, un labio oscuro abajo y un anillo un paso
-     más claro que el relleno. Sin esto, la tinta plana al lado de un gris con
-     relieve se ve como un rectángulo pegado. */
   --relief-solid:
     0 0 0 1px var(--solid-edge),
     inset 0 0.5px 1px 0 rgb(255 255 255 / 0.15),
     inset 0 -1px 1.2px 0.35px var(--shade-09),
     0 2px 4px -1px rgb(13 13 13 / 0.5);
-  /* Un toggle mientras está activo: hundido. La sombra entra desde abajo y el
-     filo blanco queda arriba, que es el orden inverso al del botón que
-     sobresale. No es `--relief-inset` (el del kbd): ese lleva anillo y sombra
-     de caída porque es una marca, no algo que se aprieta. */
   --relief-pressed:
     inset 0 -1px 3px 0 rgb(18 18 18 / 0.15),
     inset 0 1.25px 1px 0 #ffffff;
-  /* Los blur son sub-píxel a propósito. Con 1px, el labio de abajo se derrama
-     hacia adentro y pinta una fila gris DENTRO de la caja: el borde inferior
-     pasa a leerse de dos píxeles y la pieza se ve blanda, no hundida. A 0.6 el
-     labio queda en la fila que le toca y el canto se ve dibujado. */
   --relief-inset:
     0 0 0 1px var(--shade-09-a11),
     inset 0 2px 0.8px 0 var(--light-a27),
@@ -188,22 +93,8 @@
     0 38px 38px 0 rgb(0 0 0 / 0.06),
     0 86px 52px 0 rgb(0 0 0 / 0.04);
 
-  /* El degradado del botón gris. Va como token porque el día que cambie, el
-     botón, el select y el chip activo tienen que cambiar juntos. */
   --grad-raised: linear-gradient(in oklab, #e5e5e5 0%, #e2e2e2 100%);
 
-  /* El azul lleva las cuatro capas del sólido oscuro, no las del gris: un filo
-     de luz arriba, un labio abajo, el canto un paso más oscuro que el relleno y
-     una caída teñida del propio azul. Una sombra gris debajo de una pieza de
-     color se ve como suciedad, no como sombra.
-
-     Pero las cuatro van más flojas que en el gris, y no es un ajuste de gusto:
-     sobre un relleno saturado, el mismo relieve que el gris necesita para
-     despegarse del papel se ve exagerado. El filo de luz baja a 0.16 (a 0.28 se
-     ve un reflejo pegado arriba), el labio pierde el spread —era eso, y no su
-     color, lo que lo engordaba a dos píxeles— y sale del 600 en vez del 700, y
-     la caída pasa a 1/3 y opacidad 0.28: el color ya separa la pieza del fondo,
-     la sombra solo la apoya. */
   --grad-brand: linear-gradient(in oklab, var(--blue-600) 0%, var(--blue-700) 100%);
   --grad-brand-hover: linear-gradient(in oklab, var(--blue-700) 0%, var(--blue-800) 100%);
   --relief-brand:
@@ -211,76 +102,19 @@
     inset 0 1px 0 0 rgb(255 255 255 / 0.16),
     inset 0 -1px 0.6px 0 var(--brand-lip),
     0 1px 3px -1px rgb(10 70 150 / 0.28);
-  /* Apretado: se va el filo de luz y la sombra entra desde arriba, teñida. El
-     canto se queda: es el filo de la pieza y no depende de si está hundida. */
   --relief-brand-pressed:
     0 0 0 1px var(--brand-edge),
     inset 0 2px 3px 0 rgb(6 48 105 / 0.3);
 
-  /* El relieve de una marca de lista. Todo sale de `currentColor`, que dentro
-     del disco es el glifo —la fila ya le puso `text-mark-*-ink`—, así que la
-     receta se escribe una vez y sirve para los cinco tonos. Lo que la deja
-     escribirse una vez es que la familia esté pareja: con la croma yendo de
-     0.067 a 0.110 como estaba antes, cada tono pedía su propia alfa.
-
-     Los saltos son los que el sistema ya usa: el canto a 1.14:1 contra su
-     relleno, que es el mismo salto del botón gris (`#e2e2e2` → `#d4d4d4`), y el
-     labio a 1.24:1.
-
-     El filo de luz va al mismo 1.14:1 que el canto: un paso para arriba y uno
-     para abajo, del mismo tamaño. Estuvo a medio paso (blanco al 0.10, 1.07:1)
-     con el argumento de que sobre un pastel el blanco no se lee, y se veía
-     apagado — sobre un pastel el blanco no se lee *tanto*, que es otra cosa, y
-     por eso hace falta más alfa para el mismo salto: 0.20 contra el 0.16 del
-     botón azul, que es más oscuro.
-
-     La caída es corta y teñida del propio tono. Una sombra gris debajo de una
-     pieza de color se ve como suciedad, no como sombra. */
   --grad-mark: linear-gradient(to bottom, rgb(255 255 255 / 0.20), rgb(255 255 255 / 0) 60%);
   --relief-mark:
     inset 0 0 0 1px color-mix(in oklab, currentColor 10%, transparent),
     inset 0 -1px 0 0 color-mix(in oklab, currentColor 16%, transparent),
     0 1px 2px -1px color-mix(in oklab, currentColor 20%, transparent);
 
-  /* ------- la carpeta -------
-     El amarillo va en H 89.6 de OKLCH, que es un tono nuevo, y conviene saber
-     por qué: `--warn-500` está en 82.2 y a la misma luminosidad y croma sale
-     dorado, no amarillo. Medido contra la referencia, el tono del sistema queda
-     diez veces más lejos que este (0.031 contra 0.003 de distancia perceptual).
-     Siete grados son poco para dos colores de estado y mucho para una pieza cuyo
-     único trabajo es leerse como una carpeta.
-
-     La croma va al 81% del techo de sRGB, no al tope: el amarillo es el tono que
-     más croma aguanta a luminosidad alta, y empujado al límite deja de ser una
-     carpeta y pasa a ser un resaltador.
-
-     **Solo se elige un color: el del cuerpo.** Los otros dos salen de él con
-     color relativo, así que pasarle un color a la carpeta la pinta entera y no a
-     medias. Y la regla queda escrita en el CSS en vez de en tres hexadecimales
-     que hay que mantener a mano:
-
-     Acá va solo el color del cuerpo. Las dos derivaciones viven en la clase
-     `.folder` y no en este bloque, y el motivo es una trampa de las custom
-     properties: si `--folder-back` se declara en `:root`, su `var(--folder-top)`
-     se resuelve **ahí**, contra el amarillo, y queda ese valor ya sustituido
-     para todo el árbol. Una carpeta que pasa otro color cambiaría el cuerpo y
-     seguiría con la pestaña amarilla. Declarada en `.folder`, se resuelve por
-     elemento y cada carpeta deriva la suya. */
   --folder-top: oklch(0.886 0.118 89.6);
   --folder-sheet: var(--surface);
 
-  /* ------- el switch -------
-     Geometría: pista 40×22 con 2 de padding, así que el pulgar es de 18 y viaja
-     18. Las tres capas del pulgar son lo que lo hace parecer una pieza apoyada
-     encima y no un círculo pintado: luz interior arriba, un halo corto y una
-     sombra de contacto un píxel más abajo. */
-  /* La pista prendida va en el azul de marca, no en tinta: es el mismo color con
-     el que el checkbox confirma una elección, y compartirlo es lo que hace que
-     "esto lo prendí yo" se lea igual en los dos controles.
-
-     La sombra interior también se tiñe. Con la tinta original al 30% sobre el
-     azul, la pista se veía sucia en vez de hundida: una sombra gris sobre una
-     superficie de color no lee como sombra, lee como suciedad. */
   --switch-on: var(--brand);
   --switch-off: var(--shade-04);
   --switch-on-inset: inset 0 1px 0.6px 0 rgb(0 45 105 / 0.35);
@@ -291,66 +125,21 @@
     0 0 2.6px 0 rgb(0 0 0 / 0.25),
     0 1px 4px 0 rgb(0 0 0 / 0.14);
 
-  /* ------- el campo -------
-     Un input, un select, cualquier caja donde se escribe o se elige: gris,
-     radio 10, borde de un píxel y **nada de relieve**. El campo fue un hueco
-     —luz arriba, labio abajo— y se plancha a propósito: el relieve queda para
-     lo que se aprieta y para lo que sobresale, y un campo no hace ninguna de
-     las dos. Sin él los tres campos del sistema (este, el select y el buscador
-     de la topbar) se dibujan igual: un fondo y una línea.
-
-     El borde es tinta en alpha y no un gris de la rampa, y es exactamente la
-     línea que el relieve ya dibujaba como canto: el campo pierde el volumen y
-     conserva su contorno. En gris opaco, un campo apoyado sobre un tinte se ve
-     con una línea sucia alrededor. */
-  /* **El campo se invierte contra lo que tiene detrás**, y por eso hay dos
-     valores y no uno. Sobre el escritorio —que ahora es gris— un campo gris
-     desaparece: hay que pintarlo de papel. Sobre el papel de una tarjeta pasa lo
-     contrario, y ahí el campo tiene que hundirse un tono.
-
-     Quién de los dos se usa no lo decide el componente: lo decide la superficie
-     que lo contiene, escribiendo `--field-bg`. Eso está en `theme.css`, y es lo
-     que hace que un `TextField` metido adentro de un `Card` se vea bien sin que
-     el call site tenga que saber dónde cayó. */
-  --field-bg: var(--shade-01);        /* el default: el campo vive sobre el escritorio */
+  --field-bg: var(--shade-01);        
   --field-bg-hover: var(--shade-02);
-  --field-bg-on-surface: var(--shade-02);   /* cuando cae adentro de una pieza de papel */
+  --field-bg-on-surface: var(--shade-02);   
   --field-bg-on-surface-hover: var(--shade-03);
-  /* El borde deja de ser una insinuación. En alpha 11 sobre papel blanco la
-     línea no se dibujaba y un `Select` se leía como texto suelto — que es
-     exactamente lo que pasaba. */
   --field-border: var(--shade-09-a28);
 
-
-  /* El anillo de foco es azul, y es la tercera excepción a la interfaz
-     monocroma —después del botón `brand` y del arco del spinner— con la misma
-     defensa que las otras dos: está acotado a una cosa sola. Las otras dos son
-     roles (esto manda, esto está cargando); esta es un estado del teclado, y es
-     el único aviso que tiene que reconocerse antes de leerse. En tinta no se
-     distinguía de un canto o de una sombra, que es de lo que está hecho el
-     resto del sistema.
-
-     Los 2px de `--surface` antes del azul no son decoración: separan el anillo
-     de la pieza, y son lo que lo deja ver también sobre el botón azul, donde un
-     anillo pegado al relleno desaparece. */
   --focus-ring: 0 0 0 2px var(--surface), 0 0 0 4px var(--blue-500-a45);
 
-  /* **Un campo enfocado no lleva ese anillo: se le tiñe el borde.** El anillo
-     está pensado para una pieza chica y opaca —un botón, un item de nav— donde
-     el halo aparece afuera y no tiene con qué chocar. Un campo ya tiene un borde
-     dibujado en los cuatro lados, así que el halo le suma una segunda línea a
-     dos píxeles de la primera: dos cosas azules alrededor de la misma caja, con
-     un hueco blanco en el medio. Tiñendo el borde que ya existe, el foco no
-     agrega una forma nueva — cambia la que había.
-     Es lo mismo que hace Reshaped, que lo resuelve con un `inset` de 1.5px del
-     color primario y nada más. */
   --focus-border: var(--blue-500);
 
-  /* La pista de una barra de progreso: lo que todavía no pasó. Va clarísima
-     porque no es un dato que compita — es el resto. Con el mismo peso que el
-     relleno, una barra de progreso se lee como dos bloques apilados en vez de
-     como una parte adentro de su todo. */
   --track: var(--shade-09-a08);
+  --chart-fill: var(--brand);
+  --chart-ok: var(--ok);
+  --chart-warn: var(--warn);
+  --chart-bad: var(--bad);
 }
 
 [data-theme="dark"] {
@@ -369,20 +158,15 @@
   --field-bg-hover: var(--shade-03);
   --field-bg-on-surface: var(--shade-03);
   --field-bg-on-surface-hover: var(--shade-04);
-  /* El mismo token que en claro y no `--shade-05`: la tinta en alpha se
-     invierte sola —al 14% sobre #202020 cae donde caía el gris opaco— así que
-     la línea del campo es una sola regla para los dos temas. */
   --field-border: var(--shade-09-a28);
-  /* En oscuro la pista sube un paso: al 8% sobre #131313 no se ve. */
   --track: var(--shade-09-a11);
+  --chart-fill: var(--label-blue);
+  --chart-bad: var(--bad-700);
   --brand-subtle: var(--blue-050);
   --brand-ink: var(--blue-700);
   --brand-soft: var(--blue-050);
   --brand-soft-strong: var(--blue-100);
   --brand-border: var(--blue-200);
-  /* En oscuro el relleno del CTA baja a 400: con la rampa dada vuelta, el 600 es
-     un celeste y el blanco encima daría 2.5:1. El 400 es el escalón anclado de
-     este tema — blanco encima, 4.73:1. */
   --brand: var(--blue-400);
   --brand-hover: var(--blue-500);
   --brand-edge: var(--blue-300);
@@ -408,20 +192,12 @@
     0 0 0 1px var(--brand-edge),
     inset 0 2px 3px 0 rgb(0 0 0 / 0.38);
 
-  /* En oscuro la receta se da vuelta y arriba pasa a mandar el tono: el relleno
-     es profundo, así que el volumen lo dibujan un filo de luz del propio color y
-     un labio negro abajo. El blanco del degradado sale —sobre un relleno
-     profundo lava el color en vez de levantarlo— y lo reemplaza el tono. El
-     canto baja a la mitad de alfa: contra un fondo oscuro el mismo salto se
-     consigue con menos. */
   --grad-mark: linear-gradient(to bottom, color-mix(in oklab, currentColor 10%, transparent), transparent 60%);
   --relief-mark:
     inset 0 0 0 1px color-mix(in oklab, currentColor 6%, transparent),
     inset 0 -1px 0 0 rgb(0 0 0 / 0.31),
     0 1px 2px -1px rgb(0 0 0 / 0.4);
 
-  /* Solo baja el cuerpo; los otros dos se derivan igual que en claro, así que
-     la relación entre las tres capas es la misma en los dos temas. */
   --folder-top: oklch(0.70 0.098 89.6);
   --relief-raised:
     0 0 0 1px var(--edge),

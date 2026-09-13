@@ -5,7 +5,7 @@ const azul = ['--blue-050', '--blue-100', '--blue-200', '--blue-300', '--blue-40
 const ramp = ['--shade-01', '--shade-02', '--shade-03', '--shade-04', '--shade-05', '--shade-06', '--shade-07', '--shade-08', '--shade-09'] as const
 const marks = ['--mark-green', '--mark-purple', '--mark-orange', '--mark-blue', '--mark-pink'] as const
 const labels = ['--label-green', '--label-teal', '--label-blue', '--label-purple', '--label-pink', '--label-orange'] as const
-const tints = ['--tint-1', '--tint-2', '--tint-3', '--tint-4', '--tint-5'] as const
+const tints = ['--tint-1', '--tint-2', '--tint-3', '--tint-4', '--tint-5', '--tint-6'] as const
 const spaces = ['--space-green', '--space-purple', '--space-orange', '--space-blue', '--space-pink'] as const
 
 export function ColorSection() {
@@ -17,14 +17,14 @@ export function ColorSection() {
     >
       <Section
         title="La rampa"
-        note="Nueve pasos, y **casi** neutra: lleva C 0.0025 del tono del azul en OKLCH. Es un susurro y tiene que seguir siéndolo — un gris exactamente neutro al lado de un azul saturado se ve de otro sistema, y un gris que se nota azul convierte una interfaz de dos colores en una de tres. Estuvo en 0.006 y era demasiado: los campos se veían celestes. El salto de 05 a 06 es violento a propósito: entre el borde más oscuro y el texto más claro no tiene que haber nada."
+        note="Nueve pasos, y **casi** neutra: lleva C 0.0025 del tono del azul. Es un susurro y tiene que seguir siéndolo — un gris exactamente neutro al lado de un azul saturado se ve de otro sistema, y uno que se nota azul convierte una interfaz de dos colores en una de tres. Estuvo en 0.006 y los campos se veían celestes."
       >
         <Ramp tokens={ramp} />
       </Section>
 
       <Section
         title="El azul primario"
-        note="Diez pasos, derivados y no elegidos: se toman el tono y el croma del azul de siempre, se fija una curva de luminosidad que baja parejo, y el croma sube hacia el medio y cae en los extremos — si no, los pasos claros salen lavados y los oscuros embarrados. **El 600 está anclado**: es el escalón donde el blanco encima llega exactamente a 4.5:1, y por eso es el relleno del botón que manda. Antes eran tres valores sueltos elegidos para un botón, y tres no alcanzan para vestir un estado elegido, un fondo suave, una tinta que se lea encima y un borde."
+        note="Diez pasos derivados y no elegidos: se toman el tono y el croma del azul de siempre y se baja la luminosidad parejo, con el croma subiendo hacia el medio para que los extremos no salgan lavados ni embarrados. **El 600 está anclado**: es el escalón donde el blanco encima llega exactamente a 4.5:1."
       >
         <Ramp tokens={azul} />
         <div className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
@@ -39,7 +39,7 @@ export function ColorSection() {
 
       <Section
         title="Superficies: el papel y el escritorio"
-        note="**Son dos tonos distintos, y esto cambió.** `--canvas` y `--surface` apuntaban al mismo token con el argumento de que lo que separa una tarjeta del fondo es el relieve. No alcanzaba: con el relieve en alpha bajo y a 1x, el resultado se lee como un campo blanco enorme con líneas encima, y cada widget parece recortado en vez de apoyado. Ahora una pieza es papel y la página es el escritorio, que es como se separan dos superficies desde que existe el papel. El relieve sigue estando y vuelve a decir solo cuánto se levanta algo, en vez de tener que decir si existe."
+        note="**Son dos tonos distintos, y esto cambió.** Apuntaban al mismo token, con el argumento de que lo que separa una tarjeta del fondo es el relieve. No alcanzaba: a 1x se leía como un campo blanco enorme con líneas encima. Ahora la pieza es papel y la página es el escritorio."
       >
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           <Swatch token="--canvas" note="el escritorio: el fondo de la página" />
@@ -58,7 +58,19 @@ export function ColorSection() {
           <Swatch token="--edge" note="el filo de algo que sobresale" />
           <Swatch token="--field-border" note="la línea de un campo, en tinta" />
           <Swatch token="--focus-border" note="el borde de un campo enfocado" />
-          <Swatch token="--track" note="la pista de una barra de progreso" />
+        </div>
+      </Section>
+
+      <Section
+        title="Los rellenos de un dato"
+        note="La pista es lo que había para hacer y el relleno es lo hecho. **No son los tonos de estado aunque en claro coincidan**: un tono de estado está anclado donde el blanco encima se lee, que es lo que necesita un botón; un relleno de dato no lleva texto encima y lo que necesita es despegarse de su pista. En oscuro los dos requisitos dejan de coincidir, y ahí el azul y el rojo suben."
+      >
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          <Swatch token="--track" note="lo que había para hacer" />
+          <Swatch token="--chart-fill" note="lo hecho, el default" />
+          <Swatch token="--chart-ok" note="lo terminado" />
+          <Swatch token="--chart-warn" note="lo que está por llenarse" />
+          <Swatch token="--chart-bad" note="lo que ya no entra" />
         </div>
       </Section>
 
@@ -77,7 +89,7 @@ export function ColorSection() {
 
       <Section
         title="El azul, y cuándo"
-        note="Es la excepción más usada y la más acotada: el botón que manda, el arco del spinner, el anillo del foco y el relleno de una barra de progreso. solid y brand son el mismo rol —el botón que manda— así que va uno o el otro, nunca los dos en la misma pantalla."
+        note="Es la excepción más usada y la más acotada: el botón que manda, el arco del spinner y el anillo del foco. El relleno de una barra ya no sale de acá —tiene su propio rol, arriba— porque este azul está anclado para que el blanco encima se lea, y eso sobre fondo oscuro lo deja pegado a la pista. solid y brand son el mismo rol, así que va uno o el otro, nunca los dos en la misma pantalla."
       >
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           <Swatch token="--solid" note="el botón en tinta" />
@@ -102,8 +114,8 @@ export function ColorSection() {
       </Section>
 
       <Section
-        title="Las tres familias, y qué las separa"
-        note="Las tres son de categoría y no se mezclan. La que decide cuál va no es el gusto: es el tamaño de la pieza y qué se apoya encima."
+        title="Las cuatro familias, y qué las separa"
+        note="Las cuatro son de categoría y no se mezclan. La que decide cuál va no es el gusto: es el tamaño de la pieza y qué se apoya encima."
       >
         <div className="flex flex-col gap-5">
           <Family
@@ -117,8 +129,8 @@ export function ColorSection() {
             tokens={labels}
           />
           <Family
-            title="tint · la superficie grande"
-            detail="El hueco 4:3 de una tarjeta, el mock de una novedad. Llevan un dibujo en tinta al 14% encima: saturados, el dibujo desaparece y una grilla de doce tarjetas se vuelve un arcoíris."
+            title="tint · la superficie grande, y hoy no la usa nadie"
+            detail="Seis tonos para un hueco que se llena de color y lleva un dibujo en tinta al 14% encima — saturados, el dibujo desaparece y una grilla de doce se vuelve un arcoíris. Estaban para el medio 4:3 de una tarjeta, que ya no existe. Se quedan porque la decisión de tener una superficie grande teñida es de quien arme la pantalla, y volver a derivar seis tonos cuesta más que dejarlos; pero hoy ninguna pieza los toca y eso conviene que esté a la vista."
             tokens={tints}
           />
           <Family
@@ -130,7 +142,7 @@ export function ColorSection() {
       </Section>
 
       <Note title="Antes de teñir algo">
-        Mirá de qué tamaño es la pieza y qué va encima. Los tres roles vivieron un rato juntos bajo el
+        Mirá de qué tamaño es la pieza y qué va encima. Los roles vivieron un rato juntos bajo el
         mismo nombre y de ahí salieron dos bugs: los chips quedaron pastel cuando ya tenían que ser
         vivos, y al pasar la familia a vivos se llevó puesta la marca de la lista, que tenía que
         quedar pastel.

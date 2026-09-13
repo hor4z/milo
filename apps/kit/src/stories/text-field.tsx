@@ -10,15 +10,15 @@ export function TextFieldStory() {
       title="TextField"
       kind="Formularios"
       imports="import { TextField } from '@milo/ui'"
-      lead="Plano: un fondo y una línea de un píxel, sin relieve. El campo fue un hueco y el volumen se fue a propósito — el relieve dice «esto sobresale» o «esto se aprieta», y un campo no es ninguna de las dos. Así se dibuja igual que el Select y que el buscador de la topbar. Al enfocarse no cambia de plano: se le tiñe el borde que ya tenía. El anillo del sistema es para una pieza sin borde propio; sobre un campo dibujaba una segunda línea azul a dos píxeles de la primera."
+      lead="Plano: un fondo y una línea de un píxel, sin relieve. El volumen se fue a propósito — el relieve dice «esto sobresale» o «esto se aprieta», y un campo no es ninguna de las dos. Al enfocarse se le tiñe el borde que ya tenía: el anillo es para una pieza sin borde propio, y acá dibujaba una segunda línea a dos píxeles."
     >
       <Section title="Variantes">
         <div className="flex flex-wrap gap-3">
           {[
-            { label: 'solo', el: <TextField value={text} onChange={e => setText(e.target.value)} className="w-full" /> },
-            { label: 'con icono', el: <TextField icon="search" placeholder="Buscar una actividad…" className="w-full" /> },
-            { label: 'con suffix', el: <TextField placeholder="Duración" suffix={<Kbd>min</Kbd>} className="w-full" /> },
-            { label: 'disabled', el: <TextField placeholder="No editable" disabled className="w-full" /> },
+            { label: 'solo', el: <TextField value={text} onChange={e => setText(e.target.value)} aria-label="Nombre de la actividad" className="w-full" /> },
+            { label: 'con icono', el: <TextField icon="search" aria-label="Buscar una actividad" placeholder="Buscar una actividad…" className="w-full" /> },
+            { label: 'con suffix', el: <TextField aria-label="Duración en minutos" placeholder="Duración" suffix={<Kbd>min</Kbd>} className="w-full" /> },
+            { label: 'disabled', el: <TextField aria-label="Campo no editable" placeholder="No editable" disabled className="w-full" /> },
           ].map(v => (
             <div key={v.label} className="w-full max-w-[320px]">
               <Demo label={v.label}>{v.el}</Demo>
@@ -35,7 +35,7 @@ export function TextFieldStory() {
           {(['sm', 'md', 'lg'] as const).map(s => (
             <div key={s} className="w-full max-w-[320px]">
               <Demo label={s}>
-                <TextField size={s} icon="search" placeholder="Buscar una actividad…" className="w-full" />
+                <TextField size={s} icon="search" aria-label={`Buscar una actividad, alto ${s}`} placeholder="Buscar una actividad…" className="w-full" />
               </Demo>
             </div>
           ))}
@@ -44,7 +44,7 @@ export function TextFieldStory() {
 
       <Section
         title="El click y el foco"
-        note="El input tapa la caja entera: un `<input>` mide lo que mide su línea de texto —16px— y adentro de una caja de 40 eso dejaba 12 muertos arriba y 12 abajo, así que media caja no recibía el click. Y el anillo de foco es del campo y no del input de adentro: si no, queda un rectángulo flotando adentro de la caja. Con un botón adentro, el campo no se enciende — la marca es del botón."
+        note="El input tapa la caja entera: mide lo que mide su línea de texto —16px— y adentro de una caja de 40 dejaba 12 muertos arriba y abajo, así que media caja no recibía el click. El anillo de foco es del campo y no del input: si no, queda un rectángulo flotando adentro."
       >
         <div className="flex flex-wrap gap-3">
           <div className="w-full max-w-[320px]">

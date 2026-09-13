@@ -29,6 +29,7 @@
     "chat",
     "check",
     "check_circle",
+    "checklist",
     "chevron_left",
     "chevron_right",
     "close",
@@ -63,6 +64,14 @@
     "filter_list",
     "folder",
     "folder_open",
+    "format_bold",
+    "format_h1",
+    "format_h2",
+    "format_italic",
+    "format_list_bulleted",
+    "format_list_numbered",
+    "format_quote",
+    "format_underlined",
     "forum",
     "fullscreen",
     "functions",
@@ -73,6 +82,7 @@
     "help",
     "history",
     "home",
+    "horizontal_rule",
     "image",
     "inbox",
     "info",
@@ -114,6 +124,7 @@
     "receipt_long",
     "redo",
     "refresh",
+    "remove",
     "rocket_launch",
     "save",
     "schedule",
@@ -151,6 +162,7 @@
     "undo",
     "upload",
     "verified_user",
+    "videocam",
     "view_column",
     "view_list",
     "visibility",
@@ -165,9 +177,9 @@
     "zoom_out"
   ],
   "font": {
-    "url": "https://fonts.gstatic.com/l/font?kit=sykO-zNym6YjUruM-QrEh7-nyTnjDwKNJ_190FjpZIvLgyidOK7BDB_Qb9vUdV6_gjDK-P3JuEXXiQL53EITjFf5yxbHx4bUZ_6-qf7H3jySCmTUVOEYcyILqJ4V3sungsI3PpWdPJJ_Oouy_pw54CbSBDveHBGbiTXccEOXBk8tgcqHGsKcxVSiZHcctxgYpl8lxLIlh6_Nx_C0DaITDI3Hv5nwR9hal_bClQoONzFY0hQOB15IBjzJLzuRYvhnoGd-WpL3watSgLBE1w70E36x2Zxj3huvRtCQJhtcxwLdn9ffKCs&skey=70ddea8fe54d532e&v=v372",
-    "bytes": 61744,
-    "sha256": "4d748068c632afaa91f11b2c302e99595ee7dbf1c6b3cb6dabb36925b71dd779",
-    "fetchedAt": "2026-09-12"
+    "url": "https://fonts.gstatic.com/l/font?kit=sykO-zNym6YjUruM-QrEh7-nyTnjDwKNJ_190FjpZIvLgyidOK7BDB_Qb9vUdV6_gjDK-P3JuEXXiQP6sXwQjVD4yBfIxoXVYP-9qOHG3T2VC2fVW-AbY8SYiHeiXrun_MXcmJNXNnCxOocXoQ992l2hbWwYoSpc99XdfhXpdhWNFMkN-jRHwgb1tIi87ByuRzPe_t-J4R2N5xT9p_y2ekvHRZLwinRWmoLYBgozr_eFkBcE8417XnDpJaMINuwbC2R0WsPyCcvh2COEUHuyO8L9DAbHSkjO2qHAFkdabQ5IUxRz1H4pocXzB4Jg&skey=70ddea8fe54d532e&v=v372",
+    "bytes": 64216,
+    "sha256": "e3d99978f4017686ab879a9554702f72f6c3c2188433a565c1ef1ceb4c96d323",
+    "fetchedAt": "2026-09-13"
   }
 }

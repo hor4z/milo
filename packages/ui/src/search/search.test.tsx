@@ -17,13 +17,10 @@ describe('Search', () => {
     render(<Search value="frac" onValueChange={onValueChange} />)
     await userEvent.click(screen.getByRole('button', { name: 'Limpiar la búsqueda' }))
     expect(onValueChange).toHaveBeenCalledWith('')
-    // Sin esto el foco se cae al <body> cuando la cruz se desmonta.
     expect(document.activeElement).toBe(screen.getByRole('textbox'))
   })
 
   it('la cruz está centrada: es cuadrada y centra su glifo', () => {
-    // En `block` con padding el glifo se apoya en la línea base y queda cuatro
-    // píxeles arriba del centro. Se veía.
     render(<Search value="frac" onValueChange={() => {}} />)
     const cruz = screen.getByRole('button', { name: 'Limpiar la búsqueda' })
     expect(cruz).toHaveClass('inline-flex', 'items-center', 'justify-center', 'size-5')

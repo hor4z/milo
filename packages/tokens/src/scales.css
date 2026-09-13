@@ -1,62 +1,4 @@
-/**
- * Scale tokens: radios, tipografía, alturas, movimiento.
- *
- * Las medidas salen de medir la referencia, no de estimarla: la densidad es lo
- * primero que se nota y lo último que se corrige a mano. La tipografía son
- * siete roles que cargan tamaño, interlineado y tracking juntos —base de 14 y
- * un escalón de 16 para lo que se lee—, y los radios son una escala donde cada
- * paso tiene un rol.
- */
 :root {
-  /* ------- radios -------
-   *   sm   6   marcas hundidas y cuadraditos: un kbd, un badge, un checkbox
-   *   md  10   lo chico: un control de 32, un chip, un tooltip, un esqueleto
-   *   lg  12   lo que se toca de 36 para arriba: botón md y lg, item de nav
-   *   xl  16   lo que se apoya en la página: una tarjeta, una fila de lista
-   *   2xl 24   lo que flota sobre un velo: un modal, un diálogo
-   *   full     lo que es redondo de verdad: un avatar, un punto, un pulgar
-   *
-   * **Cuatro pasos para elegir y uno que se deriva.** Había además un `xs` de 5
-   * y murió: estaba a un píxel de su vecino, y a esa distancia nadie ve una
-   * diferencia — lo único que hacía era dar a elegir entre dos cosas iguales,
-   * que es cómo una pantalla termina con cuatro curvas sin que nadie lo haya
-   * decidido.
-   *
-   * El `md` también murió y **volvió**, y conviene saber por qué para no matarlo
-   * de nuevo. El argumento para sacarlo era que 10 y 12 están a dos píxeles y
-   * nadie ve la diferencia. Es falso, y el motivo es que **el radio se lee en
-   * proporción al lado más corto de la pieza, no en píxeles**: sobre un botón de
-   * 40 de alto, 12 deja 16 de lado plano y se lee como un remate; sobre uno de
-   * 32 deja 8, y la misma curva se lee como una pastilla.
-   *
-   * De ahí la regla: **el radio sigue al alto.** Un control de 32 —el `sm` de la
-   * escalera— va en 10; de 36 para arriba, en 12. Lo mismo vale para todo lo
-   * chico que no es un control: un chip de 28, un tooltip, un esqueleto, el
-   * cuadradito de un glifo. Sacarlo los hizo a todos dos píxeles más redondos de
-   * golpe —dieciséis piezas— y el efecto es que la interfaz entera se ve más
-   * blanda.
-   *
-   * Es además el resultado de la regla del anidado en el caso más común del
-   * sistema: una pista de 12 con 2 de padding pide 10 adentro. Sin ese paso, el
-   * pulgar repite el 12 del padre (la curva se ve doble) o cae al 6 (se ven dos
-   * curvas distintas). Los dos errores ya pasaron acá.
-   *
-   * **Flota 24, se apoya 16.** Los dos escalones grandes tenían el mismo trabajo
-   * —«contenedores»— y el 24 caía igual sobre una tarjeta de dato de 116 que
-   * sobre un panel de 676. No es cuestión de proporción: una fila de lista de 72
-   * con radio 16 y una tarjeta de 116 con radio 24 ocupan casi el mismo
-   * porcentaje del lado corto, y la segunda se ve redonda y la primera no. Lo
-   * que cambia es el **arco absoluto**: por encima de unos 20px la curva deja de
-   * leerse como el remate de una esquina y pasa a ser la silueta de la pieza.
-   *
-   * Una tarjeta aparece de a muchas en una grilla, así que su silueta tiene que
-   * callarse. Un modal aparece de a uno, sobre un velo, y ahí el 24 se lee como
-   * una superficie blanda a propósito.
-   *
-   * La regla del anidado: el radio de un hijo es el del padre menos el padding
-   * del padre. Si el hijo repite el radio del padre, la curva se ve doble; si
-   * queda más cuadrado que el padre, se ven dos curvas distintas.
-   */
   --radius-sm: 6px;
   --radius-md: 10px;
   --radius-lg: 12px;
@@ -64,7 +6,6 @@
   --radius-2xl: 24px;
   --radius-full: 9999px;
 
-  /* ------- medidas del shell ------- */
   --sidebar-w: 220px;
   --sidebar-w-collapsed: 72px;
   --topbar-h: 80px;
@@ -73,146 +14,41 @@
   --nav-item-gap: 2px;
   --nav-sub-indent: 48px;
 
-  /* ------- tipografía -------
-     Siete roles, y cada uno carga los tres valores juntos: tamaño, interlineado
-     y tracking. No se pueden usar por separado y esa es la idea — el bug que
-     esto viene a matar es justamente que estaban sueltos.
-
-     Lo que había antes: nueve escalones anónimos (`--text-xs`, `--text-base`…)
-     y un `--leading-ui` de 16px fijo para todos. Tres problemas, los tres
-     verificados en pantalla:
-
-     1. El 16 fijo se rompía solo. `text-lg` son 20px de letra dentro de una
-        caja de línea de 16, y `text-base` ni siquiera obedecía: como no
-        declaraba su line-height, Tailwind le ponía el suyo y salía a 21. La
-        regla estaba escrita, documentada en el kit, y no era cierta en seis
-        lugares.
-     2. La base era 12px. Es el piso de un metadato, no el tamaño en el que se
-        mira una interfaz ocho horas. Carbon usa 14 para UI densa y 16 para
-        lectura; Primer, 14; el body de Apple es 17pt.
-     3. El tracking iba al revés: -0.015em aplicado a todos los h1-h3, un número
-        medido contra Inter a 12px dos familias atrás. Apretar la letra chica es
-        exactamente cómo se pierde nitidez. Acá el tracking **cruza el cero en la
-        base**: positivo donde la letra es chica y se empasta, negativo donde es
-        grande y se despega. Es lo que hace el eje óptico de San Francisco y lo
-        que Carbon escribe a mano (+0.32px a 12px, +0.16px a 14px).
-
-     La objeción que este archivo defendía —«con leading proporcional, dos filas
-     de 12px y de 14px dejan de alinearse entre sí»— era cierta y dejó de
-     importar: los leadings son todos pares y casi todos múltiplos de 4, así que
-     apilan predecible, y las filas del sistema (`Row`, `List`, `Table`) centran
-     sus hijos con flex, no haciendo coincidir cajas de línea.
-
-     **En rem y no en px.** Un estudiante que agranda la letra en su navegador la
-     ve agrandada. El zoom del navegador ya escalaba los px —eso cubre WCAG
-     1.4.4—, pero la preferencia de tamaño de fuente no, y esa es la que usa
-     quien tiene baja visión. La geometría del shell sigue en px a propósito: lo
-     que crece es la letra, no la barra lateral.
-
-     **Una sola familia para los tres roles, y es Inter.** Cuarta y última del
-     proyecto: Inter → Geist → Instrument Sans → Inter. Volver no es andar en
-     círculo, porque lo que se fue no vuelve: aquella vez eran tres familias
-     (Inter + Inter Tight + JetBrains Mono) y el motivo de dejarla fue justamente
-     ese. Inter v4 trae un **eje óptico** (`opsz`), así que una sola instancia
-     cubre el cuerpo y el display —Inter Tight deja de tener sentido— y el
-     argumento viejo se cae solo.
-
-     El eje óptico es lo que la hace la elección y no una preferencia: la letra se
-     redibuja más abierta y con más avance a 12px, y más cerrada a 40px. Es la
-     cura estructural de la falta de nitidez a tamaños chicos, en vez de
-     compensarla a mano con tracking. Ninguna de las otras candidatas lo tiene.
-
-     Lo que se pierde: es la letra de media industria y no aporta identidad. En un
-     sistema que se apoya en el relieve y en una rampa casi neutra, eso es menos
-     costo que en otro lado — acá la identidad no la pone la letra.
-
-     Lo que el rol `mono` pierde es el ancho fijo, y hay que saber qué se pierde
-     con él: una columna de valores ya no alinea sola. La alinea `.tabular`
-     (`font-variant-numeric: tabular-nums`), que da ancho fijo a los **números**
-     sin cambiar de letra. Alcanza para lo que el rol hace de verdad —precios,
-     métricas, una columna de una tabla— y no alcanza para un bloque de código,
-     que no hay en el sistema. */
   --font-sans: Inter, ui-sans-serif, system-ui, -apple-system, sans-serif;
   --font-display: var(--font-sans);
   --font-mono: var(--font-sans);
 
-  /* metadatos, kbd, contadores, ayuda de campo. El piso: nunca para leer. */
-  --type-meta: 0.75rem;        /* 12 */
-  --type-meta-lh: 1rem;        /* 16 · 1.33 */
+  --type-meta: 0.75rem;        
+  --type-meta-lh: 1rem;        
   --type-meta-ls: 0.01em;
 
-  /* rótulos de tabla, chips, badges, encabezados de grupo */
-  --type-label: 0.8125rem;     /* 13 */
-  --type-label-lh: 1.125rem;   /* 18 · 1.38 */
+  --type-label: 0.8125rem;     
+  --type-label-lh: 1.125rem;   
   --type-label-ls: 0.005em;
 
-  /* la interfaz */
-  --type-body: 0.875rem;       /* 14 */
-  --type-body-lh: 1.25rem;     /* 20 · 1.43 */
+  --type-body: 0.875rem;       
+  --type-body-lh: 1.25rem;     
   --type-body-ls: 0em;
 
-  /* enunciados, consignas, títulos de superficie, botones md y lg.
-     El 1.5 de interlineado es el número de WCAG 1.4.12. */
-  --type-reading: 1rem;        /* 16 */
-  --type-reading-lh: 1.5rem;   /* 24 · 1.5 */
+  --type-reading: 1rem;        
+  --type-reading-lh: 1.5rem;   
   --type-reading-ls: 0em;
 
-  /* título de pantalla */
-  --type-title: 1.25rem;       /* 20 */
-  --type-title-lh: 1.75rem;    /* 28 · 1.4 */
+  --type-title: 1.25rem;       
+  --type-title-lh: 1.75rem;    
   --type-title-ls: -0.01em;
 
-  /* encabezado de sección. El escalón que faltaba: de 20 a 40 había un salto
-     que obligaba a elegir entre un título que no pesa y una portada. */
-  --type-heading: 1.75rem;     /* 28 */
-  --type-heading-lh: 2.25rem;  /* 36 · 1.29 */
+  --type-heading: 1.75rem;     
+  --type-heading-lh: 2.25rem;  
   --type-heading-ls: -0.015em;
 
-  /* portadas */
-  --type-display: 2.5rem;      /* 40 */
-  --type-display-lh: 2.75rem;  /* 44 · 1.1 */
+  --type-display: 2.5rem;      
+  --type-display-lh: 2.75rem;  
   --type-display-ls: -0.02em;
 
-  /* ------- espaciado -------
-     **Once pasos y ninguno más.** Antes no había escala: los call sites tomaban
-     lo que Tailwind trae, que son dieciocho valores entre 0 y 56, y el resultado
-     era una interfaz donde dos cosas que hacen lo mismo estaban separadas por
-     10 en un lado y por 12 en el otro. Eso no se ve como un error; se ve como
-     desprolijidad, que es peor porque no se puede señalar.
-
-     La grilla es de 4 con dos sub-pasos abajo: a 2 y a 6 píxeles todavía hay
-     decisiones reales que tomar —el aire adentro de un control, el inset de una
-     pista— y forzarlos a 4 u 8 los rompe. De 8 para arriba no: ahí la diferencia
-     entre 28 y 32 no la ve nadie y lo único que hace es dar a elegir.
-
-     Los roles, que es lo que hay que leer y no los números:
-
-       2    el pelo: el inset de una pista, el aire de un punto
-       4    adentro de una marca: un badge, un kbd
-       6    lo que separa un glifo de su texto
-       8    lo que separa dos cosas de la misma fila
-       12   lo que separa dos filas, y el aire de un control chico
-       16   el padding de una pieza chica, y la separación entre dos piezas
-       20   el padding de una tarjeta
-       24   el padding de un panel, y la separación entre dos bloques
-       32   la separación entre dos secciones
-       40   el aire de una pantalla
-       48   el respiro de una portada
-
-     Esto **no** manda sobre las alturas de control ni sobre las medidas del
-     shell: un `h-9` de 36 o una fila de 56 son medidas de pieza, salen de la
-     escalera de controles y no de acá. Lo que la escala manda es el aire.
-
-     No son tokens propios: son los escalones de Tailwind que el sistema deja
-     usar. Ponerlos como `--space-*` obligaría a escribir `p-(--space-4)` en cada
-     call site, que dice lo mismo y se lee peor. Lo que hace cumplir la escala es
-     un test. */
-
-  /* ------- movimiento -------
-     Una curva para todo lo que entra, y salidas más cortas que entradas: abrir
-     se mira, cerrar estorba. */
   --duration-fast: 120ms;
   --duration-normal: 190ms;
+  --duration-content: 280ms;
   --ease-out: cubic-bezier(0.24, 1, 0.4, 1);
   --ease-in: cubic-bezier(0.4, 0, 1, 1);
 }

@@ -34,7 +34,7 @@ export function SelectStory() {
           <Demo label="al ancho del contenido">
             <Select value={subject} onChange={setSubject} options={['Matemática', 'Lengua', 'Ciencias', 'Geografía', 'Convivencia']} />
           </Demo>
-          <div className="w-full max-w-[300px]">
+          <div className="w-full max-w-[328px]">
             <Demo label="valor largo · se trunca">
               <Select
                 value={long}
@@ -84,7 +84,7 @@ export function SelectStory() {
 
       <Section
         title="Mientras los datos no están"
-        note="`loading` no es lo mismo que pasar un spinner por `leading`. Un spinner suelto se dibuja y nada más: el control sigue abriendo, y lo que abre es una lista vacía o —peor— la lista vieja, que se puede elegir. Eso no lo arregla el nodo porque no es contenido, es el estado del control. Con `loading` el select no abre, avisa `aria-busy`, cierra el panel si estaba abierto y pone el spinner solo si nadie pasó un leading propio. Lo que el componente no hace es enterarse solo: no recibe promesas ni sabe de fetch."
+        note="`loading` no es lo mismo que pasar un spinner por `leading`. Un spinner suelto se dibuja y nada más: el control sigue abriendo, y lo que abre es una lista vieja que se puede elegir. Con `loading` el select no abre, avisa `aria-busy` y cierra el panel. Lo que no hace es enterarse solo: no recibe promesas."
       >
         <div className="flex flex-wrap items-start gap-3">
           <Demo label="loading · el spinner es el default">
@@ -114,7 +114,7 @@ export function SelectStory() {
       <Section title="Props">
         <Props of="Select" />
       </Section>
-    
+
       <Section title="Accesibilidad">
         <A11y items={[
           'Flechas para moverse, Enter para elegir, Escape para salir, Home y End a los extremos. La flecha abajo también abre la lista.',

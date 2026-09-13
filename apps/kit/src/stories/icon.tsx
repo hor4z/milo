@@ -5,7 +5,7 @@ import {
   iconNames, type IconName, type IconWeight,
 } from '@milo/ui'
 import { iconTags } from '@milo/ui/icons.meta'
-import { A11y, Mono, Page, Panel, Props, Section, Variant } from '../kit'
+import { A11y, Mono, Note, Page, Panel, Props, Section, Variant } from '../kit'
 
 const sizes = [
   { px: 12, role: 'un badge, la cruz de un chip' },
@@ -48,7 +48,7 @@ export function IconStory() {
     >
       <Section
         title="El eje"
-        note="El peso va de 100 a 700 y es continuo porque es una fuente variable: con SVG haría falta un archivo por escalón — por eso el set es una fuente, y por eso Google la distribuye así: sus SVG estáticos, dice su propio repo, «do not have all the variations available». El otro eje de Material, FILL, está clavado en 0: todos los glifos son de contorno, sin excepciones y sin prop para moverlo."
+        note="El peso va de 100 a 700 y es continuo porque es una fuente variable: con SVG haría falta un archivo por escalón, y por eso el set es una fuente. El otro eje, FILL, está clavado en 0 — todos de contorno, con una sola excepción escrita a mano."
       >
         <Panel>
           <Variant name="wght 100…700">
@@ -64,7 +64,7 @@ export function IconStory() {
 
       <Section
         title={`El set · ${iconNames.length} iconos`}
-        note="Buscá por nombre o por lo que el icono es. Los controles escriben las variables una sola vez en el contenedor de la grilla y los glifos las heredan: cambiar `font-variation-settings` en cada instancia invalida la rasterización de cada glifo, y serían 152 por cada movimiento del control."
+        note="Buscá por nombre o por lo que el icono es. Los controles escriben las variables una sola vez en el contenedor de la grilla y los glifos las heredan: cambiar `font-variation-settings` en cada instancia invalida la rasterización de cada glifo, y serían todos los del set por cada movimiento del control."
       >
         <div className="flex flex-wrap items-center gap-4">
           <span className="w-[260px]">
@@ -106,7 +106,7 @@ export function IconStory() {
                 type="button"
                 onClick={() => copy(name)}
                 title={iconTags[name] || name}
-                className="flex flex-col items-center gap-2 rounded-xl border border-line bg-surface px-2 py-3 transition-colors hover:bg-muted"
+                className="flex flex-col items-center gap-2 rounded-xl border border-line bg-surface px-2 py-3 transition-colors duration-fast ease-out hover:bg-muted"
               >
                 <span className="flex items-center justify-center" style={{ height: 40 }}>
                   <Icon name={name} size={size} />
@@ -140,7 +140,7 @@ export function IconStory() {
 
       <Section
         title="El gris no es una prop"
-        note="La regla vieja decía «icono en gris ⇒ weight 1.5», y era imposible de cumplir: el gris muchas veces lo hereda de un ancestro —un IconButton apagado, un item de nav inactivo, el placeholder de un Select— y desde el call site no hay forma de saberlo. Ahora es la utilidad `icon-muted`, que pone el color y sube el peso a 400 juntos. Se cumple sola."
+        note="La regla vieja decía «icono en gris ⇒ weight 1.5» y era imposible de cumplir: el gris se hereda de un ancestro y el call site no tiene cómo saberlo. Ahora es la utilidad `icon-muted`, que pone el color y sube el peso juntos. Se cumple sola."
       >
         <Panel>
           <Variant name="en tinta">
@@ -189,13 +189,21 @@ export function IconStory() {
 
       <Section
         title="El costo, que conviene saber"
-        note="Firefox deja desactivar «permitir que las páginas elijan sus propias fuentes», y hay gente que lo usa por dislexia o baja visión. Con esa opción todos los iconos desaparecen y quedan cuadraditos. Un <svg> era inmune. No tiene mitigación dentro de este enfoque: es el precio de que el peso y el relleno sean ejes de verdad, y está acá escrito y no escondido."
+        note="Firefox deja desactivar «permitir que las páginas elijan sus propias fuentes», y hay gente que lo usa por dislexia o baja visión. Con esa opción todos los iconos quedan en cuadraditos. Un SVG era inmune: es el precio de que el peso sea un eje de verdad, y está escrito y no escondido."
       >
         <div />
       </Section>
     
       <Section title="Accesibilidad">
-        <A11y items={[
+        <Note icon="warning" title="Setenta de los ciento setenta y uno no los usa nadie">
+        `npm run icons -w @milo/ui -- check` los lista. Sacarlos llevaría la fuente de 64 KB a 27,
+        medido subseteándola de verdad. No se sacan porque el editor y los gráficos van a consumir
+        varios, y traer uno de vuelta es un comando; pero el número conviene mirarlo cada tanto,
+        porque doscientos iconos con seis variantes de engranaje es exactamente lo que `icons add`
+        existe para evitar.
+      </Note>
+
+      <A11y items={[
           'Los glifos van aria-hidden: un icono es una imagen del texto que tiene al lado, no una segunda lectura.',
           'Un icono sin texto vive dentro de un IconButton, que exige su label.',
           'El glifo lleva translate="no": es texto, y un traductor automático puede reescribirlo.',

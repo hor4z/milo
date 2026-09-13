@@ -4,7 +4,7 @@ El sistema de interfaz de milo: la identidad en tokens, las piezas que la usan, 
 donde se ve todo funcionando. No es una lámina de estilos — cada pieza de acá es el componente
 real, con su teclado, sus estados y sus tests.
 
-**El repo es del design system y de nada más.** El UI kit —las 51 piezas— es una parte; las
+**El repo es del design system y de nada más.** El UI kit —las 64 piezas— es una parte; las
 otras son los tokens y lo que el sitio documenta alrededor. Acá adentro no vive producto: el
 prototipo de la app que hubo hasta ahora se borró, y cuando haga falta uno de nuevo se arma
 aparte.
@@ -18,7 +18,7 @@ final son lo único que hay que tocar.
 npm install
 npm run dev        # el sitio · http://localhost:5190
 npm run typecheck  # todo el monorepo de una
-npm test           # 303 tests con vitest y testing-library
+npm test           # 516 tests con vitest y testing-library
 npm run props      # regenera la tabla de props desde los tipos
 ```
 
@@ -27,10 +27,12 @@ parámetros, tipos, funciones, props— se escribe en inglés; lo que se lee —
 textos de la interfaz, los nombres de los tests, el contenido de ejemplo— va en castellano. Esa
 es la línea, y no hay una tercera categoría.
 
-**El código no lleva comentarios de más.** Queda un docblock de una línea por export y por prop
-—lo que el editor usa para autocompletar, y lo que el kit muestra como documentación— y algún
-`//` donde el motivo no se deduce leyendo. El porqué de cada decisión vive en dos lugares que sí
-se leen: este archivo y las notas de cada vista del kit.
+**El código no lleva comentarios.** Lo único que queda es el docblock `/** */` de una línea por
+export y por prop, que no es prosa: lo lee `npm run props` para armar la tabla de cada vista, y lo
+muestra el editor al autocompletar. Todo lo demás se sacó — eran mil quinientas líneas de
+explicación adentro de los archivos, una tercera copia de lo que ya dicen este archivo y el kit, y
+la que se despegaba primero porque nada la verifica. El porqué de cada decisión vive en dos
+lugares que sí se leen: acá y las notas de cada vista del kit.
 
 ## De dónde salió
 
@@ -79,17 +81,30 @@ cosa—, así que ahora dirige en vez de explicar.
 |---|---|---|
 | la escala de texto, los pesos, el interlineado | **Fundamentos › Tipografía** | `tokens/scales.css` |
 | la rampa, el azul primario, las superficies | **Fundamentos › Color** | `tokens/primitives.css` · `semantic.css` |
-| el espaciado, los radios, las medidas del shell | **Fundamentos › Medidas y radios** | `tokens/scales.css` |
+| el espaciado y los radios | **Fundamentos › Medidas y radios** | `tokens/scales.css` |
+| los cortes, el mueble y el ancho de lectura | **Fundamentos › Layout** | `tokens/scales.css` |
 | las sombras y el volumen | **Fundamentos › Relieve** | `tokens/semantic.css` |
 | las duraciones y las curvas | **Fundamentos › Movimiento** | `tokens/scales.css` |
 | hover, foco, vacío, cargando, error | **Fundamentos › Estados** | — |
 | contraste, teclado, lectores | **Fundamentos › Accesibilidad** | `__tests__/contraste.test.ts` |
 | el set y cómo crece | **Fundamentos › Iconos** | `scripts/icons.mjs` |
+| qué gráfico va y cuándo una tabla | **Fundamentos › Gráficos** | `chart/` |
 | el texto de la interfaz | **Fundamentos › Cómo se escribe** | — |
 | a quién le hablamos | **Fundamentos › Inclusión** | — |
 
 Se abre con `npm run dev` y está en `apps/kit/src/foundations/`. Si una decisión no está en
 ninguna de esas vistas, es que todavía no se tomó.
+
+**El grupo Editor** son las piezas del editor de texto enriquecido: la barra de formato, la lista
+de comandos que abre la barra, el bloque destacado, la imagen con pie y la cita. `document.tsx` las
+arma en una consigna de verdad, que es al editor lo que el dashboard es a la app: la prueba de que
+juntas funcionan. Se documentan igual que las demás y la diferencia es de quién las usa — ahí el
+contenido lo escribe una persona, no el sistema, y eso cambia las reglas: un `Callout` no usa los
+tonos de estado porque no está avisando de nada.
+
+La fórmula y el bloque de código estuvieron y se sacaron: son las dos piezas del editor que traen
+un lenguaje propio —MathML una, la gramática de cada lenguaje la otra— y eso es un trabajo aparte
+del sistema. Cuando vuelvan, vuelven con esa decisión tomada.
 
 ## Las reglas al escribir código
 
@@ -122,7 +137,7 @@ Salieron de armar pantallas de verdad con estas piezas, y valen para cualquiera 
 
 - **Ajustes en un modal, no en una página.** Rail de 180 que no scrollea + panel que sí. Al
   cerrar no hay navegación: seguís donde estabas, con el scroll donde lo dejaste. Por eso el
-  fondo se atenúa apenas (14%) en vez de lavarse. El `SettingsModal` del paquete es eso.
+  fondo se atenúa en vez de lavarse —14% en claro, 55% en oscuro, que sobre fondo oscuro es lo que se necesita para que el velo exista. El `SettingsModal` del paquete es eso.
 - **Panel anclado con velo** (`Popover` con `veil`). Una lista que pide leerse entera necesita
   que el resto se apague; un menú de cuatro items, no. El velo va sin blur: el fondo se sigue
   reconociendo.
@@ -157,6 +172,11 @@ Repartido entre `portal/`, `popover/`, `tooltip/`, `dropdown/`, `modal/`, `sheet
   propio panel lo cerraba. Un `resize` sí cierra siempre.
 - **Cerrar con `pointerdown` y no con `click`**: con click, el mismo gesto que abre otro panel lo
   cierra y lo reabre, y parpadea.
+- Esas dos y la de afuera viven juntas en `lib/dismiss`, porque las comparten el `Popover` y el
+  `DatePicker`. Ahí adentro el filtro pregunta si el target es un `Node` antes de tocarlo: el
+  `scroll` de `window` no lo es, y `contains` revienta.
+- **Al cerrar, el foco vuelve al disparador solo si estaba adentro del panel.** Se pregunta antes de
+  cerrar, que es cuando el panel todavía existe; si alguien tocó en otro lado, no se le mueve nada.
 - **El `Select` es un botón con listbox propio, no un `<select>` nativo.** `appearance: none` te
   saca la flecha, pero la lista desplegada la sigue dibujando el sistema operativo, así que en
   Linux aparece un control de GTK en medio de la interfaz — se ve "sin estilo" por más que la caja
@@ -181,7 +201,7 @@ curl -s http://localhost:5190/src/app.css | grep -o '\.text-icon-muted[^}]*}'
 
 ## Agregar un icono
 
-El set son 152 de los más de 3900 de Material Symbols. Agregar uno **no es dibujar un path**, es
+El set son 172 de los más de 3900 de Material Symbols. Agregar uno **no es dibujar un path**, es
 un comando, y el que lo corre no tiene que acordarse de nada:
 
 ```sh
@@ -200,8 +220,14 @@ npm run icons -w @milo/ui -- refresh               # rebaja el catálogo desde G
    Para saltearlo hay que escribir `--yes`. Esto es lo que evita llegar a doscientos iconos con
    seis variantes de engranaje.
 
-La regla: **el set crece solo por `icons add`, y un icono que no renderiza ningún call site no va
-en el manifiesto.** `icons check` es lo que lo audita, y corre al lado de `typecheck`.
+La regla: **el set crece solo por `icons add`.** `icons check` corre al lado de `typecheck` y
+falla cuando alguien usa un glifo que no está en el manifiesto — esa mitad sí está cerrada.
+
+La otra mitad no: hoy hay **65 de 172 que no usa ningún call site**, y el chequeo los lista sin
+fallar. Medido con `pyftsubset`, sacarlos llevaría la fuente de 64 KB a 27 KB. No se sacaron
+porque la decisión es de quien arma el producto y no de un script: el editor y los gráficos van a
+consumir varios de esos, y volver a traer uno es `icons add`, que tarda lo mismo que leer esta
+línea. Lo que sí importa es que el número esté a la vista.
 
 El catálogo podado (3912 iconos con codepoint, popularidad y tags) está versionado en
 `packages/ui/scripts/catalog.json` para que buscar funcione sin internet — el mismo argumento por
@@ -214,25 +240,27 @@ no encuentra nada.
 
 ## Estructura
 
-Monorepo de npm workspaces. Dos paquetes y dos apps:
+Monorepo de npm workspaces. Dos paquetes y una app:
 
 ```
 packages/tokens/src/    la identidad, en CSS puro. Sin Tailwind y sin JS.
 packages/ui/src/        theme.css (el puente) · index.ts (la puerta) ·
                         una carpeta por pieza: button/button.tsx + button/button.test.tsx,
-                        y así las 49 (select, modal, toast, chart, table…)
+                        y así las 64 (select, modal, toast, chart, table…)
                         lib/ lo compartido que no es un componente: cx · colors ·
-                        control · tone · esc · overlay-hooks
-                        __tests__/ los dos que leen el paquete entero:
-                        coherencia y contraste
+                        control · tone · esc · overlay-hooks · roving ·
+                        side-scroll · dismiss
+                        __tests__/ los cinco que leen el paquete entero:
+                        coherencia · contraste · tipografía · utilidades · props
                         icons.gen.ts e icons.meta.ts los genera scripts/icons.mjs
 packages/ui/scripts/    icons.mjs (search · add · sync · check) + catalog.json
 apps/kit/src/           el sitio: App.tsx (shell y riel) · kit.tsx (Page, Section,
                         Canvas, Props, A11y, Note) · intro.tsx (la portada) ·
-                        dashboard.tsx · stories/ (una por pieza) ·
+                        dashboard.tsx · document.tsx · stories/ (una por pieza) ·
+                        mascots/ ·
                         foundations/ (principles · accessibility · typography ·
-                        color · measure · relief · motion · states · writing ·
-                        inclusion)
+                        color · measure · layout · relief · motion · states ·
+                        charts · writing · inclusion)
 ```
 
 **El corte entre el paquete y el sitio es por dependencia, no por gusto.** `packages/ui` no
@@ -261,11 +289,12 @@ vista se llama por otra pieza. Donde la comparación importa, queda escrita en l
 cada una linkea a la otra: solapas o acordeón, alert o toast, sheet o modal, link o button.
 
 Las piezas se agrupan por el trabajo que hacen
-—Fundamentos, Acciones, Formularios, Navegación, Datos, Avisos, Superficies— y no por su tipo
-técnico. **Fundamentos va primero** y es la capa de la que sale todo lo demás: Principios ·
-Accesibilidad · Tipografía · Color · Medidas y radios · Relieve · Movimiento · Iconos · Cómo se
-escribe. El orden adentro no es alfabético: las dos primeras son las que hay que leer antes de
-tocar nada, y después van las capas en el orden en que se construye una pantalla.
+—Fundamentos, Mascotas, Editor, Acciones, Formularios, Navegación, Datos, Avisos, Superficies— y
+no por su tipo técnico. **Fundamentos va primero** y es la capa de la que sale todo lo demás:
+Principios · Accesibilidad · Tipografía · Color · Medidas y radios · Layout · Relieve · Movimiento ·
+Estados · Iconos · Gráficos · Cómo se escribe · Inclusión. El orden adentro no es alfabético: las
+dos primeras son las que hay que leer antes de tocar nada, y después van las capas en el orden en
+que se construye una pantalla.
 
 Se llevó puestos a «Guía» y a «Tokens», que eran dos grupos separados por si el contenido era una
 regla o un valor — una distinción que le importa a quien los escribió y a nadie más: el que busca
@@ -302,13 +331,15 @@ Lo mismo vale para los tipos que una pieza recibe como argumento —`ToastOption
 
 ## Los tests
 
-`npm test` corre vitest con jsdom y testing-library. 303 tests, y lo que prueban es el
+`npm test` corre vitest con jsdom y testing-library. 516 tests, y lo que prueban es el
 comportamiento —teclado, nombres accesibles, estados— y no el markup, que cambia con cada
 ajuste de estilo. El test de cada pieza vive en su carpeta, al lado del componente.
 
-Diez de ellos leen el paquete entero y fallan si alguien:
+Diecisiete de ellos leen el paquete entero y fallan si alguien:
 
-- escribe un color a mano en un componente,
+- escribe un color a mano en un componente, o nombra en `bg-`, `text-`, `border-`, `ring-` o
+  `fill-` un color que el puente no declara — la clase queda en el HTML, no genera nada y no hay
+  error,
 - se sale de la escala de radios o de tamaños de texto,
 - **usa un nombre de la escala vieja** (`text-xs`, `text-base`…), que no genera nada y por eso no
   se nota solo,
@@ -319,18 +350,63 @@ Diez de ellos leen el paquete entero y fallan si alguien:
 - **se sale de la grilla de espaciado** (un `gap-2.5`, un `p-3.5`),
 - **usa un tamaño de icono que no está en la escala** — el tamaño se pasa como número, así que
   ningún linter lo mira,
+- **usa el peso de la portada fuera del tamaño display** (`font-bold` a 16px), que se lee como
+  negrita y aplasta los otros dos escalones de énfasis,
+- deja un `<button>` sin `type`, que adentro de un `form` lo manda,
+- deja una clase del puente sin usar — CSS muerto no rompe nada y por eso se queda,
 - exporta algo sin sacarlo por `index.ts`,
 - deja una carpeta sin el componente que le da nombre, o un componente sin su test al lado.
 
 Trece más leen los tokens de tipografía: que cada rol declare sus tres valores y llegue entero al
 `@theme`, que ninguno baje de 12px, que la curva de interlineado tenga su máximo en `reading`, que
-el tracking cruce el cero en la base. Y uno del lado del kit repite los guardianes de escala sobre
-`apps/kit`, que hasta ahora se escapaba.
+el tracking cruce el cero en la base. Del lado del kit hay diecisiete más: los guardianes de
+escala repetidos sobre `apps/kit` —que hasta ahora se escapaba—, el peso de display fuera de su
+tamaño, las transiciones sin duración ni curva, un control de estado sin su manija, y que cada
+vista tenga portada, import y sinónimos para buscarla.
 
-Y veintinueve leen los tokens y calculan contraste: cada tono de estado contra su fondo, el gris
-del texto secundario contra las cuatro superficies claras sobre las que se escribe, y la tinta de
-una etiqueta de color contra los seis rellenos de la familia viva — todo en los dos temas. Si
-alguien cambia un tono y rompe un par, falla antes de llegar a una pantalla.
+Y hay uno que **renderiza las setenta vistas**, una por test. Encuentra dos cosas que
+ninguna lectura encuentra: una vista que tira al dibujarse —eso antes se veía solo abriéndola— y
+un backtick o un `**` que quedó a la vista porque ese texto no pasó por `Rich`. Había diez.
+
+Y cincuenta y nueve leen los tokens y calculan contraste: cada tono de estado contra su fondo, el
+gris del texto secundario contra las superficies sobre las que se escribe, el gris del texto
+sugerido contra los cuatro fondos de campo, la tinta de una etiqueta de color contra los seis
+rellenos de la familia viva, el glifo de una marca contra su propio pastel, y el relleno de un
+dato contra su pista — todo en los dos temas. Los tres últimos faltaban, y las tres reglas estaban
+escritas desde antes de que los valores las cumplieran. Si alguien cambia un tono y rompe un par,
+falla antes de llegar a una pantalla.
+
+## Lo que se revisó contra una referencia, y qué se decidió
+
+Se recorrió entero el mapa de una guía de interfaz de referencia —dieciocho fundamentos,
+veinticinco patrones, cincuenta y seis componentes— no para copiarla sino para usarla de lista de
+control: qué problemas de interfaz existen, y cuáles de esos tenemos resueltos. Lo que entró, entró
+adaptado a este sistema y a un producto de aula; lo que no entró, no entró por una razón escrita.
+
+**Ya estaba resuelto** todo lo que tiene vista propia en Fundamentos, más los patrones de
+modalidad, feedback, cargando, ajustes, buscar, audio y gráficos.
+
+**No aplica** y no se va a hacer: iconos de aplicación, experiencias inmersivas, layout espacial,
+pantalla completa, arranque, multitarea, y los catorce componentes que son de un sistema operativo
+—widgets, complicaciones, barra de menú, dock—. Esto corre en un navegador.
+
+**Entró en esta vuelta**, porque el propósito del sistema lo pedía: `DatePicker` y `Tree` y
+`Stepper` y `Reorder`, más el `Documento` que las prueba juntas. De arrastrar y soltar entró la mitad que importa: reordenar una lista, con el teclado como
+pieza y el arrastre como comodidad. Lo que sigue afuera es soltar algo **adentro** de otra cosa
+—un archivo en una carpeta— que es otro problema.
+
+**Queda afuera por ahora, y esta es la lista corta de lo que falta**, en orden de cuánto lo pide
+un aula:
+
+| | por qué todavía no |
+|---|---|
+| campo de fichas | asignar personas a una entrega. `Chip` ya dibuja la ficha; falta el campo que las arma |
+| menú contextual | el clic derecho sobre un bloque. `Menu` y `Popover` ya están: falta la posición y la tecla de menú |
+| puntuación de rúbrica | corregir con criterios y no con un número. Es más una decisión pedagógica que de interfaz, y todavía no está tomada |
+| imágenes, como fundamento | `Figure` resuelve la pieza; falta la doctrina de proporción, carga y texto alternativo en un solo lugar |
+| deshacer | hoy vive en el `Toast` con acción, que alcanza para una acción por vez y no para un editor |
+| imprimir | un docente imprime una consigna. No hay ni una hoja de estilos de impresión |
+| de derecha a izquierda | no hay plan de idiomas que lo pidan. Si aparece, lo que cambia es el layout y no las piezas |
 
 ## Pendiente
 
@@ -341,6 +417,10 @@ alguien cambia un tono y rompe un par, falla antes de llegar a una pantalla.
 - **Recuperar `ss04` y el cero barrado** pide auto-alojar Inter: 69 KB subseteada a latín, con la
   receta de `pyftsubset` anotada. Se eligió el CDN; si algún día una red escolar filtra Google
   Fonts, la decisión se da vuelta y el trabajo ya está pensado.
+- **El sitio entra en un solo bundle de 687 KB —202 gzip— y `vite build` avisa.** Son las 70
+  vistas importadas de una: nada está mal, está todo junto. La salida es `lazy` por historia con
+  un `Skeleton` de espera, y el costo es un parpadeo por navegación en una pantalla que hoy es
+  instantánea. No se hizo porque es una decisión sobre cómo se siente el sitio y no un bug.
 - Portar los tokens a `~/melu/packages/ui`, que es para lo que existe todo esto. Ojo con el
   nombre: ese repo es otro y sigue llamándose `melu`.
 

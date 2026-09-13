@@ -14,7 +14,7 @@ export function ChipStory() {
     >
       <Section
         title="Variantes"
-        note="`color` toma el **par suave** de uno de los seis tonos: fondo apagado y tinta del mismo tono, anclada a 4.6:1 sobre su propio fondo. Antes era el relleno vivo con tinta oscura encima, y el problema es que un chip nunca viene solo — hay cinco o seis en una fila, se leen como texto, y seis rellenos saturados uno al lado del otro compiten entre sí y con todo lo demás. Con el par suave el color sigue clasificando de un vistazo y deja de ser lo primero que se ve. El relleno vivo se quedó con lo que sabe hacer: el cuadradito de icono de una tarjeta, donde la pieza es chica, el glifo es blanco y el color tiene que gritar."
+        note="`color` toma el **par suave**: fondo apagado y tinta del mismo tono, anclada a 4.6:1. Un chip nunca viene solo —hay cinco en una fila— y seis rellenos vivos juntos compiten entre sí y con todo lo demás. El relleno vivo se quedó con el cuadradito de icono, donde la pieza es chica y el color tiene que gritar."
       >
         <Panel>
           <Variant name="plano"><Chip>Indagación</Chip></Variant>

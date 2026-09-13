@@ -15,7 +15,7 @@ export function TextareaStory() {
       title="Textarea"
       kind="Formularios"
       imports="import { Textarea } from '@milo/ui'"
-      lead="El campo de varias líneas: el TextField estirado. La misma caja, el mismo borde y la misma marca de foco, porque un campo de una línea y uno de varias que no se parecen se leen como dos sistemas. Lo único que cambia adentro es el leading — el 16 fijo de la interfaz aprieta cuando hay varios renglones. Al enfocarse se le tiñe el borde en vez de rodearse de un anillo: el anillo es para una pieza sin borde propio, y sobre un campo dibujaba una segunda línea azul a dos píxeles de la primera."
+      lead="El campo de varias líneas: el TextField estirado. La misma caja, el mismo borde y la misma marca de foco, porque dos campos que no se parecen se leen como dos sistemas. Lo único que cambia adentro es el interlineado: el 16 fijo aprieta cuando hay varios renglones."
     >
       <Section
         title="Crece con lo que escribís"
@@ -25,6 +25,7 @@ export function TextareaStory() {
           <div className="w-full max-w-[320px]">
             <Demo label="rows 3 · maxRows 6">
               <Textarea
+                aria-label="Consigna, con techo de seis filas"
                 value={withCap}
                 onChange={e => setWithCap(e.target.value)}
                 rows={3}
@@ -36,6 +37,7 @@ export function TextareaStory() {
           <div className="w-full max-w-[320px]">
             <Demo label="sin techo">
               <Textarea
+                aria-label="Consigna, sin techo"
                 value={noCap}
                 onChange={e => setNoCap(e.target.value)}
                 rows={2}
@@ -54,6 +56,7 @@ export function TextareaStory() {
           <div className="w-full max-w-[300px]">
             <Demo label="con placeholder">
               <Textarea
+                aria-label="Consigna de la actividad"
                 value={short}
                 onChange={e => setShort(e.target.value)}
                 placeholder="Escribí la consigna de la actividad…"
@@ -65,7 +68,8 @@ export function TextareaStory() {
           </div>
           <div className="w-full max-w-[300px]">
             <Demo label="disabled">
-              <Textarea value="No editable" disabled rows={3} className="w-full" />
+              <Textarea aria-label="Consigna no editable"
+                value="No editable" disabled rows={3} className="w-full" />
             </Demo>
           </div>
         </div>
@@ -78,17 +82,20 @@ export function TextareaStory() {
         <div className="flex flex-wrap items-start gap-3">
           <div className="w-full max-w-[260px]">
             <Demo label="auto · el default">
-              <Textarea value={mode} onChange={e => setMode(e.target.value)} rows={2} maxRows={6} className="w-full" />
+              <Textarea aria-label="Consigna, alto automático"
+                value={mode} onChange={e => setMode(e.target.value)} rows={2} maxRows={6} className="w-full" />
             </Demo>
           </div>
           <div className="w-full max-w-[260px]">
             <Demo label="vertical · el tirador nativo">
-              <Textarea defaultValue="Arrastrá la esquina." rows={2} resize="vertical" className="w-full" />
+              <Textarea aria-label="Consigna, alto arrastrable"
+                defaultValue="Arrastrá la esquina." rows={2} resize="vertical" className="w-full" />
             </Demo>
           </div>
           <div className="w-full max-w-[260px]">
             <Demo label="none · fijo, y scrollea">
               <Textarea
+                aria-label="Consigna, alto fijo"
                 defaultValue={'Alto fijo de dos filas.\nLo que sobra scrollea y el campo no se mueve.'}
                 rows={2}
                 resize="none"
@@ -105,7 +112,7 @@ export function TextareaStory() {
 
       <Section
         title="Lo que se paga si falta"
-        note="Tres cosas que no se ven cuando están bien. Primero `height: auto` y después leer `scrollHeight`, porque scrollHeight nunca es menor que el alto puesto: midiendo sin resetear, el campo crece y no vuelve. El techo tiene que prender el scroll, o el texto sigue existiendo sin forma de llegar a él — y abajo del techo tiene que estar apagado, o aparece una barra que titila en cada tecla. Y se mide en un layout effect: midiendo después del paint, cada tecla que agranda el campo se ve como un salto."
+        note="Tres cosas que no se ven cuando están bien. `height: auto` antes de leer `scrollHeight`, o el campo crece y no vuelve. El techo prende el scroll, y abajo del techo lo apaga, o aparece una barra que titila en cada tecla. Y se mide en un layout effect: después del paint, cada tecla se ve como un salto."
       >
         <p className="max-w-[70ch] text-body text-ink-muted">
           El <code>resize</code> nativo no está: es una esquina que solo existe con mouse, y

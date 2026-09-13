@@ -17,13 +17,9 @@ describe('Link', () => {
   })
 
   it('lleva las dos señales: el color de marca y el subrayado', () => {
-    // El color solo no alcanza (WCAG 1.4.1) y el subrayado solo lo confundía con
-    // el texto en negrita de al lado.
     render(<Link href="#">Ver todas</Link>)
     const a = screen.getByRole('link')
     expect(a).toHaveClass('text-brand-ink', 'underline')
-    // El subrayado va en el tono de la letra: en un tono más claro no se ve, y
-    // entonces la única señal vuelve a ser el color.
     expect(a).toHaveClass('decoration-current')
   })
 })

@@ -10,7 +10,7 @@ export function ModalStory() {
   return (
     <Page
       title="Modal"
-      lead="El backdrop es blur de 3px más una capa muy tenue (14%), no un negro al 50%: el contexto de abajo se sigue leyendo y el modal no se siente un cambio de página. El bloqueo de scroll compensa el ancho de la scrollbar, porque sin eso la página salta a la derecha justo al abrir."
+      lead="El backdrop es blur de 3px más una capa que atenúa en vez de lavar: 14% en claro y 55% en oscuro, porque sobre un fondo ya oscuro un velo tenue no se ve. En los dos casos el contexto de abajo se sigue leyendo y el modal no se siente un cambio de página. El bloqueo de scroll compensa el ancho de la scrollbar, porque sin eso la página salta a la derecha justo al abrir."
       kind="Superficies"
       imports="import { Modal } from '@milo/ui'"
     >
@@ -54,7 +54,7 @@ export function ModalStory() {
 
       <Section
         title="El caso real: los ajustes"
-        note="El mismo modal que usa la app, no una maqueta: rail de 180 que no scrollea + panel que sí. Si scrollean los dos, al bajar en una sección larga desaparecen las secciones y no sabés dónde estás. Los ajustes van en un modal y no en una página porque lo que importa es no perder el contexto — al cerrar no hay navegación, seguís donde estabas y con el scroll donde lo dejaste, y por eso el fondo se atenúa apenas en vez de lavarse."
+        note="El mismo modal que usa la app: rail de 180 que no scrollea, panel que sí. Si scrollean los dos, al bajar en una sección larga desaparecen las secciones y no sabés dónde estás. Van en un modal y no en una página para no perder el contexto: al cerrar seguís donde estabas, con el scroll donde lo dejaste."
       >
         <div className="flex flex-wrap items-start gap-3">
           <Demo label="width 594">
@@ -73,7 +73,7 @@ export function ModalStory() {
         </div>
         <p className="mt-3 max-w-[70ch] text-meta text-ink-muted">
           Vive en el paquete y no en la app por la misma regla que deja al shell afuera: no lee
-          `data.ts` ni el router. Lo único que necesita son las preferencias —que ya viven acá— y
+          <code>data.ts</code> ni el router. Lo único que necesita son las preferencias —que ya viven acá— y
           quién está mirando, que va por prop: el nombre y el correo de una persona real no son
           parte de un design system. Adentro hay un Select, que abre un flotante adentro de otro
           flotante: probalo, el listbox queda arriba del modal sin que nadie escriba un z-index.

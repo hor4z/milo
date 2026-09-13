@@ -1,7 +1,8 @@
 import { useEffect, useMemo, useRef, useState, type ReactNode } from 'react'
-import { Icon, IconButton, Search, ToastProvider, cx, fold, usePrefs } from '@milo/ui'
+import { Button, EmptyState, Icon, IconButton, Search, ToastProvider, cx, fold, usePrefs } from '@milo/ui'
 import { Intro } from './intro'
 import { Dashboard } from './dashboard'
+import { Documento } from './document'
 import { Principles } from './foundations/principles'
 import { AccessibilitySection } from './foundations/accessibility'
 import { TypographySection } from './foundations/typography'
@@ -12,6 +13,20 @@ import { MotionSection } from './foundations/motion'
 import { StatesSection } from './foundations/states'
 import { InclusionSection } from './foundations/inclusion'
 import { AudioPlayerStory } from './stories/audio-player'
+import { ChartsSection } from './foundations/charts'
+import { LayoutSection } from './foundations/layout'
+import { CalloutStory } from './stories/callout'
+import { FigureStory } from './stories/figure'
+import { QuoteStory } from './stories/quote'
+import { TaskListStory } from './stories/task-list'
+import { MentionStory } from './stories/mention'
+import { DatePickerStory } from './stories/date-picker'
+import { TreeStory } from './stories/tree'
+import { StepperStory } from './stories/stepper'
+import { ReorderStory } from './stories/reorder'
+import { CommandMenuStory } from './stories/command-menu'
+import { ToolbarStory } from './stories/toolbar'
+import { StepsStory } from './stories/steps'
 import { AmeliaStory } from './mascots/amelia'
 import { OttoStory } from './mascots/otto'
 import { Writing } from './foundations/writing'
@@ -67,8 +82,6 @@ type Group = { label: string; stories: Story[] }
 const INTRO = 'intro'
 
 const groups: Group[] = [
-  // El orden no es alfabético: las dos primeras son las que hay que leer antes
-  // de tocar nada, y después van las capas en el orden en que se arma una pantalla.
   {
     label: 'Fundamentos',
     stories: [
@@ -76,11 +89,13 @@ const groups: Group[] = [
       { id: 'accessibility', label: 'Accesibilidad', alias: 'accesibilidad a11y contraste teclado foco lector pantalla wcag', render: () => <AccessibilitySection /> },
       { id: 'typography', label: 'Tipografía', alias: 'tipografía fuente texto escala pesos interlineado tracking familia inter legibilidad', render: () => <TypographySection /> },
       { id: 'color', label: 'Color', alias: 'paleta tokens rampa tonos', render: () => <ColorSection /> },
-      { id: 'measure', label: 'Medidas y radios', alias: 'espaciado medidas radios tamaños layout grilla', render: () => <MeasureSection /> },
+      { id: 'measure', label: 'Medidas y radios', alias: 'espaciado medidas radios tamaños grilla', render: () => <MeasureSection /> },
+      { id: 'layout', label: 'Layout', alias: 'layout cortes breakpoints responsive columnas mueble riel ancho pantalla', render: () => <LayoutSection /> },
       { id: 'relief', label: 'Relieve', alias: 'sombra relieve elevación profundidad', render: () => <ReliefSection /> },
       { id: 'motion', label: 'Movimiento', alias: 'movimiento animación transición duración curva easing reduced motion', render: () => <MotionSection /> },
       { id: 'states', label: 'Estados', alias: 'estados hover foco pressed disabled vacío cargando error skeleton empty loading', render: () => <StatesSection /> },
       { id: 'icon', label: 'Iconos', alias: 'iconos glifos símbolos', render: () => <IconStory /> },
+      { id: 'charts', label: 'Gráficos', alias: 'gráficos datos barras línea ejes leyenda visualización', render: () => <ChartsSection /> },
       { id: 'writing', label: 'Cómo se escribe', alias: 'texto redacción copy mensajes tono escritura', render: () => <Writing /> },
       { id: 'inclusion', label: 'Inclusión', alias: 'inclusión género lenguaje nombres personas diversidad edtech', render: () => <InclusionSection /> },
     ],
@@ -90,6 +105,18 @@ const groups: Group[] = [
     stories: [
       { id: 'otto', label: 'Otto', alias: 'otto mascota personaje nutria hurón ilustración', render: () => <OttoStory /> },
       { id: 'amelia', label: 'Amelia', alias: 'amelia mascota personaje chica estudiante ilustración', render: () => <AmeliaStory /> },
+    ],
+  },
+  {
+    label: 'Editor',
+    stories: [
+      { id: 'toolbar', label: 'Toolbar', alias: 'barra herramientas formato negrita cursiva editor texto enriquecido', render: () => <ToolbarStory /> },
+      { id: 'command-menu', label: 'CommandMenu', alias: 'comandos paleta barra slash menú buscar bloques editor notion', render: () => <CommandMenuStory /> },
+      { id: 'callout', label: 'Callout', alias: 'bloque destacado aclaración pista recordar contenido editor', render: () => <CalloutStory /> },
+      { id: 'figure', label: 'Figure', alias: 'imagen figura pie epígrafe foto alt caption editor', render: () => <FigureStory /> },
+      { id: 'quote', label: 'Quote', alias: 'cita blockquote fuente atribución textual editor', render: () => <QuoteStory /> },
+      { id: 'task-list', label: 'TaskList', alias: 'tareas checklist pasos pendientes marcar hacer editor', render: () => <TaskListStory /> },
+      { id: 'mention', label: 'Mention', alias: 'mención arroba persona espacio referencia enlace texto editor', render: () => <MentionStory /> },
     ],
   },
   {
@@ -110,10 +137,12 @@ const groups: Group[] = [
       { id: 'text-field', label: 'TextField', alias: 'input campo texto entrada', render: () => <TextFieldStory /> },
       { id: 'textarea', label: 'Textarea', alias: 'campo multilínea texto largo', render: () => <TextareaStory /> },
       { id: 'select', label: 'Select', alias: 'combo desplegable elegir opción', render: () => <SelectStory /> },
+      { id: 'date-picker', label: 'DatePicker', alias: 'fecha calendario vencimiento día mes entrega cuándo almanaque', render: () => <DatePickerStory /> },
       { id: 'checkbox', label: 'Checkbox', alias: 'casilla marcar tilde', render: () => <CheckboxStory /> },
       { id: 'radio', label: 'Radio', alias: 'opción única elegir', render: () => <RadioStory /> },
       { id: 'switch', label: 'Switch', alias: 'toggle interruptor prender apagar', render: () => <SwitchStory /> },
       { id: 'slider', label: 'Slider', alias: 'rango deslizar valor', render: () => <SliderStory /> },
+      { id: 'stepper', label: 'Stepper', alias: 'paso número cantidad más menos contador incrementar intentos', render: () => <StepperStory /> },
       { id: 'segmented', label: 'Segmented', alias: 'filtro conmutador pestañas grupo', render: () => <SegmentedStory /> },
     ],
   },
@@ -123,6 +152,9 @@ const groups: Group[] = [
       { id: 'tabs', label: 'Tabs', alias: 'solapas pestañas paneles', render: () => <TabsStory /> },
       { id: 'accordion', label: 'Accordion', alias: 'acordeón desplegable details preguntas frecuentes', render: () => <AccordionStory /> },
       { id: 'breadcrumb', label: 'Breadcrumb', alias: 'ruta migas volver jerarquía', render: () => <BreadcrumbStory /> },
+      { id: 'tree', label: 'Tree', alias: 'árbol jerarquía carpetas anidado índice esquema outline ramas', render: () => <TreeStory /> },
+      { id: 'reorder', label: 'Reorder', alias: 'reordenar arrastrar soltar mover orden bloques manija drag', render: () => <ReorderStory /> },
+      { id: 'steps', label: 'Steps', alias: 'etapas pasos proceso wizard progreso secuencia', render: () => <StepsStory /> },
       { id: 'nav', label: 'NavItem', alias: 'navegación item sidebar riel', render: () => <NavStory /> },
     ],
   },
@@ -242,8 +274,8 @@ export function App() {
         >
           <div className="flex flex-col gap-3 px-4 pt-5 pb-3">
             <button onClick={() => go(INTRO)} className="flex items-baseline gap-2 self-start rounded-md px-1 text-left">
-              <span className="text-reading font-bold text-ink">milo</span>
-              <span className="text-meta font-semibold text-ink-muted">design system</span>
+              <span className="text-reading font-semibold text-ink">milo</span>
+              <span className="text-meta font-medium text-ink-muted">design system</span>
             </button>
 
             <Search
@@ -276,6 +308,7 @@ export function App() {
           <div className="flex-1 overflow-y-auto px-3 pb-4">
             <SideLink active={current === INTRO} onClick={() => go(INTRO)} icon="deployed_code">Introducción</SideLink>
             <SideLink active={current === 'dashboard'} onClick={() => go('dashboard')} icon="dashboard">Dashboard</SideLink>
+            <SideLink active={current === 'documento'} onClick={() => go('documento')} icon="description">Documento</SideLink>
 
             {filtered.map(g => (
               <div key={g.label} className="mt-5 first:mt-4">
@@ -309,7 +342,7 @@ export function App() {
           </div>
         </nav>
 
-        <div className="sticky top-0 z-20 flex items-center gap-2 border-b border-line bg-canvas/90 px-4 py-3 backdrop-blur-md lg:hidden">
+        <header className="sticky top-0 z-20 flex items-center gap-2 border-b border-line bg-canvas/90 px-4 py-3 backdrop-blur-md lg:hidden">
           <IconButton
             icon="menu"
             label="Abrir el índice"
@@ -320,13 +353,22 @@ export function App() {
             onClick={() => setRailOpen(true)}
           />
           <span className="text-body font-semibold text-ink">milo · design system</span>
-        </div>
+        </header>
 
         <main ref={main} className="min-w-0 flex-1 px-5 py-8 lg:ml-[248px] lg:px-10 lg:py-10">
           <div key={current} className="mx-auto flex max-w-[980px] flex-col">
             {current === INTRO && <Intro go={go} views={everything.length} />}
             {current === 'dashboard' && <Dashboard />}
+            {current === 'documento' && <Documento />}
             {story?.render()}
+            {!story && current !== INTRO && current !== 'dashboard' && current !== 'documento' && (
+              <EmptyState
+                icon="search_off"
+                title="Esa vista ya no está acá"
+                body={`No hay ninguna pieza que se llame «${current}». Puede que se haya renombrado: el buscador del riel encuentra por nombre y por sinónimo.`}
+                action={<Button variant="raised" icon="arrow_back" onClick={() => go(INTRO)}>Volver a la introducción</Button>}
+              />
+            )}
           </div>
         </main>
       </div>
@@ -337,7 +379,7 @@ export function App() {
 function SideLink({ active, onClick, icon, piece, children }: {
   active: boolean
   onClick: () => void
-  icon?: 'deployed_code' | 'dashboard'
+  icon?: 'deployed_code' | 'dashboard' | 'description'
   piece?: boolean
   children: ReactNode
 }) {
@@ -355,7 +397,7 @@ function SideLink({ active, onClick, icon, piece, children }: {
       }}
       aria-current={active ? 'page' : undefined}
       className={cx(
-        'flex h-8 w-full items-center gap-2 rounded-lg px-2 text-left text-body transition-colors',
+        'flex h-8 w-full items-center gap-2 rounded-lg px-2 text-left text-body transition-colors duration-fast ease-out',
         active ? 'bg-brand-soft font-semibold text-brand-ink shadow-[0_0_0_1px_var(--brand-border)]' : 'font-medium text-ink hover:bg-hover',
       )}
     >

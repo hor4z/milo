@@ -30,7 +30,7 @@ const principles: { icon: IconName; title: string; body: string }[] = [
   {
     icon: 'visibility',
     title: 'El color nunca dice algo solo',
-    body: 'Un estado se dice con texto y con forma además de con tono. Los tonos de estado vienen con su glifo, y las barras de un gráfico suben de tono con la altura para que el tamaño y el color digan lo mismo.',
+    body: 'Un estado se dice con texto y con forma además de con tono. Los tonos de estado vienen con su glifo, y en un gráfico lo que dice cuánto es el alto de la barra y no su color, que es el mismo en todas.',
   },
 ]
 
@@ -46,7 +46,7 @@ export function Principles() {
             <span className="inset-relief flex size-9 items-center justify-center rounded-xl bg-muted">
               <Icon name={p.icon} size={20} className="icon-muted" />
             </span>
-            <h3 className="text-reading font-semibold text-ink">{p.title}</h3>
+            <h2 className="text-reading font-semibold text-ink">{p.title}</h2>
             <p className="text-body font-medium text-ink-muted">{p.body}</p>
           </div>
         ))}
@@ -56,7 +56,7 @@ export function Principles() {
         title="Cómo se arma una pieza"
         note="Todo lo que se compone se expone en partes en vez de recibir un objeto de configuración. Un Alert es AlertTitle, AlertBody y AlertActions; unas solapas son Tabs, TabList, Tab y TabPanel. Cuesta dos líneas más de escribir y evita la prop número catorce."
       >
-        <pre className="overflow-x-auto rounded-xl border border-line bg-muted p-4 font-mono text-body text-ink">
+        <pre className="m-0 overflow-x-auto rounded-xl border border-line bg-sunken p-5 font-mono text-body text-ink">
 {`<Alert tone="warn">
   <AlertTitle>Tres entregas vencen mañana</AlertTitle>
   <AlertBody>Después de esa fecha nadie puede subir nada.</AlertBody>

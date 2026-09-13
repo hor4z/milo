@@ -11,7 +11,7 @@ export function TooltipStory() {
     >
       <Section
         title="El retraso se comparte"
-        note="El primero tarda medio segundo, porque un tooltip que aparece apenas el mouse pasa por encima salta solo mientras cruzás la pantalla. Pero una vez que uno se mostró, el de al lado abre al instante: con medio segundo cada uno, recorrer seis iconos son tres segundos de espera y la fila se siente trabada. Pasá el mouse por la fila entera y después salí un rato y volvé."
+        note="El primero tarda medio segundo, porque uno que aparece apenas el mouse pasa salta solo mientras cruzás la pantalla. Pero el de al lado abre al instante: con medio segundo cada uno, recorrer seis iconos son tres segundos de espera."
       >
         <div className="flex flex-wrap items-center gap-1">
           <Tooltip label="Buscar"><IconButton icon="search" label="Buscar" /></Tooltip>
@@ -66,7 +66,7 @@ export function TooltipStory() {
 
       <Section
         title="Lo que no hace"
-        note="En touch no aparece: no hay hover que lo abra ni forma de cerrarlo sin tocar otra cosa. Por eso lo que el tooltip diga tiene que estar también en el aria-label del control, y por eso no lleva información que no esté en otro lado. Para un lector de pantalla el control ya se nombra solo; el tooltip es la ayuda de quien ve el icono y no sabe qué hace."
+        note="En touch no aparece: no hay hover que lo abra ni forma de cerrarlo sin tocar otra cosa. Por eso lo que diga tiene que estar también en el `aria-label` del control, y por eso nunca lleva información que no esté en otro lado."
       >
         <p className="max-w-[70ch] text-body text-ink-muted">
           Queda un <code>title</code> nativo en el <code>Segmented</code> de solo iconos, que es la

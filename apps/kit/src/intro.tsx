@@ -9,11 +9,10 @@ const face = (n: number) => `/avatars/${String(n).padStart(2, '0')}.webp`
 const shortcuts: { id: string; icon: IconName; title: string; body: string }[] = [
   { id: 'principles', icon: 'target', title: 'Principios', body: 'Las seis decisiones de las que sale todo lo demás.' },
   { id: 'color', icon: 'palette', title: 'Color', body: 'Una rampa casi neutra y tres familias acotadas.' },
-  { id: 'button', icon: 'touch_app', title: 'Componentes', body: 'Cada una con su teclado, sus estados y sus tests.' },
-  { id: 'dashboard', icon: 'dashboard', title: 'Dashboard', body: 'Todo junto, funcionando en una pantalla real.' },
+  { id: 'dashboard', icon: 'dashboard', title: 'Dashboard', body: 'Las piezas de la app, juntas en una pantalla real.' },
+  { id: 'documento', icon: 'description', title: 'Documento', body: 'Las del editor, juntas en una consigna de verdad.' },
 ]
 
-// `views` y no `pieces`: el riel tiene vistas de documentación además de piezas.
 export function Intro({ go, views }: { go: (id: string) => void; views: number }) {
   const [demo, setDemo] = useState(true)
 
@@ -41,12 +40,13 @@ export function Intro({ go, views }: { go: (id: string) => void; views: number }
           <div className="flex flex-wrap items-center gap-2">
             <Button variant="solid" icon="arrow_forward" onClick={() => go('principles')}>Ver los principios</Button>
             <Button variant="raised" icon="dashboard" onClick={() => go('dashboard')}>Ver el dashboard</Button>
+            <Button variant="raised" icon="description" onClick={() => go('documento')}>Ver un documento</Button>
           </div>
 
           <dl className="mt-1 flex flex-wrap gap-x-8 gap-y-3 border-t border-line pt-6">
-            {[[String(views), 'vistas'], ['303', 'tests'], ['160', 'iconos'], ['2', 'temas']].map(([n, l]) => (
+            {[[String(views), 'vistas'], ['516', 'tests'], ['172', 'iconos'], ['2', 'temas']].map(([n, l]) => (
               <div key={l} className="flex items-baseline gap-2">
-                <dt className="tabular text-title font-bold text-ink">{n}</dt>
+                <dt className="tabular text-title font-semibold text-ink">{n}</dt>
                 <dd className="text-body font-medium text-ink-muted">{l}</dd>
               </div>
             ))}
@@ -59,14 +59,14 @@ export function Intro({ go, views }: { go: (id: string) => void; views: number }
           <button
             key={a.id}
             onClick={() => go(a.id)}
-            className="group flex flex-col gap-3 rounded-xl border border-line bg-surface p-5 text-left transition-[background-color,box-shadow] hover:bg-muted"
+            className="group flex flex-col gap-3 rounded-xl border border-line bg-surface p-5 text-left transition-[background-color,box-shadow] duration-fast ease-out hover:bg-muted"
           >
             <span className="inset-relief flex size-9 items-center justify-center rounded-xl bg-muted">
               <Icon name={a.icon} size={20} className="icon-muted" />
             </span>
             <span className="flex items-center gap-1 text-reading font-semibold text-ink">
               {a.title}
-              <Icon name="chevron_right" size={16} className="icon-muted transition-transform group-hover:translate-x-0.5" />
+              <Icon name="chevron_right" size={16} className="icon-muted transition-transform duration-fast ease-out group-hover:translate-x-0.5" />
             </span>
             <span className="text-body font-medium text-ink-muted">{a.body}</span>
           </button>

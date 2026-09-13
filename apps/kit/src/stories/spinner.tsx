@@ -11,7 +11,7 @@ export function SpinnerStory() {
     >
       <Section
         title="Tamaños"
-        note="El trazo sí escala: es el 17% del diámetro a cualquier tamaño, que es la proporción de la referencia. Con el trazo fijo, el de 44 quedaba en 3 sobre 44 —un hilo— al lado del de 20 en 3 sobre 20: dos piezas del mismo componente que no se parecían entre sí. Abajo de 12 hay un piso de 2px, para que el trazo no caiga en el medio píxel y el antialias lo apague en vez de adelgazarlo."
+        note="El trazo escala: es el 17% del diámetro a cualquier tamaño. Con el trazo fijo, el de 44 quedaba en 3 sobre 44 —un hilo— al lado del de 20 en 3 sobre 20. Abajo de 12 hay un piso de 2px, para que no caiga en el medio píxel y el antialias lo apague."
       >
         <Panel>
           <Variant name="16 · 20 · 28 · 44">
@@ -25,7 +25,7 @@ export function SpinnerStory() {
 
       <Section
         title="En contexto"
-        note="El arco va en el azul primario y no en tinta: lo único que se mueve conviene que se distinga también por el color. Adentro de un botón oscuro hay que pasarle `on=&quot;solid&quot;` — el filo es del color del fondo de atrás y la pista sale del color del texto de ese fondo, y con el default puesto ahí el filo blanco se ve como un halo."
+        note="El arco va en el azul y no en tinta: lo único que se mueve conviene que se distinga también por el color. Adentro de un botón oscuro hay que pasarle `on=&quot;solid&quot;`, o el filo blanco se ve como un halo."
       >
         <Panel>
           <Variant name="en un botón">

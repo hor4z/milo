@@ -24,8 +24,6 @@ export function TextField({ icon, suffix, size = 'lg', className, ref, inputRef,
   return (
     <div
       ref={ref}
-      // La caja dice `cursor-text` y tiene que cumplirlo: el aire alrededor del
-      // input —el padding, el hueco al lado del icono— también enfoca.
       onPointerDown={e => {
         if ((e.target as HTMLElement).closest('button, a, input, textarea')) return
         e.preventDefault()

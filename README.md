@@ -61,15 +61,23 @@ busca.
 
 ## Las piezas
 
+Agrupadas por el trabajo que hacen, que es como las ordena el riel del kit.
+
+Editor: `Toolbar` · `CommandMenu` · `Callout` · `Figure` · `Quote` · `TaskList` · `Mention`
 Acciones: `Button` · `IconButton` · `Menu` · `Dropdown`
-Formularios: `Field` · `Sheet` · `TextField` · `Textarea` · `Select` · `Checkbox` · `Radio` ·
-`Switch` · `Slider` · `Segmented`
-Navegación: `Tabs` · `Accordion` · `Breadcrumb` · `NavItem` · `Pagination`
-Datos: `Table` · `List` · `BarChart` · `Badge` · `Progress` · `Skeleton` · `Avatar` · `Chip` ·
-`Filter`
+Formularios: `Field` · `Sheet` · `Search` · `TextField` · `Textarea` · `Select` · `DatePicker` ·
+`Checkbox` · `Radio` · `Switch` · `Slider` · `Stepper` · `Segmented`
+Navegación: `Tabs` · `Accordion` · `Breadcrumb` · `Tree` · `Reorder` · `Steps` · `NavItem`
+Datos: `Table` · `List` · `BarChart` · `ColumnPicker` · `Indicator` · `Badge` · `Progress` ·
+`AudioPlayer` · `Skeleton` · `Avatar` · `Chip`
 Avisos: `Alert` · `Toast` · `EmptyState` · `Spinner` · `Tooltip`
 Superficies: `Card` · `Row` · `Modal` · `ConfirmDialog` · `Popover` · `Divider` · `Link` ·
-`Kbd` · `Book` · `Folder` · `Page`
+`Kbd` · `Book` · `Folder`
+
+Y siete que se consumen pero todavía no tienen vista propia en el kit: `Filter`, `Pagination`,
+`SettingsModal`, `Page`, `Portal`, `Icon` y los dos proveedores, `ToastProvider` y
+`PrefsProvider`. Lo que se compone se expone en partes —`AlertTitle`, `CardHeader`, `TabPanel`—
+y esas partes se documentan en la vista de la pieza que las arma.
 
 ## Accesibilidad
 

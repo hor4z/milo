@@ -7,11 +7,11 @@ export function EmptyStateStory() {
       title="EmptyState"
       kind="Avisos"
       imports="import { EmptyState } from '@milo/ui'"
-      lead="Lo que se ve cuando no hay nada, siempre con una salida: un vacío que no dice qué hacer es una pantalla rota con buena redacción. El icono va adentro de un hueco y en gris — suelto y grande se ve como una imagen que no cargó, que es justo lo que uno teme cuando una pantalla aparece vacía, y el hueco lo convierte en una marca puesta a propósito."
+      lead="Lo que se ve cuando no hay nada, siempre con una salida: un vacío que no dice qué hacer es una pantalla rota con buena redacción. El icono va adentro de un hueco y en gris — suelto y grande se ve como una imagen que no cargó, que es justo lo que uno teme."
     >
       <Section
         title="Los dos tamaños"
-        note="La diferencia no es sólo el padding. `md` es el de una pantalla: dice «esto está vacío y podés empezar acá». `sm` es el de adentro de una pieza —una tabla filtrada, una galería sin coincidencias— donde el vacío es de una búsqueda y no del lugar: con el aire del grande, filtrar y no encontrar nada empuja la paginación media pantalla para abajo y parece que la tabla desapareció."
+        note="La diferencia no es el padding. `md` es el de una pantalla: «esto está vacío y podés empezar acá». `sm` es el de adentro de una pieza, donde el vacío es de una búsqueda y no del lugar — con el aire del grande, filtrar y no encontrar nada empuja la paginación media pantalla para abajo."
       >
         <div className="flex flex-col gap-4">
           <Demo label="md · una pantalla">

@@ -1,4 +1,5 @@
 import { useEffect, useLayoutEffect, useRef, useState, type ReactNode } from 'react'
+import { useDismiss } from '../lib/dismiss'
 import { useEscape } from '../lib/esc'
 import { Portal } from '../portal/portal'
 
@@ -32,14 +33,17 @@ export function Popover({
   const [pos, setPos] = useState({ top: 0, left: 0 })
 
   const set = (v: boolean) => { setOpen(v); onOpenChange?.(v) }
-  const close = () => set(false)
+
+  const close = () => {
+    const adentro = panelRef.current?.contains(document.activeElement)
+    set(false)
+    if (adentro) triggerRef.current?.focus()
+  }
 
   useEscape(open, close)
 
   const [height, setHeight] = useState(0)
 
-  // El panel cambia de alto mientras está abierto (una opción que aparece), y
-  // abierto hacia arriba eso lo estira sobre su propio disparador.
   useEffect(() => {
     const el = panelRef.current
     if (!open || !el || typeof ResizeObserver === 'undefined') return
@@ -62,26 +66,7 @@ export function Popover({
     })
   }, [open, align, width, offset, height])
 
-  useEffect(() => {
-    if (!open) return
-    const onDown = (e: PointerEvent) => {
-      const t = e.target as Node
-      if (panelRef.current?.contains(t) || triggerRef.current?.contains(t)) return
-      close()
-    }
-    const onScroll = (e: Event) => {
-      if (e.type === 'scroll' && panelRef.current?.contains(e.target as Node)) return
-      close()
-    }
-    document.addEventListener('pointerdown', onDown)
-    window.addEventListener('scroll', onScroll, true)
-    window.addEventListener('resize', onScroll)
-    return () => {
-      document.removeEventListener('pointerdown', onDown)
-      window.removeEventListener('scroll', onScroll, true)
-      window.removeEventListener('resize', onScroll)
-    }
-  }, [open])
+  useDismiss(open, close, [panelRef, triggerRef])
 
   return (
     <>

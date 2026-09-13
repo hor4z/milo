@@ -31,8 +31,6 @@ export function Indicator({
   const hay = icon != null || (count != null && count > 0) || dot
   if (!hay) return <>{children}</>
 
-  // El punto se apoya en el canto; el contador y el glifo se corren afuera,
-  // porque son más grandes y adentro tapan lo que están marcando.
   const pelado = !icon && count == null
 
   return (

@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { Button, Card, Chip, EmptyState, Icon, Skeleton, Spinner, Switch, TextField } from '@milo/ui'
-import { A11y, Note, Page, Section } from '../kit'
+import { A11y, Note, Page, Section, Rich } from '../kit'
 
 /** Los seis estados de algo que se toca, y con qué los dice este sistema. */
 const interaccion = [
@@ -29,7 +29,7 @@ export function StatesSection() {
             <div key={e.name} className="flex flex-wrap gap-x-5 gap-y-2 border-t border-line px-5 py-4 first:border-t-0">
               <code className="w-24 shrink-0 font-mono text-meta font-semibold text-ink">{e.name}</code>
               <span className="w-[34ch] shrink-0 text-body text-ink">{e.how}</span>
-              <span className="min-w-0 flex-1 text-meta text-ink-muted">{e.why}</span>
+              <span className="min-w-0 flex-1 text-meta text-ink-muted"><Rich text={e.why} /></span>
             </div>
           ))}
         </div>

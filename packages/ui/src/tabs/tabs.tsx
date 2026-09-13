@@ -37,8 +37,15 @@ export function Tabs({ value, defaultValue, onValueChange, className, children, 
 }
 
 /** La fila de solapas. Las flechas se mueven entre ellas, como pide un tablist. */
-export function TabList({ className, children, ...props }: ComponentPropsWithoutRef<'div'>) {
+export function TabList({ label, className, children, ...props }: ComponentPropsWithoutRef<'div'> & {
+  /** De qué son estas solapas. Sin esto un lector las anuncia como «lista de solapas» y con dos en una pantalla no se distinguen. */
+  label?: string
+}) {
   const ref = useRef<HTMLDivElement>(null)
+  const borde = (i: 0 | -1) => {
+    const tabs = [...(ref.current?.querySelectorAll<HTMLButtonElement>('[role="tab"]') ?? [])]
+    tabs.at(i)?.focus()
+  }
   const move = (step: number) => {
     const tabs = [...(ref.current?.querySelectorAll<HTMLButtonElement>('[role="tab"]') ?? [])]
     const i = tabs.indexOf(document.activeElement as HTMLButtonElement)
@@ -49,9 +56,11 @@ export function TabList({ className, children, ...props }: ComponentPropsWithout
     <div
       ref={ref}
       role="tablist"
+      aria-label={label}
       onKeyDown={e => {
         if (e.key === 'ArrowRight') { e.preventDefault(); move(1) }
         if (e.key === 'ArrowLeft') { e.preventDefault(); move(-1) }
+        if (e.key === 'Home' || e.key === 'End') { e.preventDefault(); borde(e.key === 'Home' ? 0 : -1) }
       }}
       className={cx('flex items-center gap-1 border-b border-line', className)}
       {...props}
@@ -78,7 +87,7 @@ export function Tab({ value, className, children, ...props }: ComponentPropsWith
       tabIndex={active ? 0 : -1}
       onClick={() => setValue(value)}
       className={cx(
-        'relative -mb-px h-9 px-3 text-body transition-colors',
+        'relative -mb-px h-9 px-3 text-body transition-colors duration-fast ease-out',
         active ? 'font-semibold text-brand-ink' : 'text-ink-muted hover:text-ink',
         className,
       )}

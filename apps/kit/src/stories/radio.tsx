@@ -3,6 +3,7 @@ import { Checkbox, Radio, RadioGroup } from '@milo/ui'
 import { A11y, Page, Panel, Props, Section, Variant } from '../kit'
 
 export function RadioStory() {
+  const [comparado, setComparado] = useState(true)
   const [one, setOne] = useState<'a' | 'b'>('b')
   const [mode, setMode] = useState<'todas' | 'abiertas' | 'cerradas'>('abiertas')
   const [loose, setLoose] = useState<'si' | 'no'>('si')
@@ -17,7 +18,7 @@ export function RadioStory() {
     >
       <Section
         title="El grupo"
-        note="Las opciones van sueltas sobre el papel, sin píldora gris detrás. Una pista apagada con la pieza elegida flotando adentro es la receta del Segmented, y un radio metido ahí es el mismo control dibujado dos veces: opciones cortas que se comparan de un vistazo son un Segmented; opciones que necesitan su propio texto al lado son este grupo."
+        note="Las opciones van sueltas sobre el papel, sin píldora gris detrás: esa es la receta del `Segmented`, y un radio metido ahí es el mismo control dibujado dos veces. Opciones cortas que se comparan de un vistazo son un Segmented; opciones que necesitan su propio texto al lado son este grupo."
       >
         <Panel>
           <Variant name="dos opciones">
@@ -45,15 +46,15 @@ export function RadioStory() {
 
       <Section
         title="Es el checkbox en redondo"
-        note="Mismo relleno azul prendido, misma receta hundida apagado, misma medida de 18. Lo único que cambia es la forma y la marca de adentro: el checkbox lleva un tilde, el radio un disco blanco. Dos piezas que dicen lo mismo — «esto lo elegí yo» — no pueden dibujarse con dos recetas distintas, o la fila que las tiene juntas se lee como dos sistemas."
+        note="Mismo relleno azul prendido, misma receta hundida apagado, misma medida de 18. Lo único que cambia es la marca de adentro: un tilde o un disco. Dos piezas que dicen lo mismo —«esto lo elegí yo»— no pueden dibujarse con dos recetas distintas."
       >
         <Panel>
           <Variant name="radio vs checkbox">
             <Radio checked={withHint} onChange={() => setWithHint(true)} label="Prendido" />
             <Radio checked={!withHint} onChange={() => setWithHint(false)} label="Apagado" />
             <span className="ml-4 inline-flex items-center gap-3">
-              <Checkbox checked onChange={() => {}} label="Checkbox prendido" />
-              <Checkbox checked={false} onChange={() => {}} label="Checkbox apagado" />
+              <Checkbox checked={comparado} onChange={setComparado} label="Checkbox prendido" />
+              <Checkbox checked={!comparado} onChange={v => setComparado(!v)} label="Checkbox apagado" />
             </span>
           </Variant>
         </Panel>
@@ -91,7 +92,7 @@ export function RadioStory() {
 
       <Section
         title="El teclado"
-        note="Es el de un grupo de radios y no el de una lista de botones: una sola parada de tabulación para todo el grupo —la elegida— y las flechas mueven y eligen a la vez. Es la diferencia entre tabular cuatro veces para pasar un grupo y tabular una. El foco se mueve con la elección: si se quedara atrás, la flecha siguiente saldría del lugar equivocado."
+        note="Es el de un grupo de radios y no el de una lista de botones: una sola parada de tabulación para todo el grupo, y las flechas mueven y eligen a la vez. El foco se mueve con la elección — si se quedara atrás, la flecha siguiente saldría del lugar equivocado."
       >
         <Panel>
           <Variant name="probalo">
