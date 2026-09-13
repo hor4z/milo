@@ -54,8 +54,6 @@ export type { ToastOptions } from './toast/toast'
 export { EmptyState } from './empty-state/empty-state'
 export { Spinner } from './spinner/spinner'
 export { AudioPlayer } from './audio-player/audio-player'
-export { LineChart } from './line-chart/line-chart'
-export type { LinePoint, LineSeries } from './line-chart/line-chart'
 export { Skeleton } from './skeleton/skeleton'
 export { Tooltip } from './tooltip/tooltip'
 

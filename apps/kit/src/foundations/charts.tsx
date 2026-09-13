@@ -1,4 +1,4 @@
-import { BarChart, LineChart, Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@milo/ui'
+import { BarChart, Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@milo/ui'
 import { A11y, Note, Page, Section } from '../kit'
 
 const semana = [
@@ -9,11 +9,8 @@ const semana = [
   { label: 'Vie', value: 17, total: 17 },
 ]
 
-const avance = [{ label: '6.º A', points: [1, 2, 3, 4, 5, 6].map(s => ({ x: s, y: [54, 61, 58, 72, 79, 83][s - 1] })) }]
-
 const cual = [
   ['Comparar cantidades sueltas', 'Cuántas entregas por día, cuántos por curso', 'BarChart'],
-  ['Cómo cambia algo a lo largo de otra cosa', 'Una función, una medición en el tiempo, dos grupos', 'LineChart'],
   ['Una parte de un total, y una sola', 'Cuánto de lo entregado está corregido', 'Progress'],
   ['Valores exactos que alguien va a leer uno por uno', 'Las notas de treinta personas', 'Table'],
 ]
@@ -24,7 +21,7 @@ export function ChartsSection() {
       title="Gráficos"
       kind="Fundamentos"
       lead="Un gráfico sirve para ver una forma: una tendencia, una diferencia, un hueco. Cuando lo que hace falta es un número exacto, el gráfico estorba y lo que va es una tabla."
-      imports="import { BarChart, LineChart } from '@milo/ui'"
+      imports="import { BarChart } from '@milo/ui'"
     >
       <Section title="Cuál va" note="Elegir mal es el error más caro: un gráfico que no responde la pregunta obliga a mirarlo dos veces y desconfiar la tercera.">
         <Table label="Qué usar según qué se quiere ver" minWidth={520}>
@@ -65,10 +62,10 @@ export function ChartsSection() {
 
       <Section
         title="Nunca solo con color"
-        note="Cada trazo trae color, patrón de línea y forma de punto; cada barra sube de tono con la altura. Quien no separa dos colores separa el punteado, y quien no ve el gráfico tiene la tabla."
+        note="Cada barra sube de tono con la altura, y la elegida se separa del resto por el tono y por el valor escrito, no solo por el color. Quien no separa dos tonos lee la altura, y quien no ve el gráfico tiene la tabla."
       >
         <div className="rounded-xl border border-line bg-surface p-6">
-          <LineChart series={avance} title="Entregas por semana en 6.º A" xLabel="Semana" yLabel="Entregas" height={180} />
+          <BarChart title="Corregidas sobre entregadas por día" data={semana} highlight={2} height={180} />
         </div>
       </Section>
 
@@ -97,7 +94,8 @@ export function ChartsSection() {
       <Note title="Dónde arranca el eje cambia lo que se lee">
         Forzar el cero sirve para «cuánto»; ajustarlo al dato sirve para «cuándo cambió». Ninguna de
         las dos miente, pero dicen cosas distintas, así que la decisión es del que arma la pantalla
-        y no un default que se arrastra. En el `LineChart` es `zeroY`.
+        y no un default que se arrastra. Hoy el único gráfico del sistema es de barras y arranca en
+        cero siempre, que es lo que una barra necesita para no mentir con su largo.
       </Note>
 
       <Note title="Un número por frase">
@@ -110,7 +108,7 @@ export function ChartsSection() {
           'La tabla escondida es la versión completa del gráfico, no un resumen.',
           'Se recorren con el teclado, y en cada paso se anuncia la posición y el valor.',
           'El color nunca es la única diferencia: patrón, forma o altura dicen lo mismo.',
-          'Los colores de los trazos salen de la familia viva y llegan al 3:1 que un elemento gráfico necesita sobre la superficie.',
+          'El relleno de una barra llega al 3:1 que un elemento gráfico necesita contra su pista, en los dos temas.',
         ]}
       />
     </Page>

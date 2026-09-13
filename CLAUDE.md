@@ -4,7 +4,7 @@ El sistema de interfaz de milo: la identidad en tokens, las piezas que la usan, 
 donde se ve todo funcionando. No es una lámina de estilos — cada pieza de acá es el componente
 real, con su teclado, sus estados y sus tests.
 
-**El repo es del design system y de nada más.** El UI kit —las 65 piezas— es una parte; las
+**El repo es del design system y de nada más.** El UI kit —las 64 piezas— es una parte; las
 otras son los tokens y lo que el sitio documenta alrededor. Acá adentro no vive producto: el
 prototipo de la app que hubo hasta ahora se borró, y cuando haga falta uno de nuevo se arma
 aparte.
@@ -18,7 +18,7 @@ final son lo único que hay que tocar.
 npm install
 npm run dev        # el sitio · http://localhost:5190
 npm run typecheck  # todo el monorepo de una
-npm test           # 522 tests con vitest y testing-library
+npm test           # 516 tests con vitest y testing-library
 npm run props      # regenera la tabla de props desde los tipos
 ```
 
@@ -88,7 +88,7 @@ cosa—, así que ahora dirige en vez de explicar.
 | hover, foco, vacío, cargando, error | **Fundamentos › Estados** | — |
 | contraste, teclado, lectores | **Fundamentos › Accesibilidad** | `__tests__/contraste.test.ts` |
 | el set y cómo crece | **Fundamentos › Iconos** | `scripts/icons.mjs` |
-| qué gráfico va y cuándo una tabla | **Fundamentos › Gráficos** | `chart/` · `line-chart/` |
+| qué gráfico va y cuándo una tabla | **Fundamentos › Gráficos** | `chart/` |
 | el texto de la interfaz | **Fundamentos › Cómo se escribe** | — |
 | a quién le hablamos | **Fundamentos › Inclusión** | — |
 
@@ -246,7 +246,7 @@ Monorepo de npm workspaces. Dos paquetes y una app:
 packages/tokens/src/    la identidad, en CSS puro. Sin Tailwind y sin JS.
 packages/ui/src/        theme.css (el puente) · index.ts (la puerta) ·
                         una carpeta por pieza: button/button.tsx + button/button.test.tsx,
-                        y así las 65 (select, modal, toast, chart, table…)
+                        y así las 64 (select, modal, toast, chart, table…)
                         lib/ lo compartido que no es un componente: cx · colors ·
                         control · tone · esc · overlay-hooks · roving ·
                         side-scroll · dismiss
@@ -331,7 +331,7 @@ Lo mismo vale para los tipos que una pieza recibe como argumento —`ToastOption
 
 ## Los tests
 
-`npm test` corre vitest con jsdom y testing-library. 522 tests, y lo que prueban es el
+`npm test` corre vitest con jsdom y testing-library. 516 tests, y lo que prueban es el
 comportamiento —teclado, nombres accesibles, estados— y no el markup, que cambia con cada
 ajuste de estilo. El test de cada pieza vive en su carpeta, al lado del componente.
 
@@ -364,7 +364,7 @@ escala repetidos sobre `apps/kit` —que hasta ahora se escapaba—, el peso de 
 tamaño, las transiciones sin duración ni curva, un control de estado sin su manija, y que cada
 vista tenga portada, import y sinónimos para buscarla.
 
-Y hay uno que **renderiza las setenta y una vistas**, una por test. Encuentra dos cosas que
+Y hay uno que **renderiza las setenta vistas**, una por test. Encuentra dos cosas que
 ninguna lectura encuentra: una vista que tira al dibujarse —eso antes se veía solo abriéndola— y
 un backtick o un `**` que quedó a la vista porque ese texto no pasó por `Rich`. Había diez.
 
@@ -417,7 +417,7 @@ un aula:
 - **Recuperar `ss04` y el cero barrado** pide auto-alojar Inter: 69 KB subseteada a latín, con la
   receta de `pyftsubset` anotada. Se eligió el CDN; si algún día una red escolar filtra Google
   Fonts, la decisión se da vuelta y el trabajo ya está pensado.
-- **El sitio entra en un solo bundle de 687 KB —202 gzip— y `vite build` avisa.** Son las 71
+- **El sitio entra en un solo bundle de 687 KB —202 gzip— y `vite build` avisa.** Son las 70
   vistas importadas de una: nada está mal, está todo junto. La salida es `lazy` por historia con
   un `Skeleton` de espera, y el costo es un parpadeo por navegación en una pantalla que hoy es
   instantánea. No se hizo porque es una decisión sobre cómo se siente el sitio y no un bug.

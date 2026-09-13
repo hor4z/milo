@@ -13,7 +13,6 @@ import { MotionSection } from './foundations/motion'
 import { StatesSection } from './foundations/states'
 import { InclusionSection } from './foundations/inclusion'
 import { AudioPlayerStory } from './stories/audio-player'
-import { LineChartStory } from './stories/line-chart'
 import { ChartsSection } from './foundations/charts'
 import { LayoutSection } from './foundations/layout'
 import { CalloutStory } from './stories/callout'
@@ -165,7 +164,6 @@ const groups: Group[] = [
       { id: 'table', label: 'Table', alias: 'tabla grilla filas columnas datos', render: () => <TableStory /> },
       { id: 'list', label: 'List', alias: 'lista filas acciones', render: () => <ListStory /> },
       { id: 'bar-chart', label: 'BarChart', alias: 'gráfico barras chart datos progreso', render: () => <ChartStory /> },
-      { id: 'line-chart', label: 'LineChart', alias: 'gráfico línea función curva tiempo serie física matemática', render: () => <LineChartStory /> },
       { id: 'column-picker', label: 'ColumnPicker', alias: 'columnas tabla elegir mostrar ocultar', render: () => <ColumnPickerStory /> },
       { id: 'indicator', label: 'Indicator', alias: 'indicador marca punto contador aviso notificación campana', render: () => <IndicatorStory /> },
       { id: 'badge', label: 'Badge', alias: 'etiqueta marca estado', render: () => <BadgeStory /> },
