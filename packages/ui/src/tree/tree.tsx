@@ -1,0 +1,142 @@
+import { useMemo, useRef, useState } from 'react'
+import { Icon, type IconName } from '../icon/icon'
+import { cx } from '../lib/cx'
+
+export type TreeNode = {
+  /** Único en todo el árbol: es lo que vuelve al elegir y lo que abre y cierra. */
+  id: string
+  /** Lo que se lee. */
+  label: string
+  /** A la izquierda del nombre. */
+  icon?: IconName
+  /** A la derecha, apagado: cuántos hay adentro, cuándo se tocó. */
+  meta?: string
+  /** Sin esto la rama es una hoja y no abre. */
+  children?: TreeNode[]
+}
+
+type Fila = { node: TreeNode; nivel: number; padre?: string; abierto: boolean; hoja: boolean }
+
+/** Aplana lo que está a la vista: lo cerrado no existe para el teclado. */
+function aplanar(nodes: TreeNode[], abiertos: Set<string>, nivel = 1, padre?: string): Fila[] {
+  return nodes.flatMap(n => {
+    const hoja = !n.children?.length
+    const abierto = !hoja && abiertos.has(n.id)
+    const fila: Fila = { node: n, nivel, padre, abierto, hoja }
+    return abierto ? [fila, ...aplanar(n.children!, abiertos, nivel + 1, n.id)] : [fila]
+  })
+}
+
+/** Una jerarquía que se abre y se cierra: los espacios de alguien, el índice de un documento. */
+export function Tree({ nodes, label, expanded, onExpandedChange, selected, onSelect, className }: {
+  /** Las ramas de arriba. Cada una puede traer `children`. */
+  nodes: TreeNode[]
+  /** De qué es el árbol. Sin esto un lector dice «árbol» y nada más. */
+  label: string
+  /** Los ids abiertos. Sin esto el árbol los maneja solo. */
+  expanded?: string[]
+  /** Recibe la lista nueva de ids abiertos. */
+  onExpandedChange?: (ids: string[]) => void
+  /** El id elegido. */
+  selected?: string
+  /** Recibe el id al elegir con Enter, espacio o el mouse. */
+  onSelect?: (id: string) => void
+  className?: string
+}) {
+  const [propios, setPropios] = useState<string[]>([])
+  const abiertos = useMemo(() => new Set(expanded ?? propios), [expanded, propios])
+  const filas = useMemo(() => aplanar(nodes, abiertos), [nodes, abiertos])
+
+  // El cursor es la única parada de tabulación: sin eso, un árbol de cuarenta
+  // ramas son cuarenta paradas para llegar a lo que sigue en la página.
+  const [cursor, setCursor] = useState<string | null>(null)
+  const actual = cursor && filas.some(f => f.node.id === cursor) ? cursor : (selected ?? filas[0]?.node.id ?? null)
+  const refs = useRef<Record<string, HTMLDivElement | null>>({})
+
+  const mover = (id: string) => { setCursor(id); refs.current[id]?.focus() }
+
+  const abrirCerrar = (id: string, abrir: boolean) => {
+    const siguiente = new Set(abiertos)
+    if (abrir) siguiente.add(id)
+    else siguiente.delete(id)
+    const lista = [...siguiente]
+    if (expanded === undefined) setPropios(lista)
+    onExpandedChange?.(lista)
+  }
+
+  const teclas = (e: React.KeyboardEvent, i: number, f: Fila) => {
+    const ir = (j: number) => { const d = filas[j]; if (d) mover(d.node.id) }
+    switch (e.key) {
+      case 'ArrowDown': e.preventDefault(); ir(i + 1); break
+      case 'ArrowUp': e.preventDefault(); ir(i - 1); break
+      case 'Home': e.preventDefault(); ir(0); break
+      case 'End': e.preventDefault(); ir(filas.length - 1); break
+      case 'ArrowRight':
+        e.preventDefault()
+        // Cerrada abre; abierta entra. Es lo que evita tener que volver a
+        // bajar con la flecha después de abrir una rama.
+        if (!f.hoja && !f.abierto) abrirCerrar(f.node.id, true)
+        else if (f.abierto) ir(i + 1)
+        break
+      case 'ArrowLeft':
+        e.preventDefault()
+        // Abierta cierra; cerrada sube al padre, que es de donde vino.
+        if (!f.hoja && f.abierto) abrirCerrar(f.node.id, false)
+        else if (f.padre) mover(f.padre)
+        break
+      case 'Enter':
+      case ' ':
+        e.preventDefault()
+        if (!f.hoja) abrirCerrar(f.node.id, !f.abierto)
+        onSelect?.(f.node.id)
+        break
+      default:
+        // Teclear salta a la rama que empieza así, como en una lista de verdad.
+        if (e.key.length === 1 && !e.ctrlKey && !e.metaKey && !e.altKey) {
+          const desde = filas.slice(i + 1).concat(filas.slice(0, i + 1))
+          const d = desde.find(x => x.node.label.toLowerCase().startsWith(e.key.toLowerCase()))
+          if (d) { e.preventDefault(); mover(d.node.id) }
+        }
+    }
+  }
+
+  return (
+    <div role="tree" aria-label={label} className={cx('flex flex-col', className)}>
+      {filas.map((f, i) => {
+        const esActual = f.node.id === actual
+        const elegido = f.node.id === selected
+        return (
+          <div
+            key={f.node.id}
+            ref={el => { refs.current[f.node.id] = el }}
+            role="treeitem"
+            aria-level={f.nivel}
+            aria-expanded={f.hoja ? undefined : f.abierto}
+            aria-selected={elegido}
+            tabIndex={esActual ? 0 : -1}
+            onFocus={() => setCursor(f.node.id)}
+            onKeyDown={e => teclas(e, i, f)}
+            onClick={() => { if (!f.hoja) abrirCerrar(f.node.id, !f.abierto); onSelect?.(f.node.id) }}
+            // El nivel se dibuja con padding y no con anidado: un `div` por
+            // nivel mete cajas vacías entre el árbol y sus ramas, y un lector
+            // de pantalla las cuenta.
+            style={{ paddingLeft: 8 + (f.nivel - 1) * 16 }}
+            className={cx(
+              'flex h-9 cursor-default items-center gap-2 rounded-md pr-2 text-body transition-colors duration-fast ease-out',
+              elegido ? 'bg-brand-soft font-semibold text-brand-ink' : 'font-medium text-ink hover:bg-hover',
+            )}
+          >
+            {/* La hoja no lleva flecha, pero sí su lugar: sin el hueco, los
+                nombres de un mismo nivel no arrancan alineados. */}
+            {f.hoja
+              ? <span aria-hidden="true" className="size-4 shrink-0" />
+              : <Icon name={f.abierto ? 'keyboard_arrow_down' : 'chevron_right'} size={16} className="shrink-0 icon-muted" />}
+            {f.node.icon && <Icon name={f.node.icon} size={16} className="shrink-0 icon-muted" />}
+            <span className="min-w-0 flex-1 truncate">{f.node.label}</span>
+            {f.node.meta && <span className="shrink-0 text-meta font-medium text-ink-muted">{f.node.meta}</span>}
+          </div>
+        )
+      })}
+    </div>
+  )
+}

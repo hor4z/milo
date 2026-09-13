@@ -2973,5 +2973,51 @@ export const propsByComponent: Record<string, ComponentDoc> = {
       }
     ],
     "doc": "La etiqueta que dice qué hace un control que no lo dice solo: un icono suelto, un valor truncado, una acción con una consecuencia que conviene aclarar."
+  },
+  "Tree": {
+    "props": [
+      {
+        "name": "nodes",
+        "type": "TreeNode[]",
+        "required": true,
+        "doc": "Las ramas de arriba. Cada una puede traer `children`."
+      },
+      {
+        "name": "label",
+        "type": "string",
+        "required": true,
+        "doc": "De qué es el árbol. Sin esto un lector dice «árbol» y nada más."
+      },
+      {
+        "name": "expanded",
+        "type": "string[]",
+        "required": false,
+        "doc": "Los ids abiertos. Sin esto el árbol los maneja solo."
+      },
+      {
+        "name": "onExpandedChange",
+        "type": "(ids: string[]) => void",
+        "required": false,
+        "doc": "Recibe la lista nueva de ids abiertos."
+      },
+      {
+        "name": "selected",
+        "type": "string",
+        "required": false,
+        "doc": "El id elegido."
+      },
+      {
+        "name": "onSelect",
+        "type": "(id: string) => void",
+        "required": false,
+        "doc": "Recibe el id al elegir con Enter, espacio o el mouse."
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "required": false
+      }
+    ],
+    "doc": "Una jerarquía que se abre y se cierra: los espacios de alguien, el índice de un documento."
   }
 }

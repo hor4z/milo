@@ -25,6 +25,7 @@ import { FormulaStory } from './stories/formula'
 import { CodeBlockStory } from './stories/code-block'
 import { HeatmapStory } from './stories/heatmap'
 import { DatePickerStory } from './stories/date-picker'
+import { TreeStory } from './stories/tree'
 import { CommandMenuStory } from './stories/command-menu'
 import { ToolbarStory } from './stories/toolbar'
 import { StepsStory } from './stories/steps'
@@ -156,6 +157,7 @@ const groups: Group[] = [
       { id: 'tabs', label: 'Tabs', alias: 'solapas pestañas paneles', render: () => <TabsStory /> },
       { id: 'accordion', label: 'Accordion', alias: 'acordeón desplegable details preguntas frecuentes', render: () => <AccordionStory /> },
       { id: 'breadcrumb', label: 'Breadcrumb', alias: 'ruta migas volver jerarquía', render: () => <BreadcrumbStory /> },
+      { id: 'tree', label: 'Tree', alias: 'árbol jerarquía carpetas anidado índice esquema outline ramas', render: () => <TreeStory /> },
       { id: 'steps', label: 'Steps', alias: 'etapas pasos proceso wizard progreso secuencia', render: () => <StepsStory /> },
       { id: 'nav', label: 'NavItem', alias: 'navegación item sidebar riel', render: () => <NavStory /> },
     ],
