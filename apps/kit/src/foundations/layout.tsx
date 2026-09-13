@@ -56,7 +56,7 @@ export function LayoutSection() {
 
       <Section
         title="Una pantalla es una columna de secciones"
-        note="Dos columnas solo cuando la segunda acompaña a la primera y no compite: el panel de «para hoy» al lado del gráfico. Tres no hay, porque a la tercera nadie sabe por dónde empezar a leer."
+        note="Esto es la estructura de la pantalla, no las grillas de adentro: una sección puede tener sus tarjetas en tres o cuatro columnas. Lo que no llega a tres es la estructura — dos columnas ya piden decidir por dónde se empieza a leer, y la segunda solo se justifica cuando acompaña a la primera en vez de competirle."
       >
         <div className="grid gap-4 lg:grid-cols-[1.55fr_1fr]">
           <Card>
