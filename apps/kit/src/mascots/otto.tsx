@@ -20,10 +20,20 @@ export function OttoStory() {
         </div>
       </Section>
 
+      <Section
+        title="El primero"
+        note="El retrato con el que arrancó, sin el pañuelo. Se guarda: el pañuelo es una decisión que todavía se puede dar vuelta."
+      >
+        <div className="flex justify-center rounded-xl border border-line bg-surface p-8">
+          <img src="/mascotas/otto-original.webp" alt="" className="h-48 w-auto" />
+        </div>
+      </Section>
+
       <Section title="Los archivos">
         <div className="flex flex-col overflow-hidden rounded-xl border border-line bg-surface">
           {[
-            ['/mascotas/otto.webp', '686 × 1200 · 150 KB', 'El retrato.'],
+            ['/mascotas/otto.webp', '658 × 1200 · 148 KB', 'El retrato, con el pañuelo.'],
+            ['/mascotas/otto-original.webp', '686 × 1200 · 150 KB', 'El primero, sin pañuelo.'],
             ['/mascotas/otto-anima.webp', '105 × 200 · 390 KB', 'El bucle. 100 cuadros a 12 por segundo.'],
           ].map(([ruta, peso, nota]) => (
             <div key={ruta} className="flex flex-wrap items-center gap-x-5 gap-y-1 border-t border-line px-5 py-4 first:border-t-0">
