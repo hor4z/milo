@@ -22,14 +22,19 @@ export function Alert({ tone = 'info', icon, onDismiss, className, children, ...
       className={cx('flex gap-3 rounded-xl border p-4', toneSurface[tone], className)}
       {...props}
     >
+      {/* La caja del glifo mide lo que mide la primera línea —24, el alto de
+          `text-reading`— y lo centra adentro. Con una caja de 20 arriba de un
+          texto con 2 de aire, el glifo quedaba 4px más alto que el título: poco
+          para señalarlo y suficiente para verlo al pasar de un aviso a otro. */}
       {glyph && (
-        <span className={cx('flex size-5 shrink-0 items-center justify-center', toneInk[tone])}>
+        <span className={cx('flex h-6 w-5 shrink-0 items-center justify-center', toneInk[tone])}>
           <Icon name={glyph} size={18} />
         </span>
       )}
-      <div className="flex min-w-0 flex-1 flex-col gap-1 py-0.5">{children}</div>
+      <div className="flex min-w-0 flex-1 flex-col gap-1">{children}</div>
       {onDismiss && (
-        <IconButton icon="close" label="Descartar" size="sm" variant="ghost" onClick={onDismiss} className="-mt-0.5 -mr-1" />
+        // Y la X se centra con la misma línea: 32 de alto contra 24 son 4 arriba.
+        <IconButton icon="close" label="Descartar" size="sm" variant="ghost" onClick={onDismiss} className="-mt-1 -mr-1" />
       )}
     </div>
   )

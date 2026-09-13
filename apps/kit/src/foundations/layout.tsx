@@ -72,6 +72,14 @@ export function LayoutSection() {
         </div>
       </Section>
 
+      <Note title="Un glifo al lado de un texto se centra con su primera línea">
+        Y para eso su caja mide lo que mide esa línea —24 al lado de un título, 20 al lado de un
+        párrafo— con el glifo centrado adentro. No alcanza con empujarlo un píxel a ojo: el
+        <code>Alert</code> quedaba 4px más arriba que su título y el <code>Callout</code> 1px,
+        mientras el <code>Toast</code> caía justo. Cuatro piezas con la misma forma y cuatro
+        recetas distintas se ve enseguida, aunque cada una por separado parezca bien.
+      </Note>
+
       <Note icon="warning" title="Las dos que rompen una grilla sin avisar">
         <strong>Un hijo de grilla no baja de su contenido.</strong> Sin <code>min-w-0</code>, una
         tabla o un gráfico adentro de una columna la empujan más ancha que la pantalla, y el

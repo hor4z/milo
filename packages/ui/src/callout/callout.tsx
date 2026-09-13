@@ -26,7 +26,13 @@ export function Callout({ icon, color = 'neutral', title, children, className }:
     // con once bloques destacados llenaba la lista de regiones con once entradas
     // y dejaba de servir para saltar. `note` dice lo mismo sin ser una región.
     <aside role="note" className={cx('flex gap-3 rounded-xl p-4', papel[color], className)}>
-      {icon && <Icon name={icon} size={20} className="mt-px shrink-0" />}
+      {/* La misma caja que el `Alert`: alto de la primera línea y el glifo
+          centrado adentro. Con un `mt-px` quedaba 1px arriba. */}
+      {icon && (
+        <span className="flex h-6 w-5 shrink-0 items-center justify-center">
+          <Icon name={icon} size={20} />
+        </span>
+      )}
       <div className="flex min-w-0 flex-col gap-1 text-ink">
         {title && <span className="text-reading font-semibold">{title}</span>}
         <div className="text-reading">{children}</div>
