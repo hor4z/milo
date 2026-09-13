@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useLayoutEffect, useRef, type TextareaHTMLAttributes } from 'react'
+import { useCallback, useEffect, useId, useLayoutEffect, useRef, useState, type TextareaHTMLAttributes } from 'react'
 import { useField } from '../field/field'
 import { cx } from '../lib/cx'
 
@@ -9,14 +9,42 @@ type TextareaProps = Omit<TextareaHTMLAttributes<HTMLTextAreaElement>, 'rows' | 
   maxRows?: number
   /** Quién decide el alto. */
   resize?: 'auto' | 'vertical' | 'none'
+  /** Muestra la cuenta abajo a la derecha. Lee `maxLength` y `minLength`; sin ninguno de los dos cuenta y nada más. */
+  counter?: boolean
 }
+
+/** Lo que la cuenta dice, que no siempre es un número. */
+function leyenda(n: number, min?: number, max?: number) {
+  if (min && n > 0 && n < min) {
+    const faltan = min - n
+    const uno = faltan === 1
+    return { texto: `${uno ? 'falta' : 'faltan'} ${faltan} ${uno ? 'carácter' : 'caracteres'}`, tono: 'bad' as const, avisa: true }
+  }
+  if (max == null) return { texto: `${n}`, tono: 'calmo' as const, avisa: false }
+  const queda = max - n
+  if (queda <= 0) return { texto: `${n}/${max}`, tono: 'bad' as const, avisa: true }
+  if (queda <= Math.max(10, Math.round(max * 0.1))) {
+    return { texto: `te quedan ${queda}`, tono: 'warn' as const, avisa: true }
+  }
+  return { texto: `${n}/${max}`, tono: 'calmo' as const, avisa: false }
+}
+
+const tinta = {
+  calmo: 'text-ink-muted',
+  warn: 'text-warn-ink',
+  bad: 'text-bad-ink',
+} as const
 
 /** El campo de varias líneas: la misma caja que `TextField`, estirada. */
 export function Textarea({
-  rows = 3, maxRows, resize = 'auto', className, onChange, value, ...rest
+  rows = 3, maxRows, resize = 'auto', counter, className, onChange, value, defaultValue, ...rest
 }: TextareaProps) {
   const ref = useRef<HTMLTextAreaElement>(null)
   const field = useField()
+  const cuentaId = useId()
+  const [propio, setPropio] = useState(String(defaultValue ?? ''))
+  const texto = value == null ? propio : String(value)
+  const cuenta = counter ? leyenda([...texto].length, rest.minLength, rest.maxLength) : null
 
   const measure = useCallback(() => {
     const el = ref.current
@@ -43,6 +71,8 @@ export function Textarea({
     return () => ro.disconnect()
   }, [measure, resize])
 
+  const describedBy = [field['aria-describedby'], cuenta && cuentaId].filter(Boolean).join(' ') || undefined
+
   return (
     <div
       onPointerDown={e => {
@@ -54,6 +84,7 @@ export function Textarea({
         'field flex cursor-text border border-field-line bg-field',
         'has-[textarea:disabled]:pointer-events-none has-[textarea:disabled]:opacity-45',
         'rounded-lg text-reading',
+        counter ? 'flex-col gap-1' : '',
         resize === 'vertical' ? 'p-0' : 'px-3 py-2',
         className,
       )}
@@ -62,15 +93,31 @@ export function Textarea({
         ref={ref}
         rows={rows}
         value={value}
-        onChange={e => { measure(); onChange?.(e) }}
+        defaultValue={defaultValue}
+        onChange={e => { measure(); setPropio(e.target.value); onChange?.(e) }}
         className={cx(
-          'min-w-0 flex-1 bg-transparent font-medium text-ink outline-none',
+          'min-w-0 bg-transparent font-medium text-ink outline-none',
+          counter ? 'w-full' : 'flex-1',
           'placeholder:text-ink-placeholder',
           resize === 'vertical' ? 'resize-y px-3 py-2' : 'resize-none',
         )}
         {...field}
+        aria-describedby={describedBy}
         {...rest}
       />
+      {cuenta && (
+        <span
+          id={cuentaId}
+          className={cx(
+            'tabular self-end text-meta font-medium transition-colors duration-fast ease-out',
+            tinta[cuenta.tono],
+            resize === 'vertical' ? 'px-3 pb-2' : '',
+          )}
+        >
+          {cuenta.texto}
+        </span>
+      )}
+      <span aria-live="polite" className="sr-only">{cuenta?.avisa ? cuenta.texto : ''}</span>
     </div>
   )
 }

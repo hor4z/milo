@@ -2769,6 +2769,12 @@ export const propsByComponent: Record<string, ComponentDoc> = {
         "required": false,
         "def": "'auto'",
         "doc": "Quién decide el alto."
+      },
+      {
+        "name": "counter",
+        "type": "boolean",
+        "required": false,
+        "doc": "Muestra la cuenta abajo a la derecha. Lee `maxLength` y `minLength`; sin ninguno de los dos cuenta y nada más."
       }
     ],
     "doc": "El campo de varias líneas: la misma caja que `TextField`, estirada."

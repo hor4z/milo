@@ -121,6 +121,19 @@ describe('el texto sugerido de un campo se lee', () => {
       expect(ph, theme).toBeLessThan(gris)
     }
   })
+
+  for (const theme of ['light', 'dark'] as const) {
+    for (const tinta of ['--shade-06', '--warn-700', '--bad-700']) {
+      for (const back of [...new Set(fondos[theme])]) {
+        it(`la cuenta en ${tinta} sobre ${back} en ${theme} llega a AA`, () => {
+          const c = value(tinta, theme)
+          const paper = value(back, theme)
+          expect(c, `falta ${tinta} en ${theme}`).toBeTruthy()
+          expect(ratio(c!, paper!)).toBeGreaterThanOrEqual(4.5)
+        })
+      }
+    }
+  }
 })
 
 const labels = ['--label-green', '--label-teal', '--label-blue', '--label-purple', '--label-pink', '--label-orange']

@@ -18,11 +18,7 @@ final son lo único que hay que tocar.
 npm install
 npm run dev        # el sitio · http://localhost:5190
 npm run typecheck  # todo el monorepo de una
-<<<<<<< HEAD
-npm test           # 517 tests con vitest y testing-library
-=======
-npm test           # 524 tests con vitest y testing-library
->>>>>>> main
+npm test           # 547 tests con vitest y testing-library
 npm run props      # regenera la tabla de props desde los tipos
 ```
 
@@ -366,13 +362,8 @@ Lo mismo vale para los tipos que una pieza recibe como argumento (`ToastOptions`
 
 ## Los tests
 
-<<<<<<< HEAD
-`npm test` corre vitest con jsdom y testing-library. 517 tests, y lo que prueban es el
+`npm test` corre vitest con jsdom y testing-library. 547 tests, y lo que prueban es el
 comportamiento (teclado, nombres accesibles, estados) y no el markup, que cambia con cada
-=======
-`npm test` corre vitest con jsdom y testing-library. 524 tests, y lo que prueban es el
-comportamiento (teclado, nombres accesibles, estados) y no el markup, que cambia con cada
->>>>>>> main
 ajuste de estilo. El test de cada pieza vive en su carpeta, al lado del componente.
 
 Diecisiete de ellos leen el paquete entero y fallan si alguien:
