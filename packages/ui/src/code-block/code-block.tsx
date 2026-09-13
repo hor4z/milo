@@ -62,7 +62,7 @@ export function CodeBlock({ code, children, lang, filename, numbered, label, cla
               <span key={i} className="grid gap-4" style={{ gridTemplateColumns: `${String(lines.length).length}ch 1fr` }}>
                 {/* Afuera del `<code>` no se puede, así que lo que lo mantiene
                     fuera de lo copiado es `select-none` y el `aria-hidden`. */}
-                <span aria-hidden="true" className="select-none text-right text-ink-subtle">{i + 1}</span>
+                <span aria-hidden="true" className="select-none text-right text-ink-muted">{i + 1}</span>
                 <span>{line === '' ? ' ' : line}</span>
               </span>
             ))

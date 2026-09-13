@@ -95,7 +95,7 @@ function Cell({ value, levels, empty }: { value: number | null; levels: string[]
   return (
     <span className="relative flex h-8 w-full min-w-8 items-end overflow-hidden rounded-md bg-track">
       {value == null
-        ? <span aria-hidden="true" className="absolute inset-0 flex items-center justify-center text-meta text-ink-subtle">–</span>
+        ? <span aria-hidden="true" className="absolute inset-0 flex items-center justify-center text-meta text-ink-muted">–</span>
         : (
           <span
             aria-hidden="true"
@@ -124,7 +124,7 @@ function Legend({ levels, empty }: { levels: string[]; empty: string }) {
         </span>
       ))}
       <span className="flex items-center gap-2 text-meta font-medium text-ink-muted">
-        <span className="flex h-4 w-4 items-center justify-center rounded-sm bg-track text-meta text-ink-subtle">–</span>
+        <span className="flex h-4 w-4 items-center justify-center rounded-sm bg-track text-meta text-ink-muted">–</span>
         {empty}
       </span>
     </figcaption>

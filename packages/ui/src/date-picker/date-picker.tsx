@@ -207,7 +207,7 @@ export function DatePicker({ value, onChange, min, max, placeholder = 'Elegir fe
             <div role="grid" id={gridId} aria-labelledby={tituloId} className="flex flex-col gap-1">
               <div role="row" className="grid grid-cols-7 gap-1">
                 {DIAS.map(d => (
-                  <span key={d} role="columnheader" aria-label={d} className="pb-1 text-center text-meta font-medium text-ink-subtle">
+                  <span key={d} role="columnheader" aria-label={d} className="pb-1 text-center text-meta font-medium text-ink-muted">
                     {d}
                   </span>
                 ))}

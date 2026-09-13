@@ -55,7 +55,6 @@
   /* ------- texto ------- */
   --text: var(--shade-09);
   --text-muted: var(--shade-06);
-  --text-subtle: var(--shade-06);
   /* El texto sugerido de un campo. No es `--text-muted`: con el gris del texto
      secundario puesto ahí, lo que el campo propone se leía igual de firme que lo
      que alguien escribió, y un campo vacío parecía lleno. */

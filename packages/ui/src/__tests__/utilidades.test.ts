@@ -40,6 +40,45 @@ describe('las utilidades de color existen', () => {
     expect([...new Set(huerfanos)]).toEqual([])
   })
 
+  it('ningún `text-`, `border-`, `ring-` ni `fill-` nombra un color que no existe', () => {
+    // El mismo silencio que el `bg-`, en los otros ejes: la clase queda escrita
+    // y no genera nada. `text-` además nombra los roles de tipografía y la
+    // alineación, y `border-` los lados y los grosores, así que cada eje trae su
+    // propia lista de lo que no es color.
+    const tipos = new Set([...puente.matchAll(/^\s*--text-([a-z0-9-]+):/gm)].map(m => m[1]))
+    const comunes = /^(transparent|current|inherit|none)$/
+    const deTexto = /^(left|center|right|justify|start|end|nowrap|wrap|balance|pretty|ellipsis|clip)$/
+    const deBorde = /^([trblxyse](-\d+)?|\d+|solid|dashed|dotted|double|hidden|separate|collapse|spacing(-\d+)?)$/
+    const deAnillo = /^(inset|offset(-\d+)?|\d+)$/
+
+    const ejes: [string, (n: string) => boolean][] = [
+      ['text', n => colores.has(n) || tipos.has(n) || deTexto.test(n)],
+      ['border', n => colores.has(n) || deBorde.test(n)],
+      ['ring', n => colores.has(n) || deAnillo.test(n)],
+      ['fill', n => colores.has(n)],
+      ['stroke', n => colores.has(n)],
+    ]
+
+    const huerfanos: string[] = []
+    for (const f of fuentes) {
+      // Lo que no es una clase: el nombre de un token —`var(--border-strong)`,
+      // `token="--text-placeholder"`—, el valor de un `transition-[…]`, y el
+      // código citado, que va entre backticks o adentro de un `<code>`.
+      const limpio = f.texto
+        .replace(/--[a-z0-9-]+/g, ' ')
+        .replace(/transition-\[[^\]]*\]/g, ' ')
+        .replace(/`[^`]*`/g, ' ')
+        .replace(/<code[^>]*>[\s\S]*?<\/code>/g, ' ')
+      for (const [eje, vale] of ejes) {
+        for (const m of limpio.matchAll(new RegExp(`(?<![\\w-])${eje}-([a-z][a-z0-9-]*)(?:/\\d+)?(?![\\w-])`, 'g'))) {
+          if (comunes.test(m[1]) || vale(m[1])) continue
+          huerfanos.push(`${f.nombre}: ${eje}-${m[1]}`)
+        }
+      }
+    }
+    expect([...new Set(huerfanos)]).toEqual([])
+  })
+
   it('el anillo de foco vive fuera de toda capa', () => {
     // Es lo único que lo hace ganarle a una utilidad de sombra: `:where()` no
     // suma especificidad, así que si esta regla cayera dentro de `@layer`, un
