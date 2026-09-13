@@ -1,36 +1,24 @@
 import { AudioPlayer, IconButton, Tooltip } from '@milo/ui'
 import { A11y, Note, Page, Panel, Props, Section } from '../kit'
 
-/** Salen de `python3 apps/kit/scripts/picos.py apps/kit/public/audio/consigna.mp3 --barras 140`. */
+/** Salen de `python3 apps/kit/scripts/picos.py apps/kit/public/audio/consigna.mp3 --barras 64`. */
 const picos = [
-  0.000, 0.998, 0.740, 0.943, 0.817, 0.760, 1.000, 0.780, 0.414, 0.467, 0.853, 0.751,
-  1.000, 0.994, 0.675, 1.000, 0.844, 0.669, 0.031, 0.083, 0.696, 0.046, 0.824, 0.624,
-  1.000, 0.944, 0.099, 0.003, 0.429, 0.234, 0.087, 0.004, 0.000, 0.014, 0.495, 0.247,
-  0.779, 1.000, 0.269, 0.189, 0.520, 0.480, 0.866, 0.577, 0.376, 0.363, 0.620, 0.535,
-  0.022, 0.001, 1.000, 0.692, 0.037, 0.411, 0.275, 0.030, 0.414, 0.151, 0.974, 0.960,
-  0.304, 0.063, 0.010, 0.006, 0.001, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000, 0.000,
-  0.000, 0.000, 0.676, 0.460, 0.251, 0.807, 0.486, 0.780, 0.244, 0.377, 0.564, 0.743,
-  0.540, 0.022, 0.498, 0.964, 0.600, 0.303, 0.031, 0.001, 0.000, 0.000, 0.000, 0.000,
-  0.000, 0.000, 0.000, 0.000, 0.684, 0.428, 0.608, 0.654, 0.368, 0.760, 0.269, 0.887,
-  0.023, 0.901, 0.583, 0.472, 0.535, 0.031, 0.002, 0.579, 0.390, 0.091, 0.000, 0.000,
-  0.001, 0.745, 0.515, 0.027, 0.570, 0.791, 0.488, 0.253, 1.000, 0.577, 0.057, 0.029,
-  0.106, 0.019, 0.011, 0.000, 0.000, 0.000, 0.000, 0.000,
+  0.820, 0.945, 0.954, 0.886, 0.717, 1.000, 0.977, 1.000, 0.211, 0.519, 0.775, 1.000,
+  0.206, 0.310, 0.015, 0.368, 0.803, 0.712, 0.488, 0.796, 0.373, 0.637, 0.190, 1.000,
+  0.368, 0.297, 0.783, 0.702, 0.041, 0.004, 0.000, 0.000, 0.000, 0.005, 0.609, 0.696,
+  0.639, 0.520, 0.671, 0.608, 0.724, 0.095, 0.000, 0.000, 0.000, 0.312, 0.586, 0.651,
+  0.704, 0.589, 0.807, 0.481, 0.408, 0.328, 0.000, 0.660, 0.321, 0.756, 0.961, 0.375,
+  0.082, 0.010, 0.000, 0.000,
 ] as const
 
-/** Los del archivo largo, con las mismas ciento cuarenta: la cantidad la decide el ancho y no la duración. */
+/** Los del archivo largo, con las mismas sesenta y cuatro: la cantidad la decide el ancho y no la duración. */
 const picosLargos = [
-  0.716, 0.590, 0.719, 0.523, 0.390, 0.550, 0.692, 0.613, 0.139, 0.679, 0.836, 0.671,
-  0.074, 0.863, 0.696, 0.687, 0.428, 0.318, 1.000, 0.365, 0.250, 0.035, 0.037, 1.000,
-  0.775, 0.398, 0.259, 0.849, 0.776, 0.660, 1.000, 0.221, 0.034, 0.033, 0.036, 1.000,
-  0.666, 0.943, 0.593, 0.514, 0.909, 0.656, 0.058, 1.000, 0.486, 0.631, 1.000, 0.860,
-  0.395, 0.815, 0.605, 0.344, 0.118, 0.454, 0.700, 0.541, 0.506, 0.457, 0.298, 0.560,
-  0.465, 0.764, 0.681, 0.467, 0.462, 0.537, 0.515, 0.654, 0.630, 1.000, 0.154, 0.562,
-  0.671, 0.540, 0.390, 0.441, 0.361, 0.416, 0.339, 0.035, 0.042, 0.676, 0.730, 0.733,
-  0.651, 0.297, 0.607, 0.626, 0.343, 0.022, 0.021, 0.752, 0.535, 0.974, 0.744, 0.408,
-  0.975, 0.403, 0.100, 0.023, 0.022, 0.049, 0.321, 0.998, 0.977, 0.718, 0.668, 0.617,
-  0.236, 0.035, 1.000, 0.452, 0.872, 0.763, 0.918, 0.417, 0.341, 0.047, 0.029, 0.825,
-  0.712, 0.528, 0.625, 0.589, 0.114, 0.042, 0.723, 0.545, 0.453, 0.375, 0.251, 0.042,
-  0.545, 0.639, 0.486, 0.424, 0.391, 0.395, 0.252, 0.034,
+  0.730, 0.700, 0.593, 0.562, 0.807, 0.526, 0.878, 0.598, 0.896, 0.200, 0.832, 0.637,
+  0.787, 1.000, 0.467, 0.038, 1.000, 0.889, 0.862, 0.851, 0.732, 1.000, 0.763, 0.411,
+  0.582, 0.588, 0.442, 0.563, 0.812, 0.503, 0.689, 0.892, 0.482, 0.685, 0.430, 0.403,
+  0.058, 0.760, 0.746, 0.639, 0.348, 0.495, 0.885, 0.673, 0.771, 0.031, 0.216, 1.000,
+  0.755, 0.477, 0.830, 0.738, 0.873, 0.332, 0.754, 0.629, 0.547, 0.546, 0.551, 0.316,
+  0.556, 0.533, 0.469, 0.197,
 ] as const
 
 const AUDIO = '/audio/consigna.mp3'
@@ -49,7 +37,7 @@ export function AudioPlayerStory() {
         note="La onda no es decoración: es el archivo. Los huecos de esta consigna son las pausas entre frases, así que se ve cuántas cosas se piden y se puede volver a la segunda sin escuchar la primera de nuevo. Las barras se reparten el ancho y el hueco mide lo mismo que la barra, así que la cantidad de picos es lo que decide si salen finas o gordas."
       >
         <Panel>
-          <div className="py-4">
+          <div className="max-w-[440px] py-4">
             <AudioPlayer src={AUDIO} title="Consigna · Matemática 4.º A" peaks={picos} />
           </div>
         </Panel>
@@ -60,7 +48,7 @@ export function AudioPlayerStory() {
         note="Los picos se calculan antes y se pasan por prop. Cuando no están, la pieza dibuja una pista pelada: no inventa una onda que no es la de ese audio, porque una onda falsa dice «acá hay voz» donde no hay nada."
       >
         <Panel>
-          <div className="py-4">
+          <div className="max-w-[440px] py-4">
             <AudioPlayer src={AUDIO} title="Consigna · Matemática 4.º A" />
           </div>
         </Panel>
@@ -71,7 +59,7 @@ export function AudioPlayerStory() {
         note="Sin `title` el reproductor ocupa una sola fila, para cuando va adentro de otra cosa que ya dice de qué audio se trata — una fila de lista, una tarjeta, un mensaje. Los tres talles cambian el botón y el alto de la onda; el ancho siempre lo pone lo que lo contiene."
       >
         <Panel>
-          <div className="flex flex-col gap-4 py-4">
+          <div className="flex max-w-[440px] flex-col gap-4 py-4">
             <AudioPlayer src={AUDIO} peaks={picos} size="sm" />
             <AudioPlayer src={AUDIO} peaks={picos} />
             <AudioPlayer src={AUDIO} peaks={picos} size="lg" />
@@ -84,7 +72,7 @@ export function AudioPlayerStory() {
         note="Cuarenta y nueve segundos con las mismas cuarenta barras. La cantidad la decide el ancho del reproductor y no la duración: con el doble de barras en el mismo ancho quedan hilos que no se leen, y los silencios —que son lo que sirve— se pierden entre medio."
       >
         <Panel>
-          <div className="py-4">
+          <div className="max-w-[440px] py-4">
             <AudioPlayer src={LARGO} title="Explicación grabada" peaks={picosLargos} />
           </div>
         </Panel>
@@ -95,7 +83,7 @@ export function AudioPlayerStory() {
         note="Arrancar el segundo pausa el primero. Dos audios encimados no se entienden, y el que arranca segundo tapa al primero sin que nadie lo haya pedido."
       >
         <Panel>
-          <div className="flex flex-col gap-3 py-4">
+          <div className="flex max-w-[440px] flex-col gap-3 py-4">
             <AudioPlayer src={AUDIO} title="Devolución para Ana Pérez" peaks={picos} size="sm" />
             <AudioPlayer src={LARGO} title="Devolución para Bruno Díaz" peaks={picosLargos} size="sm" />
           </div>
@@ -107,7 +95,7 @@ export function AudioPlayerStory() {
         note="Descargar, un menú, borrar. Va por `actions` y no como props propias: cada pantalla necesita otras, y una prop por cada una termina en la número catorce."
       >
         <Panel>
-          <div className="py-4">
+          <div className="max-w-[440px] py-4">
             <AudioPlayer
               src={AUDIO}
               title="Devolución para Ana Pérez"
@@ -127,7 +115,7 @@ export function AudioPlayerStory() {
         note="Un audio roto es un caso de todos los días: el archivo se borró, la red se cayó, el formato no va en ese navegador. La pieza lo dice con palabras y apaga lo que no se puede usar."
       >
         <Panel>
-          <div className="py-4">
+          <div className="max-w-[440px] py-4">
             <AudioPlayer src="/audio/no-existe.mp3" title="Consigna · Matemática 4.º A" />
           </div>
         </Panel>
