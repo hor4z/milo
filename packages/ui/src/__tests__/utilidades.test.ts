@@ -40,6 +40,25 @@ describe('las utilidades de color existen', () => {
     expect([...new Set(huerfanos)]).toEqual([])
   })
 
+  it('el anillo de foco vive fuera de toda capa', () => {
+    // Es lo único que lo hace ganarle a una utilidad de sombra: `:where()` no
+    // suma especificidad, así que si esta regla cayera dentro de `@layer`, un
+    // `shadow-card` en un elemento enfocable le ganaría y el anillo no se
+    // dibujaría — sin error y sin aviso.
+    const regla = ':where(a, button, input, select, textarea, [tabindex]):focus-visible'
+    const i = puente.indexOf(regla)
+    expect(i, 'la regla del anillo de foco cambió de forma').toBeGreaterThan(0)
+
+    // Profundidad de llaves hasta la regla, salteando comentarios y strings.
+    const antes = puente.slice(0, i).replace(/\/\*[\s\S]*?\*\//g, '').replace(/"[^"]*"|'[^']*'/g, '')
+    let profundidad = 0
+    for (const c of antes) {
+      if (c === '{') profundidad++
+      else if (c === '}') profundidad--
+    }
+    expect(profundidad, 'la regla quedó anidada adentro de otro bloque').toBe(0)
+  })
+
   it('el puente declara los colores que el sistema promete', () => {
     for (const n of ['surface', 'canvas', 'muted', 'sunken', 'brand', 'line', 'line-strong', 'ink', 'ink-muted']) {
       expect(colores.has(n), `falta --color-${n}`).toBe(true)
