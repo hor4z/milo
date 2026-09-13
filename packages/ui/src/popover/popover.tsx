@@ -1,4 +1,5 @@
 import { useEffect, useLayoutEffect, useRef, useState, type ReactNode } from 'react'
+import { useDismiss } from '../lib/dismiss'
 import { useEscape } from '../lib/esc'
 import { Portal } from '../portal/portal'
 
@@ -71,26 +72,7 @@ export function Popover({
     })
   }, [open, align, width, offset, height])
 
-  useEffect(() => {
-    if (!open) return
-    const onDown = (e: PointerEvent) => {
-      const t = e.target as Node
-      if (panelRef.current?.contains(t) || triggerRef.current?.contains(t)) return
-      close()
-    }
-    const onScroll = (e: Event) => {
-      if (e.type === 'scroll' && panelRef.current?.contains(e.target as Node)) return
-      close()
-    }
-    document.addEventListener('pointerdown', onDown)
-    window.addEventListener('scroll', onScroll, true)
-    window.addEventListener('resize', onScroll)
-    return () => {
-      document.removeEventListener('pointerdown', onDown)
-      window.removeEventListener('scroll', onScroll, true)
-      window.removeEventListener('resize', onScroll)
-    }
-  }, [open])
+  useDismiss(open, close, [panelRef, triggerRef])
 
   return (
     <>

@@ -18,7 +18,7 @@ final son lo único que hay que tocar.
 npm install
 npm run dev        # el sitio · http://localhost:5190
 npm run typecheck  # todo el monorepo de una
-npm test           # 438 tests con vitest y testing-library
+npm test           # 439 tests con vitest y testing-library
 npm run props      # regenera la tabla de props desde los tipos
 ```
 
@@ -169,6 +169,11 @@ Repartido entre `portal/`, `popover/`, `tooltip/`, `dropdown/`, `modal/`, `sheet
   propio panel lo cerraba. Un `resize` sí cierra siempre.
 - **Cerrar con `pointerdown` y no con `click`**: con click, el mismo gesto que abre otro panel lo
   cierra y lo reabre, y parpadea.
+- Esas dos y la de afuera viven juntas en `lib/dismiss`, porque las comparten el `Popover` y el
+  `DatePicker`. Ahí adentro el filtro pregunta si el target es un `Node` antes de tocarlo: el
+  `scroll` de `window` no lo es, y `contains` revienta.
+- **Al cerrar, el foco vuelve al disparador solo si estaba adentro del panel.** Se pregunta antes de
+  cerrar, que es cuando el panel todavía existe; si alguien tocó en otro lado, no se le mueve nada.
 - **El `Select` es un botón con listbox propio, no un `<select>` nativo.** `appearance: none` te
   saca la flecha, pero la lista desplegada la sigue dibujando el sistema operativo, así que en
   Linux aparece un control de GTK en medio de la interfaz — se ve "sin estilo" por más que la caja
@@ -240,7 +245,8 @@ packages/ui/src/        theme.css (el puente) · index.ts (la puerta) ·
                         una carpeta por pieza: button/button.tsx + button/button.test.tsx,
                         y así las 65 (select, modal, toast, chart, table…)
                         lib/ lo compartido que no es un componente: cx · colors ·
-                        control · tone · esc · overlay-hooks · roving · side-scroll
+                        control · tone · esc · overlay-hooks · roving ·
+                        side-scroll · dismiss
                         __tests__/ los cinco que leen el paquete entero:
                         coherencia · contraste · tipografía · utilidades · props
                         icons.gen.ts e icons.meta.ts los genera scripts/icons.mjs
@@ -322,7 +328,7 @@ Lo mismo vale para los tipos que una pieza recibe como argumento —`ToastOption
 
 ## Los tests
 
-`npm test` corre vitest con jsdom y testing-library. 438 tests, y lo que prueban es el
+`npm test` corre vitest con jsdom y testing-library. 439 tests, y lo que prueban es el
 comportamiento —teclado, nombres accesibles, estados— y no el markup, que cambia con cada
 ajuste de estilo. El test de cada pieza vive en su carpeta, al lado del componente.
 

@@ -3,6 +3,7 @@ import { useField } from '../field/field'
 import { Icon } from '../icon/icon'
 import { cx } from '../lib/cx'
 import { useEscape } from '../lib/esc'
+import { useDismiss } from '../lib/dismiss'
 import { useFocusTrap } from '../lib/overlay-hooks'
 import { Portal } from '../portal/portal'
 
@@ -86,23 +87,12 @@ export function DatePicker({ value, onChange, min, max, placeholder = 'Elegir fe
       })
     }
     medir()
-    addEventListener('resize', medir)
-    return () => removeEventListener('resize', medir)
   }, [open, cursor])
 
-  // Sin esto el único modo de salir sin elegir era Escape: tocar en cualquier
-  // otro lado dejaba el mes abierto. Va en `pointerdown` y no en `click`,
-  // porque con click el mismo gesto que abre otro panel lo cierra y lo reabre.
-  useEffect(() => {
-    if (!open) return
-    const afuera = (e: PointerEvent) => {
-      const t = e.target as Node
-      if (panel.current?.contains(t) || btn.current?.contains(t)) return
-      setOpen(false)
-    }
-    document.addEventListener('pointerdown', afuera)
-    return () => document.removeEventListener('pointerdown', afuera)
-  }, [open])
+  // Tocar afuera, scrollear o cambiar el tamaño cierran: el panel está anclado
+  // al campo, así que con la página corrida se queda flotando lejos de lo que
+  // estaba explicando. Es la misma receta que usa el `Popover`.
+  useDismiss(open, () => setOpen(false), [panel, btn])
 
   const [ay, am] = partes(cursor)
   // En semanas y no en una tira de días: un `grid` pide `row` adentro, y sin
@@ -181,7 +171,10 @@ export function DatePicker({ value, onChange, min, max, placeholder = 'Elegir fe
           <div
             ref={panel}
             role="dialog"
-            aria-modal="false"
+            // Sin `aria-modal`: el fondo no se apaga ni se bloquea, así que
+            // declararlo modal sería mentir; y declararlo no-modal, con el foco
+            // adentro y Escape como salida, sería lo mismo al revés. Sin el
+            // atributo, lo que hay es un diálogo y nada más.
             aria-labelledby={tituloId}
             tabIndex={-1}
             style={{ top: pos.top, left: pos.left }}

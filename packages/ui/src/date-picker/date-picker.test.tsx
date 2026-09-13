@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react'
+import { render, screen, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { describe, expect, it, vi } from 'vitest'
 import { DatePicker } from './date-picker'
@@ -116,5 +116,11 @@ describe('DatePicker', () => {
   it('sin fecha, el campo dice qué falta', () => {
     const { container } = render(<DatePicker value="" onChange={() => {}} label="Fecha" />)
     expect(container.querySelector('button')?.textContent).toContain('Elegir fecha')
+  })
+
+  it('scrollear la página cierra el mes, que quedaba flotando lejos del campo', async () => {
+    await abrir()
+    window.dispatchEvent(new Event('scroll'))
+    await waitFor(() => expect(screen.queryByRole('dialog')).not.toBeInTheDocument())
   })
 })
