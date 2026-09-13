@@ -18,7 +18,7 @@ final son lo único que hay que tocar.
 npm install
 npm run dev        # el sitio · http://localhost:5190
 npm run typecheck  # todo el monorepo de una
-npm test           # 356 tests con vitest y testing-library
+npm test           # 359 tests con vitest y testing-library
 npm run props      # regenera la tabla de props desde los tipos
 ```
 
@@ -79,7 +79,8 @@ cosa—, así que ahora dirige en vez de explicar.
 |---|---|---|
 | la escala de texto, los pesos, el interlineado | **Fundamentos › Tipografía** | `tokens/scales.css` |
 | la rampa, el azul primario, las superficies | **Fundamentos › Color** | `tokens/primitives.css` · `semantic.css` |
-| el espaciado, los radios, las medidas del shell | **Fundamentos › Medidas y radios** | `tokens/scales.css` |
+| el espaciado y los radios | **Fundamentos › Medidas y radios** | `tokens/scales.css` |
+| los cortes, el mueble y el ancho de lectura | **Fundamentos › Layout** | `tokens/scales.css` |
 | las sombras y el volumen | **Fundamentos › Relieve** | `tokens/semantic.css` |
 | las duraciones y las curvas | **Fundamentos › Movimiento** | `tokens/scales.css` |
 | hover, foco, vacío, cargando, error | **Fundamentos › Estados** | — |
@@ -315,7 +316,7 @@ Lo mismo vale para los tipos que una pieza recibe como argumento —`ToastOption
 
 ## Los tests
 
-`npm test` corre vitest con jsdom y testing-library. 356 tests, y lo que prueban es el
+`npm test` corre vitest con jsdom y testing-library. 359 tests, y lo que prueban es el
 comportamiento —teclado, nombres accesibles, estados— y no el markup, que cambia con cada
 ajuste de estilo. El test de cada pieza vive en su carpeta, al lado del componente.
 

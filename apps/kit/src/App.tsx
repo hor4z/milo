@@ -14,6 +14,7 @@ import { InclusionSection } from './foundations/inclusion'
 import { AudioPlayerStory } from './stories/audio-player'
 import { LineChartStory } from './stories/line-chart'
 import { ChartsSection } from './foundations/charts'
+import { LayoutSection } from './foundations/layout'
 import { CalloutStory } from './stories/callout'
 import { FigureStory } from './stories/figure'
 import { QuoteStory } from './stories/quote'
@@ -84,7 +85,8 @@ const groups: Group[] = [
       { id: 'accessibility', label: 'Accesibilidad', alias: 'accesibilidad a11y contraste teclado foco lector pantalla wcag', render: () => <AccessibilitySection /> },
       { id: 'typography', label: 'Tipografía', alias: 'tipografía fuente texto escala pesos interlineado tracking familia inter legibilidad', render: () => <TypographySection /> },
       { id: 'color', label: 'Color', alias: 'paleta tokens rampa tonos', render: () => <ColorSection /> },
-      { id: 'measure', label: 'Medidas y radios', alias: 'espaciado medidas radios tamaños layout grilla', render: () => <MeasureSection /> },
+      { id: 'measure', label: 'Medidas y radios', alias: 'espaciado medidas radios tamaños grilla', render: () => <MeasureSection /> },
+      { id: 'layout', label: 'Layout', alias: 'layout cortes breakpoints responsive columnas mueble riel ancho pantalla', render: () => <LayoutSection /> },
       { id: 'relief', label: 'Relieve', alias: 'sombra relieve elevación profundidad', render: () => <ReliefSection /> },
       { id: 'motion', label: 'Movimiento', alias: 'movimiento animación transición duración curva easing reduced motion', render: () => <MotionSection /> },
       { id: 'states', label: 'Estados', alias: 'estados hover foco pressed disabled vacío cargando error skeleton empty loading', render: () => <StatesSection /> },
