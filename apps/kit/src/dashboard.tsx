@@ -2,9 +2,12 @@ import { useEffect, useState } from 'react'
 import {
   Avatar, AvatarGroup, BarChart, Button, Card, Chip, Dropdown, Folder, Icon, IconButton,
   Indicator, Link, List, ListItem, Progress, Search, Segmented, SettingsModal, Tooltip, useToast,
+  count, dayAndTime, delta,
   type IconName,
 } from '@milo/ui'
 import { useQuieto } from './mascots/quieto'
+
+const AR = 'America/Argentina/Buenos_Aires'
 
 const face = (n: number) => `/avatars/${String(n).padStart(2, '0')}.webp`
 const p = (name: string, photo?: number) => ({ name, src: photo ? face(photo) : undefined })
@@ -38,7 +41,7 @@ const espacios = [
 
 const pendientes = [
   { icon: 'edit', color: 'orange', title: 'Corregir "El sistema solar"', hint: '24 entregas esperando' },
-  { icon: 'schedule', color: 'purple', title: 'Cerrar "Fracciones equivalentes"', hint: 'Vence mañana a las 23:59' },
+  { icon: 'schedule', color: 'purple', title: 'Cerrar "Fracciones equivalentes"', hint: `Vence el ${dayAndTime('2026-03-10T23:59:00-03:00', { zone: AR })}` },
   { icon: 'group_add', color: 'green', title: 'Sumar a Lengua · 6.º', hint: 'Dos aprendices pidieron entrar' },
 ] as const
 
@@ -119,10 +122,10 @@ export function Dashboard() {
       </header>
 
       <div className="grid grid-cols-2 gap-3 lg:grid-cols-4">
-        <Stat label="Entregas" value="79" delta="+12%" icon="inbox" />
-        <Stat label="Corregidas" value="67" delta="+8%" icon="check_circle" />
-        <Stat label="Sin mirar" value="12" delta="-3" icon="schedule" tone="warn" />
-        <Stat label="Estudiantes" value="96" delta="+4" icon="group" />
+        <Stat label="Entregas" value={count(79)} delta={delta(12, { percent: true })} icon="inbox" />
+        <Stat label="Corregidas" value={count(67)} delta={delta(8, { percent: true })} icon="check_circle" />
+        <Stat label="Sin mirar" value={count(12)} delta={delta(-3)} icon="schedule" tone="warn" />
+        <Stat label="Estudiantes" value={count(96)} delta={delta(4)} icon="group" />
       </div>
 
       <div className="grid items-start gap-6 lg:grid-cols-[1.55fr_1fr]">

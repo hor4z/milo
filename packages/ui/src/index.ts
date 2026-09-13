@@ -90,3 +90,6 @@ export { iconNames } from './icons.gen'
 
 export { PrefsProvider, usePrefs } from './prefs/prefs'
 export { SettingsModal } from './settings-modal/settings-modal'
+export { clock, day, dayAndTime, duration, machineTime, timeAgo, zoneDiffers, zoneLabel } from './lib/time'
+export type { TimeOptions, Zone } from './lib/time'
+export { bytes, count, decimals, delta, share, span, withUnit } from './lib/number'

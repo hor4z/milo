@@ -4,11 +4,15 @@ import {
   Search, IconButton,
   Pagination, PaginationNext, PaginationPrev, PaginationStatus,
   Table, TableBody, TableCell, TableFooter, TableHead, TableHeader,
-  TableHint, TableNum, TableRow, TableTitle, facets, fold,
+  TableHint, TableNum, TableRow, TableTitle, facets, fold, timeAgo,
 } from '@milo/ui'
 import { A11y, Mono, Page, Props, Section } from '../kit'
 
 const face = (n: number) => `/avatars/${String(n).padStart(2, '0')}.webp`
+
+const AHORA = new Date('2026-03-09T15:00:00-03:00')
+const hace = (ms: number) => timeAgo(new Date(AHORA.getTime() - ms), { now: AHORA })
+const MIN = 60_000, H = 60 * MIN, D = 24 * H
 
 const p = (name: string, photo?: number) => ({ name, src: photo ? face(photo) : undefined })
 
@@ -19,35 +23,35 @@ const spaces = [
     name: 'Fracciones equivalentes', space: 'Matemática · 4.º A', status: 'Abierta',
     students: [p('Ana Pérez', 1), p('Bruno Díaz', 2), p('Carla Sosa', 3), p('Damián Ruiz', 4), p('Elena Vega', 5)],
     total: 18,
-    teacher: p('Valeria Ochoa', 7), done: 11, when: 'hace 2 h'
+    teacher: p('Valeria Ochoa', 7), done: 11, when: hace(2 * H)
   },
   {
     name: 'El sistema solar', space: 'Ciencias · 5.º B', status: 'Corregida',
     students: [p('Franco Gil', 6), p('Gabriela Mota', 7), p('Hugo Paz', 8)],
     total: 24,
-    teacher: p('Martín Roldán', 6), done: 24, when: 'ayer'
+    teacher: p('Martín Roldán', 6), done: 24, when: hace(D)
   },
   {
     name: 'Cuento policial', space: 'Lengua · 6.º', status: 'Borrador',
     students: [p('Irene Lopez'), p('Julián Cruz'), p('Karen Ortiz'), p('Leo Nuñez')],
     total: 0,
-    teacher: p('Valeria Ochoa', 7), done: 0, when: 'hace 5 días'
+    teacher: p('Valeria Ochoa', 7), done: 0, when: hace(5 * D)
   },
   {
     name: 'Mapa de América', space: 'Sociales · 5.º A', status: 'Abierta',
     students: [p('Mora Tello', 2), p('Nico Arce'), p('Olivia Rey', 4)],
     total: 7,
-    teacher: p('Nadia Britos'), done: 3, when: 'hace 1 h'
+    teacher: p('Nadia Britos'), done: 3, when: hace(H)
   },
 ]
 
 const all = [
   ...spaces,
-  { name: 'La Revolución de Mayo', space: 'Sociales · 6.º', status: 'Corregida', students: [p('Pablo Vera', 7), p('Rita Coll', 1)], total: 21, teacher: p('Martín Roldán', 6), done: 21, when: 'hace 3 días' },
-  { name: 'Ecuaciones de primer grado', space: 'Matemática · 6.º', status: 'Abierta', students: [p('Sara Luna', 3), p('Tomás Gil'), p('Ulises Paz', 5), p('Vera Ruiz', 6)], total: 12, teacher: p('Valeria Ochoa', 7), done: 5, when: 'hace 20 min' },
-  { name: 'El ciclo del agua', space: 'Ciencias · 4.º A', status: 'Borrador', students: [p('Wanda Ise'), p('Ximena Roa', 8)], total: 0, teacher: p('Nadia Britos'), done: 0, when: 'la semana pasada' },
-  { name: 'Poesía de vanguardia', space: 'Lengua · 6.º', status: 'Corregida', students: [p('Yago Prat', 4), p('Zoe Marín', 2), p('Aldo Sanz')], total: 16, teacher: p('Martín Roldán', 6), done: 16, when: 'hace 4 h' },
-  { name: 'Los climas del mundo', space: 'Sociales · 5.º A', status: 'Abierta', students: [p('Bianca Toro', 6), p('Ciro Vega')], total: 9, teacher: p('Nadia Britos'), done: 2, when: 'hace 6 días' },
+  { name: 'La Revolución de Mayo', space: 'Sociales · 6.º', status: 'Corregida', students: [p('Pablo Vera', 7), p('Rita Coll', 1)], total: 21, teacher: p('Martín Roldán', 6), done: 21, when: hace(3 * D) },
+  { name: 'Ecuaciones de primer grado', space: 'Matemática · 6.º', status: 'Abierta', students: [p('Sara Luna', 3), p('Tomás Gil'), p('Ulises Paz', 5), p('Vera Ruiz', 6)], total: 12, teacher: p('Valeria Ochoa', 7), done: 5, when: hace(20 * MIN) },
+  { name: 'El ciclo del agua', space: 'Ciencias · 4.º A', status: 'Borrador', students: [p('Wanda Ise'), p('Ximena Roa', 8)], total: 0, teacher: p('Nadia Britos'), done: 0, when: hace(9 * D) },
+  { name: 'Poesía de vanguardia', space: 'Lengua · 6.º', status: 'Corregida', students: [p('Yago Prat', 4), p('Zoe Marín', 2), p('Aldo Sanz')], total: 16, teacher: p('Martín Roldán', 6), done: 16, when: hace(4 * H) },
+  { name: 'Los climas del mundo', space: 'Sociales · 5.º A', status: 'Abierta', students: [p('Bianca Toro', 6), p('Ciro Vega')], total: 9, teacher: p('Nadia Britos'), done: 2, when: hace(6 * D) },
 ]
 
 const PAGE_SIZE = 4
