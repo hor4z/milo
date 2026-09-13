@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react'
+import { act, render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { describe, expect, it, vi } from 'vitest'
 import { Select } from './select'
@@ -77,5 +77,21 @@ describe('Select', () => {
 
     rerender(<Select value="Uno" onChange={() => {}} options={['Uno', 'Dos', 'Tres']} />)
     expect(trigger.getAttribute('aria-activedescendant')).toBe(before)
+  })
+
+  it('el scroll de la página lo cierra: anclado al botón, si no se le despega y queda flotando', async () => {
+    render(<Select value="Uno" onChange={() => {}} options={['Uno', 'Dos', 'Tres']} />)
+    await userEvent.click(screen.getByRole('button', { name: /Uno/ }))
+    expect(screen.getByRole('listbox')).toBeInTheDocument()
+    await act(async () => { window.dispatchEvent(new Event('scroll')) })
+    expect(screen.queryByRole('listbox')).not.toBeInTheDocument()
+  })
+
+  it('el scroll de su propia lista no lo cierra', async () => {
+    render(<Select value="Uno" onChange={() => {}} options={['Uno', 'Dos', 'Tres']} />)
+    await userEvent.click(screen.getByRole('button', { name: /Uno/ }))
+    const lista = screen.getByRole('listbox')
+    await act(async () => { lista.dispatchEvent(new Event('scroll', { bubbles: true })) })
+    expect(screen.getByRole('listbox')).toBeInTheDocument()
   })
 })

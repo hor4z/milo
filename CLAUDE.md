@@ -21,7 +21,7 @@ npm run typecheck  # todo el monorepo de una
 <<<<<<< HEAD
 npm test           # 517 tests con vitest y testing-library
 =======
-npm test           # 521 tests con vitest y testing-library
+npm test           # 524 tests con vitest y testing-library
 >>>>>>> main
 npm run props      # regenera la tabla de props desde los tipos
 ```
@@ -181,6 +181,11 @@ Repartido entre `portal/`, `popover/`, `tooltip/`, `dropdown/`, `modal/`, `sheet
 - **`scroll` en captura hay que filtrarlo por origen.** La captura es la única forma de enterarse
   del scroll de la página, pero atrapa el de cualquier hijo: sin filtrar, scrollear la lista del
   propio panel lo cerraba. Un `resize` sí cierra siempre.
+- **Todo lo que se mide contra un disparador y se dibuja en un portal tiene que cerrarse solo.**
+  La posición se calcula una vez, al abrir, contra el rectángulo del disparador; si después la
+  página scrollea, el panel se queda donde estaba y se le despega. El `Select` lo tuvo así desde
+  siempre y el `Tooltip` llevaba su propia copia a medias de la receta. Hay un test que busca los
+  dos rasgos juntos, medir el disparador y montar un `Portal`, y exige `useDismiss`.
 - **Cerrar con `pointerdown` y no con `click`**: con click, el mismo gesto que abre otro panel lo
   cierra y lo reabre, y parpadea.
 - Esas dos y la de afuera viven juntas en `lib/dismiss`, porque las comparten el `Popover` y el
@@ -365,7 +370,7 @@ Lo mismo vale para los tipos que una pieza recibe como argumento (`ToastOptions`
 `npm test` corre vitest con jsdom y testing-library. 517 tests, y lo que prueban es el
 comportamiento (teclado, nombres accesibles, estados) y no el markup, que cambia con cada
 =======
-`npm test` corre vitest con jsdom y testing-library. 521 tests, y lo que prueban es el
+`npm test` corre vitest con jsdom y testing-library. 524 tests, y lo que prueban es el
 comportamiento (teclado, nombres accesibles, estados) y no el markup, que cambia con cada
 >>>>>>> main
 ajuste de estilo. El test de cada pieza vive en su carpeta, al lado del componente.
