@@ -106,6 +106,31 @@ describe('coherencia del sistema', () => {
     ).toEqual([])
   })
 
+  it('nada suena solo', () => {
+    /* Un `autoplay` en un aula de treinta dispositivos, o al lado de alguien con
+       un lector de pantalla, es dos voces encimadas. Está escrito en
+       Fundamentos › Voz y sonido y acá se hace cumplir. */
+    const offenders = sources
+      .filter(f => /\bautoplay\b/i.test(f.text))
+      .map(f => f.name)
+    expect(offenders, 'nada arranca sin que alguien lo pida').toEqual([])
+  })
+
+  it('nadie escribe un reloj ni un relativo a mano', () => {
+    /* `23:59` y `hace 2 h` escritos adentro de una pieza son una zona horaria y
+       un idioma clavados. Lo que dice cuándo sale de `lib/time`. */
+    const reloj = /(?<![\w:/-])\d{1,2}:\d{2}(?![\w:/-])/
+    const relativo = /\bhace \d+ ?(min\b|h\b|hs\b|d\b|mins\b)/
+    const offenders: string[] = []
+    for (const f of sources) {
+      if (f.name.startsWith('lib/time')) continue
+      const texto = f.text.replace(/^import .*$/gm, '')
+      if (reloj.test(texto)) offenders.push(`${f.name}: un reloj escrito a mano`)
+      if (relativo.test(texto)) offenders.push(`${f.name}: un relativo con la unidad abreviada`)
+    }
+    expect(offenders).toEqual([])
+  })
+
   it('los iconos salen de la escala, también cuando el número llega por una tabla', () => {
     const escala = new Set([12, 14, 16, 18, 20, 22])
     const offenders: string[] = []

@@ -12,6 +12,10 @@ import { ReliefSection } from './foundations/relief'
 import { MotionSection } from './foundations/motion'
 import { StatesSection } from './foundations/states'
 import { InclusionSection } from './foundations/inclusion'
+import { NumbersSection } from './foundations/numbers'
+import { RolesSection } from './foundations/roles'
+import { SoundSection } from './foundations/sound'
+import { TimeSection } from './foundations/time'
 import { AudioPlayerStory } from './stories/audio-player'
 import { ChartsSection } from './foundations/charts'
 import { LayoutSection } from './foundations/layout'
@@ -86,6 +90,7 @@ const groups: Group[] = [
     stories: [
       { id: 'principles', label: 'Principios', alias: 'principios fundamentos reglas decisiones', render: () => <Principles /> },
       { id: 'accessibility', label: 'Accesibilidad', alias: 'accesibilidad a11y contraste teclado foco lector pantalla wcag', render: () => <AccessibilitySection /> },
+      { id: 'roles', label: 'Quién está mirando', alias: 'roles usuarios estudiante docente familia padres conducción directivo permisos personas', render: () => <RolesSection /> },
       { id: 'typography', label: 'Tipografía', alias: 'tipografía fuente texto escala pesos interlineado tracking familia inter legibilidad', render: () => <TypographySection /> },
       { id: 'color', label: 'Color', alias: 'paleta tokens rampa tonos', render: () => <ColorSection /> },
       { id: 'measure', label: 'Medidas y radios', alias: 'espaciado medidas radios tamaños grilla', render: () => <MeasureSection /> },
@@ -95,6 +100,9 @@ const groups: Group[] = [
       { id: 'states', label: 'Estados', alias: 'estados hover foco pressed disabled vacío cargando error skeleton empty loading', render: () => <StatesSection /> },
       { id: 'icon', label: 'Iconos', alias: 'iconos glifos símbolos', render: () => <IconStory /> },
       { id: 'charts', label: 'Gráficos', alias: 'gráficos datos barras línea ejes leyenda visualización', render: () => <ChartsSection /> },
+      { id: 'time', label: 'Fecha y hora', alias: 'fecha hora tiempo zona huso timezone reloj duración vencimiento relativo formato', render: () => <TimeSection /> },
+      { id: 'sound', label: 'Voz y sonido', alias: 'voz sonido audio velocidad volumen silencio subtítulos transcripción escuchar lectura hablada', render: () => <SoundSection /> },
+      { id: 'numbers', label: 'Números y valores', alias: 'números cifras decimales coma porcentaje unidades tamaño rango cantidades tabular', render: () => <NumbersSection /> },
       { id: 'writing', label: 'Cómo se escribe', alias: 'texto redacción copy mensajes tono escritura', render: () => <Writing /> },
       { id: 'inclusion', label: 'Inclusión', alias: 'inclusión género lenguaje nombres personas diversidad edtech', render: () => <InclusionSection /> },
     ],

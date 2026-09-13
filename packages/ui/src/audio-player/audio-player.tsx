@@ -3,18 +3,7 @@ import { IconButton } from '../icon-button/icon-button'
 import { Spinner } from '../spinner/spinner'
 import { control } from '../lib/control'
 import { cx } from '../lib/cx'
-
-/** Segundos a reloj: `1:02:03` para algo largo, `0:07` para lo normal. */
-function reloj(s: number) {
-  if (!Number.isFinite(s) || s < 0) return '--:--'
-  const t = Math.floor(s)
-  const hh = Math.floor(t / 3600)
-  const mm = Math.floor((t % 3600) / 60)
-  const ss = t % 60
-  return hh
-    ? `${hh}:${String(mm).padStart(2, '0')}:${String(ss).padStart(2, '0')}`
-    : `${mm}:${String(ss).padStart(2, '0')}`
-}
+import { duration } from '../lib/time'
 
 type Estado = 'cargando' | 'listo' | 'error'
 
@@ -190,7 +179,7 @@ export function AudioPlayer({ src, title, peaks, actions, size = 'md', className
                 value={t}
                 disabled={!listo}
                 aria-label={title ? `Buscar en ${title}` : 'Buscar en el audio'}
-                aria-valuetext={`${reloj(t)} de ${listo ? reloj(dur) : '--:--'}`}
+                aria-valuetext={`${duration(t)} de ${listo ? duration(dur) : '--:--'}`}
                 onChange={e => buscar(Number(e.target.value))}
                 className={cx(
                   'absolute inset-0 h-full w-full cursor-pointer appearance-none bg-transparent opacity-0',
@@ -202,7 +191,7 @@ export function AudioPlayer({ src, title, peaks, actions, size = 'md', className
           )}
 
         <span className="tabular shrink-0 text-meta text-ink-muted">
-          {reloj(t)} / {listo ? reloj(dur) : '--:--'}
+          {duration(t)} / {listo ? duration(dur) : '--:--'}
         </span>
 
         {actions && <span className="flex shrink-0 items-center gap-1">{actions}</span>}

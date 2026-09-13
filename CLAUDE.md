@@ -18,7 +18,7 @@ final son lo único que hay que tocar.
 npm install
 npm run dev        # el sitio · http://localhost:5190
 npm run typecheck  # todo el monorepo de una
-npm test           # 567 tests con vitest y testing-library
+npm test           # 598 tests con vitest y testing-library
 npm run props      # regenera la tabla de props desde los tipos
 ```
 
@@ -96,6 +96,10 @@ cosa), así que ahora dirige en vez de explicar.
 | contraste, teclado, lectores | **Fundamentos › Accesibilidad** | `__tests__/contraste.test.ts` |
 | el set y cómo crece | **Fundamentos › Iconos** | `scripts/icons.mjs` |
 | qué gráfico va y cuándo una tabla | **Fundamentos › Gráficos** | `chart/` |
+| cuándo pasa algo, en qué zona | **Fundamentos › Fecha y hora** | `lib/time.ts` |
+| cómo se escribe un número | **Fundamentos › Números y valores** | `lib/number.ts` |
+| quién está mirando y qué ve | **Fundamentos › Quién está mirando** | - |
+| cómo suena, y cuándo | **Fundamentos › Voz y sonido** | `audio-player/` |
 | el texto de la interfaz | **Fundamentos › Cómo se escribe** | - |
 | a quién le hablamos | **Fundamentos › Inclusión** | - |
 
@@ -279,8 +283,8 @@ packages/ui/src/        theme.css (el puente) · index.ts (la puerta) ·
                         una carpeta por pieza: button/button.tsx + button/button.test.tsx,
                         y así las 63 (select, modal, toast, chart, table…)
                         lib/ lo compartido que no es un componente: cx · colors ·
-                        control · tone · esc · overlay-hooks · roving ·
-                        side-scroll · dismiss
+                        control · tone · time · number · esc · overlay-hooks ·
+                        roving · side-scroll · dismiss
                         __tests__/ los cinco que leen el paquete entero:
                         coherencia · contraste · tipografía · utilidades · props
                         icons.gen.ts e icons.meta.ts los genera scripts/icons.mjs
@@ -289,9 +293,9 @@ apps/kit/src/           el sitio: App.tsx (shell y riel) · kit.tsx (Page, Secti
                         Canvas, Props, A11y, Note) · intro.tsx (la portada) ·
                         dashboard.tsx · document.tsx · stories/ (una por pieza) ·
                         mascots/ ·
-                        foundations/ (principles · accessibility · typography ·
+                        foundations/ (principles · accessibility · roles · typography ·
                         color · measure · layout · relief · motion · states ·
-                        charts · writing · inclusion)
+                        charts · time · numbers · sound · writing · inclusion)
 ```
 
 **El corte entre el paquete y el sitio es por dependencia, no por gusto.** `packages/ui` no
@@ -322,8 +326,9 @@ cada una linkea a la otra: solapas o acordeón, alert o toast, sheet o modal, li
 Las piezas se agrupan por el trabajo que hacen
 (Fundamentos, Mascotas, Editor, Acciones, Formularios, Navegación, Datos, Avisos, Superficies) y
 no por su tipo técnico. **Fundamentos va primero** y es la capa de la que sale todo lo demás:
-Principios · Accesibilidad · Tipografía · Color · Medidas y radios · Layout · Relieve · Movimiento ·
-Estados · Iconos · Gráficos · Cómo se escribe · Inclusión. El orden adentro no es alfabético: las
+Principios · Accesibilidad · Quién está mirando · Tipografía · Color · Medidas y radios · Layout ·
+Relieve · Movimiento · Estados · Iconos · Gráficos · Fecha y hora · Números y valores ·
+Voz y sonido · Cómo se escribe · Inclusión. El orden adentro no es alfabético: las
 dos primeras son las que hay que leer antes de tocar nada, y después van las capas en el orden en
 que se construye una pantalla.
 
@@ -362,7 +367,7 @@ Lo mismo vale para los tipos que una pieza recibe como argumento (`ToastOptions`
 
 ## Los tests
 
-`npm test` corre vitest con jsdom y testing-library. 567 tests, y lo que prueban es el
+`npm test` corre vitest con jsdom y testing-library. 598 tests, y lo que prueban es el
 comportamiento (teclado, nombres accesibles, estados) y no el markup, que cambia con cada
 ajuste de estilo. El test de cada pieza vive en su carpeta, al lado del componente.
 
