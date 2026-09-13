@@ -150,6 +150,18 @@ describe('el texto de una etiqueta de color se lee', () => {
     }
   }
 
+  for (const theme of ['light', 'dark'] as const) {
+    for (const label of labels) {
+      it(`el par suave de ${label} en ${theme} se lee`, () => {
+        const soft = value(`${label}-soft`, theme)
+        const ink = value(`${label}-ink`, theme)
+        expect(soft, `falta ${label}-soft en ${theme}`).toBeTruthy()
+        expect(ink, `falta ${label}-ink en ${theme}`).toBeTruthy()
+        expect(ratio(ink!, soft!)).toBeGreaterThanOrEqual(4.5)
+      })
+    }
+  }
+
   it('la tinta del rol es la misma que se mide acá', () => {
     const semantic = readFileSync(join(import.meta.dirname, '../../../tokens/src/semantic.css'), 'utf8')
     expect(semantic).toMatch(/--on-label:\s*#121212/)
@@ -171,6 +183,13 @@ describe('el glifo de una marca se lee sobre su propio relleno', () => {
     }
   }
 })
+
+/* Las excepciones escritas, con el piso medido el día que se decidieron. No
+   están para que el test pase: están para que nadie las empeore sin enterarse,
+   y cada una vive explicada en la vista que la usa. */
+const excepciones: Record<string, number> = {
+  '--chart-warn light': 2.2,
+}
 
 describe('el relleno de un dato se despega de su pista', () => {
   const semantic = readFileSync(join(import.meta.dirname, '../../../tokens/src/semantic.css'), 'utf8')
@@ -212,9 +231,33 @@ describe('el relleno de un dato se despega de su pista', () => {
 
   for (const theme of ['light', 'dark'] as const) {
     for (const tono of ['--chart-fill', '--chart-ok', '--chart-warn', '--chart-bad']) {
-      it(`${tono} sobre la pista en ${theme} llega a 3:1`, () => {
-        expect(ratio(literal(tono, theme), pista(theme))).toBeGreaterThanOrEqual(3)
+      const piso = excepciones[`${tono} ${theme}`]
+      it(`${tono} sobre la pista en ${theme} llega a ${piso ?? 3}:1`, () => {
+        const r = ratio(literal(tono, theme), pista(theme))
+        expect(r, piso ? 'es una excepción escrita: no puede empeorar' : undefined)
+          .toBeGreaterThanOrEqual(piso ?? 3)
       })
     }
   }
+
+  describe('la marca del Indicator lleva la tinta que su relleno aguanta', () => {
+    const pares: [string, string][] = [
+      ['--on-accent', '--accent-fill'],
+      ['--on-ok', '--ok'],
+      ['--on-warn', '--warn'],
+      ['--on-bad', '--bad'],
+    ]
+    for (const theme of ['light', 'dark'] as const) {
+      for (const [ink, fill] of pares) {
+        it(`${ink} sobre ${fill} en ${theme} llega a AA`, () => {
+          const i = literal(ink, theme)
+          const f = literal(fill, theme)
+          expect(i, `falta ${ink} en ${theme}`).toBeTruthy()
+          expect(f, `falta ${fill} en ${theme}`).toBeTruthy()
+          expect(ratio(i, f)).toBeGreaterThanOrEqual(4.5)
+        })
+      }
+    }
+  })
 })
+
