@@ -4,6 +4,7 @@ import { Icon } from '../icon/icon'
 import { cx, fold } from '../lib/cx'
 import { useEscape } from '../lib/esc'
 import { Portal } from '../portal/portal'
+import { useDismiss } from '../lib/dismiss'
 import { Spinner } from '../spinner/spinner'
 
 /** El select es un botón con un listbox propio, no un `<select>` nativo. */
@@ -47,13 +48,10 @@ export function Select({
     if (open) setActive(Math.max(0, options.indexOf(value)))
   }, [open])
 
+  useDismiss(open, useCallback(() => setOpen(false), []), [list, btn])
+
   useEffect(() => {
     if (!open) return
-    const onDown = (e: PointerEvent) => {
-      const t = e.target as Node
-      if (list.current?.contains(t) || btn.current?.contains(t)) return
-      setOpen(false)
-    }
     const onKey = (e: KeyboardEvent) => {
       if (e.key === 'ArrowDown') { e.preventDefault(); setActive(i => Math.min(i + 1, options.length - 1)) }
       if (e.key === 'ArrowUp') { e.preventDefault(); setActive(i => Math.max(i - 1, 0)) }
@@ -74,12 +72,8 @@ export function Select({
         if (i >= 0) { e.preventDefault(); setActive(i) }
       }
     }
-    document.addEventListener('pointerdown', onDown)
     document.addEventListener('keydown', onKey, true)
-    return () => {
-      document.removeEventListener('pointerdown', onDown)
-      document.removeEventListener('keydown', onKey, true)
-    }
+    return () => document.removeEventListener('keydown', onKey, true)
   }, [open, active, options, onChange])
 
   useEffect(() => {

@@ -95,6 +95,17 @@ describe('coherencia del sistema', () => {
     expect([...new Set(offenders)]).toEqual([])
   })
 
+  it('un panel anclado a un disparador usa la receta de cierre', () => {
+    const anclados = sources.filter(f =>
+      /getBoundingClientRect\(\)/.test(f.text) && /<Portal[\s>]/.test(f.text))
+    const sinReceta = anclados.filter(f => !/from '\.\.\/lib\/dismiss'/.test(f.text)).map(f => f.name)
+    expect(anclados.length, 'no se encontró ningún panel anclado: el guardián dejó de mirar').toBeGreaterThan(0)
+    expect(
+      sinReceta,
+      'mide a su disparador y flota en un portal, así que al scrollear la página se le despega: va useDismiss',
+    ).toEqual([])
+  })
+
   it('los iconos salen de la escala, también cuando el número llega por una tabla', () => {
     const escala = new Set([12, 14, 16, 18, 20, 22])
     const offenders: string[] = []
