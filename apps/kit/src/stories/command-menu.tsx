@@ -17,7 +17,7 @@ const bloques: CommandGroup[] = [
     items: [
       { id: 'ul', label: 'Lista', icon: 'format_list_bulleted', shortcut: '-' },
       { id: 'ol', label: 'Lista numerada', icon: 'format_list_numbered', shortcut: '1.' },
-      { id: 'todo', label: 'Lista de tareas', hint: 'Con casillas para marcar', icon: 'checklist' },
+      { id: 'todo', label: 'Lista de tareas', hint: 'Con casillas para marcar', icon: 'checklist', keywords: ['checklist', 'pendientes'] },
     ],
   },
   {
@@ -94,6 +94,14 @@ export function CommandMenuStory() {
           <span className="text-meta text-ink-muted">Abrí, escribí, movete con las flechas y elegí con Enter.</span>
         </div>
       </Section>
+
+      <Note icon="lightbulb" title="Qué de esta lista ya existe">
+        Los bloques que llevan una pieza propia son `Título`, `Cita`, `Bloque destacado`, `Lista de
+        tareas`, `Imagen`, `Tabla` y `Gráfico`. `Lista`, `Lista numerada` y `Separador` no la
+        necesitan: son HTML con los estilos del sistema. Y `Fórmula` todavía no está — MathML no lo
+        tipa React, y un intérprete de LaTeX es una biblioteca entera, así que es una decisión y no
+        un olvido.
+      </Note>
 
       <Note title="Esto no abre nada">
         La pieza es la lista y nada más: no se posiciona ni se cierra sola — el cierre lo decide

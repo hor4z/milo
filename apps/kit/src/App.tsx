@@ -18,6 +18,7 @@ import { LayoutSection } from './foundations/layout'
 import { CalloutStory } from './stories/callout'
 import { FigureStory } from './stories/figure'
 import { QuoteStory } from './stories/quote'
+import { TaskListStory } from './stories/task-list'
 import { CommandMenuStory } from './stories/command-menu'
 import { ToolbarStory } from './stories/toolbar'
 import { StepsStory } from './stories/steps'
@@ -111,6 +112,7 @@ const groups: Group[] = [
       { id: 'callout', label: 'Callout', alias: 'bloque destacado aclaración pista recordar contenido editor', render: () => <CalloutStory /> },
       { id: 'figure', label: 'Figure', alias: 'imagen figura pie epígrafe foto alt caption editor', render: () => <FigureStory /> },
       { id: 'quote', label: 'Quote', alias: 'cita blockquote fuente atribución textual editor', render: () => <QuoteStory /> },
+      { id: 'task-list', label: 'TaskList', alias: 'tareas checklist pasos pendientes marcar hacer editor', render: () => <TaskListStory /> },
     ],
   },
   {

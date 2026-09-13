@@ -2540,6 +2540,40 @@ export const propsByComponent: Record<string, ComponentDoc> = {
     "html": "div",
     "doc": "El contenido de una solapa."
   },
+  "TaskList": {
+    "props": [
+      {
+        "name": "items",
+        "type": "Task[]",
+        "required": true,
+        "doc": "En el orden en que van."
+      },
+      {
+        "name": "onToggle",
+        "type": "(id: string, done: boolean) => void",
+        "required": true,
+        "doc": "Recibe el id y si quedó hecha."
+      },
+      {
+        "name": "label",
+        "type": "string",
+        "required": true,
+        "doc": "De qué es la lista. Sin esto un lector anuncia «lista, cuatro elementos» y nada más."
+      },
+      {
+        "name": "readOnly",
+        "type": "boolean",
+        "required": false,
+        "doc": "Apagada se lee y no se toca: la consigna de otro, una entrega ya cerrada."
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "required": false
+      }
+    ],
+    "doc": "Cosas para hacer, que se marcan al hacerlas: los pasos de una entrega, lo que falta de una actividad."
+  },
   "TextField": {
     "props": [
       {
