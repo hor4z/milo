@@ -24,8 +24,8 @@ const resolvente = (
   </>
 )
 
-/** Una fracción chica, para ver cómo entra en un renglón. */
-const tresCuartos = <mfrac><mn>3</mn><mn>4</mn></mfrac>
+/** Con barra y no apilada: es lo que va adentro de una frase. */
+const tresCuartos = <><mn>3</mn><mo>/</mo><mn>4</mn></>
 
 /** Energía mecánica: larga a propósito, para probar el desplazamiento. */
 const energia = (
@@ -48,7 +48,7 @@ export function FormulaStory() {
     >
       <Section
         title="En la frase"
-        note="No abre renglón: una fracción o un subíndice entran en el interlineado del párrafo, y los renglones de arriba y de abajo siguen a la misma distancia."
+        note="No abre renglón: un subíndice o una fracción con barra entran en el interlineado del párrafo, y los renglones de arriba y de abajo siguen a la misma distancia."
       >
         <div className="max-w-[640px] rounded-xl border border-line bg-surface p-6">
           <p className="text-reading text-ink">
@@ -102,6 +102,13 @@ export function FormulaStory() {
           </Formula>
         </div>
       </Section>
+
+      <Note title="Una fracción en una frase va con barra, no apilada">
+        Adentro de un renglón, MathML achica lo apilado para que entre: medido, el numerador de una
+        fracción cae a 11,36px, abajo del piso de 12 que el sistema tiene para todo lo que se lee.
+        `3/4` con barra se lee al tamaño del párrafo y no empuja el interlineado. La fracción
+        apilada es para `display`, que es donde hay alto para dársela.
+      </Note>
 
       <Note icon="lightbulb" title="Por qué MathML y no LaTeX">
         Un intérprete de LaTeX es una biblioteca entera y lo que devuelve termina siendo MathML

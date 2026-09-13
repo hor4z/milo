@@ -113,6 +113,29 @@ describe('las vistas del kit', () => {
     expect(inertes).toEqual([])
   })
 
+  it('ninguna fórmula en línea lleva algo apilado', () => {
+    // Adentro de un renglón, MathML achica lo apilado para que entre: el
+    // numerador de una fracción cae a 11,36px, abajo del piso de 12 del
+    // sistema. En una frase va con barra —`3/4`— y lo apilado es de `display`.
+    const dir = join(import.meta.dirname, '..')
+    const walk = (base: string, prefix = ''): string[] =>
+      readdirSync(base, { withFileTypes: true }).flatMap(e =>
+        e.isDirectory()
+          ? (e.name === '__tests__' ? [] : walk(join(base, e.name), `${prefix}${e.name}/`))
+          : /\.tsx$/.test(e.name) ? [`${prefix}${e.name}`] : [],
+      )
+    const apilado = /<(mfrac|msqrt|mroot|munderover|munder|mover)\b/
+    const offenders: string[] = []
+    for (const f of walk(dir)) {
+      const texto = readFileSync(join(dir, f), 'utf8')
+      for (const m of texto.matchAll(/<Formula\b([^>]*)>([\s\S]*?)<\/Formula>/g)) {
+        if (/\bdisplay\b/.test(m[1])) continue
+        if (apilado.test(m[2])) offenders.push(`${f}: ${m[2].trim().slice(0, 44)}`)
+      }
+    }
+    expect(offenders).toEqual([])
+  })
+
   it('cada portada dice cómo se importa la pieza', () => {
     const withoutImport: string[] = []
     for (const f of files) {
@@ -222,27 +245,17 @@ describe('cobertura del kit', () => {
       }
     }
 
-    const sources = [
-      ...readdirSync(stories).map((f: string) => join(stories, f)),
-      join(import.meta.dirname, '../dashboard.tsx'),
-      join(import.meta.dirname, '../intro.tsx'),
-      join(import.meta.dirname, '../App.tsx'),
-      join(import.meta.dirname, '../main.tsx'),
-      join(import.meta.dirname, '../foundations/principles.tsx'),
-      join(import.meta.dirname, '../foundations/accessibility.tsx'),
-      join(import.meta.dirname, '../foundations/typography.tsx'),
-      join(import.meta.dirname, '../foundations/color.tsx'),
-      join(import.meta.dirname, '../foundations/measure.tsx'),
-      join(import.meta.dirname, '../foundations/relief.tsx'),
-      join(import.meta.dirname, '../foundations/motion.tsx'),
-      join(import.meta.dirname, '../foundations/states.tsx'),
-      join(import.meta.dirname, '../foundations/inclusion.tsx'),
-      join(import.meta.dirname, '../foundations/charts.tsx'),
-      join(import.meta.dirname, '../foundations/layout.tsx'),
-      join(import.meta.dirname, '../mascots/otto.tsx'),
-      join(import.meta.dirname, '../mascots/amelia.tsx'),
-      join(import.meta.dirname, '../foundations/writing.tsx'),
-    ]
+    // El sitio entero y no una lista escrita a mano: la lista había que
+    // acordarse de actualizarla, y una vista nueva que se olvidara dejaba de
+    // contar sin que nada fallara.
+    const raiz = join(import.meta.dirname, '..')
+    const recorrer = (base: string): string[] =>
+      readdirSync(base, { withFileTypes: true }).flatMap(e =>
+        e.isDirectory()
+          ? (e.name === '__tests__' ? [] : recorrer(join(base, e.name)))
+          : /\.tsx?$/.test(e.name) ? [join(base, e.name)] : [],
+      )
+    const sources = recorrer(raiz)
     const text = sources.map((f: string) => readFileSync(f, 'utf8')).join('\n')
 
     const hidden = [...exported].filter(n => !new RegExp(`<${n}[\\s/>]`).test(text))

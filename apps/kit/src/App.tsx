@@ -2,6 +2,7 @@ import { useEffect, useMemo, useRef, useState, type ReactNode } from 'react'
 import { Button, EmptyState, Icon, IconButton, Search, ToastProvider, cx, fold, usePrefs } from '@milo/ui'
 import { Intro } from './intro'
 import { Dashboard } from './dashboard'
+import { Documento } from './document'
 import { Principles } from './foundations/principles'
 import { AccessibilitySection } from './foundations/accessibility'
 import { TypographySection } from './foundations/typography'
@@ -311,6 +312,7 @@ export function App() {
           <div className="flex-1 overflow-y-auto px-3 pb-4">
             <SideLink active={current === INTRO} onClick={() => go(INTRO)} icon="deployed_code">Introducción</SideLink>
             <SideLink active={current === 'dashboard'} onClick={() => go('dashboard')} icon="dashboard">Dashboard</SideLink>
+            <SideLink active={current === 'documento'} onClick={() => go('documento')} icon="description">Documento</SideLink>
 
             {filtered.map(g => (
               <div key={g.label} className="mt-5 first:mt-4">
@@ -363,8 +365,9 @@ export function App() {
           <div key={current} className="mx-auto flex max-w-[980px] flex-col">
             {current === INTRO && <Intro go={go} views={everything.length} />}
             {current === 'dashboard' && <Dashboard />}
+            {current === 'documento' && <Documento />}
             {story?.render()}
-            {!story && current !== INTRO && current !== 'dashboard' && (
+            {!story && current !== INTRO && current !== 'dashboard' && current !== 'documento' && (
               // Cada vista es un link que alguien puede tener guardado, y una
               // pieza que se renombra deja ese link apuntando a nada. Sin esto
               // el canvas quedaba en blanco, que se lee como que el sitio está
@@ -386,7 +389,7 @@ export function App() {
 function SideLink({ active, onClick, icon, piece, children }: {
   active: boolean
   onClick: () => void
-  icon?: 'deployed_code' | 'dashboard'
+  icon?: 'deployed_code' | 'dashboard' | 'description'
   piece?: boolean
   children: ReactNode
 }) {
