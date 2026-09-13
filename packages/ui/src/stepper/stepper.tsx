@@ -21,7 +21,7 @@ export function Stepper({
   salto?: number
   /** De qué es el número. Sin esto lo pone el `Field` de alrededor. */
   label?: string
-  /** Lo que va después del número: «min», «pts». No se escribe ni se lee aparte. */
+  /** Lo que va después del número: "min", "pts". No se escribe ni se lee aparte. */
   suffix?: string
   disabled?: boolean
   width?: number

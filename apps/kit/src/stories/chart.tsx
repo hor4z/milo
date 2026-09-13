@@ -39,11 +39,11 @@ export function ChartStory() {
       title="BarChart"
       kind="Datos"
       imports="import { BarChart } from '@milo/ui'"
-      lead="Cada barra son dos cosas: el gris es el total y el azul es lo hecho. No son dos series compitiendo, es una parte adentro de su todo — y por eso el azul va dentro del gris: apoyados uno al lado del otro habría que compararlos a ojo, y metido adentro, lo que falta es el gris que sobra arriba."
+      lead="Cada barra son dos cosas: el gris es el total y el azul es lo hecho. No son dos series compitiendo, es una parte adentro de su todo, y por eso el azul va dentro del gris: apoyados uno al lado del otro habría que compararlos a ojo, y metido adentro, lo que falta es el gris que sobra arriba."
     >
       <Section
         title="Vivo"
-        note="Pasá el mouse por las barras, y después tabulá hasta ellas. El tooltip aparece igual con el teclado: un dato que solo existe al pasar el mouse no existe para quien no usa mouse. Y el blanco del hover es la columna entera, no el rectángulo pintado — apuntarle a una barra baja no obliga a bajar hasta el piso."
+        note="Pasá el mouse por las barras, y después tabulá hasta ellas. El tooltip aparece igual con el teclado: un dato que solo existe al pasar el mouse no existe para quien no usa mouse. Y el blanco del hover es la columna entera, no el rectángulo pintado: apuntarle a una barra baja no obliga a bajar hasta el piso."
       >
         <Card className="max-w-2xl p-6">
           <div className="mb-5">
@@ -56,7 +56,7 @@ export function ChartStory() {
 
       <Section
         title="Sin destacada"
-        note="Con todas las barras llevando azul, marcar una con color no queda disponible: `highlight` le pone la etiqueta un paso más pesada, que alcanza para decir «esta es de la que estamos hablando» sin agregar un tercer tono. Acá va sin ninguna: cuando lo que importa es la forma de la serie y no un mes, se deja afuera."
+        note="Con todas las barras llevando azul, marcar una con color no queda disponible: `highlight` le pone la etiqueta un paso más pesada, que alcanza para decir 'esta es de la que estamos hablando' sin agregar un tercer tono. Acá va sin ninguna: cuando lo que importa es la forma de la serie y no un mes, se deja afuera."
       >
         <Card className="max-w-2xl p-6">
           <BarChart title="Corregidas sobre entregadas, por mes" data={months} height={160} />
@@ -65,7 +65,7 @@ export function ChartStory() {
 
       <Section
         title="Lo que el tooltip puede llevar"
-        note="`detail` entra al lado del número: un porcentaje, un grupo de caras, lo que la fila necesite. El número va primero y grande y la frase abajo en gris — es la jerarquía de una leyenda al revés, porque acá el lector ya sabe qué tocó y lo que fue a buscar es cuánto."
+        note="`detail` entra al lado del número: un porcentaje, un grupo de caras, lo que la fila necesite. El número va primero y grande y la frase abajo en gris: es la jerarquía de una leyenda al revés, porque acá el lector ya sabe qué tocó y lo que fue a buscar es cuánto."
       >
         <p className="max-w-[70ch] text-body text-ink-muted">
           El filo azul de la izquierda es lo único que ata la caja al gráfico: sin él es una tarjeta
@@ -84,7 +84,7 @@ export function ChartStory() {
       >
         <p className="max-w-[70ch] text-body text-ink-muted">
           Tampoco tiene dos series ni dos ejes: dos medidas de escalas distintas son dos gráficos, no
-          uno con dos escalas — es la forma más común de mentir con un gráfico sin darse cuenta. Y
+          uno con dos escalas: es la forma más común de mentir con un gráfico sin darse cuenta. Y
           los valores viven también en una tabla <code>sr-only</code>: un lector de pantalla no puede
           hoverear, y una altura no se lee.
         </p>
@@ -93,7 +93,7 @@ export function ChartStory() {
       <Section title="Accesibilidad">
         <A11y items={[
           'Cada barra es un <button> que se enfoca y muestra el mismo tooltip que con el mouse.',
-          'Cada barra se anuncia como «Miércoles: 27 de 29».',
+          'Cada barra se anuncia como "Miércoles: 27 de 29".',
           'Los valores viven además en una tabla sr-only: una altura no se lee.',
           'El tono sube con la altura, así que el tamaño y el color dicen lo mismo.',
         ]} />

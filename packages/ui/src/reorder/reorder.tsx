@@ -22,7 +22,7 @@ export function Reorder<T extends ReorderItem>({ items, onReorder, label, childr
   items: T[]
   /** Recibe la lista entera en el orden nuevo. */
   onReorder: (items: T[]) => void
-  /** De qué es la lista. Sin esto un lector dice «lista» y nada más. */
+  /** De qué es la lista. Sin esto un lector dice "lista" y nada más. */
   label: string
   /** Lo que va adentro de cada fila, a la derecha de la manija. */
   children: (item: T, i: number) => ReactNode

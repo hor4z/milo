@@ -18,7 +18,7 @@ export function ConfirmDialog({
   title: string
   /** Qué más se lleva puesto. */
   body?: ReactNode
-  /** El verbo de lo que va a pasar, no «Sí». */
+  /** El verbo de lo que va a pasar, no "Sí". */
   confirmLabel?: string
   /** La salida segura. */
   cancelLabel?: string

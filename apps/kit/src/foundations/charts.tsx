@@ -46,7 +46,7 @@ export function ChartsSection() {
 
       <Section
         title="El título dice la conclusión, no la categoría"
-        note="«Entregas por día» nombra el eje y no agrega nada: eso ya está escrito abajo de las barras. El título es el lugar donde decir qué hay que mirar."
+        note="'Entregas por día' nombra el eje y no agrega nada: eso ya está escrito abajo de las barras. El título es el lugar donde decir qué hay que mirar."
       >
         <div className="grid gap-4 lg:grid-cols-2">
           <div className="flex flex-col gap-3 rounded-xl border border-line bg-surface p-6">
@@ -83,7 +83,7 @@ export function ChartsSection() {
 
       <Note title="El relleno de un dato no es el azul del botón">
         Lo parece, y en el tema claro es el mismo. Pero el azul de marca está anclado en el escalón
-        donde el blanco encima llega a 4,5:1 —lo que un botón necesita— y un relleno de dato no
+        donde el blanco encima llega a 4,5:1 (lo que un botón necesita) y un relleno de dato no
         lleva texto encima: lo que necesita es despegarse de su pista, que son los 3:1 de la WCAG
         para un elemento gráfico. En oscuro los dos requisitos dejan de coincidir: ahí el azul de
         marca contra la pista daba 2,34:1 y el rojo 2,45, así que la misma barra se leía clara en
@@ -92,7 +92,7 @@ export function ChartsSection() {
       </Note>
 
       <Note title="Dónde arranca el eje cambia lo que se lee">
-        Forzar el cero sirve para «cuánto»; ajustarlo al dato sirve para «cuándo cambió». Ninguna de
+        Forzar el cero sirve para "cuánto"; ajustarlo al dato sirve para "cuándo cambió". Ninguna de
         las dos miente, pero dicen cosas distintas, así que la decisión es del que arma la pantalla
         y no un default que se arrastra. Hoy el único gráfico del sistema es de barras y arranca en
         cero siempre, que es lo que una barra necesita para no mentir con su largo.

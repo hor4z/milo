@@ -11,7 +11,7 @@ export function ProgressStory() {
     >
       <Section
         title="La barra y su rótulo"
-        note="`label` no es decoración: es lo que un lector de pantalla anuncia con el número, y lo que hace que tres barras apiladas se distingan entre sí. El `hint` es el número a la vista — «18 de 24» dice más que «75%» cuando lo que falta se cuenta."
+        note="`label` no es decoración: es lo que un lector de pantalla anuncia con el número, y lo que hace que tres barras apiladas se distingan entre sí. El `hint` es el número a la vista: '18 de 24' dice más que '75%' cuando lo que falta se cuenta."
       >
         <div className="flex flex-col gap-5 rounded-xl border border-line bg-surface p-5">
           <Progress label="Corregidas" value={18} max={24} hint="18 de 24" />
@@ -22,7 +22,7 @@ export function ProgressStory() {
 
       <Section
         title="El tono dice algo, no decora"
-        note="El default es el azul de dato —no el de marca, aunque en claro sean el mismo— y sirve para todo lo que avanza. `ok` es para lo que se completó, y `warn` y `bad` solo cuando llenar la barra es el problema —una cuota, un espacio que se acaba—. Una lista de cuatro barras en cuatro colores distintos se lee como un semáforo y deja de leerse como progreso."
+        note="El default es el azul de dato (no el de marca, aunque en claro sean el mismo) y sirve para todo lo que avanza. `ok` es para lo que se completó, y `warn` y `bad` solo cuando llenar la barra es el problema (una cuota, un espacio que se acaba). Una lista de cuatro barras en cuatro colores distintos se lee como un semáforo y deja de leerse como progreso."
       >
         <div className="flex flex-col gap-5 rounded-xl border border-line bg-surface p-5">
           <Progress label="Espacio usado" value={92} max={100} hint="92%" tone="warn" />
@@ -31,8 +31,8 @@ export function ProgressStory() {
       </Section>
 
       <Note title="Progress o Spinner">
-        La barra necesita saber cuánto falta. Si eso no se sabe —una búsqueda, una consulta que
-        puede tardar dos segundos o veinte— la barra miente, y lo honesto es un
+        La barra necesita saber cuánto falta. Si eso no se sabe (una búsqueda, una consulta que
+        puede tardar dos segundos o veinte) la barra miente, y lo honesto es un
         {' '}<a className="underline underline-offset-2" href="#spinner">Spinner</a>. Una barra que
         se queda en el 90% es la forma más cara de perder la confianza de quien mira.
       </Note>

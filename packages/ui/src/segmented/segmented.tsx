@@ -23,7 +23,7 @@ export function Segmented<T extends string>({
   value: T
   /** Recibe el valor nuevo. */
   onChange: (v: T) => void
-  /** Sin label la opción queda cuadrada, solo icono — y title pasa a obligatorio. */
+  /** Sin label la opción queda cuadrada, solo icono, y title pasa a obligatorio. */
   options: SegmentedOption<T>[]
   /** Xs va con pista transparente: dentro del header de un panel, una pista gris sobre fondo gris agrega una caja que no hace falta. */
   size?: 'xs' | 'sm' | 'md'

@@ -47,7 +47,7 @@ export function CommandMenuStory() {
     >
       <Section
         title="La pieza"
-        note="Probá las flechas, Home y End, y escribí «foto» para ver que Imagen aparece sin que la palabra esté en su nombre."
+        note="Probá las flechas, Home y End, y escribí 'foto' para ver que Imagen aparece sin que la palabra esté en su nombre."
       >
         <div className="flex flex-col items-start gap-3">
           <CommandMenu groups={bloques} onSelect={setUltimo} className="w-full max-w-[380px]" />
@@ -74,7 +74,7 @@ export function CommandMenuStory() {
 
       <Section
         title="Anclado a su disparador"
-        note="Es lo que hace la barra en un editor: el menú cuelga de donde se escribió el «/». La pieza no se posiciona sola — de eso se encarga el `Popover`, que es el que ya sabe encajar un panel contra un borde."
+        note="Es lo que hace la barra en un editor: el menú cuelga de donde se escribió el '/'. La pieza no se posiciona sola: de eso se encarga el `Popover`, que es el que ya sabe encajar un panel contra un borde."
       >
         <div className="flex flex-wrap items-center gap-4">
           <Popover
@@ -102,7 +102,7 @@ export function CommandMenuStory() {
       </Note>
 
       <Note title="Esto no abre nada">
-        La pieza es la lista y nada más: no se posiciona ni se cierra sola — el cierre lo decide
+        La pieza es la lista y nada más: no se posiciona ni se cierra sola, el cierre lo decide
         quien la usa, como en el ejemplo de arriba. Adentro de un `Modal` la misma lista es la
         paleta de atajos de la app, sin cambiarle una línea.
       </Note>

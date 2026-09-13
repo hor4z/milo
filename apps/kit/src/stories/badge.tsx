@@ -7,11 +7,11 @@ export function BadgeStory() {
       title="Badge"
       kind="Datos"
       imports="import { Badge } from '@milo/ui'"
-      lead="Una marca chica pegada a lo que describe: en qué estado está una actividad, cuántas entregas faltan, qué es esto que estoy mirando. Siempre con texto — un punto de color no dice en qué estado está algo, y si lo dijera, no lo diría para quien no distingue colores."
+      lead="Una marca chica pegada a lo que describe: en qué estado está una actividad, cuántas entregas faltan, qué es esto que estoy mirando. Siempre con texto: un punto de color no dice en qué estado está algo, y si lo dijera, no lo diría para quien no distingue colores."
     >
       <Section
         title="Los cinco tonos"
-        note="`neutral` es el default y es el que más se usa: la mayoría de las marcas no son un estado, son una etiqueta. Los otros cuatro son los mismos de `Alert` y de `Toast`, y significan lo mismo en las tres piezas — que es de lo que se trata tener un sistema."
+        note="`neutral` es el default y es el que más se usa: la mayoría de las marcas no son un estado, son una etiqueta. Los otros cuatro son los mismos de `Alert` y de `Toast`, y significan lo mismo en las tres piezas, que es de lo que se trata tener un sistema."
       >
         <Demo label="tonos">
           <div className="flex flex-wrap items-center gap-2">

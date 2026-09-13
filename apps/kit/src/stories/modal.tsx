@@ -16,7 +16,7 @@ export function ModalStory() {
     >
       <Section
         title="Vivo"
-        note="Se enfoca el contenedor del diálogo y no su primer control: el navegador scrollea para traer a la vista lo que enfoca, así que enfocar «el primero enfocable» abría el panel corrido 39px con la primera fila tapada. Para el caso que sí quiere un campo —la paleta de comandos— hay un `[data-autofocus]`."
+        note="Se enfoca el contenedor del diálogo y no su primer control: el navegador scrollea para traer a la vista lo que enfoca, así que enfocar 'el primero enfocable' abría el panel corrido 39px con la primera fila tapada. Para el caso que sí quiere un campo (la paleta de comandos) hay un `[data-autofocus]`."
       >
         <div className="flex flex-wrap items-start gap-3">
           <Demo label="width 620">
@@ -73,7 +73,7 @@ export function ModalStory() {
         </div>
         <p className="mt-3 max-w-[70ch] text-meta text-ink-muted">
           Vive en el paquete y no en la app por la misma regla que deja al shell afuera: no lee
-          <code>data.ts</code> ni el router. Lo único que necesita son las preferencias —que ya viven acá— y
+          <code>data.ts</code> ni el router. Lo único que necesita son las preferencias (que ya viven acá) y
           quién está mirando, que va por prop: el nombre y el correo de una persona real no son
           parte de un design system. Adentro hay un Select, que abre un flotante adentro de otro
           flotante: probalo, el listbox queda arriba del modal sin que nadie escriba un z-index.

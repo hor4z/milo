@@ -60,7 +60,7 @@ export function FieldStory() {
 
       <Section
         title="Lo obligatorio se dice con palabras"
-        note="El asterisco es una convención que no significa nada para quien no la conoce y que un lector de pantalla lee como «asterisco». Acá va el asterisco para la vista y la palabra «obligatorio» para el lector."
+        note="El asterisco es una convención que no significa nada para quien no la conoce y que un lector de pantalla lee como 'asterisco'. Acá va el asterisco para la vista y la palabra 'obligatorio' para el lector."
       >
         <Canvas>
           <div className="w-full max-w-[320px]">
@@ -91,7 +91,7 @@ export function FieldStory() {
 
       <Note title="Field o Row">
         El Field es para un formulario que se completa y se envía. Un ajuste que se guarda solo al
-        tocarlo —etiqueta a la izquierda, switch a la derecha— es un
+        tocarlo (etiqueta a la izquierda, switch a la derecha) es un
         {' '}<a className="underline underline-offset-2" href="#row">Row</a>.
       </Note>
 

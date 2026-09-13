@@ -7,11 +7,11 @@ export function IconButtonStory() {
       title="IconButton"
       kind="Acciones"
       imports="import { IconButton } from '@milo/ui'"
-      lead="Cuadrado del alto de su paso, y los pasos son los del `Button`: un icono al lado de un botón en la misma fila apoya en la misma línea sin que nadie lo calcule. El radio es 10 y no el 12 del Button — sobre un cuadrado de 32, esos dos píxeles se comen tanto lado plano que la pieza se lee redonda."
+      lead="Cuadrado del alto de su paso, y los pasos son los del `Button`: un icono al lado de un botón en la misma fila apoya en la misma línea sin que nadie lo calcule. El radio es 10 y no el 12 del Button: sobre un cuadrado de 32, esos dos píxeles se comen tanto lado plano que la pieza se lee redonda."
     >
       <Section
         title="Los tres tamaños"
-        note="32 · 36 · 40, los del Button, con el icono de cada paso: 16 · 18 · 20. El `md` medía 40 —el `lg` del Button— así que los dos `md` del sistema no coincidían."
+        note="32 · 36 · 40, los del Button, con el icono de cada paso: 16 · 18 · 20. El `md` medía 40 (el `lg` del Button) así que los dos `md` del sistema no coincidían."
       >
         <Panel>
           <Variant name="sm · md · lg">
@@ -47,7 +47,7 @@ export function IconButtonStory() {
         </Panel>
       </Section>
 
-      <Section title="Estados" note="`dot` es el puntito de «hay algo nuevo», y es uno de los pocos usos del acento en toda la interfaz.">
+      <Section title="Estados" note="`dot` es el puntito de 'hay algo nuevo', y es uno de los pocos usos del acento en toda la interfaz.">
         <Panel>
           <Variant name="active"><IconButton icon="filter_alt" label="Filtrar" active /></Variant>
           <Variant name="dot">

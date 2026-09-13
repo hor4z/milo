@@ -20,7 +20,7 @@ export function MentionStory() {
             Para el jueves, <Mention name="Ana Pérez" src={face(1)} href="#avatar" /> y{' '}
             <Mention name="Bruno Díaz" src={face(2)} href="#avatar" /> tienen que subir el informe
             del experimento a <Mention name="Ciencias · 5.º B" icon="folder" href="#folder" />. Si
-            algo no se entiende, escríbanlo en el bloque de dudas y lo vemos en clase — la consigna
+            algo no se entiende, escríbanlo en el bloque de dudas y lo vemos en clase: la consigna
             entera está en <Mention name="Empuje y flotación" icon="description" href="#book" />, y
             la parte de las mediciones la explicó <Mention name="Carla Sosa" src={face(3)} /> el
             martes.
@@ -48,7 +48,7 @@ export function MentionStory() {
       <A11y
         items={[
           'Sin `href` es texto: no promete un lugar al que ir ni recibe el foco.',
-          'La foto va con `alt` vacío — el nombre está escrito al lado, y anunciarlo dos veces es ruido.',
+          'La foto va con `alt` vacío: el nombre está escrito al lado, y anunciarlo dos veces es ruido.',
           'Con `href` es un enlace de verdad, así que aparece en la lista de enlaces de la página con el nombre como texto.',
           'Y lleva subrayado, como todo enlace del sistema: adentro de un párrafo, el fondo teñido lo distingue solo por color, y eso no le llega a quien no separa el azul del negro.',
         ]}

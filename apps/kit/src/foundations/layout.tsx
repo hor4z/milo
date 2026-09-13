@@ -10,7 +10,7 @@ const cortes = [
 
 const shell = [
   ['Riel', '220', 'Contraído, 72'],
-  ['Barra de arriba', '80', '—'],
+  ['Barra de arriba', '80', '-'],
   ['Item de nav', '40', 'Radio 12, icono en un cuadrado de 34'],
   ['Ancho del contenido', '980', 'Centrado, con 40 de aire lateral'],
   ['Ancho de lectura', '70ch', 'Lo que se lee de corrido; 42ch para un pie'],
@@ -56,7 +56,7 @@ export function LayoutSection() {
 
       <Section
         title="Una pantalla es una columna de secciones"
-        note="Esto es la estructura de la pantalla, no las grillas de adentro: una sección puede tener sus tarjetas en tres o cuatro columnas. Lo que no llega a tres es la estructura — dos columnas ya piden decidir por dónde se empieza a leer, y la segunda solo se justifica cuando acompaña a la primera en vez de competirle."
+        note="Esto es la estructura de la pantalla, no las grillas de adentro: una sección puede tener sus tarjetas en tres o cuatro columnas. Lo que no llega a tres es la estructura: dos columnas ya piden decidir por dónde se empieza a leer, y la segunda solo se justifica cuando acompaña a la primera en vez de competirle."
       >
         <div className="grid gap-4 lg:grid-cols-[1.55fr_1fr]">
           <Card>
@@ -73,8 +73,8 @@ export function LayoutSection() {
       </Section>
 
       <Note title="Un glifo al lado de un texto se centra con su primera línea">
-        Y para eso su caja mide lo que mide esa línea —24 al lado de un título, 20 al lado de un
-        párrafo— con el glifo centrado adentro. No alcanza con empujarlo un píxel a ojo: el
+        Y para eso su caja mide lo que mide esa línea (24 al lado de un título, 20 al lado de un
+        párrafo) con el glifo centrado adentro. No alcanza con empujarlo un píxel a ojo: el
         <code>Alert</code> quedaba 4px más arriba que su título y el <code>Callout</code> 1px,
         mientras el <code>Toast</code> caía justo. Cuatro piezas con la misma forma y cuatro
         recetas distintas se ve enseguida, aunque cada una por separado parezca bien.
@@ -88,7 +88,7 @@ export function LayoutSection() {
         <strong>Y lo que scrollea tiene que poder recibir el foco.</strong> Un bloque con
         <code>overflow-x-auto</code> y sin <code>tabIndex</code> deja lo que quedó cortado a la
         derecha fuera del alcance del teclado. Va con <code>role=&quot;region&quot;</code> y su
-        nombre, porque «región» no dice de qué.
+        nombre, porque "región" no dice de qué.
       </Note>
 
       <A11y

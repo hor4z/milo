@@ -6,7 +6,7 @@ import { Icon, type IconName } from '../icon/icon'
 /** El menú, en piezas. */
 export function Menu({ children, label, width, className }: {
   children: ReactNode
-  /** Qué menú es. Sin esto un lector lo anuncia como «menú» y nada más, y con dos abiertos en una pantalla no se distinguen. */
+  /** Qué menú es. Sin esto un lector lo anuncia como "menú" y nada más, y con dos abiertos en una pantalla no se distinguen. */
   label?: string
   /** Opcional: sin él, el panel mide lo que su contenido. */
   width?: number

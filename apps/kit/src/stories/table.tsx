@@ -206,10 +206,10 @@ export function TableStory() {
                 {view('estado') && <TableCell><Chip color={tone[a.status as keyof typeof tone]}>{a.status}</Chip></TableCell>}
                 {view('corregidas') && (
                   <TableNum>
-                    {a.total ? <>{a.done}<span className="text-ink-muted"> / {a.total}</span></> : '—'}
+                    {a.total ? <>{a.done}<span className="text-ink-muted"> / {a.total}</span></> : '-'}
                   </TableNum>
                 )}
-                {view('entregas') && <TableNum>{a.total || '—'}</TableNum>}
+                {view('entregas') && <TableNum>{a.total || '-'}</TableNum>}
                 {view('acciones') && (
                 <TableCell className="w-0 pr-4">
                   <Dropdown
@@ -264,7 +264,7 @@ export function TableStory() {
 
       <Section
         title="La pieza"
-        note="La fila mide 56, la misma que `Row`: una tabla y un panel uno arriba del otro no pueden verse de dos sistemas. La cabecera va en tinta y no en gris — apagada, había que buscar de qué era cada columna. Y las filas alternan papel porque en una tabla ancha el divisor de un píxel no alcanza para seguir una fila hasta el final."
+        note="La fila mide 56, la misma que `Row`: una tabla y un panel uno arriba del otro no pueden verse de dos sistemas. La cabecera va en tinta y no en gris: apagada, había que buscar de qué era cada columna. Y las filas alternan papel porque en una tabla ancha el divisor de un píxel no alcanza para seguir una fila hasta el final."
       >
         <Table label="Entregas por estudiante" minWidth={720}>
           <TableHeader>
@@ -288,7 +288,7 @@ export function TableStory() {
                 <TableCell>
                   <Chip color={tone[a.status as keyof typeof tone]}>{a.status}</Chip>
                 </TableCell>
-                <TableNum>{a.total || '—'}</TableNum>
+                <TableNum>{a.total || '-'}</TableNum>
               </TableRow>
             ))}
           </TableBody>
@@ -310,7 +310,7 @@ export function TableStory() {
           </div>
           <div className="flex items-center gap-6 rounded-xl bg-surface p-4 ring-1 ring-line">
             <AvatarGroup people={[p('Ana Pérez', 1), p('Bruno Díaz', 2), p('Carla Sosa', 3), p('Damián Ruiz', 4)]} />
-            <Mono>4 · se muestra la cuarta cara, no un «+1»</Mono>
+            <Mono>4 · se muestra la cuarta cara, no un "+1"</Mono>
           </div>
           <div className="flex items-center gap-6 rounded-xl bg-surface p-4 ring-1 ring-line">
             <AvatarGroup people={[p('Ana Pérez', 1), p('Bruno Díaz', 2), p('Carla Sosa', 3), p('Damián Ruiz', 4), p('Elena Vega', 5)]} />
@@ -318,7 +318,7 @@ export function TableStory() {
           </div>
         </div>
         <p className="mt-3 max-w-[70ch] text-meta text-ink-muted">
-          El sobrante de uno solo muestra la cuarta cara en vez de un «+1»: el círculo ocupa
+          El sobrante de uno solo muestra la cuarta cara en vez de un "+1": el círculo ocupa
           exactamente lo mismo que la persona que estaría escondiendo, así que no ahorra nada y
           dice menos.
         </p>
@@ -342,7 +342,7 @@ export function TableStory() {
         <A11y items={[
           'Es una <table> de verdad: encabezados con `scope`, filas y celdas con su semántica.',
           'Una fila que se toca entra en el orden de tabulación y contesta a Enter y a la barra: no es un click y nada más.',
-          'Cuando las columnas no entran, el scroll lateral es una parada de tabulación con nombre — sin barra a la vista, es la única forma de llegar a la derecha sin mouse.',
+          'Cuando las columnas no entran, el scroll lateral es una parada de tabulación con nombre: sin barra a la vista, es la única forma de llegar a la derecha sin mouse.',
           'La franja de paginación es un <nav> con su nombre y anuncia el tramo con role="status" cuando cambia.',
           'Las opciones de filtros y columnas se nombran una por una.',
         ]} />

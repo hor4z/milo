@@ -203,6 +203,29 @@ describe('las escalas que la doctrina dibuja', () => {
   })
 })
 
+describe('cómo se escribe', () => {
+  it('no vuelve la raya larga ni las comillas angulares', () => {
+    const root = join(import.meta.dirname, '../../../..')
+    const salta = new Set(['node_modules', '.git', 'dist', 'public', '.vite'])
+    const mira = /\.(tsx?|css|mjs|md|html|py|json)$/
+    const walk = (base: string, prefix = ''): string[] =>
+      readdirSync(base, { withFileTypes: true }).flatMap(e =>
+        e.isDirectory()
+          ? (salta.has(e.name) ? [] : walk(join(base, e.name), `${prefix}${e.name}/`))
+          : mira.test(e.name) && e.name !== 'package-lock.json' ? [`${prefix}${e.name}`] : [])
+
+    const offenders: string[] = []
+    for (const f of walk(root)) {
+      const text = readFileSync(join(root, f), 'utf8')
+      for (const m of text.matchAll(/[\u2014\u00ab\u00bb]/g)) {
+        const linea = text.slice(0, m.index).split('\n').length
+        offenders.push(`${f}:${linea} ${text.slice(Math.max(0, m.index - 30), m.index + 30).replace(/\n/g, ' ')}`)
+      }
+    }
+    expect(offenders.slice(0, 12)).toEqual([])
+  })
+})
+
 describe('useTokens', () => {
   it('no depende de la identidad del arreglo', () => {
     const kit = readFileSync(join(import.meta.dirname, '../kit.tsx'), 'utf8')

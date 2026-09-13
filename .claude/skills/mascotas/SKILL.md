@@ -1,6 +1,6 @@
 ---
 name: mascotas
-description: Prepara los archivos de una mascota del design system a partir de un video o una imagen con fondo — le saca el fondo, arma el retrato con alfa y el bucle animado, y los deja en apps/kit/public/mascotas. Usar cuando alguien trae un render nuevo de Otto, de Amelia o de una mascota nueva, o cuando hay que recortarle el fondo a un personaje.
+description: Prepara los archivos de una mascota del design system a partir de un video o una imagen con fondo, le saca el fondo, arma el retrato con alfa y el bucle animado, y los deja en apps/kit/public/mascotas. Usar cuando alguien trae un render nuevo de Otto, de Amelia o de una mascota nueva, o cuando hay que recortarle el fondo a un personaje.
 ---
 
 # Mascotas
@@ -27,7 +27,7 @@ El umbral se mide solo, del borde del cuadro. Si algo sale mal se corrige con
 
 `revisar` también avisa cuando **el primer cuadro es una toma suelta**. Pasa
 porque estos videos se producen pasándole una imagen de referencia al generador,
-y a veces el generador la devuelve como cuadro cero — pero **no siempre**, así
+y a veces el generador la devuelve como cuadro cero, pero **no siempre**, así
 que no se tira el primero por las dudas: se mira el aviso y se anima con
 `--desde 1` solo cuando corresponde.
 
@@ -36,12 +36,12 @@ que no se tira el primero por las dudas: se mira el aviso y se anima con
 Antes de proponer una alternativa, esto ya se intentó:
 
 - **`colorkey` de ffmpeg no sirve.** El fondo es gris neutro y la mascota tiene
-  partes casi tan claras —la panza de Otto, el blanco de los ojos—, así que un
+  partes casi tan claras (la panza de Otto, el blanco de los ojos), así que un
   umbral plano le abre agujeros en el medio del cuerpo. Por eso el fondo se
   decide por **conectividad**: se saca solo lo que está pegado al borde del
   cuadro, y lo que está encerrado adentro del cuerpo no se toca.
 - **WebM con alfa no sale de esta máquina.** Pesaría un tercio que el WebP, y
-  ffmpeg acepta `-pix_fmt yuva420p` sin quejarse — pero escribe el archivo sin
+  ffmpeg acepta `-pix_fmt yuva420p` sin quejarse, pero escribe el archivo sin
   el alfa. Verificado decodificando: vuelve opaco. No perder tiempo ahí de nuevo
   sin antes decodificar y mirar el canal alfa.
 - **La rampa del borde no puede aplicarse a todo el cuadro.** Vale solo en el
@@ -56,8 +56,8 @@ Antes de proponer una alternativa, esto ya se intentó:
 1. **Los retratos se miden por el alto, nunca por el ancho.** Todos salen a 1200
    de alto con el ancho que a cada uno le toque, así que en el markup van con
    `h-*` y `w-auto`. Con un ancho fijo, dos mascotas se ven de dos tamaños.
-2. **Actualizar la sección «Los archivos»** de la vista de esa mascota en
-   `apps/kit/src/mascots/`, con las medidas y el peso reales — `lista` los
+2. **Actualizar la sección "Los archivos"** de la vista de esa mascota en
+   `apps/kit/src/mascots/`, con las medidas y el peso reales: `lista` los
    imprime. Ya pasó que esa tabla mostrara las medidas del original y no las del
    archivo que se sirve.
 3. **Un `img` animado no se puede pausar.** Por eso `prefers-reduced-motion` no
@@ -65,7 +65,7 @@ Antes de proponer una alternativa, esto ya se intentó:
    `apps/kit/src/mascots/quieto.ts`.
 4. **Las vistas de `mascots/` van cortas y sin doctrina de uso.** Todavía no está
    decidido si son mascotas, parte de un onboarding o algo decorativo, así que
-   muestran el material —retrato, clips, archivos— y no dónde va cada cosa.
-5. Registrar la vista en `apps/kit/src/App.tsx` —el orden de las props es
-   load-bearing, hay un test que lee ese archivo con un regex— y sumar el archivo
+   muestran el material (retrato, clips, archivos) y no dónde va cada cosa.
+5. Registrar la vista en `apps/kit/src/App.tsx` (el orden de las props es
+   load-bearing, hay un test que lee ese archivo con un regex) y sumar el archivo
    a la lista de `apps/kit/src/__tests__/vistas.test.ts`.

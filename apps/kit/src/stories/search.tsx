@@ -47,7 +47,7 @@ export function SearchStory() {
         items={[
           'La cruz devuelve el foco al campo al vaciarlo: se desmonta al desaparecer, y sin eso el foco se cae al `<body>`.',
           'El atajo es un recordatorio y no la tecla: quien pone el buscador escucha el evento, así que el campo no se apropia de una tecla global.',
-          '`ref` va al `input` y no al contenedor — es lo que un atajo necesita para enfocarlo desde afuera.',
+          '`ref` va al `input` y no al contenedor: es lo que un atajo necesita para enfocarlo desde afuera.',
           'El campo se nombra con `aria-label` o con un `Field` alrededor: un placeholder desaparece al escribir y deja de nombrar nada.',
         ]}
       />

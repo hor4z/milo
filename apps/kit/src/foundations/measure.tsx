@@ -48,7 +48,7 @@ export function MeasureSection() {
 
         <Section
           title="Alturas de control"
-          note="Tres alturas y un rol cada una. La de 36 y la de 40 comparten el escalón de lectura —16— y radio 12; la de 32 baja a 14 y a radio 10, porque va inline en una fila densa y el radio sigue al alto. El peso es el mismo en las tres: 450, que es el de lo accionable."
+          note="Tres alturas y un rol cada una. La de 36 y la de 40 comparten el escalón de lectura (16) y radio 12; la de 32 baja a 14 y a radio 10, porque va inline en una fila densa y el radio sigue al alto. El peso es el mismo en las tres: 450, que es el de lo accionable."
         >
           <div className="flex flex-col gap-3">
             {[
@@ -100,7 +100,7 @@ export function MeasureSection() {
 
       <Section
         title="Radios"
-        note="Cinco pasos y el círculo. **El radio sigue al alto**: 12 sobre un botón de 40 se lee como un remate, y sobre uno de 32, como una pastilla. Matar el `md` de 10 —«nadie ve dos píxeles»— hizo más redondas dieciséis piezas de golpe. La otra regla: el radio de un hijo es el del padre menos su padding."
+        note="Cinco pasos y el círculo. **El radio sigue al alto**: 12 sobre un botón de 40 se lee como un remate, y sobre uno de 32, como una pastilla. Matar el `md` de 10 ('nadie ve dos píxeles') hizo más redondas dieciséis piezas de golpe. La otra regla: el radio de un hijo es el del padre menos su padding."
       >
         <Section title="La escala">
           <div className="flex flex-col rounded-xl border border-line bg-surface px-4">
@@ -137,7 +137,7 @@ function Measure({ token, role }: { token: string; role: string }) {
   return (
     <div className="flex flex-wrap items-center gap-x-4 gap-y-2 border-t border-line py-4 first:border-t-0">
       <span className="w-52 shrink-0"><Mono>{token}</Mono></span>
-      <span className="w-12 shrink-0 tabular"><Mono>{raw || '—'}</Mono></span>
+      <span className="w-12 shrink-0 tabular"><Mono>{raw || '-'}</Mono></span>
       <span className="h-2 rounded-full bg-muted" style={{ width: Math.min(Number.isNaN(px) ? 0 : px, 220) }} />
       <span className="text-meta text-ink-muted">{role}</span>
     </div>

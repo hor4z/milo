@@ -33,7 +33,7 @@ export function RowStory() {
 
       <Section
         title="La etiqueta enfoca el control"
-        note="El `label` es un `<label>` de verdad atado al control que lleva adentro: tocar el texto prende el switch, que además agranda muchísimo el blanco del click. Adentro de la etiqueta va solo el nombre — con la ayuda adentro, el nombre accesible pasaría a ser las dos frases pegadas."
+        note="El `label` es un `<label>` de verdad atado al control que lleva adentro: tocar el texto prende el switch, que además agranda muchísimo el blanco del click. Adentro de la etiqueta va solo el nombre: con la ayuda adentro, el nombre accesible pasaría a ser las dos frases pegadas."
       >
         <div className="max-w-[520px] overflow-hidden rounded-xl border border-line bg-surface">
           <Row label="Avisos por mail" hint="Cuando llega una entrega">
@@ -58,7 +58,7 @@ export function RowStory() {
 
       <Note title="Row o Field">
         La fila es para un ajuste que se guarda solo al tocarlo. Si lo que hay es un formulario que
-        se completa y se envía —con su ayuda, su error y su asterisco— eso es un
+        se completa y se envía (con su ayuda, su error y su asterisco) eso es un
         {' '}<a className="underline underline-offset-2" href="#field">Field</a>, que es otra pieza y
         otra forma de leer.
       </Note>
@@ -69,7 +69,7 @@ export function RowStory() {
 
       <Section title="Accesibilidad">
         <A11y items={[
-          'La etiqueta envuelve solo el nombre, así que el control se llama «Avisos por mail» y no «Avisos por mailCuando llega una entrega».',
+          'La etiqueta envuelve solo el nombre, así que el control se llama "Avisos por mail" y no "Avisos por mailCuando llega una entrega".',
           'Tocar la etiqueta acciona el control, que es blanco de click de sobra para el dedo.',
           'Las filas no son botones: lo que se toca es lo que hay adentro, y se ve cuál es.',
         ]} />

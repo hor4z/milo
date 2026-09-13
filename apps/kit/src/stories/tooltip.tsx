@@ -5,7 +5,7 @@ export function TooltipStory() {
   return (
     <Page
       title="Tooltip"
-      lead="La etiqueta que dice qué hace un control que no lo dice solo. No es un Popover chico: se abre solo —hover o foco de teclado—, no recibe el mouse (o taparía justo el botón que explica) y no lleva nada interactivo adentro. Si tiene un link o un botón, es un Popover."
+      lead="La etiqueta que dice qué hace un control que no lo dice solo. No es un Popover chico: se abre solo (hover o foco de teclado), no recibe el mouse (o taparía justo el botón que explica) y no lleva nada interactivo adentro. Si tiene un link o un botón, es un Popover."
       kind="Avisos"
       imports="import { Tooltip } from '@milo/ui'"
     >
@@ -25,7 +25,7 @@ export function TooltipStory() {
 
       <Section
         title="Con el teclado"
-        note="Tabulá hasta el botón: el tooltip aparece igual. Pero solo cuando el foco es del teclado — con un onFocus pelado, clickear el botón deja el tooltip puesto encima de lo que acabás de tocar. Escape lo cierra, por la misma pila global que los otros overlays."
+        note="Tabulá hasta el botón: el tooltip aparece igual. Pero solo cuando el foco es del teclado: con un onFocus pelado, clickear el botón deja el tooltip puesto encima de lo que acabás de tocar. Escape lo cierra, por la misma pila global que los otros overlays."
       >
         <div className="flex flex-wrap items-center gap-3">
           <Demo label="en un botón con texto">
@@ -34,7 +34,7 @@ export function TooltipStory() {
             </Tooltip>
           </Demo>
           <Demo label="texto largo · se envuelve a 240">
-            <Tooltip label="Una actividad archivada sale de la lista pero no se borra: queda en «Archivadas» y se puede restaurar.">
+            <Tooltip label="Una actividad archivada sale de la lista pero no se borra: queda en 'Archivadas' y se puede restaurar.">
               <IconButton icon="inventory_2" label="Archivar" variant="raised" />
             </Tooltip>
           </Demo>

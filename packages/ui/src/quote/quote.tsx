@@ -19,7 +19,7 @@ export function Quote({ children, source, cite, className }: QuoteProps) {
       </blockquote>
       {source && (
         <figcaption className="pl-4 text-meta text-ink-muted">
-          — {cite ? <cite className="not-italic">{source}</cite> : source}
+          - {cite ? <cite className="not-italic">{source}</cite> : source}
         </figcaption>
       )}
     </figure>

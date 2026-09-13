@@ -3,7 +3,7 @@ import { Icon, type IconName } from '../icon/icon'
 import { type LabelColor, labelSoft } from '../lib/colors'
 import { cx } from '../lib/cx'
 
-/** El chip: 28 de alto y radio 10. Identifica —una categoría, una persona, un espacio—; si el texto cambia según lo que pasó, es un `Badge`. */
+/** El chip: 28 de alto y radio 10. Identifica (una categoría, una persona, un espacio); si el texto cambia según lo que pasó, es un `Badge`. */
 export function Chip({
   children, color, icon, dot, onRemove, active, onClick,
 }: {

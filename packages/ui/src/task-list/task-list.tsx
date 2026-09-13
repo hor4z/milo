@@ -14,7 +14,7 @@ type TaskListProps = {
   items: Task[]
   /** Recibe el id y si quedó hecha. */
   onToggle: (id: string, done: boolean) => void
-  /** De qué es la lista. Sin esto un lector anuncia «lista, cuatro elementos» y nada más. */
+  /** De qué es la lista. Sin esto un lector anuncia "lista, cuatro elementos" y nada más. */
   label: string
   /** Apagada se lee y no se toca: la consigna de otro, una entrega ya cerrada. */
   readOnly?: boolean

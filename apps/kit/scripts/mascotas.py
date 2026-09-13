@@ -33,7 +33,7 @@ NARANJA, CANVAS = (219, 59, 0), (241, 242, 244)
 # Cuánto más oscuro que el fondo puede ser un píxel y seguir siendo fondo. Sale
 # de la sombra que la mascota apoya en el piso, que es gris como el fondo pero
 # más oscura. Con 56, el gris 221 de Otto da 165: ahí entra su sombra y su panza
-# —lo más claro que tiene— todavía no.
+# (lo más claro que tiene) todavía no.
 CAIDA = 56
 # Arriba de esta saturación el píxel es de la mascota y no del fondo: los fondos
 # son grises neutros y las mascotas son cálidas. La panza de Otto está en 34.
@@ -111,7 +111,7 @@ def cuadros(fuente: Path, fps: int):
             yield np.frombuffer(crudo, np.uint8).reshape(alto, ancho, 3).astype(int)
     finally:
         # Quien lee solo los primeros cuadros corta acá, y sin esto ffmpeg sigue
-        # escribiendo contra un caño cerrado y llena la consola de «broken pipe».
+        # escribiendo contra un caño cerrado y llena la consola de "broken pipe".
         ffmpeg.stdout.close()
         ffmpeg.terminate()
         ffmpeg.wait()
@@ -182,7 +182,7 @@ def revisar(fuente: Path, salida: Path | None, claro: int | None) -> None:
         print('ojo: el primer cuadro parece una toma suelta y no el arranque.')
         print('     Miralo, y si es la imagen de referencia, animá con --desde 1.')
     print(f'umbral de fondo: {claro}   (el borde del cuadro mide {claro + CAIDA})')
-    print(f'mirá {destino} — arriba sobre naranja, abajo sobre el fondo del sitio.')
+    print(f'mirá {destino}: arriba sobre naranja, abajo sobre el fondo del sitio.')
     print('Si le falta un pedazo subí el umbral con --claro; si queda fondo, bajalo.')
 
 
@@ -193,14 +193,14 @@ def animar(fuente: Path, nombre: str, claro: int | None, desde: int, vueltas: in
         sys.exit(f'{fuente} no tiene cuadros')
 
     # Estos renders a veces traen una toma suelta pegada al principio, que no es
-    # parte de la animación. No se puede detectar sola —no está vacía, es otra
-    # pose— así que se dice cuántos cuadros tirar.
+    # parte de la animación. No se puede detectar sola (no está vacía, es otra
+    # pose) así que se dice cuántos cuadros tirar.
     piezas = piezas[desde:]
 
     # Los cuadros del principio y del final en los que todavía no entró o ya se
     # fue son bytes que nadie mira, y en un bucle son una pausa muerta.
     #
-    # «Vacío» no es «sin un solo píxel»: cuando alguien entra caminando, los
+    # "Vacío" no es "sin un solo píxel": cuando alguien entra caminando, los
     # primeros cuadros traen la punta de una bota y nada más, y eso en pantalla
     # se ve como una mota flotando. Cuenta como vacío lo que no llega a la
     # décima parte de lo que ocupa un cuadro normal.
@@ -276,7 +276,7 @@ def lista() -> None:
             im = Image.open(f)
             medida, cuadros_ = f'{im.width} × {im.height}', getattr(im, 'n_frames', 1)
         except Exception:
-            medida, cuadros_ = '—', 1
+            medida, cuadros_ = '-', 1
         print(f'  {f.name:<26} {medida:>12}  '
               f'{"1 cuadro " if cuadros_ == 1 else f"{cuadros_} cuadros"}  '
               f'{f.stat().st_size:>9,} bytes')

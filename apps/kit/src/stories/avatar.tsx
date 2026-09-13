@@ -14,7 +14,7 @@ export function AvatarStory() {
     >
       <Section
         title="Sin foto"
-        note="Círculo pastel con la inicial en el mismo tono: es la familia de las marcas de fila, no la viva. Medido, la inicial sobre pastel se lee mejor que el blanco sobre relleno vivo —los cinco pares pasan de 4.5:1 y el blanco sobre el vivo no llega a 3.8:1 en ninguno— y deja de gritarle al texto de al lado. El tono sale del nombre: de un random, la misma persona cambiaría de color en cada render."
+        note="Círculo pastel con la inicial en el mismo tono: es la familia de las marcas de fila, no la viva. Medido, la inicial sobre pastel se lee mejor que el blanco sobre relleno vivo (los cinco pares pasan de 4.5:1 y el blanco sobre el vivo no llega a 3.8:1 en ninguno) y deja de gritarle al texto de al lado. El tono sale del nombre: de un random, la misma persona cambiaría de color en cada render."
       >
         <Demo>
           <Avatar name="Horacio Rivero" size={24} />
@@ -27,7 +27,7 @@ export function AvatarStory() {
 
       <Section
         title="Con foto"
-        note="Con `src`, la etiqueta de color no se reemplaza: se queda de fondo. Es lo que se ve mientras la imagen carga y lo que queda si no carga nunca — un hueco gris en una fila de cinco se lee como una persona sin nombre, y una inicial sobre su color no."
+        note="Con `src`, la etiqueta de color no se reemplaza: se queda de fondo. Es lo que se ve mientras la imagen carga y lo que queda si no carga nunca: un hueco gris en una fila de cinco se lee como una persona sin nombre, y una inicial sobre su color no."
       >
         <Demo>
           <Avatar name="Ana Pérez" src={face(1)} size={24} />
@@ -41,7 +41,7 @@ export function AvatarStory() {
 
       <Section
         title="El grupo"
-        note="Se montan un tercio y cada uno lleva un anillo del color del fondo de atrás: sin él, dos vecinos de tonos parecidos se leen como una mancha sola y no como dos personas. Tres caras y el resto en un círculo neutro — un «+4» no identifica a nadie."
+        note="Se montan un tercio y cada uno lleva un anillo del color del fondo de atrás: sin él, dos vecinos de tonos parecidos se leen como una mancha sola y no como dos personas. Tres caras y el resto en un círculo neutro: un '+4' no identifica a nadie."
       >
         <Demo label="todos con foto">
           <AvatarGroup people={[person('Ana Pérez', 1), person('Bruno Díaz', 2), person('Carla Sosa', 3), person('Damián Ruiz', 4), person('Elena Vega', 5)]} />
@@ -52,7 +52,7 @@ export function AvatarStory() {
         <Demo label="mezclados · el caso que importa mirar">
           <AvatarGroup people={[person('Mora Tello', 6), person('Nico Arce'), person('Olivia Rey', 7)]} />
         </Demo>
-        <Demo label="con un solo sobrante va la cuarta cara, no un «+1»">
+        <Demo label="con un solo sobrante va la cuarta cara, no un '+1'">
           <AvatarGroup people={[person('Ana Pérez', 1), person('Bruno Díaz', 2), person('Carla Sosa', 3), person('Damián Ruiz', 4)]} />
         </Demo>
       </Section>

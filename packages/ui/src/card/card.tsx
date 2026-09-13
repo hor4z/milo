@@ -1,7 +1,7 @@
 import type { ComponentPropsWithoutRef, ReactNode } from 'react'
 import { cx } from '../lib/cx'
 
-/** El contenedor de radio 16: lo que se apoya en la página. Lo que flota sobre un velo —un modal, un diálogo— va en 24. */
+/** El contenedor de radio 16: lo que se apoya en la página. Lo que flota sobre un velo (un modal, un diálogo) va en 24. */
 export function Card({ children, className, interactive, surface = 'paper' }: {
   children: ReactNode
   /** Para el ancho y para cambiar el padding. */

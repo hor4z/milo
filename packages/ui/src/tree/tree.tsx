@@ -31,7 +31,7 @@ function aplanar(nodes: TreeNode[], abiertos: Set<string>, nivel = 1, padre?: st
 export function Tree({ nodes, label, expanded, onExpandedChange, selected, onSelect, className }: {
   /** Las ramas de arriba. Cada una puede traer `children`. */
   nodes: TreeNode[]
-  /** De qué es el árbol. Sin esto un lector dice «árbol» y nada más. */
+  /** De qué es el árbol. Sin esto un lector dice "árbol" y nada más. */
   label: string
   /** Los ids abiertos. Sin esto el árbol los maneja solo. */
   expanded?: string[]

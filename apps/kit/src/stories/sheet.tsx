@@ -64,7 +64,7 @@ export function SheetStory() {
 
       <Section
         title="De qué lado entra"
-        note="Por defecto de la derecha, que es de donde vienen las cosas nuevas. El izquierdo es para lo que acompaña a la navegación —un filtro, un índice— y no para un formulario: entrar por donde está el menú se lee como que el menú creció."
+        note="Por defecto de la derecha, que es de donde vienen las cosas nuevas. El izquierdo es para lo que acompaña a la navegación (un filtro, un índice) y no para un formulario: entrar por donde está el menú se lee como que el menú creció."
       >
         <Canvas className="flex justify-center">
           <Button variant="raised" icon="filter_list" onClick={() => setLeftOpen(true)}>Filtros</Button>
@@ -91,7 +91,7 @@ export function SheetStory() {
 
       <Note title="Sheet o Modal">
         El <a className="underline underline-offset-2" href="#modal">Modal</a> interrumpe y pide una
-        decisión corta: confirmá, elegí, mirá esto. El panel lateral es para trabajar un rato — un
+        decisión corta: confirmá, elegí, mirá esto. El panel lateral es para trabajar un rato: un
         formulario de seis campos en un modal centrado tapa la pantalla y no deja ver aquello sobre
         lo que estás escribiendo.
       </Note>

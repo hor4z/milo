@@ -22,7 +22,7 @@ export function ColumnPickerStory() {
     >
       <Section
         title="Cómo se usa"
-        note="La primera columna va `locked`: una tabla sin la columna que nombra cada fila deja de ser una tabla. Lo apagado se queda a la vista y no desaparece — una opción que se esconde obliga a aprender el menú de nuevo."
+        note="La primera columna va `locked`: una tabla sin la columna que nombra cada fila deja de ser una tabla. Lo apagado se queda a la vista y no desaparece: una opción que se esconde obliga a aprender el menú de nuevo."
       >
         <Panel>
           <Variant name="columnas">

@@ -6,12 +6,12 @@ export function IndicatorStory() {
     <Page
       title="Indicator"
       kind="Datos"
-      lead="Una marca chica pegada a la esquina de otra cosa. No es una pieza en sí: envuelve a la que sí lo es —un botón, un avatar, una carpeta— y le agrega un punto, un contador o un glifo sin cambiarla."
+      lead="Una marca chica pegada a la esquina de otra cosa. No es una pieza en sí: envuelve a la que sí lo es (un botón, un avatar, una carpeta) y le agrega un punto, un contador o un glifo sin cambiarla."
       imports="import { Indicator } from '@milo/ui'"
     >
       <Section
         title="Tres formas de marcar"
-        note="El punto dice «hay algo» y nada más, que es lo que alcanza casi siempre. El contador dice cuánto, y solo vale la pena cuando el número cambia la decisión: entre «hay avisos» y «hay tres avisos» no cambia nada, entre «hay 3» y «hay 148» sí. El glifo dice qué pasó, y es el único que no necesita que vayas a mirar."
+        note="El punto dice 'hay algo' y nada más, que es lo que alcanza casi siempre. El contador dice cuánto, y solo vale la pena cuando el número cambia la decisión: entre 'hay avisos' y 'hay tres avisos' no cambia nada, entre 'hay 3' y 'hay 148' sí. El glifo dice qué pasó, y es el único que no necesita que vayas a mirar."
       >
         <Panel>
           <Variant name="punto">
@@ -40,7 +40,7 @@ export function IndicatorStory() {
 
       <Section
         title="Los tonos"
-        note="El acento es el default y es el que dice «mirá esto». Los otros cuatro son los de estado y significan lo mismo que en un `Alert` o en un `Badge` — que es de lo que se trata tener un sistema."
+        note="El acento es el default y es el que dice 'mirá esto'. Los otros cuatro son los de estado y significan lo mismo que en un `Alert` o en un `Badge`, que es de lo que se trata tener un sistema."
       >
         <Panel>
           <Variant name="tonos">
@@ -55,7 +55,7 @@ export function IndicatorStory() {
 
       <Section
         title="Envuelve cualquier cosa"
-        note="No sabe qué está marcando y no tiene por qué saberlo: se apoya en la esquina de lo que le pasen. Lo que marca sigue siendo lo que se toca — la marca no recibe el click."
+        note="No sabe qué está marcando y no tiene por qué saberlo: se apoya en la esquina de lo que le pasen. Lo que marca sigue siendo lo que se toca: la marca no recibe el click."
       >
         <Panel>
           <Variant name="una carpeta">
@@ -81,7 +81,7 @@ export function IndicatorStory() {
           'Sin `label` la marca es decorativa y va `aria-hidden`, porque lo que significa ya está en el nombre de lo que envuelve.',
           'La marca no recibe el puntero: lo que se toca sigue siendo la pieza de abajo, con su mismo objetivo de siempre.',
           'El contador no es la única forma de enterarse: el número también está en el nombre accesible de lo que marca.',
-          'Ningún tono se dice solo con color — el glifo es la forma, y el punto y el contador viven pegados a una pieza que ya se nombra sola.',
+          'Ningún tono se dice solo con color: el glifo es la forma, y el punto y el contador viven pegados a una pieza que ya se nombra sola.',
         ]}
       />
     </Page>

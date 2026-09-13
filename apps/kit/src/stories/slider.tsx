@@ -17,7 +17,7 @@ export function SliderStory() {
     >
       <Section
         title="La pieza"
-        note="Pista de 22, la del switch — dos píldoras en el mismo sistema con dos alturas distintas se ven como dos sistemas. El pulgar es de 24 y sobresale, al revés que el del switch, que es de 18 y vive adentro: esa es la diferencia entre los dos controles. El del switch corre por un canal; el del slider está apoyado sobre un riel y se agarra."
+        note="Pista de 22, la del switch: dos píldoras en el mismo sistema con dos alturas distintas se ven como dos sistemas. El pulgar es de 24 y sobresale, al revés que el del switch, que es de 18 y vive adentro: esa es la diferencia entre los dos controles. El del switch corre por un canal; el del slider está apoyado sobre un riel y se agarra."
       >
         <Panel>
           <Variant name={`valor ${a}`}>
@@ -42,7 +42,7 @@ export function SliderStory() {
 
       <Section
         title="Con pasos"
-        note="`step`, las flechas y el arrastre son del input nativo: adentro hay un `range` de verdad, transparente y encima de todo. No es el caso del `Select`, donde la lista la dibuja el sistema operativo y no hay forma de estilarla — un range se tapa entero con un div y el teclado viene gratis."
+        note="`step`, las flechas y el arrastre son del input nativo: adentro hay un `range` de verdad, transparente y encima de todo. No es el caso del `Select`, donde la lista la dibuja el sistema operativo y no hay forma de estilarla: un range se tapa entero con un div y el teclado viene gratis."
       >
         <Panel>
           <Variant name={`${steps} de 5 · step 1, max 5`}>
@@ -51,7 +51,7 @@ export function SliderStory() {
         </Panel>
         <p className="mt-3 max-w-[70ch] text-meta text-ink-muted">
           Probalo con el teclado: tabulá hasta el slider y usá las flechas. El anillo de foco se
-          suma al relieve del pulgar en vez de reemplazarlo — la regla global de <code>:focus-visible</code>
+          suma al relieve del pulgar en vez de reemplazarlo: la regla global de <code>:focus-visible</code>
           pisa el <code>box-shadow</code> entero y deja la pieza plana, que es el bug que está anotado en
           Pendiente para el resto de los controles.
         </p>
@@ -72,7 +72,7 @@ export function SliderStory() {
       <Section title="El azul no se elige acá">
         <p className="max-w-[70ch] text-body text-ink-muted">
           Es la regla de rol que ya está escrita: el azul es lo que el usuario prendió o
-          confirmó —el switch, el checkbox, el CTA— y el valor de un slider es exactamente eso.
+          confirmó (el switch, el checkbox, el CTA) y el valor de un slider es exactamente eso.
           El punto azul del pulgar es la misma frase dicha en la pieza que se agarra.{' '}
           <Mono>--switch-on</Mono> y <Mono>--brand</Mono>, sin un hex nuevo.
         </p>

@@ -11,7 +11,7 @@ export function SkeletonStory() {
     >
       <Section
         title="Una fila de lista"
-        note="El esqueleto copia la forma, no el contenido: un círculo donde va el avatar, dos barras donde van el título y su línea de apoyo. La segunda va más corta porque los subtítulos son más cortos — si las dos miden igual, el bloque se lee como un párrafo y no como una fila."
+        note="El esqueleto copia la forma, no el contenido: un círculo donde va el avatar, dos barras donde van el título y su línea de apoyo. La segunda va más corta porque los subtítulos son más cortos: si las dos miden igual, el bloque se lee como un párrafo y no como una fila."
       >
         <Demo label="mientras carga">
           <div className="flex w-full max-w-[420px] flex-col gap-4">
@@ -51,10 +51,10 @@ export function SkeletonStory() {
       </Section>
 
       <Note title="El esqueleto no es un spinner">
-        Un <a className="underline underline-offset-2" href="#spinner">Spinner</a> dice «esperá»; un
-        esqueleto dice «va a haber tres filas, así de anchas». Cuando se sabe la forma de lo que
-        viene, el esqueleto evita el salto. Cuando no se sabe —una búsqueda que puede traer cero o
-        cien— el spinner es más honesto.
+        Un <a className="underline underline-offset-2" href="#spinner">Spinner</a> dice "esperá"; un
+        esqueleto dice "va a haber tres filas, así de anchas". Cuando se sabe la forma de lo que
+        viene, el esqueleto evita el salto. Cuando no se sabe (una búsqueda que puede traer cero o
+        cien) el spinner es más honesto.
       </Note>
 
       <Section title="Props">
@@ -64,7 +64,7 @@ export function SkeletonStory() {
       <Section title="Accesibilidad">
         <A11y items={[
           'Es aria-hidden: un lector de pantalla no anuncia rectángulos vacíos.',
-          'Quien espera datos necesita que se lo diga el contenedor —aria-busy en la lista, un aviso al terminar—, no cada hueco.',
+          'Quien espera datos necesita que se lo diga el contenedor (aria-busy en la lista, un aviso al terminar), no cada hueco.',
           'El pulso respeta prefers-reduced-motion: sin animación, el hueco se ve igual.',
         ]} />
       </Section>

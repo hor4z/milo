@@ -14,7 +14,7 @@ export function ChipStory() {
     >
       <Section
         title="Variantes"
-        note="`color` toma el **par suave**: fondo apagado y tinta del mismo tono, anclada a 4.6:1. Un chip nunca viene solo —hay cinco en una fila— y seis rellenos vivos juntos compiten entre sí y con todo lo demás. El relleno vivo se quedó con el cuadradito de icono, donde la pieza es chica y el color tiene que gritar."
+        note="`color` toma el **par suave**: fondo apagado y tinta del mismo tono, anclada a 4.6:1. Un chip nunca viene solo (hay cinco en una fila) y seis rellenos vivos juntos compiten entre sí y con todo lo demás. El relleno vivo se quedó con el cuadradito de icono, donde la pieza es chica y el color tiene que gritar."
       >
         <Panel>
           <Variant name="plano"><Chip>Indagación</Chip></Variant>
@@ -36,7 +36,7 @@ export function ChipStory() {
             {chips.map(c => (
               <Chip key={c} onRemove={() => setChips(cs => cs.filter(x => x !== c))}>{c}</Chip>
             ))}
-            {chips.length === 0 && <span className="text-meta text-ink-muted">se fueron todos — recargá para volver a verlos</span>}
+            {chips.length === 0 && <span className="text-meta text-ink-muted">se fueron todos: recargá para volver a verlos</span>}
           </Variant>
           <Variant name="las dos cosas">
             <Chip color="blue" onClick={() => {}} onRemove={() => {}}>Matemática</Chip>
@@ -47,7 +47,7 @@ export function ChipStory() {
 
       <Note title="Chip o Badge">
         Se parecen y hacen cosas distintas. El <code>Chip</code> identifica: es el nombre de una
-        categoría, un método, una persona — y muchas veces se toca o se saca. El <code>Badge</code>{' '}
+        categoría, un método, una persona, y muchas veces se toca o se saca. El <code>Badge</code>{' '}
         dice en qué estado está algo: corregida, vence mañana, sin entregar. Uno lleva el color de su
         familia; el otro, el de su estado. Si el texto cambia según lo que pasó, es un badge.
       </Note>

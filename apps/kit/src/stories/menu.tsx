@@ -10,11 +10,11 @@ export function MenuStory() {
       title="Menu"
       kind="Acciones"
       imports="import { Menu, MenuItem, MenuLabel } from '@milo/ui'"
-      lead="Piezas que se arman, no una lista de opciones: un panel y filas que se escriben adentro. Es el mismo corte que la Table, y por el mismo motivo — la lista alcanza hasta el primer menú que necesita un separador, un rótulo de grupo o un atajo, y a partir de ahí cada necesidad nueva es una prop nueva en un objeto."
+      lead="Piezas que se arman, no una lista de opciones: un panel y filas que se escriben adentro. Es el mismo corte que la Table, y por el mismo motivo: la lista alcanza hasta el primer menú que necesita un separador, un rótulo de grupo o un atajo, y a partir de ahí cada necesidad nueva es una prop nueva en un objeto."
     >
       <Section
         title="La fila"
-        note="40 de alto, radio 12 y el icono en gris a 20 — el texto va en tinta: al revés, con el texto apagado, el menú entero se lee como deshabilitado. A la derecha hay un solo lugar y cuatro cosas que pueden ocuparlo: el atajo, una línea de apoyo, el tilde o el chevron. Nunca dos, porque compiten por el mismo significado."
+        note="40 de alto, radio 12 y el icono en gris a 20: el texto va en tinta: al revés, con el texto apagado, el menú entero se lee como deshabilitado. A la derecha hay un solo lugar y cuatro cosas que pueden ocuparlo: el atajo, una línea de apoyo, el tilde o el chevron. Nunca dos, porque compiten por el mismo significado."
       >
         <Panel>
           <Variant name="suelta">
@@ -30,7 +30,7 @@ export function MenuStory() {
 
       <Section
         title="Rótulo, separador y opción destructiva"
-        note="El rótulo va en tinta y no en gris, igual que la cabecera de la Table: apagado, obliga a buscar de qué es cada grupo. La opción destructiva es la única que cambia de color en todo el sistema, y su icono no va en gris — el gris es lo que apaga y esto es lo contrario."
+        note="El rótulo va en tinta y no en gris, igual que la cabecera de la Table: apagado, obliga a buscar de qué es cada grupo. La opción destructiva es la única que cambia de color en todo el sistema, y su icono no va en gris: el gris es lo que apaga y esto es lo contrario."
       >
         <Panel>
           <Variant name="armado entero">
@@ -61,7 +61,7 @@ export function MenuStory() {
 
       <Section
         title="Adentro de un Popover"
-        note="El Menu es la caja y el Popover el comportamiento: uno no sabe abrirse y el otro no dibuja nada. Por eso se arman juntos y por eso cualquiera de los dos sirve solo — un menú se puede mostrar quieto, como acá arriba, y un Popover puede llevar adentro algo que no es un menú."
+        note="El Menu es la caja y el Popover el comportamiento: uno no sabe abrirse y el otro no dibuja nada. Por eso se arman juntos y por eso cualquiera de los dos sirve solo: un menú se puede mostrar quieto, como acá arriba, y un Popover puede llevar adentro algo que no es un menú."
       >
         <Panel>
           <Variant name="abrí y probá Escape">

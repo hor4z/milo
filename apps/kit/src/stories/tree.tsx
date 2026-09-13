@@ -61,11 +61,11 @@ export function TreeStory() {
       title="Tree"
       kind="Navegación"
       imports="import { Tree } from '@milo/ui'"
-      lead="Una jerarquía que se abre y se cierra. Los espacios de alguien y lo que hay adentro, o el índice de un documento largo — que son el mismo problema: saber dónde estás parado sin perder de vista dónde está el resto."
+      lead="Una jerarquía que se abre y se cierra. Los espacios de alguien y lo que hay adentro, o el índice de un documento largo, que son el mismo problema: saber dónde estás parado sin perder de vista dónde está el resto."
     >
       <Section
         title="Espacios anidados"
-        note="Lo cerrado no está escondido: no está. Una rama cerrada no aparece en el documento, así que un lector de pantalla no la recorre y el teclado no pasa por ahí. La flecha derecha abre, y sobre algo ya abierto entra — es lo que evita tener que bajar con la otra flecha después de abrir."
+        note="Lo cerrado no está escondido: no está. Una rama cerrada no aparece en el documento, así que un lector de pantalla no la recorre y el teclado no pasa por ahí. La flecha derecha abre, y sobre algo ya abierto entra: es lo que evita tener que bajar con la otra flecha después de abrir."
       >
         <Canvas>
           <div className="w-full max-w-[380px]">
@@ -83,7 +83,7 @@ export function TreeStory() {
 
       <Section
         title="El índice de un documento"
-        note="La misma pieza con otra cosa adentro. En una consigna larga es lo que dice cuánto falta — y para quien escribe, lo que muestra si los títulos que puso arman una estructura o son una lista."
+        note="La misma pieza con otra cosa adentro. En una consigna larga es lo que dice cuánto falta, y para quien escribe, lo que muestra si los títulos que puso arman una estructura o son una lista."
       >
         <Canvas>
           <div className="w-full max-w-[420px]">
@@ -94,7 +94,7 @@ export function TreeStory() {
 
       <Note icon="lightbulb" title="El nivel se dibuja con aire, no con cajas">
         Un contenedor por nivel mete divisiones vacías entre el árbol y sus ramas, y un lector de
-        pantalla las cuenta: «grupo, grupo, grupo» antes de llegar al nombre. Acá el árbol es una
+        pantalla las cuenta: "grupo, grupo, grupo" antes de llegar al nombre. Acá el árbol es una
         sola lista plana de lo que está a la vista, cada rama dice en qué nivel está y la sangría
         es padding. El teclado recorre lo mismo que se ve.
       </Note>

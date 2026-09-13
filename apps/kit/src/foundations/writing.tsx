@@ -5,12 +5,12 @@ const pairs: { bad: string; good: string; by: string }[] = [
   {
     bad: 'Error: la operación no pudo ser completada.',
     good: 'No se pudieron traer las entregas.',
-    by: 'Decí qué pasó, no que hubo un error. La palabra «error» no agrega información y asusta.',
+    by: 'Decí qué pasó, no que hubo un error. La palabra "error" no agrega información y asusta.',
   },
   {
     bad: '¿Está seguro de que desea eliminar este elemento?',
-    good: '¿Borrar «Fracciones equivalentes»?',
-    by: 'Nombrá lo que se va a borrar. «Este elemento» obliga a recordar qué estabas tocando.',
+    good: '¿Borrar "Fracciones equivalentes"?',
+    by: 'Nombrá lo que se va a borrar. "Este elemento" obliga a recordar qué estabas tocando.',
   },
   {
     bad: 'No hay datos disponibles.',
@@ -33,22 +33,23 @@ export function Writing() {
   return (
     <Page
       title="Cómo se escribe"
-      lead="La interfaz habla en segunda persona, en presente y en argentino. El texto es parte del diseño: una pantalla bien dibujada con un cartel que dice «ha ocurrido un error inesperado» está mal terminada."
+      lead="La interfaz habla en segunda persona, en presente y en argentino. El texto es parte del diseño: una pantalla bien dibujada con un cartel que dice 'ha ocurrido un error inesperado' está mal terminada."
     >
       <Section
         title="Las reglas"
-        note="Ocho, y se revisan leyendo en voz alta."
+        note="Nueve, y se revisan leyendo en voz alta."
       >
         <div className="grid gap-3 sm:grid-cols-2">
           {[
             ['Vos, no usted', 'Escribí, elegí, mirá. Es como habla la gente con la que trabajamos.'],
-            ['Presente', '«Se publicó» y no «ha sido publicado».'],
-            ['Frases cortas', 'Si una oración tiene dos comas y un «mediante», va cortada en dos.'],
-            ['Sin jerga de sistema', 'Nada de «token», «endpoint», «query» ni «elemento» en una pantalla de producto.'],
-            ['Mayúscula solo al principio', 'Los títulos van como una oración: «Entregas de la semana», no «Entregas De La Semana».'],
-            ['Números como números', '3 y no «tres», salvo al empezar una oración.'],
-            ['Un número por frase', 'Una línea con tres cifras se cuenta, no se lee. «Cuatro espacios, 79 entregas y 12 sin mirar» obliga a hacer tres lecturas para entender una idea — y quien lee puede ser un docente de Lengua, no alguien que vive entre planillas. Si los números están en las tarjetas de abajo, la frase no los repite: dice qué hacer con ellos.'],
-            ['Decí qué pasa, no cuánto hay', 'Un contador informa; una frase orienta. «Tres entregas vencen mañana» se entiende de una, «3 · 12 · 79» hay que interpretarlo.'],
+            ['Presente', '"Se publicó" y no "ha sido publicado".'],
+            ['Frases cortas', 'Si una oración tiene dos comas y un "mediante", va cortada en dos.'],
+            ['Sin jerga de sistema', 'Nada de "token", "endpoint", "query" ni "elemento" en una pantalla de producto.'],
+            ['Mayúscula solo al principio', 'Los títulos van como una oración: "Entregas de la semana", no "Entregas De La Semana".'],
+            ['Números como números', '3 y no "tres", salvo al empezar una oración.'],
+            ['Un número por frase', 'Una línea con tres cifras se cuenta, no se lee. "Cuatro espacios, 79 entregas y 12 sin mirar" obliga a hacer tres lecturas para entender una idea, y quien lee puede ser un docente de Lengua, no alguien que vive entre planillas. Si los números están en las tarjetas de abajo, la frase no los repite: dice qué hacer con ellos.'],
+            ['Decí qué pasa, no cuánto hay', 'Un contador informa; una frase orienta. "Tres entregas vencen mañana" se entiende de una, "3 · 12 · 79" hay que interpretarlo.'],
+            ['Sin raya ni comillas angulares', 'Ni la raya larga ni las comillas angulares. Nadie las tiene a mano en un teclado, así que no aparecen en lo que escribe una persona: cuando aparecen, quien lee siente que el texto lo escribió una máquina y deja de creerle. En su lugar van los dos puntos, la coma, el paréntesis y las comillas dobles, que dicen lo mismo y no llaman la atención.'],
           ].map(([t, d]) => (
             <div key={t} className="flex flex-col gap-1 rounded-xl border border-line bg-surface p-4">
               <span className="text-body font-semibold text-ink">{t}</span>

@@ -16,7 +16,7 @@ export function AlertStory() {
     >
       <Section
         title="Los cuatro tonos"
-        note="El tono nunca va solo: cada uno trae su glifo, porque un color de estado sin forma ni texto no dice nada a quien no distingue colores. El de error va como `role=alert` y los otros tres como `status` — la diferencia entre interrumpir a un lector de pantalla y esperar a que termine la frase."
+        note="El tono nunca va solo: cada uno trae su glifo, porque un color de estado sin forma ni texto no dice nada a quien no distingue colores. El de error va como `role=alert` y los otros tres como `status`: la diferencia entre interrumpir a un lector de pantalla y esperar a que termine la frase."
       >
         <div className="flex flex-col gap-3">
           <Alert tone="info">
@@ -49,7 +49,7 @@ export function AlertStory() {
 
       <Section
         title="Se arma con partes"
-        note="El título solo alcanza para lo que se entiende de un vistazo. El cuerpo es para lo que hay que explicar, y las acciones para lo que se puede hacer al respecto — un aviso que no ofrece salida deja al lector con el problema y con nada para tocar."
+        note="El título solo alcanza para lo que se entiende de un vistazo. El cuerpo es para lo que hay que explicar, y las acciones para lo que se puede hacer al respecto: un aviso que no ofrece salida deja al lector con el problema y con nada para tocar."
       >
         <div className="flex flex-col gap-3">
           <Demo label="solo título">
@@ -79,7 +79,7 @@ export function AlertStory() {
 
       <Section
         title="El glifo se puede cambiar, o sacar"
-        note="El default sale del tono y casi siempre es el correcto. `icon` lo cambia cuando el aviso es de algo concreto —una fecha, un archivo, una persona— y `null` lo saca para el aviso que ya vive adentro de algo que tiene su propio icono."
+        note="El default sale del tono y casi siempre es el correcto. `icon` lo cambia cuando el aviso es de algo concreto (una fecha, un archivo, una persona) y `null` lo saca para el aviso que ya vive adentro de algo que tiene su propio icono."
       >
         <div className="flex flex-col gap-3">
           <Demo label="glifo propio">

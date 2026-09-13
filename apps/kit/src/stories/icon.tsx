@@ -48,7 +48,7 @@ export function IconStory() {
     >
       <Section
         title="El eje"
-        note="El peso va de 100 a 700 y es continuo porque es una fuente variable: con SVG haría falta un archivo por escalón, y por eso el set es una fuente. El otro eje, FILL, está clavado en 0 — todos de contorno, con una sola excepción escrita a mano."
+        note="El peso va de 100 a 700 y es continuo porque es una fuente variable: con SVG haría falta un archivo por escalón, y por eso el set es una fuente. El otro eje, FILL, está clavado en 0: todos de contorno, con una sola excepción escrita a mano."
       >
         <Panel>
           <Variant name="wght 100…700">
@@ -140,7 +140,7 @@ export function IconStory() {
 
       <Section
         title="El gris no es una prop"
-        note="La regla vieja decía «icono en gris ⇒ weight 1.5» y era imposible de cumplir: el gris se hereda de un ancestro y el call site no tiene cómo saberlo. Ahora es la utilidad `icon-muted`, que pone el color y sube el peso juntos. Se cumple sola."
+        note="La regla vieja decía 'icono en gris ⇒ weight 1.5' y era imposible de cumplir: el gris se hereda de un ancestro y el call site no tiene cómo saberlo. Ahora es la utilidad `icon-muted`, que pone el color y sube el peso juntos. Se cumple sola."
       >
         <Panel>
           <Variant name="en tinta">
@@ -175,7 +175,7 @@ export function IconStory() {
         </Panel>
         <p className="mt-3 max-w-[70ch] text-body text-ink-muted">
           <code className="font-mono text-meta">add</code> hace tres preguntas antes de bajar nada:
-          si el nombre existe —y si no, sugiere los cinco más parecidos—, si ya lo tenemos, y si hay
+          si el nombre existe (y si no, sugiere los cinco más parecidos), si ya lo tenemos, y si hay
           uno en el set que comparta tags y probablemente sirva igual. La tercera es la que evita
           llegar a doscientos iconos con seis variantes de engranaje, y para saltearla hay que
           escribir <Mono>--yes</Mono>. El catálogo está versionado, así que buscar funciona sin
@@ -189,7 +189,7 @@ export function IconStory() {
 
       <Section
         title="El costo, que conviene saber"
-        note="Firefox deja desactivar «permitir que las páginas elijan sus propias fuentes», y hay gente que lo usa por dislexia o baja visión. Con esa opción todos los iconos quedan en cuadraditos. Un SVG era inmune: es el precio de que el peso sea un eje de verdad, y está escrito y no escondido."
+        note="Firefox deja desactivar 'permitir que las páginas elijan sus propias fuentes', y hay gente que lo usa por dislexia o baja visión. Con esa opción todos los iconos quedan en cuadraditos. Un SVG era inmune: es el precio de que el peso sea un eje de verdad, y está escrito y no escondido."
       >
         <div />
       </Section>
@@ -206,9 +206,9 @@ export function IconStory() {
       <Note title="Un glifo que falta deja el hueco, no la pantalla en blanco">
         Un nombre que el manifiesto no tiene no resuelve a ningún codepoint, y
         `String.fromCodePoint` de eso lanza. Adentro de un render no deja un icono roto:
-        deja la aplicación entera sin dibujar, que es lo que alguien lee como «el sitio está
-        caído». Desde el código no puede pasar —el tipo es la unión del manifiesto y `icons check`
-        corre al lado de `typecheck`—, pasa cuando el módulo que el navegador tiene y el del disco
+        deja la aplicación entera sin dibujar, que es lo que alguien lee como "el sitio está
+        caído". Desde el código no puede pasar (el tipo es la unión del manifiesto y `icons check`
+        corre al lado de `typecheck`): pasa cuando el módulo que el navegador tiene y el del disco
         se separan, que es la trampa conocida del dev server. Así que el glifo se saltea y el resto
         de la pantalla sigue en pie.
       </Note>

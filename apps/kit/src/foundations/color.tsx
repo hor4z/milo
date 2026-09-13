@@ -17,7 +17,7 @@ export function ColorSection() {
     >
       <Section
         title="La rampa"
-        note="Nueve pasos, y **casi** neutra: lleva C 0.0025 del tono del azul. Es un susurro y tiene que seguir siéndolo — un gris exactamente neutro al lado de un azul saturado se ve de otro sistema, y uno que se nota azul convierte una interfaz de dos colores en una de tres. Estuvo en 0.006 y los campos se veían celestes."
+        note="Nueve pasos, y **casi** neutra: lleva C 0.0025 del tono del azul. Es un susurro y tiene que seguir siéndolo: un gris exactamente neutro al lado de un azul saturado se ve de otro sistema, y uno que se nota azul convierte una interfaz de dos colores en una de tres. Estuvo en 0.006 y los campos se veían celestes."
       >
         <Ramp tokens={ramp} />
       </Section>
@@ -76,7 +76,7 @@ export function ColorSection() {
 
       <Section
         title="Texto e iconos"
-        note="El gris del icono es un paso más oscuro que el del texto: un contorno fino encierra aire y con el mismo gris se lee más apagado que el texto que acompaña. No se escribe a mano — lo pone la utilidad icon-muted, que además sube el peso del glifo, porque el tono y el peso son la misma decisión."
+        note="El gris del icono es un paso más oscuro que el del texto: un contorno fino encierra aire y con el mismo gris se lee más apagado que el texto que acompaña. No se escribe a mano: lo pone la utilidad icon-muted, que además sube el peso del glifo, porque el tono y el peso son la misma decisión."
       >
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           <Swatch token="--text" note="lo que se lee" />
@@ -89,7 +89,7 @@ export function ColorSection() {
 
       <Section
         title="El azul, y cuándo"
-        note="Es la excepción más usada y la más acotada: el botón que manda, el arco del spinner y el anillo del foco. El relleno de una barra ya no sale de acá —tiene su propio rol, arriba— porque este azul está anclado para que el blanco encima se lea, y eso sobre fondo oscuro lo deja pegado a la pista. solid y brand son el mismo rol, así que va uno o el otro, nunca los dos en la misma pantalla."
+        note="Es la excepción más usada y la más acotada: el botón que manda, el arco del spinner y el anillo del foco. El relleno de una barra ya no sale de acá (tiene su propio rol, arriba) porque este azul está anclado para que el blanco encima se lea, y eso sobre fondo oscuro lo deja pegado a la pista. solid y brand son el mismo rol, así que va uno o el otro, nunca los dos en la misma pantalla."
       >
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           <Swatch token="--solid" note="el botón en tinta" />
@@ -130,7 +130,7 @@ export function ColorSection() {
           />
           <Family
             title="tint · la superficie grande, y hoy no la usa nadie"
-            detail="Seis tonos para un hueco que se llena de color y lleva un dibujo en tinta al 14% encima — saturados, el dibujo desaparece y una grilla de doce se vuelve un arcoíris. Estaban para el medio 4:3 de una tarjeta, que ya no existe. Se quedan porque la decisión de tener una superficie grande teñida es de quien arme la pantalla, y volver a derivar seis tonos cuesta más que dejarlos; pero hoy ninguna pieza los toca y eso conviene que esté a la vista."
+            detail="Seis tonos para un hueco que se llena de color y lleva un dibujo en tinta al 14% encima: saturados, el dibujo desaparece y una grilla de doce se vuelve un arcoíris. Estaban para el medio 4:3 de una tarjeta, que ya no existe. Se quedan porque la decisión de tener una superficie grande teñida es de quien arme la pantalla, y volver a derivar seis tonos cuesta más que dejarlos; pero hoy ninguna pieza los toca y eso conviene que esté a la vista."
             tokens={tints}
           />
           <Family

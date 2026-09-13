@@ -1,12 +1,12 @@
 import { Avatar, Chip, Icon } from '@milo/ui'
 import { A11y, Note, Page, Section } from '../kit'
 
-/** Pares de antes y después. El «by» es la regla que lo explica, no la corrección. */
+/** Pares de antes y después. El "by" es la regla que lo explica, no la corrección. */
 const pares = [
   {
     bad: 'Estimado docente: su alumno no ha completado la tarea.',
     good: 'Juan todavía no entregó la actividad.',
-    by: 'Ni «alumno» ni «su»: acá hay una persona con nombre. Y el usted pone distancia donde hace falta confianza.',
+    by: 'Ni "alumno" ni "su": acá hay una persona con nombre. Y el usted pone distancia donde hace falta confianza.',
   },
   {
     bad: 'El profesor puede subir sus materiales cuando lo desee.',
@@ -20,7 +20,7 @@ const pares = [
   },
   {
     bad: 'Nombre y apellido *',
-    good: 'Nombre — como querés que te llamen',
+    good: 'Nombre, como querés que te llamen',
     by: 'Un solo campo, sin formato obligatorio y sin orden. Hay nombres de una palabra, de cinco, con dos apellidos, y hay quien usa un nombre distinto del de su documento.',
   },
   {
@@ -35,7 +35,7 @@ export function InclusionSection() {
     <Page
       title="Inclusión"
       kind="Fundamentos"
-      lead="Quién se siente nombrado por esta interfaz y quién no. En un producto educativo lo usan chicas y chicos de diez años, docentes de sesenta y familias que entran una vez por trimestre — y ninguno de los tres eligió estar acá."
+      lead="Quién se siente nombrado por esta interfaz y quién no. En un producto educativo lo usan chicas y chicos de diez años, docentes de sesenta y familias que entran una vez por trimestre, y ninguno de los tres eligió estar acá."
       imports="import { Avatar, Chip } from '@milo/ui'"
     >
       <Section
@@ -82,7 +82,7 @@ export function InclusionSection() {
 
       <Section
         title="La segunda persona resuelve el género casi siempre"
-        note="No es una postura sobre el lenguaje: es que en castellano el «vos» y el «vas» no llevan marca de género, así que la frase sale más corta, más directa y sin tener que elegir. Donde no alcanza, hay un colectivo que sí: «el curso», «quienes entregaron», «la familia»."
+        note="No es una postura sobre el lenguaje: es que en castellano el 'vos' y el 'vas' no llevan marca de género, así que la frase sale más corta, más directa y sin tener que elegir. Donde no alcanza, hay un colectivo que sí: 'el curso', 'quienes entregaron', 'la familia'."
       >
         <div className="grid gap-4 sm:grid-cols-3">
           {[
@@ -120,7 +120,7 @@ export function InclusionSection() {
           </div>
           <p className="max-w-[70ch] text-body text-ink-muted">
             Nombres de acá y no de un generador en inglés, apellidos que no son todos del mismo
-            origen, y uno sin foto — porque un avatar sin imagen es el caso normal y no la
+            origen, y uno sin foto, porque un avatar sin imagen es el caso normal y no la
             excepción, y si solo se dibuja el caso con foto, el que no la tiene se rompe.
           </p>
         </div>

@@ -50,7 +50,7 @@ export function Toolbar({ label, children, className }: {
   )
 }
 
-/** Un botón de la barra. Con `pressed` es un interruptor y lo dice: «negrita, activado». */
+/** Un botón de la barra. Con `pressed` es un interruptor y lo dice: "negrita, activado". */
 export function ToolbarButton({ icon, label, pressed, disabled, onClick }: {
   icon: IconName
   /** Sin esto el botón no dice nada: adentro solo hay un glifo. */

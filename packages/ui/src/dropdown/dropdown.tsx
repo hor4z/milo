@@ -31,7 +31,7 @@ export function Dropdown({
   align?: 'start' | 'end'
   /** El ancho del panel en px. */
   width?: number
-  /** Qué menú es, para quien lo escucha. Por defecto, «Opciones». */
+  /** Qué menú es, para quien lo escucha. Por defecto, "Opciones". */
   label?: string
 }) {
   return (

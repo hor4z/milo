@@ -5,10 +5,10 @@ import { A11y, Note, Page, Section, Rich } from '../kit'
 /** Los seis estados de algo que se toca, y con qué los dice este sistema. */
 const interaccion = [
   { name: 'reposo', how: 'El relieve de la pieza y nada más.', why: 'El estado base también es un estado: si no se distingue de un hover, el hover no informa.' },
-  { name: 'hover', how: 'Un paso de tinta en alpha sobre el fondo. Nunca un movimiento.', why: 'El hover dice «esto responde». No existe sin mouse, así que nunca es la única forma de enterarse de algo.' },
+  { name: 'hover', how: 'Un paso de tinta en alpha sobre el fondo. Nunca un movimiento.', why: 'El hover dice "esto responde". No existe sin mouse, así que nunca es la única forma de enterarse de algo.' },
   { name: 'pressed', how: 'El relieve se da vuelta: la sombra entra desde abajo.', why: 'Es el único estado que el dedo confirma antes que el ojo, y por eso se dibuja con volumen y no con color.' },
   { name: 'focus', how: 'El anillo azul, el mismo en todo el sistema.', why: 'El único lugar donde el color es la señal. Va con `:focus-visible`: aparece con el teclado y no con el click, que es cuando estorba.' },
-  { name: 'selected', how: 'Hundido o en el suave del azul, según la pieza.', why: '«Elegido» y «apretado» son cosas distintas y se confunden solas: lo apretado vuelve, lo elegido se queda.' },
+  { name: 'selected', how: 'Hundido o en el suave del azul, según la pieza.', why: '"Elegido" y "apretado" son cosas distintas y se confunden solas: lo apretado vuelve, lo elegido se queda.' },
   { name: 'disabled', how: 'Opacidad 45% y el puntero apagado.', why: 'Se sigue leyendo, que es el punto: algo deshabilitado tiene que poder explicar por qué lo está.' },
 ] as const
 
@@ -22,7 +22,7 @@ export function StatesSection() {
     >
       <Section
         title="La regla que ordena todo esto"
-        note="Cada estado tiene una forma además de un tono. Un cambio de color solo es una señal que no llega a quien no distingue colores, a quien mira de reojo, ni a quien está en una pantalla mal calibrada de un aula. La forma puede ser el relieve, la opacidad, un glifo o una palabra — pero alguna hay."
+        note="Cada estado tiene una forma además de un tono. Un cambio de color solo es una señal que no llega a quien no distingue colores, a quien mira de reojo, ni a quien está en una pantalla mal calibrada de un aula. La forma puede ser el relieve, la opacidad, un glifo o una palabra, pero alguna hay."
       >
         <div className="flex flex-col overflow-hidden rounded-xl border border-line bg-surface">
           {interaccion.map(e => (
@@ -63,7 +63,7 @@ export function StatesSection() {
           <Estado
             titulo="Cargando, y no sabemos qué"
             tag="Spinner"
-            nota="Cuando no se puede dibujar la forma de lo que viene —una acción, un cálculo, una búsqueda sin resultados todavía— el esqueleto mentiría. El spinner no promete nada, solo dice que algo está pasando."
+            nota="Cuando no se puede dibujar la forma de lo que viene (una acción, un cálculo, una búsqueda sin resultados todavía) el esqueleto mentiría. El spinner no promete nada, solo dice que algo está pasando."
           >
             <div className="flex flex-col items-center justify-center gap-3 rounded-xl bg-surface p-8 shadow-card">
               <Spinner size={28} />
@@ -74,7 +74,7 @@ export function StatesSection() {
           <Estado
             titulo="Vacío porque todavía no empezó"
             tag="EmptyState"
-            nota="El vacío más importante y el que se trata peor. No es un error: es la primera vez. Dice qué va a haber acá y ofrece la acción que lo llena — un vacío sin salida es una pantalla que no se puede usar."
+            nota="El vacío más importante y el que se trata peor. No es un error: es la primera vez. Dice qué va a haber acá y ofrece la acción que lo llena: un vacío sin salida es una pantalla que no se puede usar."
           >
             <EmptyState
               icon="folder_open"
@@ -91,7 +91,7 @@ export function StatesSection() {
           >
             <EmptyState
               icon="search_off"
-              title="Nada para «trimestral»"
+              title="Nada para 'trimestral'"
               body="Probá con menos palabras, o sacá el filtro de espacio."
               action={<Button variant="raised" icon="filter_alt">Limpiar filtros</Button>}
             />
@@ -133,21 +133,21 @@ export function StatesSection() {
       </Section>
 
       <Note title="El estado que no se dibuja: el optimista">
-        Cuando una acción casi siempre sale bien —marcar una entrega, archivar, poner una estrella—
+        Cuando una acción casi siempre sale bien (marcar una entrega, archivar, poner una estrella)
         la pieza cambia en el momento y el pedido viaja atrás. El spinner de medio segundo que
         confirma lo obvio le cuesta a todo el mundo para cubrir el caso de uno. Lo que sí hace falta
         es la vuelta atrás: si el pedido falla, la pieza vuelve a como estaba y sale un{' '}
-        <code>Toast</code> — que es exactamente lo que un <code>Toast</code> es, la consecuencia de
+        <code>Toast</code>, que es exactamente lo que un <code>Toast</code> es, la consecuencia de
         algo que acabás de hacer.
       </Note>
 
       <A11y
         items={[
           'Ningún estado se dice solo con color: lo que no distingue tonos lo distingue por relieve, por opacidad, por un glifo o por la palabra.',
-          'El foco va con `:focus-visible`, así que aparece con el teclado y no al hacer click — y cuando aparece, es el mismo anillo en todo el sistema.',
+          'El foco va con `:focus-visible`, así que aparece con el teclado y no al hacer click, y cuando aparece, es el mismo anillo en todo el sistema.',
           'Lo que carga se anuncia: un `Skeleton` va `aria-hidden` y el contenedor lleva el estado, así que un lector de pantalla no lee cuatro cajas vacías.',
           'Un `EmptyState` es contenido de verdad y no una ilustración: el título y el cuerpo se leen, y la acción es un botón real.',
-          'Algo deshabilitado se sigue leyendo —opacidad 45%, no gris sobre gris— porque tiene que poder explicar por qué lo está.',
+          'Algo deshabilitado se sigue leyendo (opacidad 45%, no gris sobre gris) porque tiene que poder explicar por qué lo está.',
         ]}
       />
     </Page>
@@ -172,7 +172,7 @@ function Vivo() {
   return (
     <Section
       title="Verlos"
-      note="Pasá el mouse, hacé Tab, apretá. Uno que manda, uno que acompaña y uno que casi no está — y los tres con el interruptor puesto en deshabilitado. `solid` no aparece acá porque es el mismo rol que `brand`: va uno o el otro, nunca los dos en la misma pantalla."
+      note="Pasá el mouse, hacé Tab, apretá. Uno que manda, uno que acompaña y uno que casi no está, y los tres con el interruptor puesto en deshabilitado. `solid` no aparece acá porque es el mismo rol que `brand`: va uno o el otro, nunca los dos en la misma pantalla."
     >
       <Card className="flex flex-col gap-5 p-6">
         <span className="flex w-fit items-center gap-2 text-body text-ink">

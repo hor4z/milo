@@ -7,11 +7,11 @@ export function TabsStory() {
       title="Tabs"
       kind="Navegación"
       imports="import { Tabs, TabList, Tab, TabPanel } from '@milo/ui'"
-      lead="Un mismo lugar que muestra contenidos que se comparan entre sí: las entregas, la rúbrica y los ajustes de una actividad. Lo que no se compara no va en solapas — va en una pantalla aparte o en un `Accordion`."
+      lead="Un mismo lugar que muestra contenidos que se comparan entre sí: las entregas, la rúbrica y los ajustes de una actividad. Lo que no se compara no va en solapas: va en una pantalla aparte o en un `Accordion`."
     >
       <Section
         title="Cómo se arma"
-        note="El activo se marca con la línea **y** con el azul: unas solapas dicen dónde estás, y eso es orientación. Un `Segmented` se le parece y no lleva azul, porque ahí se elige un filtro —una decisión que cambia diez veces por minuto— y no un lugar donde estás parado."
+        note="El activo se marca con la línea **y** con el azul: unas solapas dicen dónde estás, y eso es orientación. Un `Segmented` se le parece y no lleva azul, porque ahí se elige un filtro (una decisión que cambia diez veces por minuto) y no un lugar donde estás parado."
       >
         <Canvas>
           <Tabs defaultValue="entregas">
@@ -58,7 +58,7 @@ export function TabsStory() {
       </Section>
 
       <Note title="Solapas o acordeón">
-        Si las opciones se comparan entre sí —el mismo tipo de contenido para distintos recortes— van
+        Si las opciones se comparan entre sí (el mismo tipo de contenido para distintos recortes) van
         solapas. Si son preguntas sueltas que se leen de a una y la mayoría no se va a abrir nunca, va
         un <a className="underline underline-offset-2" href="#accordion">Accordion</a>.
       </Note>

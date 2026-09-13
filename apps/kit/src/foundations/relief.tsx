@@ -24,7 +24,7 @@ export function ReliefSection() {
     >
       <Note icon="layers" title="Lo que el relieve dejó de tener que hacer">
         Durante un tiempo el relieve era lo único que separaba una tarjeta del fondo: el papel de
-        una pieza y el de la página eran el mismo color. No alcanzaba — con la elevación en alpha
+        una pieza y el de la página eran el mismo color. No alcanzaba: con la elevación en alpha
         bajo y a 1x, una pantalla densa se leía como un campo blanco enorme con líneas encima.
         Ahora <code>--surface</code> y <code>--canvas</code> son dos tonos distintos, y eso libera
         al relieve de una carga que no le correspondía: ya no tiene que decir <em>si</em> algo
@@ -89,7 +89,7 @@ export function ReliefSection() {
       </Section>
 
       <Note title="Un campo no lleva relieve">
-        El relieve dice «esto sobresale» o «esto se aprieta», y un campo no es ninguna de las dos: es un
+        El relieve dice "esto sobresale" o "esto se aprieta", y un campo no es ninguna de las dos: es un
         lugar donde apoyar texto. Los cuatro campos del sistema se dibujan con un fondo y una línea, y
         al enfocarse se les tiñe el borde que ya tenían.
       </Note>

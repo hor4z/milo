@@ -35,7 +35,7 @@ export function DividerStory() {
 
       <Section
         title="Entre piezas"
-        note="Separar dos cosas que son del mismo tipo. Cuando lo que hay abajo es de otro tipo, el cambio de fondo dice más que una línea — el hueco apagado de un panel, la cabecera de una tabla."
+        note="Separar dos cosas que son del mismo tipo. Cuando lo que hay abajo es de otro tipo, el cambio de fondo dice más que una línea: el hueco apagado de un panel, la cabecera de una tabla."
       >
         <Panel>
           <Variant name="una barra">
@@ -50,7 +50,7 @@ export function DividerStory() {
           </Variant>
         </Panel>
         <p className="mt-3 max-w-[70ch] text-meta text-ink-muted">
-          Adentro de un contenedor con padding —un Menu, un panel— la línea se estira hasta los
+          Adentro de un contenedor con padding (un Menu, un panel) la línea se estira hasta los
           bordes, y esa cuenta la hace el contenedor: es el que conoce su propio padding. Por eso
           el Divider lleva <code className="font-mono">data-divider</code>, que es de lo único que
           se agarra el padre para hacerla.

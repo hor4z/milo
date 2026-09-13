@@ -13,11 +13,11 @@ export function SegmentedStory() {
       title="Segmented"
       kind="Formularios"
       imports="import { Segmented } from '@milo/ui'"
-      lead="Un solo componente para el filtro de texto («Todas · Abiertas») y para el conmutador de grilla/lista. Que sean la misma pieza y no dos parecidas es el punto: dos implementaciones del mismo control se van separando sola una de la otra con cada cambio, y terminan con dos radios, dos alturas y dos ideas de qué es «activo»."
+      lead="Un solo componente para el filtro de texto ('Todas · Abiertas') y para el conmutador de grilla/lista. Que sean la misma pieza y no dos parecidas es el punto: dos implementaciones del mismo control se van separando sola una de la otra con cada cambio, y terminan con dos radios, dos alturas y dos ideas de qué es 'activo'."
     >
       <Section
         title="Tamaños"
-        note="La opción activa flota sobre una pista apagada, y dos cuentas tienen que dar. El radio: la opción es la pista menos su padding, 12 − 2 = 10. Y el alto: **la pista contiene su padding, no lo suma** — sumándolo, `sm` medía 36 y no apoyaba en la misma línea que un `Button` del mismo talle."
+        note="La opción activa flota sobre una pista apagada, y dos cuentas tienen que dar. El radio: la opción es la pista menos su padding, 12 − 2 = 10. Y el alto: **la pista contiene su padding, no lo suma**, sumándolo, `sm` medía 36 y no apoyaba en la misma línea que un `Button` del mismo talle."
       >
         <Panel>
           <Variant name="md · texto">

@@ -130,7 +130,7 @@ export function AudioPlayerStory() {
       </Section>
 
       <Note title="La línea de tiempo no es el `Slider`">
-        El `Slider` dice «elegí un valor»; acá se mira un archivo y se salta a un lugar. Lo que sí
+        El `Slider` dice "elegí un valor"; acá se mira un archivo y se salta a un lugar. Lo que sí
         comparten es el fondo: los dos son un {' '}<code>input type=range</code> transparente encima
         de lo que se ve, así que el teclado y el arrastre son los del navegador.
       </Note>
@@ -139,10 +139,10 @@ export function AudioPlayerStory() {
 
       <A11y
         items={[
-          'El botón cambia de nombre según lo que va a hacer: «Reproducir» y «Pausar».',
+          'El botón cambia de nombre según lo que va a hacer: "Reproducir" y "Pausar".',
           'La línea de tiempo es un `slider` de verdad: flechas, Home, End y las dos de página, todas del navegador.',
-          'El `aria-valuetext` dice «0:45 de 1:30» y no «45»: un número suelto no significa nada cuando el rango es un archivo.',
-          'La onda va `aria-hidden` y el significado lo lleva el slider. Escuchar la forma —lo que un gráfico resolvería con un audio graph— acá ya lo hace el botón de play.',
+          'El `aria-valuetext` dice "0:45 de 1:30" y no "45": un número suelto no significa nada cuando el rango es un archivo.',
+          'La onda va `aria-hidden` y el significado lo lleva el slider. Escuchar la forma (lo que un gráfico resolvería con un audio graph) acá ya lo hace el botón de play.',
           'Mientras carga hay un `status` que lo anuncia; si el archivo no está, el error va en texto y no solo en el color del borde.',
         ]}
       />
