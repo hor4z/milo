@@ -1,7 +1,7 @@
 """Prepara los archivos de una mascota: le saca el fondo y los deja listos para el kit.
 
     npm run mascotas -- revisar  ~/Downloads/otto.mp4
-    npm run mascotas -- animar   ~/Downloads/otto.mp4  otto
+    npm run mascotas -- animar   ~/Downloads/otto.mp4  otto-anima
     npm run mascotas -- retrato  ~/Downloads/ame.png   amelia
     npm run mascotas -- lista
 
@@ -25,7 +25,7 @@ except ImportError as e:
     sys.exit(f'falta una dependencia de Python: {e.name}\n  pip install numpy scipy pillow')
 
 DESTINO = Path(__file__).resolve().parent.parent / 'public' / 'mascotas'
-FPS = 12
+FPS = 12          # el que más mueve el peso del archivo; la calidad casi no
 ALTO_ANIMA = 288
 ALTO_RETRATO = 1200
 NARANJA, CANVAS = (219, 59, 0), (241, 242, 244)
@@ -186,9 +186,9 @@ def revisar(fuente: Path, salida: Path | None, claro: int | None) -> None:
     print('Si le falta un pedazo subí el umbral con --claro; si queda fondo, bajalo.')
 
 
-def animar(fuente: Path, nombre: str, claro: int | None, desde: int) -> None:
+def animar(fuente: Path, nombre: str, claro: int | None, desde: int, vueltas: int, fps: int) -> None:
     herramientas('ffprobe', 'ffmpeg', 'img2webp')
-    piezas = [alto_de(recortar(c, claro or umbral(c)), ALTO_ANIMA) for c in cuadros(fuente, FPS)]
+    piezas = [alto_de(recortar(c, claro or umbral(c)), ALTO_ANIMA) for c in cuadros(fuente, fps)]
     if not piezas:
         sys.exit(f'{fuente} no tiene cuadros')
 
@@ -220,14 +220,18 @@ def animar(fuente: Path, nombre: str, claro: int | None, desde: int) -> None:
         p.crop(caja).save(ruta)
         archivos.append(str(ruta))
 
-    destino = DESTINO / f'{nombre}-anima.webp'
-    subprocess.run(['img2webp', '-loop', '0', '-d', str(round(1000 / FPS)),
+    # El nombre que se pasa es el archivo que sale, sin sufijos: una mascota puede
+    # tener tres clips y hay que poder nombrarlos.
+    destino = DESTINO / f'{nombre}.webp'
+    # Las vueltas van horneadas en el archivo. Un `img` no tiene `loop` como un
+    # `video`, así que si el clip no cierra donde empezó hay que decirlo acá.
+    subprocess.run(['img2webp', '-loop', str(vueltas), '-d', str(round(1000 / fps)),
                     '-q', '70', '-m', '6', '-lossy', *archivos, '-o', str(destino)],
                    check=True, capture_output=True)
     shutil.rmtree(taller)
     im = Image.open(destino)
     sobras = f'  ({desde} tirado{"s" if desde != 1 else ""} adelante, {vacios} vacío{"s" if vacios != 1 else ""} recortado{"s" if vacios != 1 else ""})' if desde or vacios else ''
-    print(f'{destino.name}  {im.width} × {im.height}  {len(piezas)} cuadros a {FPS}/s  '
+    print(f'{destino.name}  {im.width} × {im.height}  {len(piezas)} cuadros a {fps}/s  '
           f'{destino.stat().st_size:,} bytes{sobras}')
 
 
@@ -286,6 +290,10 @@ def main() -> None:
     a.add_argument('--claro', type=int)
     a.add_argument('--desde', type=int, default=0,
                    help='cuántos cuadros del principio tirar; `revisar` avisa cuándo hace falta')
+    a.add_argument('--vueltas', type=int, default=0,
+                   help='0 se repite para siempre; 1 se reproduce una vez y se queda quieto')
+    a.add_argument('--fps', type=int, default=FPS,
+                   help='cuadros por segundo; es el que más mueve el peso, la calidad casi no')
 
     t = sub.add_parser('retrato', help='imagen o video → retrato con alfa')
     t.add_argument('fuente', type=Path)
@@ -302,7 +310,7 @@ def main() -> None:
     if args.orden == 'revisar':
         revisar(args.fuente, args.salida, args.claro)
     elif args.orden == 'animar':
-        animar(args.fuente, args.nombre, args.claro, args.desde)
+        animar(args.fuente, args.nombre, args.claro, args.desde, args.vueltas, args.fps)
     elif args.orden == 'retrato':
         retrato(args.fuente, args.nombre, args.claro, args.segundo)
     else:

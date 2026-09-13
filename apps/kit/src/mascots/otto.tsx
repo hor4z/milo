@@ -1,32 +1,22 @@
 import { A11y, Page, Section } from '../kit'
-import { useQuieto } from './quieto'
 
 export function OttoStory() {
-  const quieto = useQuieto()
-
   return (
     <Page
       title="Otto"
       kind="Mascotas"
-      lead="Una nutria. Todavía no tiene un lugar asignado en el producto: está acá como material, no como pieza."
+      lead="Un compañero intrépido, capaz de sacarte una sonrisa y de empujarte a seguir cuando algo se puso cuesta arriba. Otto es una nutria, y todavía no tiene un lugar asignado: está acá como material."
       imports="<img src='/mascotas/otto.webp' alt='' />"
     >
       <Section title="El retrato">
-        <div className="flex justify-center rounded-xl border border-line bg-surface p-8">
-          <img src="/mascotas/otto.webp" alt="" className="h-64 w-auto" />
-        </div>
-      </Section>
-
-      <Section
-        title="El bucle"
-        note="Se asoma, se agarra con las dos manos y se vuelve a esconder. Viene cortado por donde estaba el canto, así que su borde izquierdo se apoya contra algo — acá, contra la caja."
-      >
-        <div className="relative flex h-[280px] w-[220px] justify-end rounded-xl border border-line bg-surface p-4">
-          <img
-            src={quieto ? '/mascotas/otto.webp' : '/mascotas/otto-anima.webp'}
-            alt=""
-            className="absolute left-full top-8 h-32 w-auto"
-          />
+        <div className="flex flex-wrap items-center justify-center gap-10 rounded-xl border border-line bg-surface p-8">
+          <img src="/mascotas/otto.webp" alt="" className="h-64 w-auto shrink-0" />
+          <div className="flex flex-col gap-2">
+            <span className="text-display font-bold text-ink">Otto</span>
+            <span className="max-w-[30ch] text-reading text-ink-muted">
+              Curioso, se mete en todos lados y sale con algo para contar.
+            </span>
+          </div>
         </div>
       </Section>
 
@@ -51,7 +41,7 @@ export function OttoStory() {
       <A11y
         items={[
           'Va con `alt=""`: es decorativo, y lo que la pantalla quiera decir va en su texto.',
-          'Un `img` animado no se puede pausar, así que `prefers-reduced-motion` no lo atenúa: lo reemplaza por el retrato quieto.',
+          'Un `img` animado no se puede pausar, así que donde se use el bucle, `prefers-reduced-motion` no lo atenúa: lo reemplaza por el retrato quieto.',
         ]}
       />
     </Page>
