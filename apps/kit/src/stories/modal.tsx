@@ -10,7 +10,7 @@ export function ModalStory() {
   return (
     <Page
       title="Modal"
-      lead="El backdrop es blur de 3px más una capa muy tenue (14%), no un negro al 50%: el contexto de abajo se sigue leyendo y el modal no se siente un cambio de página. El bloqueo de scroll compensa el ancho de la scrollbar, porque sin eso la página salta a la derecha justo al abrir."
+      lead="El backdrop es blur de 3px más una capa que atenúa en vez de lavar: 14% en claro y 55% en oscuro, porque sobre un fondo ya oscuro un velo tenue no se ve. En los dos casos el contexto de abajo se sigue leyendo y el modal no se siente un cambio de página. El bloqueo de scroll compensa el ancho de la scrollbar, porque sin eso la página salta a la derecha justo al abrir."
       kind="Superficies"
       imports="import { Modal } from '@milo/ui'"
     >

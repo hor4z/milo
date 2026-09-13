@@ -161,11 +161,17 @@
 
      Lo que esta regla arregló, medido: la croma del relleno iba de 0.067 a
      0.110 —el verde al 42% de su techo y los otros cuatro al 90%— y el
-     contraste del glifo de 4.26:1 a 4.91:1. */
-  --mark-green: #91d09a;    --mark-green-ink: #145d27;
+     contraste del glifo de 4.26:1 a 4.91:1.
+
+     Y la regla se escribió antes de que los cinco la cumplieran: el verde daba
+     4.45 y el azul 4.40 en claro, el naranja y el rosa 6.95 en oscuro. Bajar o
+     subir dos centésimas de luminosidad —el tono y la croma intactos— los deja
+     a los cinco del lado correcto. La diferencia no se ve; lo que se ve es la
+     inicial de un avatar de alguien que la lee justa. Ahora hay un test. */
+  --mark-green: #91d09a;    --mark-green-ink: #135c26;
   --mark-purple: #ccaef3;   --mark-purple-ink: #6e1cab;
   --mark-orange: #eab177;   --mark-orange-ink: #6c4210;
-  --mark-blue: #95c0ff;     --mark-blue-ink: #114d9b;
+  --mark-blue: #95c0ff;     --mark-blue-ink: #0f4b99;
   --mark-pink: #f5a2b6;     --mark-pink-ink: #8f1746;
 
   /* Etiquetas de color: la familia viva. Un chip, el cuadradito de icono de una
@@ -347,9 +353,9 @@
      profundo, un trazo claro y fino necesita más. */
   --mark-green: #143d1d;    --mark-green-ink: #3ee06a;
   --mark-purple: #3b2850;   --mark-purple-ink: #d0b0f9;
-  --mark-orange: #4b2a00;   --mark-orange-ink: #f9af60;
+  --mark-orange: #4b2a00;   --mark-orange-ink: #fab061;
   --mark-blue: #193357;     --mark-blue-ink: #9ec3f9;
-  --mark-pink: #50212e;     --mark-pink-ink: #f9a5b9;
+  --mark-pink: #50212e;     --mark-pink-ink: #faa6ba;
 
   --label-green: #05b646;
   --label-teal: #05b1b1;

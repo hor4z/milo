@@ -14,7 +14,7 @@ export function CheckboxStory() {
       title="Checkbox"
       kind="Formularios"
       imports="import { Checkbox } from '@milo/ui'"
-      lead="Caja de 18, la medida del pulgar del switch. El radio es `xs` (5) y no `sm` (6), que es el del kbd: sobre un cuadrado de 18, un radio de 6 deja solo 6px de lado plano de los 18 y la casilla se lee redonda. El kbd puede llevar 6 porque es más ancho que alto y le sobran lados rectos."
+      lead="Caja de 18, la medida del pulgar del switch, con el radio `sm` — el mismo del kbd y el más chico que la escala tiene. Es el que corresponde: sobre un cuadrado de 18, el escalón siguiente deja cuatro píxeles de lado recto por lado y la casilla se lee redonda, que es la forma de la opción única."
     >
       <Section
         title="Estados"

@@ -145,3 +145,24 @@ describe('el texto de una etiqueta de color se lee', () => {
     expect(semantic).toMatch(/--on-label:\s*#121212/)
   })
 })
+
+const marks = ['green', 'purple', 'orange', 'blue', 'pink']
+
+describe('el glifo de una marca se lee sobre su propio relleno', () => {
+  // La familia pastel no la miraba ningún test, y la regla estaba escrita: el
+  // glifo es el mismo tono a 4.5:1 contra su relleno en claro, y a 7:1 en
+  // oscuro, porque un trazo claro y fino sobre un relleno profundo se apaga.
+  // Estaba escrita y no se cumplía: verde 4.45 y azul 4.40 en claro, naranja y
+  // rosa 6.95 en oscuro.
+  for (const [theme, piso] of [['light', 4.5], ['dark', 7]] as const) {
+    for (const m of marks) {
+      it(`--mark-${m}-ink sobre --mark-${m} en ${theme} llega a ${piso}:1`, () => {
+        const fill = value(`--mark-${m}`, theme)
+        const ink = value(`--mark-${m}-ink`, theme)
+        expect(fill, `falta --mark-${m} en ${theme}`).toBeTruthy()
+        expect(ink, `falta --mark-${m}-ink en ${theme}`).toBeTruthy()
+        expect(ratio(ink!, fill!)).toBeGreaterThanOrEqual(piso)
+      })
+    }
+  }
+})

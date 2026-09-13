@@ -18,7 +18,7 @@ final son lo único que hay que tocar.
 npm install
 npm run dev        # el sitio · http://localhost:5190
 npm run typecheck  # todo el monorepo de una
-npm test           # 393 tests con vitest y testing-library
+npm test           # 403 tests con vitest y testing-library
 npm run props      # regenera la tabla de props desde los tipos
 ```
 
@@ -131,7 +131,7 @@ Salieron de armar pantallas de verdad con estas piezas, y valen para cualquiera 
 
 - **Ajustes en un modal, no en una página.** Rail de 180 que no scrollea + panel que sí. Al
   cerrar no hay navegación: seguís donde estabas, con el scroll donde lo dejaste. Por eso el
-  fondo se atenúa apenas (14%) en vez de lavarse. El `SettingsModal` del paquete es eso.
+  fondo se atenúa en vez de lavarse —14% en claro, 55% en oscuro, que sobre fondo oscuro es lo que se necesita para que el velo exista. El `SettingsModal` del paquete es eso.
 - **Panel anclado con velo** (`Popover` con `veil`). Una lista que pide leerse entera necesita
   que el resto se apague; un menú de cuatro items, no. El velo va sin blur: el fondo se sigue
   reconociendo.
@@ -317,7 +317,7 @@ Lo mismo vale para los tipos que una pieza recibe como argumento —`ToastOption
 
 ## Los tests
 
-`npm test` corre vitest con jsdom y testing-library. 393 tests, y lo que prueban es el
+`npm test` corre vitest con jsdom y testing-library. 403 tests, y lo que prueban es el
 comportamiento —teclado, nombres accesibles, estados— y no el markup, que cambia con cada
 ajuste de estilo. El test de cada pieza vive en su carpeta, al lado del componente.
 
@@ -345,10 +345,12 @@ Trece más leen los tokens de tipografía: que cada rol declare sus tres valores
 el tracking cruce el cero en la base. Y uno del lado del kit repite los guardianes de escala sobre
 `apps/kit`, que hasta ahora se escapaba.
 
-Y veintinueve leen los tokens y calculan contraste: cada tono de estado contra su fondo, el gris
-del texto secundario contra las cuatro superficies claras sobre las que se escribe, y la tinta de
-una etiqueta de color contra los seis rellenos de la familia viva — todo en los dos temas. Si
-alguien cambia un tono y rompe un par, falla antes de llegar a una pantalla.
+Y cincuenta leen los tokens y calculan contraste: cada tono de estado contra su fondo, el gris
+del texto secundario contra las cuatro superficies claras sobre las que se escribe, la tinta de
+una etiqueta de color contra los seis rellenos de la familia viva, y el glifo de una marca contra
+su propio pastel — todo en los dos temas. Ese último faltaba, y la regla estaba escrita desde
+antes de que los cinco tonos la cumplieran. Si alguien cambia un tono y rompe un par, falla antes
+de llegar a una pantalla.
 
 ## Pendiente
 

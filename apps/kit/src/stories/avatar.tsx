@@ -14,7 +14,7 @@ export function AvatarStory() {
     >
       <Section
         title="Sin foto"
-        note="Círculo pastel con la inicial en el mismo tono: es la familia de las marcas de fila, no la viva. Medido, la inicial sobre pastel se lee mejor que el blanco sobre relleno vivo —4.51:1 contra 3.78:1— y deja de gritarle al texto de al lado. El tono sale del nombre: de un random, la misma persona cambiaría de color en cada render."
+        note="Círculo pastel con la inicial en el mismo tono: es la familia de las marcas de fila, no la viva. Medido, la inicial sobre pastel se lee mejor que el blanco sobre relleno vivo —los cinco pares pasan de 4.5:1 y el blanco sobre el vivo no llega a 3.8:1 en ninguno— y deja de gritarle al texto de al lado. El tono sale del nombre: de un random, la misma persona cambiaría de color en cada render."
       >
         <Demo>
           <Avatar name="Horacio Rivero" size={24} />
