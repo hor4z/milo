@@ -213,6 +213,12 @@
      se mira, cerrar estorba. */
   --duration-fast: 120ms;
   --duration-normal: 190ms;
+  /* La tercera, y es de contenido y no de interfaz: una carpeta que se abre, un
+     libro que gira, algo que entra. Ahí el movimiento no está informando de un
+     cambio de estado —para eso están las dos de arriba— sino mostrando qué es la
+     cosa, y eso pide más tiempo del que la interfaz se puede permitir. Estaba
+     escrita a mano y con tres valores distintos: 250, 280 y 340. */
+  --duration-content: 280ms;
   --ease-out: cubic-bezier(0.24, 1, 0.4, 1);
   --ease-in: cubic-bezier(0.4, 0, 1, 1);
 }

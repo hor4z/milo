@@ -59,14 +59,14 @@ export function Intro({ go, views }: { go: (id: string) => void; views: number }
           <button
             key={a.id}
             onClick={() => go(a.id)}
-            className="group flex flex-col gap-3 rounded-xl border border-line bg-surface p-5 text-left transition-[background-color,box-shadow] hover:bg-muted"
+            className="group flex flex-col gap-3 rounded-xl border border-line bg-surface p-5 text-left transition-[background-color,box-shadow] duration-fast ease-out hover:bg-muted"
           >
             <span className="inset-relief flex size-9 items-center justify-center rounded-xl bg-muted">
               <Icon name={a.icon} size={20} className="icon-muted" />
             </span>
             <span className="flex items-center gap-1 text-reading font-semibold text-ink">
               {a.title}
-              <Icon name="chevron_right" size={16} className="icon-muted transition-transform group-hover:translate-x-0.5" />
+              <Icon name="chevron_right" size={16} className="icon-muted transition-transform duration-fast ease-out group-hover:translate-x-0.5" />
             </span>
             <span className="text-body font-medium text-ink-muted">{a.body}</span>
           </button>

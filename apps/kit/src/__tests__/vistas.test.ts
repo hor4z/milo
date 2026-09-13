@@ -37,6 +37,30 @@ describe('las vistas del kit', () => {
     expect(offenders).toEqual([])
   })
 
+  it('el sitio declara la duración y la curva de cada transición', () => {
+    // El guardián del paquete mira solo `packages/ui` y el kit se escapaba: una
+    // transición sin `duration-*` ni `ease-*` corre a 150ms con una curva que no
+    // es ninguna de las dos del sistema, sin fallar y sin verse.
+    const dir = join(import.meta.dirname, '..')
+    const walk = (base: string, prefix = ''): string[] =>
+      readdirSync(base, { withFileTypes: true }).flatMap(e =>
+        e.isDirectory()
+          ? (e.name === '__tests__' ? [] : walk(join(base, e.name), `${prefix}${e.name}/`))
+          : /\.tsx?$/.test(e.name) ? [`${prefix}${e.name}`] : [],
+      )
+    const offenders: string[] = []
+    for (const f of walk(dir)) {
+      const texto = readFileSync(join(dir, f), 'utf8')
+      for (const m of texto.matchAll(/(['"`])((?:(?!\1)[\s\S])*?\btransition-[\w[\],-]+(?:(?!\1)[\s\S])*?)\1/g)) {
+        const frag = m[2]
+        if (!/\bduration-(fast|normal)\b/.test(frag) || !/\bease-(out|in)\b/.test(frag)) {
+          offenders.push(`${f}: ${/transition-[\w[\],-]+/.exec(frag)?.[0]}`)
+        }
+      }
+    }
+    expect([...new Set(offenders)]).toEqual([])
+  })
+
   it('cada portada dice cómo se importa la pieza', () => {
     const withoutImport: string[] = []
     for (const f of files) {

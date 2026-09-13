@@ -48,7 +48,7 @@ export function Search({
             onClick={() => { onValueChange(''); foco() }}
             // `inline-flex` y cuadrado: en `block` con padding, el glifo se apoya
             // en la línea base y queda cuatro píxeles arriba del centro.
-            className="-mr-1 inline-flex size-5 shrink-0 items-center justify-center rounded-sm text-ink-muted transition-colors duration-fast hover:bg-hover hover:text-ink"
+            className="-mr-1 inline-flex size-5 shrink-0 items-center justify-center rounded-sm text-ink-muted transition-colors ease-out duration-fast hover:bg-hover hover:text-ink"
           >
             <Icon name="close" size={14} />
           </button>

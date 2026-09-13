@@ -6,6 +6,7 @@ import { A11y, Note, Page, Section } from '../kit'
 const duraciones = [
   { cls: 'duration-fast', ms: 120, role: 'lo que acompaña al dedo: un hover, un color que cambia, un check que se marca. Tiene que sentirse instantáneo.' },
   { cls: 'duration-normal', ms: 190, role: 'lo que aparece o se va: un panel, un modal, una hoja. Acá el ojo necesita ver de dónde vino.' },
+  { cls: 'duration-content', ms: 280, role: 'lo que no es interfaz: una carpeta que se abre, un libro que gira. No informa de un cambio de estado, muestra qué es la cosa, y eso pide más tiempo.' },
 ] as const
 
 const curvas = [
@@ -18,12 +19,12 @@ export function MotionSection() {
     <Page
       title="Movimiento"
       kind="Fundamentos"
-      lead="Dos duraciones y dos curvas, y ninguna tercera. El movimiento de la interfaz no decora: dice de dónde vino algo y adónde se fue. Cuando no dice eso, no va — y lo que se mueve porque sí es contenido y se rige por otra regla, que está abajo."
+      lead="Dos duraciones para la interfaz y una tercera para el contenido, y dos curvas. El movimiento de la interfaz no decora: dice de dónde vino algo y adónde se fue. Cuando no dice eso, no va — y lo que se mueve porque sí es contenido y se rige por la regla de abajo."
       imports="import { Popover } from '@milo/ui'"
     >
       <Section
         title="Dos duraciones"
-        note="120 y 190 milisegundos. El corte no es estético: por debajo de unos 100ms el ojo no llega a ver el movimiento y solo registra el salto; por encima de unos 250ms la interfaz empieza a hacerse esperar. Todo lo del sistema entra entre esos dos números."
+        note="120, 190 y 280 milisegundos. El corte no es estético: por debajo de unos 100ms el ojo no llega a ver el movimiento y solo registra el salto; por encima de unos 250ms la interfaz empieza a hacerse esperar. Lo que pasa de ahí ya no es interfaz: es contenido que se está mostrando, y por eso tiene su propio paso. Las tres estuvieron escritas a mano con valores distintos —250, 280 y 340— hasta que se contaron."
       >
         <div className="flex flex-col gap-3">
           {duraciones.map(d => (

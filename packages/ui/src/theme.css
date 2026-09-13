@@ -555,7 +555,7 @@ th { font-weight: var(--font-weight-semibold); }
   box-shadow: var(--relief-card);
   transform-origin: 50% 100%;
   transform: translateY(0) rotate(0deg);
-  transition: transform 280ms var(--ease-out);
+  transition: transform var(--duration-content) var(--ease-out);
 }
 /* El glifo de hoja, para que no sea un rectángulo blanco. Dos líneas en tinta
    al 10% alcanzan: es un papel visto de lejos, no un documento. */
@@ -651,7 +651,7 @@ th { font-weight: var(--font-weight-semibold); }
   transform-style: preserve-3d;
   container-type: inline-size;
   position: relative;
-  transition: transform 250ms var(--ease-out);
+  transition: transform var(--duration-content) var(--ease-out);
 }
 /* Girar es lo que muestra que es un volumen: aparecen el lomo y las hojas. Sin
    esto, un libro quieto es un rectángulo con sombra. */
@@ -972,7 +972,7 @@ tr[tabindex]:focus-visible {
 .ui-pop { animation: ui-pop-in var(--duration-fast) var(--ease-out) }
 .ui-fade { animation: ui-fade-in var(--duration-normal) var(--ease-out) }
 .ui-zoom { animation: ui-zoom-in var(--duration-normal) var(--ease-out) }
-.ui-rise { animation: ui-rise 340ms var(--ease-out) both }
+.ui-rise { animation: ui-rise var(--duration-content) var(--ease-out) both }
 .ui-slide { animation: ui-slide-in var(--duration-normal) var(--ease-out) }
 .ui-d1 { animation-delay: 30ms } .ui-d2 { animation-delay: 60ms } .ui-d3 { animation-delay: 90ms }
 .ui-d4 { animation-delay: 120ms } .ui-d5 { animation-delay: 150ms } .ui-d6 { animation-delay: 180ms }

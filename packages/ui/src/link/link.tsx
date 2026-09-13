@@ -16,7 +16,7 @@ export function Link({ external, className, children, ...props }: ComponentProps
         // exactamente lo que el subrayado viene a evitar. Un subrayado que hay
         // que buscar no es una segunda señal.
         'inline-flex items-center gap-1 rounded-sm text-brand-ink underline decoration-current underline-offset-[3px]',
-        'transition-[text-decoration-thickness] duration-fast hover:decoration-2',
+        'transition-[text-decoration-thickness] ease-out duration-fast hover:decoration-2',
         className,
       )}
       {...(external ? { target: '_blank', rel: 'noreferrer noopener' } : null)}

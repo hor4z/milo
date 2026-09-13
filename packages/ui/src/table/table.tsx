@@ -100,7 +100,7 @@ export function TableRow({ children, onClick, active, className }: {
         ? e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); onClick() } }
         : undefined}
       className={cx(
-        'border-b border-line transition-colors duration-fast last:border-0',
+        'border-b border-line transition-colors ease-out duration-fast last:border-0',
         active && 'bg-muted',
         onClick && !active && 'cursor-pointer hover:bg-muted',
         className,

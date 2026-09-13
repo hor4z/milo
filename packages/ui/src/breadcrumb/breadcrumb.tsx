@@ -9,7 +9,7 @@ type BreadcrumbProps = ComponentPropsWithoutRef<'nav'> & {
   items: { label: string; href?: string; onClick?: () => void }[]
 }
 
-const step = 'truncate rounded-sm text-body font-medium text-ink-muted transition-colors hover:text-ink'
+const step = 'truncate rounded-sm text-body font-medium text-ink-muted transition-colors duration-fast ease-out hover:text-ink'
 
 /** Dónde estás parado y cómo volver. */
 export function Breadcrumb({ items, label = 'Ruta', className, ...props }: BreadcrumbProps) {

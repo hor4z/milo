@@ -80,13 +80,15 @@ export function Code({ children }: { children: string }) {
         setCopied(true)
         setTimeout(() => setCopied(false), 1400)
       }}
-      className="group inline-flex max-w-full items-center gap-2 self-start rounded-lg border border-line bg-muted py-2 pr-2 pl-3 text-left transition-colors hover:bg-sunken"
+      // `h-8` y no `py-2`: con padding, el borde de un píxel de cada lado dejaba el
+      // botón en 34 y la escalera de controles es 32 · 36 · 40.
+      className="group inline-flex h-8 max-w-full items-center gap-2 self-start rounded-lg border border-line bg-muted pr-2 pl-3 text-left transition-colors duration-fast ease-out hover:bg-sunken"
     >
       <code className="truncate font-mono text-meta text-ink">{children}</code>
       <Icon
         name={copied ? 'check' : 'content_copy'}
         size={14}
-        className="icon-muted shrink-0 transition-colors group-hover:text-ink"
+        className="icon-muted shrink-0 transition-colors duration-fast ease-out group-hover:text-ink"
       />
       <span className="sr-only">{copied ? 'Copiado' : 'Copiar'}</span>
     </button>

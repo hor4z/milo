@@ -106,7 +106,7 @@ export function IconStory() {
                 type="button"
                 onClick={() => copy(name)}
                 title={iconTags[name] || name}
-                className="flex flex-col items-center gap-2 rounded-xl border border-line bg-surface px-2 py-3 transition-colors hover:bg-muted"
+                className="flex flex-col items-center gap-2 rounded-xl border border-line bg-surface px-2 py-3 transition-colors duration-fast ease-out hover:bg-muted"
               >
                 <span className="flex items-center justify-center" style={{ height: 40 }}>
                   <Icon name={name} size={size} />

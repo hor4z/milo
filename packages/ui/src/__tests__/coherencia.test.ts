@@ -92,6 +92,23 @@ describe('coherencia del sistema', () => {
     expect(offenders).toEqual([])
   })
 
+  it('una transición declara su duración y su curva', () => {
+    // Sin `duration-*` y `ease-*`, Tailwind pone 150ms y una curva que no es
+    // ninguna de las dos del sistema. No falla ni se ve: simplemente hay una
+    // tercera duración y una tercera curva que la doctrina dice que no existen.
+    // Había doce, cinco de ellas en piezas del paquete.
+    const offenders: string[] = []
+    for (const f of sources) {
+      for (const m of f.text.matchAll(/(['"`])((?:(?!\1)[\s\S])*?\btransition-[\w[\],-]+(?:(?!\1)[\s\S])*?)\1/g)) {
+        const frag = m[2]
+        if (!/\bduration-(fast|normal)\b/.test(frag) || !/\bease-(out|in)\b/.test(frag)) {
+          offenders.push(`${f.name}: ${/transition-[\w[\],-]+/.exec(frag)?.[0]}`)
+        }
+      }
+    }
+    expect([...new Set(offenders)]).toEqual([])
+  })
+
   it('los iconos salen de la escala', () => {
     // 12·14·16·18·20·22 la interfaz, 28·40 un specimen o un `EmptyState`. Hace
     // falta un test porque el tamaño va como número y ningún linter lo mira.

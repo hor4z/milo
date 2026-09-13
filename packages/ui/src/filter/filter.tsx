@@ -60,7 +60,7 @@ export function Filter({ label, options, value, onValueChange }: FilterProps) {
             <label
               key={o.value}
               className={cx(
-                'flex cursor-pointer items-center gap-2 rounded-lg px-2 transition-colors hover:bg-hover',
+                'flex cursor-pointer items-center gap-2 rounded-lg px-2 transition-colors duration-fast ease-out hover:bg-hover',
                 o.person ? 'h-10' : 'h-9',
               )}
             >
@@ -83,7 +83,7 @@ export function Filter({ label, options, value, onValueChange }: FilterProps) {
             <button
               type="button"
               onClick={() => onValueChange([])}
-              className="mt-1 flex h-8 w-full items-center rounded-lg px-2 text-body font-medium text-ink-muted transition-colors hover:bg-hover hover:text-ink"
+              className="mt-1 flex h-8 w-full items-center rounded-lg px-2 text-body font-medium text-ink-muted transition-colors duration-fast ease-out hover:bg-hover hover:text-ink"
             >
               Quitar este filtro
             </button>

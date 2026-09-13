@@ -100,7 +100,7 @@ export function BarChart({ data, highlight, title, height = 220, className }: {
           <div
             key={i}
             className={cx(
-              'flex-1 text-center text-body text-ink transition-[font-weight]',
+              'flex-1 text-center text-body text-ink transition-[font-weight] duration-fast ease-out',
               i === hover || i === focused || i === highlight ? 'font-bold' : 'font-semibold',
             )}
           >

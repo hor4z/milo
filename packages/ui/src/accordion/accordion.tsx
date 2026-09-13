@@ -20,7 +20,7 @@ export function AccordionItem({ summary, children, defaultOpen, className }: Acc
         <Icon
           name="keyboard_arrow_down"
           size={18}
-          className="icon-muted shrink-0 transition-transform duration-normal group-open:rotate-180"
+          className="icon-muted shrink-0 transition-transform ease-out duration-normal group-open:rotate-180"
         />
         <span className="min-w-0 flex-1">{summary}</span>
       </summary>
