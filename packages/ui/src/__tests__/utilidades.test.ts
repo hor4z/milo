@@ -18,8 +18,7 @@ const fuentes = [
   ...walk(kit).map(f => ({ nombre: `kit/${f}`, texto: readFileSync(join(kit, f), 'utf8') })),
 ]
 
-// Los nombres de color que Tailwind conoce salen del puente, que es el único
-// lugar donde se declaran.
+// Los nombres de color salen del puente, que es donde se declaran.
 const puente = readFileSync(join(ui, 'theme.css'), 'utf8')
 const colores = new Set([...puente.matchAll(/^\s*--color-([a-z0-9-]+):/gm)].map(m => m[1]))
 
@@ -28,10 +27,8 @@ const noSonColor = /^(transparent|current|none|clip-|origin-|repeat|no-repeat|co
 
 describe('las utilidades de color existen', () => {
   it('ningún `bg-` nombra un color que el puente no declara', () => {
-    // Es el modo de falla más caro que tiene Tailwind: la clase queda escrita en
-    // el HTML, no genera nada, y no hay error. Así estuvieron sin fondo la pista
-    // del reproductor y el gris de su onda, las dos escritas `bg-border-strong`
-    // cuando el rol se llama `line-strong`.
+    // La clase queda escrita en el HTML, no genera nada y no hay error. Así
+    // estuvieron sin fondo la onda del reproductor y su pista.
     const huerfanos: string[] = []
     for (const f of fuentes) {
       for (const m of f.texto.matchAll(/\bbg-([a-z][a-z0-9-]*)(?:\/\d+)?\b/g)) {

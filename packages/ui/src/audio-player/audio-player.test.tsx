@@ -76,6 +76,28 @@ describe('AudioPlayer', () => {
     expect(screen.getByRole('button', { name: 'Reproducir' })).toBeDisabled()
   })
 
+  it('mientras carga no afirma una duración que no sabe', () => {
+    render(<AudioPlayer src="/x.mp3" />)
+    expect(screen.getByText('0:00 / --:--')).toBeInTheDocument()
+    expect(screen.getByRole('slider')).toHaveAttribute('aria-valuetext', '0:00 de --:--')
+  })
+
+  it('un archivo que ya tiene la duración no se queda cargando', () => {
+    // Con el archivo en caché, `loadedmetadata` puede haber pasado antes de que
+    // React enganche el evento. Sin mirar `readyState`, queda cargando para siempre.
+    const { unmount } = render(<AudioPlayer src="/x.mp3" />)
+    const el = document.querySelector('audio')!
+    Object.defineProperty(el, 'duration', { value: 12, configurable: true })
+    Object.defineProperty(el, 'readyState', { value: 1, configurable: true })
+    unmount()
+    render(<AudioPlayer src="/x.mp3" />)
+    const nuevo = document.querySelector('audio')!
+    Object.defineProperty(nuevo, 'duration', { value: 12, configurable: true })
+    Object.defineProperty(nuevo, 'readyState', { value: 1, configurable: true })
+    fireEvent.loadedMetadata(nuevo)
+    expect(screen.getByText('0:00 / 0:12')).toBeInTheDocument()
+  })
+
   it('una hora se lee como hora y no como noventa minutos', () => {
     render(<AudioPlayer src="/x.mp3" />)
     cargar(3723)

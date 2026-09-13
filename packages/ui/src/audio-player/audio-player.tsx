@@ -4,7 +4,7 @@ import { Spinner } from '../spinner/spinner'
 import { control } from '../lib/control'
 import { cx } from '../lib/cx'
 
-/** Segundos a reloj. La hora aparece solo si hace falta: `1:02:03` para algo largo, `0:07` para lo normal. */
+/** Segundos a reloj: `1:02:03` para algo largo, `0:07` para lo normal. */
 function reloj(s: number) {
   if (!Number.isFinite(s) || s < 0) return '--:--'
   const t = Math.floor(s)
@@ -21,8 +21,7 @@ type Estado = 'cargando' | 'listo' | 'error'
 /** El alto de la onda. No sale de la escalera de controles: eso mide botones, y esto es un gráfico que hay que poder leer. */
 const onda = { sm: 'h-8', md: 'h-10', lg: 'h-12' } as const
 
-// Solo uno suena a la vez. Dos audios encimados no se entienden, y el segundo
-// tapa al primero sin que nadie lo haya pedido.
+// Dos audios encimados no se entienden, así que el que arranca pausa al resto.
 const abiertos = new Set<HTMLAudioElement>()
 
 /** La onda. Cada barra es un pico del archivo; las que quedaron atrás van en el color de marca. */
@@ -30,21 +29,15 @@ function Onda({ peaks, avance }: { peaks: readonly number[]; avance: number }) {
   return (
     <span aria-hidden className="pointer-events-none absolute inset-0 flex items-stretch overflow-hidden">
       {peaks.map((p, i) => (
-        // El hueco entre barras es una fracción del lugar que a cada una le toca
-        // y no un `gap` de píxeles: con un gap fijo, treinta y un huecos de
-        // cuatro no entran en un contenedor angosto y la fila se desborda.
+        // El hueco es una fracción del lugar de cada barra y no un `gap` de
+        // píxeles: con un gap fijo, sesenta huecos no entran en un contenedor
+        // angosto y la fila se desborda.
         <span key={i} className="flex flex-1 items-center justify-center">
           <span
             className={cx(
-              // La mitad del lugar que le toca: la barra y el hueco miden igual,
-            // así se leen separadas a cualquier ancho.
-            'w-1/2 rounded-full transition-colors duration-fast ease-out',
-              // Gris claro lo que falta, marca lo que ya sonó: el avance se lee
-              // en el color y no hace falta una cabecita que lo marque.
+              'w-1/2 rounded-full transition-colors duration-fast ease-out',
               i / peaks.length < avance ? 'bg-brand' : 'bg-line-strong',
             )}
-            // Un pico en silencio mide cero y la barra desaparece; el mínimo la
-            // deja como un punto, que es lo que dibuja la línea de la pista.
             style={{ height: `${Math.max(p, 0.04) * 100}%`, minHeight: 2 }}
           />
         </span>
@@ -84,25 +77,32 @@ export function AudioPlayer({ src, title, peaks, actions, size = 'md', className
   const [t, setT] = useState(0)
   const [dur, setDur] = useState(0)
 
+  const cargado = (el: HTMLAudioElement) => {
+    setDur(el.duration)
+    setEstado('listo')
+  }
+
   useEffect(() => {
-    setEstado('cargando')
+    const el = audio.current
     setSonando(false)
     setT(0)
+    // Un archivo en caché puede tener la duración antes de que React enganche el
+    // evento, y entonces `loadedmetadata` no llega nunca y queda cargando para
+    // siempre. HAVE_METADATA es 1.
+    if (el && el.readyState >= 1) return cargado(el)
+    setEstado('cargando')
     setDur(0)
   }, [src])
 
-  // Al desmontarlo hay que sacarlo del registro: si no, el elemento queda ahí
-  // para siempre y el próximo que arranque le manda un pause a un nodo muerto.
+  // El elemento se agarra al montar y no en la limpieza: para entonces React ya
+  // soltó la ref y no habría a quién sacar del registro.
   useEffect(() => {
-    // El elemento se agarra acá y no en la limpieza: para entonces React ya
-    // soltó la ref y no hay a quién sacar del registro.
     const el = audio.current
     return () => { if (el) abiertos.delete(el) }
   }, [])
 
-  // Mientras suena, este es el audio del sistema: los botones del auricular, la
-  // pantalla bloqueada y las teclas de medios tienen que caer acá y significar
-  // lo que dicen. Se sueltan al pausar, o se los queda para siempre.
+  // Mientras suena, este es el audio del sistema: el botón del auricular y la
+  // pantalla bloqueada tienen que caer acá. Se sueltan al pausar.
   useEffect(() => {
     const ms = typeof navigator !== 'undefined' && 'mediaSession' in navigator ? navigator.mediaSession : null
     if (!ms || !sonando) return
@@ -141,9 +141,6 @@ export function AudioPlayer({ src, title, peaks, actions, size = 'md', className
   return (
     <div
       className={cx(
-        // La caja es una columna: el título arriba, y abajo una sola fila con el
-        // botón, la onda y el reloj. Con todo en una fila, el botón se centraba
-        // contra la columna —título incluido— y quedaba arriba de la onda.
         'flex flex-col gap-2 rounded-xl border border-line bg-surface px-3 py-2',
         estado === 'error' && 'border-bad-border',
         className,
@@ -153,10 +150,7 @@ export function AudioPlayer({ src, title, peaks, actions, size = 'md', className
         ref={audio}
         src={src}
         preload="metadata"
-        onLoadedMetadata={e => {
-          setDur(e.currentTarget.duration)
-          setEstado('listo')
-        }}
+        onLoadedMetadata={e => cargado(e.currentTarget)}
         onTimeUpdate={e => setT(e.currentTarget.currentTime)}
         onPlay={e => {
           for (const otro of abiertos) if (otro !== e.currentTarget) otro.pause()
@@ -176,6 +170,8 @@ export function AudioPlayer({ src, title, peaks, actions, size = 'md', className
 
       {title && <span className="truncate text-body font-medium text-ink">{title}</span>}
 
+      {/* El reloj va en la fila de la onda: con un título arriba, la columna es
+          más alta que el gráfico y quedaba centrado contra ella. */}
       <div className="flex items-center gap-3">
         {estado === 'cargando'
           ? (
@@ -208,19 +204,19 @@ export function AudioPlayer({ src, title, peaks, actions, size = 'md', className
                 value={t}
                 disabled={!listo}
                 aria-label={title ? `Buscar en ${title}` : 'Buscar en el audio'}
-                aria-valuetext={`${reloj(t)} de ${reloj(dur)}`}
+                aria-valuetext={`${reloj(t)} de ${listo ? reloj(dur) : '--:--'}`}
                 onChange={e => buscar(Number(e.target.value))}
                 className={cx(
                   'absolute inset-0 h-full w-full cursor-pointer appearance-none bg-transparent opacity-0',
                   'disabled:cursor-default',
-                  'focus-visible:opacity-100 focus-visible:outline-none focus-visible:rounded-md focus-visible:shadow-[var(--focus-ring)]',
+                  'focus-visible:rounded-md focus-visible:opacity-100 focus-visible:outline-none focus-visible:shadow-[var(--focus-ring)]',
                 )}
               />
             </span>
           )}
 
         <span className="tabular shrink-0 text-meta text-ink-muted">
-          {reloj(t)} / {reloj(dur)}
+          {reloj(t)} / {listo ? reloj(dur) : '--:--'}
         </span>
 
         {actions && <span className="flex shrink-0 items-center gap-1">{actions}</span>}
