@@ -6,6 +6,9 @@ export function SearchStory() {
   const [uno, setUno] = useState('')
   const [dos, setDos] = useState('fracciones')
   const [tres, setTres] = useState('')
+  const [atajo, setAtajo] = useState('')
+  const [vacio, setVacio] = useState('')
+  const [lleno, setLleno] = useState('6.º B')
 
   return (
     <Page
@@ -22,17 +25,17 @@ export function SearchStory() {
           <Variant name="sm"><Search size="sm" value={uno} onValueChange={setUno} placeholder="Buscar una actividad" /></Variant>
           <Variant name="md"><Search size="md" value={tres} onValueChange={setTres} placeholder="Buscar una actividad" /></Variant>
           <Variant name="con texto"><Search size="md" value={dos} onValueChange={setDos} /></Variant>
-          <Variant name="con atajo"><Search size="md" value="" onValueChange={() => {}} shortcut="/" placeholder="Buscar" /></Variant>
+          <Variant name="con atajo"><Search size="md" value={atajo} onValueChange={setAtajo} shortcut="/" placeholder="Buscar" /></Variant>
         </Panel>
       </Section>
 
       <Section
         title="El atajo y la cruz ocupan el mismo lugar"
-        note="Y eso es a propósito: mientras está vacío, lo que hace falta saber es cómo llegar; una vez que hay algo escrito, lo que hace falta es cómo salir. Nunca se necesitan los dos a la vez, así que no compiten por el espacio."
+        note="Y eso es a propósito: mientras está vacío, lo que hace falta saber es cómo llegar; una vez que hay algo escrito, lo que hace falta es cómo salir. Nunca se necesitan los dos a la vez, así que no compiten por el espacio. Escribí en el primero y borrá el segundo."
       >
         <Panel>
-          <Variant name="vacío · el atajo"><Search value="" onValueChange={() => {}} shortcut="/" /></Variant>
-          <Variant name="con texto · la cruz"><Search value="6.º B" onValueChange={() => {}} shortcut="/" /></Variant>
+          <Variant name="vacío · el atajo"><Search value={vacio} onValueChange={setVacio} shortcut="/" /></Variant>
+          <Variant name="con texto · la cruz"><Search value={lleno} onValueChange={setLleno} shortcut="/" /></Variant>
         </Panel>
       </Section>
 

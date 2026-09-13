@@ -1,7 +1,12 @@
+import { useState } from 'react'
 import { Alert, AlertActions, AlertBody, AlertTitle, Button } from '@milo/ui'
 import { A11y, Demo, Note, Page, Props, Section } from '../kit'
 
 export function AlertStory() {
+  const [cerrados, setCerrados] = useState<string[]>([])
+  const cerrar = (id: string) => setCerrados(c => [...c, id])
+  const abierto = (id: string) => !cerrados.includes(id)
+
   return (
     <Page
       title="Alert"
@@ -28,13 +33,17 @@ export function AlertStory() {
               <Button size="sm" variant="raised">Ver las entregas</Button>
             </AlertActions>
           </Alert>
-          <Alert tone="bad" onDismiss={() => {}}>
-            <AlertTitle>No se pudieron traer las entregas</AlertTitle>
-            <AlertBody>Puede ser la conexión. Lo que ya estaba corregido sigue estando.</AlertBody>
-            <AlertActions>
-              <Button size="sm" variant="raised" icon="refresh">Reintentar</Button>
-            </AlertActions>
-          </Alert>
+          {abierto('rojo')
+            ? (
+              <Alert tone="bad" onDismiss={() => cerrar('rojo')}>
+                <AlertTitle>No se pudieron traer las entregas</AlertTitle>
+                <AlertBody>Puede ser la conexión. Lo que ya estaba corregido sigue estando.</AlertBody>
+                <AlertActions>
+                  <Button size="sm" variant="raised" icon="refresh">Reintentar</Button>
+                </AlertActions>
+              </Alert>
+            )
+            : <Button size="sm" variant="muted" icon="undo" onClick={() => setCerrados(c => c.filter(x => x !== 'rojo'))}>Mostrarlo de nuevo</Button>}
         </div>
       </Section>
 
@@ -53,13 +62,17 @@ export function AlertStory() {
             </Alert>
           </Demo>
           <Demo label="con salida y con X">
-            <Alert tone="warn" className="w-full max-w-[520px]" onDismiss={() => {}}>
-              <AlertTitle>Quedaste sin lugar</AlertTitle>
-              <AlertBody>El próximo archivo que subas no va a entrar.</AlertBody>
-              <AlertActions>
-                <Button size="sm" variant="raised">Liberar espacio</Button>
-              </AlertActions>
-            </Alert>
+            {abierto('amarillo')
+              ? (
+                <Alert tone="warn" className="w-full max-w-[520px]" onDismiss={() => cerrar('amarillo')}>
+                  <AlertTitle>Quedaste sin lugar</AlertTitle>
+                  <AlertBody>El próximo archivo que subas no va a entrar.</AlertBody>
+                  <AlertActions>
+                    <Button size="sm" variant="raised">Liberar espacio</Button>
+                  </AlertActions>
+                </Alert>
+              )
+              : <Button size="sm" variant="muted" icon="undo" onClick={() => setCerrados(c => c.filter(x => x !== 'amarillo'))}>Mostrarlo de nuevo</Button>}
           </Demo>
         </div>
       </Section>
