@@ -1,9 +1,10 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import {
   Avatar, AvatarGroup, BarChart, Badge, Button, Card, Dropdown, Folder, Icon, IconButton,
   Indicator, Link, List, ListItem, Progress, Search, Segmented, SettingsModal, Tooltip, useToast,
   type IconName,
 } from '@milo/ui'
+import { useQuieto } from './mascots/quieto'
 
 const face = (n: number) => `/avatars/${String(n).padStart(2, '0')}.webp`
 const p = (name: string, photo?: number) => ({ name, src: photo ? face(photo) : undefined })
@@ -170,39 +171,42 @@ export function Dashboard() {
         </div>
 
         {/* En `muted` y no en papel: adentro lleva `ListItem`s, que son papel. */}
-        <Card surface="muted" className="flex flex-col gap-5 p-6">
-          <div className="flex flex-col gap-3">
-            <div className="flex items-center justify-between gap-4">
-              <h2 className="text-reading font-semibold text-ink">Para hoy</h2>
-              <Link href="#list" className="text-body">Ver todas</Link>
+        <div className="relative">
+          <Otto />
+          <Card surface="muted" className="relative flex flex-col gap-5 p-6">
+            <div className="flex flex-col gap-3">
+              <div className="flex items-center justify-between gap-4">
+                <h2 className="text-reading font-semibold text-ink">Para hoy</h2>
+                <Link href="#list" className="text-body">Ver todas</Link>
+              </div>
+              <List>
+                {pendientes.map(t => (
+                  <ListItem
+                    key={t.title}
+                    icon={t.icon}
+                    color={t.color}
+                    title={t.title}
+                    hint={t.hint}
+                    onClick={() => {}}
+                  />
+                ))}
+              </List>
             </div>
-            <List>
-              {pendientes.map(t => (
-                <ListItem
-                  key={t.title}
-                  icon={t.icon}
-                  color={t.color}
-                  title={t.title}
-                  hint={t.hint}
-                  onClick={() => {}}
-                />
-              ))}
-            </List>
-          </div>
 
-          <div className="flex flex-col gap-4 border-t border-line pt-5">
-            <h2 className="text-reading font-semibold text-ink">Cómo va cada espacio</h2>
-            <Progress label="Matemática · 4.º A" value={11} max={18} hint="11/18" />
-            <Progress label="Ciencias · 5.º B" value={24} max={24} hint="listo" tone="ok" />
-            <Progress label="Sociales · 5.º A" value={3} max={7} hint="3/7" />
-            <Progress label="Lengua · 6.º" value={0} max={12} hint="sin entregas" />
-          </div>
+            <div className="flex flex-col gap-4 border-t border-line pt-5">
+              <h2 className="text-reading font-semibold text-ink">Cómo va cada espacio</h2>
+              <Progress label="Matemática · 4.º A" value={11} max={18} hint="11/18" />
+              <Progress label="Ciencias · 5.º B" value={24} max={24} hint="listo" tone="ok" />
+              <Progress label="Sociales · 5.º A" value={3} max={7} hint="3/7" />
+              <Progress label="Lengua · 6.º" value={0} max={12} hint="sin entregas" />
+            </div>
 
-          <div className="mt-auto flex items-center gap-2 border-t border-line pt-4">
-            <AvatarGroup size={24} people={[p('Ana Pérez', 1), p('Bruno Díaz', 2), p('Carla Sosa', 3), p('Elena Vega', 5)]} />
-            <span className="text-meta font-medium text-ink-muted">96 estudiantes en total</span>
-          </div>
-        </Card>
+            <div className="mt-auto flex items-center gap-2 border-t border-line pt-4">
+              <AvatarGroup size={24} people={[p('Ana Pérez', 1), p('Bruno Díaz', 2), p('Carla Sosa', 3), p('Elena Vega', 5)]} />
+              <span className="text-meta font-medium text-ink-muted">96 estudiantes en total</span>
+            </div>
+          </Card>
+        </div>
       </div>
 
 
@@ -230,6 +234,55 @@ function Avisos() {
     />
   )
 }
+
+/** Lo que dura una pasada del bucle: 100 cuadros a 12 por segundo. */
+const PASADA = 8333
+
+/**
+ * `left-full` no es una preferencia: el recorte lo deja cortado por donde estaba
+ * el canto, así que su borde izquierdo tiene que caer sobre uno. Y solo de `xl`
+ * para arriba, que es cuando sobra lugar a la derecha de la grilla.
+ *
+ * Se asoma una vez y se esconde un rato largo al azar. En bucle continuo deja
+ * de ser una aparición y pasa a ser algo que se mueve al costado mientras
+ * trabajás, que es lo que hay que evitar.
+ */
+function Otto() {
+  const quieto = useQuieto()
+  const [vuelta, setVuelta] = useState(0)
+  const [asomado, setAsomado] = useState(false)
+
+  useEffect(() => {
+    if (quieto) return
+    let reloj: ReturnType<typeof setTimeout>
+    const asomar = () => {
+      setVuelta(v => v + 1)
+      setAsomado(true)
+      reloj = setTimeout(esconder, PASADA)
+    }
+    // Entre cuarenta segundos y dos minutos. A intervalo fijo se vuelve
+    // previsible y deja de sorprender, que es lo único que tiene para dar.
+    const esconder = () => {
+      setAsomado(false)
+      reloj = setTimeout(asomar, 40000 + Math.random() * 80000)
+    }
+    reloj = setTimeout(asomar, 6000)
+    return () => clearTimeout(reloj)
+  }, [quieto])
+
+  if (quieto || !asomado) return null
+  // La `key` fuerza un elemento nuevo, que es lo que hace que el bucle arranque
+  // del primer cuadro y no de la mitad.
+  return (
+    <img
+      key={vuelta}
+      src="/mascotas/otto-anima.webp"
+      alt=""
+      className="pointer-events-none absolute left-full top-12 z-20 hidden h-32 w-auto xl:block"
+    />
+  )
+}
+
 
 function Stat({ label, value, delta, icon, tone = 'ok' }: {
   label: string

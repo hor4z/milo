@@ -11,6 +11,8 @@ import { ReliefSection } from './foundations/relief'
 import { MotionSection } from './foundations/motion'
 import { StatesSection } from './foundations/states'
 import { InclusionSection } from './foundations/inclusion'
+import { AmeliaStory } from './mascots/amelia'
+import { OttoStory } from './mascots/otto'
 import { Writing } from './foundations/writing'
 import { ButtonStory } from './stories/button'
 import { IconButtonStory } from './stories/icon-button'
@@ -80,6 +82,13 @@ const groups: Group[] = [
       { id: 'icon', label: 'Iconos', alias: 'iconos glifos símbolos', render: () => <IconStory /> },
       { id: 'writing', label: 'Cómo se escribe', alias: 'texto redacción copy mensajes tono escritura', render: () => <Writing /> },
       { id: 'inclusion', label: 'Inclusión', alias: 'inclusión género lenguaje nombres personas diversidad edtech', render: () => <InclusionSection /> },
+    ],
+  },
+  {
+    label: 'Mascotas',
+    stories: [
+      { id: 'otto', label: 'Otto', alias: 'otto mascota personaje nutria hurón ilustración', render: () => <OttoStory /> },
+      { id: 'amelia', label: 'Amelia', alias: 'amelia mascota personaje chica estudiante ilustración', render: () => <AmeliaStory /> },
     ],
   },
   {

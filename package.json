@@ -11,6 +11,7 @@
     "build": "npm run build -w @milo/kit",
     "typecheck": "tsc -b",
     "props": "npm run props -w @milo/ui",
+    "mascotas": "python3 apps/kit/scripts/mascotas.py",
     "test": "vitest run",
     "test:watch": "vitest"
   },
