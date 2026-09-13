@@ -5,7 +5,7 @@ import {
   iconNames, type IconName, type IconWeight,
 } from '@milo/ui'
 import { iconTags } from '@milo/ui/icons.meta'
-import { A11y, Mono, Page, Panel, Props, Section, Variant } from '../kit'
+import { A11y, Mono, Note, Page, Panel, Props, Section, Variant } from '../kit'
 
 const sizes = [
   { px: 12, role: 'un badge, la cruz de un chip' },
@@ -195,7 +195,15 @@ export function IconStory() {
       </Section>
     
       <Section title="Accesibilidad">
-        <A11y items={[
+        <Note icon="warning" title="Setenta de los ciento setenta y uno no los usa nadie">
+        `npm run icons -w @milo/ui -- check` los lista. Sacarlos llevaría la fuente de 64 KB a 27,
+        medido subseteándola de verdad. No se sacan porque el editor y los gráficos van a consumir
+        varios, y traer uno de vuelta es un comando; pero el número conviene mirarlo cada tanto,
+        porque doscientos iconos con seis variantes de engranaje es exactamente lo que `icons add`
+        existe para evitar.
+      </Note>
+
+      <A11y items={[
           'Los glifos van aria-hidden: un icono es una imagen del texto que tiene al lado, no una segunda lectura.',
           'Un icono sin texto vive dentro de un IconButton, que exige su label.',
           'El glifo lleva translate="no": es texto, y un traductor automático puede reescribirlo.',

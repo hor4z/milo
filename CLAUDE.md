@@ -207,8 +207,14 @@ npm run icons -w @milo/ui -- refresh               # rebaja el catálogo desde G
    Para saltearlo hay que escribir `--yes`. Esto es lo que evita llegar a doscientos iconos con
    seis variantes de engranaje.
 
-La regla: **el set crece solo por `icons add`, y un icono que no renderiza ningún call site no va
-en el manifiesto.** `icons check` es lo que lo audita, y corre al lado de `typecheck`.
+La regla: **el set crece solo por `icons add`.** `icons check` corre al lado de `typecheck` y
+falla cuando alguien usa un glifo que no está en el manifiesto — esa mitad sí está cerrada.
+
+La otra mitad no: hoy hay **70 de 171 que no usa ningún call site**, y el chequeo los lista sin
+fallar. Medido con `pyftsubset`, sacarlos llevaría la fuente de 64 KB a 27 KB. No se sacaron
+porque la decisión es de quien arma el producto y no de un script: el editor y los gráficos van a
+consumir varios de esos, y volver a traer uno es `icons add`, que tarda lo mismo que leer esta
+línea. Lo que sí importa es que el número esté a la vista.
 
 El catálogo podado (3912 iconos con codepoint, popularidad y tags) está versionado en
 `packages/ui/scripts/catalog.json` para que buscar funcione sin internet — el mismo argumento por
