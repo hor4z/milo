@@ -19,7 +19,7 @@ function reloj(s: number) {
 type Estado = 'cargando' | 'listo' | 'error'
 
 /** El alto de la onda. No sale de la escalera de controles: eso mide botones, y esto es un gráfico que hay que poder leer. */
-const onda = { sm: 'h-10', md: 'h-12', lg: 'h-14' } as const
+const onda = { sm: 'h-8', md: 'h-10', lg: 'h-12' } as const
 
 // Solo uno suena a la vez. Dos audios encimados no se entienden, y el segundo
 // tapa al primero sin que nadie lo haya pedido.
@@ -45,7 +45,7 @@ function Onda({ peaks, avance }: { peaks: readonly number[]; avance: number }) {
             )}
             // Un pico en silencio mide cero y la barra desaparece; el mínimo la
             // deja como un punto, que es lo que dibuja la línea de la pista.
-            style={{ height: `${Math.max(p, 0.05) * 100}%`, minHeight: 4 }}
+            style={{ height: `${Math.max(p, 0.04) * 100}%`, minHeight: 2 }}
           />
         </span>
       ))}
@@ -56,7 +56,7 @@ function Onda({ peaks, avance }: { peaks: readonly number[]; avance: number }) {
 /** La pista pelada, para cuando no hay picos: una línea con lo escuchado pintado encima. */
 function Pista({ avance }: { avance: number }) {
   return (
-    <span aria-hidden className="pointer-events-none absolute inset-x-0 top-1/2 h-1 -translate-y-1/2 rounded-full bg-border-strong">
+    <span aria-hidden className="pointer-events-none absolute inset-x-0 top-1/2 h-1 -translate-y-1/2 rounded-full bg-line-strong">
       <span className="absolute inset-y-0 left-0 rounded-full bg-brand" style={{ width: `${avance * 100}%` }} />
     </span>
   )
@@ -187,7 +187,7 @@ export function AudioPlayer({ src, title, peaks, actions, size = 'md', className
             <IconButton
               icon={sonando ? 'pause' : 'play_arrow'}
               label={sonando ? 'Pausar' : 'Reproducir'}
-              variant="raised"
+              variant="solid"
               size={size}
               round
               disabled={estado === 'error'}
