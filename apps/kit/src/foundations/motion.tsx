@@ -18,7 +18,7 @@ export function MotionSection() {
     <Page
       title="Movimiento"
       kind="Fundamentos"
-      lead="Dos duraciones y dos curvas, y ninguna tercera. El movimiento acá no decora: dice de dónde vino algo y adónde se fue. Cuando no dice eso, no va."
+      lead="Dos duraciones y dos curvas, y ninguna tercera. El movimiento de la interfaz no decora: dice de dónde vino algo y adónde se fue. Cuando no dice eso, no va — y lo que se mueve porque sí es contenido y se rige por otra regla, que está abajo."
       imports="import { Popover } from '@milo/ui'"
     >
       <Section
@@ -101,6 +101,19 @@ export function MotionSection() {
           ))}
         </div>
       </Section>
+
+      <Note icon="campaign" title="Lo que se mueve porque sí">
+        La regla de arriba es para la interfaz. Una mascota que saluda, una ilustración que respira,
+        una celebración cuando algo salió bien: eso es contenido, no interfaz, y ahí el movimiento
+        no tiene que explicar nada — puede simplemente dar gusto. Es la parte del sistema que le
+        habla a alguien de doce años.
+        {' '}
+        Lo que no cambia son tres cosas. <strong>Nunca al lado de una tarea</strong>: algo que se
+        mueve mientras alguien lee o escribe se lleva la atención y no la devuelve.
+        {' '}<strong>Nunca como única forma de entender algo</strong>: si se saca, la pantalla sigue
+        diciendo lo mismo. Y <strong>siempre respeta a quien pidió menos movimiento</strong>: ahí no
+        se atenúa, se reemplaza por la versión quieta.
+      </Note>
 
       <A11y
         items={[
