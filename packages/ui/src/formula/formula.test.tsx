@@ -47,4 +47,12 @@ describe('Formula', () => {
     expect(container.querySelector('[tabindex]')).toBeNull()
     expect(container.querySelector('[role="region"]')).toBeNull()
   })
+
+  it('la región que se desplaza se nombra por su número y no repitiendo la fórmula', () => {
+    // En jsdom nada mide, así que la región no aparece; lo que se verifica es
+    // que el nombre largo no esté escrito en ningún lado más que en el `<math>`.
+    const { container } = render(<Formula display number={3} alt="uno sobre dos"><mn>1</mn></Formula>)
+    const conNombre = [...container.querySelectorAll('[aria-label]')]
+    expect(conNombre.every(n => !n.getAttribute('aria-label')!.includes('uno sobre dos'))).toBe(true)
+  })
 })

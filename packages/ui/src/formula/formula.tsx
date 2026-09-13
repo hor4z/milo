@@ -33,7 +33,9 @@ export function Formula({ children, display, alt, number, className }: {
         ref={ref}
         tabIndex={scrolls ? 0 : undefined}
         role={scrolls ? 'region' : undefined}
-        aria-label={scrolls ? `${alt}, se desplaza de costado` : undefined}
+        // El nombre corto y no el `alt`: la fórmula ya se lee entera adentro,
+        // y con el `alt` acá se escuchaba dos veces seguidas.
+        aria-label={scrolls ? `Fórmula${number != null ? ` ${number}` : ''}, se desplaza de costado` : undefined}
         className="min-w-0 flex-1 overflow-x-auto overflow-y-hidden py-1"
       >
         <math display="block" alttext={alt} className="formula formula-block">
