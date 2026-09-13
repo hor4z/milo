@@ -11,7 +11,7 @@ export function ButtonStory() {
     >
       <Section
         title="Variantes"
-        note="`brand` es el que manda y hay uno por pantalla — es el azul primario, y el relleno está anclado al escalón donde el blanco encima llega a 4.5:1. `solid` es el mismo rol en tinta, para donde el azul no se puede usar: adentro de un aviso teñido, o sobre una superficie que ya es azul. Va uno o el otro, nunca los dos en la misma pantalla, o la mirada no sabe cuál es. `raised` es el secundario y el que le da el carácter físico a la interfaz."
+        note="`brand` es el que manda y hay uno por pantalla, con el relleno anclado donde el blanco encima llega a 4.5:1. `solid` es el mismo rol en tinta, para donde el azul no se puede usar. Va uno o el otro, nunca los dos, o la mirada no sabe cuál es. `raised` es el secundario."
       >
         <Panel>
           <Variant name="brand"><Button variant="brand">Crear actividad</Button></Variant>
@@ -25,7 +25,7 @@ export function ButtonStory() {
 
       <Section
         title="Tamaños"
-        note="Tres alturas y un rol cada una: 32 inline en una fila densa, 36 acciones dentro de un panel, 40 la acción principal. Ninguna es un número elegido — el alto es la línea de la interfaz (16) más el aire vertical, que sube de a 2: 16+8×2, 16+10×2, 16+12×2. El padding lateral sube al mismo paso que el alto, de a 4: 16 · 20 · 24. Del 36 para arriba el texto es 14/600 y el radio 12; el 32 baja a 12px porque convive con texto de interfaz. La escalera es una sola y la comparte el IconButton, así que `md` mide 36 en las dos piezas."
+        note="Tres alturas y un rol cada una: 32 inline en una fila densa, 36 dentro de un panel, 40 la acción principal. Ninguna es un número elegido — es la línea de la interfaz (16) más aire que sube de a 2, y el padding lateral de a 4. La escalera la comparte el `IconButton`, así que `md` mide 36 en las dos piezas."
       >
         <Panel>
           <Variant name="sm · 32">

@@ -11,7 +11,7 @@ export function EmptyStateStory() {
     >
       <Section
         title="Los dos tamaños"
-        note="La diferencia no es sólo el padding. `md` es el de una pantalla: dice «esto está vacío y podés empezar acá». `sm` es el de adentro de una pieza —una tabla filtrada, una galería sin coincidencias— donde el vacío es de una búsqueda y no del lugar: con el aire del grande, filtrar y no encontrar nada empuja la paginación media pantalla para abajo y parece que la tabla desapareció."
+        note="La diferencia no es el padding. `md` es el de una pantalla: «esto está vacío y podés empezar acá». `sm` es el de adentro de una pieza, donde el vacío es de una búsqueda y no del lugar — con el aire del grande, filtrar y no encontrar nada empuja la paginación media pantalla para abajo."
       >
         <div className="flex flex-col gap-4">
           <Demo label="md · una pantalla">

@@ -15,7 +15,7 @@ export function TextareaStory() {
       title="Textarea"
       kind="Formularios"
       imports="import { Textarea } from '@milo/ui'"
-      lead="El campo de varias líneas: el TextField estirado. La misma caja, el mismo borde y la misma marca de foco, porque un campo de una línea y uno de varias que no se parecen se leen como dos sistemas. Lo único que cambia adentro es el leading — el 16 fijo de la interfaz aprieta cuando hay varios renglones. Al enfocarse se le tiñe el borde en vez de rodearse de un anillo: el anillo es para una pieza sin borde propio, y sobre un campo dibujaba una segunda línea azul a dos píxeles de la primera."
+      lead="El campo de varias líneas: el TextField estirado. La misma caja, el mismo borde y la misma marca de foco, porque dos campos que no se parecen se leen como dos sistemas. Lo único que cambia adentro es el interlineado: el 16 fijo aprieta cuando hay varios renglones."
     >
       <Section
         title="Crece con lo que escribís"
@@ -112,7 +112,7 @@ export function TextareaStory() {
 
       <Section
         title="Lo que se paga si falta"
-        note="Tres cosas que no se ven cuando están bien. Primero `height: auto` y después leer `scrollHeight`, porque scrollHeight nunca es menor que el alto puesto: midiendo sin resetear, el campo crece y no vuelve. El techo tiene que prender el scroll, o el texto sigue existiendo sin forma de llegar a él — y abajo del techo tiene que estar apagado, o aparece una barra que titila en cada tecla. Y se mide en un layout effect: midiendo después del paint, cada tecla que agranda el campo se ve como un salto."
+        note="Tres cosas que no se ven cuando están bien. `height: auto` antes de leer `scrollHeight`, o el campo crece y no vuelve. El techo prende el scroll, y abajo del techo lo apaga, o aparece una barra que titila en cada tecla. Y se mide en un layout effect: después del paint, cada tecla se ve como un salto."
       >
         <p className="max-w-[70ch] text-body text-ink-muted">
           El <code>resize</code> nativo no está: es una esquina que solo existe con mouse, y

@@ -17,14 +17,14 @@ export function ColorSection() {
     >
       <Section
         title="La rampa"
-        note="Nueve pasos, y **casi** neutra: lleva C 0.0025 del tono del azul en OKLCH. Es un susurro y tiene que seguir siéndolo — un gris exactamente neutro al lado de un azul saturado se ve de otro sistema, y un gris que se nota azul convierte una interfaz de dos colores en una de tres. Estuvo en 0.006 y era demasiado: los campos se veían celestes. El salto de 05 a 06 es violento a propósito: entre el borde más oscuro y el texto más claro no tiene que haber nada."
+        note="Nueve pasos, y **casi** neutra: lleva C 0.0025 del tono del azul. Es un susurro y tiene que seguir siéndolo — un gris exactamente neutro al lado de un azul saturado se ve de otro sistema, y uno que se nota azul convierte una interfaz de dos colores en una de tres. Estuvo en 0.006 y los campos se veían celestes."
       >
         <Ramp tokens={ramp} />
       </Section>
 
       <Section
         title="El azul primario"
-        note="Diez pasos, derivados y no elegidos: se toman el tono y el croma del azul de siempre, se fija una curva de luminosidad que baja parejo, y el croma sube hacia el medio y cae en los extremos — si no, los pasos claros salen lavados y los oscuros embarrados. **El 600 está anclado**: es el escalón donde el blanco encima llega exactamente a 4.5:1, y por eso es el relleno del botón que manda. Antes eran tres valores sueltos elegidos para un botón, y tres no alcanzan para vestir un estado elegido, un fondo suave, una tinta que se lea encima y un borde."
+        note="Diez pasos derivados y no elegidos: se toman el tono y el croma del azul de siempre y se baja la luminosidad parejo, con el croma subiendo hacia el medio para que los extremos no salgan lavados ni embarrados. **El 600 está anclado**: es el escalón donde el blanco encima llega exactamente a 4.5:1."
       >
         <Ramp tokens={azul} />
         <div className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
@@ -39,7 +39,7 @@ export function ColorSection() {
 
       <Section
         title="Superficies: el papel y el escritorio"
-        note="**Son dos tonos distintos, y esto cambió.** `--canvas` y `--surface` apuntaban al mismo token con el argumento de que lo que separa una tarjeta del fondo es el relieve. No alcanzaba: con el relieve en alpha bajo y a 1x, el resultado se lee como un campo blanco enorme con líneas encima, y cada widget parece recortado en vez de apoyado. Ahora una pieza es papel y la página es el escritorio, que es como se separan dos superficies desde que existe el papel. El relieve sigue estando y vuelve a decir solo cuánto se levanta algo, en vez de tener que decir si existe."
+        note="**Son dos tonos distintos, y esto cambió.** Apuntaban al mismo token, con el argumento de que lo que separa una tarjeta del fondo es el relieve. No alcanzaba: a 1x se leía como un campo blanco enorme con líneas encima. Ahora la pieza es papel y la página es el escritorio."
       >
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           <Swatch token="--canvas" note="el escritorio: el fondo de la página" />

@@ -14,7 +14,7 @@ export function NavStory() {
     >
       <Section
         title="El item"
-        note="40 de alto, radio 12, el icono en un cuadrado de 34 pegado al borde izquierdo (padding de 3) y la etiqueta en `text-body`. El activo va en el azul suave con su canto y su tinta, y el icono pasa a un chip de papel con su propio anillo. Estuvo en gris con la regla «el activo se marca con relieve y nunca con color»; esa regla existía porque el azul era el único acento que había, y dejó de serlo cuando pasó a ser el color primario. En un riel de doce entradas, el gris hay que buscarlo y el azul se encuentra sin leer."
+        note="40 de alto, radio 12, el icono en un cuadrado de 34 y la etiqueta en `text-body`. El activo va en azul suave con su canto. Estuvo en gris, con la regla «el activo nunca se marca con color» — esa regla existía cuando el azul era el único acento, y dejó de valer cuando pasó a ser el color primario: en un riel de doce, el gris hay que buscarlo."
       >
         <div className="w-[220px] rounded-xl border border-line bg-canvas px-5 py-4">
           <div className="flex flex-col gap-0.5">

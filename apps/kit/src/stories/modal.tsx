@@ -54,7 +54,7 @@ export function ModalStory() {
 
       <Section
         title="El caso real: los ajustes"
-        note="El mismo modal que usa la app, no una maqueta: rail de 180 que no scrollea + panel que sí. Si scrollean los dos, al bajar en una sección larga desaparecen las secciones y no sabés dónde estás. Los ajustes van en un modal y no en una página porque lo que importa es no perder el contexto — al cerrar no hay navegación, seguís donde estabas y con el scroll donde lo dejaste, y por eso el fondo se atenúa apenas en vez de lavarse."
+        note="El mismo modal que usa la app: rail de 180 que no scrollea, panel que sí. Si scrollean los dos, al bajar en una sección larga desaparecen las secciones y no sabés dónde estás. Van en un modal y no en una página para no perder el contexto: al cerrar seguís donde estabas, con el scroll donde lo dejaste."
       >
         <div className="flex flex-wrap items-start gap-3">
           <Demo label="width 594">

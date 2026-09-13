@@ -11,7 +11,7 @@ export function TooltipStory() {
     >
       <Section
         title="El retraso se comparte"
-        note="El primero tarda medio segundo, porque un tooltip que aparece apenas el mouse pasa por encima salta solo mientras cruzás la pantalla. Pero una vez que uno se mostró, el de al lado abre al instante: con medio segundo cada uno, recorrer seis iconos son tres segundos de espera y la fila se siente trabada. Pasá el mouse por la fila entera y después salí un rato y volvé."
+        note="El primero tarda medio segundo, porque uno que aparece apenas el mouse pasa salta solo mientras cruzás la pantalla. Pero el de al lado abre al instante: con medio segundo cada uno, recorrer seis iconos son tres segundos de espera."
       >
         <div className="flex flex-wrap items-center gap-1">
           <Tooltip label="Buscar"><IconButton icon="search" label="Buscar" /></Tooltip>

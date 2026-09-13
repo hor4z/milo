@@ -84,7 +84,7 @@ export function SelectStory() {
 
       <Section
         title="Mientras los datos no están"
-        note="`loading` no es lo mismo que pasar un spinner por `leading`. Un spinner suelto se dibuja y nada más: el control sigue abriendo, y lo que abre es una lista vacía o —peor— la lista vieja, que se puede elegir. Eso no lo arregla el nodo porque no es contenido, es el estado del control. Con `loading` el select no abre, avisa `aria-busy`, cierra el panel si estaba abierto y pone el spinner solo si nadie pasó un leading propio. Lo que el componente no hace es enterarse solo: no recibe promesas ni sabe de fetch."
+        note="`loading` no es lo mismo que pasar un spinner por `leading`. Un spinner suelto se dibuja y nada más: el control sigue abriendo, y lo que abre es una lista vieja que se puede elegir. Con `loading` el select no abre, avisa `aria-busy` y cierra el panel. Lo que no hace es enterarse solo: no recibe promesas."
       >
         <div className="flex flex-wrap items-start gap-3">
           <Demo label="loading · el spinner es el default">

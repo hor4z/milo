@@ -126,7 +126,7 @@ export function TableStory() {
     >
       <Section
         title="La tabla entera"
-        note="Una tabla de trabajo son tres cosas más que la grilla: con qué se recorta, cuántas hay, y cómo se pasa al tramo siguiente. Buscá, filtrá y paginá — los tres se llevan entre sí, que es la parte que se rompe cuando cada uno se escribe por su lado. Y si las columnas no entran, la tabla scrollea de costado sin dibujar una barra: scrolleá con la rueda y mirá que los botones de paginar no se van con la tabla. Esa franja vive adentro del marco pero afuera del scroll, que es un lugar al que el call site no llega solo."
+        note="Una tabla de trabajo son tres cosas más que la grilla: con qué se recorta, cuántas hay y cómo se pasa al tramo siguiente. Los tres se llevan entre sí, que es la parte que se rompe cuando cada uno se escribe por su lado. Y la franja de paginar vive adentro del marco pero afuera del scroll."
       >
         <FilterBar className="mb-3">
           <Search
@@ -263,7 +263,7 @@ export function TableStory() {
 
       <Section
         title="La pieza"
-        note="La fila es de 56, la misma que `Row` en un panel de ajustes: las dos son una línea de contenido con un divisor de un píxel, así que compartir el alto es lo que hace que una tabla y un panel puestos uno arriba del otro no se vean de dos sistemas distintos. La cabecera va en `text-label` y en tinta: el rol ya trae el espaciado de rótulo y un cuerpo por debajo de la interfaz, así que el tamaño solo dice que es un rótulo, y el gris encima lo apagaba tanto que había que buscar de qué era cada columna. Las filas alternan papel y un paso más oscuro — en una tabla ancha el divisor de un píxel no alcanza para seguir una fila hasta la última columna, la banda sí. Y contra los bordes las celdas llevan 24 en vez de 16: entre dos columnas el aire se reparte entre las dos, contra el canto hay uno solo."
+        note="La fila mide 56, la misma que `Row`: una tabla y un panel uno arriba del otro no pueden verse de dos sistemas. La cabecera va en tinta y no en gris — apagada, había que buscar de qué era cada columna. Y las filas alternan papel porque en una tabla ancha el divisor de un píxel no alcanza para seguir una fila hasta el final."
       >
         <Table minWidth={720}>
           <TableHeader>
@@ -296,7 +296,7 @@ export function TableStory() {
 
       <Section
         title="La columna de estudiantes"
-        note="Los avatares se montan un tercio de su tamaño y cada uno lleva un anillo del color de la fila: sin el anillo, dos vecinos de tonos parecidos se leen como una mancha sola en vez de como dos personas. El resto va en un círculo neutro y no en otra etiqueta de color — un `+4` no identifica a nadie, y en la familia viva se leería como una persona más del grupo. Con foto, la etiqueta de color se queda de fondo: es lo que se ve mientras la imagen carga y lo que queda si no carga nunca, y una inicial sobre su color pesa lo mismo que una cara — un hueco gris, no."
+        note="Se montan un tercio y llevan anillo, por el mismo motivo que en su propia vista. El resto va en un círculo neutro y no en otro color: un `+4` no identifica a nadie, y en la familia viva se leería como una persona más."
       >
         <div className="flex flex-col gap-4">
           <div className="flex items-center gap-6 rounded-xl bg-surface p-4 ring-1 ring-line">

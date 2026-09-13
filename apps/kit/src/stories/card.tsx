@@ -46,7 +46,7 @@ export function CardStory() {
 
       <Section
         title="Quieta, y sin acciones escondidas"
-        note="Las tarjetas no se mueven en hover y no tienen botones flotando encima: una grilla que salta hace temblar la vista, y un botón que aparece al pasar el mouse no se descubre sin mouse y tapa justo lo que estabas mirando. `interactive` existe para la tarjeta que es un link entero: sube la sombra y no mueve el contenido de lugar. Llegó a llevar un `-translate-y` que contradecía esta misma regla."
+        note="Las tarjetas no se mueven en hover y no tienen botones flotando encima: una grilla que salta hace temblar la vista, y un botón que aparece con el mouse no se descubre sin mouse. `interactive` es para la tarjeta que es un link entero: sube la sombra sin mover el contenido. Llegó a llevar un `-translate-y` que contradecía esta misma regla."
       >
         <div className="flex flex-wrap gap-4">
           <Card className="w-[260px]">

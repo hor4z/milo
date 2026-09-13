@@ -106,7 +106,7 @@ export function TypographySection() {
 
       <Section
         title="El tracking cruza el cero en la base"
-        note="Positivo donde la letra es chica y se empasta, cero en la interfaz, negativo donde es grande y se despega. Antes era al revés: -0.015em aplicado a todos los h1, h2 y h3 por igual, un número medido contra Inter a 12px dos familias atrás. Apretar la letra chica es exactamente cómo se pierde nitidez. Es lo que hace el eje óptico de San Francisco, y lo que Carbon escribe a mano."
+        note="Positivo donde la letra es chica y se empasta, cero en la interfaz, negativo donde es grande y se despega. Antes era al revés: −0.015em en todos los títulos por igual, un número medido contra otra familia a 12px. Apretar la letra chica es exactamente cómo se pierde nitidez."
       >
         <div className="flex flex-col gap-3 rounded-xl border border-line bg-surface p-5">
           {roles.map(r => (
@@ -120,7 +120,7 @@ export function TypographySection() {
 
       <Section
         title="Tres pesos, y una regla que pesa más que los tres"
-        note="400 la interfaz · 450 lo accionable, los títulos y lo elegido · 600 solo display. **El peso lo lleva el elegido, no la lista**: un riel de doce entradas, un menú de seis, seis chips en una fila — si todos van en el escalón de énfasis, ninguno está enfatizado y la pantalla se lee agresiva. Se llegó a medir un 44% del texto de una pantalla en el escalón de arriba. Y el escalón es corto a propósito: 450 y no 500, porque con Inter el 500 sobre una base de 400 salta a algo que se lee como negrita cuando lo que hace falta es que se lea como énfasis."
+        note="400 la interfaz · 450 lo accionable y los títulos · 600 solo display. **El peso lo lleva el elegido, no la lista**: si las doce entradas de un riel van en el escalón de énfasis, ninguna está enfatizada. Se llegó a medir un 44% de una pantalla ahí arriba. Y es 450 y no 500 porque el 500 ya se lee como negrita."
       >
         <div className="grid gap-3 sm:grid-cols-3">
           {[
@@ -209,7 +209,7 @@ function PorQueInter() {
   return (
     <Section
       title="Por qué Inter, y por qué una sola"
-      note="Cuarta y última familia del proyecto: Inter → Geist → Instrument Sans → Inter. Volver no es andar en círculo, porque lo que se fue no vuelve: aquella vez eran tres familias —Inter, Inter Tight y JetBrains Mono— y el motivo de dejarla fue justamente ese. Inter v4 trae eje óptico, así que una sola instancia cubre el cuerpo y el display, y el argumento viejo se cae solo."
+      note="Cuarta familia del proyecto: Inter → Geist → Instrument Sans → Inter. Volver no es andar en círculo: aquella vez eran tres familias, y ese era justamente el motivo de dejarla. Inter v4 trae eje óptico, así que una sola instancia cubre el cuerpo y el display."
     >
       <div className="flex flex-col gap-4">
         <div className="grid gap-4 sm:grid-cols-2">

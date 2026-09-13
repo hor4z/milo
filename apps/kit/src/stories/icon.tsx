@@ -48,7 +48,7 @@ export function IconStory() {
     >
       <Section
         title="El eje"
-        note="El peso va de 100 a 700 y es continuo porque es una fuente variable: con SVG haría falta un archivo por escalón — por eso el set es una fuente, y por eso Google la distribuye así: sus SVG estáticos, dice su propio repo, «do not have all the variations available». El otro eje de Material, FILL, está clavado en 0: todos los glifos son de contorno, sin excepciones y sin prop para moverlo."
+        note="El peso va de 100 a 700 y es continuo porque es una fuente variable: con SVG haría falta un archivo por escalón, y por eso el set es una fuente. El otro eje, FILL, está clavado en 0 — todos de contorno, con una sola excepción escrita a mano."
       >
         <Panel>
           <Variant name="wght 100…700">
@@ -64,7 +64,7 @@ export function IconStory() {
 
       <Section
         title={`El set · ${iconNames.length} iconos`}
-        note="Buscá por nombre o por lo que el icono es. Los controles escriben las variables una sola vez en el contenedor de la grilla y los glifos las heredan: cambiar `font-variation-settings` en cada instancia invalida la rasterización de cada glifo, y serían 152 por cada movimiento del control."
+        note="Buscá por nombre o por lo que el icono es. Los controles escriben las variables una sola vez en el contenedor de la grilla y los glifos las heredan: cambiar `font-variation-settings` en cada instancia invalida la rasterización de cada glifo, y serían todos los del set por cada movimiento del control."
       >
         <div className="flex flex-wrap items-center gap-4">
           <span className="w-[260px]">
