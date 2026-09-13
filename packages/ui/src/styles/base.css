@@ -1,10 +1,3 @@
-/* Lo que el sistema define por su cuenta: el cuerpo de la página, los roles de
-   texto sobre las etiquetas nativas, y las clases que no son de una pieza sola
-   (el relieve, la carpeta, el libro, la inversión de campo).
-
-   Todo esto es CSS nativo y no depende de ninguna librería. Lo que sí sigue
-   dependiendo, por ahora, es el puente de `theme.css`, que existe mientras
-   queden piezas sin migrar a módulos. */
 @import "./reset.css" layer(milo.reset);
 
 html, body, #root { min-height: 100%; margin: 0; }
@@ -25,16 +18,11 @@ h1, h2, h3 { font-family: var(--font-sans); font-weight: 400; margin: 0; }
 th { font-weight: var(--font-weight-semibold); }
 strong, b { font-weight: var(--font-weight-semibold); }
 
-/* El gris de un icono y su peso viajan juntos, y por eso es una clase y no una
-   prop: el gris se hereda de un ancestro y el call site no tiene cómo saberlo. */
 .icon-muted {
   color: var(--icon-muted);
   --icon-wght: 400;
 }
 
-/* Lo que existe para quien escucha y no para quien mira. Lo traía la librería
-   y ahora es del sistema, que es donde tiene que estar: sin esto, cada nombre
-   accesible del sistema aparece dibujado en la pantalla. */
 .sr-only {
   position: absolute;
   width: 1px;
@@ -62,9 +50,6 @@ strong, b { font-weight: var(--font-weight-semibold); }
   }
 }
 
-/* Las dos cosas a la vez: pintan la superficie y le avisan a los campos que
-   tienen adentro que se hundan. El fondo lo daba la librería y la inversión era
-   nuestra; ahora las dos viven acá. */
 .bg-surface,
 .bg-popover {
   --field-bg: var(--field-bg-on-surface);
@@ -107,10 +92,6 @@ strong, b { font-weight: var(--font-weight-semibold); }
   box-shadow: var(--relief-mark);
 }
 
-/* El anillo de un avatar montado sobre otro. Va acá y no en el módulo porque
-   tiene que componerse con el relieve de `.mark`, que vive fuera de toda capa:
-   desde adentro de una capa la regla del módulo no le gana y el anillo no se
-   dibuja, que es lo que venía pasando. */
 .mark-ring {
   box-shadow: var(--relief-mark), 0 0 0 2px var(--ring);
 }
@@ -378,9 +359,6 @@ tr[tabindex]:focus-visible {
   :disabled, [aria-disabled="true"], [data-disabled] { cursor: not-allowed; }
 }
 
-/* Marcadores: no dibujan nada. Existen para que un módulo pueda colgar de ellos
-   con `:global(.group)` y estilar a un hijo según el estado del padre, que es lo
-   único que un módulo no puede expresar solo. */
 .group, .peer { }
 
 @supports selector(::-webkit-scrollbar) {

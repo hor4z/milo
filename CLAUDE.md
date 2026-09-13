@@ -85,6 +85,10 @@ El corolario que cuesta ver: una clase global de `base.css` va sin capa, así qu
 cualquier módulo. Cuando las dos tienen que convivir (el anillo de un avatar sobre el relieve de
 `.mark`) la receta se compone en `base.css`, no se pelea desde el módulo.
 
+`.group` y `.peer` son las dos únicas clases que no dibujan nada: existen para que un módulo
+pueda colgar de ellas con `:global(.group)` y estilar a un hijo según el estado del padre, que es
+lo único que un módulo no puede expresar solo.
+
 ## El sistema: dónde está escrito cada porqué
 
 **El porqué de una decisión de diseño vive en el kit, no acá.** Cada vista de Fundamentos se
@@ -402,6 +406,11 @@ si a algún elemento le quedó una clase que no resuelve a nada.** Una clase que
 no avisa y deja la pieza sin estilo; leer las fuentes no alcanza porque una clase puede llegar por
 una prop o por una constante. Lo que se mira es lo que quedó dibujado.
 
+**El test de una pieza aserta sobre lo que la clase declara, no sobre su nombre.** Con módulos el
+nombre que llega al DOM está hasheado, así que asertar sobre él es ilegible. `__tests__/estilo.ts`
+saca el nombre original de adentro del hash y lo busca en los módulos del paquete: una pieza puede
+traer clases de `lib/`, como la escalera de tamaños o el par de tono.
+
 Catorce más leen los tokens de tipografía: que cada rol declare sus tres valores y que quien
 escriba un tamaño escriba los tres, que ninguno baje de 12px, que la curva de interlineado tenga su máximo en `reading`, que
 el tracking cruce el cero en la base. Del lado del kit hay diecisiete más: los guardianes de
@@ -455,6 +464,14 @@ un aula:
 
 ## Pendiente
 
+- **Los nombres de clase que dejó la conversión mecánica.** 1302 de 1582 (el 82%) se llaman
+  `div`, `div2`, `span7`, `box4`, `p3`: el nombre de la etiqueta y un número. No dicen nada, no se
+  pueden buscar y no se pueden reusar, porque `div2` en dos archivos son dos cosas sin relación.
+  Un nombre de clase es la única parte del CSS que explica **por qué** existe una regla, y hoy esa
+  parte está vacía. Donde más duele es en las vistas del kit, que son las que alguien abre para
+  aprender el sistema: `typography` 71, `kit` 67, `color` 41, `dashboard` 38, `intro` 37,
+  `measure` 37. Se arregla módulo por módulo, y el guardián que dibuja las vistas y el que exige
+  que ninguna clase quede sin usar sostienen el renombre.
 - **El `sm` de 32 no llega a los 44×44 que Apple pide para el dedo.** Pasa WCAG 2.2 (24×24) con
   holgura y se queda corto en táctil, que es media flota de un aula. La salida no es agrandar los
   tres (la densidad es real) sino decidir que en táctil el piso es `lg`; hoy el tamaño lo elige

@@ -1,7 +1,3 @@
-/* El orden de las capas se declara acá y antes que nada, porque una capa vale
-   por dónde se declara y no por dónde se usa. `milo.reset` va primera y por eso
-   es lo más débil del sistema: declarada después, el `margin: 0` del reset le
-   ganaba a cualquier margen de una pieza y la pantalla se caía entera. */
 @layer milo.reset, milo.components, milo.app;
 
 @import "../../tokens/src/index.css";

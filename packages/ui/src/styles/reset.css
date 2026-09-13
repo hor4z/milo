@@ -1,9 +1,3 @@
-/* El piso del sistema, en CSS nativo y sin librería.
-
-   Es un reset y no una normalización: apaga lo que el navegador decide por su
-   cuenta para que una pieza mida lo que dice medir. Lo que estaba antes lo
-   ponía Tailwind, así que esto es lo mismo escrito acá, que es donde tiene que
-   estar si el sistema no depende de nadie. */
 
 *,
 ::before,
@@ -24,8 +18,6 @@ html,
   -webkit-tap-highlight-color: transparent;
 }
 
-/* El título hereda y no trae tamaño propio: el tamaño lo elige el rol de texto
-   que se le ponga, que es lo que evita tres tamaños de h2 en tres pantallas. */
 h1, h2, h3, h4, h5, h6 {
   font-size: inherit;
   font-weight: inherit;
@@ -64,19 +56,14 @@ table {
   border-collapse: collapse;
 }
 
-/* La lista sin viñeta: cuando hace falta una, la pone la pieza. */
 ol, ul, menu { list-style: none; }
 
-/* En bloque y alineados al medio: una imagen en línea trae el espacio del
-   renglón abajo, que es la raíz de la mitad de los huecos raros de un layout. */
 img, svg, video, canvas, audio, iframe, embed, object {
   display: block;
   vertical-align: middle;
 }
 img, video { max-width: 100%; height: auto; }
 
-/* Un control hereda la letra: sin esto, un botón se dibuja con la fuente del
-   sistema operativo y un campo con otra. */
 button, input, select, optgroup, textarea, ::file-selector-button {
   font: inherit;
   font-feature-settings: inherit;
@@ -109,7 +96,6 @@ summary { display: list-item; }
 
 [hidden]:where(:not([hidden='until-found'])) { display: none !important; }
 
-/* Lo que se toca dice que se toca, y lo que no se puede tocar también. */
 button,
 summary,
 select,

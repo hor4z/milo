@@ -184,9 +184,6 @@ describe('el glifo de una marca se lee sobre su propio relleno', () => {
   }
 })
 
-/* Las excepciones escritas, con el piso medido el día que se decidieron. No
-   están para que el test pase: están para que nadie las empeore sin enterarse,
-   y cada una vive explicada en la vista que la usa. */
 const excepciones: Record<string, number> = {
   '--chart-warn light': 2.2,
 }

@@ -5,8 +5,6 @@ import { join } from 'node:path'
 import type { ComponentType } from 'react'
 import { ToastProvider } from '@milo/ui'
 
-/* Las clases que el sistema declara a mano: el reset, la base y el puente. Todo
-   lo demás tiene que venir de un módulo, y un módulo llega con el nombre picado. */
 const ui = join(import.meta.dirname, '../../../../packages/ui/src')
 const globales = new Set(
   ['styles/reset.css', 'styles/base.css', 'theme.css']
@@ -30,10 +28,6 @@ for (const [ruta, mod] of Object.entries(modulos)) {
 }
 
 describe('toda clase que llega al HTML resuelve a algo', () => {
-  /* Una clase que no existe no falla, no avisa y deja el elemento sin estilo: así
-     el Segmented quedó sin padding al sacar Tailwind, y se vio recién en pantalla.
-     Leer las fuentes no alcanza, porque una clase puede llegar por una prop o por
-     una constante; lo que se mira es lo que quedó dibujado. */
   const sueltas = new Set<string>()
 
   for (const [nombre, Vista] of vistas) {

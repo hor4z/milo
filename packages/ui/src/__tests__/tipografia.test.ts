@@ -8,8 +8,6 @@ const scales = readFileSync(join(import.meta.dirname, '../../../tokens/src/scale
 const theme = readFileSync(join(import.meta.dirname, '../theme.css'), 'utf8')
   + readFileSync(join(import.meta.dirname, '../styles/base.css'), 'utf8')
 
-/* Todo el CSS que escribe estilo: los módulos de las piezas, los del kit, y la
-   base. Es donde un rol se usa y donde se puede usar a medias. */
 function modulos(base: string, prefijo = ''): { nombre: string; texto: string }[] {
   return readdirSync(base, { withFileTypes: true }).flatMap(e =>
     e.isDirectory() ? (e.name === 'node_modules' ? [] : modulos(join(base, e.name), `${prefijo}${e.name}/`))
@@ -51,10 +49,6 @@ describe('la escala tipográfica', () => {
   })
 
   it('el que escribe un tamaño escribe los tres', () => {
-    /* Es la razón de ser de los roles: el bug que vinieron a matar fue un tamaño
-       de 20px adentro de una caja de línea de 16, porque el interlineado era un
-       token aparte que nadie tenía que acordarse de escribir. Un rol a medias lo
-       trae de vuelta, y en pantalla se ve como renglones que se pisan. */
     const cojos: string[] = []
     for (const f of estilo) {
       for (const bloque of f.texto.split(/(?<=\})/)) {
@@ -79,8 +73,6 @@ describe('la escala tipográfica', () => {
   })
 
   it('no quedó el puente que Tailwind leía', () => {
-    /* `--text-meta` y compañía existían solo para que Tailwind emitiera una
-       utilidad. El rol es `--type-meta` y no hay dos nombres para lo mismo. */
     for (const f of estilo) {
       for (const r of roles) expect(f.texto, f.nombre).not.toMatch(new RegExp(`var\\(--text-${r}\\b`))
     }
