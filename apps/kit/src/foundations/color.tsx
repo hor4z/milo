@@ -5,7 +5,7 @@ const azul = ['--blue-050', '--blue-100', '--blue-200', '--blue-300', '--blue-40
 const ramp = ['--shade-01', '--shade-02', '--shade-03', '--shade-04', '--shade-05', '--shade-06', '--shade-07', '--shade-08', '--shade-09'] as const
 const marks = ['--mark-green', '--mark-purple', '--mark-orange', '--mark-blue', '--mark-pink'] as const
 const labels = ['--label-green', '--label-teal', '--label-blue', '--label-purple', '--label-pink', '--label-orange'] as const
-const tints = ['--tint-1', '--tint-2', '--tint-3', '--tint-4', '--tint-5'] as const
+const tints = ['--tint-1', '--tint-2', '--tint-3', '--tint-4', '--tint-5', '--tint-6'] as const
 const spaces = ['--space-green', '--space-purple', '--space-orange', '--space-blue', '--space-pink'] as const
 
 export function ColorSection() {
@@ -114,8 +114,8 @@ export function ColorSection() {
       </Section>
 
       <Section
-        title="Las tres familias, y qué las separa"
-        note="Las tres son de categoría y no se mezclan. La que decide cuál va no es el gusto: es el tamaño de la pieza y qué se apoya encima."
+        title="Las cuatro familias, y qué las separa"
+        note="Las cuatro son de categoría y no se mezclan. La que decide cuál va no es el gusto: es el tamaño de la pieza y qué se apoya encima."
       >
         <div className="flex flex-col gap-5">
           <Family
@@ -129,8 +129,8 @@ export function ColorSection() {
             tokens={labels}
           />
           <Family
-            title="tint · la superficie grande"
-            detail="El hueco 4:3 de una tarjeta, el mock de una novedad. Llevan un dibujo en tinta al 14% encima: saturados, el dibujo desaparece y una grilla de doce tarjetas se vuelve un arcoíris."
+            title="tint · la superficie grande, y hoy no la usa nadie"
+            detail="Seis tonos para un hueco que se llena de color y lleva un dibujo en tinta al 14% encima — saturados, el dibujo desaparece y una grilla de doce se vuelve un arcoíris. Estaban para el medio 4:3 de una tarjeta, que ya no existe. Se quedan porque la decisión de tener una superficie grande teñida es de quien arme la pantalla, y volver a derivar seis tonos cuesta más que dejarlos; pero hoy ninguna pieza los toca y eso conviene que esté a la vista."
             tokens={tints}
           />
           <Family
@@ -142,7 +142,7 @@ export function ColorSection() {
       </Section>
 
       <Note title="Antes de teñir algo">
-        Mirá de qué tamaño es la pieza y qué va encima. Los tres roles vivieron un rato juntos bajo el
+        Mirá de qué tamaño es la pieza y qué va encima. Los roles vivieron un rato juntos bajo el
         mismo nombre y de ahí salieron dos bugs: los chips quedaron pastel cuando ya tenían que ser
         vivos, y al pasar la familia a vivos se llevó puesta la marca de la lista, que tenía que
         quedar pastel.
