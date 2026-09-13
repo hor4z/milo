@@ -192,14 +192,19 @@ export function Reorder<T extends ReorderItem>({ items, onReorder, label, childr
 
   return (
     <>
-      <ul aria-label={label} className={cx('flex flex-col gap-1', className)}>
+      {/* `overflow-anchor: none`: al cambiar el orden cambian las alturas arriba
+          del viewport y el navegador compensa moviendo el scroll solo. En medio
+          de un arrastre eso se ve como que la página salta — medido, 120px. */}
+      <ul aria-label={label} className={cx('flex flex-col gap-1 [overflow-anchor:none]', className)}>
         {items.map((item, i) => (
           <li
             key={item.id}
             ref={el => { filas.current[item.id] = el }}
-            // La ranura: se queda quieta y se pone gris mientras el papel está
-            // levantado, así se ve dónde va a caer.
-            className={cx('rounded-lg', agarrado === item.id && 'bg-muted')}
+            // La ranura: se queda quieta y se tiñe mientras el papel está
+            // levantado, así se ve dónde va a caer. Va en la pista y no en el
+            // gris de superficie: tinta en alpha, así que es el mismo susurro
+            // sobre papel blanco y sobre papel oscuro.
+            className={cx('rounded-lg', agarrado === item.id && 'bg-track')}
           >
           <div
             ref={el => { cuerpos.current[item.id] = el }}
