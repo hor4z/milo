@@ -46,10 +46,14 @@ export function Steps({ steps, current, label, orientation = 'horizontal', onSel
               <span
                 aria-hidden
                 className={cx(
-                  'absolute bg-line-strong',
-                  acostada ? 'left-0 top-[13px] hidden h-px w-1/2 -translate-x-1/2 sm:block' : 'left-[13px] top-0 h-6 w-px -translate-y-6',
+                  'absolute',
+                  acostada ? 'top-[13px] hidden h-px sm:block' : 'left-[13px] top-0 h-6 w-px -translate-y-6',
                   hecha || actual ? 'bg-brand' : 'bg-line-strong',
                 )}
+                // Va de una marca a la siguiente y no media etapa: la marca mide
+                // 28 y arranca en el borde de su columna, así que la línea sale
+                // 28 después de la anterior y frena 8 antes de esta.
+                style={acostada ? { left: 'calc(-100% + 36px)', right: 'calc(100% + 8px)' } : undefined}
               />
             )}
 
