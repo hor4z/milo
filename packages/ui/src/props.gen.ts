@@ -2439,6 +2439,72 @@ export const propsByComponent: Record<string, ComponentDoc> = {
     ],
     "doc": "Pista completa más un arco encima."
   },
+  "Stepper": {
+    "props": [
+      {
+        "name": "value",
+        "type": "number",
+        "required": true,
+        "doc": "El número."
+      },
+      {
+        "name": "onChange",
+        "type": "(v: number) => void",
+        "required": true,
+        "doc": "Recibe el número nuevo, siempre dentro de `min` y `max`."
+      },
+      {
+        "name": "min",
+        "type": "number",
+        "required": false,
+        "def": "0"
+      },
+      {
+        "name": "max",
+        "type": "number",
+        "required": false,
+        "def": "99"
+      },
+      {
+        "name": "step",
+        "type": "number",
+        "required": false,
+        "def": "1",
+        "doc": "Cuánto suben las flechas y los botones."
+      },
+      {
+        "name": "salto",
+        "type": "number",
+        "required": false,
+        "def": "10",
+        "doc": "Cuánto suben Re Pág y Av Pág: para llegar lejos sin apretar veinte veces."
+      },
+      {
+        "name": "label",
+        "type": "string",
+        "required": false,
+        "doc": "De qué es el número. Sin esto lo pone el `Field` de alrededor."
+      },
+      {
+        "name": "suffix",
+        "type": "string",
+        "required": false,
+        "doc": "Lo que va después del número: «min», «pts». No se escribe ni se lee aparte."
+      },
+      {
+        "name": "disabled",
+        "type": "boolean",
+        "required": false
+      },
+      {
+        "name": "width",
+        "type": "number",
+        "required": false,
+        "def": "132"
+      }
+    ],
+    "doc": "Un número chico que se sube y se baja: cuántos intentos, cuántas preguntas, una nota."
+  },
   "Steps": {
     "props": [
       {

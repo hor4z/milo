@@ -26,6 +26,7 @@ import { CodeBlockStory } from './stories/code-block'
 import { HeatmapStory } from './stories/heatmap'
 import { DatePickerStory } from './stories/date-picker'
 import { TreeStory } from './stories/tree'
+import { StepperStory } from './stories/stepper'
 import { CommandMenuStory } from './stories/command-menu'
 import { ToolbarStory } from './stories/toolbar'
 import { StepsStory } from './stories/steps'
@@ -148,6 +149,7 @@ const groups: Group[] = [
       { id: 'radio', label: 'Radio', alias: 'opción única elegir', render: () => <RadioStory /> },
       { id: 'switch', label: 'Switch', alias: 'toggle interruptor prender apagar', render: () => <SwitchStory /> },
       { id: 'slider', label: 'Slider', alias: 'rango deslizar valor', render: () => <SliderStory /> },
+      { id: 'stepper', label: 'Stepper', alias: 'paso número cantidad más menos contador incrementar intentos', render: () => <StepperStory /> },
       { id: 'segmented', label: 'Segmented', alias: 'filtro conmutador pestañas grupo', render: () => <SegmentedStory /> },
     ],
   },

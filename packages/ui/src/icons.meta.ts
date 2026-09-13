@@ -128,6 +128,7 @@ export const iconTags: Record<IconName, string> = {
   receipt_long: "accounting bill business check checkout details document expense",
   redo: "action advancement again arrow backward clockwise command control",
   refresh: "application around arrow arrows browser circular content current",
+  remove: "bar basic can cancel clean clear close cut",
   rocket_launch: "accelerate ascent astronaut boost cosmic exploration fast flight",
   save: "action backup button computer control data disk document",
   schedule: "alarm appointment calendar chronometer clock countdown date deadline",

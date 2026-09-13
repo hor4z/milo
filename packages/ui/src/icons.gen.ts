@@ -127,6 +127,7 @@ export const codepoints = {
   receipt_long: 0xef6e,
   redo: 0xe15a,
   refresh: 0xe5d5,
+  remove: 0xe15b,
   rocket_launch: 0xeb9b,
   save: 0xe161,
   schedule: 0xe8b5,

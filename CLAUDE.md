@@ -4,7 +4,7 @@ El sistema de interfaz de milo: la identidad en tokens, las piezas que la usan, 
 donde se ve todo funcionando. No es una lámina de estilos — cada pieza de acá es el componente
 real, con su teclado, sus estados y sus tests.
 
-**El repo es del design system y de nada más.** El UI kit —las 66 piezas— es una parte; las
+**El repo es del design system y de nada más.** El UI kit —las 67 piezas— es una parte; las
 otras son los tokens y lo que el sitio documenta alrededor. Acá adentro no vive producto: el
 prototipo de la app que hubo hasta ahora se borró, y cuando haga falta uno de nuevo se arma
 aparte.
@@ -18,7 +18,7 @@ final son lo único que hay que tocar.
 npm install
 npm run dev        # el sitio · http://localhost:5190
 npm run typecheck  # todo el monorepo de una
-npm test           # 528 tests con vitest y testing-library
+npm test           # 539 tests con vitest y testing-library
 npm run props      # regenera la tabla de props desde los tipos
 ```
 
@@ -198,7 +198,7 @@ curl -s http://localhost:5190/src/app.css | grep -o '\.text-icon-muted[^}]*}'
 
 ## Agregar un icono
 
-El set son 171 de los más de 3900 de Material Symbols. Agregar uno **no es dibujar un path**, es
+El set son 172 de los más de 3900 de Material Symbols. Agregar uno **no es dibujar un path**, es
 un comando, y el que lo corre no tiene que acordarse de nada:
 
 ```sh
@@ -220,7 +220,7 @@ npm run icons -w @milo/ui -- refresh               # rebaja el catálogo desde G
 La regla: **el set crece solo por `icons add`.** `icons check` corre al lado de `typecheck` y
 falla cuando alguien usa un glifo que no está en el manifiesto — esa mitad sí está cerrada.
 
-La otra mitad no: hoy hay **66 de 171 que no usa ningún call site**, y el chequeo los lista sin
+La otra mitad no: hoy hay **66 de 172 que no usa ningún call site**, y el chequeo los lista sin
 fallar. Medido con `pyftsubset`, sacarlos llevaría la fuente de 64 KB a 27 KB. No se sacaron
 porque la decisión es de quien arma el producto y no de un script: el editor y los gráficos van a
 consumir varios de esos, y volver a traer uno es `icons add`, que tarda lo mismo que leer esta
@@ -243,7 +243,7 @@ Monorepo de npm workspaces. Dos paquetes y una app:
 packages/tokens/src/    la identidad, en CSS puro. Sin Tailwind y sin JS.
 packages/ui/src/        theme.css (el puente) · index.ts (la puerta) ·
                         una carpeta por pieza: button/button.tsx + button/button.test.tsx,
-                        y así las 66 (select, modal, toast, chart, table…)
+                        y así las 67 (select, modal, toast, chart, table…)
                         lib/ lo compartido que no es un componente: cx · colors ·
                         control · tone · esc · overlay-hooks · roving ·
                         side-scroll · dismiss
@@ -328,7 +328,7 @@ Lo mismo vale para los tipos que una pieza recibe como argumento —`ToastOption
 
 ## Los tests
 
-`npm test` corre vitest con jsdom y testing-library. 528 tests, y lo que prueban es el
+`npm test` corre vitest con jsdom y testing-library. 539 tests, y lo que prueban es el
 comportamiento —teclado, nombres accesibles, estados— y no el markup, que cambia con cada
 ajuste de estilo. El test de cada pieza vive en su carpeta, al lado del componente.
 
@@ -372,6 +372,37 @@ rellenos de la familia viva, el glifo de una marca contra su propio pastel, y el
 dato contra su pista — todo en los dos temas. Los tres últimos faltaban, y las tres reglas estaban
 escritas desde antes de que los valores las cumplieran. Si alguien cambia un tono y rompe un par,
 falla antes de llegar a una pantalla.
+
+## Lo que se revisó contra una referencia, y qué se decidió
+
+Se recorrió entero el mapa de una guía de interfaz de referencia —dieciocho fundamentos,
+veinticinco patrones, cincuenta y seis componentes— no para copiarla sino para usarla de lista de
+control: qué problemas de interfaz existen, y cuáles de esos tenemos resueltos. Lo que entró, entró
+adaptado a este sistema y a un producto de aula; lo que no entró, no entró por una razón escrita.
+
+**Ya estaba resuelto** todo lo que tiene vista propia en Fundamentos, más los patrones de
+modalidad, feedback, cargando, ajustes, buscar, audio y gráficos.
+
+**No aplica** y no se va a hacer: iconos de aplicación, experiencias inmersivas, layout espacial,
+pantalla completa, arranque, multitarea, y los catorce componentes que son de un sistema operativo
+—widgets, complicaciones, barra de menú, dock—. Esto corre en un navegador.
+
+**Entró en esta vuelta**, porque el propósito del sistema lo pedía: `Formula` y `CodeBlock` y
+`Heatmap` y `DatePicker` y `Tree` y `Stepper`, más el `Documento` que las prueba juntas.
+
+**Queda afuera por ahora, y esta es la lista corta de lo que falta**, en orden de cuánto lo pide
+un aula:
+
+| | por qué todavía no |
+|---|---|
+| arrastrar y soltar | reordenar bloques de un editor y actividades de una lista. Es la pieza que más se va a extrañar, y es cara: pide una capa de accesibilidad propia —mover con el teclado— o no sirve para media aula |
+| campo de fichas | asignar personas a una entrega. `Chip` ya dibuja la ficha; falta el campo que las arma |
+| menú contextual | el clic derecho sobre un bloque. `Menu` y `Popover` ya están: falta la posición y la tecla de menú |
+| puntuación de rúbrica | corregir con criterios y no con un número. Es más una decisión pedagógica que de interfaz, y todavía no está tomada |
+| imágenes, como fundamento | `Figure` resuelve la pieza; falta la doctrina de proporción, carga y texto alternativo en un solo lugar |
+| deshacer | hoy vive en el `Toast` con acción, que alcanza para una acción por vez y no para un editor |
+| imprimir | un docente imprime una consigna. No hay ni una hoja de estilos de impresión |
+| de derecha a izquierda | no hay plan de idiomas que lo pidan. Si aparece, lo que cambia es el layout y no las piezas |
 
 ## Pendiente
 
