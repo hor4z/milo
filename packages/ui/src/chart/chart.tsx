@@ -101,7 +101,9 @@ export function BarChart({ data, highlight, title, height = 220, className }: {
             key={i}
             className={cx(
               'flex-1 text-center text-body text-ink transition-[font-weight] duration-fast ease-out',
-              i === hover || i === focused || i === highlight ? 'font-bold' : 'font-semibold',
+              // 450 la elegida y 400 el resto: el 600 es de display, y una
+              // etiqueta de 14 en ese escalón pesa más que el número que explica.
+              i === hover || i === focused || i === highlight ? 'font-semibold' : 'font-medium',
             )}
           >
             {d.label}
@@ -144,7 +146,7 @@ function ChartTooltip({ datum, style, align = 'center', clamped }: {
     >
       <div className="flex items-center gap-2">
         <span className="h-3 w-[3px] shrink-0 rounded-full bg-brand" />
-        <span className="tabular text-reading font-bold text-ink">{datum.value}</span>
+        <span className="tabular text-reading font-semibold text-ink">{datum.value}</span>
         <span className="tabular text-meta font-medium text-ink-muted">de {datum.total}</span>
         {datum.detail}
       </div>

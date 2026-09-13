@@ -375,6 +375,10 @@ h1, h2, h3 { font-family: var(--font-sans); font-weight: 400; margin: 0; }
 /* El `th` trae `bold` del navegador. Es un peso que el sistema no tiene, y se
    cuela en cualquier tabla —incluso en una `sr-only`— sin que nadie lo elija. */
 th { font-weight: var(--font-weight-semibold); }
+/* Y `strong` y `b` traen el mismo bold de fábrica: 700, que tampoco existe acá.
+   Una palabra destacada en medio de un párrafo se veía dos escalones más pesada
+   que el énfasis del sistema. */
+strong, b { font-weight: var(--font-weight-semibold); }
 
 /* Los números de un precio o de una métrica se alinean en columna: sin esto, el
    1 es más angosto que el 4 y una tabla de números baila. */

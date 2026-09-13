@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef, useState, type ReactNode } from 'react'
-import { Icon, IconButton, Search, ToastProvider, cx, fold, usePrefs } from '@milo/ui'
+import { Button, EmptyState, Icon, IconButton, Search, ToastProvider, cx, fold, usePrefs } from '@milo/ui'
 import { Intro } from './intro'
 import { Dashboard } from './dashboard'
 import { Principles } from './foundations/principles'
@@ -269,8 +269,8 @@ export function App() {
         >
           <div className="flex flex-col gap-3 px-4 pt-5 pb-3">
             <button onClick={() => go(INTRO)} className="flex items-baseline gap-2 self-start rounded-md px-1 text-left">
-              <span className="text-reading font-bold text-ink">milo</span>
-              <span className="text-meta font-semibold text-ink-muted">design system</span>
+              <span className="text-reading font-semibold text-ink">milo</span>
+              <span className="text-meta font-medium text-ink-muted">design system</span>
             </button>
 
             <Search
@@ -356,6 +356,18 @@ export function App() {
             {current === INTRO && <Intro go={go} views={everything.length} />}
             {current === 'dashboard' && <Dashboard />}
             {story?.render()}
+            {!story && current !== INTRO && current !== 'dashboard' && (
+              // Cada vista es un link que alguien puede tener guardado, y una
+              // pieza que se renombra deja ese link apuntando a nada. Sin esto
+              // el canvas quedaba en blanco, que se lee como que el sitio está
+              // roto y no como que la dirección cambió.
+              <EmptyState
+                icon="search_off"
+                title="Esa vista ya no está acá"
+                body={`No hay ninguna pieza que se llame «${current}». Puede que se haya renombrado: el buscador del riel encuentra por nombre y por sinónimo.`}
+                action={<Button variant="raised" icon="arrow_back" onClick={() => go(INTRO)}>Volver a la introducción</Button>}
+              />
+            )}
           </div>
         </main>
       </div>

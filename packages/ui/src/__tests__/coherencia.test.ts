@@ -134,6 +134,25 @@ describe('coherencia del sistema', () => {
     expect(offenders).toEqual([])
   })
 
+  it('el peso de display solo aparece en tamaño display', () => {
+    // 600 es el peso de la portada y existe para el escalón `display`. A 16px se
+    // lee como negrita y aplasta la escala de énfasis: el número de un tooltip
+    // pesaba más que el título de la pantalla que lo contiene.
+    // Mira línea por línea y no la cadena entera a propósito: la prosa de las
+    // notas usa backticks, así que emparejar comillas a lo largo del archivo se
+    // desincroniza. Un `font-bold` va siempre con su tamaño al lado.
+    const offenders: string[] = []
+    for (const f of sources) {
+      for (const linea of f.text.split('\n')) {
+        if (!/\bfont-bold\b/.test(linea)) continue
+        // El nombre suelto es la clase documentándose, no aplicándose.
+        if (/(['"`])font-bold\1/.test(linea)) continue
+        if (!/\btext-display\b/.test(linea)) offenders.push(`${f.name}: ${linea.trim().slice(0, 56)}`)
+      }
+    }
+    expect(offenders).toEqual([])
+  })
+
   it('todo lo público se exporta desde index.ts', () => {
     const index = readFileSync(join(dir, 'index.ts'), 'utf8')
     const missing: string[] = []

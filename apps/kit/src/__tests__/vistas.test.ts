@@ -61,6 +61,29 @@ describe('las vistas del kit', () => {
     expect([...new Set(offenders)]).toEqual([])
   })
 
+  it('el sitio tampoco usa el peso de display fuera del tamaño display', () => {
+    // El mismo guardián que el del paquete, que mira solo `packages/ui`: el
+    // nombre del sistema en el riel iba a 16 en el peso de la portada. La tabla
+    // de pesos de Tipografía nombra la clase como dato, y ese es el único caso
+    // en el que aparece sin aplicarse.
+    const dir = join(import.meta.dirname, '..')
+    const walk = (base: string, prefix = ''): string[] =>
+      readdirSync(base, { withFileTypes: true }).flatMap(e =>
+        e.isDirectory()
+          ? (e.name === '__tests__' ? [] : walk(join(base, e.name), `${prefix}${e.name}/`))
+          : /\.tsx?$/.test(e.name) ? [`${prefix}${e.name}`] : [],
+      )
+    const offenders: string[] = []
+    for (const f of walk(dir)) {
+      for (const linea of readFileSync(join(dir, f), 'utf8').split('\n')) {
+        if (!/\bfont-bold\b/.test(linea)) continue
+        if (/(['"`])font-bold\1/.test(linea)) continue
+        if (!/\btext-display\b/.test(linea)) offenders.push(`${f}: ${linea.trim().slice(0, 56)}`)
+      }
+    }
+    expect(offenders).toEqual([])
+  })
+
   it('cada portada dice cómo se importa la pieza', () => {
     const withoutImport: string[] = []
     for (const f of files) {
