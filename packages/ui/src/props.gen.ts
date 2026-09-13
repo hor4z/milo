@@ -1392,6 +1392,40 @@ export const propsByComponent: Record<string, ComponentDoc> = {
       }
     ]
   },
+  "Mention": {
+    "props": [
+      {
+        "name": "name",
+        "type": "string",
+        "required": true,
+        "doc": "Lo que se lee: el nombre de la persona o del espacio."
+      },
+      {
+        "name": "src",
+        "type": "string",
+        "required": false,
+        "doc": "La foto, para una persona. Sin ella se dibuja la inicial sobre su color."
+      },
+      {
+        "name": "icon",
+        "type": "IconName",
+        "required": false,
+        "doc": "El glifo, para lo que no es una persona: un espacio, una actividad."
+      },
+      {
+        "name": "href",
+        "type": "string",
+        "required": false,
+        "doc": "Adónde lleva. Sin esto es texto y no un enlace."
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "required": false
+      }
+    ],
+    "doc": "Una referencia adentro del texto: quién o qué. Va en el renglón, no lo interrumpe."
+  },
   "Menu": {
     "props": [
       {
