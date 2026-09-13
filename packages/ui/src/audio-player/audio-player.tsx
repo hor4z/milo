@@ -187,11 +187,11 @@ export function AudioPlayer({ src, title, peaks, actions, size = 'md', className
             <IconButton
               icon={sonando ? 'pause' : 'play_arrow'}
               label={sonando ? 'Pausar' : 'Reproducir'}
-              variant="solid"
+              variant="raised"
               size={size}
               disabled={estado === 'error'}
               onClick={alternar}
-              className="shrink-0"
+              className="icon-filled shrink-0"
             />
           )}
 
