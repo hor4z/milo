@@ -6,6 +6,7 @@ import {
 import { A11y, Canvas, Note, Page, Props, Section } from '../kit'
 
 export function SheetStory() {
+  const [fuera, setFuera] = useState(true)
   const [open, setOpen] = useState(false)
   const [leftOpen, setLeftOpen] = useState(false)
   const { toast } = useToast()
@@ -39,7 +40,7 @@ export function SheetStory() {
                 <Textarea rows={4} maxRows={10} />
               </Field>
               <Field label="Entregas fuera de fecha" hint="Permitir que entreguen después del cierre">
-                <Switch checked onChange={() => {}} label="Entregas fuera de fecha" />
+                <Switch checked={fuera} onChange={setFuera} label="Entregas fuera de fecha" />
               </Field>
             </FieldSet>
           </SheetBody>

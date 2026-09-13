@@ -3,6 +3,8 @@ import { Checkbox, Field, FieldSet, Select, Switch, TextField, Textarea } from '
 import { A11y, Canvas, Note, Page, Props, Section } from '../kit'
 
 export function FieldStory() {
+  const [fueraDeFecha, setFueraDeFecha] = useState(true)
+  const [avisar, setAvisar] = useState(true)
   const [name, setName] = useState('')
   const [touched, setTouched] = useState(false)
   const error = touched && !name.trim() ? 'Poné un nombre para la actividad' : undefined
@@ -45,10 +47,10 @@ export function FieldStory() {
               <Select value="Matemática · 4.º A" options={['Matemática · 4.º A', 'Lengua · 6.º']} />
             </Field>
             <Field label="Entregas fuera de fecha" hint="Permitir que entreguen después del cierre">
-              <Switch checked onChange={() => {}} label="Entregas fuera de fecha" />
+              <Switch checked={fueraDeFecha} onChange={setFueraDeFecha} label="Entregas fuera de fecha" />
             </Field>
             <Field label="Avisar al publicar">
-              <Checkbox checked onChange={() => {}} label="Avisar al publicar" />
+              <Checkbox checked={avisar} onChange={setAvisar} label="Avisar al publicar" />
             </Field>
           </div>
         </Canvas>

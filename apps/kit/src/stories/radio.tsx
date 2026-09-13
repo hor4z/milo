@@ -3,6 +3,7 @@ import { Checkbox, Radio, RadioGroup } from '@milo/ui'
 import { A11y, Page, Panel, Props, Section, Variant } from '../kit'
 
 export function RadioStory() {
+  const [comparado, setComparado] = useState(true)
   const [one, setOne] = useState<'a' | 'b'>('b')
   const [mode, setMode] = useState<'todas' | 'abiertas' | 'cerradas'>('abiertas')
   const [loose, setLoose] = useState<'si' | 'no'>('si')
@@ -52,8 +53,8 @@ export function RadioStory() {
             <Radio checked={withHint} onChange={() => setWithHint(true)} label="Prendido" />
             <Radio checked={!withHint} onChange={() => setWithHint(false)} label="Apagado" />
             <span className="ml-4 inline-flex items-center gap-3">
-              <Checkbox checked onChange={() => {}} label="Checkbox prendido" />
-              <Checkbox checked={false} onChange={() => {}} label="Checkbox apagado" />
+              <Checkbox checked={comparado} onChange={setComparado} label="Checkbox prendido" />
+              <Checkbox checked={!comparado} onChange={v => setComparado(!v)} label="Checkbox apagado" />
             </span>
           </Variant>
         </Panel>
