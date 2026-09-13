@@ -51,7 +51,7 @@ export function HeatmapStory() {
         justamente la pieza que más fácil lo incumple. Acá el nivel sube el relleno y el tono a la
         vez, igual que una barra: en blanco y negro, con cualquier daltonismo o con el brillo bajo,
         la altura sigue diciendo lo mismo. Y en cada celda el nivel está escrito, aunque no se vea.
-        El azul es el de dato y no el de marca —el mismo del `LineChart`— porque el de marca está
+        El azul sale de `--chart-fill` y no del de marca, por lo que dice Color: el de marca está
         anclado para que el blanco encima se lea, y sobre fondo oscuro eso aplanaba la escala.
       </Note>
 

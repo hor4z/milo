@@ -22,7 +22,7 @@ export function ProgressStory() {
 
       <Section
         title="El tono dice algo, no decora"
-        note="El default es el azul de marca y sirve para todo lo que avanza. `ok` es para lo que se completó, y `warn` y `bad` solo cuando llenar la barra es el problema —una cuota, un espacio que se acaba—. Una lista de cuatro barras en cuatro colores distintos se lee como un semáforo y deja de leerse como progreso."
+        note="El default es el azul de dato —no el de marca, aunque en claro sean el mismo— y sirve para todo lo que avanza. `ok` es para lo que se completó, y `warn` y `bad` solo cuando llenar la barra es el problema —una cuota, un espacio que se acaba—. Una lista de cuatro barras en cuatro colores distintos se lee como un semáforo y deja de leerse como progreso."
       >
         <div className="flex flex-col gap-5 rounded-xl border border-line bg-surface p-5">
           <Progress label="Espacio usado" value={92} max={100} hint="92%" tone="warn" />

@@ -58,7 +58,19 @@ export function ColorSection() {
           <Swatch token="--edge" note="el filo de algo que sobresale" />
           <Swatch token="--field-border" note="la línea de un campo, en tinta" />
           <Swatch token="--focus-border" note="el borde de un campo enfocado" />
-          <Swatch token="--track" note="la pista de una barra de progreso" />
+        </div>
+      </Section>
+
+      <Section
+        title="Los rellenos de un dato"
+        note="La pista es lo que había para hacer y el relleno es lo hecho. **No son los tonos de estado aunque en claro coincidan**: un tono de estado está anclado donde el blanco encima se lee, que es lo que necesita un botón; un relleno de dato no lleva texto encima y lo que necesita es despegarse de su pista. En oscuro los dos requisitos dejan de coincidir, y ahí el azul y el rojo suben."
+      >
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          <Swatch token="--track" note="lo que había para hacer" />
+          <Swatch token="--chart-fill" note="lo hecho, el default" />
+          <Swatch token="--chart-ok" note="lo terminado" />
+          <Swatch token="--chart-warn" note="lo que está por llenarse" />
+          <Swatch token="--chart-bad" note="lo que ya no entra" />
         </div>
       </Section>
 
@@ -77,7 +89,7 @@ export function ColorSection() {
 
       <Section
         title="El azul, y cuándo"
-        note="Es la excepción más usada y la más acotada: el botón que manda, el arco del spinner, el anillo del foco y el relleno de una barra de progreso. solid y brand son el mismo rol —el botón que manda— así que va uno o el otro, nunca los dos en la misma pantalla."
+        note="Es la excepción más usada y la más acotada: el botón que manda, el arco del spinner y el anillo del foco. El relleno de una barra ya no sale de acá —tiene su propio rol, arriba— porque este azul está anclado para que el blanco encima se lea, y eso sobre fondo oscuro lo deja pegado a la pista. solid y brand son el mismo rol, así que va uno o el otro, nunca los dos en la misma pantalla."
       >
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           <Swatch token="--solid" note="el botón en tinta" />
