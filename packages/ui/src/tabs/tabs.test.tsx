@@ -4,6 +4,23 @@ import { describe, expect, it, vi } from 'vitest'
 import { Tab, TabList, TabPanel, Tabs } from './tabs'
 
 describe('Tabs', () => {
+  it('la lista de solapas tiene nombre, y Home y End van a los extremos', async () => {
+    render(
+      <Tabs defaultValue="a">
+        <TabList label="Secciones de la actividad">
+          <Tab value="a">A</Tab><Tab value="b">B</Tab><Tab value="c">C</Tab>
+        </TabList>
+        <TabPanel value="a">uno</TabPanel>
+      </Tabs>,
+    )
+    expect(screen.getByRole('tablist', { name: 'Secciones de la actividad' })).toBeInTheDocument()
+    screen.getByRole('tab', { name: 'A' }).focus()
+    await userEvent.keyboard('{End}')
+    expect(screen.getByRole('tab', { name: 'C' })).toHaveFocus()
+    await userEvent.keyboard('{Home}')
+    expect(screen.getByRole('tab', { name: 'A' })).toHaveFocus()
+  })
+
   const Demo = () => (
     <Tabs defaultValue="a">
       <TabList>

@@ -2505,7 +2505,14 @@ export const propsByComponent: Record<string, ComponentDoc> = {
     "doc": "Paneles hermanos donde solo se ve uno. Controlado o no, como el resto."
   },
   "TabList": {
-    "props": [],
+    "props": [
+      {
+        "name": "label",
+        "type": "string",
+        "required": false,
+        "doc": "De qué son estas solapas. Sin esto un lector las anuncia como «lista de solapas» y con dos en una pantalla no se distinguen."
+      }
+    ],
     "html": "div",
     "doc": "La fila de solapas. Las flechas se mueven entre ellas, como pide un tablist."
   },

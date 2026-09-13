@@ -15,7 +15,7 @@ export function TabsStory() {
       >
         <Canvas>
           <Tabs defaultValue="entregas">
-            <TabList>
+            <TabList label="Secciones de la actividad">
               <Tab value="entregas">Entregas</Tab>
               <Tab value="rubrica">Rúbrica</Tab>
               <Tab value="ajustes">Ajustes</Tab>
@@ -39,7 +39,7 @@ export function TabsStory() {
       >
         <Canvas>
           <Tabs defaultValue="semana" onValueChange={() => {}}>
-            <TabList>
+            <TabList label="Rango del panel">
               <Tab value="semana">Esta semana</Tab>
               <Tab value="mes">Este mes</Tab>
               <Tab value="todo">Todo</Tab>
