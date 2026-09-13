@@ -14,6 +14,7 @@ import { StatesSection } from './foundations/states'
 import { InclusionSection } from './foundations/inclusion'
 import { NumbersSection } from './foundations/numbers'
 import { RolesSection } from './foundations/roles'
+import { SoundSection } from './foundations/sound'
 import { TimeSection } from './foundations/time'
 import { AudioPlayerStory } from './stories/audio-player'
 import { ChartsSection } from './foundations/charts'
@@ -100,6 +101,7 @@ const groups: Group[] = [
       { id: 'icon', label: 'Iconos', alias: 'iconos glifos símbolos', render: () => <IconStory /> },
       { id: 'charts', label: 'Gráficos', alias: 'gráficos datos barras línea ejes leyenda visualización', render: () => <ChartsSection /> },
       { id: 'time', label: 'Fecha y hora', alias: 'fecha hora tiempo zona huso timezone reloj duración vencimiento relativo formato', render: () => <TimeSection /> },
+      { id: 'sound', label: 'Voz y sonido', alias: 'voz sonido audio velocidad volumen silencio subtítulos transcripción escuchar lectura hablada', render: () => <SoundSection /> },
       { id: 'numbers', label: 'Números y valores', alias: 'números cifras decimales coma porcentaje unidades tamaño rango cantidades tabular', render: () => <NumbersSection /> },
       { id: 'writing', label: 'Cómo se escribe', alias: 'texto redacción copy mensajes tono escritura', render: () => <Writing /> },
       { id: 'inclusion', label: 'Inclusión', alias: 'inclusión género lenguaje nombres personas diversidad edtech', render: () => <InclusionSection /> },
