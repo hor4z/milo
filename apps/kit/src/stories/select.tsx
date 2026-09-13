@@ -34,7 +34,9 @@ export function SelectStory() {
           <Demo label="al ancho del contenido">
             <Select value={subject} onChange={setSubject} options={['Matemática', 'Lengua', 'Ciencias', 'Geografía', 'Convivencia']} />
           </Demo>
-          <div className="w-full max-w-[300px]">
+          {/* 280 de select más los 24 de aire de cada lado de la caja: con 300
+              la demo le cortaba los cantos a la pieza que está mostrando. */}
+          <div className="w-full max-w-[328px]">
             <Demo label="valor largo · se trunca">
               <Select
                 value={long}

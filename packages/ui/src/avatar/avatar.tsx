@@ -21,7 +21,10 @@ export function Avatar({ name, src, size = 40, className }: {
       className={cx('mark relative inline-flex items-center justify-center overflow-hidden rounded-full font-semibold select-none', fill, className)}
       // La inicial es el 30% del disco, con piso de 10: abajo del piso del
       // sistema a propósito, porque es una marca y no un texto — nadie la lee.
-      style={{ width: size, height: size, fontSize: Math.max(10, Math.round(size * 0.3)) }}
+      // El interlineado va en 1 y no heredado: adentro de un párrafo la caja de
+      // línea medía 24 dentro de un disco de 16, y que quede centrada dependía
+      // de la flex y no del disco.
+      style={{ width: size, height: size, fontSize: Math.max(10, Math.round(size * 0.3)), lineHeight: 1 }}
       aria-hidden="true"
     >
       {initials}
@@ -67,7 +70,7 @@ export function AvatarGroup({
       {rest > 0 && (
         <span
           className={cx('-ml-[var(--overlap)] inline-flex items-center justify-center rounded-full bg-sunken font-semibold text-ink-muted ring-2', ring)}
-          style={{ width: size, height: size, fontSize: Math.max(10, Math.round(size * 0.3)) }}
+          style={{ width: size, height: size, fontSize: Math.max(10, Math.round(size * 0.3)), lineHeight: 1 }}
         >
           +{rest}
         </span>
