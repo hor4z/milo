@@ -30,6 +30,12 @@ export function ReliefSection() {
         al relieve de una carga que no le correspondía: ya no tiene que decir <em>si</em> algo
         existe, solo <strong className="font-semibold text-ink">cuánto se levanta</strong>. Es la
         razón por la que las sombras de abajo son tan bajas y funcionan igual.
+        {' '}
+        Eso vale mientras la pieza se apoye en la página. Una tarjeta adentro de otra superficie
+        de papel vuelve al problema del principio: los dos fondos son el mismo tono y la sombra,
+        que es del 5%, no alcanza para decir dónde empieza. Por eso la <code>Card</code> lleva su
+        línea siempre. La sombra dice cuánto se levanta y la línea dice que existe, que son dos
+        trabajos distintos y no se reemplazan.
       </Note>
 
       <Section title="Las recetas que se tocan">

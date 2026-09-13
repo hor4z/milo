@@ -12,7 +12,7 @@ export type ToastOptions = {
   title: string
   /** El detalle, cuando el título no alcanza. */
   body?: string
-  /** El mismo juego de tonos que `Alert` y `Badge`. */
+  /** El mismo juego de tonos que `Alert` y `Chip`. */
   tone?: Tone
   /** La salida del aviso: deshacer, ver, reintentar. Al tocarla el aviso se cierra. */
   action?: { label: string; onClick?: () => void }

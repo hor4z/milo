@@ -32,7 +32,3 @@ export const toneClass: Record<Tone, string> = {
   bad: 'bg-bad-subtle text-bad-ink',
 }
 
-export const badgeTone: Record<Tone | 'neutral', string> = {
-  neutral: 'bg-muted text-ink',
-  ...toneClass,
-}

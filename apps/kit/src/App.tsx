@@ -64,7 +64,6 @@ import { LinkStory } from './stories/link'
 import { TabsStory } from './stories/tabs'
 import { AccordionStory } from './stories/accordion'
 import { BreadcrumbStory } from './stories/breadcrumb'
-import { BadgeStory } from './stories/badge'
 import { IndicatorStory } from './stories/indicator'
 import { SearchStory } from './stories/search'
 import { ColumnPickerStory } from './stories/column-picker'
@@ -166,7 +165,6 @@ const groups: Group[] = [
       { id: 'bar-chart', label: 'BarChart', alias: 'gráfico barras chart datos progreso', render: () => <ChartStory /> },
       { id: 'column-picker', label: 'ColumnPicker', alias: 'columnas tabla elegir mostrar ocultar', render: () => <ColumnPickerStory /> },
       { id: 'indicator', label: 'Indicator', alias: 'indicador marca punto contador aviso notificación campana', render: () => <IndicatorStory /> },
-      { id: 'badge', label: 'Badge', alias: 'etiqueta marca estado', render: () => <BadgeStory /> },
       { id: 'progress', label: 'Progress', alias: 'progreso barra porcentaje avance', render: () => <ProgressStory /> },
       { id: 'audio-player', label: 'AudioPlayer', alias: 'audio reproductor sonido onda waveform grabación consigna mp3', render: () => <AudioPlayerStory /> },
       { id: 'skeleton', label: 'Skeleton', alias: 'esqueleto carga hueco placeholder', render: () => <SkeletonStory /> },

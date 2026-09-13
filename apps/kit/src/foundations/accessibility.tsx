@@ -1,4 +1,4 @@
-import { Badge, Button, Field, Icon, Kbd, TextField } from '@milo/ui'
+import { Button, Chip, Field, Icon, Kbd, TextField } from '@milo/ui'
 import { A11y, Note, Page, Section } from '../kit'
 
 /** Las reglas del sistema, no las de cada pieza: lo de cada pieza está en su vista. */
@@ -85,7 +85,7 @@ export function AccessibilitySection() {
             <div key={size as string} className="flex flex-wrap items-center gap-4 rounded-xl border border-line bg-surface px-5 py-4">
               <code className="w-10 shrink-0 font-mono text-meta font-semibold text-ink">{size}</code>
               <span className="w-14 shrink-0 tabular text-body text-ink">{px}px</span>
-              <Badge tone={tone as 'ok'}>≥ 24</Badge>
+              <Chip size="sm" color={tone as 'ok'}>≥ 24</Chip>
               <span className="min-w-0 flex-1 text-meta text-ink-muted">{nota}</span>
             </div>
           ))}

@@ -32,4 +32,11 @@ describe('Card', () => {
     const { container } = render(<Card surface="muted">x</Card>)
     expect((container.firstChild as HTMLElement).className).toContain('bg-muted')
   })
+
+  it('el papel lleva su línea: adentro de otra superficie la sombra sola no dice dónde empieza', () => {
+    const { container, rerender } = render(<Card>x</Card>)
+    expect((container.firstChild as HTMLElement).className).toContain('border-line')
+    rerender(<Card surface="muted">x</Card>)
+    expect((container.firstChild as HTMLElement).className).not.toContain('border-line')
+  })
 })

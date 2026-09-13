@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import {
-  Avatar, AvatarGroup, BarChart, Badge, Button, Card, Dropdown, Folder, Icon, IconButton,
+  Avatar, AvatarGroup, BarChart, Button, Card, Chip, Dropdown, Folder, Icon, IconButton,
   Indicator, Link, List, ListItem, Progress, Search, Segmented, SettingsModal, Tooltip, useToast,
   type IconName,
 } from '@milo/ui'
@@ -133,7 +133,7 @@ export function Dashboard() {
                 <h2 className="text-reading font-semibold text-ink">Corregidas sobre entregadas</h2>
                 <p className="text-body font-medium text-ink-muted">El azul es lo corregido; el gris, lo que entró</p>
               </div>
-              <Badge tone="ok" icon="trending_up">84%</Badge>
+              <Chip size="sm" color="ok" icon="trending_up">84%</Chip>
             </div>
             <BarChart
               title="Corregidas sobre entregadas"

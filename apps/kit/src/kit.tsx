@@ -1,5 +1,5 @@
 import { Children, useEffect, useState, type ReactNode } from 'react'
-import { Badge, Icon, cx, type IconName } from '@milo/ui'
+import { Chip, Icon, cx, type IconName } from '@milo/ui'
 import { propsByComponent } from '@milo/ui/props'
 
 export function useTokens(names: readonly string[]) {
@@ -56,7 +56,7 @@ export function Page({ title, lead, imports, kind, children }: PageProps) {
       <header className="flex flex-col gap-4 border-b border-line pb-8">
         <div className="flex flex-wrap items-center gap-2">
           <h1 className="text-display font-bold text-ink">{title}</h1>
-          {kind && <Badge>{kind}</Badge>}
+          {kind && <Chip size="sm">{kind}</Chip>}
         </div>
         <p className="max-w-[68ch] text-reading font-medium text-ink-muted"><Rich text={lead} /></p>
         {imports && <Code>{imports}</Code>}

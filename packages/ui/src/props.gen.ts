@@ -197,25 +197,6 @@ export const propsByComponent: Record<string, ComponentDoc> = {
     ],
     "doc": "Varias personas en el lugar de una."
   },
-  "Badge": {
-    "props": [
-      {
-        "name": "tone",
-        "type": "Tone | 'neutral'",
-        "required": false,
-        "def": "'neutral'",
-        "doc": "En qué estado está lo que describe. `neutral` es una etiqueta y no un estado, y es el que más se usa."
-      },
-      {
-        "name": "icon",
-        "type": "IconName",
-        "required": false,
-        "doc": "El glifo que acompaña al texto, a la izquierda."
-      }
-    ],
-    "html": "span",
-    "doc": "Una marca chica que dice en qué estado está algo."
-  },
   "Book": {
     "props": [
       {
@@ -550,9 +531,16 @@ export const propsByComponent: Record<string, ComponentDoc> = {
       },
       {
         "name": "color",
-        "type": "LabelColor",
+        "type": "ChipColor",
         "required": false,
-        "doc": "Uno de los seis tonos, en su par suave; sin esto va gris."
+        "doc": "Uno de los seis de categoría o uno de los cuatro de estado; sin esto va gris."
+      },
+      {
+        "name": "size",
+        "type": "'sm' | 'md'",
+        "required": false,
+        "def": "'md'",
+        "doc": "`sm` es la marca pegada a un título; `md` es la etiqueta de una fila de filtros."
       },
       {
         "name": "icon",
@@ -585,7 +573,7 @@ export const propsByComponent: Record<string, ComponentDoc> = {
         "doc": "Lo convierte en <button>."
       }
     ],
-    "doc": "El chip: 28 de alto y radio 10. Identifica (una categoría, una persona, un espacio); si el texto cambia según lo que pasó, es un `Badge`."
+    "doc": "La marca chica de texto: el estado de una actividad, el nombre de una categoría, de un método o de una persona."
   },
   "ColumnPicker": {
     "props": [
@@ -2820,7 +2808,7 @@ export const propsByComponent: Record<string, ComponentDoc> = {
         "name": "tone",
         "type": "Tone",
         "required": false,
-        "doc": "El mismo juego de tonos que `Alert` y `Badge`."
+        "doc": "El mismo juego de tonos que `Alert` y `Chip`."
       },
       {
         "name": "action",
