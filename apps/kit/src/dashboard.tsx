@@ -236,8 +236,13 @@ function Avisos() {
 }
 
 /**
- * Otto flota adelante de todo, apoyado en la esquina de la tarjeta. Va suelto y
- * sin caja: el WebP tiene alfa, así que no hay rectángulo que esconder.
+ * Otto asomando por el canto derecho de la tarjeta. El recorte lo deja cortado
+ * justo donde estaba el panel del render, así que `left-full` es obligatorio:
+ * su borde izquierdo tiene que caer exactamente sobre el canto, o el corte se
+ * lee como un pedazo que falta.
+ *
+ * Solo de `xl` para arriba, que es cuando sobra lugar a la derecha de la grilla.
+ * Más angosto que eso no entra y empujaría la página.
  *
  * Es un `img` y no un `video`, y eso tiene un costo: no se puede pausar ni
  * frenar desde el teclado. Por eso `useQuieto` no lo atenúa, lo saca.
@@ -250,7 +255,7 @@ function Otto() {
       src="/mascotas/otto-anima.webp"
       alt=""
       aria-hidden
-      className="pointer-events-none absolute -top-20 right-2 z-20 h-40 w-auto"
+      className="pointer-events-none absolute left-full top-12 z-20 hidden h-32 w-auto xl:block"
     />
   )
 }

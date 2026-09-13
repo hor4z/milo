@@ -34,29 +34,36 @@ export function OttoStory() {
 
       <Section
         title="En movimiento"
-        note="Diez segundos, sin audio y recortado: entra corriendo desde afuera de cuadro, frena y se queda. Va en las pantallas donde la persona está esperando o recién llega — nunca en una donde está haciendo algo, porque algo que se mueve al lado de lo que estás leyendo se lleva la atención y no la devuelve."
+        note="Se asoma por el canto de una tarjeta, se agarra con las dos manos, mira y se vuelve a esconder. No entra ni sale de la pantalla: aparece donde ya hay algo, que es lo que lo deja convivir con una vista de trabajo sin pelearle la atención."
       >
         <div className="flex flex-wrap items-start gap-6">
-          <div className="flex justify-center rounded-xl bg-sunken p-4">
+          <div className="relative flex h-[280px] w-[220px] shrink-0 justify-end rounded-xl border border-line bg-surface p-4">
+            <span className="text-meta text-ink-muted">una tarjeta cualquiera</span>
             {quieto
-              ? <img src="/mascotas/otto.webp" alt="Otto, quieto: pediste menos movimiento" className="h-[280px] w-auto" />
-              : <img src="/mascotas/otto-anima.webp" alt="" aria-hidden className="h-[280px] w-auto" />}
+              ? <img src="/mascotas/otto.webp" alt="Otto, quieto: pediste menos movimiento" className="absolute left-full top-8 h-32 w-auto" />
+              : <img src="/mascotas/otto-anima.webp" alt="" aria-hidden className="absolute left-full top-8 h-32 w-auto" />}
           </div>
           <div className="flex min-w-0 flex-1 flex-col gap-3">
+            <p className="max-w-[52ch] text-body text-ink">
+              El recorte lo deja cortado justo donde estaba el panel del render, así que su borde
+              izquierdo tiene que caer exactamente sobre el canto de algo. Con
+              <code>left-full</code> apoya; corrido un poco, el corte se lee como un pedazo que
+              falta.
+            </p>
             <p className="max-w-[52ch] text-body text-ink-muted">
-              Tiene alfa, así que se apoya sobre cualquier superficie: acá está sobre el fondo
-              hundido y no adentro de una caja con borde. El fondo gris del original se sacó por
-              conectividad y no con un croma plano — un umbral de color le abría agujeros en la
-              panza y en los ojos, que son casi tan claros como el fondo.
+              Tiene alfa, así que no va adentro de una caja: se apoya sobre cualquier superficie. El
+              fondo gris del original se sacó por conectividad y no con un croma plano — un umbral
+              de color le abría agujeros en la panza y en los ojos, que son casi tan claros como el
+              fondo.
             </p>
             <p className="max-w-[52ch] text-body text-ink-muted">
               El costo de tener alfa es que es un <code>img</code> y no un <code>video</code>: pesa
-              el doble que el mp4 que reemplazó y no se puede pausar. Por eso quien pidió menos
-              movimiento no lo ve atenuado, lo ve reemplazado por el retrato.
+              más que un mp4 y no se puede pausar. Por eso quien pidió menos movimiento no lo ve
+              atenuado, lo ve reemplazado por el retrato.
             </p>
             <p className="max-w-[52ch] text-meta text-ink-muted">
-              La receta está en <code>apps/kit/scripts/recortar-mascota.py</code>. Los clips de
-              Amelia todavía no pasaron por ahí: siguen trayendo su fondo.
+              Se genera con <code>npm run mascotas -- animar</code>. Los clips de Amelia todavía no
+              pasaron por ahí: siguen trayendo su fondo.
             </p>
           </div>
         </div>
@@ -99,7 +106,7 @@ export function OttoStory() {
         <div className="flex flex-col overflow-hidden rounded-xl border border-line bg-surface">
           {[
             ['/mascotas/otto.webp', '686 × 1200 · 150 KB', 'El retrato, con alfa. Se apoya en cualquier superficie.'],
-            ['/mascotas/otto-anima.webp', '162 × 240 · 10 s · 466 KB', 'El bucle, con alfa. 120 cuadros a 12 por segundo.'],
+            ['/mascotas/otto-anima.webp', '105 × 200 · 9 s · 393 KB', 'El bucle, con alfa. 107 cuadros a 12 por segundo.'],
           ].map(([ruta, peso, nota]) => (
             <div key={ruta} className="flex flex-wrap items-center gap-x-5 gap-y-1 border-t border-line px-5 py-4 first:border-t-0">
               <code className="w-56 shrink-0 font-mono text-meta font-semibold text-ink">{ruta}</code>

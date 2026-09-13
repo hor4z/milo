@@ -154,24 +154,38 @@ def revisar(fuente: Path, salida: Path | None, claro: int | None) -> None:
     print('Si le falta un pedazo subí el umbral con --claro; si queda fondo, bajalo.')
 
 
-def animar(fuente: Path, nombre: str, claro: int | None) -> None:
+def animar(fuente: Path, nombre: str, claro: int | None, desde: int) -> None:
     herramientas('ffprobe', 'ffmpeg', 'img2webp')
     piezas = [alto_de(recortar(c, claro or umbral(c)), ALTO_ANIMA) for c in cuadros(fuente, FPS)]
     if not piezas:
         sys.exit(f'{fuente} no tiene cuadros')
 
-    # Lo que está vacío en los ciento veinte cuadros no hace falta guardarlo.
-    cajas = [c for c in (p.getbbox() for p in piezas) if c]
-    if not cajas:
+    # Estos renders a veces traen una toma suelta pegada al principio, que no es
+    # parte de la animación. No se puede detectar sola —no está vacía, es otra
+    # pose— así que se dice cuántos cuadros tirar.
+    piezas = piezas[desde:]
+
+    # Los cuadros del principio y del final en los que todavía no entró o ya se
+    # fue son bytes que nadie mira, y en un bucle son una pausa muerta.
+    cajas = [p.getbbox() for p in piezas]
+    llenos = [i for i, c in enumerate(cajas) if c]
+    if not llenos:
         sys.exit('el recorte se llevó todo: probá bajando --claro')
-    arriba, abajo = min(c[1] for c in cajas) // 2 * 2, max(c[3] for c in cajas)
+    vacios = len(piezas) - len(range(llenos[0], llenos[-1] + 1))
+    piezas, cajas = piezas[llenos[0]:llenos[-1] + 1], cajas[llenos[0]:llenos[-1] + 1]
+
+    # Y el aire que le sobra alrededor tampoco. El recorte deja el borde del alfa
+    # pegado a la mascota, que es lo que la deja apoyar contra el canto de una
+    # tarjeta sin adivinar cuánto margen trae adentro.
+    caja = (min(c[0] for c in cajas) // 2 * 2, min(c[1] for c in cajas) // 2 * 2,
+            max(c[2] for c in cajas), max(c[3] for c in cajas))
 
     taller = DESTINO / f'.{nombre}'
     taller.mkdir(parents=True, exist_ok=True)
     archivos = []
     for i, p in enumerate(piezas):
         ruta = taller / f'{i:04d}.png'
-        p.crop((0, arriba, p.width, abajo)).save(ruta)
+        p.crop(caja).save(ruta)
         archivos.append(str(ruta))
 
     destino = DESTINO / f'{nombre}-anima.webp'
@@ -180,8 +194,9 @@ def animar(fuente: Path, nombre: str, claro: int | None) -> None:
                    check=True, capture_output=True)
     shutil.rmtree(taller)
     im = Image.open(destino)
+    sobras = f'  ({desde} tirado{"s" if desde != 1 else ""} adelante, {vacios} vacío{"s" if vacios != 1 else ""} recortado{"s" if vacios != 1 else ""})' if desde or vacios else ''
     print(f'{destino.name}  {im.width} × {im.height}  {len(piezas)} cuadros a {FPS}/s  '
-          f'{destino.stat().st_size:,} bytes')
+          f'{destino.stat().st_size:,} bytes{sobras}')
 
 
 def retrato(fuente: Path, nombre: str, claro: int | None, segundo: float) -> None:
@@ -237,6 +252,7 @@ def main() -> None:
     a.add_argument('fuente', type=Path)
     a.add_argument('nombre')
     a.add_argument('--claro', type=int)
+    a.add_argument('--desde', type=int, default=0, help='cuántos cuadros del principio tirar')
 
     t = sub.add_parser('retrato', help='imagen o video → retrato con alfa')
     t.add_argument('fuente', type=Path)
@@ -253,7 +269,7 @@ def main() -> None:
     if args.orden == 'revisar':
         revisar(args.fuente, args.salida, args.claro)
     elif args.orden == 'animar':
-        animar(args.fuente, args.nombre, args.claro)
+        animar(args.fuente, args.nombre, args.claro, args.desde)
     elif args.orden == 'retrato':
         retrato(args.fuente, args.nombre, args.claro, args.segundo)
     else:
