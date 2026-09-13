@@ -3,12 +3,12 @@ import { A11y, Note, Page, Panel, Props, Section, Variant } from '../kit'
 
 /** Salen de `python3 apps/kit/scripts/picos.py apps/kit/public/audio/consigna.mp3 --barras 72`. */
 const picos = [
-  0.401, 0.569, 0.389, 0.868, 0.533, 0.475, 1.000, 0.614, 0.376, 0.427, 0.726, 0.445,
-  0.540, 0.783, 0.480, 0.778, 1.000, 0.649, 0.399, 0.245, 0.231, 0.841, 0.518, 0.462,
-  0.924, 0.562, 0.575, 0.973, 0.599, 0.368, 0.518, 0.778, 0.478, 0.722, 0.989, 0.606,
-  0.372, 0.228, 0.705, 0.864, 0.528, 0.324, 0.652, 0.703, 0.430, 0.766, 0.758, 0.464,
-  1.000, 0.998, 0.610, 0.374, 0.230, 0.141, 0.098, 0.760, 0.473, 0.376, 0.931, 0.572,
-  0.571, 1.000, 0.710, 0.435, 0.267, 0.163, 0.099, 0.060, 0.037, 0.016, 0.000, 0.000,
+  0.770, 0.921, 0.855, 1.000, 0.455, 0.916, 1.000, 0.944, 0.967, 0.222, 0.553, 0.741,
+  0.996, 0.594, 0.357, 0.163, 0.002, 0.391, 0.538, 1.000, 0.403, 0.743, 0.613, 0.402,
+  0.590, 0.638, 0.901, 0.383, 0.230, 0.353, 1.000, 0.189, 0.008, 0.000, 0.000, 0.000,
+  0.000, 0.000, 0.646, 0.651, 0.679, 0.375, 0.630, 0.634, 0.643, 0.758, 0.175, 0.000,
+  0.000, 0.000, 0.000, 0.583, 0.569, 0.562, 0.610, 0.731, 0.838, 0.573, 0.086, 0.537,
+  0.144, 0.000, 0.702, 0.236, 0.829, 0.570, 0.945, 0.027, 0.084, 0.002, 0.000, 0.000,
 ] as const
 
 const AUDIO = '/audio/consigna.mp3'
@@ -23,11 +23,11 @@ export function AudioPlayerStory() {
     >
       <Section
         title="La pieza"
-        note="La onda no es decoración: es el archivo. Se ve dónde hay voz y dónde hay silencio, así que se puede saltar a la parte que importa sin escuchar todo."
+        note="La onda no es decoración: es el archivo. Los dos huecos de esta consigna son las pausas entre frases, así que se ve cuántas cosas se piden y se puede volver a la segunda sin escuchar la primera de nuevo."
       >
         <Panel>
           <Variant name="con onda y nombre">
-            <AudioPlayer src={AUDIO} title="Consigna · Lengua 6.º" peaks={picos} className="max-w-[520px]" />
+            <AudioPlayer src={AUDIO} title="Consigna · Matemática 4.º A" peaks={picos} className="max-w-[520px]" />
           </Variant>
         </Panel>
       </Section>
@@ -38,7 +38,7 @@ export function AudioPlayerStory() {
       >
         <Panel>
           <Variant name="pista pelada">
-            <AudioPlayer src={AUDIO} title="Consigna · Lengua 6.º" className="max-w-[520px]" />
+            <AudioPlayer src={AUDIO} title="Consigna · Matemática 4.º A" className="max-w-[520px]" />
           </Variant>
         </Panel>
       </Section>
@@ -87,7 +87,7 @@ export function AudioPlayerStory() {
       >
         <Panel>
           <Variant name="error">
-            <AudioPlayer src="/audio/no-existe.mp3" title="Consigna · Lengua 6.º" className="max-w-[520px]" />
+            <AudioPlayer src="/audio/no-existe.mp3" title="Consigna · Matemática 4.º A" className="max-w-[520px]" />
           </Variant>
         </Panel>
       </Section>
