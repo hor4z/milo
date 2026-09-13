@@ -5,7 +5,7 @@
   "type": "module",
   "description": "La galería: tokens y componentes uno al lado del otro.",
   "scripts": {
-    "dev": "vite",
+    "dev": "rm -rf node_modules/.vite ../../node_modules/.vite && vite",
     "build": "vite build",
     "preview": "vite preview",
     "mascotas": "python3 scripts/mascotas.py",

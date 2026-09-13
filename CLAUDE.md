@@ -198,22 +198,41 @@ Repartido entre `portal/`, `popover/`, `tooltip/`, `dropdown/`, `modal/`, `sheet
   Linux aparece un control de GTK en medio de la interfaz: se ve "sin estilo" por más que la caja
   esté bien. El costo es traer el teclado a mano: flechas, Enter, Escape, Home/End.
 
-## Trampa de Tailwind v4 que ya mordió dos veces
+## El dev server se despega del disco, y ya mordió cuatro veces
 
-Si tocás un token dentro del bloque `@theme` con el dev server corriendo, Tailwind puede quedarse
-con el CSS viejo y **la utilidad no se genera, en silencio y sin error**: la clase queda en el
-HTML sin efecto. Así estuvo `bg-scrim` sin aplicar durante varias rondas (el backdrop del modal
-era solo blur).
+Es la misma causa con dos caras, y las dos terminan en algo que se lee como "el sitio está roto"
+cuando el repo está perfecto. `npm run typecheck`, `npm test` y `vite build` pasan mientras el
+navegador muestra otra cosa: **lo que se ve en localhost no es prueba de nada si el servidor
+lleva rato corriendo.**
 
-```sh
-rm -rf node_modules/.vite   # y reiniciar vite
-```
-
-Antes de dar por bueno un color nuevo, verificar que la regla exista:
+**Cara 1, el token que no genera su clase.** Si tocás un token dentro del bloque `@theme` con el
+dev server corriendo, Tailwind puede quedarse con el CSS viejo y la utilidad no se genera, en
+silencio y sin error: la clase queda en el HTML sin efecto. Así estuvo `bg-scrim` sin aplicar
+durante varias rondas, con el backdrop del modal en solo blur. Antes de dar por bueno un color
+nuevo, verificar que la regla exista de verdad:
 
 ```sh
 curl -s http://localhost:5190/src/app.css | grep -o '\.text-icon-muted[^}]*}'
 ```
+
+**Cara 2, el módulo que quedó viejo.** El servidor se guarda cada archivo ya transformado, y esa
+copia no se invalida cuando el archivo se borra ni cuando git reescribe medio repo de golpe, que
+es lo que pasa al cambiar de rama. El síntoma es **pantalla en blanco**, y la causa está siempre
+en la pestaña de red, no en la consola: un 404 sobre un módulo que ya no existe, o un módulo
+servido con contenido viejo. Los dos casos medidos:
+
+- después de sacar el `Badge`, el servidor seguía sirviendo un `index.ts` que importaba
+  `./badge/badge`: 404, y la aplicación entera sin dibujar;
+- servía un `icons.gen.ts` de 159 glifos contra los 172 del disco, así que `format_bold` no
+  resolvía a ningún codepoint y el `Icon` tiraba.
+
+La regla, entonces: **después de borrar un archivo o de cambiar de rama, se reinicia el
+servidor.** No alcanza con recargar el navegador, porque lo viejo está del lado del servidor.
+`npm run dev` ya borra la caché de Vite al arrancar, así que reiniciar es todo lo que hay que
+hacer, y de paso cierra la cara 1.
+
+Y cuando la pantalla aparece en blanco, el primer lugar donde mirar es la red y no la consola: un
+módulo que no carga no siempre deja un error escrito.
 
 ## Agregar un icono
 
