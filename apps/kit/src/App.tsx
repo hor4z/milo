@@ -330,7 +330,9 @@ export function App() {
           </div>
         </nav>
 
-        <div className="sticky top-0 z-20 flex items-center gap-2 border-b border-line bg-canvas/90 px-4 py-3 backdrop-blur-md lg:hidden">
+        {/* `header` y no `div`: es la cabecera de la página, y como `div` dejaba
+            el nombre del sitio fuera de toda landmark en pantalla chica. */}
+        <header className="sticky top-0 z-20 flex items-center gap-2 border-b border-line bg-canvas/90 px-4 py-3 backdrop-blur-md lg:hidden">
           <IconButton
             icon="menu"
             label="Abrir el índice"
@@ -341,7 +343,7 @@ export function App() {
             onClick={() => setRailOpen(true)}
           />
           <span className="text-body font-semibold text-ink">milo · design system</span>
-        </div>
+        </header>
 
         <main ref={main} className="min-w-0 flex-1 px-5 py-8 lg:ml-[248px] lg:px-10 lg:py-10">
           <div key={current} className="mx-auto flex max-w-[980px] flex-col">

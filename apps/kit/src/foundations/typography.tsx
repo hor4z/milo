@@ -24,7 +24,12 @@ export function TypographySection() {
         title="Los siete roles"
         note="La utilidad escribe los tres valores de una. Escritos por separado se despegan, y se despegaron: `text-lg` llegó a ser 20px de letra dentro de una caja de línea de 16px porque el interlineado era un token aparte que nadie tenía que recordar."
       >
-        <div className="overflow-x-auto rounded-xl border border-line bg-surface">
+        <div
+          tabIndex={0}
+          role="region"
+          aria-label="La escala de texto"
+          className="overflow-x-auto rounded-xl border border-line bg-surface"
+        >
           {roles.map(r => (
             <div key={r.cls} className="flex flex-wrap items-baseline gap-x-5 gap-y-2 border-b border-line px-5 py-4 last:border-0">
               <code className="w-24 shrink-0 font-mono text-meta text-ink-muted">{r.px}/{r.lh}</code>

@@ -57,16 +57,19 @@ export function Dashboard() {
           contenido con una línea, no con relieve — es el borde de la página,
           no una pieza apoyada encima. */}
       <div className="-mx-5 -mt-5 mb-2 flex h-20 items-center gap-4 border-b border-line px-5">
+        {/* El buscador achica y los controles no: en un teléfono, el ancho fijo
+            del campo empujaba la campana y el avatar fuera de la pantalla. */}
         <Search
+          block
           size="md"
           value={busca}
           onValueChange={setBusca}
           placeholder="Buscar una actividad o un espacio"
           aria-label="Buscar"
-          className="w-full max-w-[320px]"
+          className="min-w-0 max-w-[320px]"
         />
 
-        <div className="ml-auto flex items-center gap-2">
+        <div className="ml-auto flex shrink-0 items-center gap-2">
           <Avisos />
           <Dropdown
             align="end"
@@ -132,7 +135,9 @@ export function Dashboard() {
 
       {/* `items-start`: sin esto el chart se estira para igualar a la de al lado. */}
       <div className="grid items-start gap-6 lg:grid-cols-[1.55fr_1fr]">
-        <div className="flex flex-col gap-6">
+        {/* `min-w-0`: un hijo de grilla no baja de su contenido sin esto, y en un
+            teléfono el chart empujaba la columna cuatro píxeles más que la pantalla. */}
+        <div className="flex min-w-0 flex-col gap-6">
           <Card className="flex flex-col gap-5 p-6">
             <div className="flex items-start justify-between gap-4">
               <div>
@@ -171,7 +176,7 @@ export function Dashboard() {
         </div>
 
         {/* En `muted` y no en papel: adentro lleva `ListItem`s, que son papel. */}
-        <div className="relative">
+        <div className="relative min-w-0">
           <Otto />
           <Card surface="muted" className="relative flex flex-col gap-5 p-6">
             <div className="flex flex-col gap-3">

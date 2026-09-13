@@ -56,7 +56,14 @@ export function Principles() {
         title="Cómo se arma una pieza"
         note="Todo lo que se compone se expone en partes en vez de recibir un objeto de configuración. Un Alert es AlertTitle, AlertBody y AlertActions; unas solapas son Tabs, TabList, Tab y TabPanel. Cuesta dos líneas más de escribir y evita la prop número catorce."
       >
-        <pre className="overflow-x-auto rounded-xl border border-line bg-muted p-4 font-mono text-body text-ink">
+        <pre
+          // Lo que scrollea tiene que poder recibir el foco, o con el teclado no
+          // hay forma de llegar a lo que quedó cortado a la derecha.
+          tabIndex={0}
+          role="region"
+          aria-label="Cómo se arma una pieza, en código"
+          className="overflow-x-auto rounded-xl border border-line bg-muted p-4 font-mono text-body text-ink"
+        >
 {`<Alert tone="warn">
   <AlertTitle>Tres entregas vencen mañana</AlertTitle>
   <AlertBody>Después de esa fecha nadie puede subir nada.</AlertBody>

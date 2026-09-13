@@ -2,8 +2,10 @@ import { useEffect, useRef, useState, type ReactNode, type ThHTMLAttributes, typ
 import { cx } from '../lib/cx'
 
 /** La tabla, en piezas. */
-export function Table({ children, minWidth = 640, footer, className }: {
+export function Table({ children, label, minWidth = 640, footer, className }: {
   children: ReactNode
+  /** De qué es la tabla. Cuando scrollea se vuelve una región enfocable, y dos regiones que se llaman igual se leen como una sola. */
+  label?: string
   /** Abajo de esto la tabla scrollea en vez de apretar las columnas. */
   minWidth?: number
   /** La franja de abajo: vive adentro del marco pero fuera del scroll. */
@@ -42,7 +44,7 @@ export function Table({ children, minWidth = 640, footer, className }: {
         ref={scroller}
         tabIndex={scrolls ? 0 : undefined}
         role={scrolls ? 'region' : undefined}
-        aria-label={scrolls ? 'Tabla, scrolleable' : undefined}
+        aria-label={scrolls ? `${label ?? 'Tabla'}, se desplaza de costado` : undefined}
         className="zebra no-scrollbar overflow-x-auto overflow-y-hidden"
       >
         <table className="w-full border-collapse text-left" style={{ minWidth }}>

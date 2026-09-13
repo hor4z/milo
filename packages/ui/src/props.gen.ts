@@ -2320,6 +2320,12 @@ export const propsByComponent: Record<string, ComponentDoc> = {
         "required": true
       },
       {
+        "name": "label",
+        "type": "string",
+        "required": false,
+        "doc": "De qué es la tabla. Cuando scrollea se vuelve una región enfocable, y dos regiones que se llaman igual se leen como una sola."
+      },
+      {
         "name": "minWidth",
         "type": "number",
         "required": false,

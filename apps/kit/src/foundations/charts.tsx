@@ -27,7 +27,7 @@ export function ChartsSection() {
       imports="import { BarChart, LineChart } from '@milo/ui'"
     >
       <Section title="Cuál va" note="Elegir mal es el error más caro: un gráfico que no responde la pregunta obliga a mirarlo dos veces y desconfiar la tercera.">
-        <Table minWidth={520}>
+        <Table label="Qué usar según qué se quiere ver" minWidth={520}>
           <TableHeader>
             <TableRow>
               <TableHead>Qué se quiere ver</TableHead>

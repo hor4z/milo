@@ -161,6 +161,7 @@ export function TableStory() {
         </FilterBar>
 
         <Table
+          label="Actividades del espacio"
           minWidth={980}
           footer={(
             <Pagination>
@@ -265,7 +266,7 @@ export function TableStory() {
         title="La pieza"
         note="La fila mide 56, la misma que `Row`: una tabla y un panel uno arriba del otro no pueden verse de dos sistemas. La cabecera va en tinta y no en gris — apagada, había que buscar de qué era cada columna. Y las filas alternan papel porque en una tabla ancha el divisor de un píxel no alcanza para seguir una fila hasta el final."
       >
-        <Table minWidth={720}>
+        <Table label="Entregas por estudiante" minWidth={720}>
           <TableHeader>
             <TableRow>
               <TableHead>Actividad</TableHead>
