@@ -82,9 +82,15 @@ describe('el CSS del sistema se sostiene solo', () => {
   })
 
   it('no queda nada de Tailwind', () => {
+    /* Las directivas son lo que más caro sale: `@theme` y `@utility` no son CSS,
+       así que sin Tailwind el navegador se saltea el bloque entero y lo que había
+       adentro deja de existir, sin un error en ningún lado. Así estuvieron los
+       tres pesos, con el sistema dibujando 400 donde pedía 450. */
     const restos: string[] = []
     for (const f of [...css, { nombre: 'theme.css', texto: puente }]) {
-      if (/--tw-|@tailwind|var\(--spacing\)|var\(--default-/.test(f.texto)) restos.push(f.nombre)
+      if (/--tw-|@tailwind|@apply\b|@source\b|@utility\b|@theme\b|var\(--spacing\)|var\(--default-/.test(f.texto)) {
+        restos.push(f.nombre)
+      }
     }
     expect(restos).toEqual([])
   })

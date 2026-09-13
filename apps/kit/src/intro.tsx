@@ -26,7 +26,7 @@ export function Intro({ go, views }: { go: (id: string) => void; views: number }
         </div>
 
         <div className={cls.div5}>
-          <Chip size="sm" color="info" icon="bolt" className={cls.chip}>Inter · Material Symbols · Tailwind v4</Chip>
+          <Chip size="sm" color="info" icon="bolt" className={cls.chip}>Inter · Material Symbols · CSS nativo</Chip>
 
           <div className={cls.div6}>
             <h1 className={cls.h1}>
