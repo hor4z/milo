@@ -44,7 +44,7 @@ export function Intro({ go, views }: { go: (id: string) => void; views: number }
           </div>
 
           <dl className="mt-1 flex flex-wrap gap-x-8 gap-y-3 border-t border-line pt-6">
-            {[[String(views), 'vistas'], ['303', 'tests'], ['160', 'iconos'], ['2', 'temas']].map(([n, l]) => (
+            {[[String(views), 'vistas'], ['339', 'tests'], ['171', 'iconos'], ['2', 'temas']].map(([n, l]) => (
               <div key={l} className="flex items-baseline gap-2">
                 <dt className="tabular text-title font-bold text-ink">{n}</dt>
                 <dd className="text-body font-medium text-ink-muted">{l}</dd>

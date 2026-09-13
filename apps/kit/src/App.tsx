@@ -13,6 +13,9 @@ import { StatesSection } from './foundations/states'
 import { InclusionSection } from './foundations/inclusion'
 import { AudioPlayerStory } from './stories/audio-player'
 import { LineChartStory } from './stories/line-chart'
+import { CalloutStory } from './stories/callout'
+import { CommandMenuStory } from './stories/command-menu'
+import { ToolbarStory } from './stories/toolbar'
 import { AmeliaStory } from './mascots/amelia'
 import { OttoStory } from './mascots/otto'
 import { Writing } from './foundations/writing'
@@ -91,6 +94,14 @@ const groups: Group[] = [
     stories: [
       { id: 'otto', label: 'Otto', alias: 'otto mascota personaje nutria hurón ilustración', render: () => <OttoStory /> },
       { id: 'amelia', label: 'Amelia', alias: 'amelia mascota personaje chica estudiante ilustración', render: () => <AmeliaStory /> },
+    ],
+  },
+  {
+    label: 'Editor',
+    stories: [
+      { id: 'toolbar', label: 'Toolbar', alias: 'barra herramientas formato negrita cursiva editor texto enriquecido', render: () => <ToolbarStory /> },
+      { id: 'command-menu', label: 'CommandMenu', alias: 'comandos paleta barra slash menú buscar bloques editor notion', render: () => <CommandMenuStory /> },
+      { id: 'callout', label: 'Callout', alias: 'bloque destacado aclaración pista recordar contenido editor', render: () => <CalloutStory /> },
     ],
   },
   {

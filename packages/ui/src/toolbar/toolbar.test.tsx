@@ -1,0 +1,64 @@
+import { render, screen } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
+import { describe, expect, it, vi } from 'vitest'
+import { Toolbar, ToolbarButton, ToolbarSeparator } from './toolbar'
+
+function Barra({ onBold = () => {} }) {
+  return (
+    <Toolbar label="Formato del texto">
+      <ToolbarButton icon="format_bold" label="Negrita" pressed onClick={onBold} />
+      <ToolbarButton icon="format_italic" label="Cursiva" pressed={false} />
+      <ToolbarSeparator />
+      <ToolbarButton icon="link" label="Enlace" />
+      <ToolbarButton icon="delete" label="Borrar" disabled />
+    </Toolbar>
+  )
+}
+
+describe('Toolbar', () => {
+  it('tiene nombre: dos barras sin nombre se leen como una sola', () => {
+    render(<Barra />)
+    expect(screen.getByRole('toolbar', { name: 'Formato del texto' })).toBeInTheDocument()
+  })
+
+  it('lo que se puede activar lo dice, y lo que solo pasa no finge estado', () => {
+    render(<Barra />)
+    expect(screen.getByRole('button', { name: 'Negrita' })).toHaveAttribute('aria-pressed', 'true')
+    expect(screen.getByRole('button', { name: 'Cursiva' })).toHaveAttribute('aria-pressed', 'false')
+    expect(screen.getByRole('button', { name: 'Enlace' })).not.toHaveAttribute('aria-pressed')
+  })
+
+  it('es una sola parada de tabulación y adentro se mueve con flechas', async () => {
+    render(<Barra />)
+    const negrita = screen.getByRole('button', { name: 'Negrita' })
+    negrita.focus()
+    await userEvent.keyboard('{ArrowRight}')
+    expect(screen.getByRole('button', { name: 'Cursiva' })).toHaveFocus()
+    await userEvent.keyboard('{ArrowLeft}')
+    expect(negrita).toHaveFocus()
+  })
+
+  it('las flechas saltean lo apagado y dan la vuelta', async () => {
+    render(<Barra />)
+    screen.getByRole('button', { name: 'Enlace' }).focus()
+    await userEvent.keyboard('{ArrowRight}')
+    // «Borrar» está apagado, así que la vuelta cae en el primero.
+    expect(screen.getByRole('button', { name: 'Negrita' })).toHaveFocus()
+  })
+
+  it('Home y End van a los extremos', async () => {
+    render(<Barra />)
+    screen.getByRole('button', { name: 'Cursiva' }).focus()
+    await userEvent.keyboard('{End}')
+    expect(screen.getByRole('button', { name: 'Enlace' })).toHaveFocus()
+    await userEvent.keyboard('{Home}')
+    expect(screen.getByRole('button', { name: 'Negrita' })).toHaveFocus()
+  })
+
+  it('el botón hace lo suyo', async () => {
+    const onBold = vi.fn()
+    render(<Barra onBold={onBold} />)
+    await userEvent.click(screen.getByRole('button', { name: 'Negrita' }))
+    expect(onBold).toHaveBeenCalled()
+  })
+})

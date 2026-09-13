@@ -343,6 +343,40 @@ export const propsByComponent: Record<string, ComponentDoc> = {
     ],
     "html": "button"
   },
+  "Callout": {
+    "props": [
+      {
+        "name": "icon",
+        "type": "IconName",
+        "required": false,
+        "doc": "El glifo de la izquierda. Elegilo por lo que dice el bloque, no por el color."
+      },
+      {
+        "name": "color",
+        "type": "LabelColor | 'neutral'",
+        "required": false,
+        "def": "'neutral'",
+        "doc": "El color del papel. Sale de la familia de categorías y no de los tonos de estado: un bloque de contenido no está avisando de nada."
+      },
+      {
+        "name": "title",
+        "type": "string",
+        "required": false,
+        "doc": "La primera línea, en negrita. Sin esto el bloque arranca directo con el texto."
+      },
+      {
+        "name": "children",
+        "type": "ReactNode",
+        "required": true
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "required": false
+      }
+    ],
+    "doc": "Un bloque de contenido que pide detenerse: una aclaración, una pista, algo para recordar."
+  },
   "Card": {
     "props": [
       {
@@ -587,6 +621,113 @@ export const propsByComponent: Record<string, ComponentDoc> = {
       }
     ],
     "doc": "Elegir qué columnas se ven."
+  },
+  "CommandMenu": {
+    "props": [
+      {
+        "name": "groups",
+        "type": "CommandGroup[]",
+        "required": true,
+        "doc": "Agrupados por lo que hacen. Un grupo que queda sin resultados no se muestra."
+      },
+      {
+        "name": "onSelect",
+        "type": "(item: CommandItem) => void",
+        "required": true,
+        "doc": "Recibe el elegido."
+      },
+      {
+        "name": "placeholder",
+        "type": "string",
+        "required": false,
+        "def": "'Buscar un bloque…'",
+        "doc": "Qué se busca."
+      },
+      {
+        "name": "empty",
+        "type": "string",
+        "required": false,
+        "def": "'Nada con esas palabras'",
+        "doc": "Lo que se ve cuando no queda nada."
+      },
+      {
+        "name": "search",
+        "type": "boolean",
+        "required": false,
+        "def": "true",
+        "doc": "Sin esto la lista arranca sin buscador, para cuando lo que se escribe ya está afuera."
+      },
+      {
+        "name": "query",
+        "type": "string",
+        "required": false,
+        "doc": "El texto de búsqueda, si lo maneja quien lo usa —un editor que ya viene escribiendo detrás de la barra."
+      },
+      {
+        "name": "maxHeight",
+        "type": "number",
+        "required": false,
+        "def": "320",
+        "doc": "Cuánto mide la lista antes de scrollear."
+      },
+      {
+        "name": "autoFocus",
+        "type": "boolean",
+        "required": false,
+        "doc": "El buscador se lleva el foco al aparecer. Va donde el menú abre por un gesto —una barra, un atajo—; suelto en una página, roba el foco y el scroll."
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "required": false
+      }
+    ],
+    "doc": "La lista de comandos: se escribe, se filtra y se elige con las flechas. Es el menú de la barra en un editor, y la paleta de atajos de una app."
+  },
+  "CommandItem": {
+    "props": [
+      {
+        "name": "id",
+        "type": "string",
+        "required": true,
+        "doc": "Único en toda la lista: es lo que se anuncia y lo que vuelve al elegir."
+      },
+      {
+        "name": "label",
+        "type": "string",
+        "required": true,
+        "doc": "Lo que se lee y lo que se busca."
+      },
+      {
+        "name": "hint",
+        "type": "string",
+        "required": false,
+        "doc": "Una línea abajo, para cuando el nombre no alcanza."
+      },
+      {
+        "name": "icon",
+        "type": "IconName",
+        "required": false,
+        "doc": "A la izquierda."
+      },
+      {
+        "name": "shortcut",
+        "type": "string",
+        "required": false,
+        "doc": "El atajo, a la derecha. Es un recordatorio: la tecla la escucha quien la pone."
+      },
+      {
+        "name": "keywords",
+        "type": "string[]",
+        "required": false,
+        "doc": "Palabras que también lo encuentran y que no están en el nombre: «foto» para Imagen."
+      },
+      {
+        "name": "disabled",
+        "type": "boolean",
+        "required": false
+      }
+    ]
   },
   "ConfirmDialog": {
     "props": [
@@ -2375,6 +2516,59 @@ export const propsByComponent: Record<string, ComponentDoc> = {
       }
     ],
     "doc": "Lo que recibe `toast()`."
+  },
+  "Toolbar": {
+    "props": [
+      {
+        "name": "label",
+        "type": "string",
+        "required": true,
+        "doc": "Qué controla esta barra. Dos barras sin nombre en una pantalla se leen como una sola."
+      },
+      {
+        "name": "children",
+        "type": "ReactNode",
+        "required": true
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "required": false
+      }
+    ],
+    "doc": "La barra de herramientas: una sola parada de tabulación y flechas adentro, como manda un `toolbar`."
+  },
+  "ToolbarButton": {
+    "props": [
+      {
+        "name": "icon",
+        "type": "IconName",
+        "required": true
+      },
+      {
+        "name": "label",
+        "type": "string",
+        "required": true,
+        "doc": "Sin esto el botón no dice nada: adentro solo hay un glifo."
+      },
+      {
+        "name": "pressed",
+        "type": "boolean",
+        "required": false,
+        "doc": "Presente lo vuelve un interruptor. Ausente es una acción que pasa y no queda."
+      },
+      {
+        "name": "disabled",
+        "type": "boolean",
+        "required": false
+      },
+      {
+        "name": "onClick",
+        "type": "() => void",
+        "required": false
+      }
+    ],
+    "doc": "Un botón de la barra. Con `pressed` es un interruptor y lo dice: «negrita, activado»."
   },
   "Tooltip": {
     "props": [
