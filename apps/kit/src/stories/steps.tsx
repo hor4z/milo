@@ -19,6 +19,7 @@ const entrega = [
 
 export function StepsStory() {
   const [i, setI] = useState(2)
+  const [paso, setPaso] = useState(2)
 
   return (
     <Page
@@ -51,7 +52,7 @@ export function StepsStory() {
         note="Sin `onSelect` no hay nada que tocar: dice dónde estás y nada más. Con `onSelect` cada etapa es un botón, y eso solo va cuando volver atrás es de verdad posible."
       >
         <div className="rounded-xl border border-line bg-surface p-6">
-          <Steps steps={entrega} current={2} label="Cómo se entrega, navegable" onSelect={() => {}} />
+          <Steps steps={entrega} current={paso} label="Cómo se entrega, navegable" onSelect={setPaso} />
         </div>
       </Section>
 
