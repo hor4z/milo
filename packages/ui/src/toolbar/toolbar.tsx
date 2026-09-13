@@ -1,4 +1,4 @@
-import { useRef, type KeyboardEvent, type ReactNode } from 'react'
+import { useLayoutEffect, useRef, type FocusEvent, type KeyboardEvent, type ReactNode } from 'react'
 import { Icon, type IconName } from '../icon/icon'
 import { cx } from '../lib/cx'
 
@@ -11,6 +11,20 @@ export function Toolbar({ label, children, className }: {
 }) {
   const caja = useRef<HTMLDivElement>(null)
 
+  const vivos = () => [...(caja.current?.querySelectorAll<HTMLButtonElement>('button:not(:disabled)') ?? [])]
+
+  // Tabulación rodante: uno solo es parada y el resto queda en -1. Con todos en
+  // -1 no se podía entrar a la barra con Tab, y con todos en 0 la barra volvía a
+  // costar una tabulación por botón, que es lo que un `toolbar` viene a evitar.
+  const rodar = (activo?: HTMLButtonElement) => {
+    const bs = vivos()
+    if (!bs.length) return
+    const elegido = activo && bs.includes(activo) ? activo : bs[0]
+    for (const b of bs) b.tabIndex = b === elegido ? 0 : -1
+  }
+
+  useLayoutEffect(() => { rodar() })
+
   // Un `role="toolbar"` promete flechas y una sola parada de tabulación. Sin
   // esto se recorrería con Tab, que es lo que una barra justamente no hace:
   // con doce botones, llegar al contenido de al lado costaría doce tabulaciones.
@@ -18,12 +32,13 @@ export function Toolbar({ label, children, className }: {
     const paso = e.key === 'ArrowRight' ? 1 : e.key === 'ArrowLeft' ? -1 : 0
     const borde = e.key === 'Home' ? 0 : e.key === 'End' ? -1 : null
     if (!paso && borde === null) return
-    const botones = [...(caja.current?.querySelectorAll<HTMLButtonElement>('button:not(:disabled)') ?? [])]
+    const botones = vivos()
     if (!botones.length) return
     e.preventDefault()
     const destino = borde !== null
       ? botones.at(borde)!
       : botones[(botones.indexOf(document.activeElement as HTMLButtonElement) + paso + botones.length) % botones.length]
+    rodar(destino)
     destino.focus()
   }
 
@@ -33,6 +48,9 @@ export function Toolbar({ label, children, className }: {
       role="toolbar"
       aria-label={label}
       onKeyDown={mover}
+      // Entrar con el mouse también mueve la parada: si no, Tab devuelve el foco
+      // al botón de antes y no al que se acaba de tocar.
+      onFocus={(e: FocusEvent<HTMLDivElement>) => rodar(e.target.closest('button') ?? undefined)}
       className={cx('flex items-center gap-1 rounded-xl border border-line bg-popover p-1 shadow-toolbar', className)}
     >
       {children}
@@ -57,8 +75,7 @@ export function ToolbarButton({ icon, label, pressed, disabled, onClick }: {
       aria-pressed={pressed}
       disabled={disabled}
       onClick={onClick}
-      // Una sola parada de tabulación: entra en el primero y adentro se mueve
-      // con flechas. Sin `tabIndex` cada botón sería una parada.
+      // El valor real lo pone la barra, que es la que sabe cuál es la parada.
       tabIndex={-1}
       className={cx(
         'inline-flex size-8 items-center justify-center rounded-md transition-colors duration-fast ease-out',

@@ -28,6 +28,21 @@ describe('Toolbar', () => {
     expect(screen.getByRole('button', { name: 'Enlace' })).not.toHaveAttribute('aria-pressed')
   })
 
+  it('se puede entrar con Tab: hay una parada, y una sola', () => {
+    render(<Barra />)
+    const vivos = screen.getAllByRole('button').filter(b => !(b as HTMLButtonElement).disabled)
+    expect(vivos.filter(b => b.tabIndex === 0)).toHaveLength(1)
+    expect(vivos[0].tabIndex).toBe(0)
+  })
+
+  it('la parada se mueve con el foco: Tab devuelve al último que se tocó', async () => {
+    render(<Barra />)
+    const enlace = screen.getByRole('button', { name: 'Enlace' })
+    enlace.focus()
+    expect(enlace.tabIndex).toBe(0)
+    expect(screen.getByRole('button', { name: 'Negrita' }).tabIndex).toBe(-1)
+  })
+
   it('es una sola parada de tabulación y adentro se mueve con flechas', async () => {
     render(<Barra />)
     const negrita = screen.getByRole('button', { name: 'Negrita' })
