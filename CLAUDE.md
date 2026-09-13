@@ -361,6 +361,10 @@ de llegar a una pantalla.
 - **Recuperar `ss04` y el cero barrado** pide auto-alojar Inter: 69 KB subseteada a latín, con la
   receta de `pyftsubset` anotada. Se eligió el CDN; si algún día una red escolar filtra Google
   Fonts, la decisión se da vuelta y el trabajo ya está pensado.
+- **El sitio entra en un solo bundle de 667 KB —195 gzip— y `vite build` avisa.** Son las 74
+  vistas importadas de una: nada está mal, está todo junto. La salida es `lazy` por historia con
+  un `Skeleton` de espera, y el costo es un parpadeo por navegación en una pantalla que hoy es
+  instantánea. No se hizo porque es una decisión sobre cómo se siente el sitio y no un bug.
 - Portar los tokens a `~/melu/packages/ui`, que es para lo que existe todo esto. Ojo con el
   nombre: ese repo es otro y sigue llamándose `melu`.
 
