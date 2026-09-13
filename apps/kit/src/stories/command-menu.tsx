@@ -97,10 +97,8 @@ export function CommandMenuStory() {
 
       <Note icon="lightbulb" title="Qué de esta lista ya existe">
         Los bloques que llevan una pieza propia son `Título`, `Cita`, `Bloque destacado`, `Lista de
-        tareas`, `Imagen`, `Tabla` y `Gráfico`. `Lista`, `Lista numerada` y `Separador` no la
-        necesitan: son HTML con los estilos del sistema. Y `Fórmula` todavía no está — MathML no lo
-        tipa React, y un intérprete de LaTeX es una biblioteca entera, así que es una decisión y no
-        un olvido.
+        tareas`, `Imagen`, `Tabla`, `Gráfico` y `Fórmula`. `Lista`, `Lista numerada` y `Separador`
+        no la necesitan: son HTML con los estilos del sistema.
       </Note>
 
       <Note title="Esto no abre nada">

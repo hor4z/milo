@@ -20,6 +20,7 @@ import { FigureStory } from './stories/figure'
 import { QuoteStory } from './stories/quote'
 import { TaskListStory } from './stories/task-list'
 import { MentionStory } from './stories/mention'
+import { FormulaStory } from './stories/formula'
 import { CommandMenuStory } from './stories/command-menu'
 import { ToolbarStory } from './stories/toolbar'
 import { StepsStory } from './stories/steps'
@@ -115,6 +116,7 @@ const groups: Group[] = [
       { id: 'quote', label: 'Quote', alias: 'cita blockquote fuente atribución textual editor', render: () => <QuoteStory /> },
       { id: 'task-list', label: 'TaskList', alias: 'tareas checklist pasos pendientes marcar hacer editor', render: () => <TaskListStory /> },
       { id: 'mention', label: 'Mention', alias: 'mención arroba persona espacio referencia enlace texto editor', render: () => <MentionStory /> },
+      { id: 'formula', label: 'Formula', alias: 'fórmula ecuación matemática física mathml latex expresión raíz fracción', render: () => <FormulaStory /> },
     ],
   },
   {

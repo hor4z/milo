@@ -1,4 +1,4 @@
-import { useEffect, useState, type ReactNode } from 'react'
+import { Children, useEffect, useState, type ReactNode } from 'react'
 import { Badge, Icon, cx, type IconName } from '@milo/ui'
 import { propsByComponent } from '@milo/ui/props'
 
@@ -238,7 +238,13 @@ export function Note({ icon = 'lightbulb', title, children }: { icon?: IconName;
       <Icon name={icon} size={18} className="icon-muted mt-px shrink-0" />
       <div className="flex min-w-0 flex-col gap-1">
         {title && <p className="text-body font-semibold text-ink">{title}</p>}
-        <div className="max-w-[70ch] text-body font-medium text-ink-muted">{children}</div>
+        {/* Los backticks se interpretan acá igual que en un `lead` o en un
+            `note`, que era la única forma de escribir un nombre de prop en las
+            otras tres y quedaba literal en esta. El resto de los hijos —un
+            enlace, un `strong`— pasa de largo. */}
+        <div className="max-w-[70ch] text-body font-medium text-ink-muted">
+          {Children.map(children, c => (typeof c === 'string' ? <Rich text={c} /> : c))}
+        </div>
       </div>
     </div>
   )

@@ -1118,6 +1118,40 @@ export const propsByComponent: Record<string, ComponentDoc> = {
     ],
     "doc": "Una carpeta que se abre."
   },
+  "Formula": {
+    "props": [
+      {
+        "name": "children",
+        "type": "ReactNode",
+        "required": true,
+        "doc": "El contenido en MathML: `<mi>`, `<mfrac>`, `<msup>` y los demás."
+      },
+      {
+        "name": "display",
+        "type": "boolean",
+        "required": false,
+        "doc": "En su propio renglón, centrada, con las fracciones altas."
+      },
+      {
+        "name": "alt",
+        "type": "string",
+        "required": true,
+        "doc": "Lo que se lee en voz alta donde MathML no se interpreta."
+      },
+      {
+        "name": "number",
+        "type": "string | number",
+        "required": false,
+        "doc": "El número entre paréntesis a la derecha, para citarla desde el texto."
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "required": false
+      }
+    ],
+    "doc": "Una fórmula: en la frase, o en su propio renglón y con número."
+  },
   "Icon": {
     "props": [
       {

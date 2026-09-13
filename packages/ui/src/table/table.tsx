@@ -1,5 +1,6 @@
-import { useEffect, useRef, useState, type ReactNode, type ThHTMLAttributes, type TdHTMLAttributes } from 'react'
+import { type ReactNode, type ThHTMLAttributes, type TdHTMLAttributes } from 'react'
 import { cx } from '../lib/cx'
+import { useSideScroll } from '../lib/side-scroll'
 
 /** La tabla, en piezas. */
 export function Table({ children, label, minWidth = 640, footer, className }: {
@@ -12,28 +13,9 @@ export function Table({ children, label, minWidth = 640, footer, className }: {
   footer?: ReactNode
   className?: string
 }) {
-  const scroller = useRef<HTMLDivElement>(null)
-  const [clipped, setClipped] = useState(false)
-  const [scrolls, setScrolls] = useState(false)
-
   // Sin barra visible, un degradado en el canto es lo único que avisa que hay
-  // más columnas a la derecha.
-  useEffect(() => {
-    const el = scroller.current
-    if (!el) return
-    const measure = () => {
-      setClipped(el.scrollWidth - el.clientWidth - el.scrollLeft > 1)
-      setScrolls(el.scrollWidth > el.clientWidth + 1)
-    }
-    measure()
-    el.addEventListener('scroll', measure, { passive: true })
-    const ro = typeof ResizeObserver !== 'undefined' ? new ResizeObserver(measure) : null
-    ro?.observe(el)
-    return () => {
-      el.removeEventListener('scroll', measure)
-      ro?.disconnect()
-    }
-  }, [children])
+  // más columnas a la derecha. La medición la comparte con `Formula`.
+  const { ref: scroller, scrolls, clipped } = useSideScroll<HTMLDivElement>(children)
 
   return (
     <div className={cx('relative overflow-hidden rounded-md bg-surface ring-1 ring-line', className)}>
