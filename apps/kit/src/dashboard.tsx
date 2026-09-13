@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import {
   Avatar, AvatarGroup, BarChart, Badge, Button, Card, Dropdown, Folder, Icon, IconButton,
   Indicator, Link, List, ListItem, Progress, Search, Segmented, SettingsModal, Tooltip, useToast,
@@ -235,16 +235,47 @@ function Avisos() {
   )
 }
 
+/** Lo que dura una pasada del bucle: 100 cuadros a 12 por segundo. */
+const PASADA = 8333
+
 /**
  * `left-full` no es una preferencia: el recorte lo deja cortado por donde estaba
  * el canto, así que su borde izquierdo tiene que caer sobre uno. Y solo de `xl`
  * para arriba, que es cuando sobra lugar a la derecha de la grilla.
+ *
+ * Se asoma una vez y se esconde un rato largo al azar. En bucle continuo deja
+ * de ser una aparición y pasa a ser algo que se mueve al costado mientras
+ * trabajás, que es lo que hay que evitar.
  */
 function Otto() {
   const quieto = useQuieto()
-  if (quieto) return null
+  const [vuelta, setVuelta] = useState(0)
+  const [asomado, setAsomado] = useState(false)
+
+  useEffect(() => {
+    if (quieto) return
+    let reloj: ReturnType<typeof setTimeout>
+    const asomar = () => {
+      setVuelta(v => v + 1)
+      setAsomado(true)
+      reloj = setTimeout(esconder, PASADA)
+    }
+    // Entre cuarenta segundos y dos minutos. A intervalo fijo se vuelve
+    // previsible y deja de sorprender, que es lo único que tiene para dar.
+    const esconder = () => {
+      setAsomado(false)
+      reloj = setTimeout(asomar, 40000 + Math.random() * 80000)
+    }
+    reloj = setTimeout(asomar, 6000)
+    return () => clearTimeout(reloj)
+  }, [quieto])
+
+  if (quieto || !asomado) return null
+  // La `key` fuerza un elemento nuevo, que es lo que hace que el bucle arranque
+  // del primer cuadro y no de la mitad.
   return (
     <img
+      key={vuelta}
       src="/mascotas/otto-anima.webp"
       alt=""
       className="pointer-events-none absolute left-full top-12 z-20 hidden h-32 w-auto xl:block"
