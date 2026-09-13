@@ -56,9 +56,9 @@ export function AmeliaStory() {
         <div className="flex flex-col overflow-hidden rounded-xl border border-line bg-surface">
           {[
             ['/mascotas/amelia.webp', '354 × 1200 · 66 KB', 'El retrato.'],
-            ['/mascotas/amelia-quieta.webp', '82 × 221 · 80 cuadros · 544 KB', 'El único que se repite.'],
-            ['/mascotas/amelia-saluda.webp', '152 × 227 · 74 cuadros · 451 KB', 'Se reproduce una vez.'],
-            ['/mascotas/amelia-trabaja.webp', '157 × 267 · 48 cuadros · 336 KB', 'Se reproduce una vez.'],
+            ['/mascotas/amelia-quieta.webp', '66 × 179 · 628 KB', 'El único que se repite. 120 cuadros a 12 por segundo.'],
+            ['/mascotas/amelia-saluda.webp', '124 × 186 · 686 KB', 'Se reproduce una vez. 142 cuadros a 16, que es lo que pide una entrada caminando.'],
+            ['/mascotas/amelia-trabaja.webp', '126 × 216 · 399 KB', 'Se reproduce una vez. 73 cuadros a 12 por segundo.'],
           ].map(([ruta, peso, nota]) => (
             <div key={ruta} className="flex flex-wrap items-center gap-x-5 gap-y-1 border-t border-line px-5 py-4 first:border-t-0">
               <code className="w-60 shrink-0 font-mono text-meta font-semibold text-ink">{ruta}</code>

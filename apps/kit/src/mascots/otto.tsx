@@ -23,8 +23,8 @@ export function OttoStory() {
       <Section title="Los archivos">
         <div className="flex flex-col overflow-hidden rounded-xl border border-line bg-surface">
           {[
-            ['/mascotas/otto.webp', '686 × 1200 · 150 KB', 'El retrato, con alfa.'],
-            ['/mascotas/otto-anima.webp', '105 × 200 · 9 s · 393 KB', 'El bucle, con alfa. 107 cuadros a 12 por segundo.'],
+            ['/mascotas/otto.webp', '686 × 1200 · 150 KB', 'El retrato.'],
+            ['/mascotas/otto-anima.webp', '105 × 200 · 390 KB', 'El bucle. 100 cuadros a 12 por segundo.'],
           ].map(([ruta, peso, nota]) => (
             <div key={ruta} className="flex flex-wrap items-center gap-x-5 gap-y-1 border-t border-line px-5 py-4 first:border-t-0">
               <code className="w-60 shrink-0 font-mono text-meta font-semibold text-ink">{ruta}</code>

@@ -186,9 +186,9 @@ def revisar(fuente: Path, salida: Path | None, claro: int | None) -> None:
     print('Si le falta un pedazo subí el umbral con --claro; si queda fondo, bajalo.')
 
 
-def animar(fuente: Path, nombre: str, claro: int | None, desde: int, vueltas: int, fps: int) -> None:
+def animar(fuente: Path, nombre: str, claro: int | None, desde: int, vueltas: int, fps: int, alto: int) -> None:
     herramientas('ffprobe', 'ffmpeg', 'img2webp')
-    piezas = [alto_de(recortar(c, claro or umbral(c)), ALTO_ANIMA) for c in cuadros(fuente, fps)]
+    piezas = [alto_de(recortar(c, claro or umbral(c)), alto) for c in cuadros(fuente, fps)]
     if not piezas:
         sys.exit(f'{fuente} no tiene cuadros')
 
@@ -199,12 +199,20 @@ def animar(fuente: Path, nombre: str, claro: int | None, desde: int, vueltas: in
 
     # Los cuadros del principio y del final en los que todavía no entró o ya se
     # fue son bytes que nadie mira, y en un bucle son una pausa muerta.
+    #
+    # «Vacío» no es «sin un solo píxel»: cuando alguien entra caminando, los
+    # primeros cuadros traen la punta de una bota y nada más, y eso en pantalla
+    # se ve como una mota flotando. Cuenta como vacío lo que no llega a la
+    # décima parte de lo que ocupa un cuadro normal.
     cajas = [p.getbbox() for p in piezas]
-    llenos = [i for i, c in enumerate(cajas) if c]
+    cobertura = [float((np.asarray(p)[:, :, 3] > 0).mean()) for p in piezas]
+    minimo = sorted(cobertura)[len(cobertura) // 2] / 10
+    llenos = [i for i, c in enumerate(cobertura) if c > minimo]
     if not llenos:
         sys.exit('el recorte se llevó todo: probá bajando --claro')
     vacios = len(piezas) - len(range(llenos[0], llenos[-1] + 1))
-    piezas, cajas = piezas[llenos[0]:llenos[-1] + 1], cajas[llenos[0]:llenos[-1] + 1]
+    piezas = piezas[llenos[0]:llenos[-1] + 1]
+    cajas = [c for c in cajas[llenos[0]:llenos[-1] + 1] if c]
 
     # Y el aire que le sobra alrededor tampoco. El recorte deja el borde del alfa
     # pegado a la mascota, que es lo que la deja apoyar contra el canto de una
@@ -293,7 +301,10 @@ def main() -> None:
     a.add_argument('--vueltas', type=int, default=0,
                    help='0 se repite para siempre; 1 se reproduce una vez y se queda quieto')
     a.add_argument('--fps', type=int, default=FPS,
-                   help='cuadros por segundo; es el que más mueve el peso, la calidad casi no')
+                   help='cuadros por segundo; es el que más mueve el peso, la calidad casi no. '
+                        'Abajo de 12 se nota el tirón, y una entrada caminando pide 16')
+    a.add_argument('--alto', type=int, default=ALTO_ANIMA,
+                   help='alto del archivo; el peso va con el cuadrado de esto')
 
     t = sub.add_parser('retrato', help='imagen o video → retrato con alfa')
     t.add_argument('fuente', type=Path)
@@ -310,7 +321,7 @@ def main() -> None:
     if args.orden == 'revisar':
         revisar(args.fuente, args.salida, args.claro)
     elif args.orden == 'animar':
-        animar(args.fuente, args.nombre, args.claro, args.desde, args.vueltas, args.fps)
+        animar(args.fuente, args.nombre, args.claro, args.desde, args.vueltas, args.fps, args.alto)
     elif args.orden == 'retrato':
         retrato(args.fuente, args.nombre, args.claro, args.segundo)
     else:
