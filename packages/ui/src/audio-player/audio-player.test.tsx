@@ -82,6 +82,28 @@ describe('AudioPlayer', () => {
     expect(screen.getByText('0:00 / 1:02:03')).toBeInTheDocument()
   })
 
+  it('cuando arranca uno, el que estaba sonando se pausa', () => {
+    render(
+      <>
+        <AudioPlayer src="/a.mp3" title="Uno" />
+        <AudioPlayer src="/b.mp3" title="Dos" />
+      </>,
+    )
+    const [a, b] = Array.from(document.querySelectorAll('audio'))
+    for (const el of [a, b]) {
+      Object.defineProperty(el, 'duration', { value: 30, configurable: true })
+      fireEvent.loadedMetadata(el)
+    }
+    fireEvent.play(a)
+    expect(screen.getByRole('button', { name: 'Pausar' })).toBeInTheDocument()
+
+    // Dos audios encimados no se entienden: al arrancar el segundo, el primero
+    // recibe el pause y vuelve a decir «Reproducir».
+    const pausados = pause.mock.calls.length
+    fireEvent.play(b)
+    expect(pause.mock.calls.length).toBe(pausados + 1)
+  })
+
   it('las acciones de al lado se muestran', () => {
     render(<AudioPlayer src="/x.mp3" actions={<button type="button">Descargar</button>} />)
     expect(screen.getByRole('button', { name: 'Descargar' })).toBeInTheDocument()

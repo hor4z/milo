@@ -92,6 +92,43 @@ export function AudioPlayerStory() {
         </Panel>
       </Section>
 
+      <Section
+        title="Uno por vez"
+        note="Arrancar el segundo pausa el primero. Dos audios encimados no se entienden, y el que arranca segundo tapa al primero sin que nadie lo haya pedido."
+      >
+        <Panel>
+          <Variant name="dos en la misma pantalla">
+            <div className="flex w-full max-w-[520px] flex-col gap-3">
+              <AudioPlayer src={AUDIO} title="Devolución para Ana Pérez" peaks={picos} size="sm" />
+              <AudioPlayer src={AUDIO} title="Devolución para Bruno Díaz" peaks={picos} size="sm" />
+            </div>
+          </Variant>
+        </Panel>
+      </Section>
+
+      <Note icon="campaign" title="Lo que dice Apple sobre reproducir audio">
+        La guía es tajante en una cosa: <strong>hacer un reproductor propio se justifica solo si
+        ofrece algo que el del sistema no</strong>. Acá eso es la onda — el reproductor nativo no
+        deja ver dónde hay voz y dónde hay silencio, que es lo único que permite volver a la segunda
+        consigna sin escuchar la primera de nuevo. Si eso no hiciera falta, correspondería el
+        <code>{'<audio controls>'}</code> pelado.
+        {' '}
+        De ahí salen otras dos: <strong>el volumen es del sistema</strong> y una app no lo toca, así
+        que la pieza no trae control de volumen a propósito; y <strong>los controles de audio no se
+        redefinen</strong>, así que mientras suena registra play, pause y seek en el sistema y los
+        botones del auricular y la pantalla bloqueada caen acá y significan lo que dicen.
+      </Note>
+
+      <Note icon="warning" title="Dos cosas que la guía pide y el navegador no da">
+        <strong>Al desconectar el auricular, la reproducción tiene que frenar en el acto.</strong> En
+        la web no hay un evento confiable para eso: algunos navegadores pausan solos al cambiar de
+        salida y otros siguen sonando por el parlante. No se simula, porque simularlo mal es peor
+        que no hacerlo.
+        {' '}
+        <strong>Y no hay forma de mandar el audio a otro parlante desde la página.</strong> Eso lo
+        maneja el sistema operativo, y está bien que así sea.
+      </Note>
+
       <Note title="La línea de tiempo no es el `Slider`">
         El `Slider` es el hermano del `Switch`: una píldora de 22 con un pulgar de 24 encima, y eso
         dice «elegí un valor». Acá no se elige un valor, se mira un archivo y se salta a un lugar:
@@ -108,7 +145,8 @@ export function AudioPlayerStory() {
           'La línea de tiempo es un `slider` de verdad: flechas para moverse, Home y End para los extremos, y Re Pág y Av Pág para saltos grandes. Todo eso lo da el navegador.',
           'El `aria-valuetext` dice «0:45 de 1:30» y no «45»: un número suelto no significa nada cuando el rango es un archivo.',
           'Mientras carga hay un `status` que lo anuncia, y si el archivo no está el error va en texto y no solo en el color del borde.',
-          'No arranca solo. `autoPlay` existe pero el navegador solo lo permite en silencio, y un audio que empieza sin que nadie lo pida tapa a un lector de pantalla.',
+          'No arranca solo, y no hay prop para que lo haga. Un audio que empieza sin que nadie lo pida tapa a un lector de pantalla, y la WCAG pide poder frenarlo; la forma más barata de cumplir es que no arranque.',
+          'La onda es un gráfico, así que va `aria-hidden` y quien lleva el significado es el slider. Lo que un gráfico de datos resolvería con un audio graph —escuchar la forma— acá ya lo resuelve el botón de play: el dato es el sonido.',
         ]}
       />
     </Page>

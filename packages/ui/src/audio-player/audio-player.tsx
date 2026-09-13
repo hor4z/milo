@@ -17,6 +17,10 @@ function reloj(s: number) {
 
 type Estado = 'cargando' | 'listo' | 'error'
 
+// Solo uno suena a la vez. Dos audios encimados no se entienden, y el segundo
+// tapa al primero sin que nadie lo haya pedido.
+const abiertos = new Set<HTMLAudioElement>()
+
 /** La onda. Cada barra es un pico del archivo; las que quedaron atrás van en el color de marca. */
 function Onda({ peaks, avance }: { peaks: readonly number[]; avance: number }) {
   return (
@@ -57,13 +61,11 @@ type AudioPlayerProps = {
   actions?: ReactNode
   /** 32 · 36 · 40, los del Button. */
   size?: 'sm' | 'md' | 'lg'
-  /** Arranca solo. El navegador solo lo permite en silencio, así que no se usa para contenido. */
-  autoPlay?: boolean
   className?: string
 }
 
 /** Un archivo de audio con su onda: play, una línea de tiempo que se arrastra y el reloj. */
-export function AudioPlayer({ src, title, peaks, actions, size = 'md', autoPlay, className }: AudioPlayerProps) {
+export function AudioPlayer({ src, title, peaks, actions, size = 'md', className }: AudioPlayerProps) {
   const audio = useRef<HTMLAudioElement>(null)
   const [estado, setEstado] = useState<Estado>('cargando')
   const [sonando, setSonando] = useState(false)
@@ -76,6 +78,34 @@ export function AudioPlayer({ src, title, peaks, actions, size = 'md', autoPlay,
     setT(0)
     setDur(0)
   }, [src])
+
+  // Al desmontarlo hay que sacarlo del registro: si no, el elemento queda ahí
+  // para siempre y el próximo que arranque le manda un pause a un nodo muerto.
+  useEffect(() => {
+    // El elemento se agarra acá y no en la limpieza: para entonces React ya
+    // soltó la ref y no hay a quién sacar del registro.
+    const el = audio.current
+    return () => { if (el) abiertos.delete(el) }
+  }, [])
+
+  // Mientras suena, este es el audio del sistema: los botones del auricular, la
+  // pantalla bloqueada y las teclas de medios tienen que caer acá y significar
+  // lo que dicen. Se sueltan al pausar, o se los queda para siempre.
+  useEffect(() => {
+    const ms = typeof navigator !== 'undefined' && 'mediaSession' in navigator ? navigator.mediaSession : null
+    if (!ms || !sonando) return
+    if (title && typeof MediaMetadata === 'function') ms.metadata = new MediaMetadata({ title })
+    ms.setActionHandler('play', () => void audio.current?.play())
+    ms.setActionHandler('pause', () => audio.current?.pause())
+    ms.setActionHandler('seekto', d => {
+      if (audio.current && d.seekTime != null) audio.current.currentTime = d.seekTime
+    })
+    return () => {
+      ms.setActionHandler('play', null)
+      ms.setActionHandler('pause', null)
+      ms.setActionHandler('seekto', null)
+    }
+  }, [sonando, title])
 
   const listo = estado === 'listo' && dur > 0
   const avance = listo ? Math.min(1, t / dur) : 0
@@ -108,15 +138,24 @@ export function AudioPlayer({ src, title, peaks, actions, size = 'md', autoPlay,
         ref={audio}
         src={src}
         preload="metadata"
-        autoPlay={autoPlay}
         onLoadedMetadata={e => {
           setDur(e.currentTarget.duration)
           setEstado('listo')
         }}
         onTimeUpdate={e => setT(e.currentTarget.currentTime)}
-        onPlay={() => setSonando(true)}
-        onPause={() => setSonando(false)}
-        onEnded={() => setSonando(false)}
+        onPlay={e => {
+          for (const otro of abiertos) if (otro !== e.currentTarget) otro.pause()
+          abiertos.add(e.currentTarget)
+          setSonando(true)
+        }}
+        onPause={e => {
+          abiertos.delete(e.currentTarget)
+          setSonando(false)
+        }}
+        onEnded={e => {
+          abiertos.delete(e.currentTarget)
+          setSonando(false)
+        }}
         onError={() => setEstado('error')}
       />
 

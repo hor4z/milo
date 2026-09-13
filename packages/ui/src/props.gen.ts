@@ -124,12 +124,6 @@ export const propsByComponent: Record<string, ComponentDoc> = {
         "doc": "32 · 36 · 40, los del Button."
       },
       {
-        "name": "autoPlay",
-        "type": "boolean",
-        "required": false,
-        "doc": "Arranca solo. El navegador solo lo permite en silencio, así que no se usa para contenido."
-      },
-      {
         "name": "className",
         "type": "string",
         "required": false
