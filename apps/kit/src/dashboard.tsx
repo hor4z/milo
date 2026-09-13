@@ -4,7 +4,7 @@ import {
   Indicator, Link, List, ListItem, Progress, Search, Segmented, SettingsModal, Tooltip, useToast,
   type IconName,
 } from '@milo/ui'
-import { useQuieto } from './mascots/reglas'
+import { useQuieto } from './mascots/quieto'
 
 const face = (n: number) => `/avatars/${String(n).padStart(2, '0')}.webp`
 const p = (name: string, photo?: number) => ({ name, src: photo ? face(photo) : undefined })
@@ -236,16 +236,9 @@ function Avisos() {
 }
 
 /**
- * Otto asomando por el canto derecho de la tarjeta. El recorte lo deja cortado
- * justo donde estaba el panel del render, así que `left-full` es obligatorio:
- * su borde izquierdo tiene que caer exactamente sobre el canto, o el corte se
- * lee como un pedazo que falta.
- *
- * Solo de `xl` para arriba, que es cuando sobra lugar a la derecha de la grilla.
- * Más angosto que eso no entra y empujaría la página.
- *
- * Es un `img` y no un `video`, y eso tiene un costo: no se puede pausar ni
- * frenar desde el teclado. Por eso `useQuieto` no lo atenúa, lo saca.
+ * `left-full` no es una preferencia: el recorte lo deja cortado por donde estaba
+ * el canto, así que su borde izquierdo tiene que caer sobre uno. Y solo de `xl`
+ * para arriba, que es cuando sobra lugar a la derecha de la grilla.
  */
 function Otto() {
   const quieto = useQuieto()

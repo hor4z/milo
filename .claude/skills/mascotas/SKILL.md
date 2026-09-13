@@ -62,10 +62,10 @@ Antes de proponer una alternativa, esto ya se intentó:
    archivo que se sirve.
 3. **Un `img` animado no se puede pausar.** Por eso `prefers-reduced-motion` no
    lo atenúa: lo reemplaza por el retrato quieto. Usar `useQuieto` de
-   `apps/kit/src/mascots/reglas.tsx`.
-4. **Las reglas de dónde va y qué nunca se le hace son de todas las mascotas** y
-   viven en `reglas.tsx`. Una vista nueva las muestra con `<ReglasDeMascota />`,
-   no las vuelve a escribir.
+   `apps/kit/src/mascots/quieto.ts`.
+4. **Las vistas de `mascots/` van cortas y sin doctrina de uso.** Todavía no está
+   decidido si son mascotas, parte de un onboarding o algo decorativo, así que
+   muestran el material —retrato, clips, archivos— y no dónde va cada cosa.
 5. Registrar la vista en `apps/kit/src/App.tsx` —el orden de las props es
    load-bearing, hay un test que lee ese archivo con un regex— y sumar el archivo
    a la lista de `apps/kit/src/__tests__/vistas.test.ts`.
