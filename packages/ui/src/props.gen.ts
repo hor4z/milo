@@ -90,6 +90,53 @@ export const propsByComponent: Record<string, ComponentDoc> = {
     "html": "div",
     "doc": "La fila de botones del aviso."
   },
+  "AudioPlayer": {
+    "props": [
+      {
+        "name": "src",
+        "type": "string",
+        "required": true,
+        "doc": "El archivo."
+      },
+      {
+        "name": "title",
+        "type": "string",
+        "required": false,
+        "doc": "El nombre de la pista, arriba de la onda. Sin esto el reproductor va en una sola fila."
+      },
+      {
+        "name": "peaks",
+        "type": "readonly number[]",
+        "required": false,
+        "doc": "Los picos del archivo, de 0 a 1, para dibujar la onda. Sin esto se dibuja una pista pelada — no se inventa una onda que no es la del audio."
+      },
+      {
+        "name": "actions",
+        "type": "ReactNode",
+        "required": false,
+        "doc": "A la derecha del tiempo: descargar, un menú, lo que haga falta."
+      },
+      {
+        "name": "size",
+        "type": "'sm' | 'md' | 'lg'",
+        "required": false,
+        "def": "'md'",
+        "doc": "32 · 36 · 40, los del Button."
+      },
+      {
+        "name": "autoPlay",
+        "type": "boolean",
+        "required": false,
+        "doc": "Arranca solo. El navegador solo lo permite en silencio, así que no se usa para contenido."
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "required": false
+      }
+    ],
+    "doc": "Un archivo de audio con su onda: play, una línea de tiempo que se arrastra y el reloj."
+  },
   "Avatar": {
     "props": [
       {

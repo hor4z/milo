@@ -44,6 +44,7 @@ export { ToastProvider, useToast } from './toast/toast'
 export type { ToastOptions } from './toast/toast'
 export { EmptyState } from './empty-state/empty-state'
 export { Spinner } from './spinner/spinner'
+export { AudioPlayer } from './audio-player/audio-player'
 export { Skeleton } from './skeleton/skeleton'
 export { Tooltip } from './tooltip/tooltip'
 

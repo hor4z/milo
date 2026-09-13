@@ -1,0 +1,175 @@
+import { useEffect, useRef, useState, type ReactNode } from 'react'
+import { IconButton } from '../icon-button/icon-button'
+import { Spinner } from '../spinner/spinner'
+import { cx } from '../lib/cx'
+
+/** Segundos a reloj. La hora aparece solo si hace falta: `1:02:03` para algo largo, `0:07` para lo normal. */
+function reloj(s: number) {
+  if (!Number.isFinite(s) || s < 0) return '--:--'
+  const t = Math.floor(s)
+  const hh = Math.floor(t / 3600)
+  const mm = Math.floor((t % 3600) / 60)
+  const ss = t % 60
+  return hh
+    ? `${hh}:${String(mm).padStart(2, '0')}:${String(ss).padStart(2, '0')}`
+    : `${mm}:${String(ss).padStart(2, '0')}`
+}
+
+type Estado = 'cargando' | 'listo' | 'error'
+
+/** La onda. Cada barra es un pico del archivo; las que quedaron atrás van en el color de marca. */
+function Onda({ peaks, avance }: { peaks: readonly number[]; avance: number }) {
+  return (
+    <span aria-hidden className="pointer-events-none absolute inset-0 flex items-center gap-px">
+      {peaks.map((p, i) => (
+        <span
+          key={i}
+          className={cx(
+            'min-w-px flex-1 rounded-full transition-colors duration-fast ease-out',
+            i / peaks.length < avance ? 'bg-brand' : 'bg-border-strong',
+          )}
+          // Un pico en silencio mide cero y la barra desaparece; el 8% la deja
+          // como una marca, que es lo que dibuja la línea de la pista.
+          style={{ height: `${Math.max(p, 0.08) * 100}%` }}
+        />
+      ))}
+    </span>
+  )
+}
+
+/** La pista pelada, para cuando no hay picos: una línea con lo escuchado pintado encima. */
+function Pista({ avance }: { avance: number }) {
+  return (
+    <span aria-hidden className="pointer-events-none absolute inset-x-0 top-1/2 h-1 -translate-y-1/2 rounded-full bg-border-strong">
+      <span className="absolute inset-y-0 left-0 rounded-full bg-brand" style={{ width: `${avance * 100}%` }} />
+    </span>
+  )
+}
+
+type AudioPlayerProps = {
+  /** El archivo. */
+  src: string
+  /** El nombre de la pista, arriba de la onda. Sin esto el reproductor va en una sola fila. */
+  title?: string
+  /** Los picos del archivo, de 0 a 1, para dibujar la onda. Sin esto se dibuja una pista pelada — no se inventa una onda que no es la del audio. */
+  peaks?: readonly number[]
+  /** A la derecha del tiempo: descargar, un menú, lo que haga falta. */
+  actions?: ReactNode
+  /** 32 · 36 · 40, los del Button. */
+  size?: 'sm' | 'md' | 'lg'
+  /** Arranca solo. El navegador solo lo permite en silencio, así que no se usa para contenido. */
+  autoPlay?: boolean
+  className?: string
+}
+
+/** Un archivo de audio con su onda: play, una línea de tiempo que se arrastra y el reloj. */
+export function AudioPlayer({ src, title, peaks, actions, size = 'md', autoPlay, className }: AudioPlayerProps) {
+  const audio = useRef<HTMLAudioElement>(null)
+  const [estado, setEstado] = useState<Estado>('cargando')
+  const [sonando, setSonando] = useState(false)
+  const [t, setT] = useState(0)
+  const [dur, setDur] = useState(0)
+
+  useEffect(() => {
+    setEstado('cargando')
+    setSonando(false)
+    setT(0)
+    setDur(0)
+  }, [src])
+
+  const listo = estado === 'listo' && dur > 0
+  const avance = listo ? Math.min(1, t / dur) : 0
+
+  const alternar = () => {
+    const el = audio.current
+    if (!el) return
+    if (sonando) return el.pause()
+    // Al final, el play de nuevo vuelve a empezar; si no, no pasa nada y parece roto.
+    if (dur && el.currentTime >= dur - 0.05) el.currentTime = 0
+    void el.play().catch(() => setEstado('error'))
+  }
+
+  const buscar = (v: number) => {
+    const el = audio.current
+    if (!el) return
+    el.currentTime = v
+    setT(v)
+  }
+
+  return (
+    <div
+      className={cx(
+        'flex items-center gap-3 rounded-xl border border-line bg-surface px-3 py-2',
+        estado === 'error' && 'border-bad-border',
+        className,
+      )}
+    >
+      <audio
+        ref={audio}
+        src={src}
+        preload="metadata"
+        autoPlay={autoPlay}
+        onLoadedMetadata={e => {
+          setDur(e.currentTarget.duration)
+          setEstado('listo')
+        }}
+        onTimeUpdate={e => setT(e.currentTarget.currentTime)}
+        onPlay={() => setSonando(true)}
+        onPause={() => setSonando(false)}
+        onEnded={() => setSonando(false)}
+        onError={() => setEstado('error')}
+      />
+
+      {estado === 'cargando'
+        ? (
+          <span className={cx('inline-flex shrink-0 items-center justify-center', size === 'sm' ? 'size-8' : size === 'md' ? 'size-9' : 'size-10')}>
+            <Spinner size={size === 'sm' ? 16 : 18} label="Cargando el audio" />
+          </span>
+        )
+        : (
+          <IconButton
+            icon={sonando ? 'pause' : 'play_arrow'}
+            label={sonando ? 'Pausar' : 'Reproducir'}
+            variant="raised"
+            size={size}
+            disabled={estado === 'error'}
+            onClick={alternar}
+            className="shrink-0 rounded-full"
+          />
+        )}
+
+      <div className="flex min-w-0 flex-1 flex-col gap-1">
+        {title && <span className="truncate text-body font-medium text-ink">{title}</span>}
+        {estado === 'error'
+          ? <span className="text-body text-bad-ink">No se pudo cargar el audio</span>
+          : (
+            <span className={cx('relative flex w-full items-center', size === 'lg' ? 'h-10' : 'h-8')}>
+              {peaks?.length ? <Onda peaks={peaks} avance={avance} /> : <Pista avance={avance} />}
+              <input
+                type="range"
+                min={0}
+                max={listo ? dur : 0}
+                step={0.1}
+                value={t}
+                disabled={!listo}
+                aria-label={title ? `Buscar en ${title}` : 'Buscar en el audio'}
+                aria-valuetext={`${reloj(t)} de ${reloj(dur)}`}
+                onChange={e => buscar(Number(e.target.value))}
+                className={cx(
+                  'absolute inset-0 h-full w-full cursor-pointer appearance-none bg-transparent opacity-0',
+                  'disabled:cursor-default',
+                  'focus-visible:opacity-100 focus-visible:outline-none focus-visible:shadow-[var(--focus-ring)] focus-visible:rounded-md',
+                )}
+              />
+            </span>
+          )}
+      </div>
+
+      <span className="tabular shrink-0 text-meta text-ink-muted">
+        {reloj(t)} / {reloj(dur)}
+      </span>
+
+      {actions && <span className="flex shrink-0 items-center gap-1">{actions}</span>}
+    </div>
+  )
+}
