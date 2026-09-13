@@ -9,6 +9,9 @@ export function TextareaStory() {
   )
   const [noCap, setNoCap] = useState('Sin maxRows crece todo lo que haga falta.')
   const [mode, setMode] = useState('Crece con lo que escribís.')
+  const [devolucion, setDevolucion] = useState('Resolviste bien las dos primeras. En la tercera te falta justificar por qué la pendiente da la mitad de g.')
+  const [cerca, setCerca] = useState('Le puse un techo corto para que veas qué pasa al final.')
+  const [corta, setCorta] = useState('Bien')
 
   return (
     <Page
@@ -41,6 +44,54 @@ export function TextareaStory() {
                 value={noCap}
                 onChange={e => setNoCap(e.target.value)}
                 rows={2}
+                className="w-full"
+              />
+            </Demo>
+          </div>
+        </div>
+      </Section>
+
+      <Section
+        title="La cuenta, y por qué no es solo un número"
+        note="Con `counter` aparece abajo a la derecha y lee el `maxLength` y el `minLength` que ya le pasás. Mientras sobra lugar cuenta y nada más, en gris, porque ahí el número no es una decisión. Cuando entra en el último diez por ciento deja de contar y dice cuánto queda, y si todavía no llegó al mínimo dice cuánto falta: **un contador informa, una frase orienta**, que es la regla que el sistema ya tiene escrita en Cómo se escribe."
+      >
+        <div className="flex flex-wrap items-start gap-3">
+          <div className="w-full max-w-[300px]">
+            <Demo label="mientras sobra lugar">
+              <Textarea
+                aria-label="Devolución para el estudiante"
+                value={devolucion}
+                onChange={e => setDevolucion(e.target.value)}
+                counter
+                maxLength={400}
+                rows={3}
+                className="w-full"
+              />
+            </Demo>
+          </div>
+          <div className="w-full max-w-[300px]">
+            <Demo label="cerca del techo">
+              <Textarea
+                aria-label="Devolución con techo corto"
+                value={cerca}
+                onChange={e => setCerca(e.target.value)}
+                counter
+                maxLength={60}
+                rows={3}
+                className="w-full"
+              />
+            </Demo>
+          </div>
+          <div className="w-full max-w-[300px]">
+            <Demo label="todavía no llega al mínimo">
+              <Textarea
+                aria-label="Devolución con mínimo"
+                value={corta}
+                onChange={e => setCorta(e.target.value)}
+                counter
+                minLength={20}
+                maxLength={400}
+                rows={3}
                 className="w-full"
               />
             </Demo>
