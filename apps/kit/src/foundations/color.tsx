@@ -175,12 +175,13 @@ export function ColorSection() {
             <AlertTitle>Tres entregas vencen mañana</AlertTitle>
           </Alert>
         </div>
-        <Note title="Por qué el warn dejó de ser mostaza">
-          Estaba en un amarillo de croma baja, que es la receta del ocre, y lo tenía ahí una
-          medida: `--chart-warn` es el mismo token y tenía que despegarse de su pista solo, y esos
-          3:1 fijan la luminosidad. La salida no fue bajar la exigencia sino mover de lugar el
-          borde: ahora el relleno lleva un filo de su mismo tono, ese filo llega a 5:1 contra la
-          pista, y el relleno queda libre de ser naranja de verdad.
+        <Note title="El naranja del warn no llega a los 3:1 contra su pista, y está decidido así">
+          Da 2,28 en claro. Es la segunda excepción escrita del sistema, después de la onda del
+          `AudioPlayer`, y se acepta por lo mismo: **el valor nunca lo lleva solo el color**. La
+          barra va con su rótulo y su número al lado, el gráfico trae su tabla escondida con todos
+          los valores, y los dos declaran `aria-valuenow`. Lo que se pierde es el golpe de vista de
+          quien mira de reojo una barra corta. Lo que se gana es que el estado se lea como un
+          estado y no como un ocre. En oscuro no hay nada que discutir: ahí da 4,88.
         </Note>
 
         <div className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
@@ -244,7 +245,6 @@ export function ColorSection() {
           <Swatch token="--chart-ok" note="lo terminado" />
           <Swatch token="--chart-warn" note="lo que está por llenarse" />
           <Swatch token="--chart-bad" note="lo que ya no entra" />
-          <Swatch token="--chart-warn-edge" note="el filo que le dibuja el borde" />
         </div>
       </Section>
     </Page>

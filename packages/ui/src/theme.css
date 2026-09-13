@@ -172,10 +172,6 @@
   --color-chart-ok: var(--chart-ok);
   --color-chart-warn: var(--chart-warn);
   --color-chart-bad: var(--chart-bad);
-  --color-chart-fill-edge: var(--chart-fill-edge);
-  --color-chart-ok-edge: var(--chart-ok-edge);
-  --color-chart-warn-edge: var(--chart-warn-edge);
-  --color-chart-bad-edge: var(--chart-bad-edge);
 
   --color-mark-green: var(--mark-green);
   --color-mark-green-ink: var(--mark-green-ink);
