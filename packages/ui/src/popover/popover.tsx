@@ -32,7 +32,16 @@ export function Popover({
   const [pos, setPos] = useState({ top: 0, left: 0 })
 
   const set = (v: boolean) => { setOpen(v); onOpenChange?.(v) }
-  const close = () => set(false)
+
+  const close = () => {
+    // Si el foco estaba adentro del panel, al desmontarlo se cae al `<body>` y
+    // quien usa el teclado queda arriba de todo, lejos de donde estaba. Se
+    // pregunta antes de cerrar, que es cuando el panel todavía existe. Cuando
+    // el foco está afuera —alguien tocó en otro lado— no se le mueve nada.
+    const adentro = panelRef.current?.contains(document.activeElement)
+    set(false)
+    if (adentro) triggerRef.current?.focus()
+  }
 
   useEscape(open, close)
 
