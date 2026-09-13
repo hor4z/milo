@@ -95,12 +95,21 @@ describe('coherencia del sistema', () => {
     expect([...new Set(offenders)]).toEqual([])
   })
 
-  it('los iconos salen de la escala', () => {
+  it('los iconos salen de la escala, también cuando el número llega por una tabla', () => {
     const escala = new Set([12, 14, 16, 18, 20, 22])
     const offenders: string[] = []
     for (const f of sources) {
-      for (const m of f.text.matchAll(/<Icon\b[^>]*?size=\{(\d+)\}/gs)) {
-        if (!escala.has(Number(m[1]))) offenders.push(`${f.name}: ${m[1]}`)
+      for (const m of f.text.matchAll(/<Icon\b[^>]*?size=\{([^}]+)\}/gs)) {
+        const crudo = m[1].trim()
+        if (/^\d+$/.test(crudo)) {
+          if (!escala.has(Number(crudo))) offenders.push(`${f.name}: ${crudo}`)
+          continue
+        }
+        const clave = crudo.split('.').pop()!
+        if (!/^\w+$/.test(clave)) continue
+        for (const t of f.text.matchAll(new RegExp(`(?:^|[{,])\\s*${clave}:\\s*(\\d+)\\s*,`, 'gm'))) {
+          if (!escala.has(Number(t[1]))) offenders.push(`${f.name}: ${clave} vale ${t[1]}`)
+        }
       }
     }
     expect(offenders).toEqual([])

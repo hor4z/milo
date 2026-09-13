@@ -14,7 +14,7 @@ const chipSize = {
     box: 'min-h-5 gap-1 rounded-sm px-2 text-meta font-semibold',
     icon: 12,
     dot: 'size-1',
-    cross: 10,
+    cross: 12,
   },
   md: {
     box: 'min-h-7 gap-2 rounded-md px-2 text-body',
