@@ -1198,6 +1198,47 @@ export const propsByComponent: Record<string, ComponentDoc> = {
     ],
     "doc": "Una fórmula: en la frase, o en su propio renglón y con número."
   },
+  "Heatmap": {
+    "props": [
+      {
+        "name": "title",
+        "type": "string",
+        "required": true,
+        "doc": "De qué es la grilla. Va como `caption` y lo lee un lector de pantalla al entrar."
+      },
+      {
+        "name": "columns",
+        "type": "string[]",
+        "required": true,
+        "doc": "Los encabezados de arriba. Cortos: la columna mide lo que mide el más largo."
+      },
+      {
+        "name": "rows",
+        "type": "HeatRow[]",
+        "required": true,
+        "doc": "Una fila por persona, con un valor por columna."
+      },
+      {
+        "name": "levels",
+        "type": "string[]",
+        "required": true,
+        "doc": "Los niveles en orden, del más bajo al más alto. El valor de una celda es su índice."
+      },
+      {
+        "name": "empty",
+        "type": "string",
+        "required": false,
+        "def": "'Sin datos'",
+        "doc": "Cómo se llama la ausencia de dato, que no es el nivel más bajo."
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "required": false
+      }
+    ],
+    "doc": "Una grilla de niveles: filas contra columnas, con el nivel en cada cruce."
+  },
   "Icon": {
     "props": [
       {

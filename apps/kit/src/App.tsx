@@ -22,6 +22,7 @@ import { TaskListStory } from './stories/task-list'
 import { MentionStory } from './stories/mention'
 import { FormulaStory } from './stories/formula'
 import { CodeBlockStory } from './stories/code-block'
+import { HeatmapStory } from './stories/heatmap'
 import { CommandMenuStory } from './stories/command-menu'
 import { ToolbarStory } from './stories/toolbar'
 import { StepsStory } from './stories/steps'
@@ -163,6 +164,7 @@ const groups: Group[] = [
       { id: 'list', label: 'List', alias: 'lista filas acciones', render: () => <ListStory /> },
       { id: 'bar-chart', label: 'BarChart', alias: 'gráfico barras chart datos progreso', render: () => <ChartStory /> },
       { id: 'line-chart', label: 'LineChart', alias: 'gráfico línea función curva tiempo serie física matemática', render: () => <LineChartStory /> },
+      { id: 'heatmap', label: 'Heatmap', alias: 'mapa de calor grilla dominio niveles curso matriz diferenciado', render: () => <HeatmapStory /> },
       { id: 'column-picker', label: 'ColumnPicker', alias: 'columnas tabla elegir mostrar ocultar', render: () => <ColumnPickerStory /> },
       { id: 'indicator', label: 'Indicator', alias: 'indicador marca punto contador aviso notificación campana', render: () => <IndicatorStory /> },
       { id: 'badge', label: 'Badge', alias: 'etiqueta marca estado', render: () => <BadgeStory /> },
