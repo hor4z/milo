@@ -167,16 +167,21 @@ export function AccessibilitySection() {
         jerarquía, que es lo que el gris estaba haciendo. Medido, no estimado.
       </Note>
 
-      <Note icon="warning" title="El único texto que no llega a AA, y por qué">
-        El gris del texto sugerido de un campo se mide contra cuatro fondos: el campo sobre el
-        escritorio, ese con el mouse encima, el campo adentro de una pieza de papel y ese con el
-        mouse encima. Llega a 4,5:1 en los cuatro salvo en el último del tema oscuro, donde da
-        3,82:1. Para pasarlo hay que aclarar el gris hasta 1,02:1 del gris del texto escrito, y ahí
-        un campo con sugerencia se lee igual que un campo lleno — que es exactamente lo que este
-        paso de la rampa vino a evitar. Es la misma cuenta que la de AAA: se gana el número y se
-        pierde lo que el color estaba diciendo. Los otros tres se corrigieron: adentro de una
-        tarjeta daban 4,24 en claro y 3,99 en oscuro, y ninguno se medía.
+      <Note icon="warning" title="Los dos números que no llegan, con la cuenta">
+        **El texto sugerido de un campo, en oscuro y con el mouse encima: 3,82:1.** Se mide contra
+        los cuatro fondos de campo —sobre el escritorio y adentro de una pieza de papel, cada uno
+        con y sin mouse— y llega a 4,5 en tres. Para pasar el cuarto hay que aclarar el gris hasta
+        1,02:1 del texto escrito, y ahí un campo con sugerencia se lee como un campo lleno, que es
+        lo que este paso de la rampa vino a evitar. Antes se medía contra dos de los cuatro: los
+        otros dos daban 4,24 y 3,99 y ya están corregidos.
+        {' '}
+        **El borde de un campo contra el papel: 1,75:1 en claro y 2,57 en oscuro**, contra los 3:1
+        que la WCAG pide para identificar un control. Subirlo a 3:1 convierte cada campo en una
+        caja dibujada y cambia el aire de todas las pantallas. El campo no depende solo del borde
+        —se hunde contra su superficie, tiene su propia altura y su etiqueta— pero el número es el
+        número y queda acá escrito.
       </Note>
+
 
       <Note icon="warning" title="Lo único que axe marca y no se corrige">
         Con un menú abierto aparece <code>region</code>, que pide que todo el contenido esté adentro
