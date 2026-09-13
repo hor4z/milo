@@ -15,7 +15,7 @@ const principles: { icon: IconName; title: string; body: string }[] = [
   {
     icon: 'square_foot',
     title: 'Una sola escalera de medidas',
-    body: 'Tres alturas de control, cinco radios y una base de espaciado de cuatro. El mismo nombre da el mismo número en todas las piezas, así que un campo y el botón que lo acompaña apoyan en la misma línea sin que nadie lo calcule.',
+    body: 'Tres alturas de control, seis radios y una base de espaciado de cuatro. El mismo nombre da el mismo número en todas las piezas, así que un campo y el botón que lo acompaña apoyan en la misma línea sin que nadie lo calcule.',
   },
   {
     icon: 'target',

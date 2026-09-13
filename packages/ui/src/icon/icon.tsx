@@ -28,7 +28,7 @@ export function Icon({ name, size = 20, className, weight }: {
         ...(weight ? { '--icon-wght': weight } : null),
       } as CSSProperties}
     >
-      {String.fromCodePoint(codepoints[name])}
+      {codepoints[name] == null ? '' : String.fromCodePoint(codepoints[name])}
     </span>
   )
 }

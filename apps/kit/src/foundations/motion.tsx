@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { Button, Icon, Switch } from '@milo/ui'
 import { A11y, Note, Page, Section } from '../kit'
 
-/** Las dos duraciones y las dos curvas. No hay una tercera de nada. */
+/** Dos duraciones de interfaz, una de contenido, y dos curvas. */
 const duraciones = [
   { cls: 'duration-fast', ms: 120, role: 'lo que acompaña al dedo: un hover, un color que cambia, un check que se marca. Tiene que sentirse instantáneo.' },
   { cls: 'duration-normal', ms: 190, role: 'lo que aparece o se va: un panel, un modal, una hoja. Acá el ojo necesita ver de dónde vino.' },

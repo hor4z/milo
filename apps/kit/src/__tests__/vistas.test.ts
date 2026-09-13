@@ -179,6 +179,30 @@ describe('los números de la portada', () => {
   })
 })
 
+describe('las escalas que la doctrina dibuja', () => {
+  it('cada paso de espaciado que Medidas declara se puede escribir', () => {
+    const vista = readFileSync(join(import.meta.dirname, '../foundations/measure.tsx'), 'utf8')
+    const pasos = [...vista.matchAll(/\{ px: (\d+), role:/g)].map(m => Number(m[1]))
+    const guarda = readFileSync(
+      join(import.meta.dirname, '../../../../packages/ui/src/__tests__/coherencia.test.ts'),
+      'utf8',
+    )
+    const prohibidos = guarda
+      .match(/\)-\(([^)]+)\)\(\?!/)![1]
+      .replace(/\\/g, '')
+      .split('|')
+      .map(s => Number(s) * 4)
+
+    expect(pasos.length).toBeGreaterThan(0)
+    expect(prohibidos.length).toBeGreaterThan(0)
+    const sinUtilidad = pasos.filter(px => prohibidos.includes(px))
+    expect(
+      sinUtilidad,
+      `Medidas declara ${sinUtilidad.join(', ')}px y la guarda de coherencia prohíbe la utilidad que los escribe`,
+    ).toEqual([])
+  })
+})
+
 describe('cómo se escribe', () => {
   it('no vuelve la raya larga ni las comillas angulares', () => {
     const root = join(import.meta.dirname, '../../../..')
