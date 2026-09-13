@@ -175,15 +175,20 @@ export function LineChart({ series, title, xLabel, yLabel, height = 260, zeroY =
       <div className="flex" style={{ marginLeft: 'calc(var(--spacing) * 2)' }}>
         <span className="w-0 shrink-0" />
         <div className="relative min-w-0 flex-1 h-4">
-          {cortesX.map(v => (
-            <span
-              key={v}
-              className="absolute -translate-x-1/2 tabular text-meta text-ink-muted"
-              style={{ left: `${escala(v, minX, maxX) * 100}%` }}
-            >
-              {v}
-            </span>
-          ))}
+          {cortesX.map(v => {
+            const pos = escala(v, minX, maxX) * 100
+            return (
+              <span
+                key={v}
+                className="absolute tabular text-meta text-ink-muted"
+                // Centrada sobre su corte, salvo en los extremos: ahí la mitad
+                // que sobresale empuja el ancho de la fila y desborda.
+                style={{ left: `${pos}%`, transform: pos < 2 ? 'none' : pos > 98 ? 'translateX(-100%)' : 'translateX(-50%)' }}
+              >
+                {v}
+              </span>
+            )
+          })}
         </div>
       </div>
 

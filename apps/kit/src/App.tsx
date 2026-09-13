@@ -17,6 +17,7 @@ import { ChartsSection } from './foundations/charts'
 import { CalloutStory } from './stories/callout'
 import { CommandMenuStory } from './stories/command-menu'
 import { ToolbarStory } from './stories/toolbar'
+import { StepsStory } from './stories/steps'
 import { AmeliaStory } from './mascots/amelia'
 import { OttoStory } from './mascots/otto'
 import { Writing } from './foundations/writing'
@@ -137,6 +138,7 @@ const groups: Group[] = [
       { id: 'tabs', label: 'Tabs', alias: 'solapas pestañas paneles', render: () => <TabsStory /> },
       { id: 'accordion', label: 'Accordion', alias: 'acordeón desplegable details preguntas frecuentes', render: () => <AccordionStory /> },
       { id: 'breadcrumb', label: 'Breadcrumb', alias: 'ruta migas volver jerarquía', render: () => <BreadcrumbStory /> },
+      { id: 'steps', label: 'Steps', alias: 'etapas pasos proceso wizard progreso secuencia', render: () => <StepsStory /> },
       { id: 'nav', label: 'NavItem', alias: 'navegación item sidebar riel', render: () => <NavStory /> },
     ],
   },

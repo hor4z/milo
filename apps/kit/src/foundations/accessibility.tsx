@@ -6,7 +6,7 @@ const reglas = [
   {
     icon: 'contrast',
     title: 'El contraste se mide, no se estima',
-    body: 'AA —4.5:1— para todo lo que sea texto, en los dos temas. No es una intención: hay veintinueve tests que leen los tokens y calculan el ratio, y fallan antes de que un tono roto llegue a una pantalla.',
+    body: 'AA —4.5:1— para todo lo que sea texto, en los dos temas. No es una intención: hay veintinueve tests que leen los tokens y calculan el ratio, y fallan antes de que un tono roto llegue a una pantalla. AAA queda afuera a propósito, y abajo está la cuenta.',
   },
   {
     icon: 'keyboard',
@@ -157,6 +157,14 @@ export function AccessibilitySection() {
         son el escalón donde el blanco encima llega exactamente a 4.5:1, derivado por búsqueda en
         OKLCH y no elegido mirando. El degradado del azul va de 600 a 700, así que pasa de punta a
         punta y no solo en la mitad de abajo. Hay un test que lo mide en los dos temas.
+      </Note>
+
+      <Note title="Por qué el objetivo es AA y no AAA">
+        El gris del texto secundario da 6,94:1 sobre el fondo del tema oscuro: le faltan seis
+        centésimas para AAA. Subirlo parece gratis y no lo es — para llegar a 7:1 sobre las cuatro
+        superficies oscuras hay que aclararlo hasta un punto donde queda a 1,84:1 del texto
+        principal, y ahí deja de distinguirse el título del cuerpo. Se gana un número y se pierde la
+        jerarquía, que es lo que el gris estaba haciendo. Medido, no estimado.
       </Note>
 
       <A11y

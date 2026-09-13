@@ -35,6 +35,8 @@ export { ColumnPicker } from './column-picker/column-picker'
 export { Badge } from './badge/badge'
 export { Indicator } from './indicator/indicator'
 export { Progress } from './progress/progress'
+export { Steps } from './steps/steps'
+export type { Step } from './steps/steps'
 export { Avatar, AvatarGroup } from './avatar/avatar'
 export { Chip } from './chip/chip'
 

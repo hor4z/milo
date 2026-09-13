@@ -2154,6 +2154,47 @@ export const propsByComponent: Record<string, ComponentDoc> = {
     ],
     "doc": "Pista completa más un arco encima."
   },
+  "Steps": {
+    "props": [
+      {
+        "name": "steps",
+        "type": "Step[]",
+        "required": true,
+        "doc": "En orden."
+      },
+      {
+        "name": "current",
+        "type": "number",
+        "required": true,
+        "doc": "El índice de la que se está haciendo. Las anteriores quedan hechas."
+      },
+      {
+        "name": "label",
+        "type": "string",
+        "required": true,
+        "doc": "Qué es esta secuencia. Sin esto, un lector la anuncia como una lista suelta."
+      },
+      {
+        "name": "orientation",
+        "type": "'horizontal' | 'vertical'",
+        "required": false,
+        "def": "'horizontal'",
+        "doc": "Parada, deja lugar para el texto de cada etapa; acostada entra en una franja."
+      },
+      {
+        "name": "onSelect",
+        "type": "(i: number) => void",
+        "required": false,
+        "doc": "Recibe el índice. Sin esto las etapas no se tocan: son un indicador y no una navegación."
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "required": false
+      }
+    ],
+    "doc": "Por dónde va algo que tiene etapas: una actividad en partes, un proceso de diseño, un formulario largo."
+  },
   "Switch": {
     "props": [
       {
