@@ -368,12 +368,15 @@ export function App() {
             {current === 'documento' && <Documento />}
             {story?.render()}
             {!story && current !== INTRO && current !== 'dashboard' && current !== 'documento' && (
+              <>
+              <h1 className="sr-only">Esa vista ya no está acá</h1>
               <EmptyState
                 icon="search_off"
                 title="Esa vista ya no está acá"
                 body={`No hay ninguna pieza que se llame "${current}". Puede que se haya renombrado: el buscador del riel encuentra por nombre y por sinónimo.`}
                 action={<Button variant="raised" icon="arrow_back" onClick={() => go(INTRO)}>Volver a la introducción</Button>}
               />
+              </>
             )}
           </div>
         </main>

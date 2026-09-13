@@ -87,8 +87,9 @@
   --color-accent-subtle: var(--accent-subtle);
   --color-accent-fill: var(--accent-fill);
   --color-on-accent: var(--on-accent);
+  --color-on-ok: var(--on-ok);
+  --color-on-warn: var(--on-warn);
 
-  --color-brand-subtle: var(--brand-subtle);
   --color-brand-ink: var(--brand-ink);
   --color-ok-border: var(--ok-border);
   --color-warn-border: var(--warn-border);

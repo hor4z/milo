@@ -5,7 +5,7 @@ const principles: { icon: IconName; title: string; body: string }[] = [
   {
     icon: 'contrast',
     title: 'Monocroma, con el color contado',
-    body: 'La interfaz se dibuja con una rampa casi neutra. El azul es lo que manda, lo que está cargando y lo que tiene el foco; el ámbar señala; y las familias de color identifican un espacio o una persona. Nada más lleva color, y por eso el poco que hay se ve.',
+    body: 'La interfaz se dibuja con una rampa casi neutra. El azul es lo que manda, lo que está cargando y lo que tiene el foco; el naranja señala; y las familias de color identifican un espacio o una persona. Nada más lleva color, y por eso el poco que hay se ve.',
   },
   {
     icon: 'layers',

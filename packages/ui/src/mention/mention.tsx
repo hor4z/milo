@@ -22,7 +22,7 @@ export function Mention({ name, src, icon, href, className }: MentionProps) {
       href={href}
       className={cx(
         'inline-flex items-center gap-1 rounded-sm px-0.5 align-baseline',
-        'bg-brand-subtle text-brand-ink',
+        'bg-brand-soft text-brand-ink',
         href
           ? 'underline decoration-current underline-offset-[3px] transition-colors duration-fast ease-out hover:bg-brand-soft hover:decoration-2'
           : 'no-underline',
