@@ -58,9 +58,11 @@ export function Heatmap({ title, columns, rows, levels, empty = 'Sin datos', cla
                 <th scope="row" className="sticky left-0 z-10 bg-surface pr-4 pl-4 text-left text-body font-medium whitespace-nowrap text-ink">
                   {r.label}
                 </th>
-                {r.values.map((v, i) => (
+                {/* Una fila con menos valores que columnas deja la grilla
+                    corrida: lo que falta es «sin dato» y no «sin celda». */}
+                {columns.map((_, i) => (
                   <td key={i} className="p-0">
-                    <Cell value={v} levels={levels} empty={empty} />
+                    <Cell value={r.values[i] ?? null} levels={levels} empty={empty} />
                   </td>
                 ))}
               </tr>
@@ -133,5 +135,5 @@ function Legend({ levels, empty }: { levels: string[]; empty: string }) {
    transparente se veía igual que la celda vacía, y son dos cosas distintas —
    una es «todavía no empezó» y la otra «no hay dato». Arranca en un tercio del
    alto y en la mitad del tono, que es lo mínimo que se lee como algo. */
-const nivelAlto = (i: number, n: number) => 34 + 66 * (i / Math.max(n - 1, 1))
-const nivelTono = (i: number, n: number) => 0.45 + 0.55 * (i / Math.max(n - 1, 1))
+const nivelAlto = (i: number, n: number) => (n < 2 ? 100 : 34 + 66 * (i / (n - 1)))
+const nivelTono = (i: number, n: number) => (n < 2 ? 1 : 0.45 + 0.55 * (i / (n - 1)))

@@ -45,4 +45,24 @@ describe('Heatmap', () => {
     for (const l of levels) expect(screen.getAllByText(l).length).toBeGreaterThan(0)
     expect(screen.getAllByText('No lo intentó').length).toBeGreaterThan(0)
   })
+
+  it('sin filas no dibuja ninguna', () => {
+    const { container } = render(<Heatmap title="Vacío" columns={['A']} rows={[]} levels={levels} />)
+    expect(container.querySelectorAll('tbody tr')).toHaveLength(0)
+  })
+
+  it('con un solo nivel, ese nivel es el lleno y no el más bajo', () => {
+    const { container } = render(<Heatmap title="Uno" columns={['A']} rows={[{ label: 'F', values: [0] }]} levels={['Único']} />)
+    const fill = container.querySelector('tbody span[aria-hidden="true"]') as HTMLElement
+    expect(fill.style.height).toBe('100%')
+  })
+
+  it('una fila con menos valores que columnas no corre la grilla', () => {
+    // Lo que falta es «sin dato» y no «sin celda»: con una celda menos, la
+    // columna de al lado deja de ser la misma columna.
+    const { container } = render(
+      <Heatmap title="Corta" columns={['A', 'B', 'C']} rows={[{ label: 'F', values: [1] }]} levels={levels} />,
+    )
+    expect(container.querySelectorAll('tbody td')).toHaveLength(3)
+  })
 })

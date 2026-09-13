@@ -55,4 +55,9 @@ describe('Formula', () => {
     const conNombre = [...container.querySelectorAll('[aria-label]')]
     expect(conNombre.every(n => !n.getAttribute('aria-label')!.includes('uno sobre dos'))).toBe(true)
   })
+
+  it('sin contenido sigue llevando su texto alternativo', () => {
+    const { container } = render(<Formula alt="nada">{null}</Formula>)
+    expect(container.querySelector('math')?.getAttribute('alttext')).toBe('nada')
+  })
 })

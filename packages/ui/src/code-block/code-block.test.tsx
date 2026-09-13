@@ -36,4 +36,15 @@ describe('CodeBlock', () => {
     const { container } = render(<CodeBlock code={fuente} />)
     expect(container.querySelector('pre')?.getAttribute('tabindex')).toBeNull()
   })
+
+  it('vacío sigue siendo un bloque', () => {
+    const { container } = render(<CodeBlock code="" numbered />)
+    expect(container.querySelector('pre')).toBeTruthy()
+  })
+
+  it('una línea sin salto final numera una sola vez', () => {
+    const { container } = render(<CodeBlock code="npm run dev" numbered />)
+    const nums = [...container.querySelectorAll('pre [aria-hidden="true"]')].map(n => n.textContent)
+    expect(nums).toEqual(['1'])
+  })
 })

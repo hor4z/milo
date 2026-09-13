@@ -112,4 +112,9 @@ describe('DatePicker', () => {
     await abrir()
     expect(screen.getByRole('gridcell', { name: /lunes, 9 de marzo de 2026/i })).toHaveFocus()
   })
+
+  it('sin fecha, el campo dice qué falta', () => {
+    const { container } = render(<DatePicker value="" onChange={() => {}} label="Fecha" />)
+    expect(container.querySelector('button')?.textContent).toContain('Elegir fecha')
+  })
 })
