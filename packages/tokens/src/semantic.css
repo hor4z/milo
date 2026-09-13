@@ -43,6 +43,11 @@
   --accent-hover: var(--accent-600);
   --accent-subtle: var(--accent-050);
   --on-accent: #ffffff;
+  /* Van literales y en los dos temas, como `--on-label` y por el mismo motivo:
+     el relleno es claro en los dos, así que encima va tinta en los dos. Sobre
+     el verde el blanco daba 3.78 y sobre el naranja 2.65: no alcanza. */
+  --on-ok: #121212;
+  --on-warn: #121212;
   --brand-ink: var(--blue-700);
 
   --space-orange: #e2761b;
@@ -138,6 +143,15 @@
   --chart-ok: var(--ok);
   --chart-warn: var(--warn);
   --chart-bad: var(--bad);
+  /* El filo de un relleno de dato. Lo que la WCAG pide es que se vea dónde
+     termina lo hecho, no que el relleno sea oscuro: con el filo puesto, el borde
+     lo dibuja una línea de 5:1 contra la pista y el relleno queda libre de ser
+     del color que le corresponde. Sin esto el naranja tenía que bajar hasta el
+     ocre para despegarse solo. */
+  --chart-fill-edge: var(--blue-700);
+  --chart-ok-edge: var(--ok-700);
+  --chart-warn-edge: var(--warn-700);
+  --chart-bad-edge: var(--bad-700);
 }
 
 [data-theme="dark"] {
@@ -160,6 +174,12 @@
   --track: var(--shade-09-a11);
   --chart-fill: var(--label-blue);
   --chart-bad: var(--bad-700);
+  /* Sobre papel oscuro el relleno ya se despega de la pista solo, así que el
+     filo es el propio relleno: la línea existe y no se ve, que es lo correcto. */
+  --chart-fill-edge: var(--chart-fill);
+  --chart-ok-edge: var(--chart-ok);
+  --chart-warn-edge: var(--chart-warn);
+  --chart-bad-edge: var(--chart-bad);
   --brand-ink: var(--blue-700);
   --brand-soft: var(--blue-050);
   --brand-soft-strong: var(--blue-100);

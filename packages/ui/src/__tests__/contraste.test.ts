@@ -150,6 +150,18 @@ describe('el texto de una etiqueta de color se lee', () => {
     }
   }
 
+  for (const theme of ['light', 'dark'] as const) {
+    for (const label of labels) {
+      it(`el par suave de ${label} en ${theme} se lee`, () => {
+        const soft = value(`${label}-soft`, theme)
+        const ink = value(`${label}-ink`, theme)
+        expect(soft, `falta ${label}-soft en ${theme}`).toBeTruthy()
+        expect(ink, `falta ${label}-ink en ${theme}`).toBeTruthy()
+        expect(ratio(ink!, soft!)).toBeGreaterThanOrEqual(4.5)
+      })
+    }
+  }
+
   it('la tinta del rol es la misma que se mide acá', () => {
     const semantic = readFileSync(join(import.meta.dirname, '../../../tokens/src/semantic.css'), 'utf8')
     expect(semantic).toMatch(/--on-label:\s*#121212/)
@@ -212,9 +224,36 @@ describe('el relleno de un dato se despega de su pista', () => {
 
   for (const theme of ['light', 'dark'] as const) {
     for (const tono of ['--chart-fill', '--chart-ok', '--chart-warn', '--chart-bad']) {
-      it(`${tono} sobre la pista en ${theme} llega a 3:1`, () => {
-        expect(ratio(literal(tono, theme), pista(theme))).toBeGreaterThanOrEqual(3)
+      it(`se ve dónde termina ${tono} sobre la pista en ${theme}`, () => {
+        const p = pista(theme)
+        const relleno = ratio(literal(tono, theme), p)
+        const filo = ratio(literal(`${tono}-edge`, theme), p)
+        expect(
+          Math.max(relleno, filo),
+          `el relleno da ${relleno.toFixed(2)} y su filo ${filo.toFixed(2)}: el borde tiene que llegar a 3 por uno de los dos`,
+        ).toBeGreaterThanOrEqual(3)
       })
     }
   }
+
+  describe('la marca del Indicator lleva la tinta que su relleno aguanta', () => {
+    const pares: [string, string][] = [
+      ['--on-accent', '--accent-fill'],
+      ['--on-ok', '--ok'],
+      ['--on-warn', '--warn'],
+      ['--on-bad', '--bad'],
+    ]
+    for (const theme of ['light', 'dark'] as const) {
+      for (const [ink, fill] of pares) {
+        it(`${ink} sobre ${fill} en ${theme} llega a AA`, () => {
+          const i = literal(ink, theme)
+          const f = literal(fill, theme)
+          expect(i, `falta ${ink} en ${theme}`).toBeTruthy()
+          expect(f, `falta ${fill} en ${theme}`).toBeTruthy()
+          expect(ratio(i, f)).toBeGreaterThanOrEqual(4.5)
+        })
+      }
+    }
+  })
 })
+

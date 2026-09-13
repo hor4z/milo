@@ -175,16 +175,17 @@ export function ColorSection() {
             <AlertTitle>Tres entregas vencen mañana</AlertTitle>
           </Alert>
         </div>
-        <Note title="Por qué el ámbar es este ámbar y no uno más vivo">
-          Lo ancla el relleno de dato: `--chart-warn` tiene que despegarse de su pista y eso pide
-          3:1, que fija la luminosidad. Lo que sí se puede mover es el tono, y se movió 17 grados
-          hacia el naranja con la croma al tope del gamut. Es la diferencia entre mostaza y ámbar:
-          mostaza es amarillo con poca croma, y esto es 0.144 contra los 0.126 de antes.
+        <Note title="Por qué el warn dejó de ser mostaza">
+          Estaba en un amarillo de croma baja, que es la receta del ocre, y lo tenía ahí una
+          medida: `--chart-warn` es el mismo token y tenía que despegarse de su pista solo, y esos
+          3:1 fijan la luminosidad. La salida no fue bajar la exigencia sino mover de lugar el
+          borde: ahora el relleno lleva un filo de su mismo tono, ese filo llega a 5:1 contra la
+          pista, y el relleno queda libre de ser naranja de verdad.
         </Note>
 
         <div className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           <Swatch token="--ok" note="salió bien" />
-          <Swatch token="--warn" note="algo está por vencerse" />
+          <Swatch token="--warn" note="cuidado" />
           <Swatch token="--bad" note="se rompió" />
           <Swatch token="--ok-subtle" note="su fondo" />
           <Swatch token="--warn-subtle" note="su fondo" />
@@ -243,6 +244,7 @@ export function ColorSection() {
           <Swatch token="--chart-ok" note="lo terminado" />
           <Swatch token="--chart-warn" note="lo que está por llenarse" />
           <Swatch token="--chart-bad" note="lo que ya no entra" />
+          <Swatch token="--chart-warn-edge" note="el filo que le dibuja el borde" />
         </div>
       </Section>
     </Page>

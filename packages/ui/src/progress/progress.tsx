@@ -14,7 +14,12 @@ type ProgressProps = ComponentPropsWithoutRef<'div'> & {
   tone?: 'brand' | 'ok' | 'warn' | 'bad'
 }
 
-const fillTone = { brand: 'bg-chart-fill', ok: 'bg-chart-ok', warn: 'bg-chart-warn', bad: 'bg-chart-bad' }
+const fillTone = {
+  brand: 'bg-chart-fill ring-chart-fill-edge',
+  ok: 'bg-chart-ok ring-chart-ok-edge',
+  warn: 'bg-chart-warn ring-chart-warn-edge',
+  bad: 'bg-chart-bad ring-chart-bad-edge',
+}
 
 /** Cuánto de algo va hecho. La pista es el resto, no un segundo dato. */
 export function Progress({ value, max = 100, label, hint, tone = 'brand', className, ...props }: ProgressProps) {
@@ -37,7 +42,7 @@ export function Progress({ value, max = 100, label, hint, tone = 'brand', classN
         aria-valuemax={max}
         className="h-1.5 w-full overflow-hidden rounded-full bg-track"
       >
-        <div className={cx('h-full rounded-full transition-[width] duration-normal ease-out', fillTone[tone])} style={{ width: `${pct}%` }} />
+        <div className={cx('h-full rounded-full ring-1 ring-inset transition-[width] duration-normal ease-out', fillTone[tone])} style={{ width: `${pct}%` }} />
       </div>
     </div>
   )

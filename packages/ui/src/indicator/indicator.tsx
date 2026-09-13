@@ -4,8 +4,8 @@ import { cx } from '../lib/cx'
 
 const tones = {
   accent: 'bg-accent-fill text-on-accent',
-  ok: 'bg-ok text-on-solid',
-  warn: 'bg-warn text-on-solid',
+  ok: 'bg-ok text-on-ok',
+  warn: 'bg-warn text-on-warn',
   bad: 'bg-bad text-on-bad',
   neutral: 'bg-solid text-on-solid',
 } as const

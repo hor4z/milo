@@ -74,7 +74,7 @@ export function BarChart({ data, highlight, title, height = 220, className }: {
                   <rect width="100%" height="100%" fill={`url(#${hatchId})`} />
                 </svg>
                 <span
-                  className="absolute inset-x-0 bottom-0 rounded-xl bg-chart-fill"
+                  className="absolute inset-x-0 bottom-0 rounded-xl bg-chart-fill ring-1 ring-chart-fill-edge ring-inset"
                   style={{ height: `${donePct}%` }}
                 />
               </span>

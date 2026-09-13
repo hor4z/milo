@@ -46,14 +46,14 @@
   --label-blue: var(--blue-500);
   --label-purple: #ad5afa;
   --label-pink: #f9267b;
-  --label-orange: #bc7305;
+  --label-orange: #dc6700;
 
   --label-green-soft: #e0f8e2;   --label-green-ink: #007f21;
   --label-teal-soft: #e0f5f5;    --label-teal-ink: #00797a;
   --label-blue-soft: #def2ff;    --label-blue-ink: #0067db;
   --label-purple-soft: #f8e8ff;  --label-purple-ink: #923cdc;
   --label-pink-soft: #ffe2ec;    --label-pink-ink: #ce0059;
-  --label-orange-soft: #ffeddc;  --label-orange-ink: #a15a00;
+  --label-orange-soft: #ffece2;  --label-orange-ink: #ad4f00;
 
   --accent-500: #ec4c07;
   --accent-600: #c53f05;
@@ -63,15 +63,15 @@
   --ok-500: #04983b;
   --ok-700: #04712c;
   --ok-050: #eafdf1;
-  --warn-500: #c67600;
-  --warn-700: #8d5200;
-  --warn-050: #fff7ef;
+  --warn-500: #ff7800;
+  --warn-700: #9b4600;
+  --warn-050: #fff6f2;
   --bad-fill: #e81f20;
   --bad-fill-hover: #ce010f;
   --bad-700: #a81713;
   --bad-050: #fdeaea;
   --ok-border: #c2e4c5;
-  --warn-border: #ecd4be;
+  --warn-border: #f0d2c2;
   --bad-border: #ffc7be;
   --info-border: #c0dbff;
 
@@ -131,14 +131,14 @@
   --label-blue: var(--blue-500);
   --label-purple: #bb77fb;
   --label-pink: #fa448d;
-  --label-orange: #da8506;
+  --label-orange: #f17200;
 
   --label-green-soft: #0c3314;   --label-green-ink: #44a757;
   --label-teal-soft: #0b3030;    --label-teal-ink: #43a1a0;
   --label-blue-soft: #132a4a;    --label-blue-ink: #5594e6;
   --label-purple-soft: #322044;  --label-purple-ink: #aa7bdb;
   --label-pink-soft: #471628;    --label-pink-ink: #e5638f;
-  --label-orange-soft: #3c2409;  --label-orange-ink: #c2843f;
+  --label-orange-soft: #3f2110;  --label-orange-ink: #ec6f00;
 
   --accent-500: #f95c19;
   --accent-600: #fa753c;
@@ -148,15 +148,15 @@
   --ok-500: #05b646;
   --ok-700: #3ad472;
   --ok-050: #15351f;
-  --warn-500: #dc8401;
-  --warn-700: #ff9a03;
-  --warn-050: #3b2917;
+  --warn-500: #ff8432;
+  --warn-700: #ff9759;
+  --warn-050: #3d271a;
   --bad-fill: #dd3636;
   --bad-fill-hover: #c42529;
   --bad-700: #fb827e;
   --bad-050: #351816;
   --ok-border: #14491f;
-  --warn-border: #543514;
+  --warn-border: #58321c;
   --bad-border: #652622;
   --info-border: #1d3d68;
 
