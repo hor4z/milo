@@ -346,7 +346,7 @@ Diecisiete de ellos leen el paquete entero y fallan si alguien:
 - **escribe el interlineado o el tracking sueltos** (`leading-*`, `tracking-*`) en vez de dejar que
   los traiga el rol — que es el bug que la escala nueva vino a matar,
 - **escribe una duración o una curva a mano** (`duration-[120ms]`, `ease-[cubic-bezier(…)]`) en vez
-  de usar las dos del sistema,
+  de usar las tres duraciones y las dos curvas del sistema,
 - **se sale de la grilla de espaciado** (un `gap-2.5`, un `p-3.5`),
 - **usa un tamaño de icono que no está en la escala** — el tamaño se pasa como número, así que
   ningún linter lo mira,

@@ -8,7 +8,7 @@ const face = (n: number) => `/avatars/${String(n).padStart(2, '0')}.webp`
 
 const shortcuts: { id: string; icon: IconName; title: string; body: string }[] = [
   { id: 'principles', icon: 'target', title: 'Principios', body: 'Las seis decisiones de las que sale todo lo demás.' },
-  { id: 'color', icon: 'palette', title: 'Color', body: 'Una rampa casi neutra y tres familias acotadas.' },
+  { id: 'color', icon: 'palette', title: 'Color', body: 'Una rampa casi neutra y cuatro familias acotadas.' },
   { id: 'dashboard', icon: 'dashboard', title: 'Dashboard', body: 'Las piezas de la app, juntas en una pantalla real.' },
   { id: 'documento', icon: 'description', title: 'Documento', body: 'Las del editor, juntas en una consigna de verdad.' },
 ]
