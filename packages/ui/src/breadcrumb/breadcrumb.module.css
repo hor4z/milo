@@ -21,6 +21,9 @@
   }
 
   .span {
+    display: inline-flex;
+    min-height: 1.5rem;
+    align-items: center;
     text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden;
@@ -32,6 +35,9 @@
   }
 
   .step {
+    display: inline-flex;
+    min-height: 1.5rem;
+    align-items: center;
     text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden;
