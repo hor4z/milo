@@ -84,6 +84,35 @@ describe('las vistas del kit', () => {
     expect(offenders).toEqual([])
   })
 
+  it('ninguna demo muestra un control que no responde', () => {
+    // Un `Select` con `value` y sin `onChange` abre, deja recorrer la lista y al
+    // elegir no cambia nada. La prop es opcional a propósito —hay lugares donde
+    // el control es de solo lectura— pero en el kit una pieza apagada enseña que
+    // la pieza no funciona. Había cinco, en Field y en Sheet.
+    const controlados = /^(Select|Search|TextField|Textarea|Slider|Segmented|Checkbox|Radio|Switch)$/
+    const dir = join(import.meta.dirname, '..')
+    const walk = (base: string, prefix = ''): string[] =>
+      readdirSync(base, { withFileTypes: true }).flatMap(e =>
+        e.isDirectory()
+          ? (e.name === '__tests__' ? [] : walk(join(base, e.name), `${prefix}${e.name}/`))
+          : /\.tsx$/.test(e.name) ? [`${prefix}${e.name}`] : [],
+      )
+    const inertes: string[] = []
+    for (const f of walk(dir)) {
+      const texto = readFileSync(join(dir, f), 'utf8')
+      for (const m of texto.matchAll(/<([A-Z]\w+)((?:[^<>]|\{[^{}]*\})*?)\/>/gs)) {
+        const [, nombre, attrs] = m
+        if (!controlados.test(nombre)) continue
+        if (!/\b(value|checked)=/.test(attrs)) continue
+        if (/\bon(Change|ValueChange|Input)=/.test(attrs)) continue
+        // `loading` no abre y `disabled` no se toca: los dos son el estado y no un olvido.
+        if (/\b(loading|disabled|readOnly)\b/.test(attrs)) continue
+        inertes.push(`${f}: <${nombre} ${attrs.trim().slice(0, 40)}`)
+      }
+    }
+    expect(inertes).toEqual([])
+  })
+
   it('cada portada dice cómo se importa la pieza', () => {
     const withoutImport: string[] = []
     for (const f of files) {
