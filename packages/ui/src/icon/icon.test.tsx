@@ -29,6 +29,14 @@ describe('Icon', () => {
     const glyph = container.querySelector<HTMLElement>('.ms-icon')!
     expect(glyph.style.getPropertyValue('--icon-wght')).toBe('300')
   })
+
+  it('un glifo que el manifiesto no tiene deja el hueco y no tira', () => {
+    const roto = 'no_existe_este_glifo' as Parameters<typeof Icon>[0]['name']
+    const { container } = render(<Icon name={roto} />)
+    const glyph = container.querySelector<HTMLElement>('.ms-icon')!
+    expect(glyph).toBeTruthy()
+    expect(glyph.textContent).toBe('')
+  })
 })
 
 describe('FolderIcon', () => {
