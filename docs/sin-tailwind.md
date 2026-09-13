@@ -60,15 +60,41 @@ usa variables suyas, y se dividen en dos:
 Renombrar las variables cambia la cadena que devuelve `getComputedStyle`, así que
 el verificador tiene que normalizarla antes de comparar o marca 247 falsos.
 
+## Lo que la conversión mecánica no vio
+
+Se hizo todo lo de arriba, y después apareció lo que un generador no puede ver.
+
+**Las cadenas mezcladas.** Donde una clase de Tailwind convivía con una nuestra
+(`px-3 bg-surface font-semibold text-ink`), el generador salteaba la cadena entera
+en vez de convertir la mitad que le tocaba. Quedaron ocho: el `Segmented`, el
+anillo del avatar, el paso del breadcrumb, el hover del chip, el movimiento del
+slider y cuatro vistas de Fundamentos. En pantalla se veía como piezas sin aire.
+
+**`@theme` es una directiva de Tailwind.** Sin Tailwind el navegador se saltea el
+bloque entero, y ahí adentro vivían los tres pesos. Todo el sistema venía dibujando
+400 donde pedía 450 o 600, en las ochenta vistas, sin un error en ningún lado. Lo
+mismo con `@utility` y con `@layer base`. Los pesos se mudaron a `scales.css`, que
+es donde viven los otros valores de la escala.
+
+**El puente eran 171 líneas de nada.** Los `--color-*`, `--shadow-*`, `--radius-*`
+y `--text-*` existían para que Tailwind emitiera utilidades. Ningún módulo los lee:
+los módulos nombran el token de abajo. Se fueron enteros.
+
+**Dos cosas ya estaban rotas y nadie las veía.** El anillo del `AvatarGroup` no
+dibujó nunca, ni con Tailwind: `.mark` va sin capa y le gana a cualquier utilidad y
+a cualquier módulo. Y dos vistas de Fundamentos imprimían el nombre picado del
+módulo (`_cls_a1b2c_3`) donde iba el token.
+
+**El guardián que faltaba no se puede escribir leyendo archivos.** Dibuja las
+setenta y cuatro vistas y falla si a un elemento le quedó una clase que no resuelve
+a nada. Una clase inexistente no falla ni avisa, y puede llegar por una prop o por
+una constante, así que leer las fuentes no alcanza: hay que mirar lo dibujado.
+Verificado rompiendo el `Segmented` a propósito.
+
 ## Lo que falta
 
-1. Migrar `packages/ui` y `apps/kit` en una sola vuelta, con las dos capas.
-2. Resolver `--default-*` además de `--tw-*`.
-3. Sacar la dependencia, el plugin de Vite y el puente.
-4. Reescribir los guardianes que hoy leen clases de Tailwind para que lean los
-   módulos, y los tests de piezas que asertan sobre el nombre de una clase.
-5. Nombres: la generación mecánica da `chipSizeSm` y `noHorizontal`. Se leen,
-   pero un design system merece nombres escritos a mano.
+1. Nombres: la generación mecánica da `chipSizeSm`, `box2` y `noHorizontal`. Se
+   leen, pero un design system merece nombres escritos a mano.
 
 ## Lo que queda del lado de las apps
 
