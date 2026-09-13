@@ -43,8 +43,6 @@
   --accent-hover: var(--accent-600);
   --accent-subtle: var(--accent-050);
   --on-accent: #ffffff;
-
-  --brand-subtle: var(--blue-050);
   --brand-ink: var(--blue-700);
 
   --space-orange: #e2761b;
@@ -162,7 +160,6 @@
   --track: var(--shade-09-a11);
   --chart-fill: var(--label-blue);
   --chart-bad: var(--bad-700);
-  --brand-subtle: var(--blue-050);
   --brand-ink: var(--blue-700);
   --brand-soft: var(--blue-050);
   --brand-soft-strong: var(--blue-100);
