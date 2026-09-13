@@ -18,7 +18,7 @@ final son lo único que hay que tocar.
 npm install
 npm run dev        # el sitio · http://localhost:5190
 npm run typecheck  # todo el monorepo de una
-npm test           # 516 tests con vitest y testing-library
+npm test           # 517 tests con vitest y testing-library
 npm run props      # regenera la tabla de props desde los tipos
 ```
 
@@ -331,7 +331,7 @@ Lo mismo vale para los tipos que una pieza recibe como argumento —`ToastOption
 
 ## Los tests
 
-`npm test` corre vitest con jsdom y testing-library. 516 tests, y lo que prueban es el
+`npm test` corre vitest con jsdom y testing-library. 517 tests, y lo que prueban es el
 comportamiento —teclado, nombres accesibles, estados— y no el markup, que cambia con cada
 ajuste de estilo. El test de cada pieza vive en su carpeta, al lado del componente.
 
@@ -346,7 +346,7 @@ Diecisiete de ellos leen el paquete entero y fallan si alguien:
 - **escribe el interlineado o el tracking sueltos** (`leading-*`, `tracking-*`) en vez de dejar que
   los traiga el rol — que es el bug que la escala nueva vino a matar,
 - **escribe una duración o una curva a mano** (`duration-[120ms]`, `ease-[cubic-bezier(…)]`) en vez
-  de usar las dos del sistema,
+  de usar las tres duraciones y las dos curvas del sistema,
 - **se sale de la grilla de espaciado** (un `gap-2.5`, un `p-3.5`),
 - **usa un tamaño de icono que no está en la escala** — el tamaño se pasa como número, así que
   ningún linter lo mira,
