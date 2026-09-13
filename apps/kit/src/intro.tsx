@@ -1,5 +1,5 @@
 import {
-  Alert, AlertTitle, AvatarGroup, Badge, BarChart, Button, Card, Chip, Icon,
+  Alert, AlertTitle, AvatarGroup, BarChart, Button, Card, Chip, Icon,
   Progress, Switch, TextField, type IconName,
 } from '@milo/ui'
 import { useState } from 'react'
@@ -25,7 +25,7 @@ export function Intro({ go, views }: { go: (id: string) => void; views: number }
         </div>
 
         <div className="relative flex flex-col gap-8 px-8 py-12">
-          <Badge tone="info" icon="bolt" className="self-start">Inter · Material Symbols · Tailwind v4</Badge>
+          <Chip size="sm" color="info" icon="bolt" className="self-start">Inter · Material Symbols · Tailwind v4</Chip>
 
           <div className="flex flex-col gap-4">
             <h1 className="max-w-[20ch] text-display font-bold text-ink">
@@ -44,7 +44,7 @@ export function Intro({ go, views }: { go: (id: string) => void; views: number }
           </div>
 
           <dl className="mt-1 flex flex-wrap gap-x-8 gap-y-3 border-t border-line pt-6">
-            {[[String(views), 'vistas'], ['519', 'tests'], ['172', 'iconos'], ['2', 'temas']].map(([n, l]) => (
+            {[[String(views), 'vistas'], ['521', 'tests'], ['172', 'iconos'], ['2', 'temas']].map(([n, l]) => (
               <div key={l} className="flex items-baseline gap-2">
                 <dt className="tabular text-title font-semibold text-ink">{n}</dt>
                 <dd className="text-body font-medium text-ink-muted">{l}</dd>
@@ -107,7 +107,7 @@ export function Intro({ go, views }: { go: (id: string) => void; views: number }
               <div className="flex flex-wrap items-center gap-2">
                 <Chip color="green">Abierta</Chip>
                 <Chip color="blue">Corregida</Chip>
-                <Badge tone="warn" icon="schedule">Vence mañana</Badge>
+                <Chip size="sm" color="warn" icon="schedule">Vence mañana</Chip>
               </div>
               <Progress label="Corregidas" value={18} max={24} hint="18 de 24" />
             </Card>

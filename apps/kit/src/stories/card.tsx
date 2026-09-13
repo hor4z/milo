@@ -1,4 +1,4 @@
-import { Badge, Button, Card, CardBody, CardFooter, CardHeader, CardHint, CardTitle, Progress } from '@milo/ui'
+import { Button, Card, CardBody, CardFooter, CardHeader, CardHint, CardTitle, Chip, Progress } from '@milo/ui'
 import { A11y, Note, Page, Props, Section } from '../kit'
 
 export function CardStory() {
@@ -20,7 +20,7 @@ export function CardStory() {
                 <CardTitle>Entregas de la semana</CardTitle>
                 <CardHint>De todos tus espacios</CardHint>
               </div>
-              <Badge tone="ok">84%</Badge>
+              <Chip size="sm" color="ok">84%</Chip>
             </CardHeader>
             <CardBody>
               <Progress label="Corregidas" value={18} max={24} hint="18 de 24" />
@@ -68,7 +68,7 @@ export function CardStory() {
 
       <Section
         title="Papel o hueco"
-        note="`paper` sobresale del fondo y tira su sombra: es una cosa apoyada arriba. `muted` es lo contrario, un hueco hundido en la pantalla, y sirve para lo que agrupa sin ser protagonista: un resumen, un bloque de ayuda."
+        note="`paper` sobresale del fondo, lleva su línea y tira su sombra: es una cosa apoyada arriba. `muted` es lo contrario, un hueco hundido en la pantalla, y sirve para lo que agrupa sin ser protagonista: un resumen, un bloque de ayuda. El hueco no lleva línea, porque un hueco no tiene contorno: lo que lo dibuja es el cambio de fondo."
       >
         <div className="flex flex-wrap gap-4">
           <Card className="w-[260px] p-4" surface="paper">

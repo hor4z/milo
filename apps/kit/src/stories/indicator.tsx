@@ -40,7 +40,7 @@ export function IndicatorStory() {
 
       <Section
         title="Los tonos"
-        note="El acento es el default y es el que dice 'mirá esto'. Los otros cuatro son los de estado y significan lo mismo que en un `Alert` o en un `Badge`, que es de lo que se trata tener un sistema."
+        note="El acento es el default y es el que dice 'mirá esto'. Los otros cuatro son los de estado y significan lo mismo que en un `Alert` o en un `Chip`, que es de lo que se trata tener un sistema."
       >
         <Panel>
           <Variant name="tonos">
