@@ -62,10 +62,10 @@ export function ChartsSection() {
 
       <Section
         title="Nunca solo con color"
-        note="Cada barra sube de tono con la altura, y la elegida se separa del resto por el tono y por el valor escrito, no solo por el color. Quien no separa dos tonos lee la altura, y quien no ve el gráfico tiene la tabla."
+        note="Lo hecho es un relleno adentro de una pista, así que lo que dice cuánto es el alto y no el tono: las cinco barras son del mismo azul. Pasá el mouse por una o entrá con el teclado y vas a ver que lo que cambia es la trama y el filo, no el color; y la barra de la que habla el título se marca con el peso de su etiqueta. Quien no distingue dos azules lee el alto, y quien no ve el gráfico tiene la tabla."
       >
         <div className="rounded-xl border border-line bg-surface p-6">
-          <BarChart title="Corregidas sobre entregadas por día" data={semana} highlight={2} height={180} />
+          <BarChart title="El miércoles se corrigió casi todo" data={semana} highlight={2} height={180} />
         </div>
       </Section>
 
@@ -107,7 +107,7 @@ export function ChartsSection() {
         items={[
           'La tabla escondida es la versión completa del gráfico, no un resumen.',
           'Se recorren con el teclado, y en cada paso se anuncia la posición y el valor.',
-          'El color nunca es la única diferencia: patrón, forma o altura dicen lo mismo.',
+          'El color nunca es la única diferencia: el alto dice cuánto, la trama marca la barra que se está mirando y el peso de la etiqueta dice de cuál habla la pantalla.',
           'El relleno de una barra llega al 3:1 que un elemento gráfico necesita contra su pista, en los dos temas.',
         ]}
       />

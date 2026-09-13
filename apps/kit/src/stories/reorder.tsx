@@ -7,9 +7,9 @@ type Bloque = ReorderItem & { icon: IconName; meta: string }
 const inicial: Bloque[] = [
   { id: 'titulo', label: 'Título', icon: 'format_h1', meta: 'Caída libre: medir g en el patio' },
   { id: 'aviso', label: 'Bloque destacado', icon: 'lightbulb', meta: 'Antes de subir al primer piso' },
-  { id: 'formula', label: 'Fórmula', icon: 'functions', meta: 'h = ½ g t²' },
+  { id: 'cita', label: 'Cita', icon: 'format_quote', meta: 'Galileo, Diálogos sobre dos nuevas ciencias' },
   { id: 'tareas', label: 'Lista de tareas', icon: 'checklist', meta: 'Cuatro cosas para entregar' },
-  { id: 'codigo', label: 'Código', icon: 'code', meta: 'cuadros.py' },
+  { id: 'imagen', label: 'Imagen', icon: 'image', meta: 'Otto, con su pie' },
 ]
 
 export function ReorderStory() {

@@ -30,7 +30,7 @@ const principles: { icon: IconName; title: string; body: string }[] = [
   {
     icon: 'visibility',
     title: 'El color nunca dice algo solo',
-    body: 'Un estado se dice con texto y con forma además de con tono. Los tonos de estado vienen con su glifo, y las barras de un gráfico suben de tono con la altura para que el tamaño y el color digan lo mismo.',
+    body: 'Un estado se dice con texto y con forma además de con tono. Los tonos de estado vienen con su glifo, y en un gráfico lo que dice cuánto es el alto de la barra y no su color, que es el mismo en todas.',
   },
 ]
 

@@ -97,7 +97,7 @@ export function Documento() {
             <ToolbarButton icon="checklist" label="Lista de tareas" />
             <ToolbarSeparator />
             <ToolbarButton icon="link" label="Enlace" />
-            <ToolbarButton icon="functions" label="Fórmula" />
+            <ToolbarButton icon="image" label="Imagen" />
           </Toolbar>
           {ultimo && (
             <span className="text-meta font-medium text-ink-muted">
@@ -141,7 +141,7 @@ export function Documento() {
         <Figure
           src="/mascotas/otto.webp"
           alt="Otto, una nutria de pie con las manos juntas"
-          caption="La pelota se suelta, no se tira. Si la empujan, la velocidad inicial deja de ser cero y la fórmula de arriba no sirve."
+          caption="La pelota se suelta, no se tira. Si la empujan, la velocidad inicial deja de ser cero y la cuenta de arriba no sirve."
           ratio="16/9"
           fit="contain"
         />
