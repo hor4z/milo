@@ -18,11 +18,7 @@ final son lo único que hay que tocar.
 npm install
 npm run dev        # el sitio · http://localhost:5190
 npm run typecheck  # todo el monorepo de una
-<<<<<<< HEAD
-npm test           # 517 tests con vitest y testing-library
-=======
-npm test           # 544 tests con vitest y testing-library
->>>>>>> main
+npm test           # 547 tests con vitest y testing-library
 npm run props      # regenera la tabla de props desde los tipos
 ```
 
@@ -181,6 +177,11 @@ Repartido entre `portal/`, `popover/`, `tooltip/`, `dropdown/`, `modal/`, `sheet
 - **`scroll` en captura hay que filtrarlo por origen.** La captura es la única forma de enterarse
   del scroll de la página, pero atrapa el de cualquier hijo: sin filtrar, scrollear la lista del
   propio panel lo cerraba. Un `resize` sí cierra siempre.
+- **Todo lo que se mide contra un disparador y se dibuja en un portal tiene que cerrarse solo.**
+  La posición se calcula una vez, al abrir, contra el rectángulo del disparador; si después la
+  página scrollea, el panel se queda donde estaba y se le despega. El `Select` lo tuvo así desde
+  siempre y el `Tooltip` llevaba su propia copia a medias de la receta. Hay un test que busca los
+  dos rasgos juntos, medir el disparador y montar un `Portal`, y exige `useDismiss`.
 - **Cerrar con `pointerdown` y no con `click`**: con click, el mismo gesto que abre otro panel lo
   cierra y lo reabre, y parpadea.
 - Esas dos y la de afuera viven juntas en `lib/dismiss`, porque las comparten el `Popover` y el
@@ -193,22 +194,41 @@ Repartido entre `portal/`, `popover/`, `tooltip/`, `dropdown/`, `modal/`, `sheet
   Linux aparece un control de GTK en medio de la interfaz: se ve "sin estilo" por más que la caja
   esté bien. El costo es traer el teclado a mano: flechas, Enter, Escape, Home/End.
 
-## Trampa de Tailwind v4 que ya mordió dos veces
+## El dev server se despega del disco, y ya mordió cuatro veces
 
-Si tocás un token dentro del bloque `@theme` con el dev server corriendo, Tailwind puede quedarse
-con el CSS viejo y **la utilidad no se genera, en silencio y sin error**: la clase queda en el
-HTML sin efecto. Así estuvo `bg-scrim` sin aplicar durante varias rondas (el backdrop del modal
-era solo blur).
+Es la misma causa con dos caras, y las dos terminan en algo que se lee como "el sitio está roto"
+cuando el repo está perfecto. `npm run typecheck`, `npm test` y `vite build` pasan mientras el
+navegador muestra otra cosa: **lo que se ve en localhost no es prueba de nada si el servidor
+lleva rato corriendo.**
 
-```sh
-rm -rf node_modules/.vite   # y reiniciar vite
-```
-
-Antes de dar por bueno un color nuevo, verificar que la regla exista:
+**Cara 1, el token que no genera su clase.** Si tocás un token dentro del bloque `@theme` con el
+dev server corriendo, Tailwind puede quedarse con el CSS viejo y la utilidad no se genera, en
+silencio y sin error: la clase queda en el HTML sin efecto. Así estuvo `bg-scrim` sin aplicar
+durante varias rondas, con el backdrop del modal en solo blur. Antes de dar por bueno un color
+nuevo, verificar que la regla exista de verdad:
 
 ```sh
 curl -s http://localhost:5190/src/app.css | grep -o '\.text-icon-muted[^}]*}'
 ```
+
+**Cara 2, el módulo que quedó viejo.** El servidor se guarda cada archivo ya transformado, y esa
+copia no se invalida cuando el archivo se borra ni cuando git reescribe medio repo de golpe, que
+es lo que pasa al cambiar de rama. El síntoma es **pantalla en blanco**, y la causa está siempre
+en la pestaña de red, no en la consola: un 404 sobre un módulo que ya no existe, o un módulo
+servido con contenido viejo. Los dos casos medidos:
+
+- después de sacar el `Badge`, el servidor seguía sirviendo un `index.ts` que importaba
+  `./badge/badge`: 404, y la aplicación entera sin dibujar;
+- servía un `icons.gen.ts` de 159 glifos contra los 172 del disco, así que `format_bold` no
+  resolvía a ningún codepoint y el `Icon` tiraba.
+
+La regla, entonces: **después de borrar un archivo o de cambiar de rama, se reinicia el
+servidor.** No alcanza con recargar el navegador, porque lo viejo está del lado del servidor.
+`npm run dev` ya borra la caché de Vite al arrancar, así que reiniciar es todo lo que hay que
+hacer, y de paso cierra la cara 1.
+
+Y cuando la pantalla aparece en blanco, el primer lugar donde mirar es la red y no la consola: un
+módulo que no carga no siempre deja un error escrito.
 
 ## Agregar un icono
 
@@ -342,13 +362,8 @@ Lo mismo vale para los tipos que una pieza recibe como argumento (`ToastOptions`
 
 ## Los tests
 
-<<<<<<< HEAD
-`npm test` corre vitest con jsdom y testing-library. 517 tests, y lo que prueban es el
+`npm test` corre vitest con jsdom y testing-library. 547 tests, y lo que prueban es el
 comportamiento (teclado, nombres accesibles, estados) y no el markup, que cambia con cada
-=======
-`npm test` corre vitest con jsdom y testing-library. 544 tests, y lo que prueban es el
-comportamiento (teclado, nombres accesibles, estados) y no el markup, que cambia con cada
->>>>>>> main
 ajuste de estilo. El test de cada pieza vive en su carpeta, al lado del componente.
 
 Diecisiete de ellos leen el paquete entero y fallan si alguien:

@@ -1,4 +1,5 @@
 import { cloneElement, isValidElement, useEffect, useId, useLayoutEffect, useRef, useState, type ReactElement, type ReactNode } from 'react'
+import { useDismiss } from '../lib/dismiss'
 import { useEscape } from '../lib/esc'
 import { Portal } from '../portal/portal'
 
@@ -59,15 +60,7 @@ export function Tooltip({ label, children, side = 'top', delay = 500 }: {
     })
   }, [open, side])
 
-  useEffect(() => {
-    if (!open) return
-    window.addEventListener('scroll', close, true)
-    window.addEventListener('resize', close)
-    return () => {
-      window.removeEventListener('scroll', close, true)
-      window.removeEventListener('resize', close)
-    }
-  }, [open])
+  useDismiss(open, close, [anchor, bubble])
 
   return (
     <>
