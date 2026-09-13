@@ -195,12 +195,22 @@ export function IconStory() {
       </Section>
     
       <Section title="Accesibilidad">
-        <Note icon="warning" title="Setenta de los ciento setenta y uno no los usa nadie">
+        <Note icon="warning" title="Sesenta y cinco de los ciento setenta y dos no los usa nadie">
         `npm run icons -w @milo/ui -- check` los lista. Sacarlos llevaría la fuente de 64 KB a 27,
         medido subseteándola de verdad. No se sacan porque el editor y los gráficos van a consumir
         varios, y traer uno de vuelta es un comando; pero el número conviene mirarlo cada tanto,
         porque doscientos iconos con seis variantes de engranaje es exactamente lo que `icons add`
         existe para evitar.
+      </Note>
+
+      <Note title="Un glifo que falta deja el hueco, no la pantalla en blanco">
+        Un nombre que el manifiesto no tiene no resuelve a ningún codepoint, y
+        `String.fromCodePoint` de eso lanza. Adentro de un render no deja un icono roto:
+        deja la aplicación entera sin dibujar, que es lo que alguien lee como «el sitio está
+        caído». Desde el código no puede pasar —el tipo es la unión del manifiesto y `icons check`
+        corre al lado de `typecheck`—, pasa cuando el módulo que el navegador tiene y el del disco
+        se separan, que es la trampa conocida del dev server. Así que el glifo se saltea y el resto
+        de la pantalla sigue en pie.
       </Note>
 
       <A11y items={[
