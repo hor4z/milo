@@ -19,11 +19,10 @@ const radii = [
   { token: '--radius-full', cls: 'rounded-full', role: 'lo que es redondo de verdad: un avatar, un punto, un pulgar' },
 ] as const
 
-/** Los once pasos, con el rol que los justifica. El rol es lo que hay que leer. */
+/** Los diez pasos, con el rol que los justifica. El rol es lo que hay que leer. */
 const espaciado = [
   { px: 2, role: 'el pelo: el inset de una pista, el aire de un punto' },
   { px: 4, role: 'adentro de una marca: un badge, un kbd' },
-  { px: 6, role: 'lo que separa un glifo de su texto' },
   { px: 8, role: 'lo que separa dos cosas de la misma fila' },
   { px: 12, role: 'lo que separa dos filas, y el aire de un control chico' },
   { px: 16, role: 'el padding de una pieza chica, y la separación entre dos piezas' },
@@ -39,7 +38,7 @@ export function MeasureSection() {
     <Page
       title="Espaciado y medidas"
       kind="Fundamentos"
-      lead="Once pasos de espaciado, cuatro radios y un puñado de medidas de shell. Lo que las tres escalas tienen en común es que no dan a elegir entre dos cosas iguales: cada paso existe porque hace algo que el de al lado no hace."
+      lead="Diez pasos de espaciado, seis radios y un puñado de medidas de shell. Lo que las tres escalas tienen en común es que no dan a elegir entre dos cosas iguales: cada paso existe porque hace algo que el de al lado no hace."
       >
         <Section title="Medidas del shell">
           <div className="flex flex-col rounded-xl border border-line bg-surface px-4">
@@ -68,7 +67,7 @@ export function MeasureSection() {
         </Section>
 
         <Section
-          title="El espaciado: once pasos"
+          title="El espaciado: diez pasos"
           note="Antes esto no era una escala: los call sites tomaban los dieciocho valores de Tailwind, y dos cosas que hacen lo mismo quedaban separadas por 10 en un lado y por 12 en el otro. Eso no se ve como un error, se ve como desprolijidad, que es peor porque no se puede señalar. La grilla es de 4, con dos sub-pasos abajo."
         >
           <div className="flex flex-col overflow-hidden rounded-xl border border-line bg-surface">
