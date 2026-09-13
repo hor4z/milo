@@ -1082,6 +1082,54 @@ export const propsByComponent: Record<string, ComponentDoc> = {
     ],
     "doc": "El kbd va hundido: 11px, radio 6, con luz arriba y sombra interior abajo."
   },
+  "LineChart": {
+    "props": [
+      {
+        "name": "series",
+        "type": "LineSeries[]",
+        "required": true,
+        "doc": "Uno o cuatro. Cada uno trae su nombre y sus puntos."
+      },
+      {
+        "name": "title",
+        "type": "string",
+        "required": true,
+        "doc": "Para el lector de pantalla y para la tabla que va abajo, escondida."
+      },
+      {
+        "name": "xLabel",
+        "type": "string",
+        "required": false,
+        "doc": "Qué mide el eje de abajo, con su unidad: `Tiempo (s)`."
+      },
+      {
+        "name": "yLabel",
+        "type": "string",
+        "required": false,
+        "doc": "Qué mide el eje de la izquierda, con su unidad: `Posición (m)`."
+      },
+      {
+        "name": "height",
+        "type": "number",
+        "required": false,
+        "def": "260",
+        "doc": "El alto del área de trazado, sin las etiquetas."
+      },
+      {
+        "name": "zeroY",
+        "type": "boolean",
+        "required": false,
+        "def": "false",
+        "doc": "El eje de la izquierda arranca en cero. Con datos que se mueven poco, en `false` la variación se ve; en `true` no se exagera."
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "required": false
+      }
+    ],
+    "doc": "Cómo cambia algo a lo largo de otra cosa: una función, una medición en el tiempo, dos grupos comparados."
+  },
   "Link": {
     "props": [
       {
