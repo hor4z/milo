@@ -7,7 +7,7 @@ export function EmptyStateStory() {
       title="EmptyState"
       kind="Avisos"
       imports="import { EmptyState } from '@milo/ui'"
-      lead="Lo que se ve cuando no hay nada, siempre con una salida: un vacío que no dice qué hacer es una pantalla rota con buena redacción. El icono va adentro de un hueco y en gris — suelto y grande se ve como una imagen que no cargó, que es justo lo que uno teme cuando una pantalla aparece vacía, y el hueco lo convierte en una marca puesta a propósito."
+      lead="Lo que se ve cuando no hay nada, siempre con una salida: un vacío que no dice qué hacer es una pantalla rota con buena redacción. El icono va adentro de un hueco y en gris — suelto y grande se ve como una imagen que no cargó, que es justo lo que uno teme."
     >
       <Section
         title="Los dos tamaños"

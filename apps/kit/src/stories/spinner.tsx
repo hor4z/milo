@@ -25,7 +25,7 @@ export function SpinnerStory() {
 
       <Section
         title="En contexto"
-        note="El arco va en el azul primario y no en tinta: lo único que se mueve conviene que se distinga también por el color. Adentro de un botón oscuro hay que pasarle `on=&quot;solid&quot;` — el filo es del color del fondo de atrás y la pista sale del color del texto de ese fondo, y con el default puesto ahí el filo blanco se ve como un halo."
+        note="El arco va en el azul y no en tinta: lo único que se mueve conviene que se distinga también por el color. Adentro de un botón oscuro hay que pasarle `on=&quot;solid&quot;`, o el filo blanco se ve como un halo."
       >
         <Panel>
           <Variant name="en un botón">

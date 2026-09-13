@@ -30,7 +30,7 @@ export function MenuStory() {
 
       <Section
         title="Rótulo, separador y opción destructiva"
-        note="El rótulo va en tinta y no en gris, igual que la cabecera de la Table: en `text-label`, que ya trae el espaciado de rótulo, el tamaño solo dice que es un rótulo, y el gris encima obliga a buscar de qué es cada grupo. La opción destructiva es la única que cambia de color en todo el sistema, y por eso se ve; su icono no va en gris, porque el gris es lo que apaga y esto es lo contrario."
+        note="El rótulo va en tinta y no en gris, igual que la cabecera de la Table: apagado, obliga a buscar de qué es cada grupo. La opción destructiva es la única que cambia de color en todo el sistema, y su icono no va en gris — el gris es lo que apaga y esto es lo contrario."
       >
         <Panel>
           <Variant name="armado entero">

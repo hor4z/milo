@@ -16,7 +16,7 @@ export function CheckboxStory() {
     >
       <Section
         title="Estados"
-        note="Apagada es un campo hundido, igual que un kbd. Prendida pasa al azul de marca con el tilde en blanco y pierde el relieve, y eso es deliberado: lo hundido invita a apretar, y una casilla ya marcada no invita a nada, informa. El azul porque es el único control que confirma una elección de quien lo usa, y el azul es lo que el sistema reserva para eso."
+        note="Apagada es un campo hundido, igual que un kbd. Prendida pasa al azul con el tilde en blanco y pierde el relieve: lo hundido invita a apretar, y una casilla ya marcada no invita, informa. El azul porque es el único control que confirma una elección de quien lo usa."
       >
         <Panel>
           <Variant name="off / on">
@@ -31,7 +31,7 @@ export function CheckboxStory() {
         </Panel>
       </Section>
 
-      <Section title="En una fila" note="El `<label>` envolviendo la casilla hace que el texto también sea zona de click, que es la mitad del área útil del control. El tilde va a 14 y no a 16: el tamaño hay que mirarlo con el trazo incluido, que agrega media línea de cada lado. A 16 el glifo ocupaba casi toda la caja de 18 y tocaba las esquinas.">
+      <Section title="En una fila" note="El `<label>` envolviendo la casilla hace que el texto también sea zona de click, que es la mitad del área útil. El tilde va a 14 y no a 16: el tamaño hay que mirarlo con el trazo incluido, que agrega media línea de cada lado, y a 16 tocaba las esquinas de la caja de 18.">
         <Panel>
           <Variant name="con etiqueta">
             <label className="flex items-center gap-2 text-body font-medium">

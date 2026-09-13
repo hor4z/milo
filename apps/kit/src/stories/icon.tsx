@@ -140,7 +140,7 @@ export function IconStory() {
 
       <Section
         title="El gris no es una prop"
-        note="La regla vieja decía «icono en gris ⇒ weight 1.5», y era imposible de cumplir: el gris muchas veces lo hereda de un ancestro —un IconButton apagado, un item de nav inactivo, el placeholder de un Select— y desde el call site no hay forma de saberlo. Ahora es la utilidad `icon-muted`, que pone el color y sube el peso a 400 juntos. Se cumple sola."
+        note="La regla vieja decía «icono en gris ⇒ weight 1.5» y era imposible de cumplir: el gris se hereda de un ancestro y el call site no tiene cómo saberlo. Ahora es la utilidad `icon-muted`, que pone el color y sube el peso juntos. Se cumple sola."
       >
         <Panel>
           <Variant name="en tinta">
@@ -189,7 +189,7 @@ export function IconStory() {
 
       <Section
         title="El costo, que conviene saber"
-        note="Firefox deja desactivar «permitir que las páginas elijan sus propias fuentes», y hay gente que lo usa por dislexia o baja visión. Con esa opción todos los iconos desaparecen y quedan cuadraditos. Un <svg> era inmune. No tiene mitigación dentro de este enfoque: es el precio de que el peso y el relleno sean ejes de verdad, y está acá escrito y no escondido."
+        note="Firefox deja desactivar «permitir que las páginas elijan sus propias fuentes», y hay gente que lo usa por dislexia o baja visión. Con esa opción todos los iconos quedan en cuadraditos. Un SVG era inmune: es el precio de que el peso sea un eje de verdad, y está escrito y no escondido."
       >
         <div />
       </Section>

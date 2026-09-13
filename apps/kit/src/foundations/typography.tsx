@@ -70,7 +70,7 @@ export function TypographySection() {
 
       <Section
         title="El interlineado dejó de ser uno solo"
-        note="Era 16px fijo para todo, y el argumento era bueno: con interlineado proporcional, una fila de 12 y una de 14 dejan de alinearse entre sí. Dejó de importar por dos razones. Los interlineados nuevos son todos pares y casi todos múltiplos de cuatro, así que apilan predecible; y las filas del sistema centran sus hijos con flex, no haciendo coincidir cajas de línea."
+        note="Era 16px fijo para todo, y el argumento era bueno: con interlineado proporcional, una fila de 12 y una de 14 dejan de alinearse. Dejó de importar porque los interlineados nuevos son todos pares, así que apilan predecible, y porque las filas del sistema centran con flex y no haciendo coincidir cajas de línea."
       >
         <div className="grid gap-4 sm:grid-cols-2">
           <div className="rounded-xl border border-line bg-surface p-5">

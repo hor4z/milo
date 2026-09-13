@@ -42,7 +42,7 @@ export function SliderStory() {
 
       <Section
         title="Con pasos"
-        note="`step` es del input nativo, igual que las flechas del teclado y el arrastre: adentro hay un `<input type=&quot;range&quot;>` de verdad, transparente y encima de todo. No es el caso del Select —ahí la lista desplegada la dibuja el sistema operativo y no hay forma de estilarla—; un range se tapa entero con un div y a cambio el teclado y el rol vienen gratis."
+        note="`step`, las flechas y el arrastre son del input nativo: adentro hay un `range` de verdad, transparente y encima de todo. No es el caso del `Select`, donde la lista la dibuja el sistema operativo y no hay forma de estilarla — un range se tapa entero con un div y el teclado viene gratis."
       >
         <Panel>
           <Variant name={`${steps} de 5 · step 1, max 5`}>
