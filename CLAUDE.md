@@ -229,25 +229,25 @@ no encuentra nada.
 
 ## Estructura
 
-Monorepo de npm workspaces. Dos paquetes y dos apps:
+Monorepo de npm workspaces. Dos paquetes y una app:
 
 ```
 packages/tokens/src/    la identidad, en CSS puro. Sin Tailwind y sin JS.
 packages/ui/src/        theme.css (el puente) · index.ts (la puerta) ·
                         una carpeta por pieza: button/button.tsx + button/button.test.tsx,
-                        y así las 61 (select, modal, toast, chart, table…)
+                        y así las 65 (select, modal, toast, chart, table…)
                         lib/ lo compartido que no es un componente: cx · colors ·
-                        control · tone · esc · overlay-hooks
-                        __tests__/ los dos que leen el paquete entero:
-                        coherencia y contraste
+                        control · tone · esc · overlay-hooks · roving · side-scroll
+                        __tests__/ los cinco que leen el paquete entero:
+                        coherencia · contraste · tipografía · utilidades · props
                         icons.gen.ts e icons.meta.ts los genera scripts/icons.mjs
 packages/ui/scripts/    icons.mjs (search · add · sync · check) + catalog.json
 apps/kit/src/           el sitio: App.tsx (shell y riel) · kit.tsx (Page, Section,
                         Canvas, Props, A11y, Note) · intro.tsx (la portada) ·
-                        dashboard.tsx · stories/ (una por pieza) ·
+                        dashboard.tsx · stories/ (una por pieza) · mascots/ ·
                         foundations/ (principles · accessibility · typography ·
-                        color · measure · relief · motion · states · writing ·
-                        inclusion)
+                        color · measure · layout · relief · motion · states ·
+                        charts · writing · inclusion)
 ```
 
 **El corte entre el paquete y el sitio es por dependencia, no por gusto.** `packages/ui` no
@@ -277,10 +277,11 @@ cada una linkea a la otra: solapas o acordeón, alert o toast, sheet o modal, li
 
 Las piezas se agrupan por el trabajo que hacen
 —Fundamentos, Mascotas, Editor, Acciones, Formularios, Navegación, Datos, Avisos, Superficies— y
-no por su tipo técnico. **Fundamentos va primero** y es la capa de la que sale todo lo demás: Principios ·
-Accesibilidad · Tipografía · Color · Medidas y radios · Relieve · Movimiento · Iconos · Cómo se
-escribe. El orden adentro no es alfabético: las dos primeras son las que hay que leer antes de
-tocar nada, y después van las capas en el orden en que se construye una pantalla.
+no por su tipo técnico. **Fundamentos va primero** y es la capa de la que sale todo lo demás:
+Principios · Accesibilidad · Tipografía · Color · Medidas y radios · Layout · Relieve · Movimiento ·
+Estados · Iconos · Gráficos · Cómo se escribe · Inclusión. El orden adentro no es alfabético: las
+dos primeras son las que hay que leer antes de tocar nada, y después van las capas en el orden en
+que se construye una pantalla.
 
 Se llevó puestos a «Guía» y a «Tokens», que eran dos grupos separados por si el contenido era una
 regla o un valor — una distinción que le importa a quien los escribió y a nadie más: el que busca
@@ -342,15 +343,18 @@ Diecisiete de ellos leen el paquete entero y fallan si alguien:
 
 Trece más leen los tokens de tipografía: que cada rol declare sus tres valores y llegue entero al
 `@theme`, que ninguno baje de 12px, que la curva de interlineado tenga su máximo en `reading`, que
-el tracking cruce el cero en la base. Y uno del lado del kit repite los guardianes de escala sobre
-`apps/kit`, que hasta ahora se escapaba.
+el tracking cruce el cero en la base. Del lado del kit hay diecisiete más: los guardianes de
+escala repetidos sobre `apps/kit` —que hasta ahora se escapaba—, el peso de display fuera de su
+tamaño, las transiciones sin duración ni curva, un control de estado sin su manija, y que cada
+vista tenga portada, import y sinónimos para buscarla.
 
-Y cincuenta y nueve leen los tokens y calculan contraste: cada tono de estado contra su fondo, el gris
-del texto secundario contra las cuatro superficies claras sobre las que se escribe, la tinta de
-una etiqueta de color contra los seis rellenos de la familia viva, y el glifo de una marca contra
-su propio pastel, y el relleno de un dato contra su pista — todo en los dos temas. Ese último faltaba, y la regla estaba escrita desde
-antes de que los cinco tonos la cumplieran. Si alguien cambia un tono y rompe un par, falla antes
-de llegar a una pantalla.
+Y cincuenta y nueve leen los tokens y calculan contraste: cada tono de estado contra su fondo, el
+gris del texto secundario contra las superficies sobre las que se escribe, el gris del texto
+sugerido contra los cuatro fondos de campo, la tinta de una etiqueta de color contra los seis
+rellenos de la familia viva, el glifo de una marca contra su propio pastel, y el relleno de un
+dato contra su pista — todo en los dos temas. Los tres últimos faltaban, y las tres reglas estaban
+escritas desde antes de que los valores las cumplieran. Si alguien cambia un tono y rompe un par,
+falla antes de llegar a una pantalla.
 
 ## Pendiente
 
