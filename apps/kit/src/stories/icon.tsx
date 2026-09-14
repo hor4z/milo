@@ -174,14 +174,14 @@ export function IconStory() {
             <Mono>npm run icons -w @milo/ui -- check</Mono>
           </Variant>
         </Panel>
-        <Footnote>
+        <p className={cls.commandNote}>
           <code className={cls.commandName}>add</code> hace tres preguntas antes de bajar nada:
           si el nombre existe (y si no, sugiere los cinco más parecidos), si ya lo tenemos, y si hay
           uno en el set que comparta tags y probablemente sirva igual. La tercera es la que evita
           llegar a doscientos iconos con seis variantes de engranaje, y para saltearla hay que
           escribir <Mono>--yes</Mono>. El catálogo está versionado, así que buscar funciona sin
           internet.
-        </Footnote>
+        </p>
       </Section>
 
       <Section title="Props">

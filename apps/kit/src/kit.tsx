@@ -162,7 +162,7 @@ export function Cluster({ gap = 'md', align = 'stretch', children, className }: 
 
 const frameWidths = { xs: s.frameXs, sm: s.frameSm, md: s.frameMd, lg: s.frameLg, xl: s.frameXl }
 
-/** Le pone un tope de ancho a la pieza y la estira hasta ahí, para que no se lea a lo ancho del lienzo. */
+/** Le pone un tope de ancho a la pieza y la estira hasta ahí, para que no se lea a lo ancho del lienzo. Estira solo si adentro hay una sola cosa: con varias, cada una se mide sola. */
 export function Frame({ width = 'sm', children, className }: {
   /** 280, 320, 420, 520 o 680. */
   width?: keyof typeof frameWidths

@@ -25,10 +25,10 @@ export function ModalStory() {
             <Modal open={open} onClose={() => setOpen(false)} label="Ejemplo" width={620}>
               <div className={cls.wideBody}>
                 <div className={cls.wideTitle}>Un modal de 620</div>
-                <Footnote>
+                <p className={cls.wideText}>
                   Probá Escape, y probá hacer scroll en la página de atrás: está bloqueado, y no hay
                   salto lateral al abrir.
-                </Footnote>
+                </p>
                 <div className={cls.wideActions}>
                   <Button variant="ghost" onClick={() => setOpen(false)}>Cancelar</Button>
                   <Button variant="solid" onClick={() => setOpen(false)}>Entendido</Button>

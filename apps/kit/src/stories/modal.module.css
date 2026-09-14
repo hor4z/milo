@@ -12,6 +12,16 @@
   }
 
 
+  .wideText {
+    margin-top: 0.5rem;
+    max-width: 52ch;
+    font-size: var(--type-body);
+    line-height: var(--type-body-lh);
+    letter-spacing: var(--type-body-ls);
+    font-weight: var(--font-weight-medium);
+    color: var(--text-muted);
+  }
+
   .wideActions {
     margin-top: 1.5rem;
     display: flex;
