@@ -235,6 +235,30 @@ describe('useTokens', () => {
   })
 })
 
+describe('el corte entre el sitio y el paquete', () => {
+  it('el sitio entra al paquete por @milo/ui y no por una ruta relativa', () => {
+    const base = join(import.meta.dirname, '..')
+    const walk = (dir: string, prefix = ''): string[] =>
+      readdirSync(dir, { withFileTypes: true }).flatMap(e =>
+        e.isDirectory()
+          ? walk(join(dir, e.name), `${prefix}${e.name}/`)
+          : /\.tsx?$/.test(e.name) ? [`${prefix}${e.name}`] : [])
+
+    const offenders: string[] = []
+    for (const f of walk(base)) {
+      if (f.startsWith('__tests__/')) continue
+      const text = readFileSync(join(base, f), 'utf8')
+      for (const m of text.matchAll(/from ['"]((?:\.\.\/)+src\/[^'"]*)['"]/g)) {
+        offenders.push(`${f}: ${m[1]}`)
+      }
+    }
+    expect(
+      offenders,
+      'el alias @milo/ui es lo que sostiene el corte: una ruta relativa hacia src/ lo rompe',
+    ).toEqual([])
+  })
+})
+
 describe('cobertura del kit', () => {
   const internal = new Set(['Portal', 'PageHeader', 'SectionLabel'])
 

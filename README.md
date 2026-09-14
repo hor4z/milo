@@ -11,7 +11,7 @@ producto: este repo es del design system y de nada más.
 npm install
 npm run dev        # el sitio · http://localhost:5190
 npm run typecheck  # el paquete y el sitio de una
-npm test           # 686 tests
+npm test           # 687 tests
 npm run build      # compila el paquete a dist/
 npm run props      # regenera la tabla de props desde los tipos
 ```
