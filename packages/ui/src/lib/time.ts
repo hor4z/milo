@@ -78,6 +78,6 @@ export function zoneDiffers(zone: Zone | undefined, now: Date = new Date()) {
 
 /** Cómo se llama la zona para escribirla al lado de la hora: `GMT-3`. */
 export function zoneLabel(zone: Zone, now: Date = new Date()) {
-  const partes = new Intl.DateTimeFormat('es-AR', { timeZone: zone, timeZoneName: 'shortOffset' }).formatToParts(now)
-  return partes.find(p => p.type === 'timeZoneName')?.value ?? zone
+  const parts = new Intl.DateTimeFormat('es-AR', { timeZone: zone, timeZoneName: 'shortOffset' }).formatToParts(now)
+  return parts.find(p => p.type === 'timeZoneName')?.value ?? zone
 }

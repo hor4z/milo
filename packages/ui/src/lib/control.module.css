@@ -176,4 +176,25 @@
         background-color: var(--bad-hover);
     }
   }
+  @media (pointer: coarse) {
+    .heightSm,
+    .heightMd,
+    .squareSm,
+    .squareMd {
+      height: 2.5rem;
+    }
+
+    .fieldSm,
+    .fieldMd,
+    .fieldLg {
+      height: 2.75rem;
+    }
+
+    .squareSm,
+    .squareMd {
+      width: 2.5rem;
+    }
+
+  }
+
 }

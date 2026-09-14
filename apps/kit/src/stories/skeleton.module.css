@@ -1,12 +1,4 @@
 @layer milo.app {
-  .rowsStack {
-    display: flex;
-    width: 100%;
-    max-width: 420px;
-    flex-direction: column;
-    gap: 1rem;
-  }
-
   .row {
     display: flex;
     align-items: center;

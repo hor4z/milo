@@ -1,10 +1,4 @@
 @layer milo.app {
-  .dashboard {
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
-  }
-
   .topBar {
     margin-inline: calc(0.25rem * -5);
     margin-top: calc(0.25rem * -5);
@@ -38,8 +32,6 @@
     gap: 0.5rem;
     border-radius: var(--radius-full);
     transition-property: box-shadow;
-    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-    transition-duration: 150ms;
     transition-duration: var(--duration-fast);
     transition-timing-function: var(--ease-out);
   }
@@ -50,12 +42,6 @@
     align-items: flex-end;
     justify-content: space-between;
     gap: 1rem;
-  }
-
-  .pageHeading {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
   }
 
   .pageTitle {
@@ -173,12 +159,6 @@
     flex-direction: column;
     gap: 1.25rem;
     padding: 1.5rem;
-  }
-
-  .taskBlock {
-    display: flex;
-    flex-direction: column;
-    gap: 0.75rem;
   }
 
   .taskHeader {

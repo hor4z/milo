@@ -1,8 +1,8 @@
 import cls from './roles.module.css'
 import { Icon, type IconName } from '@milo/ui'
-import { A11y, Note, Page, Rich, Section } from '../kit'
+import { A11y, Note, Page, Rich, Section, Stack } from '../kit'
 
-type Rol = {
+type Role = {
   nombre: string
   icon: IconName
   quien: string
@@ -12,7 +12,7 @@ type Rol = {
   nunca: string
 }
 
-const roles: Rol[] = [
+const roles: Role[] = [
   {
     nombre: 'Estudiante',
     icon: 'school',
@@ -62,9 +62,9 @@ export function RolesSection() {
         title="Los cuatro"
         note="El orden no es de importancia: es el de cuánto tiempo pasa cada uno adentro, que es lo que decide cuánta densidad tolera."
       >
-        <div className={cls.roleStack}>
-          {roles.map(r => <Tarjeta key={r.nombre} rol={r} />)}
-        </div>
+        <Stack>
+          {roles.map(r => <RoleCard key={r.nombre} rol={r} />)}
+        </Stack>
       </Section>
 
       <Section
@@ -72,12 +72,12 @@ export function RolesSection() {
         note="Son las que se olvidan cuando se arma una pantalla pensando en un rol solo."
       >
         <div className={cls.ruleGrid}>
-          <Regla titulo="El rol cambia qué se ve, no cómo se ve" text="La misma `Card`, la misma `Table`, el mismo azul. Si un rol necesita otra pieza para la misma cosa, lo que está mal es la pieza." />
-          <Regla titulo="Esconder no es proteger" text="Lo que un rol no puede ver no se manda al navegador. Un dato que llega y se oculta con CSS está a un inspector de distancia, y acá los datos son de menores." />
-          <Regla titulo="No hay un selector de rol" text="El rol viene de quién entró. Un conmutador de vista es una función de soporte, se anuncia como tal y queda registrado." />
-          <Regla titulo="El vacío también cambia" text={`"Todavía no hay entregas" es distinto para quien las tiene que hacer, para quien las espera y para quien pregunta cómo viene. El vacío ofrece la acción de ese rol.`} />
-          <Regla titulo="La densidad se gana con las horas" text="El docente vive adentro y lee una tabla de treinta filas. La familia entra cuatro veces al año: ahí la misma tabla es una pared." />
-          <Regla titulo="Un dato de una persona tiene dueño" text="Una devolución es del estudiante y de quien la escribió. Que conducción pueda verla no quiere decir que vaya en un tablero." />
+          <Rule title="El rol cambia qué se ve, no cómo se ve" text="La misma `Card`, la misma `Table`, el mismo azul. Si un rol necesita otra pieza para la misma cosa, lo que está mal es la pieza." />
+          <Rule title="Esconder no es proteger" text="Lo que un rol no puede ver no se manda al navegador. Un dato que llega y se oculta con CSS está a un inspector de distancia, y acá los datos son de menores." />
+          <Rule title="No hay un selector de rol" text="El rol viene de quién entró. Un conmutador de vista es una función de soporte, se anuncia como tal y queda registrado." />
+          <Rule title="El vacío también cambia" text={`"Todavía no hay entregas" es distinto para quien las tiene que hacer, para quien las espera y para quien pregunta cómo viene. El vacío ofrece la acción de ese rol.`} />
+          <Rule title="La densidad se gana con las horas" text="El docente vive adentro y lee una tabla de treinta filas. La familia entra cuatro veces al año: ahí la misma tabla es una pared." />
+          <Rule title="Un dato de una persona tiene dueño" text="Una devolución es del estudiante y de quien la escribió. Que conducción pueda verla no quiere decir que vaya en un tablero." />
         </div>
       </Section>
 
@@ -99,7 +99,7 @@ export function RolesSection() {
   )
 }
 
-function Tarjeta({ rol }: { rol: Rol }) {
+function RoleCard({ rol }: { rol: Role }) {
   return (
     <div className={`${cls.roleCard} bg-surface`}>
       <div className={cls.roleHead}>
@@ -112,34 +112,34 @@ function Tarjeta({ rol }: { rol: Rol }) {
         </div>
       </div>
       <div className={cls.roleColumns}>
-        <Lista titulo="Ve" items={rol.ve} />
-        <Lista titulo="Evitar" items={rol.evitar} />
-        <div className={cls.orderBlock}>
+        <Bullets title="Ve" items={rol.ve} />
+        <Bullets title="Evitar" items={rol.evitar} />
+        <Stack gap="sm">
           <span className={cls.firstLabel}>Primero</span>
           <span className={cls.firstText}>{rol.primero}</span>
           <span className={cls.neverLabel}>Nunca</span>
           <span className={cls.neverText}>{rol.nunca}</span>
-        </div>
+        </Stack>
       </div>
     </div>
   )
 }
 
-function Lista({ titulo, items }: { titulo: string; items: string[] }) {
+function Bullets({ title, items }: { title: string; items: string[] }) {
   return (
-    <div className={cls.listBlock}>
-      <span className={cls.listTitle}>{titulo}</span>
+    <Stack gap="sm">
+      <span className={cls.listTitle}>{title}</span>
       <ul className={cls.list}>
         {items.map(i => <li key={i} className={cls.listItem}>{i}</li>)}
       </ul>
-    </div>
+    </Stack>
   )
 }
 
-function Regla({ titulo, text }: { titulo: string; text: string }) {
+function Rule({ title, text }: { title: string; text: string }) {
   return (
     <div className={`${cls.specimen} bg-surface`}>
-      <span className={cls.specimenLabel}>{titulo}</span>
+      <span className={cls.specimenLabel}>{title}</span>
       <span className={cls.specimenBody}><Rich text={text} /></span>
     </div>
   )

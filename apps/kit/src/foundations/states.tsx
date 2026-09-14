@@ -1,10 +1,10 @@
 import cls from './states.module.css'
 import { useState } from 'react'
 import { Button, Card, Chip, EmptyState, Icon, Skeleton, Spinner, Switch, TextField } from '@milo/ui'
-import { A11y, Note, Page, Section, Rich } from '../kit'
+import { A11y, Note, Page, Rich, Section, Stack } from '../kit'
 
 /** Los seis estados de algo que se toca, y con qué los dice este sistema. */
-const interaccion = [
+const interaction = [
   { name: 'reposo', how: 'El relieve de la pieza y nada más.', why: 'El estado base también es un estado: si no se distingue de un hover, el hover no informa.' },
   { name: 'hover', how: 'Un paso de tinta en alpha sobre el fondo. Nunca un movimiento.', why: 'El hover dice "esto responde". No existe sin mouse, así que nunca es la única forma de enterarse de algo.' },
   { name: 'pressed', how: 'El relieve se da vuelta: la sombra entra desde abajo.', why: 'Es el único estado que el dedo confirma antes que el ojo, y por eso se dibuja con volumen y no con color.' },
@@ -26,7 +26,7 @@ export function StatesSection() {
         note="Cada estado tiene una forma además de un tono. Un cambio de color solo es una señal que no llega a quien no distingue colores, a quien mira de reojo, ni a quien está en una pantalla mal calibrada de un aula. La forma puede ser el relieve, la opacidad, un glifo o una palabra, pero alguna hay."
       >
         <div className={`${cls.stateList} bg-surface`}>
-          {interaccion.map(e => (
+          {interaction.map(e => (
             <div key={e.name} className={cls.stateRow}>
               <code className={cls.stateName}>{e.name}</code>
               <span className={cls.stateHow}>{e.how}</span>
@@ -36,19 +36,19 @@ export function StatesSection() {
         </div>
       </Section>
 
-      <Vivo />
+      <Live />
 
       <Section
         title="Los cuatro estados de una pantalla que espera"
         note="Ninguno es el caso feliz y los cuatro pasan todos los días. Elegir mal entre ellos es lo que hace que alguien recargue una página que estaba bien."
       >
         <div className={cls.screenGrid}>
-          <Estado
-            titulo="Cargando, y sabemos qué va a venir"
+          <StateCard
+            title="Cargando, y sabemos qué va a venir"
             tag="Skeleton"
             nota="El esqueleto ocupa el lugar exacto de lo que falta, así que cuando llega no se mueve nada. Solo va cuando la forma es previsible: una fila, una tarjeta, un avatar."
           >
-            <div className={cls.loadingStack}>
+            <Stack>
               {[0, 1].map(i => (
                 <div key={i} className={`${cls.loadingRow} bg-surface`}>
                   <Skeleton className={cls.avatarBone} />
@@ -58,11 +58,11 @@ export function StatesSection() {
                   </div>
                 </div>
               ))}
-            </div>
-          </Estado>
+            </Stack>
+          </StateCard>
 
-          <Estado
-            titulo="Cargando, y no sabemos qué"
+          <StateCard
+            title="Cargando, y no sabemos qué"
             tag="Spinner"
             nota="Cuando no se puede dibujar la forma de lo que viene (una acción, un cálculo, una búsqueda sin resultados todavía) el esqueleto mentiría. El spinner no promete nada, solo dice que algo está pasando."
           >
@@ -70,10 +70,10 @@ export function StatesSection() {
               <Spinner size={28} />
               <span className={cls.workingText}>Corrigiendo 24 entregas…</span>
             </div>
-          </Estado>
+          </StateCard>
 
-          <Estado
-            titulo="Vacío porque todavía no empezó"
+          <StateCard
+            title="Vacío porque todavía no empezó"
             tag="EmptyState"
             nota="El vacío más importante y el que se trata peor. No es un error: es la primera vez. Dice qué va a haber acá y ofrece la acción que lo llena: un vacío sin salida es una pantalla que no se puede usar."
           >
@@ -83,10 +83,10 @@ export function StatesSection() {
               body="Cuando crees la primera, la vas a ver acá con sus entregas y su estado."
               action={<Button variant="solid" icon="add">Nueva actividad</Button>}
             />
-          </Estado>
+          </StateCard>
 
-          <Estado
-            titulo="Vacío porque el filtro no encontró nada"
+          <StateCard
+            title="Vacío porque el filtro no encontró nada"
             tag="EmptyState"
             nota="Distinto del anterior y se confunden siempre. Acá sí hay contenido: lo que no hay es contenido que cumpla lo que se pidió. La salida no es crear algo, es aflojar el filtro."
           >
@@ -96,7 +96,7 @@ export function StatesSection() {
               body="Probá con menos palabras, o sacá el filtro de espacio."
               action={<Button variant="raised" icon="filter_alt">Limpiar filtros</Button>}
             />
-          </Estado>
+          </StateCard>
         </div>
       </Section>
 
@@ -155,20 +155,20 @@ export function StatesSection() {
   )
 }
 
-function Estado({ titulo, tag, nota, children }: { titulo: string; tag: string; nota: string; children: React.ReactNode }) {
+function StateCard({ title, tag, nota, children }: { title: string; tag: string; nota: string; children: React.ReactNode }) {
   return (
-    <div className={cls.optimisticStack}>
+    <Stack>
       <div className={cls.optimisticHead}>
-        <span className={cls.optimisticTitle}>{titulo}</span>
+        <span className={cls.optimisticTitle}>{title}</span>
         <Chip color="blue">{tag}</Chip>
       </div>
       <p className={cls.optimisticNote}>{nota}</p>
       <div className={cls.optimisticSlot}>{children}</div>
-    </div>
+    </Stack>
   )
 }
 
-function Vivo() {
+function Live() {
   const [off, setOff] = useState(false)
   return (
     <Section

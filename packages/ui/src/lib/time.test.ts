@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest'
 import { clock, day, dayAndTime, duration, machineTime, timeAgo, zoneLabel } from './time'
 
 const AR = 'America/Argentina/Buenos_Aires'
-const ahora = new Date('2026-03-09T15:00:00-03:00')
+const now = new Date('2026-03-09T15:00:00-03:00')
 
 describe('el reloj', () => {
   it('va de veinticuatro horas y no dice am ni pm', () => {
@@ -32,33 +32,33 @@ describe('la fecha', () => {
 })
 
 describe('cuánto hace', () => {
-  const hace = (ms: number) => new Date(ahora.getTime() - ms)
+  const ago = (ms: number) => new Date(now.getTime() - ms)
 
   it('abajo del minuto no dice un número', () => {
-    expect(timeAgo(hace(20_000), { now: ahora })).toBe('recién')
+    expect(timeAgo(ago(20_000), { now: now })).toBe('recién')
   })
 
   it('dice la unidad entera y no abreviada', () => {
-    expect(timeAgo(hace(20 * 60_000), { now: ahora })).toBe('hace 20 minutos')
-    expect(timeAgo(hace(2 * 3_600_000), { now: ahora })).toBe('hace 2 horas')
+    expect(timeAgo(ago(20 * 60_000), { now: now })).toBe('hace 20 minutos')
+    expect(timeAgo(ago(2 * 3_600_000), { now: now })).toBe('hace 2 horas')
   })
 
   it('el singular no dice "1 minutos"', () => {
-    expect(timeAgo(hace(60_000), { now: ahora })).toBe('hace 1 minuto')
-    expect(timeAgo(hace(3_600_000), { now: ahora })).toBe('hace 1 hora')
+    expect(timeAgo(ago(60_000), { now: now })).toBe('hace 1 minuto')
+    expect(timeAgo(ago(3_600_000), { now: now })).toBe('hace 1 hora')
   })
 
   it('un día es ayer, que es como se dice', () => {
-    expect(timeAgo(hace(24 * 3_600_000), { now: ahora })).toBe('ayer')
+    expect(timeAgo(ago(24 * 3_600_000), { now: now })).toBe('ayer')
   })
 
   it('pasada la semana vuelve a la fecha: "hace 23 días" no ubica a nadie', () => {
-    expect(timeAgo(hace(23 * 24 * 3_600_000), { now: ahora, zone: AR })).toBe('14 de febrero')
+    expect(timeAgo(ago(23 * 24 * 3_600_000), { now: now, zone: AR })).toBe('14 de febrero')
   })
 
   it('lo que todavía no pasó nunca va en relativo', () => {
-    const manana = new Date(ahora.getTime() + 24 * 3_600_000)
-    expect(timeAgo(manana, { now: ahora, zone: AR })).toBe('10 de marzo')
+    const manana = new Date(now.getTime() + 24 * 3_600_000)
+    expect(timeAgo(manana, { now: now, zone: AR })).toBe('10 de marzo')
   })
 })
 
@@ -88,6 +88,6 @@ describe('el valor que lee una máquina', () => {
 
 describe('la zona', () => {
   it('se puede nombrar para escribirla al lado de la hora', () => {
-    expect(zoneLabel(AR, ahora)).toMatch(/GMT/)
+    expect(zoneLabel(AR, now)).toMatch(/GMT/)
   })
 })

@@ -36,9 +36,9 @@ export function Popover({
   const set = (v: boolean) => { setOpen(v); onOpenChange?.(v) }
 
   const close = () => {
-    const adentro = panelRef.current?.contains(document.activeElement)
+    const focusInside = panelRef.current?.contains(document.activeElement)
     set(false)
-    if (adentro) triggerRef.current?.focus()
+    if (focusInside) triggerRef.current?.focus()
   }
 
   useEscape(open, close)

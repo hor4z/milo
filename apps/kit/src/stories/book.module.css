@@ -38,13 +38,6 @@
     padding-block: 2rem;
   }
 
-  .widthSample {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 0.5rem;
-  }
-
   .textureShelf {
     display: flex;
     flex-wrap: wrap;

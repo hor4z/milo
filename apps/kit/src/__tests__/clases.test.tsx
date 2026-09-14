@@ -45,11 +45,25 @@ describe('toda clase que llega al HTML resuelve a algo', () => {
     })
   }
 
+  it('touch-target va solo donde toda la superficie es el mismo objetivo', () => {
+    // el ::after se pinta sobre el contenido, así que en algo que lleva un control
+    // adentro se queda con el tap que iba a ese control
+    const malos: string[] = []
+    for (const [nombre, Vista] of vistas) {
+      const { container } = render(<ToastProvider><Vista /></ToastProvider>)
+      for (const el of container.querySelectorAll('.touch-target')) {
+        const adentro = el.querySelector('input, textarea, select, button, a[href], [tabindex]')
+        if (adentro) malos.push(`${nombre}: un ${el.tagName.toLowerCase()} con un ${adentro.tagName.toLowerCase()} adentro`)
+      }
+    }
+    expect([...new Set(malos)]).toEqual([])
+  })
+
   it('el guardián mira algo: hay clases de módulo dibujadas', () => {
     const Primera = vistas[0][1]
     const { container } = render(<ToastProvider><Primera /></ToastProvider>)
-    const hay = [...container.querySelectorAll('[class]')]
+    const found = [...container.querySelectorAll('[class]')]
       .some(el => (el.getAttribute('class') ?? '').split(/\s+/).some(c => c.startsWith('_')))
-    expect(hay).toBe(true)
+    expect(found).toBe(true)
   })
 })

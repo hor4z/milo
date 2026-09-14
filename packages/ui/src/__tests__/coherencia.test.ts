@@ -67,8 +67,8 @@ describe('coherencia del sistema', () => {
 
   it('el espaciado sale de la grilla', () => {
     const eje = 'p|px|py|pt|pb|pl|pr|m|mx|my|mt|mb|ml|mr|gap|gap-x|gap-y|space-y|space-x'
-    const fuera = new RegExp(`(?<![\\w-])-?(${eje})-(1\\.5|2\\.5|3\\.5|7|9|11|13|14|15)(?![\\w.])`)
-    const offenders = sources.filter(f => fuera.test(f.text)).map(f => f.name)
+    const outside = new RegExp(`(?<![\\w-])-?(${eje})-(1\\.5|2\\.5|3\\.5|7|9|11|13|14|15)(?![\\w.])`)
+    const offenders = sources.filter(f => outside.test(f.text)).map(f => f.name)
     expect(offenders).toEqual([])
   })
 
@@ -147,8 +147,8 @@ describe('coherencia del sistema', () => {
   })
 
   it('los pesos salen de los tres roles', () => {
-    const fuera = /font-\[\d|font-(thin|extralight|light|normal|extrabold|black)\b/
-    const offenders = sources.filter(f => fuera.test(f.text)).map(f => f.name)
+    const outside = /font-\[\d|font-(thin|extralight|light|normal|extrabold|black)\b/
+    const offenders = sources.filter(f => outside.test(f.text)).map(f => f.name)
     expect(offenders).toEqual([])
   })
 

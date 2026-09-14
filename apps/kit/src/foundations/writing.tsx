@@ -1,6 +1,6 @@
 import cls from './writing.module.css'
 import { Icon } from '@milo/ui'
-import { Page, Section } from '../kit'
+import { Page, Section, Stack } from '../kit'
 
 const pairs: { bad: string; good: string; by: string }[] = [
   {
@@ -64,7 +64,7 @@ export function Writing() {
         title="Antes y después"
         note="Los mismos mensajes escritos de las dos maneras. La diferencia nunca es de tono: es de información."
       >
-        <div className={cls.comparisonStack}>
+        <Stack>
           {pairs.map(p => (
             <div key={p.good} className={cls.comparison}>
               <div className={cls.comparisonBad}>
@@ -80,7 +80,7 @@ export function Writing() {
               </div>
             </div>
           ))}
-        </div>
+        </Stack>
       </Section>
     </Page>
   )

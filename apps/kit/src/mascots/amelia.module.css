@@ -26,12 +26,6 @@
     width: auto;
   }
 
-  .clipCaption {
-    display: flex;
-    flex-direction: column;
-    gap: 0.25rem;
-  }
-
   .clipTitle {
     font-size: var(--type-body);
     line-height: var(--type-body-lh);

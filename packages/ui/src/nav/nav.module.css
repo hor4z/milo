@@ -13,8 +13,6 @@
 
   .motion {
     transition-property: background-color,box-shadow;
-    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-    transition-duration: 150ms;
     transition-duration: var(--duration-fast);
     transition-timing-function: var(--ease-out);
   }
@@ -62,10 +60,8 @@
     justify-content: center;
     border-radius: var(--radius-md);
     transition-property: background-color,box-shadow;
-    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-    transition-duration: 150ms;
-    transition-timing-function: var(--ease-out);
     transition-duration: var(--duration-fast);
+    transition-timing-function: var(--ease-out);
   }
 
   .glyphPaper {
@@ -112,8 +108,6 @@
 
   .subitemMotion {
     transition-property: background-color,box-shadow;
-    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-    transition-duration: 150ms;
     transition-duration: var(--duration-fast);
     transition-timing-function: var(--ease-out);
   }

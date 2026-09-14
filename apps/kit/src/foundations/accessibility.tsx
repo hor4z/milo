@@ -1,9 +1,9 @@
 import cls from './accessibility.module.css'
 import { Button, Chip, Field, Icon, Kbd, TextField } from '@milo/ui'
-import { A11y, Note, Page, Section } from '../kit'
+import { A11y, Note, Page, Section, Stack } from '../kit'
 
 /** Las reglas del sistema, no las de cada pieza: lo de cada pieza está en su vista. */
-const reglas = [
+const rules = [
   {
     icon: 'contrast',
     title: 'El contraste se mide, no se estima',
@@ -46,7 +46,7 @@ export function AccessibilitySection() {
     >
       <Section title="Las seis reglas">
         <div className={cls.specimenGrid}>
-          {reglas.map(r => (
+          {rules.map(r => (
             <div key={r.title} className={`${cls.specimen} bg-surface`}>
               <span className={`${cls.roleBadge} inset-relief`}>
                 <Icon name={r.icon} size={18} />
@@ -77,7 +77,7 @@ export function AccessibilitySection() {
         title="El tamaño del objetivo, y dónde el sistema queda corto"
         note="Es la regla que este sistema cumple más justo, así que va escrita en vez de escondida. WCAG 2.2 pide 24×24 como mínimo; Apple recomienda 44×44 para lo que se toca con el dedo."
       >
-        <div className={cls.targetList}>
+        <Stack>
           {[
             ['sm', 32, 'ok', 'Pasa WCAG con holgura y queda por debajo de lo que Apple recomienda. Es para una fila densa y con mouse.'],
             ['md', 36, 'ok', 'La acción dentro de un panel.'],
@@ -90,7 +90,7 @@ export function AccessibilitySection() {
               <span className={cls.targetNote}>{nota}</span>
             </div>
           ))}
-        </div>
+        </Stack>
         <Note icon="warning" title="La deuda, dicha en voz alta">
           Ninguna altura llega a los 44×44 que Apple recomienda para el dedo. En un panel docente con
           mouse eso está bien; en una tablet de aula, el <code>sm</code> de 32 es chico. La salida no

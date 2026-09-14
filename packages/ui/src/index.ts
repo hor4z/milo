@@ -24,7 +24,7 @@ export { Pagination, PaginationStatus, PaginationPrev, PaginationNext } from './
 
 export {
   Table, TableHeader, TableBody, TableFooter, TableRow, TableHead, TableCell,
-  TableTitle, TableHint, TableNum,
+  TableTitle, TableHint, TableNum, TableEmpty,
 } from './table/table'
 export { List, ListItem } from './list/list'
 export { BarChart } from './chart/chart'
@@ -69,7 +69,7 @@ export { Portal } from './portal/portal'
 export { Popover } from './popover/popover'
 export { Dropdown } from './dropdown/dropdown'
 export type { DropdownItem } from './dropdown/dropdown'
-export { Modal } from './modal/modal'
+export { Modal, ModalBody, ModalTitle, ModalHint, ModalFooter } from './modal/modal'
 export { ConfirmDialog } from './confirm-dialog/confirm-dialog'
 export { Sheet, SheetHeader, SheetBody, SheetFooter } from './sheet/sheet'
 export { Menu, MenuItem, MenuLabel } from './menu/menu'

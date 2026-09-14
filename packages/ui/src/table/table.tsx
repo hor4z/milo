@@ -89,12 +89,18 @@ export function TableRow({ children, onClick, active, className }: {
 
 type CellProps = { children?: ReactNode; className?: string }
 
+/** De qué lado del ancho se apoya lo que la celda dice. */
+type Align = 'left' | 'right'
+
 /** Un encabezado de columna: 11/600 con tracking, en tinta. */
-export function TableHead({ children, scope = 'col', className, ...rest }: CellProps & ThHTMLAttributes<HTMLTableCellElement>) {
+export function TableHead({ children, scope = 'col', align, className, ...rest }: CellProps & {
+  /** A la derecha cuando la columna es de números, para que el encabezado caiga sobre ellos. */
+  align?: Align
+} & ThHTMLAttributes<HTMLTableCellElement>) {
   return (
     <th
       scope={scope}
-      className={cx(cls.headCell, className)}
+      className={cx(cls.headCell, align === 'right' && cls.alignRight, className)}
       {...rest}
     >
       {children}
@@ -103,11 +109,30 @@ export function TableHead({ children, scope = 'col', className, ...rest }: CellP
 }
 
 /** Una celda: 12/500, con el alto de fila de 56. */
-export function TableCell({ children, className, ...rest }: CellProps & TdHTMLAttributes<HTMLTableCellElement>) {
+export function TableCell({ children, align, fit, className, ...rest }: CellProps & {
+  /** A la derecha cuando lo que lleva se compara hacia abajo. */
+  align?: Align
+  /** La columna se achica a lo que lleva adentro: para la de acciones, que va al borde. */
+  fit?: boolean
+} & TdHTMLAttributes<HTMLTableCellElement>) {
   return (
-    <td className={cx(cls.cell, className)} {...rest}>
+    <td className={cx(cls.cell, align === 'right' && cls.alignRight, fit && cls.fitCell, className)} {...rest}>
       {children}
     </td>
+  )
+}
+
+/** La fila entera cuando no hay ninguna: adentro va un `EmptyState`. */
+export function TableEmpty({ children, colSpan, className }: CellProps & {
+  /** Cuántas columnas tiene la tabla ahora mismo: la tabla no las sabe contar sola. */
+  colSpan: number
+}) {
+  return (
+    <tr>
+      <td colSpan={colSpan} className={cx(cls.emptyCell, className)}>
+        {children}
+      </td>
+    </tr>
   )
 }
 

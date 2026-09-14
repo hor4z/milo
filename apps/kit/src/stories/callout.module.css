@@ -1,11 +1,4 @@
 @layer milo.app {
-  .pieceStack {
-    display: flex;
-    max-width: 680px;
-    flex-direction: column;
-    gap: 0.75rem;
-  }
-
   .colorGrid {
     display: grid;
     max-width: 680px;

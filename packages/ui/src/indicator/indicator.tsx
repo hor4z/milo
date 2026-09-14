@@ -29,10 +29,10 @@ export function Indicator({
   label?: string
   className?: string
 }) {
-  const hay = icon != null || (count != null && count > 0) || dot
-  if (!hay) return <>{children}</>
+  const hasContent = icon != null || (count != null && count > 0) || dot
+  if (!hasContent) return <>{children}</>
 
-  const pelado = !icon && count == null
+  const isBare = !icon && count == null
 
   return (
     <span className={cx(cls.root, className)}>
@@ -43,7 +43,7 @@ export function Indicator({
         className={cx(
           cls.badge,
           tones[tone],
-          pelado
+          isBare
             ? cls.dot
             : cls.count,
         )}

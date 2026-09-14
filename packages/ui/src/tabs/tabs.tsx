@@ -43,7 +43,7 @@ export function TabList({ label, className, children, ...props }: ComponentProps
   label?: string
 }) {
   const ref = useRef<HTMLDivElement>(null)
-  const borde = (i: 0 | -1) => {
+  const toEdge = (i: 0 | -1) => {
     const tabs = [...(ref.current?.querySelectorAll<HTMLButtonElement>('[role="tab"]') ?? [])]
     tabs.at(i)?.focus()
   }
@@ -61,7 +61,7 @@ export function TabList({ label, className, children, ...props }: ComponentProps
       onKeyDown={e => {
         if (e.key === 'ArrowRight') { e.preventDefault(); move(1) }
         if (e.key === 'ArrowLeft') { e.preventDefault(); move(-1) }
-        if (e.key === 'Home' || e.key === 'End') { e.preventDefault(); borde(e.key === 'Home' ? 0 : -1) }
+        if (e.key === 'Home' || e.key === 'End') { e.preventDefault(); toEdge(e.key === 'Home' ? 0 : -1) }
       }}
       className={cx(s.list, className)}
       {...props}

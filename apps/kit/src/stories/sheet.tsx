@@ -1,13 +1,12 @@
-import cls from './sheet.module.css'
 import { useState } from 'react'
 import {
   Button, Field, FieldSet, Select, Sheet, SheetBody, SheetFooter, SheetHeader, Switch,
   TextField, Textarea, useToast,
 } from '@milo/ui'
-import { A11y, Canvas, Note, Page, Props, Section } from '../kit'
+import { A11y, Canvas, Note, Page, Props, Section, Stack } from '../kit'
 
 export function SheetStory() {
-  const [fuera, setFuera] = useState(true)
+  const [late, setLate] = useState(true)
   const [open, setOpen] = useState(false)
   const [leftOpen, setLeftOpen] = useState(false)
   const [espacio, setEspacio] = useState('Matemática · 4.º A')
@@ -44,7 +43,7 @@ export function SheetStory() {
                 <Textarea rows={4} maxRows={10} />
               </Field>
               <Field label="Entregas fuera de fecha" hint="Permitir que entreguen después del cierre">
-                <Switch checked={fuera} onChange={setFuera} label="Entregas fuera de fecha" />
+                <Switch checked={late} onChange={setLate} label="Entregas fuera de fecha" />
               </Field>
             </FieldSet>
           </SheetBody>
@@ -74,14 +73,14 @@ export function SheetStory() {
         <Sheet open={leftOpen} onClose={() => setLeftOpen(false)} side="left" width={360} label="Filtros">
           <SheetHeader title="Filtros" onClose={() => setLeftOpen(false)} />
           <SheetBody>
-            <div className={cls.filterStack}>
+            <Stack gap="xl">
               <Field label="Espacio">
                 <Select value={filtroEspacio} onChange={setFiltroEspacio} options={['Todos', 'Matemática · 4.º A', 'Lengua · 6.º']} />
               </Field>
               <Field label="Estado">
                 <Select value={filtroEstado} onChange={setFiltroEstado} options={['Cualquiera', 'Abierta', 'Corregida', 'Borrador']} />
               </Field>
-            </div>
+            </Stack>
           </SheetBody>
           <SheetFooter>
             <Button variant="ghost" onClick={() => setLeftOpen(false)}>Limpiar</Button>

@@ -5,14 +5,14 @@ import {
   Search, IconButton,
   Pagination, PaginationNext, PaginationPrev, PaginationStatus,
   Table, TableBody, TableCell, TableFooter, TableHead, TableHeader,
-  TableHint, TableNum, TableRow, TableTitle, facets, fold, timeAgo,
+  TableEmpty, TableHint, TableNum, TableRow, TableTitle, facets, fold, timeAgo,
 } from '@milo/ui'
-import { A11y, Footnote, Mono, Page, Props, Section } from '../kit'
+import { A11y, Footnote, Mono, Page, Props, Section, Stack } from '../kit'
 
 const face = (n: number) => `/avatars/${String(n).padStart(2, '0')}.webp`
 
-const AHORA = new Date('2026-03-09T15:00:00-03:00')
-const hace = (ms: number) => timeAgo(new Date(AHORA.getTime() - ms), { now: AHORA })
+const NOW = new Date('2026-03-09T15:00:00-03:00')
+const ago = (ms: number) => timeAgo(new Date(NOW.getTime() - ms), { now: NOW })
 const MIN = 60_000, H = 60 * MIN, D = 24 * H
 
 const p = (name: string, photo?: number) => ({ name, src: photo ? face(photo) : undefined })
@@ -24,35 +24,35 @@ const spaces = [
     name: 'Fracciones equivalentes', space: 'Matemática · 4.º A', status: 'Abierta',
     students: [p('Ana Pérez', 1), p('Bruno Díaz', 2), p('Carla Sosa', 3), p('Damián Ruiz', 4), p('Elena Vega', 5)],
     total: 18,
-    teacher: p('Valeria Ochoa', 7), done: 11, when: hace(2 * H)
+    teacher: p('Valeria Ochoa', 7), done: 11, when: ago(2 * H)
   },
   {
     name: 'El sistema solar', space: 'Ciencias · 5.º B', status: 'Corregida',
     students: [p('Franco Gil', 6), p('Gabriela Mota', 7), p('Hugo Paz', 8)],
     total: 24,
-    teacher: p('Martín Roldán', 6), done: 24, when: hace(D)
+    teacher: p('Martín Roldán', 6), done: 24, when: ago(D)
   },
   {
     name: 'Cuento policial', space: 'Lengua · 6.º', status: 'Borrador',
     students: [p('Irene Lopez'), p('Julián Cruz'), p('Karen Ortiz'), p('Leo Nuñez')],
     total: 0,
-    teacher: p('Valeria Ochoa', 7), done: 0, when: hace(5 * D)
+    teacher: p('Valeria Ochoa', 7), done: 0, when: ago(5 * D)
   },
   {
     name: 'Mapa de América', space: 'Sociales · 5.º A', status: 'Abierta',
     students: [p('Mora Tello', 2), p('Nico Arce'), p('Olivia Rey', 4)],
     total: 7,
-    teacher: p('Nadia Britos'), done: 3, when: hace(H)
+    teacher: p('Nadia Britos'), done: 3, when: ago(H)
   },
 ]
 
 const all = [
   ...spaces,
-  { name: 'La Revolución de Mayo', space: 'Sociales · 6.º', status: 'Corregida', students: [p('Pablo Vera', 7), p('Rita Coll', 1)], total: 21, teacher: p('Martín Roldán', 6), done: 21, when: hace(3 * D) },
-  { name: 'Ecuaciones de primer grado', space: 'Matemática · 6.º', status: 'Abierta', students: [p('Sara Luna', 3), p('Tomás Gil'), p('Ulises Paz', 5), p('Vera Ruiz', 6)], total: 12, teacher: p('Valeria Ochoa', 7), done: 5, when: hace(20 * MIN) },
-  { name: 'El ciclo del agua', space: 'Ciencias · 4.º A', status: 'Borrador', students: [p('Wanda Ise'), p('Ximena Roa', 8)], total: 0, teacher: p('Nadia Britos'), done: 0, when: hace(9 * D) },
-  { name: 'Poesía de vanguardia', space: 'Lengua · 6.º', status: 'Corregida', students: [p('Yago Prat', 4), p('Zoe Marín', 2), p('Aldo Sanz')], total: 16, teacher: p('Martín Roldán', 6), done: 16, when: hace(4 * H) },
-  { name: 'Los climas del mundo', space: 'Sociales · 5.º A', status: 'Abierta', students: [p('Bianca Toro', 6), p('Ciro Vega')], total: 9, teacher: p('Nadia Britos'), done: 2, when: hace(6 * D) },
+  { name: 'La Revolución de Mayo', space: 'Sociales · 6.º', status: 'Corregida', students: [p('Pablo Vera', 7), p('Rita Coll', 1)], total: 21, teacher: p('Martín Roldán', 6), done: 21, when: ago(3 * D) },
+  { name: 'Ecuaciones de primer grado', space: 'Matemática · 6.º', status: 'Abierta', students: [p('Sara Luna', 3), p('Tomás Gil'), p('Ulises Paz', 5), p('Vera Ruiz', 6)], total: 12, teacher: p('Valeria Ochoa', 7), done: 5, when: ago(20 * MIN) },
+  { name: 'El ciclo del agua', space: 'Ciencias · 4.º A', status: 'Borrador', students: [p('Wanda Ise'), p('Ximena Roa', 8)], total: 0, teacher: p('Nadia Britos'), done: 0, when: ago(9 * D) },
+  { name: 'Poesía de vanguardia', space: 'Lengua · 6.º', status: 'Corregida', students: [p('Yago Prat', 4), p('Zoe Marín', 2), p('Aldo Sanz')], total: 16, teacher: p('Martín Roldán', 6), done: 16, when: ago(4 * H) },
+  { name: 'Los climas del mundo', space: 'Sociales · 5.º A', status: 'Abierta', students: [p('Bianca Toro', 6), p('Ciro Vega')], total: 9, teacher: p('Nadia Britos'), done: 2, when: ago(6 * D) },
 ]
 
 const PAGE_SIZE = 4
@@ -126,7 +126,7 @@ export function TableStory() {
     <Page
       title="Table"
       kind="Datos"
-      imports="import { Table, TableHeader, TableRow, TableCell } from '@milo/ui'"
+      imports="import { Table, TableCell, TableEmpty, TableHeader, TableRow } from '@milo/ui'"
       lead="Piezas que se arman, no un componente que recibe `columns` y `rows`. Una tabla de datos y una de personas con un grupo de avatares y un menú al final no comparten nada más que la grilla, y una API de columnas termina con un `render` por columna: el mismo JSX, pero metido en un objeto y sin poder leerlo de arriba abajo."
     >
       <Section
@@ -187,8 +187,8 @@ export function TableStory() {
               {view('estudiantes') && <TableHead>Estudiantes</TableHead>}
               {view('docente') && <TableHead>Docente</TableHead>}
               {view('estado') && <TableHead>Estado</TableHead>}
-              {view('corregidas') && <TableHead className={cls.doneHead}>Corregidas</TableHead>}
-              {view('entregas') && <TableHead className={cls.handedHead}>Entregas</TableHead>}
+              {view('corregidas') && <TableHead align="right">Corregidas</TableHead>}
+              {view('entregas') && <TableHead align="right">Entregas</TableHead>}
               {view('acciones') && <TableHead><span className="sr-only">Acciones</span></TableHead>}
             </TableRow>
           </TableHeader>
@@ -216,7 +216,7 @@ export function TableStory() {
                 )}
                 {view('entregas') && <TableNum>{a.total || '-'}</TableNum>}
                 {view('acciones') && (
-                <TableCell className={cls.actionsCell}>
+                <TableCell fit>
                   <Dropdown
                     items={[
                       { label: 'Abrir', icon: 'open_in_new' },
@@ -239,17 +239,15 @@ export function TableStory() {
               </TableRow>
             ))}
             {onScreen.length === 0 && (
-              <tr>
-                <td colSpan={visible.length} className={cls.emptyCell}>
-                  <EmptyState
-                    size="sm"
-                    icon="search_off"
-                    title="Ninguna actividad con eso"
-                    body="Probá con otras palabras, o sacá alguno de los filtros puestos."
-                    action={<FilterReset onClick={clear}>Limpiar los filtros</FilterReset>}
-                  />
-                </td>
-              </tr>
+              <TableEmpty colSpan={visible.length}>
+                <EmptyState
+                  size="sm"
+                  icon="search_off"
+                  title="Ninguna actividad con eso"
+                  body="Probá con otras palabras, o sacá alguno de los filtros puestos."
+                  action={<FilterReset onClick={clear}>Limpiar los filtros</FilterReset>}
+                />
+              </TableEmpty>
             )}
           </TableBody>
           {onScreen.length > 0 && (
@@ -277,7 +275,7 @@ export function TableStory() {
               <TableHead>Actividad</TableHead>
               <TableHead>Estudiantes</TableHead>
               <TableHead>Estado</TableHead>
-              <TableHead className={cls.pieceHead}>Entregas</TableHead>
+              <TableHead align="right">Entregas</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
@@ -304,7 +302,7 @@ export function TableStory() {
         title="La columna de estudiantes"
         note="Se montan un tercio y llevan anillo, por el mismo motivo que en su propia vista. El resto va en un círculo neutro y no en otro color: un `+4` no identifica a nadie, y en la familia viva se leería como una persona más."
       >
-        <div className={cls.groupStack}>
+        <Stack gap="lg">
           <div className={`${cls.twoRow} bg-surface`}>
             <AvatarGroup people={[p('Ana Pérez', 1), p('Bruno Díaz', 2)]} />
             <Mono>2 de 3</Mono>
@@ -321,7 +319,7 @@ export function TableStory() {
             <AvatarGroup people={[p('Ana Pérez', 1), p('Bruno Díaz', 2), p('Carla Sosa', 3), p('Damián Ruiz', 4), p('Elena Vega', 5)]} />
             <Mono>5 · tres caras y el resto</Mono>
           </div>
-        </div>
+        </Stack>
         <Footnote>
           El sobrante de uno solo muestra la cuarta cara en vez de un "+1": el círculo ocupa
           exactamente lo mismo que la persona que estaría escondiendo, así que no ahorra nada y
@@ -340,7 +338,7 @@ export function TableStory() {
       </Section>
 
       <Section title="Props">
-        <Props of={['Table', 'TableRow', 'Avatar', 'AvatarGroup']} />
+        <Props of={['Table', 'TableRow', 'TableHead', 'TableCell', 'TableEmpty', 'Avatar', 'AvatarGroup']} />
       </Section>
 
       <Section title="Accesibilidad">

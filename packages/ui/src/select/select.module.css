@@ -16,11 +16,9 @@
     letter-spacing: var(--type-body-ls);
     font-weight: var(--font-weight-medium);
     color: var(--text);
-    transition-property: color,background-color,border-color,outline-color,text-decoration-color,fill,stroke,--milo-gradient-from,--milo-gradient-via,--milo-gradient-to;
-    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-    transition-duration: 150ms;
-    transition-timing-function: var(--ease-out);
+    transition-property: color,background-color,border-color,outline-color,text-decoration-color,fill,stroke;
     transition-duration: var(--duration-fast);
+    transition-timing-function: var(--ease-out);
     &[aria-disabled=true] {
       cursor: default;
     }
@@ -113,4 +111,10 @@
         background-color: var(--field-bg);
     }
   }
+  @media (pointer: coarse) {
+    .root {
+      height: 2.75rem;
+    }
+  }
+
 }

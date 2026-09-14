@@ -1,4 +1,5 @@
 import cls from './intro.module.css'
+import { Stack } from './kit'
 import {
   Alert, AlertTitle, AvatarGroup, BarChart, Button, Card, Chip, Icon,
   Progress, Switch, TextField, type IconName,
@@ -28,7 +29,7 @@ export function Intro({ go, views }: { go: (id: string) => void; views: number }
         <div className={cls.heroContent}>
           <Chip size="sm" color="info" icon="bolt" className={cls.heroChip}>Inter · Material Symbols · CSS nativo</Chip>
 
-          <div className={cls.heroHeading}>
+          <Stack gap="lg">
             <h1 className={cls.heroTitle}>
               El sistema de milo, funcionando
             </h1>
@@ -36,7 +37,7 @@ export function Intro({ go, views }: { go: (id: string) => void; views: number }
               No es una lámina de estilos: cada pieza de acá es el componente real, con su teclado, sus
               estados y sus tests. Lo que se decide acá se porta a <code className={cls.inlineCode}>packages/ui</code>.
             </p>
-          </div>
+          </Stack>
 
           <div className={cls.heroActions}>
             <Button variant="solid" icon="arrow_forward" onClick={() => go('principles')}>Ver los principios</Button>
@@ -45,7 +46,7 @@ export function Intro({ go, views }: { go: (id: string) => void; views: number }
           </div>
 
           <dl className={cls.statList}>
-            {[[String(views), 'vistas'], ['677', 'tests'], ['172', 'iconos'], ['2', 'temas']].map(([n, l]) => (
+            {[[String(views), 'vistas'], ['680', 'tests'], ['172', 'iconos'], ['2', 'temas']].map(([n, l]) => (
               <div key={l} className={cls.statItem}>
                 <dt className={`${cls.statValue} tabular`}>{n}</dt>
                 <dd className={cls.statLabel}>{l}</dd>
@@ -76,13 +77,13 @@ export function Intro({ go, views }: { go: (id: string) => void; views: number }
 
       <section className={cls.showcase}>
         <div className={cls.showcaseHeader}>
-          <div className={cls.showcaseHeading}>
+          <Stack gap="sm">
             <h2 className={cls.showcaseTitle}>Una muestra</h2>
             <p className={cls.showcaseLead}>
               Las mismas piezas que hay en el riel, apoyadas juntas. Si algo de acá no se ve como el resto,
               es un bug del sistema y no de la pantalla.
             </p>
-          </div>
+          </Stack>
           <Button size="sm" variant="ghost" iconEnd="chevron_right" onClick={() => go('button')}>Ver todas</Button>
         </div>
 
@@ -102,7 +103,7 @@ export function Intro({ go, views }: { go: (id: string) => void; views: number }
             />
           </Card>
 
-          <div className={cls.chartBlock}>
+          <Stack>
             <Card className={cls.chipCard}>
               <TextField size="md" icon="search" placeholder="Buscar una actividad…" />
               <div className={cls.chipRow}>
@@ -124,7 +125,7 @@ export function Intro({ go, views }: { go: (id: string) => void; views: number }
               </div>
               <Switch checked={demo} onChange={setDemo} label="Avisos" />
             </Card>
-          </div>
+          </Stack>
         </div>
 
         <Alert tone="ok">

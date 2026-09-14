@@ -4,7 +4,7 @@ import { useField } from '../field/field'
 import { Icon } from '../icon/icon'
 import { cx } from '../lib/cx'
 
-const acotar = (n: number, min: number, max: number) => Math.min(max, Math.max(min, n))
+const clamp = (n: number, min: number, max: number) => Math.min(max, Math.max(min, n))
 
 /** Un número chico que se sube y se baja: cuántos intentos, cuántas preguntas, una nota. */
 export function Stepper({
@@ -28,18 +28,18 @@ export function Stepper({
   width?: number
 }) {
   const field = useField()
-  const [texto, setTexto] = useState(String(value))
-  useEffect(() => { setTexto(String(value)) }, [value])
+  const [text, setText] = useState(String(value))
+  useEffect(() => { setText(String(value)) }, [value])
 
-  const poner = (n: number) => { if (!disabled) onChange(acotar(n, min, max)) }
+  const commit = (n: number) => { if (!disabled) onChange(clamp(n, min, max)) }
 
-  const teclas = (e: React.KeyboardEvent) => {
-    const saltos: Record<string, number> = {
+  const onKey = (e: React.KeyboardEvent) => {
+    const jumps: Record<string, number> = {
       ArrowUp: step, ArrowDown: -step, PageUp: salto, PageDown: -salto,
     }
-    if (e.key in saltos) { e.preventDefault(); poner(value + saltos[e.key]); return }
-    if (e.key === 'Home') { e.preventDefault(); poner(min) }
-    if (e.key === 'End') { e.preventDefault(); poner(max) }
+    if (e.key in jumps) { e.preventDefault(); commit(value + jumps[e.key]); return }
+    if (e.key === 'Home') { e.preventDefault(); commit(min) }
+    if (e.key === 'End') { e.preventDefault(); commit(max) }
   }
 
   return (
@@ -50,7 +50,7 @@ export function Stepper({
         disabled && cls.disabled,
       )}
     >
-      <Paso icon="remove" label={`Bajar${label ? ` ${label}` : ''}`} onClick={() => poner(value - step)} disabled={value <= min} />
+      <Step icon="remove" label={`Bajar${label ? ` ${label}` : ''}`} onClick={() => commit(value - step)} disabled={value <= min} />
       <input
         {...field}
         role="spinbutton"
@@ -61,24 +61,24 @@ export function Stepper({
         aria-valuetext={suffix ? `${value} ${suffix}` : undefined}
         inputMode="numeric"
         disabled={disabled}
-        value={texto}
+        value={text}
         onChange={e => {
-          setTexto(e.target.value)
+          setText(e.target.value)
           const n = Number(e.target.value)
-          if (e.target.value.trim() !== '' && Number.isFinite(n)) poner(n)
+          if (e.target.value.trim() !== '' && Number.isFinite(n)) commit(n)
         }}
-        onBlur={() => setTexto(String(value))}
-        onKeyDown={teclas}
+        onBlur={() => setText(String(value))}
+        onKeyDown={onKey}
         className={`${cls.input} tabular`}
       />
       {suffix && <span aria-hidden="true" className={cls.suffix}>{suffix}</span>}
-      <Paso icon="add" label={`Subir${label ? ` ${label}` : ''}`} onClick={() => poner(value + step)} disabled={value >= max} />
+      <Step icon="add" label={`Subir${label ? ` ${label}` : ''}`} onClick={() => commit(value + step)} disabled={value >= max} />
     </div>
   )
 }
 
 /** Uno de los dos botones. Va `aria-hidden` para el lector: el `spinbutton` del medio ya dice qué se puede hacer y con qué teclas. */
-function Paso({ icon, label, onClick, disabled }: {
+function Step({ icon, label, onClick, disabled }: {
   icon: 'add' | 'remove'
   label: string
   onClick: () => void

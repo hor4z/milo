@@ -1,10 +1,4 @@
 @layer milo.app {
-  .durationList {
-    display: flex;
-    flex-direction: column;
-    gap: 0.75rem;
-  }
-
   .durationRow {
     display: flex;
     flex-wrap: wrap;
@@ -46,12 +40,6 @@
     line-height: var(--type-meta-lh);
     letter-spacing: var(--type-meta-ls);
     color: var(--text-muted);
-  }
-
-  .curveList {
-    display: flex;
-    flex-direction: column;
-    gap: 0.75rem;
   }
 
   .curveRow {
@@ -138,12 +126,6 @@
     line-height: var(--type-body-lh);
     letter-spacing: var(--type-body-ls);
     color: var(--text-muted);
-  }
-
-  .reducedList {
-    display: flex;
-    flex-direction: column;
-    gap: 0.75rem;
   }
 
   .reducedRow {
@@ -251,8 +233,8 @@
 
   .panelMotion {
     transition-property: opacity,transform;
-    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-    transition-duration: 150ms;
+    transition-duration: var(--duration-fast);
+    transition-timing-function: var(--ease-out);
   }
 
   .panelOpen {

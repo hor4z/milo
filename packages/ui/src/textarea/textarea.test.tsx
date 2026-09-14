@@ -27,7 +27,7 @@ describe('Textarea', () => {
     expect(estilo(screen.getByRole('textbox'))).toContain('resize: none')
   })
 
-  const cuenta = (c: HTMLElement) => {
+  const counter = (c: HTMLElement) => {
     const id = c.querySelector('textarea')!.getAttribute('aria-describedby')!
     return c.querySelector(`#${CSS.escape(id)}`)!.textContent
   }
@@ -40,30 +40,30 @@ describe('Textarea', () => {
   it('cuenta lo escrito contra el máximo', async () => {
     const { container } = render(<Textarea aria-label="Devolución" counter maxLength={100} />)
     await userEvent.type(screen.getByLabelText('Devolución'), 'hola')
-    expect(cuenta(container)).toBe('4/100')
+    expect(counter(container)).toBe('4/100')
   })
 
   it('cerca del techo deja de contar y dice cuánto queda', async () => {
     const { container } = render(<Textarea aria-label="Devolución" counter maxLength={12} />)
     await userEvent.type(screen.getByLabelText('Devolución'), 'hola mun')
-    expect(cuenta(container)).toBe('te quedan 4')
+    expect(counter(container)).toBe('te quedan 4')
   })
 
   it('abajo del mínimo dice cuánto falta, que es lo accionable', async () => {
     const { container } = render(<Textarea aria-label="Devolución" counter minLength={10} maxLength={200} />)
     await userEvent.type(screen.getByLabelText('Devolución'), 'hola')
-    expect(cuenta(container)).toBe('faltan 6 caracteres')
+    expect(counter(container)).toBe('faltan 6 caracteres')
   })
 
   it('el singular no dice "1 caracteres"', async () => {
     const { container } = render(<Textarea aria-label="Devolución" counter minLength={5} />)
     await userEvent.type(screen.getByLabelText('Devolución'), 'hola')
-    expect(cuenta(container)).toBe('falta 1 carácter')
+    expect(counter(container)).toBe('falta 1 carácter')
   })
 
   it('la cuenta describe al campo, así que un lector la escucha al entrar', () => {
     const { container } = render(<Textarea aria-label="Devolución" counter maxLength={100} />)
-    expect(cuenta(container)).toBe('0/100')
+    expect(counter(container)).toBe('0/100')
   })
 
   it('con la cuenta no lleva flex-1: en una caja en columna el flex le gana al alto que el campo calcula, y el texto queda cortado', () => {
@@ -75,6 +75,6 @@ describe('Textarea', () => {
 
   it('mide en caracteres y no en unidades de código: un emoji es uno', () => {
     const { container } = render(<Textarea aria-label="Devolución" counter maxLength={100} value={'\u{1F600}\u{1F600}'} onChange={() => {}} />)
-    expect(cuenta(container)).toBe('2/100')
+    expect(counter(container)).toBe('2/100')
   })
 })

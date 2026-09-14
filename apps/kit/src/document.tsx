@@ -8,7 +8,7 @@ import {
 
 const face = (n: number) => `/avatars/${String(n).padStart(2, '0')}.webp`
 
-const bloques: CommandGroup[] = [
+const blocks: CommandGroup[] = [
   {
     label: 'Texto',
     items: [
@@ -34,21 +34,21 @@ const bloques: CommandGroup[] = [
   },
 ]
 
-const tareasIniciales: Task[] = [
+const initialTasks: Task[] = [
   { id: 'medir', label: 'Medir el tiempo de caída tres veces y anotar las tres', done: true },
   { id: 'promedio', label: 'Sacar el promedio y estimar el error', done: true },
   { id: 'graficar', label: 'Graficar altura contra tiempo al cuadrado' },
   { id: 'escribir', label: 'Escribir en dos párrafos por qué la pendiente da la mitad de g' },
 ]
 
-export function Documento() {
+export function DocumentStory() {
   const [formato, setFormato] = useState({ bold: false, italic: false })
-  const [tareas, setTareas] = useState(tareasIniciales)
-  const [ultimo, setUltimo] = useState<string | null>(null)
+  const [tasks, setTasks] = useState(initialTasks)
+  const [last, setLast] = useState<string | null>(null)
 
-  const alternar = (k: keyof typeof formato) => setFormato(f => ({ ...f, [k]: !f[k] }))
-  const marcar = (id: string, done: boolean) =>
-    setTareas(ts => ts.map(t => (t.id === id ? { ...t, done } : t)))
+  const toggle = (k: keyof typeof formato) => setFormato(f => ({ ...f, [k]: !f[k] }))
+  const toggleTask = (id: string, done: boolean) =>
+    setTasks(ts => ts.map(t => (t.id === id ? { ...t, done } : t)))
 
   return (
     <article className={cls.doc}>
@@ -79,8 +79,8 @@ export function Documento() {
                 <div className={`${cls.insertPanel} bg-popover`}>
                   <CommandMenu
                     autoFocus
-                    groups={bloques}
-                    onSelect={item => { setUltimo(item.label); close() }}
+                    groups={blocks}
+                    onSelect={item => { setLast(item.label); close() }}
                   />
                 </div>
               )}
@@ -90,8 +90,8 @@ export function Documento() {
 
         <div className={cls.toolbarRow}>
           <Toolbar label="Formato del texto">
-            <ToolbarButton icon="format_bold" label="Negrita" pressed={formato.bold} onClick={() => alternar('bold')} />
-            <ToolbarButton icon="format_italic" label="Cursiva" pressed={formato.italic} onClick={() => alternar('italic')} />
+            <ToolbarButton icon="format_bold" label="Negrita" pressed={formato.bold} onClick={() => toggle('bold')} />
+            <ToolbarButton icon="format_italic" label="Cursiva" pressed={formato.italic} onClick={() => toggle('italic')} />
             <ToolbarSeparator />
             <ToolbarButton icon="format_h2" label="Subtítulo" />
             <ToolbarButton icon="format_quote" label="Cita" />
@@ -100,9 +100,9 @@ export function Documento() {
             <ToolbarButton icon="link" label="Enlace" />
             <ToolbarButton icon="image" label="Imagen" />
           </Toolbar>
-          {ultimo && (
+          {last && (
             <span className={cls.toolbarHint}>
-              Último bloque elegido: {ultimo}
+              Último bloque elegido: {last}
             </span>
           )}
         </div>
@@ -137,7 +137,7 @@ export function Documento() {
         <Divider />
 
         <h2 className={cls.taskHeading}>Qué hay que entregar</h2>
-        <TaskList items={tareas} onToggle={marcar} label="Lo que hay que entregar" />
+        <TaskList items={tasks} onToggle={toggleTask} label="Lo que hay que entregar" />
 
         <Figure
           src="/mascotas/otto.webp"

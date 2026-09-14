@@ -40,6 +40,24 @@ strong, b { font-weight: var(--font-weight-semibold); }
 .tabular { font-variant-numeric: tabular-nums; }
 
 @media (pointer: coarse) {
+  /* solo en un botón: el ::after se pinta sobre el contenido, así que en algo
+     que lleva un control adentro se quedaría con el tap que iba a ese control */
+  .touch-target {
+    position: relative;
+  }
+
+  .touch-target::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    translate: -50% -50%;
+    width: 100%;
+    height: 100%;
+    min-width: 44px;
+    min-height: 44px;
+  }
+
   .field input,
   .field textarea,
   input.field-focus,

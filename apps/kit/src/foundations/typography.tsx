@@ -1,6 +1,6 @@
 import css from './typography.module.css'
 import { Icon, Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@milo/ui'
-import { A11y, Note, Page, Section, useTokens } from '../kit'
+import { A11y, Note, Page, Section, Stack, useTokens } from '../kit'
 
 /** Los siete roles, en orden de tamaño. `name` es el token y el resto es lo que documenta. */
 const roles = [
@@ -72,7 +72,7 @@ export function TypographySection() {
         </div>
       </Section>
 
-      <PorQueInter />
+      <WhyInter />
 
       <Section
         title="El interlineado dejó de ser uno solo"
@@ -167,18 +167,18 @@ export function TypographySection() {
         note="El rol mono es la misma familia que el resto, así que perdió el ancho fijo. Lo que lo reemplaza es `.tabular`, que le da ancho fijo a los números sin cambiar de letra: alcanza para un precio, una métrica o una columna de tabla, y no alcanza para un bloque de código, que en este sistema no existe."
       >
         <div className={`${css.tabularCard} bg-surface`}>
-          <div className={css.plainColumn}>
+          <Stack gap="xs" align="start">
             <span className={css.plainLabel}>sin tabular</span>
             {['11.111', '40.000', '18.914', '88.100'].map(n => (
               <span key={n} className={css.plainNumber}>{n}</span>
             ))}
-          </div>
-          <div className={css.tabularColumn}>
+          </Stack>
+          <Stack gap="xs" align="start">
             <span className={css.tabularLabel}>con tabular</span>
             {['11.111', '40.000', '18.914', '88.100'].map(n => (
               <span key={n} className={`${css.tabularNumber} tabular`}>{n}</span>
             ))}
-          </div>
+          </Stack>
           <p className={css.tabularNote}>
             Mirá dónde termina cada número. En la primera columna el borde derecho baila, porque el
             1 mide casi la mitad que el 0. En la segunda, todos los dígitos miden lo mismo y la
@@ -187,7 +187,7 @@ export function TypographySection() {
         </div>
       </Section>
 
-      <Familias />
+      <Families />
 
       <Note title="Por qué no se toca el suavizado">
         Ni <code>-webkit-font-smoothing: antialiased</code> ni <code>text-rendering:
@@ -211,13 +211,13 @@ export function TypographySection() {
   )
 }
 
-function PorQueInter() {
+function WhyInter() {
   return (
     <Section
       title="Por qué Inter, y por qué una sola"
       note="Cuarta familia del proyecto: Inter → Geist → Instrument Sans → Inter. Volver no es andar en círculo: aquella vez eran tres familias, y ese era justamente el motivo de dejarla. Inter v4 trae eje óptico, así que una sola instancia cubre el cuerpo y el display."
     >
-      <div className={css.interStack}>
+      <Stack gap="lg">
         <div className={css.interGrid}>
           <div className={`${css.opticalCard} bg-surface`}>
             <div className={css.opticalHead}>
@@ -275,19 +275,19 @@ function PorQueInter() {
             de cada alumno no paga la descarga.
           </p>
         </div>
-      </div>
+      </Stack>
     </Section>
   )
 }
 
-function Familias() {
+function Families() {
   const vals = useTokens(['--font-sans', '--font-mono'])
   return (
     <Section
       title="Los tres roles, una sola familia"
       note="Interfaz, portadas y mono apuntan al mismo stack. A 40px lo que separa un título del cuerpo es el tamaño y el tracking, no un dibujo distinto de la letra, y dos familias que se parecen es lo peor de los dos mundos: no contrastan y no son la misma."
     >
-      <div className={css.monoStack}>
+      <Stack>
         {[['--font-sans', 'la interfaz, las portadas'], ['--font-mono', 'tokens, valores y atajos']].map(([t, role]) => (
           <div key={t} className={`${css.monoRow} bg-surface`}>
             <div className={css.monoMeta}>
@@ -297,7 +297,7 @@ function Familias() {
             <code className={css.monoValue}>{vals[t]}</code>
           </div>
         ))}
-      </div>
+      </Stack>
     </Section>
   )
 }

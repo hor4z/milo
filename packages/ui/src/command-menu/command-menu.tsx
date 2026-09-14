@@ -28,15 +28,15 @@ export type CommandGroup = {
 }
 
 /** Sin acentos y en minúscula: quien escribe rápido no pone tildes. */
-const plano = (s: string) => s.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase()
+const flat = (s: string) => s.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase()
 
-function filtrar(groups: CommandGroup[], q: string) {
-  const t = plano(q.trim())
+function matches(groups: CommandGroup[], q: string) {
+  const t = flat(q.trim())
   if (!t) return groups
   return groups
     .map(g => ({
       ...g,
-      items: g.items.filter(i => plano([i.label, i.hint, ...(i.keywords ?? [])].filter(Boolean).join(' ')).includes(t)),
+      items: g.items.filter(i => flat([i.label, i.hint, ...(i.keywords ?? [])].filter(Boolean).join(' ')).includes(t)),
     }))
     .filter(g => g.items.length)
 }
@@ -68,48 +68,48 @@ export function CommandMenu({
 }: CommandMenuProps) {
   const [propio, setPropio] = useState('')
   const q = query ?? propio
-  const visibles = useMemo(() => filtrar(groups, q), [groups, q])
-  const planos = useMemo(() => visibles.flatMap(g => g.items).filter(i => !i.disabled), [visibles])
+  const visible = useMemo(() => matches(groups, q), [groups, q])
+  const flatItems = useMemo(() => visible.flatMap(g => g.items).filter(i => !i.disabled), [visible])
 
-  const [activo, setActivo] = useState(0)
-  const lista = useRef<HTMLDivElement>(null)
-  const campo = useRef<HTMLInputElement>(null)
-  const listaId = useId()
+  const [activeIndex, setActiveIndex] = useState(0)
+  const listRef = useRef<HTMLDivElement>(null)
+  const inputRef = useRef<HTMLInputElement>(null)
+  const listId = useId()
 
-  useEffect(() => { setActivo(0) }, [q])
+  useEffect(() => { setActiveIndex(0) }, [q])
 
   useEffect(() => {
-    if (autoFocus) campo.current?.focus()
+    if (autoFocus) inputRef.current?.focus()
   }, [autoFocus])
 
-  const actual = planos[Math.min(activo, planos.length - 1)]
+  const currentItem = flatItems[Math.min(activeIndex, flatItems.length - 1)]
 
   useEffect(() => {
-    if (!actual) return
-    lista.current?.querySelector(`[data-id="${CSS.escape(actual.id)}"]`)?.scrollIntoView({ block: 'nearest' })
-  }, [actual])
+    if (!currentItem) return
+    listRef.current?.querySelector(`[data-id="${CSS.escape(currentItem.id)}"]`)?.scrollIntoView({ block: 'nearest' })
+  }, [currentItem])
 
-  const teclas = (e: KeyboardEvent) => {
-    const paso = e.key === 'ArrowDown' ? 1 : e.key === 'ArrowUp' ? -1 : 0
-    if (paso) {
+  const onKey = (e: KeyboardEvent) => {
+    const step = e.key === 'ArrowDown' ? 1 : e.key === 'ArrowUp' ? -1 : 0
+    if (step) {
       e.preventDefault()
-      if (planos.length) setActivo(a => (a + paso + planos.length) % planos.length)
+      if (flatItems.length) setActiveIndex(a => (a + step + flatItems.length) % flatItems.length)
       return
     }
     if (e.key === 'Home' || e.key === 'End') {
       e.preventDefault()
-      return setActivo(e.key === 'Home' ? 0 : planos.length - 1)
+      return setActiveIndex(e.key === 'Home' ? 0 : flatItems.length - 1)
     }
-    if (e.key === 'Enter' && actual) {
+    if (e.key === 'Enter' && currentItem) {
       e.preventDefault()
-      onSelect(actual)
+      onSelect(currentItem)
     }
   }
 
   return (
     <div
       className={cx(`${cls.root} bg-popover`, className)}
-      onKeyDown={teclas}
+      onKeyDown={onKey}
     >
       {search && (
         <div className={cls.searchRow}>
@@ -121,38 +121,38 @@ export function CommandMenu({
             placeholder={placeholder}
             role="combobox"
             aria-expanded
-            aria-controls={listaId}
-            aria-activedescendant={actual ? `${listaId}-${actual.id}` : undefined}
-            ref={campo}
+            aria-controls={listId}
+            aria-activedescendant={currentItem ? `${listId}-${currentItem.id}` : undefined}
+            ref={inputRef}
             data-autofocus={autoFocus || undefined}
           />
         </div>
       )}
 
-      <div ref={lista} id={listaId} role="listbox" aria-label={placeholder} className={cls.list} style={{ maxHeight }}>
-        {planos.length === 0
+      <div ref={listRef} id={listId} role="listbox" aria-label={placeholder} className={cls.list} style={{ maxHeight }}>
+        {flatItems.length === 0
           ? <p className={cls.empty}>{empty}</p>
-          : visibles.map(g => (
+          : visible.map(g => (
             <div key={g.label} role="group" aria-label={g.label}>
               <div className={cls.groupLabel}>{g.label}</div>
               {g.items.map(item => {
-                const elegido = item.id === actual?.id
+                const isSelected = item.id === currentItem?.id
                 return (
                   <div
                     key={item.id}
-                    id={`${listaId}-${item.id}`}
+                    id={`${listId}-${item.id}`}
                     data-id={item.id}
                     role="option"
-                    aria-selected={elegido}
+                    aria-selected={isSelected}
                     aria-disabled={item.disabled || undefined}
                     onPointerMove={() => {
-                      const i = planos.findIndex(p => p.id === item.id)
-                      if (i >= 0) setActivo(i)
+                      const i = flatItems.findIndex(p => p.id === item.id)
+                      if (i >= 0) setActiveIndex(i)
                     }}
                     onClick={() => !item.disabled && onSelect(item)}
                     className={cx(
                       cls.item,
-                      item.disabled ? cls.disabled : elegido && cls.active,
+                      item.disabled ? cls.disabled : isSelected && cls.active,
                     )}
                   >
                     {item.icon && <Icon name={item.icon} size={18} className={`${cls.icon} icon-muted`} />}

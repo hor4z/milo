@@ -5,7 +5,7 @@ import { A11y, Page, Props, Section } from '../kit'
 
 export function ToolbarStory() {
   const [formato, setFormato] = useState({ bold: true, italic: false, underline: false })
-  const alternar = (k: keyof typeof formato) => setFormato(f => ({ ...f, [k]: !f[k] }))
+  const toggle = (k: keyof typeof formato) => setFormato(f => ({ ...f, [k]: !f[k] }))
 
   return (
     <Page
@@ -17,9 +17,9 @@ export function ToolbarStory() {
       <Section title="La pieza">
         <div className={s.pieceBox}>
           <Toolbar label="Formato del texto">
-            <ToolbarButton icon="format_bold" label="Negrita" pressed={formato.bold} onClick={() => alternar('bold')} />
-            <ToolbarButton icon="format_italic" label="Cursiva" pressed={formato.italic} onClick={() => alternar('italic')} />
-            <ToolbarButton icon="format_underlined" label="Subrayado" pressed={formato.underline} onClick={() => alternar('underline')} />
+            <ToolbarButton icon="format_bold" label="Negrita" pressed={formato.bold} onClick={() => toggle('bold')} />
+            <ToolbarButton icon="format_italic" label="Cursiva" pressed={formato.italic} onClick={() => toggle('italic')} />
+            <ToolbarButton icon="format_underlined" label="Subrayado" pressed={formato.underline} onClick={() => toggle('underline')} />
             <ToolbarSeparator />
             <ToolbarButton icon="format_h1" label="Título" />
             <ToolbarButton icon="format_h2" label="Subtítulo" />
@@ -38,7 +38,7 @@ export function ToolbarStory() {
       >
         <div className={s.toggleBox}>
           <Toolbar label="Dos clases de botón">
-            <ToolbarButton icon="format_bold" label="Negrita" pressed={formato.bold} onClick={() => alternar('bold')} />
+            <ToolbarButton icon="format_bold" label="Negrita" pressed={formato.bold} onClick={() => toggle('bold')} />
             <ToolbarButton icon="content_copy" label="Duplicar" />
           </Toolbar>
         </div>

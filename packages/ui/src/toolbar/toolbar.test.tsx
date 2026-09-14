@@ -30,9 +30,9 @@ describe('Toolbar', () => {
 
   it('se puede entrar con Tab: hay una parada, y una sola', () => {
     render(<Barra />)
-    const vivos = screen.getAllByRole('button').filter(b => !(b as HTMLButtonElement).disabled)
-    expect(vivos.filter(b => b.tabIndex === 0)).toHaveLength(1)
-    expect(vivos[0].tabIndex).toBe(0)
+    const enabled = screen.getAllByRole('button').filter(b => !(b as HTMLButtonElement).disabled)
+    expect(enabled.filter(b => b.tabIndex === 0)).toHaveLength(1)
+    expect(enabled[0].tabIndex).toBe(0)
   })
 
   it('la parada se mueve con el foco: Tab devuelve al último que se tocó', async () => {

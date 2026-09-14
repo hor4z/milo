@@ -1,4 +1,5 @@
 import s from './mascot.module.css'
+import { Stack } from '../kit'
 import type { ReactNode } from 'react'
 
 /** El retrato de una mascota, con su nombre y su carácter al lado. */
@@ -12,10 +13,10 @@ export function Portrait({ src, name, children }: {
   return (
     <div className={`${s.portraitStage} bg-surface`}>
       <img src={src} alt="" className={s.portraitImage} />
-      <div className={s.identityBlock}>
+      <Stack gap="sm">
         <span className={s.mascotName}>{name}</span>
         <span className={s.mascotBlurb}>{children}</span>
-      </div>
+      </Stack>
     </div>
   )
 }

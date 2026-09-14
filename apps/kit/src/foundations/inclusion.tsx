@@ -1,9 +1,9 @@
 import cls from './inclusion.module.css'
 import { Avatar, Chip, Icon } from '@milo/ui'
-import { A11y, Note, Page, Section } from '../kit'
+import { A11y, Note, Page, Section, Stack } from '../kit'
 
 /** Pares de antes y después. El "by" es la regla que lo explica, no la corrección. */
-const pares = [
+const pairs = [
   {
     bad: 'Estimado docente: su alumno no ha completado la tarea.',
     good: 'Juan todavía no entregó la actividad.',
@@ -64,8 +64,8 @@ export function InclusionSection() {
         title="Cómo se nombra a alguien"
         note="Es la decisión que más veces aparece y la que más barato sale hacer bien. La regla corta: segunda persona, nombre propio, y ningún género que no haga falta elegir."
       >
-        <div className={cls.comparisonStack}>
-          {pares.map(par => (
+        <Stack>
+          {pairs.map(par => (
             <div key={par.good} className={`${cls.comparison} bg-surface`}>
               <div className={cls.comparisonBad}>
                 <Icon name="close" size={16} className={cls.verdictIconBad} />
@@ -78,7 +78,7 @@ export function InclusionSection() {
               <p className={cls.comparisonWhy}>{par.by}</p>
             </div>
           ))}
-        </div>
+        </Stack>
       </Section>
 
       <Section
@@ -90,9 +90,9 @@ export function InclusionSection() {
             ['Tercera persona', 'El docente debe revisar las entregas de sus alumnos.', 'obliga a elegir'],
             ['Desdoblado', 'Los y las docentes deben revisar las entregas de sus alumnos y alumnas.', 'el doble de largo'],
             ['Segunda persona', 'Revisá las entregas del curso.', 'ni género ni relleno'],
-          ].map(([titulo, frase, veredicto], i) => (
-            <div key={titulo} className={`${cls.personCard} bg-surface`}>
-              <span className={cls.personLabel}>{titulo}</span>
+          ].map(([title, frase, veredicto], i) => (
+            <div key={title} className={`${cls.personCard} bg-surface`}>
+              <span className={cls.personLabel}>{title}</span>
               <p className={cls.personPhrase}>{frase}</p>
               <Chip color={i === 2 ? 'green' : 'orange'} icon={i === 2 ? 'check' : 'warning'}>{veredicto}</Chip>
             </div>

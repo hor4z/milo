@@ -1,12 +1,11 @@
-import cls from './alert.module.css'
 import { useState } from 'react'
 import { Alert, AlertActions, AlertBody, AlertTitle, Button } from '@milo/ui'
-import { A11y, Demo, Frame, Note, Page, Props, Section } from '../kit'
+import { A11y, Demo, Frame, Note, Page, Props, Section, Stack } from '../kit'
 
 export function AlertStory() {
   const [cerrados, setCerrados] = useState<string[]>([])
-  const cerrar = (id: string) => setCerrados(c => [...c, id])
-  const abierto = (id: string) => !cerrados.includes(id)
+  const dismiss = (id: string) => setCerrados(c => [...c, id])
+  const showing = (id: string) => !cerrados.includes(id)
 
   return (
     <Page
@@ -19,7 +18,7 @@ export function AlertStory() {
         title="Los cuatro tonos"
         note="El tono nunca va solo: cada uno trae su glifo, porque un color de estado sin forma ni texto no dice nada a quien no distingue colores. El de error va como `role=alert` y los otros tres como `status`: la diferencia entre interrumpir a un lector de pantalla y esperar a que termine la frase."
       >
-        <div className={cls.tonesStack}>
+        <Stack>
           <Alert tone="info">
             <AlertTitle>La corrección automática está en prueba</AlertTitle>
             <AlertBody>Podés desactivarla desde Ajustes mientras la probamos.</AlertBody>
@@ -34,9 +33,9 @@ export function AlertStory() {
               <Button size="sm" variant="raised">Ver las entregas</Button>
             </AlertActions>
           </Alert>
-          {abierto('rojo')
+          {showing('rojo')
             ? (
-              <Alert tone="bad" onDismiss={() => cerrar('rojo')}>
+              <Alert tone="bad" onDismiss={() => dismiss('rojo')}>
                 <AlertTitle>No se pudieron traer las entregas</AlertTitle>
                 <AlertBody>Puede ser la conexión. Lo que ya estaba corregido sigue estando.</AlertBody>
                 <AlertActions>
@@ -45,14 +44,14 @@ export function AlertStory() {
               </Alert>
             )
             : <Button size="sm" variant="muted" icon="undo" onClick={() => setCerrados(c => c.filter(x => x !== 'rojo'))}>Mostrarlo de nuevo</Button>}
-        </div>
+        </Stack>
       </Section>
 
       <Section
         title="Se arma con partes"
         note="El título solo alcanza para lo que se entiende de un vistazo. El cuerpo es para lo que hay que explicar, y las acciones para lo que se puede hacer al respecto: un aviso que no ofrece salida deja al lector con el problema y con nada para tocar."
       >
-        <div className={cls.partsStack}>
+        <Stack>
           <Demo label="solo título">
             <Frame width="lg">
               <Alert tone="ok"><AlertTitle>Listo</AlertTitle></Alert>
@@ -67,10 +66,10 @@ export function AlertStory() {
             </Frame>
           </Demo>
           <Demo label="con salida y con X">
-            {abierto('amarillo')
+            {showing('amarillo')
               ? (
                 <Frame width="lg">
-                  <Alert tone="warn" onDismiss={() => cerrar('amarillo')}>
+                  <Alert tone="warn" onDismiss={() => dismiss('amarillo')}>
                     <AlertTitle>Quedaste sin lugar</AlertTitle>
                     <AlertBody>El próximo archivo que subas no va a entrar.</AlertBody>
                     <AlertActions>
@@ -81,14 +80,14 @@ export function AlertStory() {
               )
               : <Button size="sm" variant="muted" icon="undo" onClick={() => setCerrados(c => c.filter(x => x !== 'amarillo'))}>Mostrarlo de nuevo</Button>}
           </Demo>
-        </div>
+        </Stack>
       </Section>
 
       <Section
         title="El glifo se puede cambiar, o sacar"
         note="El default sale del tono y casi siempre es el correcto. `icon` lo cambia cuando el aviso es de algo concreto (una fecha, un archivo, una persona) y `null` lo saca para el aviso que ya vive adentro de algo que tiene su propio icono."
       >
-        <div className={cls.iconStack}>
+        <Stack>
           <Demo label="glifo propio">
             <Frame width="lg">
               <Alert tone="info" icon="schedule">
@@ -103,7 +102,7 @@ export function AlertStory() {
               </Alert>
             </Frame>
           </Demo>
-        </div>
+        </Stack>
       </Section>
 
       <Note title="Alert o Toast">

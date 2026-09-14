@@ -69,9 +69,9 @@ describe('DatePicker', () => {
 
   it('lo que está fuera de rango no se puede elegir', async () => {
     const { onChange } = await abrir({ min: '2026-03-10' })
-    const antes = screen.getByRole('gridcell', { name: /jueves, 5 de marzo/i })
-    expect(antes).toHaveAttribute('aria-disabled', 'true')
-    await userEvent.click(antes)
+    const before = screen.getByRole('gridcell', { name: /jueves, 5 de marzo/i })
+    expect(before).toHaveAttribute('aria-disabled', 'true')
+    await userEvent.click(before)
     expect(onChange).not.toHaveBeenCalled()
   })
 

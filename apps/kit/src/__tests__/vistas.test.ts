@@ -63,10 +63,10 @@ describe('las vistas del kit', () => {
       )
     const offenders: string[] = []
     for (const f of walk(dir)) {
-      for (const linea of readFileSync(join(dir, f), 'utf8').split('\n')) {
-        if (!/\bfont-bold\b/.test(linea)) continue
-        if (/(['"`])font-bold\1/.test(linea)) continue
-        if (!/\btext-display\b/.test(linea)) offenders.push(`${f}: ${linea.trim().slice(0, 56)}`)
+      for (const line of readFileSync(join(dir, f), 'utf8').split('\n')) {
+        if (!/\bfont-bold\b/.test(line)) continue
+        if (/(['"`])font-bold\1/.test(line)) continue
+        if (!/\btext-display\b/.test(line)) offenders.push(`${f}: ${line.trim().slice(0, 56)}`)
       }
     }
     expect(offenders).toEqual([])
@@ -218,8 +218,8 @@ describe('cómo se escribe', () => {
     for (const f of walk(root)) {
       const text = readFileSync(join(root, f), 'utf8')
       for (const m of text.matchAll(/[\u2014\u00ab\u00bb]/g)) {
-        const linea = text.slice(0, m.index).split('\n').length
-        offenders.push(`${f}:${linea} ${text.slice(Math.max(0, m.index - 30), m.index + 30).replace(/\n/g, ' ')}`)
+        const line = text.slice(0, m.index).split('\n').length
+        offenders.push(`${f}:${line} ${text.slice(Math.max(0, m.index - 30), m.index + 30).replace(/\n/g, ' ')}`)
       }
     }
     expect(offenders.slice(0, 12)).toEqual([])

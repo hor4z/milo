@@ -3,14 +3,6 @@
     margin-bottom: 0.75rem;
   }
 
-  .doneHead {
-    text-align: right;
-  }
-
-  .handedHead {
-    text-align: right;
-  }
-
   .teacherCell {
     display: flex;
     align-items: center;
@@ -25,26 +17,6 @@
 
   .fractionTotal {
     color: var(--text-muted);
-  }
-
-  .actionsCell {
-    width: 0;
-    padding-right: 1rem;
-  }
-
-  .emptyCell {
-    padding-inline: 1.5rem;
-    padding-block: 2.5rem;
-  }
-
-  .pieceHead {
-    text-align: right;
-  }
-
-  .groupStack {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
   }
 
   .twoRow {

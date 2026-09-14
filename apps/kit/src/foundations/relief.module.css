@@ -50,12 +50,6 @@
     padding: 1.25rem;
   }
 
-  .recipeMeta {
-    display: flex;
-    flex-direction: column;
-    gap: 0.25rem;
-  }
-
   .recipeToken {
     font-family: var(--font-mono);
     font-size: var(--type-meta);
