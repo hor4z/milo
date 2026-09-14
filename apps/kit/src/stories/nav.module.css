@@ -1,5 +1,5 @@
 @layer milo.app {
-  .div {
+  .itemRail {
     width: 220px;
     border-radius: var(--radius-xl);
     border-style: solid;
@@ -10,13 +10,13 @@
     padding-block: 1rem;
   }
 
-  .div2 {
+  .itemList {
     display: flex;
     flex-direction: column;
     gap: 0.125rem;
   }
 
-  .div3 {
+  .railHeading {
     padding-inline: 0.5rem;
     padding-block: 0.5rem;
     font-size: var(--type-body);
@@ -26,7 +26,7 @@
     color: var(--text-muted);
   }
 
-  .div4 {
+  .subitemRail {
     width: 220px;
     border-radius: var(--radius-xl);
     border-style: solid;
@@ -37,13 +37,13 @@
     padding-block: 1rem;
   }
 
-  .div5 {
+  .subitemList {
     display: flex;
     flex-direction: column;
     gap: 0.125rem;
   }
 
-  .div6 {
+  .collapsedRail {
     width: 72px;
     border-radius: var(--radius-xl);
     border-style: solid;
@@ -54,7 +54,7 @@
     padding-block: 1rem;
   }
 
-  .div7 {
+  .collapsedList {
     display: flex;
     flex-direction: column;
     gap: 0.125rem;

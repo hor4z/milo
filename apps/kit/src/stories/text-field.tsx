@@ -1,7 +1,6 @@
-import cls from './text-field.module.css'
 import { useState } from 'react'
 import { IconButton, Kbd, TextField } from '@milo/ui'
-import { A11y, Demo, Page, Props, Section } from '../kit'
+import { A11y, Cluster, Demo, Frame, Page, Props, Section } from '../kit'
 
 export function TextFieldStory() {
   const [text, setText] = useState('Fracciones con la receta de la abuela')
@@ -14,50 +13,50 @@ export function TextFieldStory() {
       lead="Plano: un fondo y una línea de un píxel, sin relieve. El volumen se fue a propósito: el relieve dice 'esto sobresale' o 'esto se aprieta', y un campo no es ninguna de las dos. Al enfocarse se le tiñe el borde que ya tenía: el anillo es para una pieza sin borde propio, y acá dibujaba una segunda línea a dos píxeles."
     >
       <Section title="Variantes">
-        <div className={cls.div}>
+        <Cluster>
           {[
-            { label: 'solo', el: <TextField value={text} onChange={e => setText(e.target.value)} aria-label="Nombre de la actividad" className={cls.box} /> },
-            { label: 'con icono', el: <TextField icon="search" aria-label="Buscar una actividad" placeholder="Buscar una actividad…" className={cls.textField} /> },
-            { label: 'con suffix', el: <TextField aria-label="Duración en minutos" placeholder="Duración" suffix={<Kbd>min</Kbd>} className={cls.box2} /> },
-            { label: 'disabled', el: <TextField aria-label="Campo no editable" placeholder="No editable" disabled className={cls.textField2} /> },
+            { label: 'solo', el: <TextField value={text} onChange={e => setText(e.target.value)} aria-label="Nombre de la actividad" /> },
+            { label: 'con icono', el: <TextField icon="search" aria-label="Buscar una actividad" placeholder="Buscar una actividad…" /> },
+            { label: 'con suffix', el: <TextField aria-label="Duración en minutos" placeholder="Duración" suffix={<Kbd>min</Kbd>} /> },
+            { label: 'disabled', el: <TextField aria-label="Campo no editable" placeholder="No editable" disabled /> },
           ].map(v => (
-            <div key={v.label} className={cls.div2}>
+            <Frame key={v.label} width="sm">
               <Demo label={v.label}>{v.el}</Demo>
-            </div>
+            </Frame>
           ))}
-        </div>
+        </Cluster>
       </Section>
 
       <Section
         title="Las tres alturas"
         note="Las mismas del Button, con los mismos radios, iconos y tamaños de letra: un campo y el botón que lo acompaña en la misma fila tienen que medir lo mismo. Lo único distinto es el padding lateral: el texto de un botón está centrado y necesita aire de los dos lados, el de un campo arranca pegado a la izquierda."
       >
-        <div className={cls.div3}>
+        <Cluster>
           {(['sm', 'md', 'lg'] as const).map(s => (
-            <div key={s} className={cls.div4}>
+            <Frame key={s} width="sm">
               <Demo label={s}>
-                <TextField size={s} icon="search" aria-label={`Buscar una actividad, alto ${s}`} placeholder="Buscar una actividad…" className={cls.box3} />
+                <TextField size={s} icon="search" aria-label={`Buscar una actividad, alto ${s}`} placeholder="Buscar una actividad…" />
               </Demo>
-            </div>
+            </Frame>
           ))}
-        </div>
+        </Cluster>
       </Section>
 
       <Section
         title="El click y el foco"
         note="El input tapa la caja entera: mide lo que mide su línea de texto (16px) y adentro de una caja de 40 dejaba 12 muertos arriba y abajo, así que media caja no recibía el click. El anillo de foco es del campo y no del input: si no, queda un rectángulo flotando adentro."
       >
-        <div className={cls.div5}>
-          <div className={cls.div6}>
+        <Cluster>
+          <Frame width="sm">
             <Demo label="con botón adentro">
               <TextField
                 placeholder="Buscar…"
-                className={cls.textField3}
+               
                 suffix={<IconButton icon="close" label="Limpiar" variant="ghost" size="sm" />}
               />
             </Demo>
-          </div>
-        </div>
+          </Frame>
+        </Cluster>
       </Section>
 
       <Section title="Props" note="Todo lo que acepta un `<input>` nativo pasa derecho: `value`, `onChange`, `placeholder`, `disabled`, `type`.">

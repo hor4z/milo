@@ -32,7 +32,7 @@ export function SwitchStory() {
         title="Con su etiqueta al lado"
         note="Un switch suelto no dice qué prende. En un panel va dentro de una `Row`, que pone la etiqueta a la izquierda y el control contra el borde derecho; en un formulario va dentro de un `Field`."
       >
-        <div className={`${cls.div} bg-surface`}>
+        <div className={`${cls.rowBox} bg-surface`}>
           <Row label="Avisos por mail" hint="Cuando llega una entrega nueva">
             <Switch checked={on} onChange={setOn} label="Avisos por mail" />
           </Row>

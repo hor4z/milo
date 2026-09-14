@@ -23,17 +23,30 @@ export function useTokens(names: readonly string[]) {
   return vals
 }
 
-/** El texto del sitio: los backticks salen como código y `**` como énfasis. */
+/** El texto del sitio: los backticks salen como código, `**` como énfasis y `[texto](destino)` como link. */
 export function Rich({ text }: { text: string }) {
-  const parts = text.split(/(`[^`]+`|\*\*[^*]+\*\*)/g)
+  const parts = text.split(/(`[^`]+`|\*\*[^*]+\*\*|\[[^\]]+\]\([^)]+\))/g)
   return (
     <>
-      {parts.map((t, i) =>
-        t.startsWith('`') && t.endsWith('`')
-          ? <code key={i} className={s.code}>{t.slice(1, -1)}</code>
-          : t.startsWith('**') && t.endsWith('**')
-            ? <strong key={i} className={s.strong}>{t.slice(2, -2)}</strong>
-            : t)}
+      {parts.map((t, i) => {
+        if (t.startsWith('`') && t.endsWith('`')) return <code key={i} className={s.inlineCode}>{t.slice(1, -1)}</code>
+        if (t.startsWith('**') && t.endsWith('**')) return <strong key={i} className={s.inlineStrong}>{t.slice(2, -2)}</strong>
+        const link = /^\[([^\]]+)\]\(([^)]+)\)$/.exec(t)
+        if (link) {
+          const externo = link[2].startsWith('http')
+          return (
+            <a
+              key={i}
+              href={link[2]}
+              className={s.inlineLink}
+              {...(externo && { target: '_blank', rel: 'noreferrer' })}
+            >
+              {link[1]}
+            </a>
+          )
+        }
+        return t
+      })}
     </>
   )
 }
@@ -53,13 +66,13 @@ type PageProps = {
 /** La cabecera de una pieza y el cuerpo de su página. */
 export function Page({ title, lead, imports, kind, children }: PageProps) {
   return (
-    <article className={s.article}>
-      <header className={s.header}>
-        <div className={s.div}>
-          <h1 className={s.h1}>{title}</h1>
+    <article className={s.page}>
+      <header className={s.pageHeader}>
+        <div className={s.pageTitleRow}>
+          <h1 className={s.pageTitle}>{title}</h1>
           {kind && <Chip size="sm">{kind}</Chip>}
         </div>
-        <p className={s.p}><Rich text={lead} /></p>
+        <p className={s.pageLead}><Rich text={lead} /></p>
         {imports && <Code>{imports}</Code>}
       </header>
       {children}
@@ -78,13 +91,13 @@ export function Code({ children }: { children: string }) {
         setCopied(true)
         setTimeout(() => setCopied(false), 1400)
       }}
-      className={`${s.box} group`}
+      className={`${s.importBlock} group`}
     >
-      <code className={s.code2}>{children}</code>
+      <code className={s.importCode}>{children}</code>
       <Icon
         name={copied ? 'check' : 'content_copy'}
         size={14}
-        className={`${s.icon} icon-muted`}
+        className={`${s.importCopyIcon} icon-muted`}
       />
       <span className="sr-only">{copied ? 'Copiado' : 'Copiar'}</span>
     </button>
@@ -95,22 +108,35 @@ export function Code({ children }: { children: string }) {
 export function Section({ title, note, children }: { title: string; note?: string; children?: ReactNode }) {
   return (
     <section className={s.section}>
-      <div className={s.div2}>
-        <h2 className={s.h2}><Rich text={title} /></h2>
-        {note && <p className={s.p2}><Rich text={note} /></p>}
+      <div className={s.sectionHeader}>
+        <h2 className={s.sectionTitle}><Rich text={title} /></h2>
+        {note && <p className={s.sectionNote}><Rich text={note} /></p>}
       </div>
       {children}
     </section>
   )
 }
 
+type CanvasProps = {
+  children: ReactNode
+  className?: string
+  /** El aire de adentro. */
+  pad?: boolean
+  /** Centra lo que hay adentro, para una pieza que se mira sola. */
+  center?: boolean
+  /** Apila lo de adentro en columna, alineado a la izquierda y con aire entre medio. */
+  stack?: boolean
+}
+
 /** El lienzo donde se apoya un ejemplo. */
-export function Canvas({ children, className, pad = true }: { children: ReactNode; className?: string; pad?: boolean }) {
+export function Canvas({ children, className, pad = true, center, stack }: CanvasProps) {
   return (
     <div
       className={cx(
-        `${s.div3} bg-surface`,
-        pad && s.pad,
+        `${s.canvas} bg-surface`,
+        pad && s.canvasPad,
+        center && s.canvasCenter,
+        stack && s.canvasStack,
         className,
       )}
     >
@@ -119,20 +145,65 @@ export function Canvas({ children, className, pad = true }: { children: ReactNod
   )
 }
 
+const clusterGaps = { xs: s.clusterXs, sm: s.clusterSm, md: s.clusterMd, lg: s.clusterLg, xl: s.clusterXl }
+const clusterAligns = { stretch: '', start: s.clusterStart, center: s.clusterCenter, end: s.clusterEnd }
+
+/** Una fila de piezas que envuelve al llegar al borde. Es `Variant` sin el nombre al costado. */
+export function Cluster({ gap = 'md', align = 'stretch', children, className }: {
+  /** El aire entre una pieza y la siguiente. */
+  gap?: keyof typeof clusterGaps
+  /** Cómo se apoyan entre sí las piezas de distinto alto. */
+  align?: keyof typeof clusterAligns
+  children: ReactNode
+  className?: string
+}) {
+  return <div className={cx(s.cluster, clusterGaps[gap], clusterAligns[align], className)}>{children}</div>
+}
+
+const frameWidths = { xs: s.frameXs, sm: s.frameSm, md: s.frameMd, lg: s.frameLg, xl: s.frameXl }
+
+/** Le pone un tope de ancho a la pieza y la estira hasta ahí, para que no se lea a lo ancho del lienzo. */
+export function Frame({ width = 'sm', children, className }: {
+  /** 280, 320, 420, 520 o 680. */
+  width?: keyof typeof frameWidths
+  children: ReactNode
+  className?: string
+}) {
+  return <div className={cx(s.frame, frameWidths[width], className)}>{children}</div>
+}
+
+/** La aclaración que va debajo de la demo. La de arriba es la `note` de `Section`. */
+export function Footnote({ children }: { children: ReactNode }) {
+  return (
+    <p className={s.footnote}>
+      {Children.map(children, c => (typeof c === 'string' ? <Rich text={c} /> : c))}
+    </p>
+  )
+}
+
 /** Un ejemplo con su etiqueta abajo. */
 export function Demo({ label, children, className }: { label?: string; children: ReactNode; className?: string }) {
   return (
-    <div className={s.div4}>
-      <Canvas className={cx(s.canvas, className)}>{children}</Canvas>
-      {label && <div className={s.div5}><Rich text={label} /></div>}
+    <div className={s.demo}>
+      <Canvas className={cx(s.demoCanvas, className)}>{children}</Canvas>
+      {label && <div className={s.demoCaption}><Rich text={label} /></div>}
     </div>
   )
 }
 
-/** Varios ejemplos en grilla. */
-export function Grid({ children, min = 220 }: { children: ReactNode; min?: number }) {
+/** Varios ejemplos en grilla: se acomodan solos, o en la cantidad de columnas que le pidas. */
+export function Grid({ children, min = 220, cols }: {
+  children: ReactNode
+  /** El ancho mínimo de cada columna, cuando la cantidad la decide el espacio. */
+  min?: number
+  /** Cuántas columnas, cuando la cantidad es parte de lo que se muestra. */
+  cols?: number
+}) {
   return (
-    <div className={s.div6} style={{ gridTemplateColumns: `repeat(auto-fill, minmax(${min}px, 1fr))` }}>
+    <div
+      className={s.demoGrid}
+      style={{ gridTemplateColumns: cols ? `repeat(${cols}, minmax(0, 1fr))` : `repeat(auto-fill, minmax(${min}px, 1fr))` }}
+    >
       {children}
     </div>
   )
@@ -141,20 +212,20 @@ export function Grid({ children, min = 220 }: { children: ReactNode; min?: numbe
 /** Una fila de variantes con su nombre al costado. */
 export function Variant({ name, children }: { name: string; children: ReactNode }) {
   return (
-    <div className={s.div7}>
-      <code className={s.code3}>{name}</code>
-      <div className={s.div8}>{children}</div>
+    <div className={s.variant}>
+      <code className={s.variantName}>{name}</code>
+      <div className={s.variantItems}>{children}</div>
     </div>
   )
 }
 
 /** El contenedor de una lista de variantes. */
 export function Panel({ children }: { children: ReactNode }) {
-  return <Canvas className={s.canvas2}>{children}</Canvas>
+  return <Canvas className={s.panelCanvas}>{children}</Canvas>
 }
 
 export function Mono({ children }: { children: ReactNode }) {
-  return <code className={s.code4}>{children}</code>
+  return <code className={s.monoValue}>{children}</code>
 }
 
 /** La tabla de props. Las filas salen del código: tipo, default y descripción
@@ -162,49 +233,49 @@ export function Mono({ children }: { children: ReactNode }) {
 export function Props({ of }: { of: string | readonly string[] }) {
   const piezas = typeof of === 'string' ? [of] : of
   return (
-    <div className={s.div9}>
+    <div className={s.propsTables}>
       {piezas.map(pieza => {
         const doc = propsByComponent[pieza]
         const rows = doc?.props ?? []
         return (
-          <div key={pieza} className={s.div10}>
+          <div key={pieza} className={s.propsTable}>
             {piezas.length > 1 && (
-              <div className={s.div11}>
-                <code className={s.code5}>{pieza}</code>
-                {doc?.doc && <span className={s.span2}><Rich text={doc.doc} /></span>}
+              <div className={s.propsHeader}>
+                <code className={s.propsName}>{pieza}</code>
+                {doc?.doc && <span className={s.propsDoc}><Rich text={doc.doc} /></span>}
               </div>
             )}
             {rows.length === 0 ? (
-              <p className={s.p3}>
+              <p className={s.propsEmpty}>
                 No tiene props propias: toma los atributos de un{' '}
-                <code className={s.code6}>{`<${doc?.html ?? 'div'}>`}</code>.
+                <code className={s.propsEmptyTag}>{`<${doc?.html ?? 'div'}>`}</code>.
               </p>
             ) : (
             <table className={s.table}>
               <thead>
-                <tr className={s.tr}>
-                  <th scope="col" className={s.th}>Prop</th>
-                  <th scope="col" className={s.th2}>Tipo</th>
-                  <th scope="col" className={s.th3}>Default</th>
-                  <th scope="col" className={s.th4}>Qué hace</th>
+                <tr className={s.headRow}>
+                  <th scope="col" className={s.headCellName}>Prop</th>
+                  <th scope="col" className={s.headCellType}>Tipo</th>
+                  <th scope="col" className={s.headCellDefault}>Default</th>
+                  <th scope="col" className={s.headCellDoc}>Qué hace</th>
                 </tr>
               </thead>
               <tbody>
                 {rows.map(r => (
-                  <tr key={r.name} className={s.tr2}>
-                    <td className={s.td}>
-                      <span className={s.span3}>
-                        <code className={s.code7}>{r.name}</code>
+                  <tr key={r.name} className={s.row}>
+                    <td className={s.cellName}>
+                      <span className={s.propNameGroup}>
+                        <code className={s.propName}>{r.name}</code>
                         {r.required && (
-                          <span className={s.span4}>obligatorio</span>
+                          <span className={s.propRequired}>obligatorio</span>
                         )}
                       </span>
                     </td>
-                    <td className={s.td2}><code className={s.code8}>{r.type}</code></td>
-                    <td className={s.td3}>
-                      <code className={s.code9}>{r.def ?? '-'}</code>
+                    <td className={s.cellType}><code className={s.propType}>{r.type}</code></td>
+                    <td className={s.cellDefault}>
+                      <code className={s.propDefault}>{r.def ?? '-'}</code>
                     </td>
-                    <td className={s.td4}>
+                    <td className={s.cellDoc}>
                       {r.doc ? <Rich text={r.doc} /> : '-'}
                     </td>
                   </tr>
@@ -213,9 +284,9 @@ export function Props({ of }: { of: string | readonly string[] }) {
             </table>
             )}
             {rows.length > 0 && doc?.html && (
-              <p className={s.p4}>
+              <p className={s.propsHtmlNote}>
                 Y los atributos de un{' '}
-                <code className={s.code10}>{`<${doc.html}>`}</code>.
+                <code className={s.propsHtmlTag}>{`<${doc.html}>`}</code>.
               </p>
             )}
           </div>
@@ -227,11 +298,11 @@ export function Props({ of }: { of: string | readonly string[] }) {
 
 export function Note({ icon = 'lightbulb', title, children }: { icon?: IconName; title?: string; children: ReactNode }) {
   return (
-    <div className={`${s.div12} bg-surface`}>
-      <Icon name={icon} size={18} className={`${s.icon2} icon-muted`} />
-      <div className={s.div13}>
-        {title && <p className={s.p5}><Rich text={title} /></p>}
-        <div className={s.div14}>
+    <div className={`${s.note} bg-surface`}>
+      <Icon name={icon} size={18} className={`${s.noteIcon} icon-muted`} />
+      <div className={s.noteBody}>
+        {title && <p className={s.noteTitle}><Rich text={title} /></p>}
+        <div className={s.noteText}>
           {Children.map(children, c => (typeof c === 'string' ? <Rich text={c} /> : c))}
         </div>
       </div>
@@ -242,11 +313,11 @@ export function Note({ icon = 'lightbulb', title, children }: { icon?: IconName;
 /** Lo que la pieza hace por accesibilidad, en una lista corta. */
 export function A11y({ items }: { items: string[] }) {
   return (
-    <ul className={s.ul}>
+    <ul className={s.a11yList}>
       {items.map(t => (
-        <li key={t} className={s.li}>
-          <Icon name="check" size={16} className={s.icon3} />
-          <span className={s.span5}><Rich text={t} /></span>
+        <li key={t} className={s.a11yItem}>
+          <Icon name="check" size={16} className={s.a11yCheck} />
+          <span className={s.a11yText}><Rich text={t} /></span>
         </li>
       ))}
     </ul>
@@ -257,15 +328,15 @@ export function Swatch({ token, note }: { token: string; note?: string }) {
   const vals = useTokens([token])
   const v = vals[token]
   return (
-    <div className={s.div15}>
+    <div className={s.swatch}>
       <span
-        className={s.span6}
+        className={s.swatchChip}
         style={{ background: v ? `var(${token})` : undefined }}
       />
-      <div className={s.div16}>
-        <code className={s.code11}>{token}</code>
-        <code className={s.code12}>{v || '-'}</code>
-        {note && <span className={s.span7}>{note}</span>}
+      <div className={s.swatchMeta}>
+        <code className={s.swatchToken}>{token}</code>
+        <code className={s.swatchValue}>{v || '-'}</code>
+        {note && <span className={s.swatchNote}>{note}</span>}
       </div>
     </div>
   )
@@ -274,17 +345,17 @@ export function Swatch({ token, note }: { token: string; note?: string }) {
 export function Ramp({ tokens }: { tokens: readonly string[] }) {
   const vals = useTokens(tokens)
   return (
-    <div className={s.div17}>
-      <div className={s.div18}>
+    <div className={s.ramp}>
+      <div className={s.rampBar}>
         {tokens.map(t => (
-          <div key={t} className={s.div19} style={{ background: `var(${t})` }} />
+          <div key={t} className={s.rampStep} style={{ background: `var(${t})` }} />
         ))}
       </div>
-      <div className={s.div20}>
+      <div className={s.rampLabels}>
         {tokens.map(t => (
-          <div key={t} className={s.div21}>
-            <code className={s.code13}>{t.replace('--', '')}</code>
-            <code className={s.code14}>{vals[t]}</code>
+          <div key={t} className={s.rampLabel}>
+            <code className={s.rampToken}>{t.replace('--', '')}</code>
+            <code className={s.rampValue}>{vals[t]}</code>
           </div>
         ))}
       </div>

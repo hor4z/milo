@@ -1,123 +1,29 @@
 @layer milo.app {
-  .div {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: flex-start;
-    gap: 0.75rem;
-  }
 
-  .div2 {
-    width: 100%;
-    max-width: 320px;
-  }
 
-  .box {
-    width: 100%;
-  }
 
-  .div3 {
-    width: 100%;
-    max-width: 320px;
-  }
 
-  .box2 {
-    width: 100%;
-  }
 
-  .div4 {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: flex-start;
-    gap: 0.75rem;
-  }
 
-  .div5 {
-    width: 100%;
-    max-width: 300px;
-  }
 
-  .box3 {
-    width: 100%;
-  }
 
-  .div6 {
-    width: 100%;
-    max-width: 300px;
-  }
 
-  .box4 {
-    width: 100%;
-  }
 
-  .div7 {
-    width: 100%;
-    max-width: 300px;
-  }
 
-  .box5 {
-    width: 100%;
-  }
 
-  .div8 {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: flex-start;
-    gap: 0.75rem;
-  }
 
-  .div9 {
-    width: 100%;
-    max-width: 300px;
-  }
 
-  .box6 {
-    width: 100%;
-  }
 
-  .div10 {
-    width: 100%;
-    max-width: 300px;
-  }
 
-  .textarea {
-    width: 100%;
-  }
 
-  .div11 {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: flex-start;
-    gap: 0.75rem;
-  }
 
-  .div12 {
-    width: 100%;
-    max-width: 260px;
-  }
 
-  .box7 {
-    width: 100%;
-  }
 
-  .div13 {
-    width: 100%;
-    max-width: 260px;
-  }
 
-  .box8 {
-    width: 100%;
-  }
 
-  .div14 {
-    width: 100%;
-    max-width: 260px;
-  }
 
-  .box9 {
-    width: 100%;
-  }
 
-  .p {
+  .costText {
     max-width: 70ch;
     font-size: var(--type-body);
     line-height: var(--type-body-lh);

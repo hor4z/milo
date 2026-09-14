@@ -30,10 +30,10 @@ export function StepsStory() {
       lead="Por dónde va algo que tiene etapas: una actividad en partes, un proceso de diseño, un formulario largo. Dice dónde estás y cuánto falta, que es lo que una barra de progreso no puede decir."
     >
       <Section title="La pieza" note="Las anteriores quedan hechas, la actual se marca, las que siguen esperan.">
-        <div className={`${cls.div} bg-surface`}>
+        <div className={`${cls.pieceBox} bg-surface`}>
           <Steps steps={disenio} current={i} label="Etapas del proyecto" />
         </div>
-        <div className={cls.div2}>
+        <div className={cls.pieceActions}>
           <Button size="sm" variant="muted" icon="arrow_back" disabled={i === 0} onClick={() => setI(n => n - 1)}>Atrás</Button>
           <Button size="sm" variant="raised" iconEnd="arrow_forward" disabled={i === disenio.length - 1} onClick={() => setI(n => n + 1)}>Siguiente</Button>
         </div>
@@ -43,7 +43,7 @@ export function StepsStory() {
         title="Parada"
         note="Cuando cada etapa necesita su propio texto al lado, o cuando la secuencia va en una columna angosta. En pantalla chica la acostada se para sola."
       >
-        <div className={`${cls.div3} bg-surface`}>
+        <div className={`${cls.stoppedBox} bg-surface`}>
           <Steps orientation="vertical" steps={entrega} current={1} label="Cómo se entrega" />
         </div>
       </Section>
@@ -52,7 +52,7 @@ export function StepsStory() {
         title="Indicador o navegación"
         note="Sin `onSelect` no hay nada que tocar: dice dónde estás y nada más. Con `onSelect` cada etapa es un botón, y eso solo va cuando volver atrás es de verdad posible."
       >
-        <div className={`${cls.div4} bg-surface`}>
+        <div className={`${cls.navBox} bg-surface`}>
           <Steps steps={entrega} current={paso} label="Cómo se entrega, navegable" onSelect={setPaso} />
         </div>
       </Section>

@@ -1,6 +1,5 @@
-import cls from './toast.module.css'
 import { Button, useToast } from '@milo/ui'
-import { A11y, Demo, Note, Page, Props, Section } from '../kit'
+import { A11y, Cluster, Demo, Note, Page, Props, Section } from '../kit'
 
 export function ToastStory() {
   const { toast } = useToast()
@@ -17,7 +16,7 @@ export function ToastStory() {
         note="`toast()` sale de `useToast()`, y el provider va una sola vez arriba de todo. Devuelve el id del aviso, que es lo único que hace falta para cerrarlo antes de tiempo."
       >
         <Demo label="los cuatro casos">
-          <div className={cls.div}>
+          <Cluster gap="sm">
             <Button variant="solid" onClick={() => toast({ title: 'Actividad publicada', body: 'La ven los siete espacios', tone: 'ok' })}>
               Publicar
             </Button>
@@ -30,7 +29,7 @@ export function ToastStory() {
             <Button variant="raised" onClick={() => toast({ title: 'Se archivaron 12 actividades', duration: 0 })}>
               Sin vencimiento
             </Button>
-          </div>
+          </Cluster>
         </Demo>
       </Section>
 
@@ -71,7 +70,7 @@ export function ToastStory() {
       </Section>
 
       <Note title="Toast o Alert">
-        El toast pasa por encima y se va; el <a className={cls.a} href="#alert">Alert</a> se
+        El toast pasa por encima y se va; el [Alert](#alert) se
         queda en la página. La prueba es simple: si la persona se fue a hacer otra cosa y vuelve
         dentro de un minuto, ¿tiene que seguir viendo el aviso? Si sí, no es un toast.
       </Note>

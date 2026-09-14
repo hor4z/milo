@@ -1,7 +1,6 @@
-import cls from './tree.module.css'
 import { useState } from 'react'
 import { Tree, type TreeNode } from '@milo/ui'
-import { A11y, Canvas, Note, Page, Props, Section } from '../kit'
+import { A11y, Canvas, Frame, Note, Page, Props, Section } from '../kit'
 
 const espacios: TreeNode[] = [
   {
@@ -69,7 +68,7 @@ export function TreeStory() {
         note="Lo cerrado no está escondido: no está. Una rama cerrada no aparece en el documento, así que un lector de pantalla no la recorre y el teclado no pasa por ahí. La flecha derecha abre, y sobre algo ya abierto entra: es lo que evita tener que bajar con la otra flecha después de abrir."
       >
         <Canvas>
-          <div className={cls.div}>
+          <Frame width="md">
             <Tree
               nodes={espacios}
               label="Espacios"
@@ -78,7 +77,7 @@ export function TreeStory() {
               selected={elegido}
               onSelect={setElegido}
             />
-          </div>
+          </Frame>
         </Canvas>
       </Section>
 
@@ -87,9 +86,9 @@ export function TreeStory() {
         note="La misma pieza con otra cosa adentro. En una consigna larga es lo que dice cuánto falta, y para quien escribe, lo que muestra si los títulos que puso arman una estructura o son una lista."
       >
         <Canvas>
-          <div className={cls.div2}>
+          <Frame width="md">
             <Tree nodes={indice} label="Secciones del documento" selected={seccion} onSelect={setSeccion} />
-          </div>
+          </Frame>
         </Canvas>
       </Section>
 

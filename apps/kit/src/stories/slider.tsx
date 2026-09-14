@@ -1,7 +1,7 @@
 import cls from './slider.module.css'
 import { useState } from 'react'
 import { Slider } from '@milo/ui'
-import { A11y, Mono, Page, Panel, Props, Section, Variant } from '../kit'
+import { A11y, Footnote, Frame, Mono, Page, Panel, Props, Section, Variant } from '../kit'
 
 export function SliderStory() {
   const [a, setA] = useState(59)
@@ -22,7 +22,9 @@ export function SliderStory() {
       >
         <Panel>
           <Variant name={`valor ${a}`}>
-            <Slider value={a} onChange={setA} label="Volumen" className={cls.slider} />
+            <Frame width="sm">
+              <Slider value={a} onChange={setA} label="Volumen" />
+            </Frame>
           </Variant>
         </Panel>
       </Section>
@@ -33,10 +35,14 @@ export function SliderStory() {
       >
         <Panel>
           <Variant name="en 0">
-            <Slider value={b} onChange={setB} label="En cero" className={cls.slider2} />
+            <Frame width="sm">
+              <Slider value={b} onChange={setB} label="En cero" />
+            </Frame>
           </Variant>
           <Variant name="en 100">
-            <Slider value={c} onChange={setC} label="En cien" className={cls.slider3} />
+            <Frame width="sm">
+              <Slider value={c} onChange={setC} label="En cien" />
+            </Frame>
           </Variant>
         </Panel>
       </Section>
@@ -47,21 +53,25 @@ export function SliderStory() {
       >
         <Panel>
           <Variant name={`${steps} de 5 · step 1, max 5`}>
-            <Slider value={steps} onChange={setSteps} min={0} max={5} step={1} label="Dificultad" className={cls.slider4} />
+            <Frame width="sm">
+              <Slider value={steps} onChange={setSteps} min={0} max={5} step={1} label="Dificultad" />
+            </Frame>
           </Variant>
         </Panel>
-        <p className={cls.p}>
+        <Footnote>
           Probalo con el teclado: tabulá hasta el slider y usá las flechas. El anillo de foco se
           suma al relieve del pulgar en vez de reemplazarlo: la regla global de <code>:focus-visible</code>
           pisa el <code>box-shadow</code> entero y deja la pieza plana, que es el bug que está anotado en
           Pendiente para el resto de los controles.
-        </p>
+        </Footnote>
       </Section>
 
       <Section title="Deshabilitado">
         <Panel>
           <Variant name="disabled">
-            <Slider value={40} onChange={() => {}} disabled label="Deshabilitado" className={cls.box} />
+            <Frame width="sm">
+              <Slider value={40} onChange={() => {}} disabled label="Deshabilitado" />
+            </Frame>
           </Variant>
         </Panel>
       </Section>
@@ -71,7 +81,7 @@ export function SliderStory() {
       </Section>
 
       <Section title="El azul no se elige acá">
-        <p className={cls.p2}>
+        <p className={cls.blueText}>
           Es la regla de rol que ya está escrita: el azul es lo que el usuario prendió o
           confirmó (el switch, el checkbox, el CTA) y el valor de un slider es exactamente eso.
           El punto azul del pulgar es la misma frase dicha en la pieza que se agarra.{' '}

@@ -1,27 +1,19 @@
 @layer milo.app {
-  .span {
+  .checkboxPair {
     margin-left: 1rem;
     display: inline-flex;
     align-items: center;
     gap: 0.75rem;
   }
 
-  .p {
-    margin-top: 0.75rem;
-    max-width: 70ch;
-    font-size: var(--type-meta);
-    line-height: var(--type-meta-lh);
-    letter-spacing: var(--type-meta-ls);
-    color: var(--text-muted);
-  }
 
-  .span2 {
+  .looseGroup {
     display: flex;
     align-items: center;
     gap: 1.25rem;
   }
 
-  .label {
+  .yesLabel {
     display: flex;
     align-items: center;
     gap: 0.5rem;
@@ -32,7 +24,7 @@
     color: var(--text);
   }
 
-  .label2 {
+  .noLabel {
     display: flex;
     align-items: center;
     gap: 0.5rem;

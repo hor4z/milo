@@ -14,7 +14,7 @@ export function FigureStory() {
         title="La pieza"
         note="El hueco reserva su proporción antes de que la imagen llegue. Sin eso, todo lo que está abajo salta cuando carga y alguien pierde el renglón que estaba leyendo."
       >
-        <div className={s.div}>
+        <div className={s.pieceGrid}>
           <Figure
             src="/avatars/03.webp"
             alt="Una persona sonriendo, de frente"
@@ -33,7 +33,7 @@ export function FigureStory() {
         title="Las proporciones"
         note="Cuatro, y la elige quien arma la pantalla. Una grilla donde cada imagen trae la suya se ve como una pila de recortes."
       >
-        <div className={s.div2}>
+        <div className={s.ratioGrid}>
           {(['16/9', '4/3', '3/2', '1/1'] as const).map((r, i) => (
             <Figure key={r} src={`/avatars/0${i + 1}.webp`} alt="" caption={r} ratio={r} />
           ))}

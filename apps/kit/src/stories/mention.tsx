@@ -16,8 +16,8 @@ export function MentionStory() {
         title="En un párrafo"
         note="Es la prueba que importa: los renglones de arriba y de abajo tienen que seguir a la misma distancia. Con la caja de un chip, el renglón que lleva una mención se separa de los otros y el párrafo se ve roto."
       >
-        <div className={`${s.div} bg-surface`}>
-          <p className={s.p}>
+        <div className={`${s.paragraphBox} bg-surface`}>
+          <p className={s.paragraphText}>
             Para el jueves, <Mention name="Ana Pérez" src={face(1)} href="#avatar" /> y{' '}
             <Mention name="Bruno Díaz" src={face(2)} href="#avatar" /> tienen que subir el informe
             del experimento a <Mention name="Ciencias · 5.º B" icon="folder" href="#folder" />. Si
@@ -30,7 +30,7 @@ export function MentionStory() {
       </Section>
 
       <Section title="Sueltas" note="Una persona lleva su foto o su inicial; lo que no es una persona lleva un glifo.">
-        <div className={`${s.div2} bg-surface`}>
+        <div className={`${s.looseStrip} bg-surface`}>
           <Mention name="Ana Pérez" src={face(1)} href="#avatar" />
           <Mention name="Elena Vega" />
           <Mention name="Matemática · 4.º A" icon="folder" href="#folder" />

@@ -1,5 +1,5 @@
 @layer milo.app {
-  .label {
+  .singleLabel {
     display: flex;
     align-items: center;
     gap: 0.5rem;
@@ -9,13 +9,13 @@
     font-weight: var(--font-weight-medium);
   }
 
-  .div {
+  .listStack {
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
   }
 
-  .label2 {
+  .itemLabel {
     display: flex;
     align-items: center;
     gap: 0.5rem;

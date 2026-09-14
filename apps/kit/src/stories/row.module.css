@@ -1,5 +1,5 @@
 @layer milo.app {
-  .div {
+  .settingsList {
     max-width: 520px;
     overflow: hidden;
     border-radius: var(--radius-xl);
@@ -8,7 +8,7 @@
     border-color: var(--border);
   }
 
-  .div2 {
+  .labelFocusList {
     max-width: 520px;
     overflow: hidden;
     border-radius: var(--radius-xl);
@@ -17,7 +17,7 @@
     border-color: var(--border);
   }
 
-  .div3 {
+  .rightSideList {
     max-width: 520px;
     overflow: hidden;
     border-radius: var(--radius-xl);
@@ -26,16 +26,12 @@
     border-color: var(--border);
   }
 
-  .span {
+  .accountEmail {
     font-size: var(--type-body);
     line-height: var(--type-body-lh);
     letter-spacing: var(--type-body-ls);
     color: var(--text-muted);
   }
 
-  .a {
-    text-decoration-line: underline;
-    text-underline-offset: 2px;
-  }
 
 }

@@ -1,31 +1,19 @@
 @layer milo.app {
-  .div {
+  .helpStack {
     display: flex;
     max-width: 420px;
     flex-direction: column;
     gap: 1.25rem;
   }
 
-  .div2 {
+  .anyControlStack {
     display: flex;
     max-width: 420px;
     flex-direction: column;
     gap: 1.25rem;
   }
 
-  .div3 {
-    width: 100%;
-    max-width: 320px;
-  }
 
-  .div4 {
-    width: 100%;
-    max-width: 420px;
-  }
 
-  .a {
-    text-decoration-line: underline;
-    text-underline-offset: 2px;
-  }
 
 }

@@ -37,15 +37,15 @@ export function CheckboxStory() {
       <Section title="En una fila" note="El `<label>` envolviendo la casilla hace que el texto también sea zona de click, que es la mitad del área útil. El tilde va a 14 y no a 16: el tamaño hay que mirarlo con el trazo incluido, que agrega media línea de cada lado, y a 16 tocaba las esquinas de la caja de 18.">
         <Panel>
           <Variant name="con etiqueta">
-            <label className={cls.label}>
+            <label className={cls.singleLabel}>
               <Checkbox checked={c} onChange={setC} />
               Compartir la receta con el equipo
             </label>
           </Variant>
           <Variant name="lista">
-            <div className={cls.div}>
+            <div className={cls.listStack}>
               {['Geografía', 'Ciencias', 'Matemática'].map(x => (
-                <label key={x} className={cls.label2}>
+                <label key={x} className={cls.itemLabel}>
                   <Checkbox
                     checked={espacios.includes(x)}
                     onChange={v => setEspacios(e => (v ? [...e, x] : e.filter(n => n !== x)))}

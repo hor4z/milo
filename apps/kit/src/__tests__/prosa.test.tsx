@@ -29,7 +29,7 @@ describe('la prosa del sitio', () => {
       while ((n = walker.nextNode())) {
         const texto = n.nodeValue ?? ''
         const dentroDeCodigo = (n.parentElement as HTMLElement | null)?.closest('pre, code')
-        if (!dentroDeCodigo && (texto.includes('`') || texto.includes('**'))) {
+        if (!dentroDeCodigo && (texto.includes('`') || texto.includes('**') || /\]\(#/.test(texto))) {
           sueltos.push(texto.trim().slice(0, 60))
         }
         if (/\b(undefined|NaN|\[object Object\])\b/.test(texto)) {

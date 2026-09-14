@@ -1,6 +1,6 @@
 import cls from './divider.module.css'
 import { Avatar, Divider, Icon, Kbd } from '@milo/ui'
-import { A11y, Page, Panel, Props, Section, Variant } from '../kit'
+import { A11y, Footnote, Frame, Page, Panel, Props, Section, Variant } from '../kit'
 
 export function DividerStory() {
   return (
@@ -16,19 +16,19 @@ export function DividerStory() {
       >
         <Panel>
           <Variant name="horizontal">
-            <div className={cls.div}>
-              <div className={cls.div2}>Doce actividades en siete espacios</div>
+            <Frame width="md">
+              <div className={cls.aboveText}>Doce actividades en siete espacios</div>
               <Divider />
-              <div className={cls.div3}>Cuatro esperan que alguien las mire</div>
-            </div>
+              <div className={cls.belowText}>Cuatro esperan que alguien las mire</div>
+            </Frame>
           </Variant>
           <Variant name="vertical">
-            <div className={cls.div4}>
-              <span className={cls.span}>Matemática</span>
+            <div className={cls.inlineStrip}>
+              <span className={cls.inlineSubject}>Matemática</span>
               <Divider orientation="vertical" />
-              <span className={cls.span2}>4.º A</span>
+              <span className={cls.inlineGroup}>4.º A</span>
               <Divider orientation="vertical" />
-              <span className={cls.span3}>18 entregas</span>
+              <span className={cls.inlineCount}>18 entregas</span>
             </div>
           </Variant>
         </Panel>
@@ -40,22 +40,22 @@ export function DividerStory() {
       >
         <Panel>
           <Variant name="una barra">
-            <div className={`${cls.div5} bg-surface`}>
+            <div className={`${cls.fakeToolbar} bg-surface`}>
               <Icon name="search" size={18} className="icon-muted" />
-              <span className={cls.span4}>Buscar</span>
-              <Divider orientation="vertical" className={cls.divider} />
+              <span className={cls.toolbarLabel}>Buscar</span>
+              <Divider orientation="vertical" className={cls.beforeShortcut} />
               <Kbd>⌘K</Kbd>
-              <Divider orientation="vertical" className={cls.divider2} />
+              <Divider orientation="vertical" className={cls.afterShortcut} />
               <Avatar name="Horacio Rivero" size={24} />
             </div>
           </Variant>
         </Panel>
-        <p className={cls.p}>
+        <Footnote>
           Adentro de un contenedor con padding (un Menu, un panel) la línea se estira hasta los
           bordes, y esa cuenta la hace el contenedor: es el que conoce su propio padding. Por eso
-          el Divider lleva <code className={cls.code}>data-divider</code>, que es de lo único que
+          el Divider lleva <code className={cls.attributeName}>data-divider</code>, que es de lo único que
           se agarra el padre para hacerla.
-        </p>
+        </Footnote>
       </Section>
 
       <Section title="Props">

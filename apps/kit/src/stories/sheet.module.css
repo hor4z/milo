@@ -1,23 +1,11 @@
 @layer milo.app {
-  .canvas {
-    display: flex;
-    justify-content: center;
-  }
 
-  .canvas2 {
-    display: flex;
-    justify-content: center;
-  }
 
-  .div {
+  .filterStack {
     display: flex;
     flex-direction: column;
     gap: 1.25rem;
   }
 
-  .a {
-    text-decoration-line: underline;
-    text-underline-offset: 2px;
-  }
 
 }

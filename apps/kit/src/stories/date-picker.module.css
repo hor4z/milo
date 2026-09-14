@@ -1,5 +1,5 @@
 @layer milo.app {
-  .div {
+  .fieldStack {
     display: flex;
     max-width: 420px;
     flex-direction: column;

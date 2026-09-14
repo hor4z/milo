@@ -47,7 +47,7 @@ export function AudioPlayerStory() {
         note="La onda es el archivo, no un adorno: los huecos son las pausas entre frases, así que se puede volver a la segunda sin escuchar la primera."
       >
         <Panel>
-          <div className={cls.div}>
+          <div className={cls.pieceFrame}>
             <AudioPlayer src={AUDIO} title="Consigna · Matemática 4.º A" peaks={picos} />
           </div>
         </Panel>
@@ -58,7 +58,7 @@ export function AudioPlayerStory() {
         note="Los picos se calculan antes y se pasan por prop. Sin ellos va una pista pelada: no se inventa una onda que no es la de ese audio."
       >
         <Panel>
-          <div className={cls.div2}>
+          <div className={cls.noPeaksFrame}>
             <AudioPlayer src={AUDIO} title="Consigna · Matemática 4.º A" />
           </div>
         </Panel>
@@ -69,7 +69,7 @@ export function AudioPlayerStory() {
         note="Cambian el botón y el alto de la onda. El ancho lo pone siempre lo que la contiene, y con él, el grosor de las barras."
       >
         <Panel>
-          <div className={cls.div3}>
+          <div className={cls.sizesFrame}>
             <AudioPlayer src={AUDIO} peaks={picos} size="sm" />
             <AudioPlayer src={AUDIO} peaks={picos} />
             <AudioPlayer src={AUDIO} peaks={picos} size="lg" />
@@ -79,7 +79,7 @@ export function AudioPlayerStory() {
 
       <Section title="Un archivo largo" note="Cuarenta y nueve segundos con las mismas sesenta y cuatro barras.">
         <Panel>
-          <div className={cls.div4}>
+          <div className={cls.longFrame}>
             <AudioPlayer src={LARGO} title="Explicación grabada" peaks={picosLargos} />
           </div>
         </Panel>
@@ -87,7 +87,7 @@ export function AudioPlayerStory() {
 
       <Section title="Uno por vez" note="Arrancar el segundo pausa el primero.">
         <Panel>
-          <div className={cls.div5}>
+          <div className={cls.oneAtATimeFrame}>
             <AudioPlayer src={AUDIO} title="Devolución para Ana Pérez" peaks={picos} size="sm" />
             <AudioPlayer src={LARGO} title="Devolución para Bruno Díaz" peaks={picosLargos} size="sm" />
           </div>
@@ -96,7 +96,7 @@ export function AudioPlayerStory() {
 
       <Section title="Lo que va al costado" note="Descargar, un menú, borrar. Entra por `actions` y no como props propias.">
         <Panel>
-          <div className={cls.div6}>
+          <div className={cls.asideFrame}>
             <AudioPlayer
               src={AUDIO}
               title="Devolución para Ana Pérez"
@@ -113,18 +113,18 @@ export function AudioPlayerStory() {
 
       <Section title="Cuando el archivo no está" note="Lo dice con palabras y apaga lo que no se puede usar.">
         <Panel>
-          <div className={cls.div7}>
+          <div className={cls.missingFrame}>
             <AudioPlayer src="/audio/no-existe.mp3" title="Consigna · Matemática 4.º A" />
           </div>
         </Panel>
       </Section>
 
       <Section title="Las reglas" note="Valen para cualquier pantalla que reproduzca audio.">
-        <div className={`${cls.div8} bg-surface`}>
+        <div className={`${cls.ruleList} bg-surface`}>
           {reglas.map(([regla, porque]) => (
-            <div key={regla} className={cls.div9}>
-              <span className={cls.span}>{regla}</span>
-              <span className={cls.span2}><Rich text={porque} /></span>
+            <div key={regla} className={cls.ruleRow}>
+              <span className={cls.ruleName}>{regla}</span>
+              <span className={cls.ruleNote}><Rich text={porque} /></span>
             </div>
           ))}
         </div>

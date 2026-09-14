@@ -30,7 +30,7 @@ export function ColumnPickerStory() {
             <ColumnPicker columns={columnas} value={value} onValueChange={setValue} />
           </Variant>
           <Variant name="lo elegido">
-            <span className={s.span}>{value.join(' · ')}</span>
+            <span className={s.pickedList}>{value.join(' · ')}</span>
           </Variant>
         </Panel>
       </Section>

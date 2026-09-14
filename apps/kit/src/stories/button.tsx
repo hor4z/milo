@@ -1,6 +1,5 @@
-import cls from './button.module.css'
 import { Button } from '@milo/ui'
-import { A11y, Demo, Page, Panel, Props, Section, Variant } from '../kit'
+import { A11y, Cluster, Demo, Frame, Page, Panel, Props, Section, Variant } from '../kit'
 
 export function ButtonStory() {
   return (
@@ -45,17 +44,17 @@ export function ButtonStory() {
       </Section>
 
       <Section title="Iconos, ancho completo y deshabilitado">
-        <div className={cls.div}>
+        <Cluster align="start">
           <Demo label="icon"><Button variant="raised" icon="add">Nuevo espacio</Button></Demo>
           <Demo label="iconEnd"><Button variant="raised" iconEnd="chevron_right">Siguiente</Button></Demo>
           <Demo label="disabled">
             <Button variant="solid" disabled>Guardar</Button>
             <Button variant="raised" disabled>Guardar</Button>
           </Demo>
-          <div className={cls.div2}>
+          <Frame width="xs">
             <Demo label="block"><Button variant="solid" block>Entrar</Button></Demo>
-          </div>
-        </div>
+          </Frame>
+        </Cluster>
       </Section>
 
       <Section title="Props">

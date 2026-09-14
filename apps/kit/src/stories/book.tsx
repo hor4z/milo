@@ -14,7 +14,7 @@ export function BookStory() {
         title="Las dos variantes"
         note="`stripe` lleva una franja de color arriba con el icono, y el título abajo sobre papel; `simple` tiñe la tapa entera. Con el título solo alcanza, `simple`; si hace falta categoría o jerarquía, `stripe`. Pasá el mouse por encima: al girar aparecen el lomo y las hojas, y ahí se entiende que es un volumen y no un rectángulo con sombra."
       >
-        <div className={`${s.div} bg-surface`}>
+        <div className={`${s.variantShelf} bg-surface`}>
           <Book title="La experiencia de doce actividades en siete espacios" />
           <Book
             variant="stripe"
@@ -35,7 +35,7 @@ export function BookStory() {
         title="El color sale de un token"
         note="Un hex escrito a mano en una tapa es el mismo bug que en cualquier otro lado: con un token, la tapa sigue al tema. La familia de etiquetas es la que corresponde acá: es la de lo chico y lo que identifica, y una portada identifica."
       >
-        <div className={`${s.div2} bg-surface`}>
+        <div className={`${s.colorShelf} bg-surface`}>
           {([
             ['--label-green', 'Ciencias'],
             ['--label-orange', 'Matemática'],
@@ -51,9 +51,9 @@ export function BookStory() {
         title="El ancho manda"
         note="Adentro del libro no hay un solo px suelto: todo está en por ciento de su propio ancho, incluido el título. Por eso el mismo libro a 140 y a 260 es el mismo dibujo y no dos. Es el único texto del sistema que no usa la escala tipográfica, y es a propósito: la tapa es un dibujo y el título es parte del dibujo."
       >
-        <div className={`${s.div3} bg-surface`}>
+        <div className={`${s.widthShelf} bg-surface`}>
           {[140, 180, 220, 260].map(w => (
-            <div key={w} className={s.div4}>
+            <div key={w} className={s.widthSample}>
               <Book title="Doce actividades en siete espacios" width={w} />
               <Mono>{w}</Mono>
             </div>
@@ -65,10 +65,10 @@ export function BookStory() {
         title="Con textura"
         note="Para una portada sola. En una fila de libros la textura le compite al título, que es lo que hay que leer. El grano es de acá (dos tramas cruzadas a alpha muy bajo) y no una imagen traída de afuera: no cuesta un request y sigue al tema."
       >
-        <div className={`${s.div5} bg-surface`}>
+        <div className={`${s.textureShelf} bg-surface`}>
           <Book variant="simple" color="var(--label-orange)" textColor="var(--on-label)" textured title="Diseño de sistemas" />
           <Book variant="simple" color="var(--label-purple)" textColor="var(--on-label)" title="Diseño de sistemas" />
-          <span className={s.span}>con textura · sin textura</span>
+          <span className={s.textureCaption}>con textura · sin textura</span>
         </div>
       </Section>
 
@@ -76,7 +76,7 @@ export function BookStory() {
         title="Como enlace"
         note="Con `href` el libro es un `<a>`, y el anillo de foco va en el enlace y no en la tapa: el que navega con teclado tiene que ver dónde está el blanco de verdad. Tabulá hasta acá."
       >
-        <div className={`${s.div6} bg-surface`}>
+        <div className={`${s.linkShelf} bg-surface`}>
           <Book href="#" title="Se puede tabular hasta acá" width={160} />
         </div>
       </Section>

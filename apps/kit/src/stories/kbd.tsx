@@ -26,14 +26,14 @@ export function KbdStory() {
         title="Dónde aparece"
         note="En el buscador del riel, en la paleta de comandos y como sufijo de un campo cuando lo que sigue es una unidad. Son los tres lugares donde hace falta mostrar algo que se escribe."
       >
-        <div className={`${cls.div} bg-surface`}>
-          <span className={cls.span}>
+        <div className={`${cls.usageStrip} bg-surface`}>
+          <span className={cls.searchHint}>
             Buscar una pieza <Kbd>/</Kbd>
           </span>
-          <span className={cls.span2}>
+          <span className={cls.paletteHint}>
             Abrir la paleta <Kbd>⌘K</Kbd>
           </span>
-          <span className={cls.span3}>
+          <span className={cls.closeHint}>
             Cerrar <Kbd>Esc</Kbd>
           </span>
         </div>

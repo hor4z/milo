@@ -1,6 +1,6 @@
 import cls from './skeleton.module.css'
 import { Card, Skeleton } from '@milo/ui'
-import { A11y, Demo, Note, Page, Props, Section } from '../kit'
+import { A11y, Cluster, Demo, Note, Page, Props, Section } from '../kit'
 
 export function SkeletonStory() {
   return (
@@ -15,13 +15,13 @@ export function SkeletonStory() {
         note="El esqueleto copia la forma, no el contenido: un círculo donde va el avatar, dos barras donde van el título y su línea de apoyo. La segunda va más corta porque los subtítulos son más cortos: si las dos miden igual, el bloque se lee como un párrafo y no como una fila."
       >
         <Demo label="mientras carga">
-          <div className={cls.div}>
+          <div className={cls.rowsStack}>
             {[0, 1, 2].map(i => (
-              <div key={i} className={cls.div2}>
-                <Skeleton className={cls.skeleton} />
-                <div className={cls.div3}>
-                  <Skeleton className={cls.skeleton2} />
-                  <Skeleton className={cls.skeleton3} />
+              <div key={i} className={cls.row}>
+                <Skeleton className={cls.avatarBone} />
+                <div className={cls.rowLines}>
+                  <Skeleton className={cls.rowTitleBone} />
+                  <Skeleton className={cls.rowMetaBone} />
                 </div>
               </div>
             ))}
@@ -33,26 +33,26 @@ export function SkeletonStory() {
         title="Una tarjeta"
         note="El tamaño lo pone quien lo usa, con las mismas clases que va a tener el contenido: así el esqueleto no se desincroniza del real cuando alguien cambia una medida."
       >
-        <div className={cls.div4}>
-          <Card className={cls.card}>
-            <Skeleton className={cls.skeleton4} />
-            <div className={cls.div5}>
-              <Skeleton className={cls.skeleton5} />
-              <Skeleton className={cls.skeleton6} />
+        <Cluster gap="lg">
+          <Card className={cls.longCard}>
+            <Skeleton className={cls.longCoverBone} />
+            <div className={cls.longBody}>
+              <Skeleton className={cls.longTitleBone} />
+              <Skeleton className={cls.longMetaBone} />
             </div>
           </Card>
-          <Card className={cls.card2}>
-            <Skeleton className={cls.skeleton7} />
-            <div className={cls.div6}>
-              <Skeleton className={cls.skeleton8} />
-              <Skeleton className={cls.skeleton9} />
+          <Card className={cls.shortCard}>
+            <Skeleton className={cls.shortCoverBone} />
+            <div className={cls.shortBody}>
+              <Skeleton className={cls.shortTitleBone} />
+              <Skeleton className={cls.shortMetaBone} />
             </div>
           </Card>
-        </div>
+        </Cluster>
       </Section>
 
       <Note title="El esqueleto no es un spinner">
-        Un <a className={cls.a} href="#spinner">Spinner</a> dice "esperá"; un
+        Un [Spinner](#spinner) dice "esperá"; un
         esqueleto dice "va a haber tres filas, así de anchas". Cuando se sabe la forma de lo que
         viene, el esqueleto evita el salto. Cuando no se sabe (una búsqueda que puede traer cero o
         cien) el spinner es más honesto.

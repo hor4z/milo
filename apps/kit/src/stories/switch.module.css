@@ -1,5 +1,5 @@
 @layer milo.app {
-  .div {
+  .rowBox {
     overflow: hidden;
     border-radius: var(--radius-xl);
     border-style: solid;

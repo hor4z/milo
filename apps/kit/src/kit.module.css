@@ -1,5 +1,5 @@
 @layer milo.app {
-  .code {
+  .inlineCode {
     border-radius: var(--radius-sm);
     background-color: var(--surface-muted);
     padding-inline: 0.25rem;
@@ -9,18 +9,18 @@
     color: var(--text);
   }
 
-  .strong {
+  .inlineStrong {
     font-weight: var(--font-weight-semibold);
     color: var(--text);
   }
 
-  .article {
+  .page {
     display: flex;
     flex-direction: column;
     gap: 2rem;
   }
 
-  .header {
+  .pageHeader {
     display: flex;
     flex-direction: column;
     gap: 1rem;
@@ -30,14 +30,14 @@
     padding-bottom: 2rem;
   }
 
-  .div {
+  .pageTitleRow {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
     gap: 0.5rem;
   }
 
-  .h1 {
+  .pageTitle {
     font-size: var(--type-display);
     line-height: var(--type-display-lh);
     letter-spacing: var(--type-display-ls);
@@ -45,7 +45,7 @@
     color: var(--text);
   }
 
-  .p {
+  .pageLead {
     max-width: 68ch;
     font-size: var(--type-reading);
     line-height: var(--type-reading-lh);
@@ -54,7 +54,7 @@
     color: var(--text-muted);
   }
 
-  .box {
+  .importBlock {
     display: inline-flex;
     height: 2rem;
     max-width: 100%;
@@ -76,7 +76,7 @@
     transition-timing-function: var(--ease-out);
   }
 
-  .code2 {
+  .importCode {
     text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden;
@@ -87,7 +87,7 @@
     color: var(--text);
   }
 
-  .icon {
+  .importCopyIcon {
     flex-shrink: 0;
     transition-property: color,background-color,border-color,outline-color,text-decoration-color,fill,stroke,--milo-gradient-from,--milo-gradient-via,--milo-gradient-to;
     transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
@@ -102,13 +102,13 @@
     gap: 1rem;
   }
 
-  .div2 {
+  .sectionHeader {
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
   }
 
-  .h2 {
+  .sectionTitle {
     font-size: var(--type-title);
     line-height: var(--type-title-lh);
     letter-spacing: var(--type-title-ls);
@@ -116,7 +116,7 @@
     color: var(--text);
   }
 
-  .p2 {
+  .sectionNote {
     max-width: 72ch;
     font-size: var(--type-body);
     line-height: var(--type-body-lh);
@@ -125,7 +125,7 @@
     color: var(--text-muted);
   }
 
-  .div3 {
+  .canvas {
     position: relative;
     overflow: hidden;
     border-radius: var(--radius-xl);
@@ -134,25 +134,25 @@
     border-color: var(--border);
   }
 
-  .pad {
+  .canvasPad {
     padding: 1.5rem;
   }
 
-  .div4 {
+  .demo {
     display: flex;
     min-width: 0;
     flex-direction: column;
     gap: 0.5rem;
   }
 
-  .canvas {
+  .demoCanvas {
     display: flex;
     min-height: 92px;
     align-items: center;
     justify-content: center;
   }
 
-  .div5 {
+  .demoCaption {
     padding-inline: 0.125rem;
     font-size: var(--type-meta);
     line-height: var(--type-meta-lh);
@@ -161,12 +161,12 @@
     color: var(--text-muted);
   }
 
-  .div6 {
+  .demoGrid {
     display: grid;
     gap: 0.75rem;
   }
 
-  .div7 {
+  .variant {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
@@ -181,7 +181,7 @@
     }
   }
 
-  .code3 {
+  .variantName {
     width: 168px;
     flex-shrink: 0;
     font-family: var(--font-mono);
@@ -191,7 +191,7 @@
     color: var(--text-muted);
   }
 
-  .div8 {
+  .variantItems {
     display: flex;
     min-width: 0;
     flex-wrap: wrap;
@@ -199,12 +199,12 @@
     gap: 0.75rem;
   }
 
-  .canvas2 {
+  .panelCanvas {
     padding-inline: 1.5rem;
     padding-block: 0.25rem;
   }
 
-  .code4 {
+  .monoValue {
     font-family: var(--font-mono);
     font-size: var(--type-meta);
     line-height: var(--type-meta-lh);
@@ -212,13 +212,13 @@
     color: var(--text-muted);
   }
 
-  .div9 {
+  .propsTables {
     display: flex;
     flex-direction: column;
     gap: 1rem;
   }
 
-  .div10 {
+  .propsTable {
     overflow: hidden;
     border-radius: var(--radius-xl);
     border-style: solid;
@@ -226,7 +226,7 @@
     border-color: var(--border);
   }
 
-  .div11 {
+  .propsHeader {
     display: flex;
     flex-wrap: wrap;
     align-items: baseline;
@@ -240,7 +240,7 @@
     padding-block: 0.5rem;
   }
 
-  .code5 {
+  .propsName {
     font-family: var(--font-mono);
     font-size: var(--type-meta);
     line-height: var(--type-meta-lh);
@@ -249,7 +249,7 @@
     color: var(--text);
   }
 
-  .span2 {
+  .propsDoc {
     font-size: var(--type-meta);
     line-height: var(--type-meta-lh);
     letter-spacing: var(--type-meta-ls);
@@ -257,7 +257,7 @@
     color: var(--text-muted);
   }
 
-  .p3 {
+  .propsEmpty {
     padding-inline: 1rem;
     padding-block: 0.75rem;
     font-size: var(--type-meta);
@@ -267,7 +267,7 @@
     color: var(--text-muted);
   }
 
-  .code6 {
+  .propsEmptyTag {
     font-family: var(--font-mono);
     font-size: var(--type-meta);
     line-height: var(--type-meta-lh);
@@ -281,11 +281,11 @@
     text-align: left;
   }
 
-  .tr {
+  .headRow {
     background-color: var(--surface-muted);
   }
 
-  .th {
+  .headCellName {
     padding-inline: 1rem;
     padding-block: 0.5rem;
     font-size: var(--type-label);
@@ -295,7 +295,7 @@
     color: var(--text);
   }
 
-  .th2 {
+  .headCellType {
     padding-inline: 1rem;
     padding-block: 0.5rem;
     font-size: var(--type-label);
@@ -305,7 +305,7 @@
     color: var(--text);
   }
 
-  .th3 {
+  .headCellDefault {
     display: none;
     padding-inline: 1rem;
     padding-block: 0.5rem;
@@ -316,7 +316,7 @@
     color: var(--text);
   }
 
-  .th4 {
+  .headCellDoc {
     padding-inline: 1rem;
     padding-block: 0.5rem;
     font-size: var(--type-label);
@@ -326,25 +326,25 @@
     color: var(--text);
   }
 
-  .tr2 {
+  .row {
     border-top-style: solid;
     border-top-width: 1px;
     border-color: var(--border);
     vertical-align: top;
   }
 
-  .td {
+  .cellName {
     padding-inline: 1rem;
     padding-block: 0.75rem;
   }
 
-  .span3 {
+  .propNameGroup {
     display: flex;
     flex-direction: column;
     gap: 0.25rem;
   }
 
-  .code7 {
+  .propName {
     font-family: var(--font-mono);
     font-size: var(--type-meta);
     line-height: var(--type-meta-lh);
@@ -353,7 +353,7 @@
     color: var(--text);
   }
 
-  .span4 {
+  .propRequired {
     font-size: var(--type-label);
     line-height: var(--type-label-lh);
     letter-spacing: var(--type-label-ls);
@@ -362,12 +362,12 @@
     text-transform: uppercase;
   }
 
-  .td2 {
+  .cellType {
     padding-inline: 1rem;
     padding-block: 0.75rem;
   }
 
-  .code8 {
+  .propType {
     font-family: var(--font-mono);
     font-size: var(--type-meta);
     line-height: var(--type-meta-lh);
@@ -375,13 +375,13 @@
     color: var(--brand-ink);
   }
 
-  .td3 {
+  .cellDefault {
     display: none;
     padding-inline: 1rem;
     padding-block: 0.75rem;
   }
 
-  .code9 {
+  .propDefault {
     font-family: var(--font-mono);
     font-size: var(--type-meta);
     line-height: var(--type-meta-lh);
@@ -389,7 +389,7 @@
     color: var(--text-muted);
   }
 
-  .td4 {
+  .cellDoc {
     padding-inline: 1rem;
     padding-block: 0.75rem;
     font-size: var(--type-meta);
@@ -399,7 +399,7 @@
     color: var(--text-muted);
   }
 
-  .p4 {
+  .propsHtmlNote {
     border-top-style: solid;
     border-top-width: 1px;
     border-color: var(--border);
@@ -412,7 +412,7 @@
     color: var(--text-muted);
   }
 
-  .code10 {
+  .propsHtmlTag {
     font-family: var(--font-mono);
     font-size: var(--type-meta);
     line-height: var(--type-meta-lh);
@@ -420,7 +420,7 @@
     color: var(--text);
   }
 
-  .div12 {
+  .note {
     display: flex;
     gap: 0.75rem;
     border-radius: var(--radius-xl);
@@ -430,19 +430,19 @@
     padding: 1rem;
   }
 
-  .icon2 {
+  .noteIcon {
     margin-top: 1px;
     flex-shrink: 0;
   }
 
-  .div13 {
+  .noteBody {
     display: flex;
     min-width: 0;
     flex-direction: column;
     gap: 0.25rem;
   }
 
-  .p5 {
+  .noteTitle {
     font-size: var(--type-body);
     line-height: var(--type-body-lh);
     letter-spacing: var(--type-body-ls);
@@ -450,7 +450,7 @@
     color: var(--text);
   }
 
-  .div14 {
+  .noteText {
     max-width: 70ch;
     font-size: var(--type-body);
     line-height: var(--type-body-lh);
@@ -459,13 +459,13 @@
     color: var(--text-muted);
   }
 
-  .ul {
+  .a11yList {
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
   }
 
-  .li {
+  .a11yItem {
     display: flex;
     gap: 0.5rem;
     font-size: var(--type-body);
@@ -475,23 +475,23 @@
     color: var(--text-muted);
   }
 
-  .icon3 {
+  .a11yCheck {
     margin-top: 1px;
     flex-shrink: 0;
     color: var(--ok);
   }
 
-  .span5 {
+  .a11yText {
     max-width: 70ch;
   }
 
-  .div15 {
+  .swatch {
     display: flex;
     align-items: center;
     gap: 0.75rem;
   }
 
-  .span6 {
+  .swatchChip {
     width: 2.25rem;
     height: 2.25rem;
     flex-shrink: 0;
@@ -501,13 +501,13 @@
     border-color: var(--border);
   }
 
-  .div16 {
+  .swatchMeta {
     display: flex;
     min-width: 0;
     flex-direction: column;
   }
 
-  .code11 {
+  .swatchToken {
     text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden;
@@ -518,7 +518,7 @@
     color: var(--text);
   }
 
-  .code12 {
+  .swatchValue {
     text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden;
@@ -529,7 +529,7 @@
     color: var(--text-muted);
   }
 
-  .span7 {
+  .swatchNote {
     margin-top: 0.125rem;
     font-size: var(--type-meta);
     line-height: var(--type-meta-lh);
@@ -537,7 +537,7 @@
     color: var(--text-muted);
   }
 
-  .div17 {
+  .ramp {
     overflow: hidden;
     border-radius: var(--radius-xl);
     border-style: solid;
@@ -545,23 +545,23 @@
     border-color: var(--border);
   }
 
-  .div18 {
+  .rampBar {
     display: flex;
     height: 4rem;
   }
 
-  .div19 {
+  .rampStep {
     flex: 1;
   }
 
-  .div20 {
+  .rampLabels {
     display: flex;
     border-top-style: solid;
     border-top-width: 1px;
     border-color: var(--border);
   }
 
-  .div21 {
+  .rampLabel {
     min-width: 0;
     flex: 1;
     padding-inline: 0.5rem;
@@ -569,7 +569,7 @@
     text-align: center;
   }
 
-  .code13 {
+  .rampToken {
     display: block;
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -581,7 +581,7 @@
     color: var(--text-muted);
   }
 
-  .code14 {
+  .rampValue {
     display: block;
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -594,27 +594,118 @@
   }
 
   @media (hover:hover) {
-    .box:hover {
+    .importBlock:hover {
         background-color: var(--surface-sunken);
     }
   }
 
   @media (hover:hover) {
-    .icon:is(:where(:global(.group)):hover *) {
+    .importCopyIcon:is(:where(:global(.group)):hover *) {
         color: var(--text);
     }
   }
 
   @media (min-width:40rem) {
-    .th3 {
+    .headCellDefault {
         display: table-cell;
     }
   }
 
   @media (min-width:40rem) {
-    .td3 {
+    .cellDefault {
         display: table-cell;
     }
+  }
+
+  .cluster {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  .clusterXs {
+    gap: 0.25rem;
+  }
+
+  .clusterSm {
+    gap: 0.5rem;
+  }
+
+  .clusterMd {
+    gap: 0.75rem;
+  }
+
+  .clusterLg {
+    gap: 1rem;
+  }
+
+  .clusterXl {
+    gap: 1.5rem;
+  }
+
+  .clusterStart {
+    align-items: flex-start;
+  }
+
+  .clusterCenter {
+    align-items: center;
+  }
+
+  .clusterEnd {
+    align-items: flex-end;
+  }
+
+  .frame {
+    width: 100%;
+    & > * {
+      width: 100%;
+    }
+  }
+
+  .frameXs {
+    max-width: 280px;
+  }
+
+  .frameSm {
+    max-width: 320px;
+  }
+
+  .frameMd {
+    max-width: 420px;
+  }
+
+  .frameLg {
+    max-width: 520px;
+  }
+
+  .frameXl {
+    max-width: 680px;
+  }
+
+  .footnote {
+    margin-top: 0.75rem;
+    max-width: 70ch;
+    font-size: var(--type-meta);
+    line-height: var(--type-meta-lh);
+    letter-spacing: var(--type-meta-ls);
+    font-weight: var(--font-weight-medium);
+    color: var(--text-muted);
+  }
+
+  .inlineLink {
+    text-decoration-line: underline;
+    text-underline-offset: 2px;
+  }
+
+  .canvasCenter {
+    display: flex;
+    justify-content: center;
+  }
+
+  .canvasStack {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.75rem;
   }
 
 }

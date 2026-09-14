@@ -1,34 +1,11 @@
 @layer milo.app {
-  .slider {
-    max-width: 320px;
-  }
 
-  .slider2 {
-    max-width: 320px;
-  }
 
-  .slider3 {
-    max-width: 320px;
-  }
 
-  .slider4 {
-    max-width: 320px;
-  }
 
-  .p {
-    margin-top: 0.75rem;
-    max-width: 70ch;
-    font-size: var(--type-meta);
-    line-height: var(--type-meta-lh);
-    letter-spacing: var(--type-meta-ls);
-    color: var(--text-muted);
-  }
 
-  .box {
-    max-width: 320px;
-  }
 
-  .p2 {
+  .blueText {
     max-width: 70ch;
     font-size: var(--type-body);
     line-height: var(--type-body-lh);

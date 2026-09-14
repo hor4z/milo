@@ -1,5 +1,5 @@
 @layer milo.app {
-  .p {
+  .handedText {
     font-size: var(--type-body);
     line-height: var(--type-body-lh);
     letter-spacing: var(--type-body-ls);
@@ -7,7 +7,7 @@
     color: var(--text-muted);
   }
 
-  .p2 {
+  .rubricText {
     font-size: var(--type-body);
     line-height: var(--type-body-lh);
     letter-spacing: var(--type-body-ls);
@@ -15,7 +15,7 @@
     color: var(--text-muted);
   }
 
-  .p3 {
+  .accessText {
     font-size: var(--type-body);
     line-height: var(--type-body-lh);
     letter-spacing: var(--type-body-ls);
@@ -23,7 +23,7 @@
     color: var(--text-muted);
   }
 
-  .p4 {
+  .weekText {
     font-size: var(--type-body);
     line-height: var(--type-body-lh);
     letter-spacing: var(--type-body-ls);
@@ -31,7 +31,7 @@
     color: var(--text-muted);
   }
 
-  .p5 {
+  .monthText {
     font-size: var(--type-body);
     line-height: var(--type-body-lh);
     letter-spacing: var(--type-body-ls);
@@ -39,7 +39,7 @@
     color: var(--text-muted);
   }
 
-  .p6 {
+  .allText {
     font-size: var(--type-body);
     line-height: var(--type-body-lh);
     letter-spacing: var(--type-body-ls);
@@ -47,9 +47,5 @@
     color: var(--text-muted);
   }
 
-  .a {
-    text-decoration-line: underline;
-    text-underline-offset: 2px;
-  }
 
 }

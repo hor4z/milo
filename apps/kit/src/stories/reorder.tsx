@@ -1,7 +1,7 @@
 import cls from './reorder.module.css'
 import { useState } from 'react'
 import { Icon, Reorder, type ReorderItem, type IconName } from '@milo/ui'
-import { A11y, Canvas, Note, Page, Props, Section } from '../kit'
+import { A11y, Canvas, Frame, Note, Page, Props, Section } from '../kit'
 
 type Bloque = ReorderItem & { icon: IconName; meta: string }
 
@@ -28,17 +28,17 @@ export function ReorderStory() {
         note="Agarrá una manija y arrastrá. O tabulá hasta una y usá las flechas: es la misma operación y hace lo mismo. Lo que se agarra se levanta en papel y deja su hueco gris abajo, que es donde va a caer; las otras se corren solas. Después de mover, el foco se queda en la fila que se movió, que es donde está mirando quien la movió."
       >
         <Canvas>
-          <div className={cls.div}>
+          <Frame width="lg">
             <Reorder items={bloques} onReorder={setBloques} label="Bloques de la consigna">
               {b => (
-                <div className={cls.div2}>
-                  <Icon name={b.icon} size={18} className={`${cls.icon} icon-muted`} />
-                  <span className={cls.span}>{b.label}</span>
-                  <span className={cls.span2}>{b.meta}</span>
+                <div className={cls.blockRow}>
+                  <Icon name={b.icon} size={18} className={`${cls.blockIcon} icon-muted`} />
+                  <span className={cls.blockLabel}>{b.label}</span>
+                  <span className={cls.blockMeta}>{b.meta}</span>
                 </div>
               )}
             </Reorder>
-          </div>
+          </Frame>
         </Canvas>
       </Section>
 

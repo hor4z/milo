@@ -1,5 +1,5 @@
 @layer milo.app {
-  .span {
+  .pickedList {
     font-size: var(--type-body);
     line-height: var(--type-body-lh);
     letter-spacing: var(--type-body-ls);

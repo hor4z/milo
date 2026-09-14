@@ -22,7 +22,7 @@ export function TaskListStory() {
       lead="Cosas para hacer que se marcan al hacerlas: los pasos de una entrega, lo que falta de una actividad, el checklist de un experimento."
     >
       <Section title="La pieza" note="Marcá y desmarcá: lo hecho se apaga y se tacha, que son dos avisos y no uno.">
-        <div className={`${cls.div} bg-surface`}>
+        <div className={`${cls.pieceBox} bg-surface`}>
           <TaskList items={tareas} onToggle={marcar} label="Pasos del experimento" />
         </div>
       </Section>
@@ -31,7 +31,7 @@ export function TaskListStory() {
         title="Solo de lectura"
         note="La consigna que escribió otro, o una entrega ya cerrada. Se lee igual y no se toca."
       >
-        <div className={`${cls.div2} bg-surface`}>
+        <div className={`${cls.readOnlyBox} bg-surface`}>
           <TaskList items={inicial} onToggle={() => {}} label="Pasos, ya cerrados" readOnly />
         </div>
       </Section>

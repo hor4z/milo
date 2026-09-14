@@ -1,5 +1,5 @@
 @layer milo.app {
-  .div {
+  .pieceBox {
     display: flex;
     justify-content: center;
     border-radius: var(--radius-xl);
@@ -10,7 +10,7 @@
     padding: 2rem;
   }
 
-  .div2 {
+  .toggleBox {
     display: flex;
     justify-content: center;
     border-radius: var(--radius-xl);

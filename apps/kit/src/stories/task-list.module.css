@@ -1,5 +1,5 @@
 @layer milo.app {
-  .div {
+  .pieceBox {
     max-width: 520px;
     border-radius: var(--radius-xl);
     border-style: solid;
@@ -8,7 +8,7 @@
     padding: 1.25rem;
   }
 
-  .div2 {
+  .readOnlyBox {
     max-width: 520px;
     border-radius: var(--radius-xl);
     border-style: solid;

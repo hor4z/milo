@@ -1,30 +1,30 @@
 @layer milo.app {
-  .div {
+  .pieceGrid {
     display: grid;
     max-width: 680px;
     gap: 1rem;
   }
 
-  .div2 {
+  .ratioGrid {
     display: grid;
     max-width: 760px;
     gap: 1rem;
   }
 
   @media (min-width:40rem) {
-    .div {
+    .pieceGrid {
         grid-template-columns: repeat(2,minmax(0,1fr));
     }
   }
 
   @media (min-width:40rem) {
-    .div2 {
+    .ratioGrid {
         grid-template-columns: repeat(2,minmax(0,1fr));
     }
   }
 
   @media (min-width:64rem) {
-    .div2 {
+    .ratioGrid {
         grid-template-columns: repeat(4,minmax(0,1fr));
     }
   }
