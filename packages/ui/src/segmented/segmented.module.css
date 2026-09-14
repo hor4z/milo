@@ -33,8 +33,6 @@
 
   .optionMotion {
     transition-property: background-color,color,box-shadow;
-    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-    transition-duration: 150ms;
     transition-duration: var(--duration-normal);
     transition-timing-function: var(--ease-out);
   }

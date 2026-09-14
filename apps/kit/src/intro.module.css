@@ -149,8 +149,6 @@
     padding: 1.25rem;
     text-align: left;
     transition-property: background-color,box-shadow;
-    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-    transition-duration: 150ms;
     transition-duration: var(--duration-fast);
     transition-timing-function: var(--ease-out);
   }
@@ -178,8 +176,6 @@
 
   .shortcutChevron {
     transition-property: transform,translate,scale,rotate;
-    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-    transition-duration: 150ms;
     transition-duration: var(--duration-fast);
     transition-timing-function: var(--ease-out);
   }

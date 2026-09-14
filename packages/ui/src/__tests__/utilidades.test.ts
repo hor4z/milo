@@ -151,6 +151,22 @@ describe('el CSS del sistema se sostiene solo', () => {
     expect(huerfanas).toEqual([])
   })
 
+  it('la duración y la curva de una transición salen de un token', () => {
+    const literales: string[] = []
+    for (const f of css) {
+      for (const m of f.texto.matchAll(/transition-(duration|timing-function):\s*([^;]+);/g)) {
+        const esperado = m[1] === 'duration' ? /var\(--duration-/ : /var\(--ease-/
+        if (!esperado.test(m[2])) literales.push(`${f.nombre}: ${m[0].trim()}`)
+      }
+    }
+    expect(literales).toEqual([])
+  })
+
+  it('no quedó maquinaria de gradiente de Tailwind escrita a mano', () => {
+    const restos = css.filter(f => /--milo-gradient-/.test(f.texto)).map(f => f.nombre)
+    expect(restos).toEqual([])
+  })
+
   it('no queda nada de Tailwind', () => {
     const restos: string[] = []
     for (const f of [...css, { nombre: 'theme.css', texto: puente }]) {
