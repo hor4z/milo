@@ -9,7 +9,7 @@ export function Page({ children, wide }: {
   wide?: boolean
 }) {
   return (
-    <div className={cx(s.div, wide ? s.div2 : s.div3)}>
+    <div className={cx(s.root, wide ? s.wide : s.narrow)}>
       {children}
     </div>
   )
@@ -26,12 +26,12 @@ export function PageHeader({
   actions?: ReactNode
 }) {
   return (
-    <div className={s.div4}>
-      <div className={s.div5}>
-        <h1 className={s.h1}>{title}</h1>
-        {subtitle && <p className={s.p}>{subtitle}</p>}
+    <div className={s.header}>
+      <div className={s.heading}>
+        <h1 className={s.title}>{title}</h1>
+        {subtitle && <p className={s.subtitle}>{subtitle}</p>}
       </div>
-      {actions && <div className={s.div6}>{actions}</div>}
+      {actions && <div className={s.actions}>{actions}</div>}
     </div>
   )
 }
@@ -43,10 +43,10 @@ export function SectionLabel({ children, count }: {
   count?: number
 }) {
   return (
-    <div className={s.div7}>
-      <span className={s.span}>{children}</span>
-      {count !== undefined && <span className={`${s.span2} tabular`}>{count}</span>}
-      <span className={s.span3} />
+    <div className={s.sectionLabel}>
+      <span className={s.sectionText}>{children}</span>
+      {count !== undefined && <span className={`${s.sectionCount} tabular`}>{count}</span>}
+      <span className={s.sectionRule} />
     </div>
   )
 }

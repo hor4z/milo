@@ -1,12 +1,12 @@
 @layer milo.components {
-  .div {
+  .veil {
     position: fixed;
     inset: 0;
     z-index: 40;
     background-color: var(--veil);
   }
 
-  .div2 {
+  .panel {
     position: fixed;
     z-index: 50;
   }

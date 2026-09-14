@@ -4,14 +4,14 @@
     color: var(--text-muted);
   }
 
-  .aside {
+  .root {
     display: flex;
     gap: 0.75rem;
     border-radius: var(--radius-xl);
     padding: 1rem;
   }
 
-  .span {
+  .icon {
     display: flex;
     height: 1.5rem;
     width: 1.25rem;
@@ -20,7 +20,7 @@
     justify-content: center;
   }
 
-  .div {
+  .body {
     display: flex;
     min-width: 0;
     flex-direction: column;
@@ -28,14 +28,14 @@
     color: var(--text);
   }
 
-  .span2 {
+  .title {
     font-size: var(--type-reading);
     line-height: var(--type-reading-lh);
     letter-spacing: var(--type-reading-ls);
     font-weight: var(--font-weight-semibold);
   }
 
-  .div2 {
+  .text {
     font-size: var(--type-reading);
     line-height: var(--type-reading-lh);
     letter-spacing: var(--type-reading-ls);

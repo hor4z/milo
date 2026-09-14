@@ -1,9 +1,9 @@
 @layer milo.components {
-  .span {
+  .trigger {
     display: inline-flex;
   }
 
-  .box {
+  .panel {
     pointer-events: none;
     position: fixed;
     z-index: 60;

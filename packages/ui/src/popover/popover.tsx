@@ -79,11 +79,11 @@ export function Popover({
       })}
       {open && (
         <Portal>
-          {veil && <div className={`${s.div} ui-fade`} onClick={close} />}
+          {veil && <div className={`${s.veil} ui-fade`} onClick={close} />}
           <div
             ref={panelRef}
             style={{ top: pos.top, left: pos.left, width }}
-            className={s.div2}
+            className={s.panel}
           >
             {children(close)}
           </div>

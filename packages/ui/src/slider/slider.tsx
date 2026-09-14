@@ -34,12 +34,12 @@ export function Slider({
   const move = dragging ? '' : s.move
   return (
     <span
-      className={cx(s.span, disabled && s.disabled, className)}
+      className={cx(s.root, disabled && s.disabled, className)}
       style={{ '--t': t } as CSSProperties}
     >
-      <span className={`${s.span2} switch-track-off`} />
+      <span className={`${s.track} switch-track-off`} />
       <span
-        className={cx(`${s.span3} switch-track-on`, move)}
+        className={cx(`${s.fill} switch-track-on`, move)}
         style={{ width: fillTo }}
       />
       <input
@@ -54,21 +54,21 @@ export function Slider({
         onPointerUp={() => setDragging(false)}
         onPointerCancel={() => setDragging(false)}
         onBlur={() => setDragging(false)}
-        className={`${s.box} peer`}
+        className={`${s.input} peer`}
       />
       <span
         className={cx(
-          `${s.span4} switch-thumb`,
-          s.box2,
+          `${s.thumb} switch-thumb`,
+          s.thumbBody,
           move,
-          s.box3,
+          s.thumbFocus,
         )}
         style={{ left: thumbAt }}
       >
         <span
           className={cx(
-            s.span5,
-            dragging ? s.box4 : s.box5,
+            s.dot,
+            dragging ? s.dotDragging : s.dotResting,
           )}
         />
       </span>

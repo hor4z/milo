@@ -34,19 +34,19 @@ export function Checkbox({
       onClick={() => onChange(!checked)}
       className={cx(
         s.root,
-        s.box,
-        s.box2,
-        on ? s.box3 : `${s.box4} inset-relief`,
+        s.motion,
+        s.disabled,
+        on ? s.on : `${s.off} inset-relief`,
       )}
     >
       <span
         className={cx(
-          s.span,
-          on ? s.span2 : s.box5,
+          s.glyph,
+          on ? s.glyphOn : s.glyphOff,
         )}
       >
         {indeterminate
-          ? <span className={s.span3} />
+          ? <span className={s.dash} />
           : <Icon name="check" size={14} weight={700} />}
       </span>
     </button>

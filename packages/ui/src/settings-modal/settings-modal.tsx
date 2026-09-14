@@ -42,8 +42,8 @@ export function SettingsModal({ open, onClose, user }: {
 
   return (
     <Modal open={open} onClose={onClose} width={594} label="Ajustes">
-      <div className={cls.div}>
-        <nav className={cls.nav}>
+      <div className={cls.root}>
+        <nav className={cls.rail}>
           {sections.map(s => {
             const active = s.id === section
             return (
@@ -53,18 +53,18 @@ export function SettingsModal({ open, onClose, user }: {
                 onClick={() => setSection(s.id)}
                 aria-current={active ? 'page' : undefined}
                 className={cx(
-                  cls.box,
-                  cls.box2,
+                  cls.railItem,
+                  cls.railItemMotion,
                   active
-                    ? cls.box3
-                    : cls.box4,
+                    ? cls.railItemActive
+                    : cls.railItemIdle,
                 )}
               >
                 <span className={cx(
-                  cls.span,
-                  active && `${cls.active} bg-surface`,
+                  cls.railGlyph,
+                  active && `${cls.railGlyphActive} bg-surface`,
                 )}>
-                  <Icon name={s.icon} size={20} className={active ? cls.icon : 'icon-muted'} />
+                  <Icon name={s.icon} size={20} className={active ? cls.railIcon : 'icon-muted'} />
                 </span>
                 {s.label}
               </button>
@@ -72,11 +72,11 @@ export function SettingsModal({ open, onClose, user }: {
           })}
         </nav>
 
-        <div className={cls.div2}>
-          <header className={cls.header}>
-            <h2 className={cls.h2}>{sections.find(s => s.id === section)!.label}</h2>
+        <div className={cls.panel}>
+          <header className={cls.panelHeader}>
+            <h2 className={cls.panelTitle}>{sections.find(s => s.id === section)!.label}</h2>
           </header>
-          <div className={cls.div3}>
+          <div className={cls.panelBody}>
             {section === 'general' && <GeneralSection user={user} />}
             {section === 'perfil' && <ProfileSection user={user} />}
             {section === 'seguridad' && <SecuritySection />}
@@ -94,7 +94,7 @@ function GeneralSection({ user }: { user: SettingsUser }) {
     <div>
       <EditableRow label="Nombre" value={user.name} />
       <Row label="Correo">
-        <span className={cls.span2}>{user.email}</span>
+        <span className={cls.accountEmail}>{user.email}</span>
       </Row>
       <Row label="Tema">
         <Segmented
@@ -129,7 +129,7 @@ function ProfileSection({ user }: { user: SettingsUser }) {
         <Chip color="green">Guía</Chip>
       </Row>
       <Row label="Escuela">
-        <span className={cls.span3}>{user.school}</span>
+        <span className={cls.schoolName}>{user.school}</span>
       </Row>
       <Row label="Dejar que otros guías vean mis recetas" hint="Solo las que publiques, nunca los borradores.">
         <Switch checked={prefs.shareRecipes} onChange={v => set('shareRecipes', v)} label="Compartir recetas" />
@@ -157,14 +157,14 @@ function SecuritySection() {
       <Row label="Registro de accesos">
         <Button size="sm" variant="ghost" iconEnd="download">Descargar</Button>
       </Row>
-      <div className={cls.div4}>
-        <div className={cls.div5}>
-          <div className={cls.div6}>Borrar la cuenta</div>
-          <p className={cls.p}>
+      <div className={cls.dangerZone}>
+        <div className={cls.dangerBox}>
+          <div className={cls.dangerTitle}>Borrar la cuenta</div>
+          <p className={cls.dangerText}>
             Se van los espacios que coordinás y las actividades que escribiste. Las entregas de los
             aprendices quedan con su autor, no con vos.
           </p>
-          <Button size="sm" variant="bad" className={cls.button}>Borrar la cuenta</Button>
+          <Button size="sm" variant="bad" className={cls.dangerButton}>Borrar la cuenta</Button>
         </div>
       </div>
     </div>
@@ -203,8 +203,8 @@ function EditableRow({ label, value: initial }: { label: string; value: string }
   const commit = () => { setValue(draft.trim() || value); setEditing(false) }
 
   return (
-    <div className={`${cls.div7} group`}>
-      <div className={cls.div8}>{label}</div>
+    <div className={`${cls.row} group`}>
+      <div className={cls.rowLabel}>{label}</div>
       {editing ? (
         <input
           autoFocus
@@ -215,16 +215,16 @@ function EditableRow({ label, value: initial }: { label: string; value: string }
             if (e.key === 'Enter') commit()
             if (e.key === 'Escape') { setDraft(value); setEditing(false) }
           }}
-          className={`${cls.box5} inset-relief`}
+          className={`${cls.rowInput} inset-relief`}
         />
       ) : (
         <button
           type="button"
           onClick={() => { setDraft(value); setEditing(true) }}
-          className={cls.box6}
+          className={cls.rowEdit}
         >
           {value}
-          <Icon name="edit" size={16} className={`${cls.icon3} icon-muted`} />
+          <Icon name="edit" size={16} className={`${cls.rowEditIcon} icon-muted`} />
         </button>
       )}
     </div>

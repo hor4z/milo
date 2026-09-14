@@ -42,9 +42,9 @@ export function Segmented<T extends string>({
       onKeyDown={roving.onKeyDown}
       className={cx(
         s.root,
-        size === 'xs' ? s.xs : s.box,
-        size === 'sm' && s.box2,
-        size === 'md' && s.box3,
+        size === 'xs' ? s.railXs : s.rail,
+        size === 'sm' && s.railSm,
+        size === 'md' && s.railMd,
       )}
     >
       {options.map(o => {
@@ -62,21 +62,21 @@ export function Segmented<T extends string>({
             tabIndex={roving.tabIndex(o.value)}
             onClick={() => onChange(o.value)}
             className={cx(
-              s.box4,
-              s.box5,
-              s.box6,
-              size === 'xs' ? s.xs2 : size === 'sm' ? s.sm : s.box7,
+              s.option,
+              s.optionMotion,
+              s.disabled,
+              size === 'xs' ? s.optionXs : size === 'sm' ? s.optionSm : s.optionMd,
               iconOnly
                 ? (size === 'xs' ? s.iconOnlyXs : size === 'sm' ? s.iconOnlySm : s.iconOnlyMd)
                 : (size === 'xs' ? s.padXs : size === 'sm' ? s.padSm : s.padMd),
               active
                 ? (size === 'xs' ? s.activeXs : s.active)
-                : s.box8,
+                : s.idle,
             )}
           >
             {o.icon && <Icon name={o.icon} size={size === 'md' ? 20 : 18} />}
             {o.label}
-            {o.dot && <span className={s.span} />}
+            {o.dot && <span className={s.dot} />}
           </button>
         )
         return iconOnly && o.title

@@ -4,26 +4,26 @@
     align-items: center;
   }
 
-  .xs {
+  .railXs {
     gap: 0.25rem;
   }
 
-  .box {
+  .rail {
     gap: 0.125rem;
     background-color: var(--surface-muted);
   }
 
-  .box2 {
+  .railSm {
     border-radius: var(--radius-lg);
     padding: 0.125rem;
   }
 
-  .box3 {
+  .railMd {
     border-radius: var(--radius-lg);
     padding: 0.125rem;
   }
 
-  .box4 {
+  .option {
     position: relative;
     display: inline-flex;
     align-items: center;
@@ -31,7 +31,7 @@
     gap: 0.5rem;
   }
 
-  .box5 {
+  .optionMotion {
     transition-property: background-color,color,box-shadow;
     transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
     transition-duration: 150ms;
@@ -39,7 +39,7 @@
     transition-timing-function: var(--ease-out);
   }
 
-  .box6 {
+  .disabled {
 
     &:disabled {
       pointer-events: none;
@@ -47,7 +47,7 @@
     }
   }
 
-  .xs2 {
+  .optionXs {
     min-height: 1.5rem;
     border-radius: var(--radius-md);
     font-size: var(--type-meta);
@@ -55,7 +55,7 @@
     letter-spacing: var(--type-meta-ls);
   }
 
-  .sm {
+  .optionSm {
     min-height: 1.75rem;
     border-radius: var(--radius-md);
     font-size: var(--type-body);
@@ -63,7 +63,7 @@
     letter-spacing: var(--type-body-ls);
   }
 
-  .box7 {
+  .optionMd {
     min-height: 2rem;
     border-radius: var(--radius-md);
     font-size: var(--type-body);
@@ -71,7 +71,7 @@
     letter-spacing: var(--type-body-ls);
   }
 
-  .box8 {
+  .idle {
     color: var(--text-muted);
   }
 
@@ -97,7 +97,7 @@
     box-shadow: var(--relief);
   }
 
-  .span {
+  .dot {
     width: 0.375rem;
     height: 0.375rem;
     border-radius: var(--radius-full);
@@ -105,7 +105,7 @@
   }
 
   @media (hover:hover) {
-    .box8:hover {
+    .idle:hover {
         color: var(--text);
     }
   }

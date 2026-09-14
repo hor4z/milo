@@ -9,7 +9,7 @@
     border-radius: var(--radius-full);
   }
 
-  .box {
+  .motion {
     transition-property: background-color,box-shadow;
     transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
     transition-duration: 150ms;
@@ -17,7 +17,7 @@
     transition-timing-function: var(--ease-out);
   }
 
-  .box2 {
+  .disabled {
 
     &:disabled {
       opacity: .45;
@@ -25,15 +25,15 @@
     }
   }
 
-  .box3 {
+  .on {
     background-color: var(--brand);
   }
 
-  .box4 {
+  .off {
     background-color: var(--surface-muted);
   }
 
-  .span {
+  .dot {
     width: 8px;
     height: 8px;
     border-radius: var(--radius-full);
@@ -45,21 +45,21 @@
     transition-timing-function: var(--ease-out);
   }
 
-  .box5 {
+  .dotOn {
     --milo-scale-x: 100%;
     --milo-scale-y: 100%;
     --milo-scale-z: 100%;
     scale: var(--milo-scale-x) var(--milo-scale-y);
   }
 
-  .box6 {
+  .dotOff {
     --milo-scale-x: 0%;
     --milo-scale-y: 0%;
     --milo-scale-z: 0%;
     scale: var(--milo-scale-x) var(--milo-scale-y);
   }
 
-  .div {
+  .row {
     display: inline-flex;
     align-items: center;
     gap: 0.75rem;

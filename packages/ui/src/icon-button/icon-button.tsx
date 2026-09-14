@@ -30,16 +30,16 @@ export function IconButton({
       type={type}
       aria-label={label}
       className={cx(
-        s.button,
-        s.box,
+        s.root,
+        s.disabled,
         variants[variant === 'ghost' && active ? 'muted' : variant],
-        c.square, s.box2,
+        c.square, s.radius,
         className,
       )}
       {...rest}
     >
       <Icon name={icon} size={c.icon} />
-      {dot && <span className={cx(s.span, c.dot)} />}
+      {dot && <span className={cx(s.dot, c.dot)} />}
     </button>
   )
 }

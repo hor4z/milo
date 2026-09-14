@@ -32,7 +32,7 @@ export function TextField({ icon, suffix, size = 'lg', className, ref, inputRef,
       }}
       className={cx(
         `${s.root} field`,
-        s.box,
+        s.disabled,
         fieldSizes[size], className,
       )}
     >
@@ -41,7 +41,7 @@ export function TextField({ icon, suffix, size = 'lg', className, ref, inputRef,
         ref={inputRef}
         className={cx(
           s.input,
-          s.box2,
+          s.inputPad,
         )}
         {...field}
         {...rest}

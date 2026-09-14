@@ -58,7 +58,7 @@ describe('Button', () => {
     rerender(<Button size="lg">Guardar</Button>)
     expect(estilo(screen.getByRole('button'))).toContain('height: 2.5rem')
     rerender(<Button variant="solid">Guardar</Button>)
-    expect(screen.getByRole('button').className).toContain(s.box)
+    expect(screen.getByRole('button').className).toContain(s.motion)
   })
 
   it('block ocupa la fila entera', () => {

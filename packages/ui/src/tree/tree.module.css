@@ -1,10 +1,10 @@
 @layer milo.components {
-  .div {
+  .root {
     display: flex;
     flex-direction: column;
   }
 
-  .box {
+  .node {
     display: flex;
     height: 2.25rem;
     cursor: default;
@@ -22,32 +22,32 @@
     transition-timing-function: var(--ease-out);
   }
 
-  .box2 {
+  .selected {
     background-color: var(--brand-soft);
     font-weight: var(--font-weight-semibold);
     color: var(--brand-ink);
   }
 
-  .box3 {
+  .idle {
     font-weight: var(--font-weight-medium);
     color: var(--text);
   }
 
-  .span {
+  .spacer {
     width: 1rem;
     height: 1rem;
     flex-shrink: 0;
   }
 
-  .icon {
+  .chevron {
     flex-shrink: 0;
   }
 
-  .icon2 {
+  .nodeIcon {
     flex-shrink: 0;
   }
 
-  .span2 {
+  .label {
     min-width: 0;
     flex: 1;
     text-overflow: ellipsis;
@@ -55,7 +55,7 @@
     overflow: hidden;
   }
 
-  .span3 {
+  .meta {
     flex-shrink: 0;
     font-size: var(--type-meta);
     line-height: var(--type-meta-lh);
@@ -65,7 +65,7 @@
   }
 
   @media (hover:hover) {
-    .box3:hover {
+    .idle:hover {
         background-color: var(--surface-hover);
     }
   }

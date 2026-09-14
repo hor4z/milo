@@ -19,14 +19,14 @@ type FigureProps = {
 /** Una imagen con su pie: lo que ilustra una consigna, una foto de un experimento, el gráfico que alguien dibujó a mano. */
 export function Figure({ src, alt, caption, ratio = '4/3', fit = 'cover', className }: FigureProps) {
   return (
-    <figure className={cx(s.figure, className)}>
+    <figure className={cx(s.root, className)}>
       <div
-        className={s.div}
+        className={s.frame}
         style={{ aspectRatio: ratio }}
       >
-        <img src={src} alt={alt} loading="lazy" className={cx(s.img, fit === 'cover' ? s.cover : s.img2)} />
+        <img src={src} alt={alt} loading="lazy" className={cx(s.image, fit === 'cover' ? s.cover : s.contain)} />
       </div>
-      {caption && <figcaption className={s.figcaption}>{caption}</figcaption>}
+      {caption && <figcaption className={s.caption}>{caption}</figcaption>}
     </figure>
   )
 }

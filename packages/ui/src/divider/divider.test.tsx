@@ -15,6 +15,6 @@ describe('Divider', () => {
     render(<Divider orientation="vertical" />)
     const line = screen.getByRole('separator')
     expect(line).toHaveAttribute('aria-orientation', 'vertical')
-    expect(line).toHaveClass(s.box)
+    expect(line).toHaveClass(s.vertical)
   })
 })

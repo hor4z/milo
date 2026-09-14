@@ -36,7 +36,7 @@ export function Menu({ children, label, width, className }: {
       style={width ? { width } : undefined}
       className={cx(
         `${cls.root} ui-pop bg-popover`,
-        cls.box,
+        cls.separator,
         className,
       )}
     >
@@ -76,19 +76,19 @@ export function MenuItem({
       aria-checked={checked}
       onClick={onSelect}
       className={cx(
-        cls.box2,
-        cls.box3,
-        cls.box4,
-        danger ? cls.box5 : cls.box6,
+        cls.item,
+        cls.itemMotion,
+        cls.disabled,
+        danger ? cls.danger : cls.plain,
         className,
       )}
     >
       {icon && <Icon name={icon} size={20} className={danger ? undefined : 'icon-muted'} />}
-      <span className={cls.span}>{children}</span>
+      <span className={cls.label}>{children}</span>
       {shortcut && <Kbd>{shortcut}</Kbd>}
-      {hint && <span className={cls.span2}>{hint}</span>}
+      {hint && <span className={cls.hint}>{hint}</span>}
       {checked && <Icon name="check" size={18} />}
-      {submenu && <Icon name="chevron_right" size={18} className={`${cls.icon2} icon-muted`} />}
+      {submenu && <Icon name="chevron_right" size={18} className={`${cls.submenuChevron} icon-muted`} />}
     </button>
   )
 }
@@ -96,7 +96,7 @@ export function MenuItem({
 /** El rótulo de un grupo de opciones. */
 export function MenuLabel({ children }: { children: ReactNode }) {
   return (
-    <div role="presentation" className={cls.div}>
+    <div role="presentation" className={cls.groupLabel}>
       {children}
     </div>
   )

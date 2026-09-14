@@ -6,20 +6,20 @@ import { NavItemBody, navItemClass, navSubItemClass } from './nav'
 describe('navItemClass', () => {
   it('el activo se marca con el azul primario y su canto', () => {
     const active = navItemClass({ active: true })
-    expect(active).toContain(s.box4)
+    expect(active).toContain(s.active)
   })
 
   it('el inactivo va en tinta, no en gris', () => {
-    expect(navItemClass()).toContain(s.box6)
-    expect(navItemClass()).not.toContain(s.box5)
+    expect(navItemClass()).toContain(s.plain)
+    expect(navItemClass()).not.toContain(s.muted)
   })
 
   it('muted es el caso aparte y sí se apaga', () => {
-    expect(navItemClass({ muted: true })).toContain(s.box5)
+    expect(navItemClass({ muted: true })).toContain(s.muted)
   })
 
   it('contraído centra el icono y saca el padding lateral', () => {
-    expect(navItemClass({ collapsed: true })).toContain(s.box2)
+    expect(navItemClass({ collapsed: true })).toContain(s.collapsed)
   })
 })
 
@@ -48,15 +48,15 @@ describe('NavItemBody', () => {
 
 describe('navSubItemClass', () => {
   it('sangra hasta la columna del texto del padre', () => {
-    expect(navSubItemClass()).toContain(s.box8)
+    expect(navSubItemClass()).toContain(s.subitemMotion)
   })
 
   it('el activo se marca igual que su padre', () => {
-    expect(navSubItemClass({ active: true })).toContain(s.box9)
+    expect(navSubItemClass({ active: true })).toContain(s.subitemActive)
   })
 
   it('el inactivo va en tinta, no en gris: una lista de siete no se lee deshabilitada', () => {
-    expect(navSubItemClass()).toContain(s.box10)
-    expect(navSubItemClass()).not.toContain(s.box9)
+    expect(navSubItemClass()).toContain(s.subitemPlain)
+    expect(navSubItemClass()).not.toContain(s.subitemActive)
   })
 })

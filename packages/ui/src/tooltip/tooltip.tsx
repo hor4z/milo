@@ -67,7 +67,7 @@ export function Tooltip({ label, children, side = 'top', delay = 500 }: {
     <>
       <span
         ref={anchor}
-        className={s.span}
+        className={s.trigger}
         onPointerEnter={e => { if (e.pointerType === 'mouse') show() }}
         onPointerLeave={close}
         onPointerDown={close}
@@ -87,7 +87,7 @@ export function Tooltip({ label, children, side = 'top', delay = 500 }: {
             id={id}
             role="tooltip"
             style={{ top: pos.top, left: pos.left }}
-            className={`${s.box} ui-fade`}
+            className={`${s.panel} ui-fade`}
           >
             {label}
           </div>

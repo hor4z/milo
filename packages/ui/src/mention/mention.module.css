@@ -1,5 +1,5 @@
 @layer milo.components {
-  .tag {
+  .root {
     display: inline-flex;
     align-items: center;
     gap: 0.25rem;
@@ -8,12 +8,12 @@
     vertical-align: baseline;
   }
 
-  .box {
+  .tint {
     background-color: var(--brand-soft);
     color: var(--brand-ink);
   }
 
-  .box2 {
+  .linked {
     text-decoration-line: underline;
     text-decoration-color: currentColor;
     text-underline-offset: 3px;
@@ -24,7 +24,7 @@
     transition-timing-function: var(--ease-out);
   }
 
-  .box3 {
+  .plain {
     text-decoration-line: none;
   }
 
@@ -37,7 +37,7 @@
   }
 
   @media (hover:hover) {
-    .box2:hover {
+    .linked:hover {
         background-color: var(--brand-soft);
         text-decoration-thickness: 2px;
     }

@@ -1,20 +1,20 @@
 @layer milo.components {
-  .figure {
+  .root {
     margin: 0;
   }
 
-  .svg {
+  .hatchDef {
     position: absolute;
   }
 
-  .div {
+  .plot {
     position: relative;
     display: flex;
     align-items: flex-end;
     gap: 0.75rem;
   }
 
-  .button {
+  .bar {
     position: relative;
     display: flex;
     height: 100%;
@@ -26,7 +26,7 @@
     outline-style: none;
   }
 
-  .span {
+  .track {
     position: relative;
     width: 100%;
     overflow: hidden;
@@ -34,7 +34,7 @@
     background-color: var(--track);
   }
 
-  .box {
+  .trackMotion {
     transition-property: color,background-color,border-color,outline-color,text-decoration-color,fill,stroke,--milo-gradient-from,--milo-gradient-via,--milo-gradient-to;
     transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
     transition-duration: 150ms;
@@ -42,11 +42,11 @@
     transition-timing-function: var(--ease-out);
   }
 
-  .box2 {
+  .trackHover {
 
   }
 
-  .box3 {
+  .trackEmpty {
 
     &:is(:where(:global(.group)):focus-visible *) {
       background-color: #0000;
@@ -55,7 +55,7 @@
     }
   }
 
-  .box4 {
+  .trackRing {
 
     &:is(:where(:global(.group)):focus-visible *) {
       --milo-ring-color: var(--border-strong);
@@ -63,7 +63,7 @@
     }
   }
 
-  .svg2 {
+  .hatch {
     position: absolute;
     inset: 0;
     height: 100%;
@@ -79,7 +79,7 @@
     }
   }
 
-  .span2 {
+  .fill {
     position: absolute;
     inset-inline: 0;
     bottom: 0;
@@ -87,13 +87,13 @@
     background-color: var(--chart-fill);
   }
 
-  .div2 {
+  .labels {
     margin-top: 0.75rem;
     display: flex;
     gap: 0.75rem;
   }
 
-  .div3 {
+  .label {
     flex: 1;
     text-align: center;
     font-size: var(--type-body);
@@ -107,15 +107,15 @@
     transition-timing-function: var(--ease-out);
   }
 
-  .box5 {
+  .labelOn {
     font-weight: var(--font-weight-semibold);
   }
 
-  .box6 {
+  .labelOff {
     font-weight: var(--font-weight-medium);
   }
 
-  .div4 {
+  .tooltip {
     pointer-events: none;
     position: absolute;
     z-index: 20;
@@ -127,13 +127,13 @@
     box-shadow: var(--milo-inset-shadow),var(--milo-inset-ring-shadow),var(--milo-ring-offset-shadow),var(--milo-ring-shadow),var(--milo-shadow);
   }
 
-  .box7 {
+  .tooltipInside {
     --milo-translate-y: 100%;
     translate: var(--milo-translate-x) var(--milo-translate-y);
     margin-bottom: calc(0.25rem * -2);
   }
 
-  .box8 {
+  .tooltipAbove {
     margin-bottom: 0.5rem;
   }
 
@@ -147,13 +147,13 @@
     translate: var(--milo-translate-x) var(--milo-translate-y);
   }
 
-  .div5 {
+  .tooltipRow {
     display: flex;
     align-items: center;
     gap: 0.5rem;
   }
 
-  .span3 {
+  .tooltipSwatch {
     height: 0.75rem;
     width: 3px;
     flex-shrink: 0;
@@ -161,7 +161,7 @@
     background-color: var(--chart-fill);
   }
 
-  .span4 {
+  .tooltipValue {
     font-size: var(--type-reading);
     line-height: var(--type-reading-lh);
     letter-spacing: var(--type-reading-ls);
@@ -169,7 +169,7 @@
     color: var(--text);
   }
 
-  .span5 {
+  .tooltipTotal {
     font-size: var(--type-meta);
     line-height: var(--type-meta-lh);
     letter-spacing: var(--type-meta-ls);
@@ -177,7 +177,7 @@
     color: var(--text-muted);
   }
 
-  .div6 {
+  .tooltipCaption {
     padding-left: 11px;
     font-size: var(--type-meta);
     line-height: var(--type-meta-lh);
@@ -187,13 +187,13 @@
   }
 
   @media (hover:hover) {
-    .box:is(:where(:global(.group)):hover *) {
+    .trackMotion:is(:where(:global(.group)):hover *) {
         background-color: #0000;
     }
   }
 
   @media (hover:hover) {
-    .box2:is(:where(:global(.group)):hover *) {
+    .trackHover:is(:where(:global(.group)):hover *) {
         --milo-ring-shadow: var(--milo-ring-inset,) 0 0 0 calc(1px + var(--milo-ring-offset-width)) var(--milo-ring-color,currentcolor);
         box-shadow: var(--milo-inset-shadow),var(--milo-inset-ring-shadow),var(--milo-ring-offset-shadow),var(--milo-ring-shadow),var(--milo-shadow);
         --milo-ring-color: var(--border-strong);
@@ -202,7 +202,7 @@
   }
 
   @media (hover:hover) {
-    .svg2:is(:where(:global(.group)):hover *) {
+    .hatch:is(:where(:global(.group)):hover *) {
         opacity: 1;
     }
   }

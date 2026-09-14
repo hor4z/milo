@@ -33,21 +33,21 @@ export function ConfirmDialog({
   if (!open) return null
   return (
     <Portal>
-      <div className={cls.div}>
-        <div className={`${cls.div2} ui-fade`} onClick={onCancel} />
+      <div className={cls.viewport}>
+        <div className={`${cls.veil} ui-fade`} onClick={onCancel} />
         <div
           ref={panel}
           role="alertdialog"
           aria-modal="true"
           aria-label={title}
           tabIndex={-1}
-          className={`${cls.box} ui-zoom bg-surface`}
+          className={`${cls.panel} ui-zoom bg-surface`}
         >
-          <div className={cls.div3}>
-            <h2 className={cls.h2}>{title}</h2>
-            {body && <div className={cls.div4}>{body}</div>}
+          <div className={cls.heading}>
+            <h2 className={cls.title}>{title}</h2>
+            {body && <div className={cls.text}>{body}</div>}
           </div>
-          <div className={cls.div5}>
+          <div className={cls.actions}>
             <Button variant="ghost" size="sm" data-autofocus={tone === 'bad' || undefined} onClick={onCancel}>
               {cancelLabel}
             </Button>

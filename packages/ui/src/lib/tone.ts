@@ -12,24 +12,24 @@ export const toneIcon: Record<Tone, IconName> = {
 
 /** El papel de un aviso: su propio tono y su propio borde. Un aviso blanco sobre una tarjeta blanca no avisa nada. */
 export const toneSurface: Record<Tone, string> = {
-  info: s.info,
-  ok: s.ok,
-  warn: s.warn,
-  bad: s.bad,
+  info: s.surfaceInfo,
+  ok: s.surfaceOk,
+  warn: s.surfaceWarn,
+  bad: s.surfaceBad,
 }
 
 /** La tinta del tono, para el glifo y para lo que va encima del papel del aviso. */
 export const toneInk: Record<Tone, string> = {
-  info: s.info2,
-  ok: s.ok2,
-  warn: s.warn2,
-  bad: s.bad2,
+  info: s.inkInfo,
+  ok: s.inkOk,
+  warn: s.inkWarn,
+  bad: s.inkBad,
 }
 
 export const toneClass: Record<Tone, string> = {
-  info: s.info3,
-  ok: s.ok3,
-  warn: s.warn3,
-  bad: s.bad3,
+  info: s.pillInfo,
+  ok: s.pillOk,
+  warn: s.pillWarn,
+  bad: s.pillBad,
 }
 

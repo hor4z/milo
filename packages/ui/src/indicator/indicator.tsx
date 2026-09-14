@@ -4,11 +4,11 @@ import { Icon, type IconName } from '../icon/icon'
 import { cx } from '../lib/cx'
 
 const tones = {
-  accent: cls.tones,
-  ok: cls.tones2,
-  warn: cls.tones3,
-  bad: cls.tones4,
-  neutral: cls.tones5,
+  accent: cls.toneAccent,
+  ok: cls.toneOk,
+  warn: cls.toneWarn,
+  bad: cls.toneBad,
+  neutral: cls.toneNeutral,
 } as const
 
 /** Una marca chica pegada a la esquina de otra cosa: un punto, un contador o un glifo. Lo que marca sigue siendo lo que se toca. */
@@ -35,17 +35,17 @@ export function Indicator({
   const pelado = !icon && count == null
 
   return (
-    <span className={cx(cls.span, className)}>
+    <span className={cx(cls.root, className)}>
       {children}
       <span
         aria-hidden={label ? undefined : 'true'}
         role={label ? 'status' : undefined}
         className={cx(
-          cls.box,
+          cls.badge,
           tones[tone],
           pelado
-            ? cls.box2
-            : cls.box3,
+            ? cls.dot
+            : cls.count,
         )}
       >
         {label && <span className="sr-only">{label}</span>}

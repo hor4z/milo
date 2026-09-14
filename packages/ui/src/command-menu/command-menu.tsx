@@ -108,11 +108,11 @@ export function CommandMenu({
 
   return (
     <div
-      className={cx(`${cls.div} bg-popover`, className)}
+      className={cx(`${cls.root} bg-popover`, className)}
       onKeyDown={teclas}
     >
       {search && (
-        <div className={cls.div2}>
+        <div className={cls.searchRow}>
           <Search
             block
             size="sm"
@@ -129,12 +129,12 @@ export function CommandMenu({
         </div>
       )}
 
-      <div ref={lista} id={listaId} role="listbox" aria-label={placeholder} className={cls.div3} style={{ maxHeight }}>
+      <div ref={lista} id={listaId} role="listbox" aria-label={placeholder} className={cls.list} style={{ maxHeight }}>
         {planos.length === 0
-          ? <p className={cls.p}>{empty}</p>
+          ? <p className={cls.empty}>{empty}</p>
           : visibles.map(g => (
             <div key={g.label} role="group" aria-label={g.label}>
-              <div className={cls.div4}>{g.label}</div>
+              <div className={cls.groupLabel}>{g.label}</div>
               {g.items.map(item => {
                 const elegido = item.id === actual?.id
                 return (
@@ -151,14 +151,14 @@ export function CommandMenu({
                     }}
                     onClick={() => !item.disabled && onSelect(item)}
                     className={cx(
-                      cls.box,
-                      item.disabled ? cls.box2 : elegido && cls.elegido,
+                      cls.item,
+                      item.disabled ? cls.disabled : elegido && cls.active,
                     )}
                   >
                     {item.icon && <Icon name={item.icon} size={18} className={`${cls.icon} icon-muted`} />}
-                    <span className={cls.span}>
-                      <span className={cls.span2}>{item.label}</span>
-                      {item.hint && <span className={cls.span3}>{item.hint}</span>}
+                    <span className={cls.body}>
+                      <span className={cls.label}>{item.label}</span>
+                      {item.hint && <span className={cls.hint}>{item.hint}</span>}
                     </span>
                     {item.shortcut && <Kbd>{item.shortcut}</Kbd>}
                   </div>

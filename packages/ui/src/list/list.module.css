@@ -1,11 +1,11 @@
 @layer milo.components {
-  .div {
+  .root {
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
   }
 
-  .tag {
+  .item {
     display: flex;
     min-height: 72px;
     width: 100%;
@@ -17,7 +17,7 @@
     text-align: left;
   }
 
-  .box {
+  .motion {
     transition-property: background-image,background-color,box-shadow;
     transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
     transition-duration: 150ms;
@@ -25,13 +25,13 @@
     transition-timing-function: var(--ease-out);
   }
 
-  .box2 {
+  .sunken {
     background-color: var(--surface-sunken);
     --milo-shadow: 0 0 #0000;
     box-shadow: var(--milo-inset-shadow),var(--milo-inset-ring-shadow),var(--milo-ring-offset-shadow),var(--milo-ring-shadow),var(--milo-shadow);
   }
 
-  .box3 {
+  .lifted {
     --milo-shadow: var(--relief-card);
     box-shadow: var(--milo-inset-shadow),var(--milo-inset-ring-shadow),var(--milo-ring-offset-shadow),var(--milo-ring-shadow),var(--milo-shadow);
   }
@@ -40,7 +40,7 @@
 
   }
 
-  .span {
+  .swatch {
     display: inline-flex;
     width: 2.75rem;
     height: 2.75rem;
@@ -50,12 +50,12 @@
     border-radius: var(--radius-full);
   }
 
-  .span2 {
+  .body {
     min-width: 0;
     flex: 1;
   }
 
-  .span3 {
+  .title {
     display: block;
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -67,7 +67,7 @@
     color: var(--text);
   }
 
-  .span4 {
+  .hint {
     margin-top: 0.125rem;
     display: block;
     text-overflow: ellipsis;
@@ -80,7 +80,7 @@
     color: var(--text-muted);
   }
 
-  .span5 {
+  .trailing {
     flex-shrink: 0;
   }
 

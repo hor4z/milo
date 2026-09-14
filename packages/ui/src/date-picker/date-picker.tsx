@@ -143,10 +143,10 @@ export function DatePicker({ value, onChange, min, max, placeholder = 'Elegir fe
         style={{ width }}
         className={`${cls.root} field-focus`}
       >
-        <span className={cx(cls.span, !value && cls.value)}>
+        <span className={cx(cls.value, !value && cls.placeholder)}>
           {value ? enPalabras(value) : placeholder}
         </span>
-        <Icon name="calendar_month" size={16} className={`${cls.icon} icon-muted`} />
+        <Icon name="calendar_month" size={16} className={`${cls.calendarIcon} icon-muted`} />
       </button>
 
       {open && (
@@ -157,40 +157,40 @@ export function DatePicker({ value, onChange, min, max, placeholder = 'Elegir fe
             aria-labelledby={tituloId}
             tabIndex={-1}
             style={{ top: pos.top, left: pos.left }}
-            className={`${cls.box} ui-pop bg-popover`}
+            className={`${cls.panel} ui-pop bg-popover`}
           >
-            <div className={cls.div}>
+            <div className={cls.header}>
               <button
                 type="button"
                 onClick={() => moverMes(-1)}
                 aria-label="Mes anterior"
-                className={cls.box2}
+                className={cls.prev}
               >
                 <Icon name="chevron_left" size={18} className="icon-muted" />
               </button>
-              <span id={tituloId} aria-live="polite" className={cls.span2}>
+              <span id={tituloId} aria-live="polite" className={cls.monthName}>
                 {mesLargo.format(new Date(ay, am - 1, 1))}
               </span>
               <button
                 type="button"
                 onClick={() => moverMes(1)}
                 aria-label="Mes siguiente"
-                className={cls.box3}
+                className={cls.next}
               >
                 <Icon name="chevron_right" size={18} className="icon-muted" />
               </button>
             </div>
 
-            <div role="grid" id={gridId} aria-labelledby={tituloId} className={cls.div2}>
-              <div role="row" className={cls.div3}>
+            <div role="grid" id={gridId} aria-labelledby={tituloId} className={cls.grid}>
+              <div role="row" className={cls.weekdays}>
                 {DIAS.map(d => (
-                  <span key={d} role="columnheader" aria-label={d} className={cls.span3}>
+                  <span key={d} role="columnheader" aria-label={d} className={cls.weekday}>
                     {d}
                   </span>
                 ))}
               </div>
               {semanas.map((semana, s) => (
-                <div key={s} role="row" className={cls.div4}>
+                <div key={s} role="row" className={cls.week}>
                   {semana.map((iso, i) => {
                     if (!iso) return <span key={`h${i}`} role="gridcell" />
                     const elegido = iso === value
@@ -210,15 +210,15 @@ export function DatePicker({ value, onChange, min, max, placeholder = 'Elegir fe
                         onKeyDown={teclas}
                         onClick={() => { if (!bloqueado) { onChange(iso); cerrar() } }}
                         className={cx(
-                          cls.box4,
-                          elegido ? cls.box5
-                            : bloqueado ? cls.box6
-                              : cls.box7,
+                          cls.day,
+                          elegido ? cls.selected
+                            : bloqueado ? cls.blocked
+                              : cls.plain,
                         )}
                       >
                         {partes(iso)[2]}
                         {esHoy && !elegido && (
-                          <span aria-hidden="true" className={cls.span4} />
+                          <span aria-hidden="true" className={cls.today} />
                         )}
                       </button>
                     )

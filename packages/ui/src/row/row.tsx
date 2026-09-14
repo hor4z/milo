@@ -16,10 +16,10 @@ export function Row({ label, hint, children }: {
   const hintId = `${id}-hint`
   return (
     <FieldCtx.Provider value={{ id, labelId, describedBy: hint ? hintId : undefined, invalid: false }}>
-      <div className={s.div}>
-        <div className={s.div2}>
+      <div className={s.root}>
+        <div className={s.body}>
           <label id={labelId} htmlFor={id} className={s.label}>{label}</label>
-          {hint && <span id={hintId} className={s.span}>{hint}</span>}
+          {hint && <span id={hintId} className={s.hint}>{hint}</span>}
         </div>
         {children}
       </div>

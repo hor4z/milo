@@ -34,8 +34,8 @@ export function BarChart({ data, highlight, title, height = 220, className }: {
   const max = Math.max(...data.map(d => d.total), 1)
 
   return (
-    <figure className={cx(cls.figure, className)} aria-describedby={tableId}>
-      <svg width="0" height="0" aria-hidden="true" className={cls.svg}>
+    <figure className={cx(cls.root, className)} aria-describedby={tableId}>
+      <svg width="0" height="0" aria-hidden="true" className={cls.hatchDef}>
         <defs>
           <pattern id={hatchId} width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
             <line x1="0" y1="0" x2="0" y2="6" stroke="var(--text)" strokeWidth="1" strokeOpacity="0.18" />
@@ -43,7 +43,7 @@ export function BarChart({ data, highlight, title, height = 220, className }: {
         </defs>
       </svg>
 
-      <div className={cls.div} style={{ height }}>
+      <div className={cls.plot} style={{ height }}>
         {data.map((d, i) => {
           const trackPct = Math.max(6, Math.round((d.total / max) * 100))
           const donePct = Math.min(100, Math.round((d.value / Math.max(d.total, 1)) * 100))
@@ -51,7 +51,7 @@ export function BarChart({ data, highlight, title, height = 220, className }: {
             <button
               key={i}
               type="button"
-              className={`${cls.button} chart-bar group`}
+              className={`${cls.bar} chart-bar group`}
               onPointerEnter={() => setHover(i)}
               onPointerLeave={() => setHover(h => (h === i ? null : h))}
               onFocus={() => setFocused(i)}
@@ -60,22 +60,22 @@ export function BarChart({ data, highlight, title, height = 220, className }: {
             >
               <span
                 className={cx(
-                  cls.span,
-                  cls.box,
-                  cls.box2,
-                  cls.box3,
-                  cls.box4,
+                  cls.track,
+                  cls.trackMotion,
+                  cls.trackHover,
+                  cls.trackEmpty,
+                  cls.trackRing,
                 )}
                 style={{ height: `${trackPct}%` }}
               >
                 <svg
                   aria-hidden="true"
-                  className={cls.svg2}
+                  className={cls.hatch}
                 >
                   <rect width="100%" height="100%" fill={`url(#${hatchId})`} />
                 </svg>
                 <span
-                  className={cls.span2}
+                  className={cls.fill}
                   style={{ height: `${donePct}%` }}
                 />
               </span>
@@ -93,13 +93,13 @@ export function BarChart({ data, highlight, title, height = 220, className }: {
         })}
       </div>
 
-      <div className={cls.div2}>
+      <div className={cls.labels}>
         {data.map((d, i) => (
           <div
             key={i}
             className={cx(
-              cls.div3,
-              i === hover || i === focused || i === highlight ? cls.box5 : cls.box6,
+              cls.label,
+              i === hover || i === focused || i === highlight ? cls.labelOn : cls.labelOff,
             )}
           >
             {d.label}
@@ -134,19 +134,19 @@ function ChartTooltip({ datum, style, align = 'center', clamped }: {
     <div
       role="tooltip"
       className={cx(
-        `${cls.div4} ui-fade bg-surface`,
-        clamped ? cls.box7 : cls.box8,
+        `${cls.tooltip} ui-fade bg-surface`,
+        clamped ? cls.tooltipInside : cls.tooltipAbove,
         align === 'center' ? cls.center : align === 'end' ? cls.end : '',
       )}
       style={style}
     >
-      <div className={cls.div5}>
-        <span className={cls.span3} />
-        <span className={`${cls.span4} tabular`}>{datum.value}</span>
-        <span className={`${cls.span5} tabular`}>de {datum.total}</span>
+      <div className={cls.tooltipRow}>
+        <span className={cls.tooltipSwatch} />
+        <span className={`${cls.tooltipValue} tabular`}>{datum.value}</span>
+        <span className={`${cls.tooltipTotal} tabular`}>de {datum.total}</span>
         {datum.detail}
       </div>
-      <div className={cls.div6}>{datum.caption ?? datum.label}</div>
+      <div className={cls.tooltipCaption}>{datum.caption ?? datum.label}</div>
     </div>
   )
 }

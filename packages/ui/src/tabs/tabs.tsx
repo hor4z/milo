@@ -32,7 +32,7 @@ export function Tabs({ value, defaultValue, onValueChange, className, children, 
   }
   return (
     <Ctx.Provider value={{ value: current, setValue, name }}>
-      <div className={cx(s.div, className)} {...props}>{children}</div>
+      <div className={cx(s.root, className)} {...props}>{children}</div>
     </Ctx.Provider>
   )
 }
@@ -63,7 +63,7 @@ export function TabList({ label, className, children, ...props }: ComponentProps
         if (e.key === 'ArrowLeft') { e.preventDefault(); move(-1) }
         if (e.key === 'Home' || e.key === 'End') { e.preventDefault(); borde(e.key === 'Home' ? 0 : -1) }
       }}
-      className={cx(s.box, className)}
+      className={cx(s.list, className)}
       {...props}
     >
       {children}
@@ -88,14 +88,14 @@ export function Tab({ value, className, children, ...props }: ComponentPropsWith
       tabIndex={active ? 0 : -1}
       onClick={() => setValue(value)}
       className={cx(
-        s.box2,
-        active ? s.box3 : s.box4,
+        s.tab,
+        active ? s.tabActive : s.tabIdle,
         className,
       )}
       {...props}
     >
       {children}
-      {active && <span className={s.span} />}
+      {active && <span className={s.marker} />}
     </button>
   )
 }
@@ -113,7 +113,7 @@ export function TabPanel({ value, className, children, ...props }: ComponentProp
       id={`${name}-panel-${value}`}
       aria-labelledby={`${name}-tab-${value}`}
       tabIndex={0}
-      className={cx(s.box5, className)}
+      className={cx(s.panel, className)}
       {...props}
     >
       {children}

@@ -30,16 +30,16 @@ export function Switch({
       onClick={() => onChange(!checked)}
       className={cx(
         s.root,
-        s.box,
-        s.box2,
+        s.motion,
+        s.disabled,
         checked ? 'switch-track-on' : 'switch-track-off',
       )}
     >
       <span
         className={cx(
-          `${s.span} switch-thumb`,
-          s.span2,
-          checked ? s.box5 : s.box6,
+          `${s.thumb} switch-thumb`,
+          s.thumbMotion,
+          checked ? s.thumbOn : s.thumbOff,
         )}
       />
     </button>

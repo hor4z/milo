@@ -39,14 +39,14 @@ export function Search({
       value={value}
       onChange={e => onValueChange(e.target.value)}
       placeholder={placeholder}
-      className={cx(block ? cls.root : cls.box, className)}
+      className={cx(block ? cls.root : cls.inline, className)}
       suffix={value
         ? (
           <button
             type="button"
             aria-label="Limpiar la búsqueda"
             onClick={() => { onValueChange(''); foco() }}
-            className={cls.box2}
+            className={cls.clear}
           >
             <Icon name="close" size={14} />
           </button>

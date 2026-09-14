@@ -1,5 +1,5 @@
 @layer milo.components {
-  .div {
+  .root {
     position: relative;
     overflow: hidden;
     border-radius: var(--radius-md);
@@ -8,7 +8,7 @@
     --milo-ring-color: var(--border);
   }
 
-  .box {
+  .scroller {
     scrollbar-width: none;
     overflow-x: auto;
     overflow-y: hidden;
@@ -23,7 +23,7 @@
     text-align: left;
   }
 
-  .span {
+  .clipShadow {
     pointer-events: none;
     position: absolute;
     top: 0;
@@ -38,11 +38,11 @@
     --milo-gradient-stops: var(--milo-gradient-via-stops,var(--milo-gradient-position), var(--milo-gradient-from) var(--milo-gradient-from-position), var(--milo-gradient-to) var(--milo-gradient-to-position));
   }
 
-  .thead {
+  .head {
     background-color: var(--surface-muted);
   }
 
-  .tfoot {
+  .foot {
     border-top-style: solid;
     border-top-width: 1px;
     border-color: var(--border);
@@ -56,7 +56,7 @@
     }
   }
 
-  .box2 {
+  .row {
     border-bottom-style: solid;
     border-bottom-width: 1px;
     border-color: var(--border);
@@ -75,11 +75,11 @@
     background-color: var(--surface-muted);
   }
 
-  .active2 {
+  .clickable {
     cursor: pointer;
   }
 
-  .th {
+  .headCell {
     height: 2.5rem;
     padding-inline: 1rem;
     font-size: var(--type-label);
@@ -95,7 +95,7 @@
     }
   }
 
-  .td {
+  .cell {
     height: 3.5rem;
     padding-inline: 1rem;
     font-size: var(--type-body);
@@ -111,7 +111,7 @@
     }
   }
 
-  .span2 {
+  .cellTitle {
     display: block;
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -123,7 +123,7 @@
     color: var(--text);
   }
 
-  .span3 {
+  .cellHint {
     margin-top: 0.125rem;
     display: block;
     text-overflow: ellipsis;
@@ -136,7 +136,7 @@
     color: var(--text-muted);
   }
 
-  .td2 {
+  .numberCell {
     height: 3.5rem;
     padding-inline: 1rem;
     text-align: right;
@@ -154,7 +154,7 @@
   }
 
   @media (hover:hover) {
-    .active2:hover {
+    .clickable:hover {
         background-color: var(--surface-muted);
     }
   }

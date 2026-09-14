@@ -19,12 +19,12 @@ export function Avatar({ name, src, size = 40, className }: {
   const fill = markFill[markColors[i % markColors.length]]
   return (
     <span
-      className={cx(`${cls.span} mark`, fill, className)}
+      className={cx(`${cls.root} mark`, fill, className)}
       style={{ width: size, height: size, fontSize: Math.max(10, Math.round(size * 0.3)), lineHeight: 1 }}
       aria-hidden="true"
     >
       {initials}
-      {src && <img src={src} alt="" loading="lazy" decoding="async" className={cls.img} />}
+      {src && <img src={src} alt="" loading="lazy" decoding="async" className={cls.photo} />}
     </span>
   )
 }
@@ -51,7 +51,7 @@ export function AvatarGroup({
   const overlap = Math.round(size / 3)
   return (
     <span
-      className={cx(cls.span2, className)}
+      className={cx(cls.stack, className)}
       style={{ '--overlap': `${overlap}px`, '--ring': ring } as CSSProperties}
     >
       {shown.map((p, i) => (
@@ -60,12 +60,12 @@ export function AvatarGroup({
           name={p.name}
           src={p.src}
           size={size}
-          className={cx('mark-ring', i > 0 && cls.box2)}
+          className={cx('mark-ring', i > 0 && cls.overlap)}
         />
       ))}
       {rest > 0 && (
         <span
-          className={cls.span3}
+          className={cls.rest}
           style={{ width: size, height: size, fontSize: Math.max(10, Math.round(size * 0.3)), lineHeight: 1 }}
         >
           +{rest}

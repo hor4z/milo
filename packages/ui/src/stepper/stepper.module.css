@@ -1,5 +1,5 @@
 @layer milo.components {
-  .div {
+  .root {
     display: inline-flex;
     height: 2.25rem;
     align-items: center;
@@ -15,7 +15,7 @@
     opacity: .45;
   }
 
-  .box {
+  .input {
     min-width: 0;
     flex: 1;
     background-color: #0000;
@@ -29,7 +29,7 @@
     outline-style: none;
   }
 
-  .span {
+  .suffix {
     flex-shrink: 0;
     padding-right: 0.25rem;
     font-size: var(--type-meta);
@@ -39,7 +39,7 @@
     color: var(--text-muted);
   }
 
-  .box2 {
+  .step {
     display: inline-flex;
     width: 2rem;
     height: 2rem;
@@ -58,13 +58,13 @@
   }
 
   @media (hover:hover) {
-    .box2:hover {
+    .step:hover {
         background-color: var(--field-bg-hover);
     }
   }
 
   @media (hover:hover) {
-    .box2:disabled:hover {
+    .step:disabled:hover {
         background-color: #0000;
     }
   }

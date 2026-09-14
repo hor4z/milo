@@ -9,7 +9,7 @@
     box-shadow: var(--milo-inset-shadow),var(--milo-inset-ring-shadow),var(--milo-ring-offset-shadow),var(--milo-ring-shadow),var(--milo-shadow);
   }
 
-  .box {
+  .separator {
 
     &>[data-divider] {
       margin-inline: calc(0.25rem * -1);
@@ -17,7 +17,7 @@
     }
   }
 
-  .box2 {
+  .item {
     display: flex;
     height: 2.5rem;
     width: 100%;
@@ -31,7 +31,7 @@
     letter-spacing: var(--type-body-ls);
   }
 
-  .box3 {
+  .itemMotion {
     transition-property: color,background-color,border-color,outline-color,text-decoration-color,fill,stroke,--milo-gradient-from,--milo-gradient-via,--milo-gradient-to;
     transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
     transition-duration: 150ms;
@@ -39,7 +39,7 @@
     transition-duration: var(--duration-fast);
   }
 
-  .box4 {
+  .disabled {
 
     &:disabled {
       pointer-events: none;
@@ -47,15 +47,15 @@
     }
   }
 
-  .box5 {
+  .danger {
     color: var(--bad-ink);
   }
 
-  .box6 {
+  .plain {
     color: var(--text);
   }
 
-  .span {
+  .label {
     min-width: 0;
     flex: 1;
     text-overflow: ellipsis;
@@ -63,7 +63,7 @@
     overflow: hidden;
   }
 
-  .span2 {
+  .hint {
     flex-shrink: 0;
     font-size: var(--type-meta);
     line-height: var(--type-meta-lh);
@@ -72,11 +72,11 @@
     color: var(--text-muted);
   }
 
-  .icon2 {
+  .submenuChevron {
     margin-right: calc(0.25rem * -1);
   }
 
-  .div {
+  .groupLabel {
     padding-inline: 0.5rem;
     padding-top: 0.5rem;
     padding-bottom: 0.5rem;
@@ -88,13 +88,13 @@
   }
 
   @media (hover:hover) {
-    .box5:hover {
+    .danger:hover {
         background-color: var(--bad-subtle);
     }
   }
 
   @media (hover:hover) {
-    .box6:hover {
+    .plain:hover {
         background-color: var(--surface-hover);
     }
   }

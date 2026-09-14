@@ -14,12 +14,12 @@ type QuoteProps = {
 /** Palabras de otro: lo que dijo alguien, un fragmento de un texto, la respuesta de un estudiante. */
 export function Quote({ children, source, cite, className }: QuoteProps) {
   return (
-    <figure className={cx(cls.figure, className)}>
-      <blockquote cite={cite} className={cls.blockquote}>
+    <figure className={cx(cls.root, className)}>
+      <blockquote cite={cite} className={cls.text}>
         {children}
       </blockquote>
       {source && (
-        <figcaption className={cls.figcaption}>
+        <figcaption className={cls.caption}>
           - {cite ? <cite className="not-italic">{source}</cite> : source}
         </figcaption>
       )}

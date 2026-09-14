@@ -1,17 +1,17 @@
 @layer milo.components {
-  .div {
+  .root {
     display: flex;
     flex-direction: column;
     align-items: center;
     text-align: center;
   }
 
-  .div2 {
+  .padSmall {
     padding-inline: 1rem;
     padding-block: 2rem;
   }
 
-  .div3 {
+  .padLarge {
     padding-inline: 1.5rem;
     padding-block: 4rem;
   }
@@ -24,7 +24,7 @@
     border-color: var(--border-strong);
   }
 
-  .span {
+  .badge {
     margin-bottom: 1rem;
     display: inline-flex;
     align-items: center;
@@ -33,54 +33,54 @@
     background-color: var(--surface-muted);
   }
 
-  .box {
+  .badgeSmall {
     width: 2.25rem;
     height: 2.25rem;
   }
 
-  .box2 {
+  .badgeLarge {
     width: 2.75rem;
     height: 2.75rem;
   }
 
-  .div4 {
+  .titleSmall {
     font-size: var(--type-body);
     line-height: var(--type-body-lh);
     letter-spacing: var(--type-body-ls);
     font-weight: var(--font-weight-semibold);
   }
 
-  .div5 {
+  .titleLarge {
     font-size: var(--type-reading);
     line-height: var(--type-reading-lh);
     letter-spacing: var(--type-reading-ls);
     font-weight: var(--font-weight-semibold);
   }
 
-  .p {
+  .body {
     margin-top: 0.5rem;
     max-width: 42ch;
     font-weight: var(--font-weight-medium);
     color: var(--text-muted);
   }
 
-  .p2 {
+  .bodySmall {
     font-size: var(--type-meta);
     line-height: var(--type-meta-lh);
     letter-spacing: var(--type-meta-ls);
   }
 
-  .p3 {
+  .bodyLarge {
     font-size: var(--type-body);
     line-height: var(--type-body-lh);
     letter-spacing: var(--type-body-ls);
   }
 
-  .div6 {
+  .actionSmall {
     margin-top: 1rem;
   }
 
-  .div7 {
+  .actionLarge {
     margin-top: 1.25rem;
   }
 

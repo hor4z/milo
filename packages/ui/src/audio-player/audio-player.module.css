@@ -1,17 +1,17 @@
 @layer milo.components {
-  .onda {
+  .waveSm {
     height: 2rem;
   }
 
-  .onda2 {
+  .waveMd {
     height: 2.5rem;
   }
 
-  .onda3 {
+  .waveLg {
     height: 3rem;
   }
 
-  .span {
+  .wave {
     pointer-events: none;
     position: absolute;
     inset: 0;
@@ -20,14 +20,14 @@
     overflow: hidden;
   }
 
-  .span2 {
+  .waveSlot {
     display: flex;
     flex: 1;
     align-items: center;
     justify-content: center;
   }
 
-  .span3 {
+  .peak {
     width: 50%;
     border-radius: var(--radius-full);
     transition-property: color,background-color,border-color,outline-color,text-decoration-color,fill,stroke,--milo-gradient-from,--milo-gradient-via,--milo-gradient-to;
@@ -37,15 +37,15 @@
     transition-timing-function: var(--ease-out);
   }
 
-  .box {
+  .peakPlayed {
     background-color: var(--chart-fill);
   }
 
-  .box2 {
+  .peakAhead {
     background-color: var(--border-strong);
   }
 
-  .span4 {
+  .bareTrack {
     pointer-events: none;
     position: absolute;
     inset-inline: 0;
@@ -57,7 +57,7 @@
     background-color: var(--border-strong);
   }
 
-  .span5 {
+  .bareFill {
     position: absolute;
     inset-block: 0;
     left: 0;
@@ -65,7 +65,7 @@
     background-color: var(--chart-fill);
   }
 
-  .div {
+  .root {
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
@@ -77,11 +77,11 @@
     padding-block: 0.5rem;
   }
 
-  .box3 {
+  .errored {
     border-color: var(--bad-border);
   }
 
-  .span6 {
+  .title {
     text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden;
@@ -92,27 +92,27 @@
     color: var(--text);
   }
 
-  .div2 {
+  .controls {
     display: flex;
     align-items: center;
     gap: 0.75rem;
   }
 
-  .span7 {
+  .playSlot {
     display: inline-flex;
     flex-shrink: 0;
     align-items: center;
     justify-content: center;
   }
 
-  .box4 {
+  .playIcon {
     flex-shrink: 0;
     & .ms-icon {
       font-variation-settings: "FILL" 1,"wght" var(--icon-wght,300);
     }
   }
 
-  .span8 {
+  .errorText {
     display: flex;
     flex: 1;
     align-items: center;
@@ -122,7 +122,7 @@
     color: var(--bad-ink);
   }
 
-  .span9 {
+  .timeline {
     position: relative;
     display: flex;
     min-width: 0;
@@ -130,7 +130,7 @@
     align-items: center;
   }
 
-  .box5 {
+  .seek {
     position: absolute;
     inset: 0;
     height: 100%;
@@ -141,14 +141,14 @@
     opacity: 0;
   }
 
-  .box6 {
+  .seekDisabled {
 
     &:disabled {
       cursor: default;
     }
   }
 
-  .box7 {
+  .seekFocus {
 
     &:focus-visible {
       border-radius: var(--radius-md);
@@ -160,7 +160,7 @@
     }
   }
 
-  .span10 {
+  .time {
     flex-shrink: 0;
     font-size: var(--type-meta);
     line-height: var(--type-meta-lh);
@@ -168,7 +168,7 @@
     color: var(--text-muted);
   }
 
-  .span11 {
+  .actions {
     display: flex;
     flex-shrink: 0;
     align-items: center;

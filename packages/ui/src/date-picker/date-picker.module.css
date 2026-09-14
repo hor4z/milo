@@ -23,22 +23,22 @@
     transition-timing-function: var(--ease-out);
   }
 
-  .span {
+  .value {
     min-width: 0;
     text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden;
   }
 
-  .value {
+  .placeholder {
     color: var(--text-placeholder);
   }
 
-  .icon {
+  .calendarIcon {
     flex-shrink: 0;
   }
 
-  .box {
+  .panel {
     position: fixed;
     z-index: 50;
     width: 300px;
@@ -51,7 +51,7 @@
     box-shadow: var(--milo-inset-shadow),var(--milo-inset-ring-shadow),var(--milo-ring-offset-shadow),var(--milo-ring-shadow),var(--milo-shadow);
   }
 
-  .div {
+  .header {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -59,7 +59,7 @@
     padding-bottom: 0.5rem;
   }
 
-  .box2 {
+  .prev {
     display: inline-flex;
     width: 2rem;
     height: 2rem;
@@ -73,7 +73,7 @@
     transition-timing-function: var(--ease-out);
   }
 
-  .span2 {
+  .monthName {
     font-size: var(--type-body);
     line-height: var(--type-body-lh);
     letter-spacing: var(--type-body-ls);
@@ -84,7 +84,7 @@
     }
   }
 
-  .box3 {
+  .next {
     display: inline-flex;
     width: 2rem;
     height: 2rem;
@@ -98,19 +98,19 @@
     transition-timing-function: var(--ease-out);
   }
 
-  .div2 {
+  .grid {
     display: flex;
     flex-direction: column;
     gap: 0.25rem;
   }
 
-  .div3 {
+  .weekdays {
     display: grid;
     grid-template-columns: repeat(7,minmax(0,1fr));
     gap: 0.25rem;
   }
 
-  .span3 {
+  .weekday {
     padding-bottom: 0.25rem;
     text-align: center;
     font-size: var(--type-meta);
@@ -120,13 +120,13 @@
     color: var(--text-muted);
   }
 
-  .div4 {
+  .week {
     display: grid;
     grid-template-columns: repeat(7,minmax(0,1fr));
     gap: 0.25rem;
   }
 
-  .box4 {
+  .day {
     position: relative;
     display: inline-flex;
     width: 2.25rem;
@@ -146,20 +146,20 @@
     transition-timing-function: var(--ease-out);
   }
 
-  .box5 {
+  .selected {
     background-color: var(--brand);
     color: var(--on-brand);
   }
 
-  .box6 {
+  .blocked {
     color: var(--text-disabled);
   }
 
-  .box7 {
+  .plain {
     color: var(--text);
   }
 
-  .span4 {
+  .today {
     position: absolute;
     bottom: 0.25rem;
     width: 0.25rem;
@@ -175,19 +175,19 @@
   }
 
   @media (hover:hover) {
-    .box2:hover {
+    .prev:hover {
         background-color: var(--surface-hover);
     }
   }
 
   @media (hover:hover) {
-    .box3:hover {
+    .next:hover {
         background-color: var(--surface-hover);
     }
   }
 
   @media (hover:hover) {
-    .box7:hover {
+    .plain:hover {
         background-color: var(--surface-hover);
     }
   }

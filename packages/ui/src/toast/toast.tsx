@@ -66,7 +66,7 @@ export function ToastProvider({ children, max = 3 }: {
           <ol
             aria-live="polite"
             aria-label="Avisos"
-            className={cls.ol}
+            className={cls.viewport}
           >
             {list.map(t => <ToastItem key={t.id} toast={t} onDismiss={dismiss} />)}
           </ol>
@@ -91,28 +91,28 @@ function ToastItem({ toast, onDismiss }: { toast: ToastRecord; onDismiss: (id: s
 
   return (
     <li
-      className={`${cls.li} ui-rise bg-popover`}
+      className={`${cls.root} ui-rise bg-popover`}
       onPointerEnter={() => setPaused(true)}
       onPointerLeave={() => setPaused(false)}
       onFocus={() => setPaused(true)}
       onBlur={() => setPaused(false)}
       aria-labelledby={id}
     >
-      <span className={cx(cls.span, toneClass[tone])}>
+      <span className={cx(cls.icon, toneClass[tone])}>
         <Icon name={toneIcon[tone]} size={18} />
       </span>
-      <div className={cls.div}>
-        <p id={id} className={cls.p}>{title}</p>
-        {body && <p className={cls.p2}>{body}</p>}
+      <div className={cls.body}>
+        <p id={id} className={cls.title}>{title}</p>
+        {body && <p className={cls.text}>{body}</p>}
         {action && (
-          <div className={cls.div2}>
+          <div className={cls.actions}>
             <Button size="sm" variant="raised" onClick={() => { action.onClick?.(); close() }}>
               {action.label}
             </Button>
           </div>
         )}
       </div>
-      <IconButton icon="close" label="Cerrar el aviso" size="sm" variant="ghost" onClick={close} className={cls.iconButton} />
+      <IconButton icon="close" label="Cerrar el aviso" size="sm" variant="ghost" onClick={close} className={cls.dismiss} />
     </li>
   )
 }

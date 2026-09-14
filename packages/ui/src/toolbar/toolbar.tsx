@@ -70,9 +70,9 @@ export function ToolbarButton({ icon, label, pressed, disabled, onClick }: {
       onClick={onClick}
       tabIndex={-1}
       className={cx(
-        s.box,
-        s.box2,
-        pressed ? s.box3 : s.box4,
+        s.button,
+        s.disabled,
+        pressed ? s.buttonOn : s.buttonOff,
       )}
     >
       <Icon name={icon} size={18} />
@@ -82,5 +82,5 @@ export function ToolbarButton({ icon, label, pressed, disabled, onClick }: {
 
 /** El corte entre dos grupos de la barra. */
 export function ToolbarSeparator() {
-  return <span aria-hidden className={s.span} />
+  return <span aria-hidden className={s.separator} />
 }

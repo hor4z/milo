@@ -1,5 +1,5 @@
 @layer milo.components {
-  .button {
+  .root {
     position: relative;
     display: inline-flex;
     align-items: center;
@@ -11,7 +11,7 @@
     transition-timing-function: var(--ease-out);
   }
 
-  .box {
+  .disabled {
 
     &:disabled {
       opacity: .45;
@@ -19,11 +19,11 @@
     }
   }
 
-  .box2 {
+  .radius {
     border-radius: var(--radius-md);
   }
 
-  .span {
+  .dot {
     position: absolute;
     width: 0.375rem;
     height: 0.375rem;

@@ -10,7 +10,7 @@ export type { MarkColor } from '../lib/colors'
 
 export function List({ children, className }: { children: ReactNode; className?: string }) {
   return (
-    <div className={cx(s.div, className)}>
+    <div className={cx(s.root, className)}>
       {children}
     </div>
   )
@@ -39,22 +39,22 @@ export function ListItem({
     <Tag
       onClick={onClick}
       className={cx(
-        s.tag,
-        s.box,
-        active ? s.box2 : `${s.box3} bg-surface`,
+        s.item,
+        s.motion,
+        active ? s.sunken : `${s.lifted} bg-surface`,
         onClick && !active && s.active,
       )}
     >
-      <span className={cx(`${s.span} mark`, markFill[color])}>
+      <span className={cx(`${s.swatch} mark`, markFill[color])}>
         <Icon name={icon} size={22} weight={400} />
       </span>
 
-      <span className={s.span2}>
-        <span className={s.span3}>{title}</span>
-        {hint && <span className={s.span4}>{hint}</span>}
+      <span className={s.body}>
+        <span className={s.title}>{title}</span>
+        {hint && <span className={s.hint}>{hint}</span>}
       </span>
 
-      {trailing && <span className={s.span5}>{trailing}</span>}
+      {trailing && <span className={s.trailing}>{trailing}</span>}
     </Tag>
   )
 }

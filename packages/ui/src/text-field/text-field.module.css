@@ -9,7 +9,7 @@
     background-color: var(--field-bg);
   }
 
-  .box {
+  .disabled {
 
     &:has(:is(input:disabled)) {
       pointer-events: none;
@@ -35,7 +35,7 @@
     }
   }
 
-  .box2 {
+  .inputPad {
     margin-inline: calc(0.25rem * -2);
     padding-inline: 0.5rem;
   }

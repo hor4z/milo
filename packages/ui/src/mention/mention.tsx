@@ -22,11 +22,11 @@ export function Mention({ name, src, icon, href, className }: MentionProps) {
     <Tag
       href={href}
       className={cx(
-        s.tag,
-        s.box,
+        s.root,
+        s.tint,
         href
-          ? s.box2
-          : s.box3,
+          ? s.linked
+          : s.plain,
         className,
       )}
     >
