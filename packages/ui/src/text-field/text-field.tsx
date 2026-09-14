@@ -31,7 +31,7 @@ export function TextField({ icon, suffix, size = 'lg', className, ref, inputRef,
         e.currentTarget.querySelector('input')?.focus()
       }}
       className={cx(
-        `${s.root} field touch-target`,
+        `${s.root} field`,
         s.disabled,
         fieldSizes[size], className,
       )}

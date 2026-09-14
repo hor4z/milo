@@ -105,7 +105,7 @@ export function Select({
           if (e.key === 'ArrowDown' || e.key === 'ArrowUp') { e.preventDefault(); setOpen(true) }
         }}
         style={{ width }}
-        className={`${s.root} field-focus touch-target`}
+        className={`${s.root} field-focus`}
       >
         <span className={s.value}>
           {leadingNode && <span className={s.leading}>{leadingNode}</span>}

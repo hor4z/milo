@@ -180,10 +180,14 @@
     .heightSm,
     .heightMd,
     .squareSm,
-    .squareMd,
-    .fieldSm,
-    .fieldMd {
+    .squareMd {
       height: 2.5rem;
+    }
+
+    .fieldSm,
+    .fieldMd,
+    .fieldLg {
+      height: 2.75rem;
     }
 
     .squareSm,

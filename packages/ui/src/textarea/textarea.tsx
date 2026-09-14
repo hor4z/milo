@@ -82,7 +82,7 @@ export function Textarea({
         e.currentTarget.querySelector('textarea')?.focus()
       }}
       className={cx(
-        `${cls.root} field touch-target`,
+        `${cls.root} field`,
         cls.disabled,
         cls.shape,
         counter ? cls.withCounter : '',

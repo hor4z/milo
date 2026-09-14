@@ -46,7 +46,7 @@ export function Stepper({
     <div
       style={{ width }}
       className={cx(
-        `${cls.root} field touch-target`,
+        `${cls.root} field`,
         disabled && cls.disabled,
       )}
     >

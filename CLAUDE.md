@@ -85,10 +85,15 @@ El corolario que cuesta ver: una clase global de `base.css` va sin capa, así qu
 cualquier módulo. Cuando las dos tienen que convivir (el anillo de un avatar sobre el relieve de
 `.mark`) la receta se compone en `base.css`, no se pelea desde el módulo.
 
-`touch-target` es la otra clase que no dibuja nada: con `pointer: coarse` le agranda a un control
-el blanco de toque hasta 44×44 con un `::after`, sin mover la caja. Así la densidad de escritorio
-queda intacta y el dedo igual encuentra el control. La pone la pieza, no el call site, porque es la
-pieza la que sabe de qué tamaño es.
+`touch-target` es la otra clase que no dibuja nada: con `pointer: coarse` le agranda a un botón el
+blanco de toque hasta 44×44 con un `::after`, sin mover la caja. Así la densidad de escritorio queda
+intacta y el dedo igual lo encuentra. La pone la pieza, no el call site, porque es la pieza la que
+sabe de qué tamaño es.
+
+**Va solo donde toda la superficie es un mismo objetivo**, o sea en un botón. En un campo no: el
+`::after` se pinta sobre el contenido, así que se quedaría con el tap que iba al `input` y el cursor
+no caería donde tocaste. Los campos llegan a 44 subiendo la caja de verdad, que en algo ancho no
+cuesta nada.
 
 `.group` y `.peer` son las dos únicas clases que no dibujan nada: existen para que un módulo
 pueda colgar de ellas con `:global(.group)` y estilar a un hijo según el estado del padre, que es
@@ -556,10 +561,10 @@ un aula:
   `align="right"` ni columna de acciones, y `Modal` no tiene `ModalHeader`/`Body`/`Footer` como sí
   tiene `Card`: la historia del modal construye el interior entero a mano.
 - **La familia de controles ya llega a 44×44 en táctil; el resto de las piezas no.** Con
-  `pointer: coarse` el piso sube a `lg` y encima va la clase global `touch-target`, que agranda el
-  blanco de toque a 44 sin mover la caja, así que en escritorio no cambia un píxel. Lo tienen
-  `Button`, `IconButton`, `ToolbarButton`, `TextField`, `Textarea`, `Select`, `DatePicker` y
-  `Stepper`. **Lo que falta, medido**: `Checkbox` y `Radio` de 18, `Switch` de 22, el tachito de
+  `pointer: coarse` los botones suben a `lg` y llevan `touch-target`, que agranda el blanco de toque
+  a 44 sin mover la caja; los campos suben la caja a 44 de verdad, porque ahí el tap tiene que llegar
+  al `input`. En escritorio no cambia un píxel. Lo tienen `Button`, `IconButton`, `ToolbarButton`,
+  `TextField`, `Textarea`, `Select`, `DatePicker` y `Stepper`. **Lo que falta, medido**: `Checkbox` y `Radio` de 18, `Switch` de 22, el tachito de
   `Chip` de 24 y el de `Search` de 24, el eslabón de `Breadcrumb` de 24, las opciones de
   `Segmented` de 28 a 32, y las solapas de `Tabs` y los ítems de `Menu` de 36 a 40. Esas no son
   una omisión: varias son compactas a propósito, así que subirlas es una decisión sobre cómo se
