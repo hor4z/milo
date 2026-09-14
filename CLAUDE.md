@@ -18,7 +18,7 @@ final son lo único que hay que tocar.
 npm install
 npm run dev        # el sitio · http://localhost:5190
 npm run typecheck  # todo el monorepo de una
-npm test           # 677 tests con vitest y testing-library
+npm test           # 686 tests con vitest y testing-library
 npm run props      # regenera la tabla de props desde los tipos
 ```
 
@@ -123,6 +123,9 @@ cosa), así que ahora dirige en vez de explicar.
 | cómo se escribe un número | **Fundamentos › Números y valores** | `lib/number.ts` |
 | quién está mirando y qué ve | **Fundamentos › Quién está mirando** | - |
 | cómo suena, y cuándo | **Fundamentos › Voz y sonido** | `audio-player/` |
+| imagen, audio, video y animación | **Fundamentos › Medios** | `figure/` · `audio-player/` |
+| que lo mismo llegue de más de una forma | **Fundamentos › Más de una forma** | - |
+| qué se puede hacer cuando contesta un modelo | **Fundamentos › Cuando responde la IA** | - |
 | el texto de la interfaz | **Fundamentos › Cómo se escribe** | - |
 | a quién le hablamos | **Fundamentos › Inclusión** | - |
 
@@ -376,9 +379,9 @@ apps/kit/src/           el sitio: App.tsx (shell y riel) · kit.tsx (Page, Secti
                         Cluster, Frame, Footnote, Grid, Props, A11y, Note) · intro.tsx (la portada) ·
                         dashboard.tsx · document.tsx · stories/ (una por pieza) ·
                         mascots/ ·
-                        foundations/ (principles · accessibility · roles · typography ·
+                        foundations/ (principles · accessibility · roles · ai · typography ·
                         color · measure · layout · relief · motion · states ·
-                        charts · time · numbers · sound · writing · inclusion)
+                        charts · time · media · ways · sound · numbers · writing · inclusion)
 ```
 
 **El corte entre el paquete y el sitio es por dependencia, no por gusto.** `packages/ui` no
@@ -409,9 +412,9 @@ cada una linkea a la otra: solapas o acordeón, alert o toast, sheet o modal, li
 Las piezas se agrupan por el trabajo que hacen
 (Fundamentos, Mascotas, Editor, Acciones, Formularios, Navegación, Datos, Avisos, Superficies) y
 no por su tipo técnico. **Fundamentos va primero** y es la capa de la que sale todo lo demás:
-Principios · Accesibilidad · Quién está mirando · Tipografía · Color · Medidas y radios · Layout ·
-Relieve · Movimiento · Estados · Iconos · Gráficos · Fecha y hora · Números y valores ·
-Voz y sonido · Cómo se escribe · Inclusión. El orden adentro no es alfabético: las
+Principios · Accesibilidad · Quién está mirando · Cuando responde la IA · Tipografía · Color ·
+Medidas y radios · Layout · Relieve · Movimiento · Estados · Iconos · Gráficos · Fecha y hora ·
+Medios · Más de una forma · Voz y sonido · Números y valores · Cómo se escribe · Inclusión. El orden adentro no es alfabético: las
 dos primeras son las que hay que leer antes de tocar nada, y después van las capas en el orden en
 que se construye una pantalla.
 
@@ -450,7 +453,7 @@ Lo mismo vale para los tipos que una pieza recibe como argumento (`ToastOptions`
 
 ## Los tests
 
-`npm test` corre vitest con jsdom y testing-library. 677 tests, y lo que prueban es el
+`npm test` corre vitest con jsdom y testing-library. 686 tests, y lo que prueban es el
 comportamiento (teclado, nombres accesibles, estados) y no el markup, que cambia con cada
 ajuste de estilo. El test de cada pieza vive en su carpeta, al lado del componente.
 
@@ -515,6 +518,23 @@ dato contra su pista: todo en los dos temas. Los tres últimos faltaban, y las t
 escritas desde antes de que los valores las cumplieran. Si alguien cambia un tono y rompe un par,
 falla antes de llegar a una pantalla.
 
+## De dónde se toma lo que ya está resuelto afuera
+
+**La referencia son las Human Interface Guidelines de Apple**, y no por gusto: es lo más completo que
+hay escrito sobre interfaz, y en lo que a este sistema le faltaba (medios y modelos) es justamente lo
+que más detalle tiene. De ahí salen las cuatro formas escritas de un medio que suena, la proporción
+original de un video, el volumen que es del sistema operativo y no de la pieza, el tamaño y el aire
+de un objetivo táctil, y las ocho reglas de **Cuando responde la IA**.
+
+Lo que **no** se toma: Apple escribe para apps nativas en sus plataformas, así que lo que dice sobre
+reproductores del sistema, Picture in Picture o la app de TV no aplica. Y sobre cómo aprende alguien
+no dice nada, que es correcto porque no es su tema: lo que hay en **Más de una forma** sale de
+investigación en aprendizaje y está marcado como tal adentro de la vista.
+
+Cuando la referencia corrige algo que este repo tenía escrito, se corrige y se deja dicho. Ya pasó
+una vez: el repo decía que Apple "pide 44×44" para el dedo, y Apple tiene dos números, 44 de default
+y 28 de mínimo, más una advertencia sobre el aire entre controles que acá no estaba.
+
 ## Lo que se revisó contra una referencia, y qué se decidió
 
 Se recorrió entero el mapa de una guía de interfaz de referencia (dieciocho fundamentos,
@@ -556,6 +576,14 @@ un aula:
 - **`Modal` tiene dos fuentes para su nombre.** La prop `label` es la que el lector de pantalla
   anuncia, y `ModalTitle` es la que se ve: en la historia dicen cosas distintas y nada lo mira. La
   salida es que el título se ate solo con `aria-labelledby`, como hace el `Sheet`.
+- **El lienzo, antes que los manipulables y que el editor de nodos.** Los dos necesitan lo mismo y
+  no está decidido: pan, zoom, selección, y el teclado para todo eso. Si se arman por separado, cada
+  uno lo inventa y quedan dos sistemas. Es la misma forma que ya tuvo el arrastre, donde `Reorder`
+  entró con la regla de que el teclado es la pieza y el arrastre la comodidad.
+- **La gramática de un manipulable**, que es la parte de lo lúdico que sí es del sistema: cómo avisa
+  que se puede agarrar, qué devuelve cuando se lo mueve, qué pasa sin mouse, y sobre todo la línea
+  entre explorar y evaluar. Un manipulable donde equivocarse es parte de entender no puede usar el
+  rojo de error, y hoy esa contradicción no está escrita en ningún lado.
 - **El helper `face()` está copiado en cinco historias** (avatar, mention, table, chart, folder), y
   `p()` o `person()` en tres. Es contenido de ejemplo, así que va a un `fixtures.ts` compartido.
 - **Un `Stack` hermano de `Cluster`.** Hay 23 clases en 18 archivos que son la misma columna con
