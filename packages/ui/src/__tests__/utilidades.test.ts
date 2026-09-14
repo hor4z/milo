@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import { readFileSync, readdirSync, statSync } from 'node:fs'
-import { join } from 'node:path'
+import { dirname, join, relative } from 'node:path'
 
 const ui = join(import.meta.dirname, '..')
 const kit = join(import.meta.dirname, '../../../../apps/kit/src')
@@ -14,8 +14,8 @@ function walk(base: string, prefix = ''): string[] {
 }
 
 const fuentes = [
-  ...walk(ui).map(f => ({ nombre: `ui/${f}`, texto: readFileSync(join(ui, f), 'utf8') })),
-  ...walk(kit).map(f => ({ nombre: `kit/${f}`, texto: readFileSync(join(kit, f), 'utf8') })),
+  ...walk(ui).map(f => ({ nombre: `ui/${f}`, ruta: join(ui, f), texto: readFileSync(join(ui, f), 'utf8') })),
+  ...walk(kit).map(f => ({ nombre: `kit/${f}`, ruta: join(kit, f), texto: readFileSync(join(kit, f), 'utf8') })),
 ]
 
 const tokens = join(ui, '../../tokens/src')
@@ -28,15 +28,40 @@ const puente = [
   join(tokens, 'scales.css'),
 ].map(f => readFileSync(f, 'utf8')).join('\n')
 
-function modulos(base: string, prefijo = ''): { nombre: string; texto: string }[] {
+function modulos(base: string, prefijo = ''): { nombre: string; ruta: string; texto: string }[] {
   return readdirSync(base, { withFileTypes: true }).flatMap(e =>
     e.isDirectory() ? (e.name === 'node_modules' ? [] : modulos(join(base, e.name), `${prefijo}${e.name}/`))
     : e.name.endsWith('.module.css')
-      ? [{ nombre: `${prefijo}${e.name}`, texto: readFileSync(join(base, e.name), 'utf8') }]
+      ? [{ nombre: `${prefijo}${e.name}`, ruta: join(base, e.name), texto: readFileSync(join(base, e.name), 'utf8') }]
       : [])
 }
 
 const css = [...modulos(ui), ...modulos(kit)]
+
+const porRuta = new Map(css.map(f => [f.ruta, f]))
+
+const importaciones = fuentes.flatMap(fuente =>
+  [...fuente.texto.matchAll(/import\s+(\w+)\s+from\s+'(\.[^']*\.module\.css)'/g)].map(m => ({
+    fuente,
+    alias: m[1],
+    modulo: porRuta.get(join(dirname(fuente.ruta), m[2])),
+    pedido: m[2],
+  })))
+
+function declaradas(texto: string) {
+  const nombres = new Set<string>()
+  for (const bloque of texto.replace(/:global\([^)]*\)/g, '').matchAll(/([^{};]*)\{/g)) {
+    if (/@[\w-]/.test(bloque[1])) continue
+    for (const clase of bloque[1].matchAll(/\.([A-Za-z][\w-]*)/g)) {
+      if (/^[A-Za-z]\w*$/.test(clase[1])) nombres.add(clase[1])
+    }
+  }
+  return [...nombres]
+}
+
+function usadas(texto: string, alias: string) {
+  return new Set([...texto.matchAll(new RegExp(`\\b${alias}\\.([A-Za-z][\\w]*)`, 'g'))].map(m => m[1]))
+}
 
 describe('el CSS del sistema se sostiene solo', () => {
   it('ningún módulo nombra un token que no existe', () => {
@@ -57,18 +82,39 @@ describe('el CSS del sistema se sostiene solo', () => {
     expect([...new Set(huerfanos)]).toEqual([])
   })
 
+  it('cada import de un módulo resuelve a un archivo que existe', () => {
+    const rotos = importaciones.filter(i => !i.modulo).map(i => `${i.fuente.nombre}: ${i.pedido}`)
+    expect(rotos).toEqual([])
+  })
+
   it('ninguna clase de un módulo se quedó sin usar', () => {
+    const usos = new Map<string, Set<string>>()
+    for (const i of importaciones) {
+      if (!i.modulo) continue
+      const vistas = usos.get(i.modulo.ruta) ?? new Set<string>()
+      for (const n of usadas(i.fuente.texto, i.alias)) vistas.add(n)
+      usos.set(i.modulo.ruta, vistas)
+    }
+
     const muertas: string[] = []
     for (const f of css) {
-      const fuente = fuentes.find(s => s.nombre.endsWith(f.nombre.replace('.module.css', '.tsx'))
-        || s.nombre.endsWith(f.nombre.replace('.module.css', '.ts')))
-      if (!fuente) continue
-      for (const m of f.texto.matchAll(/^\s*\.([A-Za-z][\w]*)\s*\{/gm)) {
-        if (new RegExp(`\\.${m[1]}(?![\\w])`).test(fuente.texto)) continue
-        muertas.push(`${f.nombre}: .${m[1]}`)
-      }
+      const vistas = usos.get(f.ruta)
+      if (!vistas) continue
+      for (const n of declaradas(f.texto)) if (!vistas.has(n)) muertas.push(`${f.nombre}: .${n}`)
     }
     expect(muertas).toEqual([])
+  })
+
+  it('ninguna referencia a una clase apunta a la nada', () => {
+    const huerfanas: string[] = []
+    for (const i of importaciones) {
+      if (!i.modulo) continue
+      const hay = new Set(declaradas(i.modulo.texto))
+      for (const n of usadas(i.fuente.texto, i.alias)) {
+        if (!hay.has(n)) huerfanas.push(`${i.fuente.nombre}: ${i.alias}.${n} no está en ${relative(ui, i.modulo.ruta)}`)
+      }
+    }
+    expect(huerfanas).toEqual([])
   })
 
   it('no queda nada de Tailwind', () => {

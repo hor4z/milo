@@ -45,7 +45,7 @@ export function Intro({ go, views }: { go: (id: string) => void; views: number }
           </div>
 
           <dl className={cls.dl}>
-            {[[String(views), 'vistas'], ['673', 'tests'], ['172', 'iconos'], ['2', 'temas']].map(([n, l]) => (
+            {[[String(views), 'vistas'], ['675', 'tests'], ['172', 'iconos'], ['2', 'temas']].map(([n, l]) => (
               <div key={l} className={cls.div8}>
                 <dt className={`${cls.dt} tabular`}>{n}</dt>
                 <dd className={cls.dd}>{l}</dd>
