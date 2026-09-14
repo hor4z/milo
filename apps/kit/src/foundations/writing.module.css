@@ -31,12 +31,6 @@
     color: var(--text-muted);
   }
 
-  .comparisonStack {
-    display: flex;
-    flex-direction: column;
-    gap: 0.75rem;
-  }
-
   .comparison {
     overflow: hidden;
     border-radius: var(--radius-xl);

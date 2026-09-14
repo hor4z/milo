@@ -1,7 +1,7 @@
 import cls from './numbers.module.css'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@milo/ui'
 import { bytes, count, decimals, delta, share, span, withUnit } from '@milo/ui'
-import { A11y, Note, Page, Panel, Rich, Section, Variant } from '../kit'
+import { A11y, Note, Page, Panel, Rich, Section, Stack, Variant } from '../kit'
 
 const cual = [
   ['Una cantidad que alguien va a leer', '`18 de 24`', 'La cuenta dice cuánto falta; el porcentaje obliga a calcularlo'],
@@ -120,10 +120,10 @@ function Muestra({ children }: { children: React.ReactNode }) {
 
 function Columna({ titulo, clase, children }: { titulo: string; clase: string; children: React.ReactNode }) {
   return (
-    <div className={cls.columnBlock}>
+    <Stack gap="sm">
       <span className={cls.columnLabel}>{titulo}</span>
       <div className={`${cls.column} ${clase}`}>{children}</div>
-    </div>
+    </Stack>
   )
 }
 

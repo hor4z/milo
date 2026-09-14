@@ -1,7 +1,6 @@
-import cls from './stepper.module.css'
 import { useState } from 'react'
 import { Field, FieldSet, Stepper } from '@milo/ui'
-import { A11y, Canvas, Cluster, Note, Page, Panel, Props, Section, Variant } from '../kit'
+import { A11y, Canvas, Cluster, Note, Page, Panel, Props, Section, Stack, Variant } from '../kit'
 
 export function StepperStory() {
   const [intentos, setIntentos] = useState(3)
@@ -22,7 +21,7 @@ export function StepperStory() {
         note="El `Field` de alrededor le pone el nombre y la ayuda, igual que a cualquier otro control. El sufijo va adentro y se lee con el número ('45 min') y no como una palabra suelta después."
       >
         <Canvas>
-          <div className={cls.fieldStack}>
+          <Stack gap="xl" width="md">
             <FieldSet legend="Cómo se entrega">
               <Field label="Intentos" hint="Cuántas veces puede volver a entregar">
                 <Stepper value={intentos} onChange={setIntentos} min={1} max={9} label="Intentos" />
@@ -31,7 +30,7 @@ export function StepperStory() {
                 <Stepper value={minutos} onChange={setMinutos} min={5} max={120} step={5} suffix="min" label="Tiempo" width={148} />
               </Field>
             </FieldSet>
-          </div>
+          </Stack>
         </Canvas>
       </Section>
 

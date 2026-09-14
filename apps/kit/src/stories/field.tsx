@@ -1,7 +1,6 @@
-import cls from './field.module.css'
 import { useState } from 'react'
 import { Checkbox, Field, FieldSet, Select, Switch, TextField, Textarea } from '@milo/ui'
-import { A11y, Canvas, Frame, Note, Page, Props, Section } from '../kit'
+import { A11y, Canvas, Frame, Note, Page, Props, Section, Stack } from '../kit'
 
 export function FieldStory() {
   const [fueraDeFecha, setFueraDeFecha] = useState(true)
@@ -24,7 +23,7 @@ export function FieldStory() {
         note="La etiqueta enfoca el campo al tocarla, la ayuda se anuncia junto con el control y el error la reemplaza además de marcar el campo como inválido. Los campos del sistema se atan solos: no hay que pasarles `id` ni `aria-describedby`."
       >
         <Canvas>
-          <div className={cls.helpStack}>
+          <Stack gap="xl" width="md">
             <Field label="Nombre de la actividad" hint="Lo ven los estudiantes" required error={error}>
               <TextField
                 value={name}
@@ -36,7 +35,7 @@ export function FieldStory() {
             <Field label="Consigna" hint="Podés pegar el texto que ya tenías">
               <Textarea rows={3} maxRows={8} placeholder="Escribí la consigna…" />
             </Field>
-          </div>
+          </Stack>
         </Canvas>
       </Section>
 
@@ -45,7 +44,7 @@ export function FieldStory() {
         note="No solo para los campos de texto: el select, el switch y la casilla también toman el `id` y la descripción del Field. Es la diferencia entre una etiqueta que enfoca y una etiqueta que es texto al lado de un control."
       >
         <Canvas>
-          <div className={cls.anyControlStack}>
+          <Stack gap="xl" width="md">
             <Field label="Espacio" hint="Dónde se publica">
               <Select value={espacio} onChange={setEspacio} options={['Matemática · 4.º A', 'Lengua · 6.º']} />
             </Field>
@@ -55,7 +54,7 @@ export function FieldStory() {
             <Field label="Avisar al publicar">
               <Checkbox checked={avisar} onChange={setAvisar} label="Avisar al publicar" />
             </Field>
-          </div>
+          </Stack>
         </Canvas>
       </Section>
 

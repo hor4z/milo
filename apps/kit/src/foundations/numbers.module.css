@@ -26,12 +26,6 @@
     color: var(--text);
   }
 
-  .columnBlock {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-  }
-
   .columnLabel {
     font-size: var(--type-meta);
     line-height: var(--type-meta-lh);

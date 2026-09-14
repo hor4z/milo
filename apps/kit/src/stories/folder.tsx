@@ -1,6 +1,6 @@
 import cls from './folder.module.css'
 import { Card, Folder, Icon } from '@milo/ui'
-import { A11y, Footnote, Mono, Page, Props, Section } from '../kit'
+import { A11y, Footnote, Mono, Page, Props, Section, Stack } from '../kit'
 
 const face = (n: number) => `/avatars/${String(n).padStart(2, '0')}.webp`
 const p = (name: string, photo?: number) => ({ name, src: photo ? face(photo) : undefined })
@@ -30,10 +30,10 @@ export function FolderStory() {
       >
         <Card surface="muted" className={cls.layersShelf}>
           {[88, 128, 168, 220].map(s => (
-            <div key={s} className={cls.sizeSample}>
+            <Stack key={s} gap="xs" align="center">
               <Folder size={s} />
               <Mono>{s}</Mono>
-            </div>
+            </Stack>
           ))}
         </Card>
         <Footnote>

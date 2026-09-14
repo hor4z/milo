@@ -1,6 +1,5 @@
-import cls from './quote.module.css'
 import { Quote } from '@milo/ui'
-import { A11y, Frame, Note, Page, Props, Section } from '../kit'
+import { A11y, Frame, Note, Page, Props, Section, Stack } from '../kit'
 
 export function QuoteStory() {
   return (
@@ -14,13 +13,13 @@ export function QuoteStory() {
         title="La pieza"
         note="La barra va del lado de la lectura y no alrededor: una caja cerrada se lee como un aviso, y esto es texto adentro del texto. Va en el azul de marca y no en gris: en una página de texto corrido un gris más es una línea entre otras, y lo que la barra tiene que hacer es cortar la lectura."
       >
-        <div className={cls.pieceStack}>
+        <Stack gap="xl" width="xl">
           <Quote source="Ana, 6.º B">
             Me di cuenta de que si dibujaba el triángulo adentro del rectángulo, la mitad se veía
             sola y no hacía falta la fórmula.
           </Quote>
           <Quote>Lo que no se mide no se puede mejorar, pero no todo lo que importa se puede medir.</Quote>
-        </div>
+        </Stack>
       </Section>
 
       <Section

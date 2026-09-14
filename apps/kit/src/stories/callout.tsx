@@ -1,6 +1,6 @@
 import s from './callout.module.css'
 import { Callout } from '@milo/ui'
-import { A11y, Frame, Note, Page, Props, Section } from '../kit'
+import { A11y, Frame, Note, Page, Props, Section, Stack } from '../kit'
 
 export function CalloutStory() {
   return (
@@ -11,7 +11,7 @@ export function CalloutStory() {
       lead="Un bloque de contenido que pide detenerse: una aclaración, una pista, algo para recordar. Lo escribe quien arma el material, no el sistema."
     >
       <Section title="La pieza">
-        <div className={s.pieceStack}>
+        <Stack width="xl">
           <Callout icon="lightbulb" color="blue" title="Para acordarse">
             La velocidad límite no depende de la masa: depende de la forma y del aire.
           </Callout>
@@ -21,7 +21,7 @@ export function CalloutStory() {
           <Callout icon="visibility" color="orange" title="Ojo con esto">
             Dos figuras con el mismo perímetro pueden tener áreas muy distintas.
           </Callout>
-        </div>
+        </Stack>
       </Section>
 
       <Section title="Sin título y sin glifo" note="Cuando lo que hay que decir entra en una línea.">

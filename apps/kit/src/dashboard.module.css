@@ -1,10 +1,4 @@
 @layer milo.app {
-  .dashboard {
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
-  }
-
   .topBar {
     margin-inline: calc(0.25rem * -5);
     margin-top: calc(0.25rem * -5);
@@ -48,12 +42,6 @@
     align-items: flex-end;
     justify-content: space-between;
     gap: 1rem;
-  }
-
-  .pageHeading {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
   }
 
   .pageTitle {
@@ -171,12 +159,6 @@
     flex-direction: column;
     gap: 1.25rem;
     padding: 1.5rem;
-  }
-
-  .taskBlock {
-    display: flex;
-    flex-direction: column;
-    gap: 0.75rem;
   }
 
   .taskHeader {

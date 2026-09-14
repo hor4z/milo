@@ -1,5 +1,5 @@
 import css from './measure.module.css'
-import { Mono, Page, Section, useTokens } from '../kit'
+import { Mono, Page, Section, Stack, useTokens } from '../kit'
 
 const shell = [
   { token: '--sidebar-w', role: 'sidebar, fijo' },
@@ -51,7 +51,7 @@ export function MeasureSection() {
           title="Alturas de control"
           note="Tres alturas y un rol cada una. La de 36 y la de 40 comparten el escalón de lectura (16) y radio 12; la de 32 baja a 14 y a radio 10, porque va inline en una fila densa y el radio sigue al alto. El peso es el mismo en las tres: 450, que es el de lo accionable."
         >
-          <div className={css.heightStack}>
+          <Stack>
             {[
               { h: 32, name: 'sm', role: 'inline en una fila densa' },
               { h: 36, name: 'md', role: 'acciones dentro de un panel' },
@@ -64,7 +64,7 @@ export function MeasureSection() {
                 <span className={css.heightRole}>{c.role}</span>
               </div>
             ))}
-          </div>
+          </Stack>
         </Section>
 
         <Section
@@ -152,12 +152,12 @@ function Value({ token }: { token: string }) {
 
 function NestDemo({ child, label, verdict, ok }: { child: string; label: string; verdict: string; ok?: boolean }) {
   return (
-    <div className={css.nestDemo}>
+    <Stack gap="sm">
       <div className={css.nestParent}>
         <div className={`${css.nestedChild} ${child}`} />
       </div>
       <Mono>{label}</Mono>
       <span className={ok ? css.verdictGood : css.verdictBad}>{verdict}</span>
-    </div>
+    </Stack>
   )
 }

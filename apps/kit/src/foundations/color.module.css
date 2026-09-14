@@ -72,12 +72,6 @@
     gap: 1rem;
   }
 
-  .categoryStack {
-    display: flex;
-    flex-direction: column;
-    gap: 0.75rem;
-  }
-
   .dataCard {
     display: flex;
     flex-direction: column;
@@ -115,12 +109,6 @@
     border-color: var(--border);
   }
 
-  .headMeta {
-    display: flex;
-    flex-direction: column;
-    gap: 0.25rem;
-  }
-
   .headTitle {
     font-size: var(--type-reading);
     line-height: var(--type-reading-lh);
@@ -148,12 +136,6 @@
   .headSlot {
     margin-top: auto;
     padding-top: 0.25rem;
-  }
-
-  .groupBlock {
-    display: flex;
-    flex-direction: column;
-    gap: 0.75rem;
   }
 
   .groupTitle {

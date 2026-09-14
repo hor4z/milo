@@ -1,10 +1,4 @@
 @layer milo.app {
-  .roleStack {
-    display: flex;
-    flex-direction: column;
-    gap: 0.75rem;
-  }
-
   .ruleGrid {
     display: grid;
     gap: 0.75rem;
@@ -67,12 +61,6 @@
     gap: 1rem;
   }
 
-  .orderBlock {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-  }
-
   .firstLabel {
     font-size: var(--type-meta);
     line-height: var(--type-meta-lh);
@@ -104,12 +92,6 @@
     letter-spacing: var(--type-meta-ls);
     font-weight: var(--font-weight-medium);
     color: var(--text-muted);
-  }
-
-  .listBlock {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
   }
 
   .listTitle {

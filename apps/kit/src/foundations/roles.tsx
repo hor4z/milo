@@ -1,6 +1,6 @@
 import cls from './roles.module.css'
 import { Icon, type IconName } from '@milo/ui'
-import { A11y, Note, Page, Rich, Section } from '../kit'
+import { A11y, Note, Page, Rich, Section, Stack } from '../kit'
 
 type Rol = {
   nombre: string
@@ -62,9 +62,9 @@ export function RolesSection() {
         title="Los cuatro"
         note="El orden no es de importancia: es el de cuánto tiempo pasa cada uno adentro, que es lo que decide cuánta densidad tolera."
       >
-        <div className={cls.roleStack}>
+        <Stack>
           {roles.map(r => <Tarjeta key={r.nombre} rol={r} />)}
-        </div>
+        </Stack>
       </Section>
 
       <Section
@@ -114,12 +114,12 @@ function Tarjeta({ rol }: { rol: Rol }) {
       <div className={cls.roleColumns}>
         <Lista titulo="Ve" items={rol.ve} />
         <Lista titulo="Evitar" items={rol.evitar} />
-        <div className={cls.orderBlock}>
+        <Stack gap="sm">
           <span className={cls.firstLabel}>Primero</span>
           <span className={cls.firstText}>{rol.primero}</span>
           <span className={cls.neverLabel}>Nunca</span>
           <span className={cls.neverText}>{rol.nunca}</span>
-        </div>
+        </Stack>
       </div>
     </div>
   )
@@ -127,12 +127,12 @@ function Tarjeta({ rol }: { rol: Rol }) {
 
 function Lista({ titulo, items }: { titulo: string; items: string[] }) {
   return (
-    <div className={cls.listBlock}>
+    <Stack gap="sm">
       <span className={cls.listTitle}>{titulo}</span>
       <ul className={cls.list}>
         {items.map(i => <li key={i} className={cls.listItem}>{i}</li>)}
       </ul>
-    </div>
+    </Stack>
   )
 }
 

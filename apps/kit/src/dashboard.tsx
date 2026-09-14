@@ -1,4 +1,5 @@
 import cls from './dashboard.module.css'
+import { Stack } from './kit'
 import { useEffect, useState } from 'react'
 import {
   Avatar, AvatarGroup, BarChart, Button, Card, Chip, Dropdown, Folder, Icon, IconButton,
@@ -53,7 +54,7 @@ export function Dashboard() {
   const { toast } = useToast()
 
   return (
-    <div className={cls.dashboard}>
+    <Stack gap="xl">
       <div className={cls.topBar}>
         <Search
           block
@@ -93,12 +94,12 @@ export function Dashboard() {
       </div>
 
       <header className={cls.pageHeader}>
-        <div className={cls.pageHeading}>
+        <Stack gap="sm">
           <h1 className={cls.pageTitle}>Tu semana</h1>
           <p className={cls.pageSubtitle}>
             Ciencias ya está al día. Lo que falta mirar está en Matemática y Lengua.
           </p>
-        </div>
+        </Stack>
         <div className={cls.pageActions}>
           <Segmented
             size="sm"
@@ -171,7 +172,7 @@ export function Dashboard() {
         <div className={cls.sideColumn}>
           <Otto />
           <Card surface="muted" className={cls.sideCard}>
-            <div className={cls.taskBlock}>
+            <Stack>
               <div className={cls.taskHeader}>
                 <h2 className={cls.taskTitle}>Para hoy</h2>
                 <Link href="#list" className={cls.taskLink}>Ver todas</Link>
@@ -188,7 +189,7 @@ export function Dashboard() {
                   />
                 ))}
               </List>
-            </div>
+            </Stack>
 
             <div className={cls.progressBlock}>
               <h2 className={cls.progressTitle}>Cómo va cada espacio</h2>
@@ -207,7 +208,7 @@ export function Dashboard() {
       </div>
 
       <SettingsModal open={settings} onClose={() => setSettings(false)} user={yo} />
-    </div>
+    </Stack>
   )
 }
 

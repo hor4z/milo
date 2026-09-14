@@ -61,12 +61,6 @@
     color: var(--text-muted);
   }
 
-  .targetList {
-    display: flex;
-    flex-direction: column;
-    gap: 0.75rem;
-  }
-
   .targetRow {
     display: flex;
     flex-wrap: wrap;

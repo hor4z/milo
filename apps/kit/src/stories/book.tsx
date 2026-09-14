@@ -1,6 +1,6 @@
 import s from './book.module.css'
 import { Book, Icon } from '@milo/ui'
-import { A11y, Mono, Page, Props, Section } from '../kit'
+import { A11y, Mono, Page, Props, Section, Stack } from '../kit'
 
 export function BookStory() {
   return (
@@ -53,10 +53,10 @@ export function BookStory() {
       >
         <div className={`${s.widthShelf} bg-surface`}>
           {[140, 180, 220, 260].map(w => (
-            <div key={w} className={s.widthSample}>
+            <Stack key={w} gap="sm" align="center">
               <Book title="Doce actividades en siete espacios" width={w} />
               <Mono>{w}</Mono>
-            </div>
+            </Stack>
           ))}
         </div>
       </Section>

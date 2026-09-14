@@ -1,7 +1,7 @@
 import cls from './checkbox.module.css'
 import { useState } from 'react'
 import { Checkbox } from '@milo/ui'
-import { A11y, Page, Panel, Props, Section, Variant } from '../kit'
+import { A11y, Page, Panel, Props, Section, Stack, Variant } from '../kit'
 
 export function CheckboxStory() {
   const [espacios, setEspacios] = useState<string[]>(['Ciencias'])
@@ -43,7 +43,7 @@ export function CheckboxStory() {
             </label>
           </Variant>
           <Variant name="lista">
-            <div className={cls.listStack}>
+            <Stack gap="sm">
               {['Geografía', 'Ciencias', 'Matemática'].map(x => (
                 <label key={x} className={cls.itemLabel}>
                   <Checkbox
@@ -53,7 +53,7 @@ export function CheckboxStory() {
                   {x}
                 </label>
               ))}
-            </div>
+            </Stack>
           </Variant>
         </Panel>
       </Section>

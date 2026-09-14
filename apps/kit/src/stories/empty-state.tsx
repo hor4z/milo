@@ -1,6 +1,6 @@
 import cls from './empty-state.module.css'
 import { Button, EmptyState, FilterReset } from '@milo/ui'
-import { A11y, Demo, Page, Props, Section } from '../kit'
+import { A11y, Demo, Page, Props, Section, Stack } from '../kit'
 
 export function EmptyStateStory() {
   return (
@@ -14,7 +14,7 @@ export function EmptyStateStory() {
         title="Los dos tamaños"
         note="La diferencia no es el padding. `md` es el de una pantalla: 'esto está vacío y podés empezar acá'. `sm` es el de adentro de una pieza, donde el vacío es de una búsqueda y no del lugar: con el aire del grande, filtrar y no encontrar nada empuja la paginación media pantalla para abajo."
       >
-        <div className={cls.sizesStack}>
+        <Stack gap="lg">
           <Demo label="md · una pantalla">
             <EmptyState
               icon="inbox"
@@ -34,14 +34,14 @@ export function EmptyStateStory() {
               />
             </div>
           </Demo>
-        </div>
+        </Stack>
       </Section>
 
       <Section
         title="La caja punteada"
         note="Opcional, con una regla: adentro de algo que ya tiene marco, no va. El borde punteado dice 'acá va a haber contenido', y dibujado dentro de una tabla o de una tarjeta son dos marcos anidados discutiendo cuál es el borde de qué. Por eso `sm` la apaga sola: el lugar donde se usa `sm` es, casi por definición, adentro de otra cosa."
       >
-        <div className={cls.dashedStack}>
+        <Stack gap="lg">
           <Demo label="bordered · el default de md">
             <EmptyState icon="folder_open" title="Este espacio está vacío" body="Todavía no hay actividades acá." />
           </Demo>
@@ -55,7 +55,7 @@ export function EmptyStateStory() {
               />
             </div>
           </Demo>
-        </div>
+        </Stack>
       </Section>
 
       <Section

@@ -1,8 +1,0 @@
-@layer milo.app {
-  .fieldStack {
-    display: flex;
-    max-width: 420px;
-    flex-direction: column;
-    gap: 1.25rem;
-  }
-}

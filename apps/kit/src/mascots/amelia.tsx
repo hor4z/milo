@@ -1,6 +1,6 @@
 import s from './amelia.module.css'
 import { AssetTable, Portrait } from './mascot'
-import { A11y, Page, Section } from '../kit'
+import { A11y, Page, Section, Stack } from '../kit'
 import { useQuieto } from './quieto'
 
 const clips = [
@@ -39,10 +39,10 @@ export function AmeliaStory() {
                   className={s.clipImage}
                 />
               </div>
-              <div className={s.clipCaption}>
+              <Stack gap="xs">
                 <span className={s.clipTitle}>{c.titulo}</span>
                 <span className={s.clipNote}>{c.nota}</span>
-              </div>
+              </Stack>
             </div>
           ))}
         </div>

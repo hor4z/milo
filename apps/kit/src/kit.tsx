@@ -108,10 +108,10 @@ export function Code({ children }: { children: string }) {
 export function Section({ title, note, children }: { title: string; note?: string; children?: ReactNode }) {
   return (
     <section className={s.section}>
-      <div className={s.sectionHeader}>
+      <Stack gap="sm">
         <h2 className={s.sectionTitle}><Rich text={title} /></h2>
         {note && <p className={s.sectionNote}><Rich text={note} /></p>}
-      </div>
+      </Stack>
       {children}
     </section>
   )
@@ -161,6 +161,25 @@ export function Cluster({ gap = 'md', align = 'stretch', children, className }: 
 }
 
 const frameWidths = { xs: s.frameXs, sm: s.frameSm, md: s.frameMd, lg: s.frameLg, xl: s.frameXl }
+const stackAligns = { stretch: '', start: s.stackStart, center: s.stackCenter }
+
+/** Una columna con aire entre cada cosa. Es `Cluster` de arriba abajo, y comparte su escala de gap. */
+export function Stack({ gap = 'md', align = 'stretch', width, children, className }: {
+  /** El aire entre una cosa y la siguiente. */
+  gap?: keyof typeof clusterGaps
+  /** Cómo se alinean entre sí las cosas de distinto ancho. */
+  align?: keyof typeof stackAligns
+  /** Un tope de ancho, de la misma escala que `Frame`. */
+  width?: keyof typeof frameWidths
+  children: ReactNode
+  className?: string
+}) {
+  return (
+    <div className={cx(s.stack, clusterGaps[gap], stackAligns[align], width && s.frame, width && frameWidths[width], className)}>
+      {children}
+    </div>
+  )
+}
 
 /** Le pone un tope de ancho a la pieza y la estira hasta ahí, para que no se lea a lo ancho del lienzo. Estira solo si adentro hay una sola cosa: con varias, cada una se mide sola. */
 export function Frame({ width = 'sm', children, className }: {
@@ -241,7 +260,7 @@ export function Mono({ children }: { children: ReactNode }) {
 export function Props({ of }: { of: string | readonly string[] }) {
   const piezas = typeof of === 'string' ? [of] : of
   return (
-    <div className={s.propsTables}>
+    <Stack gap="lg">
       {piezas.map(pieza => {
         const doc = propsByComponent[pieza]
         const rows = doc?.props ?? []
@@ -300,7 +319,7 @@ export function Props({ of }: { of: string | readonly string[] }) {
           </div>
         )
       })}
-    </div>
+    </Stack>
   )
 }
 

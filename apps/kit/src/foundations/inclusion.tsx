@@ -1,6 +1,6 @@
 import cls from './inclusion.module.css'
 import { Avatar, Chip, Icon } from '@milo/ui'
-import { A11y, Note, Page, Section } from '../kit'
+import { A11y, Note, Page, Section, Stack } from '../kit'
 
 /** Pares de antes y después. El "by" es la regla que lo explica, no la corrección. */
 const pares = [
@@ -64,7 +64,7 @@ export function InclusionSection() {
         title="Cómo se nombra a alguien"
         note="Es la decisión que más veces aparece y la que más barato sale hacer bien. La regla corta: segunda persona, nombre propio, y ningún género que no haga falta elegir."
       >
-        <div className={cls.comparisonStack}>
+        <Stack>
           {pares.map(par => (
             <div key={par.good} className={`${cls.comparison} bg-surface`}>
               <div className={cls.comparisonBad}>
@@ -78,7 +78,7 @@ export function InclusionSection() {
               <p className={cls.comparisonWhy}>{par.by}</p>
             </div>
           ))}
-        </div>
+        </Stack>
       </Section>
 
       <Section

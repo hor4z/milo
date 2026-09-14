@@ -3,7 +3,7 @@ import {
   Alert, AlertTitle, Button, Chip, Progress, Table, TableBody, TableCell, TableHead,
   TableHeader, TableRow,
 } from '@milo/ui'
-import { Note, Page, Ramp, Rich, Section, Swatch, useTokens } from '../kit'
+import { Note, Page, Ramp, Rich, Section, Stack, Swatch, useTokens } from '../kit'
 
 const azul = ['--blue-050', '--blue-100', '--blue-200', '--blue-300', '--blue-400', '--blue-500', '--blue-600', '--blue-700', '--blue-800', '--blue-900'] as const
 const gris = ['--shade-01', '--shade-02', '--shade-03', '--shade-04', '--shade-05', '--shade-06', '--shade-07', '--shade-08', '--shade-09'] as const
@@ -205,7 +205,7 @@ export function ColorSection() {
         title="Categoría"
         note="Cuatro familias, y no se mezclan. Lo que decide cuál va no es el gusto: es **de qué tamaño es la pieza y qué se apoya encima**."
       >
-        <div className={cls.categoryStack}>
+        <Stack>
           <Familia
             nombre="mark"
             para="La marca de 44 de una fila, la inicial de un avatar"
@@ -230,7 +230,7 @@ export function ColorSection() {
             linea="El único color que se dibuja con SVG, porque la carpeta es bicolor y una fuente monocroma no puede."
             tokens={spaces}
           />
-        </div>
+        </Stack>
         <Note title="Antes de teñir algo">
           Los roles vivieron un rato juntos bajo el mismo nombre y de ahí salieron dos bugs: los
           chips quedaron pastel cuando ya tenían que ser vivos, y al pasarlos a vivos se llevó
@@ -263,10 +263,10 @@ function Cabeza({ titulo, token, linea, children }: { titulo: string; token: str
   return (
     <div className={`${cls.headCard} bg-surface`}>
       <span className={cls.headSwatch} style={{ background: `var(${token})` }} />
-      <div className={cls.headMeta}>
+      <Stack gap="xs">
         <span className={cls.headTitle}>{titulo}</span>
         <code className={cls.headToken}>{token} · {vals[token]}</code>
-      </div>
+      </Stack>
       <p className={cls.headNote}>{linea}</p>
       <div className={cls.headSlot}>{children}</div>
     </div>
@@ -275,10 +275,10 @@ function Cabeza({ titulo, token, linea, children }: { titulo: string; token: str
 
 function Grupo({ titulo, children }: { titulo: string; children: React.ReactNode }) {
   return (
-    <div className={cls.groupBlock}>
+    <Stack>
       <span className={cls.groupTitle}>{titulo}</span>
       <div className={cls.groupItems}>{children}</div>
-    </div>
+    </Stack>
   )
 }
 

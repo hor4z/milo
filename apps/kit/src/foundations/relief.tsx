@@ -1,5 +1,5 @@
 import css from './relief.module.css'
-import { Note, Page, Section } from '../kit'
+import { Note, Page, Section, Stack } from '../kit'
 
 const recipes = [
   { cls: 'raised', back: css.plateRaised, token: '--relief-raised', role: 'el botón gris que sobresale', detail: 'degradado, luz al 33%, canto y caída corta' },
@@ -46,10 +46,10 @@ export function ReliefSection() {
               <div className={`${r.cls} ${r.back} ${css.recipeSample}`}>
                 {r.role}
               </div>
-              <div className={css.recipeMeta}>
+              <Stack gap="xs">
                 <code className={css.recipeToken}>{r.token}</code>
                 <span className={css.recipeDetail}>{r.detail}</span>
-              </div>
+              </Stack>
             </div>
           ))}
         </div>

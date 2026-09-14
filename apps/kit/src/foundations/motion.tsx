@@ -1,7 +1,7 @@
 import css from './motion.module.css'
 import { useState } from 'react'
 import { Button, Icon, Switch } from '@milo/ui'
-import { A11y, Note, Page, Section } from '../kit'
+import { A11y, Note, Page, Section, Stack } from '../kit'
 
 /** Dos duraciones de interfaz, una de contenido, y dos curvas. */
 const duraciones = [
@@ -27,7 +27,7 @@ export function MotionSection() {
         title="Dos duraciones"
         note="120, 190 y 280 milisegundos. El corte no es estético: por debajo de unos 100ms el ojo no llega a ver el movimiento y solo registra el salto; por encima de unos 250ms la interfaz empieza a hacerse esperar. Lo que pasa de ahí ya no es interfaz: es contenido que se está mostrando, y por eso tiene su propio paso. Las tres estuvieron escritas a mano con valores distintos (250, 280 y 340) hasta que se contaron."
       >
-        <div className={css.durationList}>
+        <Stack>
           {duraciones.map(d => (
             <div key={d.name} className={`${css.durationRow} bg-surface`}>
               <code className={css.durationName}>{d.name}</code>
@@ -35,7 +35,7 @@ export function MotionSection() {
               <span className={css.durationRole}>{d.role}</span>
             </div>
           ))}
-        </div>
+        </Stack>
         <Note icon="build" title="Son tokens, y se leen como tokens">
           Una pieza escribe <code>transition-duration: var(--duration-fast)</code> en su módulo y
           nada más. No hay una capa de utilidades en el medio, así que no hay dos nombres para lo
@@ -48,7 +48,7 @@ export function MotionSection() {
         title="Salir es más corto que entrar"
         note="Abrir se mira; cerrar estorba. Lo que entra usa ease-out (arranca rápido y frena, así que la pieza está donde va antes de terminar de moverse) y lo que sale usa ease-in y se va antes."
       >
-        <div className={css.curveList}>
+        <Stack>
           {curvas.map(c => (
             <div key={c.name} className={`${css.curveRow} bg-surface`}>
               <code className={css.curveName}>{c.name}</code>
@@ -56,7 +56,7 @@ export function MotionSection() {
               <span className={css.curveRole}>{c.role}</span>
             </div>
           ))}
-        </div>
+        </Stack>
       </Section>
 
       <Probador />
@@ -87,7 +87,7 @@ export function MotionSection() {
         title="Apagarlo no es congelarlo"
         note="Con prefers-reduced-motion todas las animaciones se van y las transiciones bajan a un milisegundo. Pero lo que informa por moverse necesita otra salida, no la misma."
       >
-        <div className={css.reducedList}>
+        <Stack>
           {[
             ['El spinner', 'gira lento, 2.4s por vuelta', 'Es lo único que avisa que algo está pasando: quieto no dice nada, y quieto parece colgado.'],
             ['Las carpetas', 'las hojas quedan afuera, sin abanicar', 'La información (cuántas hay) se sigue viendo, que era el punto del abanico.'],
@@ -100,7 +100,7 @@ export function MotionSection() {
               <span className={css.reducedWhy}>{porque}</span>
             </div>
           ))}
-        </div>
+        </Stack>
       </Section>
 
       <Note icon="campaign" title="Lo que se mueve porque sí">

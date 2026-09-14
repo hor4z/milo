@@ -1,6 +1,6 @@
 import cls from './skeleton.module.css'
 import { Card, Skeleton } from '@milo/ui'
-import { A11y, Cluster, Demo, Note, Page, Props, Section } from '../kit'
+import { A11y, Cluster, Demo, Note, Page, Props, Section, Stack } from '../kit'
 
 export function SkeletonStory() {
   return (
@@ -15,7 +15,7 @@ export function SkeletonStory() {
         note="El esqueleto copia la forma, no el contenido: un círculo donde va el avatar, dos barras donde van el título y su línea de apoyo. La segunda va más corta porque los subtítulos son más cortos: si las dos miden igual, el bloque se lee como un párrafo y no como una fila."
       >
         <Demo label="mientras carga">
-          <div className={cls.rowsStack}>
+          <Stack gap="lg" width="md">
             {[0, 1, 2].map(i => (
               <div key={i} className={cls.row}>
                 <Skeleton className={cls.avatarBone} />
@@ -25,7 +25,7 @@ export function SkeletonStory() {
                 </div>
               </div>
             ))}
-          </div>
+          </Stack>
         </Demo>
       </Section>
 

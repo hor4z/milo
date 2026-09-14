@@ -1,7 +1,7 @@
 import cls from './command-menu.module.css'
 import { useState } from 'react'
 import { Button, CommandMenu, Kbd, Popover, type CommandGroup, type CommandItem } from '@milo/ui'
-import { A11y, Cluster, Frame, Note, Page, Props, Section } from '../kit'
+import { A11y, Cluster, Frame, Note, Page, Props, Section, Stack } from '../kit'
 
 const bloques: CommandGroup[] = [
   {
@@ -50,14 +50,14 @@ export function CommandMenuStory() {
         title="La pieza"
         note="Probá las flechas, Home y End, y escribí 'foto' para ver que Imagen aparece sin que la palabra esté en su nombre."
       >
-        <div className={cls.pieceStack}>
+        <Stack align="start">
           <Frame width="md">
             <CommandMenu groups={bloques} onSelect={setUltimo} />
           </Frame>
           <p className={cls.pickedNote}>
             {ultimo ? <>Elegiste <strong className={cls.emphasis}>{ultimo.label}</strong>.</> : 'Elegí uno para ver qué devuelve.'}
           </p>
-        </div>
+        </Stack>
       </Section>
 
       <Section

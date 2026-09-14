@@ -16,13 +16,6 @@
     padding-block: 2rem;
   }
 
-  .sizeSample {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 0.25rem;
-  }
-
   .colorShelf {
     display: flex;
     flex-wrap: wrap;

@@ -1,7 +1,7 @@
 import cls from './states.module.css'
 import { useState } from 'react'
 import { Button, Card, Chip, EmptyState, Icon, Skeleton, Spinner, Switch, TextField } from '@milo/ui'
-import { A11y, Note, Page, Section, Rich } from '../kit'
+import { A11y, Note, Page, Rich, Section, Stack } from '../kit'
 
 /** Los seis estados de algo que se toca, y con qué los dice este sistema. */
 const interaccion = [
@@ -48,7 +48,7 @@ export function StatesSection() {
             tag="Skeleton"
             nota="El esqueleto ocupa el lugar exacto de lo que falta, así que cuando llega no se mueve nada. Solo va cuando la forma es previsible: una fila, una tarjeta, un avatar."
           >
-            <div className={cls.loadingStack}>
+            <Stack>
               {[0, 1].map(i => (
                 <div key={i} className={`${cls.loadingRow} bg-surface`}>
                   <Skeleton className={cls.avatarBone} />
@@ -58,7 +58,7 @@ export function StatesSection() {
                   </div>
                 </div>
               ))}
-            </div>
+            </Stack>
           </Estado>
 
           <Estado
@@ -157,14 +157,14 @@ export function StatesSection() {
 
 function Estado({ titulo, tag, nota, children }: { titulo: string; tag: string; nota: string; children: React.ReactNode }) {
   return (
-    <div className={cls.optimisticStack}>
+    <Stack>
       <div className={cls.optimisticHead}>
         <span className={cls.optimisticTitle}>{titulo}</span>
         <Chip color="blue">{tag}</Chip>
       </div>
       <p className={cls.optimisticNote}>{nota}</p>
       <div className={cls.optimisticSlot}>{children}</div>
-    </div>
+    </Stack>
   )
 }
 

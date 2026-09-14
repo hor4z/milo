@@ -7,7 +7,7 @@ import {
   Table, TableBody, TableCell, TableFooter, TableHead, TableHeader,
   TableHint, TableNum, TableRow, TableTitle, facets, fold, timeAgo,
 } from '@milo/ui'
-import { A11y, Footnote, Mono, Page, Props, Section } from '../kit'
+import { A11y, Footnote, Mono, Page, Props, Section, Stack } from '../kit'
 
 const face = (n: number) => `/avatars/${String(n).padStart(2, '0')}.webp`
 
@@ -304,7 +304,7 @@ export function TableStory() {
         title="La columna de estudiantes"
         note="Se montan un tercio y llevan anillo, por el mismo motivo que en su propia vista. El resto va en un círculo neutro y no en otro color: un `+4` no identifica a nadie, y en la familia viva se leería como una persona más."
       >
-        <div className={cls.groupStack}>
+        <Stack gap="lg">
           <div className={`${cls.twoRow} bg-surface`}>
             <AvatarGroup people={[p('Ana Pérez', 1), p('Bruno Díaz', 2)]} />
             <Mono>2 de 3</Mono>
@@ -321,7 +321,7 @@ export function TableStory() {
             <AvatarGroup people={[p('Ana Pérez', 1), p('Bruno Díaz', 2), p('Carla Sosa', 3), p('Damián Ruiz', 4), p('Elena Vega', 5)]} />
             <Mono>5 · tres caras y el resto</Mono>
           </div>
-        </div>
+        </Stack>
         <Footnote>
           El sobrante de uno solo muestra la cuarta cara en vez de un "+1": el círculo ocupa
           exactamente lo mismo que la persona que estaría escondiendo, así que no ahorra nada y

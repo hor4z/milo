@@ -9,12 +9,6 @@
     font-weight: var(--font-weight-medium);
   }
 
-  .listStack {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-  }
-
   .itemLabel {
     display: flex;
     align-items: center;
