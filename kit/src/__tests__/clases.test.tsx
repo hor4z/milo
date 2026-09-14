@@ -5,7 +5,7 @@ import { join } from 'node:path'
 import type { ComponentType } from 'react'
 import { ToastProvider } from '@milo/ui'
 
-const ui = join(import.meta.dirname, '../../../../packages/ui/src')
+const ui = join(import.meta.dirname, '../../../src')
 const globales = new Set(
   ['styles/reset.css', 'styles/base.css', 'theme.css']
     .map(f => readFileSync(join(ui, f), 'utf8'))

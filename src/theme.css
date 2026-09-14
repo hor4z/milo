@@ -1,6 +1,6 @@
 @layer milo.reset, milo.components, milo.app;
 
-@import "../../tokens/src/index.css";
+@import "./styles/tokens/index.css";
 @import "./styles/base.css";
 
 @font-face {

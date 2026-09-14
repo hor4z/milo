@@ -1,0 +1,2 @@
+# Existe para que npm no lea .gitignore al empaquetar: dist está ignorado en git
+# y es justo lo que el paquete tiene que llevar. Lo que entra lo decide "files".

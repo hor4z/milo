@@ -3,7 +3,7 @@ import { readFileSync, readdirSync, statSync } from 'node:fs'
 import { dirname, join, relative } from 'node:path'
 
 const ui = join(import.meta.dirname, '..')
-const kit = join(import.meta.dirname, '../../../../apps/kit/src')
+const kit = join(import.meta.dirname, '../../kit/src')
 
 function walk(base: string, prefix = ''): string[] {
   return readdirSync(base).flatMap((f: string) => {
@@ -18,7 +18,7 @@ const fuentes = [
   ...walk(kit).map(f => ({ name: `kit/${f}`, file: join(kit, f), text: readFileSync(join(kit, f), 'utf8') })),
 ]
 
-const tokens = join(ui, '../../tokens/src')
+const tokens = join(ui, 'styles/tokens')
 const puente = [
   join(ui, 'theme.css'),
   join(ui, 'styles/base.css'),

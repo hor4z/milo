@@ -153,11 +153,11 @@ describe('los números de la portada', () => {
     const intro = readFileSync(join(import.meta.dirname, '../intro.tsx'), 'utf8')
     const announced = Number(intro.match(/\['(\d+)', 'tests'\]/)?.[1])
 
-    const root = join(import.meta.dirname, '../../../..')
+    const root = join(import.meta.dirname, '../../..')
     const walk = (base: string): string[] =>
       readdirSync(base, { withFileTypes: true }).flatMap(e =>
         e.isDirectory() ? walk(join(base, e.name)) : /\.test\.tsx?$/.test(e.name) ? [join(base, e.name)] : [])
-    const files = [...walk(join(root, 'packages/ui/src')), ...walk(import.meta.dirname)]
+    const files = [...walk(join(root, 'src')), ...walk(import.meta.dirname)]
     const written = files.reduce(
       (n, f) => n + [...readFileSync(f, 'utf8').matchAll(/^\s*it\(/gm)].length, 0)
 
@@ -171,7 +171,7 @@ describe('los números de la portada', () => {
     const intro = readFileSync(join(import.meta.dirname, '../intro.tsx'), 'utf8')
     const announced = Number(intro.match(/\['(\d+)', 'iconos'\]/)?.[1])
     const gen = readFileSync(
-      join(import.meta.dirname, '../../../../packages/ui/src/icons.gen.ts'),
+      join(import.meta.dirname, '../../../src/icons.gen.ts'),
       'utf8',
     )
     const reales = [...gen.matchAll(/^\s+\w+: 0x[0-9a-f]+,/gm)].length
@@ -184,7 +184,7 @@ describe('las escalas que la doctrina dibuja', () => {
     const vista = readFileSync(join(import.meta.dirname, '../foundations/measure.tsx'), 'utf8')
     const pasos = [...vista.matchAll(/\{ px: (\d+), role:/g)].map(m => Number(m[1]))
     const guarda = readFileSync(
-      join(import.meta.dirname, '../../../../packages/ui/src/__tests__/coherencia.test.ts'),
+      join(import.meta.dirname, '../../../src/__tests__/coherencia.test.ts'),
       'utf8',
     )
     const prohibidos = guarda
@@ -205,7 +205,7 @@ describe('las escalas que la doctrina dibuja', () => {
 
 describe('cómo se escribe', () => {
   it('no vuelve la raya larga ni las comillas angulares', () => {
-    const root = join(import.meta.dirname, '../../../..')
+    const root = join(import.meta.dirname, '../../..')
     const salta = new Set(['node_modules', '.git', 'dist', 'public', '.vite'])
     const mira = /\.(tsx?|css|mjs|md|html|py|json)$/
     const walk = (base: string, prefix = ''): string[] =>
@@ -240,7 +240,7 @@ describe('cobertura del kit', () => {
 
   it('cada componente exportado se muestra en alguna vista', () => {
     const index = readFileSync(
-      join(import.meta.dirname, '../../../../packages/ui/src/index.ts'),
+      join(import.meta.dirname, '../../../src/index.ts'),
       'utf8',
     )
     const exported = new Set<string>()

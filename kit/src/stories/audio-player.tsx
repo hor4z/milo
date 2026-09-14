@@ -2,7 +2,7 @@ import cls from './audio-player.module.css'
 import { AudioPlayer, IconButton, Tooltip } from '@milo/ui'
 import { A11y, Note, Page, Panel, Props, Section, Rich } from '../kit'
 
-/** Salen de `npm run picos -- apps/kit/public/audio/consigna.mp3 --barras 64`. */
+/** Salen de `npm run picos -- kit/public/audio/consigna.mp3 --barras 64`. */
 const peaks = [
   0.820, 0.945, 0.954, 0.886, 0.717, 1.000, 0.977, 1.000, 0.211, 0.519, 0.775, 1.000,
   0.206, 0.310, 0.015, 0.368, 0.803, 0.712, 0.488, 0.796, 0.373, 0.637, 0.190, 1.000,

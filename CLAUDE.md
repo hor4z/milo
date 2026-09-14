@@ -17,10 +17,16 @@ final son lo único que hay que tocar.
 ```sh
 npm install
 npm run dev        # el sitio · http://localhost:5190
-npm run typecheck  # todo el monorepo de una
+npm run typecheck  # el paquete y el sitio de una
 npm test           # 686 tests con vitest y testing-library
+npm run build      # compila el paquete a dist/ (js, css y tipos)
 npm run props      # regenera la tabla de props desde los tipos
 ```
+
+**El repo es un solo paquete y se llama `@milo/ui`.** Fue un monorepo de tres workspaces
+(`packages/tokens`, `packages/ui`, `apps/kit`) y dejó de serlo: hay un `package.json` en la raíz
+y nada más. Lo que se consume vive en `src/`, la herramienta en `scripts/` y el sitio en `kit/`,
+que es una carpeta con su propio `vite.config.ts` y no un paquete.
 
 **Ni raya larga ni comillas angulares, en ningún lado.** Ni en el código, ni en la interfaz, ni
 en un commit, ni en la descripción de un PR, ni en una respuesta. Nadie las tiene a mano en un
@@ -60,13 +66,13 @@ El stack es React 19 + Vite y **nada más**: el sistema no usa ninguna librería
 estilo es CSS nativo, en módulos, contra tokens que también son CSS nativo.
 
 ```
-packages/tokens/src/primitives.css   valores crudos: la rampa, el canto, los tintes, el azul
-packages/tokens/src/semantic.css     los roles: --surface, --border, --text, --relief-*, --switch-*
-packages/tokens/src/scales.css       radios, medidas del shell, tipografía, pesos, movimiento
-packages/ui/src/styles/reset.css     lo que un navegador trae y no queremos
-packages/ui/src/styles/base.css      lo que el sistema define para todos: .mark, .raised, .tabular
-packages/ui/src/theme.css            el orden de las capas y los tres imports de arriba
-<pieza>/<pieza>.module.css           el estilo de esa pieza y de ninguna otra
+src/styles/tokens/primitives.css   valores crudos: la rampa, el canto, los tintes, el azul
+src/styles/tokens/semantic.css     los roles: --surface, --border, --text, --relief-*, --switch-*
+src/styles/tokens/scales.css       radios, medidas del shell, tipografía, pesos, movimiento
+src/styles/reset.css               lo que un navegador trae y no queremos
+src/styles/base.css                lo que el sistema define para todos: .mark, .raised, .tabular
+src/theme.css                      el orden de las capas y los tres imports de arriba
+src/<pieza>/<pieza>.module.css     el estilo de esa pieza y de ninguna otra
 ```
 
 Los componentes se estilan **solo** contra roles: ninguno sabe que existe `--shade-03`, sabe
@@ -129,7 +135,7 @@ cosa), así que ahora dirige en vez de explicar.
 | el texto de la interfaz | **Fundamentos › Cómo se escribe** | - |
 | a quién le hablamos | **Fundamentos › Inclusión** | - |
 
-Se abre con `npm run dev` y está en `apps/kit/src/foundations/`. Si una decisión no está en
+Se abre con `npm run dev` y está en `kit/src/foundations/`. Si una decisión no está en
 ninguna de esas vistas, es que todavía no se tomó.
 
 **El grupo Editor** son las piezas del editor de texto enriquecido: la barra de formato, la lista
@@ -149,7 +155,7 @@ Estas sí van acá: no se ven en una pantalla, así que el kit no puede mostrarl
 
 - **Los componentes se estilan solo contra roles.** Ninguno sabe que existe `--shade-03`; sabe que
   hay un `--surface-muted`. Un hex escrito a mano en un componente es un bug, y hay un test.
-- **Todo lo que se consume entra por `packages/ui/src/index.ts`.** Un export que no sale por la
+- **Todo lo que se consume entra por `src/index.ts`.** Un export que no sale por la
   puerta hace fallar un test.
 - **Una carpeta por pieza, con su test al lado.** Agregar una pieza es agregar una carpeta, no
   editar cuatro archivos. Dos tests lo sostienen: cada carpeta tiene el componente que le da
@@ -326,10 +332,10 @@ El set son 172 de los más de 3900 de Material Symbols. Agregar uno **no es dibu
 un comando, y el que lo corre no tiene que acordarse de nada:
 
 ```sh
-npm run icons -w @milo/ui -- search notification   # busca en el catálogo, offline
-npm run icons -w @milo/ui -- add rocket_launch     # agrega y regenera todo
-npm run icons -w @milo/ui -- check                 # usados que faltan, y al revés
-npm run icons -w @milo/ui -- refresh               # rebaja el catálogo desde Google
+npm run icons -- search notification   # busca en el catálogo, offline
+npm run icons -- add rocket_launch     # agrega y regenera todo
+npm run icons -- check                 # usados que faltan, y al revés
+npm run icons -- refresh               # rebaja el catálogo desde Google
 ```
 
 `add` hace tres preguntas antes de bajar nada, y las hace el script y no el prompt:
@@ -351,7 +357,7 @@ consumir varios de esos, y volver a traer uno es `icons add`, que tarda lo mismo
 línea. Lo que sí importa es que el número esté a la vista.
 
 El catálogo podado (3912 iconos con codepoint, popularidad y tags) está versionado en
-`packages/ui/scripts/catalog.json` para que buscar funcione sin internet: el mismo argumento por
+`scripts/catalog.json` para que buscar funcione sin internet: el mismo argumento por
 el que las caras de los avatares están commiteadas. Nunca llega al browser: al bundle solo van los
 codepoints, y los tags viajan por el subpath `@milo/ui/icons.meta`, que importa únicamente la
 galería del kit.
@@ -359,13 +365,56 @@ galería del kit.
 Los tags son los de Google y están en inglés: "calendar" encuentra `calendar_month`, "calendario"
 no encuentra nada.
 
+## Cómo lo consume otro proyecto
+
+**No está en npm y no va a estar: el repo es privado y se instala desde GitHub, clavado a un
+tag.**
+
+```sh
+npm install "@milo/ui@git+ssh://git@github.com/educabot/milo.git#v0.1.0"
+```
+
+El consumidor necesita acceso de lectura al repo: una clave SSH en la máquina, o un token en CI
+puesto por variable de entorno. **Un token nunca se escribe adentro de un repo ni de un
+`package.json`.**
+
+Lo que hace `npm install` con una dependencia de git: clona, instala también las
+devDependencies, corre el script `prepare` y empaqueta lo que diga `files`. Por eso `prepare`
+es `npm run build`, y por eso `dist/` no está commiteado: se arma en la instalación. Las tres
+consecuencias que conviene tener presentes:
+
+- **El consumidor compila el paquete, así que el build tiene que pasar en su máquina.** Si
+  `npm run build` falla acá, falla su `npm install`, y el error que ve es el de tsc.
+- **`.npmignore` existe solo para que npm no lea `.gitignore` al empaquetar**, porque `dist/`
+  está ignorado en git y es justo lo que el paquete tiene que llevar. Lo que entra lo decide
+  `files`, y son dos cosas: `dist/` (el js, el css y los tipos) y `src/` sin sus tests, que va
+  porque el CSS plano se sirve tal cual desde ahí.
+- **Una rama no es un contrato, un tag sí.** Para sacar versión: `npm version <patch|minor|major>`
+  y `git push --follow-tags`.
+
+Del lado del consumidor, el CSS va primero y en este orden:
+
+```ts
+import '@milo/ui/theme.css'   // las capas, los tokens, el reset y las globales
+import '@milo/ui/style.css'   // el CSS de las piezas
+```
+
+`theme.css` **antes que cualquier otro estilo de la app**, por lo mismo de siempre: una capa
+vale por dónde se la declara. Y son dos archivos y no uno porque son dos cosas distintas:
+`theme.css` es CSS plano que se sirve sin compilar desde `src/` (con el `@font-face` y el woff2
+al lado), mientras que `style.css` sale del build y sus nombres de clase están hasheados contra
+el mismo `dist/index.js`. Van juntos o no va ninguno.
+
+React 19 y `react-dom` 19 son peer dependencies: el consumidor los pone, y el build los deja
+externos junto con `react/jsx-runtime`.
+
 ## Estructura
 
-Monorepo de npm workspaces. Dos paquetes y una app:
+Un paquete, `@milo/ui`, y adentro el sitio que lo documenta:
 
 ```
-packages/tokens/src/    la identidad, en CSS puro. Sin librerías y sin JS.
-packages/ui/src/        theme.css (las capas) · styles/ (reset y base) · index.ts (la puerta) ·
+src/                    theme.css (las capas) · styles/ (reset, base y tokens/) ·
+                        index.ts (la puerta) ·
                         una carpeta por pieza: button/button.tsx + button/button.test.tsx,
                         y así las 63 (select, modal, toast, chart, table…)
                         lib/ lo compartido que no es un componente: cx · colors ·
@@ -374,8 +423,10 @@ packages/ui/src/        theme.css (las capas) · styles/ (reset y base) · index
                         __tests__/ los cinco que leen el paquete entero:
                         coherencia · contraste · tipografía · utilidades · props
                         icons.gen.ts e icons.meta.ts los genera scripts/icons.mjs
-packages/ui/scripts/    icons.mjs (search · add · sync · check) + catalog.json
-apps/kit/src/           el sitio: App.tsx (shell y riel) · kit.tsx (Page, Section, Canvas,
+src/styles/tokens/      la identidad, en CSS puro. Sin librerías y sin JS.
+scripts/                icons.mjs (search · add · sync · check) + catalog.json,
+                        y props.mjs
+kit/src/                el sitio: App.tsx (shell y riel) · kit.tsx (Page, Section, Canvas,
                         Cluster, Frame, Footnote, Grid, Props, A11y, Note) · intro.tsx (la portada) ·
                         dashboard.tsx · document.tsx · stories/ (una por pieza) ·
                         mascots/ ·
@@ -384,12 +435,16 @@ apps/kit/src/           el sitio: App.tsx (shell y riel) · kit.tsx (Page, Secti
                         charts · time · media · ways · sound · numbers · writing · inclusion)
 ```
 
-**El corte entre el paquete y el sitio es por dependencia, no por gusto.** `packages/ui` no
-sabe que el sitio existe: exporta piezas y nada más. El sitio las consume como lo haría
-cualquier app de afuera, que es lo que lo vuelve una prueba de verdad y no una demo.
+**El corte entre el paquete y el sitio es por dependencia, no por gusto.** `src/` no sabe que
+el sitio existe: exporta piezas y nada más. El sitio las consume como lo haría cualquier app de
+afuera, que es lo que lo vuelve una prueba de verdad y no una demo. Cuando dejó de ser un
+monorepo, lo que sostenía ese corte pasó de ser un workspace a ser un alias: `kit/vite.config.ts`
+y `vitest.config.ts` resuelven `@milo/ui` a `src/index.ts`, y el sitio nunca escribe una ruta
+relativa hacia adentro del paquete. Un import con `../../src` en `kit/` rompe el corte y hay que
+tratarlo como un bug.
 
-Todo lo que se consume entra por `packages/ui/src/index.ts`. Un test lo verifica: si alguien
-exporta algo de un archivo y no lo saca por la puerta, falla.
+Todo lo que se consume entra por `src/index.ts`. Un test lo verifica: si alguien exporta algo de
+un archivo y no lo saca por la puerta, falla.
 
 **Una carpeta por pieza, con su test adentro.** El archivo largo con doce componentes
 (`primitives.tsx` tenía 922 líneas) obliga a leer todo para tocar uno, y su test hermano en
@@ -443,7 +498,7 @@ export function Select({ value, onChange, options, width }: {
 }) {
 ```
 
-`npm run props` lee el AST de cada pieza y escribe `packages/ui/src/props.gen.ts` con el
+`npm run props` lee el AST de cada pieza y escribe `src/props.gen.ts` con el
 nombre, el tipo, si es obligatoria, su default, su descripción y de qué etiqueta nativa hereda
 la pieza. La vista pide `<Props of="Select" />` y nada más. Un test corre el script con
 `--check` y falla si el archivo quedó viejo, igual que `icons check`.
@@ -502,7 +557,7 @@ el `Stepper`, y la aserción del textarea empezó a leer el `flex` del stepper.
 Catorce más leen los tokens de tipografía: que cada rol declare sus tres valores y que quien
 escriba un tamaño escriba los tres, que ninguno baje de 12px, que la curva de interlineado tenga su máximo en `reading`, que
 el tracking cruce el cero en la base. Del lado del kit hay diecisiete más: los guardianes de
-escala repetidos sobre `apps/kit` (que hasta ahora se escapaba), el peso de display fuera de su
+escala repetidos sobre `kit/` (que hasta ahora se escapaba), el peso de display fuera de su
 tamaño, las transiciones sin duración ni curva, un control de estado sin su manija, y que cada
 vista tenga portada, import y sinónimos para buscarla.
 
@@ -603,10 +658,19 @@ un aula:
 - **Recuperar `ss04` y el cero barrado** pide auto-alojar Inter: 69 KB subseteada a latín, con la
   receta de `pyftsubset` anotada. Se eligió el CDN; si algún día una red escolar filtra Google
   Fonts, la decisión se da vuelta y el trabajo ya está pensado.
-- **El sitio entra en un solo bundle de 687 KB (202 gzip) y `vite build` avisa.** Son las 69
+- **El sitio entra en un solo bundle de 783 KB (245 gzip) y `vite build` avisa.** Son las 78
   vistas importadas de una: nada está mal, está todo junto. La salida es `lazy` por historia con
   un `Skeleton` de espera, y el costo es un parpadeo por navegación en una pantalla que hoy es
   instantánea. No se hizo porque es una decisión sobre cómo se siente el sitio y no un bug.
+- **El repo vive en una cuenta personal (`hor4z/milo`) y tiene que estar en la organización
+  `educabot`.** Ya importaba antes; ahora importa más, porque la URL del repo pasó a ser parte
+  del `package.json` de quien lo consuma y mudarla después obliga a tocar cada consumidor. El
+  camino es Settings del repo, Transfer ownership hacia `educabot`, y avisarle a
+  gonzalo@educabot.com. Hasta que eso pase, el `repository` del `package.json` y los ejemplos de
+  instalación apuntan a `educabot/milo`, que es donde tiene que quedar.
+- **El paquete no tiene un consumidor de verdad todavía.** Se verificó instalándolo en un
+  proyecto de prueba desde el propio git, que es lo que prueba el `prepare` y el `files`, pero
+  nadie lo importó en producción. El primero que lo haga va a encontrar lo que falte.
 - Portar los tokens a `~/melu/packages/ui`, que es para lo que existe todo esto. Ojo con el
   nombre: ese repo es otro y sigue llamándose `melu`.
 

@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest'
 import { readFileSync } from 'node:fs'
 import { join } from 'node:path'
 
-const css = readFileSync(join(import.meta.dirname, '../../../tokens/src/primitives.css'), 'utf8')
+const css = readFileSync(join(import.meta.dirname, '../styles/tokens/primitives.css'), 'utf8')
 
 function value(token: string, theme: 'light' | 'dark'): string | undefined {
   const blocks = css.split('[data-theme="dark"]')
@@ -163,7 +163,7 @@ describe('el texto de una etiqueta de color se lee', () => {
   }
 
   it('la tinta del rol es la misma que se mide acá', () => {
-    const semantic = readFileSync(join(import.meta.dirname, '../../../tokens/src/semantic.css'), 'utf8')
+    const semantic = readFileSync(join(import.meta.dirname, '../styles/tokens/semantic.css'), 'utf8')
     expect(semantic).toMatch(/--on-label:\s*#121212/)
   })
 })
@@ -189,7 +189,7 @@ const excepciones: Record<string, number> = {
 }
 
 describe('el relleno de un dato se despega de su pista', () => {
-  const semantic = readFileSync(join(import.meta.dirname, '../../../tokens/src/semantic.css'), 'utf8')
+  const semantic = readFileSync(join(import.meta.dirname, '../styles/tokens/semantic.css'), 'utf8')
   const mitades = (f: string) => {
     const [claro, ...resto] = f.split('[data-theme="dark"]')
     return { claro, oscuro: resto.join('') }

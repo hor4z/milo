@@ -4,7 +4,7 @@ import { join } from 'node:path'
 
 import { readdirSync } from 'node:fs'
 
-const scales = readFileSync(join(import.meta.dirname, '../../../tokens/src/scales.css'), 'utf8')
+const scales = readFileSync(join(import.meta.dirname, '../styles/tokens/scales.css'), 'utf8')
 const theme = readFileSync(join(import.meta.dirname, '../theme.css'), 'utf8')
   + readFileSync(join(import.meta.dirname, '../styles/base.css'), 'utf8')
 
@@ -18,7 +18,7 @@ function modulos(base: string, prefijo = ''): { name: string; text: string }[] {
 
 const estilo = [
   ...modulos(join(import.meta.dirname, '..')),
-  ...modulos(join(import.meta.dirname, '../../../../apps/kit/src')),
+  ...modulos(join(import.meta.dirname, '../../kit/src')),
   { name: 'base.css', text: readFileSync(join(import.meta.dirname, '../styles/base.css'), 'utf8') },
 ]
 
