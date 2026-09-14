@@ -198,6 +198,12 @@ Si dos reglas se parecen tanto que dan ganas de numerarlas, lo que las separa es
 el valor elegido, `active` es dónde está el cursor del teclado, `current` es dónde estás parado en una
 secuencia. En `Select`, en `Tree`, en el `DatePicker` y en el `CommandMenu` hacen falta las tres.
 
+Y cada una tiene su complemento, que son tres y no uno: **`idle`** es lo que no tiene el cursor
+encima (`active ? active : idle`), **`plain`** es lo que no recibió ningún tratamiento de tono ni de
+elección (`danger ? danger : plain`, `selected ? selected : plain`), y un interruptor va con el par
+**`on`/`off`**, que no es ninguna de las dos. Elegir mal el complemento no rompe nada y por eso se
+escapa: `Tree` tenía `idle` contra `selected`, que se lee como si el árbol tuviera cursor.
+
 **Una clase no pisa el nombre de una global.** `group`, `peer`, `mark`, `field`, `tabular`, `raised`,
 `zebra`, `pressed` y las cincuenta y pico que declaran `base.css` y `theme.css` quedan prohibidas
 como nombre de módulo, y hay un test.

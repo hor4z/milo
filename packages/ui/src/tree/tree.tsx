@@ -115,7 +115,7 @@ export function Tree({ nodes, label, expanded, onExpandedChange, selected, onSel
             style={{ paddingLeft: 8 + (f.nivel - 1) * 16 }}
             className={cx(
               cls.node,
-              elegido ? cls.selected : cls.idle,
+              elegido ? cls.selected : cls.plain,
             )}
           >
             {f.hoja

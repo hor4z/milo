@@ -28,7 +28,7 @@
     color: var(--brand-ink);
   }
 
-  .idle {
+  .plain {
     font-weight: var(--font-weight-medium);
     color: var(--text);
   }
@@ -65,7 +65,7 @@
   }
 
   @media (hover:hover) {
-    .idle:hover {
+    .plain:hover {
         background-color: var(--surface-hover);
     }
   }
