@@ -87,10 +87,10 @@ describe('AudioPlayer', () => {
     Object.defineProperty(el, 'readyState', { value: 1, configurable: true })
     unmount()
     render(<AudioPlayer src="/x.mp3" />)
-    const nuevo = document.querySelector('audio')!
-    Object.defineProperty(nuevo, 'duration', { value: 12, configurable: true })
-    Object.defineProperty(nuevo, 'readyState', { value: 1, configurable: true })
-    fireEvent.loadedMetadata(nuevo)
+    const next = document.querySelector('audio')!
+    Object.defineProperty(next, 'duration', { value: 12, configurable: true })
+    Object.defineProperty(next, 'readyState', { value: 1, configurable: true })
+    fireEvent.loadedMetadata(next)
     expect(screen.getByText('0:00 / 0:12')).toBeInTheDocument()
   })
 

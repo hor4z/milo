@@ -4,8 +4,8 @@ import { A11y, Demo, Frame, Note, Page, Props, Section, Stack } from '../kit'
 
 export function AlertStory() {
   const [cerrados, setCerrados] = useState<string[]>([])
-  const cerrar = (id: string) => setCerrados(c => [...c, id])
-  const abierto = (id: string) => !cerrados.includes(id)
+  const dismiss = (id: string) => setCerrados(c => [...c, id])
+  const showing = (id: string) => !cerrados.includes(id)
 
   return (
     <Page
@@ -33,9 +33,9 @@ export function AlertStory() {
               <Button size="sm" variant="raised">Ver las entregas</Button>
             </AlertActions>
           </Alert>
-          {abierto('rojo')
+          {showing('rojo')
             ? (
-              <Alert tone="bad" onDismiss={() => cerrar('rojo')}>
+              <Alert tone="bad" onDismiss={() => dismiss('rojo')}>
                 <AlertTitle>No se pudieron traer las entregas</AlertTitle>
                 <AlertBody>Puede ser la conexión. Lo que ya estaba corregido sigue estando.</AlertBody>
                 <AlertActions>
@@ -66,10 +66,10 @@ export function AlertStory() {
             </Frame>
           </Demo>
           <Demo label="con salida y con X">
-            {abierto('amarillo')
+            {showing('amarillo')
               ? (
                 <Frame width="lg">
-                  <Alert tone="warn" onDismiss={() => cerrar('amarillo')}>
+                  <Alert tone="warn" onDismiss={() => dismiss('amarillo')}>
                     <AlertTitle>Quedaste sin lugar</AlertTitle>
                     <AlertBody>El próximo archivo que subas no va a entrar.</AlertBody>
                     <AlertActions>

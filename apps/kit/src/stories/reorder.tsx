@@ -3,9 +3,9 @@ import { useState } from 'react'
 import { Icon, Reorder, type ReorderItem, type IconName } from '@milo/ui'
 import { A11y, Canvas, Frame, Note, Page, Props, Section } from '../kit'
 
-type Bloque = ReorderItem & { icon: IconName; meta: string }
+type Block = ReorderItem & { icon: IconName; meta: string }
 
-const inicial: Bloque[] = [
+const initial: Block[] = [
   { id: 'titulo', label: 'Título', icon: 'format_h1', meta: 'Caída libre: medir g en el patio' },
   { id: 'aviso', label: 'Bloque destacado', icon: 'lightbulb', meta: 'Antes de subir al primer piso' },
   { id: 'cita', label: 'Cita', icon: 'format_quote', meta: 'Galileo, Diálogos sobre dos nuevas ciencias' },
@@ -14,7 +14,7 @@ const inicial: Bloque[] = [
 ]
 
 export function ReorderStory() {
-  const [bloques, setBloques] = useState(inicial)
+  const [blocks, setBlocks] = useState(initial)
 
   return (
     <Page
@@ -29,7 +29,7 @@ export function ReorderStory() {
       >
         <Canvas>
           <Frame width="lg">
-            <Reorder items={bloques} onReorder={setBloques} label="Bloques de la consigna">
+            <Reorder items={blocks} onReorder={setBlocks} label="Bloques de la consigna">
               {b => (
                 <div className={cls.blockRow}>
                   <Icon name={b.icon} size={18} className={`${cls.blockIcon} icon-muted`} />

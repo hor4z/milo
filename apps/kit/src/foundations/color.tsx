@@ -5,7 +5,7 @@ import {
 } from '@milo/ui'
 import { Note, Page, Ramp, Rich, Section, Stack, Swatch, useTokens } from '../kit'
 
-const azul = ['--blue-050', '--blue-100', '--blue-200', '--blue-300', '--blue-400', '--blue-500', '--blue-600', '--blue-700', '--blue-800', '--blue-900'] as const
+const blue = ['--blue-050', '--blue-100', '--blue-200', '--blue-300', '--blue-400', '--blue-500', '--blue-600', '--blue-700', '--blue-800', '--blue-900'] as const
 const gris = ['--shade-01', '--shade-02', '--shade-03', '--shade-04', '--shade-05', '--shade-06', '--shade-07', '--shade-08', '--shade-09'] as const
 const ambar = ['--accent-050', '--accent-500', '--accent-600'] as const
 
@@ -35,30 +35,30 @@ export function ColorSection() {
         note="Si algo no entra en ninguno de los tres, no lleva color: lleva gris."
       >
         <div className={cls.headGrid}>
-          <Cabeza
-            titulo="Azul · el primario"
+          <Lead
+            title="Azul · el primario"
             token="--brand"
-            linea="Lo que manda y lo que dice dónde estás. Uno por pantalla."
+            note="Lo que manda y lo que dice dónde estás. Uno por pantalla."
           >
             <Button variant="solid">Nueva actividad</Button>
-          </Cabeza>
-          <Cabeza
-            titulo="Naranja · el acento"
+          </Lead>
+          <Lead
+            title="Naranja · el acento"
             token="--accent"
-            linea="Señala. No es un estado: no dice que algo salió mal, dice mirá esto."
+            note="Señala. No es un estado: no dice que algo salió mal, dice mirá esto."
           >
             <span className={cls.accentSample}>
               <span className={cls.accentDot} />
               Hay algo nuevo
             </span>
-          </Cabeza>
-          <Cabeza
-            titulo="Gris · la rampa"
+          </Lead>
+          <Lead
+            title="Gris · la rampa"
             token="--shade-06"
-            linea="Dibuja el resto: fondos, líneas, texto, iconos. Es casi todo lo que ves."
+            note="Dibuja el resto: fondos, líneas, texto, iconos. Es casi todo lo que ves."
           >
             <span className={cls.accentText}>Matemática · 4.º A · 24 entregas</span>
-          </Cabeza>
+          </Lead>
         </div>
       </Section>
 
@@ -90,7 +90,7 @@ export function ColorSection() {
         title="El azul, paso a paso"
         note="Diez pasos derivados y no elegidos. **El 600 está anclado**: es el escalón donde el blanco encima llega exactamente a 4,5:1, y de ahí sale `--brand`."
       >
-        <Ramp tokens={azul} />
+        <Ramp tokens={blue} />
         <div className={cls.blueRamp}>
           <Swatch token="--brand" note="el relleno del botón que manda" />
           <Swatch token="--brand-hover" note="el mismo, un paso más" />
@@ -131,28 +131,28 @@ export function ColorSection() {
       >
         <Ramp tokens={gris} />
         <div className={cls.neutralRamp}>
-          <Grupo titulo="Superficies">
+          <Group title="Superficies">
             <Swatch token="--canvas" note="el escritorio: la página" />
             <Swatch token="--surface" note="el papel: una tarjeta" />
             <Swatch token="--surface-alt" note="la banda alterna de una tabla" />
             <Swatch token="--surface-muted" note="un hueco, una bandeja" />
             <Swatch token="--surface-sunken" note="el fondo de algo hundido" />
             <Swatch token="--popover" note="lo que flota" />
-          </Grupo>
-          <Grupo titulo="Líneas">
+          </Group>
+          <Group title="Líneas">
             <Swatch token="--border" note="el divisor de siempre" />
             <Swatch token="--border-strong" note="cuando hay que separar de verdad" />
             <Swatch token="--edge" note="el filo de algo que sobresale" />
             <Swatch token="--field-border" note="la línea de un campo" />
             <Swatch token="--focus-border" note="el campo enfocado" />
-          </Grupo>
-          <Grupo titulo="Texto e iconos">
+          </Group>
+          <Group title="Texto e iconos">
             <Swatch token="--text" note="lo que se lee" />
             <Swatch token="--text-muted" note="lo que acompaña" />
             <Swatch token="--text-placeholder" note="lo que el campo sugiere" />
             <Swatch token="--icon-muted" note="un paso más oscuro que el texto" />
             <Swatch token="--text-inverted" note="sobre tinta" />
-          </Grupo>
+          </Group>
         </div>
         <Note title="El gris de un icono no es el del texto">
           Va un paso más oscuro: un contorno fino encierra aire y con el mismo gris se lee más
@@ -206,28 +206,28 @@ export function ColorSection() {
         note="Cuatro familias, y no se mezclan. Lo que decide cuál va no es el gusto: es **de qué tamaño es la pieza y qué se apoya encima**."
       >
         <Stack>
-          <Familia
+          <Family
             nombre="mark"
             para="La marca de 44 de una fila, la inicial de un avatar"
-            linea="Pastel con el glifo del mismo tono varios pasos más oscuro: tiene lugar para leerse entera sin gritarle al título de al lado."
+            note="Pastel con el glifo del mismo tono varios pasos más oscuro: tiene lugar para leerse entera sin gritarle al título de al lado."
             tokens={marks}
           />
-          <Familia
+          <Family
             nombre="label"
             para="Lo chico: un chip, el cuadradito de icono de una tarjeta"
-            linea="Vivos, todos con el mismo texto blanco encima. En orden de rueda, porque quien los usa reparte por hash y desordenados dos nombres seguidos caían en dos tonos casi iguales."
+            note="Vivos, todos con el mismo texto blanco encima. En orden de rueda, porque quien los usa reparte por hash y desordenados dos nombres seguidos caían en dos tonos casi iguales."
             tokens={labels}
           />
-          <Familia
+          <Family
             nombre="tint"
             para="Una superficie grande teñida. Hoy no la usa ninguna pieza"
-            linea="Apagados porque llevan un dibujo en tinta encima. Se quedan para cuando haga falta, y que no los use nadie conviene que esté a la vista."
+            note="Apagados porque llevan un dibujo en tinta encima. Se quedan para cuando haga falta, y que no los use nadie conviene que esté a la vista."
             tokens={tints}
           />
-          <Familia
+          <Family
             nombre="space"
             para="La carpeta de un espacio"
-            linea="El único color que se dibuja con SVG, porque la carpeta es bicolor y una fuente monocroma no puede."
+            note="El único color que se dibuja con SVG, porque la carpeta es bicolor y una fuente monocroma no puede."
             tokens={spaces}
           />
         </Stack>
@@ -258,37 +258,37 @@ export function ColorSection() {
   )
 }
 
-function Cabeza({ titulo, token, linea, children }: { titulo: string; token: string; linea: string; children: React.ReactNode }) {
+function Lead({ title, token, note, children }: { title: string; token: string; note: string; children: React.ReactNode }) {
   const vals = useTokens([token])
   return (
     <div className={`${cls.headCard} bg-surface`}>
       <span className={cls.headSwatch} style={{ background: `var(${token})` }} />
       <Stack gap="xs">
-        <span className={cls.headTitle}>{titulo}</span>
+        <span className={cls.headTitle}>{title}</span>
         <code className={cls.headToken}>{token} · {vals[token]}</code>
       </Stack>
-      <p className={cls.headNote}>{linea}</p>
+      <p className={cls.headNote}>{note}</p>
       <div className={cls.headSlot}>{children}</div>
     </div>
   )
 }
 
-function Grupo({ titulo, children }: { titulo: string; children: React.ReactNode }) {
+function Group({ title, children }: { title: string; children: React.ReactNode }) {
   return (
     <Stack>
-      <span className={cls.groupTitle}>{titulo}</span>
+      <span className={cls.groupTitle}>{title}</span>
       <div className={cls.groupItems}>{children}</div>
     </Stack>
   )
 }
 
-function Familia({ nombre, para, linea, tokens }: { nombre: string; para: string; linea: string; tokens: readonly string[] }) {
+function Family({ nombre, para, note, tokens }: { nombre: string; para: string; note: string; tokens: readonly string[] }) {
   return (
     <div className={`${cls.familyCard} bg-surface`}>
       <div className={cls.familyMeta}>
         <code className={cls.familyName}>{nombre}</code>
         <span className={cls.familyUse}>{para}</span>
-        <p className={cls.familyNote}>{linea}</p>
+        <p className={cls.familyNote}>{note}</p>
       </div>
       <div className={cls.familySwatches}>
         {tokens.map(t => (

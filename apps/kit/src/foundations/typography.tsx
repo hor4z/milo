@@ -72,7 +72,7 @@ export function TypographySection() {
         </div>
       </Section>
 
-      <PorQueInter />
+      <WhyInter />
 
       <Section
         title="El interlineado dejó de ser uno solo"
@@ -187,7 +187,7 @@ export function TypographySection() {
         </div>
       </Section>
 
-      <Familias />
+      <Families />
 
       <Note title="Por qué no se toca el suavizado">
         Ni <code>-webkit-font-smoothing: antialiased</code> ni <code>text-rendering:
@@ -211,7 +211,7 @@ export function TypographySection() {
   )
 }
 
-function PorQueInter() {
+function WhyInter() {
   return (
     <Section
       title="Por qué Inter, y por qué una sola"
@@ -280,7 +280,7 @@ function PorQueInter() {
   )
 }
 
-function Familias() {
+function Families() {
   const vals = useTokens(['--font-sans', '--font-mono'])
   return (
     <Section

@@ -15,22 +15,22 @@ type TextareaProps = Omit<TextareaHTMLAttributes<HTMLTextAreaElement>, 'rows' | 
 }
 
 /** Lo que la cuenta dice, que no siempre es un número. */
-function leyenda(n: number, min?: number, max?: number) {
+function counterText(n: number, min?: number, max?: number) {
   if (min && n > 0 && n < min) {
-    const faltan = min - n
-    const uno = faltan === 1
-    return { texto: `${uno ? 'falta' : 'faltan'} ${faltan} ${uno ? 'carácter' : 'caracteres'}`, tono: 'bad' as const, avisa: true }
+    const missing = min - n
+    const isOne = missing === 1
+    return { text: `${isOne ? 'falta' : 'faltan'} ${missing} ${isOne ? 'carácter' : 'caracteres'}`, tono: 'bad' as const, avisa: true }
   }
-  if (max == null) return { texto: `${n}`, tono: 'calmo' as const, avisa: false }
-  const queda = max - n
-  if (queda <= 0) return { texto: `${n}/${max}`, tono: 'bad' as const, avisa: true }
-  if (queda <= Math.max(10, Math.round(max * 0.1))) {
-    return { texto: `te quedan ${queda}`, tono: 'warn' as const, avisa: true }
+  if (max == null) return { text: `${n}`, tono: 'calmo' as const, avisa: false }
+  const left = max - n
+  if (left <= 0) return { text: `${n}/${max}`, tono: 'bad' as const, avisa: true }
+  if (left <= Math.max(10, Math.round(max * 0.1))) {
+    return { text: `te quedan ${left}`, tono: 'warn' as const, avisa: true }
   }
-  return { texto: `${n}/${max}`, tono: 'calmo' as const, avisa: false }
+  return { text: `${n}/${max}`, tono: 'calmo' as const, avisa: false }
 }
 
-const tinta = {
+const counterInk = {
   calmo: cls.counterCalm,
   warn: cls.counterWarn,
   bad: cls.counterBad,
@@ -42,10 +42,10 @@ export function Textarea({
 }: TextareaProps) {
   const ref = useRef<HTMLTextAreaElement>(null)
   const field = useField()
-  const cuentaId = useId()
-  const [propio, setPropio] = useState(String(defaultValue ?? ''))
-  const texto = value == null ? propio : String(value)
-  const cuenta = counter ? leyenda([...texto].length, rest.minLength, rest.maxLength) : null
+  const counterId = useId()
+  const [ownValue, setPropio] = useState(String(defaultValue ?? ''))
+  const text = value == null ? ownValue : String(value)
+  const counterLabel = counter ? counterText([...text].length, rest.minLength, rest.maxLength) : null
 
   const measure = useCallback(() => {
     const el = ref.current
@@ -72,7 +72,7 @@ export function Textarea({
     return () => ro.disconnect()
   }, [measure, resize])
 
-  const describedBy = [field['aria-describedby'], cuenta && cuentaId].filter(Boolean).join(' ') || undefined
+  const describedBy = [field['aria-describedby'], counterLabel && counterId].filter(Boolean).join(' ') || undefined
 
   return (
     <div
@@ -106,19 +106,19 @@ export function Textarea({
         aria-describedby={describedBy}
         {...rest}
       />
-      {cuenta && (
+      {counterLabel && (
         <span
-          id={cuentaId}
+          id={counterId}
           className={cx(
             `${cls.counter} tabular`,
-            tinta[cuenta.tono],
+            counterInk[counterLabel.tono],
             resize === 'vertical' ? cls.counterResizable : '',
           )}
         >
-          {cuenta.texto}
+          {counterLabel.text}
         </span>
       )}
-      <span aria-live="polite" className="sr-only">{cuenta?.avisa ? cuenta.texto : ''}</span>
+      <span aria-live="polite" className="sr-only">{counterLabel?.avisa ? counterLabel.text : ''}</span>
     </div>
   )
 }

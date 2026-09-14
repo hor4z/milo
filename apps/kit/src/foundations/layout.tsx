@@ -2,7 +2,7 @@ import css from './layout.module.css'
 import { Card, CardBody } from '@milo/ui'
 import { A11y, Note, Page, Section } from '../kit'
 
-const cortes = [
+const breaks = [
   { cls: 'sm', px: 640, para: 'Lo compacto pasa a varias columnas: chips, talles, swatches, tarjetas de una línea.' },
   { cls: 'md', px: 768, para: 'Las tarjetas con párrafo. A 640 dos columnas de texto quedan en unos 270 y el renglón se parte cada tres palabras.' },
   { cls: 'lg', px: 1024, para: 'Cambia la estructura: el riel se fija al costado, el dashboard se abre en dos columnas, la cabecera de pantalla chica desaparece.' },
@@ -30,7 +30,7 @@ export function LayoutSection() {
         note="Son los de siempre. Lo que no es de siempre es cuál usar: elegirlos por costumbre es lo que hace que dos grillas iguales cambien en momentos distintos."
       >
         <div className={`${css.breakList} bg-surface`}>
-          {cortes.map(c => (
+          {breaks.map(c => (
             <div key={c.cls} className={css.breakRow}>
               <code className={css.breakName}>{c.cls}</code>
               <span className={`${css.breakValue} tabular`}>{c.px}px</span>

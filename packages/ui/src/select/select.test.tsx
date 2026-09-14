@@ -90,8 +90,8 @@ describe('Select', () => {
   it('el scroll de su propia lista no lo cierra', async () => {
     render(<Select value="Uno" onChange={() => {}} options={['Uno', 'Dos', 'Tres']} />)
     await userEvent.click(screen.getByRole('button', { name: /Uno/ }))
-    const lista = screen.getByRole('listbox')
-    await act(async () => { lista.dispatchEvent(new Event('scroll', { bubbles: true })) })
+    const list = screen.getByRole('listbox')
+    await act(async () => { list.dispatchEvent(new Event('scroll', { bubbles: true })) })
     expect(screen.getByRole('listbox')).toBeInTheDocument()
   })
 })

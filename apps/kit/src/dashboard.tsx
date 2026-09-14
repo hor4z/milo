@@ -7,7 +7,7 @@ import {
   count, dayAndTime, delta,
   type IconName,
 } from '@milo/ui'
-import { useQuieto } from './mascots/quieto'
+import { useStill } from './mascots/still'
 
 const AR = 'America/Argentina/Buenos_Aires'
 
@@ -27,14 +27,14 @@ const month = [
   { label: 'S3', value: 38, total: 77 }, { label: 'S4', value: 84, total: 96 },
 ]
 
-const yo = {
+const me = {
   name: 'Valeria Ochoa',
   email: 'valeria.ochoa@ejemplo.edu',
   alias: 'Profe Vale',
   school: 'Escuela N.º 12 · Turno mañana',
 }
 
-const espacios = [
+const spaces = [
   { label: 'Matemática', meta: '4.º A · 18 archivos', color: undefined, avatars: [p('Ana Pérez', 1), p('Bruno Díaz', 2), p('Carla Sosa', 3)] },
   { label: 'Ciencias', meta: '5.º B · 24 archivos', color: 'var(--space-green)', avatars: [p('Franco Gil', 6), p('Hugo Paz', 8)] },
   { label: 'Lengua', meta: '6.º · 9 archivos', color: 'var(--space-purple)', avatars: [p('Irene Lopez'), p('Julián Cruz')] },
@@ -67,7 +67,7 @@ export function Dashboard() {
         />
 
         <div className={cls.topBarActions}>
-          <Avisos />
+          <Alerts />
           <Dropdown
             align="end"
             width={224}
@@ -77,10 +77,10 @@ export function Dashboard() {
                 type="button"
                 onClick={onClick}
                 aria-expanded={expanded}
-                aria-label={`Cuenta de ${yo.name}`}
+                aria-label={`Cuenta de ${me.name}`}
                 className={cls.accountTrigger}
               >
-                <Avatar name={yo.name} src={face(4)} size={34} />
+                <Avatar name={me.name} src={face(4)} size={34} />
               </button>
             )}
             items={[
@@ -154,7 +154,7 @@ export function Dashboard() {
               <Link href="#folder" className={cls.spacesLink}>Ver todos</Link>
             </div>
             <div className={cls.folderGrid}>
-              {espacios.map(e => (
+              {spaces.map(e => (
                 <Folder
                   key={e.label}
                   size={104}
@@ -207,12 +207,12 @@ export function Dashboard() {
         </div>
       </div>
 
-      <SettingsModal open={settings} onClose={() => setSettings(false)} user={yo} />
+      <SettingsModal open={settings} onClose={() => setSettings(false)} user={me} />
     </Stack>
   )
 }
 
-function Avisos() {
+function Alerts() {
   return (
     <Dropdown
       align="end"
@@ -233,31 +233,31 @@ function Avisos() {
 }
 
 /** Lo que dura una pasada del bucle: 100 cuadros a 12 por segundo. */
-const PASADA = 8333
+const LAST_WEEK = 8333
 
 /** Se asoma una vez y se esconde un rato largo al azar: en bucle deja de ser una aparición. */
 function Otto() {
-  const quieto = useQuieto()
+  const still = useStill()
   const [vuelta, setVuelta] = useState(0)
   const [asomado, setAsomado] = useState(false)
 
   useEffect(() => {
-    if (quieto) return
-    let reloj: ReturnType<typeof setTimeout>
-    const asomar = () => {
+    if (still) return
+    let clock: ReturnType<typeof setTimeout>
+    const peek = () => {
       setVuelta(v => v + 1)
       setAsomado(true)
-      reloj = setTimeout(esconder, PASADA)
+      clock = setTimeout(hide, LAST_WEEK)
     }
-    const esconder = () => {
+    const hide = () => {
       setAsomado(false)
-      reloj = setTimeout(asomar, 40000 + Math.random() * 80000)
+      clock = setTimeout(peek, 40000 + Math.random() * 80000)
     }
-    reloj = setTimeout(asomar, 6000)
-    return () => clearTimeout(reloj)
-  }, [quieto])
+    clock = setTimeout(peek, 6000)
+    return () => clearTimeout(clock)
+  }, [still])
 
-  if (quieto || !asomado) return null
+  if (still || !asomado) return null
   return (
     <img
       key={vuelta}

@@ -27,12 +27,12 @@ export function Search({
   value, onValueChange, placeholder = 'Buscar…', size = 'sm',
   shortcut, block, className, ref, ...rest
 }: SearchProps) {
-  const caja = useRef<HTMLDivElement>(null)
-  const foco = () => caja.current?.querySelector('input')?.focus()
+  const boxRef = useRef<HTMLDivElement>(null)
+  const focusInput = () => boxRef.current?.querySelector('input')?.focus()
 
   return (
     <TextField
-      ref={caja}
+      ref={boxRef}
       inputRef={ref}
       size={size}
       icon="search"
@@ -45,7 +45,7 @@ export function Search({
           <button
             type="button"
             aria-label="Limpiar la búsqueda"
-            onClick={() => { onValueChange(''); foco() }}
+            onClick={() => { onValueChange(''); focusInput() }}
             className={cls.clear}
           >
             <Icon name="close" size={14} />

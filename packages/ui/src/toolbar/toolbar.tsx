@@ -10,40 +10,40 @@ export function Toolbar({ label, children, className }: {
   children: ReactNode
   className?: string
 }) {
-  const caja = useRef<HTMLDivElement>(null)
+  const barRef = useRef<HTMLDivElement>(null)
 
-  const vivos = () => [...(caja.current?.querySelectorAll<HTMLButtonElement>('button:not(:disabled)') ?? [])]
+  const enabledButtons = () => [...(barRef.current?.querySelectorAll<HTMLButtonElement>('button:not(:disabled)') ?? [])]
 
-  const rodar = (activo?: HTMLButtonElement) => {
-    const bs = vivos()
-    if (!bs.length) return
-    const elegido = activo && bs.includes(activo) ? activo : bs[0]
-    for (const b of bs) b.tabIndex = b === elegido ? 0 : -1
+  const roveTo = (active?: HTMLButtonElement) => {
+    const enabled = enabledButtons()
+    if (!enabled.length) return
+    const target = active && enabled.includes(active) ? active : enabled[0]
+    for (const b of enabled) b.tabIndex = b === target ? 0 : -1
   }
 
-  useLayoutEffect(() => { rodar() })
+  useLayoutEffect(() => { roveTo() })
 
-  const mover = (e: KeyboardEvent<HTMLDivElement>) => {
-    const paso = e.key === 'ArrowRight' ? 1 : e.key === 'ArrowLeft' ? -1 : 0
-    const borde = e.key === 'Home' ? 0 : e.key === 'End' ? -1 : null
-    if (!paso && borde === null) return
-    const botones = vivos()
-    if (!botones.length) return
+  const onKey = (e: KeyboardEvent<HTMLDivElement>) => {
+    const step = e.key === 'ArrowRight' ? 1 : e.key === 'ArrowLeft' ? -1 : 0
+    const toEdge = e.key === 'Home' ? 0 : e.key === 'End' ? -1 : null
+    if (!step && toEdge === null) return
+    const buttons = enabledButtons()
+    if (!buttons.length) return
     e.preventDefault()
-    const destino = borde !== null
-      ? botones.at(borde)!
-      : botones[(botones.indexOf(document.activeElement as HTMLButtonElement) + paso + botones.length) % botones.length]
-    rodar(destino)
-    destino.focus()
+    const next = toEdge !== null
+      ? buttons.at(toEdge)!
+      : buttons[(buttons.indexOf(document.activeElement as HTMLButtonElement) + step + buttons.length) % buttons.length]
+    roveTo(next)
+    next.focus()
   }
 
   return (
     <div
-      ref={caja}
+      ref={barRef}
       role="toolbar"
       aria-label={label}
-      onKeyDown={mover}
-      onFocus={(e: FocusEvent<HTMLDivElement>) => rodar(e.target.closest('button') ?? undefined)}
+      onKeyDown={onKey}
+      onFocus={(e: FocusEvent<HTMLDivElement>) => roveTo(e.target.closest('button') ?? undefined)}
       className={cx(`${s.root} bg-popover`, className)}
     >
       {children}

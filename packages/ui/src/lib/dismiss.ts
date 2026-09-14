@@ -8,13 +8,13 @@ export function useDismiss(
 ) {
   useEffect(() => {
     if (!active) return
-    const adentro = (t: EventTarget | null) =>
+    const inside = (t: EventTarget | null) =>
       t instanceof Node && refs.some(r => r.current?.contains(t))
 
-    const afuera = (e: PointerEvent) => { if (!adentro(e.target)) close() }
+    const afuera = (e: PointerEvent) => { if (!inside(e.target)) close() }
 
     const corrio = (e: Event) => {
-      if (e.type === 'scroll' && adentro(e.target)) return
+      if (e.type === 'scroll' && inside(e.target)) return
       close()
     }
 

@@ -48,8 +48,8 @@ describe('toda clase que llega al HTML resuelve a algo', () => {
   it('el guardián mira algo: hay clases de módulo dibujadas', () => {
     const Primera = vistas[0][1]
     const { container } = render(<ToastProvider><Primera /></ToastProvider>)
-    const hay = [...container.querySelectorAll('[class]')]
+    const found = [...container.querySelectorAll('[class]')]
       .some(el => (el.getAttribute('class') ?? '').split(/\s+/).some(c => c.startsWith('_')))
-    expect(hay).toBe(true)
+    expect(found).toBe(true)
   })
 })

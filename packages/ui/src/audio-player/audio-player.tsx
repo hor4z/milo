@@ -6,15 +6,15 @@ import { control } from '../lib/control'
 import { cx } from '../lib/cx'
 import { duration } from '../lib/time'
 
-type Estado = 'cargando' | 'listo' | 'error'
+type State = 'cargando' | 'listo' | 'error'
 
 /** El alto de la onda. No sale de la escalera de controles: eso mide botones, y esto es un gráfico que hay que poder leer. */
-const onda = { sm: cls.waveSm, md: cls.waveMd, lg: cls.waveLg } as const
+const waveHeight = { sm: cls.waveSm, md: cls.waveMd, lg: cls.waveLg } as const
 
 const abiertos = new Set<HTMLAudioElement>()
 
 /** La onda. Cada barra es un pico del archivo; las que quedaron atrás van en el color de marca. */
-function Onda({ peaks, avance }: { peaks: readonly number[]; avance: number }) {
+function Wave({ peaks, progress }: { peaks: readonly number[]; progress: number }) {
   return (
     <span aria-hidden className={cls.wave}>
       {peaks.map((p, i) => (
@@ -22,7 +22,7 @@ function Onda({ peaks, avance }: { peaks: readonly number[]; avance: number }) {
           <span
             className={cx(
               cls.peak,
-              i / peaks.length < avance ? cls.peakPlayed : cls.peakAhead,
+              i / peaks.length < progress ? cls.peakPlayed : cls.peakAhead,
             )}
             style={{ height: `${Math.max(p, 0.04) * 100}%`, minHeight: 2 }}
           />
@@ -33,10 +33,10 @@ function Onda({ peaks, avance }: { peaks: readonly number[]; avance: number }) {
 }
 
 /** La pista pelada, para cuando no hay picos: una línea con lo escuchado pintado encima. */
-function Pista({ avance }: { avance: number }) {
+function BareTrack({ progress }: { progress: number }) {
   return (
     <span aria-hidden className={cls.bareTrack}>
-      <span className={cls.bareFill} style={{ width: `${avance * 100}%` }} />
+      <span className={cls.bareFill} style={{ width: `${progress * 100}%` }} />
     </span>
   )
 }
@@ -58,12 +58,12 @@ type AudioPlayerProps = {
 /** Un archivo de audio con su onda: play, una línea de tiempo que se arrastra y el reloj. */
 export function AudioPlayer({ src, title, peaks, actions, size = 'md', className }: AudioPlayerProps) {
   const audio = useRef<HTMLAudioElement>(null)
-  const [estado, setEstado] = useState<Estado>('cargando')
+  const [estado, setEstado] = useState<State>('cargando')
   const [sonando, setSonando] = useState(false)
   const [t, setT] = useState(0)
   const [dur, setDur] = useState(0)
 
-  const cargado = (el: HTMLAudioElement) => {
+  const loaded = (el: HTMLAudioElement) => {
     setDur(el.duration)
     setEstado('listo')
   }
@@ -72,7 +72,7 @@ export function AudioPlayer({ src, title, peaks, actions, size = 'md', className
     const el = audio.current
     setSonando(false)
     setT(0)
-    if (el && el.readyState >= 1) return cargado(el)
+    if (el && el.readyState >= 1) return loaded(el)
     setEstado('cargando')
     setDur(0)
   }, [src])
@@ -98,10 +98,10 @@ export function AudioPlayer({ src, title, peaks, actions, size = 'md', className
     }
   }, [sonando, title])
 
-  const listo = estado === 'listo' && dur > 0
-  const avance = listo ? Math.min(1, t / dur) : 0
+  const ready = estado === 'listo' && dur > 0
+  const progress = ready ? Math.min(1, t / dur) : 0
 
-  const alternar = () => {
+  const toggle = () => {
     const el = audio.current
     if (!el) return
     if (sonando) return el.pause()
@@ -109,7 +109,7 @@ export function AudioPlayer({ src, title, peaks, actions, size = 'md', className
     void el.play().catch(() => setEstado('error'))
   }
 
-  const buscar = (v: number) => {
+  const seek = (v: number) => {
     const el = audio.current
     if (!el) return
     el.currentTime = v
@@ -128,10 +128,10 @@ export function AudioPlayer({ src, title, peaks, actions, size = 'md', className
         ref={audio}
         src={src}
         preload="metadata"
-        onLoadedMetadata={e => cargado(e.currentTarget)}
+        onLoadedMetadata={e => loaded(e.currentTarget)}
         onTimeUpdate={e => setT(e.currentTarget.currentTime)}
         onPlay={e => {
-          for (const otro of abiertos) if (otro !== e.currentTarget) otro.pause()
+          for (const other of abiertos) if (other !== e.currentTarget) other.pause()
           abiertos.add(e.currentTarget)
           setSonando(true)
         }}
@@ -162,26 +162,26 @@ export function AudioPlayer({ src, title, peaks, actions, size = 'md', className
               variant="raised"
               size={size}
               disabled={estado === 'error'}
-              onClick={alternar}
+              onClick={toggle}
               className={`${cls.playButton} icon-filled`}
             />
           )}
 
         {estado === 'error'
-          ? <span className={cx(cls.errorText, onda[size])}>No se pudo cargar el audio</span>
+          ? <span className={cx(cls.errorText, waveHeight[size])}>No se pudo cargar el audio</span>
           : (
-            <span className={cx(cls.timeline, onda[size])}>
-              {peaks?.length ? <Onda peaks={peaks} avance={avance} /> : <Pista avance={avance} />}
+            <span className={cx(cls.timeline, waveHeight[size])}>
+              {peaks?.length ? <Wave peaks={peaks} progress={progress} /> : <BareTrack progress={progress} />}
               <input
                 type="range"
                 min={0}
-                max={listo ? dur : 0}
+                max={ready ? dur : 0}
                 step={0.1}
                 value={t}
-                disabled={!listo}
+                disabled={!ready}
                 aria-label={title ? `Buscar en ${title}` : 'Buscar en el audio'}
-                aria-valuetext={`${duration(t)} de ${listo ? duration(dur) : '--:--'}`}
-                onChange={e => buscar(Number(e.target.value))}
+                aria-valuetext={`${duration(t)} de ${ready ? duration(dur) : '--:--'}`}
+                onChange={e => seek(Number(e.target.value))}
                 className={cx(
                   cls.seek,
                   cls.seekDisabled,
@@ -192,7 +192,7 @@ export function AudioPlayer({ src, title, peaks, actions, size = 'md', className
           )}
 
         <span className={`${cls.time} tabular`}>
-          {duration(t)} / {listo ? duration(dur) : '--:--'}
+          {duration(t)} / {ready ? duration(dur) : '--:--'}
         </span>
 
         {actions && <span className={cls.actions}>{actions}</span>}

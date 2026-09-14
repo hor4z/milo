@@ -3,7 +3,7 @@ import { Search } from '@milo/ui'
 import { A11y, Page, Panel, Props, Section, Variant } from '../kit'
 
 export function SearchStory() {
-  const [uno, setUno] = useState('')
+  const [first, setFirst] = useState('')
   const [dos, setDos] = useState('fracciones')
   const [tres, setTres] = useState('')
   const [atajo, setAtajo] = useState('')
@@ -22,7 +22,7 @@ export function SearchStory() {
         note="Las mismas del `Button` y del `TextField`. `sm` en la barra de una tabla, `md` en la de una pantalla, `lg` cuando el buscador **es** la pantalla."
       >
         <Panel>
-          <Variant name="sm"><Search size="sm" value={uno} onValueChange={setUno} placeholder="Buscar una actividad" /></Variant>
+          <Variant name="sm"><Search size="sm" value={first} onValueChange={setFirst} placeholder="Buscar una actividad" /></Variant>
           <Variant name="md"><Search size="md" value={tres} onValueChange={setTres} placeholder="Buscar una actividad" /></Variant>
           <Variant name="con texto"><Search size="md" value={dos} onValueChange={setDos} /></Variant>
           <Variant name="con atajo"><Search size="md" value={atajo} onValueChange={setAtajo} shortcut="/" placeholder="Buscar" /></Variant>

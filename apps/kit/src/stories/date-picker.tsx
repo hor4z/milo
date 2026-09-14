@@ -2,15 +2,15 @@ import { useState } from 'react'
 import { DatePicker, Field, FieldSet } from '@milo/ui'
 import { A11y, Canvas, Note, Page, Props, Section, Stack } from '../kit'
 
-const hoy = () => {
+const today = () => {
   const d = new Date()
   return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`
 }
 
 export function DatePickerStory() {
   const [vence, setVence] = useState('')
-  const [desde, setDesde] = useState(hoy())
-  const [suelta, setSuelta] = useState('2026-03-09')
+  const [from, setFrom] = useState(today())
+  const [loose, setLoose] = useState('2026-03-09')
   const [acotada, setAcotada] = useState('')
 
   return (
@@ -28,10 +28,10 @@ export function DatePickerStory() {
           <Stack gap="xl" width="md">
             <FieldSet legend="Cuándo">
               <Field label="Abre" hint="Desde cuándo se puede entregar">
-                <DatePicker value={desde} onChange={setDesde} />
+                <DatePicker value={from} onChange={setFrom} />
               </Field>
               <Field label="Vence" hint="Después de esta fecha no entra nada">
-                <DatePicker value={vence} onChange={setVence} min={desde} placeholder="Sin fecha de cierre" />
+                <DatePicker value={vence} onChange={setVence} min={from} placeholder="Sin fecha de cierre" />
               </Field>
             </FieldSet>
           </Stack>
@@ -43,7 +43,7 @@ export function DatePickerStory() {
         note="Sin `Field` alrededor hay que nombrarlo con `label`. El campo dice la fecha en palabras: 03/09/2026 quiere decir dos cosas distintas según de dónde sea quien lo lee."
       >
         <Canvas>
-          <DatePicker value={suelta} onChange={setSuelta} label="Fecha del examen" width={260} />
+          <DatePicker value={loose} onChange={setLoose} label="Fecha del examen" width={260} />
         </Canvas>
       </Section>
 
@@ -52,7 +52,7 @@ export function DatePickerStory() {
         note="`min` y `max` apagan lo que queda afuera en vez de esconderlo: un día que desaparece deja a quien mira buscando dónde está, y uno apagado dice que existe y que no se puede."
       >
         <Canvas>
-          <DatePicker value={acotada} onChange={setAcotada} min={hoy()} label="Nueva entrega" placeholder="No se puede antes de hoy" width={260} />
+          <DatePicker value={acotada} onChange={setAcotada} min={today()} label="Nueva entrega" placeholder="No se puede antes de hoy" width={260} />
         </Canvas>
       </Section>
 

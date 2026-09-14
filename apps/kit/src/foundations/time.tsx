@@ -4,10 +4,10 @@ import { clock, day, dayAndTime, duration, machineTime, timeAgo, zoneLabel } fro
 import { A11y, Note, Page, Panel, Rich, Section, Variant } from '../kit'
 
 const AR = 'America/Argentina/Buenos_Aires'
-const ahora = new Date('2026-03-09T15:00:00-03:00')
-const hace = (ms: number) => new Date(ahora.getTime() - ms)
+const now = new Date('2026-03-09T15:00:00-03:00')
+const ago = (ms: number) => new Date(now.getTime() - ms)
 
-const cual = [
+const which = [
   ['Lo que acaba de pasar', 'relativo', '`hace 20 minutos`', 'Hasta una semana. Más lejos no ubica a nadie'],
   ['Lo que pasó hace más de una semana', 'la fecha', '`14 de febrero`', 'El año solo si no es este'],
   ['Una fecha de entrega', 'la fecha y la hora', '`9 de marzo a las 23:59`', 'Nunca en relativo: un vencimiento se anota'],
@@ -37,7 +37,7 @@ export function TimeSection() {
             </TableRow>
           </TableHeader>
           <TableBody>
-            {cual.map(([q, f, v, r]) => (
+            {which.map(([q, f, v, r]) => (
               <TableRow key={q}>
                 <TableCell>{q}</TableCell>
                 <TableCell>{f}</TableCell>
@@ -55,24 +55,24 @@ export function TimeSection() {
       >
         <Panel>
           <Variant name="cuánto hace">
-            <Muestra>{timeAgo(hace(20_000), { now: ahora })}</Muestra>
-            <Muestra>{timeAgo(hace(60_000), { now: ahora })}</Muestra>
-            <Muestra>{timeAgo(hace(20 * 60_000), { now: ahora })}</Muestra>
-            <Muestra>{timeAgo(hace(2 * 3_600_000), { now: ahora })}</Muestra>
-            <Muestra>{timeAgo(hace(24 * 3_600_000), { now: ahora })}</Muestra>
-            <Muestra>{timeAgo(hace(3 * 24 * 3_600_000), { now: ahora })}</Muestra>
-            <Muestra>{timeAgo(hace(23 * 24 * 3_600_000), { now: ahora, zone: AR })}</Muestra>
+            <Sample>{timeAgo(ago(20_000), { now: now })}</Sample>
+            <Sample>{timeAgo(ago(60_000), { now: now })}</Sample>
+            <Sample>{timeAgo(ago(20 * 60_000), { now: now })}</Sample>
+            <Sample>{timeAgo(ago(2 * 3_600_000), { now: now })}</Sample>
+            <Sample>{timeAgo(ago(24 * 3_600_000), { now: now })}</Sample>
+            <Sample>{timeAgo(ago(3 * 24 * 3_600_000), { now: now })}</Sample>
+            <Sample>{timeAgo(ago(23 * 24 * 3_600_000), { now: now, zone: AR })}</Sample>
           </Variant>
           <Variant name="fecha y reloj">
-            <Muestra>{clock('2026-03-09T23:59:00-03:00', { zone: AR })}</Muestra>
-            <Muestra>{day('2026-03-09T12:00:00-03:00', { zone: AR })}</Muestra>
-            <Muestra>{dayAndTime('2026-03-09T23:59:00-03:00', { zone: AR })}</Muestra>
-            <Muestra>{day('2026-03-09T12:00:00-03:00', { zone: AR, full: true })}</Muestra>
+            <Sample>{clock('2026-03-09T23:59:00-03:00', { zone: AR })}</Sample>
+            <Sample>{day('2026-03-09T12:00:00-03:00', { zone: AR })}</Sample>
+            <Sample>{dayAndTime('2026-03-09T23:59:00-03:00', { zone: AR })}</Sample>
+            <Sample>{day('2026-03-09T12:00:00-03:00', { zone: AR, full: true })}</Sample>
           </Variant>
           <Variant name="duración">
-            <Muestra>{duration(7)}</Muestra>
-            <Muestra>{duration(90)}</Muestra>
-            <Muestra>{duration(3661)}</Muestra>
+            <Sample>{duration(7)}</Sample>
+            <Sample>{duration(90)}</Sample>
+            <Sample>{duration(3661)}</Sample>
           </Variant>
         </Panel>
       </Section>
@@ -82,12 +82,12 @@ export function TimeSection() {
         note="Es el error que cuesta una entrega. Una consigna que cierra a las 23:59 en el aula cierra a las 03:59 del día siguiente para quien está dos husos al este, y el navegador se lo va a mostrar en su hora local sin avisar."
       >
         <div className={`${cls.zoneCard} bg-surface`}>
-          <Linea etiqueta="El mismo instante, en la zona del curso">
-            {clock('2026-03-09T23:59:00-03:00', { zone: AR })} · {zoneLabel(AR, ahora)}
-          </Linea>
-          <Linea etiqueta="Y para alguien que lo mira desde Madrid">
-            {clock('2026-03-09T23:59:00-03:00', { zone: 'Europe/Madrid' })} · {zoneLabel('Europe/Madrid', ahora)}
-          </Linea>
+          <Line etiqueta="El mismo instante, en la zona del curso">
+            {clock('2026-03-09T23:59:00-03:00', { zone: AR })} · {zoneLabel(AR, now)}
+          </Line>
+          <Line etiqueta="Y para alguien que lo mira desde Madrid">
+            {clock('2026-03-09T23:59:00-03:00', { zone: 'Europe/Madrid' })} · {zoneLabel('Europe/Madrid', now)}
+          </Line>
         </div>
         <Note title="La regla, en dos partes">
           El dato se guarda en UTC y se muestra en la zona del curso. Y cuando la zona de quien mira
@@ -131,11 +131,11 @@ export function TimeSection() {
   )
 }
 
-function Muestra({ children }: { children: React.ReactNode }) {
+function Sample({ children }: { children: React.ReactNode }) {
   return <code className={cls.tokenName}>{children}</code>
 }
 
-function Linea({ etiqueta, children }: { etiqueta: string; children: React.ReactNode }) {
+function Line({ etiqueta, children }: { etiqueta: string; children: React.ReactNode }) {
   return (
     <div className={cls.specimenRow}>
       <span className={cls.specimenLabel}>{etiqueta}</span>

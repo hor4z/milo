@@ -13,8 +13,8 @@ describe('la tabla de props sale del código', () => {
 
   it('cada pieza que el kit documenta existe en el paquete', () => {
     const index = readFileSync(join(root, 'src/index.ts'), 'utf8')
-    const fuera = Object.keys(propsByComponent).filter(p => !new RegExp(`\\b${p}\\b`).test(index))
-    expect(fuera).toEqual([])
+    const outside = Object.keys(propsByComponent).filter(p => !new RegExp(`\\b${p}\\b`).test(index))
+    expect(outside).toEqual([])
   })
 
   it('lo que se documenta tiene tipo y obligatoriedad, no solo prosa', () => {

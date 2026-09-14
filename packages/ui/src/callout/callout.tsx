@@ -15,7 +15,7 @@ type CalloutProps = {
   className?: string
 }
 
-const papel: Record<LabelColor | 'neutral', string> = {
+const paper: Record<LabelColor | 'neutral', string> = {
   neutral: s.neutral,
   ...labelSoft,
 }
@@ -23,7 +23,7 @@ const papel: Record<LabelColor | 'neutral', string> = {
 /** Un bloque de contenido que pide detenerse: una aclaración, una pista, algo para recordar. */
 export function Callout({ icon, color = 'neutral', title, children, className }: CalloutProps) {
   return (
-    <aside role="note" className={cx(s.root, papel[color], className)}>
+    <aside role="note" className={cx(s.root, paper[color], className)}>
       {icon && (
         <span className={s.icon}>
           <Icon name={icon} size={20} />

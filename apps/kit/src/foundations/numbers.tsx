@@ -3,7 +3,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@
 import { bytes, count, decimals, delta, share, span, withUnit } from '@milo/ui'
 import { A11y, Note, Page, Panel, Rich, Section, Stack, Variant } from '../kit'
 
-const cual = [
+const which = [
   ['Una cantidad que alguien va a leer', '`18 de 24`', 'La cuenta dice cuánto falta; el porcentaje obliga a calcularlo'],
   ['Una medición', '`9,8`', 'Los decimales que se midieron y ni uno más'],
   ['Un total grande', '`1.250`', 'Nunca abreviado si hay que actuar sobre él'],
@@ -33,7 +33,7 @@ export function NumbersSection() {
             </TableRow>
           </TableHeader>
           <TableBody>
-            {cual.map(([q, v, r]) => (
+            {which.map(([q, v, r]) => (
               <TableRow key={q}>
                 <TableCell>{q}</TableCell>
                 <TableCell><Rich text={v} /></TableCell>
@@ -47,24 +47,24 @@ export function NumbersSection() {
       <Section title="Vivo" note="Todo esto sale de las mismas funciones.">
         <Panel>
           <Variant name="enteros y decimales">
-            <Muestra>{count(1250)}</Muestra>
-            <Muestra>{decimals(9.84)}</Muestra>
-            <Muestra>{decimals(1250.5)}</Muestra>
+            <Sample>{count(1250)}</Sample>
+            <Sample>{decimals(9.84)}</Sample>
+            <Sample>{decimals(1250.5)}</Sample>
           </Variant>
           <Variant name="una parte de un total">
-            <Muestra>{share(18, 24).count}</Muestra>
-            <Muestra>{share(18, 24).percent}</Muestra>
+            <Sample>{share(18, 24).count}</Sample>
+            <Sample>{share(18, 24).percent}</Sample>
           </Variant>
           <Variant name="con unidad">
-            <Muestra>{withUnit(45, 'min')}</Muestra>
-            <Muestra>{bytes(1024 ** 3 * 1.4)}</Muestra>
-            <Muestra>{bytes(1024 ** 3 * 24)}</Muestra>
+            <Sample>{withUnit(45, 'min')}</Sample>
+            <Sample>{bytes(1024 ** 3 * 1.4)}</Sample>
+            <Sample>{bytes(1024 ** 3 * 24)}</Sample>
           </Variant>
           <Variant name="rango y cambio">
-            <Muestra>{span(3, 7, 'entregas')}</Muestra>
-            <Muestra>{delta(12, { percent: true })}</Muestra>
-            <Muestra>{delta(-3)}</Muestra>
-            <Muestra>{delta(0)}</Muestra>
+            <Sample>{span(3, 7, 'entregas')}</Sample>
+            <Sample>{delta(12, { percent: true })}</Sample>
+            <Sample>{delta(-3)}</Sample>
+            <Sample>{delta(0)}</Sample>
           </Variant>
         </Panel>
       </Section>
@@ -74,12 +74,12 @@ export function NumbersSection() {
         note="Sin la cifra tabular el 1 es más angosto que el 4 y una columna de números baila. Lo pone la utilidad `tabular`, y va en toda tabla, todo contador y todo reloj."
       >
         <div className={`${cls.tabularCompare} bg-surface`}>
-          <Columna titulo="sin tabular" clase="">
+          <Column title="sin tabular" variant="">
             {[1250, 918, 1111, 444].map(n => <span key={n}>{count(n)}</span>)}
-          </Columna>
-          <Columna titulo="con tabular" clase="tabular">
+          </Column>
+          <Column title="con tabular" variant="tabular">
             {[1250, 918, 1111, 444].map(n => <span key={n}>{count(n)}</span>)}
-          </Columna>
+          </Column>
         </div>
       </Section>
 
@@ -88,10 +88,10 @@ export function NumbersSection() {
         note="Es la misma regla que Cómo se escribe: un contador informa y una frase orienta. El número va cuando cambia una decisión, y va con aquello contra lo que se mide."
       >
         <div className={cls.specimenGrid}>
-          <Caso mal="45%" bien="11 de 24 corregidas" por="El porcentaje esconde el tamaño: 45% de 24 y 45% de 300 no son el mismo trabajo." />
-          <Caso mal="Quedan 3" bien="Quedan 3 de 18 por corregir" por="Un número sin su total no dice si es mucho o poco." />
-          <Caso mal="9,80000" bien="9,8" por="Los decimales que no se midieron son ruido que se lee como precisión." />
-          <Caso mal="1,2 k entregas" bien="1.250 entregas" por="Lo abreviado sirve en el eje de un gráfico; sobre un número que se usa, no." />
+          <Case mal="45%" bien="11 de 24 corregidas" por="El porcentaje esconde el tamaño: 45% de 24 y 45% de 300 no son el mismo trabajo." />
+          <Case mal="Quedan 3" bien="Quedan 3 de 18 por corregir" por="Un número sin su total no dice si es mucho o poco." />
+          <Case mal="9,80000" bien="9,8" por="Los decimales que no se midieron son ruido que se lee como precisión." />
+          <Case mal="1,2 k entregas" bien="1.250 entregas" por="Lo abreviado sirve en el eje de un gráfico; sobre un número que se usa, no." />
         </div>
       </Section>
 
@@ -114,20 +114,20 @@ export function NumbersSection() {
   )
 }
 
-function Muestra({ children }: { children: React.ReactNode }) {
+function Sample({ children }: { children: React.ReactNode }) {
   return <code className={cls.monoSample}>{children}</code>
 }
 
-function Columna({ titulo, clase, children }: { titulo: string; clase: string; children: React.ReactNode }) {
+function Column({ title, variant, children }: { title: string; variant: string; children: React.ReactNode }) {
   return (
     <Stack gap="sm">
-      <span className={cls.columnLabel}>{titulo}</span>
-      <div className={`${cls.column} ${clase}`}>{children}</div>
+      <span className={cls.columnLabel}>{title}</span>
+      <div className={`${cls.column} ${variant}`}>{children}</div>
     </Stack>
   )
 }
 
-function Caso({ mal, bien, por }: { mal: string; bien: string; por: string }) {
+function Case({ mal, bien, por }: { mal: string; bien: string; por: string }) {
   return (
     <div className={`${cls.specimen} bg-surface`}>
       <span className={cls.comparisonBad}>{mal}</span>

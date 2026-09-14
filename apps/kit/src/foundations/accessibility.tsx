@@ -3,7 +3,7 @@ import { Button, Chip, Field, Icon, Kbd, TextField } from '@milo/ui'
 import { A11y, Note, Page, Section, Stack } from '../kit'
 
 /** Las reglas del sistema, no las de cada pieza: lo de cada pieza está en su vista. */
-const reglas = [
+const rules = [
   {
     icon: 'contrast',
     title: 'El contraste se mide, no se estima',
@@ -46,7 +46,7 @@ export function AccessibilitySection() {
     >
       <Section title="Las seis reglas">
         <div className={cls.specimenGrid}>
-          {reglas.map(r => (
+          {rules.map(r => (
             <div key={r.title} className={`${cls.specimen} bg-surface`}>
               <span className={`${cls.roleBadge} inset-relief`}>
                 <Icon name={r.icon} size={18} />

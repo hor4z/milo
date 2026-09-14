@@ -2,7 +2,7 @@ import cls from './charts.module.css'
 import { BarChart, Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@milo/ui'
 import { A11y, Note, Page, Section } from '../kit'
 
-const semana = [
+const week = [
   { label: 'Lun', value: 18, total: 24 },
   { label: 'Mar', value: 6, total: 14 },
   { label: 'Mié', value: 27, total: 29 },
@@ -10,7 +10,7 @@ const semana = [
   { label: 'Vie', value: 17, total: 17 },
 ]
 
-const cual = [
+const which = [
   ['Comparar cantidades sueltas', 'Cuántas entregas por día, cuántos por curso', 'BarChart'],
   ['Una parte de un total, y una sola', 'Cuánto de lo entregado está corregido', 'Progress'],
   ['Valores exactos que alguien va a leer uno por uno', 'Las notas de treinta personas', 'Table'],
@@ -34,7 +34,7 @@ export function ChartsSection() {
             </TableRow>
           </TableHeader>
           <TableBody>
-            {cual.map(([q, e, p]) => (
+            {which.map(([q, e, p]) => (
               <TableRow key={q}>
                 <TableCell>{q}</TableCell>
                 <TableCell>{e}</TableCell>
@@ -52,11 +52,11 @@ export function ChartsSection() {
         <div className={cls.specimenGrid}>
           <div className={`${cls.conclusionCard} bg-surface`}>
             <span className={cls.conclusionTitle}>El martes quedó a mitad de camino</span>
-            <BarChart title="Corregidas sobre entregadas por día" data={semana} highlight={1} height={150} />
+            <BarChart title="Corregidas sobre entregadas por día" data={week} highlight={1} height={150} />
           </div>
           <div className={cls.categoryCard}>
             <span className={cls.categoryTitle}>Entregas por día</span>
-            <BarChart title="Entregas por día" data={semana} height={150} />
+            <BarChart title="Entregas por día" data={week} height={150} />
           </div>
         </div>
       </Section>
@@ -66,7 +66,7 @@ export function ChartsSection() {
         note="Lo hecho es un relleno adentro de una pista, así que lo que dice cuánto es el alto y no el tono: las cinco barras son del mismo azul. Pasá el mouse por una o entrá con el teclado y vas a ver que lo que cambia es la trama y el filo, no el color; y la barra de la que habla el título se marca con el peso de su etiqueta. Quien no distingue dos azules lee el alto, y quien no ve el gráfico tiene la tabla."
       >
         <div className={`${cls.patternCard} bg-surface`}>
-          <BarChart title="El miércoles se corrigió casi todo" data={semana} highlight={2} height={180} />
+          <BarChart title="El miércoles se corrigió casi todo" data={week} highlight={2} height={180} />
         </div>
       </Section>
 

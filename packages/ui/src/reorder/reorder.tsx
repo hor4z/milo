@@ -10,11 +10,11 @@ export type ReorderItem = {
   label: string
 }
 
-const mover = <T,>(lista: T[], de: number, a: number) => {
-  const copia = [...lista]
-  const [x] = copia.splice(de, 1)
-  copia.splice(a, 0, x)
-  return copia
+const move = <T,>(list: T[], fromIndex: number, toIndex: number) => {
+  const copy = [...list]
+  const [x] = copy.splice(fromIndex, 1)
+  copy.splice(toIndex, 0, x)
+  return copy
 }
 
 /** Una lista que se reordena: los bloques de una consigna, las etapas de una entrega. */
@@ -29,55 +29,55 @@ export function Reorder<T extends ReorderItem>({ items, onReorder, label, childr
   children: (item: T, i: number) => ReactNode
   className?: string
 }) {
-  const [agarrado, setAgarrado] = useState<string | null>(null)
+  const [grabbed, setGrabbed] = useState<string | null>(null)
   const [aviso, setAviso] = useState('')
-  const filas = useRef<Record<string, HTMLLIElement | null>>({})
-  const cuerpos = useRef<Record<string, HTMLDivElement | null>>({})
-  const manijas = useRef<Record<string, HTMLButtonElement | null>>({})
+  const slots = useRef<Record<string, HTMLLIElement | null>>({})
+  const bodies = useRef<Record<string, HTMLDivElement | null>>({})
+  const handles = useRef<Record<string, HTMLButtonElement | null>>({})
 
-  const vivo = useRef(items)
-  vivo.current = items
+  const liveItems = useRef(items)
+  liveItems.current = items
 
-  const previas = useRef<Record<string, number>>({})
-  const anotar = () => {
-    for (const [id, el] of Object.entries(filas.current)) {
-      if (el) previas.current[id] = el.getBoundingClientRect().top
+  const previousTops = useRef<Record<string, number>>({})
+  const recordTops = () => {
+    for (const [id, el] of Object.entries(slots.current)) {
+      if (el) previousTops.current[id] = el.getBoundingClientRect().top
     }
   }
 
-  const agarradoRef = useRef<string | null>(null)
-  const punteroY = useRef(0)
-  const agarre = useRef(0)
-  const cuadro = useRef(0)
+  const grabbedRef = useRef<string | null>(null)
+  const pointerY = useRef(0)
+  const grabOffset = useRef(0)
+  const frame = useRef(0)
 
   /** Deja el papel exactamente donde está el dedo, mida lo que mida el layout. */
-  const pegarAlDedo = (id: string) => {
-    const ranura = filas.current[id]
-    const cuerpo = cuerpos.current[id]
-    if (!ranura || !cuerpo) return
-    cuerpo.style.transition = 'none'
-    cuerpo.style.transform = `translateY(${punteroY.current - agarre.current - ranura.getBoundingClientRect().top}px)`
+  const followPointer = (id: string) => {
+    const slot = slots.current[id]
+    const body = bodies.current[id]
+    if (!slot || !body) return
+    body.style.transition = 'none'
+    body.style.transform = `translateY(${pointerY.current - grabOffset.current - slot.getBoundingClientRect().top}px)`
   }
 
   useLayoutEffect(() => {
-    for (const [id, ranura] of Object.entries(filas.current)) {
-      const antes = previas.current[id]
-      const cuerpo = cuerpos.current[id]
-      if (!ranura || !cuerpo || antes == null) continue
-      if (id === agarradoRef.current) {
-        pegarAlDedo(id)
+    for (const [id, slot] of Object.entries(slots.current)) {
+      const before = previousTops.current[id]
+      const body = bodies.current[id]
+      if (!slot || !body || before == null) continue
+      if (id === grabbedRef.current) {
+        followPointer(id)
         continue
       }
-      const delta = antes - ranura.getBoundingClientRect().top
+      const delta = before - slot.getBoundingClientRect().top
       if (!delta) continue
-      cuerpo.style.transition = 'none'
-      cuerpo.style.transform = `translateY(${delta}px)`
+      body.style.transition = 'none'
+      body.style.transform = `translateY(${delta}px)`
       requestAnimationFrame(() => {
-        cuerpo.style.transition = ''
-        cuerpo.style.transform = ''
+        body.style.transition = ''
+        body.style.transform = ''
       })
     }
-    previas.current = {}
+    previousTops.current = {}
   }, [items])
 
   useEffect(() => {
@@ -86,83 +86,83 @@ export function Reorder<T extends ReorderItem>({ items, onReorder, label, childr
     return () => clearTimeout(t)
   }, [aviso])
 
-  useEffect(() => () => cancelAnimationFrame(cuadro.current), [])
+  useEffect(() => () => cancelAnimationFrame(frame.current), [])
 
-  const llevar = (id: string, paso: number) => {
-    const de = items.findIndex(x => x.id === id)
-    const a = de + paso
-    if (de < 0 || a < 0 || a >= items.length) return
-    anotar()
-    onReorder(mover(items, de, a))
-    setAviso(`${items[de].label}, posición ${a + 1} de ${items.length}`)
-    requestAnimationFrame(() => manijas.current[id]?.focus())
+  const moveBy = (id: string, step: number) => {
+    const fromIndex = items.findIndex(x => x.id === id)
+    const toIndex = fromIndex + step
+    if (fromIndex < 0 || toIndex < 0 || toIndex >= items.length) return
+    recordTops()
+    onReorder(move(items, fromIndex, toIndex))
+    setAviso(`${items[fromIndex].label}, posición ${toIndex + 1} de ${items.length}`)
+    requestAnimationFrame(() => handles.current[id]?.focus())
   }
 
-  const teclas = (e: React.KeyboardEvent, id: string) => {
+  const onKey = (e: React.KeyboardEvent, id: string) => {
     if (e.key === 'ArrowUp' || e.key === 'ArrowDown') {
       e.preventDefault()
-      llevar(id, e.key === 'ArrowDown' ? 1 : -1)
+      moveBy(id, e.key === 'ArrowDown' ? 1 : -1)
     }
   }
 
   /** Con el puntero: la fila va pegada al dedo y las otras se corren solas. */
-  const arrastrar = (e: React.PointerEvent, id: string) => {
+  const onGrab = (e: React.PointerEvent, id: string) => {
     if (e.pointerType === 'mouse' && e.button !== 0) return
     e.preventDefault()
-    const ranura = filas.current[id]
-    if (!ranura) return
+    const slot = slots.current[id]
+    if (!slot) return
 
-    agarradoRef.current = id
-    setAgarrado(id)
-    punteroY.current = e.clientY
-    agarre.current = e.clientY - ranura.getBoundingClientRect().top
+    grabbedRef.current = id
+    setGrabbed(id)
+    pointerY.current = e.clientY
+    grabOffset.current = e.clientY - slot.getBoundingClientRect().top
 
-    const seguir = () => {
-      const actual = agarradoRef.current
-      const fila = actual ? filas.current[actual] : null
-      if (!actual || !fila) return
-      pegarAlDedo(actual)
+    const follow = () => {
+      const currentId = grabbedRef.current
+      const slotEl = currentId ? slots.current[currentId] : null
+      if (!currentId || !slotEl) return
+      followPointer(currentId)
 
-      const lista = vivo.current
-      const de = lista.findIndex(x => x.id === agarradoRef.current)
-      const centro = punteroY.current - agarre.current + fila.offsetHeight / 2
-      for (let i = 0; i < lista.length; i++) {
-        if (i === de) continue
-        const otra = filas.current[lista[i].id]
-        if (!otra) continue
-        const caja = otra.getBoundingClientRect()
-        const cruzo = i < de ? centro < caja.top + caja.height / 2 : centro > caja.top + caja.height / 2
-        if (cruzo) {
-          const nuevo = mover(lista, de, i)
-          vivo.current = nuevo
-          anotar()
-          onReorder(nuevo)
+      const list = liveItems.current
+      const fromIndex = list.findIndex(x => x.id === grabbedRef.current)
+      const center = pointerY.current - grabOffset.current + slotEl.offsetHeight / 2
+      for (let i = 0; i < list.length; i++) {
+        if (i === fromIndex) continue
+        const otherSlot = slots.current[list[i].id]
+        if (!otherSlot) continue
+        const box = otherSlot.getBoundingClientRect()
+        const crossed = i < fromIndex ? center < box.top + box.height / 2 : center > box.top + box.height / 2
+        if (crossed) {
+          const next = move(list, fromIndex, i)
+          liveItems.current = next
+          recordTops()
+          onReorder(next)
           break
         }
       }
 
-      cuadro.current = requestAnimationFrame(seguir)
+      frame.current = requestAnimationFrame(follow)
     }
 
-    const mueve = (ev: PointerEvent) => { punteroY.current = ev.clientY }
-    const suelta = () => {
-      cancelAnimationFrame(cuadro.current)
-      const cuerpo = cuerpos.current[agarradoRef.current ?? '']
-      if (cuerpo) {
-        cuerpo.style.transition = ''
-        cuerpo.style.transform = ''
+    const onPointerMove = (ev: PointerEvent) => { pointerY.current = ev.clientY }
+    const onRelease = () => {
+      cancelAnimationFrame(frame.current)
+      const body = bodies.current[grabbedRef.current ?? '']
+      if (body) {
+        body.style.transition = ''
+        body.style.transform = ''
       }
-      agarradoRef.current = null
-      setAgarrado(null)
-      removeEventListener('pointermove', mueve)
-      removeEventListener('pointerup', suelta)
-      removeEventListener('pointercancel', suelta)
+      grabbedRef.current = null
+      setGrabbed(null)
+      removeEventListener('pointermove', onPointerMove)
+      removeEventListener('pointerup', onRelease)
+      removeEventListener('pointercancel', onRelease)
     }
 
-    addEventListener('pointermove', mueve)
-    addEventListener('pointerup', suelta)
-    addEventListener('pointercancel', suelta)
-    cuadro.current = requestAnimationFrame(seguir)
+    addEventListener('pointermove', onPointerMove)
+    addEventListener('pointerup', onRelease)
+    addEventListener('pointercancel', onRelease)
+    frame.current = requestAnimationFrame(follow)
   }
 
   return (
@@ -171,24 +171,24 @@ export function Reorder<T extends ReorderItem>({ items, onReorder, label, childr
         {items.map((item, i) => (
           <li
             key={item.id}
-            ref={el => { filas.current[item.id] = el }}
-            className={cx(cls.slot, agarrado === item.id && cls.slotDragging)}
+            ref={el => { slots.current[item.id] = el }}
+            className={cx(cls.slot, grabbed === item.id && cls.slotDragging)}
           >
           <div
-            ref={el => { cuerpos.current[item.id] = el }}
+            ref={el => { bodies.current[item.id] = el }}
             className={cx(
               `${cls.item} bg-surface`,
               cls.itemMotion,
-              agarrado === item.id ? cls.itemLifted : cls.itemResting,
+              grabbed === item.id ? cls.itemLifted : cls.itemResting,
             )}
           >
             <button
               type="button"
-              ref={el => { manijas.current[item.id] = el }}
+              ref={el => { handles.current[item.id] = el }}
               aria-label={`Mover ${item.label}, posición ${i + 1} de ${items.length}`}
               aria-describedby="reorder-ayuda"
-              onKeyDown={e => teclas(e, item.id)}
-              onPointerDown={e => arrastrar(e, item.id)}
+              onKeyDown={e => onKey(e, item.id)}
+              onPointerDown={e => onGrab(e, item.id)}
               className={cls.handle}
             >
               <Icon name="drag_indicator" size={18} weight={400} className={cls.icon} />

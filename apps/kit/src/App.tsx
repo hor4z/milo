@@ -3,7 +3,7 @@ import { useEffect, useMemo, useRef, useState, type ReactNode } from 'react'
 import { Button, EmptyState, Icon, IconButton, Search, ToastProvider, cx, fold, usePrefs } from '@milo/ui'
 import { Intro } from './intro'
 import { Dashboard } from './dashboard'
-import { Documento } from './document'
+import { DocumentStory } from './document'
 import { Principles } from './foundations/principles'
 import { AccessibilitySection } from './foundations/accessibility'
 import { TypographySection } from './foundations/typography'
@@ -370,7 +370,7 @@ export function App() {
           <div key={current} className={cls.viewSlot}>
             {current === INTRO && <Intro go={go} views={everything.length} />}
             {current === 'dashboard' && <Dashboard />}
-            {current === 'documento' && <Documento />}
+            {current === 'documento' && <DocumentStory />}
             {story?.render()}
             {!story && current !== INTRO && current !== 'dashboard' && current !== 'documento' && (
               <>

@@ -34,13 +34,13 @@ export function bytes(value: number) {
 
 /** Un rango, con la palabra y no con un guion: `3 a 7`. Un guion entre números se lee como un menos. */
 export function span(from: number, to: number, name?: string) {
-  const cuerpo = `${count(from)} a ${count(to)}`
-  return name ? `${cuerpo} ${name}` : cuerpo
+  const core = `${count(from)} a ${count(to)}`
+  return name ? `${core} ${name}` : core
 }
 
 /** Un cambio contra el período anterior: `+12%`, `-3`. El cero no lleva signo porque no cambió nada. */
 export function delta(value: number, { percent = false }: { percent?: boolean } = {}) {
   if (value === 0) return percent ? '0%' : '0'
-  const cuerpo = percent ? `${Math.abs(Math.round(value))}%` : count(Math.abs(value))
-  return `${value > 0 ? '+' : '-'}${cuerpo}`
+  const core = percent ? `${Math.abs(Math.round(value))}%` : count(Math.abs(value))
+  return `${value > 0 ? '+' : '-'}${core}`
 }

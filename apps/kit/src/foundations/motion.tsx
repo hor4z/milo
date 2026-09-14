@@ -4,7 +4,7 @@ import { Button, Icon, Switch } from '@milo/ui'
 import { A11y, Note, Page, Section, Stack } from '../kit'
 
 /** Dos duraciones de interfaz, una de contenido, y dos curvas. */
-const duraciones = [
+const durations = [
   { name: '--duration-fast', ms: 120, role: 'lo que acompaña al dedo: un hover, un color que cambia, un check que se marca. Tiene que sentirse instantáneo.' },
   { name: '--duration-normal', ms: 190, role: 'lo que aparece o se va: un panel, un modal, una hoja. Acá el ojo necesita ver de dónde vino.' },
   { name: '--duration-content', ms: 280, role: 'lo que no es interfaz: una carpeta que se abre, un libro que gira. No informa de un cambio de estado, muestra qué es la cosa, y eso pide más tiempo.' },
@@ -28,7 +28,7 @@ export function MotionSection() {
         note="120, 190 y 280 milisegundos. El corte no es estético: por debajo de unos 100ms el ojo no llega a ver el movimiento y solo registra el salto; por encima de unos 250ms la interfaz empieza a hacerse esperar. Lo que pasa de ahí ya no es interfaz: es contenido que se está mostrando, y por eso tiene su propio paso. Las tres estuvieron escritas a mano con valores distintos (250, 280 y 340) hasta que se contaron."
       >
         <Stack>
-          {duraciones.map(d => (
+          {durations.map(d => (
             <div key={d.name} className={`${css.durationRow} bg-surface`}>
               <code className={css.durationName}>{d.name}</code>
               <span className={`${css.durationValue} tabular`}>{d.ms}ms</span>
@@ -59,7 +59,7 @@ export function MotionSection() {
         </Stack>
       </Section>
 
-      <Probador />
+      <Playground />
 
       <Section
         title="Lo que no se mueve"
@@ -128,7 +128,7 @@ export function MotionSection() {
   )
 }
 
-function Probador() {
+function Playground() {
   const [abierto, setAbierto] = useState(false)
   const [lento, setLento] = useState(false)
 

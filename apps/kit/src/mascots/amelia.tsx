@@ -1,7 +1,7 @@
 import s from './amelia.module.css'
 import { AssetTable, Portrait } from './mascot'
 import { A11y, Page, Section, Stack } from '../kit'
-import { useQuieto } from './quieto'
+import { useStill } from './still'
 
 const clips = [
   { archivo: 'amelia-quieta', titulo: 'Quieta', nota: 'Respira. Es el único que se repite.' },
@@ -10,7 +10,7 @@ const clips = [
 ] as const
 
 export function AmeliaStory() {
-  const quieto = useQuieto()
+  const still = useStill()
 
   return (
     <Page
@@ -34,7 +34,7 @@ export function AmeliaStory() {
             <div key={c.archivo} className={`${s.clipCard} bg-surface`}>
               <div className={s.clipStage}>
                 <img
-                  src={quieto ? '/mascotas/amelia.webp' : `/mascotas/${c.archivo}.webp`}
+                  src={still ? '/mascotas/amelia.webp' : `/mascotas/${c.archivo}.webp`}
                   alt=""
                   className={s.clipImage}
                 />

@@ -33,13 +33,13 @@ export function Rich({ text }: { text: string }) {
         if (t.startsWith('**') && t.endsWith('**')) return <strong key={i} className={s.inlineStrong}>{t.slice(2, -2)}</strong>
         const link = /^\[([^\]]+)\]\(([^)]+)\)$/.exec(t)
         if (link) {
-          const externo = link[2].startsWith('http')
+          const external = link[2].startsWith('http')
           return (
             <a
               key={i}
               href={link[2]}
               className={s.inlineLink}
-              {...(externo && { target: '_blank', rel: 'noreferrer' })}
+              {...(external && { target: '_blank', rel: 'noreferrer' })}
             >
               {link[1]}
             </a>
@@ -258,24 +258,24 @@ export function Mono({ children }: { children: ReactNode }) {
 /** La tabla de props. Las filas salen del código: tipo, default y descripción
     los escribe la pieza en su docblock y los extrae `scripts/props.mjs`. */
 export function Props({ of }: { of: string | readonly string[] }) {
-  const piezas = typeof of === 'string' ? [of] : of
+  const names = typeof of === 'string' ? [of] : of
   return (
     <Stack gap="lg">
-      {piezas.map(pieza => {
-        const doc = propsByComponent[pieza]
-        const rows = doc?.props ?? []
+      {names.map(pieza => {
+        const info = propsByComponent[pieza]
+        const rows = info?.props ?? []
         return (
           <div key={pieza} className={s.propsTable}>
-            {piezas.length > 1 && (
+            {names.length > 1 && (
               <div className={s.propsHeader}>
                 <code className={s.propsName}>{pieza}</code>
-                {doc?.doc && <span className={s.propsDoc}><Rich text={doc.doc} /></span>}
+                {info?.doc && <span className={s.propsDoc}><Rich text={info.doc} /></span>}
               </div>
             )}
             {rows.length === 0 ? (
               <p className={s.propsEmpty}>
                 No tiene props propias: toma los atributos de un{' '}
-                <code className={s.propsEmptyTag}>{`<${doc?.html ?? 'div'}>`}</code>.
+                <code className={s.propsEmptyTag}>{`<${info?.html ?? 'div'}>`}</code>.
               </p>
             ) : (
             <table className={s.table}>
@@ -310,10 +310,10 @@ export function Props({ of }: { of: string | readonly string[] }) {
               </tbody>
             </table>
             )}
-            {rows.length > 0 && doc?.html && (
+            {rows.length > 0 && info?.html && (
               <p className={s.propsHtmlNote}>
                 Y los atributos de un{' '}
-                <code className={s.propsHtmlTag}>{`<${doc.html}>`}</code>.
+                <code className={s.propsHtmlTag}>{`<${info.html}>`}</code>.
               </p>
             )}
           </div>

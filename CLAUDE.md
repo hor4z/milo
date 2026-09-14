@@ -548,9 +548,8 @@ un aula:
   96 apariciones de la maquinaria de gradiente de Tailwind escrita a mano
   (`--milo-gradient-from/via/to/stops`, casi todas adentro de un `transition-property` que no anima
   nada), y 56 `transition-duration: 150ms` seguidas de la `var(--duration-fast)` que sí vale.
-- **El código en castellano que queda.** Los subcomponentes y las constantes de las vistas del kit
-  (`Caso`, `Muestra`, `Columna`, con props `titulo` y `clase`), y el helper `face()` copiado en cinco
-  historias. Las clases ya están todas en inglés; esto no.
+- **El helper `face()` está copiado en cinco historias** (avatar, mention, table, chart, folder), y
+  `p()` o `person()` en tres. Es contenido de ejemplo, así que va a un `fixtures.ts` compartido.
 - **Un `Stack` hermano de `Cluster`.** Hay 23 clases en 18 archivos que son la misma columna con
   gap, pero los valores van de 0.125 a 1.5rem y no entran en una escala sin mover cosas de lugar.
 - **Props que le faltan a dos piezas, y que las historias suplen con CSS.** `Table` no tiene

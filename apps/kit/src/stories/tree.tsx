@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { Tree, type TreeNode } from '@milo/ui'
 import { A11y, Canvas, Frame, Note, Page, Props, Section } from '../kit'
 
-const espacios: TreeNode[] = [
+const spaces: TreeNode[] = [
   {
     id: 'mate',
     label: 'Matemática · 4.º A',
@@ -38,7 +38,7 @@ const espacios: TreeNode[] = [
   { id: 'borradores', label: 'Borradores', icon: 'draft', meta: '3' },
 ]
 
-const indice: TreeNode[] = [
+const outline: TreeNode[] = [
   {
     id: 'h1',
     label: 'Caída libre: medir g en el patio',
@@ -52,8 +52,8 @@ const indice: TreeNode[] = [
 ]
 
 export function TreeStory() {
-  const [elegido, setElegido] = useState('fracciones')
-  const [abiertos, setAbiertos] = useState(['mate', 'numeros'])
+  const [picked, setPicked] = useState('fracciones')
+  const [openIds, setOpenIds] = useState(['mate', 'numeros'])
   const [seccion, setSeccion] = useState('h2a')
 
   return (
@@ -70,12 +70,12 @@ export function TreeStory() {
         <Canvas>
           <Frame width="md">
             <Tree
-              nodes={espacios}
+              nodes={spaces}
               label="Espacios"
-              expanded={abiertos}
-              onExpandedChange={setAbiertos}
-              selected={elegido}
-              onSelect={setElegido}
+              expanded={openIds}
+              onExpandedChange={setOpenIds}
+              selected={picked}
+              onSelect={setPicked}
             />
           </Frame>
         </Canvas>
@@ -87,7 +87,7 @@ export function TreeStory() {
       >
         <Canvas>
           <Frame width="md">
-            <Tree nodes={indice} label="Secciones del documento" selected={seccion} onSelect={setSeccion} />
+            <Tree nodes={outline} label="Secciones del documento" selected={seccion} onSelect={setSeccion} />
           </Frame>
         </Canvas>
       </Section>

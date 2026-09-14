@@ -51,12 +51,12 @@ describe('la escala tipográfica', () => {
   it('el que escribe un tamaño escribe los tres', () => {
     const cojos: string[] = []
     for (const f of estilo) {
-      for (const bloque of f.texto.split(/(?<=\})/)) {
-        const m = bloque.match(/font-size:\s*var\(--type-([a-z]+)\)/)
+      for (const block of f.texto.split(/(?<=\})/)) {
+        const m = block.match(/font-size:\s*var\(--type-([a-z]+)\)/)
         if (!m) continue
         const r = m[1]
-        if (!bloque.includes(`--type-${r}-lh`)) cojos.push(`${f.nombre}: --type-${r} sin interlineado`)
-        else if (!bloque.includes(`--type-${r}-ls`)) cojos.push(`${f.nombre}: --type-${r} sin tracking`)
+        if (!block.includes(`--type-${r}-lh`)) cojos.push(`${f.nombre}: --type-${r} sin interlineado`)
+        else if (!block.includes(`--type-${r}-ls`)) cojos.push(`${f.nombre}: --type-${r} sin tracking`)
       }
     }
     expect([...new Set(cojos)]).toEqual([])

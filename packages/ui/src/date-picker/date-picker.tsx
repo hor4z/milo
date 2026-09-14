@@ -8,27 +8,27 @@ import { useDismiss } from '../lib/dismiss'
 import { useFocusTrap } from '../lib/overlay-hooks'
 import { Portal } from '../portal/portal'
 
-const DIAS = ['lu', 'ma', 'mi', 'ju', 'vi', 'sá', 'do']
+const DAYS = ['lu', 'ma', 'mi', 'ju', 'vi', 'sá', 'do']
 
-const partes = (iso: string) => iso.split('-').map(Number) as [number, number, number]
-const texto = (y: number, m: number, d: number) =>
+const parts = (iso: string) => iso.split('-').map(Number) as [number, number, number]
+const text = (y: number, m: number, d: number) =>
   `${y}-${String(m).padStart(2, '0')}-${String(d).padStart(2, '0')}`
-const hoy = () => {
+const today = () => {
   const d = new Date()
-  return texto(d.getFullYear(), d.getMonth() + 1, d.getDate())
+  return text(d.getFullYear(), d.getMonth() + 1, d.getDate())
 }
 
 /** Cuántos días tiene el mes. El día 0 del siguiente es el último de este. */
-const largo = (y: number, m: number) => new Date(y, m, 0).getDate()
+const long = (y: number, m: number) => new Date(y, m, 0).getDate()
 
 /** Lunes es 0: la semana empieza el lunes y no el domingo, como en el aula. */
-const primerDia = (y: number, m: number) => (new Date(y, m - 1, 1).getDay() + 6) % 7
+const firstDay = (y: number, m: number) => (new Date(y, m - 1, 1).getDay() + 6) % 7
 
-const mesLargo = new Intl.DateTimeFormat('es', { month: 'long', year: 'numeric' })
-const diaLargo = new Intl.DateTimeFormat('es', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' })
-const enPalabras = (iso: string) => {
-  const [y, m, d] = partes(iso)
-  return diaLargo.format(new Date(y, m - 1, d))
+const monthLong = new Intl.DateTimeFormat('es', { month: 'long', year: 'numeric' })
+const dayLong = new Intl.DateTimeFormat('es', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' })
+const inWords = (iso: string) => {
+  const [y, m, d] = parts(iso)
+  return dayLong.format(new Date(y, m - 1, d))
 }
 
 /** Elegir una fecha: un campo que abre un mes. */
@@ -50,78 +50,78 @@ export function DatePicker({ value, onChange, min, max, placeholder = 'Elegir fe
 }) {
   const field = useField()
   const [open, setOpen] = useState(false)
-  const [cursor, setCursor] = useState(() => value || hoy())
+  const [cursor, setCursor] = useState(() => value || today())
   const btn = useRef<HTMLButtonElement>(null)
   const panel = useRef<HTMLDivElement>(null)
   const [pos, setPos] = useState({ top: 0, left: 0 })
   const gridId = useId()
-  const tituloId = useId()
+  const titleId = useId()
 
-  const cerrar = () => { setOpen(false); btn.current?.focus() }
-  useEscape(open, cerrar)
+  const close = () => { setOpen(false); btn.current?.focus() }
+  useEscape(open, close)
   useFocusTrap(open, panel)
 
-  useEffect(() => { if (open) setCursor(value || hoy()) }, [open, value])
+  useEffect(() => { if (open) setCursor(value || today()) }, [open, value])
 
   useLayoutEffect(() => {
     if (!open) return
-    const medir = () => {
+    const measure = () => {
       const r = btn.current?.getBoundingClientRect()
       if (!r) return
-      const alto = panel.current?.offsetHeight ?? 0
-      const ancho = panel.current?.offsetWidth ?? 300
-      const cabeAbajo = r.bottom + 8 + alto <= window.innerHeight - 8
+      const height = panel.current?.offsetHeight ?? 0
+      const panelWidth = panel.current?.offsetWidth ?? 300
+      const fitsBelow = r.bottom + 8 + height <= window.innerHeight - 8
       setPos({
-        top: cabeAbajo ? r.bottom + 8 : Math.max(8, r.top - 8 - alto),
-        left: Math.min(Math.max(8, r.left), window.innerWidth - ancho - 8),
+        top: fitsBelow ? r.bottom + 8 : Math.max(8, r.top - 8 - height),
+        left: Math.min(Math.max(8, r.left), window.innerWidth - panelWidth - 8),
       })
     }
-    medir()
+    measure()
   }, [open, cursor])
 
   useDismiss(open, () => setOpen(false), [panel, btn])
 
-  const [ay, am] = partes(cursor)
-  const semanas = useMemo(() => {
-    const hueco = primerDia(ay, am)
-    const total = largo(ay, am)
-    const celdas: (string | null)[] = Array(hueco).fill(null)
-    for (let d = 1; d <= total; d++) celdas.push(texto(ay, am, d))
-    while (celdas.length % 7) celdas.push(null)
-    return Array.from({ length: celdas.length / 7 }, (_, i) => celdas.slice(i * 7, i * 7 + 7))
+  const [ay, am] = parts(cursor)
+  const weeks = useMemo(() => {
+    const blanks = firstDay(ay, am)
+    const total = long(ay, am)
+    const cells: (string | null)[] = Array(blanks).fill(null)
+    for (let d = 1; d <= total; d++) cells.push(text(ay, am, d))
+    while (cells.length % 7) cells.push(null)
+    return Array.from({ length: cells.length / 7 }, (_, i) => cells.slice(i * 7, i * 7 + 7))
   }, [ay, am])
 
-  const fuera = (iso: string) => (min ? iso < min : false) || (max ? iso > max : false)
+  const isOutOfRange = (iso: string) => (min ? iso < min : false) || (max ? iso > max : false)
 
-  const mover = (paso: number) => {
-    const [y, m, d] = partes(cursor)
-    const destino = new Date(y, m - 1, d + paso)
-    setCursor(texto(destino.getFullYear(), destino.getMonth() + 1, destino.getDate()))
+  const move = (paso: number) => {
+    const [y, m, d] = parts(cursor)
+    const target = new Date(y, m - 1, d + paso)
+    setCursor(text(target.getFullYear(), target.getMonth() + 1, target.getDate()))
   }
-  const moverMes = (paso: number) => {
-    const [y, m, d] = partes(cursor)
-    const destino = new Date(y, m - 1 + paso, 1)
-    const ny = destino.getFullYear()
-    const nm = destino.getMonth() + 1
-    setCursor(texto(ny, nm, Math.min(d, largo(ny, nm))))
+  const moveMonth = (paso: number) => {
+    const [y, m, d] = parts(cursor)
+    const target = new Date(y, m - 1 + paso, 1)
+    const ny = target.getFullYear()
+    const nm = target.getMonth() + 1
+    setCursor(text(ny, nm, Math.min(d, long(ny, nm))))
   }
 
-  const teclas = (e: React.KeyboardEvent) => {
-    const saltos: Record<string, () => void> = {
-      ArrowLeft: () => mover(-1),
-      ArrowRight: () => mover(1),
-      ArrowUp: () => mover(-7),
-      ArrowDown: () => mover(7),
-      PageUp: () => moverMes(e.shiftKey ? -12 : -1),
-      PageDown: () => moverMes(e.shiftKey ? 12 : 1),
-      Home: () => mover(-((partes(cursor)[2] + primerDia(ay, am) - 1) % 7)),
-      End: () => mover(6 - ((partes(cursor)[2] + primerDia(ay, am) - 1) % 7)),
+  const onKey = (e: React.KeyboardEvent) => {
+    const jumps: Record<string, () => void> = {
+      ArrowLeft: () => move(-1),
+      ArrowRight: () => move(1),
+      ArrowUp: () => move(-7),
+      ArrowDown: () => move(7),
+      PageUp: () => moveMonth(e.shiftKey ? -12 : -1),
+      PageDown: () => moveMonth(e.shiftKey ? 12 : 1),
+      Home: () => move(-((parts(cursor)[2] + firstDay(ay, am) - 1) % 7)),
+      End: () => move(6 - ((parts(cursor)[2] + firstDay(ay, am) - 1) % 7)),
     }
-    const salto = saltos[e.key]
-    if (salto) { e.preventDefault(); salto(); return }
+    const jump = jumps[e.key]
+    if (jump) { e.preventDefault(); jump(); return }
     if (e.key === 'Enter' || e.key === ' ') {
       e.preventDefault()
-      if (!fuera(cursor)) { onChange(cursor); cerrar() }
+      if (!isOutOfRange(cursor)) { onChange(cursor); close() }
     }
   }
 
@@ -144,7 +144,7 @@ export function DatePicker({ value, onChange, min, max, placeholder = 'Elegir fe
         className={`${cls.root} field-focus touch-target`}
       >
         <span className={cx(cls.value, !value && cls.placeholder)}>
-          {value ? enPalabras(value) : placeholder}
+          {value ? inWords(value) : placeholder}
         </span>
         <Icon name="calendar_month" size={16} className={`${cls.calendarIcon} icon-muted`} />
       </button>
@@ -154,7 +154,7 @@ export function DatePicker({ value, onChange, min, max, placeholder = 'Elegir fe
           <div
             ref={panel}
             role="dialog"
-            aria-labelledby={tituloId}
+            aria-labelledby={titleId}
             tabIndex={-1}
             style={{ top: pos.top, left: pos.left }}
             className={`${cls.panel} ui-pop bg-popover`}
@@ -162,18 +162,18 @@ export function DatePicker({ value, onChange, min, max, placeholder = 'Elegir fe
             <div className={cls.header}>
               <button
                 type="button"
-                onClick={() => moverMes(-1)}
+                onClick={() => moveMonth(-1)}
                 aria-label="Mes anterior"
                 className={cls.prev}
               >
                 <Icon name="chevron_left" size={18} className="icon-muted" />
               </button>
-              <span id={tituloId} aria-live="polite" className={cls.monthName}>
-                {mesLargo.format(new Date(ay, am - 1, 1))}
+              <span id={titleId} aria-live="polite" className={cls.monthName}>
+                {monthLong.format(new Date(ay, am - 1, 1))}
               </span>
               <button
                 type="button"
-                onClick={() => moverMes(1)}
+                onClick={() => moveMonth(1)}
                 aria-label="Mes siguiente"
                 className={cls.next}
               >
@@ -181,21 +181,21 @@ export function DatePicker({ value, onChange, min, max, placeholder = 'Elegir fe
               </button>
             </div>
 
-            <div role="grid" id={gridId} aria-labelledby={tituloId} className={cls.grid}>
+            <div role="grid" id={gridId} aria-labelledby={titleId} className={cls.grid}>
               <div role="row" className={cls.weekdays}>
-                {DIAS.map(d => (
+                {DAYS.map(d => (
                   <span key={d} role="columnheader" aria-label={d} className={cls.weekday}>
                     {d}
                   </span>
                 ))}
               </div>
-              {semanas.map((semana, s) => (
+              {weeks.map((semana, s) => (
                 <div key={s} role="row" className={cls.week}>
                   {semana.map((iso, i) => {
                     if (!iso) return <span key={`h${i}`} role="gridcell" />
-                    const elegido = iso === value
-                    const esHoy = iso === hoy()
-                    const bloqueado = fuera(iso)
+                    const isSelected = iso === value
+                    const isToday = iso === today()
+                    const isBlocked = isOutOfRange(iso)
                     return (
                       <button
                         key={iso}
@@ -204,20 +204,20 @@ export function DatePicker({ value, onChange, min, max, placeholder = 'Elegir fe
                         data-cursor={iso === cursor}
                         data-autofocus={iso === cursor ? true : undefined}
                         tabIndex={iso === cursor ? 0 : -1}
-                        aria-selected={elegido}
-                        aria-disabled={bloqueado || undefined}
-                        aria-label={`${enPalabras(iso)}${esHoy ? ', hoy' : ''}`}
-                        onKeyDown={teclas}
-                        onClick={() => { if (!bloqueado) { onChange(iso); cerrar() } }}
+                        aria-selected={isSelected}
+                        aria-disabled={isBlocked || undefined}
+                        aria-label={`${inWords(iso)}${isToday ? ', hoy' : ''}`}
+                        onKeyDown={onKey}
+                        onClick={() => { if (!isBlocked) { onChange(iso); close() } }}
                         className={cx(
                           cls.day,
-                          elegido ? cls.selected
-                            : bloqueado ? cls.blocked
+                          isSelected ? cls.selected
+                            : isBlocked ? cls.blocked
                               : cls.plain,
                         )}
                       >
-                        {partes(iso)[2]}
-                        {esHoy && !elegido && (
+                        {parts(iso)[2]}
+                        {isToday && !isSelected && (
                           <span aria-hidden="true" className={cls.today} />
                         )}
                       </button>

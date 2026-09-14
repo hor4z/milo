@@ -3,7 +3,7 @@ import { useState } from 'react'
 import { Button, Steps } from '@milo/ui'
 import { A11y, Note, Page, Props, Section } from '../kit'
 
-const disenio = [
+const design = [
   { label: 'Empatizar', hint: 'Escuchar a quien tiene el problema' },
   { label: 'Definir', hint: 'Escribir el problema en una frase' },
   { label: 'Idear', hint: 'Muchas ideas antes de elegir' },
@@ -11,7 +11,7 @@ const disenio = [
   { label: 'Testear', hint: 'Mirar a alguien usarlo' },
 ]
 
-const entrega = [
+const handIn = [
   { label: 'Leer la consigna' },
   { label: 'Resolver' },
   { label: 'Revisar' },
@@ -20,7 +20,7 @@ const entrega = [
 
 export function StepsStory() {
   const [i, setI] = useState(2)
-  const [paso, setPaso] = useState(2)
+  const [step, setStep] = useState(2)
 
   return (
     <Page
@@ -31,11 +31,11 @@ export function StepsStory() {
     >
       <Section title="La pieza" note="Las anteriores quedan hechas, la actual se marca, las que siguen esperan.">
         <div className={`${cls.pieceBox} bg-surface`}>
-          <Steps steps={disenio} current={i} label="Etapas del proyecto" />
+          <Steps steps={design} current={i} label="Etapas del proyecto" />
         </div>
         <div className={cls.pieceActions}>
           <Button size="sm" variant="muted" icon="arrow_back" disabled={i === 0} onClick={() => setI(n => n - 1)}>Atrás</Button>
-          <Button size="sm" variant="raised" iconEnd="arrow_forward" disabled={i === disenio.length - 1} onClick={() => setI(n => n + 1)}>Siguiente</Button>
+          <Button size="sm" variant="raised" iconEnd="arrow_forward" disabled={i === design.length - 1} onClick={() => setI(n => n + 1)}>Siguiente</Button>
         </div>
       </Section>
 
@@ -44,7 +44,7 @@ export function StepsStory() {
         note="Cuando cada etapa necesita su propio texto al lado, o cuando la secuencia va en una columna angosta. En pantalla chica la acostada se para sola."
       >
         <div className={`${cls.stoppedBox} bg-surface`}>
-          <Steps orientation="vertical" steps={entrega} current={1} label="Cómo se entrega" />
+          <Steps orientation="vertical" steps={handIn} current={1} label="Cómo se entrega" />
         </div>
       </Section>
 
@@ -53,7 +53,7 @@ export function StepsStory() {
         note="Sin `onSelect` no hay nada que tocar: dice dónde estás y nada más. Con `onSelect` cada etapa es un botón, y eso solo va cuando volver atrás es de verdad posible."
       >
         <div className={`${cls.navBox} bg-surface`}>
-          <Steps steps={entrega} current={paso} label="Cómo se entrega, navegable" onSelect={setPaso} />
+          <Steps steps={handIn} current={step} label="Cómo se entrega, navegable" onSelect={setStep} />
         </div>
       </Section>
 

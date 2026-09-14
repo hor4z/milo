@@ -27,13 +27,13 @@ describe('la prosa del sitio', () => {
       const walker = document.createTreeWalker(container, NodeFilter.SHOW_TEXT)
       let n: Node | null
       while ((n = walker.nextNode())) {
-        const texto = n.nodeValue ?? ''
+        const text = n.nodeValue ?? ''
         const dentroDeCodigo = (n.parentElement as HTMLElement | null)?.closest('pre, code')
-        if (!dentroDeCodigo && (texto.includes('`') || texto.includes('**') || /\]\(#/.test(texto))) {
-          sueltos.push(texto.trim().slice(0, 60))
+        if (!dentroDeCodigo && (text.includes('`') || text.includes('**') || /\]\(#/.test(text))) {
+          sueltos.push(text.trim().slice(0, 60))
         }
-        if (/\b(undefined|NaN|\[object Object\])\b/.test(texto)) {
-          sueltos.push(texto.trim().slice(0, 60))
+        if (/\b(undefined|NaN|\[object Object\])\b/.test(text)) {
+          sueltos.push(text.trim().slice(0, 60))
         }
       }
       expect(sueltos).toEqual([])

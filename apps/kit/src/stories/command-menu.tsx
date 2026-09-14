@@ -3,7 +3,7 @@ import { useState } from 'react'
 import { Button, CommandMenu, Kbd, Popover, type CommandGroup, type CommandItem } from '@milo/ui'
 import { A11y, Cluster, Frame, Note, Page, Props, Section, Stack } from '../kit'
 
-const bloques: CommandGroup[] = [
+const blocks: CommandGroup[] = [
   {
     label: 'Texto',
     items: [
@@ -37,7 +37,7 @@ const bloques: CommandGroup[] = [
 ]
 
 export function CommandMenuStory() {
-  const [ultimo, setUltimo] = useState<CommandItem | null>(null)
+  const [picked, setPicked] = useState<CommandItem | null>(null)
 
   return (
     <Page
@@ -52,10 +52,10 @@ export function CommandMenuStory() {
       >
         <Stack align="start">
           <Frame width="md">
-            <CommandMenu groups={bloques} onSelect={setUltimo} />
+            <CommandMenu groups={blocks} onSelect={setPicked} />
           </Frame>
           <p className={cls.pickedNote}>
-            {ultimo ? <>Elegiste <strong className={cls.emphasis}>{ultimo.label}</strong>.</> : 'Elegí uno para ver qué devuelve.'}
+            {picked ? <>Elegiste <strong className={cls.emphasis}>{picked.label}</strong>.</> : 'Elegí uno para ver qué devuelve.'}
           </p>
         </Stack>
       </Section>
@@ -72,7 +72,7 @@ export function CommandMenuStory() {
             <span className={cls.queryText}>lis</span>
           </div>
           <Frame width="md">
-            <CommandMenu groups={bloques} onSelect={setUltimo} search={false} query="lis" />
+            <CommandMenu groups={blocks} onSelect={setPicked} search={false} query="lis" />
           </Frame>
         </Cluster>
       </Section>
@@ -90,9 +90,9 @@ export function CommandMenuStory() {
             {close => (
               <CommandMenu
                 autoFocus
-                groups={bloques}
+                groups={blocks}
                 maxHeight={280}
-                onSelect={item => { setUltimo(item); close() }}
+                onSelect={item => { setPicked(item); close() }}
               />
             )}
           </Popover>

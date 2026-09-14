@@ -3,7 +3,7 @@ import { useState } from 'react'
 import { ColumnPicker } from '@milo/ui'
 import { A11y, Page, Panel, Props, Section, Variant } from '../kit'
 
-const columnas = [
+const columns = [
   { id: 'actividad', label: 'Actividad', locked: true },
   { id: 'estudiantes', label: 'Estudiantes' },
   { id: 'docente', label: 'Docente' },
@@ -27,7 +27,7 @@ export function ColumnPickerStory() {
       >
         <Panel>
           <Variant name="columnas">
-            <ColumnPicker columns={columnas} value={value} onValueChange={setValue} />
+            <ColumnPicker columns={columns} value={value} onValueChange={setValue} />
           </Variant>
           <Variant name="lo elegido">
             <span className={s.pickedList}>{value.join(' · ')}</span>
