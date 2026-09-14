@@ -45,6 +45,7 @@
 
   .hint {
     margin-top: 0.5rem;
+    max-width: 52ch;
     font-size: var(--type-body);
     line-height: var(--type-body-lh);
     letter-spacing: var(--type-body-ls);

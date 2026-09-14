@@ -1555,8 +1555,8 @@ export const propsByComponent: Record<string, ComponentDoc> = {
   },
   "ModalTitle": {
     "props": [],
-    "html": "div",
-    "doc": "El título, del mismo tamaño que el del `Sheet` y el del `ConfirmDialog`: un diálogo tiene un solo título."
+    "html": "h2",
+    "doc": "El título, del mismo tamaño que el del `Sheet` y el del `ConfirmDialog`: un diálogo tiene un solo título. Va como encabezado para que el lector de pantalla lo encuentre."
   },
   "ModalHint": {
     "props": [],

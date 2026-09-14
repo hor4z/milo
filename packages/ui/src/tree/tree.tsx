@@ -44,7 +44,7 @@ export function Tree({ nodes, label, expanded, onExpandedChange, selected, onSel
   onSelect?: (id: string) => void
   className?: string
 }) {
-  const [ownOpen, setPropios] = useState<string[]>([])
+  const [ownOpen, setOwnOpen] = useState<string[]>([])
   const openIds = useMemo(() => new Set(expanded ?? ownOpen), [expanded, ownOpen])
   const rows = useMemo(() => flatten(nodes, openIds), [nodes, openIds])
 
@@ -58,9 +58,9 @@ export function Tree({ nodes, label, expanded, onExpandedChange, selected, onSel
     const nextOpen = new Set(openIds)
     if (abrir) nextOpen.add(id)
     else nextOpen.delete(id)
-    const listRef = [...nextOpen]
-    if (expanded === undefined) setPropios(listRef)
-    onExpandedChange?.(listRef)
+    const order = [...nextOpen]
+    if (expanded === undefined) setOwnOpen(order)
+    onExpandedChange?.(order)
   }
 
   const onKey = (e: React.KeyboardEvent, i: number, f: Row) => {

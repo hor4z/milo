@@ -111,4 +111,10 @@
         background-color: var(--field-bg);
     }
   }
+  @media (pointer: coarse) {
+    .root {
+      height: 2.75rem;
+    }
+  }
+
 }

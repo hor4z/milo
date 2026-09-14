@@ -28,8 +28,8 @@ export function Stepper({
   width?: number
 }) {
   const field = useField()
-  const [text, setTexto] = useState(String(value))
-  useEffect(() => { setTexto(String(value)) }, [value])
+  const [text, setText] = useState(String(value))
+  useEffect(() => { setText(String(value)) }, [value])
 
   const commit = (n: number) => { if (!disabled) onChange(clamp(n, min, max)) }
 
@@ -63,11 +63,11 @@ export function Stepper({
         disabled={disabled}
         value={text}
         onChange={e => {
-          setTexto(e.target.value)
+          setText(e.target.value)
           const n = Number(e.target.value)
           if (e.target.value.trim() !== '' && Number.isFinite(n)) commit(n)
         }}
-        onBlur={() => setTexto(String(value))}
+        onBlur={() => setText(String(value))}
         onKeyDown={onKey}
         className={`${cls.input} tabular`}
       />
@@ -91,7 +91,7 @@ function Step({ icon, label, onClick, disabled }: {
       aria-label={label}
       disabled={disabled}
       onClick={onClick}
-      className={`${cls.step} touch-target`}
+      className={cls.step}
     >
       <Icon name={icon} size={16} className="icon-muted" />
     </button>

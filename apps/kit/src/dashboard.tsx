@@ -233,7 +233,7 @@ function Alerts() {
 }
 
 /** Lo que dura una pasada del bucle: 100 cuadros a 12 por segundo. */
-const LAST_WEEK = 8333
+const ONE_LOOP = 8333
 
 /** Se asoma una vez y se esconde un rato largo al azar: en bucle deja de ser una aparición. */
 function Otto() {
@@ -247,7 +247,7 @@ function Otto() {
     const peek = () => {
       setVuelta(v => v + 1)
       setAsomado(true)
-      clock = setTimeout(hide, LAST_WEEK)
+      clock = setTimeout(hide, ONE_LOOP)
     }
     const hide = () => {
       setAsomado(false)

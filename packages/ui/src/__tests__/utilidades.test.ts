@@ -153,8 +153,10 @@ describe('el CSS del sistema se sostiene solo', () => {
 
   it('la duración y la curva de una transición salen de un token', () => {
     const literales: string[] = []
-    for (const f of css) {
-      for (const m of f.text.matchAll(/transition-(duration|timing-function):\s*([^;]+);/g)) {
+    for (const f of [...css, { name: 'el CSS global', file: '', text: puente }]) {
+      for (const m of f.text.matchAll(/transition-(duration|timing-function):\s*([^;}]+)/g)) {
+        // el 1ms de prefers-reduced-motion es apagar el movimiento, no una duración
+        if (/^\s*(0s|0ms|1ms|0\.01ms)\b/.test(m[2])) continue
         const esperado = m[1] === 'duration' ? /var\(--duration-/ : /var\(--ease-/
         if (!esperado.test(m[2])) literales.push(`${f.name}: ${m[0].trim()}`)
       }

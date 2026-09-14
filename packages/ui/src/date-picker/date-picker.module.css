@@ -183,4 +183,10 @@
         background-color: var(--surface-hover);
     }
   }
+  @media (pointer: coarse) {
+    .root {
+      height: 2.75rem;
+    }
+  }
+
 }

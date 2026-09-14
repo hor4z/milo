@@ -44,7 +44,7 @@ const initialTasks: Task[] = [
 export function DocumentStory() {
   const [formato, setFormato] = useState({ bold: false, italic: false })
   const [tasks, setTasks] = useState(initialTasks)
-  const [last, setUltimo] = useState<string | null>(null)
+  const [last, setLast] = useState<string | null>(null)
 
   const toggle = (k: keyof typeof formato) => setFormato(f => ({ ...f, [k]: !f[k] }))
   const toggleTask = (id: string, done: boolean) =>
@@ -80,7 +80,7 @@ export function DocumentStory() {
                   <CommandMenu
                     autoFocus
                     groups={blocks}
-                    onSelect={item => { setUltimo(item.label); close() }}
+                    onSelect={item => { setLast(item.label); close() }}
                   />
                 </div>
               )}

@@ -66,4 +66,15 @@
         background-color: #0000;
     }
   }
+  @media (pointer: coarse) {
+    .root {
+      height: 2.75rem;
+    }
+
+    .step {
+      width: 2.75rem;
+      height: 2.75rem;
+    }
+  }
+
 }

@@ -52,24 +52,24 @@ export function Modal({
   )
 }
 
-type ParteProps = ComponentPropsWithoutRef<'div'>
+type PartProps = ComponentPropsWithoutRef<'div'>
 
 /** El cuerpo del modal, con su aire. Sin esto el contenido queda pegado al borde del panel. */
-export function ModalBody({ className, ...rest }: ParteProps) {
+export function ModalBody({ className, ...rest }: PartProps) {
   return <div className={cx(s.body, className)} {...rest} />
 }
 
-/** El título, del mismo tamaño que el del `Sheet` y el del `ConfirmDialog`: un diálogo tiene un solo título. */
-export function ModalTitle({ className, ...rest }: ParteProps) {
-  return <div className={cx(s.title, className)} {...rest} />
+/** El título, del mismo tamaño que el del `Sheet` y el del `ConfirmDialog`: un diálogo tiene un solo título. Va como encabezado para que el lector de pantalla lo encuentre. */
+export function ModalTitle({ className, ...rest }: ComponentPropsWithoutRef<'h2'>) {
+  return <h2 className={cx(s.title, className)} {...rest} />
 }
 
 /** La línea de apoyo debajo del título, en gris. */
-export function ModalHint({ className, ...rest }: ParteProps) {
+export function ModalHint({ className, ...rest }: PartProps) {
   return <div className={cx(s.hint, className)} {...rest} />
 }
 
 /** La fila de acciones, contra el borde derecho. */
-export function ModalFooter({ className, ...rest }: ParteProps) {
+export function ModalFooter({ className, ...rest }: PartProps) {
   return <div className={cx(s.footer, className)} {...rest} />
 }

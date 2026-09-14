@@ -553,6 +553,9 @@ un aula:
   96 apariciones de la maquinaria de gradiente de Tailwind escrita a mano
   (`--milo-gradient-from/via/to/stops`, casi todas adentro de un `transition-property` que no anima
   nada), y 56 `transition-duration: 150ms` seguidas de la `var(--duration-fast)` que sí vale.
+- **`Modal` tiene dos fuentes para su nombre.** La prop `label` es la que el lector de pantalla
+  anuncia, y `ModalTitle` es la que se ve: en la historia dicen cosas distintas y nada lo mira. La
+  salida es que el título se ate solo con `aria-labelledby`, como hace el `Sheet`.
 - **El helper `face()` está copiado en cinco historias** (avatar, mention, table, chart, folder), y
   `p()` o `person()` en tres. Es contenido de ejemplo, así que va a un `fixtures.ts` compartido.
 - **Un `Stack` hermano de `Cluster`.** Hay 23 clases en 18 archivos que son la misma columna con
