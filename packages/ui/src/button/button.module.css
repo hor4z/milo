@@ -16,7 +16,6 @@
   }
 
   .disabled {
-
     &:disabled {
       opacity: .45;
       pointer-events: none;
@@ -26,5 +25,4 @@
   .block {
     width: 100%;
   }
-
 }

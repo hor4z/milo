@@ -6,7 +6,6 @@
     gap: 0.25rem;
   }
 
-
   .searchSlot {
     width: 260px;
   }
@@ -69,7 +68,6 @@
     color: var(--text-muted);
   }
 
-
   .sizeRole {
     font-size: var(--type-body);
     line-height: var(--type-body-lh);
@@ -102,7 +100,6 @@
     color: var(--text-muted);
   }
 
-
   .commandNote {
     margin-top: 0.75rem;
     max-width: 70ch;
@@ -124,5 +121,4 @@
         background-color: var(--surface-muted);
     }
   }
-
 }

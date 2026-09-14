@@ -76,7 +76,7 @@ export function TooltipStory() {
           al revés: es un movimiento de archivos, no una prop.
         </p>
       </Section>
-    
+
       <Section title="Accesibilidad">
         <A11y items={[
           'Aparece con el foco de teclado y no solo con el mouse.',

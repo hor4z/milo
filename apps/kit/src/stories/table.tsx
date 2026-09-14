@@ -342,7 +342,7 @@ export function TableStory() {
       <Section title="Props">
         <Props of={['Table', 'TableRow', 'Avatar', 'AvatarGroup']} />
       </Section>
-    
+
       <Section title="Accesibilidad">
         <A11y items={[
           'Es una <table> de verdad: encabezados con `scope`, filas y celdas con su semántica.',

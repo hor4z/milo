@@ -63,7 +63,7 @@ export function DropdownStory() {
       <Section title="Props">
         <Props of={['Dropdown', 'DropdownItem']} />
       </Section>
-    
+
       <Section title="Accesibilidad">
         <A11y items={[
           'El panel es role="menu" y cada opción un menuitem.',

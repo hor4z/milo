@@ -61,7 +61,7 @@ export function DividerStory() {
       <Section title="Props">
         <Props of="Divider" />
       </Section>
-    
+
       <Section title="Accesibilidad">
         <A11y items={[
           'Lleva role="separator" con su orientación, así que un lector anuncia el corte en vez de saltearlo.',

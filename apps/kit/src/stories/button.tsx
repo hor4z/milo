@@ -1,5 +1,5 @@
 import { Button } from '@milo/ui'
-import { A11y, Cluster, Demo, Frame, Page, Panel, Props, Section, Variant } from '../kit'
+import { A11y, Cluster, Demo, Page, Panel, Props, Section, Variant } from '../kit'
 
 export function ButtonStory() {
   return (
@@ -51,16 +51,14 @@ export function ButtonStory() {
             <Button variant="solid" disabled>Guardar</Button>
             <Button variant="raised" disabled>Guardar</Button>
           </Demo>
-          <Frame width="xs">
-            <Demo label="block"><Button variant="solid" block>Entrar</Button></Demo>
-          </Frame>
+          <Demo width="xs" label="block"><Button variant="solid" block>Entrar</Button></Demo>
         </Cluster>
       </Section>
 
       <Section title="Props">
         <Props of="Button" />
       </Section>
-    
+
       <Section title="Accesibilidad">
         <A11y items={[
           'Es un <button> real: entra en el orden de tabulación y responde a Enter y Espacio.',

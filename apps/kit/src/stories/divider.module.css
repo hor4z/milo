@@ -1,5 +1,4 @@
 @layer milo.app {
-
   .aboveText {
     padding-bottom: 0.75rem;
     font-size: var(--type-body);
@@ -77,9 +76,7 @@
     margin-inline: 0.25rem;
   }
 
-
   .attributeName {
     font-family: var(--font-mono);
   }
-
 }

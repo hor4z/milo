@@ -1,5 +1,4 @@
 @layer milo.app {
-
   .plainPanel {
     border-radius: var(--radius-xl);
     border-style: solid;
@@ -57,5 +56,4 @@
   .veiledActions {
     margin-top: 1rem;
   }
-
 }

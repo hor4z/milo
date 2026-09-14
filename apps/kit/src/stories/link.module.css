@@ -1,5 +1,4 @@
 @layer milo.app {
-
   .paragraphText {
     max-width: 60ch;
     font-size: var(--type-body);
@@ -9,7 +8,6 @@
     color: var(--text-muted);
   }
 
-
   .externalText {
     max-width: 60ch;
     font-size: var(--type-body);
@@ -18,5 +16,4 @@
     font-weight: var(--font-weight-medium);
     color: var(--text-muted);
   }
-
 }

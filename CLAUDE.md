@@ -551,6 +551,11 @@ un aula:
 - **Props que le faltan a dos piezas, y que las historias suplen con CSS.** `Table` no tiene
   `align="right"` ni columna de acciones, y `Modal` no tiene `ModalHeader`/`Body`/`Footer` como sí
   tiene `Card`: la historia del modal construye el interior entero a mano.
+- **El glifo de play del `AudioPlayer` tenía que ir relleno y nunca lo fue.** La regla estaba
+  escrita, anidada adentro del módulo, y por dos motivos distintos no aplicó nunca: primero porque
+  `.ms-icon` adentro de un módulo se hashea, y después, ya corregida con `:global`, porque el
+  `.ms-icon` de `theme.css` va **sin capa** y le gana a cualquier módulo. La regla se sacó. Si se
+  quiere el relleno, el sistema ya tiene la herramienta: la clase global `icon-filled`.
 - **El `sm` de 32 no llega a los 44×44 que Apple pide para el dedo.** Pasa WCAG 2.2 (24×24) con
   holgura y se queda corto en táctil, que es media flota de un aula. La salida no es agrandar los
   tres (la densidad es real) sino decidir que en táctil el piso es `lg`; hoy el tamaño lo elige

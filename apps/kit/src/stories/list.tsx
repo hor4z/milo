@@ -68,7 +68,7 @@ export function ListStory() {
       <Section title="Props">
         <Props of="ListItem" />
       </Section>
-    
+
       <Section title="Accesibilidad">
         <A11y items={[
           'Una fila con onClick es un <button>; sin él es un <div> que no se puede enfocar.',

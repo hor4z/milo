@@ -94,7 +94,7 @@ export function MenuStory() {
       <Section title="Props">
         <Props of={['Menu', 'MenuItem']} />
       </Section>
-    
+
       <Section title="Accesibilidad">
         <A11y items={[
           'role="menu" con menuitem, y las opciones que se marcan son menuitemradio con aria-checked.',

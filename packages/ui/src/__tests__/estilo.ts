@@ -16,8 +16,15 @@ for (const ruta of rutas) {
   const stub = stubs[`../${relative(raiz, ruta).split('\\').join('/')}`]
   if (!stub) continue
   const css = readFileSync(ruta, 'utf8')
-  for (const m of css.matchAll(/^\s*\.([A-Za-z][\w]*)\s*\{([\s\S]*?)^\s{2,4}\}/gm)) {
-    cuerpos.set(stub[m[1]], m[2])
+  for (const m of css.matchAll(/^\s*\.([A-Za-z][\w]*)\s*\{/gm)) {
+    let i = m.index + m[0].length
+    let hondo = 1
+    while (i < css.length && hondo > 0) {
+      if (css[i] === '{') hondo++
+      else if (css[i] === '}') hondo--
+      i++
+    }
+    cuerpos.set(stub[m[1]], css.slice(m.index + m[0].length, i - 1))
   }
 }
 

@@ -74,7 +74,7 @@ export function EmptyStateStory() {
       <Section title="Props">
         <Props of="EmptyState" />
       </Section>
-    
+
       <Section title="Accesibilidad">
         <A11y items={[
           'El icono es decorativo y no se anuncia: lo que se lee es el título y el cuerpo.',

@@ -182,10 +182,18 @@ export function Footnote({ children }: { children: ReactNode }) {
 }
 
 /** Un ejemplo con su etiqueta abajo. */
-export function Demo({ label, children, className }: { label?: string; children: ReactNode; className?: string }) {
+export function Demo({ label, width, fill, children, className }: {
+  label?: string
+  /** Le pone tope de ancho a la caja, de la misma escala que `Frame`. */
+  width?: keyof typeof frameWidths
+  /** La pieza de adentro ocupa el ancho del lienzo, para un campo que si no se mide por su contenido. */
+  fill?: boolean
+  children: ReactNode
+  className?: string
+}) {
   return (
-    <div className={s.demo}>
-      <Canvas className={cx(s.demoCanvas, className)}>{children}</Canvas>
+    <div className={cx(s.demo, width && s.frame, width && frameWidths[width])}>
+      <Canvas className={cx(s.demoCanvas, fill && s.demoFill, className)}>{children}</Canvas>
       {label && <div className={s.demoCaption}><Rich text={label} /></div>}
     </div>
   )

@@ -10,7 +10,6 @@
   }
 
   .disabled {
-
     &:has(:is(input:disabled)) {
       pointer-events: none;
       opacity: .45;
@@ -39,5 +38,4 @@
     margin-inline: calc(0.25rem * -2);
     padding-inline: 0.5rem;
   }
-
 }

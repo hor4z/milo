@@ -45,7 +45,7 @@ export function SpinnerStory() {
       <Section title="Props">
         <Props of="Spinner" />
       </Section>
-    
+
       <Section title="Accesibilidad">
         <A11y items={[
           'Lleva role="status" y un nombre, así que un lector dice qué está cargando.',

@@ -1,5 +1,4 @@
 @layer milo.app {
-
   .partsCard {
     width: 320px;
   }
@@ -20,7 +19,6 @@
     font-weight: var(--font-weight-medium);
     color: var(--text-muted);
   }
-
 
   .stillCard {
     width: 260px;
@@ -82,7 +80,6 @@
     color: var(--text-muted);
   }
 
-
   .paperCard {
     width: 260px;
     padding: 1rem;
@@ -122,6 +119,4 @@
     letter-spacing: var(--type-meta-ls);
     color: var(--text-muted);
   }
-
-
 }

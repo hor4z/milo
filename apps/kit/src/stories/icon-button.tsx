@@ -63,7 +63,7 @@ export function IconButtonStory() {
       <Section title="Props">
         <Props of="IconButton" />
       </Section>
-    
+
       <Section title="Accesibilidad">
         <A11y items={[
           'El `label` es obligatorio y se convierte en el nombre accesible: un icono solo no dice nada.',

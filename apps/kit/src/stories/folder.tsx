@@ -93,7 +93,7 @@ export function FolderStory() {
           <span className={cls.glyphCaption}>la pieza · el glifo</span>
         </Card>
       </Section>
-    
+
       <Section title="Accesibilidad">
         <A11y items={[
           'El color identifica el espacio de un vistazo, pero el nombre está siempre escrito.',

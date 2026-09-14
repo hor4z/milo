@@ -194,7 +194,7 @@ export function IconStory() {
       >
         <div />
       </Section>
-    
+
       <Section title="Accesibilidad">
         <Note icon="warning" title="Sesenta y cinco de los ciento setenta y dos no los usa nadie">
         `npm run icons -w @milo/ui -- check` los lista. Sacarlos llevaría la fuente de 64 KB a 27,

@@ -1,5 +1,4 @@
 @layer milo.app {
-
   .wideBody {
     padding: 1.5rem;
   }
@@ -10,7 +9,6 @@
     letter-spacing: var(--type-title-ls);
     font-weight: var(--font-weight-medium);
   }
-
 
   .wideText {
     margin-top: 0.5rem;
@@ -55,7 +53,4 @@
     justify-content: flex-end;
     gap: 0.5rem;
   }
-
-
-
 }

@@ -61,7 +61,7 @@ export function CheckboxStory() {
       <Section title="Props">
         <Props of="Checkbox" />
       </Section>
-    
+
       <Section title="Accesibilidad">
         <A11y items={[
           'Es un botón con role="checkbox" y aria-checked, así que un lector lo anuncia con su estado.',

@@ -59,7 +59,6 @@
   }
 
   .thumbFocus {
-
     &:is(:where(:global(.peer)):focus-visible~*) {
       --milo-shadow: var(--switch-thumb-shadow), var(--focus-ring);
       box-shadow: var(--milo-inset-shadow),var(--milo-inset-ring-shadow),var(--milo-ring-offset-shadow),var(--milo-ring-shadow),var(--milo-shadow);
@@ -94,5 +93,4 @@
     transition-duration: var(--duration-fast);
     transition-timing-function: var(--ease-out);
   }
-
 }

@@ -163,7 +163,7 @@ export function AudioPlayer({ src, title, peaks, actions, size = 'md', className
               size={size}
               disabled={estado === 'error'}
               onClick={alternar}
-              className={cls.playIcon}
+              className={cls.playButton}
             />
           )}
 

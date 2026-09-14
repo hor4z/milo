@@ -91,7 +91,7 @@ export function BookStory() {
       >
         <div />
       </Section>
-    
+
       <Section title="Accesibilidad">
         <A11y items={[
           'La portada es decorativa: lo que se lee es el título que va al lado.',

@@ -84,7 +84,7 @@ export function AvatarStory() {
       <Section title="Props">
         <Props of={['Avatar', 'AvatarGroup']} />
       </Section>
-    
+
       <Section title="Accesibilidad">
         <A11y items={[
           'El grupo publica los nombres completos en texto para quien no ve las caras.',

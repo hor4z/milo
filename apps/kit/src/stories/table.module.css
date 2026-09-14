@@ -91,7 +91,6 @@
     --milo-ring-color: var(--border);
   }
 
-
   .mutedRow {
     display: flex;
     align-items: center;
@@ -100,5 +99,4 @@
     background-color: var(--surface-muted);
     padding: 1rem;
   }
-
 }

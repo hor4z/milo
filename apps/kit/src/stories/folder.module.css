@@ -23,7 +23,6 @@
     gap: 0.25rem;
   }
 
-
   .colorShelf {
     display: flex;
     flex-wrap: wrap;
@@ -32,7 +31,6 @@
     padding-inline: 1.5rem;
     padding-block: 2rem;
   }
-
 
   .emphasis {
     font-weight: var(--font-weight-semibold);
@@ -51,7 +49,6 @@
     color: var(--text);
   }
 
-
   .glyphShelf {
     display: flex;
     align-items: center;
@@ -66,5 +63,4 @@
     letter-spacing: var(--type-body-ls);
     color: var(--text-muted);
   }
-
 }

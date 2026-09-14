@@ -76,7 +76,7 @@ export function NavStory() {
       <Section title="Props">
         <Props of={['navItemClass', 'NavItemBody']} />
       </Section>
-    
+
       <Section title="Accesibilidad">
         <A11y items={[
           'El item activo lo dice con aria-current, no solo con el fondo.',

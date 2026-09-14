@@ -1,6 +1,4 @@
 @layer milo.app {
-
-
   .edgeRow {
     display: flex;
     align-items: center;
@@ -14,5 +12,4 @@
     letter-spacing: var(--type-body-ls);
     color: var(--text-muted);
   }
-
 }

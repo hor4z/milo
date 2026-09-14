@@ -51,7 +51,7 @@ export function SwitchStory() {
       <Section title="Props">
         <Props of="Switch" />
       </Section>
-    
+
       <Section title="Accesibilidad">
         <A11y items={[
           'role="switch" con aria-checked: un lector dice "activado" y no "casilla marcada".',

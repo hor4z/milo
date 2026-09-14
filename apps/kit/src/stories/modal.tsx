@@ -84,7 +84,7 @@ export function ModalStory() {
       <Section title="Props">
         <Props of="Modal" />
       </Section>
-    
+
       <Section title="Accesibilidad">
         <A11y items={[
           'role="dialog" con aria-modal y su nombre.',

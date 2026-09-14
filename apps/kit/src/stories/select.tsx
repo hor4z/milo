@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { Avatar, FolderIcon, Icon, Select } from '@milo/ui'
-import { A11y, Cluster, Demo, Frame, Page, Props, Section } from '../kit'
+import { A11y, Cluster, Demo, Page, Props, Section } from '../kit'
 
 export function SelectStory() {
   const [level, setLevel] = useState('6.º grado')
@@ -34,16 +34,14 @@ export function SelectStory() {
           <Demo label="al ancho del contenido">
             <Select value={subject} onChange={setSubject} options={['Matemática', 'Lengua', 'Ciencias', 'Geografía', 'Convivencia']} />
           </Demo>
-          <Frame width="sm">
-            <Demo label="valor largo · se trunca">
-              <Select
-                value={long}
-                onChange={setLong}
-                width={280}
-                options={['Solo yo', 'Todo el equipo', 'Cualquiera con el link puede ver y comentar']}
-              />
-            </Demo>
-          </Frame>
+          <Demo width="sm" label="valor largo · se trunca">
+            <Select
+              value={long}
+              onChange={setLong}
+              width={280}
+              options={['Solo yo', 'Todo el equipo', 'Cualquiera con el link puede ver y comentar']}
+            />
+          </Demo>
         </Cluster>
       </Section>
 

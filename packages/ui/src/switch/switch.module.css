@@ -19,7 +19,6 @@
   }
 
   .disabled {
-
     &:disabled {
       opacity: .45;
       pointer-events: none;
@@ -49,5 +48,4 @@
     --milo-translate-x: 0px;
     translate: var(--milo-translate-x) var(--milo-translate-y);
   }
-
 }

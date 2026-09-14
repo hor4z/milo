@@ -105,11 +105,8 @@
     justify-content: center;
   }
 
-  .playIcon {
+  .playButton {
     flex-shrink: 0;
-    & :global(.ms-icon) {
-      font-variation-settings: "FILL" 1,"wght" var(--icon-wght,300);
-    }
   }
 
   .errorText {
@@ -142,14 +139,12 @@
   }
 
   .seekDisabled {
-
     &:disabled {
       cursor: default;
     }
   }
 
   .seekFocus {
-
     &:focus-visible {
       border-radius: var(--radius-md);
       opacity: 1;
@@ -174,5 +169,4 @@
     align-items: center;
     gap: 0.25rem;
   }
-
 }

@@ -1,5 +1,4 @@
 @layer milo.app {
-
   .blockRow {
     display: flex;
     min-width: 0;
@@ -31,5 +30,4 @@
     font-weight: var(--font-weight-medium);
     color: var(--text-muted);
   }
-
 }

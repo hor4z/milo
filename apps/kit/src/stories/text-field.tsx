@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { IconButton, Kbd, TextField } from '@milo/ui'
-import { A11y, Cluster, Demo, Frame, Page, Props, Section } from '../kit'
+import { A11y, Cluster, Demo, Page, Props, Section } from '../kit'
 
 export function TextFieldStory() {
   const [text, setText] = useState('Fracciones con la receta de la abuela')
@@ -20,9 +20,7 @@ export function TextFieldStory() {
             { label: 'con suffix', el: <TextField aria-label="Duración en minutos" placeholder="Duración" suffix={<Kbd>min</Kbd>} /> },
             { label: 'disabled', el: <TextField aria-label="Campo no editable" placeholder="No editable" disabled /> },
           ].map(v => (
-            <Frame key={v.label} width="sm">
-              <Demo label={v.label}>{v.el}</Demo>
-            </Frame>
+            <Demo key={v.label} width="sm" fill label={v.label}>{v.el}</Demo>
           ))}
         </Cluster>
       </Section>
@@ -33,11 +31,9 @@ export function TextFieldStory() {
       >
         <Cluster>
           {(['sm', 'md', 'lg'] as const).map(s => (
-            <Frame key={s} width="sm">
-              <Demo label={s}>
-                <TextField size={s} icon="search" aria-label={`Buscar una actividad, alto ${s}`} placeholder="Buscar una actividad…" />
-              </Demo>
-            </Frame>
+            <Demo key={s} width="sm" fill label={s}>
+              <TextField size={s} icon="search" aria-label={`Buscar una actividad, alto ${s}`} placeholder="Buscar una actividad…" />
+            </Demo>
           ))}
         </Cluster>
       </Section>
@@ -47,22 +43,20 @@ export function TextFieldStory() {
         note="El input tapa la caja entera: mide lo que mide su línea de texto (16px) y adentro de una caja de 40 dejaba 12 muertos arriba y abajo, así que media caja no recibía el click. El anillo de foco es del campo y no del input: si no, queda un rectángulo flotando adentro."
       >
         <Cluster>
-          <Frame width="sm">
-            <Demo label="con botón adentro">
-              <TextField
-                placeholder="Buscar…"
-               
-                suffix={<IconButton icon="close" label="Limpiar" variant="ghost" size="sm" />}
-              />
-            </Demo>
-          </Frame>
+          <Demo width="sm" fill label="con botón adentro">
+            <TextField
+              placeholder="Buscar…"
+
+              suffix={<IconButton icon="close" label="Limpiar" variant="ghost" size="sm" />}
+            />
+          </Demo>
         </Cluster>
       </Section>
 
       <Section title="Props" note="Todo lo que acepta un `<input>` nativo pasa derecho: `value`, `onChange`, `placeholder`, `disabled`, `type`.">
         <Props of="TextField" />
       </Section>
-    
+
       <Section title="Accesibilidad">
         <A11y items={[
           'El área clickeable es la caja entera y no solo la línea de texto de 16px.',

@@ -58,7 +58,7 @@ export function PopoverStory() {
       <Section title="Props">
         <Props of="Popover" />
       </Section>
-    
+
       <Section title="Accesibilidad">
         <A11y items={[
           'El disparador declara aria-expanded, así que se anuncia si está abierto.',

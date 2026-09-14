@@ -12,7 +12,6 @@
   }
 
   .disabled {
-
     &:disabled {
       opacity: .45;
       pointer-events: none;
@@ -33,5 +32,4 @@
     box-shadow: var(--milo-inset-shadow),var(--milo-inset-ring-shadow),var(--milo-ring-offset-shadow),var(--milo-ring-shadow),var(--milo-shadow);
     --milo-ring-color: var(--surface);
   }
-
 }

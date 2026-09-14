@@ -114,7 +114,7 @@ export function RadioStory() {
       <Section title="Props">
         <Props of={['Radio', 'RadioGroup']} />
       </Section>
-    
+
       <Section title="Accesibilidad">
         <A11y items={[
           'role="radio" con aria-checked y nombre propio.',

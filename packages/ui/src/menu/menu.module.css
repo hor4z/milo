@@ -10,7 +10,6 @@
   }
 
   .separator {
-
     &>[data-divider] {
       margin-inline: calc(0.25rem * -1);
       margin-block: 0.5rem;
@@ -40,7 +39,6 @@
   }
 
   .disabled {
-
     &:disabled {
       pointer-events: none;
       opacity: .45;
@@ -98,5 +96,4 @@
         background-color: var(--surface-hover);
     }
   }
-
 }

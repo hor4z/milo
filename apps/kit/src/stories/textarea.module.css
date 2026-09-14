@@ -1,28 +1,4 @@
 @layer milo.app {
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   .costText {
     max-width: 70ch;
     font-size: var(--type-body);
@@ -30,5 +6,4 @@
     letter-spacing: var(--type-body-ls);
     color: var(--text-muted);
   }
-
 }

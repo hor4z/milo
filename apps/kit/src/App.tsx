@@ -219,7 +219,11 @@ export function App() {
   const main = useRef<HTMLElement>(null)
 
   useEffect(() => {
-    const onHash = () => setCurrent(location.hash.slice(1) || INTRO)
+    const onHash = () => {
+      setCurrent(location.hash.slice(1) || INTRO)
+      setRailOpen(false)
+      window.scrollTo({ top: 0 })
+    }
     addEventListener('hashchange', onHash)
     return () => removeEventListener('hashchange', onHash)
   }, [])

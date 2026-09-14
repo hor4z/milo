@@ -43,11 +43,9 @@
   }
 
   .trackHover {
-
   }
 
   .trackEmpty {
-
     &:is(:where(:global(.group)):focus-visible *) {
       background-color: #0000;
       --milo-ring-shadow: var(--milo-ring-inset,) 0 0 0 calc(1px + var(--milo-ring-offset-width)) var(--milo-ring-color,currentcolor);
@@ -56,7 +54,6 @@
   }
 
   .trackRing {
-
     &:is(:where(:global(.group)):focus-visible *) {
       --milo-ring-color: var(--border-strong);
       --milo-ring-inset: inset;
@@ -206,5 +203,4 @@
         opacity: 1;
     }
   }
-
 }

@@ -90,7 +90,7 @@ export function ChartStory() {
           hoverear, y una altura no se lee.
         </p>
       </Section>
-    
+
       <Section title="Accesibilidad">
         <A11y items={[
           'Cada barra es un <button> que se enfoca y muestra el mismo tooltip que con el mouse.',

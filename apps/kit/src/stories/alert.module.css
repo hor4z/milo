@@ -11,16 +11,9 @@
     gap: 0.75rem;
   }
 
-
-
-
   .iconStack {
     display: flex;
     flex-direction: column;
     gap: 0.75rem;
   }
-
-
-
-
 }

@@ -88,7 +88,7 @@ export function SliderStory() {
           <Mono>--switch-on</Mono> y <Mono>--brand</Mono>, sin un hex nuevo.
         </p>
       </Section>
-    
+
       <Section title="Accesibilidad">
         <A11y items={[
           'Es un <input type="range"> de verdad: flechas, Home, End y PageUp funcionan solas.',

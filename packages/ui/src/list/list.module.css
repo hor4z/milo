@@ -37,7 +37,6 @@
   }
 
   .active {
-
   }
 
   .swatch {
@@ -91,5 +90,4 @@
         box-shadow: var(--milo-inset-shadow),var(--milo-inset-ring-shadow),var(--milo-ring-offset-shadow),var(--milo-ring-shadow),var(--milo-shadow);
     }
   }
-
 }
