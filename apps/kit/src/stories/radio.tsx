@@ -1,7 +1,7 @@
 import cls from './radio.module.css'
 import { useState } from 'react'
 import { Checkbox, Radio, RadioGroup } from '@milo/ui'
-import { A11y, Page, Panel, Props, Section, Variant } from '../kit'
+import { A11y, Footnote, Page, Panel, Props, Section, Variant } from '../kit'
 
 export function RadioStory() {
   const [comparado, setComparado] = useState(true)
@@ -53,18 +53,18 @@ export function RadioStory() {
           <Variant name="radio vs checkbox">
             <Radio checked={withHint} onChange={() => setWithHint(true)} label="Prendido" />
             <Radio checked={!withHint} onChange={() => setWithHint(false)} label="Apagado" />
-            <span className={cls.span}>
+            <span className={cls.checkboxPair}>
               <Checkbox checked={comparado} onChange={setComparado} label="Checkbox prendido" />
               <Checkbox checked={!comparado} onChange={v => setComparado(!v)} label="Checkbox apagado" />
             </span>
           </Variant>
         </Panel>
-        <p className={cls.p}>
+        <Footnote>
           El azul es el círculo de afuera y el blanco el de adentro, no al revés: con el papel
           afuera y el punto azul adentro la pieza pesa lo mismo prendida que apagada, porque lo
           único que cambia es el disco del medio. Con el relleno afuera, la elegida se ve de una en
           toda la fila. Y va sin anillo, que era justo lo que lo separaba del checkbox.
-        </p>
+        </Footnote>
       </Section>
 
       <Section
@@ -73,12 +73,12 @@ export function RadioStory() {
       >
         <Panel>
           <Variant name="con etiqueta">
-            <span className={cls.span2}>
-              <label className={cls.label}>
+            <span className={cls.looseGroup}>
+              <label className={cls.yesLabel}>
                 <Radio checked={loose === 'si'} onChange={() => setLoose('si')} label="Sí, avisarme" />
                 Sí, avisarme
               </label>
-              <label className={cls.label2}>
+              <label className={cls.noLabel}>
                 <Radio checked={loose === 'no'} onChange={() => setLoose('no')} label="No hace falta" />
                 No hace falta
               </label>
@@ -114,7 +114,7 @@ export function RadioStory() {
       <Section title="Props">
         <Props of={['Radio', 'RadioGroup']} />
       </Section>
-    
+
       <Section title="Accesibilidad">
         <A11y items={[
           'role="radio" con aria-checked y nombre propio.',

@@ -1,6 +1,6 @@
 import cls from './popover.module.css'
 import { Button, Popover } from '@milo/ui'
-import { A11y, Demo, Page, Props, Section } from '../kit'
+import { A11y, Cluster, Demo, Page, Props, Section } from '../kit'
 
 export function PopoverStory() {
   return (
@@ -11,7 +11,7 @@ export function PopoverStory() {
       imports="import { Popover } from '@milo/ui'"
     >
       <Section title="Vivo" note="Con `veil`, el resto de la pantalla se apaga. El velo va sin blur: el fondo se sigue reconociendo, que es lo que te dice de dónde salió el panel.">
-        <div className={cls.div}>
+        <Cluster align="start">
           <Demo label="sin velo">
             <Popover
               width={320}
@@ -20,13 +20,13 @@ export function PopoverStory() {
               )}
             >
               {close => (
-                <div className={`${cls.div2} ui-pop bg-popover`}>
-                  <div className={cls.div3}>Un panel de 320</div>
-                  <p className={cls.p}>
+                <div className={`${cls.plainPanel} ui-pop bg-popover`}>
+                  <div className={cls.plainTitle}>Un panel de 320</div>
+                  <p className={cls.plainText}>
                     Cierra con Escape, con un click afuera, o al scrollear la página, pero no al
                     scrollear su propio contenido. Un resize sí lo cierra siempre.
                   </p>
-                  <div className={cls.div4}><Button size="sm" variant="raised" onClick={close}>Cerrar</Button></div>
+                  <div className={cls.plainActions}><Button size="sm" variant="raised" onClick={close}>Cerrar</Button></div>
                 </div>
               )}
             </Popover>
@@ -41,24 +41,24 @@ export function PopoverStory() {
               )}
             >
               {close => (
-                <div className={`${cls.div5} ui-pop bg-popover`}>
-                  <div className={cls.div6}>Una lista que pide leerse entera</div>
-                  <p className={cls.p2}>
+                <div className={`${cls.veiledPanel} ui-pop bg-popover`}>
+                  <div className={cls.veiledTitle}>Una lista que pide leerse entera</div>
+                  <p className={cls.veiledText}>
                     El resto de la pantalla se atenúa para ganar la mirada. Un menú de cuatro items
                     no necesita esto.
                   </p>
-                  <div className={cls.div7}><Button size="sm" variant="raised" onClick={close}>Cerrar</Button></div>
+                  <div className={cls.veiledActions}><Button size="sm" variant="raised" onClick={close}>Cerrar</Button></div>
                 </div>
               )}
             </Popover>
           </Demo>
-        </div>
+        </Cluster>
       </Section>
 
       <Section title="Props">
         <Props of="Popover" />
       </Section>
-    
+
       <Section title="Accesibilidad">
         <A11y items={[
           'El disparador declara aria-expanded, así que se anuncia si está abierto.',

@@ -43,18 +43,18 @@ export function InclusionSection() {
         title="A quién le hablamos"
         note="Tres personas distintas con el mismo producto, y la que menos margen tiene es la que más aparece en las decisiones de diseño."
       >
-        <div className={cls.div}>
+        <div className={cls.specimenGrid}>
           {[
             ['school', 'Quien aprende', 'Puede tener diez años, puede estar aprendiendo a leer, puede entrar desde el celular de la casa. Es quien menos puede permitirse una interfaz que hay que descifrar.'],
             ['person', 'Quien enseña', 'Entra treinta veces por día y corrige de a cuarenta. Necesita densidad y atajos, y no tiene tiempo de aprender un patrón nuevo por pantalla.'],
             ['group', 'Quien acompaña', 'Una familia que entra una vez por trimestre. No conoce el producto y no lo va a aprender: cada pantalla tiene que explicarse sola.'],
           ].map(([icon, title, body]) => (
-            <div key={title} className={`${cls.div2} bg-surface`}>
-              <span className={`${cls.span} inset-relief`}>
+            <div key={title} className={`${cls.specimen} bg-surface`}>
+              <span className={`${cls.roleBadge} inset-relief`}>
                 <Icon name={icon as 'school'} size={18} />
               </span>
-              <span className={cls.span2}>{title}</span>
-              <p className={cls.p}>{body}</p>
+              <span className={cls.specimenLabel}>{title}</span>
+              <p className={cls.specimenBody}>{body}</p>
             </div>
           ))}
         </div>
@@ -64,18 +64,18 @@ export function InclusionSection() {
         title="Cómo se nombra a alguien"
         note="Es la decisión que más veces aparece y la que más barato sale hacer bien. La regla corta: segunda persona, nombre propio, y ningún género que no haga falta elegir."
       >
-        <div className={cls.div3}>
+        <div className={cls.comparisonStack}>
           {pares.map(par => (
-            <div key={par.good} className={`${cls.div4} bg-surface`}>
-              <div className={cls.div5}>
-                <Icon name="close" size={16} className={cls.icon} />
-                <span className={cls.span3}>{par.bad}</span>
+            <div key={par.good} className={`${cls.comparison} bg-surface`}>
+              <div className={cls.comparisonBad}>
+                <Icon name="close" size={16} className={cls.verdictIconBad} />
+                <span className={cls.badText}>{par.bad}</span>
               </div>
-              <div className={cls.div6}>
-                <Icon name="check" size={16} className={cls.icon2} />
-                <span className={cls.span4}>{par.good}</span>
+              <div className={cls.comparisonGood}>
+                <Icon name="check" size={16} className={cls.verdictIconGood} />
+                <span className={cls.goodText}>{par.good}</span>
               </div>
-              <p className={cls.p2}>{par.by}</p>
+              <p className={cls.comparisonWhy}>{par.by}</p>
             </div>
           ))}
         </div>
@@ -85,15 +85,15 @@ export function InclusionSection() {
         title="La segunda persona resuelve el género casi siempre"
         note="No es una postura sobre el lenguaje: es que en castellano el 'vos' y el 'vas' no llevan marca de género, así que la frase sale más corta, más directa y sin tener que elegir. Donde no alcanza, hay un colectivo que sí: 'el curso', 'quienes entregaron', 'la familia'."
       >
-        <div className={cls.div7}>
+        <div className={cls.personGrid}>
           {[
             ['Tercera persona', 'El docente debe revisar las entregas de sus alumnos.', 'obliga a elegir'],
             ['Desdoblado', 'Los y las docentes deben revisar las entregas de sus alumnos y alumnas.', 'el doble de largo'],
             ['Segunda persona', 'Revisá las entregas del curso.', 'ni género ni relleno'],
           ].map(([titulo, frase, veredicto], i) => (
-            <div key={titulo} className={`${cls.div8} bg-surface`}>
-              <span className={cls.span5}>{titulo}</span>
-              <p className={cls.p3}>{frase}</p>
+            <div key={titulo} className={`${cls.personCard} bg-surface`}>
+              <span className={cls.personLabel}>{titulo}</span>
+              <p className={cls.personPhrase}>{frase}</p>
               <Chip color={i === 2 ? 'green' : 'orange'} icon={i === 2 ? 'check' : 'warning'}>{veredicto}</Chip>
             </div>
           ))}
@@ -104,8 +104,8 @@ export function InclusionSection() {
         title="Las caras y los nombres del contenido de ejemplo"
         note="El contenido de muestra de un sistema de diseño es una decisión de producto disfrazada de relleno. Si las cinco personas de ejemplo se llaman Juan, Pedro y María y todas tienen la misma cara, eso es lo que el equipo va a dibujar después sin darse cuenta."
       >
-        <div className={`${cls.div9} bg-surface`}>
-          <div className={cls.div10}>
+        <div className={`${cls.sampleCard} bg-surface`}>
+          <div className={cls.sampleRow}>
             {[
               { name: 'Milagros Ibáñez', src: '/avatars/01.webp' },
               { name: 'Joaquín Ledesma', src: '/avatars/06.webp' },
@@ -113,13 +113,13 @@ export function InclusionSection() {
               { name: 'Thiago Nu' },
               { name: 'Sol Vega', src: '/avatars/05.webp' },
             ].map(a => (
-              <span key={a.name} className={cls.span6}>
+              <span key={a.name} className={cls.samplePerson}>
                 <Avatar name={a.name} src={a.src} size={34} />
-                <span className={cls.span7}>{a.name}</span>
+                <span className={cls.sampleName}>{a.name}</span>
               </span>
             ))}
           </div>
-          <p className={cls.p4}>
+          <p className={cls.sampleNote}>
             Nombres de acá y no de un generador en inglés, apellidos que no son todos del mismo
             origen, y uno sin foto, porque un avatar sin imagen es el caso normal y no la
             excepción, y si solo se dibuja el caso con foto, el que no la tiene se rompe.

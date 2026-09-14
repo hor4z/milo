@@ -1,5 +1,5 @@
 @layer milo.components {
-  .div {
+  .root {
     border-radius: var(--radius-xl);
     padding: 0.5rem;
   }
@@ -8,7 +8,7 @@
     background-color: var(--surface-muted);
   }
 
-  .div2 {
+  .paper {
     border-style: solid;
     border-width: 1px;
     border-color: var(--border);
@@ -24,7 +24,7 @@
     transition-timing-function: var(--ease-out);
   }
 
-  .div3 {
+  .header {
     display: flex;
     align-items: flex-start;
     justify-content: space-between;
@@ -34,7 +34,7 @@
     padding-bottom: 0.25rem;
   }
 
-  .h3 {
+  .title {
     font-size: var(--type-reading);
     line-height: var(--type-reading-lh);
     letter-spacing: var(--type-reading-ls);
@@ -42,7 +42,7 @@
     color: var(--text);
   }
 
-  .p {
+  .hint {
     font-size: var(--type-body);
     line-height: var(--type-body-lh);
     letter-spacing: var(--type-body-ls);
@@ -50,12 +50,12 @@
     color: var(--text-muted);
   }
 
-  .div4 {
+  .body {
     padding-inline: 0.75rem;
     padding-block: 0.5rem;
   }
 
-  .div5 {
+  .footer {
     margin-top: 0.25rem;
     display: flex;
     align-items: center;
@@ -74,5 +74,4 @@
         box-shadow: var(--milo-inset-shadow),var(--milo-inset-ring-shadow),var(--milo-ring-offset-shadow),var(--milo-ring-shadow),var(--milo-shadow);
     }
   }
-
 }

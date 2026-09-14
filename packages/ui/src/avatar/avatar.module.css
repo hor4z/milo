@@ -1,5 +1,5 @@
 @layer milo.components {
-  .span {
+  .root {
     position: relative;
     display: inline-flex;
     align-items: center;
@@ -11,7 +11,7 @@
     user-select: none;
   }
 
-  .img {
+  .photo {
     position: absolute;
     inset: 0;
     width: 100%;
@@ -19,16 +19,16 @@
     object-fit: cover;
   }
 
-  .span2 {
+  .stack {
     display: inline-flex;
     align-items: center;
   }
 
-  .box2 {
+  .overlap {
     margin-left: calc(var(--overlap) * -1);
   }
 
-  .span3 {
+  .rest {
     margin-left: calc(var(--overlap) * -1);
     display: inline-flex;
     align-items: center;
@@ -39,5 +39,4 @@
     color: var(--text-muted);
     box-shadow: 0 0 0 2px var(--ring);
   }
-
 }

@@ -1,5 +1,5 @@
 @layer milo.components {
-  .div {
+  .root {
     display: flex;
     min-height: 3.5rem;
     align-items: center;
@@ -15,7 +15,7 @@
     }
   }
 
-  .div2 {
+  .body {
     min-width: 0;
     flex: 1;
   }
@@ -30,7 +30,7 @@
     color: var(--text);
   }
 
-  .span {
+  .hint {
     margin-top: 0.25rem;
     display: block;
     font-size: var(--type-meta);
@@ -38,5 +38,4 @@
     letter-spacing: var(--type-meta-ls);
     color: var(--text-muted);
   }
-
 }

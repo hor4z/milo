@@ -12,15 +12,15 @@ const chipColor: Record<ChipColor, string> = { ...labelSoft, ...toneClass }
 
 const chipSize = {
   sm: {
-    box: cls.chipSizeSm,
+    box: cls.sizeSm,
     icon: 12,
-    dot: cls.chipSizeSm2,
+    dot: cls.dotSm,
     cross: 12,
   },
   md: {
-    box: cls.chipSizeMd,
+    box: cls.sizeMd,
     icon: 14,
-    dot: cls.chipSizeMd2,
+    dot: cls.dotMd,
     cross: 12,
   },
 } as const
@@ -49,36 +49,36 @@ export function Chip({
 }: ChipProps) {
   const s = chipSize[size]
   const box = cx(
-    cls.box,
+    cls.root,
     s.box,
-    cls.box2,
+    cls.motion,
     active
-      ? cls.box3
+      ? cls.solid
       : color
         ? chipColor[color]
-        : cls.box4,
+        : cls.plain,
     onClick && !active && (color ? cls.hoverRing : cls.hoverSunken),
     className,
   )
 
   const mark = dot
-    ? <span aria-hidden="true" className={cx(s.dot, cls.span)} />
+    ? <span aria-hidden="true" className={cx(s.dot, cls.dot)} />
     : icon
       ? <Icon name={icon} size={s.icon} className={cls.icon} />
       : null
 
   const cross = onRemove && (
-    <button type="button" onClick={onRemove} aria-label="Quitar" className={cls.button}>
+    <button type="button" onClick={onRemove} aria-label="Quitar" className={cls.remove}>
       <Icon name="close" size={s.cross} />
     </button>
   )
 
   if (onClick && onRemove) {
     return (
-      <span className={cx(box, cls.span2)} {...props}>
-        <button type="button" onClick={onClick} className={cx(cls.button2, size === 'sm' ? cls.sm : cls.box5)}>
+      <span className={cx(box, cls.clickablePad)} {...props}>
+        <button type="button" onClick={onClick} className={cx(cls.clickable, size === 'sm' ? cls.clickableGapSm : cls.clickableGapMd)}>
           {mark}
-          <span className={cls.span3}>{children}</span>
+          <span className={cls.clickableLabel}>{children}</span>
         </button>
         {cross}
       </span>
@@ -89,7 +89,7 @@ export function Chip({
     return (
       <button type="button" onClick={onClick} className={box} {...(props as ComponentPropsWithoutRef<'button'>)}>
         {mark}
-        <span className={cls.span4}>{children}</span>
+        <span className={cls.labelText}>{children}</span>
         {cross}
       </button>
     )
@@ -98,7 +98,7 @@ export function Chip({
   return (
     <span className={box} {...props}>
       {mark}
-      <span className={cls.span5}>{children}</span>
+      <span className={cls.removableLabel}>{children}</span>
       {cross}
     </span>
   )

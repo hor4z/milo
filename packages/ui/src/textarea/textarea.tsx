@@ -31,9 +31,9 @@ function leyenda(n: number, min?: number, max?: number) {
 }
 
 const tinta = {
-  calmo: cls.tinta,
-  warn: cls.tinta2,
-  bad: cls.tinta3,
+  calmo: cls.counterCalm,
+  warn: cls.counterWarn,
+  bad: cls.counterBad,
 } as const
 
 /** El campo de varias líneas: la misma caja que `TextField`, estirada. */
@@ -82,11 +82,11 @@ export function Textarea({
         e.currentTarget.querySelector('textarea')?.focus()
       }}
       className={cx(
-        `${cls.box} field`,
-        cls.box2,
-        cls.box3,
-        counter ? cls.box4 : '',
-        resize === 'vertical' ? cls.vertical : cls.box5,
+        `${cls.root} field`,
+        cls.disabled,
+        cls.shape,
+        counter ? cls.withCounter : '',
+        resize === 'vertical' ? cls.resizablePad : cls.fixedPad,
         className,
       )}
     >
@@ -97,10 +97,10 @@ export function Textarea({
         defaultValue={defaultValue}
         onChange={e => { measure(); setPropio(e.target.value); onChange?.(e) }}
         className={cx(
-          cls.box6,
-          counter ? cls.box7 : cls.box8,
-          cls.box9,
-          resize === 'vertical' ? cls.vertical2 : cls.box10,
+          cls.input,
+          counter ? cls.inputWithCounter : cls.inputAlone,
+          cls.inputPlaceholder,
+          resize === 'vertical' ? cls.inputResizable : cls.inputFixed,
         )}
         {...field}
         aria-describedby={describedBy}
@@ -110,9 +110,9 @@ export function Textarea({
         <span
           id={cuentaId}
           className={cx(
-            `${cls.span} tabular`,
+            `${cls.counter} tabular`,
             tinta[cuenta.tono],
-            resize === 'vertical' ? cls.vertical3 : '',
+            resize === 'vertical' ? cls.counterResizable : '',
           )}
         >
           {cuenta.texto}

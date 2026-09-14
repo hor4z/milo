@@ -1,5 +1,5 @@
 @layer milo.app {
-  .div {
+  .labelBox {
     display: flex;
     flex-direction: column;
     gap: 1.25rem;
@@ -10,7 +10,7 @@
     padding: 1.25rem;
   }
 
-  .div2 {
+  .toneBox {
     display: flex;
     flex-direction: column;
     gap: 1.25rem;
@@ -20,10 +20,4 @@
     border-color: var(--border);
     padding: 1.25rem;
   }
-
-  .a {
-    text-decoration-line: underline;
-    text-underline-offset: 2px;
-  }
-
 }

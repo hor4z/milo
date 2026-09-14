@@ -21,13 +21,13 @@ export function IconButtonStory() {
             <IconButton icon="tune" label="Ajustes" size="lg" variant="raised" />
           </Variant>
           <Variant name="al lado de su botón">
-            <span className={cls.span}>
+            <span className={cls.mdSample}>
               <IconButton icon="tune" label="Ajustes" size="md" variant="raised" />
-              <span className={cls.span2}>md · 36</span>
+              <span className={cls.mdCaption}>md · 36</span>
             </span>
-            <span className={cls.span3}>
+            <span className={cls.lgSample}>
               <IconButton icon="tune" label="Ajustes" size="lg" variant="raised" />
-              <span className={cls.span4}>lg · 40</span>
+              <span className={cls.lgCaption}>lg · 40</span>
             </span>
           </Variant>
         </Panel>
@@ -63,7 +63,7 @@ export function IconButtonStory() {
       <Section title="Props">
         <Props of="IconButton" />
       </Section>
-    
+
       <Section title="Accesibilidad">
         <A11y items={[
           'El `label` es obligatorio y se convierte en el nombre accesible: un icono solo no dice nada.',

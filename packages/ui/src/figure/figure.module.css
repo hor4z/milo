@@ -1,12 +1,12 @@
 @layer milo.components {
-  .figure {
+  .root {
     margin: 0;
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
   }
 
-  .div {
+  .frame {
     overflow: hidden;
     border-radius: var(--radius-xl);
     border-style: solid;
@@ -15,7 +15,7 @@
     background-color: var(--surface-sunken);
   }
 
-  .img {
+  .image {
     width: 100%;
     height: 100%;
   }
@@ -24,15 +24,14 @@
     object-fit: cover;
   }
 
-  .img2 {
+  .contain {
     object-fit: contain;
   }
 
-  .figcaption {
+  .caption {
     font-size: var(--type-meta);
     line-height: var(--type-meta-lh);
     letter-spacing: var(--type-meta-ls);
     color: var(--text-muted);
   }
-
 }

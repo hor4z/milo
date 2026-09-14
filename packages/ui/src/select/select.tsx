@@ -107,11 +107,11 @@ export function Select({
         style={{ width }}
         className={`${s.root} field-focus`}
       >
-        <span className={s.span}>
-          {leadingNode && <span className={s.span2}>{leadingNode}</span>}
-          <span className={s.span3}>{value}</span>
+        <span className={s.value}>
+          {leadingNode && <span className={s.leading}>{leadingNode}</span>}
+          <span className={s.valueText}>{value}</span>
         </span>
-        <Icon name="keyboard_arrow_down" size={16} className={s.icon} />
+        <Icon name="keyboard_arrow_down" size={16} className={s.chevron} />
       </button>
 
       {open && (
@@ -121,7 +121,7 @@ export function Select({
             id={listId}
             role="listbox"
             style={{ top: pos.top, left: pos.left, minWidth: pos.width }}
-            className={`${s.box} ui-pop bg-popover`}
+            className={`${s.panel} ui-pop bg-popover`}
           >
             {options.map((o, i) => {
               const selected = o === value
@@ -137,12 +137,12 @@ export function Select({
                   onMouseMove={() => setActive(i)}
                   onClick={() => { onChange?.(o); setOpen(false); btn.current?.focus() }}
                   className={cx(
-                    s.box2,
-                    i === active ? s.box3 : s.box4,
+                    s.option,
+                    i === active ? s.active : s.idle,
                   )}
                 >
-                  <span className={s.span4}>{o}</span>
-                  {selected && <Icon name="check" size={14} className={s.icon2} />}
+                  <span className={s.optionLabel}>{o}</span>
+                  {selected && <Icon name="check" size={14} className={s.check} />}
                 </button>
               )
             })}

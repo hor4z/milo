@@ -1,5 +1,5 @@
 @layer milo.components {
-  .div {
+  .viewport {
     position: fixed;
     inset: 0;
     z-index: 40;
@@ -9,7 +9,7 @@
     padding: 1rem;
   }
 
-  .div2 {
+  .veil {
     position: absolute;
     inset: 0;
     background-color: var(--scrim);
@@ -18,7 +18,7 @@
     backdrop-filter: var(--milo-backdrop-blur,) var(--milo-backdrop-brightness,) var(--milo-backdrop-contrast,) var(--milo-backdrop-grayscale,) var(--milo-backdrop-hue-rotate,) var(--milo-backdrop-invert,) var(--milo-backdrop-opacity,) var(--milo-backdrop-saturate,) var(--milo-backdrop-sepia,);
   }
 
-  .box {
+  .panel {
     position: relative;
     z-index: 10;
     max-height: calc(100vh - 2rem);
@@ -31,12 +31,11 @@
     --milo-ring-color: var(--border);
   }
 
-  .box2 {
+  .close {
     position: absolute!important;
     top: 1rem;
     right: 1rem;
     z-index: 20;
     border-radius: var(--radius-lg)!important;
   }
-
 }

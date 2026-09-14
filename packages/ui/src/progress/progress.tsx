@@ -15,7 +15,7 @@ type ProgressProps = ComponentPropsWithoutRef<'div'> & {
   tone?: 'brand' | 'ok' | 'warn' | 'bad'
 }
 
-const fillTone = { brand: s.fillTone, ok: s.fillTone2, warn: s.fillTone3, bad: s.fillTone4 }
+const fillTone = { brand: s.fillBrand, ok: s.fillOk, warn: s.fillWarn, bad: s.fillBad }
 
 /** Cuánto de algo va hecho. La pista es el resto, no un segundo dato. */
 export function Progress({ value, max = 100, label, hint, tone = 'brand', className, ...props }: ProgressProps) {
@@ -23,11 +23,11 @@ export function Progress({ value, max = 100, label, hint, tone = 'brand', classN
   const pct = (clamped / (max || 1)) * 100
   const id = useId()
   return (
-    <div className={cx(s.div, className)} {...props}>
+    <div className={cx(s.root, className)} {...props}>
       {(label || hint) && (
-        <div className={s.div2}>
-          <span id={id} className={s.span}>{label}</span>
-          {hint && <span className={`${s.span2} tabular`}>{hint}</span>}
+        <div className={s.header}>
+          <span id={id} className={s.label}>{label}</span>
+          {hint && <span className={`${s.hint} tabular`}>{hint}</span>}
         </div>
       )}
       <div
@@ -36,9 +36,9 @@ export function Progress({ value, max = 100, label, hint, tone = 'brand', classN
         aria-valuenow={Math.round(clamped)}
         aria-valuemin={0}
         aria-valuemax={max}
-        className={s.box}
+        className={s.track}
       >
-        <div className={cx(s.div3, fillTone[tone])} style={{ width: `${pct}%` }} />
+        <div className={cx(s.fill, fillTone[tone])} style={{ width: `${pct}%` }} />
       </div>
     </div>
   )

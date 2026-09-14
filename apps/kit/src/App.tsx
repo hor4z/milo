@@ -219,7 +219,11 @@ export function App() {
   const main = useRef<HTMLElement>(null)
 
   useEffect(() => {
-    const onHash = () => setCurrent(location.hash.slice(1) || INTRO)
+    const onHash = () => {
+      setCurrent(location.hash.slice(1) || INTRO)
+      setRailOpen(false)
+      window.scrollTo({ top: 0 })
+    }
     addEventListener('hashchange', onHash)
     return () => removeEventListener('hashchange', onHash)
   }, [])
@@ -262,10 +266,10 @@ export function App() {
 
   return (
     <ToastProvider>
-      <div className={cls.div}>
+      <div className={cls.shell}>
         {railOpen && (
           <div
-            className={`${cls.div2} ui-fade`}
+            className={`${cls.railVeil} ui-fade`}
             onClick={() => setRailOpen(false)}
             aria-hidden="true"
           />
@@ -274,15 +278,15 @@ export function App() {
         <nav
           id="riel"
           className={cx(
-            cls.nav,
-            cls.box,
-            railOpen ? cls.box2 : cls.box3,
+            cls.rail,
+            cls.railMotion,
+            railOpen ? cls.railOpen : cls.railClosed,
           )}
         >
-          <div className={cls.div3}>
-            <button onClick={() => go(INTRO)} className={cls.box4}>
-              <span className={cls.span}>milo</span>
-              <span className={cls.span2}>design system</span>
+          <div className={cls.railHead}>
+            <button onClick={() => go(INTRO)} className={cls.brand}>
+              <span className={cls.brandName}>milo</span>
+              <span className={cls.brandTagline}>design system</span>
             </button>
 
             <Search
@@ -312,17 +316,17 @@ export function App() {
             />
           </div>
 
-          <div className={cls.div4}>
+          <div className={cls.railScroll}>
             <SideLink active={current === INTRO} onClick={() => go(INTRO)} icon="deployed_code">Introducción</SideLink>
             <SideLink active={current === 'dashboard'} onClick={() => go('dashboard')} icon="dashboard">Dashboard</SideLink>
             <SideLink active={current === 'documento'} onClick={() => go('documento')} icon="description">Documento</SideLink>
 
             {filtered.map(g => (
-              <div key={g.label} className={cls.div5}>
-                <div className={cls.div6}>
+              <div key={g.label} className={cls.navGroup}>
+                <div className={cls.navGroupLabel}>
                   {g.label}
                 </div>
-                <div className={cls.div7}>
+                <div className={cls.navGroupItems}>
                   {g.stories.map(s => (
                     <SideLink key={s.id} active={current === s.id} onClick={() => go(s.id)} piece>{s.label}</SideLink>
                   ))}
@@ -331,12 +335,12 @@ export function App() {
             ))}
 
             {filtered.length === 0 && (
-              <p className={cls.p}>Nada con "{query}".</p>
+              <p className={cls.railEmpty}>Nada con "{query}".</p>
             )}
           </div>
 
-          <div className={cls.div8}>
-            <span className={cls.span3}>
+          <div className={cls.railFoot}>
+            <span className={cls.railCount}>
               {everything.length} vistas
             </span>
             <IconButton
@@ -349,7 +353,7 @@ export function App() {
           </div>
         </nav>
 
-        <header className={cls.header}>
+        <header className={cls.topBar}>
           <IconButton
             icon="menu"
             label="Abrir el índice"
@@ -359,11 +363,11 @@ export function App() {
             aria-controls="riel"
             onClick={() => setRailOpen(true)}
           />
-          <span className={cls.span4}>milo · design system</span>
+          <span className={cls.topBarTitle}>milo · design system</span>
         </header>
 
         <main ref={main} className={cls.main}>
-          <div key={current} className={cls.div9}>
+          <div key={current} className={cls.viewSlot}>
             {current === INTRO && <Intro go={go} views={everything.length} />}
             {current === 'dashboard' && <Dashboard />}
             {current === 'documento' && <Documento />}
@@ -407,12 +411,12 @@ function SideLink({ active, onClick, icon, piece, children }: {
       }}
       aria-current={active ? 'page' : undefined}
       className={cx(
-        cls.box5,
-        active ? cls.box6 : cls.box7,
+        cls.navItem,
+        active ? cls.navItemActive : cls.navItemIdle,
       )}
     >
       {icon && <Icon name={icon} size={16} className={active ? undefined : 'icon-muted'} />}
-      <span className={cls.span5}>{children}</span>
+      <span className={cls.navItemLabel}>{children}</span>
     </button>
   )
 }

@@ -96,7 +96,7 @@ export function Tree({ nodes, label, expanded, onExpandedChange, selected, onSel
   }
 
   return (
-    <div role="tree" aria-label={label} className={cx(cls.div, className)}>
+    <div role="tree" aria-label={label} className={cx(cls.root, className)}>
       {filas.map((f, i) => {
         const esActual = f.node.id === actual
         const elegido = f.node.id === selected
@@ -114,16 +114,16 @@ export function Tree({ nodes, label, expanded, onExpandedChange, selected, onSel
             onClick={() => { if (!f.hoja) abrirCerrar(f.node.id, !f.abierto); onSelect?.(f.node.id) }}
             style={{ paddingLeft: 8 + (f.nivel - 1) * 16 }}
             className={cx(
-              cls.box,
-              elegido ? cls.box2 : cls.box3,
+              cls.node,
+              elegido ? cls.selected : cls.plain,
             )}
           >
             {f.hoja
-              ? <span aria-hidden="true" className={cls.span} />
-              : <Icon name={f.abierto ? 'keyboard_arrow_down' : 'chevron_right'} size={16} className={`${cls.icon} icon-muted`} />}
-            {f.node.icon && <Icon name={f.node.icon} size={16} className={`${cls.icon2} icon-muted`} />}
-            <span className={cls.span2}>{f.node.label}</span>
-            {f.node.meta && <span className={cls.span3}>{f.node.meta}</span>}
+              ? <span aria-hidden="true" className={cls.spacer} />
+              : <Icon name={f.abierto ? 'keyboard_arrow_down' : 'chevron_right'} size={16} className={`${cls.chevron} icon-muted`} />}
+            {f.node.icon && <Icon name={f.node.icon} size={16} className={`${cls.nodeIcon} icon-muted`} />}
+            <span className={cls.label}>{f.node.label}</span>
+            {f.node.meta && <span className={cls.meta}>{f.node.meta}</span>}
           </div>
         )
       })}

@@ -8,7 +8,7 @@ import { Popover } from '../popover/popover'
 
 /** La barra de arriba de una tabla: el buscador y los filtros, en una línea. */
 export function FilterBar({ className, ...props }: ComponentPropsWithoutRef<'div'>) {
-  return <div className={cx(s.div, className)} {...props} />
+  return <div className={cx(s.bar, className)} {...props} />
 }
 
 type FilterOption = {
@@ -50,19 +50,19 @@ export function Filter({ label, options, value, onValueChange }: FilterProps) {
           size="sm"
           iconEnd="keyboard_arrow_down"
         >
-          {faces.length > 0 && <AvatarGroup people={faces} size={18} max={3} ring="var(--brand)" className={s.avatarGroup} />}
+          {faces.length > 0 && <AvatarGroup people={faces} size={18} max={3} ring="var(--brand)" className={s.barFaces} />}
           {label}{value.length > 0 && faces.length === 0 && ` · ${value.length}`}
         </Button>
       )}
     >
       {() => (
-        <div className={`${s.div2} ui-pop bg-popover`}>
+        <div className={`${s.panel} ui-pop bg-popover`}>
           {options.map(o => (
             <label
               key={o.value}
               className={cx(
-                s.label,
-                o.person ? s.box : s.box2,
+                s.option,
+                o.person ? s.personOption : s.plainOption,
               )}
             >
               <Checkbox
@@ -71,9 +71,9 @@ export function Filter({ label, options, value, onValueChange }: FilterProps) {
                 onChange={() => toggle(o.value)}
               />
               {o.person && <Avatar name={o.person.name} src={o.person.src} size={22} className={s.avatar} />}
-              <span aria-hidden="true" className={s.span}>{o.value}</span>
+              <span aria-hidden="true" className={s.optionLabel}>{o.value}</span>
               {o.count !== undefined && (
-                <span aria-hidden="true" className={`${s.span2} tabular`}>{o.count}</span>
+                <span aria-hidden="true" className={`${s.optionCount} tabular`}>{o.count}</span>
               )}
             </label>
           ))}
@@ -81,7 +81,7 @@ export function Filter({ label, options, value, onValueChange }: FilterProps) {
             <button
               type="button"
               onClick={() => onValueChange([])}
-              className={s.box3}
+              className={s.clearAll}
             >
               Quitar este filtro
             </button>

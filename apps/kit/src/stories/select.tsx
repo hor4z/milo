@@ -1,7 +1,6 @@
-import cls from './select.module.css'
 import { useEffect, useState } from 'react'
 import { Avatar, FolderIcon, Icon, Select } from '@milo/ui'
-import { A11y, Demo, Page, Props, Section } from '../kit'
+import { A11y, Cluster, Demo, Page, Props, Section } from '../kit'
 
 export function SelectStory() {
   const [level, setLevel] = useState('6.º grado')
@@ -28,31 +27,29 @@ export function SelectStory() {
         title="Variantes"
         note="El costo de no usar el nativo es traer el teclado a mano, que es lo que el nativo regalaba: flechas para moverse, Enter para elegir, Escape para salir, Home y End a los extremos, y teclear para saltar a la opción que empieza así. Probalo con el teclado: abrí el de al lado y escribí 'ci'."
       >
-        <div className={cls.div}>
+        <Cluster align="start">
           <Demo label="width 160">
             <Select value={level} onChange={setLevel} width={160} options={['4.º grado', '5.º grado', '6.º grado', '7.º grado']} />
           </Demo>
           <Demo label="al ancho del contenido">
             <Select value={subject} onChange={setSubject} options={['Matemática', 'Lengua', 'Ciencias', 'Geografía', 'Convivencia']} />
           </Demo>
-          <div className={cls.div2}>
-            <Demo label="valor largo · se trunca">
-              <Select
-                value={long}
-                onChange={setLong}
-                width={280}
-                options={['Solo yo', 'Todo el equipo', 'Cualquiera con el link puede ver y comentar']}
-              />
-            </Demo>
-          </div>
-        </div>
+          <Demo width="sm" label="valor largo · se trunca">
+            <Select
+              value={long}
+              onChange={setLong}
+              width={280}
+              options={['Solo yo', 'Todo el equipo', 'Cualquiera con el link puede ver y comentar']}
+            />
+          </Demo>
+        </Cluster>
       </Section>
 
       <Section
         title="Adelante del valor"
         note="`leading` es un nodo y no un `IconName`, al revés que el `icon` del TextField: ahí el icono es siempre un glifo del set, acá lo que va adelante del valor es de quien lo usa, el glifo de la categoría, la carpeta de color de un espacio, el avatar de una persona."
       >
-        <div className={cls.div3}>
+        <Cluster align="start">
           <Demo label="un glifo">
             <Select
               value={withIcon}
@@ -80,14 +77,14 @@ export function SelectStory() {
               options={['Melina Rivero', 'Juan Pérez', 'Ana Gómez']}
             />
           </Demo>
-        </div>
+        </Cluster>
       </Section>
 
       <Section
         title="Mientras los datos no están"
         note="`loading` no es lo mismo que pasar un spinner por `leading`. Un spinner suelto se dibuja y nada más: el control sigue abriendo, y lo que abre es una lista vieja que se puede elegir. Con `loading` el select no abre, avisa `aria-busy` y cierra el panel. Lo que no hace es enterarse solo: no recibe promesas."
       >
-        <div className={cls.div4}>
+        <Cluster align="start">
           <Demo label="loading · el spinner es el default">
             <Select value="Cargando espacios…" width={200} loading options={[]} />
           </Demo>
@@ -109,7 +106,7 @@ export function SelectStory() {
               options={['Matemática · 4.º A', 'Lengua · 6.º', 'Ciencias · 5.º B']}
             />
           </Demo>
-        </div>
+        </Cluster>
       </Section>
 
       <Section title="Props">

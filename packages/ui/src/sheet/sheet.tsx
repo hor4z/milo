@@ -29,8 +29,8 @@ export function Sheet({
   if (!open) return null
   return (
     <Portal>
-      <div className={s.div}>
-        <div className={`${s.div2} ui-fade`} onClick={onClose} />
+      <div className={s.viewport}>
+        <div className={`${s.veil} ui-fade`} onClick={onClose} />
         <div
           ref={panel}
           role="dialog"
@@ -39,8 +39,8 @@ export function Sheet({
           tabIndex={-1}
           style={{ width, maxWidth: '100%', ['--slide-from' as string]: side === 'right' ? '12px' : '-12px' }}
           className={cx(
-            `${s.box} ui-slide bg-surface`,
-            side === 'right' ? s.right : s.box2,
+            `${s.panel} ui-slide bg-surface`,
+            side === 'right' ? s.right : s.left,
           )}
         >
           {children}
@@ -58,8 +58,8 @@ export function SheetHeader({ title, onClose }: {
   Escape y el velo hacen lo mismo. */ onClose: () => void
 }) {
   return (
-    <div className={s.div3}>
-      <h2 className={s.h2}>{title}</h2>
+    <div className={s.header}>
+      <h2 className={s.title}>{title}</h2>
       <IconButton icon="close" label="Cerrar" size="sm" variant="ghost" onClick={onClose} />
     </div>
   )
@@ -67,10 +67,10 @@ export function SheetHeader({ title, onClose }: {
 
 /** El cuerpo del panel: lo único que scrollea. */
 export function SheetBody({ className, ...props }: React.ComponentPropsWithoutRef<'div'>) {
-  return <div className={cx(s.div4, className)} {...props} />
+  return <div className={cx(s.body, className)} {...props} />
 }
 
 /** La fila de acciones, abajo y siempre a la vista. */
 export function SheetFooter({ className, ...props }: React.ComponentPropsWithoutRef<'div'>) {
-  return <div className={cx(s.div5, className)} {...props} />
+  return <div className={cx(s.footer, className)} {...props} />
 }

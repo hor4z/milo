@@ -22,24 +22,24 @@ export function EmptyState({ title, body, action, icon, size = 'md', bordered = 
   return (
     <div
       className={cx(
-        s.div,
-        small ? s.div2 : s.div3,
+        s.root,
+        small ? s.padSmall : s.padLarge,
         bordered && s.bordered,
       )}
     >
       {icon && (
         <span
           className={cx(
-            `${s.span} inset-relief`,
-            small ? s.box : s.box2,
+            `${s.badge} inset-relief`,
+            small ? s.badgeSmall : s.badgeLarge,
           )}
         >
           <Icon name={icon} size={small ? 18 : 22} className="icon-muted" />
         </span>
       )}
-      <div className={small ? s.div4 : s.div5}>{title}</div>
-      <p className={cx(s.p, small ? s.p2 : s.p3)}>{body}</p>
-      {action && <div className={small ? s.div6 : s.div7}>{action}</div>}
+      <div className={small ? s.titleSmall : s.titleLarge}>{title}</div>
+      <p className={cx(s.body, small ? s.bodySmall : s.bodyLarge)}>{body}</p>
+      {action && <div className={small ? s.actionSmall : s.actionLarge}>{action}</div>}
     </div>
   )
 }

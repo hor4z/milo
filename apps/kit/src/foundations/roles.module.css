@@ -1,16 +1,16 @@
 @layer milo.app {
-  .div {
+  .roleStack {
     display: flex;
     flex-direction: column;
     gap: 0.75rem;
   }
 
-  .div2 {
+  .ruleGrid {
     display: grid;
     gap: 0.75rem;
   }
 
-  .div3 {
+  .roleCard {
     display: flex;
     flex-direction: column;
     gap: 1rem;
@@ -21,13 +21,13 @@
     padding: 1.25rem;
   }
 
-  .div4 {
+  .roleHead {
     display: flex;
     align-items: flex-start;
     gap: 0.75rem;
   }
 
-  .span {
+  .roleBadge {
     display: flex;
     width: 2.25rem;
     height: 2.25rem;
@@ -38,14 +38,14 @@
     background-color: var(--surface-muted);
   }
 
-  .div5 {
+  .roleIdentity {
     display: flex;
     min-width: 0;
     flex-direction: column;
     gap: 0.25rem;
   }
 
-  .span2 {
+  .roleName {
     font-size: var(--type-reading);
     line-height: var(--type-reading-lh);
     letter-spacing: var(--type-reading-ls);
@@ -53,7 +53,7 @@
     color: var(--text);
   }
 
-  .p {
+  .roleWho {
     max-width: 70ch;
     font-size: var(--type-meta);
     line-height: var(--type-meta-lh);
@@ -62,18 +62,18 @@
     color: var(--text-muted);
   }
 
-  .div6 {
+  .roleColumns {
     display: grid;
     gap: 1rem;
   }
 
-  .div7 {
+  .orderBlock {
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
   }
 
-  .span3 {
+  .firstLabel {
     font-size: var(--type-meta);
     line-height: var(--type-meta-lh);
     letter-spacing: var(--type-meta-ls);
@@ -81,7 +81,7 @@
     color: var(--text);
   }
 
-  .span4 {
+  .firstText {
     font-size: var(--type-meta);
     line-height: var(--type-meta-lh);
     letter-spacing: var(--type-meta-ls);
@@ -89,7 +89,7 @@
     color: var(--text-muted);
   }
 
-  .span5 {
+  .neverLabel {
     margin-top: 0.25rem;
     font-size: var(--type-meta);
     line-height: var(--type-meta-lh);
@@ -98,7 +98,7 @@
     color: var(--text);
   }
 
-  .span6 {
+  .neverText {
     font-size: var(--type-meta);
     line-height: var(--type-meta-lh);
     letter-spacing: var(--type-meta-ls);
@@ -106,13 +106,13 @@
     color: var(--text-muted);
   }
 
-  .div8 {
+  .listBlock {
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
   }
 
-  .span7 {
+  .listTitle {
     font-size: var(--type-meta);
     line-height: var(--type-meta-lh);
     letter-spacing: var(--type-meta-ls);
@@ -120,7 +120,7 @@
     color: var(--text);
   }
 
-  .ul {
+  .list {
     margin: 0;
     display: flex;
     list-style-type: none;
@@ -129,7 +129,7 @@
     padding: 0;
   }
 
-  .li {
+  .listItem {
     font-size: var(--type-meta);
     line-height: var(--type-meta-lh);
     letter-spacing: var(--type-meta-ls);
@@ -137,7 +137,7 @@
     color: var(--text-muted);
   }
 
-  .div9 {
+  .specimen {
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
@@ -148,7 +148,7 @@
     padding: 1rem;
   }
 
-  .span8 {
+  .specimenLabel {
     font-size: var(--type-body);
     line-height: var(--type-body-lh);
     letter-spacing: var(--type-body-ls);
@@ -156,7 +156,7 @@
     color: var(--text);
   }
 
-  .span9 {
+  .specimenBody {
     font-size: var(--type-meta);
     line-height: var(--type-meta-lh);
     letter-spacing: var(--type-meta-ls);
@@ -165,15 +165,14 @@
   }
 
   @media (min-width:40rem) {
-    .div2 {
+    .ruleGrid {
         grid-template-columns: repeat(2,minmax(0,1fr));
     }
   }
 
   @media (min-width:40rem) {
-    .div6 {
+    .roleColumns {
         grid-template-columns: repeat(3,minmax(0,1fr));
     }
   }
-
 }

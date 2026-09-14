@@ -14,8 +14,8 @@ export function LinkStory() {
         title="Adentro de un párrafo"
         note="Es el caso para el que existe la pieza: un enlace suelto en medio de una frase. Fuera de un párrafo (una fila de una lista, una acción de una barra) lo que corresponde es un `Button` con variante `ghost`, que tiene el alto y el blanco de click de un control."
       >
-        <Canvas className={cls.canvas}>
-          <p className={cls.p}>
+        <Canvas stack>
+          <p className={cls.paragraphText}>
             Las entregas se cierran en la fecha que elijas. Podés cambiarla desde{' '}
             <Link href="#link">los ajustes de la actividad</Link> mientras siga abierta.
           </p>
@@ -26,9 +26,9 @@ export function LinkStory() {
         title="El de afuera avisa"
         note="`external` agrega el glifo, el `target` y el `rel`, y (lo que no se ve) el texto 'se abre en otra pestaña' para el lector de pantalla. Abrir una pestaña sin avisar rompe el botón de volver, que es el control que más se usa de todo el navegador."
       >
-        <Canvas className={cls.canvas2}>
+        <Canvas stack>
           <Link href="https://m3.material.io/styles/icons" external>Material Symbols</Link>
-          <p className={cls.p2}>
+          <p className={cls.externalText}>
             El set sale de <Link href="https://fonts.google.com/icons" external>Google Fonts</Link>, subseteado
             a los 160 que usamos.
           </p>

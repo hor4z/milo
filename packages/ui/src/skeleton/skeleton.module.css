@@ -1,8 +1,7 @@
 @layer milo.components {
-  .span {
+  .root {
     display: block;
     border-radius: var(--radius-md);
     background-color: var(--track);
   }
-
 }

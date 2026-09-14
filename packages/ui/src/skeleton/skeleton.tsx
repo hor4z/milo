@@ -7,7 +7,7 @@ export function Skeleton({ className, ...props }: ComponentPropsWithoutRef<'span
   return (
     <span
       aria-hidden="true"
-      className={cx(`${s.span} ui-pulse`, className)}
+      className={cx(`${s.root} ui-pulse`, className)}
       {...props}
     />
   )

@@ -1,7 +1,7 @@
 import cls from './command-menu.module.css'
 import { useState } from 'react'
 import { Button, CommandMenu, Kbd, Popover, type CommandGroup, type CommandItem } from '@milo/ui'
-import { A11y, Note, Page, Props, Section } from '../kit'
+import { A11y, Cluster, Frame, Note, Page, Props, Section } from '../kit'
 
 const bloques: CommandGroup[] = [
   {
@@ -50,10 +50,12 @@ export function CommandMenuStory() {
         title="La pieza"
         note="Probá las flechas, Home y End, y escribí 'foto' para ver que Imagen aparece sin que la palabra esté en su nombre."
       >
-        <div className={cls.div}>
-          <CommandMenu groups={bloques} onSelect={setUltimo} className={cls.commandMenu} />
-          <p className={cls.p}>
-            {ultimo ? <>Elegiste <strong className={cls.strong}>{ultimo.label}</strong>.</> : 'Elegí uno para ver qué devuelve.'}
+        <div className={cls.pieceStack}>
+          <Frame width="md">
+            <CommandMenu groups={bloques} onSelect={setUltimo} />
+          </Frame>
+          <p className={cls.pickedNote}>
+            {ultimo ? <>Elegiste <strong className={cls.emphasis}>{ultimo.label}</strong>.</> : 'Elegí uno para ver qué devuelve.'}
           </p>
         </div>
       </Section>
@@ -62,22 +64,24 @@ export function CommandMenuStory() {
         title="Sin buscador"
         note="Para cuando lo que se escribe ya está afuera: en un editor, el texto va detrás de la barra y el menú solo filtra."
       >
-        <div className={cls.div2}>
-          <div className={`${cls.div3} bg-surface`}>
-            <span className={cls.span}>Escribí</span>
+        <Cluster gap="xl" align="start">
+          <div className={`${cls.queryStrip} bg-surface`}>
+            <span className={cls.queryLead}>Escribí</span>
             <Kbd>/</Kbd>
-            <span className={cls.span2}>y después</span>
-            <span className={cls.span3}>lis</span>
+            <span className={cls.queryTail}>y después</span>
+            <span className={cls.queryText}>lis</span>
           </div>
-          <CommandMenu groups={bloques} onSelect={setUltimo} search={false} query="lis" className={cls.commandMenu2} />
-        </div>
+          <Frame width="md">
+            <CommandMenu groups={bloques} onSelect={setUltimo} search={false} query="lis" />
+          </Frame>
+        </Cluster>
       </Section>
 
       <Section
         title="Anclado a su disparador"
         note="Es lo que hace la barra en un editor: el menú cuelga de donde se escribió el '/'. La pieza no se posiciona sola: de eso se encarga el `Popover`, que es el que ya sabe encajar un panel contra un borde."
       >
-        <div className={cls.div4}>
+        <Cluster gap="lg" align="center">
           <Popover
             align="start"
             width={380}
@@ -92,8 +96,8 @@ export function CommandMenuStory() {
               />
             )}
           </Popover>
-          <span className={cls.span4}>Abrí, escribí, movete con las flechas y elegí con Enter.</span>
-        </div>
+          <span className={cls.anchoredNote}>Abrí, escribí, movete con las flechas y elegí con Enter.</span>
+        </Cluster>
       </Section>
 
       <Note icon="lightbulb" title="Qué de esta lista ya existe">

@@ -1,11 +1,11 @@
 @layer milo.components {
-  .div {
+  .root {
     display: flex;
     height: 448px;
     max-height: calc(100vh - 2rem);
   }
 
-  .nav {
+  .rail {
     display: flex;
     width: 180px;
     flex-shrink: 0;
@@ -17,7 +17,7 @@
     padding: 0.75rem;
   }
 
-  .box {
+  .railItem {
     display: flex;
     height: 2.5rem;
     align-items: center;
@@ -34,7 +34,7 @@
     font-weight: var(--font-weight-semibold);
   }
 
-  .box2 {
+  .railItemMotion {
     transition-property: background-color,border-color,color;
     transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
     transition-duration: 150ms;
@@ -42,18 +42,18 @@
     transition-timing-function: var(--ease-out);
   }
 
-  .box3 {
+  .railItemActive {
     border-color: var(--brand-border);
     background-color: var(--brand-soft);
     color: var(--brand-ink);
   }
 
-  .box4 {
+  .railItemIdle {
     border-color: #0000;
     color: var(--text);
   }
 
-  .span {
+  .railGlyph {
     display: flex;
     width: 2rem;
     height: 2rem;
@@ -67,23 +67,23 @@
     transition-duration: var(--duration-fast);
   }
 
-  .active {
+  .railGlyphActive {
     --milo-shadow: 0 0 0 1px var(--milo-shadow-color,var(--brand-border));
     box-shadow: var(--milo-inset-shadow),var(--milo-inset-ring-shadow),var(--milo-ring-offset-shadow),var(--milo-ring-shadow),var(--milo-shadow);
   }
 
-  .icon {
+  .railIcon {
     color: var(--brand-ink);
   }
 
-  .div2 {
+  .panel {
     display: flex;
     min-width: 0;
     flex: 1;
     flex-direction: column;
   }
 
-  .header {
+  .panelHeader {
     display: flex;
     height: 3.5rem;
     flex-shrink: 0;
@@ -94,34 +94,34 @@
     padding-inline: 1.5rem;
   }
 
-  .h2 {
+  .panelTitle {
     font-size: var(--type-body);
     line-height: var(--type-body-lh);
     letter-spacing: var(--type-body-ls);
     font-weight: var(--font-weight-semibold);
   }
 
-  .div3 {
+  .panelBody {
     min-height: 0;
     flex: 1;
     overflow-y: auto;
   }
 
-  .span2 {
+  .accountEmail {
     font-size: var(--type-body);
     line-height: var(--type-body-lh);
     letter-spacing: var(--type-body-ls);
     color: var(--text-muted);
   }
 
-  .span3 {
+  .schoolName {
     font-size: var(--type-body);
     line-height: var(--type-body-lh);
     letter-spacing: var(--type-body-ls);
     color: var(--text-muted);
   }
 
-  .div4 {
+  .dangerZone {
     border-top-style: solid;
     border-top-width: 1px;
     border-color: var(--border);
@@ -129,13 +129,13 @@
     padding-block: 1rem;
   }
 
-  .div5 {
+  .dangerBox {
     border-radius: var(--radius-xl);
     background-color: var(--bad-subtle);
     padding: 1rem;
   }
 
-  .div6 {
+  .dangerTitle {
     font-size: var(--type-body);
     line-height: var(--type-body-lh);
     letter-spacing: var(--type-body-ls);
@@ -143,7 +143,7 @@
     color: var(--text);
   }
 
-  .p {
+  .dangerText {
     margin-top: 0.5rem;
     font-size: var(--type-body);
     line-height: var(--type-body-lh);
@@ -151,11 +151,11 @@
     color: var(--text-muted);
   }
 
-  .button {
+  .dangerButton {
     margin-top: 0.75rem;
   }
 
-  .div7 {
+  .row {
     display: flex;
     min-height: 3.5rem;
     align-items: center;
@@ -171,7 +171,7 @@
     }
   }
 
-  .div8 {
+  .rowLabel {
     min-width: 0;
     flex: 1;
     font-size: var(--type-body);
@@ -181,7 +181,7 @@
     color: var(--text);
   }
 
-  .box5 {
+  .rowInput {
     height: 2rem;
     width: 12rem;
     border-radius: var(--radius-md);
@@ -197,7 +197,7 @@
     outline-style: none;
   }
 
-  .box6 {
+  .rowEdit {
     display: flex;
     align-items: center;
     gap: 0.5rem;
@@ -211,7 +211,7 @@
     color: var(--text);
   }
 
-  .icon3 {
+  .rowEditIcon {
     opacity: 0;
     transition-property: opacity;
     transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
@@ -221,21 +221,20 @@
   }
 
   @media (hover:hover) {
-    .box4:hover {
+    .railItemIdle:hover {
         background-color: var(--surface-hover);
     }
   }
 
   @media (hover:hover) {
-    .box6:hover {
+    .rowEdit:hover {
         background-color: var(--surface-hover);
     }
   }
 
   @media (hover:hover) {
-    .icon3:is(:where(:global(.group)):hover *) {
+    .rowEditIcon:is(:where(:global(.group)):hover *) {
         opacity: 1;
     }
   }
-
 }

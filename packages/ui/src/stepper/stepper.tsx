@@ -46,7 +46,7 @@ export function Stepper({
     <div
       style={{ width }}
       className={cx(
-        `${cls.div} field`,
+        `${cls.root} field`,
         disabled && cls.disabled,
       )}
     >
@@ -69,9 +69,9 @@ export function Stepper({
         }}
         onBlur={() => setTexto(String(value))}
         onKeyDown={teclas}
-        className={`${cls.box} tabular`}
+        className={`${cls.input} tabular`}
       />
-      {suffix && <span aria-hidden="true" className={cls.span}>{suffix}</span>}
+      {suffix && <span aria-hidden="true" className={cls.suffix}>{suffix}</span>}
       <Paso icon="add" label={`Subir${label ? ` ${label}` : ''}`} onClick={() => poner(value + step)} disabled={value >= max} />
     </div>
   )
@@ -91,7 +91,7 @@ function Paso({ icon, label, onClick, disabled }: {
       aria-label={label}
       disabled={disabled}
       onClick={onClick}
-      className={cls.box2}
+      className={cls.step}
     >
       <Icon name={icon} size={16} className="icon-muted" />
     </button>

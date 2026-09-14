@@ -13,14 +13,14 @@ type BreadcrumbProps = ComponentPropsWithoutRef<'nav'> & {
 /** Dónde estás parado y cómo volver. */
 export function Breadcrumb({ items, label = 'Ruta', className, ...props }: BreadcrumbProps) {
   return (
-    <nav aria-label={label} className={cx(cls.nav, className)} {...props}>
-      <ol className={cls.ol}>
+    <nav aria-label={label} className={cx(cls.root, className)} {...props}>
+      <ol className={cls.items}>
         {items.map((it, i) => {
           const last = i === items.length - 1
           return (
-            <li key={i} className={cls.li}>
+            <li key={i} className={cls.item}>
               {last
-                ? <span aria-current="page" className={cls.span}>{it.label}</span>
+                ? <span aria-current="page" className={cls.current}>{it.label}</span>
                 : it.href
                   ? <a href={it.href} onClick={it.onClick} className={cls.step}>{it.label}</a>
                   : it.onClick

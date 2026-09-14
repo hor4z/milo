@@ -1,6 +1,5 @@
-import cls from './dropdown.module.css'
 import { Button, Dropdown } from '@milo/ui'
-import { A11y, Demo, Page, Props, Section } from '../kit'
+import { A11y, Cluster, Demo, Page, Props, Section } from '../kit'
 
 export function DropdownStory() {
   return (
@@ -11,7 +10,7 @@ export function DropdownStory() {
       imports="import { Dropdown } from '@milo/ui'"
     >
       <Section title="Vivo" note="El disparador va como render prop porque el Dropdown necesita su ref para medir dónde abrir. Desde que `Button` acepta ref, el disparador puede ser el botón del sistema y no un <button> crudo repitiendo las clases.">
-        <div className={cls.div}>
+        <Cluster align="start">
           <Demo label="align end · width 220">
             <Dropdown
               width={220}
@@ -36,14 +35,14 @@ export function DropdownStory() {
               )}
             />
           </Demo>
-        </div>
+        </Cluster>
       </Section>
 
       <Section
         title="Lo que puede llevar una opción"
         note="Un glifo adelante, el atajo de teclado a la derecha, el tilde de 'esta es la que está puesta', y el rojo de lo que no se deshace. Lo apagado se queda a la vista y no desaparece: una opción que aparece y desaparece según el estado obliga a aprender el menú de nuevo cada vez."
       >
-        <div className={cls.div2}>
+        <Cluster align="start">
           <Demo label="con atajos y una peligrosa">
             <Dropdown
               width={240}
@@ -58,13 +57,13 @@ export function DropdownStory() {
               )}
             />
           </Demo>
-        </div>
+        </Cluster>
       </Section>
 
       <Section title="Props">
         <Props of={['Dropdown', 'DropdownItem']} />
       </Section>
-    
+
       <Section title="Accesibilidad">
         <A11y items={[
           'El panel es role="menu" y cada opción un menuitem.',

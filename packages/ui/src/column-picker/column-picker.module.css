@@ -3,7 +3,7 @@
     margin-left: auto;
   }
 
-  .div {
+  .panel {
     max-height: 320px;
     overflow-y: auto;
     overscroll-behavior: contain;
@@ -16,7 +16,7 @@
     box-shadow: var(--milo-inset-shadow),var(--milo-inset-ring-shadow),var(--milo-ring-offset-shadow),var(--milo-ring-shadow),var(--milo-shadow);
   }
 
-  .p {
+  .panelLabel {
     padding-inline: 0.5rem;
     padding-top: 0.25rem;
     padding-bottom: 0.5rem;
@@ -27,7 +27,7 @@
     color: var(--text);
   }
 
-  .label {
+  .option {
     display: flex;
     height: 2.25rem;
     align-items: center;
@@ -41,16 +41,16 @@
     transition-timing-function: var(--ease-out);
   }
 
-  .box {
+  .locked {
     cursor: default;
     opacity: .45;
   }
 
-  .box2 {
+  .pickable {
     cursor: pointer;
   }
 
-  .span {
+  .optionLabel {
     min-width: 0;
     flex: 1;
     text-overflow: ellipsis;
@@ -64,9 +64,8 @@
   }
 
   @media (hover:hover) {
-    .box2:hover {
+    .pickable:hover {
         background-color: var(--surface-hover);
     }
   }
-
 }

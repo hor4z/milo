@@ -1,5 +1,5 @@
 @layer milo.components {
-  .span {
+  .root {
     position: relative;
     display: flex;
     height: 2rem;
@@ -12,7 +12,7 @@
     opacity: .45;
   }
 
-  .span2 {
+  .track {
     pointer-events: none;
     position: absolute;
     inset-inline: 0;
@@ -20,7 +20,7 @@
     border-radius: var(--radius-full);
   }
 
-  .span3 {
+  .fill {
     pointer-events: none;
     position: absolute;
     left: 0;
@@ -28,7 +28,7 @@
     border-radius: var(--radius-full);
   }
 
-  .box {
+  .input {
     position: absolute;
     inset: 0;
     height: 100%;
@@ -42,7 +42,7 @@
     }
   }
 
-  .span4 {
+  .thumb {
     pointer-events: none;
     position: absolute;
     width: 1.5rem;
@@ -52,21 +52,20 @@
     border-radius: var(--radius-full);
   }
 
-  .box2 {
+  .thumbBody {
     display: flex;
     align-items: center;
     justify-content: center;
   }
 
-  .box3 {
-
+  .thumbFocus {
     &:is(:where(:global(.peer)):focus-visible~*) {
       --milo-shadow: var(--switch-thumb-shadow), var(--focus-ring);
       box-shadow: var(--milo-inset-shadow),var(--milo-inset-ring-shadow),var(--milo-ring-offset-shadow),var(--milo-ring-shadow),var(--milo-shadow);
     }
   }
 
-  .span5 {
+  .dot {
     width: 0.75rem;
     height: 0.75rem;
     border-radius: var(--radius-full);
@@ -78,11 +77,11 @@
     transition-timing-function: var(--ease-out);
   }
 
-  .box4 {
+  .dotDragging {
     scale: 1.18;
   }
 
-  .box5 {
+  .dotResting {
     --milo-scale-x: 100%;
     --milo-scale-y: 100%;
     --milo-scale-z: 100%;
@@ -94,5 +93,4 @@
     transition-duration: var(--duration-fast);
     transition-timing-function: var(--ease-out);
   }
-
 }

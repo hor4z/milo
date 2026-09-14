@@ -27,9 +27,9 @@ export function Button({
     <button
       type={type}
       className={cx(
-        cls.button,
-        cls.box,
-        cls.box2,
+        cls.root,
+        cls.motion,
+        cls.disabled,
         variants[variant], c.box, c.px, c.text, c.gap, c.radius, block && cls.block, className,
       )}
       {...rest}

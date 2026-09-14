@@ -93,19 +93,29 @@ Verificado rompiendo el `Segmented` a propósito.
 
 ## Lo que falta
 
-**Los nombres.** Es lo único grande que queda, y es grande: **1302 de 1582 clases
-(el 82%)** salieron con el nombre de la etiqueta y un número, `div2`, `span7`,
-`box4`, `p3`. Un generador no puede hacer otra cosa, porque el nombre de una clase
-dice *por qué* existe la regla y eso no está en el CSS que lee.
+**Los nombres: hecho.** Era lo único grande que quedaba. **1450 de 1630 clases
+(el 89%)** salieron con el nombre de la etiqueta y un número, `div2`, `span7`,
+`box4`, `p3`, o con un nombre propio numerado, `card2`, `controlLg7`. Un generador
+no puede hacer otra cosa, porque el nombre de una clase dice *por qué* existe la
+regla y eso no está en el CSS que lee.
 
-El costo no es estético. `div2` no se puede buscar, no se puede reusar, y en dos
-archivos son dos cosas que no tienen nada que ver. Donde más duele es en las vistas
-del kit, que son justo las que alguien abre para aprender el sistema: `typography`
-71, `kit` 67, `color` 41, `dashboard` 38, `intro` 37, `measure` 37.
+Se escribió primero la nomenclatura (está en `CLAUDE.md`, en "Cómo se llama una
+clase") y después se aplicó módulo por módulo. Tres cosas que la medición enseñó y
+que no se veían desde afuera:
 
-Se hace módulo por módulo, y hay dos guardianes que lo sostienen mientras dure: el
-que dibuja las setenta y cuatro vistas y falla si una clase dejó de resolver, y el
-que exige que ninguna clase de un módulo quede sin usar.
+- **La mitad del CSS de las historias era andamio copiado.** La fila de variantes
+  en 19 historias con cinco gaps distintos; la caja que capea el ancho en 18, con
+  trece topes sin escala. Nombrar 19 copias de lo mismo no arregla nada: fueron a
+  `kit.tsx` como `Cluster`, `Frame` y `Footnote`, y se borraron 110 clases.
+- **El guardián que se creía que cubría esto no lo cubría.** En los tests los CSS
+  Modules son un stub (`css: false`), así que `s.loQueSea` nunca es `undefined` y
+  el test que dibuja las vistas no puede ver una referencia huérfana. Hizo falta uno
+  estático que resuelva el alias de cada import.
+- **Un léxico compartido rompe `estilo()`.** Buscaba el nombre en todos los módulos
+  y concatenaba: con `input` en tres piezas, la aserción de una leía el CSS de otra.
+
+Quedan 1523 clases, ninguna se llama por su etiqueta ni termina en un número, y hay
+tres guardianes nuevos que lo sostienen.
 
 ## Lo que queda del lado de las apps
 

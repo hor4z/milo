@@ -1,15 +1,15 @@
 @layer milo.app {
-  .div {
+  .pieceFrame {
     max-width: 440px;
     padding-block: 1rem;
   }
 
-  .div2 {
+  .noPeaksFrame {
     max-width: 440px;
     padding-block: 1rem;
   }
 
-  .div3 {
+  .sizesFrame {
     display: flex;
     max-width: 440px;
     flex-direction: column;
@@ -17,12 +17,12 @@
     padding-block: 1rem;
   }
 
-  .div4 {
+  .longFrame {
     max-width: 440px;
     padding-block: 1rem;
   }
 
-  .div5 {
+  .oneAtATimeFrame {
     display: flex;
     max-width: 440px;
     flex-direction: column;
@@ -30,17 +30,17 @@
     padding-block: 1rem;
   }
 
-  .div6 {
+  .asideFrame {
     max-width: 440px;
     padding-block: 1rem;
   }
 
-  .div7 {
+  .missingFrame {
     max-width: 440px;
     padding-block: 1rem;
   }
 
-  .div8 {
+  .ruleList {
     display: flex;
     max-width: 720px;
     flex-direction: column;
@@ -51,7 +51,7 @@
     border-color: var(--border);
   }
 
-  .div9 {
+  .ruleRow {
     display: flex;
     flex-direction: column;
     gap: 0.25rem;
@@ -66,7 +66,7 @@
     }
   }
 
-  .span {
+  .ruleName {
     font-size: var(--type-body);
     line-height: var(--type-body-lh);
     letter-spacing: var(--type-body-ls);
@@ -74,12 +74,11 @@
     color: var(--text);
   }
 
-  .span2 {
+  .ruleNote {
     max-width: 70ch;
     font-size: var(--type-meta);
     line-height: var(--type-meta-lh);
     letter-spacing: var(--type-meta-ls);
     color: var(--text-muted);
   }
-
 }

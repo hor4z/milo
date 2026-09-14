@@ -1,13 +1,8 @@
 @layer milo.app {
-  .div {
+  .pieceStack {
     display: flex;
     max-width: 640px;
     flex-direction: column;
     gap: 1.5rem;
   }
-
-  .div2 {
-    max-width: 640px;
-  }
-
 }

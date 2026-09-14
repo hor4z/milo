@@ -1,17 +1,17 @@
 @layer milo.components {
-  .tinta {
+  .counterCalm {
     color: var(--text-muted);
   }
 
-  .tinta2 {
+  .counterWarn {
     color: var(--warn-ink);
   }
 
-  .tinta3 {
+  .counterBad {
     color: var(--bad-ink);
   }
 
-  .box {
+  .root {
     display: flex;
     cursor: text;
     border-style: solid;
@@ -20,36 +20,35 @@
     background-color: var(--field-bg);
   }
 
-  .box2 {
-
+  .disabled {
     &:has(:is(textarea:disabled)) {
       pointer-events: none;
       opacity: .45;
     }
   }
 
-  .box3 {
+  .shape {
     border-radius: var(--radius-lg);
     font-size: var(--type-reading);
     line-height: var(--type-reading-lh);
     letter-spacing: var(--type-reading-ls);
   }
 
-  .box4 {
+  .withCounter {
     flex-direction: column;
     gap: 0.25rem;
   }
 
-  .vertical {
+  .resizablePad {
     padding: 0;
   }
 
-  .box5 {
+  .fixedPad {
     padding-inline: 0.75rem;
     padding-block: 0.5rem;
   }
 
-  .box6 {
+  .input {
     min-width: 0;
     background-color: #0000;
     font-weight: var(--font-weight-medium);
@@ -58,32 +57,31 @@
     outline-style: none;
   }
 
-  .box7 {
+  .inputWithCounter {
     width: 100%;
   }
 
-  .box8 {
+  .inputAlone {
     flex: 1;
   }
 
-  .box9 {
-
+  .inputPlaceholder {
     &::placeholder {
       color: var(--text-placeholder);
     }
   }
 
-  .vertical2 {
+  .inputResizable {
     resize: vertical;
     padding-inline: 0.75rem;
     padding-block: 0.5rem;
   }
 
-  .box10 {
+  .inputFixed {
     resize: none;
   }
 
-  .span {
+  .counter {
     align-self: flex-end;
     font-size: var(--type-meta);
     line-height: var(--type-meta-lh);
@@ -96,9 +94,8 @@
     transition-timing-function: var(--ease-out);
   }
 
-  .vertical3 {
+  .counterResizable {
     padding-inline: 0.75rem;
     padding-bottom: 0.5rem;
   }
-
 }

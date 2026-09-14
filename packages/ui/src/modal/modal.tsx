@@ -25,8 +25,8 @@ export function Modal({
   if (!open) return null
   return (
     <Portal>
-      <div className={s.div}>
-        <div className={`${s.div2} ui-fade`} onClick={onClose} />
+      <div className={s.viewport}>
+        <div className={`${s.veil} ui-fade`} onClick={onClose} />
         <div
           ref={panel}
           role="dialog"
@@ -34,7 +34,7 @@ export function Modal({
           aria-label={label}
           tabIndex={-1}
           style={{ width, maxWidth: '100%' }}
-          className={`${s.box} ui-zoom bg-surface`}
+          className={`${s.panel} ui-zoom bg-surface`}
         >
           {children}
         </div>
@@ -44,7 +44,7 @@ export function Modal({
           variant="solid"
           size="lg"
           onClick={onClose}
-          className={s.box2}
+          className={s.close}
         />
       </div>
     </Portal>

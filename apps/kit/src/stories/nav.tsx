@@ -17,8 +17,8 @@ export function NavStory() {
         title="El item"
         note="40 de alto, radio 12, el icono en un cuadrado de 34 y la etiqueta en el rol `--type-body`. El activo va en azul suave con su canto. Estuvo en gris, con la regla 'el activo nunca se marca con color': esa regla existía cuando el azul era el único acento, y dejó de valer cuando pasó a ser el color primario: en un riel de doce, el gris hay que buscarlo."
       >
-        <div className={cls.div}>
-          <div className={cls.div2}>
+        <div className={cls.itemRail}>
+          <div className={cls.itemList}>
             {[
               { id: 'explorar', icon: 'explore', label: 'Explorar' },
               { id: 'recursos', icon: 'layers', label: 'Recursos', badge: '84' },
@@ -29,7 +29,7 @@ export function NavStory() {
               </button>
             ))}
 
-            <div className={cls.div3}>Mis espacios</div>
+            <div className={cls.railHeading}>Mis espacios</div>
 
             {([
               { id: 'ciencias', color: 'green', label: 'Ciencias · 5.º B' },
@@ -49,8 +49,8 @@ export function NavStory() {
       </Section>
 
       <Section title="Subitems" note="Sangría de 48: la columna del texto del padre, para que las etiquetas queden alineadas entre sí.">
-        <div className={cls.div4}>
-          <div className={cls.div5}>
+        <div className={cls.subitemRail}>
+          <div className={cls.subitemList}>
             <button className={navItemClass({ active: true })}>
               <NavItemBody icon="explore" label="Explorar" active />
             </button>
@@ -61,8 +61,8 @@ export function NavStory() {
       </Section>
 
       <Section title="Contraído" note="A 72 de ancho el item se centra y pierde etiqueta y badge; el `title` pasa a ser lo único que dice qué es.">
-        <div className={cls.div6}>
-          <div className={cls.div7}>
+        <div className={cls.collapsedRail}>
+          <div className={cls.collapsedList}>
             <button className={navItemClass({ active: true, collapsed: true })} title="Explorar">
               <NavItemBody icon="explore" label="Explorar" active collapsed />
             </button>
@@ -76,7 +76,7 @@ export function NavStory() {
       <Section title="Props">
         <Props of={['navItemClass', 'NavItemBody']} />
       </Section>
-    
+
       <Section title="Accesibilidad">
         <A11y items={[
           'El item activo lo dice con aria-current, no solo con el fondo.',

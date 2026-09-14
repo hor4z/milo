@@ -40,7 +40,7 @@ export function Writing() {
         title="Las reglas"
         note="Nueve, y se revisan leyendo en voz alta."
       >
-        <div className={cls.div}>
+        <div className={cls.ruleGrid}>
           {[
             ['Vos, no usted', 'Escribí, elegí, mirá. Es como habla la gente con la que trabajamos.'],
             ['Presente', '"Se publicó" y no "ha sido publicado".'],
@@ -52,9 +52,9 @@ export function Writing() {
             ['Decí qué pasa, no cuánto hay', 'Un contador informa; una frase orienta. "Tres entregas vencen mañana" se entiende de una, "3 · 12 · 79" hay que interpretarlo.'],
             ['Sin raya ni comillas angulares', 'Ni la raya larga ni las comillas angulares. Nadie las tiene a mano en un teclado, así que no aparecen en lo que escribe una persona: cuando aparecen, quien lee siente que el texto lo escribió una máquina y deja de creerle. En su lugar van los dos puntos, la coma, el paréntesis y las comillas dobles, que dicen lo mismo y no llaman la atención.'],
           ].map(([t, d]) => (
-            <div key={t} className={`${cls.div2} bg-surface`}>
-              <span className={cls.span}>{t}</span>
-              <span className={cls.span2}>{d}</span>
+            <div key={t} className={`${cls.ruleCard} bg-surface`}>
+              <span className={cls.ruleTitle}>{t}</span>
+              <span className={cls.ruleBody}>{d}</span>
             </div>
           ))}
         </div>
@@ -64,18 +64,18 @@ export function Writing() {
         title="Antes y después"
         note="Los mismos mensajes escritos de las dos maneras. La diferencia nunca es de tono: es de información."
       >
-        <div className={cls.div3}>
+        <div className={cls.comparisonStack}>
           {pairs.map(p => (
-            <div key={p.good} className={cls.div4}>
-              <div className={cls.div5}>
-                <Icon name="close" size={16} className={cls.icon} />
-                <span className={cls.span3}>{p.bad}</span>
+            <div key={p.good} className={cls.comparison}>
+              <div className={cls.comparisonBad}>
+                <Icon name="close" size={16} className={cls.verdictIconBad} />
+                <span className={cls.badText}>{p.bad}</span>
               </div>
-              <div className={cls.div6}>
-                <Icon name="check" size={16} className={cls.icon2} />
-                <div className={cls.div7}>
-                  <span className={cls.span4}>{p.good}</span>
-                  <span className={cls.span5}>{p.by}</span>
+              <div className={cls.comparisonGood}>
+                <Icon name="check" size={16} className={cls.verdictIconGood} />
+                <div className={cls.goodBlock}>
+                  <span className={cls.goodText}>{p.good}</span>
+                  <span className={cls.goodWhy}>{p.by}</span>
                 </div>
               </div>
             </div>

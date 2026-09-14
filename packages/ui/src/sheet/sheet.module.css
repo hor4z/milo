@@ -1,17 +1,17 @@
 @layer milo.components {
-  .div {
+  .viewport {
     position: fixed;
     inset: 0;
     z-index: 40;
   }
 
-  .div2 {
+  .veil {
     position: absolute;
     inset: 0;
     background-color: var(--scrim);
   }
 
-  .box {
+  .panel {
     position: absolute;
     inset-block: 0;
     display: flex;
@@ -27,14 +27,14 @@
     border-color: var(--border);
   }
 
-  .box2 {
+  .left {
     left: 0;
     border-right-style: solid;
     border-right-width: 1px;
     border-color: var(--border);
   }
 
-  .div3 {
+  .header {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -46,7 +46,7 @@
     padding-block: 1rem;
   }
 
-  .h2 {
+  .title {
     font-size: var(--type-reading);
     line-height: var(--type-reading-lh);
     letter-spacing: var(--type-reading-ls);
@@ -54,14 +54,14 @@
     color: var(--text);
   }
 
-  .div4 {
+  .body {
     flex: 1;
     overflow-y: auto;
     padding-inline: 1.25rem;
     padding-block: 1.25rem;
   }
 
-  .div5 {
+  .footer {
     display: flex;
     align-items: center;
     justify-content: flex-end;
@@ -72,5 +72,4 @@
     padding-inline: 1.25rem;
     padding-block: 1rem;
   }
-
 }

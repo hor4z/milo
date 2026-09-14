@@ -12,7 +12,7 @@
     box-shadow: var(--milo-inset-shadow),var(--milo-inset-ring-shadow),var(--milo-ring-offset-shadow),var(--milo-ring-shadow),var(--milo-shadow);
   }
 
-  .box {
+  .button {
     display: inline-flex;
     width: 2rem;
     height: 2rem;
@@ -26,24 +26,23 @@
     transition-timing-function: var(--ease-out);
   }
 
-  .box2 {
-
+  .disabled {
     &:disabled {
       pointer-events: none;
       opacity: .45;
     }
   }
 
-  .box3 {
+  .buttonOn {
     background-color: var(--surface-muted);
     color: var(--text);
   }
 
-  .box4 {
+  .buttonOff {
     color: var(--text-muted);
   }
 
-  .span {
+  .separator {
     margin-inline: 0.25rem;
     height: 1.25rem;
     width: 1px;
@@ -52,10 +51,9 @@
   }
 
   @media (hover:hover) {
-    .box4:hover {
+    .buttonOff:hover {
         background-color: var(--surface-hover);
         color: var(--text);
     }
   }
-
 }

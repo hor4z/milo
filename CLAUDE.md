@@ -18,7 +18,7 @@ final son lo único que hay que tocar.
 npm install
 npm run dev        # el sitio · http://localhost:5190
 npm run typecheck  # todo el monorepo de una
-npm test           # 673 tests con vitest y testing-library
+npm test           # 677 tests con vitest y testing-library
 npm run props      # regenera la tabla de props desde los tipos
 ```
 
@@ -154,6 +154,67 @@ Estas sí van acá: no se ven en una pantalla, así que el kit no puede mostrarl
   líneas más de escribir y evita la prop número catorce.
 - **Un campo no sabe dónde cae.** La superficie que lo contiene escribe `--field-bg`, así que un
   `TextField` adentro de un `Card` adentro de un `Modal` se ve bien sin que nadie se lo diga.
+
+## Cómo se llama una clase
+
+Un nombre de clase es la única parte del CSS que explica **por qué** existe una regla. La conversión
+de Tailwind la dejó vacía (1450 de 1630 se llamaban `div2`, `span7`, `box4`) y volver a llenarla pidió
+escribir esto antes de tocar nada. Tres guardianes lo sostienen.
+
+**La forma.** Inglés y camelCase, sin número al final. Kebab está reservado: las clases globales de
+`base.css` y `theme.css` son kebab (`icon-muted`, `field-focus`, `raised-brand`, `switch-track-on`) y
+las de módulo camelCase, así que mirando una clase se sabe de dónde sale. Kebab adentro de un módulo
+además **apaga a los guardianes en silencio**: no matchea el `[A-Za-z][\w]*` con el que leen los
+módulos, obliga a `s['card-header']` en TS y eso lo daría por muerto. Hay un test.
+
+**De dónde sale el nombre**, en este orden:
+
+1. **Si es una parte que la pieza ya expone, se llama como la parte.** `CardHeader` es `header`,
+   `AlertTitle` es `title`, `TabPanel` es `panel`, `TreeNode` es `node`.
+2. **Si es un contenedor, se llama por lo que contiene, en plural**, y la unidad adentro es el
+   singular: `items` e `item`, `actions`, `options`, `swatches` y `swatch`.
+3. **Si es un estado o una variante, se llama por la condición bajo la cual se aplica**, nunca por la
+   prop de la que salió. Esto no es gusto: había cinco que engañaban al que las leía y dos estaban
+   dadas vuelta. La del libro que es un link se llamaba `href`; la del `TaskList` se llamaba
+   `readOnly` y se aplica cuando **no** es de solo lectura; la del `DatePicker` se llamaba `value` y
+   se aplica cuando **no** hay valor.
+
+Si dos reglas se parecen tanto que dan ganas de numerarlas, lo que las separa es el nombre:
+`trackRest` y `trackActive`, no `track` y `track2`.
+
+**El léxico**, una palabra por papel y la misma en las 63 piezas:
+
+| | |
+|---|---|
+| partes de una pieza | `root` `header` `body` `footer` `title` `hint` `actions` `icon` `trailing` `count` `separator` `swatch` |
+| listas | `items` `item` `groupLabel` |
+| overlays | `viewport` `veil` `panel` `trigger` `arrow` |
+| barras de medida | `track` `fill` `thumb` `tick` |
+| campos | `control` `input` `suffix` `chevron` |
+| estado y variante | `selected` `active` `current` `disabled` `editable` `interactive` `dragging` `loading` `empty` `placeholder` `danger` `open` `horizontal` `vertical` `compact` `muted` `bordered` |
+| las vistas de Fundamentos | `specimenGrid` `specimen` `specimenLabel` `specimenBody` `tokenName` `monoValue` `comparison` `comparisonBad` `comparisonGood` `verdictIcon` `roleBadge` |
+
+`selected`, `active` y `current` son tres cosas distintas y conviven en la misma pieza: `selected` es
+el valor elegido, `active` es dónde está el cursor del teclado, `current` es dónde estás parado en una
+secuencia. En `Select`, en `Tree`, en el `DatePicker` y en el `CommandMenu` hacen falta las tres.
+
+Y cada una tiene su complemento, que son tres y no uno: **`idle`** es lo que no tiene el cursor
+encima (`active ? active : idle`), **`plain`** es lo que no recibió ningún tratamiento de tono ni de
+elección (`danger ? danger : plain`, `selected ? selected : plain`), y un interruptor va con el par
+**`on`/`off`**, que no es ninguna de las dos. Elegir mal el complemento no rompe nada y por eso se
+escapa: `Tree` tenía `idle` contra `selected`, que se lee como si el árbol tuviera cursor.
+
+**Una clase no pisa el nombre de una global.** `group`, `peer`, `mark`, `field`, `tabular`, `raised`,
+`zebra`, `pressed` y las cincuenta y pico que declaran `base.css` y `theme.css` quedan prohibidas
+como nombre de módulo, y hay un test.
+
+**Dónde el léxico no coincide con la API, y por qué.** El vocabulario público de `index.ts` se
+contradice consigo mismo: `Body` es el cuerpo en `Card` y en `Sheet` pero la línea de apoyo en
+`Alert`, que en `Card` se llama `Hint`; `Footer` son tres cosas; hay seis palabras para el texto de
+apoyo (`hint`, `meta`, `caption`, `subtitle`, `body`, `detail`), cinco para lo elegido y cinco para el
+adorno de la izquierda. Las clases eligieron una y la usan en todas las piezas. **La API no se tocó**:
+cambiarla rompe a quien consume el paquete, y eso es otro trabajo. Así que en `Alert` la clase del
+texto de apoyo se llama `text` aunque la parte se llame `AlertBody`.
 
 ## Patrones que el sistema da por decididos
 
@@ -301,8 +362,8 @@ packages/ui/src/        theme.css (las capas) · styles/ (reset y base) · index
                         coherencia · contraste · tipografía · utilidades · props
                         icons.gen.ts e icons.meta.ts los genera scripts/icons.mjs
 packages/ui/scripts/    icons.mjs (search · add · sync · check) + catalog.json
-apps/kit/src/           el sitio: App.tsx (shell y riel) · kit.tsx (Page, Section,
-                        Canvas, Props, A11y, Note) · intro.tsx (la portada) ·
+apps/kit/src/           el sitio: App.tsx (shell y riel) · kit.tsx (Page, Section, Canvas,
+                        Cluster, Frame, Footnote, Grid, Props, A11y, Note) · intro.tsx (la portada) ·
                         dashboard.tsx · document.tsx · stories/ (una por pieza) ·
                         mascots/ ·
                         foundations/ (principles · accessibility · roles · typography ·
@@ -379,11 +440,11 @@ Lo mismo vale para los tipos que una pieza recibe como argumento (`ToastOptions`
 
 ## Los tests
 
-`npm test` corre vitest con jsdom y testing-library. 673 tests, y lo que prueban es el
+`npm test` corre vitest con jsdom y testing-library. 677 tests, y lo que prueban es el
 comportamiento (teclado, nombres accesibles, estados) y no el markup, que cambia con cada
 ajuste de estilo. El test de cada pieza vive en su carpeta, al lado del componente.
 
-Diecisiete de ellos leen el paquete entero y fallan si alguien:
+Veinte de ellos leen el paquete entero y fallan si alguien:
 
 - escribe un color a mano en un componente, o nombra en un `var()` un token que no existe: eso no
   falla, resuelve a vacío y el elemento se queda sin color, sin error y sin que nadie se entere,
@@ -398,18 +459,32 @@ Diecisiete de ellos leen el paquete entero y fallan si alguien:
   otros dos escalones de énfasis,
 - deja un `<button>` sin `type`, que adentro de un `form` lo manda,
 - deja una clase de un módulo sin usar: CSS muerto no rompe nada y por eso se queda,
+- **escribe `s.loQueSea` para una clase que el módulo no declara**, que es la mitad que faltaba de
+  la anterior y la que el renombre necesitaba: ver abajo por qué no la puede dar el que dibuja,
+- **le pone a una clase un nombre que no dice por qué existe la regla**: la etiqueta sola, un
+  número al final, kebab, o uno de la lista corta de vacíos,
 - exporta algo sin sacarlo por `index.ts`,
 - deja una carpeta sin el componente que le da nombre, o un componente sin su test al lado.
 
 Y hay uno que no se puede escribir leyendo archivos: **dibuja las setenta y cuatro vistas y falla
-si a algún elemento le quedó una clase que no resuelve a nada.** Una clase que no existe no falla,
-no avisa y deja la pieza sin estilo; leer las fuentes no alcanza porque una clase puede llegar por
-una prop o por una constante. Lo que se mira es lo que quedó dibujado.
+si a algún elemento le quedó una clase literal que no resuelve a nada** (un resto de Tailwind, un
+string suelto). Una clase que no existe no falla, no avisa y deja la pieza sin estilo, y leer las
+fuentes no alcanza porque una clase puede llegar por una prop o por una constante.
+
+**Ojo con lo que ese test no puede ver, que se creyó durante un tiempo que sí.** En los tests los
+CSS Modules son un stub: `vitest.config.ts` tiene `css: false`, así que `s.loQueSea` devuelve
+siempre `_loQueSea_hash` y **nunca** es `undefined`. Una referencia a una clase de módulo que no
+existe pasa el filtro y la suite queda en verde. Por eso esa mitad la cubre un guardián estático,
+el que resuelve el alias de cada import y exige que toda referencia apunte a una clase declarada.
+La palanca para verlo en vivo, si alguna vez hace falta, es correr esa suite con
+`css: { include: [/\.module\.css$/] }`.
 
 **El test de una pieza aserta sobre lo que la clase declara, no sobre su nombre.** Con módulos el
 nombre que llega al DOM está hasheado, así que asertar sobre él es ilegible. `__tests__/estilo.ts`
-saca el nombre original de adentro del hash y lo busca en los módulos del paquete: una pieza puede
-traer clases de `lib/`, como la escalera de tamaños o el par de tono.
+resuelve el nombre picado contra el módulo del que salió. Lo hacía buscando el nombre en **todos**
+los módulos del paquete y concatenando los cuerpos, que funcionaba mientras los nombres eran
+únicos por accidente: con un léxico compartido `input` existe en el `Textarea`, en el `Slider` y en
+el `Stepper`, y la aserción del textarea empezó a leer el `flex` del stepper.
 
 Catorce más leen los tokens de tipografía: que cada rol declare sus tres valores y que quien
 escriba un tamaño escriba los tres, que ninguno baje de 12px, que la curva de interlineado tenga su máximo en `reading`, que
@@ -464,14 +539,23 @@ un aula:
 
 ## Pendiente
 
-- **Los nombres de clase que dejó la conversión mecánica.** 1302 de 1582 (el 82%) se llaman
-  `div`, `div2`, `span7`, `box4`, `p3`: el nombre de la etiqueta y un número. No dicen nada, no se
-  pueden buscar y no se pueden reusar, porque `div2` en dos archivos son dos cosas sin relación.
-  Un nombre de clase es la única parte del CSS que explica **por qué** existe una regla, y hoy esa
-  parte está vacía. Donde más duele es en las vistas del kit, que son las que alguien abre para
-  aprender el sistema: `typography` 71, `kit` 67, `color` 41, `dashboard` 38, `intro` 37,
-  `measure` 37. Se arregla módulo por módulo, y el guardián que dibuja las vistas y el que exige
-  que ninguna clase quede sin usar sostienen el renombre.
+- **Los otros arrastres de la conversión mecánica**, que quedaron cuando se arreglaron los nombres:
+  96 apariciones de la maquinaria de gradiente de Tailwind escrita a mano
+  (`--milo-gradient-from/via/to/stops`, casi todas adentro de un `transition-property` que no anima
+  nada), y 56 `transition-duration: 150ms` seguidas de la `var(--duration-fast)` que sí vale.
+- **El código en castellano que queda.** Los subcomponentes y las constantes de las vistas del kit
+  (`Caso`, `Muestra`, `Columna`, con props `titulo` y `clase`), y el helper `face()` copiado en cinco
+  historias. Las clases ya están todas en inglés; esto no.
+- **Un `Stack` hermano de `Cluster`.** Hay 23 clases en 18 archivos que son la misma columna con
+  gap, pero los valores van de 0.125 a 1.5rem y no entran en una escala sin mover cosas de lugar.
+- **Props que le faltan a dos piezas, y que las historias suplen con CSS.** `Table` no tiene
+  `align="right"` ni columna de acciones, y `Modal` no tiene `ModalHeader`/`Body`/`Footer` como sí
+  tiene `Card`: la historia del modal construye el interior entero a mano.
+- **El glifo de play del `AudioPlayer` tenía que ir relleno y nunca lo fue.** La regla estaba
+  escrita, anidada adentro del módulo, y por dos motivos distintos no aplicó nunca: primero porque
+  `.ms-icon` adentro de un módulo se hashea, y después, ya corregida con `:global`, porque el
+  `.ms-icon` de `theme.css` va **sin capa** y le gana a cualquier módulo. La regla se sacó. Si se
+  quiere el relleno, el sistema ya tiene la herramienta: la clase global `icon-filled`.
 - **El `sm` de 32 no llega a los 44×44 que Apple pide para el dedo.** Pasa WCAG 2.2 (24×24) con
   holgura y se queda corto en táctil, que es media flota de un aula. La salida no es agrandar los
   tres (la densidad es real) sino decidir que en táctil el piso es `lg`; hoy el tamaño lo elige

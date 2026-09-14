@@ -1,5 +1,5 @@
 @layer milo.app {
-  .div {
+  .stateList {
     display: flex;
     flex-direction: column;
     overflow: hidden;
@@ -9,7 +9,7 @@
     border-color: var(--border);
   }
 
-  .div2 {
+  .stateRow {
     display: flex;
     flex-wrap: wrap;
     column-gap: 1.25rem;
@@ -25,7 +25,7 @@
     }
   }
 
-  .code {
+  .stateName {
     width: 6rem;
     flex-shrink: 0;
     font-family: var(--font-mono);
@@ -36,7 +36,7 @@
     color: var(--text);
   }
 
-  .span {
+  .stateHow {
     width: 34ch;
     flex-shrink: 0;
     font-size: var(--type-body);
@@ -45,7 +45,7 @@
     color: var(--text);
   }
 
-  .span2 {
+  .stateWhy {
     min-width: 0;
     flex: 1;
     font-size: var(--type-meta);
@@ -54,18 +54,18 @@
     color: var(--text-muted);
   }
 
-  .div3 {
+  .screenGrid {
     display: grid;
     gap: 1rem;
   }
 
-  .div4 {
+  .loadingStack {
     display: flex;
     flex-direction: column;
     gap: 0.75rem;
   }
 
-  .div5 {
+  .loadingRow {
     display: flex;
     align-items: center;
     gap: 0.75rem;
@@ -75,14 +75,14 @@
     box-shadow: var(--milo-inset-shadow),var(--milo-inset-ring-shadow),var(--milo-ring-offset-shadow),var(--milo-ring-shadow),var(--milo-shadow);
   }
 
-  .skeleton {
+  .avatarBone {
     width: 2.5rem;
     height: 2.5rem;
     flex-shrink: 0;
     border-radius: var(--radius-full);
   }
 
-  .div6 {
+  .loadingLines {
     display: flex;
     min-width: 0;
     flex: 1;
@@ -90,17 +90,17 @@
     gap: 0.5rem;
   }
 
-  .skeleton2 {
+  .titleBone {
     height: 0.75rem;
     width: 50%;
   }
 
-  .skeleton3 {
+  .metaBone {
     height: 0.75rem;
     width: 33.3333%;
   }
 
-  .div7 {
+  .workingCard {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -112,19 +112,19 @@
     box-shadow: var(--milo-inset-shadow),var(--milo-inset-ring-shadow),var(--milo-ring-offset-shadow),var(--milo-ring-shadow),var(--milo-shadow);
   }
 
-  .span3 {
+  .workingText {
     font-size: var(--type-body);
     line-height: var(--type-body-lh);
     letter-spacing: var(--type-body-ls);
     color: var(--text-muted);
   }
 
-  .div8 {
+  .errorGrid {
     display: grid;
     gap: 1rem;
   }
 
-  .div9 {
+  .poorCard {
     border-radius: var(--radius-xl);
     border-style: solid;
     border-width: 1px;
@@ -132,18 +132,18 @@
     padding: 1.25rem;
   }
 
-  .div10 {
+  .poorHead {
     margin-bottom: 0.75rem;
     display: flex;
     align-items: center;
     gap: 0.5rem;
   }
 
-  .icon {
+  .verdictIconBad {
     color: var(--bad);
   }
 
-  .span4 {
+  .poorLabel {
     font-size: var(--type-label);
     line-height: var(--type-label-lh);
     letter-spacing: var(--type-label-ls);
@@ -151,7 +151,7 @@
     color: var(--text);
   }
 
-  .p {
+  .poorMessage {
     border-radius: var(--radius-xl);
     background-color: var(--bad-subtle);
     padding: 1rem;
@@ -161,7 +161,7 @@
     color: var(--bad-ink);
   }
 
-  .p2 {
+  .poorWhy {
     margin-top: 0.75rem;
     max-width: 42ch;
     font-size: var(--type-meta);
@@ -170,7 +170,7 @@
     color: var(--text-muted);
   }
 
-  .div11 {
+  .goodCard {
     border-radius: var(--radius-xl);
     border-style: solid;
     border-width: 1px;
@@ -178,18 +178,18 @@
     padding: 1.25rem;
   }
 
-  .div12 {
+  .goodHead {
     margin-bottom: 0.75rem;
     display: flex;
     align-items: center;
     gap: 0.5rem;
   }
 
-  .icon2 {
+  .verdictIconGood {
     color: var(--ok);
   }
 
-  .span5 {
+  .goodLabel {
     font-size: var(--type-label);
     line-height: var(--type-label-lh);
     letter-spacing: var(--type-label-ls);
@@ -197,13 +197,13 @@
     color: var(--text);
   }
 
-  .div13 {
+  .goodMessage {
     border-radius: var(--radius-xl);
     background-color: var(--bad-subtle);
     padding: 1rem;
   }
 
-  .p3 {
+  .goodTitle {
     font-size: var(--type-body);
     line-height: var(--type-body-lh);
     letter-spacing: var(--type-body-ls);
@@ -211,7 +211,7 @@
     color: var(--bad-ink);
   }
 
-  .p4 {
+  .goodBody {
     margin-top: 0.25rem;
     font-size: var(--type-body);
     line-height: var(--type-body-lh);
@@ -219,11 +219,11 @@
     color: var(--bad-ink);
   }
 
-  .button {
+  .goodRetry {
     margin-top: 0.75rem;
   }
 
-  .p5 {
+  .goodWhy {
     margin-top: 0.75rem;
     max-width: 42ch;
     font-size: var(--type-meta);
@@ -232,20 +232,20 @@
     color: var(--text-muted);
   }
 
-  .div14 {
+  .optimisticStack {
     display: flex;
     flex-direction: column;
     gap: 0.75rem;
   }
 
-  .div15 {
+  .optimisticHead {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
     gap: 0.5rem;
   }
 
-  .span6 {
+  .optimisticTitle {
     font-size: var(--type-reading);
     line-height: var(--type-reading-lh);
     letter-spacing: var(--type-reading-ls);
@@ -253,7 +253,7 @@
     color: var(--text);
   }
 
-  .p6 {
+  .optimisticNote {
     max-width: 54ch;
     font-size: var(--type-body);
     line-height: var(--type-body-lh);
@@ -261,18 +261,18 @@
     color: var(--text-muted);
   }
 
-  .div16 {
+  .optimisticSlot {
     margin-top: 0.25rem;
   }
 
-  .card {
+  .playground {
     display: flex;
     flex-direction: column;
     gap: 1.25rem;
     padding: 1.5rem;
   }
 
-  .span7 {
+  .playgroundLabel {
     display: flex;
     width: fit-content;
     align-items: center;
@@ -283,18 +283,18 @@
     color: var(--text);
   }
 
-  .box {
+  .playgroundToggle {
     border-radius: var(--radius-sm);
   }
 
-  .div17 {
+  .playgroundRow {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
     gap: 0.75rem;
   }
 
-  .div18 {
+  .playgroundFieldRow {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
@@ -302,15 +302,14 @@
   }
 
   @media (min-width:64rem) {
-    .div3 {
+    .screenGrid {
         grid-template-columns: repeat(2,minmax(0,1fr));
     }
   }
 
   @media (min-width:40rem) {
-    .div8 {
+    .errorGrid {
         grid-template-columns: repeat(2,minmax(0,1fr));
     }
   }
-
 }

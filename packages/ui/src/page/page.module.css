@@ -1,5 +1,5 @@
 @layer milo.components {
-  .div {
+  .root {
     margin-inline: auto;
     width: 100%;
     padding-inline: 1.25rem;
@@ -7,15 +7,15 @@
     padding-bottom: 2rem;
   }
 
-  .div2 {
+  .wide {
     max-width: 1560px;
   }
 
-  .div3 {
+  .narrow {
     max-width: 1200px;
   }
 
-  .div4 {
+  .header {
     margin-bottom: 1.25rem;
     display: flex;
     min-height: 2.5rem;
@@ -25,18 +25,18 @@
     gap: 1rem;
   }
 
-  .div5 {
+  .heading {
     min-width: 0;
   }
 
-  .h1 {
+  .title {
     font-size: var(--type-title);
     line-height: var(--type-title-lh);
     letter-spacing: var(--type-title-ls);
     font-weight: var(--font-weight-medium);
   }
 
-  .p {
+  .subtitle {
     margin-top: 0.5rem;
     font-size: var(--type-body);
     line-height: var(--type-body-lh);
@@ -45,14 +45,14 @@
     color: var(--text-muted);
   }
 
-  .div6 {
+  .actions {
     display: flex;
     flex-shrink: 0;
     align-items: center;
     gap: 0.5rem;
   }
 
-  .div7 {
+  .sectionLabel {
     margin-bottom: 0.75rem;
     margin-top: 2rem;
     display: flex;
@@ -63,7 +63,7 @@
     }
   }
 
-  .span {
+  .sectionText {
     font-size: var(--type-body);
     line-height: var(--type-body-lh);
     letter-spacing: var(--type-body-ls);
@@ -71,17 +71,16 @@
     color: var(--text-muted);
   }
 
-  .span2 {
+  .sectionCount {
     font-size: var(--type-meta);
     line-height: var(--type-meta-lh);
     letter-spacing: var(--type-meta-ls);
     color: var(--text-muted);
   }
 
-  .span3 {
+  .sectionRule {
     height: 1px;
     flex: 1;
     background-color: var(--border);
   }
-
 }

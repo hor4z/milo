@@ -1,5 +1,5 @@
 @layer milo.app {
-  .div {
+  .ruleCard {
     display: flex;
     flex-direction: column;
     gap: 0.75rem;
@@ -10,7 +10,7 @@
     padding: 1.25rem;
   }
 
-  .p {
+  .ruleText {
     max-width: 70ch;
     font-size: var(--type-reading);
     line-height: var(--type-reading-lh);
@@ -18,7 +18,7 @@
     color: var(--text);
   }
 
-  .p2 {
+  .ruleAside {
     max-width: 70ch;
     font-size: var(--type-reading);
     line-height: var(--type-reading-lh);
@@ -26,18 +26,18 @@
     color: var(--text);
   }
 
-  .div2 {
+  .ruleGrid {
     margin-top: 1rem;
     display: grid;
     gap: 0.75rem;
   }
 
-  .div3 {
+  .voiceGrid {
     display: grid;
     gap: 0.75rem;
   }
 
-  .div4 {
+  .silenceCard {
     display: flex;
     flex-direction: column;
     gap: 0.75rem;
@@ -48,7 +48,7 @@
     padding: 1.25rem;
   }
 
-  .p3 {
+  .silenceText {
     max-width: 70ch;
     font-size: var(--type-reading);
     line-height: var(--type-reading-lh);
@@ -56,7 +56,7 @@
     color: var(--text);
   }
 
-  .p4 {
+  .silenceAside {
     max-width: 70ch;
     font-size: var(--type-reading);
     line-height: var(--type-reading-lh);
@@ -64,17 +64,17 @@
     color: var(--text);
   }
 
-  .div5 {
+  .volumeGrid {
     display: grid;
     gap: 0.75rem;
   }
 
-  .div6 {
+  .captionGrid {
     display: grid;
     gap: 0.75rem;
   }
 
-  .div7 {
+  .specimen {
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
@@ -85,7 +85,7 @@
     padding: 1rem;
   }
 
-  .span {
+  .specimenLabel {
     font-size: var(--type-body);
     line-height: var(--type-body-lh);
     letter-spacing: var(--type-body-ls);
@@ -93,7 +93,7 @@
     color: var(--text);
   }
 
-  .span2 {
+  .specimenBody {
     font-size: var(--type-meta);
     line-height: var(--type-meta-lh);
     letter-spacing: var(--type-meta-ls);
@@ -102,27 +102,26 @@
   }
 
   @media (min-width:64rem) {
-    .div2 {
+    .ruleGrid {
         grid-template-columns: repeat(2,minmax(0,1fr));
     }
   }
 
   @media (min-width:40rem) {
-    .div3 {
+    .voiceGrid {
         grid-template-columns: repeat(2,minmax(0,1fr));
     }
   }
 
   @media (min-width:40rem) {
-    .div5 {
+    .volumeGrid {
         grid-template-columns: repeat(2,minmax(0,1fr));
     }
   }
 
   @media (min-width:40rem) {
-    .div6 {
+    .captionGrid {
         grid-template-columns: repeat(2,minmax(0,1fr));
     }
   }
-
 }

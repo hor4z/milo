@@ -1,23 +1,16 @@
 @layer milo.app {
-  .span {
+  .emptyNote {
     font-size: var(--type-meta);
     line-height: var(--type-meta-lh);
     letter-spacing: var(--type-meta-ls);
     color: var(--text-muted);
   }
 
-  .div {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: flex-start;
-    gap: 1rem;
-  }
-
-  .card {
+  .correctedCard {
     width: 300px;
   }
 
-  .p {
+  .correctedMeta {
     font-size: var(--type-body);
     line-height: var(--type-body-lh);
     letter-spacing: var(--type-body-ls);
@@ -25,16 +18,15 @@
     color: var(--text-muted);
   }
 
-  .card2 {
+  .dueCard {
     width: 300px;
   }
 
-  .p2 {
+  .dueMeta {
     font-size: var(--type-body);
     line-height: var(--type-body-lh);
     letter-spacing: var(--type-body-ls);
     font-weight: var(--font-weight-medium);
     color: var(--text-muted);
   }
-
 }

@@ -167,19 +167,19 @@ export function Reorder<T extends ReorderItem>({ items, onReorder, label, childr
 
   return (
     <>
-      <ul aria-label={label} className={cx(cls.ul, className)}>
+      <ul aria-label={label} className={cx(cls.root, className)}>
         {items.map((item, i) => (
           <li
             key={item.id}
             ref={el => { filas.current[item.id] = el }}
-            className={cx(cls.box, agarrado === item.id && cls.id)}
+            className={cx(cls.slot, agarrado === item.id && cls.slotDragging)}
           >
           <div
             ref={el => { cuerpos.current[item.id] = el }}
             className={cx(
-              `${cls.box2} bg-surface`,
-              cls.box3,
-              agarrado === item.id ? cls.box4 : cls.box5,
+              `${cls.item} bg-surface`,
+              cls.itemMotion,
+              agarrado === item.id ? cls.itemLifted : cls.itemResting,
             )}
           >
             <button
@@ -189,11 +189,11 @@ export function Reorder<T extends ReorderItem>({ items, onReorder, label, childr
               aria-describedby="reorder-ayuda"
               onKeyDown={e => teclas(e, item.id)}
               onPointerDown={e => arrastrar(e, item.id)}
-              className={cls.box6}
+              className={cls.handle}
             >
               <Icon name="drag_indicator" size={18} weight={400} className={cls.icon} />
             </button>
-            <div className={cls.div}>{children(item, i)}</div>
+            <div className={cls.body}>{children(item, i)}</div>
           </div>
           </li>
         ))}

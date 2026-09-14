@@ -1,20 +1,20 @@
 @layer milo.components {
-  .ul {
+  .root {
     display: flex;
     flex-direction: column;
     gap: 0.25rem;
     overflow-anchor: none;
   }
 
-  .box {
+  .slot {
     border-radius: var(--radius-lg);
   }
 
-  .id {
+  .slotDragging {
     background-color: var(--track);
   }
 
-  .box2 {
+  .item {
     display: flex;
     align-items: center;
     gap: 0.5rem;
@@ -25,7 +25,7 @@
     padding: 0.5rem;
   }
 
-  .box3 {
+  .itemMotion {
     transition-property: transform,box-shadow;
     transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
     transition-duration: 150ms;
@@ -33,18 +33,18 @@
     transition-timing-function: var(--ease-out);
   }
 
-  .box4 {
+  .itemLifted {
     position: relative;
     z-index: 10;
     --milo-shadow: var(--relief-popover);
     box-shadow: var(--milo-inset-shadow),var(--milo-inset-ring-shadow),var(--milo-ring-offset-shadow),var(--milo-ring-shadow),var(--milo-shadow);
   }
 
-  .box5 {
+  .itemResting {
     z-index: 0;
   }
 
-  .box6 {
+  .handle {
     display: inline-flex;
     width: 2rem;
     height: 2rem;
@@ -68,15 +68,14 @@
     color: var(--brand);
   }
 
-  .div {
+  .body {
     min-width: 0;
     flex: 1;
   }
 
   @media (hover:hover) {
-    .box6:hover {
+    .handle:hover {
         background-color: var(--surface-hover);
     }
   }
-
 }

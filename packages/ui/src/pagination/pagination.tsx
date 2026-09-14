@@ -9,7 +9,7 @@ export function Pagination({ className, 'aria-label': label = 'Paginación', ...
     <nav
       aria-label={label}
       className={cx(
-        cls.nav,
+        cls.root,
         className,
       )}
       {...props}
@@ -43,7 +43,7 @@ export function PaginationStatus({
       ? `${from} a ${to} de ${total}${tail}`
       : `${from} a ${to}${tail}`
   return (
-    <p role="status" className={cx(`${cls.p} tabular`, className)} {...props}>
+    <p role="status" className={cx(`${cls.status} tabular`, className)} {...props}>
       {children ?? phrase}
     </p>
   )
@@ -56,7 +56,7 @@ type PaginationNavProps = Omit<ComponentPropsWithoutRef<'button'>, 'children'> &
 /** Los dos viajan juntos y están siempre, apagados en las puntas. */
 export function PaginationPrev({ className, children = 'Anterior', ...props }: PaginationNavProps) {
   return (
-    <Button type="button" variant="ghost" size="sm" icon="chevron_left" className={cx(cls.button, className)} {...props}>
+    <Button type="button" variant="ghost" size="sm" icon="chevron_left" className={cx(cls.prev, className)} {...props}>
       {children}
     </Button>
   )
@@ -65,7 +65,7 @@ export function PaginationPrev({ className, children = 'Anterior', ...props }: P
 /** Su `disabled` es el "hay más" que contesta el back: mientras haya, hay siguiente. */
 export function PaginationNext({ className, children = 'Siguiente', ...props }: PaginationNavProps) {
   return (
-    <Button type="button" variant="ghost" size="sm" iconEnd="chevron_right" className={cx(cls.button2, className)} {...props}>
+    <Button type="button" variant="ghost" size="sm" iconEnd="chevron_right" className={cx(cls.next, className)} {...props}>
       {children}
     </Button>
   )

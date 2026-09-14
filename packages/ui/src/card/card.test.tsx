@@ -36,8 +36,8 @@ describe('Card', () => {
 
   it('el papel lleva su línea: adentro de otra superficie la sombra sola no dice dónde empieza', () => {
     const { container, rerender } = render(<Card>x</Card>)
-    expect((container.firstChild as HTMLElement).className).toContain(s.div2)
+    expect((container.firstChild as HTMLElement).className).toContain(s.paper)
     rerender(<Card surface="muted">x</Card>)
-    expect((container.firstChild as HTMLElement).className).not.toContain(s.div2)
+    expect((container.firstChild as HTMLElement).className).not.toContain(s.paper)
   })
 })

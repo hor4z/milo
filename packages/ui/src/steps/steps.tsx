@@ -29,7 +29,7 @@ export function Steps({ steps, current, label, orientation = 'horizontal', onSel
   return (
     <ol
       aria-label={label}
-      className={cx(cls.ol, acostada ? cls.ol2 : cls.ol3, className)}
+      className={cx(cls.root, acostada ? cls.horizontal : cls.vertical, className)}
     >
       {steps.map((s, i) => {
         const hecha = i < current
@@ -39,15 +39,15 @@ export function Steps({ steps, current, label, orientation = 'horizontal', onSel
           <li
             key={s.label}
             aria-current={actual ? 'step' : undefined}
-            className={cx(cls.li, acostada ? cls.box : cls.box2)}
+            className={cx(cls.item, acostada ? cls.itemHorizontal : cls.itemVertical)}
           >
             {i > 0 && (
               <span
                 aria-hidden
                 className={cx(
-                  cls.span,
-                  acostada ? cls.box3 : cls.box4,
-                  hecha || actual ? cls.box5 : cls.box6,
+                  cls.connector,
+                  acostada ? cls.connectorHorizontal : cls.connectorVertical,
+                  hecha || actual ? cls.connectorReached : cls.connectorAhead,
                 )}
                 style={acostada ? { left: 'calc(-100% + 36px)', right: 'calc(100% + 8px)' } : undefined}
               />
@@ -56,11 +56,11 @@ export function Steps({ steps, current, label, orientation = 'horizontal', onSel
             <Marca
               {...(onSelect ? { type: 'button' as const, onClick: () => onSelect(i) } : {})}
               className={cx(
-                `${cls.box7} tabular`,
-                onSelect && cls.onSelect,
-                hecha && cls.hecha,
-                actual && cls.actual,
-                !hecha && !actual && cls.actual2,
+                `${cls.bullet} tabular`,
+                onSelect && cls.bulletClickable,
+                hecha && cls.bulletDone,
+                actual && cls.bulletCurrent,
+                !hecha && !actual && cls.bulletAhead,
               )}
             >
               {hecha ? <Icon name="check" size={16} weight={700} /> : i + 1}
@@ -69,9 +69,9 @@ export function Steps({ steps, current, label, orientation = 'horizontal', onSel
               </span>
             </Marca>
 
-            <span className={cx(cls.span3, acostada && cls.acostada)}>
-              <span className={cx(cls.span4, actual ? cls.span5 : cls.span6)}>{s.label}</span>
-              {s.hint && <span className={cls.span7}>{s.hint}</span>}
+            <span className={cx(cls.body, acostada && cls.bodyHorizontal)}>
+              <span className={cx(cls.label, actual ? cls.labelCurrent : cls.labelPlain)}>{s.label}</span>
+              {s.hint && <span className={cls.hint}>{s.hint}</span>}
             </span>
           </li>
         )

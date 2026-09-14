@@ -1,5 +1,5 @@
 @layer milo.components {
-  .a {
+  .root {
     display: inline-flex;
     align-items: center;
     gap: 0.25rem;
@@ -10,7 +10,7 @@
     text-underline-offset: 3px;
   }
 
-  .box {
+  .motion {
     transition-property: text-decoration-thickness;
     transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
     transition-duration: 150ms;
@@ -19,9 +19,8 @@
   }
 
   @media (hover:hover) {
-    .box:hover {
+    .motion:hover {
         text-decoration-thickness: 2px;
     }
   }
-
 }

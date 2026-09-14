@@ -1,35 +1,35 @@
 @layer milo.components {
-  .tones {
+  .toneAccent {
     background-color: var(--accent-fill);
     color: var(--on-accent);
   }
 
-  .tones2 {
+  .toneOk {
     background-color: var(--ok);
     color: var(--on-ok);
   }
 
-  .tones3 {
+  .toneWarn {
     background-color: var(--warn);
     color: var(--on-warn);
   }
 
-  .tones4 {
+  .toneBad {
     background-color: var(--bad);
     color: var(--on-bad);
   }
 
-  .tones5 {
+  .toneNeutral {
     background-color: var(--solid);
     color: var(--on-solid);
   }
 
-  .span {
+  .root {
     position: relative;
     display: inline-flex;
   }
 
-  .box {
+  .badge {
     pointer-events: none;
     position: absolute;
     display: inline-flex;
@@ -41,14 +41,14 @@
     --milo-ring-color: var(--surface);
   }
 
-  .box2 {
+  .dot {
     top: 0;
     right: 0;
     width: 0.625rem;
     height: 0.625rem;
   }
 
-  .box3 {
+  .count {
     top: calc(0.25rem * -1);
     right: calc(0.25rem * -1);
     min-height: 1rem;
@@ -59,5 +59,4 @@
     letter-spacing: var(--type-meta-ls);
     font-weight: var(--font-weight-semibold);
   }
-
 }

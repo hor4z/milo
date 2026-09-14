@@ -11,8 +11,8 @@ export function Link({ external, className, children, ...props }: ComponentProps
   return (
     <a
       className={cx(
-        s.a,
-        s.box,
+        s.root,
+        s.motion,
         className,
       )}
       {...(external ? { target: '_blank', rel: 'noreferrer noopener' } : null)}

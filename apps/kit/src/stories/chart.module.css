@@ -1,5 +1,5 @@
 @layer milo.app {
-  .span {
+  .tooltipValue {
     font-size: var(--type-meta);
     line-height: var(--type-meta-lh);
     letter-spacing: var(--type-meta-ls);
@@ -7,16 +7,16 @@
     color: var(--text-muted);
   }
 
-  .card {
+  .liveCard {
     max-width: 42rem;
     padding: 1.5rem;
   }
 
-  .div {
+  .cardHead {
     margin-bottom: 1.25rem;
   }
 
-  .div2 {
+  .cardTitle {
     font-size: var(--type-reading);
     line-height: var(--type-reading-lh);
     letter-spacing: var(--type-reading-ls);
@@ -24,7 +24,7 @@
     color: var(--text);
   }
 
-  .div3 {
+  .cardNote {
     font-size: var(--type-body);
     line-height: var(--type-body-lh);
     letter-spacing: var(--type-body-ls);
@@ -32,12 +32,12 @@
     color: var(--text-muted);
   }
 
-  .card2 {
+  .plainCard {
     max-width: 42rem;
     padding: 1.5rem;
   }
 
-  .p {
+  .tooltipText {
     max-width: 70ch;
     font-size: var(--type-body);
     line-height: var(--type-body-lh);
@@ -45,12 +45,11 @@
     color: var(--text-muted);
   }
 
-  .p2 {
+  .limitsText {
     max-width: 70ch;
     font-size: var(--type-body);
     line-height: var(--type-body-lh);
     letter-spacing: var(--type-body-ls);
     color: var(--text-muted);
   }
-
 }

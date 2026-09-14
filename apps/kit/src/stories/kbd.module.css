@@ -1,5 +1,5 @@
 @layer milo.app {
-  .div {
+  .usageStrip {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
@@ -12,7 +12,7 @@
     padding-block: 1rem;
   }
 
-  .span {
+  .searchHint {
     display: flex;
     align-items: center;
     gap: 0.5rem;
@@ -23,7 +23,7 @@
     color: var(--text-muted);
   }
 
-  .span2 {
+  .paletteHint {
     display: flex;
     align-items: center;
     gap: 0.5rem;
@@ -34,7 +34,7 @@
     color: var(--text-muted);
   }
 
-  .span3 {
+  .closeHint {
     display: flex;
     align-items: center;
     gap: 0.5rem;
@@ -44,5 +44,4 @@
     font-weight: var(--font-weight-medium);
     color: var(--text-muted);
   }
-
 }

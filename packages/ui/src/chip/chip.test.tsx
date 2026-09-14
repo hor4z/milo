@@ -59,13 +59,13 @@ describe('Chip', () => {
   it('sm es más chico que md y es el que va pegado a un título', () => {
     const { container: sm } = render(<Chip size="sm">Borrador</Chip>)
     const { container: md } = render(<Chip>Borrador</Chip>)
-    expect(sm.querySelector('span')!.className).toContain(s.chipSizeSm)
-    expect(md.querySelector('span')!.className).toContain(s.chipSizeMd)
+    expect(sm.querySelector('span')!.className).toContain(s.sizeSm)
+    expect(md.querySelector('span')!.className).toContain(s.sizeMd)
   })
 
   it('no se achica: el que envuelve el renglón es el título, no la marca', () => {
     const { container } = render(<Chip size="sm">Vence mañana</Chip>)
-    expect(container.querySelector('span')!.className).toContain(s.box)
+    expect(container.querySelector('span')!.className).toContain(s.root)
   })
 
   it('pasa de largo lo que le pongan de la etiqueta nativa', () => {

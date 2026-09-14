@@ -16,21 +16,21 @@ type AccordionItemProps = {
 /** Una fila que se abre. Es un `<details>`, así que funciona sin JavaScript. */
 export function AccordionItem({ summary, children, defaultOpen, className }: AccordionItemProps) {
   return (
-    <details open={defaultOpen} className={cx(`${s.details} group`, className)}>
-      <summary className={s.summary}>
+    <details open={defaultOpen} className={cx(`${s.root} group`, className)}>
+      <summary className={s.trigger}>
         <Icon
           name="keyboard_arrow_down"
           size={18}
           className={`${s.icon} icon-muted`}
         />
-        <span className={s.span}>{summary}</span>
+        <span className={s.title}>{summary}</span>
       </summary>
-      <div className={s.div}>{children}</div>
+      <div className={s.body}>{children}</div>
     </details>
   )
 }
 
 /** Varias filas que se abren, una debajo de la otra. */
 export function Accordion({ className, ...props }: ComponentPropsWithoutRef<'div'>) {
-  return <div className={cx(`${s.div2} bg-surface`, className)} {...props} />
+  return <div className={cx(`${s.list} bg-surface`, className)} {...props} />
 }

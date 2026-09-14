@@ -62,7 +62,7 @@ export function RolesSection() {
         title="Los cuatro"
         note="El orden no es de importancia: es el de cuánto tiempo pasa cada uno adentro, que es lo que decide cuánta densidad tolera."
       >
-        <div className={cls.div}>
+        <div className={cls.roleStack}>
           {roles.map(r => <Tarjeta key={r.nombre} rol={r} />)}
         </div>
       </Section>
@@ -71,7 +71,7 @@ export function RolesSection() {
         title="Las reglas que cruzan a los cuatro"
         note="Son las que se olvidan cuando se arma una pantalla pensando en un rol solo."
       >
-        <div className={cls.div2}>
+        <div className={cls.ruleGrid}>
           <Regla titulo="El rol cambia qué se ve, no cómo se ve" text="La misma `Card`, la misma `Table`, el mismo azul. Si un rol necesita otra pieza para la misma cosa, lo que está mal es la pieza." />
           <Regla titulo="Esconder no es proteger" text="Lo que un rol no puede ver no se manda al navegador. Un dato que llega y se oculta con CSS está a un inspector de distancia, y acá los datos son de menores." />
           <Regla titulo="No hay un selector de rol" text="El rol viene de quién entró. Un conmutador de vista es una función de soporte, se anuncia como tal y queda registrado." />
@@ -101,24 +101,24 @@ export function RolesSection() {
 
 function Tarjeta({ rol }: { rol: Rol }) {
   return (
-    <div className={`${cls.div3} bg-surface`}>
-      <div className={cls.div4}>
-        <span className={`${cls.span} inset-relief`}>
+    <div className={`${cls.roleCard} bg-surface`}>
+      <div className={cls.roleHead}>
+        <span className={`${cls.roleBadge} inset-relief`}>
           <Icon name={rol.icon} size={20} className="icon-muted" />
         </span>
-        <div className={cls.div5}>
-          <span className={cls.span2}>{rol.nombre}</span>
-          <p className={cls.p}>{rol.quien}</p>
+        <div className={cls.roleIdentity}>
+          <span className={cls.roleName}>{rol.nombre}</span>
+          <p className={cls.roleWho}>{rol.quien}</p>
         </div>
       </div>
-      <div className={cls.div6}>
+      <div className={cls.roleColumns}>
         <Lista titulo="Ve" items={rol.ve} />
         <Lista titulo="Evitar" items={rol.evitar} />
-        <div className={cls.div7}>
-          <span className={cls.span3}>Primero</span>
-          <span className={cls.span4}>{rol.primero}</span>
-          <span className={cls.span5}>Nunca</span>
-          <span className={cls.span6}>{rol.nunca}</span>
+        <div className={cls.orderBlock}>
+          <span className={cls.firstLabel}>Primero</span>
+          <span className={cls.firstText}>{rol.primero}</span>
+          <span className={cls.neverLabel}>Nunca</span>
+          <span className={cls.neverText}>{rol.nunca}</span>
         </div>
       </div>
     </div>
@@ -127,10 +127,10 @@ function Tarjeta({ rol }: { rol: Rol }) {
 
 function Lista({ titulo, items }: { titulo: string; items: string[] }) {
   return (
-    <div className={cls.div8}>
-      <span className={cls.span7}>{titulo}</span>
-      <ul className={cls.ul}>
-        {items.map(i => <li key={i} className={cls.li}>{i}</li>)}
+    <div className={cls.listBlock}>
+      <span className={cls.listTitle}>{titulo}</span>
+      <ul className={cls.list}>
+        {items.map(i => <li key={i} className={cls.listItem}>{i}</li>)}
       </ul>
     </div>
   )
@@ -138,9 +138,9 @@ function Lista({ titulo, items }: { titulo: string; items: string[] }) {
 
 function Regla({ titulo, text }: { titulo: string; text: string }) {
   return (
-    <div className={`${cls.div9} bg-surface`}>
-      <span className={cls.span8}>{titulo}</span>
-      <span className={cls.span9}><Rich text={text} /></span>
+    <div className={`${cls.specimen} bg-surface`}>
+      <span className={cls.specimenLabel}>{titulo}</span>
+      <span className={cls.specimenBody}><Rich text={text} /></span>
     </div>
   )
 }

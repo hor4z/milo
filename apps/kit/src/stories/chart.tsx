@@ -12,7 +12,7 @@ const week = [
     label: 'Jueves', value: 16, total: 32, caption: 'Actividades corregidas',
     detail: (
       <>
-        <span className={`${cls.span} tabular`}>50%</span>
+        <span className={`${cls.tooltipValue} tabular`}>50%</span>
         <AvatarGroup
           size={18}
           max={3}
@@ -46,10 +46,10 @@ export function ChartStory() {
         title="Vivo"
         note="Pasá el mouse por las barras, y después tabulá hasta ellas. El tooltip aparece igual con el teclado: un dato que solo existe al pasar el mouse no existe para quien no usa mouse. Y el blanco del hover es la columna entera, no el rectángulo pintado: apuntarle a una barra baja no obliga a bajar hasta el piso."
       >
-        <Card className={cls.card}>
-          <div className={cls.div}>
-            <div className={cls.div2}>Corregidas esta semana</div>
-            <div className={cls.div3}>El azul es lo corregido; el gris, lo que entró ese día</div>
+        <Card className={cls.liveCard}>
+          <div className={cls.cardHead}>
+            <div className={cls.cardTitle}>Corregidas esta semana</div>
+            <div className={cls.cardNote}>El azul es lo corregido; el gris, lo que entró ese día</div>
           </div>
           <BarChart title="Corregidas sobre entregadas, por día" data={week} highlight={3} />
         </Card>
@@ -59,7 +59,7 @@ export function ChartStory() {
         title="Sin destacada"
         note="Con todas las barras llevando azul, marcar una con color no queda disponible: `highlight` le pone la etiqueta un paso más pesada, que alcanza para decir 'esta es de la que estamos hablando' sin agregar un tercer tono. Acá va sin ninguna: cuando lo que importa es la forma de la serie y no un mes, se deja afuera."
       >
-        <Card className={cls.card2}>
+        <Card className={cls.plainCard}>
           <BarChart title="Corregidas sobre entregadas, por mes" data={months} height={160} />
         </Card>
       </Section>
@@ -68,7 +68,7 @@ export function ChartStory() {
         title="Lo que el tooltip puede llevar"
         note="`detail` entra al lado del número: un porcentaje, un grupo de caras, lo que la fila necesite. El número va primero y grande y la frase abajo en gris: es la jerarquía de una leyenda al revés, porque acá el lector ya sabe qué tocó y lo que fue a buscar es cuánto."
       >
-        <p className={cls.p}>
+        <p className={cls.tooltipText}>
           El filo azul de la izquierda es lo único que ata la caja al gráfico: sin él es una tarjeta
           blanca flotando sobre cualquier cosa. Es el único lugar del sistema donde el color del
           dato entra en una superficie de texto.
@@ -83,14 +83,14 @@ export function ChartStory() {
         title="Lo que no hace"
         note="No tiene eje Y ni grilla: con cinco barras y el tooltip, una grilla es tinta que no es dato."
       >
-        <p className={cls.p2}>
+        <p className={cls.limitsText}>
           Tampoco tiene dos series ni dos ejes: dos medidas de escalas distintas son dos gráficos, no
           uno con dos escalas: es la forma más común de mentir con un gráfico sin darse cuenta. Y
           los valores viven también en una tabla <code>sr-only</code>: un lector de pantalla no puede
           hoverear, y una altura no se lee.
         </p>
       </Section>
-    
+
       <Section title="Accesibilidad">
         <A11y items={[
           'Cada barra es un <button> que se enfoca y muestra el mismo tooltip que con el mouse.',

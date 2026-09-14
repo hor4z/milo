@@ -1,5 +1,5 @@
 @layer milo.app {
-  .div {
+  .tabularCompare {
     display: grid;
     gap: 1rem;
     border-radius: var(--radius-xl);
@@ -9,12 +9,12 @@
     padding: 1.25rem;
   }
 
-  .div2 {
+  .specimenGrid {
     display: grid;
     gap: 0.75rem;
   }
 
-  .code {
+  .monoSample {
     border-radius: var(--radius-md);
     background-color: var(--surface-muted);
     padding-inline: 0.5rem;
@@ -26,13 +26,13 @@
     color: var(--text);
   }
 
-  .div3 {
+  .columnBlock {
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
   }
 
-  .span {
+  .columnLabel {
     font-size: var(--type-meta);
     line-height: var(--type-meta-lh);
     letter-spacing: var(--type-meta-ls);
@@ -40,7 +40,7 @@
     color: var(--text-muted);
   }
 
-  .div4 {
+  .specimen {
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
@@ -51,7 +51,7 @@
     padding: 1rem;
   }
 
-  .span2 {
+  .comparisonBad {
     font-size: var(--type-body);
     line-height: var(--type-body-lh);
     letter-spacing: var(--type-body-ls);
@@ -59,7 +59,7 @@
     text-decoration-line: line-through;
   }
 
-  .span3 {
+  .comparisonGood {
     font-size: var(--type-reading);
     line-height: var(--type-reading-lh);
     letter-spacing: var(--type-reading-ls);
@@ -67,7 +67,7 @@
     color: var(--text);
   }
 
-  .span4 {
+  .specimenBody {
     font-size: var(--type-meta);
     line-height: var(--type-meta-lh);
     letter-spacing: var(--type-meta-ls);
@@ -76,18 +76,18 @@
   }
 
   @media (min-width:40rem) {
-    .div {
+    .tabularCompare {
         grid-template-columns: repeat(2,minmax(0,1fr));
     }
   }
 
   @media (min-width:40rem) {
-    .div2 {
+    .specimenGrid {
         grid-template-columns: repeat(2,minmax(0,1fr));
     }
   }
 
-  .columna {
+  .column {
     display: flex;
     flex-direction: column;
     align-items: flex-end;
@@ -97,5 +97,4 @@
     letter-spacing: var(--type-reading-ls);
     color: var(--text);
   }
-
 }

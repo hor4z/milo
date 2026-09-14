@@ -14,8 +14,8 @@ export function Divider({ orientation = 'horizontal', className }: {
       role="separator"
       aria-orientation={orientation}
       className={cx(
-        s.div,
-        orientation === 'horizontal' ? s.horizontal : s.box,
+        s.root,
+        orientation === 'horizontal' ? s.horizontal : s.vertical,
         className,
       )}
     />

@@ -1,50 +1,19 @@
 @layer milo.app {
-  .div {
+  .tonesStack {
     display: flex;
     flex-direction: column;
     gap: 0.75rem;
   }
 
-  .div2 {
+  .partsStack {
     display: flex;
     flex-direction: column;
     gap: 0.75rem;
   }
 
-  .alert {
-    width: 100%;
-    max-width: 520px;
-  }
-
-  .alert2 {
-    width: 100%;
-    max-width: 520px;
-  }
-
-  .alert3 {
-    width: 100%;
-    max-width: 520px;
-  }
-
-  .div3 {
+  .iconStack {
     display: flex;
     flex-direction: column;
     gap: 0.75rem;
   }
-
-  .alert4 {
-    width: 100%;
-    max-width: 520px;
-  }
-
-  .alert5 {
-    width: 100%;
-    max-width: 520px;
-  }
-
-  .a {
-    text-decoration-line: underline;
-    text-underline-offset: 2px;
-  }
-
 }

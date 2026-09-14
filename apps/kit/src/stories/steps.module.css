@@ -1,5 +1,5 @@
 @layer milo.app {
-  .div {
+  .pieceBox {
     border-radius: var(--radius-xl);
     border-style: solid;
     border-width: 1px;
@@ -7,13 +7,13 @@
     padding: 1.5rem;
   }
 
-  .div2 {
+  .pieceActions {
     margin-top: 0.75rem;
     display: flex;
     gap: 0.5rem;
   }
 
-  .div3 {
+  .stoppedBox {
     max-width: 320px;
     border-radius: var(--radius-xl);
     border-style: solid;
@@ -22,12 +22,11 @@
     padding: 1.5rem;
   }
 
-  .div4 {
+  .navBox {
     border-radius: var(--radius-xl);
     border-style: solid;
     border-width: 1px;
     border-color: var(--border);
     padding: 1.5rem;
   }
-
 }

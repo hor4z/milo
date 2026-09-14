@@ -23,15 +23,15 @@ const papel: Record<LabelColor | 'neutral', string> = {
 /** Un bloque de contenido que pide detenerse: una aclaración, una pista, algo para recordar. */
 export function Callout({ icon, color = 'neutral', title, children, className }: CalloutProps) {
   return (
-    <aside role="note" className={cx(s.aside, papel[color], className)}>
+    <aside role="note" className={cx(s.root, papel[color], className)}>
       {icon && (
-        <span className={s.span}>
+        <span className={s.icon}>
           <Icon name={icon} size={20} />
         </span>
       )}
-      <div className={s.div}>
-        {title && <span className={s.span2}>{title}</span>}
-        <div className={s.div2}>{children}</div>
+      <div className={s.body}>
+        {title && <span className={s.title}>{title}</span>}
+        <div className={s.text}>{children}</div>
       </div>
     </aside>
   )

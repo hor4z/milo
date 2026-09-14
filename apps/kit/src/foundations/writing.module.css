@@ -1,10 +1,10 @@
 @layer milo.app {
-  .div {
+  .ruleGrid {
     display: grid;
     gap: 0.75rem;
   }
 
-  .div2 {
+  .ruleCard {
     display: flex;
     flex-direction: column;
     gap: 0.25rem;
@@ -15,7 +15,7 @@
     padding: 1rem;
   }
 
-  .span {
+  .ruleTitle {
     font-size: var(--type-body);
     line-height: var(--type-body-lh);
     letter-spacing: var(--type-body-ls);
@@ -23,7 +23,7 @@
     color: var(--text);
   }
 
-  .span2 {
+  .ruleBody {
     font-size: var(--type-meta);
     line-height: var(--type-meta-lh);
     letter-spacing: var(--type-meta-ls);
@@ -31,13 +31,13 @@
     color: var(--text-muted);
   }
 
-  .div3 {
+  .comparisonStack {
     display: flex;
     flex-direction: column;
     gap: 0.75rem;
   }
 
-  .div4 {
+  .comparison {
     overflow: hidden;
     border-radius: var(--radius-xl);
     border-style: solid;
@@ -45,7 +45,7 @@
     border-color: var(--border);
   }
 
-  .div5 {
+  .comparisonBad {
     display: flex;
     align-items: flex-start;
     gap: 0.75rem;
@@ -58,13 +58,13 @@
     padding-block: 0.75rem;
   }
 
-  .icon {
+  .verdictIconBad {
     margin-top: 1px;
     flex-shrink: 0;
     color: var(--bad);
   }
 
-  .span3 {
+  .badText {
     font-size: var(--type-body);
     line-height: var(--type-body-lh);
     letter-spacing: var(--type-body-ls);
@@ -77,7 +77,7 @@
     text-decoration-color: color-mix(in oklab,var(--bad) 40%,transparent);
   }
 
-  .div6 {
+  .comparisonGood {
     display: flex;
     align-items: flex-start;
     gap: 0.75rem;
@@ -85,20 +85,20 @@
     padding-block: 0.75rem;
   }
 
-  .icon2 {
+  .verdictIconGood {
     margin-top: 1px;
     flex-shrink: 0;
     color: var(--ok);
   }
 
-  .div7 {
+  .goodBlock {
     display: flex;
     min-width: 0;
     flex-direction: column;
     gap: 0.25rem;
   }
 
-  .span4 {
+  .goodText {
     font-size: var(--type-body);
     line-height: var(--type-body-lh);
     letter-spacing: var(--type-body-ls);
@@ -106,7 +106,7 @@
     color: var(--text);
   }
 
-  .span5 {
+  .goodWhy {
     font-size: var(--type-meta);
     line-height: var(--type-meta-lh);
     letter-spacing: var(--type-meta-ls);
@@ -115,9 +115,8 @@
   }
 
   @media (min-width:40rem) {
-    .div {
+    .ruleGrid {
         grid-template-columns: repeat(2,minmax(0,1fr));
     }
   }
-
 }

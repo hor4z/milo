@@ -1,5 +1,5 @@
 @layer milo.components {
-  .button {
+  .root {
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -7,7 +7,7 @@
     white-space: nowrap;
   }
 
-  .box {
+  .motion {
     transition-property: background-color,color,box-shadow,filter;
     transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
     transition-duration: 150ms;
@@ -15,8 +15,7 @@
     transition-timing-function: var(--ease-out);
   }
 
-  .box2 {
-
+  .disabled {
     &:disabled {
       opacity: .45;
       pointer-events: none;
@@ -26,5 +25,4 @@
   .block {
     width: 100%;
   }
-
 }

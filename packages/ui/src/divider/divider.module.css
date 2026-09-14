@@ -1,5 +1,5 @@
 @layer milo.components {
-  .div {
+  .root {
     flex-shrink: 0;
     background-color: var(--border);
   }
@@ -8,9 +8,8 @@
     height: 1px;
   }
 
-  .box {
+  .vertical {
     width: 1px;
     align-self: stretch;
   }
-
 }

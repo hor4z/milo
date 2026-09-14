@@ -17,13 +17,13 @@ export function Table({ children, label, minWidth = 640, footer, className }: {
   const { ref: scroller, scrolls, clipped } = useSideScroll<HTMLDivElement>(children)
 
   return (
-    <div className={cx(`${cls.div} bg-surface`, className)}>
+    <div className={cx(`${cls.root} bg-surface`, className)}>
       <div
         ref={scroller}
         tabIndex={scrolls ? 0 : undefined}
         role={scrolls ? 'region' : undefined}
         aria-label={scrolls ? `${label ?? 'Tabla'}, se desplaza de costado` : undefined}
-        className={`${cls.box} zebra`}
+        className={`${cls.scroller} zebra`}
       >
         <table className={cls.table} style={{ minWidth }}>
           {children}
@@ -32,7 +32,7 @@ export function Table({ children, label, minWidth = 640, footer, className }: {
       {clipped && (
         <span
           aria-hidden="true"
-          className={cls.span}
+          className={cls.clipShadow}
         />
       )}
       {footer}
@@ -42,7 +42,7 @@ export function Table({ children, label, minWidth = 640, footer, className }: {
 
 /** La cabecera va sobre `--surface-muted` y no sobre el papel: es lo que la separa del cuerpo sin gastar un divisor más grueso. */
 export function TableHeader({ children }: { children: ReactNode }) {
-  return <thead className={cls.thead}>{children}</thead>
+  return <thead className={cls.head}>{children}</thead>
 }
 
 /** El cuerpo de la tabla. */
@@ -53,7 +53,7 @@ export function TableBody({ children }: { children: ReactNode }) {
 /** La fila del total, abajo de todo. */
 export function TableFooter({ children }: { children: ReactNode }) {
   return (
-    <tfoot className={cls.tfoot}>
+    <tfoot className={cls.foot}>
       {children}
     </tfoot>
   )
@@ -76,9 +76,9 @@ export function TableRow({ children, onClick, active, className }: {
         ? e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); onClick() } }
         : undefined}
       className={cx(
-        cls.box2,
+        cls.row,
         active && cls.active,
-        onClick && !active && cls.active2,
+        onClick && !active && cls.clickable,
         className,
       )}
     >
@@ -94,7 +94,7 @@ export function TableHead({ children, scope = 'col', className, ...rest }: CellP
   return (
     <th
       scope={scope}
-      className={cx(cls.th, className)}
+      className={cx(cls.headCell, className)}
       {...rest}
     >
       {children}
@@ -105,7 +105,7 @@ export function TableHead({ children, scope = 'col', className, ...rest }: CellP
 /** Una celda: 12/500, con el alto de fila de 56. */
 export function TableCell({ children, className, ...rest }: CellProps & TdHTMLAttributes<HTMLTableCellElement>) {
   return (
-    <td className={cx(cls.td, className)} {...rest}>
+    <td className={cx(cls.cell, className)} {...rest}>
       {children}
     </td>
   )
@@ -113,18 +113,18 @@ export function TableCell({ children, className, ...rest }: CellProps & TdHTMLAt
 
 /** Lo que se lee primero de una fila. */
 export function TableTitle({ children, className }: CellProps) {
-  return <span className={cx(cls.span2, className)}>{children}</span>
+  return <span className={cx(cls.cellTitle, className)}>{children}</span>
 }
 
 /** La línea de apoyo debajo del título, en gris. */
 export function TableHint({ children, className }: CellProps) {
-  return <span className={cx(cls.span3, className)}>{children}</span>
+  return <span className={cx(cls.cellHint, className)}>{children}</span>
 }
 
 /** Una columna de números. */
 export function TableNum({ children, className, ...rest }: CellProps & TdHTMLAttributes<HTMLTableCellElement>) {
   return (
-    <td className={cx(`${cls.td2} tabular`, className)} {...rest}>
+    <td className={cx(`${cls.numberCell} tabular`, className)} {...rest}>
       {children}
     </td>
   )

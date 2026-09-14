@@ -1,58 +1,57 @@
 @layer milo.components {
-  .info {
+  .surfaceInfo {
     background-color: var(--brand-soft);
     border-color: var(--info-border);
   }
 
-  .ok {
+  .surfaceOk {
     background-color: var(--ok-subtle);
     border-color: var(--ok-border);
   }
 
-  .warn {
+  .surfaceWarn {
     background-color: var(--warn-subtle);
     border-color: var(--warn-border);
   }
 
-  .bad {
+  .surfaceBad {
     background-color: var(--bad-subtle);
     border-color: var(--bad-border);
   }
 
-  .info2 {
+  .inkInfo {
     color: var(--brand-ink);
   }
 
-  .ok2 {
+  .inkOk {
     color: var(--ok-ink);
   }
 
-  .warn2 {
+  .inkWarn {
     color: var(--warn-ink);
   }
 
-  .bad2 {
+  .inkBad {
     color: var(--bad-ink);
   }
 
-  .info3 {
+  .pillInfo {
     background-color: var(--brand-soft);
     color: var(--brand-ink);
   }
 
-  .ok3 {
+  .pillOk {
     background-color: var(--ok-subtle);
     color: var(--ok-ink);
   }
 
-  .warn3 {
+  .pillWarn {
     background-color: var(--warn-subtle);
     color: var(--warn-ink);
   }
 
-  .bad3 {
+  .pillBad {
     background-color: var(--bad-subtle);
     color: var(--bad-ink);
   }
-
 }

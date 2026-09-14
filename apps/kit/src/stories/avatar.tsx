@@ -63,7 +63,7 @@ export function AvatarStory() {
         note="El anillo es del color de lo que hay atrás y no blanco fijo, así que fuera del papel hay que pasarle `ring`. Es la única forma: un avatar no puede saber sobre qué lo pusieron."
       >
         <Demo label='ring="var(--surface-muted)" sobre una superficie apagada'>
-          <span className={cls.span}>
+          <span className={cls.ringedPlate}>
             <AvatarGroup
               people={[person('Ana Pérez', 1), person('Bruno Díaz', 2), person('Carla Sosa', 3), person('Damián Ruiz', 4), person('Elena Vega', 5)]}
               size={40}
@@ -72,7 +72,7 @@ export function AvatarStory() {
           </span>
         </Demo>
         <Demo label="el mismo grupo con el anillo por default: se corta contra el fondo">
-          <span className={cls.span2}>
+          <span className={cls.defaultRingPlate}>
             <AvatarGroup
               people={[person('Ana Pérez', 1), person('Bruno Díaz', 2), person('Carla Sosa', 3), person('Damián Ruiz', 4), person('Elena Vega', 5)]}
               size={40}
@@ -84,7 +84,7 @@ export function AvatarStory() {
       <Section title="Props">
         <Props of={['Avatar', 'AvatarGroup']} />
       </Section>
-    
+
       <Section title="Accesibilidad">
         <A11y items={[
           'El grupo publica los nombres completos en texto para quien no ve las caras.',

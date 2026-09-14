@@ -1,0 +1,98 @@
+@layer milo.app {
+  .portraitStage {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 2.5rem;
+    border-radius: var(--radius-xl);
+    border-style: solid;
+    border-width: 1px;
+    border-color: var(--border);
+    padding: 2rem;
+  }
+
+  .portraitImage {
+    height: 16rem;
+    width: auto;
+    flex-shrink: 0;
+  }
+
+  .identityBlock {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .mascotName {
+    font-size: var(--type-display);
+    line-height: var(--type-display-lh);
+    letter-spacing: var(--type-display-ls);
+    font-weight: var(--font-weight-bold);
+    color: var(--text);
+  }
+
+  .mascotBlurb {
+    max-width: 30ch;
+    font-size: var(--type-reading);
+    line-height: var(--type-reading-lh);
+    letter-spacing: var(--type-reading-ls);
+    color: var(--text-muted);
+  }
+
+  .assetTable {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    border-radius: var(--radius-xl);
+    border-style: solid;
+    border-width: 1px;
+    border-color: var(--border);
+  }
+
+  .assetRow {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    column-gap: 1.25rem;
+    row-gap: 0.25rem;
+    border-top-style: solid;
+    border-top-width: 1px;
+    border-color: var(--border);
+    padding-inline: 1.25rem;
+    padding-block: 1rem;
+    &:first-child {
+      border-top-style: solid;
+      border-top-width: 0;
+    }
+  }
+
+  .assetPath {
+    width: 15rem;
+    flex-shrink: 0;
+    font-family: var(--font-mono);
+    font-size: var(--type-meta);
+    line-height: var(--type-meta-lh);
+    letter-spacing: var(--type-meta-ls);
+    font-weight: var(--font-weight-semibold);
+    color: var(--text);
+  }
+
+  .assetSpec {
+    width: 12rem;
+    flex-shrink: 0;
+    font-size: var(--type-meta);
+    line-height: var(--type-meta-lh);
+    letter-spacing: var(--type-meta-ls);
+    color: var(--text-muted);
+  }
+
+  .assetNote {
+    min-width: 0;
+    flex: 1;
+    font-size: var(--type-meta);
+    line-height: var(--type-meta-lh);
+    letter-spacing: var(--type-meta-ls);
+    color: var(--text-muted);
+  }
+}

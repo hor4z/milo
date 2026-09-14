@@ -3,11 +3,11 @@
     width: 100%;
   }
 
-  .box {
+  .inline {
     width: 240px;
   }
 
-  .box2 {
+  .clear {
     margin-right: calc(0.25rem * -1);
     display: inline-flex;
     width: 1.5rem;
@@ -25,10 +25,9 @@
   }
 
   @media (hover:hover) {
-    .box2:hover {
+    .clear:hover {
         background-color: var(--surface-hover);
         color: var(--text);
     }
   }
-
 }

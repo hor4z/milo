@@ -39,14 +39,14 @@ export function ColumnPicker({ columns, value, onValueChange, label = 'Columnas'
       )}
     >
       {() => (
-        <div className={`${s.div} ui-pop bg-popover`}>
-          <p className={s.p}>{label}</p>
+        <div className={`${s.panel} ui-pop bg-popover`}>
+          <p className={s.panelLabel}>{label}</p>
           {columns.map(c => (
             <label
               key={c.id}
               className={cx(
-                s.label,
-                c.locked ? s.box : s.box2,
+                s.option,
+                c.locked ? s.locked : s.pickable,
               )}
             >
               <Checkbox
@@ -55,7 +55,7 @@ export function ColumnPicker({ columns, value, onValueChange, label = 'Columnas'
                 onChange={() => !c.locked && toggle(c.id)}
                 disabled={c.locked}
               />
-              <span aria-hidden="true" className={s.span}>{c.label}</span>
+              <span aria-hidden="true" className={s.optionLabel}>{c.label}</span>
             </label>
           ))}
         </div>

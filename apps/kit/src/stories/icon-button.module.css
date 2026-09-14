@@ -1,28 +1,27 @@
 @layer milo.app {
-  .span {
+  .mdSample {
     display: flex;
     align-items: center;
     gap: 0.5rem;
   }
 
-  .span2 {
+  .mdCaption {
     font-size: var(--type-meta);
     line-height: var(--type-meta-lh);
     letter-spacing: var(--type-meta-ls);
     color: var(--text-muted);
   }
 
-  .span3 {
+  .lgSample {
     display: flex;
     align-items: center;
     gap: 0.5rem;
   }
 
-  .span4 {
+  .lgCaption {
     font-size: var(--type-meta);
     line-height: var(--type-meta-lh);
     letter-spacing: var(--type-meta-ls);
     color: var(--text-muted);
   }
-
 }

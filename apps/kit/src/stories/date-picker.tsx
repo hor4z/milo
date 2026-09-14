@@ -26,7 +26,7 @@ export function DatePickerStory() {
         note="Como cualquier otro control del sistema: el `Field` de alrededor le pone el nombre y la ayuda, y el campo se hunde o no según la superficie donde caiga."
       >
         <Canvas>
-          <div className={cls.div}>
+          <div className={cls.fieldStack}>
             <FieldSet legend="Cuándo">
               <Field label="Abre" hint="Desde cuándo se puede entregar">
                 <DatePicker value={desde} onChange={setDesde} />

@@ -34,7 +34,7 @@ export function SpinnerStory() {
             <Button variant="raised" aria-busy><Spinner size={16} />Guardando</Button>
           </Variant>
           <Variant name="en una fila">
-            <span className={cls.span}>
+            <span className={cls.inlineWait}>
               <Spinner size={16} />
               Buscando en siete espacios
             </span>
@@ -45,7 +45,7 @@ export function SpinnerStory() {
       <Section title="Props">
         <Props of="Spinner" />
       </Section>
-    
+
       <Section title="Accesibilidad">
         <A11y items={[
           'Lleva role="status" y un nombre, así que un lector dice qué está cargando.',

@@ -52,16 +52,16 @@ export function Field({ label, hint, error, required, children, className }: Fie
 
   return (
     <FieldCtx.Provider value={{ id, labelId, describedBy, invalid: Boolean(error) }}>
-      <div className={cx(s.div, className)}>
+      <div className={cx(s.root, className)}>
         <label id={labelId} htmlFor={id} className={s.label}>
           {label}
-          {required && <span aria-hidden="true" className={s.span}>*</span>}
+          {required && <span aria-hidden="true" className={s.required}>*</span>}
           {required && <span className="sr-only">(obligatorio)</span>}
         </label>
-        {hint && !error && <p id={hintId} className={s.p}>{hint}</p>}
+        {hint && !error && <p id={hintId} className={s.hint}>{hint}</p>}
         {children}
         {error && (
-          <p id={errorId} className={s.p2}>
+          <p id={errorId} className={s.error}>
             <Icon name="error" size={14} />
             {error}
           </p>
@@ -77,8 +77,8 @@ export function FieldSet({ legend, className, children, ...props }: ComponentPro
   legend?: string
 }) {
   return (
-    <fieldset className={cx(s.fieldset, className)} {...props}>
-      {legend && <legend className={s.legend}>{legend}</legend>}
+    <fieldset className={cx(s.set, className)} {...props}>
+      {legend && <legend className={s.setLegend}>{legend}</legend>}
       {children}
     </fieldset>
   )

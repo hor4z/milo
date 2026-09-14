@@ -1,5 +1,5 @@
 @layer milo.components {
-  .nav {
+  .root {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
@@ -11,7 +11,7 @@
     padding-block: 0.75rem;
   }
 
-  .p {
+  .status {
     font-size: var(--type-body);
     line-height: var(--type-body-lh);
     letter-spacing: var(--type-body-ls);
@@ -19,13 +19,12 @@
     color: var(--text-muted);
   }
 
-  .button {
+  .prev {
     margin-left: auto;
     color: var(--text)!important;
   }
 
-  .button2 {
+  .next {
     color: var(--text)!important;
   }
-
 }

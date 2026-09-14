@@ -26,32 +26,32 @@
     }
   }
 
-  .span {
+  .value {
     display: flex;
     min-width: 0;
     align-items: center;
     gap: 0.5rem;
   }
 
-  .span2 {
+  .leading {
     display: flex;
     flex-shrink: 0;
     align-items: center;
   }
 
-  .span3 {
+  .valueText {
     min-width: 0;
     text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden;
   }
 
-  .icon {
+  .chevron {
     flex-shrink: 0;
     color: var(--text);
   }
 
-  .box {
+  .panel {
     position: fixed;
     z-index: 50;
     max-height: 240px;
@@ -65,7 +65,7 @@
     box-shadow: var(--milo-inset-shadow),var(--milo-inset-ring-shadow),var(--milo-ring-offset-shadow),var(--milo-ring-shadow),var(--milo-shadow);
   }
 
-  .box2 {
+  .option {
     display: flex;
     width: 100%;
     align-items: center;
@@ -80,16 +80,16 @@
     font-weight: var(--font-weight-medium);
   }
 
-  .box3 {
+  .active {
     background-color: var(--surface-hover);
     color: var(--text);
   }
 
-  .box4 {
+  .idle {
     color: var(--text-muted);
   }
 
-  .span4 {
+  .optionLabel {
     min-width: 0;
     flex: 1;
     text-overflow: ellipsis;
@@ -97,7 +97,7 @@
     overflow: hidden;
   }
 
-  .icon2 {
+  .check {
     flex-shrink: 0;
     color: var(--text);
   }
@@ -113,5 +113,4 @@
         background-color: var(--field-bg);
     }
   }
-
 }

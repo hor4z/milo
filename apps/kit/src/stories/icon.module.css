@@ -1,23 +1,16 @@
 @layer milo.app {
-  .span {
+  .weightSample {
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 0.25rem;
   }
 
-  .div {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: 1rem;
-  }
-
-  .span2 {
+  .searchSlot {
     width: 260px;
   }
 
-  .span3 {
+  .sizeSlot {
     display: flex;
     width: 180px;
     align-items: center;
@@ -28,17 +21,17 @@
     color: var(--text-muted);
   }
 
-  .div2 {
+  .emptySlot {
     margin-top: 1rem;
   }
 
-  .div3 {
+  .iconGrid {
     margin-top: 1rem;
     display: grid;
     gap: 0.5rem;
   }
 
-  .box {
+  .iconTile {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -56,13 +49,13 @@
     transition-timing-function: var(--ease-out);
   }
 
-  .span4 {
+  .glyphSlot {
     display: flex;
     align-items: center;
     justify-content: center;
   }
 
-  .span5 {
+  .glyphName {
     width: 100%;
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -75,48 +68,39 @@
     color: var(--text-muted);
   }
 
-  .p {
-    margin-top: 0.75rem;
-    max-width: 70ch;
-    font-size: var(--type-meta);
-    line-height: var(--type-meta-lh);
-    letter-spacing: var(--type-meta-ls);
-    color: var(--text-muted);
-  }
-
-  .span6 {
+  .sizeRole {
     font-size: var(--type-body);
     line-height: var(--type-body-lh);
     letter-spacing: var(--type-body-ls);
     color: var(--text-muted);
   }
 
-  .span7 {
+  .defaultNote {
     font-size: var(--type-body);
     line-height: var(--type-body-lh);
     letter-spacing: var(--type-body-ls);
     color: var(--text-muted);
   }
 
-  .span8 {
+  .mutedNote {
     font-size: var(--type-body);
     line-height: var(--type-body-lh);
     letter-spacing: var(--type-body-ls);
     color: var(--text-muted);
   }
 
-  .icon2 {
+  .plainGrayIcon {
     color: var(--text-muted);
   }
 
-  .span9 {
+  .plainGrayNote {
     font-size: var(--type-body);
     line-height: var(--type-body-lh);
     letter-spacing: var(--type-body-ls);
     color: var(--text-muted);
   }
 
-  .p2 {
+  .commandNote {
     margin-top: 0.75rem;
     max-width: 70ch;
     font-size: var(--type-body);
@@ -125,7 +109,7 @@
     color: var(--text-muted);
   }
 
-  .code {
+  .commandName {
     font-family: var(--font-mono);
     font-size: var(--type-meta);
     line-height: var(--type-meta-lh);
@@ -133,9 +117,8 @@
   }
 
   @media (hover:hover) {
-    .box:hover {
+    .iconTile:hover {
         background-color: var(--surface-muted);
     }
   }
-
 }

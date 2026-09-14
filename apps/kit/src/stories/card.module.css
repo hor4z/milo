@@ -1,25 +1,18 @@
 @layer milo.app {
-  .div {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: flex-start;
-    gap: 1rem;
-  }
-
-  .card {
+  .partsCard {
     width: 320px;
   }
 
-  .div2 {
+  .partsHeading {
     display: flex;
     flex-direction: column;
   }
 
-  .card2 {
+  .looseCard {
     width: 320px;
   }
 
-  .p {
+  .looseText {
     font-size: var(--type-body);
     line-height: var(--type-body-lh);
     letter-spacing: var(--type-body-ls);
@@ -27,35 +20,29 @@
     color: var(--text-muted);
   }
 
-  .div3 {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1rem;
-  }
-
-  .card3 {
+  .stillCard {
     width: 260px;
   }
 
-  .div4 {
+  .stillCover {
     border-radius: var(--radius-sm);
     background-color: var(--tint-2);
   }
 
-  .div5 {
+  .stillBody {
     padding-inline: 0.5rem;
     padding-top: 0.75rem;
     padding-bottom: 0.5rem;
   }
 
-  .div6 {
+  .stillTitle {
     font-size: var(--type-body);
     line-height: var(--type-body-lh);
     letter-spacing: var(--type-body-ls);
     font-weight: var(--font-weight-semibold);
   }
 
-  .div7 {
+  .stillMeta {
     margin-top: 0.25rem;
     font-size: var(--type-meta);
     line-height: var(--type-meta-lh);
@@ -63,29 +50,29 @@
     color: var(--text-muted);
   }
 
-  .card4 {
+  .hoverCard {
     width: 260px;
   }
 
-  .div8 {
+  .hoverCover {
     border-radius: var(--radius-sm);
     background-color: var(--tint-3);
   }
 
-  .div9 {
+  .hoverBody {
     padding-inline: 0.5rem;
     padding-top: 0.75rem;
     padding-bottom: 0.5rem;
   }
 
-  .div10 {
+  .hoverTitle {
     font-size: var(--type-body);
     line-height: var(--type-body-lh);
     letter-spacing: var(--type-body-ls);
     font-weight: var(--font-weight-semibold);
   }
 
-  .div11 {
+  .hoverMeta {
     margin-top: 0.25rem;
     font-size: var(--type-meta);
     line-height: var(--type-meta-lh);
@@ -93,25 +80,19 @@
     color: var(--text-muted);
   }
 
-  .div12 {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1rem;
-  }
-
-  .card5 {
+  .paperCard {
     width: 260px;
     padding: 1rem;
   }
 
-  .div13 {
+  .paperTitle {
     font-size: var(--type-body);
     line-height: var(--type-body-lh);
     letter-spacing: var(--type-body-ls);
     font-weight: var(--font-weight-semibold);
   }
 
-  .div14 {
+  .paperMeta {
     margin-top: 0.25rem;
     font-size: var(--type-meta);
     line-height: var(--type-meta-lh);
@@ -119,29 +100,23 @@
     color: var(--text-muted);
   }
 
-  .card6 {
+  .mutedCard {
     width: 260px;
     padding: 1rem;
   }
 
-  .div15 {
+  .mutedTitle {
     font-size: var(--type-body);
     line-height: var(--type-body-lh);
     letter-spacing: var(--type-body-ls);
     font-weight: var(--font-weight-semibold);
   }
 
-  .div16 {
+  .mutedMeta {
     margin-top: 0.25rem;
     font-size: var(--type-meta);
     line-height: var(--type-meta-lh);
     letter-spacing: var(--type-meta-ls);
     color: var(--text-muted);
   }
-
-  .a {
-    text-decoration-line: underline;
-    text-underline-offset: 2px;
-  }
-
 }

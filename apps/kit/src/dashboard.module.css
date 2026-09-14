@@ -1,11 +1,11 @@
 @layer milo.app {
-  .div {
+  .dashboard {
     display: flex;
     flex-direction: column;
     gap: 1.5rem;
   }
 
-  .div2 {
+  .topBar {
     margin-inline: calc(0.25rem * -5);
     margin-top: calc(0.25rem * -5);
     margin-bottom: 0.5rem;
@@ -19,12 +19,12 @@
     padding-inline: 1.25rem;
   }
 
-  .box {
+  .topBarSearch {
     min-width: 0;
     max-width: 320px;
   }
 
-  .div3 {
+  .topBarActions {
     margin-left: auto;
     display: flex;
     flex-shrink: 0;
@@ -32,7 +32,7 @@
     gap: 0.5rem;
   }
 
-  .box2 {
+  .accountTrigger {
     display: flex;
     align-items: center;
     gap: 0.5rem;
@@ -44,7 +44,7 @@
     transition-timing-function: var(--ease-out);
   }
 
-  .header {
+  .pageHeader {
     display: flex;
     flex-wrap: wrap;
     align-items: flex-end;
@@ -52,13 +52,13 @@
     gap: 1rem;
   }
 
-  .div4 {
+  .pageHeading {
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
   }
 
-  .h1 {
+  .pageTitle {
     font-size: var(--type-display);
     line-height: var(--type-display-lh);
     letter-spacing: var(--type-display-ls);
@@ -66,7 +66,7 @@
     color: var(--text);
   }
 
-  .p {
+  .pageSubtitle {
     font-size: var(--type-reading);
     line-height: var(--type-reading-lh);
     letter-spacing: var(--type-reading-ls);
@@ -74,46 +74,46 @@
     color: var(--text-muted);
   }
 
-  .div5 {
+  .pageActions {
     display: flex;
     align-items: center;
     gap: 0.5rem;
   }
 
-  .div6 {
+  .statRow {
     display: grid;
     grid-template-columns: repeat(2,minmax(0,1fr));
     gap: 0.75rem;
   }
 
-  .div7 {
+  .columns {
     display: grid;
     align-items: flex-start;
     gap: 1.5rem;
   }
 
-  .div8 {
+  .mainColumn {
     display: flex;
     min-width: 0;
     flex-direction: column;
     gap: 1.5rem;
   }
 
-  .card {
+  .chartCard {
     display: flex;
     flex-direction: column;
     gap: 1.25rem;
     padding: 1.5rem;
   }
 
-  .div9 {
+  .chartHeader {
     display: flex;
     align-items: flex-start;
     justify-content: space-between;
     gap: 1rem;
   }
 
-  .h2 {
+  .chartTitle {
     font-size: var(--type-reading);
     line-height: var(--type-reading-lh);
     letter-spacing: var(--type-reading-ls);
@@ -121,7 +121,7 @@
     color: var(--text);
   }
 
-  .p2 {
+  .chartSubtitle {
     font-size: var(--type-body);
     line-height: var(--type-body-lh);
     letter-spacing: var(--type-body-ls);
@@ -129,20 +129,20 @@
     color: var(--text-muted);
   }
 
-  .section {
+  .spacesSection {
     display: flex;
     flex-direction: column;
     gap: 1rem;
   }
 
-  .div10 {
+  .spacesHeader {
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: 1rem;
   }
 
-  .h22 {
+  .spacesTitle {
     font-size: var(--type-reading);
     line-height: var(--type-reading-lh);
     letter-spacing: var(--type-reading-ls);
@@ -150,24 +150,24 @@
     color: var(--text);
   }
 
-  .link {
+  .spacesLink {
     font-size: var(--type-body);
     line-height: var(--type-body-lh);
     letter-spacing: var(--type-body-ls);
   }
 
-  .div11 {
+  .folderGrid {
     display: grid;
     grid-template-columns: repeat(2,minmax(0,1fr));
     gap: 1rem;
   }
 
-  .div12 {
+  .sideColumn {
     position: relative;
     min-width: 0;
   }
 
-  .card2 {
+  .sideCard {
     position: relative;
     display: flex;
     flex-direction: column;
@@ -175,20 +175,20 @@
     padding: 1.5rem;
   }
 
-  .div13 {
+  .taskBlock {
     display: flex;
     flex-direction: column;
     gap: 0.75rem;
   }
 
-  .div14 {
+  .taskHeader {
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: 1rem;
   }
 
-  .h23 {
+  .taskTitle {
     font-size: var(--type-reading);
     line-height: var(--type-reading-lh);
     letter-spacing: var(--type-reading-ls);
@@ -196,13 +196,13 @@
     color: var(--text);
   }
 
-  .link2 {
+  .taskLink {
     font-size: var(--type-body);
     line-height: var(--type-body-lh);
     letter-spacing: var(--type-body-ls);
   }
 
-  .div15 {
+  .progressBlock {
     display: flex;
     flex-direction: column;
     gap: 1rem;
@@ -212,7 +212,7 @@
     padding-top: 1.25rem;
   }
 
-  .h24 {
+  .progressTitle {
     font-size: var(--type-reading);
     line-height: var(--type-reading-lh);
     letter-spacing: var(--type-reading-ls);
@@ -220,7 +220,7 @@
     color: var(--text);
   }
 
-  .div16 {
+  .peopleFooter {
     margin-top: auto;
     display: flex;
     align-items: center;
@@ -231,7 +231,7 @@
     padding-top: 1rem;
   }
 
-  .span {
+  .peopleCount {
     font-size: var(--type-meta);
     line-height: var(--type-meta-lh);
     letter-spacing: var(--type-meta-ls);
@@ -239,7 +239,7 @@
     color: var(--text-muted);
   }
 
-  .img {
+  .mascotPeek {
     pointer-events: none;
     position: absolute;
     left: 100%;
@@ -250,20 +250,20 @@
     width: auto;
   }
 
-  .card3 {
+  .statCard {
     display: flex;
     flex-direction: column;
     gap: 0.75rem;
     padding: 1.25rem;
   }
 
-  .div17 {
+  .statHeader {
     display: flex;
     align-items: center;
     justify-content: space-between;
   }
 
-  .span2 {
+  .statLabel {
     font-size: var(--type-body);
     line-height: var(--type-body-lh);
     letter-spacing: var(--type-body-ls);
@@ -271,13 +271,13 @@
     color: var(--text-muted);
   }
 
-  .div18 {
+  .statValueRow {
     display: flex;
     align-items: baseline;
     gap: 0.5rem;
   }
 
-  .span3 {
+  .statValue {
     font-size: var(--type-display);
     line-height: var(--type-display-lh);
     letter-spacing: var(--type-display-ls);
@@ -285,7 +285,7 @@
     color: var(--text);
   }
 
-  .ok {
+  .statDeltaUp {
     font-size: var(--type-meta);
     line-height: var(--type-meta-lh);
     letter-spacing: var(--type-meta-ls);
@@ -293,7 +293,7 @@
     color: var(--ok-ink);
   }
 
-  .span4 {
+  .statDeltaDown {
     font-size: var(--type-meta);
     line-height: var(--type-meta-lh);
     letter-spacing: var(--type-meta-ls);
@@ -302,34 +302,33 @@
   }
 
   @media (hover:hover) {
-    .box2:hover {
+    .accountTrigger:hover {
         --milo-shadow: var(--relief-card);
         box-shadow: var(--milo-inset-shadow),var(--milo-inset-ring-shadow),var(--milo-ring-offset-shadow),var(--milo-ring-shadow),var(--milo-shadow);
     }
   }
 
   @media (min-width:64rem) {
-    .div6 {
+    .statRow {
         grid-template-columns: repeat(4,minmax(0,1fr));
     }
   }
 
   @media (min-width:64rem) {
-    .div7 {
+    .columns {
         grid-template-columns: 1.55fr 1fr;
     }
   }
 
   @media (min-width:40rem) {
-    .div11 {
+    .folderGrid {
         grid-template-columns: repeat(4,minmax(0,1fr));
     }
   }
 
   @media (min-width:80rem) {
-    .img {
+    .mascotPeek {
         display: block;
     }
   }
-
 }

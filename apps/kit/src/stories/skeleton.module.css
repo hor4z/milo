@@ -1,5 +1,5 @@
 @layer milo.app {
-  .div {
+  .rowsStack {
     display: flex;
     width: 100%;
     max-width: 420px;
@@ -7,52 +7,46 @@
     gap: 1rem;
   }
 
-  .div2 {
+  .row {
     display: flex;
     align-items: center;
     gap: 0.75rem;
   }
 
-  .skeleton {
+  .avatarBone {
     width: 2.5rem;
     height: 2.5rem;
     border-radius: var(--radius-full);
   }
 
-  .div3 {
+  .rowLines {
     display: flex;
     flex: 1;
     flex-direction: column;
     gap: 0.5rem;
   }
 
-  .skeleton2 {
+  .rowTitleBone {
     height: 0.875rem;
     width: 50%;
   }
 
-  .skeleton3 {
+  .rowMetaBone {
     height: 0.75rem;
     width: 75%;
   }
 
-  .div4 {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1rem;
-  }
-
-  .card {
+  .longCard {
     width: 260px;
   }
 
-  .skeleton4 {
+  .longCoverBone {
     height: 120px;
     width: 100%;
     border-radius: var(--radius-xl);
   }
 
-  .div5 {
+  .longBody {
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
@@ -61,27 +55,27 @@
     padding-bottom: 0.5rem;
   }
 
-  .skeleton5 {
+  .longTitleBone {
     height: 0.875rem;
     width: 75%;
   }
 
-  .skeleton6 {
+  .longMetaBone {
     height: 0.75rem;
     width: 50%;
   }
 
-  .card2 {
+  .shortCard {
     width: 260px;
   }
 
-  .skeleton7 {
+  .shortCoverBone {
     height: 120px;
     width: 100%;
     border-radius: var(--radius-xl);
   }
 
-  .div6 {
+  .shortBody {
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
@@ -90,19 +84,13 @@
     padding-bottom: 0.5rem;
   }
 
-  .skeleton8 {
+  .shortTitleBone {
     height: 0.875rem;
     width: 66.6667%;
   }
 
-  .skeleton9 {
+  .shortMetaBone {
     height: 0.75rem;
     width: 40%;
   }
-
-  .a {
-    text-decoration-line: underline;
-    text-underline-offset: 2px;
-  }
-
 }

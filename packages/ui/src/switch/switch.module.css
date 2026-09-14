@@ -10,7 +10,7 @@
     padding: 0.125rem;
   }
 
-  .box {
+  .motion {
     transition-property: background-color,box-shadow;
     transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
     transition-duration: 150ms;
@@ -18,21 +18,20 @@
     transition-timing-function: var(--ease-out);
   }
 
-  .box2 {
-
+  .disabled {
     &:disabled {
       opacity: .45;
       pointer-events: none;
     }
   }
 
-  .span {
+  .thumb {
     width: 18px;
     height: 18px;
     border-radius: var(--radius-full);
   }
 
-  .span2 {
+  .thumbMotion {
     transition-property: transform,translate,scale,rotate;
     transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
     transition-duration: 150ms;
@@ -40,14 +39,13 @@
     transition-timing-function: var(--ease-out);
   }
 
-  .box5 {
+  .thumbOn {
     --milo-translate-x: 18px;
     translate: var(--milo-translate-x) var(--milo-translate-y);
   }
 
-  .box6 {
+  .thumbOff {
     --milo-translate-x: 0px;
     translate: var(--milo-translate-x) var(--milo-translate-y);
   }
-
 }

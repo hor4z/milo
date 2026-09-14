@@ -1,5 +1,5 @@
 @layer milo.app {
-  .div {
+  .paragraphBox {
     max-width: 640px;
     border-radius: var(--radius-xl);
     border-style: solid;
@@ -8,14 +8,14 @@
     padding: 1.5rem;
   }
 
-  .p {
+  .paragraphText {
     font-size: var(--type-reading);
     line-height: var(--type-reading-lh);
     letter-spacing: var(--type-reading-ls);
     color: var(--text);
   }
 
-  .div2 {
+  .looseStrip {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
@@ -29,5 +29,4 @@
     line-height: var(--type-reading-lh);
     letter-spacing: var(--type-reading-ls);
   }
-
 }

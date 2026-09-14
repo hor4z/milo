@@ -1,81 +1,80 @@
 @layer milo.components {
-  .labelSoft {
+  .labelSoftGreen {
     background-color: var(--label-green-soft);
     color: var(--label-green-ink);
   }
 
-  .labelSoft2 {
+  .labelSoftTeal {
     background-color: var(--label-teal-soft);
     color: var(--label-teal-ink);
   }
 
-  .labelSoft3 {
+  .labelSoftBlue {
     background-color: var(--label-blue-soft);
     color: var(--label-blue-ink);
   }
 
-  .labelSoft4 {
+  .labelSoftPurple {
     background-color: var(--label-purple-soft);
     color: var(--label-purple-ink);
   }
 
-  .labelSoft5 {
+  .labelSoftPink {
     background-color: var(--label-pink-soft);
     color: var(--label-pink-ink);
   }
 
-  .labelSoft6 {
+  .labelSoftOrange {
     background-color: var(--label-orange-soft);
     color: var(--label-orange-ink);
   }
 
-  .labelFill {
+  .labelFillGreen {
     background-color: var(--label-green);
   }
 
-  .labelFill2 {
+  .labelFillTeal {
     background-color: var(--label-teal);
   }
 
-  .labelFill3 {
+  .labelFillBlue {
     background-color: var(--label-blue);
   }
 
-  .labelFill4 {
+  .labelFillPurple {
     background-color: var(--label-purple);
   }
 
-  .labelFill5 {
+  .labelFillPink {
     background-color: var(--label-pink);
   }
 
-  .labelFill6 {
+  .labelFillOrange {
     background-color: var(--label-orange);
   }
 
-  .markFill {
+  .markFillGreen {
     background-color: var(--mark-green);
     color: var(--mark-green-ink);
   }
 
-  .markFill2 {
+  .markFillPurple {
     background-color: var(--mark-purple);
     color: var(--mark-purple-ink);
   }
 
-  .markFill3 {
+  .markFillOrange {
     background-color: var(--mark-orange);
     color: var(--mark-orange-ink);
   }
 
-  .markFill4 {
+  .markFillBlue {
     background-color: var(--mark-blue);
     color: var(--mark-blue-ink);
   }
 
-  .markFill5 {
+  .markFillPink {
     background-color: var(--mark-pink);
     color: var(--mark-pink-ink);
   }
-
 }

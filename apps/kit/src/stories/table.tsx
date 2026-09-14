@@ -7,7 +7,7 @@ import {
   Table, TableBody, TableCell, TableFooter, TableHead, TableHeader,
   TableHint, TableNum, TableRow, TableTitle, facets, fold, timeAgo,
 } from '@milo/ui'
-import { A11y, Mono, Page, Props, Section } from '../kit'
+import { A11y, Footnote, Mono, Page, Props, Section } from '../kit'
 
 const face = (n: number) => `/avatars/${String(n).padStart(2, '0')}.webp`
 
@@ -133,7 +133,7 @@ export function TableStory() {
         title="La tabla entera"
         note="Una tabla de trabajo son tres cosas más que la grilla: con qué se recorta, cuántas hay y cómo se pasa al tramo siguiente. Los tres se llevan entre sí, que es la parte que se rompe cuando cada uno se escribe por su lado. Y la franja de paginar vive adentro del marco pero afuera del scroll."
       >
-        <FilterBar className={cls.filterBar}>
+        <FilterBar className={cls.filterGap}>
           <Search
             value={query}
             onValueChange={narrow(setQuery)}
@@ -187,8 +187,8 @@ export function TableStory() {
               {view('estudiantes') && <TableHead>Estudiantes</TableHead>}
               {view('docente') && <TableHead>Docente</TableHead>}
               {view('estado') && <TableHead>Estado</TableHead>}
-              {view('corregidas') && <TableHead className={cls.tableHead}>Corregidas</TableHead>}
-              {view('entregas') && <TableHead className={cls.tableHead2}>Entregas</TableHead>}
+              {view('corregidas') && <TableHead className={cls.doneHead}>Corregidas</TableHead>}
+              {view('entregas') && <TableHead className={cls.handedHead}>Entregas</TableHead>}
               {view('acciones') && <TableHead><span className="sr-only">Acciones</span></TableHead>}
             </TableRow>
           </TableHeader>
@@ -202,21 +202,21 @@ export function TableStory() {
                 {view('estudiantes') && <TableCell><AvatarGroup people={a.students} /></TableCell>}
                 {view('docente') && (
                   <TableCell>
-                    <span className={cls.span2}>
+                    <span className={cls.teacherCell}>
                       <Avatar name={a.teacher.name} src={a.teacher.src} size={24} />
-                      <span className={cls.span3}>{a.teacher.name}</span>
+                      <span className={cls.teacherName}>{a.teacher.name}</span>
                     </span>
                   </TableCell>
                 )}
                 {view('estado') && <TableCell><Chip color={tone[a.status as keyof typeof tone]}>{a.status}</Chip></TableCell>}
                 {view('corregidas') && (
                   <TableNum>
-                    {a.total ? <>{a.done}<span className={cls.span4}> / {a.total}</span></> : '-'}
+                    {a.total ? <>{a.done}<span className={cls.fractionTotal}> / {a.total}</span></> : '-'}
                   </TableNum>
                 )}
                 {view('entregas') && <TableNum>{a.total || '-'}</TableNum>}
                 {view('acciones') && (
-                <TableCell className={cls.tableCell}>
+                <TableCell className={cls.actionsCell}>
                   <Dropdown
                     items={[
                       { label: 'Abrir', icon: 'open_in_new' },
@@ -240,7 +240,7 @@ export function TableStory() {
             ))}
             {onScreen.length === 0 && (
               <tr>
-                <td colSpan={visible.length} className={cls.td}>
+                <td colSpan={visible.length} className={cls.emptyCell}>
                   <EmptyState
                     size="sm"
                     icon="search_off"
@@ -277,7 +277,7 @@ export function TableStory() {
               <TableHead>Actividad</TableHead>
               <TableHead>Estudiantes</TableHead>
               <TableHead>Estado</TableHead>
-              <TableHead className={cls.tableHead3}>Entregas</TableHead>
+              <TableHead className={cls.pieceHead}>Entregas</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
@@ -304,36 +304,36 @@ export function TableStory() {
         title="La columna de estudiantes"
         note="Se montan un tercio y llevan anillo, por el mismo motivo que en su propia vista. El resto va en un círculo neutro y no en otro color: un `+4` no identifica a nadie, y en la familia viva se leería como una persona más."
       >
-        <div className={cls.div}>
-          <div className={`${cls.div2} bg-surface`}>
+        <div className={cls.groupStack}>
+          <div className={`${cls.twoRow} bg-surface`}>
             <AvatarGroup people={[p('Ana Pérez', 1), p('Bruno Díaz', 2)]} />
             <Mono>2 de 3</Mono>
           </div>
-          <div className={`${cls.div3} bg-surface`}>
+          <div className={`${cls.threeRow} bg-surface`}>
             <AvatarGroup people={[p('Ana Pérez', 1), p('Bruno Díaz', 2), p('Carla Sosa', 3)]} />
             <Mono>3 de 3</Mono>
           </div>
-          <div className={`${cls.div4} bg-surface`}>
+          <div className={`${cls.fourRow} bg-surface`}>
             <AvatarGroup people={[p('Ana Pérez', 1), p('Bruno Díaz', 2), p('Carla Sosa', 3), p('Damián Ruiz', 4)]} />
             <Mono>4 · se muestra la cuarta cara, no un "+1"</Mono>
           </div>
-          <div className={`${cls.div5} bg-surface`}>
+          <div className={`${cls.fiveRow} bg-surface`}>
             <AvatarGroup people={[p('Ana Pérez', 1), p('Bruno Díaz', 2), p('Carla Sosa', 3), p('Damián Ruiz', 4), p('Elena Vega', 5)]} />
             <Mono>5 · tres caras y el resto</Mono>
           </div>
         </div>
-        <p className={cls.p}>
+        <Footnote>
           El sobrante de uno solo muestra la cuarta cara en vez de un "+1": el círculo ocupa
           exactamente lo mismo que la persona que estaría escondiendo, así que no ahorra nada y
           dice menos.
-        </p>
+        </Footnote>
       </Section>
 
       <Section
         title="Sobre otro fondo"
         note="El anillo es del color de la fila y no blanco fijo, así que sobre un fondo distinto hay que pasarle `ring`. Es la única forma: un avatar no puede saber sobre qué lo pusieron."
       >
-        <div className={cls.div6}>
+        <div className={cls.mutedRow}>
           <AvatarGroup people={[p('Ana Pérez', 1), p('Bruno Díaz', 2), p('Carla Sosa', 3), p('Damián Ruiz', 4)]} ring="var(--surface-muted)" />
           <Mono>ring="var(--surface-muted)"</Mono>
         </div>
@@ -342,7 +342,7 @@ export function TableStory() {
       <Section title="Props">
         <Props of={['Table', 'TableRow', 'Avatar', 'AvatarGroup']} />
       </Section>
-    
+
       <Section title="Accesibilidad">
         <A11y items={[
           'Es una <table> de verdad: encabezados con `scope`, filas y celdas con su semántica.',

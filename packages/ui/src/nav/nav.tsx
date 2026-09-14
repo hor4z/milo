@@ -10,13 +10,13 @@ export function navItemClass({
 }: { active?: boolean; collapsed?: boolean; muted?: boolean } = {}) {
   return cx(
     cls.root,
-    cls.box,
-    collapsed ? cls.box2 : cls.box3,
+    cls.motion,
+    collapsed ? cls.collapsed : cls.expanded,
     active
-      ? cls.box4
+      ? cls.active
       : muted
-        ? cls.box5
-        : cls.box6,
+        ? cls.muted
+        : cls.plain,
   )
 }
 
@@ -40,21 +40,21 @@ export function NavItemBody({
 }) {
   return (
     <>
-      <span className={cls.span}>
+      <span className={cls.glyphSlot}>
         <span
           className={cx(
-            cls.span2,
-            active && chip && `${cls.chip} bg-surface`,
+            cls.glyph,
+            active && chip && `${cls.glyphPaper} bg-surface`,
           )}
         >
           {glyph ?? (icon && <Icon name={icon} size={20} className={cls.icon} />)}
         </span>
       </span>
 
-      {!collapsed && <span className={cls.span3}>{label}</span>}
+      {!collapsed && <span className={cls.label}>{label}</span>}
 
       {!collapsed && badge && (
-        <span className={`${cls.span4} inset-relief tabular`}>
+        <span className={`${cls.count} inset-relief tabular`}>
           {badge}
         </span>
       )}
@@ -65,10 +65,10 @@ export function NavItemBody({
 /** La sangría de los subitems: la columna del texto del padre, no un valor nuevo. */
 export function navSubItemClass({ active }: { active?: boolean } = {}) {
   return cx(
-    cls.box7,
-    cls.box8,
+    cls.subitem,
+    cls.subitemMotion,
     active
-      ? cls.box9
-      : cls.box10,
+      ? cls.subitemActive
+      : cls.subitemPlain,
   )
 }

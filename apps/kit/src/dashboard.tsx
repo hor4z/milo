@@ -53,8 +53,8 @@ export function Dashboard() {
   const { toast } = useToast()
 
   return (
-    <div className={cls.div}>
-      <div className={cls.div2}>
+    <div className={cls.dashboard}>
+      <div className={cls.topBar}>
         <Search
           block
           size="md"
@@ -62,10 +62,10 @@ export function Dashboard() {
           onValueChange={setBusca}
           placeholder="Buscar una actividad o un espacio"
           aria-label="Buscar"
-          className={cls.box}
+          className={cls.topBarSearch}
         />
 
-        <div className={cls.div3}>
+        <div className={cls.topBarActions}>
           <Avisos />
           <Dropdown
             align="end"
@@ -77,7 +77,7 @@ export function Dashboard() {
                 onClick={onClick}
                 aria-expanded={expanded}
                 aria-label={`Cuenta de ${yo.name}`}
-                className={cls.box2}
+                className={cls.accountTrigger}
               >
                 <Avatar name={yo.name} src={face(4)} size={34} />
               </button>
@@ -92,14 +92,14 @@ export function Dashboard() {
         </div>
       </div>
 
-      <header className={cls.header}>
-        <div className={cls.div4}>
-          <h1 className={cls.h1}>Tu semana</h1>
-          <p className={cls.p}>
+      <header className={cls.pageHeader}>
+        <div className={cls.pageHeading}>
+          <h1 className={cls.pageTitle}>Tu semana</h1>
+          <p className={cls.pageSubtitle}>
             Ciencias ya está al día. Lo que falta mirar está en Matemática y Lengua.
           </p>
         </div>
-        <div className={cls.div5}>
+        <div className={cls.pageActions}>
           <Segmented
             size="sm"
             label="Rango"
@@ -122,20 +122,20 @@ export function Dashboard() {
         </div>
       </header>
 
-      <div className={cls.div6}>
+      <div className={cls.statRow}>
         <Stat label="Entregas" value={count(79)} delta={delta(12, { percent: true })} icon="inbox" />
         <Stat label="Corregidas" value={count(67)} delta={delta(8, { percent: true })} icon="check_circle" />
         <Stat label="Sin mirar" value={count(12)} delta={delta(-3)} icon="schedule" tone="warn" />
         <Stat label="Estudiantes" value={count(96)} delta={delta(4)} icon="group" />
       </div>
 
-      <div className={cls.div7}>
-        <div className={cls.div8}>
-          <Card className={cls.card}>
-            <div className={cls.div9}>
+      <div className={cls.columns}>
+        <div className={cls.mainColumn}>
+          <Card className={cls.chartCard}>
+            <div className={cls.chartHeader}>
               <div>
-                <h2 className={cls.h2}>Corregidas sobre entregadas</h2>
-                <p className={cls.p2}>El azul es lo corregido; el gris, lo que entró</p>
+                <h2 className={cls.chartTitle}>Corregidas sobre entregadas</h2>
+                <p className={cls.chartSubtitle}>El azul es lo corregido; el gris, lo que entró</p>
               </div>
               <Chip size="sm" color="ok" icon="trending_up">84%</Chip>
             </div>
@@ -147,12 +147,12 @@ export function Dashboard() {
             />
           </Card>
 
-          <section className={cls.section}>
-            <div className={cls.div10}>
-              <h2 className={cls.h22}>Tus espacios</h2>
-              <Link href="#folder" className={cls.link}>Ver todos</Link>
+          <section className={cls.spacesSection}>
+            <div className={cls.spacesHeader}>
+              <h2 className={cls.spacesTitle}>Tus espacios</h2>
+              <Link href="#folder" className={cls.spacesLink}>Ver todos</Link>
             </div>
-            <div className={cls.div11}>
+            <div className={cls.folderGrid}>
               {espacios.map(e => (
                 <Folder
                   key={e.label}
@@ -168,13 +168,13 @@ export function Dashboard() {
           </section>
         </div>
 
-        <div className={cls.div12}>
+        <div className={cls.sideColumn}>
           <Otto />
-          <Card surface="muted" className={cls.card2}>
-            <div className={cls.div13}>
-              <div className={cls.div14}>
-                <h2 className={cls.h23}>Para hoy</h2>
-                <Link href="#list" className={cls.link2}>Ver todas</Link>
+          <Card surface="muted" className={cls.sideCard}>
+            <div className={cls.taskBlock}>
+              <div className={cls.taskHeader}>
+                <h2 className={cls.taskTitle}>Para hoy</h2>
+                <Link href="#list" className={cls.taskLink}>Ver todas</Link>
               </div>
               <List>
                 {pendientes.map(t => (
@@ -190,17 +190,17 @@ export function Dashboard() {
               </List>
             </div>
 
-            <div className={cls.div15}>
-              <h2 className={cls.h24}>Cómo va cada espacio</h2>
+            <div className={cls.progressBlock}>
+              <h2 className={cls.progressTitle}>Cómo va cada espacio</h2>
               <Progress label="Matemática · 4.º A" value={11} max={18} hint="11/18" />
               <Progress label="Ciencias · 5.º B" value={24} max={24} hint="listo" tone="ok" />
               <Progress label="Sociales · 5.º A" value={3} max={7} hint="3/7" />
               <Progress label="Lengua · 6.º" value={0} max={12} hint="sin entregas" />
             </div>
 
-            <div className={cls.div16}>
+            <div className={cls.peopleFooter}>
               <AvatarGroup size={24} people={[p('Ana Pérez', 1), p('Bruno Díaz', 2), p('Carla Sosa', 3), p('Elena Vega', 5)]} />
-              <span className={cls.span}>96 estudiantes en total</span>
+              <span className={cls.peopleCount}>96 estudiantes en total</span>
             </div>
           </Card>
         </div>
@@ -262,7 +262,7 @@ function Otto() {
       key={vuelta}
       src="/mascotas/otto-anima.webp"
       alt=""
-      className={cls.img}
+      className={cls.mascotPeek}
     />
   )
 }
@@ -275,14 +275,14 @@ function Stat({ label, value, delta, icon, tone = 'ok' }: {
   tone?: 'ok' | 'warn'
 }) {
   return (
-    <Card className={cls.card3}>
-      <div className={cls.div17}>
-        <span className={cls.span2}>{label}</span>
+    <Card className={cls.statCard}>
+      <div className={cls.statHeader}>
+        <span className={cls.statLabel}>{label}</span>
         <Icon name={icon} size={16} className="icon-muted" />
       </div>
-      <div className={cls.div18}>
-        <span className={`${cls.span3} tabular`}>{value}</span>
-        <span className={tone === 'ok' ? cls.ok : cls.span4}>{delta}</span>
+      <div className={cls.statValueRow}>
+        <span className={`${cls.statValue} tabular`}>{value}</span>
+        <span className={tone === 'ok' ? cls.statDeltaUp : cls.statDeltaDown}>{delta}</span>
       </div>
     </Card>
   )

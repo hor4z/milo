@@ -1,12 +1,5 @@
 @layer milo.app {
-  .div {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: flex-start;
-    gap: 0.75rem;
-  }
-
-  .div2 {
+  .plainPanel {
     border-radius: var(--radius-xl);
     border-style: solid;
     border-width: 1px;
@@ -16,14 +9,14 @@
     box-shadow: var(--milo-inset-shadow),var(--milo-inset-ring-shadow),var(--milo-ring-offset-shadow),var(--milo-ring-shadow),var(--milo-shadow);
   }
 
-  .div3 {
+  .plainTitle {
     font-size: var(--type-body);
     line-height: var(--type-body-lh);
     letter-spacing: var(--type-body-ls);
     font-weight: var(--font-weight-semibold);
   }
 
-  .p {
+  .plainText {
     margin-top: 0.5rem;
     font-size: var(--type-meta);
     line-height: var(--type-meta-lh);
@@ -31,11 +24,11 @@
     color: var(--text-muted);
   }
 
-  .div4 {
+  .plainActions {
     margin-top: 1rem;
   }
 
-  .div5 {
+  .veiledPanel {
     border-radius: var(--radius-xl);
     border-style: solid;
     border-width: 1px;
@@ -45,14 +38,14 @@
     box-shadow: var(--milo-inset-shadow),var(--milo-inset-ring-shadow),var(--milo-ring-offset-shadow),var(--milo-ring-shadow),var(--milo-shadow);
   }
 
-  .div6 {
+  .veiledTitle {
     font-size: var(--type-body);
     line-height: var(--type-body-lh);
     letter-spacing: var(--type-body-ls);
     font-weight: var(--font-weight-semibold);
   }
 
-  .p2 {
+  .veiledText {
     margin-top: 0.5rem;
     font-size: var(--type-meta);
     line-height: var(--type-meta-lh);
@@ -60,8 +53,7 @@
     color: var(--text-muted);
   }
 
-  .div7 {
+  .veiledActions {
     margin-top: 1rem;
   }
-
 }

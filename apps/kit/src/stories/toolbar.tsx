@@ -15,7 +15,7 @@ export function ToolbarStory() {
       lead="La barra que aparece sobre el texto seleccionado. Una sola parada de tabulación, y adentro se mueve con flechas."
     >
       <Section title="La pieza">
-        <div className={s.div}>
+        <div className={s.pieceBox}>
           <Toolbar label="Formato del texto">
             <ToolbarButton icon="format_bold" label="Negrita" pressed={formato.bold} onClick={() => alternar('bold')} />
             <ToolbarButton icon="format_italic" label="Cursiva" pressed={formato.italic} onClick={() => alternar('italic')} />
@@ -36,7 +36,7 @@ export function ToolbarStory() {
         title="Interruptor o acción"
         note="Con `pressed` el botón es un interruptor y queda marcado; sin él es algo que pasa y no queda. La diferencia se anuncia: 'negrita, activado' contra 'enlace, botón'."
       >
-        <div className={s.div2}>
+        <div className={s.toggleBox}>
           <Toolbar label="Dos clases de botón">
             <ToolbarButton icon="format_bold" label="Negrita" pressed={formato.bold} onClick={() => alternar('bold')} />
             <ToolbarButton icon="content_copy" label="Duplicar" />

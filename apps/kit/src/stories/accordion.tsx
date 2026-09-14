@@ -1,4 +1,3 @@
-import cls from './accordion.module.css'
 import { Accordion, AccordionItem } from '@milo/ui'
 import { A11y, Note, Page, Props, Section } from '../kit'
 
@@ -44,7 +43,7 @@ export function AccordionStory() {
       <Note title="Acordeón o solapas">
         Un acordeón con tres filas que siempre se abren las tres es una lista con pasos de más: eso
         es texto, no un acordeón. Y si las filas se comparan entre sí, van en
-        {' '}<a className={cls.a} href="#tabs">Tabs</a>.
+        [Tabs](#tabs).
       </Note>
 
       <Section title="Props">

@@ -25,12 +25,12 @@ type TaskListProps = {
 /** Cosas para hacer, que se marcan al hacerlas: los pasos de una entrega, lo que falta de una actividad. */
 export function TaskList({ items, onToggle, label, readOnly, className }: TaskListProps) {
   return (
-    <ul aria-label={label} className={cx(cls.ul, className)}>
+    <ul aria-label={label} className={cx(cls.root, className)}>
       {items.map(t => (
         <li key={t.id}>
-          <label className={cx(cls.label, !readOnly && cls.readOnly)}>
+          <label className={cx(cls.item, !readOnly && cls.editable)}>
             <Checkbox checked={!!t.done} disabled={readOnly} onChange={v => onToggle(t.id, v)} />
-            <span className={cx(cls.span, t.done ? cls.span2 : cls.span3)}>{t.label}</span>
+            <span className={cx(cls.text, t.done ? cls.doneText : cls.pendingText)}>{t.label}</span>
           </label>
         </li>
       ))}

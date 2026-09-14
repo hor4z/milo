@@ -1,28 +1,27 @@
 @layer milo.app {
-  .div {
+  .sizesStack {
     display: flex;
     flex-direction: column;
     gap: 1rem;
   }
 
-  .div2 {
+  .insetBox {
     border-radius: var(--radius-md);
     --milo-ring-shadow: var(--milo-ring-inset,) 0 0 0 calc(1px + var(--milo-ring-offset-width)) var(--milo-ring-color,currentcolor);
     box-shadow: var(--milo-inset-shadow),var(--milo-inset-ring-shadow),var(--milo-ring-offset-shadow),var(--milo-ring-shadow),var(--milo-shadow);
     --milo-ring-color: var(--border);
   }
 
-  .div3 {
+  .dashedStack {
     display: flex;
     flex-direction: column;
     gap: 1rem;
   }
 
-  .div4 {
+  .raisedBox {
     border-radius: var(--radius-xl);
     padding: 0.5rem;
     --milo-shadow: var(--relief-card);
     box-shadow: var(--milo-inset-shadow),var(--milo-inset-ring-shadow),var(--milo-ring-offset-shadow),var(--milo-ring-shadow),var(--milo-shadow);
   }
-
 }

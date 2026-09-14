@@ -1,5 +1,5 @@
 @layer milo.components {
-  .div {
+  .viewport {
     position: fixed;
     inset: 0;
     z-index: 40;
@@ -9,7 +9,7 @@
     padding: 1rem;
   }
 
-  .div2 {
+  .veil {
     position: absolute;
     inset: 0;
     background-color: var(--scrim);
@@ -18,7 +18,7 @@
     backdrop-filter: var(--milo-backdrop-blur,) var(--milo-backdrop-brightness,) var(--milo-backdrop-contrast,) var(--milo-backdrop-grayscale,) var(--milo-backdrop-hue-rotate,) var(--milo-backdrop-invert,) var(--milo-backdrop-opacity,) var(--milo-backdrop-saturate,) var(--milo-backdrop-sepia,);
   }
 
-  .box {
+  .panel {
     position: relative;
     z-index: 10;
     display: flex;
@@ -35,13 +35,13 @@
     --milo-ring-color: var(--border);
   }
 
-  .div3 {
+  .heading {
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
   }
 
-  .h2 {
+  .title {
     font-size: var(--type-reading);
     line-height: var(--type-reading-lh);
     letter-spacing: var(--type-reading-ls);
@@ -49,7 +49,7 @@
     color: var(--text);
   }
 
-  .div4 {
+  .text {
     font-size: var(--type-body);
     line-height: var(--type-body-lh);
     letter-spacing: var(--type-body-ls);
@@ -57,11 +57,10 @@
     color: var(--text-muted);
   }
 
-  .div5 {
+  .actions {
     display: flex;
     align-items: center;
     justify-content: flex-end;
     gap: 0.5rem;
   }
-
 }

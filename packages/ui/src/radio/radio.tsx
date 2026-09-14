@@ -35,15 +35,15 @@ export function Radio({
       onClick={onChange}
       className={cx(
         s.root,
-        s.box,
-        s.box2,
-        checked ? s.box3 : `${s.box4} inset-relief`,
+        s.motion,
+        s.disabled,
+        checked ? s.on : `${s.off} inset-relief`,
       )}
     >
       <span
         className={cx(
-          s.span,
-          checked ? s.box5 : s.box6,
+          s.dot,
+          checked ? s.dotOn : s.dotOff,
         )}
       />
     </button>
@@ -70,7 +70,7 @@ export function RadioGroup<T extends string>({
       role="radiogroup"
       aria-label={label}
       onKeyDown={roving.onKeyDown}
-      className={cx(s.div, className)}
+      className={cx(s.row, className)}
     >
       {options.map(o => (
         <Radio

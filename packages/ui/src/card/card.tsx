@@ -15,8 +15,8 @@ export function Card({ children, className, interactive, surface = 'paper' }: {
   return (
     <div
       className={cx(
-        s.div,
-        surface === 'muted' ? s.muted : `${s.div2} bg-surface`,
+        s.root,
+        surface === 'muted' ? s.muted : `${s.paper} bg-surface`,
         interactive && s.interactive,
         className,
       )}
@@ -29,7 +29,7 @@ export function Card({ children, className, interactive, surface = 'paper' }: {
 /** La cabecera de una tarjeta: el título a la izquierda, lo que haya a la derecha. */
 export function CardHeader({ className, children, ...props }: ComponentPropsWithoutRef<'div'>) {
   return (
-    <div className={cx(s.div3, className)} {...props}>
+    <div className={cx(s.header, className)} {...props}>
       {children}
     </div>
   )
@@ -37,20 +37,20 @@ export function CardHeader({ className, children, ...props }: ComponentPropsWith
 
 /** Cómo se llama lo que hay en la tarjeta. */
 export function CardTitle({ className, ...props }: ComponentPropsWithoutRef<'h3'>) {
-  return <h3 className={cx(s.h3, className)} {...props} />
+  return <h3 className={cx(s.title, className)} {...props} />
 }
 
 /** La línea de apoyo, debajo del título. */
 export function CardHint({ className, ...props }: ComponentPropsWithoutRef<'p'>) {
-  return <p className={cx(s.p, className)} {...props} />
+  return <p className={cx(s.hint, className)} {...props} />
 }
 
 /** El cuerpo, con el padding que la tarjeta no pone. */
 export function CardBody({ className, ...props }: ComponentPropsWithoutRef<'div'>) {
-  return <div className={cx(s.div4, className)} {...props} />
+  return <div className={cx(s.body, className)} {...props} />
 }
 
 /** La fila de abajo, separada por una línea. */
 export function CardFooter({ className, ...props }: ComponentPropsWithoutRef<'div'>) {
-  return <div className={cx(s.div5, className)} {...props} />
+  return <div className={cx(s.footer, className)} {...props} />
 }
