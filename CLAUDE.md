@@ -371,7 +371,7 @@ no encuentra nada.
 tag.**
 
 ```sh
-npm install "@milo/ui@git+ssh://git@github.com/educabot/milo.git#v0.1.0"
+npm install "@milo/ui@git+ssh://git@github.com/hor4z/milo.git#v0.1.0"
 ```
 
 El consumidor necesita acceso de lectura al repo: una clave SSH en la máquina, o un token en CI
@@ -662,12 +662,6 @@ un aula:
   vistas importadas de una: nada está mal, está todo junto. La salida es `lazy` por historia con
   un `Skeleton` de espera, y el costo es un parpadeo por navegación en una pantalla que hoy es
   instantánea. No se hizo porque es una decisión sobre cómo se siente el sitio y no un bug.
-- **El repo vive en una cuenta personal (`hor4z/milo`) y tiene que estar en la organización
-  `educabot`.** Ya importaba antes; ahora importa más, porque la URL del repo pasó a ser parte
-  del `package.json` de quien lo consuma y mudarla después obliga a tocar cada consumidor. El
-  camino es Settings del repo, Transfer ownership hacia `educabot`, y avisarle a
-  gonzalo@educabot.com. Hasta que eso pase, el `repository` del `package.json` y los ejemplos de
-  instalación apuntan a `educabot/milo`, que es donde tiene que quedar.
 - **El paquete no tiene un consumidor de verdad todavía.** Se verificó instalándolo en un
   proyecto de prueba desde el propio git, que es lo que prueba el `prepare` y el `files`, pero
   nadie lo importó en producción. El primero que lo haga va a encontrar lo que falte.
