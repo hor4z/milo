@@ -45,14 +45,14 @@ export function AccessibilitySection() {
       imports="import { Field, Alert } from '@milo/ui'"
     >
       <Section title="Las seis reglas">
-        <div className={cls.div}>
+        <div className={cls.specimenGrid}>
           {reglas.map(r => (
-            <div key={r.title} className={`${cls.div2} bg-surface`}>
-              <span className={`${cls.span} inset-relief`}>
+            <div key={r.title} className={`${cls.specimen} bg-surface`}>
+              <span className={`${cls.roleBadge} inset-relief`}>
                 <Icon name={r.icon} size={18} />
               </span>
-              <span className={cls.span2}>{r.title}</span>
-              <p className={cls.p}>{r.body}</p>
+              <span className={cls.specimenLabel}>{r.title}</span>
+              <p className={cls.specimenBody}>{r.body}</p>
             </div>
           ))}
         </div>
@@ -62,11 +62,11 @@ export function AccessibilitySection() {
         title="El anillo de foco"
         note="Dos píxeles de superficie y después el azul. Los dos píxeles de papel en el medio son lo que lo deja ver también sobre un botón azul, donde un anillo pegado al borde se perdería contra el relleno. Probalo: hacé Tab acá adentro."
       >
-        <div className={`${cls.div3} bg-surface`}>
+        <div className={`${cls.ringCard} bg-surface`}>
           <Button variant="solid">Guardar</Button>
           <Button variant="brand">Publicar</Button>
           <Button variant="raised">Cancelar</Button>
-          <span className={cls.span3}>
+          <span className={cls.ringNote}>
             Va con <code>:focus-visible</code> y no con <code>:focus</code>: el anillo aparece cuando
             se navega con el teclado y no cuando se clickea, que es cuando estorba y no informa.
           </span>
@@ -77,17 +77,17 @@ export function AccessibilitySection() {
         title="El tamaño del objetivo, y dónde el sistema queda corto"
         note="Es la regla que este sistema cumple más justo, así que va escrita en vez de escondida. WCAG 2.2 pide 24×24 como mínimo; Apple recomienda 44×44 para lo que se toca con el dedo."
       >
-        <div className={cls.div4}>
+        <div className={cls.targetList}>
           {[
             ['sm', 32, 'ok', 'Pasa WCAG con holgura y queda por debajo de lo que Apple recomienda. Es para una fila densa y con mouse.'],
             ['md', 36, 'ok', 'La acción dentro de un panel.'],
             ['lg', 40, 'ok', 'La acción principal. Es el que más se acerca a los 44 del dedo.'],
           ].map(([size, px, tone, nota]) => (
-            <div key={size as string} className={`${cls.div5} bg-surface`}>
-              <code className={cls.code}>{size}</code>
-              <span className={`${cls.span4} tabular`}>{px}px</span>
+            <div key={size as string} className={`${cls.targetRow} bg-surface`}>
+              <code className={cls.targetName}>{size}</code>
+              <span className={`${cls.targetValue} tabular`}>{px}px</span>
               <Chip size="sm" color={tone as 'ok'}>≥ 24</Chip>
-              <span className={cls.span5}>{nota}</span>
+              <span className={cls.targetNote}>{nota}</span>
             </div>
           ))}
         </div>
@@ -104,11 +104,11 @@ export function AccessibilitySection() {
         title="Lo obligatorio se dice con la palabra"
         note="Un asterisco es una convención que no significa nada para quien no la conoce, y un lector de pantalla lo lee como 'asterisco'. Va el asterisco para quien lo reconoce y la palabra para todos los demás."
       >
-        <div className={`${cls.div6} bg-surface`}>
+        <div className={`${cls.requiredCard} bg-surface`}>
           <Field label="Nombre de la actividad" required hint="Lo que van a ver los aprendices en su lista.">
             <TextField placeholder="Informe del experimento" />
           </Field>
-          <p className={cls.p2}>
+          <p className={cls.requiredNote}>
             El asterisco va <code>aria-hidden</code> y al lado viaja un "(obligatorio)" que solo
             existe para el lector de pantalla. Quien ve la pantalla lee la convención que ya conoce;
             quien la escucha oye la palabra y no "asterisco".
@@ -120,16 +120,16 @@ export function AccessibilitySection() {
         title="Lo urgente interrumpe, lo demás espera"
         note="Un error va como role=alert y un lector lo anuncia cortando lo que esté leyendo; todo lo demás va como role=status y espera su turno. Elegir mal es lo que hace que una confirmación de guardado le pise a alguien la frase que estaba escuchando."
       >
-        <div className={`${cls.div7} bg-surface`}>
-          <div className={cls.div8}>
-            <Icon name="error" size={16} className={cls.icon} />
-            <code className={cls.code2}>role="alert"</code>
-            <span className={cls.span6}>el error de un campo</span>
+        <div className={`${cls.liveCard} bg-surface`}>
+          <div className={cls.alertRow}>
+            <Icon name="error" size={16} className={cls.alertIcon} />
+            <code className={cls.alertRole}>role="alert"</code>
+            <span className={cls.alertExample}>el error de un campo</span>
           </div>
-          <div className={cls.div9}>
+          <div className={cls.statusRow}>
             <Icon name="info" size={16} />
-            <code className={cls.code3}>role="status"</code>
-            <span className={cls.span7}>"Guardado", "3 resultados"</span>
+            <code className={cls.statusRole}>role="status"</code>
+            <span className={cls.statusExample}>"Guardado", "3 resultados"</span>
           </div>
         </div>
       </Section>
@@ -138,15 +138,15 @@ export function AccessibilitySection() {
         title="Las salidas"
         note="Escape usa una pila global: cierra el overlay de arriba y no todos. Un menú abierto adentro de un modal se cierra solo él, y el modal queda. Sin la pila, un Escape de más te saca de la tarea entera."
       >
-        <div className={`${cls.div10} bg-surface`}>
+        <div className={`${cls.keyCard} bg-surface`}>
           <Kbd>Esc</Kbd>
-          <span className={cls.span8}>cierra lo de más arriba</span>
-          <span className={cls.span9}>·</span>
+          <span className={cls.escapeText}>cierra lo de más arriba</span>
+          <span className={cls.firstBullet}>·</span>
           <Kbd>Tab</Kbd>
-          <span className={cls.span10}>no se escapa de un diálogo abierto</span>
-          <span className={cls.span11}>·</span>
+          <span className={cls.trapText}>no se escapa de un diálogo abierto</span>
+          <span className={cls.secondBullet}>·</span>
           <Kbd>/</Kbd>
-          <span className={cls.span12}>busca, salvo que estés escribiendo</span>
+          <span className={cls.searchText}>busca, salvo que estés escribiendo</span>
         </div>
       </Section>
 
@@ -154,7 +154,7 @@ export function AccessibilitySection() {
         El blanco sobre los dos rellenos saturados no llegaba a AA: el botón <code>brand</code> iba
         de 2.89:1 arriba del degradado a 3.75:1 abajo, y el <code>bad</code> daba 3.75:1. El texto
         de un botón es de 16/600, que para WCAG no es texto grande, así que el mínimo era 4.5 y no 3.
-        Los dos rellenos ahora están <strong className={cls.strong}>anclados</strong>:
+        Los dos rellenos ahora están <strong className={cls.emphasis}>anclados</strong>:
         son el escalón donde el blanco encima llega exactamente a 4.5:1, derivado por búsqueda en
         OKLCH y no elegido mirando. El degradado del azul va de 600 a 700, así que pasa de punta a
         punta y no solo en la mitad de abajo. Hay un test que lo mide en los dos temas.

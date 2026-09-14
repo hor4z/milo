@@ -51,14 +51,14 @@ export function Documento() {
     setTareas(ts => ts.map(t => (t.id === id ? { ...t, done } : t)))
 
   return (
-    <article className={cls.article}>
-      <header className={cls.header}>
-        <div className={cls.div}>
-          <div className={cls.div2}>
-            <span className={cls.span}>Física · 5.º B · Borrador</span>
-            <h1 className={cls.h1}>Caída libre: medir g en el patio</h1>
+    <article className={cls.doc}>
+      <header className={cls.docHeader}>
+        <div className={cls.titleRow}>
+          <div className={cls.titleBlock}>
+            <span className={cls.breadcrumb}>Física · 5.º B · Borrador</span>
+            <h1 className={cls.docTitle}>Caída libre: medir g en el patio</h1>
           </div>
-          <div className={cls.div3}>
+          <div className={cls.docActions}>
             <Tooltip label="Quién puede verlo">
               <IconButton icon="group" label="Compartir" size="sm" variant="muted" />
             </Tooltip>
@@ -68,7 +68,7 @@ export function Documento() {
                 <button
                   {...p}
                   type="button"
-                  className={`${cls.button} field-focus bg-surface`}
+                  className={`${cls.insertTrigger} field-focus bg-surface`}
                 >
                   <Icon name="add" size={16} className="icon-muted" />
                   Insertar
@@ -76,7 +76,7 @@ export function Documento() {
               )}
             >
               {close => (
-                <div className={`${cls.div4} bg-popover`}>
+                <div className={`${cls.insertPanel} bg-popover`}>
                   <CommandMenu
                     autoFocus
                     groups={bloques}
@@ -88,7 +88,7 @@ export function Documento() {
           </div>
         </div>
 
-        <div className={cls.div5}>
+        <div className={cls.toolbarRow}>
           <Toolbar label="Formato del texto">
             <ToolbarButton icon="format_bold" label="Negrita" pressed={formato.bold} onClick={() => alternar('bold')} />
             <ToolbarButton icon="format_italic" label="Cursiva" pressed={formato.italic} onClick={() => alternar('italic')} />
@@ -101,15 +101,15 @@ export function Documento() {
             <ToolbarButton icon="image" label="Imagen" />
           </Toolbar>
           {ultimo && (
-            <span className={cls.span2}>
+            <span className={cls.toolbarHint}>
               Último bloque elegido: {ultimo}
             </span>
           )}
         </div>
       </header>
 
-      <div className={cls.div6}>
-        <p className={cls.p}>
+      <div className={cls.docBody}>
+        <p className={cls.intro}>
           La semana que viene medimos la aceleración de la gravedad soltando una pelota desde el
           primer piso. Traigan el celular con cronómetro. Lo arma{' '}
           <Mention name="Ana Pérez" src={face(1)} href="#mention" /> con{' '}
@@ -122,8 +122,8 @@ export function Documento() {
           abajo, a tres metros del punto de caída.
         </Callout>
 
-        <h2 className={cls.h2}>De dónde sale el número</h2>
-        <p className={cls.p2}>
+        <h2 className={cls.sourceHeading}>De dónde sale el número</h2>
+        <p className={cls.sourceText}>
           Si la pelota arranca quieta y el rozamiento del aire se puede ignorar, la altura que cae
           es la mitad de la gravedad por el tiempo al cuadrado. Así que si grafican la altura contra
           el tiempo al cuadrado les tiene que dar una recta, y la pendiente va a ser la mitad de la
@@ -136,7 +136,7 @@ export function Documento() {
 
         <Divider />
 
-        <h2 className={cls.h22}>Qué hay que entregar</h2>
+        <h2 className={cls.taskHeading}>Qué hay que entregar</h2>
         <TaskList items={tareas} onToggle={marcar} label="Lo que hay que entregar" />
 
         <Figure
@@ -147,8 +147,8 @@ export function Documento() {
           fit="contain"
         />
 
-        <h2 className={cls.h23}>Para los que quieran ir más lejos</h2>
-        <p className={cls.p3}>
+        <h2 className={cls.furtherHeading}>Para los que quieran ir más lejos</h2>
+        <p className={cls.furtherText}>
           Con el cronómetro del celular el error es grande. Se puede filmar a cámara lenta y contar
           los cuadros: a 240 por segundo, cada cuadro son cuatro milésimas.
         </p>

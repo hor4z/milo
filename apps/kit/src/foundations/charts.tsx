@@ -38,7 +38,7 @@ export function ChartsSection() {
               <TableRow key={q}>
                 <TableCell>{q}</TableCell>
                 <TableCell>{e}</TableCell>
-                <TableCell><code className={cls.code}>{p}</code></TableCell>
+                <TableCell><code className={cls.tokenName}>{p}</code></TableCell>
               </TableRow>
             ))}
           </TableBody>
@@ -49,13 +49,13 @@ export function ChartsSection() {
         title="El título dice la conclusión, no la categoría"
         note="'Entregas por día' nombra el eje y no agrega nada: eso ya está escrito abajo de las barras. El título es el lugar donde decir qué hay que mirar."
       >
-        <div className={cls.div}>
-          <div className={`${cls.div2} bg-surface`}>
-            <span className={cls.span}>El martes quedó a mitad de camino</span>
+        <div className={cls.specimenGrid}>
+          <div className={`${cls.conclusionCard} bg-surface`}>
+            <span className={cls.conclusionTitle}>El martes quedó a mitad de camino</span>
             <BarChart title="Corregidas sobre entregadas por día" data={semana} highlight={1} height={150} />
           </div>
-          <div className={cls.div3}>
-            <span className={cls.span2}>Entregas por día</span>
+          <div className={cls.categoryCard}>
+            <span className={cls.categoryTitle}>Entregas por día</span>
             <BarChart title="Entregas por día" data={semana} height={150} />
           </div>
         </div>
@@ -65,7 +65,7 @@ export function ChartsSection() {
         title="Nunca solo con color"
         note="Lo hecho es un relleno adentro de una pista, así que lo que dice cuánto es el alto y no el tono: las cinco barras son del mismo azul. Pasá el mouse por una o entrá con el teclado y vas a ver que lo que cambia es la trama y el filo, no el color; y la barra de la que habla el título se marca con el peso de su etiqueta. Quien no distingue dos azules lee el alto, y quien no ve el gráfico tiene la tabla."
       >
-        <div className={`${cls.div4} bg-surface`}>
+        <div className={`${cls.patternCard} bg-surface`}>
           <BarChart title="El miércoles se corrigió casi todo" data={semana} highlight={2} height={180} />
         </div>
       </Section>
@@ -74,8 +74,8 @@ export function ChartsSection() {
         title="Todo gráfico se puede leer sin verlo"
         note="Abajo de cada uno va la misma información como tabla, escondida para el ojo y disponible para un lector de pantalla. No es un extra: es la versión completa, y la que no miente por redondeo."
       >
-        <div className={`${cls.div5} bg-surface`}>
-          <span className={cls.span3}>Las tres cosas que trae cada gráfico</span>
+        <div className={`${cls.readableCard} bg-surface`}>
+          <span className={cls.readableTitle}>Las tres cosas que trae cada gráfico</span>
           <span>Una tabla escondida con todos los valores y los huecos marcados.</span>
           <span>Un recorrido con el teclado, que en cada paso dice dónde está y cuánto vale.</span>
           <span>Un <code>title</code> que lo nombra para quien lo escucha antes de entrar.</span>

@@ -1,10 +1,10 @@
 @layer milo.app {
-  .div {
+  .specimenGrid {
     display: grid;
     gap: 0.75rem;
   }
 
-  .div2 {
+  .specimen {
     display: flex;
     flex-direction: column;
     gap: 0.75rem;
@@ -15,7 +15,7 @@
     padding: 1.25rem;
   }
 
-  .span {
+  .roleBadge {
     display: flex;
     width: 2.25rem;
     height: 2.25rem;
@@ -25,7 +25,7 @@
     background-color: var(--surface-muted);
   }
 
-  .h2 {
+  .specimenLabel {
     font-size: var(--type-reading);
     line-height: var(--type-reading-lh);
     letter-spacing: var(--type-reading-ls);
@@ -33,7 +33,7 @@
     color: var(--text);
   }
 
-  .p {
+  .specimenBody {
     font-size: var(--type-body);
     line-height: var(--type-body-lh);
     letter-spacing: var(--type-body-ls);
@@ -41,7 +41,7 @@
     color: var(--text-muted);
   }
 
-  .pre {
+  .codeBlock {
     margin: 0;
     overflow-x: auto;
     border-radius: var(--radius-xl);
@@ -58,7 +58,7 @@
   }
 
   @media (min-width:48rem) {
-    .div {
+    .specimenGrid {
         grid-template-columns: repeat(2,minmax(0,1fr));
     }
   }

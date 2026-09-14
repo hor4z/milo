@@ -81,7 +81,7 @@ export function TimeSection() {
         title="La zona es la del curso, no la del navegador"
         note="Es el error que cuesta una entrega. Una consigna que cierra a las 23:59 en el aula cierra a las 03:59 del día siguiente para quien está dos husos al este, y el navegador se lo va a mostrar en su hora local sin avisar."
       >
-        <div className={`${cls.div} bg-surface`}>
+        <div className={`${cls.zoneCard} bg-surface`}>
           <Linea etiqueta="El mismo instante, en la zona del curso">
             {clock('2026-03-09T23:59:00-03:00', { zone: AR })} · {zoneLabel(AR, ahora)}
           </Linea>
@@ -100,14 +100,14 @@ export function TimeSection() {
         title="Lo que ve una máquina viaja con lo que ve una persona"
         note="Una fecha escrita va adentro de un `time` con su `dateTime`: ahí viaja el instante exacto en UTC, que es lo único que no depende de quién mire. Un lector de pantalla, un calendario y un buscador leen ese, no el texto."
       >
-        <div className={`${cls.div2} bg-surface`}>
-          <p className={cls.p}>
+        <div className={`${cls.machineCard} bg-surface`}>
+          <p className={cls.machineText}>
             La entrega cierra{' '}
-            <time dateTime={machineTime('2026-03-09T23:59:00-03:00')} className={cls.time}>
+            <time dateTime={machineTime('2026-03-09T23:59:00-03:00')} className={cls.machineTime}>
               el {dayAndTime('2026-03-09T23:59:00-03:00', { zone: AR })}
             </time>.
           </p>
-          <code className={cls.code}>
+          <code className={cls.machineAttr}>
             dateTime=&quot;{machineTime('2026-03-09T23:59:00-03:00')}&quot;
           </code>
         </div>
@@ -132,14 +132,14 @@ export function TimeSection() {
 }
 
 function Muestra({ children }: { children: React.ReactNode }) {
-  return <code className={cls.code2}>{children}</code>
+  return <code className={cls.tokenName}>{children}</code>
 }
 
 function Linea({ etiqueta, children }: { etiqueta: string; children: React.ReactNode }) {
   return (
-    <div className={cls.div3}>
-      <span className={cls.span}>{etiqueta}</span>
-      <span className={`${cls.span2} tabular`}>{children}</span>
+    <div className={cls.specimenRow}>
+      <span className={cls.specimenLabel}>{etiqueta}</span>
+      <span className={`${cls.monoValue} tabular`}>{children}</span>
     </div>
   )
 }

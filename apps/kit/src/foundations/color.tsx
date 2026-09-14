@@ -34,7 +34,7 @@ export function ColorSection() {
         title="Los tres"
         note="Si algo no entra en ninguno de los tres, no lleva color: lleva gris."
       >
-        <div className={cls.div}>
+        <div className={cls.headGrid}>
           <Cabeza
             titulo="Azul · el primario"
             token="--brand"
@@ -47,8 +47,8 @@ export function ColorSection() {
             token="--accent"
             linea="Señala. No es un estado: no dice que algo salió mal, dice mirá esto."
           >
-            <span className={cls.span}>
-              <span className={cls.span2} />
+            <span className={cls.accentSample}>
+              <span className={cls.accentDot} />
               Hay algo nuevo
             </span>
           </Cabeza>
@@ -57,7 +57,7 @@ export function ColorSection() {
             token="--shade-06"
             linea="Dibuja el resto: fondos, líneas, texto, iconos. Es casi todo lo que ves."
           >
-            <span className={cls.span3}>Matemática · 4.º A · 24 entregas</span>
+            <span className={cls.accentText}>Matemática · 4.º A · 24 entregas</span>
           </Cabeza>
         </div>
       </Section>
@@ -91,7 +91,7 @@ export function ColorSection() {
         note="Diez pasos derivados y no elegidos. **El 600 está anclado**: es el escalón donde el blanco encima llega exactamente a 4,5:1, y de ahí sale `--brand`."
       >
         <Ramp tokens={azul} />
-        <div className={cls.div2}>
+        <div className={cls.blueRamp}>
           <Swatch token="--brand" note="el relleno del botón que manda" />
           <Swatch token="--brand-hover" note="el mismo, un paso más" />
           <Swatch token="--brand-edge" note="el filo y el labio" />
@@ -118,7 +118,7 @@ export function ColorSection() {
         note="Es el único acento y está acotado a propósito: un punto de aviso, una marca de que algo cambió. Si empieza a aparecer en botones y en fondos, deja de señalar."
       >
         <Ramp tokens={ambar} />
-        <div className={cls.div3}>
+        <div className={cls.orangeRamp}>
           <Swatch token="--accent" note="el punto que señala" />
           <Swatch token="--accent-hover" note="el mismo, un paso más" />
           <Swatch token="--accent-subtle" note="el fondo suave" />
@@ -130,7 +130,7 @@ export function ColorSection() {
         note="Nueve pasos, y **casi** neutra: lleva C 0.0025 del tono del azul. Un gris exactamente neutro al lado de un azul saturado se ve de otro sistema; uno que se nota azul convierte una interfaz de dos colores en una de tres."
       >
         <Ramp tokens={gris} />
-        <div className={cls.div4}>
+        <div className={cls.neutralRamp}>
           <Grupo titulo="Superficies">
             <Swatch token="--canvas" note="el escritorio: la página" />
             <Swatch token="--surface" note="el papel: una tarjeta" />
@@ -165,8 +165,8 @@ export function ColorSection() {
         title="Estado"
         note="Cuatro, y ninguno viaja solo: cada uno trae su glifo y su texto, porque un color de estado sin forma no dice nada a quien no distingue colores."
       >
-        <div className={`${cls.div5} bg-surface`}>
-          <div className={cls.div6}>
+        <div className={`${cls.stateCard} bg-surface`}>
+          <div className={cls.stateRow}>
             <Chip size="sm" color="info" icon="info">En prueba</Chip>
             <Chip size="sm" color="ok" icon="check_circle">Corregida</Chip>
             <Chip size="sm" color="warn" icon="schedule">Vence mañana</Chip>
@@ -191,7 +191,7 @@ export function ColorSection() {
           y no llega: da 3,78 sobre el verde y 2,65 sobre el naranja.
         </Note>
 
-        <div className={cls.div7}>
+        <div className={cls.stateInkGrid}>
           <Swatch token="--ok" note="salió bien" />
           <Swatch token="--warn" note="cuidado" />
           <Swatch token="--bad" note="se rompió" />
@@ -205,7 +205,7 @@ export function ColorSection() {
         title="Categoría"
         note="Cuatro familias, y no se mezclan. Lo que decide cuál va no es el gusto: es **de qué tamaño es la pieza y qué se apoya encima**."
       >
-        <div className={cls.div8}>
+        <div className={cls.categoryStack}>
           <Familia
             nombre="mark"
             para="La marca de 44 de una fila, la inicial de un avatar"
@@ -242,11 +242,11 @@ export function ColorSection() {
         title="Dato"
         note="La pista es lo que había para hacer y el relleno es lo hecho. **No son los tonos de estado aunque en claro coincidan**: un tono de estado está anclado donde el blanco encima se lee, y un relleno no lleva texto encima, así que lo que necesita es despegarse de su pista."
       >
-        <div className={`${cls.div9} bg-surface`}>
+        <div className={`${cls.dataCard} bg-surface`}>
           <Progress label="Corregidas" value={18} max={24} hint="18 de 24" />
           <Progress label="Espacio usado" value={22} max={24} tone="warn" hint="22 de 24 GB" />
         </div>
-        <div className={cls.div10}>
+        <div className={cls.dataRamp}>
           <Swatch token="--track" note="lo que había para hacer" />
           <Swatch token="--chart-fill" note="lo hecho, el default" />
           <Swatch token="--chart-ok" note="lo terminado" />
@@ -261,38 +261,38 @@ export function ColorSection() {
 function Cabeza({ titulo, token, linea, children }: { titulo: string; token: string; linea: string; children: React.ReactNode }) {
   const vals = useTokens([token])
   return (
-    <div className={`${cls.div11} bg-surface`}>
-      <span className={cls.span4} style={{ background: `var(${token})` }} />
-      <div className={cls.div12}>
-        <span className={cls.span5}>{titulo}</span>
-        <code className={cls.code}>{token} · {vals[token]}</code>
+    <div className={`${cls.headCard} bg-surface`}>
+      <span className={cls.headSwatch} style={{ background: `var(${token})` }} />
+      <div className={cls.headMeta}>
+        <span className={cls.headTitle}>{titulo}</span>
+        <code className={cls.headToken}>{token} · {vals[token]}</code>
       </div>
-      <p className={cls.p}>{linea}</p>
-      <div className={cls.div13}>{children}</div>
+      <p className={cls.headNote}>{linea}</p>
+      <div className={cls.headSlot}>{children}</div>
     </div>
   )
 }
 
 function Grupo({ titulo, children }: { titulo: string; children: React.ReactNode }) {
   return (
-    <div className={cls.div14}>
-      <span className={cls.span6}>{titulo}</span>
-      <div className={cls.div15}>{children}</div>
+    <div className={cls.groupBlock}>
+      <span className={cls.groupTitle}>{titulo}</span>
+      <div className={cls.groupItems}>{children}</div>
     </div>
   )
 }
 
 function Familia({ nombre, para, linea, tokens }: { nombre: string; para: string; linea: string; tokens: readonly string[] }) {
   return (
-    <div className={`${cls.div16} bg-surface`}>
-      <div className={cls.div17}>
-        <code className={cls.code2}>{nombre}</code>
-        <span className={cls.span7}>{para}</span>
-        <p className={cls.p2}>{linea}</p>
+    <div className={`${cls.familyCard} bg-surface`}>
+      <div className={cls.familyMeta}>
+        <code className={cls.familyName}>{nombre}</code>
+        <span className={cls.familyUse}>{para}</span>
+        <p className={cls.familyNote}>{linea}</p>
       </div>
-      <div className={cls.div18}>
+      <div className={cls.familySwatches}>
         {tokens.map(t => (
-          <span key={t} className={cls.span8} style={{ background: `var(${t})` }} title={t} />
+          <span key={t} className={cls.familySwatch} style={{ background: `var(${t})` }} title={t} />
         ))}
       </div>
     </div>

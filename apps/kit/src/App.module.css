@@ -1,19 +1,19 @@
 @layer milo.app {
-  .div {
+  .shell {
     display: flex;
     min-height: 100vh;
     flex-direction: column;
     background-color: var(--canvas);
   }
 
-  .div2 {
+  .railVeil {
     position: fixed;
     inset: 0;
     z-index: 30;
     background-color: var(--veil);
   }
 
-  .nav {
+  .rail {
     position: fixed;
     top: 0;
     bottom: 0;
@@ -29,7 +29,7 @@
     background-color: var(--canvas);
   }
 
-  .box {
+  .railMotion {
     transition-property: transform,translate,scale,rotate;
     transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
     transition-duration: 150ms;
@@ -37,19 +37,19 @@
     transition-timing-function: var(--ease-out);
   }
 
-  .box2 {
+  .railOpen {
     --milo-translate-x: 0px;
     translate: var(--milo-translate-x) var(--milo-translate-y);
     --milo-shadow: var(--relief-popover);
     box-shadow: var(--milo-inset-shadow),var(--milo-inset-ring-shadow),var(--milo-ring-offset-shadow),var(--milo-ring-shadow),var(--milo-shadow);
   }
 
-  .box3 {
+  .railClosed {
     --milo-translate-x: -100%;
     translate: var(--milo-translate-x) var(--milo-translate-y);
   }
 
-  .div3 {
+  .railHead {
     display: flex;
     flex-direction: column;
     gap: 0.75rem;
@@ -58,7 +58,7 @@
     padding-bottom: 0.75rem;
   }
 
-  .box4 {
+  .brand {
     display: flex;
     align-items: baseline;
     gap: 0.5rem;
@@ -68,7 +68,7 @@
     text-align: left;
   }
 
-  .span {
+  .brandName {
     font-size: var(--type-reading);
     line-height: var(--type-reading-lh);
     letter-spacing: var(--type-reading-ls);
@@ -76,7 +76,7 @@
     color: var(--text);
   }
 
-  .span2 {
+  .brandTagline {
     font-size: var(--type-meta);
     line-height: var(--type-meta-lh);
     letter-spacing: var(--type-meta-ls);
@@ -84,21 +84,21 @@
     color: var(--text-muted);
   }
 
-  .div4 {
+  .railScroll {
     flex: 1;
     overflow-y: auto;
     padding-inline: 0.75rem;
     padding-bottom: 1rem;
   }
 
-  .div5 {
+  .navGroup {
     margin-top: 1.25rem;
     &:first-child {
       margin-top: 1rem;
     }
   }
 
-  .div6 {
+  .navGroupLabel {
     padding-inline: 0.5rem;
     padding-bottom: 0.5rem;
     font-size: var(--type-label);
@@ -109,13 +109,13 @@
     text-transform: uppercase;
   }
 
-  .div7 {
+  .navGroupItems {
     display: flex;
     flex-direction: column;
     gap: 1px;
   }
 
-  .p {
+  .railEmpty {
     padding-inline: 0.5rem;
     padding-block: 1.5rem;
     font-size: var(--type-body);
@@ -125,7 +125,7 @@
     color: var(--text-muted);
   }
 
-  .div8 {
+  .railFoot {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -137,7 +137,7 @@
     padding-block: 0.75rem;
   }
 
-  .span3 {
+  .railCount {
     font-size: var(--type-meta);
     line-height: var(--type-meta-lh);
     letter-spacing: var(--type-meta-ls);
@@ -145,7 +145,7 @@
     color: var(--text-muted);
   }
 
-  .header {
+  .topBar {
     position: sticky;
     top: 0;
     z-index: 20;
@@ -164,7 +164,7 @@
     backdrop-filter: var(--milo-backdrop-blur,) var(--milo-backdrop-brightness,) var(--milo-backdrop-contrast,) var(--milo-backdrop-grayscale,) var(--milo-backdrop-hue-rotate,) var(--milo-backdrop-invert,) var(--milo-backdrop-opacity,) var(--milo-backdrop-saturate,) var(--milo-backdrop-sepia,);
   }
 
-  .span4 {
+  .topBarTitle {
     font-size: var(--type-body);
     line-height: var(--type-body-lh);
     letter-spacing: var(--type-body-ls);
@@ -179,14 +179,14 @@
     padding-block: 2rem;
   }
 
-  .div9 {
+  .viewSlot {
     margin-inline: auto;
     display: flex;
     max-width: 980px;
     flex-direction: column;
   }
 
-  .box5 {
+  .navItem {
     display: flex;
     height: 2rem;
     width: 100%;
@@ -205,7 +205,7 @@
     transition-timing-function: var(--ease-out);
   }
 
-  .box6 {
+  .navItemActive {
     background-color: var(--brand-soft);
     font-weight: var(--font-weight-semibold);
     color: var(--brand-ink);
@@ -213,12 +213,12 @@
     box-shadow: var(--milo-inset-shadow),var(--milo-inset-ring-shadow),var(--milo-ring-offset-shadow),var(--milo-ring-shadow),var(--milo-shadow);
   }
 
-  .box7 {
+  .navItemIdle {
     font-weight: var(--font-weight-medium);
     color: var(--text);
   }
 
-  .span5 {
+  .navItemLabel {
     min-width: 0;
     flex: 1;
     text-overflow: ellipsis;
@@ -227,26 +227,26 @@
   }
 
   @media (min-width:64rem) {
-    .div {
+    .shell {
         flex-direction: row;
     }
   }
 
   @media (min-width:64rem) {
-    .div2 {
+    .railVeil {
         display: none;
     }
   }
 
   @media (min-width:64rem) {
-    .box {
+    .railMotion {
         --milo-translate-x: 0px;
         translate: var(--milo-translate-x) var(--milo-translate-y);
     }
   }
 
   @media (min-width:64rem) {
-    .header {
+    .topBar {
         display: none;
     }
   }
@@ -260,7 +260,7 @@
   }
 
   @media (hover:hover) {
-    .box7:hover {
+    .navItemIdle:hover {
         background-color: var(--surface-hover);
     }
   }

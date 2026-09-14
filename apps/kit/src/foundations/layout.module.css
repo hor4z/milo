@@ -1,5 +1,5 @@
 @layer milo.app {
-  .div {
+  .breakList {
     display: flex;
     flex-direction: column;
     overflow: hidden;
@@ -9,7 +9,7 @@
     border-color: var(--border);
   }
 
-  .div2 {
+  .breakRow {
     display: flex;
     flex-wrap: wrap;
     align-items: baseline;
@@ -26,7 +26,7 @@
     }
   }
 
-  .code {
+  .breakName {
     width: 4rem;
     flex-shrink: 0;
     font-family: var(--font-mono);
@@ -37,7 +37,7 @@
     color: var(--text);
   }
 
-  .span {
+  .breakValue {
     width: 5rem;
     flex-shrink: 0;
     font-size: var(--type-meta);
@@ -46,7 +46,7 @@
     color: var(--text-muted);
   }
 
-  .span2 {
+  .breakNote {
     min-width: 0;
     flex: 1;
     font-size: var(--type-body);
@@ -55,7 +55,7 @@
     color: var(--text-muted);
   }
 
-  .div3 {
+  .frameList {
     display: flex;
     flex-direction: column;
     overflow: hidden;
@@ -65,7 +65,7 @@
     border-color: var(--border);
   }
 
-  .div4 {
+  .frameRow {
     display: flex;
     flex-wrap: wrap;
     align-items: baseline;
@@ -82,7 +82,7 @@
     }
   }
 
-  .span3 {
+  .frameName {
     width: 12rem;
     flex-shrink: 0;
     font-size: var(--type-body);
@@ -92,7 +92,7 @@
     color: var(--text);
   }
 
-  .span4 {
+  .frameValue {
     width: 4rem;
     flex-shrink: 0;
     font-size: var(--type-body);
@@ -101,7 +101,7 @@
     color: var(--text);
   }
 
-  .span5 {
+  .frameNote {
     min-width: 0;
     flex: 1;
     font-size: var(--type-meta);
@@ -110,12 +110,12 @@
     color: var(--text-muted);
   }
 
-  .div5 {
+  .structureStack {
     display: grid;
     gap: 1rem;
   }
 
-  .div6 {
+  .structureMain {
     display: flex;
     height: 7rem;
     align-items: center;
@@ -128,7 +128,7 @@
     color: var(--text-muted);
   }
 
-  .div7 {
+  .structureAside {
     display: flex;
     height: 7rem;
     align-items: center;
@@ -141,7 +141,7 @@
   }
 
   @media (min-width:64rem) {
-    .div5 {
+    .structureStack {
         grid-template-columns: 1.55fr 1fr;
     }
   }

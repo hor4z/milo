@@ -27,12 +27,12 @@ export function MotionSection() {
         title="Dos duraciones"
         note="120, 190 y 280 milisegundos. El corte no es estético: por debajo de unos 100ms el ojo no llega a ver el movimiento y solo registra el salto; por encima de unos 250ms la interfaz empieza a hacerse esperar. Lo que pasa de ahí ya no es interfaz: es contenido que se está mostrando, y por eso tiene su propio paso. Las tres estuvieron escritas a mano con valores distintos (250, 280 y 340) hasta que se contaron."
       >
-        <div className={css.div}>
+        <div className={css.durationList}>
           {duraciones.map(d => (
-            <div key={d.name} className={`${css.div2} bg-surface`}>
-              <code className={css.code}>{d.name}</code>
-              <span className={`${css.span} tabular`}>{d.ms}ms</span>
-              <span className={css.span2}>{d.role}</span>
+            <div key={d.name} className={`${css.durationRow} bg-surface`}>
+              <code className={css.durationName}>{d.name}</code>
+              <span className={`${css.durationValue} tabular`}>{d.ms}ms</span>
+              <span className={css.durationRole}>{d.role}</span>
             </div>
           ))}
         </div>
@@ -48,12 +48,12 @@ export function MotionSection() {
         title="Salir es más corto que entrar"
         note="Abrir se mira; cerrar estorba. Lo que entra usa ease-out (arranca rápido y frena, así que la pieza está donde va antes de terminar de moverse) y lo que sale usa ease-in y se va antes."
       >
-        <div className={css.div3}>
+        <div className={css.curveList}>
           {curvas.map(c => (
-            <div key={c.name} className={`${css.div4} bg-surface`}>
-              <code className={css.code2}>{c.name}</code>
-              <code className={css.code3}>{c.value}</code>
-              <span className={css.span3}>{c.role}</span>
+            <div key={c.name} className={`${css.curveRow} bg-surface`}>
+              <code className={css.curveName}>{c.name}</code>
+              <code className={css.curveValue}>{c.value}</code>
+              <span className={css.curveRole}>{c.role}</span>
             </div>
           ))}
         </div>
@@ -65,19 +65,19 @@ export function MotionSection() {
         title="Lo que no se mueve"
         note="La lista más importante de esta vista, porque el movimiento que no está es el que nadie reclama y el que más molesta cuando aparece."
       >
-        <div className={css.div5}>
+        <div className={css.stillGrid}>
           {[
             ['Las tarjetas en hover', 'Una grilla que salta hace temblar la vista entera, y el salto no informa nada: ya sabías dónde tenías el mouse.'],
             ['Las acciones que aparecen al pasar', 'Un botón que se revela con el mouse no se descubre sin mouse, y tapa justo lo que estabas mirando.'],
             ['El contenido al cargar', 'Nada entra desde abajo ni se desvanece. El esqueleto ocupa el lugar exacto de lo que viene, así que cuando llega no se mueve nada.'],
             ['El foco', 'El anillo aparece y desaparece sin transición: es un aviso, y un aviso que tarda 190ms en verse llega tarde.'],
           ].map(([t, b]) => (
-            <div key={t} className={`${css.div6} bg-surface`}>
-              <div className={css.div7}>
-                <Icon name="close" size={14} className={css.icon} />
-                <span className={css.span4}>{t}</span>
+            <div key={t} className={`${css.stillCard} bg-surface`}>
+              <div className={css.stillHead}>
+                <Icon name="close" size={14} className={css.verdictIconBad} />
+                <span className={css.stillLabel}>{t}</span>
               </div>
-              <p className={css.p}>{b}</p>
+              <p className={css.stillBody}>{b}</p>
             </div>
           ))}
         </div>
@@ -87,17 +87,17 @@ export function MotionSection() {
         title="Apagarlo no es congelarlo"
         note="Con prefers-reduced-motion todas las animaciones se van y las transiciones bajan a un milisegundo. Pero lo que informa por moverse necesita otra salida, no la misma."
       >
-        <div className={css.div8}>
+        <div className={css.reducedList}>
           {[
             ['El spinner', 'gira lento, 2.4s por vuelta', 'Es lo único que avisa que algo está pasando: quieto no dice nada, y quieto parece colgado.'],
             ['Las carpetas', 'las hojas quedan afuera, sin abanicar', 'La información (cuántas hay) se sigue viendo, que era el punto del abanico.'],
             ['El libro', 'no rota', 'La rotación era gusto y nada más, así que se va entera.'],
             ['Todo lo demás', 'aparece y desaparece', 'Un panel que llega en 1ms sigue llegando: lo que se pierde es el recorrido, no el estado.'],
           ].map(([q, comoQueda, porque]) => (
-            <div key={q} className={`${css.div9} bg-surface`}>
-              <span className={css.span5}>{q}</span>
-              <span className={css.span6}>{comoQueda}</span>
-              <span className={css.span7}>{porque}</span>
+            <div key={q} className={`${css.reducedRow} bg-surface`}>
+              <span className={css.reducedWhat}>{q}</span>
+              <span className={css.reducedResult}>{comoQueda}</span>
+              <span className={css.reducedWhy}>{porque}</span>
             </div>
           ))}
         </div>
@@ -137,29 +137,29 @@ function Probador() {
       title="Verlo"
       note="El mismo panel con las dos duraciones. La diferencia entre 120 y 190 milisegundos parece nada escrita y se nota entera cuando algo entra en pantalla."
     >
-      <div className={`${css.div10} bg-surface`}>
-        <div className={css.div11}>
+      <div className={`${css.playground} bg-surface`}>
+        <div className={css.playgroundControls}>
           <Button variant="raised" onClick={() => setAbierto(v => !v)}>
             {abierto ? 'Cerrar' : 'Abrir'}
           </Button>
-          <span className={css.span8}>
+          <span className={css.playgroundLabel}>
             <Switch checked={lento} onChange={setLento} label="Usar la duración de panel" />
-            <button type="button" onClick={() => setLento(v => !v)} className={css.box}>
-              Usar <code className={css.code4}>--duration-normal</code>
+            <button type="button" onClick={() => setLento(v => !v)} className={css.playgroundToggle}>
+              Usar <code className={css.tokenName}>--duration-normal</code>
             </button>
           </span>
         </div>
-        <div className={css.div12}>
+        <div className={css.playgroundStage}>
           <div
             className={[
-              css.div13,
-              lento ? css.box2 : css.box3,
-              css.box4,
-              abierto ? css.box5 : css.box6,
+              css.panel,
+              lento ? css.panelSlow : css.panelFast,
+              css.panelMotion,
+              abierto ? css.panelOpen : css.panelClosed,
             ].join(' ')}
           >
-            <span className={css.span9}>Entregas sin corregir</span>
-            <p className={css.p2}>
+            <span className={css.panelTitle}>Entregas sin corregir</span>
+            <p className={css.panelText}>
               Entra con <code>ease-out</code>: arranca rápido y frena, así que llega antes de que el
               movimiento termine.
             </p>

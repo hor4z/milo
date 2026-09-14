@@ -1,17 +1,17 @@
 @layer milo.app {
-  .article {
+  .doc {
     display: flex;
     flex-direction: column;
     gap: 2rem;
   }
 
-  .header {
+  .docHeader {
     display: flex;
     flex-direction: column;
     gap: 1rem;
   }
 
-  .div {
+  .titleRow {
     display: flex;
     flex-wrap: wrap;
     align-items: flex-end;
@@ -19,14 +19,14 @@
     gap: 1rem;
   }
 
-  .div2 {
+  .titleBlock {
     display: flex;
     min-width: 0;
     flex-direction: column;
     gap: 0.5rem;
   }
 
-  .span {
+  .breadcrumb {
     font-size: var(--type-meta);
     line-height: var(--type-meta-lh);
     letter-spacing: var(--type-meta-ls);
@@ -34,7 +34,7 @@
     color: var(--text-muted);
   }
 
-  .h1 {
+  .docTitle {
     font-size: var(--type-display);
     line-height: var(--type-display-lh);
     letter-spacing: var(--type-display-ls);
@@ -42,14 +42,14 @@
     color: var(--text);
   }
 
-  .div3 {
+  .docActions {
     display: flex;
     flex-shrink: 0;
     align-items: center;
     gap: 0.5rem;
   }
 
-  .button {
+  .insertTrigger {
     display: inline-flex;
     height: 2rem;
     align-items: center;
@@ -71,7 +71,7 @@
     transition-timing-function: var(--ease-out);
   }
 
-  .div4 {
+  .insertPanel {
     width: 320px;
     overflow: hidden;
     border-radius: var(--radius-xl);
@@ -82,7 +82,7 @@
     box-shadow: var(--milo-inset-shadow),var(--milo-inset-ring-shadow),var(--milo-ring-offset-shadow),var(--milo-ring-shadow),var(--milo-shadow);
   }
 
-  .div5 {
+  .toolbarRow {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
@@ -93,7 +93,7 @@
     padding-block: 0.5rem;
   }
 
-  .span2 {
+  .toolbarHint {
     font-size: var(--type-meta);
     line-height: var(--type-meta-lh);
     letter-spacing: var(--type-meta-ls);
@@ -101,21 +101,21 @@
     color: var(--text-muted);
   }
 
-  .div6 {
+  .docBody {
     display: flex;
     max-width: 68ch;
     flex-direction: column;
     gap: 1.5rem;
   }
 
-  .p {
+  .intro {
     font-size: var(--type-reading);
     line-height: var(--type-reading-lh);
     letter-spacing: var(--type-reading-ls);
     color: var(--text);
   }
 
-  .h2 {
+  .sourceHeading {
     font-size: var(--type-title);
     line-height: var(--type-title-lh);
     letter-spacing: var(--type-title-ls);
@@ -123,14 +123,14 @@
     color: var(--text);
   }
 
-  .p2 {
+  .sourceText {
     font-size: var(--type-reading);
     line-height: var(--type-reading-lh);
     letter-spacing: var(--type-reading-ls);
     color: var(--text);
   }
 
-  .h22 {
+  .taskHeading {
     font-size: var(--type-title);
     line-height: var(--type-title-lh);
     letter-spacing: var(--type-title-ls);
@@ -138,7 +138,7 @@
     color: var(--text);
   }
 
-  .h23 {
+  .furtherHeading {
     font-size: var(--type-title);
     line-height: var(--type-title-lh);
     letter-spacing: var(--type-title-ls);
@@ -146,7 +146,7 @@
     color: var(--text);
   }
 
-  .p3 {
+  .furtherText {
     font-size: var(--type-reading);
     line-height: var(--type-reading-lh);
     letter-spacing: var(--type-reading-ls);
@@ -154,7 +154,7 @@
   }
 
   @media (hover:hover) {
-    .button:hover {
+    .insertTrigger:hover {
         background-color: var(--surface-hover);
     }
   }

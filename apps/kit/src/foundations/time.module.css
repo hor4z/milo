@@ -1,5 +1,5 @@
 @layer milo.app {
-  .div {
+  .zoneCard {
     display: flex;
     flex-direction: column;
     gap: 0.75rem;
@@ -10,7 +10,7 @@
     padding: 1.25rem;
   }
 
-  .div2 {
+  .machineCard {
     border-radius: var(--radius-xl);
     border-style: solid;
     border-width: 1px;
@@ -18,18 +18,18 @@
     padding: 1.25rem;
   }
 
-  .p {
+  .machineText {
     font-size: var(--type-reading);
     line-height: var(--type-reading-lh);
     letter-spacing: var(--type-reading-ls);
     color: var(--text);
   }
 
-  .time {
+  .machineTime {
     font-weight: var(--font-weight-semibold);
   }
 
-  .code {
+  .machineAttr {
     margin-top: 0.75rem;
     display: block;
     font-family: var(--font-mono);
@@ -39,7 +39,7 @@
     color: var(--text-muted);
   }
 
-  .code2 {
+  .tokenName {
     border-radius: var(--radius-md);
     background-color: var(--surface-muted);
     padding-inline: 0.5rem;
@@ -51,7 +51,7 @@
     color: var(--text);
   }
 
-  .div3 {
+  .specimenRow {
     display: flex;
     flex-wrap: wrap;
     align-items: baseline;
@@ -68,14 +68,14 @@
     }
   }
 
-  .span {
+  .specimenLabel {
     font-size: var(--type-body);
     line-height: var(--type-body-lh);
     letter-spacing: var(--type-body-ls);
     color: var(--text-muted);
   }
 
-  .span2 {
+  .monoValue {
     font-size: var(--type-reading);
     line-height: var(--type-reading-lh);
     letter-spacing: var(--type-reading-ls);

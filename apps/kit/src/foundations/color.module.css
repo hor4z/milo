@@ -1,10 +1,10 @@
 @layer milo.app {
-  .div {
+  .headGrid {
     display: grid;
     gap: 0.75rem;
   }
 
-  .span {
+  .accentSample {
     display: inline-flex;
     align-items: center;
     gap: 0.5rem;
@@ -15,14 +15,14 @@
     color: var(--text);
   }
 
-  .span2 {
+  .accentDot {
     width: 0.5rem;
     height: 0.5rem;
     border-radius: var(--radius-full);
     background-color: var(--accent);
   }
 
-  .span3 {
+  .accentText {
     font-size: var(--type-body);
     line-height: var(--type-body-lh);
     letter-spacing: var(--type-body-ls);
@@ -30,25 +30,25 @@
     color: var(--text-muted);
   }
 
-  .div2 {
+  .blueRamp {
     margin-top: 1rem;
     display: grid;
     gap: 1rem;
   }
 
-  .div3 {
+  .orangeRamp {
     margin-top: 1rem;
     display: grid;
     gap: 1rem;
   }
 
-  .div4 {
+  .neutralRamp {
     margin-top: 1rem;
     display: grid;
     gap: 1.25rem;
   }
 
-  .div5 {
+  .stateCard {
     display: flex;
     flex-direction: column;
     gap: 1rem;
@@ -59,26 +59,26 @@
     padding: 1.25rem;
   }
 
-  .div6 {
+  .stateRow {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
     gap: 0.5rem;
   }
 
-  .div7 {
+  .stateInkGrid {
     margin-top: 1rem;
     display: grid;
     gap: 1rem;
   }
 
-  .div8 {
+  .categoryStack {
     display: flex;
     flex-direction: column;
     gap: 0.75rem;
   }
 
-  .div9 {
+  .dataCard {
     display: flex;
     flex-direction: column;
     gap: 1rem;
@@ -89,13 +89,13 @@
     padding: 1.25rem;
   }
 
-  .div10 {
+  .dataRamp {
     margin-top: 1rem;
     display: grid;
     gap: 1rem;
   }
 
-  .div11 {
+  .headCard {
     display: flex;
     flex-direction: column;
     gap: 0.75rem;
@@ -106,7 +106,7 @@
     padding: 1.25rem;
   }
 
-  .span4 {
+  .headSwatch {
     height: 3rem;
     width: 100%;
     border-radius: var(--radius-lg);
@@ -115,13 +115,13 @@
     border-color: var(--border);
   }
 
-  .div12 {
+  .headMeta {
     display: flex;
     flex-direction: column;
     gap: 0.25rem;
   }
 
-  .span5 {
+  .headTitle {
     font-size: var(--type-reading);
     line-height: var(--type-reading-lh);
     letter-spacing: var(--type-reading-ls);
@@ -129,7 +129,7 @@
     color: var(--text);
   }
 
-  .code {
+  .headToken {
     font-family: var(--font-mono);
     font-size: var(--type-meta);
     line-height: var(--type-meta-lh);
@@ -137,7 +137,7 @@
     color: var(--text-muted);
   }
 
-  .p {
+  .headNote {
     font-size: var(--type-meta);
     line-height: var(--type-meta-lh);
     letter-spacing: var(--type-meta-ls);
@@ -145,18 +145,18 @@
     color: var(--text-muted);
   }
 
-  .div13 {
+  .headSlot {
     margin-top: auto;
     padding-top: 0.25rem;
   }
 
-  .div14 {
+  .groupBlock {
     display: flex;
     flex-direction: column;
     gap: 0.75rem;
   }
 
-  .span6 {
+  .groupTitle {
     font-size: var(--type-body);
     line-height: var(--type-body-lh);
     letter-spacing: var(--type-body-ls);
@@ -164,13 +164,13 @@
     color: var(--text);
   }
 
-  .div15 {
+  .groupItems {
     display: flex;
     flex-direction: column;
     gap: 0.75rem;
   }
 
-  .div16 {
+  .familyCard {
     display: flex;
     flex-direction: column;
     gap: 0.75rem;
@@ -181,7 +181,7 @@
     padding: 1.25rem;
   }
 
-  .div17 {
+  .familyMeta {
     display: flex;
     min-width: 0;
     flex: 1;
@@ -189,7 +189,7 @@
     gap: 0.25rem;
   }
 
-  .code2 {
+  .familyName {
     font-family: var(--font-mono);
     font-size: var(--type-body);
     line-height: var(--type-body-lh);
@@ -198,7 +198,7 @@
     color: var(--text);
   }
 
-  .span7 {
+  .familyUse {
     font-size: var(--type-meta);
     line-height: var(--type-meta-lh);
     letter-spacing: var(--type-meta-ls);
@@ -206,7 +206,7 @@
     color: var(--text);
   }
 
-  .p2 {
+  .familyNote {
     max-width: 62ch;
     font-size: var(--type-meta);
     line-height: var(--type-meta-lh);
@@ -215,14 +215,14 @@
     color: var(--text-muted);
   }
 
-  .div18 {
+  .familySwatches {
     display: flex;
     flex-shrink: 0;
     flex-wrap: wrap;
     gap: 0.5rem;
   }
 
-  .span8 {
+  .familySwatch {
     width: 2rem;
     height: 2rem;
     border-radius: var(--radius-lg);
@@ -232,67 +232,67 @@
   }
 
   @media (min-width:64rem) {
-    .div {
+    .headGrid {
         grid-template-columns: repeat(3,minmax(0,1fr));
     }
   }
 
   @media (min-width:40rem) {
-    .div2 {
+    .blueRamp {
         grid-template-columns: repeat(2,minmax(0,1fr));
     }
   }
 
   @media (min-width:64rem) {
-    .div2 {
+    .blueRamp {
         grid-template-columns: repeat(3,minmax(0,1fr));
     }
   }
 
   @media (min-width:40rem) {
-    .div3 {
+    .orangeRamp {
         grid-template-columns: repeat(2,minmax(0,1fr));
     }
   }
 
   @media (min-width:64rem) {
-    .div3 {
+    .orangeRamp {
         grid-template-columns: repeat(3,minmax(0,1fr));
     }
   }
 
   @media (min-width:64rem) {
-    .div4 {
+    .neutralRamp {
         grid-template-columns: repeat(3,minmax(0,1fr));
     }
   }
 
   @media (min-width:40rem) {
-    .div7 {
+    .stateInkGrid {
         grid-template-columns: repeat(2,minmax(0,1fr));
     }
   }
 
   @media (min-width:64rem) {
-    .div7 {
+    .stateInkGrid {
         grid-template-columns: repeat(3,minmax(0,1fr));
     }
   }
 
   @media (min-width:40rem) {
-    .div10 {
+    .dataRamp {
         grid-template-columns: repeat(2,minmax(0,1fr));
     }
   }
 
   @media (min-width:64rem) {
-    .div10 {
+    .dataRamp {
         grid-template-columns: repeat(3,minmax(0,1fr));
     }
   }
 
   @media (min-width:64rem) {
-    .div16 {
+    .familyCard {
         flex-direction: row;
         align-items: flex-start;
         gap: 1.5rem;

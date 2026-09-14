@@ -1,10 +1,10 @@
 @layer milo.app {
-  .div {
+  .specimenGrid {
     display: grid;
     gap: 0.75rem;
   }
 
-  .div2 {
+  .specimen {
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
@@ -15,7 +15,7 @@
     padding: 1.25rem;
   }
 
-  .span {
+  .roleBadge {
     margin-bottom: 0.25rem;
     display: inline-flex;
     width: 2.25rem;
@@ -25,7 +25,7 @@
     border-radius: var(--radius-sm);
   }
 
-  .span2 {
+  .specimenLabel {
     font-size: var(--type-reading);
     line-height: var(--type-reading-lh);
     letter-spacing: var(--type-reading-ls);
@@ -33,7 +33,7 @@
     color: var(--text);
   }
 
-  .p {
+  .specimenBody {
     max-width: 42ch;
     font-size: var(--type-body);
     line-height: var(--type-body-lh);
@@ -41,13 +41,13 @@
     color: var(--text-muted);
   }
 
-  .div3 {
+  .comparisonStack {
     display: flex;
     flex-direction: column;
     gap: 0.75rem;
   }
 
-  .div4 {
+  .comparison {
     overflow: hidden;
     border-radius: var(--radius-xl);
     border-style: solid;
@@ -55,7 +55,7 @@
     border-color: var(--border);
   }
 
-  .div5 {
+  .comparisonBad {
     display: flex;
     align-items: flex-start;
     gap: 0.75rem;
@@ -64,20 +64,20 @@
     padding-block: 1rem;
   }
 
-  .icon {
+  .verdictIconBad {
     margin-top: 0.125rem;
     flex-shrink: 0;
     color: var(--bad-ink);
   }
 
-  .span3 {
+  .badText {
     font-size: var(--type-body);
     line-height: var(--type-body-lh);
     letter-spacing: var(--type-body-ls);
     color: var(--bad-ink);
   }
 
-  .div6 {
+  .comparisonGood {
     display: flex;
     align-items: flex-start;
     gap: 0.75rem;
@@ -85,13 +85,13 @@
     padding-block: 1rem;
   }
 
-  .icon2 {
+  .verdictIconGood {
     margin-top: 0.125rem;
     flex-shrink: 0;
     color: var(--ok);
   }
 
-  .span4 {
+  .goodText {
     font-size: var(--type-body);
     line-height: var(--type-body-lh);
     letter-spacing: var(--type-body-ls);
@@ -99,7 +99,7 @@
     color: var(--text);
   }
 
-  .p2 {
+  .comparisonWhy {
     border-top-style: solid;
     border-top-width: 1px;
     border-color: var(--border);
@@ -111,12 +111,12 @@
     color: var(--text-muted);
   }
 
-  .div7 {
+  .personGrid {
     display: grid;
     gap: 1rem;
   }
 
-  .div8 {
+  .personCard {
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
@@ -127,7 +127,7 @@
     padding: 1.25rem;
   }
 
-  .span5 {
+  .personLabel {
     font-size: var(--type-label);
     line-height: var(--type-label-lh);
     letter-spacing: var(--type-label-ls);
@@ -135,7 +135,7 @@
     color: var(--text-muted);
   }
 
-  .p3 {
+  .personPhrase {
     min-height: 72px;
     font-size: var(--type-body);
     line-height: var(--type-body-lh);
@@ -143,7 +143,7 @@
     color: var(--text);
   }
 
-  .div9 {
+  .sampleCard {
     display: flex;
     flex-direction: column;
     gap: 1rem;
@@ -154,27 +154,27 @@
     padding: 1.25rem;
   }
 
-  .div10 {
+  .sampleRow {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
     gap: 0.75rem;
   }
 
-  .span6 {
+  .samplePerson {
     display: flex;
     align-items: center;
     gap: 0.5rem;
   }
 
-  .span7 {
+  .sampleName {
     font-size: var(--type-body);
     line-height: var(--type-body-lh);
     letter-spacing: var(--type-body-ls);
     color: var(--text);
   }
 
-  .p4 {
+  .sampleNote {
     max-width: 70ch;
     font-size: var(--type-body);
     line-height: var(--type-body-lh);
@@ -183,13 +183,13 @@
   }
 
   @media (min-width:48rem) {
-    .div {
+    .specimenGrid {
         grid-template-columns: repeat(3,minmax(0,1fr));
     }
   }
 
   @media (min-width:40rem) {
-    .div7 {
+    .personGrid {
         grid-template-columns: repeat(3,minmax(0,1fr));
     }
   }
