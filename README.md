@@ -4,16 +4,56 @@ El sistema de interfaz de **milo**: la identidad en tokens, las piezas que la us
 donde se ve todo funcionando. No es una lámina de estilos: cada pieza de acá es el componente
 real, con su teclado, sus estados y sus tests.
 
-El UI kit (las 51 piezas) es **una parte** del sistema, no el sistema. Acá adentro no vive
+El UI kit (las 63 piezas) es **una parte** del sistema, no el sistema. Acá adentro no vive
 producto: este repo es del design system y de nada más.
 
 ```sh
 npm install
 npm run dev        # el sitio · http://localhost:5190
-npm run typecheck  # todo el monorepo de una
-npm test           # 303 tests
+npm run typecheck  # el paquete y el sitio de una
+npm test           # 687 tests
+npm run build      # compila el paquete a dist/
 npm run props      # regenera la tabla de props desde los tipos
 ```
+
+## Cómo se usa desde otro proyecto
+
+El repo **es** el paquete, se llama `@milo/ui` y no está en npm: es privado y se instala
+desde GitHub, siempre clavado a un tag.
+
+```sh
+npm install "@milo/ui@git+ssh://git@github.com/educabot/milo.git#v0.1.0"
+```
+
+En `package.json` del consumidor queda así, y hace falta acceso de lectura al repo (una clave
+SSH en la máquina, o un token en CI: nunca escrito adentro del repo):
+
+```json
+{
+  "dependencies": {
+    "@milo/ui": "git+ssh://git@github.com/educabot/milo.git#v0.1.0"
+  }
+}
+```
+
+`npm install` clona, corre el `prepare` (que compila `dist/`) y lo deja instalado. React 19 y
+`react-dom` 19 son peer dependencies: los pone el consumidor.
+
+Después, en el arranque de la app, **el CSS primero y en este orden**:
+
+```ts
+import '@milo/ui/theme.css'   // las capas, los tokens, el reset y las globales
+import '@milo/ui/style.css'   // el CSS de las piezas
+import { Button, Card } from '@milo/ui'
+```
+
+`theme.css` va antes que cualquier otro estilo de la app, porque declara el orden de las capas
+y una capa vale por dónde se la declara. Y hay dos subpaths más, que usa el sitio de
+documentación y casi nadie más: `@milo/ui/props` (la tabla de props generada) y
+`@milo/ui/icons.meta` (los tags del catálogo de iconos).
+
+Para publicar una versión: `npm version <patch|minor|major>` y `git push --follow-tags`. El tag
+es el contrato; una rama no lo es.
 
 Los **fundamentos** son la capa de la que sale todo lo demás, y en el sitio van primero:
 principios · accesibilidad · tipografía · color · medidas y radios · relieve · movimiento ·
@@ -22,15 +62,18 @@ estados · iconos · cómo se escribe · inclusión.
 ## Qué hay adentro
 
 ```
-packages/tokens/   la identidad, en CSS puro: primitives · semantic · scales
-packages/ui/       el UI kit: 51 piezas, una carpeta cada una, con su test al lado
-apps/kit/          el sitio: los fundamentos y una vista por pieza
+src/               el paquete: 63 piezas, una carpeta cada una, con su test al lado
+src/styles/tokens/ la identidad, en CSS puro: primitives · semantic · scales
+src/theme.css      el orden de las capas y los tres imports
+scripts/           icons.mjs y props.mjs, las dos herramientas del paquete
+kit/               el sitio: los fundamentos y una vista por pieza
 ```
 
-El corte entre el paquete y el sitio es por dependencia: `packages/ui` no sabe que el sitio
-existe. El sitio consume las piezas como lo haría cualquier app de afuera, que es lo que lo
-vuelve una prueba de verdad y no una demo. Todo entra por `packages/ui/src/index.ts`, y hay un
-test que falla si alguien exporta algo de un archivo sin sacarlo por esa puerta.
+Un solo `package.json`, en la raíz. El sitio no es otro paquete: es una carpeta que Vite
+compila aparte y que importa `@milo/ui` por alias, así que **consume exactamente lo mismo que
+un consumidor de afuera** y sigue siendo una prueba de verdad y no una demo. Todo entra por
+`src/index.ts`, y hay un test que falla si alguien exporta algo de un archivo sin sacarlo por
+esa puerta.
 
 ## El sistema, en corto
 
@@ -46,8 +89,8 @@ test que falla si alguien exporta algo de un archivo sin sacarlo por esa puerta.
   están acotadas a una pieza cada una. Bordes y hovers en alpha, nunca gris opaco.
 - **Relieve:** cinco recetas (`raised`, `solid`, `pressed`, `inset` y la elevación en capas). El
   estado activo se marca con relieve o canto, no tiñendo el texto.
-- **Iconos:** Material Symbols Rounded, subseteado a los 160 que usamos, servido desde el repo
-  (57 KB). Se agregan con `npm run icons -w @milo/ui -- add <nombre>`, nunca a mano.
+- **Iconos:** Material Symbols Rounded, subseteado a los 172 que usamos, servido desde el repo
+  (64 KB). Se agregan con `npm run icons -- add <nombre>`, nunca a mano.
 
 El código va en inglés y los comentarios en castellano: lo que es código se escribe en inglés,
 lo que se lee (comentarios, textos de la interfaz, nombres de los tests) en castellano.

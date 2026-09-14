@@ -1,10 +1,11 @@
-import { defineConfig } from 'vitest/config'
+import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import { fileURLToPath } from 'node:url'
 
-const src = fileURLToPath(new URL('./src', import.meta.url))
+const src = fileURLToPath(new URL('../src', import.meta.url))
 
 export default defineConfig({
+  root: fileURLToPath(new URL('.', import.meta.url)),
   plugins: [react()],
   resolve: {
     alias: [
@@ -14,11 +15,5 @@ export default defineConfig({
       { find: /^@milo\/ui$/, replacement: `${src}/index.ts` },
     ],
   },
-  test: {
-    environment: 'jsdom',
-    globals: true,
-    setupFiles: ['./vitest.setup.ts'],
-    include: ['src/**/*.test.{ts,tsx}', 'kit/**/*.test.{ts,tsx}'],
-    css: false,
-  },
+  server: { port: 5190 },
 })

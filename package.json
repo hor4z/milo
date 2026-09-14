@@ -1,24 +1,56 @@
 {
-  "name": "milo-design-system",
+  "name": "@milo/ui",
+  "version": "0.1.0",
   "private": true,
   "type": "module",
-  "workspaces": [
-    "packages/*",
-    "apps/*"
+  "description": "El design system de milo: los tokens, las piezas que los usan y el sitio que las documenta.",
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/educabot/milo.git"
+  },
+  "license": "UNLICENSED",
+  "sideEffects": [
+    "*.css"
+  ],
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./style.css": "./dist/style.css",
+    "./theme.css": "./src/theme.css",
+    "./icons.meta": {
+      "types": "./dist/icons.meta.d.ts",
+      "import": "./dist/icons.meta.js"
+    },
+    "./props": {
+      "types": "./dist/props.gen.d.ts",
+      "import": "./dist/props.gen.js"
+    }
+  },
+  "files": [
+    "dist",
+    "src",
+    "!src/**/*.test.ts",
+    "!src/**/*.test.tsx",
+    "!src/__tests__"
   ],
   "scripts": {
-    "dev": "npm run dev -w @milo/kit",
-    "build": "npm run build -w @milo/kit",
+    "dev": "vite --config kit/vite.config.ts",
+    "build": "vite build && tsc -p tsconfig.build.json",
+    "prepare": "npm run build",
+    "kit": "vite build --config kit/vite.config.ts",
     "typecheck": "tsc -b",
-    "props": "npm run props -w @milo/ui",
-    "mascotas": "python3 apps/kit/scripts/mascotas.py",
-    "picos": "python3 apps/kit/scripts/picos.py",
     "test": "vitest run",
-    "test:watch": "vitest"
+    "test:watch": "vitest",
+    "props": "node scripts/props.mjs",
+    "icons": "node scripts/icons.mjs",
+    "mascotas": "python3 kit/scripts/mascotas.py",
+    "picos": "python3 kit/scripts/picos.py"
   },
-  "dependencies": {
-    "react": "^19.1.1",
-    "react-dom": "^19.1.1"
+  "peerDependencies": {
+    "react": ">=19",
+    "react-dom": ">=19"
   },
   "devDependencies": {
     "@testing-library/jest-dom": "^7.0.1",
@@ -30,6 +62,8 @@
     "@vitejs/plugin-react": "^5.0.0",
     "@vitest/coverage-v8": "^5.0.0",
     "jsdom": "^29.1.1",
+    "react": "^19.1.1",
+    "react-dom": "^19.1.1",
     "typescript": "^5.7.3",
     "vite": "^7.0.6",
     "vitest": "^5.0.0"

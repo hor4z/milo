@@ -1,6 +1,6 @@
 ---
 name: mascotas
-description: Prepara los archivos de una mascota del design system a partir de un video o una imagen con fondo, le saca el fondo, arma el retrato con alfa y el bucle animado, y los deja en apps/kit/public/mascotas. Usar cuando alguien trae un render nuevo de Otto, de Amelia o de una mascota nueva, o cuando hay que recortarle el fondo a un personaje.
+description: Prepara los archivos de una mascota del design system a partir de un video o una imagen con fondo, le saca el fondo, arma el retrato con alfa y el bucle animado, y los deja en kit/public/mascotas. Usar cuando alguien trae un render nuevo de Otto, de Amelia o de una mascota nueva, o cuando hay que recortarle el fondo a un personaje.
 ---
 
 # Mascotas
@@ -57,15 +57,15 @@ Antes de proponer una alternativa, esto ya se intentó:
    de alto con el ancho que a cada uno le toque, así que en el markup van con
    `h-*` y `w-auto`. Con un ancho fijo, dos mascotas se ven de dos tamaños.
 2. **Actualizar la sección "Los archivos"** de la vista de esa mascota en
-   `apps/kit/src/mascots/`, con las medidas y el peso reales: `lista` los
+   `kit/src/mascots/`, con las medidas y el peso reales: `lista` los
    imprime. Ya pasó que esa tabla mostrara las medidas del original y no las del
    archivo que se sirve.
 3. **Un `img` animado no se puede pausar.** Por eso `prefers-reduced-motion` no
-   lo atenúa: lo reemplaza por el retrato quieto. Usar `useQuieto` de
-   `apps/kit/src/mascots/quieto.ts`.
+   lo atenúa: lo reemplaza por el retrato quieto. Usar `useStill` de
+   `kit/src/mascots/still.ts`.
 4. **Las vistas de `mascots/` van cortas y sin doctrina de uso.** Todavía no está
    decidido si son mascotas, parte de un onboarding o algo decorativo, así que
    muestran el material (retrato, clips, archivos) y no dónde va cada cosa.
-5. Registrar la vista en `apps/kit/src/App.tsx` (el orden de las props es
+5. Registrar la vista en `kit/src/App.tsx` (el orden de las props es
    load-bearing, hay un test que lee ese archivo con un regex) y sumar el archivo
-   a la lista de `apps/kit/src/__tests__/vistas.test.ts`.
+   a la lista de `kit/src/__tests__/vistas.test.ts`.

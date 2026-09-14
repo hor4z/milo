@@ -1,7 +1,7 @@
 """Saca los picos de un audio, para dibujar la onda del `AudioPlayer`.
 
-    python3 apps/kit/scripts/picos.py consigna.mp3
-    python3 apps/kit/scripts/picos.py consigna.mp3 --barras 96
+    python3 kit/scripts/picos.py consigna.mp3
+    python3 kit/scripts/picos.py consigna.mp3 --barras 96
 
 Imprime el array para pegar en el `peaks` del componente. Se calcula acá y no en
 el navegador a propósito: hacerlo en vivo obliga a bajar el archivo entero y

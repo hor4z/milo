@@ -16,7 +16,7 @@ paso vale cuando el diff queda ahí.
 ## Hecho y verificado
 
 **La base en CSS nativo.** El reset y todo lo que el sistema define por su cuenta
-viven en `packages/ui/src/styles/`. El gris de un icono dejó de ser una
+viven en `src/styles/`. El gris de un icono dejó de ser una
 `@utility` y es una clase. Paridad: 78 de 31.368.
 
 ## Lo que la medición enseñó, y por qué el resto no es mecánico

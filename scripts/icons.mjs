@@ -19,16 +19,15 @@ import { fileURLToPath } from 'node:url'
 import { dirname, join, resolve } from 'node:path'
 
 const here = dirname(fileURLToPath(import.meta.url))
-const pkg = resolve(here, '..')
-const root = resolve(pkg, '../..')
+const root = resolve(here, '..')
 const UA = 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 Chrome/120 Safari/537.36'
 
 const P = {
-  manifest: join(pkg, 'icons.manifest.json'),
+  manifest: join(root, 'icons.manifest.json'),
   catalog: join(here, 'catalog.json'),
-  font: join(pkg, 'src/assets/material-symbols-rounded.woff2'),
-  gen: join(pkg, 'src/icons.gen.ts'),
-  meta: join(pkg, 'src/icons.meta.ts'),
+  font: join(root, 'src/assets/material-symbols-rounded.woff2'),
+  gen: join(root, 'src/icons.gen.ts'),
+  meta: join(root, 'src/icons.meta.ts'),
 }
 
 const readJSON = p => JSON.parse(readFileSync(p, 'utf8'))
@@ -200,7 +199,7 @@ function check() {
   const m = manifest()
   const enManifiesto = new Set(m.names)
   const usados = new Set()
-  for (const f of [...fuentes(join(root, 'packages')), ...fuentes(join(root, 'apps'))]) {
+  for (const f of [...fuentes(join(root, 'src')), ...fuentes(join(root, 'kit/src'))]) {
     const src = readFileSync(f, 'utf8')
     for (const re of [/\bicon(?:End)?=["']([a-z0-9_]+)["']/g, /\bname=["']([a-z0-9_]+)["']/g, /\bicon:\s*'([a-z0-9_]+)'/g]) {
       for (const mm of src.matchAll(re)) usados.add(mm[1])

@@ -35,7 +35,7 @@ export function Intro({ go, views }: { go: (id: string) => void; views: number }
             </h1>
             <p className={cls.heroLead}>
               No es una lámina de estilos: cada pieza de acá es el componente real, con su teclado, sus
-              estados y sus tests. Lo que se decide acá se porta a <code className={cls.inlineCode}>packages/ui</code>.
+              estados y sus tests. El repo entero es un paquete: <code className={cls.inlineCode}>@milo/ui</code>.
             </p>
           </Stack>
 
@@ -46,7 +46,7 @@ export function Intro({ go, views }: { go: (id: string) => void; views: number }
           </div>
 
           <dl className={cls.statList}>
-            {[[String(views), 'vistas'], ['686', 'tests'], ['172', 'iconos'], ['2', 'temas']].map(([n, l]) => (
+            {[[String(views), 'vistas'], ['687', 'tests'], ['172', 'iconos'], ['2', 'temas']].map(([n, l]) => (
               <div key={l} className={cls.statItem}>
                 <dt className={`${cls.statValue} tabular`}>{n}</dt>
                 <dd className={cls.statLabel}>{l}</dd>
@@ -137,7 +137,7 @@ export function Intro({ go, views }: { go: (id: string) => void; views: number }
         <h2 className={cls.notTitle}>Lo que no es</h2>
         <div className={cls.notGrid}>
           {[
-            ['No es una librería publicada', 'Los paquetes son privados y las apps consumen el .tsx directo, sin build intermedio.'],
+            ['No está en npm', 'El repo es privado y se instala desde GitHub por su tag. El paquete es el repo entero.'],
             ['No tiene backend', 'Nada persiste salvo las preferencias, y el tema vive en localStorage.'],
             ['No es un clon terminado', 'De la referencia salieron medidas y recetas de sombra; el resto se resolvió con criterio propio.'],
           ].map(([t, d]) => (

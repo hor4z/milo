@@ -1,9 +1,18 @@
 {
   "extends": "./tsconfig.base.json",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@milo/ui": ["./src/index.ts"],
+      "@milo/ui/icons.meta": ["./src/icons.meta.ts"],
+      "@milo/ui/props": ["./src/props.gen.ts"]
+    }
+  },
   "include": [
-    "packages/*/src",
-    "apps/*/src",
-    "apps/*/vite.config.ts",
+    "src",
+    "kit/src",
+    "kit/vite.config.ts",
+    "vite.config.ts",
     "vitest.config.ts",
     "vitest.setup.ts"
   ]
