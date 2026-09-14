@@ -4,9 +4,9 @@ import { A11y, Page, Section, Stack } from '../kit'
 import { useStill } from './still'
 
 const clips = [
-  { archivo: 'amelia-quieta', titulo: 'Quieta', nota: 'Respira. Es el único que se repite.' },
-  { archivo: 'amelia-saluda', titulo: 'Saluda', nota: 'Entra desde afuera de cuadro y se queda.' },
-  { archivo: 'amelia-trabaja', titulo: 'Trabaja', nota: 'Casco y cinta métrica.' },
+  { file: 'amelia-quieta', title: 'Quieta', note: 'Respira. Es el único que se repite.' },
+  { file: 'amelia-saluda', title: 'Saluda', note: 'Entra desde afuera de cuadro y se queda.' },
+  { file: 'amelia-trabaja', title: 'Trabaja', note: 'Casco y cinta métrica.' },
 ] as const
 
 export function AmeliaStory() {
@@ -31,17 +31,17 @@ export function AmeliaStory() {
       >
         <div className={s.clipGrid}>
           {clips.map(c => (
-            <div key={c.archivo} className={`${s.clipCard} bg-surface`}>
+            <div key={c.file} className={`${s.clipCard} bg-surface`}>
               <div className={s.clipStage}>
                 <img
-                  src={still ? '/mascotas/amelia.webp' : `/mascotas/${c.archivo}.webp`}
+                  src={still ? '/mascotas/amelia.webp' : `/mascotas/${c.file}.webp`}
                   alt=""
                   className={s.clipImage}
                 />
               </div>
               <Stack gap="xs">
-                <span className={s.clipTitle}>{c.titulo}</span>
-                <span className={s.clipNote}>{c.nota}</span>
+                <span className={s.clipTitle}>{c.title}</span>
+                <span className={s.clipNote}>{c.note}</span>
               </Stack>
             </div>
           ))}

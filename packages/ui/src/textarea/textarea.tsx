@@ -19,15 +19,15 @@ function counterText(n: number, min?: number, max?: number) {
   if (min && n > 0 && n < min) {
     const missing = min - n
     const isOne = missing === 1
-    return { text: `${isOne ? 'falta' : 'faltan'} ${missing} ${isOne ? 'carácter' : 'caracteres'}`, tono: 'bad' as const, avisa: true }
+    return { text: `${isOne ? 'falta' : 'faltan'} ${missing} ${isOne ? 'carácter' : 'caracteres'}`, tone: 'bad' as const, warns: true }
   }
-  if (max == null) return { text: `${n}`, tono: 'calmo' as const, avisa: false }
+  if (max == null) return { text: `${n}`, tone: 'calmo' as const, warns: false }
   const left = max - n
-  if (left <= 0) return { text: `${n}/${max}`, tono: 'bad' as const, avisa: true }
+  if (left <= 0) return { text: `${n}/${max}`, tone: 'bad' as const, warns: true }
   if (left <= Math.max(10, Math.round(max * 0.1))) {
-    return { text: `te quedan ${left}`, tono: 'warn' as const, avisa: true }
+    return { text: `te quedan ${left}`, tone: 'warn' as const, warns: true }
   }
-  return { text: `${n}/${max}`, tono: 'calmo' as const, avisa: false }
+  return { text: `${n}/${max}`, tone: 'calmo' as const, warns: false }
 }
 
 const counterInk = {
@@ -111,14 +111,14 @@ export function Textarea({
           id={counterId}
           className={cx(
             `${cls.counter} tabular`,
-            counterInk[counterLabel.tono],
+            counterInk[counterLabel.tone],
             resize === 'vertical' ? cls.counterResizable : '',
           )}
         >
           {counterLabel.text}
         </span>
       )}
-      <span aria-live="polite" className="sr-only">{counterLabel?.avisa ? counterLabel.text : ''}</span>
+      <span aria-live="polite" className="sr-only">{counterLabel?.warns ? counterLabel.text : ''}</span>
     </div>
   )
 }
