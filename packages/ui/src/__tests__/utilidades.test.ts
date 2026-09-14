@@ -63,6 +63,15 @@ function usadas(texto: string, alias: string) {
   return new Set([...texto.matchAll(new RegExp(`\\b${alias}\\.([A-Za-z][\\w]*)`, 'g'))].map(m => m[1]))
 }
 
+const vacios = new Set([
+  'div', 'span', 'p', 'box', 'a', 'b', 'i', 'em', 'strong', 'small',
+  'ul', 'ol', 'li', 'dl', 'dt', 'dd', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6',
+  'img', 'svg', 'br', 'hr', 'td', 'th', 'tr', 'tbody', 'thead', 'tfoot', 'col', 'colgroup',
+  'pre', 'iframe', 'fieldset',
+  'cls', 'css', 'style', 'styles', 'wrap', 'wrapper', 'inner', 'outer', 'container',
+  'el', 'elem', 'thing', 'stuff',
+])
+
 describe('el CSS del sistema se sostiene solo', () => {
   it('ningún módulo nombra un token que no existe', () => {
     const declarados = new Set([
@@ -103,6 +112,31 @@ describe('el CSS del sistema se sostiene solo', () => {
       for (const n of declaradas(f.texto)) if (!vistas.has(n)) muertas.push(`${f.nombre}: .${n}`)
     }
     expect(muertas).toEqual([])
+  })
+
+  it('kebab es de las globales: adentro de un módulo apaga a los guardianes', () => {
+    const kebab: string[] = []
+    for (const f of css) {
+      for (const b of f.texto.replace(/:global\([^)]*\)/g, '').matchAll(/([^{};]*)\{/g)) {
+        if (/@[\w-]/.test(b[1])) continue
+        for (const c of b[1].matchAll(/\.([A-Za-z][\w-]*)/g)) {
+          if (c[1].includes('-')) kebab.push(`${f.nombre}: .${c[1]}`)
+        }
+      }
+    }
+    expect([...new Set(kebab)]).toEqual([])
+  })
+
+  it('ningún nombre de clase deja de decir por qué existe la regla', () => {
+    const malos: string[] = []
+    for (const f of css) {
+      for (const n of declaradas(f.texto)) {
+        if (!/^[a-z][A-Za-z0-9]*$/.test(n)) malos.push(`${f.nombre}: .${n} no es camelCase`)
+        else if (/[0-9]$/.test(n)) malos.push(`${f.nombre}: .${n} termina en un número`)
+        else if (vacios.has(n)) malos.push(`${f.nombre}: .${n} nombra la etiqueta y no el papel`)
+      }
+    }
+    expect(malos).toEqual([])
   })
 
   it('ninguna referencia a una clase apunta a la nada', () => {

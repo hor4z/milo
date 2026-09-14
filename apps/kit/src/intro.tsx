@@ -45,7 +45,7 @@ export function Intro({ go, views }: { go: (id: string) => void; views: number }
           </div>
 
           <dl className={cls.statList}>
-            {[[String(views), 'vistas'], ['675', 'tests'], ['172', 'iconos'], ['2', 'temas']].map(([n, l]) => (
+            {[[String(views), 'vistas'], ['677', 'tests'], ['172', 'iconos'], ['2', 'temas']].map(([n, l]) => (
               <div key={l} className={cls.statItem}>
                 <dt className={`${cls.statValue} tabular`}>{n}</dt>
                 <dd className={cls.statLabel}>{l}</dd>
