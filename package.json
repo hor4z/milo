@@ -6,7 +6,7 @@
   "description": "El design system de milo: los tokens, las piezas que los usan y el sitio que las documenta.",
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@github.com/educabot/milo.git"
+    "url": "git+ssh://git@github.com/hor4z/milo.git"
   },
   "license": "UNLICENSED",
   "sideEffects": [

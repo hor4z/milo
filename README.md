@@ -22,7 +22,7 @@ El repo **es** el paquete, se llama `@milo/ui` y no está en npm: es privado y s
 desde GitHub, siempre clavado a un tag.
 
 ```sh
-npm install "@milo/ui@git+ssh://git@github.com/educabot/milo.git#v0.1.0"
+npm install "@milo/ui@git+ssh://git@github.com/hor4z/milo.git#v0.1.0"
 ```
 
 En `package.json` del consumidor queda así, y hace falta acceso de lectura al repo (una clave
@@ -31,7 +31,7 @@ SSH en la máquina, o un token en CI: nunca escrito adentro del repo):
 ```json
 {
   "dependencies": {
-    "@milo/ui": "git+ssh://git@github.com/educabot/milo.git#v0.1.0"
+    "@milo/ui": "git+ssh://git@github.com/hor4z/milo.git#v0.1.0"
   }
 }
 ```
