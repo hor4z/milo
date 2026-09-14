@@ -1,0 +1,146 @@
+@layer milo.app {
+  .claimCard {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    border-radius: var(--radius-xl);
+    border-style: solid;
+    border-width: 1px;
+    border-color: var(--border);
+    padding: 1.25rem;
+  }
+
+  .claimTitle {
+    font-size: var(--type-reading);
+    line-height: var(--type-reading-lh);
+    letter-spacing: var(--type-reading-ls);
+    font-weight: var(--font-weight-semibold);
+    color: var(--text);
+  }
+
+  .claimBody {
+    max-width: 70ch;
+    font-size: var(--type-body);
+    line-height: var(--type-body-lh);
+    letter-spacing: var(--type-body-ls);
+    font-weight: var(--font-weight-medium);
+    color: var(--text-muted);
+  }
+
+  .ruleGrid {
+    display: grid;
+    gap: 0.75rem;
+  }
+
+  .specimen {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    border-radius: var(--radius-xl);
+    border-style: solid;
+    border-width: 1px;
+    border-color: var(--border);
+    padding: 1rem;
+  }
+
+  .specimenLabel {
+    font-size: var(--type-body);
+    line-height: var(--type-body-lh);
+    letter-spacing: var(--type-body-ls);
+    font-weight: var(--font-weight-semibold);
+    color: var(--text);
+  }
+
+  .specimenBody {
+    max-width: 70ch;
+    font-size: var(--type-meta);
+    line-height: var(--type-meta-lh);
+    letter-spacing: var(--type-meta-ls);
+    font-weight: var(--font-weight-medium);
+    color: var(--text-muted);
+  }
+
+  .pairBox {
+    display: flex;
+    width: 420px;
+    flex-direction: column;
+  }
+
+  .comparison {
+    overflow: hidden;
+    border-radius: var(--radius-xl);
+    border-style: solid;
+    border-width: 1px;
+    border-color: var(--border);
+  }
+
+  .comparisonBad {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
+    border-color: var(--border);
+    padding-inline: 1rem;
+    padding-block: 0.75rem;
+  }
+
+  .comparisonGood {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    padding-inline: 1rem;
+    padding-block: 0.75rem;
+  }
+
+  .verdictIconBad {
+    margin-top: 1px;
+    flex-shrink: 0;
+    color: var(--bad);
+  }
+
+  .verdictIconGood {
+    margin-top: 1px;
+    flex-shrink: 0;
+    color: var(--ok);
+  }
+
+  .badText {
+    font-size: var(--type-body);
+    line-height: var(--type-body-lh);
+    letter-spacing: var(--type-body-ls);
+    font-weight: var(--font-weight-medium);
+    color: var(--text-muted);
+  }
+
+  .goodBlock {
+    display: flex;
+    min-width: 0;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .goodText {
+    font-size: var(--type-body);
+    line-height: var(--type-body-lh);
+    letter-spacing: var(--type-body-ls);
+    font-weight: var(--font-weight-semibold);
+    color: var(--text);
+  }
+
+  .goodWhy {
+    max-width: 70ch;
+    font-size: var(--type-meta);
+    line-height: var(--type-meta-lh);
+    letter-spacing: var(--type-meta-ls);
+    font-weight: var(--font-weight-medium);
+    color: var(--text-muted);
+  }
+
+  @media (min-width:40rem) {
+    .ruleGrid {
+        grid-template-columns: repeat(2,minmax(0,1fr));
+    }
+  }
+
+}

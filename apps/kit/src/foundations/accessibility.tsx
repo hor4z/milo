@@ -75,13 +75,13 @@ export function AccessibilitySection() {
 
       <Section
         title="El tamaño del objetivo, y dónde el sistema queda corto"
-        note="Es la regla que este sistema cumple más justo, así que va escrita en vez de escondida. WCAG 2.2 pide 24×24 como mínimo; Apple recomienda 44×44 para lo que se toca con el dedo."
+        note="Es la regla que este sistema cumple más justo, así que va escrita en vez de escondida. WCAG 2.2 pide 24×24 como mínimo. Apple tiene dos números y no uno: 44×44 es su tamaño **por defecto** y 28×28 su mínimo, y aclara que el aire entre controles importa tanto como el tamaño."
       >
         <Stack>
           {[
-            ['sm', 32, 'ok', 'Pasa WCAG con holgura y queda por debajo de lo que Apple recomienda. Es para una fila densa y con mouse.'],
+            ['sm', 32, 'ok', 'Pasa WCAG con holgura y está sobre el mínimo de Apple, debajo de su default. Es para una fila densa y con mouse.'],
             ['md', 36, 'ok', 'La acción dentro de un panel.'],
-            ['lg', 40, 'ok', 'La acción principal. Es el que más se acerca a los 44 del dedo.'],
+            ['lg', 40, 'ok', 'La acción principal. En táctil los tres suben a 40 y llevan un blanco de 44.'],
           ].map(([size, px, tone, nota]) => (
             <div key={size as string} className={`${cls.targetRow} bg-surface`}>
               <code className={cls.targetName}>{size}</code>
@@ -91,12 +91,15 @@ export function AccessibilitySection() {
             </div>
           ))}
         </Stack>
-        <Note icon="warning" title="La deuda, dicha en voz alta">
-          Ninguna altura llega a los 44×44 que Apple recomienda para el dedo. En un panel docente con
-          mouse eso está bien; en una tablet de aula, el <code>sm</code> de 32 es chico. La salida no
-          es agrandar los tres (la densidad es real y hace falta) sino decidir que en táctil el piso
-          es <code>lg</code>. No está hecho: hoy la elección del tamaño la hace cada call site sin
-          saber con qué se va a tocar.
+        <Note title="Qué pasa en táctil">
+          Con <code>pointer: coarse</code> los botones suben a 40 y llevan encima la clase global
+          <code>touch-target</code>, que agranda el blanco de toque hasta 44 sin mover la caja; los
+          campos suben la caja a 44 de verdad, porque ahí el tap tiene que llegar al input. En
+          escritorio no cambia un píxel. Falta el resto de las piezas: el checkbox y el radio de 18,
+          el switch de 22, el tachito de un chip de 24. Varias son compactas a propósito, así que
+          subirlas es una decisión sobre cómo se siente el sistema en un teléfono, y no un arreglo.
+          Y ojo con el aire: Apple dice que la separación entre controles pesa tanto como el tamaño,
+          así que agrandar dos blancos vecinos sin mirar el gap los hace pisarse.
         </Note>
       </Section>
 

@@ -16,6 +16,9 @@ import { InclusionSection } from './foundations/inclusion'
 import { NumbersSection } from './foundations/numbers'
 import { RolesSection } from './foundations/roles'
 import { SoundSection } from './foundations/sound'
+import { MediaSection } from './foundations/media'
+import { WaysSection } from './foundations/ways'
+import { AiSection } from './foundations/ai'
 import { TimeSection } from './foundations/time'
 import { AudioPlayerStory } from './stories/audio-player'
 import { ChartsSection } from './foundations/charts'
@@ -102,8 +105,11 @@ const groups: Group[] = [
       { id: 'icon', label: 'Iconos', alias: 'iconos glifos símbolos', render: () => <IconStory /> },
       { id: 'charts', label: 'Gráficos', alias: 'gráficos datos barras línea ejes leyenda visualización', render: () => <ChartsSection /> },
       { id: 'time', label: 'Fecha y hora', alias: 'fecha hora tiempo zona huso timezone reloj duración vencimiento relativo formato', render: () => <TimeSection /> },
+      { id: 'media', label: 'Medios', alias: 'medios imagen video audio animación multimedia subtítulos leyendas audiodescripción transcripción alt proporción autoplay peso', render: () => <MediaSection /> },
+      { id: 'ways', label: 'Más de una forma', alias: 'formas aprender aprendizaje estilos visual auditivo kinestésico repetición preferencia elección modalidad multimodal', render: () => <WaysSection /> },
       { id: 'sound', label: 'Voz y sonido', alias: 'voz sonido audio velocidad volumen silencio subtítulos transcripción escuchar lectura hablada', render: () => <SoundSection /> },
       { id: 'numbers', label: 'Números y valores', alias: 'números cifras decimales coma porcentaje unidades tamaño rango cantidades tabular', render: () => <NumbersSection /> },
+      { id: 'ai', label: 'Cuando responde la IA', alias: 'ia inteligencia artificial modelo generativa chatbot sugerencia alucinación deshacer atribución transparencia', render: () => <AiSection /> },
       { id: 'writing', label: 'Cómo se escribe', alias: 'texto redacción copy mensajes tono escritura', render: () => <Writing /> },
       { id: 'inclusion', label: 'Inclusión', alias: 'inclusión género lenguaje nombres personas diversidad edtech', render: () => <InclusionSection /> },
     ],
