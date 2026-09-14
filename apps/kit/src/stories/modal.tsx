@@ -1,6 +1,5 @@
-import cls from './modal.module.css'
 import { useState } from 'react'
-import { Button, Modal, SettingsModal } from '@milo/ui'
+import { Button, Modal, ModalBody, ModalFooter, ModalHint, ModalTitle, SettingsModal } from '@milo/ui'
 import { A11y, Cluster, Demo, Footnote, Page, Props, Section } from '../kit'
 
 export function ModalStory() {
@@ -13,7 +12,7 @@ export function ModalStory() {
       title="Modal"
       lead="El backdrop es blur de 3px más una capa que atenúa en vez de lavar: 14% en claro y 55% en oscuro, porque sobre un fondo ya oscuro un velo tenue no se ve. En los dos casos el contexto de abajo se sigue leyendo y el modal no se siente un cambio de página. El bloqueo de scroll compensa el ancho de la scrollbar, porque sin eso la página salta a la derecha justo al abrir."
       kind="Superficies"
-      imports="import { Modal } from '@milo/ui'"
+      imports="import { Modal, ModalBody, ModalTitle, ModalHint, ModalFooter } from '@milo/ui'"
     >
       <Section
         title="Vivo"
@@ -23,31 +22,31 @@ export function ModalStory() {
           <Demo label="width 620">
             <Button variant="raised" onClick={() => setOpen(true)}>Abrir modal</Button>
             <Modal open={open} onClose={() => setOpen(false)} label="Ejemplo" width={620}>
-              <div className={cls.wideBody}>
-                <div className={cls.wideTitle}>Un modal de 620</div>
-                <p className={cls.wideText}>
+              <ModalBody>
+                <ModalTitle>Un modal de 620</ModalTitle>
+                <ModalHint>
                   Probá Escape, y probá hacer scroll en la página de atrás: está bloqueado, y no hay
                   salto lateral al abrir.
-                </p>
-                <div className={cls.wideActions}>
+                </ModalHint>
+                <ModalFooter>
                   <Button variant="ghost" onClick={() => setOpen(false)}>Cancelar</Button>
                   <Button variant="solid" onClick={() => setOpen(false)}>Entendido</Button>
-                </div>
-              </div>
+                </ModalFooter>
+              </ModalBody>
             </Modal>
           </Demo>
 
           <Demo label="width 420">
             <Button variant="raised" onClick={() => setNarrowOpen(true)}>Confirmación</Button>
             <Modal open={narrowOpen} onClose={() => setNarrowOpen(false)} label="Confirmar" width={420}>
-              <div className={cls.narrowBody}>
-                <div className={cls.narrowTitle}>¿Eliminar la actividad?</div>
-                <p className={cls.narrowText}>Se va a borrar para todo el equipo.</p>
-                <div className={cls.narrowActions}>
+              <ModalBody>
+                <ModalTitle>¿Eliminar la actividad?</ModalTitle>
+                <ModalHint>Se va a borrar para todo el equipo.</ModalHint>
+                <ModalFooter>
                   <Button variant="ghost" size="sm" onClick={() => setNarrowOpen(false)}>Cancelar</Button>
                   <Button variant="bad" size="sm" onClick={() => setNarrowOpen(false)}>Eliminar</Button>
-                </div>
-              </div>
+                </ModalFooter>
+              </ModalBody>
             </Modal>
           </Demo>
         </Cluster>
@@ -82,7 +81,7 @@ export function ModalStory() {
       </Section>
 
       <Section title="Props">
-        <Props of="Modal" />
+        <Props of={['Modal', 'ModalBody', 'ModalTitle', 'ModalHint', 'ModalFooter']} />
       </Section>
 
       <Section title="Accesibilidad">

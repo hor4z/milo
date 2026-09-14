@@ -1,9 +1,10 @@
 import s from './modal.module.css'
-import { useRef, type ReactNode } from 'react'
+import { useRef, type ComponentPropsWithoutRef, type ReactNode } from 'react'
 import { IconButton } from '../icon-button/icon-button'
 import { useEscape } from '../lib/esc'
 import { useFocusTrap, useScrollLock } from '../lib/overlay-hooks'
 import { Portal } from '../portal/portal'
+import { cx } from '../lib/cx'
 
 export function Modal({
   open, onClose, children, width = 620, label,
@@ -49,4 +50,26 @@ export function Modal({
       </div>
     </Portal>
   )
+}
+
+type ParteProps = ComponentPropsWithoutRef<'div'>
+
+/** El cuerpo del modal, con su aire. Sin esto el contenido queda pegado al borde del panel. */
+export function ModalBody({ className, ...rest }: ParteProps) {
+  return <div className={cx(s.body, className)} {...rest} />
+}
+
+/** El título, del mismo tamaño que el del `Sheet` y el del `ConfirmDialog`: un diálogo tiene un solo título. */
+export function ModalTitle({ className, ...rest }: ParteProps) {
+  return <div className={cx(s.title, className)} {...rest} />
+}
+
+/** La línea de apoyo debajo del título, en gris. */
+export function ModalHint({ className, ...rest }: ParteProps) {
+  return <div className={cx(s.hint, className)} {...rest} />
+}
+
+/** La fila de acciones, contra el borde derecho. */
+export function ModalFooter({ className, ...rest }: ParteProps) {
+  return <div className={cx(s.footer, className)} {...rest} />
 }

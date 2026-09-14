@@ -129,6 +129,20 @@
     color: var(--text-muted);
   }
 
+  .alignRight {
+    text-align: right;
+  }
+
+  .fitCell {
+    width: 0;
+    padding-right: 1rem;
+  }
+
+  .emptyCell {
+    padding-inline: 1.5rem;
+    padding-block: 2.5rem;
+  }
+
   .numberCell {
     height: 3.5rem;
     padding-inline: 1rem;

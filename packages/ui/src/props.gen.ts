@@ -1548,6 +1548,26 @@ export const propsByComponent: Record<string, ComponentDoc> = {
       }
     ]
   },
+  "ModalBody": {
+    "props": [],
+    "html": "div",
+    "doc": "El cuerpo del modal, con su aire. Sin esto el contenido queda pegado al borde del panel."
+  },
+  "ModalTitle": {
+    "props": [],
+    "html": "div",
+    "doc": "El título, del mismo tamaño que el del `Sheet` y el del `ConfirmDialog`: un diálogo tiene un solo título."
+  },
+  "ModalHint": {
+    "props": [],
+    "html": "div",
+    "doc": "La línea de apoyo debajo del título, en gris."
+  },
+  "ModalFooter": {
+    "props": [],
+    "html": "div",
+    "doc": "La fila de acciones, contra el borde derecho."
+  },
   "NavItemBody": {
     "props": [
       {
@@ -2552,6 +2572,12 @@ export const propsByComponent: Record<string, ComponentDoc> = {
         "name": "className",
         "type": "string",
         "required": false
+      },
+      {
+        "name": "align",
+        "type": "Align",
+        "required": false,
+        "doc": "A la derecha cuando la columna es de números, para que el encabezado caiga sobre ellos."
       }
     ],
     "html": "th",
@@ -2568,10 +2594,43 @@ export const propsByComponent: Record<string, ComponentDoc> = {
         "name": "className",
         "type": "string",
         "required": false
+      },
+      {
+        "name": "align",
+        "type": "Align",
+        "required": false,
+        "doc": "A la derecha cuando lo que lleva se compara hacia abajo."
+      },
+      {
+        "name": "fit",
+        "type": "boolean",
+        "required": false,
+        "doc": "La columna se achica a lo que lleva adentro: para la de acciones, que va al borde."
       }
     ],
     "html": "td",
     "doc": "Una celda: 12/500, con el alto de fila de 56."
+  },
+  "TableEmpty": {
+    "props": [
+      {
+        "name": "children",
+        "type": "ReactNode",
+        "required": false
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "required": false
+      },
+      {
+        "name": "colSpan",
+        "type": "number",
+        "required": true,
+        "doc": "Cuántas columnas tiene la tabla ahora mismo: la tabla no las sabe contar sola."
+      }
+    ],
+    "doc": "La fila entera cuando no hay ninguna: adentro va un `EmptyState`."
   },
   "TableTitle": {
     "props": [

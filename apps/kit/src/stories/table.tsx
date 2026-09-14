@@ -5,7 +5,7 @@ import {
   Search, IconButton,
   Pagination, PaginationNext, PaginationPrev, PaginationStatus,
   Table, TableBody, TableCell, TableFooter, TableHead, TableHeader,
-  TableHint, TableNum, TableRow, TableTitle, facets, fold, timeAgo,
+  TableEmpty, TableHint, TableNum, TableRow, TableTitle, facets, fold, timeAgo,
 } from '@milo/ui'
 import { A11y, Footnote, Mono, Page, Props, Section, Stack } from '../kit'
 
@@ -126,7 +126,7 @@ export function TableStory() {
     <Page
       title="Table"
       kind="Datos"
-      imports="import { Table, TableHeader, TableRow, TableCell } from '@milo/ui'"
+      imports="import { Table, TableCell, TableEmpty, TableHeader, TableRow } from '@milo/ui'"
       lead="Piezas que se arman, no un componente que recibe `columns` y `rows`. Una tabla de datos y una de personas con un grupo de avatares y un menú al final no comparten nada más que la grilla, y una API de columnas termina con un `render` por columna: el mismo JSX, pero metido en un objeto y sin poder leerlo de arriba abajo."
     >
       <Section
@@ -187,8 +187,8 @@ export function TableStory() {
               {view('estudiantes') && <TableHead>Estudiantes</TableHead>}
               {view('docente') && <TableHead>Docente</TableHead>}
               {view('estado') && <TableHead>Estado</TableHead>}
-              {view('corregidas') && <TableHead className={cls.doneHead}>Corregidas</TableHead>}
-              {view('entregas') && <TableHead className={cls.handedHead}>Entregas</TableHead>}
+              {view('corregidas') && <TableHead align="right">Corregidas</TableHead>}
+              {view('entregas') && <TableHead align="right">Entregas</TableHead>}
               {view('acciones') && <TableHead><span className="sr-only">Acciones</span></TableHead>}
             </TableRow>
           </TableHeader>
@@ -216,7 +216,7 @@ export function TableStory() {
                 )}
                 {view('entregas') && <TableNum>{a.total || '-'}</TableNum>}
                 {view('acciones') && (
-                <TableCell className={cls.actionsCell}>
+                <TableCell fit>
                   <Dropdown
                     items={[
                       { label: 'Abrir', icon: 'open_in_new' },
@@ -239,17 +239,15 @@ export function TableStory() {
               </TableRow>
             ))}
             {onScreen.length === 0 && (
-              <tr>
-                <td colSpan={visible.length} className={cls.emptyCell}>
-                  <EmptyState
-                    size="sm"
-                    icon="search_off"
-                    title="Ninguna actividad con eso"
-                    body="Probá con otras palabras, o sacá alguno de los filtros puestos."
-                    action={<FilterReset onClick={clear}>Limpiar los filtros</FilterReset>}
-                  />
-                </td>
-              </tr>
+              <TableEmpty colSpan={visible.length}>
+                <EmptyState
+                  size="sm"
+                  icon="search_off"
+                  title="Ninguna actividad con eso"
+                  body="Probá con otras palabras, o sacá alguno de los filtros puestos."
+                  action={<FilterReset onClick={clear}>Limpiar los filtros</FilterReset>}
+                />
+              </TableEmpty>
             )}
           </TableBody>
           {onScreen.length > 0 && (
@@ -277,7 +275,7 @@ export function TableStory() {
               <TableHead>Actividad</TableHead>
               <TableHead>Estudiantes</TableHead>
               <TableHead>Estado</TableHead>
-              <TableHead className={cls.pieceHead}>Entregas</TableHead>
+              <TableHead align="right">Entregas</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
@@ -340,7 +338,7 @@ export function TableStory() {
       </Section>
 
       <Section title="Props">
-        <Props of={['Table', 'TableRow', 'Avatar', 'AvatarGroup']} />
+        <Props of={['Table', 'TableRow', 'TableHead', 'TableCell', 'TableEmpty', 'Avatar', 'AvatarGroup']} />
       </Section>
 
       <Section title="Accesibilidad">
