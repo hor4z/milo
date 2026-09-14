@@ -70,7 +70,7 @@ export function ToolbarButton({ icon, label, pressed, disabled, onClick }: {
       onClick={onClick}
       tabIndex={-1}
       className={cx(
-        s.button,
+        `${s.button} touch-target`,
         s.disabled,
         pressed ? s.buttonOn : s.buttonOff,
       )}

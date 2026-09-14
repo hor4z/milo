@@ -46,7 +46,7 @@ export function Stepper({
     <div
       style={{ width }}
       className={cx(
-        `${cls.root} field`,
+        `${cls.root} field touch-target`,
         disabled && cls.disabled,
       )}
     >
@@ -91,7 +91,7 @@ function Paso({ icon, label, onClick, disabled }: {
       aria-label={label}
       disabled={disabled}
       onClick={onClick}
-      className={cls.step}
+      className={`${cls.step} touch-target`}
     >
       <Icon name={icon} size={16} className="icon-muted" />
     </button>

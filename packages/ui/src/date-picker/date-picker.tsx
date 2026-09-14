@@ -141,7 +141,7 @@ export function DatePicker({ value, onChange, min, max, placeholder = 'Elegir fe
         {...field}
         onClick={() => setOpen(o => !o)}
         style={{ width }}
-        className={`${cls.root} field-focus`}
+        className={`${cls.root} field-focus touch-target`}
       >
         <span className={cx(cls.value, !value && cls.placeholder)}>
           {value ? enPalabras(value) : placeholder}

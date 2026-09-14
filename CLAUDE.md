@@ -85,6 +85,11 @@ El corolario que cuesta ver: una clase global de `base.css` va sin capa, así qu
 cualquier módulo. Cuando las dos tienen que convivir (el anillo de un avatar sobre el relieve de
 `.mark`) la receta se compone en `base.css`, no se pelea desde el módulo.
 
+`touch-target` es la otra clase que no dibuja nada: con `pointer: coarse` le agranda a un control
+el blanco de toque hasta 44×44 con un `::after`, sin mover la caja. Así la densidad de escritorio
+queda intacta y el dedo igual encuentra el control. La pone la pieza, no el call site, porque es la
+pieza la que sabe de qué tamaño es.
+
 `.group` y `.peer` son las dos únicas clases que no dibujan nada: existen para que un módulo
 pueda colgar de ellas con `:global(.group)` y estilar a un hijo según el estado del padre, que es
 lo único que un módulo no puede expresar solo.
@@ -551,15 +556,15 @@ un aula:
 - **Props que le faltan a dos piezas, y que las historias suplen con CSS.** `Table` no tiene
   `align="right"` ni columna de acciones, y `Modal` no tiene `ModalHeader`/`Body`/`Footer` como sí
   tiene `Card`: la historia del modal construye el interior entero a mano.
-- **El glifo de play del `AudioPlayer` tenía que ir relleno y nunca lo fue.** La regla estaba
-  escrita, anidada adentro del módulo, y por dos motivos distintos no aplicó nunca: primero porque
-  `.ms-icon` adentro de un módulo se hashea, y después, ya corregida con `:global`, porque el
-  `.ms-icon` de `theme.css` va **sin capa** y le gana a cualquier módulo. La regla se sacó. Si se
-  quiere el relleno, el sistema ya tiene la herramienta: la clase global `icon-filled`.
-- **El `sm` de 32 no llega a los 44×44 que Apple pide para el dedo.** Pasa WCAG 2.2 (24×24) con
-  holgura y se queda corto en táctil, que es media flota de un aula. La salida no es agrandar los
-  tres (la densidad es real) sino decidir que en táctil el piso es `lg`; hoy el tamaño lo elige
-  cada call site sin saber con qué se va a tocar. Está escrito en Fundamentos › Accesibilidad.
+- **La familia de controles ya llega a 44×44 en táctil; el resto de las piezas no.** Con
+  `pointer: coarse` el piso sube a `lg` y encima va la clase global `touch-target`, que agranda el
+  blanco de toque a 44 sin mover la caja, así que en escritorio no cambia un píxel. Lo tienen
+  `Button`, `IconButton`, `ToolbarButton`, `TextField`, `Textarea`, `Select`, `DatePicker` y
+  `Stepper`. **Lo que falta, medido**: `Checkbox` y `Radio` de 18, `Switch` de 22, el tachito de
+  `Chip` de 24 y el de `Search` de 24, el eslabón de `Breadcrumb` de 24, las opciones de
+  `Segmented` de 28 a 32, y las solapas de `Tabs` y los ítems de `Menu` de 36 a 40. Esas no son
+  una omisión: varias son compactas a propósito, así que subirlas es una decisión sobre cómo se
+  siente el sistema en un teléfono y no un arreglo. Está escrito en Fundamentos › Accesibilidad.
 - **Recuperar `ss04` y el cero barrado** pide auto-alojar Inter: 69 KB subseteada a latín, con la
   receta de `pyftsubset` anotada. Se eligió el CDN; si algún día una red escolar filtra Google
   Fonts, la decisión se da vuelta y el trabajo ya está pensado.
