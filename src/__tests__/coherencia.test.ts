@@ -27,6 +27,17 @@ describe('coherencia del sistema', () => {
     expect(offenders).toEqual([])
   })
 
+  it('una pieza con escalera de tamaños arranca en md', () => {
+    const offenders: string[] = []
+    for (const f of sources) {
+      if (!/\bsize\?:\s*(?:'\w+'\s*\|\s*)*'md'/.test(f.text)) continue
+      for (const m of f.text.matchAll(/\bsize\s*=\s*'(\w+)'/g)) {
+        if (m[1] !== 'md') offenders.push(`${f.name}: size = '${m[1]}'`)
+      }
+    }
+    expect(offenders).toEqual([])
+  })
+
   it('los radios salen de la escala 6·10·12·16·24', () => {
     const offenders = sources
       .filter(f => /rounded-\[/.test(f.text))

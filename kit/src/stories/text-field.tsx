@@ -40,7 +40,7 @@ export function TextFieldStory() {
 
       <Section
         title="El click y el foco"
-        note="El input tapa la caja entera: mide lo que mide su línea de texto (16px) y adentro de una caja de 40 dejaba 12 muertos arriba y abajo, así que media caja no recibía el click. El anillo de foco es del campo y no del input: si no, queda un rectángulo flotando adentro."
+        note="El input tapa la caja entera: mide lo que mide su línea de texto (16px) y adentro de una caja de 44 dejaba 14 muertos arriba y abajo, así que media caja no recibía el click. El anillo de foco es del campo y no del input: si no, queda un rectángulo flotando adentro."
       >
         <Cluster>
           <Demo width="sm" fill label="con botón adentro">

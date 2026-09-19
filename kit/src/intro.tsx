@@ -40,9 +40,9 @@ export function Intro({ go, views }: { go: (id: string) => void; views: number }
           </Stack>
 
           <div className={cls.heroActions}>
-            <Button variant="solid" icon="arrow_forward" onClick={() => go('principles')}>Ver los principios</Button>
-            <Button variant="raised" icon="dashboard" onClick={() => go('dashboard')}>Ver el dashboard</Button>
-            <Button variant="raised" icon="description" onClick={() => go('documento')}>Ver un documento</Button>
+            <Button variant="solid" iconStart={<Icon name="arrow_forward" />} onClick={() => go('principles')}>Ver los principios</Button>
+            <Button variant="muted" iconStart={<Icon name="dashboard" />} onClick={() => go('dashboard')}>Ver el dashboard</Button>
+            <Button variant="muted" iconStart={<Icon name="description" />} onClick={() => go('documento')}>Ver un documento</Button>
           </div>
 
           <dl className={cls.statList}>
@@ -84,7 +84,7 @@ export function Intro({ go, views }: { go: (id: string) => void; views: number }
               es un bug del sistema y no de la pantalla.
             </p>
           </Stack>
-          <Button size="sm" variant="ghost" iconEnd="chevron_right" onClick={() => go('button')}>Ver todas</Button>
+          <Button size="sm" variant="ghost" iconEnd={<Icon name="chevron_right" />} onClick={() => go('button')}>Ver todas</Button>
         </div>
 
         <div className={cls.showcaseGrid}>

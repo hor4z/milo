@@ -139,7 +139,7 @@ function Playground() {
     >
       <div className={`${css.playground} bg-surface`}>
         <div className={css.playgroundControls}>
-          <Button variant="raised" onClick={() => setAbierto(v => !v)}>
+          <Button variant="muted" onClick={() => setAbierto(v => !v)}>
             {abierto ? 'Cerrar' : 'Abrir'}
           </Button>
           <span className={css.playgroundLabel}>

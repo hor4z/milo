@@ -1,5 +1,33 @@
-import { Button } from '@milo/ui'
-import { A11y, Cluster, Demo, Page, Panel, Props, Section, Variant } from '../kit'
+import { Button, Icon } from '@milo/ui'
+import { useEffect, useRef, useState } from 'react'
+import { A11y, Demo, Example, Grid, Page, Panel, Props, Section, Variant } from '../kit'
+
+/** Dos respuestas de verdad, una más rápida que la espera y otra más lenta, para
+ *  ver que la corta no dibuja nada y la larga no se corta. */
+function TryLoading() {
+  const [running, setRunning] = useState<'' | 'short' | 'long'>('')
+  const timer = useRef<number | undefined>(undefined)
+  useEffect(() => () => clearTimeout(timer.current), [])
+  const run = (which: 'short' | 'long', ms: number) => {
+    setRunning(which)
+    clearTimeout(timer.current)
+    timer.current = setTimeout(() => setRunning(''), ms) as unknown as number
+  }
+  return (
+    <Grid>
+      <Demo label="Tocá: esta responde enseguida">
+        <Button variant="brand" iconStart={<Icon name="save" />} loading={running === 'short'} onClick={() => run('short', 80)}>
+          Guardar
+        </Button>
+      </Demo>
+      <Demo label="Tocá: esta tarda">
+        <Button variant="brand" iconStart={<Icon name="save" />} loading={running === 'long'} onClick={() => run('long', 900)}>
+          Guardar
+        </Button>
+      </Demo>
+    </Grid>
+  )
+}
 
 export function ButtonStory() {
   return (
@@ -11,48 +39,118 @@ export function ButtonStory() {
     >
       <Section
         title="Variantes"
-        note="`brand` es el que manda y hay uno por pantalla, con el relleno anclado donde el blanco encima llega a 4.5:1. `solid` es el mismo rol en tinta, para donde el azul no se puede usar. Va uno o el otro, nunca los dos, o la mirada no sabe cuál es. `raised` es el secundario."
+        note="Lo que elegís es cuánto pesa la acción en la pantalla. El color sale de eso, no al revés."
       >
         <Panel>
-          <Variant name="brand"><Button variant="brand">Crear actividad</Button></Variant>
-          <Variant name="solid"><Button variant="solid">Crear actividad</Button></Variant>
-          <Variant name="raised"><Button variant="raised">Crear actividad</Button></Variant>
-          <Variant name="muted"><Button variant="muted">Crear actividad</Button></Variant>
-          <Variant name="ghost"><Button variant="ghost">Crear actividad</Button></Variant>
-          <Variant name="bad"><Button variant="bad">Eliminar</Button></Variant>
+          <Variant
+            name="brand"
+            note="**La acción que manda**, y hay una sola por pantalla."
+          >
+            <Button variant="brand">Crear actividad</Button>
+          </Variant>
+          <Variant
+            name="solid"
+            note="**La misma acción que manda, en tinta**, para una pantalla donde el azul no se puede usar. Va este o `brand`, nunca los dos, o la mirada no sabe cuál es."
+          >
+            <Button variant="solid">Crear actividad</Button>
+          </Variant>
+          <Variant
+            name="muted"
+            note="**Lo secundario**: la acción que acompaña a la que manda. Relleno claro y tinta, sin color, así que no compite."
+          >
+            <Button variant="muted">Crear actividad</Button>
+          </Variant>
+          <Variant
+            name="ghost"
+            note="**Lo terciario**: la que está ahí por si acaso. No dibuja caja hasta que le pasás el mouse."
+          >
+            <Button variant="ghost">Crear actividad</Button>
+          </Variant>
+          <Variant
+            name="bad"
+            note="**Lo que no se puede deshacer.** No es un aviso de que algo salió mal: es la acción que borra, y por eso lleva el rojo la acción y no el mensaje."
+          >
+            <Button variant="bad">Eliminar</Button>
+          </Variant>
         </Panel>
       </Section>
 
       <Section
         title="Tamaños"
-        note="Tres alturas y un rol cada una: 32 inline en una fila densa, 36 dentro de un panel, 40 la acción principal. Ninguna es un número elegido: es la línea de la interfaz (16) más aire que sube de a 2, y el padding lateral de a 4. La escalera la comparte el `IconButton`, así que `md` mide 36 en las dos piezas."
+        note="Una fila densa, un panel, la acción principal. El `lg` cae en 44, que es el objetivo táctil, así que la que manda ya llega con el dedo."
       >
         <Panel>
-          <Variant name="sm · 32">
-            <Button size="sm" variant="solid">Guardar</Button>
-            <Button size="sm" variant="raised">Guardar</Button>
+          <Variant name="sm · 36">
+            <Button size="sm" variant="brand">Guardar</Button>
+            <Button size="sm" variant="muted">Guardar</Button>
           </Variant>
-          <Variant name="md · 36">
-            <Button size="md" variant="solid">Guardar</Button>
-            <Button size="md" variant="raised">Guardar</Button>
+          <Variant name="md · 40">
+            <Button size="md" variant="brand">Guardar</Button>
+            <Button size="md" variant="muted">Guardar</Button>
           </Variant>
-          <Variant name="lg · 40">
-            <Button size="lg" variant="solid">Guardar</Button>
-            <Button size="lg" variant="raised">Guardar</Button>
+          <Variant name="lg · 44">
+            <Button size="lg" variant="brand">Guardar</Button>
+            <Button size="lg" variant="muted">Guardar</Button>
           </Variant>
         </Panel>
       </Section>
 
-      <Section title="Iconos, ancho completo y deshabilitado">
-        <Cluster align="start">
-          <Demo label="icon"><Button variant="raised" icon="add">Nuevo espacio</Button></Demo>
-          <Demo label="iconEnd"><Button variant="raised" iconEnd="chevron_right">Siguiente</Button></Demo>
-          <Demo label="disabled">
-            <Button variant="solid" disabled>Guardar</Button>
-            <Button variant="raised" disabled>Guardar</Button>
+      <Section title="Con icono, ancho completo y deshabilitado">
+        <Grid>
+          <Demo label="Con un icono al comienzo">
+            <Button variant="muted" iconStart={<Icon name="folder" />}>Nuevo espacio</Button>
           </Demo>
-          <Demo width="xs" label="block"><Button variant="solid" block>Entrar</Button></Demo>
-        </Cluster>
+          <Demo label="Con un icono al final">
+            <Button variant="muted" iconEnd={<Icon name="chevron_right" />}>Siguiente</Button>
+          </Demo>
+          <Demo label="Deshabilitado">
+            <Button variant="solid" disabled>Guardar</Button>
+          </Demo>
+          <Demo label="Ocupando el ancho">
+            <Button variant="solid" block>Entrar</Button>
+          </Demo>
+        </Grid>
+      </Section>
+
+      <Section
+        title="Cargando"
+        note="Para una acción que tarda. El botón avisa que está trabajando y no se deja tocar de nuevo hasta que termina."
+      >
+        <Panel>
+          <Variant name="brand"><Button variant="brand" loading>Guardar</Button></Variant>
+          <Variant name="solid"><Button variant="solid" loading>Guardar</Button></Variant>
+          <Variant name="muted"><Button variant="muted" loading>Guardar</Button></Variant>
+          <Variant name="ghost"><Button variant="ghost" loading>Guardar</Button></Variant>
+          <Variant name="bad"><Button variant="bad" loading>Eliminar</Button></Variant>
+        </Panel>
+        <Grid min={340}>
+          <Demo label="Antes y mientras carga">
+            <Button variant="brand" iconStart={<Icon name="folder" />}>Nuevo espacio</Button>
+            <Button variant="brand" iconStart={<Icon name="folder" />} loading>Nuevo espacio</Button>
+          </Demo>
+          <Demo label="Los tres tamaños">
+            <Button size="sm" variant="brand" loading>Guardar</Button>
+            <Button size="md" variant="brand" loading>Guardar</Button>
+            <Button size="lg" variant="brand" loading>Guardar</Button>
+          </Demo>
+        </Grid>
+        <TryLoading />
+      </Section>
+
+      <Section title="Cómo se escribe">
+        <Example code={`
+<Button variant="brand" onClick={crear}>
+  Crear actividad
+</Button>
+
+<Button variant="muted" iconStart={<Icon name="folder" />} size="sm">
+  Nuevo espacio
+</Button>
+
+<Button variant="brand" loading={guardando} onClick={guardar}>
+  Guardar
+</Button>
+`} />
       </Section>
 
       <Section title="Props">
@@ -62,7 +160,7 @@ export function ButtonStory() {
       <Section title="Accesibilidad">
         <A11y items={[
           'Es un <button> real: entra en el orden de tabulación y responde a Enter y Espacio.',
-          'El anillo de foco se suma al relieve en vez de reemplazarlo, así que un botón enfocado no se plancha.',
+          'El anillo de foco se dibuja por fuera de la caja, con dos píxeles de superficie de por medio: no mueve el botón ni empuja a los de al lado.',
           'Deshabilitado deja de recibir el puntero y baja a 45% de opacidad, pero conserva su texto legible.',
         ]} />
       </Section>

@@ -1,6 +1,6 @@
 import cls from './steps.module.css'
 import { useState } from 'react'
-import { Button, Steps } from '@milo/ui'
+import { Button, Icon, Steps } from '@milo/ui'
 import { A11y, Note, Page, Props, Section } from '../kit'
 
 const design = [
@@ -34,8 +34,8 @@ export function StepsStory() {
           <Steps steps={design} current={i} label="Etapas del proyecto" />
         </div>
         <div className={cls.pieceActions}>
-          <Button size="sm" variant="muted" icon="arrow_back" disabled={i === 0} onClick={() => setI(n => n - 1)}>Atrás</Button>
-          <Button size="sm" variant="raised" iconEnd="arrow_forward" disabled={i === design.length - 1} onClick={() => setI(n => n + 1)}>Siguiente</Button>
+          <Button size="sm" variant="muted" iconStart={<Icon name="arrow_back" />} disabled={i === 0} onClick={() => setI(n => n - 1)}>Atrás</Button>
+          <Button size="sm" variant="muted" iconEnd={<Icon name="arrow_forward" />} disabled={i === design.length - 1} onClick={() => setI(n => n + 1)}>Siguiente</Button>
         </div>
       </Section>
 

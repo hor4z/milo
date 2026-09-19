@@ -85,7 +85,7 @@ export function CommandMenuStory() {
           <Popover
             align="start"
             width={380}
-            trigger={p => <Button {...p} variant="raised" icon="add">Insertar un bloque</Button>}
+            trigger={p => <Button {...p} variant="muted">Insertar un bloque</Button>}
           >
             {close => (
               <CommandMenu

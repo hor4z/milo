@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Button, ConfirmDialog, useToast } from '@milo/ui'
+import { Button, ConfirmDialog, Icon, useToast } from '@milo/ui'
 import { A11y, Canvas, Note, Page, Props, Section } from '../kit'
 
 export function ConfirmStory() {
@@ -18,7 +18,7 @@ export function ConfirmStory() {
         note="El título nombra lo que se va a tocar: '¿Borrar esta actividad?' obliga a acordarse de cuál estabas mirando. Va como `alertdialog` y no como `dialog`: un lector de pantalla lo anuncia con más urgencia, que es lo que corresponde cuando lo que sigue no tiene vuelta atrás."
       >
         <Canvas center>
-          <Button variant="bad" icon="delete" onClick={() => setOpen(true)}>Borrar la actividad</Button>
+          <Button variant="bad" iconStart={<Icon name="delete" />} onClick={() => setOpen(true)}>Borrar la actividad</Button>
         </Canvas>
         <ConfirmDialog
           open={open}
@@ -39,7 +39,7 @@ export function ConfirmStory() {
         note="`neutral` es para lo que se puede deshacer pero conviene mirar dos veces: publicar, cerrar, invitar. El botón de confirmar va sólido y el foco arranca ahí, porque la respuesta esperada es que sí."
       >
         <Canvas center>
-          <Button variant="solid" icon="send" onClick={() => setPublishOpen(true)}>Publicar sin fecha</Button>
+          <Button variant="solid" iconStart={<Icon name="send" />} onClick={() => setPublishOpen(true)}>Publicar sin fecha</Button>
         </Canvas>
         <ConfirmDialog
           open={publishOpen}

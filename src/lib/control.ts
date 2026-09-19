@@ -1,9 +1,8 @@
 import s from './control.module.css'
-/** `brand` es el botón que manda y hay uno por pantalla; `solid` es el mismo rol en tinta, para donde el azul no se puede usar. Va uno o el otro, nunca los dos. */
+/** Tres escalones de neutro y no cuatro: `solid` de relleno oscuro, `muted` de relleno claro y `ghost` sin relleno. En el medio la rampa no tiene dónde: los cuatro grises claros caen dentro de 1.27:1 entre sí, y los dos del medio no aguantan ningún texto. `brand` es el botón que manda y hay uno por pantalla; `solid` es el mismo rol en tinta, para donde el azul no se puede usar. Va uno o el otro, nunca los dos. */
 export const variants = {
-  brand: `${s.variantBrand} raised-brand`,
-  solid: `${s.variantSolid} raised-solid`,
-  raised: `${s.variantRaised} raised`,
+  brand: s.variantBrand,
+  solid: s.variantSolid,
   muted: s.variantMuted,
   ghost: s.variantGhost,
   bad: s.variantBad,

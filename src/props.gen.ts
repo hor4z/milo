@@ -121,7 +121,7 @@ export const propsByComponent: Record<string, ComponentDoc> = {
         "type": "'sm' | 'md' | 'lg'",
         "required": false,
         "def": "'md'",
-        "doc": "32 · 36 · 40, los del Button."
+        "doc": "36 · 40 · 44, los del Button."
       },
       {
         "name": "className",
@@ -285,9 +285,9 @@ export const propsByComponent: Record<string, ComponentDoc> = {
     "props": [
       {
         "name": "variant",
-        "type": "'solid' | 'raised' | 'brand' | 'ghost' | 'muted' | 'bad'",
+        "type": "'solid' | 'brand' | 'muted' | 'ghost' | 'bad'",
         "required": false,
-        "def": "'raised'",
+        "def": "'muted'",
         "doc": "Solid y brand son el mismo rol."
       },
       {
@@ -295,19 +295,33 @@ export const propsByComponent: Record<string, ComponentDoc> = {
         "type": "'sm' | 'md' | 'lg'",
         "required": false,
         "def": "'md'",
-        "doc": "32 · 36 · 40."
+        "doc": "36 · 40 · 44."
       },
       {
-        "name": "icon",
-        "type": "IconName",
+        "name": "iconStart",
+        "type": "ReactNode",
         "required": false,
-        "doc": "Antes del texto."
+        "doc": "Antes del texto. Cualquier nodo, no solo un `Icon`: el botón le fija la caja para que mida lo mismo sea lo que sea. Cuando está cargando, el spinner ocupa su lugar."
       },
       {
         "name": "iconEnd",
-        "type": "IconName",
+        "type": "ReactNode",
         "required": false,
-        "doc": "Después del texto."
+        "doc": "Después del texto, con la misma caja fija que `iconStart`."
+      },
+      {
+        "name": "loading",
+        "type": "boolean",
+        "required": false,
+        "def": "false",
+        "doc": "Pone el spinner al principio y deja de aceptar clicks."
+      },
+      {
+        "name": "loadingLabel",
+        "type": "string",
+        "required": false,
+        "def": "'Cargando'",
+        "doc": "Lo que el lector de pantalla anuncia mientras carga."
       },
       {
         "name": "block",
@@ -1166,8 +1180,7 @@ export const propsByComponent: Record<string, ComponentDoc> = {
         "name": "size",
         "type": "number",
         "required": false,
-        "def": "20",
-        "doc": "Alto y ancho de la caja en px."
+        "doc": "Alto y ancho de la caja en px. Sin esto lo manda el ancestro por `--icon-size`, y si nadie lo manda son 20."
       },
       {
         "name": "className",
@@ -1217,17 +1230,17 @@ export const propsByComponent: Record<string, ComponentDoc> = {
       },
       {
         "name": "variant",
-        "type": "'ghost' | 'raised' | 'solid' | 'muted'",
+        "type": "'ghost' | 'solid' | 'muted' | 'brand'",
         "required": false,
         "def": "'ghost'",
-        "doc": "La misma escalera del `Button`, sin `brand` ni `bad`."
+        "doc": "Las del `Button` menos `bad`: un icono solo no alcanza para anunciar que algo se borra."
       },
       {
         "name": "size",
         "type": "'sm' | 'md' | 'lg'",
         "required": false,
         "def": "'md'",
-        "doc": "32 · 36 · 40, los del Button."
+        "doc": "36 · 40 · 44, los del Button."
       },
       {
         "name": "dot",
@@ -2043,7 +2056,7 @@ export const propsByComponent: Record<string, ComponentDoc> = {
         "name": "size",
         "type": "'sm' | 'md' | 'lg'",
         "required": false,
-        "def": "'sm'",
+        "def": "'md'",
         "doc": "Las mismas tres del resto de los controles."
       },
       {
@@ -2315,10 +2328,10 @@ export const propsByComponent: Record<string, ComponentDoc> = {
       },
       {
         "name": "on",
-        "type": "'surface' | 'solid'",
+        "type": "'surface' | 'solid' | 'control'",
         "required": false,
         "def": "'surface'",
-        "doc": "Sobre qué está apoyado."
+        "doc": "Sobre qué está apoyado. `control` toma el color de lo que lo contiene, que es lo que lo hace servir en todas las variantes de botón sin enumerar ninguna."
       },
       {
         "name": "className",
@@ -2789,8 +2802,8 @@ export const propsByComponent: Record<string, ComponentDoc> = {
         "name": "size",
         "type": "'sm' | 'md' | 'lg'",
         "required": false,
-        "def": "'lg'",
-        "doc": "32 · 36 · 40, las del Button. Default lg."
+        "def": "'md'",
+        "doc": "36 · 40 · 44, las del Button."
       },
       {
         "name": "ref",

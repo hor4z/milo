@@ -1,3 +1,4 @@
+import { Icon } from '../icon/icon'
 import cls from './pagination.module.css'
 import type { ComponentPropsWithoutRef, ReactNode } from 'react'
 import { Button } from '../button/button'
@@ -56,7 +57,7 @@ type PaginationNavProps = Omit<ComponentPropsWithoutRef<'button'>, 'children'> &
 /** Los dos viajan juntos y están siempre, apagados en las puntas. */
 export function PaginationPrev({ className, children = 'Anterior', ...props }: PaginationNavProps) {
   return (
-    <Button type="button" variant="ghost" size="sm" icon="chevron_left" className={cx(cls.prev, className)} {...props}>
+    <Button type="button" variant="ghost" size="sm" iconStart={<Icon name="chevron_left" />} className={cx(cls.prev, className)} {...props}>
       {children}
     </Button>
   )
@@ -65,7 +66,7 @@ export function PaginationPrev({ className, children = 'Anterior', ...props }: P
 /** Su `disabled` es el "hay más" que contesta el back: mientras haya, hay siguiente. */
 export function PaginationNext({ className, children = 'Siguiente', ...props }: PaginationNavProps) {
   return (
-    <Button type="button" variant="ghost" size="sm" iconEnd="chevron_right" className={cx(cls.next, className)} {...props}>
+    <Button type="button" variant="ghost" size="sm" iconEnd={<Icon name="chevron_right" />} className={cx(cls.next, className)} {...props}>
       {children}
     </Button>
   )

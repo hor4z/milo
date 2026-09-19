@@ -50,7 +50,7 @@ type AudioPlayerProps = {
   peaks?: readonly number[]
   /** A la derecha del tiempo: descargar, un menú, lo que haga falta. */
   actions?: ReactNode
-  /** 32 · 36 · 40, los del Button. */
+  /** 36 · 40 · 44, los del Button. */
   size?: 'sm' | 'md' | 'lg'
   className?: string
 }
@@ -159,7 +159,7 @@ export function AudioPlayer({ src, title, peaks, actions, size = 'md', className
             <IconButton
               icon={sonando ? 'pause' : 'play_arrow'}
               label={sonando ? 'Pausar' : 'Reproducir'}
-              variant="raised"
+              variant="muted"
               size={size}
               disabled={estado === 'error'}
               onClick={toggle}

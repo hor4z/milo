@@ -65,7 +65,7 @@ export function AccessibilitySection() {
         <div className={`${cls.ringCard} bg-surface`}>
           <Button variant="solid">Guardar</Button>
           <Button variant="brand">Publicar</Button>
-          <Button variant="raised">Cancelar</Button>
+          <Button variant="muted">Cancelar</Button>
           <span className={cls.ringNote}>
             Va con <code>:focus-visible</code> y no con <code>:focus</code>: el anillo aparece cuando
             se navega con el teclado y no cuando se clickea, que es cuando estorba y no informa.
@@ -79,9 +79,9 @@ export function AccessibilitySection() {
       >
         <Stack>
           {[
-            ['sm', 32, 'ok', 'Pasa WCAG con holgura y está sobre el mínimo de Apple, debajo de su default. Es para una fila densa y con mouse.'],
-            ['md', 36, 'ok', 'La acción dentro de un panel.'],
-            ['lg', 40, 'ok', 'La acción principal. En táctil los tres suben a 40 y llevan un blanco de 44.'],
+            ['sm', 36, 'ok', 'Pasa WCAG con holgura y está sobre el mínimo de Apple, debajo de su default. Es para una fila densa y con mouse.'],
+            ['md', 40, 'ok', 'La acción dentro de un panel.'],
+            ['lg', 44, 'ok', 'La acción principal. Es el único paso que llega al default de Apple, y llega en escritorio también.'],
           ].map(([size, px, tone, nota]) => (
             <div key={size as string} className={`${cls.targetRow} bg-surface`}>
               <code className={cls.targetName}>{size}</code>
@@ -92,10 +92,11 @@ export function AccessibilitySection() {
           ))}
         </Stack>
         <Note title="Qué pasa en táctil">
-          Con <code>pointer: coarse</code> los botones suben a 40 y llevan encima la clase global
-          <code>touch-target</code>, que agranda el blanco de toque hasta 44 sin mover la caja; los
-          campos suben la caja a 44 de verdad, porque ahí el tap tiene que llegar al input. En
-          escritorio no cambia un píxel. Falta el resto de las piezas: el checkbox y el radio de 18,
+          Con <code>pointer: coarse</code> el <code>sm</code> y el <code>md</code> suben la caja a 44,
+          que es donde el <code>lg</code> ya está en cualquier puntero, así que en un teléfono los tres
+          pasos miden lo mismo. La clase global <code>touch-target</code> sigue puesta de cinturón: el
+          blanco de toque llega a 44 aunque la caja quedara corta. En escritorio no cambia un píxel
+          respecto de lo de arriba. Falta el resto de las piezas: el checkbox y el radio de 18,
           el switch de 22, el tachito de un chip de 24. Varias son compactas a propósito, así que
           subirlas es una decisión sobre cómo se siente el sistema en un teléfono, y no un arreglo.
           Y ojo con el aire: Apple dice que la separación entre controles pesa tanto como el tamaño,

@@ -106,7 +106,7 @@ function ToastItem({ toast, onDismiss }: { toast: ToastRecord; onDismiss: (id: s
         {body && <p className={cls.text}>{body}</p>}
         {action && (
           <div className={cls.actions}>
-            <Button size="sm" variant="raised" onClick={() => { action.onClick?.(); close() }}>
+            <Button size="sm" variant="muted" onClick={() => { action.onClick?.(); close() }}>
               {action.label}
             </Button>
           </div>

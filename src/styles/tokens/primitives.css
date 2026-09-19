@@ -35,6 +35,17 @@
   --blue-900: #0c3368;
   --blue-500-a45: rgb(47 136 255 / 0.45);
 
+  --yellow-050: #fbf0a7;
+  --yellow-100: #f5e368;  
+  --yellow-200: #dfcf5e;
+  --yellow-300: #c3b551;
+  --yellow-400: #a79a44;
+  --yellow-500: #92873b;
+  --yellow-600: #7e7431;
+  --yellow-700: #665e27;
+  --yellow-800: #4d471b;
+  --yellow-900: #353010;
+
   --mark-green: #91d09a;    --mark-green-ink: #135c26;
   --mark-purple: #ccaef3;   --mark-purple-ink: #6e1cab;
   --mark-orange: #eab177;   --mark-orange-ink: #6c4210;
@@ -119,6 +130,17 @@
   --blue-800: #a4d7ff;
   --blue-900: #cdecff;
   --blue-500-a45: rgb(54 143 255 / 0.6);
+
+  --yellow-050: #272309;
+  --yellow-100: #363110;
+  --yellow-200: #484219;
+  --yellow-300: #5f5823;
+  --yellow-400: #807632;
+  --yellow-500: #9e9240;
+  --yellow-600: #b2a549;
+  --yellow-700: #cabb54;
+  --yellow-800: #e4d360;
+  --yellow-900: #f9ea83;  
 
   --mark-green: #143d1d;    --mark-green-ink: #3ee06a;
   --mark-purple: #3b2850;   --mark-purple-ink: #d0b0f9;

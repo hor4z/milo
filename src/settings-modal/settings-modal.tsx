@@ -155,7 +155,7 @@ function SecuritySection() {
         <Switch checked={prefs.confirmDelete} onChange={v => set('confirmDelete', v)} label="Preguntar antes de borrar" />
       </Row>
       <Row label="Registro de accesos">
-        <Button size="sm" variant="ghost" iconEnd="download">Descargar</Button>
+        <Button size="sm" variant="ghost" iconEnd={<Icon name="download" />}>Descargar</Button>
       </Row>
       <div className={cls.dangerZone}>
         <div className={cls.dangerBox}>

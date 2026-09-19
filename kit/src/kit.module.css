@@ -135,11 +135,17 @@
     gap: 0.5rem;
   }
 
+  /* Menos aire vertical que un lienzo cualquiera: acá la caja envuelve una
+     pieza sola y su etiqueta va justo abajo, así que el padding de 24 la
+     alejaba de lo que la nombra. */
   .demoCanvas {
     display: flex;
-    min-height: 92px;
+    min-height: 72px;
+    flex-wrap: wrap;
     align-items: center;
     justify-content: center;
+    gap: 0.75rem;
+    padding-block: 1rem;
   }
 
   .demoCaption {
@@ -178,7 +184,7 @@
   }
 
   .variantName {
-    width: 168px;
+    width: 96px;
     flex-shrink: 0;
     font-family: var(--font-mono);
     font-size: var(--type-meta);
@@ -190,9 +196,115 @@
   .variantItems {
     display: flex;
     min-width: 0;
+    flex: 1;
     flex-wrap: wrap;
     align-items: center;
+    justify-content: flex-start;
     gap: 0.75rem;
+  }
+
+  .variantNote {
+    /* Al final de la fila y con un ancho parejo: la pieza queda contra el nombre, a la izquierda,
+       y todas las explicaciones arrancan en la misma columna aunque las piezas midan distinto. */
+    min-width: 12rem;
+    flex: 0 1 42%;
+    margin-left: auto;
+    font-size: var(--type-meta);
+    line-height: var(--type-meta-lh);
+    letter-spacing: var(--type-meta-ls);
+    color: var(--text-muted);
+  }
+
+  .codeBlock {
+    position: relative;
+    border-radius: var(--radius-lg);
+    border-style: solid;
+    border-width: 1px;
+    border-color: var(--border);
+    background-color: var(--surface-muted);
+    padding-block: 0.75rem;
+    padding-inline: 1rem;
+  }
+
+  .codePre {
+    overflow-x: auto;
+    margin: 0;
+    padding-right: 2rem;
+  }
+
+  .codeLine {
+    display: block;
+    font-family: var(--font-mono);
+    font-size: var(--type-body);
+    line-height: var(--type-body-lh);
+    letter-spacing: var(--type-body-ls);
+    color: var(--text);
+    white-space: pre;
+  }
+
+  /* Los seis colores del resaltado están medidos contra el fondo del bloque y
+     pasan AA en los dos temas. Quedaron afuera los `--label-*-ink`, que eran
+     los candidatos obvios: son hexes literales que no se dan vuelta con el
+     tema y sobre fondo oscuro se quedan en 2,5:1. */
+
+  /* el nombre de la pieza, que es lo que se busca al mirar un ejemplo */
+  .codeComponent {
+    font-weight: var(--font-weight-semibold);
+    color: var(--brand-ink);
+  }
+
+  /* lo que se le pasa */
+  .codeProp {
+    color: var(--warn-700);
+  }
+
+  /* un texto entre comillas */
+  .codeString {
+    color: var(--yellow-ink);
+  }
+
+  /* un número o un booleano */
+  .codeValue {
+    color: var(--ok-700);
+  }
+
+  /* lo que arma la sintaxis y no se lee */
+  .codePunct {
+    color: var(--text-muted);
+  }
+
+  .codeComment {
+    color: var(--text-muted);
+  }
+
+  .codeCopy {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    display: inline-flex;
+    width: 1.75rem;
+    height: 1.75rem;
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--radius-md);
+    opacity: 0;
+    transition-property: opacity,background-color;
+    transition-duration: var(--duration-fast);
+    transition-timing-function: var(--ease-out);
+  }
+
+  .codeCopy:focus-visible {
+    opacity: 1;
+  }
+
+  @media (hover:hover) {
+    .codeCopy:hover {
+        background-color: var(--surface-sunken);
+    }
+
+    .codeCopy:is(:where(:global(.group)):hover *) {
+        opacity: 1;
+    }
   }
 
   .panelCanvas {

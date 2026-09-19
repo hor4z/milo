@@ -16,7 +16,7 @@ export function PopoverStory() {
             <Popover
               width={320}
               trigger={({ onClick, ref, ...rest }) => (
-                <Button ref={ref} onClick={onClick} {...rest} variant="raised">Panel anclado</Button>
+                <Button ref={ref} onClick={onClick} {...rest} variant="muted">Panel anclado</Button>
               )}
             >
               {close => (
@@ -26,7 +26,7 @@ export function PopoverStory() {
                     Cierra con Escape, con un click afuera, o al scrollear la página, pero no al
                     scrollear su propio contenido. Un resize sí lo cierra siempre.
                   </p>
-                  <div className={cls.plainActions}><Button size="sm" variant="raised" onClick={close}>Cerrar</Button></div>
+                  <div className={cls.plainActions}><Button size="sm" variant="muted" onClick={close}>Cerrar</Button></div>
                 </div>
               )}
             </Popover>
@@ -37,7 +37,7 @@ export function PopoverStory() {
               width={340}
               veil
               trigger={({ onClick, ref, ...rest }) => (
-                <Button ref={ref} onClick={onClick} {...rest} variant="raised">Con velo</Button>
+                <Button ref={ref} onClick={onClick} {...rest} variant="muted">Con velo</Button>
               )}
             >
               {close => (
@@ -47,7 +47,7 @@ export function PopoverStory() {
                     El resto de la pantalla se atenúa para ganar la mirada. Un menú de cuatro items
                     no necesita esto.
                   </p>
-                  <div className={cls.veiledActions}><Button size="sm" variant="raised" onClick={close}>Cerrar</Button></div>
+                  <div className={cls.veiledActions}><Button size="sm" variant="muted" onClick={close}>Cerrar</Button></div>
                 </div>
               )}
             </Popover>

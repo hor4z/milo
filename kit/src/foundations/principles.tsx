@@ -62,7 +62,7 @@ export function Principles() {
   <AlertTitle>Tres entregas vencen mañana</AlertTitle>
   <AlertBody>Después de esa fecha nadie puede subir nada.</AlertBody>
   <AlertActions>
-    <Button size="sm" variant="raised">Ver las entregas</Button>
+    <Button size="sm" variant="muted">Ver las entregas</Button>
   </AlertActions>
 </Alert>`}
         </pre>

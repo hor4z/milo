@@ -1,6 +1,6 @@
 import cls from './icon-button.module.css'
 import { IconButton } from '@milo/ui'
-import { A11y, Page, Panel, Props, Section, Variant } from '../kit'
+import { A11y, Example, Page, Panel, Props, Section, Variant } from '../kit'
 
 export function IconButtonStory() {
   return (
@@ -8,43 +8,43 @@ export function IconButtonStory() {
       title="IconButton"
       kind="Acciones"
       imports="import { IconButton } from '@milo/ui'"
-      lead="Cuadrado del alto de su paso, y los pasos son los del `Button`: un icono al lado de un botón en la misma fila apoya en la misma línea sin que nadie lo calcule. El radio es 10 y no el 12 del Button: sobre un cuadrado de 32, esos dos píxeles se comen tanto lado plano que la pieza se lee redonda."
+      lead="Cuadrado del alto de su paso, y los pasos son los del `Button`: un icono al lado de un botón en la misma fila apoya en la misma línea sin que nadie lo calcule. El radio es 10 y no el 12 del Button: sobre un cuadrado chico, esos dos píxeles se comen tanto lado plano que la pieza se lee redonda."
     >
       <Section
         title="Los tres tamaños"
-        note="32 · 36 · 40, los del Button, con el icono de cada paso: 16 · 18 · 20. El `md` medía 40 (el `lg` del Button) así que los dos `md` del sistema no coincidían."
+        note="36 · 40 · 44, los del Button, con el icono de cada paso: 16 · 18 · 20. El glifo no crece con la caja: lo que sube es el aire alrededor, que es lo que hace falta para el dedo."
       >
         <Panel>
           <Variant name="sm · md · lg">
-            <IconButton icon="tune" label="Ajustes" size="sm" variant="raised" />
-            <IconButton icon="tune" label="Ajustes" size="md" variant="raised" />
-            <IconButton icon="tune" label="Ajustes" size="lg" variant="raised" />
+            <IconButton icon="tune" label="Ajustes" size="sm" variant="muted" />
+            <IconButton icon="tune" label="Ajustes" size="md" variant="muted" />
+            <IconButton icon="tune" label="Ajustes" size="lg" variant="muted" />
           </Variant>
           <Variant name="al lado de su botón">
             <span className={cls.mdSample}>
-              <IconButton icon="tune" label="Ajustes" size="md" variant="raised" />
+              <IconButton icon="tune" label="Ajustes" size="md" variant="muted" />
               <span className={cls.mdCaption}>md · 36</span>
             </span>
             <span className={cls.lgSample}>
-              <IconButton icon="tune" label="Ajustes" size="lg" variant="raised" />
+              <IconButton icon="tune" label="Ajustes" size="lg" variant="muted" />
               <span className={cls.lgCaption}>lg · 40</span>
             </span>
           </Variant>
         </Panel>
       </Section>
 
-      <Section title="Variantes" note="`label` es obligatorio: un botón que solo tiene un icono no dice nada sin él. Y en una barra va `muted` y no `raised`: el canto de un píxel que en un botón ancho es un remate, sobre un cuadrado de 32 pesa mucho más por área y se lee como de otra librería.">
+      <Section title="Variantes" note="`label` es obligatorio: un botón que solo tiene un icono no dice nada sin él. En una barra va `ghost`, que no dibuja caja: lo que identifica a un botón de solo icono es el glifo, y sobre el fondo de la página llega a 8:1 sin necesidad de un relleno detrás.">
         <Panel>
           <Variant name="ghost">
             <IconButton icon="tune" label="Ajustes" />
             <IconButton icon="tune" label="Ajustes" size="sm" />
           </Variant>
-          <Variant name="raised">
-            <IconButton icon="edit" label="Editar" variant="raised" />
-            <IconButton icon="edit" label="Editar" variant="raised" size="sm" />
+          <Variant name="muted">
+            <IconButton icon="edit" label="Editar" variant="muted" />
+            <IconButton icon="edit" label="Editar" variant="muted" size="sm" />
           </Variant>
           <Variant name="solid"><IconButton icon="check" label="Aceptar" variant="solid" /></Variant>
-          <Variant name="muted"><IconButton icon="more_horiz" label="Más" variant="muted" /></Variant>
+          <Variant name="brand"><IconButton icon="add" label="Nueva actividad" variant="brand" /></Variant>
         </Panel>
       </Section>
 
@@ -58,6 +58,16 @@ export function IconButtonStory() {
           </Variant>
           <Variant name="disabled"><IconButton icon="delete" label="Eliminar" disabled /></Variant>
         </Panel>
+      </Section>
+
+      <Section title="Cómo se escribe">
+        <Example code={`
+<IconButton icon="tune" label="Ajustes" />
+
+<Tooltip label="Exportar a CSV">
+  <IconButton icon="download" label="Exportar" variant="muted" />
+</Tooltip>
+`} />
       </Section>
 
       <Section title="Props">

@@ -1,3 +1,4 @@
+import { Icon } from '../icon/icon'
 import s from './filter.module.css'
 import type { ComponentPropsWithoutRef } from 'react'
 import { Avatar, AvatarGroup } from '../avatar/avatar'
@@ -48,7 +49,7 @@ export function Filter({ label, options, value, onValueChange }: FilterProps) {
           {...rest}
           variant={value.length ? 'brand' : 'muted'}
           size="sm"
-          iconEnd="keyboard_arrow_down"
+          iconEnd={<Icon name="keyboard_arrow_down" />}
         >
           {faces.length > 0 && <AvatarGroup people={faces} size={18} max={3} ring="var(--brand)" className={s.barFaces} />}
           {label}{value.length > 0 && faces.length === 0 && ` · ${value.length}`}

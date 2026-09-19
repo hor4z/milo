@@ -52,7 +52,7 @@ export function RowStory() {
             <span className={cls.accountEmail}>melina@milo.app</span>
           </Row>
           <Row label="Contraseña" hint="La última vez que la cambiaste fue en marzo">
-            <Button size="sm" variant="raised">Cambiar</Button>
+            <Button size="sm" variant="muted">Cambiar</Button>
           </Row>
         </div>
       </Section>

@@ -102,19 +102,18 @@ export function Dashboard() {
         </Stack>
         <div className={cls.pageActions}>
           <Segmented
-            size="sm"
+            size="md"
             label="Rango"
             value={range}
             onChange={setRange}
             options={[{ value: 'semana', label: 'Semana' }, { value: 'mes', label: 'Mes' }]}
           />
           <Tooltip label="Exportar a CSV">
-            <IconButton icon="download" label="Exportar" size="sm" variant="muted" />
+            <IconButton icon="download" label="Exportar" size="md" variant="ghost" />
           </Tooltip>
           <Button
-            size="sm"
+            size="md"
             variant="brand"
-            icon="add"
             onClick={() => toast({ title: 'Actividad creada', body: 'Quedó en borrador', tone: 'ok' })}
           >
             Nueva actividad
@@ -138,7 +137,7 @@ export function Dashboard() {
                 <h2 className={cls.chartTitle}>Corregidas sobre entregadas</h2>
                 <p className={cls.chartSubtitle}>El azul es lo corregido; el gris, lo que entró</p>
               </div>
-              <Chip size="sm" color="ok" icon="trending_up">84%</Chip>
+              <Chip size="md" color="ok" icon="trending_up">84%</Chip>
             </div>
             <BarChart
               title="Corregidas sobre entregadas"

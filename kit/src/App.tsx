@@ -385,7 +385,7 @@ export function App() {
                 icon="search_off"
                 title="Esa vista ya no está acá"
                 body={`No hay ninguna pieza que se llame "${current}". Puede que se haya renombrado: el buscador del riel encuentra por nombre y por sinónimo.`}
-                action={<Button variant="raised" icon="arrow_back" onClick={() => go(INTRO)}>Volver a la introducción</Button>}
+                action={<Button variant="muted" iconStart={<Icon name="arrow_back" />} onClick={() => go(INTRO)}>Volver a la introducción</Button>}
               />
               </>
             )}
