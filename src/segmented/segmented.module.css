@@ -45,7 +45,7 @@
   }
 
   .optionXs {
-    min-height: 1.5rem;
+    min-height: 1.75rem;
     border-radius: var(--radius-md);
     font-size: var(--type-meta);
     line-height: var(--type-meta-lh);
@@ -53,7 +53,7 @@
   }
 
   .optionSm {
-    min-height: 1.75rem;
+    min-height: 2rem;
     border-radius: var(--radius-md);
     font-size: var(--type-body);
     line-height: var(--type-body-lh);
@@ -61,7 +61,7 @@
   }
 
   .optionMd {
-    min-height: 2rem;
+    min-height: 2.25rem;
     border-radius: var(--radius-md);
     font-size: var(--type-body);
     line-height: var(--type-body-lh);

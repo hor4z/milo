@@ -7,6 +7,13 @@
     white-space: nowrap;
   }
 
+  /* Lo que el relieve hacía al apretarse y en plano hay que decir de otra
+     forma: el relleno se oscurece un punto mientras el dedo está abajo. Sin
+     transición a propósito, porque un pressed que tarda no confirma nada. */
+  .pressed:active {
+    filter: brightness(0.94);
+  }
+
   .motion {
     transition-property: background-color,border-color,color;
     transition-duration: var(--duration-fast);
