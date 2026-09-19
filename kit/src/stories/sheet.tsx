@@ -26,7 +26,7 @@ export function SheetStory() {
         note="Se arma en tres partes: la cabecera con el título y la X, el cuerpo que scrollea, y el pie con las acciones, que no scrollea nunca. Un formulario de seis campos donde el botón de guardar hay que ir a buscarlo abajo de todo es un formulario que se abandona."
       >
         <Canvas center>
-          <Button variant="solid" icon="add" onClick={() => setOpen(true)}>Nueva actividad</Button>
+          <Button variant="solid" onClick={() => setOpen(true)}>Nueva actividad</Button>
         </Canvas>
 
         <Sheet open={open} onClose={() => setOpen(false)} label="Nueva actividad">

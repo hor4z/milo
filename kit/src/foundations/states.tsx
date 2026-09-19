@@ -81,7 +81,7 @@ export function StatesSection() {
               icon="folder_open"
               title="Todavía no hay actividades"
               body="Cuando crees la primera, la vas a ver acá con sus entregas y su estado."
-              action={<Button variant="solid" icon="add">Nueva actividad</Button>}
+              action={<Button variant="solid">Nueva actividad</Button>}
             />
           </StateCard>
 
