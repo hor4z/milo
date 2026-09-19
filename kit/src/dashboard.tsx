@@ -109,7 +109,7 @@ export function Dashboard() {
             options={[{ value: 'semana', label: 'Semana' }, { value: 'mes', label: 'Mes' }]}
           />
           <Tooltip label="Exportar a CSV">
-            <IconButton icon="download" label="Exportar" size="md" variant="yellow" />
+            <IconButton icon="download" label="Exportar" size="md" variant="ghost" />
           </Tooltip>
           <Button
             size="md"

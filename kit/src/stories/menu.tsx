@@ -68,7 +68,7 @@ export function MenuStory() {
             <Popover
               align="start"
               trigger={({ ref, ...rest }) => (
-                <Button ref={ref} {...rest} variant="raised" iconEnd="keyboard_arrow_down">
+                <Button ref={ref} {...rest} variant="muted" iconEnd="keyboard_arrow_down">
                   Acciones
                 </Button>
               )}

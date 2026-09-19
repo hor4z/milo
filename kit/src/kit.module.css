@@ -138,8 +138,10 @@
   .demoCanvas {
     display: flex;
     min-height: 92px;
+    flex-wrap: wrap;
     align-items: center;
     justify-content: center;
+    gap: 0.75rem;
   }
 
   .demoCaption {
@@ -193,6 +195,15 @@
     flex-wrap: wrap;
     align-items: center;
     gap: 0.75rem;
+  }
+
+  .variantNote {
+    min-width: 12rem;
+    flex: 1;
+    font-size: var(--type-meta);
+    line-height: var(--type-meta-lh);
+    letter-spacing: var(--type-meta-ls);
+    color: var(--text-muted);
   }
 
   .panelCanvas {

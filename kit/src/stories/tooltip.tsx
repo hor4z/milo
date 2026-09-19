@@ -36,12 +36,12 @@ export function TooltipStory() {
           </Demo>
           <Demo label="texto largo · se envuelve a 240">
             <Tooltip label="Una actividad archivada sale de la lista pero no se borra: queda en 'Archivadas' y se puede restaurar.">
-              <IconButton icon="inventory_2" label="Archivar" variant="raised" />
+              <IconButton icon="inventory_2" label="Archivar" variant="muted" />
             </Tooltip>
           </Demo>
           <Demo label="abajo">
             <Tooltip side="bottom" label="Va abajo si entra">
-              <IconButton icon="keyboard_arrow_down" label="Abajo" variant="raised" />
+              <IconButton icon="keyboard_arrow_down" label="Abajo" variant="muted" />
             </Tooltip>
           </Demo>
         </Cluster>
@@ -53,10 +53,10 @@ export function TooltipStory() {
       >
         <div className={cls.edgeRow}>
           <Tooltip label="Pegado al borde izquierdo de la ventana">
-            <IconButton icon="chevron_left" label="Izquierda" variant="raised" />
+            <IconButton icon="chevron_left" label="Izquierda" variant="muted" />
           </Tooltip>
           <Tooltip label="Pegado al borde derecho de la ventana">
-            <IconButton icon="chevron_right" label="Derecha" variant="raised" />
+            <IconButton icon="chevron_right" label="Derecha" variant="muted" />
           </Tooltip>
         </div>
       </Section>

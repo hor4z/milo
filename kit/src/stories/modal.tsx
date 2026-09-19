@@ -20,7 +20,7 @@ export function ModalStory() {
       >
         <Cluster align="start">
           <Demo label="width 620">
-            <Button variant="raised" onClick={() => setOpen(true)}>Abrir modal</Button>
+            <Button variant="muted" onClick={() => setOpen(true)}>Abrir modal</Button>
             <Modal open={open} onClose={() => setOpen(false)} label="Ejemplo" width={620}>
               <ModalBody>
                 <ModalTitle>Un modal de 620</ModalTitle>
@@ -37,7 +37,7 @@ export function ModalStory() {
           </Demo>
 
           <Demo label="width 420">
-            <Button variant="raised" onClick={() => setNarrowOpen(true)}>Confirmación</Button>
+            <Button variant="muted" onClick={() => setNarrowOpen(true)}>Confirmación</Button>
             <Modal open={narrowOpen} onClose={() => setNarrowOpen(false)} label="Confirmar" width={420}>
               <ModalBody>
                 <ModalTitle>¿Eliminar la actividad?</ModalTitle>
@@ -58,7 +58,7 @@ export function ModalStory() {
       >
         <Cluster align="start">
           <Demo label="width 594">
-            <Button variant="raised" icon="tune" onClick={() => setSettingsOpen(true)}>Ajustes</Button>
+            <Button variant="muted" iconStart="tune" onClick={() => setSettingsOpen(true)}>Ajustes</Button>
             <SettingsModal
               open={settingsOpen}
               onClose={() => setSettingsOpen(false)}

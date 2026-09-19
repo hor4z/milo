@@ -146,7 +146,7 @@ export function AiSection() {
                 justificar por qué la pendiente da la mitad."
               </p>
               <Cluster gap="sm">
-                <Button size="sm" variant="raised">Usar esto</Button>
+                <Button size="sm" variant="muted">Usar esto</Button>
                 <Button size="sm" variant="ghost">Descartar</Button>
               </Cluster>
             </CardBody>
@@ -161,7 +161,7 @@ export function AiSection() {
                 la mitad.
               </p>
               <Cluster gap="sm">
-                <Button size="sm" variant="muted" icon="undo">Deshacer</Button>
+                <Button size="sm" variant="muted" iconStart="undo">Deshacer</Button>
                 <Button size="sm" variant="ghost">Ver qué cambió</Button>
               </Cluster>
             </CardBody>

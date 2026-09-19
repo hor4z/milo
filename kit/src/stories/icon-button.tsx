@@ -16,36 +16,35 @@ export function IconButtonStory() {
       >
         <Panel>
           <Variant name="sm · md · lg">
-            <IconButton icon="tune" label="Ajustes" size="sm" variant="raised" />
-            <IconButton icon="tune" label="Ajustes" size="md" variant="raised" />
-            <IconButton icon="tune" label="Ajustes" size="lg" variant="raised" />
+            <IconButton icon="tune" label="Ajustes" size="sm" variant="muted" />
+            <IconButton icon="tune" label="Ajustes" size="md" variant="muted" />
+            <IconButton icon="tune" label="Ajustes" size="lg" variant="muted" />
           </Variant>
           <Variant name="al lado de su botón">
             <span className={cls.mdSample}>
-              <IconButton icon="tune" label="Ajustes" size="md" variant="raised" />
+              <IconButton icon="tune" label="Ajustes" size="md" variant="muted" />
               <span className={cls.mdCaption}>md · 36</span>
             </span>
             <span className={cls.lgSample}>
-              <IconButton icon="tune" label="Ajustes" size="lg" variant="raised" />
+              <IconButton icon="tune" label="Ajustes" size="lg" variant="muted" />
               <span className={cls.lgCaption}>lg · 40</span>
             </span>
           </Variant>
         </Panel>
       </Section>
 
-      <Section title="Variantes" note="`label` es obligatorio: un botón que solo tiene un icono no dice nada sin él. Y en una barra va `muted` y no `raised`: el canto de un píxel que en un botón ancho es un remate, sobre un cuadrado de 32 pesa mucho más por área y se lee como de otra librería.">
+      <Section title="Variantes" note="`label` es obligatorio: un botón que solo tiene un icono no dice nada sin él. En una barra va `ghost`, que no dibuja caja: lo que identifica a un botón de solo icono es el glifo, y sobre el fondo de la página llega a 8:1 sin necesidad de un relleno detrás.">
         <Panel>
           <Variant name="ghost">
             <IconButton icon="tune" label="Ajustes" />
             <IconButton icon="tune" label="Ajustes" size="sm" />
           </Variant>
-          <Variant name="raised">
-            <IconButton icon="edit" label="Editar" variant="raised" />
-            <IconButton icon="edit" label="Editar" variant="raised" size="sm" />
+          <Variant name="muted">
+            <IconButton icon="edit" label="Editar" variant="muted" />
+            <IconButton icon="edit" label="Editar" variant="muted" size="sm" />
           </Variant>
           <Variant name="solid"><IconButton icon="check" label="Aceptar" variant="solid" /></Variant>
-          <Variant name="muted"><IconButton icon="more_horiz" label="Más" variant="muted" /></Variant>
-          <Variant name="yellow"><IconButton icon="download" label="Exportar" variant="yellow" /></Variant>
+          <Variant name="brand"><IconButton icon="add" label="Nueva actividad" variant="brand" /></Variant>
         </Panel>
       </Section>
 

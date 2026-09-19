@@ -31,7 +31,7 @@ export function SpinnerStory() {
         <Panel>
           <Variant name="en un botón">
             <Button variant="solid" aria-busy><Spinner size={16} on="solid" />Guardando</Button>
-            <Button variant="raised" aria-busy><Spinner size={16} />Guardando</Button>
+            <Button variant="muted" aria-busy><Spinner size={16} />Guardando</Button>
           </Variant>
           <Variant name="en una fila">
             <span className={cls.inlineWait}>

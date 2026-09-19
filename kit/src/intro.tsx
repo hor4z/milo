@@ -40,9 +40,9 @@ export function Intro({ go, views }: { go: (id: string) => void; views: number }
           </Stack>
 
           <div className={cls.heroActions}>
-            <Button variant="solid" icon="arrow_forward" onClick={() => go('principles')}>Ver los principios</Button>
-            <Button variant="raised" icon="dashboard" onClick={() => go('dashboard')}>Ver el dashboard</Button>
-            <Button variant="raised" icon="description" onClick={() => go('documento')}>Ver un documento</Button>
+            <Button variant="solid" iconStart="arrow_forward" onClick={() => go('principles')}>Ver los principios</Button>
+            <Button variant="muted" iconStart="dashboard" onClick={() => go('dashboard')}>Ver el dashboard</Button>
+            <Button variant="muted" iconStart="description" onClick={() => go('documento')}>Ver un documento</Button>
           </div>
 
           <dl className={cls.statList}>

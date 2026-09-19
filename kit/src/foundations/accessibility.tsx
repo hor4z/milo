@@ -65,7 +65,7 @@ export function AccessibilitySection() {
         <div className={`${cls.ringCard} bg-surface`}>
           <Button variant="solid">Guardar</Button>
           <Button variant="brand">Publicar</Button>
-          <Button variant="raised">Cancelar</Button>
+          <Button variant="muted">Cancelar</Button>
           <span className={cls.ringNote}>
             Va con <code>:focus-visible</code> y no con <code>:focus</code>: el anillo aparece cuando
             se navega con el teclado y no cuando se clickea, que es cuando estorba y no informa.

@@ -237,11 +237,17 @@ export function Grid({ children, min = 220, cols }: {
 }
 
 /** Una fila de variantes con su nombre al costado. */
-export function Variant({ name, children }: { name: string; children: ReactNode }) {
+export function Variant({ name, note, children }: {
+  name: string
+  /** Qué significa esta variante, al lado de la pieza. Sin esto la fila solo muestra cómo se ve, no cuándo va. */
+  note?: string
+  children: ReactNode
+}) {
   return (
     <div className={s.variant}>
       <code className={s.variantName}>{name}</code>
       <div className={s.variantItems}>{children}</div>
+      {note && <p className={s.variantNote}><Rich text={note} /></p>}
     </div>
   )
 }

@@ -66,7 +66,7 @@ export function EmptyStateStory() {
           <EmptyState
             title="Acá no hay nada"
             body="La dirección existe pero no lleva a ninguna pantalla."
-            action={<Button variant="raised">Volver</Button>}
+            action={<Button variant="muted">Volver</Button>}
           />
         </Demo>
       </Section>

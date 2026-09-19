@@ -20,13 +20,13 @@ export function ToastStory() {
             <Button variant="solid" onClick={() => toast({ title: 'Actividad publicada', body: 'La ven los siete espacios', tone: 'ok' })}>
               Publicar
             </Button>
-            <Button variant="raised" onClick={() => toast({ title: 'Se guardó el borrador' })}>
+            <Button variant="muted" onClick={() => toast({ title: 'Se guardó el borrador' })}>
               Guardar
             </Button>
-            <Button variant="raised" onClick={() => toast({ title: 'No se pudo subir el archivo', body: 'Pesa más de 20 MB', tone: 'bad' })}>
+            <Button variant="muted" onClick={() => toast({ title: 'No se pudo subir el archivo', body: 'Pesa más de 20 MB', tone: 'bad' })}>
               Error
             </Button>
-            <Button variant="raised" onClick={() => toast({ title: 'Se archivaron 12 actividades', duration: 0 })}>
+            <Button variant="muted" onClick={() => toast({ title: 'Se archivaron 12 actividades', duration: 0 })}>
               Sin vencimiento
             </Button>
           </Cluster>
@@ -39,8 +39,8 @@ export function ToastStory() {
       >
         <Demo label="con salida">
           <Button
-            variant="raised"
-            icon="delete"
+            variant="muted"
+            iconStart="delete"
             onClick={() => toast({
               title: 'Se archivó "Fracciones equivalentes"',
               action: { label: 'Deshacer', onClick: () => toast({ title: 'Volvió a tus actividades', tone: 'ok' }) },
@@ -58,7 +58,7 @@ export function ToastStory() {
       >
         <Demo label="tirá cinco seguidos">
           <Button
-            variant="raised"
+            variant="muted"
             onClick={() => {
               const names = ['Fracciones', 'El sistema solar', 'Cuento policial', 'Mapa de América', 'Ecosistemas']
               names.forEach((n, i) => setTimeout(() => toast({ title: `Se corrigió "${n}"`, tone: 'ok' }), i * 260))
