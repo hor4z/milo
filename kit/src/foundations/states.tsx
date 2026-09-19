@@ -94,7 +94,7 @@ export function StatesSection() {
               icon="search_off"
               title="Nada para 'trimestral'"
               body="Probá con menos palabras, o sacá el filtro de espacio."
-              action={<Button variant="muted" iconStart="filter_alt">Limpiar filtros</Button>}
+              action={<Button variant="muted" iconStart={<Icon name="filter_alt" />}>Limpiar filtros</Button>}
             />
           </StateCard>
         </div>
@@ -124,7 +124,7 @@ export function StatesSection() {
             <div className={cls.goodMessage}>
               <p className={cls.goodTitle}>No se pudieron traer las entregas</p>
               <p className={cls.goodBody}>Puede ser la conexión. Lo que ya estaba corregido sigue estando.</p>
-              <Button size="sm" variant="muted" iconStart="refresh" className={cls.goodRetry}>Reintentar</Button>
+              <Button size="sm" variant="muted" iconStart={<Icon name="refresh" />} className={cls.goodRetry}>Reintentar</Button>
             </div>
             <p className={cls.goodWhy}>
               Qué pasó, qué no se perdió, y la salida. Las tres.

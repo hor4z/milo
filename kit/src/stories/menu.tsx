@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Button, Divider, Menu, MenuItem, MenuLabel, Popover } from '@milo/ui'
+import { Button, Divider, Icon, Menu, MenuItem, MenuLabel, Popover } from '@milo/ui'
 import { A11y, Footnote, Mono, Page, Panel, Props, Section, Variant } from '../kit'
 
 export function MenuStory() {
@@ -68,7 +68,7 @@ export function MenuStory() {
             <Popover
               align="start"
               trigger={({ ref, ...rest }) => (
-                <Button ref={ref} {...rest} variant="muted" iconEnd="keyboard_arrow_down">
+                <Button ref={ref} {...rest} variant="muted" iconEnd={<Icon name="keyboard_arrow_down" />}>
                   Acciones
                 </Button>
               )}

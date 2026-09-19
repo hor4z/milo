@@ -1,31 +1,31 @@
-import { Button } from '@milo/ui'
+import { Button, Icon } from '@milo/ui'
 import { useEffect, useRef, useState } from 'react'
-import { A11y, Cluster, Demo, Example, Page, Panel, Props, Section, Variant } from '../kit'
+import { A11y, Demo, Example, Grid, Page, Panel, Props, Section, Variant } from '../kit'
 
 /** Dos respuestas de verdad, una más rápida que la espera y otra más lenta, para
  *  ver que la corta no dibuja nada y la larga no se corta. */
-function Probar() {
-  const [cargando, setCargando] = useState<'' | 'corta' | 'larga'>('')
-  const t = useRef<number | undefined>(undefined)
-  useEffect(() => () => clearTimeout(t.current), [])
-  const correr = (cual: 'corta' | 'larga', ms: number) => {
-    setCargando(cual)
-    clearTimeout(t.current)
-    t.current = setTimeout(() => setCargando(''), ms) as unknown as number
+function TryLoading() {
+  const [running, setRunning] = useState<'' | 'short' | 'long'>('')
+  const timer = useRef<number | undefined>(undefined)
+  useEffect(() => () => clearTimeout(timer.current), [])
+  const run = (which: 'short' | 'long', ms: number) => {
+    setRunning(which)
+    clearTimeout(timer.current)
+    timer.current = setTimeout(() => setRunning(''), ms) as unknown as number
   }
   return (
-    <Cluster align="start">
-      <Demo label="una acción corta">
-        <Button variant="brand" loading={cargando === 'corta'} onClick={() => correr('corta', 80)}>
+    <Grid>
+      <Demo label="Una acción corta">
+        <Button variant="brand" loading={running === 'short'} onClick={() => run('short', 80)}>
           Guardar
         </Button>
       </Demo>
-      <Demo label="una acción que tarda">
-        <Button variant="brand" iconStart="folder" loading={cargando === 'larga'} onClick={() => correr('larga', 900)}>
+      <Demo label="Una acción que tarda">
+        <Button variant="brand" iconStart={<Icon name="folder" />} loading={running === 'long'} onClick={() => run('long', 900)}>
           Nuevo espacio
         </Button>
       </Demo>
-    </Cluster>
+    </Grid>
   )
 }
 
@@ -95,43 +95,46 @@ export function ButtonStory() {
         </Panel>
       </Section>
 
-      <Section title="Iconos, ancho completo y deshabilitado">
-        <Cluster align="start">
-          <Demo label="iconStart"><Button variant="muted" iconStart="folder">Nuevo espacio</Button></Demo>
-          <Demo label="iconEnd"><Button variant="muted" iconEnd="chevron_right">Siguiente</Button></Demo>
-          <Demo label="disabled">
-            <Button variant="solid" disabled>Guardar</Button>
-            <Button variant="muted" disabled>Guardar</Button>
+      <Section title="Con icono, ancho completo y deshabilitado">
+        <Grid>
+          <Demo label="Con un icono al comienzo">
+            <Button variant="muted" iconStart={<Icon name="folder" />}>Nuevo espacio</Button>
           </Demo>
-          <Demo width="xs" label="block"><Button variant="solid" block>Entrar</Button></Demo>
-        </Cluster>
+          <Demo label="Con un icono al final">
+            <Button variant="muted" iconEnd={<Icon name="chevron_right" />}>Siguiente</Button>
+          </Demo>
+          <Demo label="Deshabilitado">
+            <Button variant="solid" disabled>Guardar</Button>
+          </Demo>
+          <Demo label="Ocupando el ancho">
+            <Button variant="solid" block>Entrar</Button>
+          </Demo>
+        </Grid>
       </Section>
 
       <Section
         title="Cargando"
         note="Para una acción que tarda. El botón avisa que está trabajando y no se deja tocar de nuevo hasta que termina."
       >
-        <Cluster align="start">
-          <Demo label="las cinco variantes">
-            <Button variant="brand" loading>Guardar</Button>
-            <Button variant="solid" loading>Guardar</Button>
-            <Button variant="muted" loading>Guardar</Button>
+        <Panel>
+          <Variant name="brand"><Button variant="brand" loading>Guardar</Button></Variant>
+          <Variant name="solid"><Button variant="solid" loading>Guardar</Button></Variant>
+          <Variant name="muted"><Button variant="muted" loading>Guardar</Button></Variant>
+          <Variant name="ghost"><Button variant="ghost" loading>Guardar</Button></Variant>
+          <Variant name="bad"><Button variant="bad" loading>Eliminar</Button></Variant>
+        </Panel>
+        <Grid min={340}>
+          <Demo label="Antes y mientras carga">
+            <Button variant="brand" iconStart={<Icon name="folder" />}>Nuevo espacio</Button>
+            <Button variant="brand" iconStart={<Icon name="folder" />} loading>Nuevo espacio</Button>
           </Demo>
-          <Demo label="y las otras dos">
-            <Button variant="ghost" loading>Guardar</Button>
-            <Button variant="bad" loading>Eliminar</Button>
-          </Demo>
-          <Demo label="quieto y cargando">
-            <Button variant="brand" iconStart="folder">Nuevo espacio</Button>
-            <Button variant="brand" iconStart="folder" loading>Nuevo espacio</Button>
-          </Demo>
-          <Demo label="en los tres tamaños">
+          <Demo label="Los tres tamaños">
             <Button size="sm" variant="brand" loading>Guardar</Button>
             <Button size="md" variant="brand" loading>Guardar</Button>
             <Button size="lg" variant="brand" loading>Guardar</Button>
           </Demo>
-        </Cluster>
-        <Probar />
+        </Grid>
+        <TryLoading />
       </Section>
 
       <Section title="Cómo se escribe">
@@ -140,7 +143,7 @@ export function ButtonStory() {
   Crear actividad
 </Button>
 
-<Button variant="muted" iconStart="folder" size="sm">
+<Button variant="muted" iconStart={<Icon name="folder" />} size="sm">
   Nuevo espacio
 </Button>
 

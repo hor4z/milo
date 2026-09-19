@@ -104,38 +104,49 @@ export function Code({ children }: { children: string }) {
   )
 }
 
-/** Las cuatro cosas que se distinguen en un JSX. No es una gramática: es lo
- *  justo para un ejemplo de uso, que es lo único que este sitio muestra. */
-const REGLAS: { re: RegExp; clase: string }[] = [
-  { re: /^"[^"]*"/, clase: 'cadena' },
-  { re: /^(?:<\/?|\/?>|=|[{}])/, clase: 'signo' },
-  { re: /^[A-Z][A-Za-z0-9]*/, clase: 'pieza' },
+type Token = { text: string; kind?: string }
+
+/** Lo que se distingue en un JSX. No es una gramática: es lo justo para un
+ *  ejemplo de uso, que es lo único que este sitio muestra. El nombre de la
+ *  pieza se reconoce junto al `<` que lo abre y no por venir en mayúscula, así
+ *  una palabra capitalizada del contenido no se pinta como si fuera un
+ *  componente. */
+const RULES: { re: RegExp; tokens: (m: RegExpExecArray) => Token[] }[] = [
+  { re: /^(<\/?)([A-Z][A-Za-z0-9.]*)/, tokens: m => [{ text: m[1], kind: 'punct' }, { text: m[2], kind: 'component' }] },
+  { re: /^"[^"]*"/, tokens: m => [{ text: m[0], kind: 'string' }] },
+  { re: /^[a-zA-Z][A-Za-z0-9]*(?=\s*=)/, tokens: m => [{ text: m[0], kind: 'prop' }] },
+  { re: /^(?:true|false|null|undefined|\d+(?:\.\d+)?)\b/, tokens: m => [{ text: m[0], kind: 'value' }] },
+  { re: /^(?:\/?>|[={}()[\]])/, tokens: m => [{ text: m[0], kind: 'punct' }] },
+  { re: /^\/\/.*/, tokens: m => [{ text: m[0], kind: 'comment' }] },
 ]
 
-function trozos(linea: string) {
-  const out: { texto: string; clase?: string }[] = []
-  let resto = linea
-  let suelto = ''
-  while (resto) {
-    const regla = REGLAS.find(r => r.re.test(resto))
-    if (!regla) {
-      suelto += resto[0]
-      resto = resto.slice(1)
+function tokenize(line: string) {
+  const out: Token[] = []
+  let rest = line
+  let plain = ''
+  while (rest) {
+    const rule = RULES.find(r => r.re.test(rest))
+    if (!rule) {
+      plain += rest[0]
+      rest = rest.slice(1)
       continue
     }
-    if (suelto) { out.push({ texto: suelto }); suelto = '' }
-    const [encontrado] = regla.re.exec(resto)!
-    out.push({ texto: encontrado, clase: regla.clase })
-    resto = resto.slice(encontrado.length)
+    if (plain) { out.push({ text: plain }); plain = '' }
+    const m = rule.re.exec(rest)!
+    out.push(...rule.tokens(m))
+    rest = rest.slice(m[0].length)
   }
-  if (suelto) out.push({ texto: suelto })
+  if (plain) out.push({ text: plain })
   return out
 }
 
-const resaltado: Record<string, string> = {
-  cadena: s.codeCadena,
-  signo: s.codeSigno,
-  pieza: s.codePieza,
+const highlight: Record<string, string> = {
+  component: s.codeComponent,
+  prop: s.codeProp,
+  string: s.codeString,
+  value: s.codeValue,
+  punct: s.codePunct,
+  comment: s.codeComment,
 }
 
 /** Cómo se escribe la pieza. Va al lado de la tabla de props: una dice qué acepta, el otro cómo se usa. */
@@ -145,10 +156,10 @@ export function Example({ code }: { code: string }) {
     <div className={`${s.codeBlock} group`}>
       <pre className={s.codePre}>
         <code>
-          {code.trim().split('\n').map((linea, i) => (
+          {code.trim().split('\n').map((line, i) => (
             <span key={i} className={s.codeLine}>
-              {trozos(linea).map((t, j) => (
-                <span key={j} className={t.clase ? resaltado[t.clase] : undefined}>{t.texto}</span>
+              {tokenize(line).map((token, j) => (
+                <span key={j} className={token.kind ? highlight[token.kind] : undefined}>{token.text}</span>
               ))}
             </span>
           ))}

@@ -1,8 +1,5 @@
 import { useState } from 'react'
-import {
-  Button, Field, FieldSet, Select, Sheet, SheetBody, SheetFooter, SheetHeader, Switch,
-  TextField, Textarea, useToast,
-} from '@milo/ui'
+import { Button, Field, FieldSet, Icon, Select, Sheet, SheetBody, SheetFooter, SheetHeader, Switch, TextField, Textarea, useToast } from '@milo/ui'
 import { A11y, Canvas, Note, Page, Props, Section, Stack } from '../kit'
 
 export function SheetStory() {
@@ -67,7 +64,7 @@ export function SheetStory() {
         note="Por defecto de la derecha, que es de donde vienen las cosas nuevas. El izquierdo es para lo que acompaña a la navegación (un filtro, un índice) y no para un formulario: entrar por donde está el menú se lee como que el menú creció."
       >
         <Canvas center>
-          <Button variant="muted" iconStart="filter_list" onClick={() => setLeftOpen(true)}>Filtros</Button>
+          <Button variant="muted" iconStart={<Icon name="filter_list" />} onClick={() => setLeftOpen(true)}>Filtros</Button>
         </Canvas>
 
         <Sheet open={leftOpen} onClose={() => setLeftOpen(false)} side="left" width={360} label="Filtros">

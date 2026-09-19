@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Button, Modal, ModalBody, ModalFooter, ModalHint, ModalTitle, SettingsModal } from '@milo/ui'
+import { Button, Icon, Modal, ModalBody, ModalFooter, ModalHint, ModalTitle, SettingsModal } from '@milo/ui'
 import { A11y, Cluster, Demo, Footnote, Page, Props, Section } from '../kit'
 
 export function ModalStory() {
@@ -58,7 +58,7 @@ export function ModalStory() {
       >
         <Cluster align="start">
           <Demo label="width 594">
-            <Button variant="muted" iconStart="tune" onClick={() => setSettingsOpen(true)}>Ajustes</Button>
+            <Button variant="muted" iconStart={<Icon name="tune" />} onClick={() => setSettingsOpen(true)}>Ajustes</Button>
             <SettingsModal
               open={settingsOpen}
               onClose={() => setSettingsOpen(false)}

@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Alert, AlertActions, AlertBody, AlertTitle, Button } from '@milo/ui'
+import { Alert, AlertActions, AlertBody, AlertTitle, Button, Icon } from '@milo/ui'
 import { A11y, Demo, Frame, Note, Page, Props, Section, Stack } from '../kit'
 
 export function AlertStory() {
@@ -39,11 +39,11 @@ export function AlertStory() {
                 <AlertTitle>No se pudieron traer las entregas</AlertTitle>
                 <AlertBody>Puede ser la conexión. Lo que ya estaba corregido sigue estando.</AlertBody>
                 <AlertActions>
-                  <Button size="sm" variant="muted" iconStart="refresh">Reintentar</Button>
+                  <Button size="sm" variant="muted" iconStart={<Icon name="refresh" />}>Reintentar</Button>
                 </AlertActions>
               </Alert>
             )
-            : <Button size="sm" variant="muted" iconStart="undo" onClick={() => setCerrados(c => c.filter(x => x !== 'rojo'))}>Mostrarlo de nuevo</Button>}
+            : <Button size="sm" variant="muted" iconStart={<Icon name="undo" />} onClick={() => setCerrados(c => c.filter(x => x !== 'rojo'))}>Mostrarlo de nuevo</Button>}
         </Stack>
       </Section>
 
@@ -78,7 +78,7 @@ export function AlertStory() {
                   </Alert>
                 </Frame>
               )
-              : <Button size="sm" variant="muted" iconStart="undo" onClick={() => setCerrados(c => c.filter(x => x !== 'amarillo'))}>Mostrarlo de nuevo</Button>}
+              : <Button size="sm" variant="muted" iconStart={<Icon name="undo" />} onClick={() => setCerrados(c => c.filter(x => x !== 'amarillo'))}>Mostrarlo de nuevo</Button>}
           </Demo>
         </Stack>
       </Section>

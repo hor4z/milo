@@ -1,4 +1,4 @@
-import { Button, useToast } from '@milo/ui'
+import { Button, Icon, useToast } from '@milo/ui'
 import { A11y, Cluster, Demo, Note, Page, Props, Section } from '../kit'
 
 export function ToastStory() {
@@ -40,7 +40,7 @@ export function ToastStory() {
         <Demo label="con salida">
           <Button
             variant="muted"
-            iconStart="delete"
+            iconStart={<Icon name="delete" />}
             onClick={() => toast({
               title: 'Se archivó "Fracciones equivalentes"',
               action: { label: 'Deshacer', onClick: () => toast({ title: 'Volvió a tus actividades', tone: 'ok' }) },

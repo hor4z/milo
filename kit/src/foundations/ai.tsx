@@ -161,7 +161,7 @@ export function AiSection() {
                 la mitad.
               </p>
               <Cluster gap="sm">
-                <Button size="sm" variant="muted" iconStart="undo">Deshacer</Button>
+                <Button size="sm" variant="muted" iconStart={<Icon name="undo" />}>Deshacer</Button>
                 <Button size="sm" variant="ghost">Ver qué cambió</Button>
               </Cluster>
             </CardBody>

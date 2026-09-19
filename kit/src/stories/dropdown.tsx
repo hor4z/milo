@@ -1,4 +1,4 @@
-import { Button, Dropdown } from '@milo/ui'
+import { Button, Dropdown, Icon } from '@milo/ui'
 import { A11y, Cluster, Demo, Page, Props, Section } from '../kit'
 
 export function DropdownStory() {
@@ -21,7 +21,7 @@ export function DropdownStory() {
                 { label: 'Salir', icon: 'logout' },
               ]}
               trigger={({ onClick, ref, ...rest }) => (
-                <Button ref={ref} onClick={onClick} {...rest} variant="muted" iconEnd="keyboard_arrow_down">Abrir menú</Button>
+                <Button ref={ref} onClick={onClick} {...rest} variant="muted" iconEnd={<Icon name="keyboard_arrow_down" />}>Abrir menú</Button>
               )}
             />
           </Demo>
@@ -31,7 +31,7 @@ export function DropdownStory() {
               width={200}
               items={[{ label: 'Duplicar', icon: 'content_copy' }, { label: 'Descargar', icon: 'download' }, { label: 'Eliminar', icon: 'delete' }]}
               trigger={({ onClick, ref, ...rest }) => (
-                <Button ref={ref} onClick={onClick} {...rest} variant="muted" iconStart="more_horiz">Acciones</Button>
+                <Button ref={ref} onClick={onClick} {...rest} variant="muted" iconStart={<Icon name="more_horiz" />}>Acciones</Button>
               )}
             />
           </Demo>
@@ -53,7 +53,7 @@ export function DropdownStory() {
                 { label: 'Borrar', icon: 'delete', danger: true },
               ]}
               trigger={({ onClick, ref, ...rest }) => (
-                <Button ref={ref} onClick={onClick} {...rest} variant="muted" iconStart="more_horiz">Acciones</Button>
+                <Button ref={ref} onClick={onClick} {...rest} variant="muted" iconStart={<Icon name="more_horiz" />}>Acciones</Button>
               )}
             />
           </Demo>

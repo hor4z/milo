@@ -1,5 +1,5 @@
 import cls from './card.module.css'
-import { Button, Card, CardBody, CardFooter, CardHeader, CardHint, CardTitle, Chip, Progress } from '@milo/ui'
+import { Button, Card, CardBody, CardFooter, CardHeader, CardHint, CardTitle, Chip, Icon, Progress } from '@milo/ui'
 import { A11y, Cluster, Note, Page, Props, Section } from '../kit'
 
 export function CardStory() {
@@ -27,7 +27,7 @@ export function CardStory() {
               <Progress label="Corregidas" value={18} max={24} hint="18 de 24" />
             </CardBody>
             <CardFooter>
-              <Button size="sm" variant="ghost" iconEnd="chevron_right">Ver todas</Button>
+              <Button size="sm" variant="ghost" iconEnd={<Icon name="chevron_right" />}>Ver todas</Button>
             </CardFooter>
           </Card>
 
