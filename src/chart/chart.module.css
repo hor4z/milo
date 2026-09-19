@@ -46,8 +46,7 @@
   .trackEmpty {
     &:is(:where(:global(.group)):focus-visible *) {
       background-color: #0000;
-      --milo-ring-shadow: var(--milo-ring-inset,) 0 0 0 calc(1px + var(--milo-ring-offset-width)) var(--milo-ring-color,currentcolor);
-      box-shadow: var(--milo-inset-shadow),var(--milo-inset-ring-shadow),var(--milo-ring-offset-shadow),var(--milo-ring-shadow),var(--milo-shadow);
+      box-shadow: 0 0 0 1px currentcolor;
     }
   }
 
@@ -114,13 +113,11 @@
     border-radius: var(--radius-md);
     padding-inline: 0.75rem;
     padding-block: 0.5rem;
-    --milo-shadow: var(--relief-popover);
-    box-shadow: var(--milo-inset-shadow),var(--milo-inset-ring-shadow),var(--milo-ring-offset-shadow),var(--milo-ring-shadow),var(--milo-shadow);
+    box-shadow: var(--relief-popover);
   }
 
   .tooltipInside {
-    --milo-translate-y: 100%;
-    translate: var(--milo-translate-x) var(--milo-translate-y);
+    translate: 0 100%;
     margin-bottom: calc(0.25rem * -2);
   }
 
@@ -129,13 +126,11 @@
   }
 
   .center {
-    --milo-translate-x: -50%;
-    translate: var(--milo-translate-x) var(--milo-translate-y);
+    translate: -50% 0;
   }
 
   .end {
-    --milo-translate-x: -100%;
-    translate: var(--milo-translate-x) var(--milo-translate-y);
+    translate: -100% 0;
   }
 
   .tooltipRow {
@@ -185,9 +180,7 @@
 
   @media (hover:hover) {
     .trackHover:is(:where(:global(.group)):hover *) {
-        --milo-ring-shadow: var(--milo-ring-inset,) 0 0 0 calc(1px + var(--milo-ring-offset-width)) var(--milo-ring-color,currentcolor);
-        box-shadow: var(--milo-inset-shadow),var(--milo-inset-ring-shadow),var(--milo-ring-offset-shadow),var(--milo-ring-shadow),var(--milo-shadow);
-        --milo-ring-color: var(--border-strong);
+        box-shadow: 0 0 0 1px var(--border-strong);
         --milo-ring-inset: inset;
     }
   }

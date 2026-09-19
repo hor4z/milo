@@ -18,7 +18,7 @@ final son lo único que hay que tocar.
 npm install
 npm run dev        # el sitio · http://localhost:5190
 npm run typecheck  # el paquete y el sitio de una
-npm test           # 782 tests con vitest y testing-library
+npm test           # 783 tests con vitest y testing-library
 npm run build      # compila el paquete a dist/ (js, css y tipos)
 npm run props      # regenera la tabla de props desde los tipos
 ```
@@ -286,6 +286,34 @@ Repartido entre `portal/`, `popover/`, `tooltip/`, `dropdown/`, `modal/`, `sheet
   Linux aparece un control de GTK en medio de la interfaz: se ve "sin estilo" por más que la caja
   esté bien. El costo es traer el teclado a mano: flechas, Enter, Escape, Home/End.
 
+## La conversión de Tailwind dejó 59 declaraciones que el navegador tiraba
+
+Es la trampa que este archivo ya nombra en la lista de tests y que igual mordió: **un `var()` que
+nombra una custom property que nadie declara no falla, no avisa, y invalida la declaración entera.**
+No es que tome un valor raro: la propiedad queda como si no estuviera escrita.
+
+Tailwind emite sus utilidades de sombra y de transform como una composición de variables, y la
+conversión se trajo el uso sin traerse las definiciones, que vivían en su preflight:
+
+- `--milo-inset-shadow`, `--milo-inset-ring-shadow` y `--milo-ring-offset-shadow` se usaban **47
+  veces y se declaraban cero**. Las 45 reglas que las nombraban computaban `box-shadow: none`: el
+  anillo del `Indicator`, la sombra del `Modal`, la del `Tooltip`, la del `Sheet`, la del panel del
+  `ConfirmDialog` y así.
+- `--milo-translate-x` y `--milo-translate-y`: cada regla declaraba solo el eje que le importaba y
+  dejaba el otro sin declarar, así que las 14 computaban `translate: none`. **El pulgar del `Switch`
+  nunca se movió**, el del `Slider` nunca se centró, el tooltip del gráfico nunca se alineó y el
+  riel en móvil nunca se escondía.
+
+Todo eso se reemplazó por el valor literal, que es lo que la composición iba a dar. Y hay un
+guardián que lee todo el CSS del repo, junta lo declarado (incluido lo que una pieza pasa por
+`style` inline, como `--overlap` o `--folder-w`) y falla si un `var()` sin fallback nombra algo que
+no está.
+
+**Lo que hace que esto sea peligroso y no molesto**: la suite estaba entera en verde mientras pasaba,
+porque `vitest` corre con `css: false` y jsdom no calcula estilo. Un bug de CSS que rompe una pieza
+a la vista no lo agarra ningún test de comportamiento: hay que leer el CSS, que es lo que hace el
+guardián nuevo, o medirlo en un navegador.
+
 ## El dev server se despega del disco, y ya mordió cuatro veces
 
 Es la misma causa con dos caras, y las dos terminan en algo que se lee como "el sitio está roto"
@@ -501,7 +529,7 @@ Lo mismo vale para los tipos que una pieza recibe como argumento (`ToastOptions`
 
 ## Los tests
 
-`npm test` corre vitest con jsdom y testing-library. 782 tests, y lo que prueban es el
+`npm test` corre vitest con jsdom y testing-library. 783 tests, y lo que prueban es el
 comportamiento (teclado, nombres accesibles, estados) y no el markup, que cambia con cada
 ajuste de estilo. El test de cada pieza vive en su carpeta, al lado del componente.
 
@@ -657,10 +685,11 @@ un aula:
 
 ## Pendiente
 
-- **Los otros arrastres de la conversión mecánica**, que quedaron cuando se arreglaron los nombres:
-  96 apariciones de la maquinaria de gradiente de Tailwind escrita a mano
-  (`--milo-gradient-from/via/to/stops`, casi todas adentro de un `transition-property` que no anima
-  nada), y 56 `transition-duration: 150ms` seguidas de la `var(--duration-fast)` que sí vale.
+- **Los otros arrastres de la conversión mecánica**: 56 `transition-duration: 150ms` seguidas de la
+  `var(--duration-fast)` que sí vale, y la maquinaria de gradiente escrita a mano
+  (`--milo-gradient-from/via/to/stops`), casi toda adentro de un `transition-property` que no anima
+  nada. **La de sombra y la de translate ya no están, y no eran cosmética: estaban rotas.** Ver
+  abajo.
 - **La portada anuncia piezas y ya no tests**, porque el número de tests no se puede verificar
   leyendo archivos y se vencía solo: decía 687 cuando había 783, y el guardián que lo miraba era un
   piso (`>=` contra los `it(` que se pueden contar en el texto) en vez de una igualdad, así que no

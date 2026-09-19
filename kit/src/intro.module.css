@@ -327,8 +327,7 @@
 
   @media (hover:hover) {
     .shortcutChevron:is(:where(:global(.group)):hover *) {
-        --milo-translate-x: 0.125rem;
-        translate: var(--milo-translate-x) var(--milo-translate-y);
+        translate: 0.125rem 0;
     }
   }
 

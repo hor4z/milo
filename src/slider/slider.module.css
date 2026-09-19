@@ -47,8 +47,7 @@
     position: absolute;
     width: 1.5rem;
     height: 1.5rem;
-    --milo-translate-x: -50%;
-    translate: var(--milo-translate-x) var(--milo-translate-y);
+    translate: -50% 0;
     border-radius: var(--radius-full);
   }
 
@@ -60,8 +59,7 @@
 
   .thumbFocus {
     &:is(:where(:global(.peer)):focus-visible~*) {
-      --milo-shadow: var(--switch-thumb-shadow), var(--focus-ring);
-      box-shadow: var(--milo-inset-shadow),var(--milo-inset-ring-shadow),var(--milo-ring-offset-shadow),var(--milo-ring-shadow),var(--milo-shadow);
+      box-shadow: var(--switch-thumb-shadow), var(--focus-ring);
     }
   }
 

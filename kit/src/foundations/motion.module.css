@@ -238,14 +238,12 @@
   }
 
   .panelOpen {
-    --milo-translate-y: 0px;
-    translate: var(--milo-translate-x) var(--milo-translate-y);
+    translate: 0 0;
     opacity: 1;
   }
 
   .panelClosed {
-    --milo-translate-y: calc(0.25rem * -2);
-    translate: var(--milo-translate-x) var(--milo-translate-y);
+    translate: 0 calc(0.25rem * -2);
     opacity: 0;
   }
 

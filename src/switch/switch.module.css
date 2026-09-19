@@ -36,12 +36,10 @@
   }
 
   .thumbOn {
-    --milo-translate-x: 18px;
-    translate: var(--milo-translate-x) var(--milo-translate-y);
+    translate: 18px 0;
   }
 
   .thumbOff {
-    --milo-translate-x: 0px;
-    translate: var(--milo-translate-x) var(--milo-translate-y);
+    translate: 0 0;
   }
 }

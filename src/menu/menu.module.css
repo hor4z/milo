@@ -5,8 +5,7 @@
     border-width: 1px;
     border-color: var(--border);
     padding: 0.25rem;
-    --milo-shadow: var(--relief-popover);
-    box-shadow: var(--milo-inset-shadow),var(--milo-inset-ring-shadow),var(--milo-ring-offset-shadow),var(--milo-ring-shadow),var(--milo-shadow);
+    box-shadow: var(--relief-popover);
   }
 
   .separator {

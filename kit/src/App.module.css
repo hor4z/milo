@@ -36,15 +36,12 @@
   }
 
   .railOpen {
-    --milo-translate-x: 0px;
-    translate: var(--milo-translate-x) var(--milo-translate-y);
-    --milo-shadow: var(--relief-popover);
-    box-shadow: var(--milo-inset-shadow),var(--milo-inset-ring-shadow),var(--milo-ring-offset-shadow),var(--milo-ring-shadow),var(--milo-shadow);
+    translate: 0 0;
+    box-shadow: var(--relief-popover);
   }
 
   .railClosed {
-    --milo-translate-x: -100%;
-    translate: var(--milo-translate-x) var(--milo-translate-y);
+    translate: -100% 0;
   }
 
   .railHead {
@@ -205,8 +202,7 @@
     background-color: var(--brand-soft);
     font-weight: var(--font-weight-semibold);
     color: var(--brand-ink);
-    --milo-shadow: 0 0 0 1px var(--milo-shadow-color,var(--brand-border));
-    box-shadow: var(--milo-inset-shadow),var(--milo-inset-ring-shadow),var(--milo-ring-offset-shadow),var(--milo-ring-shadow),var(--milo-shadow);
+    box-shadow: 0 0 0 1px var(--milo-shadow-color,var(--brand-border));
   }
 
   .navItemIdle {
@@ -236,8 +232,7 @@
 
   @media (min-width:64rem) {
     .railMotion {
-        --milo-translate-x: 0px;
-        translate: var(--milo-translate-x) var(--milo-translate-y);
+        translate: 0 0;
     }
   }
 

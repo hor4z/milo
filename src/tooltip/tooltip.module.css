@@ -17,7 +17,6 @@
     letter-spacing: var(--type-body-ls);
     font-weight: var(--font-weight-medium);
     color: var(--on-solid);
-    --milo-shadow: var(--relief-popover);
-    box-shadow: var(--milo-inset-shadow),var(--milo-inset-ring-shadow),var(--milo-ring-offset-shadow),var(--milo-ring-shadow),var(--milo-shadow);
+    box-shadow: var(--relief-popover);
   }
 }

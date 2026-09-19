@@ -175,6 +175,44 @@ describe('coherencia del sistema', () => {
     expect(offenders).toEqual([])
   })
 
+  it('ningún var() nombra una custom property que nadie declara', () => {
+    const raiz = join(import.meta.dirname, '../..')
+    const css: { name: string; text: string }[] = []
+    const tsx: string[] = []
+    const recorrer = (base: string, prefijo = '') => {
+      for (const e of readdirSync(base, { withFileTypes: true })) {
+        if (e.isDirectory()) {
+          if (!['node_modules', '.git', 'dist', '.vite'].includes(e.name)) recorrer(join(base, e.name), `${prefijo}${e.name}/`)
+        } else if (e.name.endsWith('.css')) {
+          css.push({ name: `${prefijo}${e.name}`, text: readFileSync(join(base, e.name), 'utf8') })
+        } else if (/\.tsx?$/.test(e.name)) {
+          tsx.push(readFileSync(join(base, e.name), 'utf8'))
+        }
+      }
+    }
+    recorrer(join(raiz, 'src'))
+    recorrer(join(raiz, 'kit/src'))
+
+    const declaradas = new Set<string>()
+    for (const f of css) for (const m of f.text.matchAll(/(--[\w-]+)\s*:/g)) declaradas.add(m[1])
+    // las que una pieza pasa por style inline: style={{ '--overlap': ... }}
+    for (const t of tsx) for (const m of t.matchAll(/['"](--[\w-]+)['"]\s*:/g)) declaradas.add(m[1])
+
+    const huerfanas: string[] = []
+    for (const f of css) {
+      for (const m of f.text.matchAll(/var\(\s*(--[\w-]+)\s*(\)|,)/g)) {
+        if (m[2] === ',') continue
+        if (declaradas.has(m[1])) continue
+        const linea = f.text.slice(0, m.index).split('\n').length
+        huerfanas.push(`${f.name}:${linea} ${m[1]}`)
+      }
+    }
+    expect(
+      huerfanas,
+      'un var() sin valor ni fallback invalida la declaración entera, sin error y sin que nadie se entere',
+    ).toEqual([])
+  })
+
   it('todo lo público se exporta desde index.ts', () => {
     const index = readFileSync(join(dir, 'index.ts'), 'utf8')
     const missing: string[] = []

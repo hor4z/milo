@@ -28,11 +28,7 @@
     gap: 1rem;
     border-radius: var(--radius-2xl);
     padding: 1.25rem;
-    --milo-shadow: var(--relief-popover);
-    box-shadow: var(--milo-inset-shadow),var(--milo-inset-ring-shadow),var(--milo-ring-offset-shadow),var(--milo-ring-shadow),var(--milo-shadow);
-    --milo-ring-shadow: var(--milo-ring-inset,) 0 0 0 calc(1px + var(--milo-ring-offset-width)) var(--milo-ring-color,currentcolor);
-    box-shadow: var(--milo-inset-shadow),var(--milo-inset-ring-shadow),var(--milo-ring-offset-shadow),var(--milo-ring-shadow),var(--milo-shadow);
-    --milo-ring-color: var(--border);
+    box-shadow: 0 0 0 1px var(--border), var(--relief-popover);
   }
 
   .heading {
