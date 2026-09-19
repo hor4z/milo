@@ -31,6 +31,7 @@ export function IconButton({
       aria-label={label}
       className={cx(
         `${s.root} touch-target`,
+        s.pressed,
         s.disabled,
         variants[variant === 'ghost' && active ? 'muted' : variant],
         c.square, s.radius,

@@ -25,6 +25,8 @@
   --text-inverted: var(--shade-01);
 
   --solid: var(--shade-09);
+  /* Fuera de la rampa a propósito: `--solid` ya es su último paso, así que el
+     único lado al que el hover puede ir sin aclarar el relleno es el extremo. */
   --solid-hover: #000000;
   --on-solid: var(--shade-01);
 
@@ -197,6 +199,7 @@
   --space-pink: #e074a4;
   --scrim: rgb(0 0 0 / 0.55);
   --solid: var(--shade-09);
+  /* El mismo extremo que en claro, del lado que corresponde a esta rampa. */
   --solid-hover: #ffffff;
   --grad-raised: linear-gradient(in oklab, #333333 0%, #2c2c2c 100%);
   --grad-brand: linear-gradient(in oklab, var(--blue-400) 0%, var(--blue-300) 100%);

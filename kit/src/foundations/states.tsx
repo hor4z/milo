@@ -5,9 +5,9 @@ import { A11y, Note, Page, Rich, Section, Stack } from '../kit'
 
 /** Los seis estados de algo que se toca, y con qué los dice este sistema. */
 const interaction = [
-  { name: 'reposo', how: 'El relieve de la pieza y nada más.', why: 'El estado base también es un estado: si no se distingue de un hover, el hover no informa.' },
+  { name: 'reposo', how: 'El relleno de la pieza y nada más.', why: 'El estado base también es un estado: si no se distingue de un hover, el hover no informa.' },
   { name: 'hover', how: 'Un paso de tinta en alpha sobre el fondo. Nunca un movimiento.', why: 'El hover dice "esto responde". No existe sin mouse, así que nunca es la única forma de enterarse de algo.' },
-  { name: 'pressed', how: 'El relieve se da vuelta: la sombra entra desde abajo.', why: 'Es el único estado que el dedo confirma antes que el ojo, y por eso se dibuja con volumen y no con color.' },
+  { name: 'pressed', how: 'El relleno se oscurece un punto, y sin transición.', why: 'Es el único estado que el dedo confirma antes que el ojo, así que tiene que aparecer en el mismo momento del toque: uno que tarda no confirma nada.' },
   { name: 'focus', how: 'El anillo azul, el mismo en todo el sistema.', why: 'El único lugar donde el color es la señal. Va con `:focus-visible`: aparece con el teclado y no con el click, que es cuando estorba.' },
   { name: 'selected', how: 'Hundido o en el suave del azul, según la pieza.', why: '"Elegido" y "apretado" son cosas distintas y se confunden solas: lo apretado vuelve, lo elegido se queda.' },
   { name: 'disabled', how: 'Opacidad 45% y el puntero apagado.', why: 'Se sigue leyendo, que es el punto: algo deshabilitado tiene que poder explicar por qué lo está.' },

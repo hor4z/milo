@@ -17,7 +17,7 @@ export function SegmentedStory() {
     >
       <Section
         title="Tamaños"
-        note="La opción activa flota sobre una pista apagada, y dos cuentas tienen que dar. El radio: la opción es la pista menos su padding, 12 − 2 = 10. Y el alto: **la pista contiene su padding, no lo suma**, sumándolo, `sm` medía 36 y no apoyaba en la misma línea que un `Button` del mismo talle."
+        note="La opción activa flota sobre una pista apagada, y dos cuentas tienen que dar. El radio: la opción es la pista menos su padding, 12 − 2 = 10. Y el alto: **la pista contiene su padding, no lo suma**, así que la opción mide cuatro menos que el escalón y el conjunto apoya en la misma línea que un `Button` del mismo talle."
       >
         <Panel>
           <Variant name="md · texto">

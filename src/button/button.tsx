@@ -63,6 +63,7 @@ export function Button({
       className={cx(
         `${cls.root} touch-target`,
         cls.motion,
+        cls.pressed,
         cls.disabled,
         spinning && cls.loading,
         variants[variant], c.box, c.px, c.text, c.gap, c.radius, block && cls.block, className,

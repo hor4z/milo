@@ -10,8 +10,8 @@ const principles: { icon: IconName; title: string; body: string }[] = [
   },
   {
     icon: 'layers',
-    title: 'El estado se marca con relieve, no con tinte',
-    body: 'Lo activo sobresale o se hunde. Teñir el texto de un item elegido gasta el acento y, peor, apaga a los que no están elegidos: una lista de siete espacios con seis en gris parece deshabilitada.',
+    title: 'Lo elegido se marca en la pieza, no tiñendo su texto',
+    body: 'Se hunde, cambia de relleno o se para sobre el suave del azul. Teñir el texto de un item elegido gasta el acento y, peor, apaga a los que no están elegidos: una lista de siete espacios con seis en gris parece deshabilitada.',
   },
   {
     icon: 'square_foot',
