@@ -8,14 +8,19 @@ export function Spinner({ size = 20, label = 'Cargando', on = 'surface', classNa
   size?: number
   /** Al aria-label; el rol es status. */
   label?: string
-  /** Sobre qué está apoyado. */
-  on?: 'surface' | 'solid'
+  /** Sobre qué está apoyado. `control` toma el color de lo que lo contiene, que es lo que lo hace servir en todas las variantes de botón sin enumerar ninguna. */
+  on?: 'surface' | 'solid' | 'control'
   className?: string
 }) {
   const gid = useId()
   const [edge, track] = on === 'solid'
     ? ['var(--solid)', 'color-mix(in oklab, var(--on-solid) 22%, transparent)']
-    : ['var(--surface)', 'var(--border-strong)']
+    : on === 'control'
+      // El hueco entre el arco y la pista se pinta del color del relleno, y ese
+      // color lo escribe la pieza que lo contiene, igual que hace `--field-bg`
+      // con un campo: el spinner no sabe dónde cae.
+      ? ['var(--spinner-bg, var(--surface))', 'color-mix(in oklab, currentColor 22%, transparent)']
+      : ['var(--surface)', 'var(--border-strong)']
   const w = Math.max((2 * 24) / size, 24 * 0.17)
   const rim = 0.85
   const e = w + rim * 2
@@ -26,8 +31,8 @@ export function Spinner({ size = 20, label = 'Cargando', on = 'surface', classNa
       <svg width={size} height={size} viewBox="0 0 24 24" className="spin" aria-hidden="true">
         <defs>
           <linearGradient id={gid} x1="0.5" y1="0" x2="1" y2="1">
-            <stop offset="0%" stopColor="var(--blue-400)" />
-            <stop offset="100%" stopColor="var(--blue-600)" />
+            <stop offset="0%" stopColor={on === 'control' ? 'currentColor' : 'var(--blue-400)'} />
+            <stop offset="100%" stopColor={on === 'control' ? 'currentColor' : 'var(--blue-600)'} />
           </linearGradient>
         </defs>
         <circle cx="12" cy="12" r={r} fill="none" stroke={track} strokeWidth={w} />

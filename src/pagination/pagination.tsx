@@ -56,7 +56,7 @@ type PaginationNavProps = Omit<ComponentPropsWithoutRef<'button'>, 'children'> &
 /** Los dos viajan juntos y están siempre, apagados en las puntas. */
 export function PaginationPrev({ className, children = 'Anterior', ...props }: PaginationNavProps) {
   return (
-    <Button type="button" variant="ghost" size="sm" icon="chevron_left" className={cx(cls.prev, className)} {...props}>
+    <Button type="button" variant="ghost" size="sm" iconStart="chevron_left" className={cx(cls.prev, className)} {...props}>
       {children}
     </Button>
   )

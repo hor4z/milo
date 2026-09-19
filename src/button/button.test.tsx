@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react'
+import { act, render, screen } from '@testing-library/react'
 import { estilo } from '../__tests__/estilo'
 import s from './button.module.css'
 import userEvent from '@testing-library/user-event'
@@ -48,7 +48,7 @@ describe('Button', () => {
   })
 
   it('los iconos acompañan al texto sin robarle el nombre', () => {
-    render(<Button icon="add" iconEnd="chevron_right">Nueva actividad</Button>)
+    render(<Button iconStart="add" iconEnd="chevron_right">Nueva actividad</Button>)
     expect(screen.getByRole('button', { name: 'Nueva actividad' })).toBeInTheDocument()
   })
 
@@ -59,6 +59,49 @@ describe('Button', () => {
     expect(estilo(screen.getByRole('button'))).toContain('height: 2.75rem')
     rerender(<Button variant="solid">Guardar</Button>)
     expect(screen.getByRole('button').className).toContain(s.motion)
+  })
+
+  it('cargando no acepta clicks', async () => {
+    const onClick = vi.fn()
+    render(<Button loading onClick={onClick}>Guardar</Button>)
+    await userEvent.click(screen.getByRole('button'))
+    expect(onClick).not.toHaveBeenCalled()
+  })
+
+  it('una respuesta más rápida que una transición no llega a mostrar el spinner', async () => {
+    vi.useFakeTimers()
+    const { rerender } = render(<Button loading>Guardar</Button>)
+    await act(async () => { vi.advanceTimersByTime(100) })
+    expect(screen.queryByRole('status')).not.toBeInTheDocument()
+
+    rerender(<Button>Guardar</Button>)
+    await act(async () => { vi.advanceTimersByTime(1000) })
+    expect(screen.queryByRole('status')).not.toBeInTheDocument()
+    vi.useRealTimers()
+  })
+
+  it('una vez que apareció, el spinner se queda aunque la respuesta ya volvió', async () => {
+    vi.useFakeTimers()
+    const { rerender } = render(<Button loading>Guardar</Button>)
+    await act(async () => { vi.advanceTimersByTime(130) })
+    expect(screen.getByRole('status')).toBeInTheDocument()
+
+    rerender(<Button>Guardar</Button>)
+    await act(async () => { vi.advanceTimersByTime(100) })
+    expect(screen.getByRole('status'), 'se fue antes de que el ojo lo registre').toBeInTheDocument()
+
+    await act(async () => { vi.advanceTimersByTime(300) })
+    expect(screen.queryByRole('status')).not.toBeInTheDocument()
+    vi.useRealTimers()
+  })
+
+  it('el spinner ocupa el lugar del iconStart y no se suman los dos', async () => {
+    vi.useFakeTimers()
+    const { container } = render(<Button loading iconStart="folder">Guardar</Button>)
+    await act(async () => { vi.advanceTimersByTime(130) })
+    expect(screen.getByRole('status')).toBeInTheDocument()
+    expect(container.querySelectorAll('.ms-icon')).toHaveLength(0)
+    vi.useRealTimers()
   })
 
   it('block ocupa la fila entera', () => {

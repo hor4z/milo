@@ -1,40 +1,33 @@
 @layer milo.components {
   .variantBrand {
+    --spinner-bg: var(--brand);
     background-color: var(--brand);
     color: var(--on-brand);
   }
 
   .variantSolid {
+    --spinner-bg: var(--solid);
     background-color: var(--solid);
     color: var(--on-solid);
   }
 
-  .variantRaised {
-    background-color: var(--surface);
-    border-style: solid;
-    border-width: 1px;
-    border-color: var(--border-control);
-    color: var(--text);
-  }
-
   .variantMuted {
+    --spinner-bg: var(--surface-muted);
     background-color: var(--surface-muted);
     color: var(--text);
   }
 
   .variantGhost {
-    color: var(--text-muted);
+    --spinner-bg: var(--surface);
+    color: var(--text);
   }
 
   .variantBad {
+    --spinner-bg: var(--bad);
     background-color: var(--bad);
     color: var(--on-bad);
   }
 
-  .variantYellow {
-    background-color: var(--yellow);
-    color: var(--on-yellow);
-  }
 
   .heightSm {
     height: 2.25rem;
@@ -46,7 +39,7 @@
   }
 
   .padSm {
-    padding-inline: 1.25rem;
+    padding-inline: 1rem;
   }
 
   .textSm {
@@ -78,7 +71,7 @@
   }
 
   .padMd {
-    padding-inline: 1.5rem;
+    padding-inline: 1.25rem;
   }
 
   .textMd {
@@ -110,7 +103,7 @@
   }
 
   .padLg {
-    padding-inline: 1.75rem;
+    padding-inline: 1.5rem;
   }
 
   .textLg {
@@ -174,11 +167,7 @@
     }
   }
 
-  @media (hover:hover) {
-    .variantRaised:hover {
-        background-color: var(--surface-muted);
-    }
-  }
+
 
   @media (hover:hover) {
     .variantMuted:hover {
@@ -189,19 +178,12 @@
   @media (hover:hover) {
     .variantGhost:hover {
         background-color: var(--surface-hover);
-        color: var(--text);
     }
   }
 
   @media (hover:hover) {
     .variantBad:hover {
         background-color: var(--bad-hover);
-    }
-  }
-
-  @media (hover:hover) {
-    .variantYellow:hover {
-        background-color: var(--yellow-hover);
     }
   }
   @media (pointer: coarse) {

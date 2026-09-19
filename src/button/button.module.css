@@ -20,6 +20,12 @@
     }
   }
 
+  /* Cargando no es lo mismo que deshabilitado: la caja deja de aceptar clicks
+     pero conserva su color, porque el spinner tiene que leerse encima. */
+  .loading:disabled {
+    opacity: 1;
+  }
+
   .block {
     width: 100%;
   }

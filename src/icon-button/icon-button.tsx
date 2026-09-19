@@ -9,8 +9,8 @@ type IconButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
   icon: IconName
   /** Un botón que solo tiene un icono no dice nada sin esto. */
   label: string
-  /** La misma escalera del `Button`, sin `brand` ni `bad`. */
-  variant?: 'ghost' | 'raised' | 'solid' | 'muted' | 'yellow'
+  /** Las del `Button` menos `bad`: un icono solo no alcanza para anunciar que algo se borra. */
+  variant?: 'ghost' | 'solid' | 'muted' | 'brand'
   /** 36 · 40 · 44, los del Button. */
   size?: 'sm' | 'md' | 'lg'
   /** El puntito de "hay algo nuevo", adentro del botón. Para un contador o un glifo, `Indicator`. */

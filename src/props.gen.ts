@@ -285,9 +285,9 @@ export const propsByComponent: Record<string, ComponentDoc> = {
     "props": [
       {
         "name": "variant",
-        "type": "'solid' | 'raised' | 'brand' | 'ghost' | 'muted' | 'bad' | 'yellow'",
+        "type": "'solid' | 'brand' | 'muted' | 'ghost' | 'bad'",
         "required": false,
-        "def": "'raised'",
+        "def": "'muted'",
         "doc": "Solid y brand son el mismo rol."
       },
       {
@@ -298,16 +298,30 @@ export const propsByComponent: Record<string, ComponentDoc> = {
         "doc": "36 · 40 · 44."
       },
       {
-        "name": "icon",
+        "name": "iconStart",
         "type": "IconName",
         "required": false,
-        "doc": "Antes del texto."
+        "doc": "Antes del texto. Cuando el botón está cargando, el spinner ocupa su lugar."
       },
       {
         "name": "iconEnd",
         "type": "IconName",
         "required": false,
         "doc": "Después del texto."
+      },
+      {
+        "name": "loading",
+        "type": "boolean",
+        "required": false,
+        "def": "false",
+        "doc": "Pone el spinner al principio y deja de aceptar clicks."
+      },
+      {
+        "name": "loadingLabel",
+        "type": "string",
+        "required": false,
+        "def": "'Cargando'",
+        "doc": "Lo que el lector de pantalla anuncia mientras carga."
       },
       {
         "name": "block",
@@ -1217,10 +1231,10 @@ export const propsByComponent: Record<string, ComponentDoc> = {
       },
       {
         "name": "variant",
-        "type": "'ghost' | 'raised' | 'solid' | 'muted' | 'yellow'",
+        "type": "'ghost' | 'solid' | 'muted' | 'brand'",
         "required": false,
         "def": "'ghost'",
-        "doc": "La misma escalera del `Button`, sin `brand` ni `bad`."
+        "doc": "Las del `Button` menos `bad`: un icono solo no alcanza para anunciar que algo se borra."
       },
       {
         "name": "size",
@@ -2315,10 +2329,10 @@ export const propsByComponent: Record<string, ComponentDoc> = {
       },
       {
         "name": "on",
-        "type": "'surface' | 'solid'",
+        "type": "'surface' | 'solid' | 'control'",
         "required": false,
         "def": "'surface'",
-        "doc": "Sobre qué está apoyado."
+        "doc": "Sobre qué está apoyado. `control` toma el color de lo que lo contiene, que es lo que lo hace servir en todas las variantes de botón sin enumerar ninguna."
       },
       {
         "name": "className",
