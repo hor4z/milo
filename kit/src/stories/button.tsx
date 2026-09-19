@@ -20,6 +20,7 @@ export function ButtonStory() {
           <Variant name="muted"><Button variant="muted">Crear actividad</Button></Variant>
           <Variant name="ghost"><Button variant="ghost">Crear actividad</Button></Variant>
           <Variant name="bad"><Button variant="bad">Eliminar</Button></Variant>
+          <Variant name="yellow"><Button variant="yellow">Exportar</Button></Variant>
         </Panel>
       </Section>
 

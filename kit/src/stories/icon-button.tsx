@@ -45,6 +45,7 @@ export function IconButtonStory() {
           </Variant>
           <Variant name="solid"><IconButton icon="check" label="Aceptar" variant="solid" /></Variant>
           <Variant name="muted"><IconButton icon="more_horiz" label="Más" variant="muted" /></Variant>
+          <Variant name="yellow"><IconButton icon="download" label="Exportar" variant="yellow" /></Variant>
         </Panel>
       </Section>
 

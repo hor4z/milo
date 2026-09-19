@@ -285,7 +285,7 @@ export const propsByComponent: Record<string, ComponentDoc> = {
     "props": [
       {
         "name": "variant",
-        "type": "'solid' | 'raised' | 'brand' | 'ghost' | 'muted' | 'bad'",
+        "type": "'solid' | 'raised' | 'brand' | 'ghost' | 'muted' | 'bad' | 'yellow'",
         "required": false,
         "def": "'raised'",
         "doc": "Solid y brand son el mismo rol."
@@ -1217,7 +1217,7 @@ export const propsByComponent: Record<string, ComponentDoc> = {
       },
       {
         "name": "variant",
-        "type": "'ghost' | 'raised' | 'solid' | 'muted'",
+        "type": "'ghost' | 'raised' | 'solid' | 'muted' | 'yellow'",
         "required": false,
         "def": "'ghost'",
         "doc": "La misma escalera del `Button`, sin `brand` ni `bad`."

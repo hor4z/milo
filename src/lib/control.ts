@@ -7,6 +7,7 @@ export const variants = {
   muted: s.variantMuted,
   ghost: s.variantGhost,
   bad: s.variantBad,
+  yellow: s.variantYellow,
 } as const
 
 /** La escalera de los controles. */
