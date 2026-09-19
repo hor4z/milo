@@ -121,7 +121,7 @@ export const propsByComponent: Record<string, ComponentDoc> = {
         "type": "'sm' | 'md' | 'lg'",
         "required": false,
         "def": "'md'",
-        "doc": "32 · 36 · 40, los del Button."
+        "doc": "36 · 40 · 44, los del Button."
       },
       {
         "name": "className",
@@ -295,7 +295,7 @@ export const propsByComponent: Record<string, ComponentDoc> = {
         "type": "'sm' | 'md' | 'lg'",
         "required": false,
         "def": "'md'",
-        "doc": "32 · 36 · 40."
+        "doc": "36 · 40 · 44."
       },
       {
         "name": "icon",
@@ -1227,7 +1227,7 @@ export const propsByComponent: Record<string, ComponentDoc> = {
         "type": "'sm' | 'md' | 'lg'",
         "required": false,
         "def": "'md'",
-        "doc": "32 · 36 · 40, los del Button."
+        "doc": "36 · 40 · 44, los del Button."
       },
       {
         "name": "dot",
@@ -2043,7 +2043,7 @@ export const propsByComponent: Record<string, ComponentDoc> = {
         "name": "size",
         "type": "'sm' | 'md' | 'lg'",
         "required": false,
-        "def": "'sm'",
+        "def": "'md'",
         "doc": "Las mismas tres del resto de los controles."
       },
       {
@@ -2789,8 +2789,8 @@ export const propsByComponent: Record<string, ComponentDoc> = {
         "name": "size",
         "type": "'sm' | 'md' | 'lg'",
         "required": false,
-        "def": "'lg'",
-        "doc": "32 · 36 · 40, las del Button. Default lg."
+        "def": "'md'",
+        "doc": "36 · 40 · 44, las del Button."
       },
       {
         "name": "ref",

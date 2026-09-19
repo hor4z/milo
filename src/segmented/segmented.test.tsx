@@ -65,8 +65,8 @@ describe('Segmented', () => {
   })
 
   it.each([
-    ['sm', '1.75rem'],  // 28 + 2 + 2 = 32, el `sm` de la escalera
-    ['md', '2rem'],     // 32 + 2 + 2 = 36, el `md` de la escalera
+    ['sm', '1.75rem'],  // 28 + 2 + 2 = 32, la escalera compacta del Segmented
+    ['md', '2rem'],     // 32 + 2 + 2 = 36, y su paso es el mismo 4
   ] as const)('el alto de afuera en %s es el de la escalera', (size, alto) => {
     render(<Segmented value="a" onChange={() => {}} options={filters.slice(0, 2)} label="Rango" size={size} />)
     expect(estilo(screen.getByRole('radiogroup'))).toContain('padding: 0.125rem')

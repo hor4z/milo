@@ -50,7 +50,7 @@ type AudioPlayerProps = {
   peaks?: readonly number[]
   /** A la derecha del tiempo: descargar, un menú, lo que haga falta. */
   actions?: ReactNode
-  /** 32 · 36 · 40, los del Button. */
+  /** 36 · 40 · 44, los del Button. */
   size?: 'sm' | 'md' | 'lg'
   className?: string
 }

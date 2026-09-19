@@ -1,9 +1,9 @@
 import s from './control.module.css'
 /** `brand` es el botón que manda y hay uno por pantalla; `solid` es el mismo rol en tinta, para donde el azul no se puede usar. Va uno o el otro, nunca los dos. */
 export const variants = {
-  brand: `${s.variantBrand} raised-brand`,
-  solid: `${s.variantSolid} raised-solid`,
-  raised: `${s.variantRaised} raised`,
+  brand: s.variantBrand,
+  solid: s.variantSolid,
+  raised: s.variantRaised,
   muted: s.variantMuted,
   ghost: s.variantGhost,
   bad: s.variantBad,

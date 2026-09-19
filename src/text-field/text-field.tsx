@@ -10,7 +10,7 @@ type TextFieldProps = Omit<InputHTMLAttributes<HTMLInputElement>, 'size'> & {
   icon?: IconName
   /** A la derecha: una unidad, un kbd, un botón. */
   suffix?: ReactNode
-  /** 32 · 36 · 40, las del Button. Default lg. */
+  /** 36 · 40 · 44, las del Button. */
   size?: 'sm' | 'md' | 'lg'
   /** Va al contenedor, que es lo que mide y lo que se enfoca. */
   ref?: Ref<HTMLDivElement>
@@ -19,7 +19,7 @@ type TextFieldProps = Omit<InputHTMLAttributes<HTMLInputElement>, 'size'> & {
 }
 
 /** El campo de texto. */
-export function TextField({ icon, suffix, size = 'lg', className, ref, inputRef, ...rest }: TextFieldProps) {
+export function TextField({ icon, suffix, size = 'md', className, ref, inputRef, ...rest }: TextFieldProps) {
   const iconSize = size === 'sm' ? 16 : size === 'md' ? 18 : 20
   const field = useField()
   return (

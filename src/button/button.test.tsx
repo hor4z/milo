@@ -54,9 +54,9 @@ describe('Button', () => {
 
   it('el tamaño y la variante son clases, no medidas escritas a mano', () => {
     const { rerender } = render(<Button size="sm">Guardar</Button>)
-    expect(estilo(screen.getByRole('button'))).toContain('height: 2rem')
+    expect(estilo(screen.getByRole('button'))).toContain('height: 2.25rem')
     rerender(<Button size="lg">Guardar</Button>)
-    expect(estilo(screen.getByRole('button'))).toContain('height: 2.5rem')
+    expect(estilo(screen.getByRole('button'))).toContain('height: 2.75rem')
     rerender(<Button variant="solid">Guardar</Button>)
     expect(screen.getByRole('button').className).toContain(s.motion)
   })

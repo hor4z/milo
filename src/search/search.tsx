@@ -24,7 +24,7 @@ type SearchProps = Omit<ComponentPropsWithoutRef<'input'>, 'size' | 'onChange' |
 
 /** El buscador: un campo con la lupa y una cruz que aparece cuando hay algo escrito. Es un `TextField` y no otro campo: se dibuja igual que los demás y hereda su inversión contra el fondo. */
 export function Search({
-  value, onValueChange, placeholder = 'Buscar…', size = 'sm',
+  value, onValueChange, placeholder = 'Buscar…', size = 'md',
   shortcut, block, className, ref, ...rest
 }: SearchProps) {
   const boxRef = useRef<HTMLDivElement>(null)

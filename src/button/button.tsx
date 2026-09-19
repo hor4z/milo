@@ -7,7 +7,7 @@ import { cx } from '../lib/cx'
 type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
   /** Solid y brand son el mismo rol. */
   variant?: 'solid' | 'raised' | 'brand' | 'ghost' | 'muted' | 'bad'
-  /** 32 · 36 · 40. */
+  /** 36 · 40 · 44. */
   size?: 'sm' | 'md' | 'lg'
   /** Antes del texto. */
   icon?: IconName

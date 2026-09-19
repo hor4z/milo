@@ -8,7 +8,7 @@
   }
 
   .motion {
-    transition-property: background-color,color,box-shadow,filter;
+    transition-property: background-color,border-color,color;
     transition-duration: var(--duration-fast);
     transition-timing-function: var(--ease-out);
   }

@@ -11,7 +11,7 @@ type IconButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
   label: string
   /** La misma escalera del `Button`, sin `brand` ni `bad`. */
   variant?: 'ghost' | 'raised' | 'solid' | 'muted'
-  /** 32 · 36 · 40, los del Button. */
+  /** 36 · 40 · 44, los del Button. */
   size?: 'sm' | 'md' | 'lg'
   /** El puntito de "hay algo nuevo", adentro del botón. Para un contador o un glifo, `Indicator`. */
   dot?: boolean
