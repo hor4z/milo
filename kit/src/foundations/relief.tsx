@@ -2,15 +2,28 @@ import css from './relief.module.css'
 import { Note, Page, Section, Stack } from '../kit'
 
 const recipes = [
-  { cls: 'pressed', back: css.platePressed, token: '--relief-pressed', role: 'un toggle con su panel abierto', detail: 'la sombra entra desde abajo, sin canto' },
-  { cls: 'inset-relief', back: css.plateInset, token: '--relief-inset', role: 'lo hundido que es una marca', detail: 'kbd, la pista de un segmented: lleva canto y caída' },
-  { cls: 'mark', back: css.plateMark, token: '--relief-mark', role: 'una marca de fila o la inicial de un avatar', detail: 'canto adentro, labio abajo y una caída de un píxel, todo en el tono de la marca' },
+  {
+    cls: 'inset-relief',
+    back: css.plateInset,
+    token: '--relief-inset',
+    role: 'lo hundido que no es una marca',
+    detail: 'canto arriba y nada más: no tiene tono propio ni cae hacia afuera',
+    used: 'Checkbox · Radio · Kbd · Nav · EmptyState · SettingsModal',
+  },
+  {
+    cls: 'mark',
+    back: css.plateMark,
+    token: '--relief-mark',
+    role: 'una marca de fila o la inicial de un avatar',
+    detail: 'canto adentro, labio abajo y una caída de un píxel, todo en el tono de la marca',
+    used: 'Avatar · Chip · List',
+  },
 ] as const
 
 const layers = [
-  { token: '--relief-card', role: 'una tarjeta apoyada' },
-  { token: '--relief-toolbar', role: 'una barra flotante' },
-  { token: '--relief-popover', role: 'lo que flota sobre todo' },
+  { token: '--relief-card', role: 'una tarjeta apoyada', used: 'Card · List' },
+  { token: '--relief-toolbar', role: 'una barra flotante', used: 'Toolbar · Card · List' },
+  { token: '--relief-popover', role: 'lo que flota sobre todo', used: 'trece piezas, de Tooltip a Modal' },
 ] as const
 
 export function ReliefSection() {
@@ -18,7 +31,7 @@ export function ReliefSection() {
     <Page
       title="Relieve"
       kind="Fundamentos"
-      lead="Marca lo que se aprieta y lo que sobresale, mezclando luz interior arriba y sombra abajo. Los botones ya no lo usan: van planos, y lo que los separa del fondo es el relleno. Lo que queda con volumen es lo hundido, que es donde el relieve dice algo que el color no puede decir."
+      lead="Mezcla luz interior arriba y sombra abajo para decir cuánto se levanta algo. Los botones no lo usan: van planos, y lo que los separa del fondo es el relleno. Lo que sí lleva volumen es lo que flota sobre la página, que son trece piezas, y lo hundido, que es donde el relieve dice algo que el color no puede decir."
     >
       <Note icon="layers" title="Lo que el relieve dejó de tener que hacer">
         Durante un tiempo el relieve era lo único que separaba una tarjeta del fondo: el papel de
@@ -46,6 +59,7 @@ export function ReliefSection() {
               <Stack gap="xs">
                 <code className={css.recipeToken}>{r.token}</code>
                 <span className={css.recipeDetail}>{r.detail}</span>
+                <span className={css.used}>{r.used}</span>
               </Stack>
             </div>
           ))}
@@ -63,6 +77,7 @@ export function ReliefSection() {
               <div className={css.layerMeta}>
                 <code className={css.layerToken}>{c.token}</code>
                 <span className={css.layerRole}>{c.role}</span>
+                <span className={css.used}>{c.used}</span>
               </div>
             </div>
           ))}
@@ -85,12 +100,21 @@ export function ReliefSection() {
           <div className={`${css.sunkenCard} bg-surface`}>
             <span className={css.sunkenTitle}>Hundido son dos cosas distintas</span>
             <p className={css.sunkenText}>
-              Una marca lleva canto y sombra de caída; algo que se aprieta, no. Mezclarlas hace que un
-              kbd y un toggle activo se vean igual, que son dos cosas que no tienen nada que ver.
+              Una marca lleva canto, labio y caída, y todo eso en su propio tono; algo que solo está
+              apagado lleva el canto y nada más. Mezclarlas hace que un kbd y la inicial de un avatar
+              se vean igual, que son dos cosas que no tienen nada que ver.
             </p>
           </div>
         </div>
       </Section>
+
+      <Note icon="visibility_off" title="Lo que está declarado y no usa nadie">
+        Tres tokens quedaron sin consumidor y conviene que se sepa antes de que alguien los agarre
+        creyendo que son la receta de algo: <code>--relief-solid</code>, <code>--relief-brand</code> y
+        <code>--relief-brand-pressed</code>, más la clase global <code>.pressed</code>. Son de cuando
+        los botones tenían volumen. No se sacaron todavía porque sacarlos es una decisión sobre la
+        superficie del paquete, pero ninguno de los cuatro es algo que haya que imitar.
+      </Note>
 
       <Note title="Un campo no lleva relieve">
         El relieve dice "esto sobresale" o "esto se aprieta", y un campo no es ninguna de las dos: es un

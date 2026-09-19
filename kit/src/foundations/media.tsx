@@ -1,6 +1,8 @@
 import cls from './media.module.css'
-import { Figure, Icon } from '@milo/ui'
-import { Cluster, Footnote, Note, Page, Rich, Section, Stack } from '../kit'
+import { AudioPlayer, Figure, Icon } from '@milo/ui'
+import { A11y, Cluster, Footnote, Note, Page, Rich, Section, Stack } from '../kit'
+
+const peaks = [0.2, 0.5, 0.8, 0.6, 0.9, 0.4, 0.7, 0.3, 0.85, 0.55, 0.25, 0.65, 0.45, 0.75, 0.35, 0.6]
 
 const media = [
   {
@@ -58,10 +60,6 @@ const equivalents = [
 
 const rules = [
   {
-    title: 'Nada arranca solo',
-    body: 'Ni audio ni video. Un medio que empieza a sonar sin que nadie lo pida interrumpe una clase entera, y en un aula el que lo escucha no es solo quien tocó. El bucle mudo y corto de una mascota es la excepción, y por eso es mudo y corto.',
-  },
-  {
     title: 'Todo lo que se oye se puede leer, y lo que solo se ve también se puede oír',
     body: 'Las cuatro formas de arriba no son lo mismo y no se reemplazan entre sí. La que más se olvida es la audiodescripción, que es la única que sirve a quien no ve el video.',
   },
@@ -75,7 +73,15 @@ const rules = [
   },
   {
     title: 'El volumen no es de la pieza',
-    body: 'Una pieza puede mezclar sus propios niveles, pero el volumen final lo pone el sistema operativo. Un control adentro compite con el de afuera y pierde. Lo mismo con los botones del auricular: hacen lo que siempre hicieron o no hacen nada, nunca otra cosa.',
+    body: 'Una pieza puede mezclar sus propios niveles, pero el volumen final lo pone el sistema operativo. Un control adentro compite con el de afuera y pierde. Y si el dispositivo está en silencio, está en silencio: no hay contenido tan importante como para sonar en una clase.',
+  },
+  {
+    title: 'La velocidad es de quien escucha, y va a la vista',
+    body: 'Es el control que más se usa y el que más cambia si alguien entiende o no, así que no vive en un menú. Lo que no arregla: acelerar una voz mal grabada la vuelve peor, y el orden es grabar bien y después dar el control.',
+  },
+  {
+    title: 'No hay sonidos de aviso, y es una decisión',
+    body: 'Treinta dispositivos en un aula haciendo el mismo tintineo cuando el docente publica una actividad es un aula que se detiene. Lo que pasa se dice en pantalla, que es donde alguien lo puede volver a mirar. Si algún día hace falta uno: corto, apagado por defecto, y nunca la única señal de que algo pasó.',
   },
   {
     title: 'Lo que pesa se mide',
@@ -87,7 +93,9 @@ export function MediaSection() {
   return (
     <Page
       title="Medios"
-      lead="Imagen, audio, video y animación. Cuál va cuándo, qué pide cada uno para estar terminado, y qué es lo que ninguno puede hacer solo. La doctrina de la voz grabada vive aparte, en Voz y sonido."
+      kind="Fundamentos"
+      imports="import { AudioPlayer, Figure } from '@milo/ui'"
+      lead="Imagen, audio, video y animación. Cuál va cuándo, qué pide cada uno para estar terminado, y qué es lo que ninguno puede hacer solo."
     >
       <Section
         title="Cuatro medios, y qué decide cada uno"
@@ -115,6 +123,29 @@ export function MediaSection() {
       </Section>
 
       <Section
+        title="Nada suena sin que alguien lo pida"
+        note="Ni un audio, ni un aviso, ni un efecto. Es la regla que manda sobre todas las demás."
+      >
+        <div className={`${cls.ruleCard} bg-surface`}>
+          <p className={cls.ruleText}>
+            Esto se usa en un aula con treinta personas y un solo proyector, en un colectivo, y al
+            lado de alguien que tiene un lector de pantalla hablando. Un audio que arranca solo es,
+            en el mejor caso, alguien apagando el volumen; en el peor, dos voces encimadas para
+            quien depende de una de las dos. El bucle mudo y corto de una mascota es la excepción,
+            y por eso es mudo y corto.
+          </p>
+          <p className={cls.ruleText}>
+            El corolario, que se olvida: si dos audios pueden sonar juntos, van a sonar juntos.
+            Arrancar uno para el otro, y el sistema ya lo hace: probá abrir los dos de abajo.
+          </p>
+        </div>
+        <div className={cls.ruleGrid}>
+          <AudioPlayer src="/audio/consigna.mp3" title="Consigna de Física, grabada" peaks={peaks} />
+          <AudioPlayer src="/audio/consigna.mp3" title="Devolución para Ana" peaks={peaks} />
+        </div>
+      </Section>
+
+      <Section
         title="Las cuatro formas escritas, que no son la misma"
         note="Acá el sistema venía diciendo 'subtítulos o transcripción' como si fueran dos maneras de decir lo mismo. Son cuatro cosas distintas y cada una cubre a alguien que las otras no."
       >
@@ -133,7 +164,7 @@ export function MediaSection() {
         </Footnote>
       </Section>
 
-      <Section title="Las seis reglas" note="Valen para cualquier medio, y las tres primeras son las que más se saltean.">
+      <Section title="Las siete reglas" note="Valen para cualquier medio, y las dos primeras son las que más se saltean.">
         <div className={cls.specimenGrid}>
           {rules.map(r => (
             <div key={r.title} className={`${cls.specimen} bg-surface`}>
@@ -180,7 +211,8 @@ export function MediaSection() {
         Las cuatro formas escritas, la proporción original del video, el volumen que es del sistema y los
         controles que no se reinterpretan salen de las Human Interface Guidelines de Apple, que es la
         referencia que este sistema toma para lo que ya está resuelto en otro lado. Lo que no sale de ahí
-        es el peso en una red escolar y el "nada arranca solo", que son de acá.
+        es el peso en una red escolar, el "nada suena sin que alguien lo pida" y el silencio de los avisos,
+        que son de acá.
       </Note>
 
       <Section
@@ -200,6 +232,17 @@ export function MediaSection() {
           ))}
         </Stack>
       </Section>
+
+      <A11y
+        items={[
+          'Nada arranca solo, así que un lector de pantalla nunca compite con un audio del sistema.',
+          'Un audio que arranca detiene al otro: dos voces a la vez no se separan, ni siquiera con buen oído.',
+          'El botón dice lo que va a hacer, "Reproducir" o "Pausar", y el tiempo se anuncia como "0:45 de 1:30" y no como un número suelto.',
+          'La onda va `aria-hidden`: lo que lleva el significado es el control, no el dibujo.',
+          'Todo lo hablado tiene su texto, que es lo que le llega a quien no oye y también a quien está donde no puede escuchar.',
+          'Una imagen decorativa va con `alt=""` para que el lector la saltee, y una animación se reemplaza por su cuadro quieto con `prefers-reduced-motion`.',
+        ]}
+      />
     </Page>
   )
 }
