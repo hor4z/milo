@@ -50,6 +50,7 @@
     flex-shrink: 0;
     align-items: center;
     gap: 0.5rem;
+    margin-inline-start: auto;
   }
 
   .sectionLabel {

@@ -92,6 +92,20 @@ export function LayoutSection() {
         nombre, porque "región" no dice de qué.
       </Note>
 
+      <Note icon="warning" title="Una cabecera que envuelve deja sus acciones a la izquierda">
+        Un <code>space-between</code> con <code>flex-wrap</code> reparte bien mientras las dos
+        partes entren en una línea. Cuando dejan de entrar, las acciones bajan solas a la línea de
+        abajo, y ahí <code>space-between</code> no tiene contra qué repartir: las pega al margen
+        izquierdo. El botón principal salta de punta a punta en un solo píxel de ancho, que es la
+        misma clase de salto que el sistema evita en una grilla que se mueve al pasar el mouse.
+        {' '}
+        La receta es una línea: el bloque de acciones lleva{' '}
+        <code>margin-inline-start: auto</code>, que no cambia nada mientras las dos partes comparten
+        línea y lo mantiene a la derecha cuando envuelve. Lo llevan el <code>PageHeader</code> del
+        paquete, la cabecera del dashboard y la del documento. Una fila de etiqueta y valor no lo
+        lleva: ahí envolver hacia la izquierda es lo correcto.
+      </Note>
+
       <A11y
         items={[
           'La estructura se declara con landmarks: una cabecera, un `nav` y un `main`. Quien navega por regiones salta entre esas tres y no entre veinte.',
