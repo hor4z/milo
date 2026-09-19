@@ -36,7 +36,7 @@
     "!src/__tests__"
   ],
   "scripts": {
-    "dev": "vite --config kit/vite.config.ts",
+    "dev": "vite --config kit/vite.config.ts --force",
     "build": "vite build && tsc -p tsconfig.build.json",
     "prepare": "npm run build",
     "kit": "vite build --config kit/vite.config.ts",

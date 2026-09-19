@@ -335,8 +335,17 @@ servido con contenido viejo. Los dos casos medidos:
 
 La regla, entonces: **después de borrar un archivo o de cambiar de rama, se reinicia el
 servidor.** No alcanza con recargar el navegador, porque lo viejo está del lado del servidor.
-`npm run dev` ya borra la caché de Vite al arrancar, así que reiniciar es todo lo que hay que
-hacer, y de paso cierra la cara 1.
+
+**Y ahora `npm run dev` sí borra la caché al arrancar, que hasta acá era mentira.** Este archivo lo
+afirmaba y el script era `vite` pelado, sin `--force` y sin `cacheDir` en el config: o sea que la
+receta escrita para el bug no arreglaba el bug. Volvió a morder con un servidor que quedó dos horas
+arriba mientras abajo se cambiaba de rama dos veces y se borraban cuatro archivos. El script lleva
+`--force`, así que reiniciar es todo lo que hay que hacer y de paso cierra la cara 1.
+
+**La otra mitad es del lado del navegador, y esta no la arregla reiniciar.** Una pestaña que estaba
+abierta cuando se borró el archivo ya recibió por HMR la actualización de un módulo que dejó de
+existir, y se queda así aunque el servidor vuelva limpio. Ahí va recarga dura (Ctrl+Shift+R), que es
+lo único que tira el módulo viejo que quedó del lado del cliente.
 
 Y cuando la pantalla aparece en blanco, el primer lugar donde mirar es la red y no la consola: un
 módulo que no carga no siempre deja un error escrito.
