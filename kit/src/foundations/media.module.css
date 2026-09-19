@@ -160,8 +160,39 @@
     color: var(--text-muted);
   }
 
+  .ruleCard {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    border-radius: var(--radius-xl);
+    border-style: solid;
+    border-width: 1px;
+    border-color: var(--border);
+    padding: 1.25rem;
+  }
+
+  .ruleText {
+    max-width: 70ch;
+    font-size: var(--type-reading);
+    line-height: var(--type-reading-lh);
+    letter-spacing: var(--type-reading-ls);
+    color: var(--text);
+  }
+
+  .ruleGrid {
+    margin-top: 1rem;
+    display: grid;
+    gap: 0.75rem;
+  }
+
   @media (min-width:40rem) {
     .specimenGrid {
+        grid-template-columns: repeat(2,minmax(0,1fr));
+    }
+  }
+
+  @media (min-width:64rem) {
+    .ruleGrid {
         grid-template-columns: repeat(2,minmax(0,1fr));
     }
   }

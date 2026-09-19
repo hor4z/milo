@@ -18,7 +18,7 @@ final son lo único que hay que tocar.
 npm install
 npm run dev        # el sitio · http://localhost:5190
 npm run typecheck  # el paquete y el sitio de una
-npm test           # 711 tests con vitest y testing-library
+npm test           # 782 tests con vitest y testing-library
 npm run build      # compila el paquete a dist/ (js, css y tipos)
 npm run props      # regenera la tabla de props desde los tipos
 ```
@@ -127,13 +127,8 @@ cosa), así que ahora dirige en vez de explicar.
 | qué gráfico va y cuándo una tabla | **Fundamentos › Gráficos** | `chart/` |
 | cuándo pasa algo, en qué zona | **Fundamentos › Fecha y hora** | `lib/time.ts` |
 | cómo se escribe un número | **Fundamentos › Números y valores** | `lib/number.ts` |
-| quién está mirando y qué ve | **Fundamentos › Quién está mirando** | - |
-| cómo suena, y cuándo | **Fundamentos › Voz y sonido** | `audio-player/` |
-| imagen, audio, video y animación | **Fundamentos › Medios** | `figure/` · `audio-player/` |
-| que lo mismo llegue de más de una forma | **Fundamentos › Más de una forma** | - |
-| qué se puede hacer cuando contesta un modelo | **Fundamentos › Cuando responde la IA** | - |
+| imagen, audio, video y animación, y cómo suenan | **Fundamentos › Medios** | `figure/` · `audio-player/` |
 | el texto de la interfaz | **Fundamentos › Cómo se escribe** | - |
-| a quién le hablamos | **Fundamentos › Inclusión** | - |
 
 Se abre con `npm run dev` y está en `kit/src/foundations/`. Si una decisión no está en
 ninguna de esas vistas, es que todavía no se tomó.
@@ -430,9 +425,8 @@ kit/src/                el sitio: App.tsx (shell y riel) · kit.tsx (Page, Secti
                         Cluster, Frame, Footnote, Grid, Props, A11y, Note) · intro.tsx (la portada) ·
                         dashboard.tsx · document.tsx · stories/ (una por pieza) ·
                         mascots/ ·
-                        foundations/ (principles · accessibility · roles · ai · typography ·
-                        color · measure · layout · relief · motion · states ·
-                        charts · time · media · ways · sound · numbers · writing · inclusion)
+                        foundations/ (accessibility · typography · color · measure · layout ·
+                        relief · motion · states · charts · time · media · numbers · writing)
 ```
 
 **El corte entre el paquete y el sitio es por dependencia, no por gusto.** `src/` no sabe que
@@ -467,11 +461,10 @@ cada una linkea a la otra: solapas o acordeón, alert o toast, sheet o modal, li
 Las piezas se agrupan por el trabajo que hacen
 (Fundamentos, Mascotas, Editor, Acciones, Formularios, Navegación, Datos, Avisos, Superficies) y
 no por su tipo técnico. **Fundamentos va primero** y es la capa de la que sale todo lo demás:
-Principios · Accesibilidad · Quién está mirando · Cuando responde la IA · Tipografía · Color ·
-Medidas y radios · Layout · Relieve · Movimiento · Estados · Iconos · Gráficos · Fecha y hora ·
-Medios · Más de una forma · Voz y sonido · Números y valores · Cómo se escribe · Inclusión. El orden adentro no es alfabético: las
-dos primeras son las que hay que leer antes de tocar nada, y después van las capas en el orden en
-que se construye una pantalla.
+Accesibilidad · Tipografía · Color · Medidas y radios · Layout · Relieve · Movimiento · Estados ·
+Iconos · Gráficos · Fecha y hora · Medios · Números y valores · Cómo se escribe. El orden adentro no
+es alfabético: **Accesibilidad** va primera porque es la que hay que leer antes de tocar nada, y
+después van las capas en el orden en que se construye una pantalla.
 
 Se llevó puestos a "Guía" y a "Tokens", que eran dos grupos separados por si el contenido era una
 regla o un valor: una distinción que le importa a quien los escribió y a nadie más: el que busca
@@ -508,7 +501,7 @@ Lo mismo vale para los tipos que una pieza recibe como argumento (`ToastOptions`
 
 ## Los tests
 
-`npm test` corre vitest con jsdom y testing-library. 711 tests, y lo que prueban es el
+`npm test` corre vitest con jsdom y testing-library. 782 tests, y lo que prueban es el
 comportamiento (teclado, nombres accesibles, estados) y no el markup, que cambia con cada
 ajuste de estilo. El test de cada pieza vive en su carpeta, al lado del componente.
 
@@ -534,7 +527,7 @@ Veinte de ellos leen el paquete entero y fallan si alguien:
 - exporta algo sin sacarlo por `index.ts`,
 - deja una carpeta sin el componente que le da nombre, o un componente sin su test al lado.
 
-Y hay uno que no se puede escribir leyendo archivos: **dibuja las setenta y cuatro vistas y falla
+Y hay uno que no se puede escribir leyendo archivos: **dibuja las setenta y dos vistas y falla
 si a algún elemento le quedó una clase literal que no resuelve a nada** (un resto de Tailwind, un
 string suelto). Una clase que no existe no falla, no avisa y deja la pieza sin estilo, y leer las
 fuentes no alcanza porque una clase puede llegar por una prop o por una constante.
@@ -556,14 +549,34 @@ el `Stepper`, y la aserción del textarea empezó a leer el `flex` del stepper.
 
 Catorce más leen los tokens de tipografía: que cada rol declare sus tres valores y que quien
 escriba un tamaño escriba los tres, que ninguno baje de 12px, que la curva de interlineado tenga su máximo en `reading`, que
-el tracking cruce el cero en la base. Del lado del kit hay diecisiete más: los guardianes de
+el tracking cruce el cero en la base. Del lado del kit hay diecinueve más: los guardianes de
 escala repetidos sobre `kit/` (que hasta ahora se escapaba), el peso de display fuera de su
 tamaño, las transiciones sin duración ni curva, un control de estado sin su manija, y que cada
 vista tenga portada, import y sinónimos para buscarla.
 
-Y hay uno que **renderiza las sesenta y nueve vistas**, una por test. Encuentra dos cosas que
+Y hay uno que **renderiza las setenta y dos vistas**, una por test. Encuentra dos cosas que
 ninguna lectura encuentra: una vista que tira al dibujarse (eso antes se veía solo abriéndola) y
 un backtick o un `**` que quedó a la vista porque ese texto no pasó por `Rich`. Había diez.
+
+**Y uno que agarra un bug que no deja rastro en el código: JSX se come el espacio.** Cuando un
+texto toca un elemento inline a través de un salto de línea, el espacio de ese borde desaparece,
+así que `...a ojo: el\n<code>Alert</code>` se dibuja **"a ojo: elAlert"**. Leyendo el archivo se ve
+bien, y en pantalla está pegado. Había cuatro, en Layout (dos), en la historia del `Modal` y en la
+del `Slider`, y ninguna la vio nadie. En el corte va `{' '}`.
+
+**Y uno que existe porque el de la prosa y el de las clases literales agarran las vistas por el
+sufijo del export**, `Story` o `Section`, y lo que no termina así no lo dibuja nadie. `Principles` y `Writing`
+se llamaban distinto, así que dos vistas de Fundamentos nunca se dibujaron en un test y nadie se
+enteró: el número de vistas no se movía al sacarlas. Ahora falla si un archivo tiene un `<Page>` y
+ningún export que termine en `Story` o en `Section`.
+
+**Y cuatro dibujan el sitio entero**, que hasta ahora no lo hacía ninguno: `App`, la portada, el
+dashboard y el documento quedaban fuera del glob de `prosa`, que solo mira `stories/`,
+`foundations/` y `mascots/`. Uno abre las setenta y dos entradas del riel más el dashboard y el
+documento, y falla si alguna cae en "Esa vista ya no está acá" o se dibuja sin un encabezado. Otro
+dibuja la portada. Otro verifica que ningún botón de la portada mande a una vista que ya no existe,
+que es justo lo que se rompió al sacar Principios. Y el cuarto compara los números que la portada
+anuncia contra la realidad.
 
 Y cincuenta y nueve leen los tokens y calculan contraste: cada tono de estado contra su fondo, el
 gris del texto secundario contra las superficies sobre las que se escribe, el gris del texto
@@ -579,12 +592,10 @@ falla antes de llegar a una pantalla.
 hay escrito sobre interfaz, y en lo que a este sistema le faltaba (medios y modelos) es justamente lo
 que más detalle tiene. De ahí salen las cuatro formas escritas de un medio que suena, la proporción
 original de un video, el volumen que es del sistema operativo y no de la pieza, el tamaño y el aire
-de un objetivo táctil, y las ocho reglas de **Cuando responde la IA**.
+de un objetivo táctil.
 
 Lo que **no** se toma: Apple escribe para apps nativas en sus plataformas, así que lo que dice sobre
-reproductores del sistema, Picture in Picture o la app de TV no aplica. Y sobre cómo aprende alguien
-no dice nada, que es correcto porque no es su tema: lo que hay en **Más de una forma** sale de
-investigación en aprendizaje y está marcado como tal adentro de la vista.
+reproductores del sistema, Picture in Picture o la app de TV no aplica.
 
 Cuando la referencia corrige algo que este repo tenía escrito, se corrige y se deja dicho. Ya pasó
 una vez: el repo decía que Apple "pide 44×44" para el dedo, y Apple tiene dos números, 44 de default
@@ -604,7 +615,29 @@ modalidad, feedback, cargando, ajustes, buscar, audio y gráficos.
 pantalla completa, arranque, multitarea, y los catorce componentes que son de un sistema operativo
 (widgets, complicaciones, barra de menú, dock). Esto corre en un navegador.
 
-**Entró en esta vuelta**, porque el propósito del sistema lo pedía: `DatePicker` y `Tree` y
+**Salió en esta vuelta, y es la dirección**: Fundamentos pasó de veinte vistas a catorce.
+
+Cinco eran doctrina escrita sin token ni pieza detrás, que es lo que las volvía imposibles de
+verificar y lo primero que se despega: **Quién está mirando** y **Inclusión** (que son de producto y
+no del sistema), **Cuando responde la IA** (para un producto que todavía no tiene IA), **Más de una
+forma** (que es pedagogía) y **Voz y sonido**, que se fundió adentro de **Medios** quedándose con lo
+que el sistema sí implementa (nada suena sin que alguien lo pida, el volumen es del sistema
+operativo, las cuatro formas escritas) y tirando lo que era una decisión de contenido (la voz
+rioplatense, las velocidades, la tabla por rol).
+
+La sexta, **Principios**, se fue por otro motivo: no decía nada propio. Sus seis decisiones están
+cada una en la vista que además las muestra funcionando (la rampa monocroma y el acento en Color,
+la escalera y el radio del hijo en Medidas, el teclado y el color que nunca dice algo solo en
+Accesibilidad), así que era un índice que se iba a despegar de lo que indexaba. La portada del
+sitio, que antes abría con "Ver los principios", ahora abre con Accesibilidad.
+
+La regla que queda: **una vista de Fundamentos existe si hay un token, una pieza o un test que la
+sostenga.** Si no, es prosa, y la prosa se despega en silencio. **Cómo se escribe** se quedó por
+eso: parecía voz de producto como Inclusión, pero una de sus nueve reglas la hace cumplir un
+guardián que lee el repo entero (el que busca la raya larga y las comillas angulares), así que
+está sostenida.
+
+**Entró en una vuelta anterior**, porque el propósito del sistema lo pedía: `DatePicker` y `Tree` y
 `Stepper` y `Reorder`, más el `Documento` que las prueba juntas. De arrastrar y soltar entró la mitad que importa: reordenar una lista, con el teclado como
 pieza y el arrastre como comodidad. Lo que sigue afuera es soltar algo **adentro** de otra cosa
 (un archivo en una carpeta) que es otro problema.
@@ -628,6 +661,18 @@ un aula:
   96 apariciones de la maquinaria de gradiente de Tailwind escrita a mano
   (`--milo-gradient-from/via/to/stops`, casi todas adentro de un `transition-property` que no anima
   nada), y 56 `transition-duration: 150ms` seguidas de la `var(--duration-fast)` que sí vale.
+- **La portada anuncia piezas y ya no tests**, porque el número de tests no se puede verificar
+  leyendo archivos y se vencía solo: decía 687 cuando había 783, y el guardián que lo miraba era un
+  piso (`>=` contra los `it(` que se pueden contar en el texto) en vez de una igualdad, así que no
+  avisaba nunca. Las piezas son las carpetas de `src/`, que un test cuenta y compara exacto, igual
+  que los iconos. Si alguna vez se quiere el número de tests ahí, tiene que salir de un archivo
+  generado, como `props.gen.ts`.
+- **Cuatro cosas del relieve no las usa nadie.** Medido al achicar la vista de Relieve:
+  `--relief-solid`, `--relief-brand` y `--relief-brand-pressed` no tienen un solo consumidor, y la
+  clase global `.pressed` de `base.css` tampoco (el `.pressed` de `Button` y de `IconButton` es una
+  clase de módulo, que es otra cosa). Son de cuando los botones tenían volumen. Sacarlos es una
+  decisión sobre la superficie del paquete, así que está escrito en la vista en vez de hecho a
+  escondidas. El que sí se usa y por una sola pieza es `--relief-raised`, en `Segmented`.
 - **`Modal` tiene dos fuentes para su nombre.** La prop `label` es la que el lector de pantalla
   anuncia, y `ModalTitle` es la que se ve: en la historia dicen cosas distintas y nada lo mira. La
   salida es que el título se ate solo con `aria-labelledby`, como hace el `Sheet`.
@@ -658,8 +703,8 @@ un aula:
 - **Recuperar `ss04` y el cero barrado** pide auto-alojar Inter: 69 KB subseteada a latín, con la
   receta de `pyftsubset` anotada. Se eligió el CDN; si algún día una red escolar filtra Google
   Fonts, la decisión se da vuelta y el trabajo ya está pensado.
-- **El sitio entra en un solo bundle de 783 KB (245 gzip) y `vite build` avisa.** Son las 78
-  vistas importadas de una: nada está mal, está todo junto. La salida es `lazy` por historia con
+- **El sitio entra en un solo bundle de 750 KB (234 gzip) y `vite build` avisa.** Son las 75
+  vistas importadas de una (72 entradas del riel, más la portada, el dashboard y el documento): nada está mal, está todo junto. La salida es `lazy` por historia con
   un `Skeleton` de espera, y el costo es un parpadeo por navegación en una pantalla que hoy es
   instantánea. No se hizo porque es una decisión sobre cómo se siente el sitio y no un bug.
 - **El paquete no tiene un consumidor de verdad todavía.** Se verificó instalándolo en un

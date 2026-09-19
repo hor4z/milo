@@ -1,9 +1,4 @@
 @layer milo.app {
-  .platePressed {
-    background-color: var(--surface-muted);
-    color: var(--text);
-  }
-
   .plateInset {
     background-color: var(--surface-muted);
     color: var(--text);
@@ -45,6 +40,15 @@
   }
 
   .recipeDetail {
+    font-size: var(--type-meta);
+    line-height: var(--type-meta-lh);
+    letter-spacing: var(--type-meta-ls);
+    font-weight: var(--font-weight-medium);
+    color: var(--text-muted);
+  }
+
+  .used {
+    font-family: var(--font-mono);
     font-size: var(--type-meta);
     line-height: var(--type-meta-lh);
     letter-spacing: var(--type-meta-ls);
@@ -171,7 +175,16 @@
   }
 
   @media (min-width:40rem) {
-    .layerGrid {
+    .used {
+    font-family: var(--font-mono);
+    font-size: var(--type-meta);
+    line-height: var(--type-meta-lh);
+    letter-spacing: var(--type-meta-ls);
+    font-weight: var(--font-weight-medium);
+    color: var(--text-muted);
+  }
+
+  .layerGrid {
         grid-template-columns: repeat(3,minmax(0,1fr));
     }
   }
