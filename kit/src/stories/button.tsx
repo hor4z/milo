@@ -15,14 +15,14 @@ function TryLoading() {
   }
   return (
     <Grid>
-      <Demo label="Una acción corta">
-        <Button variant="brand" loading={running === 'short'} onClick={() => run('short', 80)}>
+      <Demo label="Tocá: esta responde enseguida">
+        <Button variant="brand" iconStart={<Icon name="save" />} loading={running === 'short'} onClick={() => run('short', 80)}>
           Guardar
         </Button>
       </Demo>
-      <Demo label="Una acción que tarda">
-        <Button variant="brand" iconStart={<Icon name="folder" />} loading={running === 'long'} onClick={() => run('long', 900)}>
-          Nuevo espacio
+      <Demo label="Tocá: esta tarda">
+        <Button variant="brand" iconStart={<Icon name="save" />} loading={running === 'long'} onClick={() => run('long', 900)}>
+          Guardar
         </Button>
       </Demo>
     </Grid>
