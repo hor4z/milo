@@ -72,7 +72,7 @@ export function ModalStory() {
           </Demo>
         </Cluster>
         <Footnote>
-          Vive en el paquete y no en la app por la misma regla que deja al shell afuera: no lee
+          Vive en el paquete y no en la app por la misma regla que deja al shell afuera: no lee{' '}
           <code>data.ts</code> ni el router. Lo único que necesita son las preferencias (que ya viven acá) y
           quién está mirando, que va por prop: el nombre y el correo de una persona real no son
           parte de un design system. Adentro hay un Select, que abre un flotante adentro de otro

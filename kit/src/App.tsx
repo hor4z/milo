@@ -4,7 +4,6 @@ import { Button, EmptyState, Icon, IconButton, Search, ToastProvider, cx, fold, 
 import { Intro } from './intro'
 import { Dashboard } from './dashboard'
 import { DocumentStory } from './document'
-import { Principles } from './foundations/principles'
 import { AccessibilitySection } from './foundations/accessibility'
 import { TypographySection } from './foundations/typography'
 import { ColorSection } from './foundations/color'
@@ -32,7 +31,7 @@ import { ToolbarStory } from './stories/toolbar'
 import { StepsStory } from './stories/steps'
 import { AmeliaStory } from './mascots/amelia'
 import { OttoStory } from './mascots/otto'
-import { Writing } from './foundations/writing'
+import { WritingSection } from './foundations/writing'
 import { ButtonStory } from './stories/button'
 import { IconButtonStory } from './stories/icon-button'
 import { TextFieldStory } from './stories/text-field'
@@ -87,7 +86,6 @@ const groups: Group[] = [
   {
     label: 'Fundamentos',
     stories: [
-      { id: 'principles', label: 'Principios', alias: 'principios fundamentos reglas decisiones', render: () => <Principles /> },
       { id: 'accessibility', label: 'Accesibilidad', alias: 'accesibilidad a11y contraste teclado foco lector pantalla wcag', render: () => <AccessibilitySection /> },
       { id: 'typography', label: 'Tipografía', alias: 'tipografía fuente texto escala pesos interlineado tracking familia inter legibilidad', render: () => <TypographySection /> },
       { id: 'color', label: 'Color', alias: 'paleta tokens rampa tonos', render: () => <ColorSection /> },
@@ -101,7 +99,7 @@ const groups: Group[] = [
       { id: 'time', label: 'Fecha y hora', alias: 'fecha hora tiempo zona huso timezone reloj duración vencimiento relativo formato', render: () => <TimeSection /> },
       { id: 'media', label: 'Medios', alias: 'medios imagen video audio animación multimedia subtítulos leyendas audiodescripción transcripción alt proporción autoplay peso voz sonido silencio volumen velocidad escuchar lectura hablada', render: () => <MediaSection /> },
       { id: 'numbers', label: 'Números y valores', alias: 'números cifras decimales coma porcentaje unidades tamaño rango cantidades tabular', render: () => <NumbersSection /> },
-      { id: 'writing', label: 'Cómo se escribe', alias: 'texto redacción copy mensajes tono escritura', render: () => <Writing /> },
+      { id: 'writing', label: 'Cómo se escribe', alias: 'texto redacción copy mensajes tono escritura', render: () => <WritingSection /> },
     ],
   },
   {

@@ -60,7 +60,7 @@ export function SliderStory() {
         </Panel>
         <Footnote>
           Probalo con el teclado: tabulá hasta el slider y usá las flechas. El anillo de foco se
-          suma al relieve del pulgar en vez de reemplazarlo: la regla global de <code>:focus-visible</code>
+          suma al relieve del pulgar en vez de reemplazarlo: la regla global de <code>:focus-visible</code>{' '}
           pisa el <code>box-shadow</code> entero y deja la pieza plana, que es el bug que está anotado en
           Pendiente para el resto de los controles.
         </Footnote>

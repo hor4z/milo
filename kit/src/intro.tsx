@@ -9,7 +9,7 @@ import { useState } from 'react'
 const face = (n: number) => `/avatars/${String(n).padStart(2, '0')}.webp`
 
 const shortcuts: { id: string; icon: IconName; title: string; body: string }[] = [
-  { id: 'principles', icon: 'target', title: 'Principios', body: 'Las seis decisiones de las que sale todo lo demás.' },
+  { id: 'accessibility', icon: 'accessibility', title: 'Accesibilidad', body: 'Contraste, teclado y lectores, que es lo que hay que leer antes de tocar nada.' },
   { id: 'color', icon: 'palette', title: 'Color', body: 'Una rampa casi neutra y cuatro familias acotadas.' },
   { id: 'dashboard', icon: 'dashboard', title: 'Dashboard', body: 'Las piezas de la app, juntas en una pantalla real.' },
   { id: 'documento', icon: 'description', title: 'Documento', body: 'Las del editor, juntas en una consigna de verdad.' },
@@ -40,13 +40,13 @@ export function Intro({ go, views }: { go: (id: string) => void; views: number }
           </Stack>
 
           <div className={cls.heroActions}>
-            <Button variant="solid" iconStart={<Icon name="arrow_forward" />} onClick={() => go('principles')}>Ver los principios</Button>
+            <Button variant="solid" iconStart={<Icon name="arrow_forward" />} onClick={() => go('accessibility')}>Ver los fundamentos</Button>
             <Button variant="muted" iconStart={<Icon name="dashboard" />} onClick={() => go('dashboard')}>Ver el dashboard</Button>
             <Button variant="muted" iconStart={<Icon name="description" />} onClick={() => go('documento')}>Ver un documento</Button>
           </div>
 
           <dl className={cls.statList}>
-            {[[String(views), 'vistas'], ['687', 'tests'], ['172', 'iconos'], ['2', 'temas']].map(([n, l]) => (
+            {[[String(views), 'vistas'], ['705', 'tests'], ['172', 'iconos'], ['2', 'temas']].map(([n, l]) => (
               <div key={l} className={cls.statItem}>
                 <dt className={`${cls.statValue} tabular`}>{n}</dt>
                 <dd className={cls.statLabel}>{l}</dd>

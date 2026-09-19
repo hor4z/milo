@@ -110,8 +110,8 @@ export function ReliefSection() {
 
       <Note icon="visibility_off" title="Lo que está declarado y no usa nadie">
         Tres tokens quedaron sin consumidor y conviene que se sepa antes de que alguien los agarre
-        creyendo que son la receta de algo: <code>--relief-solid</code>, <code>--relief-brand</code> y
-        <code>--relief-brand-pressed</code>, más la clase global <code>.pressed</code>. Son de cuando
+        creyendo que son la receta de algo: <code>--relief-solid</code>, <code>--relief-brand</code>{' '}
+        y <code>--relief-brand-pressed</code>, más la clase global <code>.pressed</code>. Son de cuando
         los botones tenían volumen. No se sacaron todavía porque sacarlos es una decisión sobre la
         superficie del paquete, pero ninguno de los cuatro es algo que haya que imitar.
       </Note>

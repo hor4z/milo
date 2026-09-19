@@ -75,7 +75,7 @@ export function LayoutSection() {
 
       <Note title="Un glifo al lado de un texto se centra con su primera línea">
         Y para eso su caja mide lo que mide esa línea (24 al lado de un título, 20 al lado de un
-        párrafo) con el glifo centrado adentro. No alcanza con empujarlo un píxel a ojo: el
+        párrafo) con el glifo centrado adentro. No alcanza con empujarlo un píxel a ojo: el{' '}
         <code>Alert</code> quedaba 4px más arriba que su título y el <code>Callout</code> 1px,
         mientras el <code>Toast</code> caía justo. Cuatro piezas con la misma forma y cuatro
         recetas distintas se ve enseguida, aunque cada una por separado parezca bien.
@@ -86,7 +86,7 @@ export function LayoutSection() {
         tabla o un gráfico adentro de una columna la empujan más ancha que la pantalla, y el
         desborde aparece recién en un teléfono. Le pasó al dashboard.
         {' '}
-        <strong>Y lo que scrollea tiene que poder recibir el foco.</strong> Un bloque con
+        <strong>Y lo que scrollea tiene que poder recibir el foco.</strong> Un bloque con{' '}
         <code>overflow-x-auto</code> y sin <code>tabIndex</code> deja lo que quedó cortado a la
         derecha fuera del alcance del teclado. Va con <code>role=&quot;region&quot;</code> y su
         nombre, porque "región" no dice de qué.

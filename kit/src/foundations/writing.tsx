@@ -30,7 +30,7 @@ const pairs: { bad: string; good: string; by: string }[] = [
   },
 ]
 
-export function Writing() {
+export function WritingSection() {
   return (
     <Page
       title="Cómo se escribe"

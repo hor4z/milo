@@ -18,7 +18,7 @@ final son lo único que hay que tocar.
 npm install
 npm run dev        # el sitio · http://localhost:5190
 npm run typecheck  # el paquete y el sitio de una
-npm test           # 701 tests con vitest y testing-library
+npm test           # 705 tests con vitest y testing-library
 npm run build      # compila el paquete a dist/ (js, css y tipos)
 npm run props      # regenera la tabla de props desde los tipos
 ```
@@ -425,9 +425,8 @@ kit/src/                el sitio: App.tsx (shell y riel) · kit.tsx (Page, Secti
                         Cluster, Frame, Footnote, Grid, Props, A11y, Note) · intro.tsx (la portada) ·
                         dashboard.tsx · document.tsx · stories/ (una por pieza) ·
                         mascots/ ·
-                        foundations/ (principles · accessibility · roles · ai · typography ·
-                        color · measure · layout · relief · motion · states ·
-                        charts · time · media · numbers · writing)
+                        foundations/ (accessibility · typography · color · measure · layout ·
+                        relief · motion · states · charts · time · media · numbers · writing)
 ```
 
 **El corte entre el paquete y el sitio es por dependencia, no por gusto.** `src/` no sabe que
@@ -462,11 +461,10 @@ cada una linkea a la otra: solapas o acordeón, alert o toast, sheet o modal, li
 Las piezas se agrupan por el trabajo que hacen
 (Fundamentos, Mascotas, Editor, Acciones, Formularios, Navegación, Datos, Avisos, Superficies) y
 no por su tipo técnico. **Fundamentos va primero** y es la capa de la que sale todo lo demás:
-Principios · Accesibilidad · Tipografía · Color · Medidas y radios · Layout · Relieve ·
-Movimiento · Estados · Iconos · Gráficos · Fecha y hora · Medios · Números y valores ·
-Cómo se escribe. El orden adentro no es alfabético: las
-dos primeras son las que hay que leer antes de tocar nada, y después van las capas en el orden en
-que se construye una pantalla.
+Accesibilidad · Tipografía · Color · Medidas y radios · Layout · Relieve · Movimiento · Estados ·
+Iconos · Gráficos · Fecha y hora · Medios · Números y valores · Cómo se escribe. El orden adentro no
+es alfabético: **Accesibilidad** va primera porque es la que hay que leer antes de tocar nada, y
+después van las capas en el orden en que se construye una pantalla.
 
 Se llevó puestos a "Guía" y a "Tokens", que eran dos grupos separados por si el contenido era una
 regla o un valor: una distinción que le importa a quien los escribió y a nadie más: el que busca
@@ -503,7 +501,7 @@ Lo mismo vale para los tipos que una pieza recibe como argumento (`ToastOptions`
 
 ## Los tests
 
-`npm test` corre vitest con jsdom y testing-library. 701 tests, y lo que prueban es el
+`npm test` corre vitest con jsdom y testing-library. 705 tests, y lo que prueban es el
 comportamiento (teclado, nombres accesibles, estados) y no el markup, que cambia con cada
 ajuste de estilo. El test de cada pieza vive en su carpeta, al lado del componente.
 
@@ -529,7 +527,7 @@ Veinte de ellos leen el paquete entero y fallan si alguien:
 - exporta algo sin sacarlo por `index.ts`,
 - deja una carpeta sin el componente que le da nombre, o un componente sin su test al lado.
 
-Y hay uno que no se puede escribir leyendo archivos: **dibuja las setenta y una vistas y falla
+Y hay uno que no se puede escribir leyendo archivos: **dibuja las setenta y dos vistas y falla
 si a algún elemento le quedó una clase literal que no resuelve a nada** (un resto de Tailwind, un
 string suelto). Una clase que no existe no falla, no avisa y deja la pieza sin estilo, y leer las
 fuentes no alcanza porque una clase puede llegar por una prop o por una constante.
@@ -551,14 +549,26 @@ el `Stepper`, y la aserción del textarea empezó a leer el `flex` del stepper.
 
 Catorce más leen los tokens de tipografía: que cada rol declare sus tres valores y que quien
 escriba un tamaño escriba los tres, que ninguno baje de 12px, que la curva de interlineado tenga su máximo en `reading`, que
-el tracking cruce el cero en la base. Del lado del kit hay diecisiete más: los guardianes de
+el tracking cruce el cero en la base. Del lado del kit hay diecinueve más: los guardianes de
 escala repetidos sobre `kit/` (que hasta ahora se escapaba), el peso de display fuera de su
 tamaño, las transiciones sin duración ni curva, un control de estado sin su manija, y que cada
 vista tenga portada, import y sinónimos para buscarla.
 
-Y hay uno que **renderiza las setenta y una vistas**, una por test. Encuentra dos cosas que
+Y hay uno que **renderiza las setenta y dos vistas**, una por test. Encuentra dos cosas que
 ninguna lectura encuentra: una vista que tira al dibujarse (eso antes se veía solo abriéndola) y
 un backtick o un `**` que quedó a la vista porque ese texto no pasó por `Rich`. Había diez.
+
+**Y uno que agarra un bug que no deja rastro en el código: JSX se come el espacio.** Cuando un
+texto toca un elemento inline a través de un salto de línea, el espacio de ese borde desaparece,
+así que `...a ojo: el\n<code>Alert</code>` se dibuja **"a ojo: elAlert"**. Leyendo el archivo se ve
+bien, y en pantalla está pegado. Había cuatro, en Layout (dos), en la historia del `Modal` y en la
+del `Slider`, y ninguna la vio nadie. En el corte va `{' '}`.
+
+**Y uno que existe porque el de la prosa y el de las clases literales agarran las vistas por el
+sufijo del export**, `Story` o `Section`, y lo que no termina así no lo dibuja nadie. `Principles` y `Writing`
+se llamaban distinto, así que dos vistas de Fundamentos nunca se dibujaron en un test y nadie se
+enteró: el número de vistas no se movía al sacarlas. Ahora falla si un archivo tiene un `<Page>` y
+ningún export que termine en `Story` o en `Section`.
 
 Y cincuenta y nueve leen los tokens y calculan contraste: cada tono de estado contra su fondo, el
 gris del texto secundario contra las superficies sobre las que se escribe, el gris del texto
@@ -597,16 +607,27 @@ modalidad, feedback, cargando, ajustes, buscar, audio y gráficos.
 pantalla completa, arranque, multitarea, y los catorce componentes que son de un sistema operativo
 (widgets, complicaciones, barra de menú, dock). Esto corre en un navegador.
 
-**Salió en esta vuelta, y es la dirección**: Fundamentos pasó de veinte vistas a quince. Se fueron
-cinco que eran doctrina escrita sin token ni pieza detrás, que es lo que las volvía imposibles de
+**Salió en esta vuelta, y es la dirección**: Fundamentos pasó de veinte vistas a catorce.
+
+Cinco eran doctrina escrita sin token ni pieza detrás, que es lo que las volvía imposibles de
 verificar y lo primero que se despega: **Quién está mirando** y **Inclusión** (que son de producto y
 no del sistema), **Cuando responde la IA** (para un producto que todavía no tiene IA), **Más de una
 forma** (que es pedagogía) y **Voz y sonido**, que se fundió adentro de **Medios** quedándose con lo
 que el sistema sí implementa (nada suena sin que alguien lo pida, el volumen es del sistema
 operativo, las cuatro formas escritas) y tirando lo que era una decisión de contenido (la voz
-rioplatense, las velocidades, la tabla por rol). La regla que queda: **una vista de Fundamentos
-existe si hay un token, una pieza o un test que la sostenga.** Si no, es prosa, y la prosa se despega
-en silencio.
+rioplatense, las velocidades, la tabla por rol).
+
+La sexta, **Principios**, se fue por otro motivo: no decía nada propio. Sus seis decisiones están
+cada una en la vista que además las muestra funcionando (la rampa monocroma y el acento en Color,
+la escalera y el radio del hijo en Medidas, el teclado y el color que nunca dice algo solo en
+Accesibilidad), así que era un índice que se iba a despegar de lo que indexaba. La portada del
+sitio, que antes abría con "Ver los principios", ahora abre con Accesibilidad.
+
+La regla que queda: **una vista de Fundamentos existe si hay un token, una pieza o un test que la
+sostenga.** Si no, es prosa, y la prosa se despega en silencio. **Cómo se escribe** se quedó por
+eso: parecía voz de producto como Inclusión, pero una de sus nueve reglas la hace cumplir un
+guardián que lee el repo entero (el que busca la raya larga y las comillas angulares), así que
+está sostenida.
 
 **Entró en una vuelta anterior**, porque el propósito del sistema lo pedía: `DatePicker` y `Tree` y
 `Stepper` y `Reorder`, más el `Documento` que las prueba juntas. De arrastrar y soltar entró la mitad que importa: reordenar una lista, con el teclado como
@@ -668,7 +689,7 @@ un aula:
 - **Recuperar `ss04` y el cero barrado** pide auto-alojar Inter: 69 KB subseteada a latín, con la
   receta de `pyftsubset` anotada. Se eligió el CDN; si algún día una red escolar filtra Google
   Fonts, la decisión se da vuelta y el trabajo ya está pensado.
-- **El sitio entra en un solo bundle de 754 KB (236 gzip) y `vite build` avisa.** Son las 73
+- **El sitio entra en un solo bundle de 750 KB (234 gzip) y `vite build` avisa.** Son las 72
   vistas importadas de una: nada está mal, está todo junto. La salida es `lazy` por historia con
   un `Skeleton` de espera, y el costo es un parpadeo por navegación en una pantalla que hoy es
   instantánea. No se hizo porque es una decisión sobre cómo se siente el sitio y no un bug.
