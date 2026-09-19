@@ -93,14 +93,14 @@ export function DatePicker({ value, onChange, min, max, placeholder = 'Elegir fe
 
   const isOutOfRange = (iso: string) => (min ? iso < min : false) || (max ? iso > max : false)
 
-  const move = (paso: number) => {
+  const move = (step: number) => {
     const [y, m, d] = parts(cursor)
-    const target = new Date(y, m - 1, d + paso)
+    const target = new Date(y, m - 1, d + step)
     setCursor(text(target.getFullYear(), target.getMonth() + 1, target.getDate()))
   }
-  const moveMonth = (paso: number) => {
+  const moveMonth = (step: number) => {
     const [y, m, d] = parts(cursor)
-    const target = new Date(y, m - 1 + paso, 1)
+    const target = new Date(y, m - 1 + step, 1)
     const ny = target.getFullYear()
     const nm = target.getMonth() + 1
     setCursor(text(ny, nm, Math.min(d, long(ny, nm))))
@@ -189,9 +189,9 @@ export function DatePicker({ value, onChange, min, max, placeholder = 'Elegir fe
                   </span>
                 ))}
               </div>
-              {weeks.map((semana, s) => (
+              {weeks.map((week, s) => (
                 <div key={s} role="row" className={cls.week}>
-                  {semana.map((iso, i) => {
+                  {week.map((iso, i) => {
                     if (!iso) return <span key={`h${i}`} role="gridcell" />
                     const isSelected = iso === value
                     const isToday = iso === today()

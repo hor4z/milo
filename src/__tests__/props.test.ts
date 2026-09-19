@@ -18,15 +18,15 @@ describe('la tabla de props sale del código', () => {
   })
 
   it('lo que se documenta tiene tipo y obligatoriedad, no solo prosa', () => {
-    const sinTipo = Object.entries(propsByComponent)
+    const untyped = Object.entries(propsByComponent)
       .flatMap(([comp, doc]) => doc.props.filter(p => !p.type).map(p => `${comp}.${p.name}`))
-    expect(sinTipo).toEqual([])
+    expect(untyped).toEqual([])
   })
 
   it('una pieza sin props propias dice de qué etiqueta hereda', () => {
-    const mudas = Object.entries(propsByComponent)
+    const undocumented = Object.entries(propsByComponent)
       .filter(([, doc]) => doc.props.length === 0 && !doc.html)
       .map(([comp]) => comp)
-    expect(mudas).toEqual([])
+    expect(undocumented).toEqual([])
   })
 })

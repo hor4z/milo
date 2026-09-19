@@ -3,11 +3,11 @@ import { Checkbox, Field, FieldSet, Select, Switch, TextField, Textarea } from '
 import { A11y, Canvas, Frame, Note, Page, Props, Section, Stack } from '../kit'
 
 export function FieldStory() {
-  const [fueraDeFecha, setFueraDeFecha] = useState(true)
-  const [avisar, setAvisar] = useState(true)
+  const [overdue, setOverdue] = useState(true)
+  const [notify, setNotify] = useState(true)
   const [name, setName] = useState('')
-  const [espacio, setEspacio] = useState('Matemática · 4.º A')
-  const [donde, setDonde] = useState('Matemática · 4.º A')
+  const [space, setSpace] = useState('Matemática · 4.º A')
+  const [where, setWhere] = useState('Matemática · 4.º A')
   const [touched, setTouched] = useState(false)
   const error = touched && !name.trim() ? 'Poné un nombre para la actividad' : undefined
 
@@ -46,13 +46,13 @@ export function FieldStory() {
         <Canvas>
           <Stack gap="xl" width="md">
             <Field label="Espacio" hint="Dónde se publica">
-              <Select value={espacio} onChange={setEspacio} options={['Matemática · 4.º A', 'Lengua · 6.º']} />
+              <Select value={space} onChange={setSpace} options={['Matemática · 4.º A', 'Lengua · 6.º']} />
             </Field>
             <Field label="Entregas fuera de fecha" hint="Permitir que entreguen después del cierre">
-              <Switch checked={fueraDeFecha} onChange={setFueraDeFecha} label="Entregas fuera de fecha" />
+              <Switch checked={overdue} onChange={setOverdue} label="Entregas fuera de fecha" />
             </Field>
             <Field label="Avisar al publicar">
-              <Checkbox checked={avisar} onChange={setAvisar} label="Avisar al publicar" />
+              <Checkbox checked={notify} onChange={setNotify} label="Avisar al publicar" />
             </Field>
           </Stack>
         </Canvas>
@@ -65,7 +65,7 @@ export function FieldStory() {
         <Canvas>
           <Frame width="sm">
             <Field label="Espacio" required>
-              <Select value={donde} onChange={setDonde} options={['Matemática · 4.º A', 'Lengua · 6.º']} />
+              <Select value={where} onChange={setWhere} options={['Matemática · 4.º A', 'Lengua · 6.º']} />
             </Field>
           </Frame>
         </Canvas>

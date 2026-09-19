@@ -23,7 +23,7 @@ function Live({ onReorder }: { onReorder?: (x: ReorderItem[]) => void }) {
   )
 }
 
-const orden = () => screen.getAllByRole('listitem').map(li => li.textContent?.replace(/^.*?(Título|Consigna|Tareas)/, '$1'))
+const order = () => screen.getAllByRole('listitem').map(li => li.textContent?.replace(/^.*?(Título|Consigna|Tareas)/, '$1'))
 
 describe('Reorder', () => {
   it('la lista tiene nombre y cada manija dice qué mueve y dónde está', () => {
@@ -36,9 +36,9 @@ describe('Reorder', () => {
     render(<Live />)
     screen.getByRole('button', { name: /Mover Título/ }).focus()
     await userEvent.keyboard('{ArrowDown}')
-    expect(orden()).toEqual(['Consigna', 'Título', 'Tareas'])
+    expect(order()).toEqual(['Consigna', 'Título', 'Tareas'])
     await userEvent.keyboard('{ArrowUp}')
-    expect(orden()).toEqual(['Título', 'Consigna', 'Tareas'])
+    expect(order()).toEqual(['Título', 'Consigna', 'Tareas'])
   })
 
   it('en los extremos no se sale de la lista', async () => {
@@ -47,7 +47,7 @@ describe('Reorder', () => {
     screen.getByRole('button', { name: /Mover Título/ }).focus()
     await userEvent.keyboard('{ArrowUp}')
     expect(onReorder).not.toHaveBeenCalled()
-    expect(orden()).toEqual(['Título', 'Consigna', 'Tareas'])
+    expect(order()).toEqual(['Título', 'Consigna', 'Tareas'])
   })
 
   it('el foco sigue a la fila que se movió', async () => {
@@ -66,9 +66,9 @@ describe('Reorder', () => {
 
   it('la manija dice con qué teclas se mueve', () => {
     render(<Live />)
-    const manija = screen.getByRole('button', { name: /Mover Título/ })
-    const ayuda = document.getElementById(manija.getAttribute('aria-describedby')!)
-    expect(ayuda?.textContent).toMatch(/flechas/i)
+    const handle = screen.getByRole('button', { name: /Mover Título/ })
+    const hint = document.getElementById(handle.getAttribute('aria-describedby')!)
+    expect(hint?.textContent).toMatch(/flechas/i)
   })
 
   it('una lista de uno no ofrece moverlo a ningún lado', async () => {

@@ -8,15 +8,15 @@ const scales = readFileSync(join(import.meta.dirname, '../styles/tokens/scales.c
 const theme = readFileSync(join(import.meta.dirname, '../theme.css'), 'utf8')
   + readFileSync(join(import.meta.dirname, '../styles/base.css'), 'utf8')
 
-function modulos(base: string, prefijo = ''): { name: string; text: string }[] {
+function modulos(base: string, prefix = ''): { name: string; text: string }[] {
   return readdirSync(base, { withFileTypes: true }).flatMap(e =>
-    e.isDirectory() ? (e.name === 'node_modules' ? [] : modulos(join(base, e.name), `${prefijo}${e.name}/`))
+    e.isDirectory() ? (e.name === 'node_modules' ? [] : modulos(join(base, e.name), `${prefix}${e.name}/`))
     : e.name.endsWith('.module.css')
-      ? [{ name: `${prefijo}${e.name}`, text: readFileSync(join(base, e.name), 'utf8') }]
+      ? [{ name: `${prefix}${e.name}`, text: readFileSync(join(base, e.name), 'utf8') }]
       : [])
 }
 
-const estilo = [
+const style = [
   ...modulos(join(import.meta.dirname, '..')),
   ...modulos(join(import.meta.dirname, '../../kit/src')),
   { name: 'base.css', text: readFileSync(join(import.meta.dirname, '../styles/base.css'), 'utf8') },
@@ -40,40 +40,40 @@ function tracking(role: string): number {
 
 describe('la escala tipográfica', () => {
   it('cada rol declara sus tres valores', () => {
-    const incompletos = roles.filter(r =>
+    const incomplete = roles.filter(r =>
       !new RegExp(`--type-${r}:`).test(scales) ||
       !new RegExp(`--type-${r}-lh:`).test(scales) ||
       !new RegExp(`--type-${r}-ls:`).test(scales),
     )
-    expect(incompletos).toEqual([])
+    expect(incomplete).toEqual([])
   })
 
   it('el que escribe un tamaño escribe los tres', () => {
-    const cojos: string[] = []
-    for (const f of estilo) {
+    const lopsided: string[] = []
+    for (const f of style) {
       for (const block of f.text.split(/(?<=\})/)) {
         const m = block.match(/font-size:\s*var\(--type-([a-z]+)\)/)
         if (!m) continue
         const r = m[1]
-        if (!block.includes(`--type-${r}-lh`)) cojos.push(`${f.name}: --type-${r} sin interlineado`)
-        else if (!block.includes(`--type-${r}-ls`)) cojos.push(`${f.name}: --type-${r} sin tracking`)
+        if (!block.includes(`--type-${r}-lh`)) lopsided.push(`${f.name}: --type-${r} sin interlineado`)
+        else if (!block.includes(`--type-${r}-ls`)) lopsided.push(`${f.name}: --type-${r} sin tracking`)
       }
     }
-    expect([...new Set(cojos)]).toEqual([])
+    expect([...new Set(lopsided)]).toEqual([])
   })
 
   it('nadie nombra un rol que no existe', () => {
-    const inventados: string[] = []
-    for (const f of estilo) {
+    const invented: string[] = []
+    for (const f of style) {
       for (const m of f.text.matchAll(/var\(--type-([a-z]+)(?:-lh|-ls)?\)/g)) {
-        if (!(roles as readonly string[]).includes(m[1])) inventados.push(`${f.name}: --type-${m[1]}`)
+        if (!(roles as readonly string[]).includes(m[1])) invented.push(`${f.name}: --type-${m[1]}`)
       }
     }
-    expect([...new Set(inventados)]).toEqual([])
+    expect([...new Set(invented)]).toEqual([])
   })
 
   it('no quedó el puente que Tailwind leía', () => {
-    for (const f of estilo) {
+    for (const f of style) {
       for (const r of roles) expect(f.text, f.name).not.toMatch(new RegExp(`var\\(--text-${r}\\b`))
     }
     expect(theme).not.toMatch(/@theme/)
@@ -91,11 +91,11 @@ describe('la escala tipográfica', () => {
   })
 
   it('los tamaños son enteros y pares', () => {
-    const raros = roles.filter(r => {
+    const odd = roles.filter(r => {
       const px = size(`type-${r}`)
       return !Number.isInteger(px) || px % 2 !== 0
     })
-    expect(raros).toEqual(['label'])
+    expect(odd).toEqual(['label'])
   })
 
   it('el rol de lectura llega a 1.5 de interlineado', () => {
@@ -104,18 +104,18 @@ describe('la escala tipográfica', () => {
 
   it('la curva de interlineado tiene su máximo en el rol de lectura', () => {
     const ratios = roles.map(r => size(`type-${r}-lh`) / size(`type-${r}`))
-    const pico = ratios.indexOf(Math.max(...ratios))
-    expect(roles[pico]).toBe('reading')
+    const peak = ratios.indexOf(Math.max(...ratios))
+    expect(roles[peak]).toBe('reading')
 
-    const subida = ratios.slice(0, pico + 1)
-    expect(subida).toEqual([...subida].sort((a, b) => a - b))
-    const bajada = ratios.slice(pico)
-    expect(bajada).toEqual([...bajada].sort((a, b) => b - a))
+    const ascent = ratios.slice(0, peak + 1)
+    expect(ascent).toEqual([...ascent].sort((a, b) => a - b))
+    const descent = ratios.slice(peak)
+    expect(descent).toEqual([...descent].sort((a, b) => b - a))
   })
 
   it('el interlineado nunca es menor que la letra', () => {
-    const pisados = roles.filter(r => size(`type-${r}-lh`) < size(`type-${r}`))
-    expect(pisados).toEqual([])
+    const shadowed = roles.filter(r => size(`type-${r}-lh`) < size(`type-${r}`))
+    expect(shadowed).toEqual([])
   })
 
   it('el tracking cruza el cero en la base y nunca sube', () => {
@@ -127,8 +127,8 @@ describe('la escala tipográfica', () => {
   })
 
   it('los h1-h3 no traen tracking propio: lo trae el rol', () => {
-    const regla = theme.match(/^h1, h2, h3 \{.*$/m)?.[0] ?? ''
-    expect(regla).not.toMatch(/letter-spacing/)
+    const rule = theme.match(/^h1, h2, h3 \{.*$/m)?.[0] ?? ''
+    expect(rule).not.toMatch(/letter-spacing/)
   })
 
   it('el body va en el rol de interfaz', () => {
@@ -137,8 +137,8 @@ describe('la escala tipográfica', () => {
   })
 
   it('no queda nada de la escala vieja en los tokens', () => {
-    for (const muerto of ['--leading-ui', '--tracking-tight', '--tracking-wide']) {
-      expect(scales).not.toMatch(new RegExp(`^\\s*${muerto}:`, 'm'))
+    for (const dead of ['--leading-ui', '--tracking-tight', '--tracking-wide']) {
+      expect(scales).not.toMatch(new RegExp(`^\\s*${dead}:`, 'm'))
     }
   })
 })

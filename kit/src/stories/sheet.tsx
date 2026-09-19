@@ -6,9 +6,9 @@ export function SheetStory() {
   const [late, setLate] = useState(true)
   const [open, setOpen] = useState(false)
   const [leftOpen, setLeftOpen] = useState(false)
-  const [espacio, setEspacio] = useState('Matemática · 4.º A')
-  const [filtroEspacio, setFiltroEspacio] = useState('Todos')
-  const [filtroEstado, setFiltroEstado] = useState('Cualquiera')
+  const [space, setSpace] = useState('Matemática · 4.º A')
+  const [spaceFilter, setSpaceFilter] = useState('Todos')
+  const [statusFilter, setStatusFilter] = useState('Cualquiera')
   const { toast } = useToast()
 
   return (
@@ -34,7 +34,7 @@ export function SheetStory() {
                 <TextField placeholder="Fracciones equivalentes" />
               </Field>
               <Field label="Espacio">
-                <Select value={espacio} onChange={setEspacio} options={['Matemática · 4.º A', 'Lengua · 6.º', 'Ciencias · 5.º B']} />
+                <Select value={space} onChange={setSpace} options={['Matemática · 4.º A', 'Lengua · 6.º', 'Ciencias · 5.º B']} />
               </Field>
               <Field label="Consigna" hint="Se puede editar después de publicar">
                 <Textarea rows={4} maxRows={10} />
@@ -72,10 +72,10 @@ export function SheetStory() {
           <SheetBody>
             <Stack gap="xl">
               <Field label="Espacio">
-                <Select value={filtroEspacio} onChange={setFiltroEspacio} options={['Todos', 'Matemática · 4.º A', 'Lengua · 6.º']} />
+                <Select value={spaceFilter} onChange={setSpaceFilter} options={['Todos', 'Matemática · 4.º A', 'Lengua · 6.º']} />
               </Field>
               <Field label="Estado">
-                <Select value={filtroEstado} onChange={setFiltroEstado} options={['Cualquiera', 'Abierta', 'Corregida', 'Borrador']} />
+                <Select value={statusFilter} onChange={setStatusFilter} options={['Cualquiera', 'Abierta', 'Corregida', 'Borrador']} />
               </Field>
             </Stack>
           </SheetBody>

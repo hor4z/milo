@@ -3,7 +3,7 @@ import userEvent from '@testing-library/user-event'
 import { describe, expect, it, vi } from 'vitest'
 import { DatePicker } from './date-picker'
 
-const abrir = async (props: Partial<Parameters<typeof DatePicker>[0]> = {}) => {
+const open = async (props: Partial<Parameters<typeof DatePicker>[0]> = {}) => {
   const onChange = vi.fn()
   render(<DatePicker value="2026-03-09" onChange={onChange} label="Vence" {...props} />)
   await userEvent.click(screen.getByRole('button', { name: /Vence|marzo|Elegir/ }))
@@ -22,23 +22,23 @@ describe('DatePicker', () => {
   })
 
   it('abre en el mes de la fecha elegida', async () => {
-    await abrir()
+    await open()
     expect(screen.getByRole('dialog')).toHaveAccessibleName(/marzo de 2026/i)
   })
 
   it('cada día se nombra entero, no con su número', async () => {
-    await abrir()
+    await open()
     expect(screen.getByRole('gridcell', { name: /lunes, 9 de marzo de 2026/i })).toBeInTheDocument()
   })
 
   it('elegir un día lo devuelve como AAAA-MM-DD', async () => {
-    const { onChange } = await abrir()
+    const { onChange } = await open()
     await userEvent.click(screen.getByRole('gridcell', { name: /jueves, 12 de marzo de 2026/i }))
     expect(onChange).toHaveBeenCalledWith('2026-03-12')
   })
 
   it('las flechas mueven de a un día y una semana', async () => {
-    await abrir()
+    await open()
     await userEvent.keyboard('{ArrowRight}')
     expect(screen.getByRole('gridcell', { name: /martes, 10 de marzo/i })).toHaveAttribute('tabindex', '0')
     await userEvent.keyboard('{ArrowDown}')
@@ -46,13 +46,13 @@ describe('DatePicker', () => {
   })
 
   it('las flechas cruzan de mes sin que haya que tocar el título', async () => {
-    await abrir({ value: '2026-03-31' })
+    await open({ value: '2026-03-31' })
     await userEvent.keyboard('{ArrowRight}')
     expect(screen.getByRole('dialog')).toHaveAccessibleName(/abril de 2026/i)
   })
 
   it('Re Pág y Av Pág cambian el mes, y con Shift el año', async () => {
-    await abrir()
+    await open()
     await userEvent.keyboard('{PageDown}')
     expect(screen.getByRole('dialog')).toHaveAccessibleName(/abril de 2026/i)
     await userEvent.keyboard('{Shift>}{PageUp}{/Shift}')
@@ -60,7 +60,7 @@ describe('DatePicker', () => {
   })
 
   it('Inicio y Fin van a los extremos de la semana, que empieza el lunes', async () => {
-    await abrir()
+    await open()
     await userEvent.keyboard('{Home}')
     expect(screen.getByRole('gridcell', { name: /lunes, 9 de marzo/i })).toHaveAttribute('tabindex', '0')
     await userEvent.keyboard('{End}')
@@ -68,7 +68,7 @@ describe('DatePicker', () => {
   })
 
   it('lo que está fuera de rango no se puede elegir', async () => {
-    const { onChange } = await abrir({ min: '2026-03-10' })
+    const { onChange } = await open({ min: '2026-03-10' })
     const before = screen.getByRole('gridcell', { name: /jueves, 5 de marzo/i })
     expect(before).toHaveAttribute('aria-disabled', 'true')
     await userEvent.click(before)
@@ -76,34 +76,34 @@ describe('DatePicker', () => {
   })
 
   it('Enter elige el día donde está el cursor', async () => {
-    const { onChange } = await abrir()
+    const { onChange } = await open()
     await userEvent.keyboard('{ArrowRight}{Enter}')
     expect(onChange).toHaveBeenCalledWith('2026-03-10')
   })
 
   it('Escape cierra y el foco vuelve al campo', async () => {
-    await abrir()
+    await open()
     await userEvent.keyboard('{Escape}')
     expect(screen.queryByRole('dialog')).not.toBeInTheDocument()
     expect(screen.getByRole('button', { name: 'Vence' })).toHaveFocus()
   })
 
   it('tocar afuera cierra sin elegir nada', async () => {
-    const { onChange } = await abrir()
+    const { onChange } = await open()
     await userEvent.click(document.body)
     expect(screen.queryByRole('dialog')).not.toBeInTheDocument()
     expect(onChange).not.toHaveBeenCalled()
   })
 
   it('los días de otro mes no ocupan celdas con número', async () => {
-    await abrir()
-    const vacias = [...screen.getAllByRole('gridcell')].filter(c => !c.textContent?.trim())
-    expect(vacias.length).toBeGreaterThan(0)
+    await open()
+    const blanks = [...screen.getAllByRole('gridcell')].filter(c => !c.textContent?.trim())
+    expect(blanks.length).toBeGreaterThan(0)
     expect(screen.queryByRole('gridcell', { name: /de febrero/i })).toBeNull()
   })
 
   it('al abrir, el foco aterriza en el día del cursor y no en el panel', async () => {
-    await abrir()
+    await open()
     expect(screen.getByRole('gridcell', { name: /lunes, 9 de marzo de 2026/i })).toHaveFocus()
   })
 
@@ -113,7 +113,7 @@ describe('DatePicker', () => {
   })
 
   it('scrollear la página cierra el mes, que quedaba flotando lejos del campo', async () => {
-    await abrir()
+    await open()
     window.dispatchEvent(new Event('scroll'))
     await waitFor(() => expect(screen.queryByRole('dialog')).not.toBeInTheDocument())
   })

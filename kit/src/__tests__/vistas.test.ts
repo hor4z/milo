@@ -26,9 +26,9 @@ describe('las vistas del kit', () => {
           : /\.tsx?$/.test(e.name) ? [`${prefix}${e.name}`] : [],
       )
 
-    const prohibido = /\btext-(2xs|xs|sm|base|md|lg|xl|2xl)\b|text-\[(?![\d.]+em\])|\b(leading|tracking)-(\[|none|tight|normal|snug|relaxed|loose|wide|wider|widest)|\bduration-(\[|\d)/
+    const banned = /\btext-(2xs|xs|sm|base|md|lg|xl|2xl)\b|text-\[(?![\d.]+em\])|\b(leading|tracking)-(\[|none|tight|normal|snug|relaxed|loose|wide|wider|widest)|\bduration-(\[|\d)/
     const offenders = walk(dir)
-      .filter(f => prohibido.test(readFileSync(join(dir, f), 'utf8').replace(/`[^`]*`/g, '')))
+      .filter(f => banned.test(readFileSync(join(dir, f), 'utf8').replace(/`[^`]*`/g, '')))
     expect(offenders).toEqual([])
   })
 
@@ -42,8 +42,8 @@ describe('las vistas del kit', () => {
       )
     const offenders: string[] = []
     for (const f of walk(dir)) {
-      const texto = readFileSync(join(dir, f), 'utf8')
-      for (const m of texto.matchAll(/(['"`])((?:(?!\1)[\s\S])*?\btransition-[\w[\],-]+(?:(?!\1)[\s\S])*?)\1/g)) {
+      const text = readFileSync(join(dir, f), 'utf8')
+      for (const m of text.matchAll(/(['"`])((?:(?!\1)[\s\S])*?\btransition-[\w[\],-]+(?:(?!\1)[\s\S])*?)\1/g)) {
         const frag = m[2]
         if (!/\bduration-(fast|normal)\b/.test(frag) || !/\bease-(out|in)\b/.test(frag)) {
           offenders.push(`${f}: ${/transition-[\w[\],-]+/.exec(frag)?.[0]}`)
@@ -73,7 +73,7 @@ describe('las vistas del kit', () => {
   })
 
   it('ninguna demo muestra un control que no responde', () => {
-    const controlados = /^(Select|Search|TextField|Textarea|Slider|Segmented|Checkbox|Radio|Switch)$/
+    const controlled = /^(Select|Search|TextField|Textarea|Slider|Segmented|Checkbox|Radio|Switch)$/
     const dir = join(import.meta.dirname, '..')
     const walk = (base: string, prefix = ''): string[] =>
       readdirSync(base, { withFileTypes: true }).flatMap(e =>
@@ -81,19 +81,19 @@ describe('las vistas del kit', () => {
           ? (e.name === '__tests__' ? [] : walk(join(base, e.name), `${prefix}${e.name}/`))
           : /\.tsx$/.test(e.name) ? [`${prefix}${e.name}`] : [],
       )
-    const inertes: string[] = []
+    const inert: string[] = []
     for (const f of walk(dir)) {
-      const texto = readFileSync(join(dir, f), 'utf8')
-      for (const m of texto.matchAll(/<([A-Z]\w+)((?:[^<>]|\{[^{}]*\})*?)\/>/gs)) {
-        const [, nombre, attrs] = m
-        if (!controlados.test(nombre)) continue
+      const text = readFileSync(join(dir, f), 'utf8')
+      for (const m of text.matchAll(/<([A-Z]\w+)((?:[^<>]|\{[^{}]*\})*?)\/>/gs)) {
+        const [, name, attrs] = m
+        if (!controlled.test(name)) continue
         if (!/\b(value|checked)=/.test(attrs)) continue
         if (/\bon(Change|ValueChange|Input)=/.test(attrs)) continue
         if (/\b(loading|disabled|readOnly)\b/.test(attrs)) continue
-        inertes.push(`${f}: <${nombre} ${attrs.trim().slice(0, 40)}`)
+        inert.push(`${f}: <${name} ${attrs.trim().slice(0, 40)}`)
       }
     }
-    expect(inertes).toEqual([])
+    expect(inert).toEqual([])
   })
 
   it('cada portada dice cómo se importa la pieza', () => {
@@ -181,24 +181,24 @@ describe('los números de la portada', () => {
 
 describe('las escalas que la doctrina dibuja', () => {
   it('cada paso de espaciado que Medidas declara se puede escribir', () => {
-    const vista = readFileSync(join(import.meta.dirname, '../foundations/measure.tsx'), 'utf8')
-    const pasos = [...vista.matchAll(/\{ px: (\d+), role:/g)].map(m => Number(m[1]))
-    const guarda = readFileSync(
+    const view = readFileSync(join(import.meta.dirname, '../foundations/measure.tsx'), 'utf8')
+    const steps = [...view.matchAll(/\{ px: (\d+), role:/g)].map(m => Number(m[1]))
+    const guards = readFileSync(
       join(import.meta.dirname, '../../../src/__tests__/coherencia.test.ts'),
       'utf8',
     )
-    const prohibidos = guarda
+    const banned = guards
       .match(/\)-\(([^)]+)\)\(\?!/)![1]
       .replace(/\\/g, '')
       .split('|')
       .map(s => Number(s) * 4)
 
-    expect(pasos.length).toBeGreaterThan(0)
-    expect(prohibidos.length).toBeGreaterThan(0)
-    const sinUtilidad = pasos.filter(px => prohibidos.includes(px))
+    expect(steps.length).toBeGreaterThan(0)
+    expect(banned.length).toBeGreaterThan(0)
+    const withoutHelper = steps.filter(px => banned.includes(px))
     expect(
-      sinUtilidad,
-      `Medidas declara ${sinUtilidad.join(', ')}px y la guarda de coherencia prohíbe la utilidad que los escribe`,
+      withoutHelper,
+      `Medidas declara ${withoutHelper.join(', ')}px y la guarda de coherencia prohíbe la utilidad que los escribe`,
     ).toEqual([])
   })
 })
@@ -206,12 +206,12 @@ describe('las escalas que la doctrina dibuja', () => {
 describe('cómo se escribe', () => {
   it('no vuelve la raya larga ni las comillas angulares', () => {
     const root = join(import.meta.dirname, '../../..')
-    const salta = new Set(['node_modules', '.git', 'dist', 'public', '.vite'])
+    const skips = new Set(['node_modules', '.git', 'dist', 'public', '.vite'])
     const mira = /\.(tsx?|css|mjs|md|html|py|json)$/
     const walk = (base: string, prefix = ''): string[] =>
       readdirSync(base, { withFileTypes: true }).flatMap(e =>
         e.isDirectory()
-          ? (salta.has(e.name) ? [] : walk(join(base, e.name), `${prefix}${e.name}/`))
+          ? (skips.has(e.name) ? [] : walk(join(base, e.name), `${prefix}${e.name}/`))
           : mira.test(e.name) && e.name !== 'package-lock.json' ? [`${prefix}${e.name}`] : [])
 
     const offenders: string[] = []
@@ -275,14 +275,14 @@ describe('cobertura del kit', () => {
       }
     }
 
-    const raiz = join(import.meta.dirname, '..')
-    const recorrer = (base: string): string[] =>
+    const root = join(import.meta.dirname, '..')
+    const walk = (base: string): string[] =>
       readdirSync(base, { withFileTypes: true }).flatMap(e =>
         e.isDirectory()
-          ? (e.name === '__tests__' ? [] : recorrer(join(base, e.name)))
+          ? (e.name === '__tests__' ? [] : walk(join(base, e.name)))
           : /\.tsx?$/.test(e.name) ? [join(base, e.name)] : [],
       )
-    const sources = recorrer(raiz)
+    const sources = walk(root)
     const text = sources.map((f: string) => readFileSync(f, 'utf8')).join('\n')
 
     const hidden = [...exported].filter(n => !new RegExp(`<${n}[\\s/>]`).test(text))

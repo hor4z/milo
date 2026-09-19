@@ -42,11 +42,11 @@ const initialTasks: Task[] = [
 ]
 
 export function DocumentStory() {
-  const [formato, setFormato] = useState({ bold: false, italic: false })
+  const [format, setFormat] = useState({ bold: false, italic: false })
   const [tasks, setTasks] = useState(initialTasks)
   const [last, setLast] = useState<string | null>(null)
 
-  const toggle = (k: keyof typeof formato) => setFormato(f => ({ ...f, [k]: !f[k] }))
+  const toggle = (k: keyof typeof format) => setFormat(f => ({ ...f, [k]: !f[k] }))
   const toggleTask = (id: string, done: boolean) =>
     setTasks(ts => ts.map(t => (t.id === id ? { ...t, done } : t)))
 
@@ -90,8 +90,8 @@ export function DocumentStory() {
 
         <div className={cls.toolbarRow}>
           <Toolbar label="Formato del texto">
-            <ToolbarButton icon="format_bold" label="Negrita" pressed={formato.bold} onClick={() => toggle('bold')} />
-            <ToolbarButton icon="format_italic" label="Cursiva" pressed={formato.italic} onClick={() => toggle('italic')} />
+            <ToolbarButton icon="format_bold" label="Negrita" pressed={format.bold} onClick={() => toggle('bold')} />
+            <ToolbarButton icon="format_italic" label="Cursiva" pressed={format.italic} onClick={() => toggle('italic')} />
             <ToolbarSeparator />
             <ToolbarButton icon="format_h2" label="Subtítulo" />
             <ToolbarButton icon="format_quote" label="Cita" />

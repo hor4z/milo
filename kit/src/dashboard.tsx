@@ -41,7 +41,7 @@ const spaces = [
   { label: 'Sociales', meta: '5.º A · 12 archivos', color: 'var(--space-orange)', avatars: [p('Mora Tello', 2), p('Olivia Rey', 4)] },
 ] as const
 
-const pendientes = [
+const pending = [
   { icon: 'edit', color: 'orange', title: 'Corregir "El sistema solar"', hint: '24 entregas esperando' },
   { icon: 'schedule', color: 'purple', title: 'Cerrar "Fracciones equivalentes"', hint: `Vence el ${dayAndTime('2026-03-10T23:59:00-03:00', { zone: AR })}` },
   { icon: 'group_add', color: 'green', title: 'Sumar a Lengua · 6.º', hint: 'Dos aprendices pidieron entrar' },
@@ -49,7 +49,7 @@ const pendientes = [
 
 export function Dashboard() {
   const [settings, setSettings] = useState(false)
-  const [busca, setBusca] = useState('')
+  const [query, setQuery] = useState('')
   const [range, setRange] = useState('semana')
   const { toast } = useToast()
 
@@ -59,8 +59,8 @@ export function Dashboard() {
         <Search
           block
           size="md"
-          value={busca}
-          onValueChange={setBusca}
+          value={query}
+          onValueChange={setQuery}
           placeholder="Buscar una actividad o un espacio"
           aria-label="Buscar"
           className={cls.topBarSearch}
@@ -177,7 +177,7 @@ export function Dashboard() {
                 <Link href="#list" className={cls.taskLink}>Ver todas</Link>
               </div>
               <List>
-                {pendientes.map(t => (
+                {pending.map(t => (
                   <ListItem
                     key={t.title}
                     icon={t.icon}
@@ -237,29 +237,29 @@ const ONE_LOOP = 8333
 /** Se asoma una vez y se esconde un rato largo al azar: en bucle deja de ser una aparición. */
 function Otto() {
   const still = useStill()
-  const [vuelta, setVuelta] = useState(0)
-  const [asomado, setAsomado] = useState(false)
+  const [turn, setTurn] = useState(0)
+  const [shown, setShown] = useState(false)
 
   useEffect(() => {
     if (still) return
     let clock: ReturnType<typeof setTimeout>
     const peek = () => {
-      setVuelta(v => v + 1)
-      setAsomado(true)
+      setTurn(v => v + 1)
+      setShown(true)
       clock = setTimeout(hide, ONE_LOOP)
     }
     const hide = () => {
-      setAsomado(false)
+      setShown(false)
       clock = setTimeout(peek, 40000 + Math.random() * 80000)
     }
     clock = setTimeout(peek, 6000)
     return () => clearTimeout(clock)
   }, [still])
 
-  if (still || !asomado) return null
+  if (still || !shown) return null
   return (
     <img
-      key={vuelta}
+      key={turn}
       src="/mascotas/otto-anima.webp"
       alt=""
       className={cls.mascotPeek}

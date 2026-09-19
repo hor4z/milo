@@ -6,12 +6,12 @@ import { control } from '../lib/control'
 import { cx } from '../lib/cx'
 import { duration } from '../lib/time'
 
-type State = 'cargando' | 'listo' | 'error'
+type Status = 'loading' | 'ready' | 'error'
 
 /** El alto de la onda. No sale de la escalera de controles: eso mide botones, y esto es un gráfico que hay que poder leer. */
 const waveHeight = { sm: cls.waveSm, md: cls.waveMd, lg: cls.waveLg } as const
 
-const abiertos = new Set<HTMLAudioElement>()
+const playing = new Set<HTMLAudioElement>()
 
 /** La onda. Cada barra es un pico del archivo; las que quedaron atrás van en el color de marca. */
 function Wave({ peaks, progress }: { peaks: readonly number[]; progress: number }) {
@@ -58,33 +58,33 @@ type AudioPlayerProps = {
 /** Un archivo de audio con su onda: play, una línea de tiempo que se arrastra y el reloj. */
 export function AudioPlayer({ src, title, peaks, actions, size = 'md', className }: AudioPlayerProps) {
   const audio = useRef<HTMLAudioElement>(null)
-  const [estado, setEstado] = useState<State>('cargando')
-  const [sonando, setSonando] = useState(false)
+  const [status, setStatus] = useState<Status>('loading')
+  const [isPlaying, setIsPlaying] = useState(false)
   const [t, setT] = useState(0)
   const [dur, setDur] = useState(0)
 
   const loaded = (el: HTMLAudioElement) => {
     setDur(el.duration)
-    setEstado('listo')
+    setStatus('ready')
   }
 
   useEffect(() => {
     const el = audio.current
-    setSonando(false)
+    setIsPlaying(false)
     setT(0)
     if (el && el.readyState >= 1) return loaded(el)
-    setEstado('cargando')
+    setStatus('loading')
     setDur(0)
   }, [src])
 
   useEffect(() => {
     const el = audio.current
-    return () => { if (el) abiertos.delete(el) }
+    return () => { if (el) playing.delete(el) }
   }, [])
 
   useEffect(() => {
     const ms = typeof navigator !== 'undefined' && 'mediaSession' in navigator ? navigator.mediaSession : null
-    if (!ms || !sonando) return
+    if (!ms || !isPlaying) return
     if (title && typeof MediaMetadata === 'function') ms.metadata = new MediaMetadata({ title })
     ms.setActionHandler('play', () => void audio.current?.play())
     ms.setActionHandler('pause', () => audio.current?.pause())
@@ -96,17 +96,17 @@ export function AudioPlayer({ src, title, peaks, actions, size = 'md', className
       ms.setActionHandler('pause', null)
       ms.setActionHandler('seekto', null)
     }
-  }, [sonando, title])
+  }, [isPlaying, title])
 
-  const ready = estado === 'listo' && dur > 0
+  const ready = status === 'ready' && dur > 0
   const progress = ready ? Math.min(1, t / dur) : 0
 
   const toggle = () => {
     const el = audio.current
     if (!el) return
-    if (sonando) return el.pause()
+    if (isPlaying) return el.pause()
     if (dur && el.currentTime >= dur - 0.05) el.currentTime = 0
-    void el.play().catch(() => setEstado('error'))
+    void el.play().catch(() => setStatus('error'))
   }
 
   const seek = (v: number) => {
@@ -120,7 +120,7 @@ export function AudioPlayer({ src, title, peaks, actions, size = 'md', className
     <div
       className={cx(
         `${cls.root} bg-surface`,
-        estado === 'error' && cls.errored,
+        status === 'error' && cls.errored,
         className,
       )}
     >
@@ -131,25 +131,25 @@ export function AudioPlayer({ src, title, peaks, actions, size = 'md', className
         onLoadedMetadata={e => loaded(e.currentTarget)}
         onTimeUpdate={e => setT(e.currentTarget.currentTime)}
         onPlay={e => {
-          for (const other of abiertos) if (other !== e.currentTarget) other.pause()
-          abiertos.add(e.currentTarget)
-          setSonando(true)
+          for (const other of playing) if (other !== e.currentTarget) other.pause()
+          playing.add(e.currentTarget)
+          setIsPlaying(true)
         }}
         onPause={e => {
-          abiertos.delete(e.currentTarget)
-          setSonando(false)
+          playing.delete(e.currentTarget)
+          setIsPlaying(false)
         }}
         onEnded={e => {
-          abiertos.delete(e.currentTarget)
-          setSonando(false)
+          playing.delete(e.currentTarget)
+          setIsPlaying(false)
         }}
-        onError={() => setEstado('error')}
+        onError={() => setStatus('error')}
       />
 
       {title && <span className={cls.title}>{title}</span>}
 
       <div className={cls.controls}>
-        {estado === 'cargando'
+        {status === 'loading'
           ? (
             <span className={cx(cls.playSlot, control[size].square)}>
               <Spinner size={size === 'sm' ? 16 : 18} label="Cargando el audio" />
@@ -157,17 +157,17 @@ export function AudioPlayer({ src, title, peaks, actions, size = 'md', className
           )
           : (
             <IconButton
-              icon={sonando ? 'pause' : 'play_arrow'}
-              label={sonando ? 'Pausar' : 'Reproducir'}
+              icon={isPlaying ? 'pause' : 'play_arrow'}
+              label={isPlaying ? 'Pausar' : 'Reproducir'}
               variant="muted"
               size={size}
-              disabled={estado === 'error'}
+              disabled={status === 'error'}
               onClick={toggle}
               className={`${cls.playButton} icon-filled`}
             />
           )}
 
-        {estado === 'error'
+        {status === 'error'
           ? <span className={cx(cls.errorText, waveHeight[size])}>No se pudo cargar el audio</span>
           : (
             <span className={cx(cls.timeline, waveHeight[size])}>

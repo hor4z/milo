@@ -57,8 +57,8 @@ describe('cuánto hace', () => {
   })
 
   it('lo que todavía no pasó nunca va en relativo', () => {
-    const manana = new Date(now.getTime() + 24 * 3_600_000)
-    expect(timeAgo(manana, { now: now, zone: AR })).toBe('10 de marzo')
+    const tomorrow = new Date(now.getTime() + 24 * 3_600_000)
+    expect(timeAgo(tomorrow, { now: now, zone: AR })).toBe('10 de marzo')
   })
 })
 

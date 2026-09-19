@@ -46,7 +46,7 @@ export function StatesSection() {
           <StateCard
             title="Cargando, y sabemos qué va a venir"
             tag="Skeleton"
-            nota="El esqueleto ocupa el lugar exacto de lo que falta, así que cuando llega no se mueve nada. Solo va cuando la forma es previsible: una fila, una tarjeta, un avatar."
+            note="El esqueleto ocupa el lugar exacto de lo que falta, así que cuando llega no se mueve nada. Solo va cuando la forma es previsible: una fila, una tarjeta, un avatar."
           >
             <Stack>
               {[0, 1].map(i => (
@@ -64,7 +64,7 @@ export function StatesSection() {
           <StateCard
             title="Cargando, y no sabemos qué"
             tag="Spinner"
-            nota="Cuando no se puede dibujar la forma de lo que viene (una acción, un cálculo, una búsqueda sin resultados todavía) el esqueleto mentiría. El spinner no promete nada, solo dice que algo está pasando."
+            note="Cuando no se puede dibujar la forma de lo que viene (una acción, un cálculo, una búsqueda sin resultados todavía) el esqueleto mentiría. El spinner no promete nada, solo dice que algo está pasando."
           >
             <div className={`${cls.workingCard} bg-surface`}>
               <Spinner size={28} />
@@ -75,7 +75,7 @@ export function StatesSection() {
           <StateCard
             title="Vacío porque todavía no empezó"
             tag="EmptyState"
-            nota="El vacío más importante y el que se trata peor. No es un error: es la primera vez. Dice qué va a haber acá y ofrece la acción que lo llena: un vacío sin salida es una pantalla que no se puede usar."
+            note="El vacío más importante y el que se trata peor. No es un error: es la primera vez. Dice qué va a haber acá y ofrece la acción que lo llena: un vacío sin salida es una pantalla que no se puede usar."
           >
             <EmptyState
               icon="folder_open"
@@ -88,7 +88,7 @@ export function StatesSection() {
           <StateCard
             title="Vacío porque el filtro no encontró nada"
             tag="EmptyState"
-            nota="Distinto del anterior y se confunden siempre. Acá sí hay contenido: lo que no hay es contenido que cumpla lo que se pidió. La salida no es crear algo, es aflojar el filtro."
+            note="Distinto del anterior y se confunden siempre. Acá sí hay contenido: lo que no hay es contenido que cumpla lo que se pidió. La salida no es crear algo, es aflojar el filtro."
           >
             <EmptyState
               icon="search_off"
@@ -155,14 +155,14 @@ export function StatesSection() {
   )
 }
 
-function StateCard({ title, tag, nota, children }: { title: string; tag: string; nota: string; children: React.ReactNode }) {
+function StateCard({ title, tag, note, children }: { title: string; tag: string; note: string; children: React.ReactNode }) {
   return (
     <Stack>
       <div className={cls.optimisticHead}>
         <span className={cls.optimisticTitle}>{title}</span>
         <Chip color="blue">{tag}</Chip>
       </div>
-      <p className={cls.optimisticNote}>{nota}</p>
+      <p className={cls.optimisticNote}>{note}</p>
       <div className={cls.optimisticSlot}>{children}</div>
     </Stack>
   )

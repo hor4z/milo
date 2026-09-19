@@ -12,49 +12,49 @@ import { join, dirname } from 'node:path'
 import { fileURLToPath } from 'node:url'
 
 const src = join(dirname(fileURLToPath(import.meta.url)), '../src')
-const salida = join(src, 'props.gen.ts')
+const out = join(src, 'props.gen.ts')
 
 /** Lo que el kit necesita de una prop para dibujar su fila. */
-const extraer = (archivo) => {
-  const texto = readFileSync(archivo, 'utf8')
-  const sf = ts.createSourceFile(archivo, texto, ts.ScriptTarget.Latest, true, ts.ScriptKind.TSX)
+const extract = (file) => {
+  const text = readFileSync(file, 'utf8')
+  const sf = ts.createSourceFile(file, text, ts.ScriptTarget.Latest, true, ts.ScriptKind.TSX)
   const alias = new Map()
-  const piezas = {}
+  const pieces = {}
 
-  const limpiar = (s) => s.replace(/\s+/g, ' ').trim()
+  const clean = (s) => s.replace(/\s+/g, ' ').trim()
 
   const docDe = (node) => {
     const docs = ts.getJSDocCommentsAndTags(node).filter(ts.isJSDoc)
-    const texto = docs.map(d => typeof d.comment === 'string' ? d.comment : (d.comment ?? []).map(c => c.text).join('')).join(' ')
-    return limpiar(texto)
+    const text = docs.map(d => typeof d.comment === 'string' ? d.comment : (d.comment ?? []).map(c => c.text).join('')).join(' ')
+    return clean(text)
   }
 
-  const miembros = (tipo) => {
-    if (!tipo) return []
-    if (ts.isTypeLiteralNode(tipo)) return tipo.members
-    if (ts.isIntersectionTypeNode(tipo)) return tipo.types.flatMap(miembros)
-    if (ts.isTypeReferenceNode(tipo)) {
-      const t = alias.get(tipo.typeName.getText(sf))
-      return t ? miembros(t) : []
+  const members = (type) => {
+    if (!type) return []
+    if (ts.isTypeLiteralNode(type)) return type.members
+    if (ts.isIntersectionTypeNode(type)) return type.types.flatMap(members)
+    if (ts.isTypeReferenceNode(type)) {
+      const t = alias.get(type.typeName.getText(sf))
+      return t ? members(t) : []
     }
     return []
   }
 
   /** Qué etiqueta nativa hereda la pieza: `ComponentPropsWithoutRef<'div'>` y sus primos. */
-  const nativa = (tipo) => {
-    if (!tipo) return undefined
-    if (ts.isIntersectionTypeNode(tipo)) return tipo.types.map(nativa).find(Boolean)
-    if (ts.isTypeReferenceNode(tipo)) {
-      const nombre = tipo.typeName.getText(sf)
-      const arg = tipo.typeArguments?.[0]?.getText(sf)?.replace(/['"]/g, '')
-      if (/^(ComponentPropsWithoutRef|ComponentProps|HTMLAttributes)$/.test(nombre) && arg) return arg
-      const m = nombre.match(/^(\w+?)HTMLAttributes$/)
+  const native = (type) => {
+    if (!type) return undefined
+    if (ts.isIntersectionTypeNode(type)) return type.types.map(native).find(Boolean)
+    if (ts.isTypeReferenceNode(type)) {
+      const name = type.typeName.getText(sf)
+      const arg = type.typeArguments?.[0]?.getText(sf)?.replace(/['"]/g, '')
+      if (/^(ComponentPropsWithoutRef|ComponentProps|HTMLAttributes)$/.test(name) && arg) return arg
+      const m = name.match(/^(\w+?)HTMLAttributes$/)
       if (m) {
         const tags = { Button: 'button', Input: 'input', Textarea: 'textarea', Th: 'th', Td: 'td', Anchor: 'a' }
         return tags[m[1]] ?? m[1].toLowerCase()
       }
-      const t = alias.get(nombre)
-      return t ? nativa(t) : undefined
+      const t = alias.get(name)
+      return t ? native(t) : undefined
     }
     return undefined
   }
@@ -66,8 +66,8 @@ const extraer = (archivo) => {
   ts.forEachChild(sf, (n) => {
     if (!ts.isFunctionDeclaration(n) || !n.name) return
     if (!n.modifiers?.some(m => m.kind === ts.SyntaxKind.ExportKeyword)) return
-    const nombre = n.name.text
-    if (!/^[A-Z]/.test(nombre)) return
+    const name = n.name.text
+    if (!/^[A-Z]/.test(name)) return
 
     const param = n.parameters[0]
     if (!param) return
@@ -75,25 +75,25 @@ const extraer = (archivo) => {
     const defaults = new Map()
     if (param.name && ts.isObjectBindingPattern(param.name)) {
       for (const el of param.name.elements) {
-        if (el.initializer) defaults.set(el.name.getText(sf), limpiar(el.initializer.getText(sf)))
+        if (el.initializer) defaults.set(el.name.getText(sf), clean(el.initializer.getText(sf)))
       }
     }
 
-    const filas = []
-    for (const m of miembros(param.type)) {
+    const rows = []
+    for (const m of members(param.type)) {
       if (!ts.isPropertySignature(m) || !m.name) continue
       const prop = m.name.getText(sf)
-      filas.push({
+      rows.push({
         name: prop,
-        type: limpiar(m.type?.getText(sf) ?? 'unknown'),
+        type: clean(m.type?.getText(sf) ?? 'unknown'),
         required: !m.questionToken,
         def: defaults.get(prop),
         doc: docDe(m) || undefined,
       })
     }
-    const html = nativa(param.type)
+    const html = native(param.type)
     const doc = docDe(n)
-    if (filas.length || html) piezas[nombre] = { props: filas, ...(html ? { html } : {}), ...(doc ? { doc } : {}) }
+    if (rows.length || html) pieces[name] = { props: rows, ...(html ? { html } : {}), ...(doc ? { doc } : {}) }
   })
 
   // Los tipos que una pieza recibe como argumento (las opciones de un toast, el
@@ -102,36 +102,36 @@ const extraer = (archivo) => {
     if (!ts.isTypeAliasDeclaration(n)) return
     if (!n.modifiers?.some(m => m.kind === ts.SyntaxKind.ExportKeyword)) return
     if (!/(Options|Item|Datum|Option)$/.test(n.name.text)) return
-    const filas = []
-    for (const m of miembros(n.type)) {
+    const rows = []
+    for (const m of members(n.type)) {
       if (!ts.isPropertySignature(m) || !m.name) continue
-      filas.push({
+      rows.push({
         name: m.name.getText(sf),
-        type: limpiar(m.type?.getText(sf) ?? 'unknown'),
+        type: clean(m.type?.getText(sf) ?? 'unknown'),
         required: !m.questionToken,
         doc: docDe(m) || undefined,
       })
     }
     const doc = docDe(n)
-    if (filas.length) piezas[n.name.text] = { props: filas, ...(doc ? { doc } : {}) }
+    if (rows.length) pieces[n.name.text] = { props: rows, ...(doc ? { doc } : {}) }
   })
 
-  return piezas
+  return pieces
 }
 
-const carpetas = readdirSync(src)
+const folders = readdirSync(src)
   .filter(f => statSync(join(src, f)).isDirectory())
   .filter(f => f !== '__tests__' && f !== 'lib' && f !== 'assets')
   .sort()
 
 const todo = {}
-for (const c of carpetas) {
-  const archivo = join(src, c, `${c}.tsx`)
-  try { statSync(archivo) } catch { continue }
-  Object.assign(todo, extraer(archivo))
+for (const c of folders) {
+  const file = join(src, c, `${c}.tsx`)
+  try { statSync(file) } catch { continue }
+  Object.assign(todo, extract(file))
 }
 
-const cuerpo = `/* Generado por scripts/props.mjs: no se edita a mano.
+const body = `/* Generado por scripts/props.mjs: no se edita a mano.
    La descripción de cada prop vive en su docblock, al lado del tipo. */
 
 export type PropDoc = {
@@ -153,13 +153,13 @@ export const propsByComponent: Record<string, ComponentDoc> = ${JSON.stringify(t
 `
 
 if (process.argv.includes('--check')) {
-  const viejo = readFileSync(salida, 'utf8')
-  if (viejo !== cuerpo) {
+  const stale = readFileSync(out, 'utf8')
+  if (stale !== body) {
     console.error('✗ props.gen.ts quedó viejo: corré `npm run props -w @milo/ui`')
     process.exit(1)
   }
   console.log(`✓ props.gen.ts al día (${Object.keys(todo).length} piezas)`)
 } else {
-  writeFileSync(salida, cuerpo)
+  writeFileSync(out, body)
   console.log(`✓ ${Object.keys(todo).length} piezas, ${Object.values(todo).flatMap(p => p.props).length} props`)
 }

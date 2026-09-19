@@ -10,7 +10,7 @@ const durations = [
   { name: '--duration-content', ms: 280, role: 'lo que no es interfaz: una carpeta que se abre, un libro que gira. No informa de un cambio de estado, muestra qué es la cosa, y eso pide más tiempo.' },
 ] as const
 
-const curvas = [
+const curves = [
   { name: '--ease-out', value: 'cubic-bezier(0.24, 1, 0.4, 1)', role: 'todo lo que entra. Arranca rápido y frena: la pieza ya está donde va antes de terminar de moverse.' },
   { name: '--ease-in', value: 'cubic-bezier(0.4, 0, 1, 1)', role: 'lo que se va. Arranca lento y acelera hacia afuera.' },
 ] as const
@@ -49,7 +49,7 @@ export function MotionSection() {
         note="Abrir se mira; cerrar estorba. Lo que entra usa ease-out (arranca rápido y frena, así que la pieza está donde va antes de terminar de moverse) y lo que sale usa ease-in y se va antes."
       >
         <Stack>
-          {curvas.map(c => (
+          {curves.map(c => (
             <div key={c.name} className={`${css.curveRow} bg-surface`}>
               <code className={css.curveName}>{c.name}</code>
               <code className={css.curveValue}>{c.value}</code>
@@ -93,11 +93,11 @@ export function MotionSection() {
             ['Las carpetas', 'las hojas quedan afuera, sin abanicar', 'La información (cuántas hay) se sigue viendo, que era el punto del abanico.'],
             ['El libro', 'no rota', 'La rotación era gusto y nada más, así que se va entera.'],
             ['Todo lo demás', 'aparece y desaparece', 'Un panel que llega en 1ms sigue llegando: lo que se pierde es el recorrido, no el estado.'],
-          ].map(([q, comoQueda, porque]) => (
+          ].map(([q, result, why]) => (
             <div key={q} className={`${css.reducedRow} bg-surface`}>
               <span className={css.reducedWhat}>{q}</span>
-              <span className={css.reducedResult}>{comoQueda}</span>
-              <span className={css.reducedWhy}>{porque}</span>
+              <span className={css.reducedResult}>{result}</span>
+              <span className={css.reducedWhy}>{why}</span>
             </div>
           ))}
         </Stack>
@@ -129,8 +129,8 @@ export function MotionSection() {
 }
 
 function Playground() {
-  const [abierto, setAbierto] = useState(false)
-  const [lento, setLento] = useState(false)
+  const [open, setOpen] = useState(false)
+  const [slow, setSlow] = useState(false)
 
   return (
     <Section
@@ -139,12 +139,12 @@ function Playground() {
     >
       <div className={`${css.playground} bg-surface`}>
         <div className={css.playgroundControls}>
-          <Button variant="muted" onClick={() => setAbierto(v => !v)}>
-            {abierto ? 'Cerrar' : 'Abrir'}
+          <Button variant="muted" onClick={() => setOpen(v => !v)}>
+            {open ? 'Cerrar' : 'Abrir'}
           </Button>
           <span className={css.playgroundLabel}>
-            <Switch checked={lento} onChange={setLento} label="Usar la duración de panel" />
-            <button type="button" onClick={() => setLento(v => !v)} className={css.playgroundToggle}>
+            <Switch checked={slow} onChange={setSlow} label="Usar la duración de panel" />
+            <button type="button" onClick={() => setSlow(v => !v)} className={css.playgroundToggle}>
               Usar <code className={css.tokenName}>--duration-normal</code>
             </button>
           </span>
@@ -153,9 +153,9 @@ function Playground() {
           <div
             className={[
               css.panel,
-              lento ? css.panelSlow : css.panelFast,
+              slow ? css.panelSlow : css.panelFast,
               css.panelMotion,
-              abierto ? css.panelOpen : css.panelClosed,
+              open ? css.panelOpen : css.panelClosed,
             ].join(' ')}
           >
             <span className={css.panelTitle}>Entregas sin corregir</span>

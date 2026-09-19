@@ -88,17 +88,17 @@ export function NumbersSection() {
         note="Es la misma regla que Cómo se escribe: un contador informa y una frase orienta. El número va cuando cambia una decisión, y va con aquello contra lo que se mide."
       >
         <div className={cls.specimenGrid}>
-          <Case mal="45%" bien="11 de 24 corregidas" por="El porcentaje esconde el tamaño: 45% de 24 y 45% de 300 no son el mismo trabajo." />
-          <Case mal="Quedan 3" bien="Quedan 3 de 18 por corregir" por="Un número sin su total no dice si es mucho o poco." />
-          <Case mal="9,80000" bien="9,8" por="Los decimales que no se midieron son ruido que se lee como precisión." />
-          <Case mal="1,2 k entregas" bien="1.250 entregas" por="Lo abreviado sirve en el eje de un gráfico; sobre un número que se usa, no." />
+          <Case bad="45%" good="11 de 24 corregidas" by="El porcentaje esconde el tamaño: 45% de 24 y 45% de 300 no son el mismo trabajo." />
+          <Case bad="Quedan 3" good="Quedan 3 de 18 por corregir" by="Un número sin su total no dice si es mucho o poco." />
+          <Case bad="9,80000" good="9,8" by="Los decimales que no se midieron son ruido que se lee como precisión." />
+          <Case bad="1,2 k entregas" good="1.250 entregas" by="Lo abreviado sirve en el eje de un gráfico; sobre un número que se usa, no." />
         </div>
       </Section>
 
       <Note title="La matemática del contenido es otra cosa">
         Esto es cómo el sistema escribe un dato suyo. Una fracción, una ecuación o una unidad que
-        son parte de lo que alguien está enseñando las escribe una persona y se rigen por cómo se
-        lee la matemática, no por esta guía. La regla que sí cruza: una fracción adentro de un
+        son parte de lo que alguien está enseñando las escribe una persona y se rigen by cómo se
+        lee la matemática, no by esta guía. La regla que sí cruza: una fracción adentro de un
         renglón va con barra, `3/4`, porque apilada cae abajo del piso de 12px del sistema.
       </Note>
 
@@ -127,12 +127,12 @@ function Column({ title, variant, children }: { title: string; variant: string; 
   )
 }
 
-function Case({ mal, bien, por }: { mal: string; bien: string; por: string }) {
+function Case({ bad, good, by }: { bad: string; good: string; by: string }) {
   return (
     <div className={`${cls.specimen} bg-surface`}>
-      <span className={cls.comparisonBad}>{mal}</span>
-      <span className={cls.comparisonGood}>{bien}</span>
-      <span className={cls.specimenBody}>{por}</span>
+      <span className={cls.comparisonBad}>{bad}</span>
+      <span className={cls.comparisonGood}>{good}</span>
+      <span className={cls.specimenBody}>{by}</span>
     </div>
   )
 }

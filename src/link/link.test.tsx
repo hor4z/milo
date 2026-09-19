@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/react'
-import { estilo } from '../__tests__/estilo'
+import { style } from '../__tests__/estilo'
 import { describe, expect, it } from 'vitest'
 import { Link } from './link'
 
@@ -20,8 +20,8 @@ describe('Link', () => {
   it('lleva las dos señales: el color de marca y el subrayado', () => {
     render(<Link href="#">Ver todas</Link>)
     const a = screen.getByRole('link')
-    expect(estilo(a)).toContain('color: var(--brand-ink)')
-    expect(estilo(a)).toContain('text-decoration-line: underline')
-    expect(estilo(a)).toContain('text-decoration-color: currentColor')
+    expect(style(a)).toContain('color: var(--brand-ink)')
+    expect(style(a)).toContain('text-decoration-line: underline')
+    expect(style(a)).toContain('text-decoration-color: currentColor')
   })
 })

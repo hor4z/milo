@@ -31,8 +31,8 @@ describe('Icon', () => {
   })
 
   it('un glifo que el manifiesto no tiene deja el hueco y no tira', () => {
-    const roto = 'no_existe_este_glifo' as Parameters<typeof Icon>[0]['name']
-    const { container } = render(<Icon name={roto} />)
+    const broken = 'no_existe_este_glifo' as Parameters<typeof Icon>[0]['name']
+    const { container } = render(<Icon name={broken} />)
     const glyph = container.querySelector<HTMLElement>('.ms-icon')!
     expect(glyph).toBeTruthy()
     expect(glyph.textContent).toBe('')

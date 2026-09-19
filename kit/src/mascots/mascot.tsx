@@ -28,11 +28,11 @@ export function AssetTable({ rows }: {
 }) {
   return (
     <div className={`${s.assetTable} bg-surface`}>
-      {rows.map(([ruta, peso, nota]) => (
-        <div key={ruta} className={s.assetRow}>
-          <code className={s.assetPath}>{ruta}</code>
-          <span className={`${s.assetSpec} tabular`}>{peso}</span>
-          <span className={s.assetNote}>{nota}</span>
+      {rows.map(([path, weight, note]) => (
+        <div key={path} className={s.assetRow}>
+          <code className={s.assetPath}>{path}</code>
+          <span className={`${s.assetSpec} tabular`}>{weight}</span>
+          <span className={s.assetNote}>{note}</span>
         </div>
       ))}
     </div>

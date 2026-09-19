@@ -1,14 +1,14 @@
 import { render, screen } from '@testing-library/react'
-import { estilo } from '../__tests__/estilo'
+import { style } from '../__tests__/estilo'
 import { describe, expect, it } from 'vitest'
 import { Page, PageHeader, SectionLabel } from './page'
 
 describe('Page', () => {
   it('limita el ancho y lo suelta con wide', () => {
     const { rerender, container } = render(<Page>contenido</Page>)
-    expect(estilo(container.firstChild as Element)).toContain('max-width: 1200px')
+    expect(style(container.firstChild as Element)).toContain('max-width: 1200px')
     rerender(<Page wide>contenido</Page>)
-    expect(estilo(container.firstChild as Element)).toContain('max-width: 1560px')
+    expect(style(container.firstChild as Element)).toContain('max-width: 1560px')
   })
 })
 

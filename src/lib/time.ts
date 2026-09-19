@@ -9,9 +9,9 @@ export type TimeOptions = {
   now?: Date
 }
 
-const MINUTO = 60_000
-const HORA = 60 * MINUTO
-const DIA = 24 * HORA
+const MINUTE = 60_000
+const HOUR = 60 * MINUTE
+const DAY = 24 * HOUR
 
 const parse = (value: string | Date) => (value instanceof Date ? value : new Date(value))
 
@@ -40,16 +40,16 @@ export function timeAgo(value: string | Date, { zone, now = new Date() }: TimeOp
   const d = parse(value)
   const delta = now.getTime() - d.getTime()
   if (delta < 0) return day(d, { zone })
-  if (delta < MINUTO) return 'recién'
-  if (delta < HORA) return plural(Math.floor(delta / MINUTO), 'minuto')
-  if (delta < DIA) return plural(Math.floor(delta / HORA), 'hora')
-  const dias = Math.floor(delta / DIA)
-  if (dias === 1) return 'ayer'
-  if (dias < 7) return plural(dias, 'día')
+  if (delta < MINUTE) return 'recién'
+  if (delta < HOUR) return plural(Math.floor(delta / MINUTE), 'minuto')
+  if (delta < DAY) return plural(Math.floor(delta / HOUR), 'hora')
+  const days = Math.floor(delta / DAY)
+  if (days === 1) return 'ayer'
+  if (days < 7) return plural(days, 'día')
   return day(d, { zone })
 }
 
-const plural = (n: number, unidad: string) => `hace ${n} ${unidad}${n === 1 ? '' : 's'}`
+const plural = (n: number, unit: string) => `hace ${n} ${unit}${n === 1 ? '' : 's'}`
 
 /** Cuánto dura algo, en reloj: `1:30`. Lo que no se sabe cuánto dura va `--:--`, porque cero es un valor. */
 export function duration(seconds: number) {
@@ -58,8 +58,8 @@ export function duration(seconds: number) {
   const h = Math.floor(s / 3600)
   const m = Math.floor((s % 3600) / 60)
   const r = s % 60
-  const dosCifras = (n: number) => String(n).padStart(2, '0')
-  return h ? `${h}:${dosCifras(m)}:${dosCifras(r)}` : `${m}:${dosCifras(r)}`
+  const twoDigits = (n: number) => String(n).padStart(2, '0')
+  return h ? `${h}:${twoDigits(m)}:${twoDigits(r)}` : `${m}:${twoDigits(r)}`
 }
 
 /** El valor que va en el atributo `datetime`, que es el que lee una máquina. */
@@ -71,9 +71,9 @@ export function machineTime(value: string | Date) {
 /** Si la zona del contenido no es la de quien mira, hay que decir cuál es. */
 export function zoneDiffers(zone: Zone | undefined, now: Date = new Date()) {
   if (!zone) return false
-  const aca = new Intl.DateTimeFormat('es-AR', { timeZoneName: 'short' }).format(now)
-  const alla = new Intl.DateTimeFormat('es-AR', { timeZone: zone, timeZoneName: 'short' }).format(now)
-  return aca !== alla
+  const here = new Intl.DateTimeFormat('es-AR', { timeZoneName: 'short' }).format(now)
+  const there = new Intl.DateTimeFormat('es-AR', { timeZone: zone, timeZoneName: 'short' }).format(now)
+  return here !== there
 }
 
 /** Cómo se llama la zona para escribirla al lado de la hora: `GMT-3`. */

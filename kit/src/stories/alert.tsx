@@ -3,9 +3,9 @@ import { Alert, AlertActions, AlertBody, AlertTitle, Button, Icon } from '@milo/
 import { A11y, Demo, Frame, Note, Page, Props, Section, Stack } from '../kit'
 
 export function AlertStory() {
-  const [cerrados, setCerrados] = useState<string[]>([])
-  const dismiss = (id: string) => setCerrados(c => [...c, id])
-  const showing = (id: string) => !cerrados.includes(id)
+  const [dismissed, setDismissed] = useState<string[]>([])
+  const dismiss = (id: string) => setDismissed(c => [...c, id])
+  const showing = (id: string) => !dismissed.includes(id)
 
   return (
     <Page
@@ -43,7 +43,7 @@ export function AlertStory() {
                 </AlertActions>
               </Alert>
             )
-            : <Button size="sm" variant="muted" iconStart={<Icon name="undo" />} onClick={() => setCerrados(c => c.filter(x => x !== 'rojo'))}>Mostrarlo de nuevo</Button>}
+            : <Button size="sm" variant="muted" iconStart={<Icon name="undo" />} onClick={() => setDismissed(c => c.filter(x => x !== 'rojo'))}>Mostrarlo de nuevo</Button>}
         </Stack>
       </Section>
 
@@ -78,7 +78,7 @@ export function AlertStory() {
                   </Alert>
                 </Frame>
               )
-              : <Button size="sm" variant="muted" iconStart={<Icon name="undo" />} onClick={() => setCerrados(c => c.filter(x => x !== 'amarillo'))}>Mostrarlo de nuevo</Button>}
+              : <Button size="sm" variant="muted" iconStart={<Icon name="undo" />} onClick={() => setDismissed(c => c.filter(x => x !== 'amarillo'))}>Mostrarlo de nuevo</Button>}
           </Demo>
         </Stack>
       </Section>

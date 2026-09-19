@@ -22,14 +22,14 @@ export function withUnit(value: number, name: string, digits = 0) {
   return `${digits ? decimals(value, digits) : count(value)} ${name}`
 }
 
-const ESCALA = ['bytes', 'KB', 'MB', 'GB', 'TB'] as const
+const SCALE = ['bytes', 'KB', 'MB', 'GB', 'TB'] as const
 
 /** Un tamaño de archivo, en la unidad en la que el número se lee: `1,4 GB`. */
 export function bytes(value: number) {
   let n = Math.max(0, value)
   let i = 0
-  while (n >= 1024 && i < ESCALA.length - 1) { n /= 1024; i++ }
-  return `${i === 0 ? count(n) : decimals(n, n < 10 ? 1 : 0)} ${ESCALA[i]}`
+  while (n >= 1024 && i < SCALE.length - 1) { n /= 1024; i++ }
+  return `${i === 0 ? count(n) : decimals(n, n < 10 ? 1 : 0)} ${SCALE[i]}`
 }
 
 /** Un rango, con la palabra y no con un guion: `3 a 7`. Un guion entre números se lee como un menos. */

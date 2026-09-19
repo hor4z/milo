@@ -2,61 +2,61 @@ import cls from './media.module.css'
 import { Figure, Icon } from '@milo/ui'
 import { Cluster, Footnote, Note, Page, Rich, Section, Stack } from '../kit'
 
-const medios = [
+const media = [
   {
     name: 'Imagen',
     piece: 'Figure',
-    resuelve: 'Lo que se entiende de un vistazo: una figura de geometría, la foto de una consigna en el pizarrón, la portada de un espacio.',
-    pide: 'Texto alternativo y una proporción reservada antes de cargar.',
+    solves: 'Lo que se entiende de un vistazo: una figura de geometría, la foto de una consigna en el pizarrón, la portada de un espacio.',
+    needs: 'Texto alternativo y una proporción reservada antes de cargar.',
     no: 'No lleva texto adentro: lo que dice una imagen no se puede buscar, ni traducir, ni leer en voz alta.',
   },
   {
     name: 'Audio',
     piece: 'AudioPlayer',
-    resuelve: 'La voz de alguien: una consigna hablada, la devolución de una corrección. Llega el tono, que un texto no lleva.',
-    pide: 'Su transcripción, y la onda, que es lo que deja volver a una parte sin escuchar todo.',
+    solves: 'La voz de alguien: una consigna hablada, la devolución de una corrección. Llega el tono, que un texto no lleva.',
+    needs: 'Su transcripción, y la onda, que es lo que deja volver a una parte sin escuchar todo.',
     no: 'No arranca solo, y no hay prop para que lo haga.',
   },
   {
     name: 'Video',
     piece: 'todavía no hay pieza',
-    resuelve: 'Lo que pasa en el tiempo: un procedimiento, un experimento, algo que se arma paso a paso.',
-    pide: 'Subtítulos y controles desde el primer cuadro, y su proporción original sin barras metidas adentro del archivo.',
+    solves: 'Lo que pasa en el tiempo: un procedimiento, un experimento, algo que se arma paso a paso.',
+    needs: 'Subtítulos y controles desde el primer cuadro, y su proporción original sin barras metidas adentro del archivo.',
     no: 'No es el medio por defecto porque sí: pesa, no se puede hojear y obliga a mirar todo el rato que dure.',
   },
   {
     name: 'Animación',
     piece: 'los bucles de las mascotas',
-    resuelve: 'Un gesto corto que acompaña, no que informa.',
-    pide: 'Respetar `prefers-reduced-motion`, y ahí no se atenúa: se reemplaza por la imagen quieta.',
+    solves: 'Un gesto corto que acompaña, no que informa.',
+    needs: 'Respetar `prefers-reduced-motion`, y ahí no se atenúa: se reemplaza por la imagen quieta.',
     no: 'Nunca lleva información que no esté en otro lado: quien la apaga no se pierde nada.',
   },
 ]
 
-const equivalentes = [
+const equivalents = [
   {
     name: 'Subtítulos',
-    que: 'El diálogo que se dice, escrito y sincronizado.',
-    cuando: 'Todo video con alguien hablando. En un aula con ruido y sin auriculares, es lo que hace que el video sirva.',
+    what: 'El diálogo que se dice, escrito y sincronizado.',
+    when: 'Todo video con alguien hablando. En un aula con ruido y sin auriculares, es lo que hace que el video sirva.',
   },
   {
     name: 'Leyendas',
-    que: 'El equivalente escrito de todo lo que suena, no solo del diálogo: también el golpe, la campana, el silencio que significa algo.',
-    cuando: 'Cuando el sonido lleva información que el diálogo no dice.',
+    what: 'El equivalente escrito de todo lo que suena, no solo del diálogo: también el golpe, la campana, el silencio que significa algo.',
+    when: 'Cuando el sonido lleva información que el diálogo no dice.',
   },
   {
     name: 'Audiodescripción',
-    que: 'El espejo de las leyendas: narra hablado lo que solo se ve, metido en las pausas del audio.',
-    cuando: 'Cuando algo importante pasa en la pantalla y nadie lo nombra. Es la que siempre se olvida.',
+    what: 'El espejo de las leyendas: narra hablado lo que solo se ve, metido en las pausas del audio.',
+    when: 'Cuando algo importante pasa en la pantalla y nadie lo nombra. Es la que siempre se olvida.',
   },
   {
     name: 'Transcripción',
-    que: 'El texto completo de lo que se oye y de lo que se ve, junto y fuera de la línea de tiempo.',
-    cuando: 'Audio largo y video largo, y para lo que se quiera buscar, citar o leer en un colectivo.',
+    what: 'El texto completo de lo que se oye y de lo que se ve, junto y fuera de la línea de tiempo.',
+    when: 'Audio largo y video largo, y para lo que se quiera buscar, citar o leer en un colectivo.',
   },
 ]
 
-const reglas = [
+const rules = [
   {
     title: 'Nada arranca solo',
     body: 'Ni audio ni video. Un medio que empieza a sonar sin que nadie lo pida interrumpe una clase entera, y en un aula el que lo escucha no es solo quien tocó. El bucle mudo y corto de una mascota es la excepción, y por eso es mudo y corto.',
@@ -94,16 +94,16 @@ export function MediaSection() {
         note="La pregunta no es cuál se ve mejor: es qué parte de lo que hay que entender vive en el tiempo, cuál en el espacio y cuál en el tono de alguien."
       >
         <Stack>
-          {medios.map(m => (
+          {media.map(m => (
             <div key={m.name} className={`${cls.mediumCard} bg-surface`}>
               <div className={cls.mediumHead}>
                 <span className={cls.mediumName}>{m.name}</span>
                 <code className={cls.mediumPiece}>{m.piece}</code>
               </div>
-              <span className={cls.mediumBody}><Rich text={m.resuelve} /></span>
+              <span className={cls.mediumBody}><Rich text={m.solves} /></span>
               <div className={cls.mediumRow}>
                 <Icon name="check" size={16} className={cls.verdictIconGood} />
-                <span className={cls.mediumNote}><Rich text={m.pide} /></span>
+                <span className={cls.mediumNote}><Rich text={m.needs} /></span>
               </div>
               <div className={cls.mediumRow}>
                 <Icon name="close" size={16} className={cls.verdictIconBad} />
@@ -119,11 +119,11 @@ export function MediaSection() {
         note="Acá el sistema venía diciendo 'subtítulos o transcripción' como si fueran dos maneras de decir lo mismo. Son cuatro cosas distintas y cada una cubre a alguien que las otras no."
       >
         <div className={cls.specimenGrid}>
-          {equivalentes.map(e => (
+          {equivalents.map(e => (
             <div key={e.name} className={`${cls.specimen} bg-surface`}>
               <span className={cls.specimenLabel}>{e.name}</span>
-              <span className={cls.specimenBody}><Rich text={e.que} /></span>
-              <span className={cls.specimenWhen}><Rich text={e.cuando} /></span>
+              <span className={cls.specimenBody}><Rich text={e.what} /></span>
+              <span className={cls.specimenWhen}><Rich text={e.when} /></span>
             </div>
           ))}
         </div>
@@ -135,7 +135,7 @@ export function MediaSection() {
 
       <Section title="Las seis reglas" note="Valen para cualquier medio, y las tres primeras son las que más se saltean.">
         <div className={cls.specimenGrid}>
-          {reglas.map(r => (
+          {rules.map(r => (
             <div key={r.title} className={`${cls.specimen} bg-surface`}>
               <span className={cls.specimenLabel}>{r.title}</span>
               <span className={cls.specimenBody}><Rich text={r.body} /></span>
@@ -171,16 +171,16 @@ export function MediaSection() {
           </div>
         </Cluster>
         <Footnote>
-          La decorativa no lleva un alt vacío por descuido: lo lleva a propósito, para que el lector de
+          La decorativa no lleva un alt vacío por descuido: lo lleva a propósito, para what el lector de
           pantalla la saltee en vez de leer un nombre de archivo.
         </Footnote>
       </Section>
 
       <Note title="De dónde sale esto">
-        Las cuatro formas escritas, la proporción original del video, el volumen que es del sistema y los
-        controles que no se reinterpretan salen de las Human Interface Guidelines de Apple, que es la
-        referencia que este sistema toma para lo que ya está resuelto en otro lado. Lo que no sale de ahí
-        es el peso en una red escolar y el "nada arranca solo", que son de acá.
+        Las cuatro formas escritas, la proporción original del video, el volumen what es del sistema y los
+        controles what no se reinterpretan salen de las Human Interface Guidelines de Apple, what es la
+        referencia what este sistema toma para lo what ya está resuelto en otro lado. Lo what no sale de ahí
+        es el peso en una red escolar y el "nada arranca solo", what son de acá.
       </Note>
 
       <Section

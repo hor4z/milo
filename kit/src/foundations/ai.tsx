@@ -2,30 +2,30 @@ import cls from './ai.module.css'
 import { Button, Card, CardBody, Chip, Icon } from '@milo/ui'
 import { Cluster, Footnote, Note, Page, Section, Stack } from '../kit'
 
-const ejes = [
+const axes = [
   {
     name: 'Crítica o complementaria',
     q: '¿La pantalla sirve si el modelo no contesta?',
-    porque: 'Si sirve, el modelo es un extra y se le perdona equivocarse. Si no sirve, cada error es la pantalla entera rota. Cuanto más al centro esté, más exactitud hay que pedirle.',
+    why: 'Si sirve, el modelo es un extra y se le perdona equivocarse. Si no sirve, cada error es la pantalla entera rota. Cuanto más al centro esté, más exactitud hay que pedirle.',
   },
   {
     name: 'Pedida o espontánea',
     q: '¿Contesta porque alguien preguntó, o aparece sola?',
-    porque: 'Con lo que aparece solo hay mucha menos paciencia, porque nadie lo pidió. Una sugerencia espontánea que se equivoca se siente como que el sistema hace lo que quiere.',
+    why: 'Con lo que aparece solo hay mucha menos paciencia, porque nadie lo pidió. Una sugerencia espontánea que se equivoca se siente como que el sistema hace lo que quiere.',
   },
   {
     name: 'A la vista o por detrás',
     q: '¿Se nota que hay un modelo, o está adentro del orden de una lista?',
-    porque: 'Lo que está a la vista se puede juzgar y corregir. Lo que está por detrás no, y por eso no puede decidir nada que importe sin que se vea.',
+    why: 'Lo que está a la vista se puede juzgar y corregir. Lo que está por detrás no, y por eso no puede decidir nada que importe sin que se vea.',
   },
   {
     name: 'Con datos de alguien o sin ellos',
     q: '¿Toca el trabajo, el nombre o la nota de una persona?',
-    porque: 'Acá son chicos, así que la respuesta casi siempre es sí y las reglas son más estrictas que en cualquier otro producto.',
+    why: 'Acá son chicos, así que la respuesta casi siempre es sí y las reglas son más estrictas que en cualquier otro producto.',
   },
 ]
 
-const reglas = [
+const rules = [
   {
     title: 'Se ve que es la máquina',
     body: 'Nunca disfrazada de persona, ni en el texto ni en la voz. Y la trampa cercana: Otto y Amelia son mascotas, no hablantes. Si el modelo empieza a contestar por ellas, un chico de once años deja de distinguir quién le respondió.',
@@ -102,12 +102,12 @@ export function AiSection() {
         note="Dos funciones que usan el mismo modelo pueden pedir cosas opuestas. Lo que cambia no es el modelo: es dónde cae en estos cuatro."
       >
         <Stack gap="sm">
-          {ejes.map(e => (
+          {axes.map(e => (
             <div key={e.name} className={cls.axisRow}>
               <span className={cls.axisName}>{e.name}</span>
               <div className={cls.axisBody}>
                 <span className={cls.axisQuestion}>{e.q}</span>
-                <span className={cls.axisWhy}>{e.porque}</span>
+                <span className={cls.axisWhy}>{e.why}</span>
               </div>
             </div>
           ))}
@@ -119,7 +119,7 @@ export function AiSection() {
         note="Ninguna es sobre la calidad del modelo. Todas son sobre qué ve y qué puede hacer la persona del otro lado."
       >
         <div className={cls.specimenGrid}>
-          {reglas.map(r => (
+          {rules.map(r => (
             <div key={r.title} className={`${cls.specimen} bg-surface`}>
               <span className={`${cls.roleBadge} inset-relief`}>
                 <Icon name={r.icon} size={18} />
@@ -191,12 +191,12 @@ export function AiSection() {
       </Section>
 
       <Note title="De dónde sale esto">
-        Las ocho reglas y los cuatro ejes siguen las Human Interface Guidelines de Apple, que en esto es
+        Las ocho rules y los cuatro axes siguen las Human Interface Guidelines de Apple, que en esto es
         de lo más completo que hay escrito: que nadie crea que habla con una persona cuando habla con un
         modelo, que la gente mantenga el control y pueda descartar o deshacer, que se pida confirmación
         antes de algo irreversible, que se avise que lo generado puede tener errores, que haya camino sin
         IA cuando se pueda, y que la espera diga qué está pasando en vez de "Procesando". Apple además
-        marca que las apps para chicos tienen reglas más estrictas sobre qué datos se pueden usar, que es
+        marca que las apps para chicos tienen rules más estrictas sobre qué datos se pueden usar, que es
         exactamente nuestro caso. Lo que no sale de ahí es lo de las mascotas y lo del docente, que son de
         este producto.
       </Note>

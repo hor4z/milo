@@ -22,10 +22,10 @@ for (const i of icons) {
   /* Los tags vienen con ruido: para `search` llegan "discover" y "discover icon",
      que es la misma palabra dos veces. Y los que repiten el propio nombre del
      icono no aportan nada, porque la búsqueda ya matchea contra el nombre. */
-  const propio = new Set(i.name.split('_'))
+  const own = new Set(i.name.split('_'))
   const tags = [...new Set((i.tags ?? [])
     .map(t => t.replace(/\s+icon$/, '').trim().toLowerCase())
-    .filter(t => t && !propio.has(t)))].slice(0, 8)
+    .filter(t => t && !own.has(t)))].slice(0, 8)
   seen.set(i.name, { n: i.name, c: i.codepoint, p: i.popularity, t: tags })
 }
 const out = [...seen.values()].sort((a, b) => a.n.localeCompare(b.n))

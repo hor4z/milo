@@ -4,7 +4,7 @@ import { Checkbox, Radio, RadioGroup } from '@milo/ui'
 import { A11y, Footnote, Page, Panel, Props, Section, Variant } from '../kit'
 
 export function RadioStory() {
-  const [comparado, setComparado] = useState(true)
+  const [compared, setCompared] = useState(true)
   const [one, setOne] = useState<'a' | 'b'>('b')
   const [mode, setMode] = useState<'todas' | 'abiertas' | 'cerradas'>('abiertas')
   const [loose, setLoose] = useState<'si' | 'no'>('si')
@@ -54,8 +54,8 @@ export function RadioStory() {
             <Radio checked={withHint} onChange={() => setWithHint(true)} label="Prendido" />
             <Radio checked={!withHint} onChange={() => setWithHint(false)} label="Apagado" />
             <span className={cls.checkboxPair}>
-              <Checkbox checked={comparado} onChange={setComparado} label="Checkbox prendido" />
-              <Checkbox checked={!comparado} onChange={v => setComparado(!v)} label="Checkbox apagado" />
+              <Checkbox checked={compared} onChange={setCompared} label="Checkbox prendido" />
+              <Checkbox checked={!compared} onChange={v => setCompared(!v)} label="Checkbox apagado" />
             </span>
           </Variant>
         </Panel>

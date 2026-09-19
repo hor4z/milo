@@ -21,17 +21,17 @@ function counterText(n: number, min?: number, max?: number) {
     const isOne = missing === 1
     return { text: `${isOne ? 'falta' : 'faltan'} ${missing} ${isOne ? 'carácter' : 'caracteres'}`, tone: 'bad' as const, warns: true }
   }
-  if (max == null) return { text: `${n}`, tone: 'calmo' as const, warns: false }
+  if (max == null) return { text: `${n}`, tone: 'calm' as const, warns: false }
   const left = max - n
   if (left <= 0) return { text: `${n}/${max}`, tone: 'bad' as const, warns: true }
   if (left <= Math.max(10, Math.round(max * 0.1))) {
     return { text: `te quedan ${left}`, tone: 'warn' as const, warns: true }
   }
-  return { text: `${n}/${max}`, tone: 'calmo' as const, warns: false }
+  return { text: `${n}/${max}`, tone: 'calm' as const, warns: false }
 }
 
 const counterInk = {
-  calmo: cls.counterCalm,
+  calm: cls.counterCalm,
   warn: cls.counterWarn,
   bad: cls.counterBad,
 } as const
@@ -43,7 +43,7 @@ export function Textarea({
   const ref = useRef<HTMLTextAreaElement>(null)
   const field = useField()
   const counterId = useId()
-  const [ownValue, setPropio] = useState(String(defaultValue ?? ''))
+  const [ownValue, setOwnValue] = useState(String(defaultValue ?? ''))
   const text = value == null ? ownValue : String(value)
   const counterLabel = counter ? counterText([...text].length, rest.minLength, rest.maxLength) : null
 
@@ -95,7 +95,7 @@ export function Textarea({
         rows={rows}
         value={value}
         defaultValue={defaultValue}
-        onChange={e => { measure(); setPropio(e.target.value); onChange?.(e) }}
+        onChange={e => { measure(); setOwnValue(e.target.value); onChange?.(e) }}
         className={cx(
           cls.input,
           counter ? cls.inputWithCounter : cls.inputAlone,

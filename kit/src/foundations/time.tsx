@@ -82,10 +82,10 @@ export function TimeSection() {
         note="Es el error que cuesta una entrega. Una consigna que cierra a las 23:59 en el aula cierra a las 03:59 del día siguiente para quien está dos husos al este, y el navegador se lo va a mostrar en su hora local sin avisar."
       >
         <div className={`${cls.zoneCard} bg-surface`}>
-          <Line etiqueta="El mismo instante, en la zona del curso">
+          <Line label="El mismo instante, en la zona del curso">
             {clock('2026-03-09T23:59:00-03:00', { zone: AR })} · {zoneLabel(AR, now)}
           </Line>
-          <Line etiqueta="Y para alguien que lo mira desde Madrid">
+          <Line label="Y para alguien que lo mira desde Madrid">
             {clock('2026-03-09T23:59:00-03:00', { zone: 'Europe/Madrid' })} · {zoneLabel('Europe/Madrid', now)}
           </Line>
         </div>
@@ -135,10 +135,10 @@ function Sample({ children }: { children: React.ReactNode }) {
   return <code className={cls.tokenName}>{children}</code>
 }
 
-function Line({ etiqueta, children }: { etiqueta: string; children: React.ReactNode }) {
+function Line({ label, children }: { label: string; children: React.ReactNode }) {
   return (
     <div className={cls.specimenRow}>
-      <span className={cls.specimenLabel}>{etiqueta}</span>
+      <span className={cls.specimenLabel}>{label}</span>
       <span className={`${cls.monoValue} tabular`}>{children}</span>
     </div>
   )

@@ -54,9 +54,9 @@ export function Tree({ nodes, label, expanded, onExpandedChange, selected, onSel
 
   const move = (id: string) => { setCursor(id); refs.current[id]?.focus() }
 
-  const toggle = (id: string, abrir: boolean) => {
+  const toggle = (id: string, open: boolean) => {
     const nextOpen = new Set(openIds)
-    if (abrir) nextOpen.add(id)
+    if (open) nextOpen.add(id)
     else nextOpen.delete(id)
     const order = [...nextOpen]
     if (expanded === undefined) setOwnOpen(order)

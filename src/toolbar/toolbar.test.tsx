@@ -3,7 +3,7 @@ import userEvent from '@testing-library/user-event'
 import { describe, expect, it, vi } from 'vitest'
 import { Toolbar, ToolbarButton, ToolbarSeparator } from './toolbar'
 
-function Barra({ onBold = () => {} }) {
+function Bar({ onBold = () => {} }) {
   return (
     <Toolbar label="Formato del texto">
       <ToolbarButton icon="format_bold" label="Negrita" pressed onClick={onBold} />
@@ -17,51 +17,51 @@ function Barra({ onBold = () => {} }) {
 
 describe('Toolbar', () => {
   it('tiene nombre: dos barras sin nombre se leen como una sola', () => {
-    render(<Barra />)
+    render(<Bar />)
     expect(screen.getByRole('toolbar', { name: 'Formato del texto' })).toBeInTheDocument()
   })
 
   it('lo que se puede activar lo dice, y lo que solo pasa no finge estado', () => {
-    render(<Barra />)
+    render(<Bar />)
     expect(screen.getByRole('button', { name: 'Negrita' })).toHaveAttribute('aria-pressed', 'true')
     expect(screen.getByRole('button', { name: 'Cursiva' })).toHaveAttribute('aria-pressed', 'false')
     expect(screen.getByRole('button', { name: 'Enlace' })).not.toHaveAttribute('aria-pressed')
   })
 
   it('se puede entrar con Tab: hay una parada, y una sola', () => {
-    render(<Barra />)
+    render(<Bar />)
     const enabled = screen.getAllByRole('button').filter(b => !(b as HTMLButtonElement).disabled)
     expect(enabled.filter(b => b.tabIndex === 0)).toHaveLength(1)
     expect(enabled[0].tabIndex).toBe(0)
   })
 
   it('la parada se mueve con el foco: Tab devuelve al último que se tocó', async () => {
-    render(<Barra />)
-    const enlace = screen.getByRole('button', { name: 'Enlace' })
-    enlace.focus()
-    expect(enlace.tabIndex).toBe(0)
+    render(<Bar />)
+    const link = screen.getByRole('button', { name: 'Enlace' })
+    link.focus()
+    expect(link.tabIndex).toBe(0)
     expect(screen.getByRole('button', { name: 'Negrita' }).tabIndex).toBe(-1)
   })
 
   it('es una sola parada de tabulación y adentro se mueve con flechas', async () => {
-    render(<Barra />)
-    const negrita = screen.getByRole('button', { name: 'Negrita' })
-    negrita.focus()
+    render(<Bar />)
+    const bold = screen.getByRole('button', { name: 'Negrita' })
+    bold.focus()
     await userEvent.keyboard('{ArrowRight}')
     expect(screen.getByRole('button', { name: 'Cursiva' })).toHaveFocus()
     await userEvent.keyboard('{ArrowLeft}')
-    expect(negrita).toHaveFocus()
+    expect(bold).toHaveFocus()
   })
 
   it('las flechas saltean lo apagado y dan la vuelta', async () => {
-    render(<Barra />)
+    render(<Bar />)
     screen.getByRole('button', { name: 'Enlace' }).focus()
     await userEvent.keyboard('{ArrowRight}')
     expect(screen.getByRole('button', { name: 'Negrita' })).toHaveFocus()
   })
 
   it('Home y End van a los extremos', async () => {
-    render(<Barra />)
+    render(<Bar />)
     screen.getByRole('button', { name: 'Cursiva' }).focus()
     await userEvent.keyboard('{End}')
     expect(screen.getByRole('button', { name: 'Enlace' })).toHaveFocus()
@@ -71,7 +71,7 @@ describe('Toolbar', () => {
 
   it('el botón hace lo suyo', async () => {
     const onBold = vi.fn()
-    render(<Barra onBold={onBold} />)
+    render(<Bar onBold={onBold} />)
     await userEvent.click(screen.getByRole('button', { name: 'Negrita' }))
     expect(onBold).toHaveBeenCalled()
   })

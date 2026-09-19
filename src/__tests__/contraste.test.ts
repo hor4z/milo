@@ -15,12 +15,12 @@ function scope(theme: 'light' | 'dark') {
 }
 
 function value(token: string, theme: 'light' | 'dark'): string | undefined {
-  const buscar = (t: 'light' | 'dark') =>
+  const lookUp = (t: 'light' | 'dark') =>
     scope(t).match(new RegExp(`${token}:\\s*(#[0-9a-fA-F]{3,8}|var\\(--[\\w-]+\\))`))?.[1]
   // lo que el bloque oscuro no redeclara lo sigue heredando de :root, igual que
   // en el navegador: sin esta caída, un rol declarado una sola vez se lee como
   // ausente en oscuro.
-  const raw = buscar(theme) ?? (theme === 'dark' ? buscar('light') : undefined)
+  const raw = lookUp(theme) ?? (theme === 'dark' ? lookUp('light') : undefined)
   if (!raw) return undefined
   const ref = raw.match(/var\((--[\w-]+)\)/)
   return ref ? value(ref[1], theme) : raw
@@ -62,11 +62,11 @@ describe('contraste de los tonos de estado', () => {
 })
 
 /** Las superficies sobre las que el sistema escribe en gris. */
-const superficies = ['--shade-01', '--shade-02', '--shade-03', '--shade-04']
+const surfaces = ['--shade-01', '--shade-02', '--shade-03', '--shade-04']
 
 describe('el texto secundario se lee sobre cualquier superficie', () => {
   for (const theme of ['light', 'dark'] as const) {
-    for (const back of superficies) {
+    for (const back of surfaces) {
       it(`--shade-06 sobre ${back} en ${theme} llega a AA`, () => {
         const gray = value('--shade-06', theme)!
         const paper = value(back, theme)!
@@ -82,8 +82,8 @@ describe('el relleno que lleva texto encima llega a AA', () => {
       it(`blanco sobre ${fill} en ${theme}`, () => {
         const f = value(fill, theme)
         expect(f, `falta ${fill} en ${theme}`).toBeTruthy()
-        const usado = theme === 'dark' && fill === '--blue-600' ? value('--blue-400', theme)! : f!
-        expect(ratio('#ffffff', usado)).toBeGreaterThanOrEqual(4.5)
+        const used = theme === 'dark' && fill === '--blue-600' ? value('--blue-400', theme)! : f!
+        expect(ratio('#ffffff', used)).toBeGreaterThanOrEqual(4.5)
       })
     }
   }
@@ -94,7 +94,7 @@ describe('el hover no deshace el anclaje', () => {
    *  que lleva encima. Cuando los botones tenían relieve esto se verificaba
    *  sobre las recetas de `theme.css`; en plano lo que hay que mirar es que el
    *  paso del hover siga aguantando su propio texto. */
-  const variantes: [string, string, string][] = [
+  const variants: [string, string, string][] = [
     ['--brand', '--brand-hover', '--on-brand'],
     ['--solid', '--solid-hover', '--on-solid'],
     ['--surface-muted', '--surface-sunken', '--text'],
@@ -102,13 +102,13 @@ describe('el hover no deshace el anclaje', () => {
   ]
 
   for (const theme of ['light', 'dark'] as const) {
-    for (const [reposo, hover, tinta] of variantes) {
-      it(`${hover} sigue aguantando ${tinta} en ${theme}`, () => {
+    for (const [rest, hover, ink] of variants) {
+      it(`${hover} sigue aguantando ${ink} en ${theme}`, () => {
         const a = value(hover, theme)
-        const b = value(tinta, theme)
+        const b = value(ink, theme)
         expect(a, `falta ${hover} en ${theme}`).toBeTruthy()
-        expect(b, `falta ${tinta} en ${theme}`).toBeTruthy()
-        expect(ratio(a!, b!), `${reposo} da ${ratio(value(reposo, theme)!, b!).toFixed(2)}`)
+        expect(b, `falta ${ink} en ${theme}`).toBeTruthy()
+        expect(ratio(a!, b!), `${rest} da ${ratio(value(rest, theme)!, b!).toFixed(2)}`)
           .toBeGreaterThanOrEqual(4.5)
       })
     }
@@ -117,21 +117,21 @@ describe('el hover no deshace el anclaje', () => {
   it('el degradado del hover es más oscuro que el de reposo', () => {
     for (const t of ['light', 'dark'] as const) {
       const step = (n: string) => value(n, t)!
-      const reposo = t === 'light' ? step('--blue-600') : step('--blue-400')
+      const rest = t === 'light' ? step('--blue-600') : step('--blue-400')
       const hover = t === 'light' ? step('--blue-700') : step('--blue-300')
-      expect(ratio('#ffffff', hover), t).toBeGreaterThan(ratio('#ffffff', reposo))
+      expect(ratio('#ffffff', hover), t).toBeGreaterThan(ratio('#ffffff', rest))
       expect(ratio('#ffffff', hover), t).toBeGreaterThanOrEqual(4.5)
     }
   })
 })
 
 describe('el texto sugerido de un campo se lee', () => {
-  const fondos = {
+  const backgrounds = {
     light: ['--shade-01', '--shade-02', '--shade-02', '--shade-03'],
     dark: ['--shade-01', '--shade-03', '--shade-03'],
   } as const
   for (const theme of ['light', 'dark'] as const) {
-    for (const back of [...new Set(fondos[theme])]) {
+    for (const back of [...new Set(backgrounds[theme])]) {
       it(`--shade-placeholder sobre ${back} en ${theme} llega a AA`, () => {
         const ph = value('--shade-placeholder', theme)
         const paper = value(back, theme)
@@ -151,7 +151,7 @@ describe('el texto sugerido de un campo se lee', () => {
 
   for (const theme of ['light', 'dark'] as const) {
     for (const ink of ['--shade-06', '--warn-700', '--bad-700']) {
-      for (const back of [...new Set(fondos[theme])]) {
+      for (const back of [...new Set(backgrounds[theme])]) {
         it(`la cuenta en ${ink} sobre ${back} en ${theme} llega a AA`, () => {
           const c = value(ink, theme)
           const paper = value(back, theme)
@@ -198,43 +198,43 @@ describe('el texto de una etiqueta de color se lee', () => {
 const marks = ['green', 'purple', 'orange', 'blue', 'pink']
 
 describe('el glifo de una marca se lee sobre su propio relleno', () => {
-  for (const [theme, piso] of [['light', 4.5], ['dark', 7]] as const) {
+  for (const [theme, floor] of [['light', 4.5], ['dark', 7]] as const) {
     for (const m of marks) {
-      it(`--mark-${m}-ink sobre --mark-${m} en ${theme} llega a ${piso}:1`, () => {
+      it(`--mark-${m}-ink sobre --mark-${m} en ${theme} llega a ${floor}:1`, () => {
         const fill = value(`--mark-${m}`, theme)
         const ink = value(`--mark-${m}-ink`, theme)
         expect(fill, `falta --mark-${m} en ${theme}`).toBeTruthy()
         expect(ink, `falta --mark-${m}-ink en ${theme}`).toBeTruthy()
-        expect(ratio(ink!, fill!)).toBeGreaterThanOrEqual(piso)
+        expect(ratio(ink!, fill!)).toBeGreaterThanOrEqual(floor)
       })
     }
   }
 })
 
-const excepciones: Record<string, number> = {
+const exceptions: Record<string, number> = {
   '--chart-warn light': 2.2,
 }
 
 describe('el relleno de un dato se despega de su pista', () => {
   const semantic = readFileSync(join(import.meta.dirname, '../styles/tokens/semantic.css'), 'utf8')
-  const mitades = (f: string) => {
-    const [claro, ...resto] = f.split('[data-theme="dark"]')
-    return { claro, oscuro: resto.join('') }
+  const halves = (f: string) => {
+    const [light, ...rest] = f.split('[data-theme="dark"]')
+    return { light, oscuro: rest.join('') }
   }
-  const capas = [mitades(css), mitades(semantic)]
+  const layers = [halves(css), halves(semantic)]
 
   /** Resuelve un token hasta su valor literal, saltando los `var()` del camino. */
-  function literal(token: string, theme: 'light' | 'dark', visto = 0): string {
-    if (visto > 12) throw new Error(`${token} da vueltas`)
-    const orden = theme === 'light'
-      ? capas.map(c => c.claro)
-      : [...capas.map(c => c.oscuro), ...capas.map(c => c.claro)]
-    for (const text of orden) {
+  function literal(token: string, theme: 'light' | 'dark', seen = 0): string {
+    if (seen > 12) throw new Error(`${token} da vueltas`)
+    const order = theme === 'light'
+      ? layers.map(c => c.light)
+      : [...layers.map(c => c.oscuro), ...layers.map(c => c.light)]
+    for (const text of order) {
       const m = text.match(new RegExp(`${token}:\\s*([^;]+);`))
       if (!m) continue
-      const crudo = m[1].trim()
-      const ref = crudo.match(/^var\((--[\w-]+)\)$/)
-      return ref ? literal(ref[1], theme, visto + 1) : crudo
+      const raw = m[1].trim()
+      const ref = raw.match(/^var\((--[\w-]+)\)$/)
+      return ref ? literal(ref[1], theme, seen + 1) : raw
     }
     throw new Error(`no encuentro ${token} en ${theme}`)
   }
@@ -246,20 +246,20 @@ describe('el relleno de un dato se despega de su pista', () => {
   }
 
   /** La pista es tinta en alpha: se compone sobre el papel antes de medir. */
-  function pista(theme: 'light' | 'dark') {
+  function track(theme: 'light' | 'dark') {
     const [r, g, b, a] = literal('--track', theme).match(/[\d.]+/g)!.map(Number)
-    const fondo = canal(literal('--shade-01', theme))
-    const mezcla = [r, g, b].map((c, i) => Math.round(c * a + fondo[i] * (1 - a)))
-    return '#' + mezcla.map(c => c.toString(16).padStart(2, '0')).join('')
+    const background = canal(literal('--shade-01', theme))
+    const mixed = [r, g, b].map((c, i) => Math.round(c * a + background[i] * (1 - a)))
+    return '#' + mixed.map(c => c.toString(16).padStart(2, '0')).join('')
   }
 
   for (const theme of ['light', 'dark'] as const) {
-    for (const tono of ['--chart-fill', '--chart-ok', '--chart-warn', '--chart-bad']) {
-      const piso = excepciones[`${tono} ${theme}`]
-      it(`${tono} sobre la pista en ${theme} llega a ${piso ?? 3}:1`, () => {
-        const r = ratio(literal(tono, theme), pista(theme))
-        expect(r, piso ? 'es una excepción escrita: no puede empeorar' : undefined)
-          .toBeGreaterThanOrEqual(piso ?? 3)
+    for (const tone of ['--chart-fill', '--chart-ok', '--chart-warn', '--chart-bad']) {
+      const floor = exceptions[`${tone} ${theme}`]
+      it(`${tone} sobre la pista en ${theme} llega a ${floor ?? 3}:1`, () => {
+        const r = ratio(literal(tone, theme), track(theme))
+        expect(r, floor ? 'es una excepción escrita: no puede empeorar' : undefined)
+          .toBeGreaterThanOrEqual(floor ?? 3)
       })
     }
   }
@@ -286,26 +286,26 @@ describe('el relleno de un dato se despega de su pista', () => {
 })
 
 describe('el amarillo lleva tinta oscura, y eso se verifica', () => {
-  const tinta = '--on-yellow'
+  const ink = '--on-yellow'
 
   for (const theme of ['light', 'dark'] as const) {
-    const rellenos = theme === 'light'
+    const fills = theme === 'light'
       ? ['--yellow-050', '--yellow-100', '--yellow-200', '--yellow-300', '--yellow-400']
       : ['--yellow-700', '--yellow-800', '--yellow-900']
 
-    for (const relleno of rellenos) {
-      it(`${relleno} aguanta la tinta del sistema en ${theme}`, () => {
-        const a = value(relleno, theme)
-        const b = value(tinta, theme)
-        expect(a, `falta ${relleno} en ${theme}`).toBeTruthy()
-        expect(b, `falta ${tinta} en ${theme}`).toBeTruthy()
+    for (const fill of fills) {
+      it(`${fill} aguanta la tinta del sistema en ${theme}`, () => {
+        const a = value(fill, theme)
+        const b = value(ink, theme)
+        expect(a, `falta ${fill} en ${theme}`).toBeTruthy()
+        expect(b, `falta ${ink} en ${theme}`).toBeTruthy()
         expect(ratio(a!, b!)).toBeGreaterThanOrEqual(4.5)
       })
     }
 
     it(`ningún relleno de amarillo llegaría a AA con blanco en ${theme}`, () => {
-      const conBlanco = rellenos.filter(r => ratio(value(r, theme)!, '#ffffff') >= 4.5)
-      expect(conBlanco).toEqual([])
+      const onWhite = fills.filter(r => ratio(value(r, theme)!, '#ffffff') >= 4.5)
+      expect(onWhite).toEqual([])
     })
   }
 })
