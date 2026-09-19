@@ -25,13 +25,11 @@
 
   .sunken {
     background-color: var(--surface-sunken);
-    --milo-shadow: 0 0 #0000;
-    box-shadow: var(--milo-inset-shadow),var(--milo-inset-ring-shadow),var(--milo-ring-offset-shadow),var(--milo-ring-shadow),var(--milo-shadow);
+    box-shadow: none;
   }
 
   .lifted {
-    --milo-shadow: var(--relief-card);
-    box-shadow: var(--milo-inset-shadow),var(--milo-inset-ring-shadow),var(--milo-ring-offset-shadow),var(--milo-ring-shadow),var(--milo-shadow);
+    box-shadow: var(--relief-card);
   }
 
   .active {
@@ -84,8 +82,7 @@
   @media (hover:hover) {
     .active:hover {
         background-image: linear-gradient(var(--surface-hover),var(--surface-hover));
-        --milo-shadow: var(--relief-toolbar);
-        box-shadow: var(--milo-inset-shadow),var(--milo-inset-ring-shadow),var(--milo-ring-offset-shadow),var(--milo-ring-shadow),var(--milo-shadow);
+        box-shadow: var(--relief-toolbar);
     }
   }
 }

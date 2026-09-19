@@ -48,8 +48,7 @@
     top: 0;
     height: 1.5rem;
     width: 1px;
-    --milo-translate-y: calc(0.25rem * -6);
-    translate: var(--milo-translate-x) var(--milo-translate-y);
+    translate: 0 calc(0.25rem * -6);
   }
 
   .connectorReached {
@@ -90,9 +89,7 @@
   .bulletCurrent {
     background-color: var(--brand-soft);
     color: var(--brand-ink);
-    --milo-ring-shadow: var(--milo-ring-inset,) 0 0 0 calc(2px + var(--milo-ring-offset-width)) var(--milo-ring-color,currentcolor);
-    box-shadow: var(--milo-inset-shadow),var(--milo-inset-ring-shadow),var(--milo-ring-offset-shadow),var(--milo-ring-shadow),var(--milo-shadow);
-    --milo-ring-color: var(--brand);
+    box-shadow: 0 0 0 2px var(--brand);
   }
 
   .bulletAhead {

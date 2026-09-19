@@ -31,8 +31,7 @@
     background-color: var(--brand-soft);
     font-weight: var(--font-weight-semibold);
     color: var(--brand-ink);
-    --milo-shadow: 0 0 0 1px var(--milo-shadow-color,var(--brand-border));
-    box-shadow: var(--milo-inset-shadow),var(--milo-inset-ring-shadow),var(--milo-ring-offset-shadow),var(--milo-ring-shadow),var(--milo-shadow);
+    box-shadow: 0 0 0 1px var(--brand-border);
   }
 
   .muted {
@@ -65,8 +64,7 @@
   }
 
   .glyphPaper {
-    --milo-shadow: 0 0 0 1px var(--milo-shadow-color,var(--border));
-    box-shadow: var(--milo-inset-shadow),var(--milo-inset-ring-shadow),var(--milo-ring-offset-shadow),var(--milo-ring-shadow),var(--milo-shadow);
+    box-shadow: 0 0 0 1px var(--border);
   }
 
   .icon {
@@ -116,8 +114,7 @@
     background-color: var(--brand-soft);
     font-weight: var(--font-weight-semibold);
     color: var(--brand-ink);
-    --milo-shadow: 0 0 0 1px var(--milo-shadow-color,var(--brand-border));
-    box-shadow: var(--milo-inset-shadow),var(--milo-inset-ring-shadow),var(--milo-ring-offset-shadow),var(--milo-ring-shadow),var(--milo-shadow);
+    box-shadow: 0 0 0 1px var(--brand-border);
   }
 
   .subitemPlain {

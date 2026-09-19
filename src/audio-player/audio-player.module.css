@@ -49,8 +49,7 @@
     inset-inline: 0;
     top: 50%;
     height: 0.25rem;
-    --milo-translate-y: -50%;
-    translate: var(--milo-translate-x) var(--milo-translate-y);
+    translate: 0 -50%;
     border-radius: var(--radius-full);
     background-color: var(--border-strong);
   }
@@ -148,8 +147,7 @@
       opacity: 1;
       --milo-outline-style: none;
       outline-style: none;
-      --milo-shadow: var(--focus-ring);
-      box-shadow: var(--milo-inset-shadow),var(--milo-inset-ring-shadow),var(--milo-ring-offset-shadow),var(--milo-ring-shadow),var(--milo-shadow);
+      box-shadow: var(--focus-ring);
     }
   }
 
