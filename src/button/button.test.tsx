@@ -1,6 +1,6 @@
 import { Icon } from '../icon/icon'
 import { act, render, screen } from '@testing-library/react'
-import { estilo } from '../__tests__/estilo'
+import { style } from '../__tests__/estilo'
 import s from './button.module.css'
 import userEvent from '@testing-library/user-event'
 import { describe, expect, it, vi } from 'vitest'
@@ -11,7 +11,7 @@ describe('Button', () => {
     'el radio de %s sigue a su alto',
     (size, radius) => {
       render(<Button size={size}>Guardar</Button>)
-      expect(estilo(screen.getByRole('button'))).toContain(`border-radius: var(${radius})`)
+      expect(style(screen.getByRole('button'))).toContain(`border-radius: var(${radius})`)
     },
   )
 
@@ -55,9 +55,9 @@ describe('Button', () => {
 
   it('el tamaño y la variante son clases, no medidas escritas a mano', () => {
     const { rerender } = render(<Button size="sm">Guardar</Button>)
-    expect(estilo(screen.getByRole('button'))).toContain('height: 2.25rem')
+    expect(style(screen.getByRole('button'))).toContain('height: 2.25rem')
     rerender(<Button size="lg">Guardar</Button>)
-    expect(estilo(screen.getByRole('button'))).toContain('height: 2.75rem')
+    expect(style(screen.getByRole('button'))).toContain('height: 2.75rem')
     rerender(<Button variant="solid">Guardar</Button>)
     expect(screen.getByRole('button').className).toContain(s.motion)
   })
@@ -107,6 +107,6 @@ describe('Button', () => {
 
   it('block ocupa la fila entera', () => {
     render(<Button block>Guardar</Button>)
-    expect(estilo(screen.getByRole('button'))).toContain('width: 100%')
+    expect(style(screen.getByRole('button'))).toContain('width: 100%')
   })
 })

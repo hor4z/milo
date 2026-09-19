@@ -3,11 +3,11 @@ import { Field, FieldSet, Stepper } from '@milo/ui'
 import { A11y, Canvas, Cluster, Note, Page, Panel, Props, Section, Stack, Variant } from '../kit'
 
 export function StepperStory() {
-  const [intentos, setIntentos] = useState(3)
-  const [preguntas, setPreguntas] = useState(10)
-  const [minutos, setMinutos] = useState(45)
-  const [nota, setNota] = useState(7)
-  const [suelto, setSuelto] = useState(1)
+  const [attempts, setAttempts] = useState(3)
+  const [questions, setQuestions] = useState(10)
+  const [minutes, setMinutes] = useState(45)
+  const [grade, setGrade] = useState(7)
+  const [plain, setPlain] = useState(1)
 
   return (
     <Page
@@ -24,10 +24,10 @@ export function StepperStory() {
           <Stack gap="xl" width="md">
             <FieldSet legend="Cómo se entrega">
               <Field label="Intentos" hint="Cuántas veces puede volver a entregar">
-                <Stepper value={intentos} onChange={setIntentos} min={1} max={9} label="Intentos" />
+                <Stepper value={attempts} onChange={setAttempts} min={1} max={9} label="Intentos" />
               </Field>
               <Field label="Tiempo" hint="Desde que abre la actividad">
-                <Stepper value={minutos} onChange={setMinutos} min={5} max={120} step={5} suffix="min" label="Tiempo" width={148} />
+                <Stepper value={minutes} onChange={setMinutes} min={5} max={120} step={5} suffix="min" label="Tiempo" width={148} />
               </Field>
             </FieldSet>
           </Stack>
@@ -40,7 +40,7 @@ export function StepperStory() {
       >
         <Panel>
           <Variant name="en el piso"><Stepper value={1} onChange={() => {}} min={1} max={5} label="Intentos" /></Variant>
-          <Variant name="en el medio"><Stepper value={suelto} onChange={setSuelto} min={1} max={5} label="Intentos" /></Variant>
+          <Variant name="en el medio"><Stepper value={plain} onChange={setPlain} min={1} max={5} label="Intentos" /></Variant>
           <Variant name="en el techo"><Stepper value={5} onChange={() => {}} min={1} max={5} label="Intentos" /></Variant>
           <Variant name="apagado"><Stepper value={3} onChange={() => {}} disabled label="Intentos" /></Variant>
         </Panel>
@@ -53,10 +53,10 @@ export function StepperStory() {
         <Canvas>
           <Cluster gap="xl" align="end">
             <Field label="Nota">
-              <Stepper value={nota} onChange={setNota} min={1} max={10} label="Nota" width={120} />
+              <Stepper value={grade} onChange={setGrade} min={1} max={10} label="Nota" width={120} />
             </Field>
             <Field label="Preguntas">
-              <Stepper value={preguntas} onChange={setPreguntas} min={1} max={50} label="Preguntas" width={120} />
+              <Stepper value={questions} onChange={setQuestions} min={1} max={50} label="Preguntas" width={120} />
             </Field>
           </Cluster>
         </Canvas>

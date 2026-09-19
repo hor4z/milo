@@ -30,7 +30,7 @@ export function Reorder<T extends ReorderItem>({ items, onReorder, label, childr
   className?: string
 }) {
   const [grabbed, setGrabbed] = useState<string | null>(null)
-  const [aviso, setAviso] = useState('')
+  const [announcement, setAnnouncement] = useState('')
   const slots = useRef<Record<string, HTMLLIElement | null>>({})
   const bodies = useRef<Record<string, HTMLDivElement | null>>({})
   const handles = useRef<Record<string, HTMLButtonElement | null>>({})
@@ -81,10 +81,10 @@ export function Reorder<T extends ReorderItem>({ items, onReorder, label, childr
   }, [items])
 
   useEffect(() => {
-    if (!aviso) return
-    const t = setTimeout(() => setAviso(''), 1200)
+    if (!announcement) return
+    const t = setTimeout(() => setAnnouncement(''), 1200)
     return () => clearTimeout(t)
-  }, [aviso])
+  }, [announcement])
 
   useEffect(() => () => cancelAnimationFrame(frame.current), [])
 
@@ -94,7 +94,7 @@ export function Reorder<T extends ReorderItem>({ items, onReorder, label, childr
     if (fromIndex < 0 || toIndex < 0 || toIndex >= items.length) return
     recordTops()
     onReorder(move(items, fromIndex, toIndex))
-    setAviso(`${items[fromIndex].label}, posición ${toIndex + 1} de ${items.length}`)
+    setAnnouncement(`${items[fromIndex].label}, posición ${toIndex + 1} de ${items.length}`)
     requestAnimationFrame(() => handles.current[id]?.focus())
   }
 
@@ -199,7 +199,7 @@ export function Reorder<T extends ReorderItem>({ items, onReorder, label, childr
         ))}
       </ul>
       <span id="reorder-ayuda" className="sr-only">Con las flechas arriba y abajo se mueve de lugar.</span>
-      <span aria-live="polite" className="sr-only">{aviso}</span>
+      <span aria-live="polite" className="sr-only">{announcement}</span>
     </>
   )
 }

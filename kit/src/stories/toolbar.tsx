@@ -4,8 +4,8 @@ import { Toolbar, ToolbarButton, ToolbarSeparator } from '@milo/ui'
 import { A11y, Page, Props, Section } from '../kit'
 
 export function ToolbarStory() {
-  const [formato, setFormato] = useState({ bold: true, italic: false, underline: false })
-  const toggle = (k: keyof typeof formato) => setFormato(f => ({ ...f, [k]: !f[k] }))
+  const [format, setFormat] = useState({ bold: true, italic: false, underline: false })
+  const toggle = (k: keyof typeof format) => setFormat(f => ({ ...f, [k]: !f[k] }))
 
   return (
     <Page
@@ -17,9 +17,9 @@ export function ToolbarStory() {
       <Section title="La pieza">
         <div className={s.pieceBox}>
           <Toolbar label="Formato del texto">
-            <ToolbarButton icon="format_bold" label="Negrita" pressed={formato.bold} onClick={() => toggle('bold')} />
-            <ToolbarButton icon="format_italic" label="Cursiva" pressed={formato.italic} onClick={() => toggle('italic')} />
-            <ToolbarButton icon="format_underlined" label="Subrayado" pressed={formato.underline} onClick={() => toggle('underline')} />
+            <ToolbarButton icon="format_bold" label="Negrita" pressed={format.bold} onClick={() => toggle('bold')} />
+            <ToolbarButton icon="format_italic" label="Cursiva" pressed={format.italic} onClick={() => toggle('italic')} />
+            <ToolbarButton icon="format_underlined" label="Subrayado" pressed={format.underline} onClick={() => toggle('underline')} />
             <ToolbarSeparator />
             <ToolbarButton icon="format_h1" label="Título" />
             <ToolbarButton icon="format_h2" label="Subtítulo" />
@@ -38,7 +38,7 @@ export function ToolbarStory() {
       >
         <div className={s.toggleBox}>
           <Toolbar label="Dos clases de botón">
-            <ToolbarButton icon="format_bold" label="Negrita" pressed={formato.bold} onClick={() => toggle('bold')} />
+            <ToolbarButton icon="format_bold" label="Negrita" pressed={format.bold} onClick={() => toggle('bold')} />
             <ToolbarButton icon="content_copy" label="Duplicar" />
           </Toolbar>
         </div>

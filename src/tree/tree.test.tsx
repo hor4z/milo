@@ -15,56 +15,56 @@ const nodes: TreeNode[] = [
   { id: 'lengua', label: 'Lengua' },
 ]
 
-const abrir = (props = {}) => render(<Tree nodes={nodes} label="Espacios" {...props} />)
+const open = (props = {}) => render(<Tree nodes={nodes} label="Espacios" {...props} />)
 
 describe('Tree', () => {
   it('es un árbol con su nombre y sus niveles', () => {
-    abrir()
+    open()
     expect(screen.getByRole('tree', { name: 'Espacios' })).toBeInTheDocument()
     expect(screen.getByRole('treeitem', { name: /Matemática/ })).toHaveAttribute('aria-level', '1')
   })
 
   it('lo cerrado no está en el documento, no solo escondido', () => {
-    abrir()
+    open()
     expect(screen.queryByRole('treeitem', { name: /Fracciones/ })).toBeNull()
   })
 
   it('una rama dice si está abierta y una hoja no dice nada', () => {
-    abrir()
+    open()
     expect(screen.getByRole('treeitem', { name: /Matemática/ })).toHaveAttribute('aria-expanded', 'false')
     expect(screen.getByRole('treeitem', { name: /Lengua/ })).not.toHaveAttribute('aria-expanded')
   })
 
   it('la flecha derecha abre, y en lo abierto entra', async () => {
-    abrir()
-    const raiz = screen.getByRole('treeitem', { name: /Matemática/ })
-    raiz.focus()
+    open()
+    const root = screen.getByRole('treeitem', { name: /Matemática/ })
+    root.focus()
     await userEvent.keyboard('{ArrowRight}')
-    expect(raiz).toHaveAttribute('aria-expanded', 'true')
+    expect(root).toHaveAttribute('aria-expanded', 'true')
     await userEvent.keyboard('{ArrowRight}')
     expect(screen.getByRole('treeitem', { name: /Fracciones/ })).toHaveFocus()
   })
 
   it('la flecha izquierda sube al padre desde una hoja', async () => {
-    abrir({ expanded: ['mate'] })
+    open({ expanded: ['mate'] })
     screen.getByRole('treeitem', { name: /Decimales/ }).focus()
     await userEvent.keyboard('{ArrowLeft}')
     expect(screen.getByRole('treeitem', { name: /Matemática/ })).toHaveFocus()
   })
 
   it('la flecha izquierda cierra una rama abierta', async () => {
-    abrir()
-    const raiz = screen.getByRole('treeitem', { name: /Matemática/ })
-    raiz.focus()
+    open()
+    const root = screen.getByRole('treeitem', { name: /Matemática/ })
+    root.focus()
     await userEvent.keyboard('{ArrowRight}')
-    expect(raiz).toHaveAttribute('aria-expanded', 'true')
+    expect(root).toHaveAttribute('aria-expanded', 'true')
     await userEvent.keyboard('{ArrowLeft}')
-    expect(raiz).toHaveAttribute('aria-expanded', 'false')
+    expect(root).toHaveAttribute('aria-expanded', 'false')
   })
 
   it('con `expanded` manda el padre: la pieza avisa y no se abre sola', async () => {
     const onExpandedChange = vi.fn()
-    abrir({ expanded: ['mate'], onExpandedChange })
+    open({ expanded: ['mate'], onExpandedChange })
     screen.getByRole('treeitem', { name: /Matemática/ }).focus()
     await userEvent.keyboard('{ArrowLeft}')
     expect(onExpandedChange).toHaveBeenCalledWith([])
@@ -72,7 +72,7 @@ describe('Tree', () => {
   })
 
   it('arriba y abajo recorren lo que está a la vista', async () => {
-    abrir({ expanded: ['mate'] })
+    open({ expanded: ['mate'] })
     screen.getByRole('treeitem', { name: /Matemática/ }).focus()
     await userEvent.keyboard('{ArrowDown}{ArrowDown}')
     expect(screen.getByRole('treeitem', { name: /Decimales/ })).toHaveFocus()
@@ -81,13 +81,13 @@ describe('Tree', () => {
   })
 
   it('una sola parada de tabulación, no una por rama', () => {
-    abrir({ expanded: ['mate'] })
-    const paradas = screen.getAllByRole('treeitem').filter(n => n.getAttribute('tabindex') === '0')
-    expect(paradas).toHaveLength(1)
+    open({ expanded: ['mate'] })
+    const stops = screen.getAllByRole('treeitem').filter(n => n.getAttribute('tabindex') === '0')
+    expect(stops).toHaveLength(1)
   })
 
   it('teclear salta a la rama que empieza así', async () => {
-    abrir({ expanded: ['mate'] })
+    open({ expanded: ['mate'] })
     screen.getByRole('treeitem', { name: /Matemática/ }).focus()
     await userEvent.keyboard('d')
     expect(screen.getByRole('treeitem', { name: /Decimales/ })).toHaveFocus()
@@ -95,19 +95,19 @@ describe('Tree', () => {
 
   it('Enter elige y devuelve el id', async () => {
     const onSelect = vi.fn()
-    abrir({ expanded: ['mate'], onSelect })
+    open({ expanded: ['mate'], onSelect })
     screen.getByRole('treeitem', { name: /Decimales/ }).focus()
     await userEvent.keyboard('{Enter}')
     expect(onSelect).toHaveBeenCalledWith('decimales')
   })
 
   it('lo elegido se anuncia elegido', () => {
-    abrir({ expanded: ['mate'], selected: 'decimales' })
+    open({ expanded: ['mate'], selected: 'decimales' })
     expect(screen.getByRole('treeitem', { name: /Decimales/ })).toHaveAttribute('aria-selected', 'true')
   })
 
   it('sin `expanded` se abre y se cierra solo', async () => {
-    abrir()
+    open()
     await userEvent.click(screen.getByRole('treeitem', { name: /Matemática/ }))
     expect(screen.getByRole('treeitem', { name: /Fracciones/ })).toBeInTheDocument()
   })

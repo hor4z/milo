@@ -6,7 +6,7 @@ import type { ComponentType } from 'react'
 import { ToastProvider } from '@milo/ui'
 
 const ui = join(import.meta.dirname, '../../../src')
-const globales = new Set(
+const globals = new Set(
   ['styles/reset.css', 'styles/base.css', 'theme.css']
     .map(f => readFileSync(join(ui, f), 'utf8'))
     .join('\n')
@@ -15,53 +15,53 @@ const globales = new Set(
     ?.map(s => s.slice(1)) ?? [],
 )
 
-const modulos = import.meta.glob('../{stories,foundations,mascots}/*.tsx', { eager: true }) as
+const modules = import.meta.glob('../{stories,foundations,mascots}/*.tsx', { eager: true }) as
   Record<string, Record<string, unknown>>
 
-const vistas: [string, ComponentType][] = []
-for (const [ruta, mod] of Object.entries(modulos)) {
-  for (const [nombre, valor] of Object.entries(mod)) {
-    if (typeof valor !== 'function') continue
-    if (!/(Story|Section)$/.test(nombre)) continue
-    vistas.push([`${ruta.split('/').pop()} · ${nombre}`, valor as ComponentType])
+const views: [string, ComponentType][] = []
+for (const [path, mod] of Object.entries(modules)) {
+  for (const [name, value] of Object.entries(mod)) {
+    if (typeof value !== 'function') continue
+    if (!/(Story|Section)$/.test(name)) continue
+    views.push([`${path.split('/').pop()} · ${name}`, value as ComponentType])
   }
 }
 
 describe('toda clase que llega al HTML resuelve a algo', () => {
-  const sueltas = new Set<string>()
+  const loose = new Set<string>()
 
-  for (const [nombre, Vista] of vistas) {
-    it(`${nombre} no deja clases sin definir`, () => {
-      const { container } = render(<ToastProvider><Vista /></ToastProvider>)
-      const rotas: string[] = []
+  for (const [name, View] of views) {
+    it(`${name} no deja clases sin definir`, () => {
+      const { container } = render(<ToastProvider><View /></ToastProvider>)
+      const broken: string[] = []
       for (const el of container.querySelectorAll<HTMLElement>('[class]')) {
         for (const c of (el.getAttribute('class') ?? '').split(/\s+/)) {
-          if (!c || c.startsWith('_') || globales.has(c)) continue
-          rotas.push(c)
-          sueltas.add(c)
+          if (!c || c.startsWith('_') || globals.has(c)) continue
+          broken.push(c)
+          loose.add(c)
         }
       }
-      expect([...new Set(rotas)]).toEqual([])
+      expect([...new Set(broken)]).toEqual([])
     })
   }
 
   it('touch-target va solo donde toda la superficie es el mismo objetivo', () => {
     // el ::after se pinta sobre el contenido, así que en algo que lleva un control
     // adentro se queda con el tap que iba a ese control
-    const malos: string[] = []
-    for (const [nombre, Vista] of vistas) {
-      const { container } = render(<ToastProvider><Vista /></ToastProvider>)
+    const bad: string[] = []
+    for (const [name, View] of views) {
+      const { container } = render(<ToastProvider><View /></ToastProvider>)
       for (const el of container.querySelectorAll('.touch-target')) {
-        const adentro = el.querySelector('input, textarea, select, button, a[href], [tabindex]')
-        if (adentro) malos.push(`${nombre}: un ${el.tagName.toLowerCase()} con un ${adentro.tagName.toLowerCase()} adentro`)
+        const inside = el.querySelector('input, textarea, select, button, a[href], [tabindex]')
+        if (inside) bad.push(`${name}: un ${el.tagName.toLowerCase()} con un ${inside.tagName.toLowerCase()} adentro`)
       }
     }
-    expect([...new Set(malos)]).toEqual([])
+    expect([...new Set(bad)]).toEqual([])
   })
 
   it('el guardián mira algo: hay clases de módulo dibujadas', () => {
-    const Primera = vistas[0][1]
-    const { container } = render(<ToastProvider><Primera /></ToastProvider>)
+    const First = views[0][1]
+    const { container } = render(<ToastProvider><First /></ToastProvider>)
     const found = [...container.querySelectorAll('[class]')]
       .some(el => (el.getAttribute('class') ?? '').split(/\s+/).some(c => c.startsWith('_')))
     expect(found).toBe(true)

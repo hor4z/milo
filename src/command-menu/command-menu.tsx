@@ -66,8 +66,8 @@ export function CommandMenu({
   groups, onSelect, placeholder = 'Buscar un bloque…', empty = 'Nada con esas palabras',
   search = true, query, maxHeight = 320, autoFocus, className,
 }: CommandMenuProps) {
-  const [propio, setPropio] = useState('')
-  const q = query ?? propio
+  const [ownQuery, setOwnQuery] = useState('')
+  const q = query ?? ownQuery
   const visible = useMemo(() => matches(groups, q), [groups, q])
   const flatItems = useMemo(() => visible.flatMap(g => g.items).filter(i => !i.disabled), [visible])
 
@@ -117,7 +117,7 @@ export function CommandMenu({
             block
             size="sm"
             value={q}
-            onValueChange={query === undefined ? setPropio : () => {}}
+            onValueChange={query === undefined ? setOwnQuery : () => {}}
             placeholder={placeholder}
             role="combobox"
             aria-expanded

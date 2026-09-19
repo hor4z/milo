@@ -8,10 +8,10 @@ const today = () => {
 }
 
 export function DatePickerStory() {
-  const [vence, setVence] = useState('')
+  const [due, setDue] = useState('')
   const [from, setFrom] = useState(today())
   const [loose, setLoose] = useState('2026-03-09')
-  const [acotada, setAcotada] = useState('')
+  const [bounded, setBounded] = useState('')
 
   return (
     <Page
@@ -31,7 +31,7 @@ export function DatePickerStory() {
                 <DatePicker value={from} onChange={setFrom} />
               </Field>
               <Field label="Vence" hint="Después de esta fecha no entra nada">
-                <DatePicker value={vence} onChange={setVence} min={from} placeholder="Sin fecha de cierre" />
+                <DatePicker value={due} onChange={setDue} min={from} placeholder="Sin fecha de cierre" />
               </Field>
             </FieldSet>
           </Stack>
@@ -52,7 +52,7 @@ export function DatePickerStory() {
         note="`min` y `max` apagan lo que queda afuera en vez de esconderlo: un día que desaparece deja a quien mira buscando dónde está, y uno apagado dice que existe y que no se puede."
       >
         <Canvas>
-          <DatePicker value={acotada} onChange={setAcotada} min={today()} label="Nueva entrega" placeholder="No se puede antes de hoy" width={260} />
+          <DatePicker value={bounded} onChange={setBounded} min={today()} label="Nueva entrega" placeholder="No se puede antes de hoy" width={260} />
         </Canvas>
       </Section>
 

@@ -50,25 +50,25 @@ function dist(a, b) {
   return d[a.length][b.length]
 }
 
-function buscar(q, cat, limite = 20) {
+function search(q, cat, limit = 20) {
   const n = q.toLowerCase()
   const hits = []
   for (const c of cat.values()) {
-    let puntos = 0
-    if (c.n === n) puntos = 1000
-    else if (c.n.startsWith(n)) puntos = 500
-    else if (c.n.includes(n)) puntos = 200
-    else if (c.t.some(t => t === n)) puntos = 150
-    else if (c.t.some(t => t.includes(n))) puntos = 50
-    if (puntos) hits.push([puntos + Math.min(c.p / 1000, 99), c])
+    let score = 0
+    if (c.n === n) score = 1000
+    else if (c.n.startsWith(n)) score = 500
+    else if (c.n.includes(n)) score = 200
+    else if (c.t.some(t => t === n)) score = 150
+    else if (c.t.some(t => t.includes(n))) score = 50
+    if (score) hits.push([score + Math.min(c.p / 1000, 99), c])
   }
   hits.sort((a, b) => b[0] - a[0])
-  return hits.slice(0, limite).map(h => h[1])
+  return hits.slice(0, limit).map(h => h[1])
 }
 
 /* -------------------------------------------------------------------- sync */
 
-async function bajarFuente(names, axes) {
+async function downloadFont(names, axes) {
   const url = `https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:${axes}`
     + `&icon_names=${names.join(',')}`
   const css = await (await fetch(url, { headers: { 'User-Agent': UA } })).text()
@@ -82,8 +82,8 @@ async function bajarFuente(names, axes) {
   return { buf, src }
 }
 
-function escribirGen(names, cat) {
-  const filas = names.map(n => `  ${n}: 0x${cat.get(n).c.toString(16)},`).join('\n')
+function writeGen(names, cat) {
+  const rows = names.map(n => `  ${n}: 0x${cat.get(n).c.toString(16)},`).join('\n')
   writeFileSync(P.gen, `/* GENERADO por scripts/icons.mjs: no editar a mano.
    Se regenera con: npm run icons -w @milo/ui -- sync
 
@@ -92,14 +92,14 @@ function escribirGen(names, cat) {
    botón. Y van en hexa y no como el carácter, porque un char del área privada
    guardado en un .ts es invisible en el editor y en el diff. */
 export const codepoints = {
-${filas}
+${rows}
 } as const
 
 export type IconName = keyof typeof codepoints
 export const iconNames = Object.keys(codepoints) as IconName[]
 `)
 
-  const metaFilas = names.map(n => `  ${n}: ${JSON.stringify(cat.get(n).t.join(' '))},`).join('\n')
+  const metaRows = names.map(n => `  ${n}: ${JSON.stringify(cat.get(n).t.join(' '))},`).join('\n')
   writeFileSync(P.meta, `/* GENERADO por scripts/icons.mjs: no editar a mano.
 
    Los tags de cada icono, para el buscador de la galería del kit. Va aparte de
@@ -109,7 +109,7 @@ export const iconNames = Object.keys(codepoints) as IconName[]
 import type { IconName } from './icons.gen'
 
 export const iconTags: Record<IconName, string> = {
-${metaFilas}
+${metaRows}
 }
 `)
 }
@@ -117,14 +117,14 @@ ${metaFilas}
 async function sync() {
   const m = manifest()
   const cat = catalog()
-  const faltan = m.names.filter(n => !cat.has(n))
-  if (faltan.length) {
-    console.error(`estos nombres no están en el catálogo: ${faltan.join(', ')}`)
+  const missing = m.names.filter(n => !cat.has(n))
+  if (missing.length) {
+    console.error(`estos nombres no están en el catálogo: ${missing.join(', ')}`)
     process.exit(1)
   }
-  const { buf, src } = await bajarFuente(m.names, m.axes)
+  const { buf, src } = await downloadFont(m.names, m.axes)
   writeFileSync(P.font, buf)
-  escribirGen(m.names, cat)
+  writeGen(m.names, cat)
   m.font = {
     url: src,
     bytes: buf.length,
@@ -139,19 +139,19 @@ async function sync() {
 
 async function add(args) {
   const yes = args.includes('--yes')
-  const pedidos = args.filter(a => !a.startsWith('--'))
-  if (!pedidos.length) return console.error('uso: icons add <nombre...> [--yes]'), process.exit(1)
+  const requested = args.filter(a => !a.startsWith('--'))
+  if (!requested.length) return console.error('uso: icons add <nombre...> [--yes]'), process.exit(1)
 
   const m = manifest()
   const cat = catalog()
-  const nuevos = []
+  const added = []
 
-  for (const n of pedidos) {
+  for (const n of requested) {
     // 1. ¿existe?
     if (!cat.has(n)) {
-      const cerca = [...cat.keys()].map(k => [dist(n, k), k]).sort((a, b) => a[0] - b[0]).slice(0, 5)
+      const near = [...cat.keys()].map(k => [dist(n, k), k]).sort((a, b) => a[0] - b[0]).slice(0, 5)
       console.error(`✗ "${n}" no existe en Material Symbols Rounded.`)
-      console.error(`  ¿quisiste decir? ${cerca.map(c => c[1]).join(' · ')}`)
+      console.error(`  ¿quisiste decir? ${near.map(c => c[1]).join(' · ')}`)
       console.error(`  o probá: icons search ${n.split('_')[0]}`)
       process.exit(1)
     }
@@ -162,24 +162,24 @@ async function add(args) {
     }
     // 3. ¿hay uno mejor, o uno que ya hace lo mismo?
     const tags = new Set(cat.get(n).t)
-    const parecidos = m.names
+    const similar = m.names
       .map(k => [[...tags].filter(t => cat.get(k)?.t.includes(t)).length, k])
       .filter(([c]) => c >= 2)
       .sort((a, b) => b[0] - a[0])
       .slice(0, 3)
-    if (parecidos.length && !yes) {
+    if (similar.length && !yes) {
       console.error(`? "${n}" se parece a lo que ya tenés:`)
-      for (const [c, k] of parecidos) console.error(`    ${k}: ${c} tags en común (${cat.get(k).t.slice(0, 5).join(', ')})`)
+      for (const [c, k] of similar) console.error(`    ${k}: ${c} tags en común (${cat.get(k).t.slice(0, 5).join(', ')})`)
       console.error(`  Si igual lo querés: icons add ${n} --yes`)
       process.exit(1)
     }
-    nuevos.push(n)
+    added.push(n)
   }
 
-  if (!nuevos.length) return
-  m.names = [...new Set([...m.names, ...nuevos])].sort()
+  if (!added.length) return
+  m.names = [...new Set([...m.names, ...added])].sort()
   writeFileSync(P.manifest, JSON.stringify(m, null, 2) + '\n')
-  console.log(`+ ${nuevos.join(', ')}`)
+  console.log(`+ ${added.join(', ')}`)
   await sync()
 }
 
@@ -197,12 +197,12 @@ function fuentes(dir, out = []) {
 
 function check() {
   const m = manifest()
-  const enManifiesto = new Set(m.names)
-  const usados = new Set()
+  const inManifest = new Set(m.names)
+  const used = new Set()
   for (const f of [...fuentes(join(root, 'src')), ...fuentes(join(root, 'kit/src'))]) {
     const src = readFileSync(f, 'utf8')
     for (const re of [/\bicon(?:End)?=["']([a-z0-9_]+)["']/g, /\bname=["']([a-z0-9_]+)["']/g, /\bicon:\s*'([a-z0-9_]+)'/g]) {
-      for (const mm of src.matchAll(re)) usados.add(mm[1])
+      for (const mm of src.matchAll(re)) used.add(mm[1])
     }
     // Y cualquier string suelto que coincida con un nombre del manifiesto. Las
     // formas de arriba son precisas y por eso se perdían los usos que no tienen
@@ -214,15 +214,15 @@ function check() {
     // está bien que así sea: equivocarse para el otro lado significa borrar del
     // set un glifo que alguien está dibujando.
     for (const mm of src.matchAll(/['"`]([a-z][a-z0-9_]{2,})['"`]/g)) {
-      if (enManifiesto.has(mm[1])) usados.add(mm[1])
+      if (inManifest.has(mm[1])) used.add(mm[1])
     }
   }
-  const faltantes = [...usados].filter(n => !enManifiesto.has(n) && catalog().has(n)).sort()
-  const sinUso = m.names.filter(n => !usados.has(n)).sort()
-  if (faltantes.length) console.error(`✗ usados pero fuera del manifiesto: ${faltantes.join(', ')}`)
+  const missing = [...used].filter(n => !inManifest.has(n) && catalog().has(n)).sort()
+  const sinUso = m.names.filter(n => !used.has(n)).sort()
+  if (missing.length) console.error(`✗ usados pero fuera del manifiesto: ${missing.join(', ')}`)
   if (sinUso.length) console.log(`· en el manifiesto sin ningún uso (${sinUso.length}): ${sinUso.join(', ')}`)
-  if (!faltantes.length) console.log('✓ todo lo que se usa está en el manifiesto')
-  process.exit(faltantes.length ? 1 : 0)
+  if (!missing.length) console.log('✓ todo lo que se usa está en el manifiesto')
+  process.exit(missing.length ? 1 : 0)
 }
 
 /* -------------------------------------------------------------------- main */
@@ -233,10 +233,10 @@ else if (cmd === 'add') await add(args)
 else if (cmd === 'check') check()
 else if (cmd === 'search') {
   const cat = catalog()
-  const tengo = new Set(manifest().names)
-  const hits = buscar(args.join(' '), cat)
+  const have = new Set(manifest().names)
+  const hits = search(args.join(' '), cat)
   if (!hits.length) console.log('nada')
-  for (const c of hits) console.log(`  ${tengo.has(c.n) ? '✓' : ' '} ${c.n.padEnd(30)} ${String(c.p).padStart(7)}  ${c.t.slice(0, 5).join(', ')}`)
+  for (const c of hits) console.log(`  ${have.has(c.n) ? '✓' : ' '} ${c.n.padEnd(30)} ${String(c.p).padStart(7)}  ${c.t.slice(0, 5).join(', ')}`)
   console.log(`\n  ✓ = ya está en el set`)
 } else {
   console.log(readFileSync(fileURLToPath(import.meta.url), 'utf8').split('*/')[0].replace(/^\/\*\*?/, '').replace(/^ \* ?/gm, ''))

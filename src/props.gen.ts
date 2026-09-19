@@ -2375,7 +2375,7 @@ export const propsByComponent: Record<string, ComponentDoc> = {
         "doc": "Cuánto suben las flechas y los botones."
       },
       {
-        "name": "salto",
+        "name": "pageStep",
         "type": "number",
         "required": false,
         "def": "10",

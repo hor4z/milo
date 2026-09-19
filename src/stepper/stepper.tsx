@@ -8,7 +8,7 @@ const clamp = (n: number, min: number, max: number) => Math.min(max, Math.max(mi
 
 /** Un número chico que se sube y se baja: cuántos intentos, cuántas preguntas, una nota. */
 export function Stepper({
-  value, onChange, min = 0, max = 99, step = 1, salto = 10, label, suffix, disabled, width = 132,
+  value, onChange, min = 0, max = 99, step = 1, pageStep = 10, label, suffix, disabled, width = 132,
 }: {
   /** El número. */
   value: number
@@ -19,7 +19,7 @@ export function Stepper({
   /** Cuánto suben las flechas y los botones. */
   step?: number
   /** Cuánto suben Re Pág y Av Pág: para llegar lejos sin apretar veinte veces. */
-  salto?: number
+  pageStep?: number
   /** De qué es el número. Sin esto lo pone el `Field` de alrededor. */
   label?: string
   /** Lo que va después del número: "min", "pts". No se escribe ni se lee aparte. */
@@ -35,7 +35,7 @@ export function Stepper({
 
   const onKey = (e: React.KeyboardEvent) => {
     const jumps: Record<string, number> = {
-      ArrowUp: step, ArrowDown: -step, PageUp: salto, PageDown: -salto,
+      ArrowUp: step, ArrowDown: -step, PageUp: pageStep, PageDown: -pageStep,
     }
     if (e.key in jumps) { e.preventDefault(); commit(value + jumps[e.key]); return }
     if (e.key === 'Home') { e.preventDefault(); commit(min) }

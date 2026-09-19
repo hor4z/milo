@@ -5,10 +5,10 @@ import { A11y, Page, Panel, Props, Section, Variant } from '../kit'
 export function SearchStory() {
   const [first, setFirst] = useState('')
   const [dos, setDos] = useState('fracciones')
-  const [tres, setTres] = useState('')
-  const [atajo, setAtajo] = useState('')
-  const [vacio, setVacio] = useState('')
-  const [lleno, setLleno] = useState('6.º B')
+  const [three, setThree] = useState('')
+  const [shortcut, setShortcut] = useState('')
+  const [empty, setEmpty] = useState('')
+  const [filled, setFilled] = useState('6.º B')
 
   return (
     <Page
@@ -23,9 +23,9 @@ export function SearchStory() {
       >
         <Panel>
           <Variant name="sm"><Search size="sm" value={first} onValueChange={setFirst} placeholder="Buscar una actividad" /></Variant>
-          <Variant name="md"><Search size="md" value={tres} onValueChange={setTres} placeholder="Buscar una actividad" /></Variant>
+          <Variant name="md"><Search size="md" value={three} onValueChange={setThree} placeholder="Buscar una actividad" /></Variant>
           <Variant name="con texto"><Search size="md" value={dos} onValueChange={setDos} /></Variant>
-          <Variant name="con atajo"><Search size="md" value={atajo} onValueChange={setAtajo} shortcut="/" placeholder="Buscar" /></Variant>
+          <Variant name="con atajo"><Search size="md" value={shortcut} onValueChange={setShortcut} shortcut="/" placeholder="Buscar" /></Variant>
         </Panel>
       </Section>
 
@@ -34,8 +34,8 @@ export function SearchStory() {
         note="Y eso es a propósito: mientras está vacío, lo que hace falta saber es cómo llegar; una vez que hay algo escrito, lo que hace falta es cómo salir. Nunca se necesitan los dos a la vez, así que no compiten por el espacio. Escribí en el primero y borrá el segundo."
       >
         <Panel>
-          <Variant name="vacío · el atajo"><Search value={vacio} onValueChange={setVacio} shortcut="/" /></Variant>
-          <Variant name="con texto · la cruz"><Search value={lleno} onValueChange={setLleno} shortcut="/" /></Variant>
+          <Variant name="vacío · el atajo"><Search value={empty} onValueChange={setEmpty} shortcut="/" /></Variant>
+          <Variant name="con texto · la cruz"><Search value={filled} onValueChange={setFilled} shortcut="/" /></Variant>
         </Panel>
       </Section>
 

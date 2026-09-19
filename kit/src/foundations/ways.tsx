@@ -2,7 +2,7 @@ import cls from './ways.module.css'
 import { BarChart, Icon, Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@milo/ui'
 import { Cluster, Footnote, Page, Section, Stack } from '../kit'
 
-const semana = [
+const week = [
   { label: 'Lun', value: 12, total: 18 },
   { label: 'Mar', value: 5, total: 14 },
   { label: 'Mié', value: 17, total: 19 },
@@ -96,7 +96,7 @@ export function WaysSection() {
       >
         <Cluster gap="lg" align="start">
           <div className={cls.pairBox}>
-            <BarChart data={semana} title="Corregidas sobre entregadas por día" height={140} />
+            <BarChart data={week} title="Corregidas sobre entregadas por día" height={140} />
             <Footnote>El gráfico, para el que lo lee de un vistazo.</Footnote>
           </div>
           <div className={cls.pairBox}>
@@ -109,7 +109,7 @@ export function WaysSection() {
                 </TableRow>
               </TableHeader>
               <TableBody>
-                {semana.map(d => (
+                {week.map(d => (
                   <TableRow key={d.label}>
                     <TableCell>{d.label}</TableCell>
                     <TableCell align="right">{d.value}</TableCell>

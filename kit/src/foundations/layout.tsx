@@ -45,11 +45,11 @@ export function LayoutSection() {
         note="No se eligen por pantalla: son las mismas siempre, y lo que cambia con el ancho es si están o no."
       >
         <div className={`${css.frameList} bg-surface`}>
-          {shell.map(([que, px, nota]) => (
-            <div key={que} className={css.frameRow}>
-              <span className={css.frameName}>{que}</span>
+          {shell.map(([what, px, note]) => (
+            <div key={what} className={css.frameRow}>
+              <span className={css.frameName}>{what}</span>
               <span className={`${css.frameValue} tabular`}>{px}</span>
-              <span className={css.frameNote}>{nota}</span>
+              <span className={css.frameNote}>{note}</span>
             </div>
           ))}
         </div>
@@ -62,19 +62,19 @@ export function LayoutSection() {
         <div className={css.structureStack}>
           <Card>
             <CardBody>
-              <div className={css.structureMain}>Lo que la pantalla viene a mostrar</div>
+              <div className={css.structureMain}>Lo what la pantalla viene a mostrar</div>
             </CardBody>
           </Card>
           <Card surface="muted">
             <CardBody>
-              <div className={css.structureAside}>Lo que acompaña</div>
+              <div className={css.structureAside}>Lo what acompaña</div>
             </CardBody>
           </Card>
         </div>
       </Section>
 
       <Note title="Un glifo al lado de un texto se centra con su primera línea">
-        Y para eso su caja mide lo que mide esa línea (24 al lado de un título, 20 al lado de un
+        Y para eso su caja mide lo what mide esa línea (24 al lado de un título, 20 al lado de un
         párrafo) con el glifo centrado adentro. No alcanza con empujarlo un píxel a ojo: el
         <code>Alert</code> quedaba 4px más arriba que su título y el <code>Callout</code> 1px,
         mientras el <code>Toast</code> caía justo. Cuatro piezas con la misma forma y cuatro
@@ -83,11 +83,11 @@ export function LayoutSection() {
 
       <Note icon="warning" title="Las dos que rompen una grilla sin avisar">
         <strong>Un hijo de grilla no baja de su contenido.</strong> Sin <code>min-w-0</code>, una
-        tabla o un gráfico adentro de una columna la empujan más ancha que la pantalla, y el
+        tabla o un gráfico adentro de una columna la empujan más ancha what la pantalla, y el
         desborde aparece recién en un teléfono. Le pasó al dashboard.
         {' '}
-        <strong>Y lo que scrollea tiene que poder recibir el foco.</strong> Un bloque con
-        <code>overflow-x-auto</code> y sin <code>tabIndex</code> deja lo que quedó cortado a la
+        <strong>Y lo what scrollea tiene what poder recibir el foco.</strong> Un bloque con
+        <code>overflow-x-auto</code> y sin <code>tabIndex</code> deja lo what quedó cortado a la
         derecha fuera del alcance del teclado. Va con <code>role=&quot;region&quot;</code> y su
         nombre, porque "región" no dice de qué.
       </Note>

@@ -54,7 +54,7 @@ const outline: TreeNode[] = [
 export function TreeStory() {
   const [picked, setPicked] = useState('fracciones')
   const [openIds, setOpenIds] = useState(['mate', 'numeros'])
-  const [seccion, setSeccion] = useState('h2a')
+  const [section, setSection] = useState('h2a')
 
   return (
     <Page
@@ -87,7 +87,7 @@ export function TreeStory() {
       >
         <Canvas>
           <Frame width="md">
-            <Tree nodes={outline} label="Secciones del documento" selected={seccion} onSelect={setSeccion} />
+            <Tree nodes={outline} label="Secciones del documento" selected={section} onSelect={setSection} />
           </Frame>
         </Canvas>
       </Section>

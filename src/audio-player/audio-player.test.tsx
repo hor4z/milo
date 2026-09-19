@@ -10,7 +10,7 @@ beforeAll(() => {
   HTMLMediaElement.prototype.pause = pause
 })
 
-function cargar(dur = 90) {
+function load(dur = 90) {
   const el = document.querySelector('audio')!
   Object.defineProperty(el, 'duration', { value: dur, configurable: true })
   Object.defineProperty(el, 'currentTime', { value: 0, writable: true, configurable: true })
@@ -27,14 +27,14 @@ describe('AudioPlayer', () => {
 
   it('con el archivo listo aparece el play y el reloj sabe cuánto dura', () => {
     render(<AudioPlayer src="/x.mp3" />)
-    cargar(90)
+    load(90)
     expect(screen.getByRole('button', { name: 'Reproducir' })).toBeEnabled()
     expect(screen.getByText('0:00 / 1:30')).toBeInTheDocument()
   })
 
   it('el botón cambia de nombre según lo que va a hacer', async () => {
     render(<AudioPlayer src="/x.mp3" />)
-    const el = cargar()
+    const el = load()
     await userEvent.click(screen.getByRole('button', { name: 'Reproducir' }))
     expect(play).toHaveBeenCalled()
     fireEvent.play(el)
@@ -45,7 +45,7 @@ describe('AudioPlayer', () => {
 
   it('la línea de tiempo es un slider y dice en voz alta dónde está', () => {
     render(<AudioPlayer src="/x.mp3" title="Consigna de Lengua" />)
-    cargar(90)
+    load(90)
     const s = screen.getByRole('slider', { name: 'Buscar en Consigna de Lengua' })
     expect(s).toHaveAttribute('aria-valuetext', '0:00 de 1:30')
     expect(s).toHaveAttribute('max', '90')
@@ -53,7 +53,7 @@ describe('AudioPlayer', () => {
 
   it('arrastrar la línea mueve el audio y el reloj', () => {
     render(<AudioPlayer src="/x.mp3" />)
-    const el = cargar(90)
+    const el = load(90)
     fireEvent.change(screen.getByRole('slider'), { target: { value: '45' } })
     expect(el.currentTime).toBe(45)
     expect(screen.getByText('0:45 / 1:30')).toBeInTheDocument()
@@ -61,7 +61,7 @@ describe('AudioPlayer', () => {
 
   it('el tiempo que avanza solo se ve en el reloj', () => {
     render(<AudioPlayer src="/x.mp3" />)
-    const el = cargar(90)
+    const el = load(90)
     Object.defineProperty(el, 'currentTime', { value: 7, writable: true, configurable: true })
     fireEvent.timeUpdate(el)
     expect(screen.getByText('0:07 / 1:30')).toBeInTheDocument()
@@ -96,7 +96,7 @@ describe('AudioPlayer', () => {
 
   it('una hora se lee como hora y no como noventa minutos', () => {
     render(<AudioPlayer src="/x.mp3" />)
-    cargar(3723)
+    load(3723)
     expect(screen.getByText('0:00 / 1:02:03')).toBeInTheDocument()
   })
 
@@ -115,9 +115,9 @@ describe('AudioPlayer', () => {
     fireEvent.play(a)
     expect(screen.getByRole('button', { name: 'Pausar' })).toBeInTheDocument()
 
-    const pausados = pause.mock.calls.length
+    const paused = pause.mock.calls.length
     fireEvent.play(b)
-    expect(pause.mock.calls.length).toBe(pausados + 1)
+    expect(pause.mock.calls.length).toBe(paused + 1)
   })
 
   it('las acciones de al lado se muestran', () => {

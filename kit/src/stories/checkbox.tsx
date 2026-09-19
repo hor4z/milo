@@ -4,8 +4,8 @@ import { Checkbox } from '@milo/ui'
 import { A11y, Page, Panel, Props, Section, Stack, Variant } from '../kit'
 
 export function CheckboxStory() {
-  const [espacios, setEspacios] = useState<string[]>(['Ciencias'])
-  const [parcial, setParcial] = useState(false)
+  const [spaces, setSpaces] = useState<string[]>(['Ciencias'])
+  const [partial, setPartial] = useState(false)
   const [a, setA] = useState(true)
   const [b, setB] = useState(false)
   const [c, setC] = useState(true)
@@ -26,7 +26,7 @@ export function CheckboxStory() {
             <Checkbox checked={b} onChange={setB} label="Sin marcar" />
             <Checkbox checked={a} onChange={setA} label="Marcada" />
           </Variant>
-          <Variant name="indeterminate"><Checkbox checked={parcial} indeterminate={!parcial} onChange={setParcial} label="Parcial" /></Variant>
+          <Variant name="indeterminate"><Checkbox checked={partial} indeterminate={!partial} onChange={setPartial} label="Parcial" /></Variant>
           <Variant name="disabled">
             <Checkbox checked onChange={() => {}} disabled label="Fija" />
             <Checkbox checked={false} onChange={() => {}} disabled label="Fija" />
@@ -47,8 +47,8 @@ export function CheckboxStory() {
               {['Geografía', 'Ciencias', 'Matemática'].map(x => (
                 <label key={x} className={cls.itemLabel}>
                   <Checkbox
-                    checked={espacios.includes(x)}
-                    onChange={v => setEspacios(e => (v ? [...e, x] : e.filter(n => n !== x)))}
+                    checked={spaces.includes(x)}
+                    onChange={v => setSpaces(e => (v ? [...e, x] : e.filter(n => n !== x)))}
                   />
                   {x}
                 </label>

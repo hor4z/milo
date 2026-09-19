@@ -82,12 +82,12 @@ export function AccessibilitySection() {
             ['sm', 36, 'ok', 'Pasa WCAG con holgura y está sobre el mínimo de Apple, debajo de su default. Es para una fila densa y con mouse.'],
             ['md', 40, 'ok', 'La acción dentro de un panel.'],
             ['lg', 44, 'ok', 'La acción principal. Es el único paso que llega al default de Apple, y llega en escritorio también.'],
-          ].map(([size, px, tone, nota]) => (
+          ].map(([size, px, tone, note]) => (
             <div key={size as string} className={`${cls.targetRow} bg-surface`}>
               <code className={cls.targetName}>{size}</code>
               <span className={`${cls.targetValue} tabular`}>{px}px</span>
               <Chip size="sm" color={tone as 'ok'}>≥ 24</Chip>
-              <span className={cls.targetNote}>{nota}</span>
+              <span className={cls.targetNote}>{note}</span>
             </div>
           ))}
         </Stack>

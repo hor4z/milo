@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/react'
-import { estilo } from '../__tests__/estilo'
+import { style } from '../__tests__/estilo'
 import s from './chip.module.css'
 import userEvent from '@testing-library/user-event'
 import { describe, expect, it, vi } from 'vitest'
@@ -51,9 +51,9 @@ describe('Chip', () => {
         <Chip color="purple">Taller</Chip>
       </>,
     )
-    const [estado, categoria] = [...container.children] as HTMLElement[]
-    expect(estilo(estado)).toContain('var(--warn')
-    expect(estado.className).not.toBe(categoria.className)
+    const [status, category] = [...container.children] as HTMLElement[]
+    expect(style(status)).toContain('var(--warn')
+    expect(status.className).not.toBe(category.className)
   })
 
   it('sm es más chico que md y es el que va pegado a un título', () => {

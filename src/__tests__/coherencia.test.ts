@@ -53,42 +53,42 @@ describe('coherencia del sistema', () => {
   })
 
   it('nadie usa un nombre de la escala vieja', () => {
-    const viejos = /\btext-(2xs|xs|sm|base|md|lg|xl|2xl)\b/
-    const offenders = sources.filter(f => viejos.test(f.text)).map(f => f.name)
+    const stale = /\btext-(2xs|xs|sm|base|md|lg|xl|2xl)\b/
+    const offenders = sources.filter(f => stale.test(f.text)).map(f => f.name)
     expect(offenders).toEqual([])
   })
 
   it('el interlineado y el tracking vienen del rol, no sueltos', () => {
-    const sueltos = /\b(leading|tracking)-(\[|none|tight|normal|snug|relaxed|loose|wide|wider|widest)/
-    const offenders = sources.filter(f => sueltos.test(f.text)).map(f => f.name)
+    const loose = /\b(leading|tracking)-(\[|none|tight|normal|snug|relaxed|loose|wide|wider|widest)/
+    const offenders = sources.filter(f => loose.test(f.text)).map(f => f.name)
     expect(offenders).toEqual([])
   })
 
   it('las duraciones salen de las dos del sistema', () => {
-    const sueltas = /\bduration-(\[|\d)/
-    const offenders = sources.filter(f => sueltas.test(f.text)).map(f => f.name)
+    const loose = /\bduration-(\[|\d)/
+    const offenders = sources.filter(f => loose.test(f.text)).map(f => f.name)
     expect(offenders).toEqual([])
   })
 
   it('las curvas también', () => {
-    const sueltas = /\bease-(\[|linear|initial)/
-    const offenders = sources.filter(f => sueltas.test(f.text)).map(f => f.name)
+    const loose = /\bease-(\[|linear|initial)/
+    const offenders = sources.filter(f => loose.test(f.text)).map(f => f.name)
     expect(offenders).toEqual([])
   })
 
   it('el espaciado sale de la grilla', () => {
-    const eje = 'p|px|py|pt|pb|pl|pr|m|mx|my|mt|mb|ml|mr|gap|gap-x|gap-y|space-y|space-x'
-    const outside = new RegExp(`(?<![\\w-])-?(${eje})-(1\\.5|2\\.5|3\\.5|7|9|11|13|14|15)(?![\\w.])`)
+    const axis = 'p|px|py|pt|pb|pl|pr|m|mx|my|mt|mb|ml|mr|gap|gap-x|gap-y|space-y|space-x'
+    const outside = new RegExp(`(?<![\\w-])-?(${axis})-(1\\.5|2\\.5|3\\.5|7|9|11|13|14|15)(?![\\w.])`)
     const offenders = sources.filter(f => outside.test(f.text)).map(f => f.name)
     expect(offenders).toEqual([])
   })
 
   it('un espaciado arbitrario va con un token adentro, no con un número', () => {
-    const eje = 'p|px|py|pt|pb|pl|pr|m|mx|my|mt|mb|ml|mr|gap|gap-x|gap-y|space-y|space-x'
-    const magico = new RegExp(`(?<![\\w-])-?(${eje})-\\[(?!var\\(|calc\\()`, 'g')
+    const axis = 'p|px|py|pt|pb|pl|pr|m|mx|my|mt|mb|ml|mr|gap|gap-x|gap-y|space-y|space-x'
+    const magic = new RegExp(`(?<![\\w-])-?(${axis})-\\[(?!var\\(|calc\\()`, 'g')
     const offenders: string[] = []
     for (const f of sources) {
-      for (const m of f.text.matchAll(magico)) offenders.push(`${f.name}: ${f.text.slice(m.index, m.index! + 18)}`)
+      for (const m of f.text.matchAll(magic)) offenders.push(`${f.name}: ${f.text.slice(m.index, m.index! + 18)}`)
     }
     expect(offenders).toEqual([])
   })
@@ -107,12 +107,12 @@ describe('coherencia del sistema', () => {
   })
 
   it('un panel anclado a un disparador usa la receta de cierre', () => {
-    const anclados = sources.filter(f =>
+    const anchored = sources.filter(f =>
       /getBoundingClientRect\(\)/.test(f.text) && /<Portal[\s>]/.test(f.text))
-    const sinReceta = anclados.filter(f => !/from '\.\.\/lib\/dismiss'/.test(f.text)).map(f => f.name)
-    expect(anclados.length, 'no se encontró ningún panel anclado: el guardián dejó de mirar').toBeGreaterThan(0)
+    const withoutRecipe = anchored.filter(f => !/from '\.\.\/lib\/dismiss'/.test(f.text)).map(f => f.name)
+    expect(anchored.length, 'no se encontró ningún panel anclado: el guardián dejó de mirar').toBeGreaterThan(0)
     expect(
-      sinReceta,
+      withoutRecipe,
       'mide a su disparador y flota en un portal, así que al scrollear la página se le despega: va useDismiss',
     ).toEqual([])
   })
@@ -125,32 +125,32 @@ describe('coherencia del sistema', () => {
   })
 
   it('nadie escribe un reloj ni un relativo a mano', () => {
-    const reloj = /(?<![\w:/-])\d{1,2}:\d{2}(?![\w:/-])/
-    const relativo = /\bhace \d+ ?(min\b|h\b|hs\b|d\b|mins\b)/
+    const clock = /(?<![\w:/-])\d{1,2}:\d{2}(?![\w:/-])/
+    const relative = /\bhace \d+ ?(min\b|h\b|hs\b|d\b|mins\b)/
     const offenders: string[] = []
     for (const f of sources) {
       if (f.name.startsWith('lib/time')) continue
-      const texto = f.text.replace(/^import .*$/gm, '')
-      if (reloj.test(texto)) offenders.push(`${f.name}: un reloj escrito a mano`)
-      if (relativo.test(texto)) offenders.push(`${f.name}: un relativo con la unidad abreviada`)
+      const text = f.text.replace(/^import .*$/gm, '')
+      if (clock.test(text)) offenders.push(`${f.name}: un reloj escrito a mano`)
+      if (relative.test(text)) offenders.push(`${f.name}: un relativo con la unidad abreviada`)
     }
     expect(offenders).toEqual([])
   })
 
   it('los iconos salen de la escala, también cuando el número llega por una tabla', () => {
-    const escala = new Set([12, 14, 16, 18, 20, 22])
+    const scale = new Set([12, 14, 16, 18, 20, 22])
     const offenders: string[] = []
     for (const f of sources) {
       for (const m of f.text.matchAll(/<Icon\b[^>]*?size=\{([^}]+)\}/gs)) {
-        const crudo = m[1].trim()
-        if (/^\d+$/.test(crudo)) {
-          if (!escala.has(Number(crudo))) offenders.push(`${f.name}: ${crudo}`)
+        const raw = m[1].trim()
+        if (/^\d+$/.test(raw)) {
+          if (!scale.has(Number(raw))) offenders.push(`${f.name}: ${raw}`)
           continue
         }
-        const clave = crudo.split('.').pop()!
-        if (!/^\w+$/.test(clave)) continue
-        for (const t of f.text.matchAll(new RegExp(`(?:^|[{,])\\s*${clave}:\\s*(\\d+)\\s*,`, 'gm'))) {
-          if (!escala.has(Number(t[1]))) offenders.push(`${f.name}: ${clave} vale ${t[1]}`)
+        const key = raw.split('.').pop()!
+        if (!/^\w+$/.test(key)) continue
+        for (const t of f.text.matchAll(new RegExp(`(?:^|[{,])\\s*${key}:\\s*(\\d+)\\s*,`, 'gm'))) {
+          if (!scale.has(Number(t[1]))) offenders.push(`${f.name}: ${key} vale ${t[1]}`)
         }
       }
     }
@@ -166,10 +166,10 @@ describe('coherencia del sistema', () => {
   it('el peso de display solo aparece en tamaño display', () => {
     const offenders: string[] = []
     for (const f of sources) {
-      for (const linea of f.text.split('\n')) {
-        if (!/\bfont-bold\b/.test(linea)) continue
-        if (/(['"`])font-bold\1/.test(linea)) continue
-        if (!/\btext-display\b/.test(linea)) offenders.push(`${f.name}: ${linea.trim().slice(0, 56)}`)
+      for (const line of f.text.split('\n')) {
+        if (!/\bfont-bold\b/.test(line)) continue
+        if (/(['"`])font-bold\1/.test(line)) continue
+        if (!/\btext-display\b/.test(line)) offenders.push(`${f.name}: ${line.trim().slice(0, 56)}`)
       }
     }
     expect(offenders).toEqual([])

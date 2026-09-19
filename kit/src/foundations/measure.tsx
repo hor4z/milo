@@ -21,7 +21,7 @@ const radii = [
 ] as const
 
 /** Los diez pasos, con el rol que los justifica. El rol es lo que hay que leer. */
-const espaciado = [
+const spacing = [
   { px: 2, role: 'el pelo: el inset de una pista, el aire de un punto' },
   { px: 4, role: 'adentro de una marca: un badge, un kbd' },
   { px: 8, role: 'lo que separa dos cosas de la misma fila' },
@@ -72,7 +72,7 @@ export function MeasureSection() {
           note="Antes esto no era una escala: los call sites tomaban los dieciocho valores de Tailwind, y dos cosas que hacen lo mismo quedaban separadas por 10 en un lado y por 12 en el otro. Eso no se ve como un error, se ve como desprolijidad, que es peor porque no se puede señalar. La grilla es de 4, con dos sub-pasos abajo."
         >
           <div className={`${css.spaceList} bg-surface`}>
-            {espaciado.map(e => (
+            {spacing.map(e => (
               <div key={e.px} className={css.spaceRow}>
                 <span className={css.spaceName}><Mono>{e.px}</Mono></span>
                 <span className={css.spaceBar} style={{ width: e.px }} />

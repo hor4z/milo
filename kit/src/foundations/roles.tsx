@@ -3,51 +3,51 @@ import { Icon, type IconName } from '@milo/ui'
 import { A11y, Note, Page, Rich, Section, Stack } from '../kit'
 
 type Role = {
-  nombre: string
+  name: string
   icon: IconName
-  quien: string
+  who: string
   ve: string[]
-  primero: string
-  evitar: string[]
-  nunca: string
+  first: string
+  avoid: string[]
+  never: string
 }
 
 const roles: Role[] = [
   {
-    nombre: 'Estudiante',
+    name: 'Estudiante',
     icon: 'school',
-    quien: 'Entra desde el celular, muchas veces entre una clase y otra. Tiene diez años o diecisiete, y la diferencia es enorme.',
+    who: 'Entra desde el celular, muchas veces entre una clase y otra. Tiene diez años o diecisiete, y la diferencia es enorme.',
     ve: ['Lo suyo: qué tiene que hacer y para cuándo', 'La devolución que le dejaron, entera', 'Cómo viene, contra sí mismo y no contra el curso'],
-    primero: 'La próxima entrega. Una sola, con su fecha.',
-    evitar: ['Comparaciones con compañeros: puestos, promedios del curso, quién entregó antes', 'Lo administrativo, que no es suyo', 'La jerga pedagógica: rúbrica, instancia, trayectoria'],
-    nunca: 'El dato de otro estudiante. Ni el nombre.',
+    first: 'La próxima entrega. Una sola, con su fecha.',
+    avoid: ['Comparaciones con compañeros: puestos, promedios del curso, quién entregó antes', 'Lo administrativo, que no es suyo', 'La jerga pedagógica: rúbrica, instancia, trayectoria'],
+    never: 'El dato de otro estudiante. Ni el nombre.',
   },
   {
-    nombre: 'Docente',
+    name: 'Docente',
     icon: 'person',
-    quien: 'Es quien más horas pasa adentro. Tolera y necesita densidad: ve treinta filas y las lee.',
+    who: 'Es quien más horas pasa adentro. Tolera y necesita densidad: ve treinta filas y las lee.',
     ve: ['Su curso entero, persona por persona', 'Quién entregó, quién no y quién está trabado', 'Lo que pide una acción suya hoy'],
-    primero: 'Lo que se le vence o lo que está esperando corrección.',
-    evitar: ['Su propio desempeño al lado del de otro docente', 'Esconder el detalle: acá el detalle es el trabajo', 'Confirmaciones para lo que se puede deshacer'],
-    nunca: 'Los cursos que no da.',
+    first: 'Lo que se le vence o lo que está esperando corrección.',
+    avoid: ['Su propio desempeño al lado del de otro docente', 'Esconder el detalle: acá el detalle es el trabajo', 'Confirmaciones para lo que se puede deshacer'],
+    never: 'Los cursos que no da.',
   },
   {
-    nombre: 'Familia',
+    name: 'Familia',
     icon: 'group',
-    quien: 'Entra una vez por trimestre, casi siempre porque le llegó un aviso. No va a aprender la interfaz.',
+    who: 'Entra una vez por trimestre, casi siempre porque le llegó un aviso. No va a aprender la interfaz.',
     ve: ['Lo de su hijo o hija, y nada más', 'Qué pasó y qué se espera de la familia', 'Las fechas que involucran a la casa'],
-    primero: 'Si hay algo para hacer, eso. Si no, cómo viene, en una frase.',
-    evitar: ['Métricas sin referencia: un 45% suelto asusta y no dice nada', 'La jerga del sistema y la pedagógica', 'Pedirle que navegue para encontrar lo importante'],
-    nunca: 'Otro estudiante, aunque sea del mismo curso.',
+    first: 'Si hay algo para hacer, eso. Si no, cómo viene, en una frase.',
+    avoid: ['Métricas sin referencia: un 45% suelto asusta y no dice nada', 'La jerga del sistema y la pedagógica', 'Pedirle que navegue para encontrar lo importante'],
+    never: 'Otro estudiante, aunque sea del mismo curso.',
   },
   {
-    nombre: 'Conducción',
+    name: 'Conducción',
     icon: 'dashboard',
-    quien: 'Mira la escuela, no una clase. Necesita ver lo que se sale de lo esperado sin abrir veinte pantallas.',
+    who: 'Mira la escuela, no una clase. Necesita ver lo que se sale de lo esperado sin abrir veinte pantallas.',
     ve: ['El agregado por curso, por espacio y por período', 'Lo que se desvía y hace cuánto', 'Dónde hace falta una decisión suya'],
-    primero: 'Lo que se salió de lo esperado, con el curso que lo explica.',
-    evitar: ['El detalle de una persona sin una razón: eso es del docente', 'Rankear docentes: un tablero que ordena cambia lo que el docente hace', 'Números sin el período contra el que se comparan'],
-    nunca: 'Leer una devolución individual como si fuera un dato agregado.',
+    first: 'Lo que se salió de lo esperado, con el curso que lo explica.',
+    avoid: ['El detalle de una persona sin una razón: eso es del docente', 'Rankear docentes: un tablero que ordena cambia lo que el docente hace', 'Números sin el período contra el que se comparan'],
+    never: 'Leer una devolución individual como si fuera un dato agregado.',
   },
 ]
 
@@ -63,7 +63,7 @@ export function RolesSection() {
         note="El orden no es de importancia: es el de cuánto tiempo pasa cada uno adentro, que es lo que decide cuánta densidad tolera."
       >
         <Stack>
-          {roles.map(r => <RoleCard key={r.nombre} rol={r} />)}
+          {roles.map(r => <RoleCard key={r.name} role={r} />)}
         </Stack>
       </Section>
 
@@ -83,9 +83,9 @@ export function RolesSection() {
 
       <Note title="Por qué esto es un fundamento y no una decisión de producto">
         Porque decide cosas del sistema, no de una pantalla. Es la razón por la que las tarjetas no
-        esconden acciones en hover: quien entra cuatro veces al año no descubre lo que aparece con
+        esconden acciones en hover: who entra cuatro veces al año no descubre lo que aparece con
         el mouse. Es la razón por la que el vacío siempre ofrece una salida. Y es la razón por la
-        que el texto va en segunda persona: quien lee puede tener diez años.
+        que el texto va en segunda persona: who lee puede tener diez años.
       </Note>
 
       <A11y
@@ -99,26 +99,26 @@ export function RolesSection() {
   )
 }
 
-function RoleCard({ rol }: { rol: Role }) {
+function RoleCard({ role }: { role: Role }) {
   return (
     <div className={`${cls.roleCard} bg-surface`}>
       <div className={cls.roleHead}>
         <span className={`${cls.roleBadge} inset-relief`}>
-          <Icon name={rol.icon} size={20} className="icon-muted" />
+          <Icon name={role.icon} size={20} className="icon-muted" />
         </span>
         <div className={cls.roleIdentity}>
-          <span className={cls.roleName}>{rol.nombre}</span>
-          <p className={cls.roleWho}>{rol.quien}</p>
+          <span className={cls.roleName}>{role.name}</span>
+          <p className={cls.roleWho}>{role.who}</p>
         </div>
       </div>
       <div className={cls.roleColumns}>
-        <Bullets title="Ve" items={rol.ve} />
-        <Bullets title="Evitar" items={rol.evitar} />
+        <Bullets title="Ve" items={role.ve} />
+        <Bullets title="Evitar" items={role.avoid} />
         <Stack gap="sm">
           <span className={cls.firstLabel}>Primero</span>
-          <span className={cls.firstText}>{rol.primero}</span>
+          <span className={cls.firstText}>{role.first}</span>
           <span className={cls.neverLabel}>Nunca</span>
-          <span className={cls.neverText}>{rol.nunca}</span>
+          <span className={cls.neverText}>{role.never}</span>
         </Stack>
       </div>
     </div>

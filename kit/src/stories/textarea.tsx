@@ -10,9 +10,9 @@ export function TextareaStory() {
   )
   const [noCap, setNoCap] = useState('Sin maxRows crece todo lo que haga falta.')
   const [mode, setMode] = useState('Crece con lo que escribís.')
-  const [devolucion, setDevolucion] = useState('Resolviste bien las dos primeras. En la tercera te falta justificar por qué la pendiente da la mitad de g.')
-  const [cerca, setCerca] = useState('Le puse un techo corto para que veas qué pasa al final.')
-  const [corta, setCorta] = useState('Bien')
+  const [feedback, setFeedback] = useState('Resolviste bien las dos primeras. En la tercera te falta justificar por qué la pendiente da la mitad de g.')
+  const [near, setNear] = useState('Le puse un techo corto para que veas qué pasa al final.')
+  const [belowMin, setBelowMin] = useState('Bien')
 
   return (
     <Page
@@ -56,8 +56,8 @@ export function TextareaStory() {
           <Demo width="sm" fill label="mientras sobra lugar">
             <Textarea
               aria-label="Devolución para el estudiante"
-              value={devolucion}
-              onChange={e => setDevolucion(e.target.value)}
+              value={feedback}
+              onChange={e => setFeedback(e.target.value)}
               counter
               maxLength={400}
               rows={3}
@@ -67,8 +67,8 @@ export function TextareaStory() {
           <Demo width="sm" fill label="cerca del techo">
             <Textarea
               aria-label="Devolución con techo corto"
-              value={cerca}
-              onChange={e => setCerca(e.target.value)}
+              value={near}
+              onChange={e => setNear(e.target.value)}
               counter
               maxLength={60}
               rows={3}
@@ -78,8 +78,8 @@ export function TextareaStory() {
           <Demo width="sm" fill label="todavía no llega al mínimo">
             <Textarea
               aria-label="Devolución con mínimo"
-              value={corta}
-              onChange={e => setCorta(e.target.value)}
+              value={belowMin}
+              onChange={e => setBelowMin(e.target.value)}
               counter
               minLength={20}
               maxLength={400}

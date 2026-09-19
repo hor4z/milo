@@ -90,11 +90,11 @@ export function InclusionSection() {
             ['Tercera persona', 'El docente debe revisar las entregas de sus alumnos.', 'obliga a elegir'],
             ['Desdoblado', 'Los y las docentes deben revisar las entregas de sus alumnos y alumnas.', 'el doble de largo'],
             ['Segunda persona', 'Revisá las entregas del curso.', 'ni género ni relleno'],
-          ].map(([title, frase, veredicto], i) => (
+          ].map(([title, phrase, verdict], i) => (
             <div key={title} className={`${cls.personCard} bg-surface`}>
               <span className={cls.personLabel}>{title}</span>
-              <p className={cls.personPhrase}>{frase}</p>
-              <Chip color={i === 2 ? 'green' : 'orange'} icon={i === 2 ? 'check' : 'warning'}>{veredicto}</Chip>
+              <p className={cls.personPhrase}>{phrase}</p>
+              <Chip color={i === 2 ? 'green' : 'orange'} icon={i === 2 ? 'check' : 'warning'}>{verdict}</Chip>
             </div>
           ))}
         </div>

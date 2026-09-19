@@ -8,14 +8,14 @@ import { Note, Page, Ramp, Rich, Section, Stack, Swatch, useTokens } from '../ki
 const blue = ['--blue-050', '--blue-100', '--blue-200', '--blue-300', '--blue-400', '--blue-500', '--blue-600', '--blue-700', '--blue-800', '--blue-900'] as const
 const yellow = ['--yellow-050', '--yellow-100', '--yellow-200', '--yellow-300', '--yellow-400', '--yellow-500', '--yellow-600', '--yellow-700', '--yellow-800', '--yellow-900'] as const
 const gris = ['--shade-01', '--shade-02', '--shade-03', '--shade-04', '--shade-05', '--shade-06', '--shade-07', '--shade-08', '--shade-09'] as const
-const ambar = ['--accent-050', '--accent-500', '--accent-600'] as const
+const amber = ['--accent-050', '--accent-500', '--accent-600'] as const
 
 const marks = ['--mark-green', '--mark-purple', '--mark-orange', '--mark-blue', '--mark-pink'] as const
 const labels = ['--label-green', '--label-teal', '--label-blue', '--label-purple', '--label-pink', '--label-orange'] as const
 const tints = ['--tint-1', '--tint-2', '--tint-3', '--tint-4', '--tint-5', '--tint-6'] as const
 const spaces = ['--space-green', '--space-purple', '--space-orange', '--space-blue', '--space-pink'] as const
 
-const cual = [
+const which = [
   ['La acción principal de una pantalla', '`--brand` o `--solid`', 'El botón que manda, y uno solo por pantalla'],
   ['Algo que el sistema quiere que mires', '`--accent`', 'El punto de "hay algo nuevo"'],
   ['Cómo salió algo que pasó', 'los cuatro de estado', 'Corregida, vence mañana, sin entregar'],
@@ -76,7 +76,7 @@ export function ColorSection() {
             </TableRow>
           </TableHeader>
           <TableBody>
-            {cual.map(([q, r, e]) => (
+            {which.map(([q, r, e]) => (
               <TableRow key={q}>
                 <TableCell>{q}</TableCell>
                 <TableCell><Rich text={r} /></TableCell>
@@ -118,7 +118,7 @@ export function ColorSection() {
         title="El naranja, y por qué es tan poco"
         note="Es el único acento y está acotado a propósito: un punto de aviso, una marca de que algo cambió. Si empieza a aparecer en botones y en fondos, deja de señalar."
       >
-        <Ramp tokens={ambar} />
+        <Ramp tokens={amber} />
         <div className={cls.orangeRamp}>
           <Swatch token="--accent" note="el punto que señala" />
           <Swatch token="--accent-hover" note="el mismo, un paso más" />
@@ -235,32 +235,32 @@ export function ColorSection() {
       >
         <Stack>
           <Family
-            nombre="mark"
-            para="La marca de 44 de una fila, la inicial de un avatar"
+            name="mark"
+            usedFor="La marca de 44 de una fila, la inicial de un avatar"
             note="Pastel con el glifo del mismo tono varios pasos más oscuro: tiene lugar para leerse entera sin gritarle al título de al lado."
             tokens={marks}
           />
           <Family
-            nombre="label"
-            para="Lo chico: un chip, el cuadradito de icono de una tarjeta"
+            name="label"
+            usedFor="Lo chico: un chip, el cuadradito de icono de una tarjeta"
             note="Vivos, todos con el mismo texto blanco encima. En orden de rueda, porque quien los usa reparte por hash y desordenados dos nombres seguidos caían en dos tonos casi iguales."
             tokens={labels}
           />
           <Family
-            nombre="tint"
-            para="Una superficie grande teñida. Hoy no la usa ninguna pieza"
+            name="tint"
+            usedFor="Una superficie grande teñida. Hoy no la usa ninguna pieza"
             note="Apagados porque llevan un dibujo en tinta encima. Se quedan para cuando haga falta, y que no los use nadie conviene que esté a la vista."
             tokens={tints}
           />
           <Family
-            nombre="space"
-            para="La carpeta de un espacio"
+            name="space"
+            usedFor="La carpeta de un espacio"
             note="El único color que se dibuja con SVG, porque la carpeta es bicolor y una fuente monocroma no puede."
             tokens={spaces}
           />
         </Stack>
         <Note title="Antes de teñir algo">
-          Los roles vivieron un rato juntos bajo el mismo nombre y de ahí salieron dos bugs: los
+          Los roles vivieron un rato juntos bajo el mismo name y de ahí salieron dos bugs: los
           chips quedaron pastel cuando ya tenían que ser vivos, y al pasarlos a vivos se llevó
           puesta la marca de la lista, que tenía que quedar pastel.
         </Note>
@@ -310,12 +310,12 @@ function Group({ title, children }: { title: string; children: React.ReactNode }
   )
 }
 
-function Family({ nombre, para, note, tokens }: { nombre: string; para: string; note: string; tokens: readonly string[] }) {
+function Family({ name, usedFor, note, tokens }: { name: string; usedFor: string; note: string; tokens: readonly string[] }) {
   return (
     <div className={`${cls.familyCard} bg-surface`}>
       <div className={cls.familyMeta}>
-        <code className={cls.familyName}>{nombre}</code>
-        <span className={cls.familyUse}>{para}</span>
+        <code className={cls.familyName}>{name}</code>
+        <span className={cls.familyUse}>{usedFor}</span>
         <p className={cls.familyNote}>{note}</p>
       </div>
       <div className={cls.familySwatches}>

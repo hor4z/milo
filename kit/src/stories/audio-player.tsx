@@ -121,10 +121,10 @@ export function AudioPlayerStory() {
 
       <Section title="Las reglas" note="Valen para cualquier pantalla que reproduzca audio.">
         <div className={`${cls.ruleList} bg-surface`}>
-          {rules.map(([regla, porque]) => (
-            <div key={regla} className={cls.ruleRow}>
-              <span className={cls.ruleName}>{regla}</span>
-              <span className={cls.ruleNote}><Rich text={porque} /></span>
+          {rules.map(([rule, why]) => (
+            <div key={rule} className={cls.ruleRow}>
+              <span className={cls.ruleName}>{rule}</span>
+              <span className={cls.ruleNote}><Rich text={why} /></span>
             </div>
           ))}
         </div>
