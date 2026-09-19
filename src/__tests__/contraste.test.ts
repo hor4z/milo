@@ -90,15 +90,29 @@ describe('el relleno que lleva texto encima llega a AA', () => {
 })
 
 describe('el hover no deshace el anclaje', () => {
-  const theme = readFileSync(join(import.meta.dirname, '../theme.css'), 'utf8')
+  /** Cada variante de control: su relleno en reposo, el del hover, y la tinta
+   *  que lleva encima. Cuando los botones tenían relieve esto se verificaba
+   *  sobre las recetas de `theme.css`; en plano lo que hay que mirar es que el
+   *  paso del hover siga aguantando su propio texto. */
+  const variantes: [string, string, string][] = [
+    ['--brand', '--brand-hover', '--on-brand'],
+    ['--solid', '--solid-hover', '--on-solid'],
+    ['--surface-muted', '--surface-sunken', '--text'],
+    ['--bad', '--bad-hover', '--on-bad'],
+  ]
 
-  it('ningún relleno con texto encima se aclara al pasar el mouse', () => {
-    const rules = [...theme.matchAll(/\.raised-(brand|solid)[^{]*:hover[^{]*\{([^}]*)\}/g)]
-    const aclaran = rules
-      .filter(m => /brightness\(1\.[1-9]|brightness\(1\.0[1-9]/.test(m[2]))
-      .map(m => m[1])
-    expect(aclaran).toEqual([])
-  })
+  for (const theme of ['light', 'dark'] as const) {
+    for (const [reposo, hover, tinta] of variantes) {
+      it(`${hover} sigue aguantando ${tinta} en ${theme}`, () => {
+        const a = value(hover, theme)
+        const b = value(tinta, theme)
+        expect(a, `falta ${hover} en ${theme}`).toBeTruthy()
+        expect(b, `falta ${tinta} en ${theme}`).toBeTruthy()
+        expect(ratio(a!, b!), `${reposo} da ${ratio(value(reposo, theme)!, b!).toFixed(2)}`)
+          .toBeGreaterThanOrEqual(4.5)
+      })
+    }
+  }
 
   it('el degradado del hover es más oscuro que el de reposo', () => {
     for (const t of ['light', 'dark'] as const) {

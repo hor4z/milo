@@ -2,11 +2,8 @@ import css from './relief.module.css'
 import { Note, Page, Section, Stack } from '../kit'
 
 const recipes = [
-  { cls: 'raised', back: css.plateRaised, token: '--relief-raised', role: 'el botón gris que sobresale', detail: 'degradado, luz al 33%, canto y caída corta' },
-  { cls: 'raised-solid', back: css.plateSolid, token: '--relief-solid', role: 'el botón oscuro', detail: 'luz al 15% arriba, labio oscuro abajo, canto un paso más claro' },
   { cls: 'pressed', back: css.platePressed, token: '--relief-pressed', role: 'un toggle con su panel abierto', detail: 'la sombra entra desde abajo, sin canto' },
   { cls: 'inset-relief', back: css.plateInset, token: '--relief-inset', role: 'lo hundido que es una marca', detail: 'kbd, la pista de un segmented: lleva canto y caída' },
-  { cls: 'raised-brand', back: css.plateBrand, token: '--relief-brand', role: 'el botón azul', detail: 'el mismo volumen que el oscuro, con el labio y el canto en azul; apretado baja a --relief-brand-pressed' },
   { cls: 'mark', back: css.plateMark, token: '--relief-mark', role: 'una marca de fila o la inicial de un avatar', detail: 'canto adentro, labio abajo y una caída de un píxel, todo en el tono de la marca' },
 ] as const
 
@@ -21,7 +18,7 @@ export function ReliefSection() {
     <Page
       title="Relieve"
       kind="Fundamentos"
-      lead="Es lo que le da carácter al sistema y lo que más costó acertar. Cinco recetas, todas mezclando luz interior arriba y sombra abajo. Marca lo que se aprieta y lo que sobresale; dónde estás parado lo marca el azul, que para eso es el primario."
+      lead="Marca lo que se aprieta y lo que sobresale, mezclando luz interior arriba y sombra abajo. Los botones ya no lo usan: van planos, y lo que los separa del fondo es el relleno. Lo que queda con volumen es lo hundido, que es donde el relieve dice algo que el color no puede decir."
     >
       <Note icon="layers" title="Lo que el relieve dejó de tener que hacer">
         Durante un tiempo el relieve era lo único que separaba una tarjeta del fondo: el papel de

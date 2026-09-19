@@ -1,14 +1,4 @@
 @layer milo.app {
-  .plateRaised {
-    background-color: var(--surface-muted);
-    color: var(--text);
-  }
-
-  .plateSolid {
-    background-color: var(--solid);
-    color: var(--on-solid);
-  }
-
   .platePressed {
     background-color: var(--surface-muted);
     color: var(--text);
@@ -17,11 +7,6 @@
   .plateInset {
     background-color: var(--surface-muted);
     color: var(--text);
-  }
-
-  .plateBrand {
-    background-color: var(--brand);
-    color: var(--on-brand);
   }
 
   .plateMark {

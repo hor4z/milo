@@ -82,25 +82,6 @@ strong, b { font-weight: var(--font-weight-semibold); }
   inherits: false;
 }
 
-.raised {
-  --relief: var(--relief-raised);
-  background: var(--grad-raised);
-  box-shadow: var(--relief);
-}
-.raised:hover { filter: brightness(0.985); }
-.raised:active { --relief: var(--relief-inset); filter: brightness(0.97); }
-
-.raised-solid { --relief: var(--relief-solid); box-shadow: var(--relief); }
-.raised-solid:active { --relief: var(--relief-inset); }
-
-.raised-brand {
-  --relief: var(--relief-brand);
-  background: var(--grad-brand);
-  box-shadow: var(--relief);
-}
-.raised-brand:hover { background: var(--grad-brand-hover); }
-.raised-brand:active { background: var(--grad-brand-hover); --relief: var(--relief-brand-pressed); }
-
 .pressed { --relief: var(--relief-pressed); box-shadow: var(--relief); }
 
 .inset-relief { --relief: var(--relief-inset); box-shadow: var(--relief); }
