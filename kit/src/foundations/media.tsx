@@ -171,16 +171,16 @@ export function MediaSection() {
           </div>
         </Cluster>
         <Footnote>
-          La decorativa no lleva un alt vacío por descuido: lo lleva a propósito, para what el lector de
+          La decorativa no lleva un alt vacío por descuido: lo lleva a propósito, para que el lector de
           pantalla la saltee en vez de leer un nombre de archivo.
         </Footnote>
       </Section>
 
       <Note title="De dónde sale esto">
-        Las cuatro formas escritas, la proporción original del video, el volumen what es del sistema y los
-        controles what no se reinterpretan salen de las Human Interface Guidelines de Apple, what es la
-        referencia what este sistema toma para lo what ya está resuelto en otro lado. Lo what no sale de ahí
-        es el peso en una red escolar y el "nada arranca solo", what son de acá.
+        Las cuatro formas escritas, la proporción original del video, el volumen que es del sistema y los
+        controles que no se reinterpretan salen de las Human Interface Guidelines de Apple, que es la
+        referencia que este sistema toma para lo que ya está resuelto en otro lado. Lo que no sale de ahí
+        es el peso en una red escolar y el "nada arranca solo", que son de acá.
       </Note>
 
       <Section

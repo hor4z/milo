@@ -97,8 +97,8 @@ export function NumbersSection() {
 
       <Note title="La matemática del contenido es otra cosa">
         Esto es cómo el sistema escribe un dato suyo. Una fracción, una ecuación o una unidad que
-        son parte de lo que alguien está enseñando las escribe una persona y se rigen by cómo se
-        lee la matemática, no by esta guía. La regla que sí cruza: una fracción adentro de un
+        son parte de lo que alguien está enseñando las escribe una persona y se rigen por cómo se
+        lee la matemática, no por esta guía. La regla que sí cruza: una fracción adentro de un
         renglón va con barra, `3/4`, porque apilada cae abajo del piso de 12px del sistema.
       </Note>
 

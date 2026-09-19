@@ -83,9 +83,9 @@ export function RolesSection() {
 
       <Note title="Por qué esto es un fundamento y no una decisión de producto">
         Porque decide cosas del sistema, no de una pantalla. Es la razón por la que las tarjetas no
-        esconden acciones en hover: who entra cuatro veces al año no descubre lo que aparece con
+        esconden acciones en hover: quien entra cuatro veces al año no descubre lo que aparece con
         el mouse. Es la razón por la que el vacío siempre ofrece una salida. Y es la razón por la
-        que el texto va en segunda persona: who lee puede tener diez años.
+        que el texto va en segunda persona: quien lee puede tener diez años.
       </Note>
 
       <A11y
