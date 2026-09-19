@@ -200,22 +200,16 @@ describe('accesibilidad documentada', () => {
 })
 
 describe('los números de la portada', () => {
-  it('la landing no anuncia menos tests de los que hay', () => {
+  it('la cantidad de piezas que anuncia es la de las carpetas', () => {
     const intro = readFileSync(join(import.meta.dirname, '../intro.tsx'), 'utf8')
-    const announced = Number(intro.match(/\['(\d+)', 'tests'\]/)?.[1])
-
-    const root = join(import.meta.dirname, '../../..')
-    const walk = (base: string): string[] =>
-      readdirSync(base, { withFileTypes: true }).flatMap(e =>
-        e.isDirectory() ? walk(join(base, e.name)) : /\.test\.tsx?$/.test(e.name) ? [join(base, e.name)] : [])
-    const files = [...walk(join(root, 'src')), ...walk(import.meta.dirname)]
-    const written = files.reduce(
-      (n, f) => n + [...readFileSync(f, 'utf8').matchAll(/^\s*it\(/gm)].length, 0)
-
+    const announced = Number(intro.match(/\['(\d+)', 'piezas'\]/)?.[1])
+    const src = join(import.meta.dirname, '../../../src')
+    const reales = readdirSync(src, { withFileTypes: true })
+      .filter(e => e.isDirectory() && !['styles', 'lib', '__tests__'].includes(e.name)).length
     expect(
       announced,
-      `la landing dice ${announced} y hay al menos ${written} tests escritos`,
-    ).toBeGreaterThanOrEqual(written)
+      `la portada dice ${announced} piezas y en src/ hay ${reales} carpetas`,
+    ).toBe(reales)
   })
 
   it('la cantidad de iconos que anuncia es la del manifiesto', () => {

@@ -18,7 +18,7 @@ final son lo único que hay que tocar.
 npm install
 npm run dev        # el sitio · http://localhost:5190
 npm run typecheck  # el paquete y el sitio de una
-npm test           # 705 tests con vitest y testing-library
+npm test           # 782 tests con vitest y testing-library
 npm run build      # compila el paquete a dist/ (js, css y tipos)
 npm run props      # regenera la tabla de props desde los tipos
 ```
@@ -501,7 +501,7 @@ Lo mismo vale para los tipos que una pieza recibe como argumento (`ToastOptions`
 
 ## Los tests
 
-`npm test` corre vitest con jsdom y testing-library. 705 tests, y lo que prueban es el
+`npm test` corre vitest con jsdom y testing-library. 782 tests, y lo que prueban es el
 comportamiento (teclado, nombres accesibles, estados) y no el markup, que cambia con cada
 ajuste de estilo. El test de cada pieza vive en su carpeta, al lado del componente.
 
@@ -569,6 +569,14 @@ sufijo del export**, `Story` o `Section`, y lo que no termina así no lo dibuja 
 se llamaban distinto, así que dos vistas de Fundamentos nunca se dibujaron en un test y nadie se
 enteró: el número de vistas no se movía al sacarlas. Ahora falla si un archivo tiene un `<Page>` y
 ningún export que termine en `Story` o en `Section`.
+
+**Y cuatro dibujan el sitio entero**, que hasta ahora no lo hacía ninguno: `App`, la portada, el
+dashboard y el documento quedaban fuera del glob de `prosa`, que solo mira `stories/`,
+`foundations/` y `mascots/`. Uno abre las setenta y dos entradas del riel más el dashboard y el
+documento, y falla si alguna cae en "Esa vista ya no está acá" o se dibuja sin un encabezado. Otro
+dibuja la portada. Otro verifica que ningún botón de la portada mande a una vista que ya no existe,
+que es justo lo que se rompió al sacar Principios. Y el cuarto compara los números que la portada
+anuncia contra la realidad.
 
 Y cincuenta y nueve leen los tokens y calculan contraste: cada tono de estado contra su fondo, el
 gris del texto secundario contra las superficies sobre las que se escribe, el gris del texto
@@ -653,6 +661,12 @@ un aula:
   96 apariciones de la maquinaria de gradiente de Tailwind escrita a mano
   (`--milo-gradient-from/via/to/stops`, casi todas adentro de un `transition-property` que no anima
   nada), y 56 `transition-duration: 150ms` seguidas de la `var(--duration-fast)` que sí vale.
+- **La portada anuncia piezas y ya no tests**, porque el número de tests no se puede verificar
+  leyendo archivos y se vencía solo: decía 687 cuando había 783, y el guardián que lo miraba era un
+  piso (`>=` contra los `it(` que se pueden contar en el texto) en vez de una igualdad, así que no
+  avisaba nunca. Las piezas son las carpetas de `src/`, que un test cuenta y compara exacto, igual
+  que los iconos. Si alguna vez se quiere el número de tests ahí, tiene que salir de un archivo
+  generado, como `props.gen.ts`.
 - **Cuatro cosas del relieve no las usa nadie.** Medido al achicar la vista de Relieve:
   `--relief-solid`, `--relief-brand` y `--relief-brand-pressed` no tienen un solo consumidor, y la
   clase global `.pressed` de `base.css` tampoco (el `.pressed` de `Button` y de `IconButton` es una
@@ -689,8 +703,8 @@ un aula:
 - **Recuperar `ss04` y el cero barrado** pide auto-alojar Inter: 69 KB subseteada a latín, con la
   receta de `pyftsubset` anotada. Se eligió el CDN; si algún día una red escolar filtra Google
   Fonts, la decisión se da vuelta y el trabajo ya está pensado.
-- **El sitio entra en un solo bundle de 750 KB (234 gzip) y `vite build` avisa.** Son las 72
-  vistas importadas de una: nada está mal, está todo junto. La salida es `lazy` por historia con
+- **El sitio entra en un solo bundle de 750 KB (234 gzip) y `vite build` avisa.** Son las 75
+  vistas importadas de una (72 entradas del riel, más la portada, el dashboard y el documento): nada está mal, está todo junto. La salida es `lazy` por historia con
   un `Skeleton` de espera, y el costo es un parpadeo por navegación en una pantalla que hoy es
   instantánea. No se hizo porque es una decisión sobre cómo se siente el sitio y no un bug.
 - **El paquete no tiene un consumidor de verdad todavía.** Se verificó instalándolo en un
