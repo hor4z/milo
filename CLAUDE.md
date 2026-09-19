@@ -4,7 +4,7 @@ El sistema de interfaz de milo: la identidad en tokens, las piezas que la usan, 
 donde se ve todo funcionando. No es una lámina de estilos: cada pieza de acá es el componente
 real, con su teclado, sus estados y sus tests.
 
-**El repo es del design system y de nada más.** El UI kit (las 63 piezas) es una parte; las
+**El repo es del design system y de nada más.** El UI kit (las 64 piezas) es una parte; las
 otras son los tokens y lo que el sitio documenta alrededor. Acá adentro no vive producto: el
 prototipo de la app que hubo hasta ahora se borró, y cuando haga falta uno de nuevo se arma
 aparte.
@@ -18,7 +18,7 @@ final son lo único que hay que tocar.
 npm install
 npm run dev        # el sitio · http://localhost:5190
 npm run typecheck  # el paquete y el sitio de una
-npm test           # 687 tests con vitest y testing-library
+npm test           # 711 tests con vitest y testing-library
 npm run build      # compila el paquete a dist/ (js, css y tipos)
 npm run props      # regenera la tabla de props desde los tipos
 ```
@@ -201,7 +201,7 @@ módulos, obliga a `s['card-header']` en TS y eso lo daría por muerto. Hay un t
 Si dos reglas se parecen tanto que dan ganas de numerarlas, lo que las separa es el nombre:
 `trackRest` y `trackActive`, no `track` y `track2`.
 
-**El léxico**, una palabra por papel y la misma en las 63 piezas:
+**El léxico**, una palabra por papel y la misma en las 64 piezas:
 
 | | |
 |---|---|
@@ -416,7 +416,7 @@ Un paquete, `@milo/ui`, y adentro el sitio que lo documenta:
 src/                    theme.css (las capas) · styles/ (reset, base y tokens/) ·
                         index.ts (la puerta) ·
                         una carpeta por pieza: button/button.tsx + button/button.test.tsx,
-                        y así las 63 (select, modal, toast, chart, table…)
+                        y así las 64 (select, modal, toast, chart, table…)
                         lib/ lo compartido que no es un componente: cx · colors ·
                         control · tone · time · number · esc · overlay-hooks ·
                         roving · side-scroll · dismiss
@@ -508,7 +508,7 @@ Lo mismo vale para los tipos que una pieza recibe como argumento (`ToastOptions`
 
 ## Los tests
 
-`npm test` corre vitest con jsdom y testing-library. 687 tests, y lo que prueban es el
+`npm test` corre vitest con jsdom y testing-library. 711 tests, y lo que prueban es el
 comportamiento (teclado, nombres accesibles, estados) y no el markup, que cambia con cada
 ajuste de estilo. El test de cada pieza vive en su carpeta, al lado del componente.
 
