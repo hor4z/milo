@@ -6,6 +6,7 @@ import {
 import { Note, Page, Ramp, Rich, Section, Stack, Swatch, useTokens } from '../kit'
 
 const blue = ['--blue-050', '--blue-100', '--blue-200', '--blue-300', '--blue-400', '--blue-500', '--blue-600', '--blue-700', '--blue-800', '--blue-900'] as const
+const yellow = ['--yellow-050', '--yellow-100', '--yellow-200', '--yellow-300', '--yellow-400', '--yellow-500', '--yellow-600', '--yellow-700', '--yellow-800', '--yellow-900'] as const
 const gris = ['--shade-01', '--shade-02', '--shade-03', '--shade-04', '--shade-05', '--shade-06', '--shade-07', '--shade-08', '--shade-09'] as const
 const ambar = ['--accent-050', '--accent-500', '--accent-600'] as const
 
@@ -123,6 +124,33 @@ export function ColorSection() {
           <Swatch token="--accent-hover" note="el mismo, un paso más" />
           <Swatch token="--accent-subtle" note="el fondo suave" />
         </div>
+      </Section>
+
+      <Section
+        title="El amarillo, y por qué lleva tinta oscura"
+        note="La segunda familia con escalera propia. Repite la curva de luminosidad del azul, para que un 100 signifique la misma altura en las dos, y toma de croma el 76% de lo que su tono aguanta en cada paso. **El 100 está anclado**: es el color elegido, y de ahí sale `--yellow`."
+      >
+        <Ramp tokens={yellow} />
+        <div className={cls.blueRamp}>
+          <Swatch token="--yellow" note="el relleno" />
+          <Swatch token="--yellow-hover" note="el mismo, un paso más" />
+          <Swatch token="--yellow-soft" note="el fondo suave" />
+          <Swatch token="--yellow-border" note="la línea" />
+          <Swatch token="--yellow-ink" note="la tinta sobre el suave" />
+          <Swatch token="--on-yellow" note="lo que va encima del amarillo" />
+        </div>
+        <Note title="Acá el blanco no es una opción, y por eso la regla es al revés">
+          Las otras familias de relleno llevan blanco encima porque están ancladas a un contraste
+          contra blanco. El amarillo no puede: su mejor paso llega a 1,31:1 contra blanco, y no
+          existe un amarillo vivo que llegue a 4,5. Así que la familia se ancla al revés, contra la
+          tinta, y `--on-yellow` es oscuro en los dos temas. Los cinco pasos claros van de 4,94:1 a
+          12,20:1 con esa tinta, y hay un test que lo verifica escalón por escalón y que además
+          falla si alguno llegara a aguantar blanco, porque eso querría decir que el tono se fue.
+        </Note>
+        <Note title="En oscuro la escalera se da vuelta">
+          Igual que la del azul: el 050 pasa a ser el más oscuro y el 900 el más claro. El relleno
+          sube del 100 al 800, que es donde la tinta oscura vuelve a entrar con 9,28:1.
+        </Note>
       </Section>
 
       <Section

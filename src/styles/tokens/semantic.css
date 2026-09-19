@@ -37,6 +37,16 @@
   --brand-soft-strong: var(--blue-100);
   --brand-border: var(--blue-200);
 
+  /* El amarillo lleva tinta oscura y nunca blanca: no hay amarillo vivo que
+     aguante blanco encima. Por eso el relleno vive en la parte clara de la
+     escalera y `--on-yellow` es la tinta del sistema. */
+  --yellow: var(--yellow-100);
+  --yellow-hover: var(--yellow-200);
+  --on-yellow: var(--on-label);
+  --yellow-soft: var(--yellow-050);
+  --yellow-border: var(--yellow-300);
+  --yellow-ink: var(--yellow-800);
+
   --on-label: #121212;
 
   --accent: var(--accent-500);
@@ -170,6 +180,15 @@
   --brand-hover: var(--blue-500);
   --brand-edge: var(--blue-300);
   --brand-lip: var(--blue-300);
+
+  /* En oscuro la escalera se da vuelta, así que el relleno sube al 800 para
+     que la tinta oscura siga entrando. */
+  --yellow: var(--yellow-800);
+  --yellow-hover: var(--yellow-700);
+  --on-yellow: var(--on-label);
+  --yellow-soft: var(--yellow-100);
+  --yellow-border: var(--yellow-500);
+  --yellow-ink: var(--yellow-800);
 
   --space-orange: #f0913f;
   --space-green: #55b377;

@@ -3,12 +3,24 @@ import { readFileSync } from 'node:fs'
 import { join } from 'node:path'
 
 const css = readFileSync(join(import.meta.dirname, '../styles/tokens/primitives.css'), 'utf8')
+const roles = readFileSync(join(import.meta.dirname, '../styles/tokens/semantic.css'), 'utf8')
+
+/** Cada archivo se corta por su propio bloque oscuro antes de juntarlos: si se
+ *  concatenan primero, lo claro de los roles cae adentro de lo oscuro de las
+ *  primitivas. */
+function scope(theme: 'light' | 'dark') {
+  return [css, roles]
+    .map(f => { const b = f.split('[data-theme="dark"]'); return theme === 'light' ? b[0] : b[1] ?? '' })
+    .join('\n')
+}
 
 function value(token: string, theme: 'light' | 'dark'): string | undefined {
-  const blocks = css.split('[data-theme="dark"]')
-  const text = theme === 'light' ? blocks[0] : blocks[1] ?? ''
-  const m = text.match(new RegExp(`${token}:\\s*(#[0-9a-fA-F]{3,8}|var\\(--[\\w-]+\\))`))
-  const raw = m?.[1]
+  const buscar = (t: 'light' | 'dark') =>
+    scope(t).match(new RegExp(`${token}:\\s*(#[0-9a-fA-F]{3,8}|var\\(--[\\w-]+\\))`))?.[1]
+  // lo que el bloque oscuro no redeclara lo sigue heredando de :root, igual que
+  // en el navegador: sin esta caída, un rol declarado una sola vez se lee como
+  // ausente en oscuro.
+  const raw = buscar(theme) ?? (theme === 'dark' ? buscar('light') : undefined)
   if (!raw) return undefined
   const ref = raw.match(/var\((--[\w-]+)\)/)
   return ref ? value(ref[1], theme) : raw
@@ -32,6 +44,7 @@ const pairs: [string, string][] = [
   ['--warn-700', '--warn-050'],
   ['--bad-700', '--bad-050'],
   ['--blue-700', '--blue-050'],
+  ['--yellow-800', '--yellow-050'],
 ]
 
 describe('contraste de los tonos de estado', () => {
@@ -258,3 +271,27 @@ describe('el relleno de un dato se despega de su pista', () => {
   })
 })
 
+describe('el amarillo lleva tinta oscura, y eso se verifica', () => {
+  const tinta = '--on-yellow'
+
+  for (const theme of ['light', 'dark'] as const) {
+    const rellenos = theme === 'light'
+      ? ['--yellow-050', '--yellow-100', '--yellow-200', '--yellow-300', '--yellow-400']
+      : ['--yellow-700', '--yellow-800', '--yellow-900']
+
+    for (const relleno of rellenos) {
+      it(`${relleno} aguanta la tinta del sistema en ${theme}`, () => {
+        const a = value(relleno, theme)
+        const b = value(tinta, theme)
+        expect(a, `falta ${relleno} en ${theme}`).toBeTruthy()
+        expect(b, `falta ${tinta} en ${theme}`).toBeTruthy()
+        expect(ratio(a!, b!)).toBeGreaterThanOrEqual(4.5)
+      })
+    }
+
+    it(`ningún relleno de amarillo llegaría a AA con blanco en ${theme}`, () => {
+      const conBlanco = rellenos.filter(r => ratio(value(r, theme)!, '#ffffff') >= 4.5)
+      expect(conBlanco).toEqual([])
+    })
+  }
+})
