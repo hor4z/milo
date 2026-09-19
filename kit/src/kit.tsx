@@ -104,6 +104,72 @@ export function Code({ children }: { children: string }) {
   )
 }
 
+/** Las cuatro cosas que se distinguen en un JSX. No es una gramática: es lo
+ *  justo para un ejemplo de uso, que es lo único que este sitio muestra. */
+const REGLAS: { re: RegExp; clase: string }[] = [
+  { re: /^"[^"]*"/, clase: 'cadena' },
+  { re: /^(?:<\/?|\/?>|=|[{}])/, clase: 'signo' },
+  { re: /^[A-Z][A-Za-z0-9]*/, clase: 'pieza' },
+]
+
+function trozos(linea: string) {
+  const out: { texto: string; clase?: string }[] = []
+  let resto = linea
+  let suelto = ''
+  while (resto) {
+    const regla = REGLAS.find(r => r.re.test(resto))
+    if (!regla) {
+      suelto += resto[0]
+      resto = resto.slice(1)
+      continue
+    }
+    if (suelto) { out.push({ texto: suelto }); suelto = '' }
+    const [encontrado] = regla.re.exec(resto)!
+    out.push({ texto: encontrado, clase: regla.clase })
+    resto = resto.slice(encontrado.length)
+  }
+  if (suelto) out.push({ texto: suelto })
+  return out
+}
+
+const resaltado: Record<string, string> = {
+  cadena: s.codeCadena,
+  signo: s.codeSigno,
+  pieza: s.codePieza,
+}
+
+/** Cómo se escribe la pieza. Va al lado de la tabla de props: una dice qué acepta, el otro cómo se usa. */
+export function Example({ code }: { code: string }) {
+  const [copied, setCopied] = useState(false)
+  return (
+    <div className={`${s.codeBlock} group`}>
+      <pre className={s.codePre}>
+        <code>
+          {code.trim().split('\n').map((linea, i) => (
+            <span key={i} className={s.codeLine}>
+              {trozos(linea).map((t, j) => (
+                <span key={j} className={t.clase ? resaltado[t.clase] : undefined}>{t.texto}</span>
+              ))}
+            </span>
+          ))}
+        </code>
+      </pre>
+      <button
+        type="button"
+        aria-label={copied ? 'Copiado' : 'Copiar el ejemplo'}
+        className={s.codeCopy}
+        onClick={() => {
+          navigator.clipboard?.writeText(code.trim())
+          setCopied(true)
+          setTimeout(() => setCopied(false), 1400)
+        }}
+      >
+        <Icon name={copied ? 'check' : 'content_copy'} size={14} className="icon-muted" />
+      </button>
+    </div>
+  )
+}
+
 /** Un bloque con título, una explicación y lo que se muestra. */
 export function Section({ title, note, children }: { title: string; note?: string; children?: ReactNode }) {
   return (

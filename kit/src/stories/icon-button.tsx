@@ -1,6 +1,6 @@
 import cls from './icon-button.module.css'
 import { IconButton } from '@milo/ui'
-import { A11y, Page, Panel, Props, Section, Variant } from '../kit'
+import { A11y, Example, Page, Panel, Props, Section, Variant } from '../kit'
 
 export function IconButtonStory() {
   return (
@@ -58,6 +58,16 @@ export function IconButtonStory() {
           </Variant>
           <Variant name="disabled"><IconButton icon="delete" label="Eliminar" disabled /></Variant>
         </Panel>
+      </Section>
+
+      <Section title="Cómo se escribe">
+        <Example code={`
+<IconButton icon="tune" label="Ajustes" />
+
+<Tooltip label="Exportar a CSV">
+  <IconButton icon="download" label="Exportar" variant="muted" />
+</Tooltip>
+`} />
       </Section>
 
       <Section title="Props">

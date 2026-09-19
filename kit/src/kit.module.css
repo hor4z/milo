@@ -206,6 +206,75 @@
     color: var(--text-muted);
   }
 
+  .codeBlock {
+    position: relative;
+    border-radius: var(--radius-lg);
+    border-style: solid;
+    border-width: 1px;
+    border-color: var(--border);
+    background-color: var(--surface-muted);
+    padding-block: 0.75rem;
+    padding-inline: 1rem;
+  }
+
+  .codePre {
+    overflow-x: auto;
+    margin: 0;
+    padding-right: 2rem;
+  }
+
+  .codeLine {
+    display: block;
+    font-family: var(--font-mono);
+    font-size: var(--type-body);
+    line-height: var(--type-body-lh);
+    letter-spacing: var(--type-body-ls);
+    color: var(--text);
+    white-space: pre;
+  }
+
+  .codePieza {
+    color: var(--brand-ink);
+  }
+
+  .codeCadena {
+    color: var(--yellow-ink);
+  }
+
+  .codeSigno {
+    color: var(--text-muted);
+  }
+
+  .codeCopy {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    display: inline-flex;
+    width: 1.75rem;
+    height: 1.75rem;
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--radius-md);
+    opacity: 0;
+    transition-property: opacity,background-color;
+    transition-duration: var(--duration-fast);
+    transition-timing-function: var(--ease-out);
+  }
+
+  .codeCopy:focus-visible {
+    opacity: 1;
+  }
+
+  @media (hover:hover) {
+    .codeCopy:hover {
+        background-color: var(--surface-sunken);
+    }
+
+    .codeCopy:is(:where(:global(.group)):hover *) {
+        opacity: 1;
+    }
+  }
+
   .panelCanvas {
     padding-inline: 1.5rem;
     padding-block: 0.25rem;

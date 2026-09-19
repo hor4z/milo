@@ -1,6 +1,6 @@
 import { Button } from '@milo/ui'
 import { useEffect, useRef, useState } from 'react'
-import { A11y, Cluster, Demo, Page, Panel, Props, Section, Variant } from '../kit'
+import { A11y, Cluster, Demo, Example, Page, Panel, Props, Section, Variant } from '../kit'
 
 /** Dos respuestas de verdad, una más rápida que la espera y otra más lenta, para
  *  ver que la corta no dibuja nada y la larga no se corta. */
@@ -132,6 +132,22 @@ export function ButtonStory() {
           </Demo>
         </Cluster>
         <Probar />
+      </Section>
+
+      <Section title="Cómo se escribe">
+        <Example code={`
+<Button variant="brand" onClick={crear}>
+  Crear actividad
+</Button>
+
+<Button variant="muted" iconStart="folder" size="sm">
+  Nuevo espacio
+</Button>
+
+<Button variant="brand" loading={guardando} onClick={guardar}>
+  Guardar
+</Button>
+`} />
       </Section>
 
       <Section title="Props">
