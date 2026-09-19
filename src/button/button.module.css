@@ -20,6 +20,22 @@
     }
   }
 
+  /* La caja del adorno mide siempre lo mismo, sea un glifo, un spinner o
+     cualquier otro nodo: así el botón no cambia de ancho según lo que le
+     pongan, y lo que entre se acomoda adentro en vez de estirarlo. */
+  .slot {
+    display: inline-flex;
+    width: var(--icon-size);
+    height: var(--icon-size);
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    & > * {
+      max-width: 100%;
+      max-height: 100%;
+    }
+  }
+
   /* Cargando no es lo mismo que deshabilitado: la caja deja de aceptar clicks
      pero conserva su color, porque el spinner tiene que leerse encima. */
   .loading:disabled {

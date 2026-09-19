@@ -6,10 +6,10 @@ export type { IconName }
 /** El set es Material Symbols Rounded, subseteado a lo que usamos y servido desde el repo. */
 export type IconWeight = 100 | 200 | 300 | 400 | 500 | 600 | 700
 
-export function Icon({ name, size = 20, className, weight }: {
+export function Icon({ name, size, className, weight }: {
   /** El glifo, de la unión de los que están en el manifiesto. */
   name: IconName
-  /** Alto y ancho de la caja en px. */
+  /** Alto y ancho de la caja en px. Sin esto lo manda el ancestro por `--icon-size`, y si nadie lo manda son 20. */
   size?: number
   /** Para el color: `icon-muted` para el gris. */
   className?: string
@@ -22,9 +22,7 @@ export function Icon({ name, size = 20, className, weight }: {
       aria-hidden="true"
       translate="no"
       style={{
-        fontSize: size,
-        width: size,
-        height: size,
+        ...(size ? { fontSize: size, width: size, height: size } : null),
         ...(weight ? { '--icon-wght': weight } : null),
       } as CSSProperties}
     >

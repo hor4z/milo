@@ -299,15 +299,15 @@ export const propsByComponent: Record<string, ComponentDoc> = {
       },
       {
         "name": "iconStart",
-        "type": "IconName",
+        "type": "ReactNode",
         "required": false,
-        "doc": "Antes del texto. Cuando el botón está cargando, el spinner ocupa su lugar."
+        "doc": "Antes del texto. Cualquier nodo, no solo un `Icon`: el botón le fija la caja para que mida lo mismo sea lo que sea. Cuando está cargando, el spinner ocupa su lugar."
       },
       {
         "name": "iconEnd",
-        "type": "IconName",
+        "type": "ReactNode",
         "required": false,
-        "doc": "Después del texto."
+        "doc": "Después del texto, con la misma caja fija que `iconStart`."
       },
       {
         "name": "loading",
@@ -1180,8 +1180,7 @@ export const propsByComponent: Record<string, ComponentDoc> = {
         "name": "size",
         "type": "number",
         "required": false,
-        "def": "20",
-        "doc": "Alto y ancho de la caja en px."
+        "doc": "Alto y ancho de la caja en px. Sin esto lo manda el ancestro por `--icon-size`, y si nadie lo manda son 20."
       },
       {
         "name": "className",

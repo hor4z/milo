@@ -1,3 +1,4 @@
+import { Icon } from '../icon/icon'
 import { act, render, screen } from '@testing-library/react'
 import { estilo } from '../__tests__/estilo'
 import s from './button.module.css'
@@ -48,7 +49,7 @@ describe('Button', () => {
   })
 
   it('los iconos acompañan al texto sin robarle el nombre', () => {
-    render(<Button iconStart="add" iconEnd="chevron_right">Nueva actividad</Button>)
+    render(<Button iconStart={<Icon name="add" />} iconEnd={<Icon name="chevron_right" />}>Nueva actividad</Button>)
     expect(screen.getByRole('button', { name: 'Nueva actividad' })).toBeInTheDocument()
   })
 
@@ -97,7 +98,7 @@ describe('Button', () => {
 
   it('el spinner ocupa el lugar del iconStart y no se suman los dos', async () => {
     vi.useFakeTimers()
-    const { container } = render(<Button loading iconStart="folder">Guardar</Button>)
+    const { container } = render(<Button loading iconStart={<Icon name="folder" />}>Guardar</Button>)
     await act(async () => { vi.advanceTimersByTime(130) })
     expect(screen.getByRole('status')).toBeInTheDocument()
     expect(container.querySelectorAll('.ms-icon')).toHaveLength(0)
