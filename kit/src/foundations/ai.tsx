@@ -191,12 +191,12 @@ export function AiSection() {
       </Section>
 
       <Note title="De dónde sale esto">
-        Las ocho rules y los cuatro axes siguen las Human Interface Guidelines de Apple, que en esto es
+        Las ocho reglas y los cuatro ejes siguen las Human Interface Guidelines de Apple, que en esto es
         de lo más completo que hay escrito: que nadie crea que habla con una persona cuando habla con un
         modelo, que la gente mantenga el control y pueda descartar o deshacer, que se pida confirmación
         antes de algo irreversible, que se avise que lo generado puede tener errores, que haya camino sin
         IA cuando se pueda, y que la espera diga qué está pasando en vez de "Procesando". Apple además
-        marca que las apps para chicos tienen rules más estrictas sobre qué datos se pueden usar, que es
+        marca que las apps para chicos tienen reglas más estrictas sobre qué datos se pueden usar, que es
         exactamente nuestro caso. Lo que no sale de ahí es lo de las mascotas y lo del docente, que son de
         este producto.
       </Note>

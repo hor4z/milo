@@ -260,7 +260,7 @@ export function ColorSection() {
           />
         </Stack>
         <Note title="Antes de teñir algo">
-          Los roles vivieron un rato juntos bajo el mismo name y de ahí salieron dos bugs: los
+          Los roles vivieron un rato juntos bajo el mismo nombre y de ahí salieron dos bugs: los
           chips quedaron pastel cuando ya tenían que ser vivos, y al pasarlos a vivos se llevó
           puesta la marca de la lista, que tenía que quedar pastel.
         </Note>
