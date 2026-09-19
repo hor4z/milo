@@ -65,7 +65,7 @@
   }
 
   .railGlyphActive {
-    box-shadow: 0 0 0 1px var(--milo-shadow-color,var(--brand-border));
+    box-shadow: 0 0 0 1px var(--brand-border);
   }
 
   .railIcon {

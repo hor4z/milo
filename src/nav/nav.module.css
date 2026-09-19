@@ -31,7 +31,7 @@
     background-color: var(--brand-soft);
     font-weight: var(--font-weight-semibold);
     color: var(--brand-ink);
-    box-shadow: 0 0 0 1px var(--milo-shadow-color,var(--brand-border));
+    box-shadow: 0 0 0 1px var(--brand-border);
   }
 
   .muted {
@@ -64,7 +64,7 @@
   }
 
   .glyphPaper {
-    box-shadow: 0 0 0 1px var(--milo-shadow-color,var(--border));
+    box-shadow: 0 0 0 1px var(--border);
   }
 
   .icon {
@@ -114,7 +114,7 @@
     background-color: var(--brand-soft);
     font-weight: var(--font-weight-semibold);
     color: var(--brand-ink);
-    box-shadow: 0 0 0 1px var(--milo-shadow-color,var(--brand-border));
+    box-shadow: 0 0 0 1px var(--brand-border);
   }
 
   .subitemPlain {

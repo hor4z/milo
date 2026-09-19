@@ -25,7 +25,7 @@
 
   .sunken {
     background-color: var(--surface-sunken);
-    box-shadow: 0 0 #0000;
+    box-shadow: none;
   }
 
   .lifted {
