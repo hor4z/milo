@@ -18,7 +18,7 @@ final son lo único que hay que tocar.
 npm install
 npm run dev        # el sitio · http://localhost:5190
 npm run typecheck  # el paquete y el sitio de una
-npm test           # 783 tests con vitest y testing-library
+npm test           # 777 tests con vitest y testing-library
 npm run build      # compila el paquete a dist/ (js, css y tipos)
 npm run props      # regenera la tabla de props desde los tipos
 ```
@@ -120,11 +120,9 @@ cosa), así que ahora dirige en vez de explicar.
 | el espaciado y los radios | **Fundamentos › Medidas y radios** | `tokens/scales.css` |
 | los cortes, el mueble y el ancho de lectura | **Fundamentos › Layout** | `tokens/scales.css` |
 | las sombras y el volumen | **Fundamentos › Relieve** | `tokens/semantic.css` |
-| las duraciones y las curvas | **Fundamentos › Movimiento** | `tokens/scales.css` |
 | hover, foco, vacío, cargando, error | **Fundamentos › Estados** | - |
 | contraste, teclado, lectores | **Fundamentos › Accesibilidad** | `__tests__/contraste.test.ts` |
 | el set y cómo crece | **Fundamentos › Iconos** | `scripts/icons.mjs` |
-| qué gráfico va y cuándo una tabla | **Fundamentos › Gráficos** | `chart/` |
 | cuándo pasa algo, en qué zona | **Fundamentos › Fecha y hora** | `lib/time.ts` |
 | cómo se escribe un número | **Fundamentos › Números y valores** | `lib/number.ts` |
 | imagen, audio, video y animación, y cómo suenan | **Fundamentos › Medios** | `figure/` · `audio-player/` |
@@ -245,6 +243,28 @@ Salieron de armar pantallas de verdad con estas piezas, y valen para cualquiera 
 - **Las tarjetas no se mueven en hover** y no tienen acciones flotando encima: una grilla que
   salta hace temblar la vista, y un botón que aparece al pasar el mouse no se descubre sin mouse
   y tapa justo lo que estabas mirando.
+- **El movimiento dice de dónde vino algo y adónde se fue; cuando no dice eso, no va.** Son cinco
+  tokens en `scales.css` y esto es lo que significa cada uno, que es lo único que no se lee en el
+  valor: `--duration-fast` (120ms) es lo que acompaña al dedo, un hover o un check, y tiene que
+  sentirse instantáneo; `--duration-normal` (190) es lo que aparece o se va, un panel o un modal,
+  donde el ojo necesita ver de dónde vino; `--duration-content` (280) no es interfaz, es una
+  carpeta que se abre o un libro que gira, que muestran qué es la cosa y por eso piden más tiempo.
+  Por debajo de 100ms el ojo solo registra el salto, por encima de 250 la interfaz se hace esperar.
+  Y `--ease-out` es todo lo que entra, `--ease-in` todo lo que sale: salir es más corto que entrar,
+  porque abrir se mira y cerrar estorba.
+- **Lo que no se mueve, que es la lista que nadie reclama y la que más molesta cuando aparece**: las
+  tarjetas en hover (arriba), las acciones que se revelan al pasar, el contenido al cargar (el
+  esqueleto ocupa el lugar exacto de lo que viene, así que cuando llega no se mueve nada) y el
+  anillo de foco, que aparece sin transición porque un aviso que tarda 190ms llega tarde.
+- **Apagar el movimiento no es congelarlo.** Con `prefers-reduced-motion` las animaciones se van y
+  las transiciones bajan a 1ms, pero lo que informa por moverse necesita otra salida: el spinner
+  gira lento en vez de quedarse quieto, porque quieto se lee como colgado; las hojas de una carpeta
+  quedan afuera sin abanicar, que es donde estaba la información; y el libro no rota, porque ahí la
+  rotación era gusto. Está escrito en **Fundamentos › Accesibilidad**.
+- **Lo que se mueve porque sí es contenido, no interfaz.** Una mascota que saluda o una celebración
+  cuando algo salió bien no tiene que explicar nada: puede dar gusto, y es la parte que le habla a
+  alguien de doce años. Tres cosas no cambian: nunca al lado de una tarea, nunca como única forma de
+  entender algo, y siempre se reemplaza por la versión quieta para quien pidió menos movimiento.
 
 ## Overlays: lo que costó y conviene no volver a pelear
 
@@ -343,8 +363,17 @@ servido con contenido viejo. Los dos casos medidos:
 
 La regla, entonces: **después de borrar un archivo o de cambiar de rama, se reinicia el
 servidor.** No alcanza con recargar el navegador, porque lo viejo está del lado del servidor.
-`npm run dev` ya borra la caché de Vite al arrancar, así que reiniciar es todo lo que hay que
-hacer, y de paso cierra la cara 1.
+
+**Y ahora `npm run dev` sí borra la caché al arrancar, que hasta acá era mentira.** Este archivo lo
+afirmaba y el script era `vite` pelado, sin `--force` y sin `cacheDir` en el config: o sea que la
+receta escrita para el bug no arreglaba el bug. Volvió a morder con un servidor que quedó dos horas
+arriba mientras abajo se cambiaba de rama dos veces y se borraban cuatro archivos. El script lleva
+`--force`, así que reiniciar es todo lo que hay que hacer y de paso cierra la cara 1.
+
+**La otra mitad es del lado del navegador, y esta no la arregla reiniciar.** Una pestaña que estaba
+abierta cuando se borró el archivo ya recibió por HMR la actualización de un módulo que dejó de
+existir, y se queda así aunque el servidor vuelva limpio. Ahí va recarga dura (Ctrl+Shift+R), que es
+lo único que tira el módulo viejo que quedó del lado del cliente.
 
 Y cuando la pantalla aparece en blanco, el primer lugar donde mirar es la red y no la consola: un
 módulo que no carga no siempre deja un error escrito.
@@ -454,7 +483,7 @@ kit/src/                el sitio: App.tsx (shell y riel) · kit.tsx (Page, Secti
                         dashboard.tsx · document.tsx · stories/ (una por pieza) ·
                         mascots/ ·
                         foundations/ (accessibility · typography · color · measure · layout ·
-                        relief · motion · states · charts · time · media · numbers · writing)
+                        relief · states · time · media · numbers · writing)
 ```
 
 **El corte entre el paquete y el sitio es por dependencia, no por gusto.** `src/` no sabe que
@@ -489,8 +518,8 @@ cada una linkea a la otra: solapas o acordeón, alert o toast, sheet o modal, li
 Las piezas se agrupan por el trabajo que hacen
 (Fundamentos, Mascotas, Editor, Acciones, Formularios, Navegación, Datos, Avisos, Superficies) y
 no por su tipo técnico. **Fundamentos va primero** y es la capa de la que sale todo lo demás:
-Accesibilidad · Tipografía · Color · Medidas y radios · Layout · Relieve · Movimiento · Estados ·
-Iconos · Gráficos · Fecha y hora · Medios · Números y valores · Cómo se escribe. El orden adentro no
+Accesibilidad · Tipografía · Color · Medidas y radios · Layout · Relieve · Estados · Iconos ·
+Fecha y hora · Medios · Números y valores · Cómo se escribe. El orden adentro no
 es alfabético: **Accesibilidad** va primera porque es la que hay que leer antes de tocar nada, y
 después van las capas en el orden en que se construye una pantalla.
 
@@ -529,7 +558,7 @@ Lo mismo vale para los tipos que una pieza recibe como argumento (`ToastOptions`
 
 ## Los tests
 
-`npm test` corre vitest con jsdom y testing-library. 783 tests, y lo que prueban es el
+`npm test` corre vitest con jsdom y testing-library. 777 tests, y lo que prueban es el
 comportamiento (teclado, nombres accesibles, estados) y no el markup, que cambia con cada
 ajuste de estilo. El test de cada pieza vive en su carpeta, al lado del componente.
 
@@ -555,7 +584,7 @@ Veinte de ellos leen el paquete entero y fallan si alguien:
 - exporta algo sin sacarlo por `index.ts`,
 - deja una carpeta sin el componente que le da nombre, o un componente sin su test al lado.
 
-Y hay uno que no se puede escribir leyendo archivos: **dibuja las setenta y dos vistas y falla
+Y hay uno que no se puede escribir leyendo archivos: **dibuja las setenta vistas y falla
 si a algún elemento le quedó una clase literal que no resuelve a nada** (un resto de Tailwind, un
 string suelto). Una clase que no existe no falla, no avisa y deja la pieza sin estilo, y leer las
 fuentes no alcanza porque una clase puede llegar por una prop o por una constante.
@@ -582,7 +611,7 @@ escala repetidos sobre `kit/` (que hasta ahora se escapaba), el peso de display 
 tamaño, las transiciones sin duración ni curva, un control de estado sin su manija, y que cada
 vista tenga portada, import y sinónimos para buscarla.
 
-Y hay uno que **renderiza las setenta y dos vistas**, una por test. Encuentra dos cosas que
+Y hay uno que **renderiza las setenta vistas**, una por test. Encuentra dos cosas que
 ninguna lectura encuentra: una vista que tira al dibujarse (eso antes se veía solo abriéndola) y
 un backtick o un `**` que quedó a la vista porque ese texto no pasó por `Rich`. Había diez.
 
@@ -600,7 +629,7 @@ ningún export que termine en `Story` o en `Section`.
 
 **Y cuatro dibujan el sitio entero**, que hasta ahora no lo hacía ninguno: `App`, la portada, el
 dashboard y el documento quedaban fuera del glob de `prosa`, que solo mira `stories/`,
-`foundations/` y `mascots/`. Uno abre las setenta y dos entradas del riel más el dashboard y el
+`foundations/` y `mascots/`. Uno abre las setenta entradas del riel más el dashboard y el
 documento, y falla si alguna cae en "Esa vista ya no está acá" o se dibuja sin un encabezado. Otro
 dibuja la portada. Otro verifica que ningún botón de la portada mande a una vista que ya no existe,
 que es justo lo que se rompió al sacar Principios. Y el cuarto compara los números que la portada
@@ -643,7 +672,7 @@ modalidad, feedback, cargando, ajustes, buscar, audio y gráficos.
 pantalla completa, arranque, multitarea, y los catorce componentes que son de un sistema operativo
 (widgets, complicaciones, barra de menú, dock). Esto corre en un navegador.
 
-**Salió en esta vuelta, y es la dirección**: Fundamentos pasó de veinte vistas a catorce.
+**Salió en esta vuelta, y es la dirección**: Fundamentos pasó de veinte vistas a doce.
 
 Cinco eran doctrina escrita sin token ni pieza detrás, que es lo que las volvía imposibles de
 verificar y lo primero que se despega: **Quién está mirando** y **Inclusión** (que son de producto y
@@ -732,8 +761,8 @@ un aula:
 - **Recuperar `ss04` y el cero barrado** pide auto-alojar Inter: 69 KB subseteada a latín, con la
   receta de `pyftsubset` anotada. Se eligió el CDN; si algún día una red escolar filtra Google
   Fonts, la decisión se da vuelta y el trabajo ya está pensado.
-- **El sitio entra en un solo bundle de 750 KB (234 gzip) y `vite build` avisa.** Son las 75
-  vistas importadas de una (72 entradas del riel, más la portada, el dashboard y el documento): nada está mal, está todo junto. La salida es `lazy` por historia con
+- **El sitio entra en un solo bundle de 737 KB (230 gzip) y `vite build` avisa.** Son las 73
+  vistas importadas de una (70 entradas del riel, más la portada, el dashboard y el documento): nada está mal, está todo junto. La salida es `lazy` por historia con
   un `Skeleton` de espera, y el costo es un parpadeo por navegación en una pantalla que hoy es
   instantánea. No se hizo porque es una decisión sobre cómo se siente el sitio y no un bug.
 - **El paquete no tiene un consumidor de verdad todavía.** Se verificó instalándolo en un

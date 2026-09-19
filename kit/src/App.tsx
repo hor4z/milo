@@ -9,13 +9,11 @@ import { TypographySection } from './foundations/typography'
 import { ColorSection } from './foundations/color'
 import { MeasureSection } from './foundations/measure'
 import { ReliefSection } from './foundations/relief'
-import { MotionSection } from './foundations/motion'
 import { StatesSection } from './foundations/states'
 import { NumbersSection } from './foundations/numbers'
 import { MediaSection } from './foundations/media'
 import { TimeSection } from './foundations/time'
 import { AudioPlayerStory } from './stories/audio-player'
-import { ChartsSection } from './foundations/charts'
 import { LayoutSection } from './foundations/layout'
 import { CalloutStory } from './stories/callout'
 import { FigureStory } from './stories/figure'
@@ -92,10 +90,8 @@ const groups: Group[] = [
       { id: 'measure', label: 'Medidas y radios', alias: 'espaciado medidas radios tamaños grilla', render: () => <MeasureSection /> },
       { id: 'layout', label: 'Layout', alias: 'layout cortes breakpoints responsive columnas mueble riel ancho pantalla', render: () => <LayoutSection /> },
       { id: 'relief', label: 'Relieve', alias: 'sombra relieve elevación profundidad', render: () => <ReliefSection /> },
-      { id: 'motion', label: 'Movimiento', alias: 'movimiento animación transición duración curva easing reduced motion', render: () => <MotionSection /> },
       { id: 'states', label: 'Estados', alias: 'estados hover foco pressed disabled vacío cargando error skeleton empty loading', render: () => <StatesSection /> },
       { id: 'icon', label: 'Iconos', alias: 'iconos glifos símbolos', render: () => <IconStory /> },
-      { id: 'charts', label: 'Gráficos', alias: 'gráficos datos barras línea ejes leyenda visualización', render: () => <ChartsSection /> },
       { id: 'time', label: 'Fecha y hora', alias: 'fecha hora tiempo zona huso timezone reloj duración vencimiento relativo formato', render: () => <TimeSection /> },
       { id: 'media', label: 'Medios', alias: 'medios imagen video audio animación multimedia subtítulos leyendas audiodescripción transcripción alt proporción autoplay peso voz sonido silencio volumen velocidad escuchar lectura hablada', render: () => <MediaSection /> },
       { id: 'numbers', label: 'Números y valores', alias: 'números cifras decimales coma porcentaje unidades tamaño rango cantidades tabular', render: () => <NumbersSection /> },
@@ -165,7 +161,7 @@ const groups: Group[] = [
     stories: [
       { id: 'table', label: 'Table', alias: 'tabla grilla filas columnas datos', render: () => <TableStory /> },
       { id: 'list', label: 'List', alias: 'lista filas acciones', render: () => <ListStory /> },
-      { id: 'bar-chart', label: 'BarChart', alias: 'gráfico barras chart datos progreso', render: () => <ChartStory /> },
+      { id: 'bar-chart', label: 'BarChart', alias: 'gráfico barras chart datos progreso visualización ejes leyenda tabla', render: () => <ChartStory /> },
       { id: 'column-picker', label: 'ColumnPicker', alias: 'columnas tabla elegir mostrar ocultar', render: () => <ColumnPickerStory /> },
       { id: 'indicator', label: 'Indicator', alias: 'indicador badge marca punto contador aviso notificación campana', render: () => <IndicatorStory /> },
       { id: 'progress', label: 'Progress', alias: 'progreso barra porcentaje avance', render: () => <ProgressStory /> },
