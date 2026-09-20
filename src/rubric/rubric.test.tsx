@@ -127,6 +127,17 @@ describe('Rubric', () => {
     expect(apagadas[0]).toHaveTextContent('Toma de datos')
   })
 
+  it('al enfocar un tramo, su criterio se trae a la vista', () => {
+    arma()
+    const barra = screen.getByRole('toolbar', { name: 'Cuánto vale cada criterio' })
+    const tarjeta = screen.getAllByRole('listitem')
+      .filter(li => li.style.getPropertyValue('--enter'))[1]
+    tarjeta.scrollIntoView = vi.fn()
+
+    act(() => within(barra).getAllByRole('button')[1].focus())
+    expect(tarjeta.scrollIntoView).toHaveBeenCalledWith({ block: 'nearest' })
+  })
+
   it('tocar un tramo con la rúbrica plegada la abre en ese criterio', async () => {
     arma({ defaultOpen: false })
     const disparador = screen.getByRole('button', { name: 'Qué vamos a mirar' })

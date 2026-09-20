@@ -77,6 +77,7 @@ function Root({ criteria, onAdd, onRemove, defaultOpen = true, children, classNa
   const form = useDisclosure(false)
   const addRef = useRef<HTMLButtonElement>(null)
   const labelRef = useRef<HTMLInputElement>(null)
+  const cards = useRef<Record<string, HTMLLIElement | null>>({})
   const id = useId()
   const titleId = `${id}-title`
   const bodyId = `${id}-body`
@@ -95,6 +96,8 @@ function Root({ criteria, onAdd, onRemove, defaultOpen = true, children, classNa
     if (form.open) labelRef.current?.focus()
     else addRef.current?.focus()
   }, [form.open])
+
+  const bring = (id: string) => cards.current[id]?.scrollIntoView({ block: 'nearest' })
 
   const openForm = () => {
     setLabel('')
@@ -165,7 +168,7 @@ function Root({ criteria, onAdd, onRemove, defaultOpen = true, children, classNa
                 aria-label={`${c.label}, vale ${share(c.weight, total).percent} de la nota`}
                 onPointerEnter={() => setLit(c.id)}
                 onPointerLeave={() => setLit(null)}
-                onFocus={() => setLit(c.id)}
+                onFocus={() => { setLit(c.id); bring(c.id) }}
                 onBlur={() => setLit(null)}
                 onClick={() => {
                   setPinned(p => (p === c.id ? null : c.id))
@@ -173,6 +176,7 @@ function Root({ criteria, onAdd, onRemove, defaultOpen = true, children, classNa
                     setRuns(n => n + 1)
                     panel.onOpen()
                   }
+                  requestAnimationFrame(() => bring(c.id))
                 }}
                 className={cx(s.weightBand, labelFill[c.color], active && active !== c.id && s.weightDim)}
               />
@@ -188,6 +192,7 @@ function Root({ criteria, onAdd, onRemove, defaultOpen = true, children, classNa
               {criteria.map((c, i) => (
                 <li
                   key={c.id}
+                  ref={el => { cards.current[c.id] = el }}
                   style={{ '--enter': i } as CSSProperties}
                   className={cx(s.criterion, active && active !== c.id && s.criterionDim)}
                 >
