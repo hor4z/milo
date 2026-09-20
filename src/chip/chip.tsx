@@ -1,5 +1,6 @@
 import cls from './chip.module.css'
 import type { ComponentPropsWithoutRef, ReactNode } from 'react'
+import { Avatar } from '../avatar/avatar'
 import { Icon, type IconName } from '../icon/icon'
 import { type LabelColor, labelSoft } from '../lib/colors'
 import { cx } from '../lib/cx'
@@ -16,12 +17,14 @@ const chipSize = {
     icon: 12,
     dot: cls.dotSm,
     cross: 12,
+    face: 16,
   },
   md: {
     box: cls.sizeMd,
     icon: 14,
     dot: cls.dotMd,
     cross: 12,
+    face: 20,
   },
 } as const
 
@@ -35,6 +38,8 @@ type ChipProps = Omit<ComponentPropsWithoutRef<'span'>, 'color' | 'onClick'> & {
   icon?: IconName
   /** Un punto del tono en vez de un glifo: clasifica sin nombrar. */
   dot?: boolean
+  /** La cara de quien el chip nombra, en vez del glifo. Va pegada al canto izquierdo. */
+  avatar?: { name: string; src?: string }
   /** Agrega la cruz. */
   onRemove?: () => void
   /** Pasa a tinta plena y pisa el color. */
@@ -45,7 +50,7 @@ type ChipProps = Omit<ComponentPropsWithoutRef<'span'>, 'color' | 'onClick'> & {
 
 /** La marca chica de texto: el estado de una actividad, el nombre de una categoría, de un método o de una persona. */
 export function Chip({
-  children, color, size = 'md', icon, dot, onRemove, active, onClick, className, ...props
+  children, color, size = 'md', icon, dot, avatar, onRemove, active, onClick, className, ...props
 }: ChipProps) {
   const s = chipSize[size]
   const box = cx(
@@ -61,11 +66,13 @@ export function Chip({
     className,
   )
 
-  const mark = dot
-    ? <span aria-hidden="true" className={cx(s.dot, cls.dot)} />
-    : icon
-      ? <Icon name={icon} size={s.icon} className={cls.icon} />
-      : null
+  const mark = avatar
+    ? <Avatar name={avatar.name} src={avatar.src} size={s.face} className={cls.face} />
+    : dot
+      ? <span aria-hidden="true" className={cx(s.dot, cls.dot)} />
+      : icon
+        ? <Icon name={icon} size={s.icon} className={cls.icon} />
+        : null
 
   const cross = onRemove && (
     <button type="button" onClick={onRemove} aria-label="Quitar" className={cls.remove}>

@@ -511,6 +511,12 @@ export const propsByComponent: Record<string, ComponentDoc> = {
         "doc": "Un punto del tono en vez de un glifo: clasifica sin nombrar."
       },
       {
+        "name": "avatar",
+        "type": "{ name: string; src?: string }",
+        "required": false,
+        "doc": "La cara de quien el chip nombra, en vez del glifo. Va pegada al canto izquierdo."
+      },
+      {
         "name": "onRemove",
         "type": "() => void",
         "required": false,
@@ -1266,11 +1272,18 @@ export const propsByComponent: Record<string, ComponentDoc> = {
         "doc": "Qué significa la marca, para quien no la ve. Sin esto la marca es decorativa."
       },
       {
+        "name": "ring",
+        "type": "string",
+        "required": false,
+        "def": "'transparent'",
+        "doc": "El anillo que separa la marca de lo que tiene atrás. Va del color de ese fondo: sobre una foto, el papel de la tarjeta; sobre un control, su relleno."
+      },
+      {
         "name": "inset",
         "type": "number",
         "required": false,
-        "def": "0",
-        "doc": "Cuánto meter la marca hacia adentro, en px. Lo que se marca no siempre llena su caja: un `IconButton` de 40 lleva un glifo de 18, y con la marca en la esquina queda lejos de lo que marca."
+        "def": "9",
+        "doc": "Cuánto meter la marca hacia adentro, en px. El default es el de un `IconButton` `lg`, que es donde va casi siempre: la caja mide 44 y el glifo 24, así que sin esto la marca queda lejos de lo que marca. Sobre un glifo suelto va en 0."
       },
       {
         "name": "className",

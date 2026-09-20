@@ -282,6 +282,23 @@ Salieron de armar pantallas de verdad con estas piezas, y valen para cualquiera 
   vean sobre cualquier superficie. Al sacarlas, `--relief-inset` pasó de seis consumidores a cuatro.
 - **La escala de radios gana un escalón abajo, `--radius-xs` de 4px**, porque sobre un cuadrado de 18
   el `sm` de 6 deja la casilla casi redonda y una casilla redonda se lee como un radio.
+- **La escalera de iconos de un control va 16 · 20 · 24**, uno por cada alto: 36, 40 y 44. Estaba en
+  16 · 18 · 24 después de subir el `lg`, y ese salto de 6 después de uno de 2 no era una escalera.
+  Cada par es el que usa cualquier sistema (Material va 20 sobre 40 y 24 sobre 48), y es lo que hace
+  que un icono solo se lea como una pieza y no como un detalle.
+- **El `Indicator` marca un icono, no cualquier cosa.** La marca se apoya en el hombro del glifo y no
+  en la esquina del botón, que es más grande: el `inset` viene en 9, que es lo que ese par pide, y va
+  en 0 sobre un glifo suelto. Se probó envolviendo un avatar y una carpeta y no vale la pena: cada
+  una necesitaba su propio número y su propio anillo.
+- **El anillo de una marca es del color de lo que tiene atrás, y eso lo sabe el call site.** Estaba
+  clavado en `--surface`, o sea blanco, así que sobre un botón gris se veía un halo que no
+  correspondía. Va por prop, transparente por default, y lo escribe quien la usa: sobre una foto, el
+  papel de la tarjeta; sobre un control, nada. Es la misma forma que ya tenía `AvatarGroup`.
+- **El verde de estado no aguanta tinta blanca, así que el `Indicator` tiene su propio relleno.**
+  `--ok` da 3,78 contra el blanco y el test exige 4,5, por eso `--on-ok` era casi negro: un tilde
+  negro sobre un círculo verde, que se lee como un error de imprenta. La salida ya estaba inventada
+  en el sistema (`--accent-fill` es exactamente eso), así que ahora hay `--ok-fill`, un verde un paso
+  más oscuro que da 5,48 con blanco.
 - **Una marca de `Indicator` se ancla a la caja de lo que marca, y esa caja casi nunca es lo que se
   ve.** Un `IconButton` de 40 lleva un glifo de 18 centrado, así que la esquina de la caja queda a
   11px de la esquina del glifo, y el punto se lee suelto aunque las cajas estén pegadas. La pieza no

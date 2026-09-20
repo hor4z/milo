@@ -1,4 +1,4 @@
-import { Avatar, Folder, Icon, IconButton, Indicator } from '@milo/ui'
+import { Icon, IconButton, Indicator } from '@milo/ui'
 import { A11y, Page, Panel, Props, Section, Variant } from '../kit'
 
 export function IndicatorStory() {
@@ -11,28 +11,28 @@ export function IndicatorStory() {
     >
       <Section
         title="Tres formas de marcar"
-        note="El punto dice 'hay algo' y nada más, que es lo que alcanza casi siempre. El contador dice cuánto, y solo vale la pena cuando el número cambia la decisión: entre 'hay avisos' y 'hay tres avisos' no cambia nada, entre 'hay 3' y 'hay 148' sí. El glifo dice qué pasó, y es el único que no necesita que vayas a mirar. Sobre un `IconButton` va con `inset`: el botón mide 40 y el glifo 18, así que sin eso la marca se ancla a la esquina de la caja y queda lejos de lo que marca. Sobre un avatar o una carpeta no hace falta, porque ahí la tinta llena la caja."
+        note="El punto dice 'hay algo' y nada más, que es lo que alcanza casi siempre. El contador dice cuánto, y solo vale la pena cuando el número cambia la decisión: entre 'hay avisos' y 'hay tres avisos' no cambia nada, entre 'hay 3' y 'hay 148' sí. El glifo dice qué pasó, y es el único que no necesita que vayas a mirar. La marca se apoya en el hombro del glifo y no en la esquina del botón, que es más grande."
       >
         <Panel>
           <Variant name="punto">
-            <Indicator dot inset={6} label="Hay avisos sin leer">
-              <IconButton icon="notifications" label="Avisos" />
+            <Indicator dot label="Hay avisos sin leer">
+              <IconButton icon="notifications" label="Avisos" size="lg" />
             </Indicator>
           </Variant>
           <Variant name="contador">
-            <Indicator count={3} inset={6} label="3 avisos sin leer">
-              <IconButton icon="inbox" label="Entregas" />
+            <Indicator count={3} label="3 avisos sin leer">
+              <IconButton icon="inbox" label="Entregas" size="lg" />
             </Indicator>
-            <Indicator count={148} inset={6} label="148 sin leer">
-              <IconButton icon="mail" label="Mensajes" />
+            <Indicator count={148} label="148 sin leer">
+              <IconButton icon="mail" label="Mensajes" size="lg" />
             </Indicator>
           </Variant>
           <Variant name="glifo">
             <Indicator icon="check" tone="ok" label="Corregida">
-              <Avatar name="Valeria Ochoa" src="/avatars/04.webp" size={40} />
+              <IconButton icon="inbox" label="Entregas" size="lg" />
             </Indicator>
             <Indicator icon="lock" tone="neutral" label="Cerrado">
-              <Avatar name="Martín Roldán" size={40} />
+              <IconButton icon="folder" label="Espacio" size="lg" />
             </Indicator>
           </Variant>
         </Panel>
@@ -45,8 +45,8 @@ export function IndicatorStory() {
         <Panel>
           <Variant name="tonos">
             {(['accent', 'ok', 'warn', 'bad', 'neutral'] as const).map(t => (
-              <Indicator key={t} dot inset={6} tone={t} label={t}>
-                <IconButton icon="notifications" label={`Avisos ${t}`} />
+              <Indicator key={t} dot tone={t} label={t}>
+                <IconButton icon="notifications" label={`Avisos ${t}`} size="lg" />
               </Indicator>
             ))}
           </Variant>
@@ -54,18 +54,13 @@ export function IndicatorStory() {
       </Section>
 
       <Section
-        title="Envuelve cualquier cosa"
-        note="No sabe qué está marcando y no tiene por qué saberlo: se apoya en la esquina de lo que le pasen. Lo que marca sigue siendo lo que se toca: la marca no recibe el click."
+        title="Un glifo suelto"
+        note="Sin botón alrededor, la marca se apoya en la esquina del glifo y no hace falta correrla."
       >
         <Panel>
-          <Variant name="una carpeta">
-            <Indicator count={4} label="4 sin abrir">
-              <Folder size={96} label="Ciencias" meta="5.º B" color="var(--space-green)" />
-            </Indicator>
-          </Variant>
-          <Variant name="un glifo suelto">
-            <Indicator dot tone="warn" label="Vence mañana">
-              <Icon name="calendar_month" size={22} />
+          <Variant name="sin botón">
+            <Indicator dot tone="warn" inset={0} label="Vence mañana">
+              <Icon name="calendar_month" size={24} />
             </Indicator>
           </Variant>
         </Panel>

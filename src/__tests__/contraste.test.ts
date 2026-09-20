@@ -259,7 +259,7 @@ describe('el relleno de un dato se despega de su pista', () => {
   describe('la marca del Indicator lleva la tinta que su relleno aguanta', () => {
     const pairs: [string, string][] = [
       ['--on-accent', '--accent-fill'],
-      ['--on-ok', '--ok'],
+      ['--on-ok', '--ok-fill'],
       ['--on-warn', '--warn'],
       ['--on-bad', '--bad'],
     ]

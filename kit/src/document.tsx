@@ -1,8 +1,8 @@
 import cls from './document.module.css'
 import { useState } from 'react'
 import {
-  AvatarGroup, Button, Callout, Figure, Mention, Popover, Quote, TaskList, Toolbar,
-  ToolbarButton, ToolbarSeparator, CommandMenu, Divider, Icon,
+  AvatarGroup, Button, Callout, Figure, Mention, Popover, Quote, TaskList,
+  CommandMenu, Divider, Icon,
   type CommandGroup, type Task,
 } from '@milo/ui'
 
@@ -42,24 +42,14 @@ const initialTasks: Task[] = [
 ]
 
 export function DocumentStory() {
-  const [format, setFormat] = useState({ bold: false, italic: false })
   const [tasks, setTasks] = useState(initialTasks)
-  const [last, setLast] = useState<string | null>(null)
+  const [, setLast] = useState<string | null>(null)
 
-  const toggle = (k: keyof typeof format) => setFormat(f => ({ ...f, [k]: !f[k] }))
   const toggleTask = (id: string, done: boolean) =>
     setTasks(ts => ts.map(t => (t.id === id ? { ...t, done } : t)))
 
   return (
     <article className={cls.doc}>
-      <span aria-hidden className={`${cls.cursor} ${cls.cursorAna}`}>
-        <span className={cls.caret} />
-        <span className={cls.who}>Ana</span>
-      </span>
-      <span aria-hidden className={`${cls.cursor} ${cls.cursorBruno}`}>
-        <span className={cls.caret} />
-        <span className={cls.who}>Bruno</span>
-      </span>
       <header className={cls.docHeader}>
         <div className={cls.titleRow}>
           <div className={cls.titleBlock}>
@@ -69,13 +59,12 @@ export function DocumentStory() {
           <div className={cls.docActions}>
             <AvatarGroup
               size={28}
-              max={4}
               people={[
                 { name: 'Ana Pérez', src: face(4) },
-                { name: 'Bruno Costa', src: face(11) },
+                { name: 'Bruno Díaz', src: face(5) },
                 { name: 'Carla Ríos', src: face(7) },
-                { name: 'Diego Sosa' },
-                { name: 'Emilia Paz' },
+                { name: 'Diego Sosa', src: face(2) },
+                { name: 'Emilia Paz', src: face(6) },
               ]}
             />
             <Popover
@@ -99,30 +88,15 @@ export function DocumentStory() {
           </div>
         </div>
 
-        <div className={cls.toolbarRow}>
-          <Toolbar label="Formato del texto">
-            <ToolbarButton icon="format_bold" label="Negrita" pressed={format.bold} onClick={() => toggle('bold')} />
-            <ToolbarButton icon="format_italic" label="Cursiva" pressed={format.italic} onClick={() => toggle('italic')} />
-            <ToolbarSeparator />
-            <ToolbarButton icon="format_h2" label="Subtítulo" />
-            <ToolbarButton icon="format_quote" label="Cita" />
-            <ToolbarButton icon="checklist" label="Lista de tareas" />
-            <ToolbarSeparator />
-            <ToolbarButton icon="link" label="Enlace" />
-            <ToolbarButton icon="image" label="Imagen" />
-          </Toolbar>
-          {last && (
-            <span className={cls.toolbarHint}>
-              Último bloque elegido: {last}
-            </span>
-          )}
-        </div>
       </header>
 
       <div className={cls.docBody}>
         <p className={cls.intro}>
           La semana que viene medimos la aceleración de la gravedad soltando una pelota desde el
-          primer piso. Traigan el celular con cronómetro. Lo arma{' '}
+          primer piso.<span aria-hidden className={`${cls.cursor} ${cls.cursorAna}`}>
+            <span className={cls.caret} />
+            <span className={cls.who}>Ana</span>
+          </span> Traigan el celular con cronómetro. Lo arma{' '}
           <Mention name="Ana Pérez" src={face(1)} href="#mention" /> con{' '}
           <Mention name="Bruno Díaz" src={face(2)} href="#mention" />, y lo que midan lo suben a{' '}
           <Mention name="Física · 5.º B" icon="folder" href="#folder" />.
@@ -138,7 +112,10 @@ export function DocumentStory() {
           Si la pelota arranca quieta y el rozamiento del aire se puede ignorar, la altura que cae
           es la mitad de la gravedad por el tiempo al cuadrado. Así que si grafican la altura contra
           el tiempo al cuadrado les tiene que dar una recta, y la pendiente va a ser la mitad de la
-          gravedad. Eso es lo que hay que comparar con los 9,8 del libro.
+          gravedad.<span aria-hidden className={`${cls.cursor} ${cls.cursorBruno}`}>
+            <span className={cls.caret} />
+            <span className={cls.who}>Bruno</span>
+          </span> Eso es lo que hay que comparar con los 9,8 del libro.
         </p>
 
         <Quote source="Galileo, Diálogos sobre dos nuevas ciencias" cite="#quote">
