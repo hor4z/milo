@@ -1,6 +1,6 @@
 import cls from './textarea.module.css'
 import { useCallback, useEffect, useId, useLayoutEffect, useRef, useState, type TextareaHTMLAttributes } from 'react'
-import { useField } from '../field/field'
+import { useField } from '../lib/field-ctx'
 import { cx } from '../lib/cx'
 
 type TextareaProps = Omit<TextareaHTMLAttributes<HTMLTextAreaElement>, 'rows' | 'style' | 'resize'> & {

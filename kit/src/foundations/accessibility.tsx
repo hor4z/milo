@@ -1,5 +1,10 @@
 import cls from './accessibility.module.css'
-import { Button, Chip, Field, Icon, Kbd, TextField } from '@milo/ui'
+import { Button } from '@milo/ui/button'
+import { Chip } from '@milo/ui/chip'
+import { Field } from '@milo/ui/field'
+import { Icon } from '@milo/ui/icon'
+import { Kbd } from '@milo/ui/kbd'
+import { TextField } from '@milo/ui/text-field'
 import { A11y, Note, Page, Section, Stack } from '../kit'
 
 /** Las reglas del sistema, no las de cada pieza: lo de cada pieza está en su vista. */
@@ -42,7 +47,7 @@ export function AccessibilitySection() {
       title="Accesibilidad"
       kind="Fundamentos"
       lead="No es una capa que se agrega al final: son las reglas que cada pieza ya cumple, y lo que se verifica con tests en vez de con buena voluntad. Esto se va a usar en educación, donde quien no puede leer la pantalla no puede hacer la tarea."
-      imports="import { Field, Alert } from '@milo/ui'"
+      imports="import { Alert } from '@milo/ui/alert' · import { Field } from '@milo/ui/field'"
     >
       <Section title="Las seis reglas">
         <div className={cls.specimenGrid}>

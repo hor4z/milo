@@ -1,5 +1,5 @@
 import css from './layout.module.css'
-import { Card, CardBody } from '@milo/ui'
+import { Card, CardBody } from '@milo/ui/card'
 import { A11y, Note, Page, Section } from '../kit'
 
 const breaks = [
@@ -23,7 +23,7 @@ export function LayoutSection() {
       title="Layout"
       kind="Fundamentos"
       lead="Dónde se apoya cada cosa: el mueble de la pantalla, los cuatro cortes y las dos reglas que rompen una grilla cuando faltan."
-      imports="import { Card } from '@milo/ui'"
+      imports="import { Card } from '@milo/ui/card'"
     >
       <Section
         title="Cuatro cortes, y cada uno hace algo distinto"

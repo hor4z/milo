@@ -1,6 +1,6 @@
 import s from './row.module.css'
 import { useId, type ReactNode } from 'react'
-import { FieldCtx } from '../field/field'
+import { FieldCtx } from '../lib/field-ctx'
 
 /** La fila de un panel: 56px de alto, padding 16/24, label a la izquierda y control a la derecha. */
 export function Row({ label, hint, children }: {

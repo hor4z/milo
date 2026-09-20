@@ -1,5 +1,5 @@
 import cls from './kbd.module.css'
-import { Kbd } from '@milo/ui'
+import { Kbd } from '@milo/ui/kbd'
 import { A11y, Note, Page, Panel, Props, Section, Variant } from '../kit'
 
 export function KbdStory() {
@@ -7,7 +7,7 @@ export function KbdStory() {
     <Page
       title="Kbd"
       kind="Superficies"
-      imports="import { Kbd } from '@milo/ui'"
+      imports="import { Kbd } from '@milo/ui/kbd'"
       lead="La tecla dibujada. Es una marca hundida (la misma receta que la pista de un segmented) porque una tecla es algo que se aprieta: lleva canto, luz arriba y una sombra de caída corta."
     >
       <Section

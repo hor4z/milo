@@ -1,6 +1,6 @@
 import cls from './time.module.css'
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@milo/ui'
-import { clock, day, dayAndTime, duration, machineTime, timeAgo, zoneLabel } from '@milo/ui'
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@milo/ui/table'
+import { clock, day, dayAndTime, duration, machineTime, timeAgo, zoneLabel } from '@milo/ui/lib/time'
 import { A11y, Note, Page, Panel, Rich, Section, Variant } from '../kit'
 
 const AR = 'America/Argentina/Buenos_Aires'
@@ -20,7 +20,7 @@ export function TimeSection() {
     <Page
       title="Fecha y hora"
       kind="Fundamentos"
-      imports="import { clock, day, dayAndTime, timeAgo } from '@milo/ui'"
+      imports="import { clock, day, dayAndTime, timeAgo } from '@milo/ui/lib/time'"
       lead="Una fecha mal escrita hace perder una entrega. Todo lo que dice cuándo pasa por las mismas funciones: el reloj es de veinticuatro horas, la coma y el punto son los de acá, y la hora es la del curso y no la del navegador de quien mira."
     >
       <Section

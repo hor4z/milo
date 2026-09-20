@@ -1,6 +1,6 @@
 import cls from './numbers.module.css'
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@milo/ui'
-import { bytes, count, decimals, delta, share, span, withUnit } from '@milo/ui'
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@milo/ui/table'
+import { bytes, count, decimals, delta, share, span, withUnit } from '@milo/ui/lib/number'
 import { A11y, Note, Page, Panel, Rich, Section, Stack, Variant } from '../kit'
 
 const which = [
@@ -17,7 +17,7 @@ export function NumbersSection() {
     <Page
       title="Números y valores"
       kind="Fundamentos"
-      imports="import { count, decimals, share, withUnit } from '@milo/ui'"
+      imports="import { count, decimals, share, withUnit } from '@milo/ui/lib/number'"
       lead="En un producto donde se corrige, se mide y se calcula, un número mal escrito se lee como otro número. La coma es el decimal y el punto separa los miles, que es como se escribe acá: un 1,250 escrito a mano se lee 1250 en media América y 1,25 en la otra."
     >
       <Section

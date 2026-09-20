@@ -1,5 +1,7 @@
 import { useState } from 'react'
-import { IconButton, Kbd, TextField } from '@milo/ui'
+import { IconButton } from '@milo/ui/icon-button'
+import { Kbd } from '@milo/ui/kbd'
+import { TextField } from '@milo/ui/text-field'
 import { A11y, Cluster, Demo, Page, Props, Section } from '../kit'
 
 export function TextFieldStory() {
@@ -9,7 +11,7 @@ export function TextFieldStory() {
     <Page
       title="TextField"
       kind="Formularios"
-      imports="import { TextField } from '@milo/ui'"
+      imports="import { TextField } from '@milo/ui/text-field'"
       lead="Plano: un fondo y una línea de un píxel, sin relieve. El volumen se fue a propósito: el relieve dice 'esto sobresale' o 'esto se aprieta', y un campo no es ninguna de las dos. Al enfocarse se le tiñe el borde que ya tenía: el anillo es para una pieza sin borde propio, y acá dibujaba una segunda línea a dos píxeles."
     >
       <Section title="Variantes">

@@ -1,6 +1,6 @@
 import cls from './textarea.module.css'
 import { useState } from 'react'
-import { Textarea } from '@milo/ui'
+import { Textarea } from '@milo/ui/textarea'
 import { A11y, Cluster, Demo, Page, Props, Section } from '../kit'
 
 export function TextareaStory() {
@@ -18,7 +18,7 @@ export function TextareaStory() {
     <Page
       title="Textarea"
       kind="Formularios"
-      imports="import { Textarea } from '@milo/ui'"
+      imports="import { Textarea } from '@milo/ui/textarea'"
       lead="El campo de varias líneas: el TextField estirado. La misma caja, el mismo borde y la misma marca de foco, porque dos campos que no se parecen se leen como dos sistemas. Lo único que cambia adentro es el interlineado: el 16 fijo aprieta cuando hay varios renglones."
     >
       <Section

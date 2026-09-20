@@ -1,5 +1,6 @@
 import cls from './skeleton.module.css'
-import { Card, Skeleton } from '@milo/ui'
+import { Card } from '@milo/ui/card'
+import { Skeleton } from '@milo/ui/skeleton'
 import { A11y, Cluster, Demo, Note, Page, Props, Section, Stack } from '../kit'
 
 export function SkeletonStory() {
@@ -7,7 +8,7 @@ export function SkeletonStory() {
     <Page
       title="Skeleton"
       kind="Datos"
-      imports="import { Skeleton } from '@milo/ui'"
+      imports="import { Skeleton } from '@milo/ui/skeleton'"
       lead="El hueco que ocupa algo que todavía no llegó. Tiene que medir lo mismo que el contenido real, o al llegar los datos la pantalla salta y se pierde lo que se estaba leyendo."
     >
       <Section

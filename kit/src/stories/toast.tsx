@@ -1,4 +1,6 @@
-import { Button, Icon, useToast } from '@milo/ui'
+import { Button } from '@milo/ui/button'
+import { Icon } from '@milo/ui/icon'
+import { useToast } from '@milo/ui/toast'
 import { A11y, Cluster, Demo, Note, Page, Props, Section } from '../kit'
 
 export function ToastStory() {
@@ -8,7 +10,7 @@ export function ToastStory() {
     <Page
       title="Toast"
       kind="Avisos"
-      imports="import { ToastProvider, useToast } from '@milo/ui'"
+      imports="import { ToastProvider, useToast } from '@milo/ui/toast'"
       lead="El acuse de recibo de algo que la persona acaba de hacer. Va abajo a la derecha, se apila hasta tres y se va solo. No pide respuesta y no interrumpe: si hace falta que alguien conteste, eso es un `Modal`, y si tiene que seguir ahí después, es un `Alert`."
     >
       <Section

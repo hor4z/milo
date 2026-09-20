@@ -1,6 +1,6 @@
 import cls from './stepper.module.css'
 import { useEffect, useState } from 'react'
-import { useField } from '../field/field'
+import { useField } from '../lib/field-ctx'
 import { Icon } from '../icon/icon'
 import { cx } from '../lib/cx'
 

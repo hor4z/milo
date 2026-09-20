@@ -1,6 +1,6 @@
 import s from './segmented.module.css'
 import { Icon, type IconName } from '../icon/icon'
-import { useFieldGroup } from '../field/field'
+import { useFieldGroup } from '../lib/field-ctx'
 import { cx } from '../lib/cx'
 import { useRovingRadio } from '../lib/roving'
 import { Tooltip } from '../tooltip/tooltip'

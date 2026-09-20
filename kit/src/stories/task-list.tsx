@@ -1,6 +1,6 @@
 import cls from './task-list.module.css'
 import { useState } from 'react'
-import { TaskList, type Task } from '@milo/ui'
+import { TaskList, type Task } from '@milo/ui/task-list'
 import { A11y, Note, Page, Props, Section } from '../kit'
 
 const initial: Task[] = [
@@ -18,7 +18,7 @@ export function TaskListStory() {
     <Page
       title="TaskList"
       kind="Editor"
-      imports="import { TaskList } from '@milo/ui'"
+      imports="import { TaskList } from '@milo/ui/task-list'"
       lead="Cosas para hacer que se marcan al hacerlas: los pasos de una entrega, lo que falta de una actividad, el checklist de un experimento."
     >
       <Section title="La pieza" note="Marcá y desmarcá: lo hecho se apaga y se tacha, que son dos avisos y no uno.">

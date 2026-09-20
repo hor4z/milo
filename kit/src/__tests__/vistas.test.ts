@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { readFileSync, readdirSync } from 'node:fs'
+import { readFileSync, readdirSync, statSync } from 'node:fs'
 import { join } from 'node:path'
 
 const stories = join(import.meta.dirname, '../stories')
@@ -184,7 +184,7 @@ describe('los medios que el sitio pide', () => {
 
 describe('el riel', () => {
   it('cada pieza tiene sinónimos para buscarla', () => {
-    const app = readFileSync(join(import.meta.dirname, '../App.tsx'), 'utf8')
+    const app = readFileSync(join(import.meta.dirname, '../app.tsx'), 'utf8')
     const pieces = [...app.matchAll(/\{ id: '([\w-]+)', label: '[^']*',( alias: '[^']*',)?/g)]
     const withoutAlias = pieces.filter(m => !m[2]).map(m => m[1])
     expect(withoutAlias).toEqual([])
@@ -331,15 +331,16 @@ describe('cobertura del kit', () => {
   const internal = new Set(['Portal', 'PageHeader', 'SectionLabel'])
 
   it('cada componente exportado se muestra en alguna vista', () => {
-    const index = readFileSync(
-      join(import.meta.dirname, '../../../src/index.ts'),
-      'utf8',
-    )
+    const pkg = join(import.meta.dirname, '../../../src')
     const exported = new Set<string>()
-    for (const m of index.matchAll(/export \{([^}]*)\} from/g)) {
-      for (const n of m[1].split(',')) {
-        const name = n.trim()
-        if (name && /^[A-Z]/.test(name) && !internal.has(name)) exported.add(name)
+    for (const folder of readdirSync(pkg)) {
+      const dir = join(pkg, folder)
+      if (!statSync(dir).isDirectory() || ['__tests__', 'lib', 'styles', 'assets'].includes(folder)) continue
+      const entry = join(dir, `${folder}.tsx`)
+      let text: string
+      try { text = readFileSync(entry, 'utf8') } catch { continue }
+      for (const m of text.matchAll(/^export (?:function|const) ([A-Z]\w+)/gm)) {
+        if (!internal.has(m[1])) exported.add(m[1])
       }
     }
 

@@ -1,6 +1,8 @@
 import s from './kit.module.css'
 import { Children, useEffect, useState, type ReactNode } from 'react'
-import { Chip, Icon, cx, type IconName } from '@milo/ui'
+import { Chip } from '@milo/ui/chip'
+import { Icon, type IconName } from '@milo/ui/icon'
+import { cx } from '@milo/ui/lib/cx'
 import { propsByComponent } from '@milo/ui/props'
 
 export function useTokens(names: readonly string[]) {

@@ -1,8 +1,9 @@
 import cls from './color.module.css'
-import {
-  Alert, AlertTitle, Button, Chip, Progress, Table, TableBody, TableCell, TableHead,
-  TableHeader, TableRow,
-} from '@milo/ui'
+import { Alert, AlertTitle } from '@milo/ui/alert'
+import { Button } from '@milo/ui/button'
+import { Chip } from '@milo/ui/chip'
+import { Progress } from '@milo/ui/progress'
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@milo/ui/table'
 import { Footnote, Note, Page, Ramp, Rich, Section, Stack, Swatch, useTokens } from '../kit'
 
 const blue = ['--blue-050', '--blue-100', '--blue-200', '--blue-300', '--blue-400', '--blue-500', '--blue-600', '--blue-700', '--blue-800', '--blue-900'] as const

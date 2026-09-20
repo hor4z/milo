@@ -1,6 +1,6 @@
 import cls from './checkbox.module.css'
 import { useState } from 'react'
-import { Checkbox } from '@milo/ui'
+import { Checkbox } from '@milo/ui/checkbox'
 import { A11y, Page, Panel, Props, Section, Stack, Variant } from '../kit'
 
 export function CheckboxStory() {
@@ -14,7 +14,7 @@ export function CheckboxStory() {
     <Page
       title="Checkbox"
       kind="Formularios"
-      imports="import { Checkbox } from '@milo/ui'"
+      imports="import { Checkbox } from '@milo/ui/checkbox'"
       lead="Caja de 18, la medida del pulgar del switch, con el radio `xs`: sobre un cuadrado tan chico, el escalón siguiente deja cuatro píxeles de lado recto por lado y la casilla se lee redonda, que es la forma de la opción única."
     >
       <Section

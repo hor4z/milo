@@ -1,5 +1,6 @@
 import cls from './spinner.module.css'
-import { Button, Spinner } from '@milo/ui'
+import { Button } from '@milo/ui/button'
+import { Spinner } from '@milo/ui/spinner'
 import { A11y, Page, Panel, Props, Section, Variant } from '../kit'
 
 export function SpinnerStory() {
@@ -7,7 +8,7 @@ export function SpinnerStory() {
     <Page
       title="Spinner"
       kind="Avisos"
-      imports="import { Spinner } from '@milo/ui'"
+      imports="import { Spinner } from '@milo/ui/spinner'"
       lead="Pista completa más un arco encima, los dos del mismo grosor. La pista no es decorativa: sin ella, un arco suelto girando no dice 'esperá', dice que falta un trozo de la interfaz. El arco es de largo fijo y lo único que pasa es que gira, parejo."
     >
       <Section

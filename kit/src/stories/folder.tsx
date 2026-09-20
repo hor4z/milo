@@ -1,5 +1,7 @@
 import cls from './folder.module.css'
-import { Card, Folder, Icon } from '@milo/ui'
+import { Card } from '@milo/ui/card'
+import { Folder } from '@milo/ui/folder'
+import { Icon } from '@milo/ui/icon'
 import { A11y, Footnote, Mono, Page, Props, Section, Stack } from '../kit'
 
 const face = (n: number) => `/avatars/${String(n).padStart(2, '0')}.webp`
@@ -10,7 +12,7 @@ export function FolderStory() {
     <Page
       title="Folder"
       kind="Superficies"
-      imports="import { Folder, FolderIcon } from '@milo/ui'"
+      imports="import { Folder } from '@milo/ui/folder' · import { FolderIcon } from '@milo/ui/icon'"
       lead="Una carpeta que se abre. Cerrada es una silueta limpia; al pasar por encima las hojas suben desde adentro y se abanican, y ahí se ve qué hay sin tener que entrar."
     >
       <Section

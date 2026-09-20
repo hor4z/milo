@@ -1,4 +1,6 @@
-import { Button, Dropdown, Icon } from '@milo/ui'
+import { Button } from '@milo/ui/button'
+import { Dropdown } from '@milo/ui/dropdown'
+import { Icon } from '@milo/ui/icon'
 import { A11y, Cluster, Demo, Page, Props, Section } from '../kit'
 
 export function DropdownStory() {
@@ -7,7 +9,7 @@ export function DropdownStory() {
       title="Dropdown"
       lead="Un menú de cuatro items. No lleva velo: el velo va para lo que pide leerse entero, y un menú corto no lo pide. Cierra con Escape, que usa una pila global: cierra el overlay de arriba y no todos."
       kind="Acciones"
-      imports="import { Dropdown } from '@milo/ui'"
+      imports="import { Dropdown } from '@milo/ui/dropdown'"
     >
       <Section title="Vivo" note="El disparador va como render prop porque el Dropdown necesita su ref para medir dónde abrir. Desde que `Button` acepta ref, el disparador puede ser el botón del sistema y no un <button> crudo repitiendo las clases.">
         <Cluster align="start">

@@ -3,9 +3,201 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "@milo/ui": ["./src/index.ts"],
-      "@milo/ui/icons.meta": ["./src/icons.meta.ts"],
-      "@milo/ui/props": ["./src/props.gen.ts"]
+      "@milo/ui/icons.meta": [
+        "./src/icons.meta.ts"
+      ],
+      "@milo/ui/icons": [
+        "./src/icons.gen.ts"
+      ],
+      "@milo/ui/props": [
+        "./src/props.gen.ts"
+      ],
+      "@milo/ui/lib/*": [
+        "./src/lib/*"
+      ],
+      "@milo/ui/accordion": [
+        "./src/accordion/accordion.tsx"
+      ],
+      "@milo/ui/alert": [
+        "./src/alert/alert.tsx"
+      ],
+      "@milo/ui/audio-player": [
+        "./src/audio-player/audio-player.tsx"
+      ],
+      "@milo/ui/avatar": [
+        "./src/avatar/avatar.tsx"
+      ],
+      "@milo/ui/breadcrumb": [
+        "./src/breadcrumb/breadcrumb.tsx"
+      ],
+      "@milo/ui/button": [
+        "./src/button/button.tsx"
+      ],
+      "@milo/ui/callout": [
+        "./src/callout/callout.tsx"
+      ],
+      "@milo/ui/card": [
+        "./src/card/card.tsx"
+      ],
+      "@milo/ui/chart": [
+        "./src/chart/chart.tsx"
+      ],
+      "@milo/ui/checkbox": [
+        "./src/checkbox/checkbox.tsx"
+      ],
+      "@milo/ui/chip": [
+        "./src/chip/chip.tsx"
+      ],
+      "@milo/ui/column-picker": [
+        "./src/column-picker/column-picker.tsx"
+      ],
+      "@milo/ui/command-menu": [
+        "./src/command-menu/command-menu.tsx"
+      ],
+      "@milo/ui/confirm-dialog": [
+        "./src/confirm-dialog/confirm-dialog.tsx"
+      ],
+      "@milo/ui/date-picker": [
+        "./src/date-picker/date-picker.tsx"
+      ],
+      "@milo/ui/divider": [
+        "./src/divider/divider.tsx"
+      ],
+      "@milo/ui/dropdown": [
+        "./src/dropdown/dropdown.tsx"
+      ],
+      "@milo/ui/empty-state": [
+        "./src/empty-state/empty-state.tsx"
+      ],
+      "@milo/ui/field": [
+        "./src/field/field.tsx"
+      ],
+      "@milo/ui/figure": [
+        "./src/figure/figure.tsx"
+      ],
+      "@milo/ui/filter": [
+        "./src/filter/filter.tsx"
+      ],
+      "@milo/ui/folder": [
+        "./src/folder/folder.tsx"
+      ],
+      "@milo/ui/icon": [
+        "./src/icon/icon.tsx"
+      ],
+      "@milo/ui/icon-button": [
+        "./src/icon-button/icon-button.tsx"
+      ],
+      "@milo/ui/indicator": [
+        "./src/indicator/indicator.tsx"
+      ],
+      "@milo/ui/kbd": [
+        "./src/kbd/kbd.tsx"
+      ],
+      "@milo/ui/link": [
+        "./src/link/link.tsx"
+      ],
+      "@milo/ui/list": [
+        "./src/list/list.tsx"
+      ],
+      "@milo/ui/mention": [
+        "./src/mention/mention.tsx"
+      ],
+      "@milo/ui/menu": [
+        "./src/menu/menu.tsx"
+      ],
+      "@milo/ui/modal": [
+        "./src/modal/modal.tsx"
+      ],
+      "@milo/ui/nav": [
+        "./src/nav/nav.tsx"
+      ],
+      "@milo/ui/page": [
+        "./src/page/page.tsx"
+      ],
+      "@milo/ui/pagination": [
+        "./src/pagination/pagination.tsx"
+      ],
+      "@milo/ui/popover": [
+        "./src/popover/popover.tsx"
+      ],
+      "@milo/ui/portal": [
+        "./src/portal/portal.tsx"
+      ],
+      "@milo/ui/prefs": [
+        "./src/prefs/prefs.tsx"
+      ],
+      "@milo/ui/progress": [
+        "./src/progress/progress.tsx"
+      ],
+      "@milo/ui/quote": [
+        "./src/quote/quote.tsx"
+      ],
+      "@milo/ui/radio": [
+        "./src/radio/radio.tsx"
+      ],
+      "@milo/ui/reorder": [
+        "./src/reorder/reorder.tsx"
+      ],
+      "@milo/ui/row": [
+        "./src/row/row.tsx"
+      ],
+      "@milo/ui/search": [
+        "./src/search/search.tsx"
+      ],
+      "@milo/ui/segmented": [
+        "./src/segmented/segmented.tsx"
+      ],
+      "@milo/ui/select": [
+        "./src/select/select.tsx"
+      ],
+      "@milo/ui/settings-modal": [
+        "./src/settings-modal/settings-modal.tsx"
+      ],
+      "@milo/ui/sheet": [
+        "./src/sheet/sheet.tsx"
+      ],
+      "@milo/ui/skeleton": [
+        "./src/skeleton/skeleton.tsx"
+      ],
+      "@milo/ui/slider": [
+        "./src/slider/slider.tsx"
+      ],
+      "@milo/ui/spinner": [
+        "./src/spinner/spinner.tsx"
+      ],
+      "@milo/ui/stepper": [
+        "./src/stepper/stepper.tsx"
+      ],
+      "@milo/ui/steps": [
+        "./src/steps/steps.tsx"
+      ],
+      "@milo/ui/switch": [
+        "./src/switch/switch.tsx"
+      ],
+      "@milo/ui/table": [
+        "./src/table/table.tsx"
+      ],
+      "@milo/ui/tabs": [
+        "./src/tabs/tabs.tsx"
+      ],
+      "@milo/ui/task-list": [
+        "./src/task-list/task-list.tsx"
+      ],
+      "@milo/ui/text-field": [
+        "./src/text-field/text-field.tsx"
+      ],
+      "@milo/ui/textarea": [
+        "./src/textarea/textarea.tsx"
+      ],
+      "@milo/ui/toast": [
+        "./src/toast/toast.tsx"
+      ],
+      "@milo/ui/toolbar": [
+        "./src/toolbar/toolbar.tsx"
+      ],
+      "@milo/ui/tooltip": [
+        "./src/tooltip/tooltip.tsx"
+      ]
     }
   },
   "include": [

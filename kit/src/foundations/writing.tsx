@@ -1,5 +1,5 @@
 import cls from './writing.module.css'
-import { Icon } from '@milo/ui'
+import { Icon } from '@milo/ui/icon'
 import { Page, Section, Stack } from '../kit'
 
 const pairs: { bad: string; good: string; by: string }[] = [

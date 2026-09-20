@@ -1,5 +1,7 @@
 import cls from './audio-player.module.css'
-import { AudioPlayer, IconButton, Tooltip } from '@milo/ui'
+import { AudioPlayer } from '@milo/ui/audio-player'
+import { IconButton } from '@milo/ui/icon-button'
+import { Tooltip } from '@milo/ui/tooltip'
 import { A11y, Note, Page, Panel, Props, Section, Rich } from '../kit'
 
 /** Salen de `npm run picos -- kit/public/audio/consigna.mp3 --barras 64`. */
@@ -39,7 +41,7 @@ export function AudioPlayerStory() {
     <Page
       title="AudioPlayer"
       kind="Datos"
-      imports="import { AudioPlayer } from '@milo/ui'"
+      imports="import { AudioPlayer } from '@milo/ui/audio-player'"
       lead="Un archivo de audio con su onda: play, una línea de tiempo que se arrastra y el reloj. Para una consigna grabada o la devolución hablada de una corrección."
     >
       <Section

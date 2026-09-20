@@ -1,5 +1,13 @@
 import { useState } from 'react'
-import { Button, Field, FieldSet, Icon, Select, Sheet, SheetBody, SheetFooter, SheetHeader, Switch, TextField, Textarea, useToast } from '@milo/ui'
+import { Button } from '@milo/ui/button'
+import { Field, FieldSet } from '@milo/ui/field'
+import { Icon } from '@milo/ui/icon'
+import { Select } from '@milo/ui/select'
+import { Sheet, SheetBody, SheetFooter, SheetHeader } from '@milo/ui/sheet'
+import { Switch } from '@milo/ui/switch'
+import { TextField } from '@milo/ui/text-field'
+import { Textarea } from '@milo/ui/textarea'
+import { useToast } from '@milo/ui/toast'
 import { A11y, Canvas, Note, Page, Props, Section, Stack } from '../kit'
 
 export function SheetStory() {
@@ -15,7 +23,7 @@ export function SheetStory() {
     <Page
       title="Sheet"
       kind="Formularios"
-      imports="import { Sheet, SheetHeader, SheetBody, SheetFooter } from '@milo/ui'"
+      imports="import { Sheet, SheetHeader, SheetBody, SheetFooter } from '@milo/ui/sheet'"
       lead="El panel que entra de costado, para un formulario largo que no justifica cambiar de pantalla. Lo de atrás se queda donde estaba y al cerrar seguís en el mismo lugar, con el scroll donde lo dejaste."
     >
       <Section

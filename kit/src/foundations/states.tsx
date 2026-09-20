@@ -1,6 +1,14 @@
 import cls from './states.module.css'
 import { useState } from 'react'
-import { Button, Card, Chip, EmptyState, Icon, Skeleton, Spinner, Switch, TextField } from '@milo/ui'
+import { Button } from '@milo/ui/button'
+import { Card } from '@milo/ui/card'
+import { Chip } from '@milo/ui/chip'
+import { EmptyState } from '@milo/ui/empty-state'
+import { Icon } from '@milo/ui/icon'
+import { Skeleton } from '@milo/ui/skeleton'
+import { Spinner } from '@milo/ui/spinner'
+import { Switch } from '@milo/ui/switch'
+import { TextField } from '@milo/ui/text-field'
 import { A11y, Note, Page, Rich, Section, Stack } from '../kit'
 
 /** Los seis estados de algo que se toca, y con qué los dice este sistema. */
@@ -19,7 +27,7 @@ export function StatesSection() {
       title="Estados"
       kind="Fundamentos"
       lead="Lo que una pieza hace cuando algo le pasa: se toca, se está cargando, se rompió, no tiene nada adentro. Es la mitad de la experiencia y la mitad que se documenta menos, porque la pantalla del caso feliz es la que se dibuja primero."
-      imports="import { EmptyState, Skeleton, Spinner } from '@milo/ui'"
+      imports="import { EmptyState } from '@milo/ui/empty-state' · import { Skeleton } from '@milo/ui/skeleton' · import { Spinner } from '@milo/ui/spinner'"
     >
       <Section
         title="La regla que ordena todo esto"

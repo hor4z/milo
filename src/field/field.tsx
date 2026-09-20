@@ -1,32 +1,8 @@
 import s from './field.module.css'
-import { createContext, useContext, useId, type ComponentPropsWithoutRef, type ReactNode } from 'react'
+import { useId, type ComponentPropsWithoutRef, type ReactNode } from 'react'
+import { FieldCtx } from '../lib/field-ctx'
 import { Icon } from '../icon/icon'
 import { cx } from '../lib/cx'
-
-type FieldState = { id: string; labelId: string; describedBy?: string; invalid: boolean }
-export const FieldCtx = createContext<FieldState | null>(null)
-
-/** Lo que un grupo de opciones necesita: no toma el id, se nombra con la etiqueta. */
-export function useFieldGroup() {
-  const ctx = useContext(FieldCtx)
-  if (!ctx) return { 'aria-labelledby': undefined, 'aria-describedby': undefined, 'aria-invalid': undefined }
-  return {
-    'aria-labelledby': ctx.labelId,
-    'aria-describedby': ctx.describedBy,
-    'aria-invalid': ctx.invalid || undefined,
-  }
-}
-
-/** Lo que un control necesita para quedar bien atado a su etiqueta. */
-export function useField() {
-  const ctx = useContext(FieldCtx)
-  if (!ctx) return { id: undefined, 'aria-describedby': undefined, 'aria-invalid': undefined }
-  return {
-    id: ctx.id,
-    'aria-describedby': ctx.describedBy,
-    'aria-invalid': ctx.invalid || undefined,
-  }
-}
 
 type FieldProps = {
   /** Nombra el control y lo enfoca al tocarla. */

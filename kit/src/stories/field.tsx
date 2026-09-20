@@ -1,5 +1,10 @@
 import { useState } from 'react'
-import { Checkbox, Field, FieldSet, Select, Switch, TextField, Textarea } from '@milo/ui'
+import { Checkbox } from '@milo/ui/checkbox'
+import { Field, FieldSet } from '@milo/ui/field'
+import { Select } from '@milo/ui/select'
+import { Switch } from '@milo/ui/switch'
+import { TextField } from '@milo/ui/text-field'
+import { Textarea } from '@milo/ui/textarea'
 import { A11y, Canvas, Frame, Note, Page, Props, Section, Stack } from '../kit'
 
 export function FieldStory() {
@@ -15,7 +20,7 @@ export function FieldStory() {
     <Page
       title="Field"
       kind="Formularios"
-      imports="import { Field, FieldSet } from '@milo/ui'"
+      imports="import { Field, FieldSet } from '@milo/ui/field'"
       lead="Un campo suelto no es un formulario: le falta el nombre, la ayuda y el error, y los tres tienen que estar atados al control para que un lector de pantalla los lea con él. Field hace ese trabajo una vez y en un solo lugar."
     >
       <Section

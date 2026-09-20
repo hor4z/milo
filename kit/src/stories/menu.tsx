@@ -1,5 +1,9 @@
 import { useState } from 'react'
-import { Button, Divider, Icon, Menu, MenuItem, MenuLabel, Popover } from '@milo/ui'
+import { Button } from '@milo/ui/button'
+import { Divider } from '@milo/ui/divider'
+import { Icon } from '@milo/ui/icon'
+import { Menu, MenuItem, MenuLabel } from '@milo/ui/menu'
+import { Popover } from '@milo/ui/popover'
 import { A11y, Footnote, Mono, Page, Panel, Props, Section, Variant } from '../kit'
 
 export function MenuStory() {
@@ -9,7 +13,7 @@ export function MenuStory() {
     <Page
       title="Menu"
       kind="Acciones"
-      imports="import { Menu, MenuItem, MenuLabel } from '@milo/ui'"
+      imports="import { Menu, MenuItem, MenuLabel } from '@milo/ui/menu'"
       lead="Piezas que se arman, no una lista de opciones: un panel y filas que se escriben adentro. Es el mismo corte que la Table, y por el mismo motivo: la lista alcanza hasta el primer menú que necesita un separador, un rótulo de grupo o un atajo, y a partir de ahí cada necesidad nueva es una prop nueva en un objeto."
     >
       <Section

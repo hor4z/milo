@@ -1,5 +1,7 @@
 import cls from './media.module.css'
-import { AudioPlayer, Figure, Icon } from '@milo/ui'
+import { AudioPlayer } from '@milo/ui/audio-player'
+import { Figure } from '@milo/ui/figure'
+import { Icon } from '@milo/ui/icon'
 import { A11y, Cluster, Footnote, Note, Page, Rich, Section, Stack } from '../kit'
 
 const peaks = [0.2, 0.5, 0.8, 0.6, 0.9, 0.4, 0.7, 0.3, 0.85, 0.55, 0.25, 0.65, 0.45, 0.75, 0.35, 0.6]
@@ -94,7 +96,7 @@ export function MediaSection() {
     <Page
       title="Medios"
       kind="Fundamentos"
-      imports="import { AudioPlayer, Figure } from '@milo/ui'"
+      imports="import { AudioPlayer } from '@milo/ui/audio-player' · import { Figure } from '@milo/ui/figure'"
       lead="Imagen, audio, video y animación. Cuál va cuándo, qué pide cada uno para estar terminado, y qué es lo que ninguno puede hacer solo."
     >
       <Section

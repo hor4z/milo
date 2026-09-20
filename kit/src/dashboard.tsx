@@ -1,12 +1,26 @@
 import cls from './dashboard.module.css'
 import { Stack } from './kit'
 import { useEffect, useState } from 'react'
-import {
-  Avatar, AvatarGroup, BarChart, Button, Card, Chip, Dropdown, Folder, Icon, IconButton,
-  Indicator, Link, List, ListItem, Progress, Search, Segmented, SettingsModal, Tooltip, useToast,
-  count, dayAndTime, delta,
-  type IconName,
-} from '@milo/ui'
+import { Avatar, AvatarGroup } from '@milo/ui/avatar'
+import { Button } from '@milo/ui/button'
+import { Card } from '@milo/ui/card'
+import { BarChart } from '@milo/ui/chart'
+import { Chip } from '@milo/ui/chip'
+import { Dropdown } from '@milo/ui/dropdown'
+import { Folder } from '@milo/ui/folder'
+import { Icon, type IconName } from '@milo/ui/icon'
+import { IconButton } from '@milo/ui/icon-button'
+import { Indicator } from '@milo/ui/indicator'
+import { count, delta } from '@milo/ui/lib/number'
+import { dayAndTime } from '@milo/ui/lib/time'
+import { Link } from '@milo/ui/link'
+import { List, ListItem } from '@milo/ui/list'
+import { Progress } from '@milo/ui/progress'
+import { Search } from '@milo/ui/search'
+import { Segmented } from '@milo/ui/segmented'
+import { SettingsModal } from '@milo/ui/settings-modal'
+import { useToast } from '@milo/ui/toast'
+import { Tooltip } from '@milo/ui/tooltip'
 import { useStill } from './mascots/still'
 
 const AR = 'America/Argentina/Buenos_Aires'

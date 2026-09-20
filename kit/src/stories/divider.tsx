@@ -1,5 +1,8 @@
 import cls from './divider.module.css'
-import { Avatar, Divider, Icon, Kbd } from '@milo/ui'
+import { Avatar } from '@milo/ui/avatar'
+import { Divider } from '@milo/ui/divider'
+import { Icon } from '@milo/ui/icon'
+import { Kbd } from '@milo/ui/kbd'
 import { A11y, Footnote, Frame, Page, Panel, Props, Section, Variant } from '../kit'
 
 export function DividerStory() {
@@ -7,7 +10,7 @@ export function DividerStory() {
     <Page
       title="Divider"
       kind="Superficies"
-      imports="import { Divider } from '@milo/ui'"
+      imports="import { Divider } from '@milo/ui/divider'"
       lead="Un píxel de `--border`, y nada más. Existe como pieza porque la línea estaba escrita a mano en varios lugares y no todas con el mismo gris: cuál es la línea del sistema es una decisión, y una decisión escrita seis veces se desincroniza a la quinta."
     >
       <Section

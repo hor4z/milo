@@ -1,4 +1,6 @@
-import { Icon, IconButton, Indicator } from '@milo/ui'
+import { Icon } from '@milo/ui/icon'
+import { IconButton } from '@milo/ui/icon-button'
+import { Indicator } from '@milo/ui/indicator'
 import { A11y, Page, Panel, Props, Section, Variant } from '../kit'
 
 export function IndicatorStory() {
@@ -7,7 +9,7 @@ export function IndicatorStory() {
       title="Indicator"
       kind="Datos"
       lead="Una marca chica pegada a la esquina de otra cosa. No es una pieza en sí: envuelve a la que sí lo es (un botón, un avatar, una carpeta) y le agrega un punto, un contador o un glifo sin cambiarla."
-      imports="import { Indicator } from '@milo/ui'"
+      imports="import { Indicator } from '@milo/ui/indicator'"
     >
       <Section
         title="Tres formas de marcar"

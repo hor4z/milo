@@ -1,5 +1,6 @@
 import { useState } from 'react'
-import { DatePicker, Field, FieldSet } from '@milo/ui'
+import { DatePicker } from '@milo/ui/date-picker'
+import { Field, FieldSet } from '@milo/ui/field'
 import { A11y, Canvas, Note, Page, Props, Section, Stack } from '../kit'
 
 const today = () => {
@@ -17,7 +18,7 @@ export function DatePickerStory() {
     <Page
       title="DatePicker"
       kind="Formularios"
-      imports="import { DatePicker } from '@milo/ui'"
+      imports="import { DatePicker } from '@milo/ui/date-picker'"
       lead="Un campo que abre un mes. El valor es el texto `AAAA-MM-DD` y no un `Date`: una fecha de entrega no tiene hora ni zona, y un `Date` arrastra las dos."
     >
       <Section

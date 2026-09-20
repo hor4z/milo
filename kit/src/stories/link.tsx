@@ -1,5 +1,5 @@
 import cls from './link.module.css'
-import { Link } from '@milo/ui'
+import { Link } from '@milo/ui/link'
 import { A11y, Canvas, Note, Page, Props, Section } from '../kit'
 
 export function LinkStory() {
@@ -7,7 +7,7 @@ export function LinkStory() {
     <Page
       title="Link"
       kind="Superficies"
-      imports="import { Link } from '@milo/ui'"
+      imports="import { Link } from '@milo/ui/link'"
       lead="Azul **y** subrayado, las dos cosas. El color solo no alcanza (hay quien no lo distingue) y el subrayado solo dejaba al enlace confundido con el texto en negrita de al lado. Con las dos señales, un enlace se reconoce sin leerlo y sin depender de ver el tono."
     >
       <Section

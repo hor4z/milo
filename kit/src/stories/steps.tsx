@@ -1,6 +1,8 @@
 import cls from './steps.module.css'
 import { useState } from 'react'
-import { Button, Icon, Steps } from '@milo/ui'
+import { Button } from '@milo/ui/button'
+import { Icon } from '@milo/ui/icon'
+import { Steps } from '@milo/ui/steps'
 import { A11y, Note, Page, Props, Section } from '../kit'
 
 const design = [
@@ -26,7 +28,7 @@ export function StepsStory() {
     <Page
       title="Steps"
       kind="Navegación"
-      imports="import { Steps } from '@milo/ui'"
+      imports="import { Steps } from '@milo/ui/steps'"
       lead="Por dónde va algo que tiene etapas: una actividad en partes, un proceso de diseño, un formulario largo. Dice dónde estás y cuánto falta, que es lo que una barra de progreso no puede decir."
     >
       <Section title="La pieza" note="Las anteriores quedan hechas, la actual se marca, las que siguen esperan.">

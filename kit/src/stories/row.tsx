@@ -1,6 +1,9 @@
 import cls from './row.module.css'
 import { useState } from 'react'
-import { Button, Row, Select, Switch } from '@milo/ui'
+import { Button } from '@milo/ui/button'
+import { Row } from '@milo/ui/row'
+import { Select } from '@milo/ui/select'
+import { Switch } from '@milo/ui/switch'
 import { A11y, Note, Page, Props, Section } from '../kit'
 
 export function RowStory() {
@@ -12,7 +15,7 @@ export function RowStory() {
     <Page
       title="Row"
       kind="Superficies"
-      imports="import { Row } from '@milo/ui'"
+      imports="import { Row } from '@milo/ui/row'"
       lead="La fila de un panel de ajustes: qué es a la izquierda, con qué se cambia a la derecha. 56 de alto y padding 16/24, iguales en todas, que es lo que hace que una lista de ocho se lea como una sola cosa."
     >
       <Section

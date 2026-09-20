@@ -1,5 +1,7 @@
 import cls from './chart.module.css'
-import { AvatarGroup, BarChart, Card } from '@milo/ui'
+import { AvatarGroup } from '@milo/ui/avatar'
+import { Card } from '@milo/ui/card'
+import { BarChart } from '@milo/ui/chart'
 import { A11y, Page, Props, Section } from '../kit'
 
 const face = (n: number) => `/avatars/${String(n).padStart(2, '0')}.webp`
@@ -39,7 +41,7 @@ export function ChartStory() {
     <Page
       title="BarChart"
       kind="Datos"
-      imports="import { BarChart } from '@milo/ui'"
+      imports="import { BarChart } from '@milo/ui/chart'"
       lead="Cada barra son dos cosas: el gris es el total y el azul es lo hecho. No son dos series compitiendo, es una parte adentro de su todo, y por eso el azul va dentro del gris: apoyados uno al lado del otro habría que compararlos a ojo, y metido adentro, lo que falta es el gris que sobra arriba."
     >
       <Section

@@ -1,5 +1,10 @@
 import { useState } from 'react'
-import { Button, Field, Icon, Modal, ModalBody, ModalFooter, ModalHeader, ModalHint, ModalTitle, SettingsModal, TextField } from '@milo/ui'
+import { Button } from '@milo/ui/button'
+import { Field } from '@milo/ui/field'
+import { Icon } from '@milo/ui/icon'
+import { Modal, ModalBody, ModalFooter, ModalHeader, ModalHint, ModalTitle } from '@milo/ui/modal'
+import { SettingsModal } from '@milo/ui/settings-modal'
+import { TextField } from '@milo/ui/text-field'
 import { A11y, Demo, Example, Grid, Note, Page, Props, Section } from '../kit'
 
 export function ModalStory() {
@@ -12,7 +17,7 @@ export function ModalStory() {
     <Page
       title="Modal"
       kind="Superficies"
-      imports="import { Modal, ModalHeader, ModalTitle, ModalHint, ModalBody, ModalFooter } from '@milo/ui'"
+      imports="import { Modal, ModalHeader, ModalTitle, ModalHint, ModalBody, ModalFooter } from '@milo/ui/modal'"
       lead="Tres partes: la cabecera con el título y la X, el cuerpo, y los botones abajo. El panel es una columna, así que el cuerpo es lo único que scrollea y las acciones siguen a la vista. El ancho sale de tres, no de un número suelto."
     >
       <Section

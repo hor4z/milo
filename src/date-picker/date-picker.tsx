@@ -1,6 +1,6 @@
 import cls from './date-picker.module.css'
 import { useEffect, useId, useLayoutEffect, useMemo, useRef, useState } from 'react'
-import { useField } from '../field/field'
+import { useField } from '../lib/field-ctx'
 import { Icon } from '../icon/icon'
 import { cx } from '../lib/cx'
 import { useEscape } from '../lib/esc'

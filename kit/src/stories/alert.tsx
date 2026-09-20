@@ -1,5 +1,7 @@
 import { useState } from 'react'
-import { Alert, AlertActions, AlertBody, AlertTitle, Button, Icon } from '@milo/ui'
+import { Alert, AlertActions, AlertBody, AlertTitle } from '@milo/ui/alert'
+import { Button } from '@milo/ui/button'
+import { Icon } from '@milo/ui/icon'
 import { A11y, Demo, Frame, Note, Page, Props, Section, Stack } from '../kit'
 
 export function AlertStory() {
@@ -11,7 +13,7 @@ export function AlertStory() {
     <Page
       title="Alert"
       kind="Avisos"
-      imports="import { Alert, AlertTitle, AlertBody, AlertActions } from '@milo/ui'"
+      imports="import { Alert, AlertTitle, AlertBody, AlertActions } from '@milo/ui/alert'"
       lead="El aviso que se queda en la página y forma parte de lo que estás mirando: algo está roto, algo falta, algo está por vencer. Si el aviso tiene que seguir ahí cuando la persona vuelva a mirar, es un Alert y no un `Toast`."
     >
       <Section

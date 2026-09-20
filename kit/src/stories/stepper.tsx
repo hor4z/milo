@@ -1,5 +1,6 @@
 import { useState } from 'react'
-import { Field, FieldSet, Stepper } from '@milo/ui'
+import { Field, FieldSet } from '@milo/ui/field'
+import { Stepper } from '@milo/ui/stepper'
 import { A11y, Canvas, Cluster, Note, Page, Panel, Props, Section, Stack, Variant } from '../kit'
 
 export function StepperStory() {
@@ -13,7 +14,7 @@ export function StepperStory() {
     <Page
       title="Stepper"
       kind="Formularios"
-      imports="import { Stepper } from '@milo/ui'"
+      imports="import { Stepper } from '@milo/ui/stepper'"
       lead="Un número chico que se sube y se baja. Para lo que se cuenta y no se escribe: cuántos intentos, cuántas preguntas, cuántos minutos. Arriba de dos cifras conviene un `TextField`, que se teclea más rápido de lo que se aprieta."
     >
       <Section

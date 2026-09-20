@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Search } from '@milo/ui'
+import { Search } from '@milo/ui/search'
 import { A11y, Page, Panel, Props, Section, Variant } from '../kit'
 
 export function SearchStory() {
@@ -15,7 +15,7 @@ export function SearchStory() {
       title="Search"
       kind="Formularios"
       lead="Un campo con la lupa y una cruz que aparece cuando hay algo escrito. Es un `TextField` por dentro y no un campo aparte: se dibuja igual que los otros y hereda su inversión contra el fondo."
-      imports="import { Search } from '@milo/ui'"
+      imports="import { Search } from '@milo/ui/search'"
     >
       <Section
         title="Las tres alturas"

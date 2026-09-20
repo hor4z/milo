@@ -1,4 +1,6 @@
-import { Icon, List, ListItem, type IconName, type MarkColor } from '@milo/ui'
+import { Icon, type IconName } from '@milo/ui/icon'
+import { type MarkColor } from '@milo/ui/lib/colors'
+import { List, ListItem } from '@milo/ui/list'
 import { A11y, Footnote, Frame, Mono, Page, Props, Section } from '../kit'
 
 const onboarding: { icon: IconName; color: MarkColor; title: string; hint: string; active?: boolean }[] = [
@@ -20,7 +22,7 @@ export function ListStory() {
     <Page
       title="List · ListItem"
       kind="Datos"
-      imports="import { List, ListItem } from '@milo/ui'"
+      imports="import { List, ListItem } from '@milo/ui/list'"
       lead="Filas altas, cada una con una marca de color, un título y una línea de apoyo. No es `Row`: acá no hay divisores (cada fila es su propia caja con aire alrededor), el título sube a 16 porque es lo que se lee primero, y la marca de color es lo que te deja encontrar una fila de reojo sin leerla."
     >
       <Section

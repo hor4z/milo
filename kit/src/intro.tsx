@@ -1,9 +1,15 @@
 import cls from './intro.module.css'
 import { Stack } from './kit'
-import {
-  Alert, AlertTitle, AvatarGroup, BarChart, Button, Card, Chip, Icon,
-  Progress, Switch, TextField, type IconName,
-} from '@milo/ui'
+import { Alert, AlertTitle } from '@milo/ui/alert'
+import { AvatarGroup } from '@milo/ui/avatar'
+import { Button } from '@milo/ui/button'
+import { Card } from '@milo/ui/card'
+import { BarChart } from '@milo/ui/chart'
+import { Chip } from '@milo/ui/chip'
+import { Icon, type IconName } from '@milo/ui/icon'
+import { Progress } from '@milo/ui/progress'
+import { Switch } from '@milo/ui/switch'
+import { TextField } from '@milo/ui/text-field'
 import { useState } from 'react'
 
 const face = (n: number) => `/avatars/${String(n).padStart(2, '0')}.webp`

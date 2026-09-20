@@ -1,12 +1,17 @@
 import cls from './table.module.css'
 import { useMemo, useState } from 'react'
-import {
-  Avatar, AvatarGroup, Chip, ColumnPicker, Dropdown, EmptyState, Filter, FilterBar, FilterReset,
-  Search, IconButton,
-  Pagination, PaginationNext, PaginationPrev, PaginationStatus,
-  Table, TableBody, TableCell, TableFooter, TableHead, TableHeader,
-  TableEmpty, TableHint, TableNum, TableRow, TableTitle, facets, fold, timeAgo,
-} from '@milo/ui'
+import { Avatar, AvatarGroup } from '@milo/ui/avatar'
+import { Chip } from '@milo/ui/chip'
+import { ColumnPicker } from '@milo/ui/column-picker'
+import { Dropdown } from '@milo/ui/dropdown'
+import { EmptyState } from '@milo/ui/empty-state'
+import { Filter, FilterBar, FilterReset, facets } from '@milo/ui/filter'
+import { IconButton } from '@milo/ui/icon-button'
+import { fold } from '@milo/ui/lib/cx'
+import { timeAgo } from '@milo/ui/lib/time'
+import { Pagination, PaginationNext, PaginationPrev, PaginationStatus } from '@milo/ui/pagination'
+import { Search } from '@milo/ui/search'
+import { Table, TableBody, TableCell, TableFooter, TableHead, TableHeader, TableEmpty, TableHint, TableNum, TableRow, TableTitle } from '@milo/ui/table'
 import { A11y, Footnote, Mono, Page, Props, Section, Stack } from '../kit'
 
 const face = (n: number) => `/avatars/${String(n).padStart(2, '0')}.webp`
@@ -126,7 +131,7 @@ export function TableStory() {
     <Page
       title="Table"
       kind="Datos"
-      imports="import { Table, TableCell, TableEmpty, TableHeader, TableRow } from '@milo/ui'"
+      imports="import { Table, TableCell, TableEmpty, TableHeader, TableRow } from '@milo/ui/table'"
       lead="Piezas que se arman, no un componente que recibe `columns` y `rows`. Una tabla de datos y una de personas con un grupo de avatares y un menú al final no comparten nada más que la grilla, y una API de columnas termina con un `render` por columna: el mismo JSX, pero metido en un objeto y sin poder leerlo de arriba abajo."
     >
       <Section

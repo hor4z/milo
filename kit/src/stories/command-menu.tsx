@@ -1,6 +1,9 @@
 import cls from './command-menu.module.css'
 import { useState } from 'react'
-import { Button, CommandMenu, Kbd, Popover, type CommandGroup, type CommandItem } from '@milo/ui'
+import { Button } from '@milo/ui/button'
+import { CommandMenu, type CommandGroup, type CommandItem } from '@milo/ui/command-menu'
+import { Kbd } from '@milo/ui/kbd'
+import { Popover } from '@milo/ui/popover'
 import { A11y, Cluster, Frame, Note, Page, Props, Section, Stack } from '../kit'
 
 const blocks: CommandGroup[] = [
@@ -43,7 +46,7 @@ export function CommandMenuStory() {
     <Page
       title="CommandMenu"
       kind="Editor"
-      imports="import { CommandMenu } from '@milo/ui'"
+      imports="import { CommandMenu } from '@milo/ui/command-menu'"
       lead="La lista de comandos: se escribe, se filtra y se elige con las flechas. Es el menú que abre la barra en un editor, y la paleta de atajos de una app."
     >
       <Section

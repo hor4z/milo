@@ -1,4 +1,4 @@
-import { Quote } from '@milo/ui'
+import { Quote } from '@milo/ui/quote'
 import { A11y, Frame, Note, Page, Props, Section, Stack } from '../kit'
 
 export function QuoteStory() {
@@ -6,7 +6,7 @@ export function QuoteStory() {
     <Page
       title="Quote"
       kind="Editor"
-      imports="import { Quote } from '@milo/ui'"
+      imports="import { Quote } from '@milo/ui/quote'"
       lead="Palabras de otro: lo que dijo alguien, un fragmento de un texto, la respuesta de un estudiante que vale leer en clase."
     >
       <Section

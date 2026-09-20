@@ -1,10 +1,16 @@
 import cls from './document.module.css'
 import { useState } from 'react'
-import {
-  AvatarGroup, Button, Callout, Figure, Mention, Popover, Quote, TaskList,
-  CommandMenu, Divider, Icon,
-  type CommandGroup, type Task,
-} from '@milo/ui'
+import { AvatarGroup } from '@milo/ui/avatar'
+import { Button } from '@milo/ui/button'
+import { Callout } from '@milo/ui/callout'
+import { CommandMenu, type CommandGroup } from '@milo/ui/command-menu'
+import { Divider } from '@milo/ui/divider'
+import { Figure } from '@milo/ui/figure'
+import { Icon } from '@milo/ui/icon'
+import { Mention } from '@milo/ui/mention'
+import { Popover } from '@milo/ui/popover'
+import { Quote } from '@milo/ui/quote'
+import { TaskList, type Task } from '@milo/ui/task-list'
 
 const face = (n: number) => `/avatars/${String(n).padStart(2, '0')}.webp`
 

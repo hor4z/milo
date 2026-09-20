@@ -1,5 +1,6 @@
 import css from './typography.module.css'
-import { Icon, Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@milo/ui'
+import { Icon } from '@milo/ui/icon'
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@milo/ui/table'
 import { A11y, Note, Page, Section, Stack, useTokens } from '../kit'
 
 /** Los siete roles, en orden de tamaño. `name` es el token y el resto es lo que documenta. */
@@ -19,7 +20,7 @@ export function TypographySection() {
       title="Tipografía"
       kind="Fundamentos"
       lead="Una familia (Inter) y siete roles, cada uno cargando tamaño, interlineado y tracking juntos. La base es 14 y hay un escalón explícito de 16 para lo que un estudiante lee de corrido."
-      imports="import { Icon } from '@milo/ui'"
+      imports="import { Icon } from '@milo/ui/icon'"
     >
       <Section
         title="Los siete roles"

@@ -1,8 +1,8 @@
 import { useState } from 'react'
-import {
-  Button, ConfirmDialog, ConfirmDialogBody, ConfirmDialogCancel, ConfirmDialogConfirm,
-  ConfirmDialogFooter, ConfirmDialogHeader, ConfirmDialogTitle, Icon, useToast,
-} from '@milo/ui'
+import { Button } from '@milo/ui/button'
+import { ConfirmDialog, ConfirmDialogBody, ConfirmDialogCancel, ConfirmDialogConfirm, ConfirmDialogFooter, ConfirmDialogHeader, ConfirmDialogTitle } from '@milo/ui/confirm-dialog'
+import { Icon } from '@milo/ui/icon'
+import { useToast } from '@milo/ui/toast'
 import { A11y, Demo, Example, Grid, Note, Page, Props, Section } from '../kit'
 
 export function ConfirmStory() {
@@ -13,7 +13,7 @@ export function ConfirmStory() {
     <Page
       title="ConfirmDialog"
       kind="Superficies"
-      imports="import { ConfirmDialog, ConfirmDialogHeader, ConfirmDialogTitle, ConfirmDialogBody, ConfirmDialogFooter, ConfirmDialogCancel, ConfirmDialogConfirm } from '@milo/ui'"
+      imports="import { ConfirmDialog, ConfirmDialogHeader, ConfirmDialogTitle, ConfirmDialogBody, ConfirmDialogFooter, ConfirmDialogCancel, ConfirmDialogConfirm } from '@milo/ui/confirm-dialog'"
       lead="La pregunta antes de algo que no se deshace. Mismas partes que el Modal, sin X: la salida segura ya está a la vista y es el botón de cancelar."
     >
       <Section

@@ -1,5 +1,5 @@
 import cls from './progress.module.css'
-import { Progress } from '@milo/ui'
+import { Progress } from '@milo/ui/progress'
 import { A11y, Note, Page, Props, Section } from '../kit'
 
 export function ProgressStory() {
@@ -7,7 +7,7 @@ export function ProgressStory() {
     <Page
       title="Progress"
       kind="Datos"
-      imports="import { Progress } from '@milo/ui'"
+      imports="import { Progress } from '@milo/ui/progress'"
       lead="Cuánto va hecho de algo que tiene un final. La pista es el resto y va clarísima: con el mismo peso que el relleno, la barra se lee como dos datos apilados en vez de como una parte de un todo."
     >
       <Section

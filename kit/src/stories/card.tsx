@@ -1,5 +1,9 @@
 import cls from './card.module.css'
-import { Button, Card, CardBody, CardFooter, CardHeader, CardHint, CardTitle, Chip, Icon, Progress } from '@milo/ui'
+import { Button } from '@milo/ui/button'
+import { Card, CardBody, CardFooter, CardHeader, CardHint, CardTitle } from '@milo/ui/card'
+import { Chip } from '@milo/ui/chip'
+import { Icon } from '@milo/ui/icon'
+import { Progress } from '@milo/ui/progress'
 import { A11y, Cluster, Note, Page, Props, Section } from '../kit'
 
 export function CardStory() {
@@ -7,7 +11,7 @@ export function CardStory() {
     <Page
       title="Card"
       kind="Superficies"
-      imports="import { Card, CardHeader, CardTitle, CardHint, CardBody, CardFooter } from '@milo/ui'"
+      imports="import { Card, CardHeader, CardTitle, CardHint, CardBody, CardFooter } from '@milo/ui/card'"
       lead="La superficie de una grilla: una cosa por tarjeta, y la tarjeta entera es la unidad que se escanea. Radio 16 con 8 de padding, así que lo que va adentro lleva 8: la regla del anidado, no un número elegido a ojo."
     >
       <Section

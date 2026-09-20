@@ -1,5 +1,5 @@
 import s from './mention.module.css'
-import { Mention } from '@milo/ui'
+import { Mention } from '@milo/ui/mention'
 import { A11y, Note, Page, Props, Section } from '../kit'
 
 const face = (n: number) => `/avatars/${String(n).padStart(2, '0')}.webp`
@@ -9,7 +9,7 @@ export function MentionStory() {
     <Page
       title="Mention"
       kind="Editor"
-      imports="import { Mention } from '@milo/ui'"
+      imports="import { Mention } from '@milo/ui/mention'"
       lead="Una referencia adentro del texto: quién o qué. Va en el renglón y no lo interrumpe."
     >
       <Section

@@ -1,6 +1,7 @@
 import cls from './reorder.module.css'
 import { useState } from 'react'
-import { Icon, Reorder, type ReorderItem, type IconName } from '@milo/ui'
+import { Icon, type IconName } from '@milo/ui/icon'
+import { Reorder, type ReorderItem } from '@milo/ui/reorder'
 import { A11y, Canvas, Frame, Note, Page, Props, Section } from '../kit'
 
 type Block = ReorderItem & { icon: IconName; meta: string }
@@ -20,7 +21,7 @@ export function ReorderStory() {
     <Page
       title="Reorder"
       kind="Navegación"
-      imports="import { Reorder } from '@milo/ui'"
+      imports="import { Reorder } from '@milo/ui/reorder'"
       lead="Una lista que cambia de orden: los bloques de una consigna, las etapas de una entrega. Se arrastra con el dedo o el mouse, y se mueve con el teclado: las dos cosas, no una."
     >
       <Section

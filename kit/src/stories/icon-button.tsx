@@ -1,5 +1,5 @@
 import cls from './icon-button.module.css'
-import { IconButton } from '@milo/ui'
+import { IconButton } from '@milo/ui/icon-button'
 import { A11y, Example, Page, Panel, Props, Section, Variant } from '../kit'
 
 export function IconButtonStory() {
@@ -7,7 +7,7 @@ export function IconButtonStory() {
     <Page
       title="IconButton"
       kind="Acciones"
-      imports="import { IconButton } from '@milo/ui'"
+      imports="import { IconButton } from '@milo/ui/icon-button'"
       lead="Cuadrado del alto de su paso, y los pasos son los del `Button`: un icono al lado de un botón en la misma fila apoya en la misma línea sin que nadie lo calcule. El radio es 10 y no el 12 del Button: sobre un cuadrado chico, esos dos píxeles se comen tanto lado plano que la pieza se lee redonda."
     >
       <Section

@@ -2,10 +2,10 @@ import { render, screen, act } from '@testing-library/react'
 import { beforeAll, describe, expect, it } from 'vitest'
 import { readFileSync } from 'node:fs'
 import { join } from 'node:path'
-import { PrefsProvider } from '@milo/ui'
-import { App } from '../App'
+import { PrefsProvider } from '@milo/ui/prefs'
+import { App } from '../app'
 
-const app = readFileSync(join(import.meta.dirname, '../App.tsx'), 'utf8')
+const app = readFileSync(join(import.meta.dirname, '../app.tsx'), 'utf8')
 const entries = [...app.matchAll(/\{ id: '([\w-]+)', label: '([^']*)'/g)].map(m => ({ id: m[1], label: m[2] }))
 const sueltas = [
   { id: 'dashboard', label: 'Dashboard' },

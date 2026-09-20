@@ -1,5 +1,7 @@
 import cls from './empty-state.module.css'
-import { Button, EmptyState, FilterReset } from '@milo/ui'
+import { Button } from '@milo/ui/button'
+import { EmptyState } from '@milo/ui/empty-state'
+import { FilterReset } from '@milo/ui/filter'
 import { A11y, Demo, Page, Props, Section, Stack } from '../kit'
 
 export function EmptyStateStory() {
@@ -7,7 +9,7 @@ export function EmptyStateStory() {
     <Page
       title="EmptyState"
       kind="Avisos"
-      imports="import { EmptyState } from '@milo/ui'"
+      imports="import { EmptyState } from '@milo/ui/empty-state'"
       lead="Lo que se ve cuando no hay nada, siempre con una salida: un vacío que no dice qué hacer es una pantalla rota con buena redacción. El icono va adentro de un hueco y en gris: suelto y grande se ve como una imagen que no cargó, que es justo lo que uno teme."
     >
       <Section

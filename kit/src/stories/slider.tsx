@@ -1,6 +1,6 @@
 import cls from './slider.module.css'
 import { useState } from 'react'
-import { Slider } from '@milo/ui'
+import { Slider } from '@milo/ui/slider'
 import { A11y, Footnote, Frame, Mono, Page, Panel, Props, Section, Variant } from '../kit'
 
 export function SliderStory() {
@@ -13,7 +13,7 @@ export function SliderStory() {
     <Page
       title="Slider"
       kind="Formularios"
-      imports="import { Slider } from '@milo/ui'"
+      imports="import { Slider } from '@milo/ui/slider'"
       lead="El hermano del switch, y por eso no tiene recetas propias: la pista llena, la vacía y el pulgar son los del switch. Los dos son una píldora con una pieza redonda encima, así que el día que cambie el relieve de uno tiene que cambiar el del otro."
     >
       <Section

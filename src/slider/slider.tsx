@@ -1,6 +1,6 @@
 import s from './slider.module.css'
 import { useState, type CSSProperties } from 'react'
-import { useField } from '../field/field'
+import { useField } from '../lib/field-ctx'
 import { cx } from '../lib/cx'
 
 /** Un valor en un rango. */

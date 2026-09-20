@@ -1,4 +1,4 @@
-import { Breadcrumb } from '@milo/ui'
+import { Breadcrumb } from '@milo/ui/breadcrumb'
 import { A11y, Canvas, Note, Page, Props, Section } from '../kit'
 
 export function BreadcrumbStory() {
@@ -6,7 +6,7 @@ export function BreadcrumbStory() {
     <Page
       title="Breadcrumb"
       kind="Navegación"
-      imports="import { Breadcrumb } from '@milo/ui'"
+      imports="import { Breadcrumb } from '@milo/ui/breadcrumb'"
       lead="Dónde estás parado y cómo volver. Sirve cuando lo que estás mirando vive adentro de algo (una actividad adentro de un espacio) y no sirve cuando la pantalla es un destino suelto: una miga de un solo paso es ruido."
     >
       <Section

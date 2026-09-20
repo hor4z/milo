@@ -212,17 +212,49 @@ describe('coherencia del sistema', () => {
     ).toEqual([])
   })
 
-  it('todo lo público se exporta desde index.ts', () => {
-    const index = readFileSync(join(dir, 'index.ts'), 'utf8')
-    const missing: string[] = []
+  it('todo lo público se alcanza por su subpath', () => {
+    const exports = JSON.parse(readFileSync(join(dir, '../package.json'), 'utf8')).exports as Record<string, unknown>
+    const sueltos = new Set(Object.keys(exports).filter(k => !k.includes('*')).map(k => k.replace(/^\.\//, '')))
+
+    const unreachable: string[] = []
     for (const f of sources) {
-      if (f.name === 'index.ts') continue
-      const exported = [...f.text.matchAll(/^export function ([A-Z]\w+)/gm)].map(m => m[1])
-      for (const name of exported) {
-        if (!new RegExp(`\\b${name}\\b`).test(index)) missing.push(`${name} (${f.name})`)
+      const exported = [...f.text.matchAll(/^export (?:function|const) (\w+)/gm)]
+        .map(m => m[1])
+        .filter(n => /^[A-Z]/.test(n) || n.startsWith('use'))
+      if (!exported.length) continue
+
+      const [folder, file] = f.name.split('/')
+      const quien = `${f.name} (${exported.join(', ')})`
+
+      // src/lo-que-sea.ts: solo si el exports lo nombra a mano
+      if (!file) { if (!sueltos.has(folder.replace(/\.tsx?$/, ''))) unreachable.push(quien); continue }
+      // src/lib/x.ts entra por ./lib/*
+      if (folder === 'lib') { if (!exports['./lib/*']) unreachable.push(quien); continue }
+      // src/pieza/otra-cosa.tsx no lo alcanza nadie: ./* resuelve pieza/pieza
+      if (file.replace(/\.tsx?$/, '') !== folder) unreachable.push(quien)
+    }
+
+    expect(
+      unreachable,
+      'sin barril, un export se alcanza solo desde pieza/pieza.tsx, lib/x.ts o un subpath nombrado a mano',
+    ).toEqual([])
+  })
+
+  it('ningún archivo ni carpeta lleva una mayúscula', () => {
+    const raiz = join(dir, '..')
+    const conMayuscula: string[] = []
+    const recorrer = (base: string, prefijo: string) => {
+      for (const e of readdirSync(base, { withFileTypes: true })) {
+        if (/[A-Z]/.test(e.name)) conMayuscula.push(`${prefijo}${e.name}`)
+        if (e.isDirectory()) recorrer(join(base, e.name), `${prefijo}${e.name}/`)
       }
     }
-    expect(missing).toEqual([])
+    recorrer(join(raiz, 'src'), 'src/')
+    recorrer(join(raiz, 'kit/src'), 'kit/src/')
+    expect(
+      conMayuscula,
+      'el nombre del archivo es el nombre del import: va en kebab aunque el export sea IconButton',
+    ).toEqual([])
   })
 
   it('cada carpeta tiene el componente que le da nombre', () => {

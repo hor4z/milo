@@ -1,6 +1,6 @@
 import s from './column-picker.module.css'
 import { useState } from 'react'
-import { ColumnPicker } from '@milo/ui'
+import { ColumnPicker } from '@milo/ui/column-picker'
 import { A11y, Page, Panel, Props, Section, Variant } from '../kit'
 
 const columns = [
@@ -19,7 +19,7 @@ export function ColumnPickerStory() {
       title="ColumnPicker"
       kind="Datos"
       lead="Qué columnas de una tabla se ven. Vivía adentro de `filter/` y no tenía vista propia: una pieza que no se puede encontrar es una pieza que alguien vuelve a escribir a mano."
-      imports="import { ColumnPicker } from '@milo/ui'"
+      imports="import { ColumnPicker } from '@milo/ui/column-picker'"
     >
       <Section
         title="Cómo se usa"

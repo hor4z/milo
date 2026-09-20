@@ -1,6 +1,8 @@
 import cls from './chip.module.css'
 import { useState } from 'react'
-import { Card, CardBody, CardHeader, CardTitle, Chip, labelColors } from '@milo/ui'
+import { Card, CardBody, CardHeader, CardTitle } from '@milo/ui/card'
+import { Chip } from '@milo/ui/chip'
+import { labelColors } from '@milo/ui/lib/colors'
 import { A11y, Cluster, Demo, Note, Page, Panel, Props, Section, Variant } from '../kit'
 
 export function ChipStory() {
@@ -10,7 +12,7 @@ export function ChipStory() {
     <Page
       title="Chip"
       kind="Datos"
-      imports="import { Chip } from '@milo/ui'"
+      imports="import { Chip } from '@milo/ui/chip'"
       lead="La marca chica de texto, y hay una sola. Dice en qué estado está una actividad, o nombra una categoría, un método o una persona. Siempre con texto: un punto de color no dice en qué estado está algo, y si lo dijera, no lo diría para quien no distingue colores."
     >
       <Section

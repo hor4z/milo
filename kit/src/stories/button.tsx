@@ -1,4 +1,5 @@
-import { Button, Icon } from '@milo/ui'
+import { Button } from '@milo/ui/button'
+import { Icon } from '@milo/ui/icon'
 import { useEffect, useRef, useState } from 'react'
 import { A11y, Demo, Example, Grid, Page, Panel, Props, Section, Variant } from '../kit'
 
@@ -33,7 +34,7 @@ export function ButtonStory() {
     <Page
       title="Button"
       kind="Acciones"
-      imports="import { Button } from '@milo/ui'"
+      imports="import { Button } from '@milo/ui/button'"
       lead="El texto va un escalón arriba del de su entorno: un botón con el mismo tamaño de letra que lo que lo rodea no se lee como accionable."
     >
       <Section

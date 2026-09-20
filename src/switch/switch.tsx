@@ -1,5 +1,5 @@
 import s from './switch.module.css'
-import { useField } from '../field/field'
+import { useField } from '../lib/field-ctx'
 import { cx } from '../lib/cx'
 
 /** El switch: pista de 40×22 con 2 de padding, así que el pulgar es de 18 y viaja 18 exactos. */

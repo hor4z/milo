@@ -1,6 +1,6 @@
 import s from './toolbar.module.css'
 import { useState } from 'react'
-import { Toolbar, ToolbarButton, ToolbarSeparator } from '@milo/ui'
+import { Toolbar, ToolbarButton, ToolbarSeparator } from '@milo/ui/toolbar'
 import { A11y, Page, Props, Section } from '../kit'
 
 export function ToolbarStory() {
@@ -11,7 +11,7 @@ export function ToolbarStory() {
     <Page
       title="Toolbar"
       kind="Editor"
-      imports="import { Toolbar, ToolbarButton, ToolbarSeparator } from '@milo/ui'"
+      imports="import { Toolbar, ToolbarButton, ToolbarSeparator } from '@milo/ui/toolbar'"
       lead="La barra que aparece sobre el texto seleccionado. Una sola parada de tabulación, y adentro se mueve con flechas."
     >
       <Section title="La pieza">

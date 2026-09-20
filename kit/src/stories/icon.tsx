@@ -1,10 +1,13 @@
 import cls from './icon.module.css'
 import { useMemo, useState } from 'react'
 import type { CSSProperties } from 'react'
-import {
-  EmptyState, Icon, Segmented, Slider, TextField, fold,
-  iconNames, type IconName, type IconWeight,
-} from '@milo/ui'
+import { EmptyState } from '@milo/ui/empty-state'
+import { Icon, type IconName, type IconWeight } from '@milo/ui/icon'
+import { iconNames } from '@milo/ui/icons'
+import { fold } from '@milo/ui/lib/cx'
+import { Segmented } from '@milo/ui/segmented'
+import { Slider } from '@milo/ui/slider'
+import { TextField } from '@milo/ui/text-field'
 import { iconTags } from '@milo/ui/icons.meta'
 import { A11y, Cluster, Footnote, Mono, Note, Page, Panel, Props, Section, Variant } from '../kit'
 
@@ -44,7 +47,7 @@ export function IconStory() {
     <Page
       title="Icon"
       kind="Guía"
-      imports="import { Icon } from '@milo/ui'"
+      imports="import { Icon } from '@milo/ui/icon'"
       lead="Material Symbols Rounded, subseteado a lo que usamos y servido desde el repo. Peso 300 de base, y peso y relleno son ejes reales de la fuente, no variantes generadas."
     >
       <Section

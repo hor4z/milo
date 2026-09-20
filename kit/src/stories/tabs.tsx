@@ -1,5 +1,5 @@
 import cls from './tabs.module.css'
-import { Tab, TabList, TabPanel, Tabs } from '@milo/ui'
+import { Tab, TabList, TabPanel, Tabs } from '@milo/ui/tabs'
 import { A11y, Canvas, Note, Page, Props, Section } from '../kit'
 
 export function TabsStory() {
@@ -7,7 +7,7 @@ export function TabsStory() {
     <Page
       title="Tabs"
       kind="Navegación"
-      imports="import { Tabs, TabList, Tab, TabPanel } from '@milo/ui'"
+      imports="import { Tabs, TabList, Tab, TabPanel } from '@milo/ui/tabs'"
       lead="Un mismo lugar que muestra contenidos que se comparan entre sí: las entregas, la rúbrica y los ajustes de una actividad. Lo que no se compara no va en solapas: va en una pantalla aparte o en un `Accordion`."
     >
       <Section
