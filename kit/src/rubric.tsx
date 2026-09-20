@@ -5,8 +5,8 @@ import { Divider } from '@milo/ui/divider'
 import { Field } from '@milo/ui/field'
 import { Icon } from '@milo/ui/icon'
 import { IconButton } from '@milo/ui/icon-button'
-import { Radio } from '@milo/ui/radio'
 import { Slider } from '@milo/ui/slider'
+import { TaskList, type Task } from '@milo/ui/task-list'
 import { TextField } from '@milo/ui/text-field'
 import { Tooltip } from '@milo/ui/tooltip'
 import { useToast } from '@milo/ui/toast'
@@ -14,7 +14,6 @@ import { cx } from '@milo/ui/lib/cx'
 import { labelColors, labelFill, type LabelColor } from '@milo/ui/lib/colors'
 import { counted, share } from '@milo/ui/lib/number'
 import { useDisclosure } from '@milo/ui/lib/use-disclosure'
-import { useRovingRadio } from '@milo/ui/lib/roving'
 
 /** Quién mira la rúbrica: uno la define, el otro se revisa con ella. */
 export type RubricMode = 'teacher' | 'student'
@@ -34,10 +33,10 @@ const initialCriteria: Criterion[] = [
     weight: 4,
     color: 'green',
     levels: [
-      'Anotó una sola medición',
-      'Anotó las tres, sin el error',
-      'Anotó las tres y estimó el error',
-      'Además explica de dónde sale ese error',
+      'Una sola medición anotada',
+      'Las tres, sin el error',
+      'Las tres, con el error estimado',
+      'Las tres, con el error y de dónde sale',
     ],
   },
   {
@@ -46,10 +45,10 @@ const initialCriteria: Criterion[] = [
     weight: 3,
     color: 'teal',
     levels: [
-      'Graficó altura contra tiempo',
-      'Graficó contra el tiempo al cuadrado',
-      'Los dos ejes llevan su unidad y la escala se lee',
-      'Marcó la recta y de dónde sale la pendiente',
+      'Altura contra tiempo',
+      'Altura contra el tiempo al cuadrado',
+      'Con la unidad en cada eje y la escala legible',
+      'Con la recta marcada y de dónde sale la pendiente',
     ],
   },
   {
@@ -58,10 +57,10 @@ const initialCriteria: Criterion[] = [
     weight: 5,
     color: 'blue',
     levels: [
-      'Escribió el resultado sin explicarlo',
-      'Dice que la pendiente se relaciona con la gravedad',
-      'Explica por qué la pendiente da la mitad de la gravedad',
-      'Compara con los 9,8 del libro y discute la diferencia',
+      'El resultado, sin explicación',
+      'La pendiente tiene que ver con la gravedad',
+      'Por qué la pendiente da la mitad de la gravedad',
+      'Comparado con los 9,8 del libro, con la diferencia discutida',
     ],
   },
 ]
@@ -75,51 +74,19 @@ const levelHints = [
   'Cumple y va más lejos',
 ]
 
-function Ladder({ criterion, mark, onMark }: {
-  criterion: Criterion
-  mark: number | undefined
-  onMark: (level: number) => void
-}) {
-  const options = criterion.levels.map((_, i) => ({ value: String(i) }))
-  const roving = useRovingRadio(String(mark ?? 0), v => onMark(Number(v)), options)
-
-  return (
-    <div
-      role="radiogroup"
-      aria-label={`Dónde estoy en ${criterion.label}`}
-      onKeyDown={roving.onKeyDown}
-      className={cls.ladder}
-    >
-      {criterion.levels.map((level, i) => (
-        <span
-          key={level}
-          onClick={() => onMark(i)}
-          className={cx(
-            cls.step,
-            cls.stepPick,
-            i === criterion.levels.length - 1 && cls.stepTop,
-            mark === i && cls.stepSelected,
-          )}
-        >
-          <Radio
-            ref={roving.ref(String(i))}
-            checked={mark === i}
-            onChange={() => onMark(i)}
-            label={`Nivel ${i + 1} de ${criterion.levels.length}: ${level}`}
-            tabIndex={roving.tabIndex(String(i))}
-          />
-          <span aria-hidden className={cls.stepText}>{level}</span>
-        </span>
-      ))}
-    </div>
-  )
+function goals(criteria: Criterion[], done: Record<string, boolean>): Task[] {
+  return criteria.map(c => ({
+    id: c.id,
+    label: `${c.label}: ${c.levels[c.levels.length - 1].toLowerCase()}`,
+    done: done[c.id],
+  }))
 }
 
 /** Con qué se mira un trabajo: los criterios, cuánto pesa cada uno y qué se ve en cada nivel. */
 export function RubricRail({ mode }: { mode: RubricMode }) {
   const [criteria, setCriteria] = useState(initialCriteria)
-  const [marks, setMarks] = useState<Record<string, number>>({})
   const [lit, setLit] = useState<string | null>(null)
+  const [done, setDone] = useState<Record<string, boolean>>({})
   const [runs, setRuns] = useState(0)
   const [label, setLabel] = useState('')
   const [weight, setWeight] = useState(3)
@@ -132,7 +99,6 @@ export function RubricRail({ mode }: { mode: RubricMode }) {
   const labelRef = useRef<HTMLInputElement>(null)
 
   const total = criteria.reduce((sum, c) => sum + c.weight, 0)
-  const reviewed = criteria.filter(c => marks[c.id] !== undefined).length
 
   const openForm = () => {
     setLabel('')
@@ -222,65 +188,56 @@ export function RubricRail({ mode }: { mode: RubricMode }) {
       <div className={cx(cls.body, panel.open && cls.bodyOpen)}>
         <div id="rubrica-cuerpo" inert={!panel.open} className={cls.bodyInner}>
           <div className={`${cls.paper} bg-surface`}>
+            {mode === 'student' ? (
+              <>
+                <p className={cls.lead}>
+                  Esto es lo que va a mirar tu docente en la entrega. Marcá lo que ya tenés y mirá
+                  lo que falta. Marcar no es la nota: la nota la pone quien corrige.
+                </p>
+                <TaskList
+                  items={goals(criteria, done)}
+                  onToggle={(id, value) => setDone(d => ({ ...d, [id]: value }))}
+                  label="Lo que se va a mirar"
+                />
+              </>
+            ) : (
             <ul key={runs} className={cls.items}>
-              {criteria.map((c, i) => {
-                const mark = marks[c.id]
-                const next = mark === undefined ? undefined : c.levels[mark + 1]
-                return (
-                  <li
-                    key={c.id}
-                    style={{ '--enter': i } as CSSProperties}
-                    className={cls.criterion}
-                  >
-                    {i > 0 && <Divider className={cls.split} />}
-                    <div className={cls.criterionTop}>
-                      <span aria-hidden className={`${cls.swatch} ${labelFill[c.color]}`} />
-                      <p className={cls.criterionLabel}>
-                        {c.label}
-                        <span className="sr-only">, vale {share(c.weight, total).percent} de la nota</span>
-                      </p>
-                      {mode === 'teacher' && (
-                        <Tooltip label="Sacar de la rúbrica">
-                          <IconButton
-                            icon="delete"
-                            label={`Sacar ${c.label} de la rúbrica`}
-                            size="sm"
-                            variant="ghost"
-                            onClick={() => remove(c, i)}
-                            className={cls.removeCriterion}
-                          />
-                        </Tooltip>
-                      )}
-                    </div>
-
-                    {mode === 'student' ? (
-                      <Ladder
-                        criterion={c}
-                        mark={mark}
-                        onMark={level => setMarks(m => ({ ...m, [c.id]: level }))}
+              {criteria.map((c, i) => (
+                <li
+                  key={c.id}
+                  style={{ '--enter': i } as CSSProperties}
+                  className={cls.criterion}
+                >
+                  {i > 0 && <Divider className={cls.split} />}
+                  <div className={cls.criterionTop}>
+                    <span aria-hidden className={`${cls.swatch} ${labelFill[c.color]}`} />
+                    <p className={cls.criterionLabel}>
+                      {c.label}
+                      <span className="sr-only">, vale {share(c.weight, total).percent} de la nota</span>
+                    </p>
+                    <Tooltip label="Sacar de la rúbrica">
+                      <IconButton
+                        icon="delete"
+                        label={`Sacar ${c.label} de la rúbrica`}
+                        size="sm"
+                        variant="ghost"
+                        onClick={() => remove(c, i)}
+                        className={cls.removeCriterion}
                       />
-                    ) : (
-                      <ol className={cls.ladder}>
-                        {c.levels.map((level, i) => (
-                          <li key={level} className={cx(cls.step, i === c.levels.length - 1 && cls.stepTop)}>
-                            <span className={cls.stepText}>{level}</span>
-                          </li>
-                        ))}
-                      </ol>
-                    )}
+                    </Tooltip>
+                  </div>
 
-                    {mode === 'student' && mark !== undefined && (
-                      <p className={cls.next}>
-                        <Icon name="arrow_forward" size={14} className={`${cls.nextIcon} icon-muted`} />
-                        {next
-                          ? <span>Lo que sigue: {next.charAt(0).toLowerCase()}{next.slice(1)}</span>
-                          : <span>Llegaste al último nivel de este criterio.</span>}
-                      </p>
-                    )}
-                  </li>
-                )
-              })}
+                  <ol className={cls.ladder}>
+                    {c.levels.map((level, j) => (
+                      <li key={level} className={cx(cls.step, j === c.levels.length - 1 && cls.stepTop)}>
+                        <span className={cls.stepText}>{level}</span>
+                      </li>
+                    ))}
+                  </ol>
+                </li>
+              ))}
             </ul>
+            )}
 
             {mode === 'teacher' && !form.open && (
               <Button
@@ -336,13 +293,6 @@ export function RubricRail({ mode }: { mode: RubricMode }) {
               </div>
             )}
 
-            {mode === 'student' && (
-              <p className={cls.review}>
-                {reviewed === 0 && 'Antes de entregar, marcá en cada criterio el renglón que describe lo que hiciste.'}
-                {reviewed > 0 && reviewed < criteria.length && `Te revisaste en ${counted(reviewed, ['criterio', 'criterios'])} de ${criteria.length}.`}
-                {reviewed === criteria.length && 'Te revisaste en todos. Lo que sigue está escrito debajo de cada uno.'}
-              </p>
-            )}
           </div>
         </div>
       </div>
