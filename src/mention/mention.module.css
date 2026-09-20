@@ -1,6 +1,7 @@
 @layer milo.components {
   .root {
     display: inline-flex;
+    white-space: nowrap;
     align-items: center;
     gap: 0.25rem;
     border-radius: var(--radius-sm);
