@@ -53,7 +53,7 @@ export function RubricStory() {
       title="Rubric"
       kind="Datos"
       imports="import { Rubric } from '@milo/ui/rubric'"
-      lead="Con qué se mira un trabajo: los criterios, cuánto vale cada uno y qué se ve en cada nivel. Va al costado de la consigna mientras se la escribe, que es cuando se decide qué se va a mirar."
+      lead="Con qué se mira un trabajo: los criterios, cuánto vale cada uno y qué se ve en cada nivel. La escribe quien corrige y la lee quien entrega, así que dice lo mismo de los dos lados."
     >
       <Section
         title="Cómo se arma"
