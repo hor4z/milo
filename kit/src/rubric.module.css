@@ -63,10 +63,25 @@
   }
 
   .weight {
+    display: flex;
     flex-basis: 0;
     min-width: 0;
-    transition-property: flex-grow, opacity;
-    transition-duration: var(--duration-content), var(--duration-fast);
+    transition-property: flex-grow;
+    transition-duration: var(--duration-content);
+    transition-timing-function: var(--ease-out);
+  }
+
+  .weight > span {
+    display: flex;
+    flex: 1;
+    min-width: 0;
+  }
+
+  .weightBand {
+    flex: 1;
+    min-width: 0;
+    transition-property: opacity;
+    transition-duration: var(--duration-fast);
     transition-timing-function: var(--ease-out);
   }
 
@@ -124,10 +139,6 @@
     transition-property: background-color;
     transition-duration: var(--duration-fast);
     transition-timing-function: var(--ease-out);
-  }
-
-  .criterionLit {
-    background-color: var(--surface-hover);
   }
 
   .criterionTop {

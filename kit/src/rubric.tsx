@@ -8,6 +8,7 @@ import { IconButton } from '@milo/ui/icon-button'
 import { Radio } from '@milo/ui/radio'
 import { Slider } from '@milo/ui/slider'
 import { TextField } from '@milo/ui/text-field'
+import { Tooltip } from '@milo/ui/tooltip'
 import { useToast } from '@milo/ui/toast'
 import { cx } from '@milo/ui/lib/cx'
 import { labelColors, labelFill, type LabelColor } from '@milo/ui/lib/colors'
@@ -205,14 +206,16 @@ export function RubricRail({ mode }: { mode: RubricMode }) {
 
       <div className={cls.weights}>
         {criteria.map(c => (
-          <span
-            key={c.id}
-            aria-hidden
-            style={{ flexGrow: c.weight }}
-            onPointerEnter={() => setLit(c.id)}
-            onPointerLeave={() => setLit(null)}
-            className={cx(cls.weight, labelFill[c.color], lit && lit !== c.id && cls.weightDim)}
-          />
+          <span key={c.id} style={{ flexGrow: c.weight }} className={cls.weight}>
+            <Tooltip label={`${c.label}: ${share(c.weight, total).percent}`}>
+              <span
+                aria-hidden
+                onPointerEnter={() => setLit(c.id)}
+                onPointerLeave={() => setLit(null)}
+                className={cx(cls.weightBand, labelFill[c.color], lit && lit !== c.id && cls.weightDim)}
+              />
+            </Tooltip>
+          </span>
         ))}
       </div>
 
@@ -227,24 +230,26 @@ export function RubricRail({ mode }: { mode: RubricMode }) {
                   <li
                     key={c.id}
                     style={{ '--enter': i } as CSSProperties}
-                    onPointerEnter={() => setLit(c.id)}
-                    onPointerLeave={() => setLit(null)}
-                    className={cx(cls.criterion, lit === c.id && cls.criterionLit)}
+                    className={cls.criterion}
                   >
                     {i > 0 && <Divider className={cls.split} />}
                     <div className={cls.criterionTop}>
                       <span aria-hidden className={`${cls.swatch} ${labelFill[c.color]}`} />
-                      <p className={cls.criterionLabel}>{c.label}</p>
-                      <span className={`${cls.share} tabular`}>{share(c.weight, total).percent}</span>
+                      <p className={cls.criterionLabel}>
+                        {c.label}
+                        <span className="sr-only">, vale {share(c.weight, total).percent} de la nota</span>
+                      </p>
                       {mode === 'teacher' && (
-                        <IconButton
-                          icon="close"
-                          label={`Sacar ${c.label} de la rúbrica`}
-                          size="sm"
-                          variant="ghost"
-                          onClick={() => remove(c, i)}
-                          className={cls.removeCriterion}
-                        />
+                        <Tooltip label="Sacar de la rúbrica">
+                          <IconButton
+                            icon="delete"
+                            label={`Sacar ${c.label} de la rúbrica`}
+                            size="sm"
+                            variant="ghost"
+                            onClick={() => remove(c, i)}
+                            className={cls.removeCriterion}
+                          />
+                        </Tooltip>
                       )}
                     </div>
 
