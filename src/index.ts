@@ -69,8 +69,11 @@ export { Portal } from './portal/portal'
 export { Popover } from './popover/popover'
 export { Dropdown } from './dropdown/dropdown'
 export type { DropdownItem } from './dropdown/dropdown'
-export { Modal, ModalBody, ModalTitle, ModalHint, ModalFooter } from './modal/modal'
-export { ConfirmDialog } from './confirm-dialog/confirm-dialog'
+export { Modal, ModalHeader, ModalTitle, ModalHint, ModalBody, ModalFooter } from './modal/modal'
+export {
+  ConfirmDialog, ConfirmDialogHeader, ConfirmDialogTitle, ConfirmDialogBody,
+  ConfirmDialogFooter, ConfirmDialogCancel, ConfirmDialogConfirm,
+} from './confirm-dialog/confirm-dialog'
 export { Sheet, SheetHeader, SheetBody, SheetFooter } from './sheet/sheet'
 export { Menu, MenuItem, MenuLabel } from './menu/menu'
 export { CommandMenu } from './command-menu/command-menu'

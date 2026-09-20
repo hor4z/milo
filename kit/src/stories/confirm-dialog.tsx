@@ -1,5 +1,8 @@
 import { useState } from 'react'
-import { Button, ConfirmDialog, Icon, useToast } from '@milo/ui'
+import {
+  Button, ConfirmDialog, ConfirmDialogBody, ConfirmDialogCancel, ConfirmDialogConfirm,
+  ConfirmDialogFooter, ConfirmDialogHeader, ConfirmDialogTitle, Icon, useToast,
+} from '@milo/ui'
 import { A11y, Canvas, Note, Page, Props, Section } from '../kit'
 
 export function ConfirmStory() {
@@ -10,7 +13,7 @@ export function ConfirmStory() {
     <Page
       title="ConfirmDialog"
       kind="Superficies"
-      imports="import { ConfirmDialog } from '@milo/ui'"
+      imports="import { ConfirmDialog, ConfirmDialogHeader, ConfirmDialogTitle, ConfirmDialogBody, ConfirmDialogFooter, ConfirmDialogCancel, ConfirmDialogConfirm } from '@milo/ui'"
       lead="La pregunta antes de algo que no se deshace. Es un modal con una forma fija, porque una confirmación siempre es lo mismo: qué se va a hacer, sobre qué, y dos salidas."
     >
       <Section
@@ -27,11 +30,19 @@ export function ConfirmStory() {
             setOpen(false)
             toast({ title: 'Actividad borrada', tone: 'ok' })
           }}
-          title="¿Borrar 'Fracciones equivalentes'?"
-          body="Se borran también las 18 entregas que ya llegaron. No se puede deshacer."
-          confirmLabel="Borrar"
           tone="bad"
-        />
+        >
+          <ConfirmDialogHeader>
+            <ConfirmDialogTitle>¿Borrar "Fracciones equivalentes"?</ConfirmDialogTitle>
+          </ConfirmDialogHeader>
+          <ConfirmDialogBody>
+            Se borran también las 18 entregas que ya llegaron. No se puede deshacer.
+          </ConfirmDialogBody>
+          <ConfirmDialogFooter>
+            <ConfirmDialogCancel />
+            <ConfirmDialogConfirm>Borrar</ConfirmDialogConfirm>
+          </ConfirmDialogFooter>
+        </ConfirmDialog>
       </Section>
 
       <Section
@@ -48,10 +59,19 @@ export function ConfirmStory() {
             setPublishOpen(false)
             toast({ title: 'Actividad publicada', body: 'Queda abierta hasta que la cierres', tone: 'ok' })
           }}
-          title="¿Publicar sin fecha de cierre?"
-          body="La actividad queda abierta hasta que la cierres a mano, y los estudiantes pueden seguir entregando."
-          confirmLabel="Publicar"
-        />
+        >
+          <ConfirmDialogHeader>
+            <ConfirmDialogTitle>¿Publicar sin fecha de cierre?</ConfirmDialogTitle>
+          </ConfirmDialogHeader>
+          <ConfirmDialogBody>
+            La actividad queda abierta hasta que la cierres a mano, y los estudiantes pueden seguir
+            entregando.
+          </ConfirmDialogBody>
+          <ConfirmDialogFooter>
+            <ConfirmDialogCancel />
+            <ConfirmDialogConfirm>Publicar</ConfirmDialogConfirm>
+          </ConfirmDialogFooter>
+        </ConfirmDialog>
       </Section>
 
       <Note title="Antes de preguntar, fijate si se puede deshacer">
@@ -62,13 +82,14 @@ export function ConfirmStory() {
       </Note>
 
       <Section title="Props">
-        <Props of="ConfirmDialog" />
+        <Props of={['ConfirmDialog', 'ConfirmDialogHeader', 'ConfirmDialogTitle', 'ConfirmDialogBody', 'ConfirmDialogFooter', 'ConfirmDialogCancel', 'ConfirmDialogConfirm']} />
       </Section>
 
       <Section title="Accesibilidad">
         <A11y items={[
-          'Va como role="alertdialog": se anuncia con más urgencia que un diálogo común.',
-          'Con tone="bad" el foco arranca en Cancelar: con el foco en "Borrar", un Enter de más lo borra.',
+          'Va como role="alertdialog": se anuncia con más urgencia que un diálogo común, y el nombre sale del título por `aria-labelledby`.',
+          'Con tone="bad" el foco arranca en Cancelar: con el foco en "Borrar", un Enter de más lo borra. Eso lo resuelven las dos partes de botón, no el call site.',
+          'No lleva X: la salida segura ya está a la vista y es el botón de cancelar. Dos formas de salir compiten, y la X no dice qué pasa con lo que estabas por hacer.',
           'El foco no se escapa del diálogo mientras está abierto.',
           'Escape cancela, que es la salida segura.',
           'El botón dice el verbo de lo que va a pasar: "Borrar" y no "Aceptar".',

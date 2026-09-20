@@ -18,7 +18,7 @@ final son lo único que hay que tocar.
 npm install
 npm run dev        # el sitio · http://localhost:5190
 npm run typecheck  # el paquete y el sitio de una
-npm test           # 777 tests con vitest y testing-library
+npm test           # 781 tests con vitest y testing-library
 npm run build      # compila el paquete a dist/ (js, css y tipos)
 npm run props      # regenera la tabla de props desde los tipos
 ```
@@ -265,6 +265,24 @@ Salieron de armar pantallas de verdad con estas piezas, y valen para cualquiera 
   cuando algo salió bien no tiene que explicar nada: puede dar gusto, y es la parte que le habla a
   alguien de doce años. Tres cosas no cambian: nunca al lado de una tarea, nunca como única forma de
   entender algo, y siempre se reemplaza por la versión quieta para quien pidió menos movimiento.
+
+- **Un diálogo se arma con sus partes, y la del medio es la que scrollea.** `Modal` es
+  `ModalHeader` + `ModalBody` + `ModalFooter`, y `ConfirmDialog` es lo mismo con sus propios
+  nombres. El panel es una columna: header y footer no se mueven y el cuerpo scrollea cuando no
+  entra, así que en un modal largo las acciones siguen a la vista. Antes el interior se construía a
+  mano en cada call site y la X flotaba afuera del panel, anclada con dos `!important`.
+- **El nombre del diálogo sale del título que se ve.** `ModalTitle` se ata solo con
+  `aria-labelledby`, y `label` queda para el caso sin título a la vista, como fallback. Teniendo las
+  dos, la prop y el título decían cosas distintas y el lector anunciaba la prop, que es la que nadie
+  revisa.
+- **Una confirmación no lleva X.** La salida segura ya está a la vista y es el botón de cancelar;
+  dos formas de salir compiten, y la X no dice qué pasa con lo que estabas por hacer. Por eso
+  `ConfirmDialogHeader` no la pone y `ModalHeader` sí.
+- **Los dos botones de una confirmación son partes y no props**, porque la regla de foco es de la
+  pieza y no del call site: con `tone="bad"` el foco arranca en cancelar, porque con el foco puesto
+  en "Borrar" un Enter de más borra. `ConfirmDialogCancel` y `ConfirmDialogConfirm` lo resuelven
+  solos, así que no hay forma de escribir la confirmación destructiva con el foco en el lugar
+  peligroso.
 
 ## Overlays: lo que costó y conviene no volver a pelear
 
@@ -558,7 +576,7 @@ Lo mismo vale para los tipos que una pieza recibe como argumento (`ToastOptions`
 
 ## Los tests
 
-`npm test` corre vitest con jsdom y testing-library. 777 tests, y lo que prueban es el
+`npm test` corre vitest con jsdom y testing-library. 781 tests, y lo que prueban es el
 comportamiento (teclado, nombres accesibles, estados) y no el markup, que cambia con cada
 ajuste de estilo. El test de cada pieza vive en su carpeta, al lado del componente.
 
@@ -731,9 +749,6 @@ un aula:
   clase de módulo, que es otra cosa). Son de cuando los botones tenían volumen. Sacarlos es una
   decisión sobre la superficie del paquete, así que está escrito en la vista en vez de hecho a
   escondidas. El que sí se usa y por una sola pieza es `--relief-raised`, en `Segmented`.
-- **`Modal` tiene dos fuentes para su nombre.** La prop `label` es la que el lector de pantalla
-  anuncia, y `ModalTitle` es la que se ve: en la historia dicen cosas distintas y nada lo mira. La
-  salida es que el título se ate solo con `aria-labelledby`, como hace el `Sheet`.
 - **El lienzo, antes que los manipulables y que el editor de nodos.** Los dos necesitan lo mismo y
   no está decidido: pan, zoom, selección, y el teclado para todo eso. Si se arman por separado, cada
   uno lo inventa y quedan dos sistemas. Es la misma forma que ya tuvo el arrastre, donde `Reorder`
@@ -746,9 +761,12 @@ un aula:
   `p()` o `person()` en tres. Es contenido de ejemplo, así que va a un `fixtures.ts` compartido.
 - **Un `Stack` hermano de `Cluster`.** Hay 23 clases en 18 archivos que son la misma columna con
   gap, pero los valores van de 0.125 a 1.5rem y no entran en una escala sin mover cosas de lugar.
-- **Props que le faltan a dos piezas, y que las historias suplen con CSS.** `Table` no tiene
-  `align="right"` ni columna de acciones, y `Modal` no tiene `ModalHeader`/`Body`/`Footer` como sí
-  tiene `Card`: la historia del modal construye el interior entero a mano.
+- **`Table` no tiene `align="right"` ni columna de acciones**, y la historia lo suple con CSS.
+- **`Sheet` todavía tiene las dos fuentes para su nombre** que `Modal` y `ConfirmDialog` ya no
+  tienen: su prop `label` es lo que anuncia el lector y `SheetHeader` recibe el título por prop, así
+  que pueden decir cosas distintas y nada lo mira. Ojo: este archivo llegó a decir que el `Sheet` ya
+  lo resolvía con `aria-labelledby`, y era falso. La salida es la misma que se aplicó en los otros
+  dos.
 - **La familia de controles ya llega a 44×44 en táctil; el resto de las piezas no.** Con
   `pointer: coarse` los botones suben a `lg` y llevan `touch-target`, que agranda el blanco de toque
   a 44 sin mover la caja; los campos suben la caja a 44 de verdad, porque ahí el tap tiene que llegar

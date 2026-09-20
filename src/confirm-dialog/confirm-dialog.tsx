@@ -1,32 +1,35 @@
 import cls from './confirm-dialog.module.css'
-import { useRef, type ReactNode } from 'react'
+import { createContext, useContext, useId, useRef, type ComponentPropsWithoutRef, type ReactNode } from 'react'
 import { Button } from '../button/button'
 import { useEscape } from '../lib/esc'
 import { useFocusTrap, useScrollLock } from '../lib/overlay-hooks'
 import { Portal } from '../portal/portal'
+import { cx } from '../lib/cx'
 
-/** El diálogo que pregunta antes de algo que no se puede deshacer. */
+type Ctx = {
+  onCancel: () => void
+  onConfirm: () => void
+  tone: 'neutral' | 'bad'
+  titleId: string
+}
+const ConfirmContext = createContext<Ctx | null>(null)
+
+/** El diálogo que pregunta antes de algo que no se puede deshacer. Se arma con sus partes, igual que el `Modal`. */
 export function ConfirmDialog({
-  open, onCancel, onConfirm, title, body, confirmLabel = 'Aceptar', cancelLabel = 'Cancelar', tone = 'neutral',
+  open, onCancel, onConfirm, children, tone = 'neutral',
 }: {
-  /** Lo dibuja o no: cerrado no monta nada. */
+  /** Cerrado no monta nada. */
   open: boolean
-  /** Lo llaman Cancelar, el velo y Escape. */
+  /** Lo llaman el botón de cancelar, el velo y Escape. */
   onCancel: () => void
   /** Lo que pasa si dice que sí. */
   onConfirm: () => void
-  /** La pregunta, con el nombre de lo que se va a tocar adentro. */
-  title: string
-  /** Qué más se lleva puesto. */
-  body?: ReactNode
-  /** El verbo de lo que va a pasar, no "Sí". */
-  confirmLabel?: string
-  /** La salida segura. */
-  cancelLabel?: string
-  /** Bad pinta el botón de confirmar y arranca el foco en Cancelar. */
+  children: ReactNode
+  /** Bad pinta el botón de confirmar y arranca el foco en cancelar. */
   tone?: 'neutral' | 'bad'
 }) {
   const panel = useRef<HTMLDivElement>(null)
+  const titleId = useId()
   useScrollLock(open)
   useEscape(open, onCancel)
   useFocusTrap(open, panel)
@@ -39,29 +42,68 @@ export function ConfirmDialog({
           ref={panel}
           role="alertdialog"
           aria-modal="true"
-          aria-label={title}
+          aria-labelledby={titleId}
           tabIndex={-1}
           className={`${cls.panel} ui-zoom bg-surface`}
         >
-          <div className={cls.heading}>
-            <h2 className={cls.title}>{title}</h2>
-            {body && <div className={cls.text}>{body}</div>}
-          </div>
-          <div className={cls.actions}>
-            <Button variant="ghost" size="sm" data-autofocus={tone === 'bad' || undefined} onClick={onCancel}>
-              {cancelLabel}
-            </Button>
-            <Button
-              variant={tone === 'bad' ? 'bad' : 'solid'}
-              size="sm"
-              data-autofocus={tone === 'bad' ? undefined : true}
-              onClick={onConfirm}
-            >
-              {confirmLabel}
-            </Button>
-          </div>
+          <ConfirmContext.Provider value={{ onCancel, onConfirm, tone, titleId }}>
+            {children}
+          </ConfirmContext.Provider>
         </div>
       </div>
     </Portal>
+  )
+}
+
+type PartProps = ComponentPropsWithoutRef<'div'>
+
+/** La cabecera. No lleva X: la salida segura es el botón de cancelar, que ya está a la vista. */
+export function ConfirmDialogHeader({ className, ...rest }: PartProps) {
+  return <div className={cx(cls.header, className)} {...rest} />
+}
+
+/** La pregunta, con el nombre de lo que se va a tocar adentro. Es el nombre que anuncia el lector. */
+export function ConfirmDialogTitle({ className, id, ...rest }: ComponentPropsWithoutRef<'h2'>) {
+  const ctx = useContext(ConfirmContext)
+  return <h2 id={id ?? ctx?.titleId} className={cx(cls.title, className)} {...rest} />
+}
+
+/** Qué más se lleva puesto. */
+export function ConfirmDialogBody({ className, ...rest }: PartProps) {
+  return <div className={cx(cls.body, className)} {...rest} />
+}
+
+/** La fila de los dos botones, contra el borde derecho. */
+export function ConfirmDialogFooter({ className, ...rest }: PartProps) {
+  return <div className={cx(cls.footer, className)} {...rest} />
+}
+
+/** La salida segura. Con `tone="bad"` arranca con el foco. */
+export function ConfirmDialogCancel({ children = 'Cancelar' }: { children?: ReactNode }) {
+  const ctx = useContext(ConfirmContext)
+  return (
+    <Button
+      variant="ghost"
+      size="sm"
+      data-autofocus={ctx?.tone === 'bad' || undefined}
+      onClick={ctx?.onCancel}
+    >
+      {children}
+    </Button>
+  )
+}
+
+/** El verbo de lo que va a pasar, no "Sí". Con `tone="bad"` se pinta y cede el foco. */
+export function ConfirmDialogConfirm({ children = 'Aceptar' }: { children?: ReactNode }) {
+  const ctx = useContext(ConfirmContext)
+  return (
+    <Button
+      variant={ctx?.tone === 'bad' ? 'bad' : 'solid'}
+      size="sm"
+      data-autofocus={ctx?.tone === 'bad' ? undefined : true}
+      onClick={ctx?.onConfirm}
+    >
+      {children}
+    </Button>
   )
 }

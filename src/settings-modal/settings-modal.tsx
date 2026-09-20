@@ -8,7 +8,7 @@ import { Segmented } from '../segmented/segmented'
 import { Select } from '../select/select'
 import { Switch } from '../switch/switch'
 import { Icon, type IconName } from '../icon/icon'
-import { Modal } from '../modal/modal'
+import { Modal, ModalHeader, ModalTitle } from '../modal/modal'
 import { usePrefs } from '../prefs/prefs'
 
 type SectionId = 'general' | 'perfil' | 'seguridad' | 'avisos'
@@ -41,7 +41,10 @@ export function SettingsModal({ open, onClose, user }: {
   const [section, setSection] = useState<SectionId>('general')
 
   return (
-    <Modal open={open} onClose={onClose} width={594} label="Ajustes">
+    <Modal open={open} onClose={onClose} width={594}>
+      <ModalHeader>
+        <ModalTitle>Ajustes</ModalTitle>
+      </ModalHeader>
       <div className={cls.root}>
         <nav className={cls.rail}>
           {sections.map(s => {
