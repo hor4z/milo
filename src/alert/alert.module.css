@@ -3,8 +3,6 @@
     display: flex;
     gap: 0.75rem;
     border-radius: var(--radius-xl);
-    border-style: solid;
-    border-width: 1px;
     padding: 1rem;
   }
 
@@ -23,6 +21,7 @@
     flex: 1;
     flex-direction: column;
     gap: 0.25rem;
+    color: var(--text);
   }
 
   .dismiss {
@@ -39,11 +38,9 @@
   }
 
   .text {
-    font-size: var(--type-body);
-    line-height: var(--type-body-lh);
-    letter-spacing: var(--type-body-ls);
-    font-weight: var(--font-weight-medium);
-    color: var(--text-muted);
+    font-size: var(--type-reading);
+    line-height: var(--type-reading-lh);
+    letter-spacing: var(--type-reading-ls);
   }
 
   .actions {

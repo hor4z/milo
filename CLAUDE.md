@@ -266,6 +266,12 @@ Salieron de armar pantallas de verdad con estas piezas, y valen para cualquiera 
   alguien de doce años. Tres cosas no cambian: nunca al lado de una tarea, nunca como única forma de
   entender algo, y siempre se reemplaza por la versión quieta para quien pidió menos movimiento.
 
+- **El `Alert` se ve como el `Callout`: papel teñido, sin borde, y el texto en tamaño de lectura.**
+  Llevaba un borde del tono y el cuerpo en `--type-body` gris, así que el mismo contenido se leía
+  más chico y más apagado adentro de un aviso que adentro de un bloque de contenido. Lo único que
+  el `Alert` mantiene y el `Callout` no es el glifo en la tinta del tono, que es lo que hace que el
+  estado no dependa del color. Al sacar el borde, `--ok-border` y `--warn-border` quedaron sin un
+  solo consumidor, y está dicho en **Color**.
 - **Una zona de riesgo es un `Alert tone="bad"`, no una caja a mano.** El `SettingsModal` tenía
   cinco clases propias (`dangerBox`, `dangerTitle`, `dangerText`, `dangerButton`) que reescribían la
   receta del `Alert`: mismo `--bad-subtle`, mismo radio, mismo padding, y le faltaban el borde y el
