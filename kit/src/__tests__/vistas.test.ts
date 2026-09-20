@@ -169,7 +169,7 @@ describe('el riel', () => {
 })
 
 describe('accesibilidad documentada', () => {
-  const noKeyboard = new Set(['book.tsx', 'folder.tsx', 'icon.tsx', 'chart.tsx'])
+  const noKeyboard = new Set(['folder.tsx', 'icon.tsx', 'chart.tsx'])
 
   it('cada historia dice qué resuelve en accesibilidad', () => {
     const missing: string[] = []

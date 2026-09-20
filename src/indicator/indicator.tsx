@@ -1,5 +1,5 @@
 import cls from './indicator.module.css'
-import type { ReactNode } from 'react'
+import type { CSSProperties, ReactNode } from 'react'
 import { Icon, type IconName } from '../icon/icon'
 import { cx } from '../lib/cx'
 
@@ -34,25 +34,21 @@ export function Indicator({
   const hasContent = icon != null || (count != null && count > 0) || dot
   if (!hasContent) return <>{children}</>
 
-  const isBare = !icon && count == null
-
   return (
     <span className={cx(cls.root, className)}>
       {children}
       <span
         aria-hidden={label ? undefined : 'true'}
         role={label ? 'status' : undefined}
-        style={inset ? { top: inset, right: inset } : undefined}
+        style={inset ? ({ '--inset': `${inset}px` } as CSSProperties) : undefined}
         className={cx(
           cls.badge,
           tones[tone],
-          isBare
-            ? cls.dot
-            : cls.count,
+          icon ? cls.glyph : count != null ? cls.count : cls.dot,
         )}
       >
         {label && <span className="sr-only">{label}</span>}
-        {icon ? <Icon name={icon} size={12} /> : count != null ? (count > 99 ? '99+' : count) : null}
+        {icon ? <Icon name={icon} size={14} /> : count != null ? (count > 99 ? '99+' : count) : null}
       </span>
     </span>
   )

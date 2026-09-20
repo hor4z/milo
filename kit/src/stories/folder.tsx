@@ -37,8 +37,8 @@ export function FolderStory() {
           ))}
         </Card>
         <Footnote>
-          Adentro no hay un px suelto: todo va en por ciento del ancho, como el <Mono>Book</Mono>,
-          así que el mismo dibujo sirve a 88 y a 220.
+          Adentro no hay un px suelto: todo va en por ciento del ancho, así que el mismo dibujo
+          sirve a 88 y a 220.
         </Footnote>
       </Section>
 

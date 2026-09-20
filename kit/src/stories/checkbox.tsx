@@ -15,11 +15,11 @@ export function CheckboxStory() {
       title="Checkbox"
       kind="Formularios"
       imports="import { Checkbox } from '@milo/ui'"
-      lead="Caja de 18, la medida del pulgar del switch, con el radio `sm`: el mismo del kbd y el más chico que la escala tiene. Es el que corresponde: sobre un cuadrado de 18, el escalón siguiente deja cuatro píxeles de lado recto por lado y la casilla se lee redonda, que es la forma de la opción única."
+      lead="Caja de 18, la medida del pulgar del switch, con el radio `xs`: sobre un cuadrado tan chico, el escalón siguiente deja cuatro píxeles de lado recto por lado y la casilla se lee redonda, que es la forma de la opción única."
     >
       <Section
         title="Estados"
-        note="Apagada es un campo hundido, igual que un kbd. Prendida pasa al azul con el tilde en blanco y pierde el relieve: lo hundido invita a apretar, y una casilla ya marcada no invita, informa. El azul porque es el único control que confirma una elección de quien lo usa."
+        note="Apagada es una caja vacía con su línea, del color del campo que la rodea. Prendida pasa al azul con el tilde en blanco. El azul porque es el único control que confirma una elección de quien lo usa."
       >
         <Panel>
           <Variant name="off / on">

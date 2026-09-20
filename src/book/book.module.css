@@ -1,7 +1,0 @@
-@layer milo.components {
-  .href {
-    border-radius: var(--radius-sm);
-    text-decoration-line: none;
-  }
-
-}

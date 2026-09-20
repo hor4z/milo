@@ -17,6 +17,8 @@ export type ToastOptions = {
   tone?: Tone
   /** La salida del aviso: deshacer, ver, reintentar. Al tocarla el aviso se cierra. */
   action?: { label: string; onClick?: () => void }
+  /** Una línea corta a la derecha, en gris, para cuando no hay acción. Si es un tiempo, sale de `timeAgo` y no escrito a mano. */
+  meta?: string
   /** Milisegundos antes de irse solo. `0` lo deja hasta que lo cierren. */
   duration?: number
 }
@@ -77,7 +79,7 @@ export function ToastProvider({ children, max = 3 }: {
 }
 
 function ToastItem({ toast, onDismiss }: { toast: ToastRecord; onDismiss: (id: string) => void }) {
-  const { id: toastId, title, body, tone = 'info', action, duration = 5000 } = toast
+  const { id: toastId, title, body, tone = 'info', action, meta, duration = 5000 } = toast
   const [paused, setPaused] = useState(false)
   const id = useId()
 
@@ -104,15 +106,16 @@ function ToastItem({ toast, onDismiss }: { toast: ToastRecord; onDismiss: (id: s
       <div className={cls.body}>
         <p id={id} className={cls.title}>{title}</p>
         {body && <p className={cls.text}>{body}</p>}
-        {action && (
-          <div className={cls.actions}>
-            <Button size="sm" variant="muted" onClick={() => { action.onClick?.(); close() }}>
-              {action.label}
-            </Button>
-          </div>
-        )}
       </div>
-      <IconButton icon="close" label="Cerrar el aviso" size="sm" variant="ghost" onClick={close} className={cls.dismiss} />
+      <div className={cls.trailing}>
+        {meta && <span className={cls.meta}>{meta}</span>}
+        {action && (
+          <Button size="sm" variant="solid" onClick={() => { action.onClick?.(); close() }}>
+            {action.label}
+          </Button>
+        )}
+        <IconButton icon="close" label="Cerrar el aviso" size="sm" variant="ghost" onClick={close} />
+      </div>
     </li>
   )
 }

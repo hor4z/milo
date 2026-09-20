@@ -36,7 +36,7 @@ export function Checkbox({
         s.root,
         s.motion,
         s.disabled,
-        on ? s.on : `${s.off} inset-relief`,
+        on ? s.on : s.off,
       )}
     >
       <span

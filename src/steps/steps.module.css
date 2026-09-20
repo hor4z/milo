@@ -35,20 +35,23 @@
 
   .connector {
     position: absolute;
+    transition-property: background-color;
+    transition-duration: var(--duration-content);
+    transition-timing-function: var(--ease-out);
   }
 
   .connectorHorizontal {
-    top: 13px;
+    top: 12.5px;
     display: none;
-    height: 1px;
+    height: 3px;
   }
 
   .connectorVertical {
-    left: 13px;
+    left: 12.5px;
     top: 0;
     height: 1.5rem;
-    width: 1px;
-    translate: 0 calc(0.25rem * -6);
+    width: 3px;
+    translate: 0 -1.5rem;
   }
 
   .connectorReached {
@@ -75,9 +78,9 @@
     font-weight: var(--font-weight-semibold);
   }
 
-  .bulletClickable {
-    transition-property: color,background-color,border-color,outline-color,text-decoration-color,fill,stroke;
-    transition-duration: var(--duration-fast);
+  .bulletMotion {
+    transition-property: background-color,color,box-shadow;
+    transition-duration: var(--duration-content);
     transition-timing-function: var(--ease-out);
   }
 

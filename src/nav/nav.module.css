@@ -1,5 +1,6 @@
 @layer milo.components {
   .root {
+    position: relative;
     display: flex;
     height: 2.5rem;
     align-items: center;
@@ -12,7 +13,7 @@
   }
 
   .motion {
-    transition-property: background-color,box-shadow;
+    transition-property: background-color,color;
     transition-duration: var(--duration-fast);
     transition-timing-function: var(--ease-out);
   }
@@ -28,10 +29,18 @@
   }
 
   .active {
-    background-color: var(--brand-soft);
     font-weight: var(--font-weight-semibold);
     color: var(--brand-ink);
-    box-shadow: 0 0 0 1px var(--brand-border);
+
+    &::before {
+      content: "";
+      position: absolute;
+      inset-block: 0.5rem;
+      left: 0;
+      width: 2px;
+      border-radius: var(--radius-full);
+      background-color: var(--brand);
+    }
   }
 
   .muted {
@@ -63,10 +72,6 @@
     transition-timing-function: var(--ease-out);
   }
 
-  .glyphPaper {
-    box-shadow: 0 0 0 1px var(--border);
-  }
-
   .icon {
     color: var(--text);
   }
@@ -92,6 +97,7 @@
   }
 
   .subitem {
+    position: relative;
     display: flex;
     height: 2.25rem;
     align-items: center;
@@ -105,16 +111,24 @@
   }
 
   .subitemMotion {
-    transition-property: background-color,box-shadow;
+    transition-property: background-color,color;
     transition-duration: var(--duration-fast);
     transition-timing-function: var(--ease-out);
   }
 
   .subitemActive {
-    background-color: var(--brand-soft);
     font-weight: var(--font-weight-semibold);
     color: var(--brand-ink);
-    box-shadow: 0 0 0 1px var(--brand-border);
+
+    &::before {
+      content: "";
+      position: absolute;
+      inset-block: 0.5rem;
+      left: 0;
+      width: 2px;
+      border-radius: var(--radius-full);
+      background-color: var(--brand);
+    }
   }
 
   .subitemPlain {
