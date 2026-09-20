@@ -20,7 +20,7 @@ function Footer({ hint, children }: {
   hint?: string
   children: ReactNode
 }) {
-  const glifo = <Icon name="info" size={16} className={`${s.footerIcon} ${s.footerIconQuiet}`} />
+  const glifo = <Icon name="info" size={16} className={s.footerIcon} />
   return (
     <p className={`${s.footer} ${s.footerQuiet} icon-filled`}>
       {hint

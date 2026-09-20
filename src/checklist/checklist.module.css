@@ -185,10 +185,6 @@
     --icon-wght: 400;
   }
 
-  .footerIconQuiet {
-    color: color-mix(in oklab, var(--text-muted) 65%, transparent);
-  }
-
   @media (hover: hover) {
     .interactive:hover {
       background-color: var(--surface-hover);
