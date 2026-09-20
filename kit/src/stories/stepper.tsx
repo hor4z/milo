@@ -32,7 +32,7 @@ export function StepperStory() {
               <Field>
                 <Field.Label>Tiempo</Field.Label>
                 <Field.Hint>Desde que abre la actividad</Field.Hint>
-                <Stepper value={minutes} onChange={setMinutes} min={5} max={120} step={5} suffix="min" label="Tiempo" width={148} />
+                <Stepper value={minutes} onChange={setMinutes} min={5} max={120} step={5} suffix="min" label="Tiempo" />
               </Field>
             </Field.Set>
           </Stack>
@@ -59,11 +59,11 @@ export function StepperStory() {
           <Cluster gap="xl" align="end">
             <Field>
               <Field.Label>Nota</Field.Label>
-              <Stepper value={grade} onChange={setGrade} min={1} max={10} label="Nota" width={120} />
+              <Stepper value={grade} onChange={setGrade} min={1} max={10} label="Nota" />
             </Field>
             <Field>
               <Field.Label>Preguntas</Field.Label>
-              <Stepper value={questions} onChange={setQuestions} min={1} max={50} label="Preguntas" width={120} />
+              <Stepper value={questions} onChange={setQuestions} min={1} max={50} label="Preguntas" />
             </Field>
           </Cluster>
         </Canvas>
@@ -75,6 +75,16 @@ export function StepperStory() {
         lo que no era un número vuelve al último que sí lo era. Y para llegar lejos con el teclado
         están Re Pág y Av Pág, que van de a diez, e Inicio y Fin, que van a los topes.
       </Note>
+
+      <Section title="Los tres tamaños" note="Los del resto de los campos. `sm` adentro de una fila o de una tabla, `md` suelto en un formulario.">
+        <Panel>
+          <Variant name="sm · md · lg">
+            <Stepper size="sm" value={3} onChange={() => {}} min={1} max={9} label="Intentos" />
+            <Stepper value={3} onChange={() => {}} min={1} max={9} label="Intentos" />
+            <Stepper size="lg" value={3} onChange={() => {}} min={1} max={9} label="Intentos" />
+          </Variant>
+        </Panel>
+      </Section>
 
       <Section title="Cómo se escribe">
         <Example code={`const [intentos, setIntentos] = useState(3)

@@ -2758,7 +2758,7 @@ export const propsByComponent: Record<string, ComponentDoc> = {
         "name": "width",
         "type": "number",
         "required": false,
-        "def": "132"
+        "doc": "Sin esto se ajusta al número más largo que puede entrar."
       }
     ],
     "doc": "Un número chico que se sube y se baja: cuántos intentos, cuántas preguntas, una nota."

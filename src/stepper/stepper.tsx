@@ -1,5 +1,5 @@
 import cls from './stepper.module.css'
-import { useEffect, useState } from 'react'
+import { useEffect, useState, type KeyboardEvent } from 'react'
 import { useField } from '../lib/field-ctx'
 import { Icon } from '../icon/icon'
 import { cx } from '../lib/cx'
@@ -9,7 +9,8 @@ const clamp = (n: number, min: number, max: number) => Math.min(max, Math.max(mi
 
 /** Un número chico que se sube y se baja: cuántos intentos, cuántas preguntas, una nota. */
 export function Stepper({
-  value, onChange, min = 0, max = 99, step = 1, pageStep = 10, label, suffix, size = 'md', disabled, width = 132,
+  value, onChange, min = 0, max = 99, step = 1, pageStep = 10,
+  label, suffix, size = 'md', disabled, width,
 }: {
   /** El número. */
   value: number
@@ -28,6 +29,7 @@ export function Stepper({
   /** La misma escalera que el resto de los campos. */
   size?: 'sm' | 'md' | 'lg'
   disabled?: boolean
+  /** Sin esto se ajusta al número más largo que puede entrar. */
   width?: number
 }) {
   const field = useField()
@@ -36,52 +38,65 @@ export function Stepper({
 
   const commit = (n: number) => { if (!disabled) onChange(clamp(n, min, max)) }
 
-  const onKey = (e: React.KeyboardEvent) => {
-    const jumps: Record<string, number> = {
+  const onKey = (e: KeyboardEvent) => {
+    const saltos: Record<string, number> = {
       ArrowUp: step, ArrowDown: -step, PageUp: pageStep, PageDown: -pageStep,
     }
-    if (e.key in jumps) { e.preventDefault(); commit(value + jumps[e.key]); return }
+    if (e.key in saltos) { e.preventDefault(); commit(value + saltos[e.key]); return }
     if (e.key === 'Home') { e.preventDefault(); commit(min) }
     if (e.key === 'End') { e.preventDefault(); commit(max) }
   }
 
+  // el hueco del número se mide por el máximo que puede entrar, no por el que hay
+  const digitos = Math.max(String(min).length, String(max).length)
+
   return (
     <div
-      style={{ width }}
-      className={cx(
-        `${cls.root} field`,
-        fieldSizes[size],
-        disabled && cls.disabled,
-      )}
+      style={width ? { width } : undefined}
+      className={cx(`${cls.root} field`, fieldSizes[size], cls.flush, disabled && cls.disabled)}
     >
-      <Step icon="remove" label={`Bajar${label ? ` ${label}` : ''}`} onClick={() => commit(value - step)} disabled={value <= min} />
-      <input
-        {...field}
-        role="spinbutton"
-        aria-label={label}
-        aria-valuenow={value}
-        aria-valuemin={min}
-        aria-valuemax={max}
-        aria-valuetext={suffix ? `${value} ${suffix}` : undefined}
-        inputMode="numeric"
-        disabled={disabled}
-        value={text}
-        onChange={e => {
-          setText(e.target.value)
-          const n = Number(e.target.value)
-          if (e.target.value.trim() !== '' && Number.isFinite(n)) commit(n)
-        }}
-        onBlur={() => setText(String(value))}
-        onKeyDown={onKey}
-        className={`${cls.input} tabular`}
+      <Step
+        icon="remove"
+        label={`Bajar${label ? ` ${label}` : ''}`}
+        onClick={() => commit(value - step)}
+        disabled={disabled || value <= min}
       />
-      {suffix && <span aria-hidden="true" className={cls.suffix}>{suffix}</span>}
-      <Step icon="add" label={`Subir${label ? ` ${label}` : ''}`} onClick={() => commit(value + step)} disabled={value >= max} />
+      <span className={cls.value}>
+        <input
+          {...field}
+          role="spinbutton"
+          aria-label={label}
+          aria-valuenow={value}
+          aria-valuemin={min}
+          aria-valuemax={max}
+          aria-valuetext={suffix ? `${value} ${suffix}` : undefined}
+          inputMode="numeric"
+          disabled={disabled}
+          value={text}
+          size={digitos}
+          style={width ? undefined : { width: `${digitos}ch` }}
+          onChange={e => {
+            setText(e.target.value)
+            const n = Number(e.target.value)
+            if (e.target.value.trim() !== '' && Number.isFinite(n)) commit(n)
+          }}
+          onBlur={() => setText(String(value))}
+          onKeyDown={onKey}
+          className={`${cls.input} tabular`}
+        />
+        {suffix && <span aria-hidden="true" className={cls.suffix}>{suffix}</span>}
+      </span>
+      <Step
+        icon="add"
+        label={`Subir${label ? ` ${label}` : ''}`}
+        onClick={() => commit(value + step)}
+        disabled={disabled || value >= max}
+      />
     </div>
   )
 }
 
-/** Uno de los dos botones. Va `aria-hidden` para el lector: el `spinbutton` del medio ya dice qué se puede hacer y con qué teclas. */
+/** Uno de los dos botones. No para en el tabulador: el número del medio ya es el `spinbutton`, y las flechas hacen lo mismo. */
 function Step({ icon, label, onClick, disabled }: {
   icon: 'add' | 'remove'
   label: string
@@ -95,7 +110,7 @@ function Step({ icon, label, onClick, disabled }: {
       aria-label={label}
       disabled={disabled}
       onClick={onClick}
-      className={cls.step}
+      className={cx(cls.step, cls.stepMotion)}
     >
       <Icon name={icon} size={16} className="icon-muted" />
     </button>
