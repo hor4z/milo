@@ -266,6 +266,15 @@ Salieron de armar pantallas de verdad con estas piezas, y valen para cualquiera 
   alguien de doce años. Tres cosas no cambian: nunca al lado de una tarea, nunca como única forma de
   entender algo, y siempre se reemplaza por la versión quieta para quien pidió menos movimiento.
 
+- **Un item elegido se marca con una barra de 2px a la izquierda, sin fondo y sin borde.** El riel
+  de Ajustes llegó a apilar tres tratamientos en el item activo: pastilla con `--brand-soft`, borde
+  `--brand-border`, y adentro una caja blanca con su propio anillo alrededor del icono. Tres capas
+  para decir una cosa. La barra la dibuja un `::before` absoluto, así que no empuja nada.
+- **Un icono no cambia de peso entre estados**, y esto no se ve leyendo el CSS: `icon-muted` no es
+  solo un gris, también escribe `--icon-wght: 400`. Alternarlo con otra clase al elegir un item
+  cambia el peso de una fuente variable, el glifo cambia de ancho y **se mueve adentro de su caja**.
+  El `Nav` no lo hace: usa la misma clase siempre y el color lo hereda del item. El riel de Ajustes
+  sí lo hacía, y por eso los iconos saltaban al cambiar de sección.
 - **Una superficie es 16, sin excepciones.** Tarjeta, fila, panel flotante, modal y diálogo, todo
   `--radius-xl`. `--radius-2xl` era del modal y del `ConfirmDialog`, y a 24 sobre un panel de 168 de
   alto la esquina se come casi un tercio del borde: el diálogo se lee como una pastilla y no como

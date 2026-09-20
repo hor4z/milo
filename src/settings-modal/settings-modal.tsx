@@ -63,11 +63,8 @@ export function SettingsModal({ open, onClose, user }: {
                     : cls.railItemIdle,
                 )}
               >
-                <span className={cx(
-                  cls.railGlyph,
-                  active && `${cls.railGlyphActive} bg-surface`,
-                )}>
-                  <Icon name={s.icon} size={20} className={active ? cls.railIcon : 'icon-muted'} />
+                <span className={cls.railGlyph}>
+                  <Icon name={s.icon} size={20} />
                 </span>
                 {s.label}
               </button>

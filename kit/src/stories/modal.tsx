@@ -1,11 +1,12 @@
 import { useState } from 'react'
-import { Button, Icon, Modal, ModalBody, ModalFooter, ModalHeader, ModalHint, ModalTitle, SettingsModal } from '@milo/ui'
-import { A11y, Demo, Example, Grid, Page, Props, Section } from '../kit'
+import { Button, Field, Icon, Modal, ModalBody, ModalFooter, ModalHeader, ModalHint, ModalTitle, SettingsModal, TextField } from '@milo/ui'
+import { A11y, Demo, Example, Grid, Note, Page, Props, Section } from '../kit'
 
 export function ModalStory() {
   const [open, setOpen] = useState(false)
   const [narrowOpen, setNarrowOpen] = useState(false)
   const [settingsOpen, setSettingsOpen] = useState(false)
+  const [nombre, setNombre] = useState('Física · 5.º B')
 
   return (
     <Page
@@ -38,15 +39,19 @@ export function ModalStory() {
           </Demo>
 
           <Demo label="width 420">
-            <Button variant="muted" onClick={() => setNarrowOpen(true)}>Más angosto</Button>
+            <Button variant="muted" onClick={() => setNarrowOpen(true)}>Renombrar</Button>
             <Modal open={narrowOpen} onClose={() => setNarrowOpen(false)} width={420}>
               <ModalHeader>
-                <ModalTitle>¿Eliminar la actividad?</ModalTitle>
+                <ModalTitle>Renombrar el espacio</ModalTitle>
               </ModalHeader>
-              <ModalBody>Se va a borrar para todo el equipo.</ModalBody>
+              <ModalBody>
+                <Field label="Nombre" hint="Lo ven los 28 del curso.">
+                  <TextField value={nombre} onChange={e => setNombre(e.target.value)} />
+                </Field>
+              </ModalBody>
               <ModalFooter>
                 <Button variant="ghost" size="sm" onClick={() => setNarrowOpen(false)}>Cancelar</Button>
-                <Button variant="bad" size="sm" onClick={() => setNarrowOpen(false)}>Eliminar</Button>
+                <Button variant="brand" size="sm" onClick={() => setNarrowOpen(false)}>Guardar</Button>
               </ModalFooter>
             </Modal>
           </Demo>
@@ -84,6 +89,13 @@ export function ModalStory() {
 </Modal>
 `} />
       </Section>
+
+      <Note title="Modal o ConfirmDialog">
+        El modal es para lo que pide hacer algo: un formulario corto, unos ajustes, elegir. Si lo
+        único que hace es preguntar "¿seguro?" y ofrecer dos salidas, eso es un
+        [ConfirmDialog](#confirm), que además pone el foco donde corresponde y se anuncia como
+        `alertdialog`.
+      </Note>
 
       <Section title="Props">
         <Props of={['Modal', 'ModalHeader', 'ModalTitle', 'ModalHint', 'ModalBody', 'ModalFooter']} />
