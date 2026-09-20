@@ -76,8 +76,8 @@ export function TypographySection() {
       <WhyInter />
 
       <Section
-        title="El interlineado dejó de ser uno solo"
-        note="Era 16px fijo para todo, y el argumento era bueno: con interlineado proporcional, una fila de 12 y una de 14 dejan de alinearse. Dejó de importar porque los interlineados nuevos son todos pares, así que apilan predecible, y porque las filas del sistema centran con flex y no haciendo coincidir cajas de línea."
+        title="El interlineado sale del rol"
+        note="Cada rol declara el suyo y todos son pares, así que apilan predecible. Un interlineado fijo para todos alinea bien dos filas de distinto tamaño, pero aplasta un párrafo largo."
       >
         <div className={css.leadingGrid}>
           <div className={`${css.leadingBadCard} bg-surface`}>
@@ -113,7 +113,7 @@ export function TypographySection() {
 
       <Section
         title="El tracking cruza el cero en la base"
-        note="Positivo donde la letra es chica y se empasta, cero en la interfaz, negativo donde es grande y se despega. Antes era al revés: −0.015em en todos los títulos por igual, un número medido contra otra familia a 12px. Apretar la letra chica es exactamente cómo se pierde nitidez."
+        note="Positivo donde la letra es chica y se empasta, cero en la interfaz, negativo donde es grande y se despega. Apretar la letra chica es exactamente cómo se pierde nitidez."
       >
         <div className={`${css.trackingCard} bg-surface`}>
           {roles.map(r => (
@@ -214,7 +214,7 @@ function WhyInter() {
   return (
     <Section
       title="Por qué Inter, y por qué una sola"
-      note="Cuarta familia del proyecto: Inter → Geist → Instrument Sans → Inter. Volver no es andar en círculo: aquella vez eran tres familias, y ese era justamente el motivo de dejarla. Inter v4 trae eje óptico, así que una sola instancia cubre el cuerpo y el display."
+      note="Una sola familia para todo. Inter v4 trae eje óptico, así que la misma instancia cubre el cuerpo y el display sin traer un segundo archivo."
     >
       <Stack gap="lg">
         <div className={css.interGrid}>

@@ -161,16 +161,6 @@ export function AccessibilitySection() {
         </div>
       </Section>
 
-      <Note tone="ok" title="La deuda de contraste está saldada">
-        El blanco sobre los dos rellenos saturados no llegaba a AA: el botón <code>brand</code> iba
-        de 2.89:1 arriba del degradado a 3.75:1 abajo, y el <code>bad</code> daba 3.75:1. El texto
-        de un botón es de 16/600, que para WCAG no es texto grande, así que el mínimo era 4.5 y no 3.
-        Los dos rellenos ahora están <strong className={cls.emphasis}>anclados</strong>:
-        son el escalón donde el blanco encima llega exactamente a 4.5:1, derivado por búsqueda en
-        OKLCH y no elegido mirando. El degradado del azul va de 600 a 700, así que pasa de punta a
-        punta y no solo en la mitad de abajo. Hay un test que lo mide en los dos temas.
-      </Note>
-
       <Note title="Por qué el objetivo es AA y no AAA">
         El gris del texto secundario da 6,94:1 sobre el fondo del tema oscuro: le faltan seis
         centésimas para AAA. Subirlo parece gratis y no lo es: para llegar a 7:1 sobre las cuatro

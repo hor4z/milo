@@ -128,7 +128,7 @@ export function IconStory() {
 
       <Section
         title="Los tamaños"
-        note="Seis pasos pares. Antes eran nueve valores y tres de ellos impares, que salieron de encajar ópticamente dibujos propios; con una fuente un tamaño impar cae en media grilla de píxeles y se ve borroso."
+        note="Seis pasos, todos pares: con una fuente, un tamaño impar cae en media grilla de píxeles y el glifo se ve borroso."
       >
         <Panel>
           {sizes.map(e => (
@@ -205,12 +205,10 @@ export function IconStory() {
       </Section>
 
       <Section title="Accesibilidad">
-        <Note tone="warn" title="Sesenta y cinco de los ciento setenta y dos no los usa nadie">
-        `npm run icons -w @milo/ui -- check` los lista. Sacarlos llevaría la fuente de 64 KB a 27,
-        medido subseteándola de verdad. No se sacan porque el editor y los gráficos van a consumir
-        varios, y traer uno de vuelta es un comando; pero el número conviene mirarlo cada tanto,
-        porque doscientos iconos con seis variantes de engranaje es exactamente lo que `icons add`
-        existe para evitar.
+        <Note tone="warn" title="Buena parte del set no la usa nadie">
+        `npm run icons -- check` los lista, y el número conviene mirarlo cada tanto: doscientos
+        iconos con seis variantes de engranaje es lo que `icons add` existe para evitar. No se sacan
+        porque el editor y los gráficos van a consumir varios, y traer uno de vuelta es un comando.
       </Note>
 
       <Note title="Un glifo que falta deja el hueco, no la pantalla en blanco">

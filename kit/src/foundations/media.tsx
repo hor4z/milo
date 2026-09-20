@@ -149,7 +149,7 @@ export function MediaSection() {
 
       <Section
         title="Las cuatro formas escritas, que no son la misma"
-        note="Acá el sistema venía diciendo 'subtítulos o transcripción' como si fueran dos maneras de decir lo mismo. Son cuatro cosas distintas y cada una cubre a alguien que las otras no."
+        note="Son cuatro cosas distintas y cada una cubre a alguien que las otras no."
       >
         <div className={cls.specimenGrid}>
           {equivalents.map(e => (

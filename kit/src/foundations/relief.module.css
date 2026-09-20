@@ -9,11 +9,6 @@
     color: var(--mark-blue-ink);
   }
 
-  .emphasis {
-    font-weight: var(--font-weight-semibold);
-    color: var(--text);
-  }
-
   .recipeGrid {
     display: grid;
     gap: 0.75rem;

@@ -3,7 +3,7 @@ import { useState } from 'react'
 import { Card } from '@milo/ui/card'
 import { Chip } from '@milo/ui/chip'
 import { labelColors } from '@milo/ui/lib/colors'
-import { A11y, Cluster, Demo, Note, Page, Panel, Practices, Props, Section, Variant } from '../kit'
+import { A11y, Cluster, Demo, Page, Panel, Practices, Props, Section, Variant } from '../kit'
 
 export function ChipStory() {
   const [chips, setChips] = useState(['Indagación', 'Proyecto', 'Taller'])
@@ -116,17 +116,6 @@ export function ChipStory() {
           </Cluster>
         </Demo>
       </Section>
-
-      <Note title="Acá había dos piezas y ahora hay una">
-        Existía un `Badge` al lado de este chip, y las dos vistas necesitaban una nota para
-        explicar en qué se diferenciaban. Cuando un sistema necesita dos notas para sostener una
-        distinción, la distinción no existe: la regla escrita era sobre qué se escribe adentro, no
-        sobre qué hace la pieza, y una pieza no puede hacerla cumplir. Las dos dibujaban lo mismo,
-        una marca chica con texto y un glifo opcional, y lo que las separaba de verdad era el
-        tamaño y la familia de color, que ahora son dos props. Quedó el nombre `Chip` y no `Badge`
-        porque en este sistema el badge de todos los demás ya existe con otro nombre: es el
-        `Indicator`, el punto o el contador pegado a la esquina de un botón.
-      </Note>
 
       <Section title="Props">
         <Props of="Chip" />

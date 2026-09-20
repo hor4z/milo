@@ -107,11 +107,8 @@ export function ColorSection() {
           Va uno o el otro, nunca los dos en la misma pantalla: dos botones que mandan es ninguno.
         </Note>
 
-        <Note title="Dos roles pueden compartir valor; dos nombres para el mismo trabajo, no">
-          El papel de una tarjeta y el fondo de un campo son blancos los dos y son roles distintos:
-          el día que uno cambie, el otro se queda. Lo que no puede pasar es que el mismo trabajo
-          tenga dos nombres. Pasó dos veces y las dos se resolvieron sacando uno: `--text-subtle`
-          era `--text-muted`, y `--brand-subtle` era `--brand-soft`.
+        <Note title="Dos roles pueden compartir valor">
+          Lo que no puede pasar es que el mismo trabajo tenga dos nombres: ahí uno de los dos sobra y se saca.
         </Note>
       </Section>
 
@@ -266,10 +263,8 @@ export function ColorSection() {
             tokens={spaces}
           />
         </Stack>
-        <Note title="Antes de teñir algo">
-          Los roles vivieron un rato juntos bajo el mismo nombre y de ahí salieron dos bugs: los
-          chips quedaron pastel cuando ya tenían que ser vivos, y al pasarlos a vivos se llevó
-          puesta la marca de la lista, que tenía que quedar pastel.
+        <Note title="Cuál de las dos familias va">
+          La viva es para una pieza chica con tinta encima: un chip, una etiqueta. La pastel es para una marca grande con un glifo adentro: la carpeta de un espacio, el cuadrado de una fila.
         </Note>
       </Section>
 

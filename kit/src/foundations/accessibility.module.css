@@ -223,11 +223,6 @@
     color: var(--text-muted);
   }
 
-  .emphasis {
-    font-weight: var(--font-weight-semibold);
-    color: var(--text);
-  }
-
   @media (min-width:48rem) {
     .specimenGrid {
         grid-template-columns: repeat(2,minmax(0,1fr));

@@ -119,7 +119,7 @@ export function MeasureSection() {
 
         <Section
           title="La regla del anidado"
-          note="Un contenedor de 24 con 8 de padding pide 16 adentro. Si el hijo repite el radio del padre, la curva se ve doble; si queda más cuadrado, se ven dos curvas distintas. Los dos errores ya pasaron en este repo."
+          note="Un contenedor de 24 con 8 de padding pide 16 adentro. Si el hijo repite el radio del padre, la curva se ve doble; si queda más cuadrado, se ven dos curvas distintas."
         >
           <div className={css.nestGrid}>
             <NestDemo child={css.radiusXl} label="24 − 8 = 16" verdict="bien" ok />
