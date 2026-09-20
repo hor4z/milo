@@ -58,8 +58,6 @@
     height: 0.75rem;
     margin-inline: 0.75rem;
     margin-bottom: 0.75rem;
-    overflow: hidden;
-    border-radius: var(--radius-full);
   }
 
   .weight {
@@ -83,6 +81,16 @@
     transition-property: opacity;
     transition-duration: var(--duration-fast);
     transition-timing-function: var(--ease-out);
+  }
+
+  .weight:first-child .weightBand {
+    border-start-start-radius: var(--radius-full);
+    border-end-start-radius: var(--radius-full);
+  }
+
+  .weight:last-child .weightBand {
+    border-start-end-radius: var(--radius-full);
+    border-end-end-radius: var(--radius-full);
   }
 
   .weightDim {
@@ -126,10 +134,14 @@
     gap: 0.625rem;
   }
 
+  .criterionDim {
+    opacity: 0.45;
+  }
+
   .criterion {
     animation: rubric-in var(--duration-normal) var(--ease-out) backwards;
     animation-delay: calc(var(--enter) * 55ms);
-    transition-property: background-color;
+    transition-property: opacity;
     transition-duration: var(--duration-fast);
     transition-timing-function: var(--ease-out);
   }

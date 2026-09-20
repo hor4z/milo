@@ -12,6 +12,7 @@ import { cx } from '../lib/cx'
 import { labelFill, labelSoft, type LabelColor } from '../lib/colors'
 import { counted, share } from '../lib/number'
 import { useDisclosure } from '../lib/use-disclosure'
+import { useRovingRadio } from '../lib/roving'
 import { takePart } from '../lib/parts'
 
 /** Un criterio: qué se mira, cuánto vale contra los demás y qué se ve en cada nivel. */
@@ -66,6 +67,7 @@ function Root({ criteria, onAdd, onRemove, defaultOpen = true, children, classNa
   className?: string
 }) {
   const [lit, setLit] = useState<string | null>(null)
+  const [pinned, setPinned] = useState<string | null>(null)
   const [runs, setRuns] = useState(0)
   const [label, setLabel] = useState('')
   const [weight, setWeight] = useState(3)
@@ -81,6 +83,8 @@ function Root({ criteria, onAdd, onRemove, defaultOpen = true, children, classNa
 
   const [title] = takePart(children, Title)
   const total = criteria.reduce((sum, c) => sum + c.weight, 0)
+  const active = lit ?? pinned
+  const roving = useRovingRadio(active ?? criteria[0]?.id ?? '', setPinned, criteria.map(c => ({ value: c.id })))
 
   const mounted = useRef(false)
   useEffect(() => {
@@ -145,15 +149,32 @@ function Root({ criteria, onAdd, onRemove, defaultOpen = true, children, classNa
         </span>
       </div>
 
-      <div className={s.weights}>
+      <div
+        role="toolbar"
+        aria-label="Cuánto vale cada criterio"
+        onKeyDown={roving.onKeyDown}
+        className={s.weights}
+      >
         {criteria.map(c => (
           <span key={c.id} style={{ flexGrow: c.weight }} className={s.weight}>
             <Tooltip label={`${c.label}: ${share(c.weight, total).percent}`}>
-              <span
-                aria-hidden
+              <button
+                ref={roving.ref(c.id)}
+                type="button"
+                tabIndex={roving.tabIndex(c.id)}
+                aria-label={`${c.label}, vale ${share(c.weight, total).percent} de la nota`}
                 onPointerEnter={() => setLit(c.id)}
                 onPointerLeave={() => setLit(null)}
-                className={cx(s.weightBand, labelFill[c.color], lit && lit !== c.id && s.weightDim)}
+                onFocus={() => setLit(c.id)}
+                onBlur={() => setLit(null)}
+                onClick={() => {
+                  setPinned(p => (p === c.id ? null : c.id))
+                  if (!panel.open) {
+                    setRuns(n => n + 1)
+                    panel.onOpen()
+                  }
+                }}
+                className={cx(s.weightBand, labelFill[c.color], active && active !== c.id && s.weightDim)}
               />
             </Tooltip>
           </span>
@@ -168,7 +189,7 @@ function Root({ criteria, onAdd, onRemove, defaultOpen = true, children, classNa
                 <li
                   key={c.id}
                   style={{ '--enter': i } as CSSProperties}
-                  className={s.criterion}
+                  className={cx(s.criterion, active && active !== c.id && s.criterionDim)}
                 >
                   <Card>
                     <Card.Header className={s.criterionHeader}>

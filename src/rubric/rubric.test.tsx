@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react'
+import { act, render, screen, within } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { describe, expect, it, vi } from 'vitest'
 import { Rubric, type Criterion } from './rubric'
@@ -99,6 +99,42 @@ describe('Rubric', () => {
 
     expect(onAdd).not.toHaveBeenCalled()
     expect(screen.getByLabelText('Qué vas a mirar')).toHaveFocus()
+  })
+
+  it('la barra es una sola parada de tabulación, y cada tramo dice cuánto vale', async () => {
+    arma()
+    const barra = screen.getByRole('toolbar', { name: 'Cuánto vale cada criterio' })
+    const tramos = within(barra).getAllByRole('button')
+
+    expect(tramos.map(b => b.getAttribute('aria-label'))).toEqual([
+      'Toma de datos, vale 75% de la nota',
+      'Gráfico, vale 25% de la nota',
+    ])
+    expect(tramos.filter(b => b.tabIndex === 0)).toHaveLength(1)
+  })
+
+  it('el foco en un tramo separa a su criterio de los demás', () => {
+    arma()
+    const barra = screen.getByRole('toolbar', { name: 'Cuánto vale cada criterio' })
+    const tramos = within(barra).getAllByRole('button')
+    const tarjetas = () => screen.getAllByRole('listitem').filter(li => li.style.getPropertyValue('--enter'))
+
+    expect(tarjetas().filter(li => li.className.includes('criterionDim'))).toHaveLength(0)
+
+    act(() => tramos[1].focus())
+    const apagadas = tarjetas().filter(li => li.className.includes('criterionDim'))
+    expect(apagadas).toHaveLength(1)
+    expect(apagadas[0]).toHaveTextContent('Toma de datos')
+  })
+
+  it('tocar un tramo con la rúbrica plegada la abre en ese criterio', async () => {
+    arma({ defaultOpen: false })
+    const disparador = screen.getByRole('button', { name: 'Qué vamos a mirar' })
+    expect(disparador).toHaveAttribute('aria-expanded', 'false')
+
+    const barra = screen.getByRole('toolbar', { name: 'Cuánto vale cada criterio' })
+    await userEvent.click(within(barra).getAllByRole('button')[0])
+    expect(disparador).toHaveAttribute('aria-expanded', 'true')
   })
 
   it('sin onAdd ni onRemove la rúbrica se lee y no se edita', () => {
