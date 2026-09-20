@@ -11,6 +11,8 @@ import { Mention } from '@milo/ui/mention'
 import { Popover } from '@milo/ui/popover'
 import { Quote } from '@milo/ui/quote'
 import { TaskList, type Task } from '@milo/ui/task-list'
+import { labelFill, type LabelColor } from '@milo/ui/lib/colors'
+import { counted } from '@milo/ui/lib/number'
 
 const face = (n: number) => `/avatars/${String(n).padStart(2, '0')}.webp`
 
@@ -46,6 +48,74 @@ const initialTasks: Task[] = [
   { id: 'graficar', label: 'Graficar altura contra tiempo al cuadrado' },
   { id: 'escribir', label: 'Escribir en dos párrafos por qué la pendiente da la mitad de g' },
 ]
+
+type Level = { id: string, label: string, color: LabelColor }
+
+const levels: Level[] = [
+  { id: 'apenas', label: 'Apenas', color: 'orange' },
+  { id: 'camino', label: 'En camino', color: 'purple' },
+  { id: 'bien', label: 'Bien', color: 'blue' },
+  { id: 'completo', label: 'Completo', color: 'teal' },
+]
+
+const levelById = new Map(levels.map(l => [l.id, l]))
+
+const criteria = [
+  { id: 'datos', label: 'Toma de datos', hint: 'Tres tiempos por altura, con el error estimado', levels: ['apenas', 'camino', 'bien', 'completo'] },
+  { id: 'grafico', label: 'Gráfico', hint: 'Altura contra tiempo al cuadrado, con la unidad en cada eje', levels: ['apenas', 'camino', 'bien', 'completo'] },
+  { id: 'explicacion', label: 'Explicación', hint: 'Por qué la pendiente da la mitad de la gravedad', levels: ['apenas', 'camino', 'bien', 'completo'] },
+  { id: 'seguridad', label: 'Seguridad en el patio', hint: 'Se cumple o no se cumple, acá no hay medias tintas', levels: ['apenas', 'completo'] },
+]
+
+function Rubric() {
+  return (
+    <aside className={cls.rubric} aria-labelledby="rubrica">
+      <div className={cls.rubricHeader}>
+        <Icon name="checklist" size={20} className="icon-muted" />
+        <p id="rubrica" className={cls.rubricTitle}>Con qué se corrige</p>
+        <span className={`${cls.rubricCount} tabular`}>{counted(criteria.length, ['criterio', 'criterios'])}</span>
+      </div>
+
+      <div className={`${cls.criteria} bg-surface`}>
+        <ul className={cls.items}>
+          {criteria.map(c => (
+            <li key={c.id} className={cls.criterion}>
+              <p className={cls.criterionLabel}>{c.label}</p>
+              <span aria-hidden className={cls.levels}>
+                {c.levels.map(id => (
+                  <span key={id} className={`${cls.level} ${labelFill[levelById.get(id)!.color]}`} />
+                ))}
+              </span>
+              <p className={cls.criterionHint}>
+                {c.hint}
+                <span className="sr-only">. {counted(c.levels.length, ['nivel', 'niveles'])}: {c.levels.map(id => levelById.get(id)!.label).join(', ')}</span>
+              </p>
+            </li>
+          ))}
+        </ul>
+
+        <Button
+          size="sm"
+          variant="ghost"
+          iconStart={<Icon name="add" />}
+          onClick={() => {}}
+          className={cls.addCriterion}
+        >
+          Agregar criterio
+        </Button>
+      </div>
+
+      <ul className={cls.swatches}>
+        {levels.map(l => (
+          <li key={l.id} className={cls.swatch}>
+            <span aria-hidden className={`${cls.swatchColor} ${labelFill[l.color]}`} />
+            {l.label}
+          </li>
+        ))}
+      </ul>
+    </aside>
+  )
+}
 
 export function DocumentStory() {
   const [tasks, setTasks] = useState(initialTasks)
@@ -96,55 +166,59 @@ export function DocumentStory() {
 
       </header>
 
-      <div className={cls.docBody}>
-        <p className={cls.intro}>
-          La semana que viene medimos la aceleración de la gravedad soltando una pelota desde el
-          primer piso.<span aria-hidden className={`${cls.cursor} ${cls.cursorAna}`}>
-            <span className={cls.caret} />
-            <span className={cls.who}>Ana</span>
-          </span> Traigan el celular con cronómetro. Lo arma{' '}
-          <Mention name="Ana Pérez" src={face(1)} href="#mention" /> con{' '}
-          <Mention name="Bruno Díaz" src={face(2)} href="#mention" />, y lo que midan lo suben a{' '}
-          <Mention name="Física · 5.º B" icon="folder" href="#folder" />.
-        </p>
+      <div className={cls.columns}>
+        <div className={cls.docBody}>
+          <p className={cls.intro}>
+            La semana que viene medimos la aceleración de la gravedad soltando una pelota desde el
+            primer piso.<span aria-hidden className={`${cls.cursor} ${cls.cursorAna}`}>
+              <span className={cls.caret} />
+              <span className={cls.who}>Ana</span>
+            </span> Traigan el celular con cronómetro. Lo arma{' '}
+            <Mention name="Ana Pérez" src={face(1)} href="#mention" /> con{' '}
+            <Mention name="Bruno Díaz" src={face(2)} href="#mention" />, y lo que midan lo suben a{' '}
+            <Mention name="Física · 5.º B" icon="folder" href="#folder" />.
+          </p>
 
-        <Callout icon="warning" color="orange">
-          <Callout.Title>Antes de subir al primer piso</Callout.Title>
-          Nadie se asoma a la baranda. La pelota la suelta una sola persona y el resto mira desde
-          abajo, a tres metros del punto de caída.
-        </Callout>
+          <Callout icon="warning" color="orange">
+            <Callout.Title>Antes de subir al primer piso</Callout.Title>
+            Nadie se asoma a la baranda. La pelota la suelta una sola persona y el resto mira desde
+            abajo, a tres metros del punto de caída.
+          </Callout>
 
-        <h2 className={cls.sourceHeading}>De dónde sale el número</h2>
-        <p className={cls.sourceText}>
-          Si la pelota arranca quieta y el rozamiento del aire se puede ignorar, la altura que cae
-          es la mitad de la gravedad por el tiempo al cuadrado. Así que si grafican la altura contra
-          el tiempo al cuadrado les tiene que dar una recta, y la pendiente va a ser la mitad de la
-          gravedad.<span aria-hidden className={`${cls.cursor} ${cls.cursorBruno}`}>
-            <span className={cls.caret} />
-            <span className={cls.who}>Bruno</span>
-          </span> Eso es lo que hay que comparar con los 9,8 del libro.
-        </p>
+          <h2 className={cls.sourceHeading}>De dónde sale el número</h2>
+          <p className={cls.sourceText}>
+            Si la pelota arranca quieta y el rozamiento del aire se puede ignorar, la altura que cae
+            es la mitad de la gravedad por el tiempo al cuadrado. Así que si grafican la altura contra
+            el tiempo al cuadrado les tiene que dar una recta, y la pendiente va a ser la mitad de la
+            gravedad.<span aria-hidden className={`${cls.cursor} ${cls.cursorBruno}`}>
+              <span className={cls.caret} />
+              <span className={cls.who}>Bruno</span>
+            </span> Eso es lo que hay que comparar con los 9,8 del libro.
+          </p>
 
-        <Quote cite="#quote">
-          <Quote.Source>Galileo, Diálogos sobre dos nuevas ciencias</Quote.Source>
-          Y encontré que los espacios recorridos están entre sí como los cuadrados de los tiempos.
-        </Quote>
+          <Quote cite="#quote">
+            <Quote.Source>Galileo, Diálogos sobre dos nuevas ciencias</Quote.Source>
+            Y encontré que los espacios recorridos están entre sí como los cuadrados de los tiempos.
+          </Quote>
 
-        <Divider />
+          <Divider />
 
-        <h2 className={cls.taskHeading}>Qué hay que entregar</h2>
-        <TaskList items={tasks} onToggle={toggleTask} label="Lo que hay que entregar" />
+          <h2 className={cls.taskHeading}>Qué hay que entregar</h2>
+          <TaskList items={tasks} onToggle={toggleTask} label="Lo que hay que entregar" />
 
-        <Figure src="/mascotas/otto.webp" alt="Otto, una nutria de pie con las manos juntas" ratio="16/9" fit="contain">
-          <Figure.Caption>La pelota se suelta, no se tira. Si la empujan, la velocidad inicial deja de ser cero y la cuenta de arriba no sirve.</Figure.Caption>
-        </Figure>
+          <Figure src="/mascotas/otto.webp" alt="Otto, una nutria de pie con las manos juntas" ratio="16/9" fit="contain">
+            <Figure.Caption>La pelota se suelta, no se tira. Si la empujan, la velocidad inicial deja de ser cero y la cuenta de arriba no sirve.</Figure.Caption>
+          </Figure>
 
-        <h2 className={cls.furtherHeading}>Para los que quieran ir más lejos</h2>
-        <p className={cls.furtherText}>
-          Con el cronómetro del celular el error es grande. Se puede filmar a cámara lenta y contar
-          los cuadros: a 240 por segundo, cada cuadro son cuatro milésimas.
-        </p>
+          <h2 className={cls.furtherHeading}>Para los que quieran ir más lejos</h2>
+          <p className={cls.furtherText}>
+            Con el cronómetro del celular el error es grande. Se puede filmar a cámara lenta y contar
+            los cuadros: a 240 por segundo, cada cuadro son cuatro milésimas.
+          </p>
 
+        </div>
+
+        <Rubric />
       </div>
     </article>
   )
