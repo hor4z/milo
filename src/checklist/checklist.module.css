@@ -7,6 +7,8 @@
     border-radius: var(--radius-xl);
     background-color: var(--surface-muted);
     padding: 0.25rem;
+    padding-bottom: 0.15rem;
+    padding-inline: 0.15rem;
   }
 
   /* la fila que se ve siempre. El botón es el chevron con su título y nada más: la barra
