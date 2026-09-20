@@ -266,6 +266,12 @@ Salieron de armar pantallas de verdad con estas piezas, y valen para cualquiera 
   alguien de doce años. Tres cosas no cambian: nunca al lado de una tarea, nunca como única forma de
   entender algo, y siempre se reemplaza por la versión quieta para quien pidió menos movimiento.
 
+- **La acción que manda es siempre el azul de marca.** `brand` y no `solid`, en cualquier pantalla:
+  un modal, un panel, un vacío, una confirmación que no es destructiva. `solid` es el mismo rol en
+  tinta y existe para una pantalla donde el azul no se pueda usar, así que hoy no lo usa ningún call
+  site salvo la galería que lo muestra. Va uno o el otro, nunca los dos. Esto ya estaba escrito en
+  el docblock de `lib/control.ts` y el código hacía lo contrario: `solid` en 18 lugares contra
+  `brand` en 2.
 - **Un diálogo se arma con sus partes, y la del medio es la que scrollea.** `Modal` es
   `ModalHeader` + `ModalBody` + `ModalFooter`, y `ConfirmDialog` es lo mismo con sus propios
   nombres. El panel es una columna: header y footer no se mueven y el cuerpo scrollea cuando no

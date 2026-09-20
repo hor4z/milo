@@ -104,10 +104,10 @@ export function ButtonStory() {
             <Button variant="muted" iconEnd={<Icon name="chevron_right" />}>Siguiente</Button>
           </Demo>
           <Demo label="Deshabilitado">
-            <Button variant="solid" disabled>Guardar</Button>
+            <Button variant="brand" disabled>Guardar</Button>
           </Demo>
           <Demo label="Ocupando el ancho">
-            <Button variant="solid" block>Entrar</Button>
+            <Button variant="brand" block>Entrar</Button>
           </Demo>
         </Grid>
       </Section>

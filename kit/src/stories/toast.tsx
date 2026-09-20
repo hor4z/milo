@@ -17,7 +17,7 @@ export function ToastStory() {
       >
         <Demo label="los cuatro casos">
           <Cluster gap="sm">
-            <Button variant="solid" onClick={() => toast({ title: 'Actividad publicada', body: 'La ven los siete espacios', tone: 'ok' })}>
+            <Button variant="brand" onClick={() => toast({ title: 'Actividad publicada', body: 'La ven los siete espacios', tone: 'ok' })}>
               Publicar
             </Button>
             <Button variant="muted" onClick={() => toast({ title: 'Se guardó el borrador' })}>

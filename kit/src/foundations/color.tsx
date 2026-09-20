@@ -41,7 +41,7 @@ export function ColorSection() {
             token="--brand"
             note="Lo que manda y lo que dice dónde estás. Uno por pantalla."
           >
-            <Button variant="solid">Nueva actividad</Button>
+            <Button variant="brand">Nueva actividad</Button>
           </Lead>
           <Lead
             title="Naranja · el acento"

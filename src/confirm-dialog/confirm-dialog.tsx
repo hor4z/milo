@@ -98,7 +98,7 @@ export function ConfirmDialogConfirm({ children = 'Aceptar' }: { children?: Reac
   const ctx = useContext(ConfirmContext)
   return (
     <Button
-      variant={ctx?.tone === 'bad' ? 'bad' : 'solid'}
+      variant={ctx?.tone === 'bad' ? 'bad' : 'brand'}
       size="sm"
       data-autofocus={ctx?.tone === 'bad' ? undefined : true}
       onClick={ctx?.onConfirm}

@@ -23,7 +23,7 @@ export function SheetStory() {
         note="Se arma en tres partes: la cabecera con el título y la X, el cuerpo que scrollea, y el pie con las acciones, que no scrollea nunca. Un formulario de seis campos donde el botón de guardar hay que ir a buscarlo abajo de todo es un formulario que se abandona."
       >
         <Canvas center>
-          <Button variant="solid" onClick={() => setOpen(true)}>Nueva actividad</Button>
+          <Button variant="brand" onClick={() => setOpen(true)}>Nueva actividad</Button>
         </Canvas>
 
         <Sheet open={open} onClose={() => setOpen(false)} label="Nueva actividad">
@@ -47,7 +47,7 @@ export function SheetStory() {
           <SheetFooter>
             <Button variant="ghost" onClick={() => setOpen(false)}>Cancelar</Button>
             <Button
-              variant="solid"
+              variant="brand"
               onClick={() => {
                 setOpen(false)
                 toast({ title: 'Actividad creada', body: 'Quedó en borrador', tone: 'ok' })
@@ -81,7 +81,7 @@ export function SheetStory() {
           </SheetBody>
           <SheetFooter>
             <Button variant="ghost" onClick={() => setLeftOpen(false)}>Limpiar</Button>
-            <Button variant="solid" onClick={() => setLeftOpen(false)}>Aplicar</Button>
+            <Button variant="brand" onClick={() => setLeftOpen(false)}>Aplicar</Button>
           </SheetFooter>
         </Sheet>
       </Section>
