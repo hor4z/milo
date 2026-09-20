@@ -80,6 +80,7 @@ export function RubricRail({ mode }: { mode: RubricMode }) {
         {criteria.map((c, i) => (
           <Checklist
             key={c.id}
+            size="sm"
             defaultOpen={i === 0}
             value={reached[c.id] ?? 0}
             onChange={n => setReached(r => ({ ...r, [c.id]: n }))}

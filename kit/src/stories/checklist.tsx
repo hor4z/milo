@@ -51,6 +51,16 @@ export function ChecklistStory() {
               </Checklist>
             </Stack>
           </Variant>
+          <Variant name="compacta" note="`size='sm'` para un riel angosto: el título y los pasos van los dos en texto de cuerpo, así que la lista se lee como un bloque y no como cuatro filas sueltas.">
+            <Stack width="sm">
+              <Checklist size="sm" defaultOpen>
+                <Checklist.Title>Toma de datos</Checklist.Title>
+                <Checklist.Item state="done">Una sola medición anotada</Checklist.Item>
+                <Checklist.Item>Las tres, sin el error</Checklist.Item>
+                <Checklist.Item>Las tres, con el error estimado</Checklist.Item>
+              </Checklist>
+            </Stack>
+          </Variant>
         </Panel>
       </Section>
 

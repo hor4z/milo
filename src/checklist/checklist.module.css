@@ -144,6 +144,23 @@
     flex-shrink: 0;
   }
 
+  .compact .item {
+    gap: 0.5rem;
+    padding-block: 0.375rem;
+  }
+
+  .compact .label {
+    font-size: var(--type-body);
+    line-height: var(--type-body-lh);
+    letter-spacing: var(--type-body-ls);
+  }
+
+  .compact .title {
+    font-size: var(--type-body);
+    line-height: var(--type-body-lh);
+    letter-spacing: var(--type-body-ls);
+  }
+
   .footer {
     display: flex;
     align-items: center;

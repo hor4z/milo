@@ -533,6 +533,13 @@ export const propsByComponent: Record<string, ComponentDoc> = {
         "doc": "Arranca abierta. Cerrada ocupa una fila y dice lo mismo."
       },
       {
+        "name": "size",
+        "type": "'md' | 'sm'",
+        "required": false,
+        "def": "'md'",
+        "doc": "`sm` adentro de un panel denso: los pasos bajan a texto de cuerpo y las filas se achican."
+      },
+      {
         "name": "value",
         "type": "number",
         "required": false,
