@@ -195,7 +195,6 @@ describe('coherencia del sistema', () => {
 
     const declaradas = new Set<string>()
     for (const f of css) for (const m of f.text.matchAll(/(--[\w-]+)\s*:/g)) declaradas.add(m[1])
-    // las que una pieza pasa por style inline: style={{ '--overlap': ... }}
     for (const t of tsx) for (const m of t.matchAll(/['"](--[\w-]+)['"]\s*:/g)) declaradas.add(m[1])
 
     const huerfanas: string[] = []

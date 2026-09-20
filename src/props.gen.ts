@@ -2272,7 +2272,7 @@ export const propsByComponent: Record<string, ComponentDoc> = {
         "name": "onClose",
         "type": "() => void",
         "required": true,
-        "doc": "La X. Es la salida a la vista Escape y el velo hacen lo mismo."
+        "doc": "La X, que es la salida a la vista: Escape y el velo hacen lo mismo."
       }
     ],
     "doc": "La cabecera del panel, con su título y el botón de cerrar."

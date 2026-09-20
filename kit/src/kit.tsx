@@ -106,11 +106,7 @@ export function Code({ children }: { children: string }) {
 
 type Token = { text: string; kind?: string }
 
-/** Lo que se distingue en un JSX. No es una gramática: es lo justo para un
- *  ejemplo de uso, que es lo único que este sitio muestra. El nombre de la
- *  pieza se reconoce junto al `<` que lo abre y no por venir en mayúscula, así
- *  una palabra capitalizada del contenido no se pinta como si fuera un
- *  componente. */
+/** Lo que se distingue en un JSX. No es una gramática: es lo justo para un ejemplo de uso, que es lo único que este sitio muestra. El nombre de la pieza se reconoce junto al `<` que lo abre y no por venir en mayúscula, así una palabra capitalizada del contenido no se pinta como si fuera un componente. */
 const RULES: { re: RegExp; tokens: (m: RegExpExecArray) => Token[] }[] = [
   { re: /^(<\/?)([A-Z][A-Za-z0-9.]*)/, tokens: m => [{ text: m[1], kind: 'punct' }, { text: m[2], kind: 'component' }] },
   { re: /^"[^"]*"/, tokens: m => [{ text: m[0], kind: 'string' }] },
@@ -338,8 +334,7 @@ export function Mono({ children }: { children: ReactNode }) {
   return <code className={s.monoValue}>{children}</code>
 }
 
-/** La tabla de props. Las filas salen del código: tipo, default y descripción
-    los escribe la pieza en su docblock y los extrae `scripts/props.mjs`. */
+/** La tabla de props. Las filas salen del código: tipo, default y descripción los escribe la pieza en su docblock y los extrae `scripts/props.mjs`. */
 export function Props({ of }: { of: string | readonly string[] }) {
   const names = typeof of === 'string' ? [of] : of
   return (

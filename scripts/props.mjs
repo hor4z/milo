@@ -1,11 +1,4 @@
-/**
- * Saca la tabla de props de cada pieza del código y no de una lista escrita a
- * mano: el tipo y el default salen del componente, y la descripción del
- * docblock de la prop, que es el mismo que ve el editor al autocompletar.
- *
- *   node scripts/props.mjs          escribe src/props.gen.ts
- *   node scripts/props.mjs --check  falla si lo escrito no coincide
- */
+/** Saca la tabla de props de cada pieza del código: el tipo y el default del componente, la descripción del docblock de la prop. Con `--check` falla si lo escrito quedó viejo. */
 import ts from 'typescript'
 import { readFileSync, writeFileSync, readdirSync, statSync } from 'node:fs'
 import { join, dirname } from 'node:path'
@@ -96,8 +89,6 @@ const extract = (file) => {
     if (rows.length || html) pieces[name] = { props: rows, ...(html ? { html } : {}), ...(doc ? { doc } : {}) }
   })
 
-  // Los tipos que una pieza recibe como argumento (las opciones de un toast, el
-  // item de un dropdown) se documentan igual: son la API pública de esa pieza.
   ts.forEachChild(sf, (n) => {
     if (!ts.isTypeAliasDeclaration(n)) return
     if (!n.modifiers?.some(m => m.kind === ts.SyntaxKind.ExportKeyword)) return

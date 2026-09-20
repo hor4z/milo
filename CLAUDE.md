@@ -165,7 +165,9 @@ Estas sí van acá: no se ven en una pantalla, así que el kit no puede mostrarl
 - **Lo que se compone se expone en partes.** `AlertTitle`, `CardHeader`, `TabPanel`. Cuesta dos
   líneas más de escribir y evita la prop número catorce.
 - **Un campo no sabe dónde cae.** La superficie que lo contiene escribe `--field-bg`, así que un
-  `TextField` adentro de un `Card` adentro de un `Modal` se ve bien sin que nadie se lo diga.
+  `TextField` adentro de un `Card` adentro de un `Modal` se ve bien sin que nadie se lo diga. El
+  `Spinner` con `on="control"` hace lo mismo con `--spinner-bg`: el hueco entre el arco y la pista
+  se pinta del color del relleno, y ese color lo escribe la pieza que lo contiene.
 
 ## Cómo se llama una clase
 
@@ -266,6 +268,10 @@ Salieron de armar pantallas de verdad con estas piezas, y valen para cualquiera 
   alguien de doce años. Tres cosas no cambian: nunca al lado de una tarea, nunca como única forma de
   entender algo, y siempre se reemplaza por la versión quieta para quien pidió menos movimiento.
 
+- **El spinner de un botón tiene dos números y los dos son del sistema.** Aparece recién a los 120ms
+  (`--duration-fast`), porque una respuesta más rápida que una transición no alcanza a leerse; y una
+  vez que apareció se queda 280 (`--duration-content`), para que no se vaya antes de que el ojo lo
+  registre.
 - **El ancho de un modal sale de tres y no de un número suelto**: `sm` 420 para una pregunta o un
   campo, `md` 620 para el de siempre, `lg` 820 para lo que necesita dos columnas. Antes era
   `width={number}` y no tenía tope: medido, con `width={2000}` en una pantalla ancha el panel salía
@@ -696,6 +702,11 @@ documento, y falla si alguna cae en "Esa vista ya no está acá" o se dibuja sin
 dibuja la portada. Otro verifica que ningún botón de la portada mande a una vista que ya no existe,
 que es justo lo que se rompió al sacar Principios. Y el cuarto compara los números que la portada
 anuncia contra la realidad.
+
+**Dos cosas del test de contraste que no se ven leyéndolo.** Cada archivo de tokens se corta por su
+propio bloque oscuro **antes** de juntarlos: concatenados primero, lo claro de los roles cae adentro
+de lo oscuro de las primitivas. Y lo que el bloque oscuro no redeclara se hereda de `:root`, igual
+que en el navegador: sin esa caída, un rol declarado una sola vez se lee como ausente en oscuro.
 
 Y cincuenta y nueve leen los tokens y calculan contraste: cada tono de estado contra su fondo, el
 gris del texto secundario contra las superficies sobre las que se escribe, el gris del texto

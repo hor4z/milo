@@ -2,8 +2,7 @@ import { Button, Icon } from '@milo/ui'
 import { useEffect, useRef, useState } from 'react'
 import { A11y, Demo, Example, Grid, Page, Panel, Props, Section, Variant } from '../kit'
 
-/** Dos respuestas de verdad, una más rápida que la espera y otra más lenta, para
- *  ver que la corta no dibuja nada y la larga no se corta. */
+/** Dos respuestas de verdad, una más rápida que la espera y otra más lenta, para ver que la corta no dibuja nada y la larga no se corta. */
 function TryLoading() {
   const [running, setRunning] = useState<'' | 'short' | 'long'>('')
   const timer = useRef<number | undefined>(undefined)

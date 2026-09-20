@@ -70,6 +70,7 @@ export { Popover } from './popover/popover'
 export { Dropdown } from './dropdown/dropdown'
 export type { DropdownItem } from './dropdown/dropdown'
 export { Modal, ModalHeader, ModalTitle, ModalHint, ModalBody, ModalFooter } from './modal/modal'
+export type { ModalSize } from './modal/modal'
 export {
   ConfirmDialog, ConfirmDialogHeader, ConfirmDialogTitle, ConfirmDialogBody,
   ConfirmDialogFooter, ConfirmDialogCancel, ConfirmDialogConfirm,

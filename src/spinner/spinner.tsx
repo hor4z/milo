@@ -16,9 +16,6 @@ export function Spinner({ size = 20, label = 'Cargando', on = 'surface', classNa
   const [edge, track] = on === 'solid'
     ? ['var(--solid)', 'color-mix(in oklab, var(--on-solid) 22%, transparent)']
     : on === 'control'
-      // El hueco entre el arco y la pista se pinta del color del relleno, y ese
-      // color lo escribe la pieza que lo contiene, igual que hace `--field-bg`
-      // con un campo: el spinner no sabe dónde cae.
       ? ['var(--spinner-bg, var(--surface))', 'color-mix(in oklab, currentColor 22%, transparent)']
       : ['var(--surface)', 'var(--border-strong)']
   const w = Math.max((2 * 24) / size, 24 * 0.17)
