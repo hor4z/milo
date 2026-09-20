@@ -248,7 +248,7 @@ export function TableStory() {
                 <EmptyState size="sm" icon="search_off">
                   <EmptyState.Title>Ninguna actividad con eso</EmptyState.Title>
                   <EmptyState.Body>Probá con otras palabras, o sacá alguno de los filtros puestos.</EmptyState.Body>
-                  <EmptyState.Action>{<FilterReset onClick={clear}>Limpiar los filtros</FilterReset>}</EmptyState.Action>
+                  <EmptyState.Action><FilterReset onClick={clear}>Limpiar los filtros</FilterReset></EmptyState.Action>
                 </EmptyState>
               </Table.Empty>
             )}

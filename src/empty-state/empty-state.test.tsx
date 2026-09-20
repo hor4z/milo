@@ -38,3 +38,18 @@ describe('EmptyState', () => {
     expect(screen.getByText('Todavía no llegó nada.')).toBeInTheDocument()
   })
 })
+
+describe('EmptyState · cada parte cae en su lugar', () => {
+  it('el título no queda adentro de la acción', () => {
+    render(
+      <EmptyState icon="inbox">
+        <EmptyState.Title>Nada acá</EmptyState.Title>
+        <EmptyState.Body>Todavía no llegó nada.</EmptyState.Body>
+        <EmptyState.Action><button type="button">Crear</button></EmptyState.Action>
+      </EmptyState>,
+    )
+    const boton = screen.getByRole('button', { name: 'Crear' })
+    expect(boton).not.toHaveTextContent('Nada acá')
+    expect(boton.contains(screen.getByText('Todavía no llegó nada.'))).toBe(false)
+  })
+})

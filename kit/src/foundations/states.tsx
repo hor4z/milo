@@ -88,7 +88,7 @@ export function StatesSection() {
             <EmptyState icon="folder_open">
               <EmptyState.Title>Todavía no hay actividades</EmptyState.Title>
               <EmptyState.Body>Cuando crees la primera, la vas a ver acá con sus entregas y su estado.</EmptyState.Body>
-              <EmptyState.Action>{<Button variant="brand">Nueva actividad</Button>}</EmptyState.Action>
+              <EmptyState.Action><Button variant="brand">Nueva actividad</Button></EmptyState.Action>
             </EmptyState>
           </StateCard>
 
@@ -100,7 +100,7 @@ export function StatesSection() {
             <EmptyState icon="search_off">
               <EmptyState.Title>Nada para 'trimestral'</EmptyState.Title>
               <EmptyState.Body>Probá con menos palabras, o sacá el filtro de espacio.</EmptyState.Body>
-              <EmptyState.Action>{<Button variant="muted" iconStart={<Icon name="filter_alt" />}>Limpiar filtros</Button>}</EmptyState.Action>
+              <EmptyState.Action><Button variant="muted" iconStart={<Icon name="filter_alt" />}>Limpiar filtros</Button></EmptyState.Action>
             </EmptyState>
           </StateCard>
         </div>

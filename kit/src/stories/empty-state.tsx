@@ -19,17 +19,17 @@ export function EmptyStateStory() {
         <Stack gap="lg">
           <Demo label="md · una pantalla">
             <EmptyState icon="inbox">
-              <EmptyState.Action>{<Button variant="brand">
               <EmptyState.Title>Todavía no llegó ninguna entrega</EmptyState.Title>
-              <EmptyState.Body>Cuando alguien entregue una actividad de este espacio, la vas a ver acá con su estado.</EmptyState.Body>Crear una actividad</Button>}</EmptyState.Action>
+              <EmptyState.Body>Cuando alguien entregue una actividad de este espacio, la vas a ver acá con su estado.</EmptyState.Body>
+              <EmptyState.Action><Button variant="brand">Crear una actividad</Button></EmptyState.Action>
             </EmptyState>
           </Demo>
           <Demo label="sm · adentro de una pieza">
             <div className={`${cls.insetBox} bg-surface`}>
               <EmptyState size="sm" icon="search_off">
-                <EmptyState.Action>{<FilterReset>
                 <EmptyState.Title>Ninguna actividad con eso</EmptyState.Title>
-                <EmptyState.Body>Probá con otras palabras, o sacá alguno de los filtros puestos.</EmptyState.Body>Limpiar los filtros</FilterReset>}</EmptyState.Action>
+                <EmptyState.Body>Probá con otras palabras, o sacá alguno de los filtros puestos.</EmptyState.Body>
+                <EmptyState.Action><FilterReset>Limpiar los filtros</FilterReset></EmptyState.Action>
               </EmptyState>
             </div>
           </Demo>
@@ -69,9 +69,9 @@ export function EmptyStateStory() {
       >
         <Demo label="solo texto">
           <EmptyState>
-            <EmptyState.Action>{<Button variant="muted">
             <EmptyState.Title>Acá no hay nada</EmptyState.Title>
-            <EmptyState.Body>La dirección existe pero no lleva a ninguna pantalla.</EmptyState.Body>Volver</Button>}</EmptyState.Action>
+            <EmptyState.Body>La dirección existe pero no lleva a ninguna pantalla.</EmptyState.Body>
+            <EmptyState.Action><Button variant="muted">Volver</Button></EmptyState.Action>
           </EmptyState>
         </Demo>
       </Section>

@@ -71,7 +71,7 @@ export function ListStory() {
               <List.Item key={e.title} icon={e.icon} color={e.color} onClick={() => {}}>
                 <List.Title>{e.title}</List.Title>
                 <List.Hint>{e.hint}</List.Hint>
-                <List.Trailing>{<Icon name="chevron_right" size={20} className="icon-muted" />}</List.Trailing>
+                <List.Trailing><Icon name="chevron_right" size={20} className="icon-muted" /></List.Trailing>
               </List.Item>
             ))}
           </List>

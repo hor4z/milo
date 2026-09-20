@@ -397,7 +397,7 @@ export function App() {
               <EmptyState icon="search_off">
                 <EmptyState.Title>Esa vista ya no está acá</EmptyState.Title>
                 <EmptyState.Body>{`No hay ninguna pieza que se llame "${current}". Puede que se haya renombrado: el buscador del riel encuentra por nombre y por sinónimo.`}</EmptyState.Body>
-                <EmptyState.Action>{<Button variant="muted" iconStart={<Icon name="arrow_back" />} onClick={() => go(INTRO)}>Volver a la introducción</Button>}</EmptyState.Action>
+                <EmptyState.Action><Button variant="muted" iconStart={<Icon name="arrow_back" />} onClick={() => go(INTRO)}>Volver a la introducción</Button></EmptyState.Action>
               </EmptyState>
               </>
             )}
