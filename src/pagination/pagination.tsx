@@ -3,6 +3,7 @@ import cls from './pagination.module.css'
 import type { ComponentPropsWithoutRef, ReactNode } from 'react'
 import { Button } from '../button/button'
 import { cx } from '../lib/cx'
+import { plural } from '../lib/number'
 
 function Root({ className, 'aria-label': label = 'Paginación', ...props }: ComponentPropsWithoutRef<'nav'>) {
   return (
@@ -35,7 +36,7 @@ function Status({
   to, from = 1, total, noun, className, children, ...props
 }: PaginationStatusProps) {
   const howMany = total ?? to
-  const word = Array.isArray(noun) ? (howMany === 1 ? noun[0] : noun[1]) : noun
+  const word = Array.isArray(noun) ? plural(howMany, noun) : noun
   const tail = word ? ` ${word}` : ''
   const phrase = total !== undefined && from <= 1 && to >= total
     ? `${total}${tail}`

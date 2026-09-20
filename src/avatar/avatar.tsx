@@ -1,6 +1,6 @@
 import cls from './avatar.module.css'
 import type { CSSProperties } from 'react'
-import { markColors, markFill } from '../lib/colors'
+import { colorForName, markFill } from '../lib/colors'
 import { cx } from '../lib/cx'
 
 function Root({ name, src, size = 40, className }: {
@@ -14,8 +14,7 @@ function Root({ name, src, size = 40, className }: {
   className?: string
 }) {
   const initials = name.trim().split(/\s+/).slice(0, 2).map(w => w[0]).join('').toUpperCase()
-  const i = [...name].reduce((a, c) => a + c.charCodeAt(0), 0)
-  const fill = markFill[markColors[i % markColors.length]]
+  const fill = markFill[colorForName(name)]
   return (
     <span
       className={cx(`${cls.root} mark`, fill, className)}

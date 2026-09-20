@@ -1,4 +1,6 @@
 
+import { plural } from './number'
+
 /** La zona en la que vive lo que se está mirando: la del curso, no la del navegador. */
 export type Zone = string
 
@@ -41,15 +43,15 @@ export function timeAgo(value: string | Date, { zone, now = new Date() }: TimeOp
   const delta = now.getTime() - d.getTime()
   if (delta < 0) return day(d, { zone })
   if (delta < MINUTE) return 'recién'
-  if (delta < HOUR) return plural(Math.floor(delta / MINUTE), 'minuto')
-  if (delta < DAY) return plural(Math.floor(delta / HOUR), 'hora')
+  if (delta < HOUR) return hace(Math.floor(delta / MINUTE), ['minuto', 'minutos'])
+  if (delta < DAY) return hace(Math.floor(delta / HOUR), ['hora', 'horas'])
   const days = Math.floor(delta / DAY)
   if (days === 1) return 'ayer'
-  if (days < 7) return plural(days, 'día')
+  if (days < 7) return hace(days, ['día', 'días'])
   return day(d, { zone })
 }
 
-const plural = (n: number, unit: string) => `hace ${n} ${unit}${n === 1 ? '' : 's'}`
+const hace = (n: number, formas: readonly [string, string]) => `hace ${n} ${plural(n, formas)}`
 
 /** Cuánto dura algo, en reloj: `1:30`. Lo que no se sabe cuánto dura va `--:--`, porque cero es un valor. */
 export function duration(seconds: number) {
