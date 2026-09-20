@@ -18,7 +18,7 @@ final son lo único que hay que tocar.
 npm install
 npm run dev        # el sitio · http://localhost:5190
 npm run typecheck  # el paquete y el sitio de una
-npm test           # 777 tests con vitest y testing-library
+npm test           # 781 tests con vitest y testing-library
 npm run build      # compila el paquete a dist/ (js, css y tipos)
 npm run props      # regenera la tabla de props desde los tipos
 ```
@@ -165,7 +165,9 @@ Estas sí van acá: no se ven en una pantalla, así que el kit no puede mostrarl
 - **Lo que se compone se expone en partes.** `AlertTitle`, `CardHeader`, `TabPanel`. Cuesta dos
   líneas más de escribir y evita la prop número catorce.
 - **Un campo no sabe dónde cae.** La superficie que lo contiene escribe `--field-bg`, así que un
-  `TextField` adentro de un `Card` adentro de un `Modal` se ve bien sin que nadie se lo diga.
+  `TextField` adentro de un `Card` adentro de un `Modal` se ve bien sin que nadie se lo diga. El
+  `Spinner` con `on="control"` hace lo mismo con `--spinner-bg`: el hueco entre el arco y la pista
+  se pinta del color del relleno, y ese color lo escribe la pieza que lo contiene.
 
 ## Cómo se llama una clase
 
@@ -265,6 +267,72 @@ Salieron de armar pantallas de verdad con estas piezas, y valen para cualquiera 
   cuando algo salió bien no tiene que explicar nada: puede dar gusto, y es la parte que le habla a
   alguien de doce años. Tres cosas no cambian: nunca al lado de una tarea, nunca como única forma de
   entender algo, y siempre se reemplaza por la versión quieta para quien pidió menos movimiento.
+
+- **El spinner de un botón tiene dos números y los dos son del sistema.** Aparece recién a los 120ms
+  (`--duration-fast`), porque una respuesta más rápida que una transición no alcanza a leerse; y una
+  vez que apareció se queda 280 (`--duration-content`), para que no se vaya antes de que el ojo lo
+  registre.
+- **El ancho de un modal sale de tres y no de un número suelto**: `sm` 420 para una pregunta o un
+  campo, `md` 620 para el de siempre, `lg` 820 para lo que necesita dos columnas. Antes era
+  `width={number}` y no tenía tope: medido, con `width={2000}` en una pantalla ancha el panel salía
+  de 2000, y lo único que lo frenaba era el viewport. Un diálogo más ancho que 820 deja de ser un
+  diálogo y es una pantalla. El alto sí tenía tope desde siempre, `100vh - 2rem`, y de ahí scrollea
+  el cuerpo.
+- **Un aviso adentro de un panel denso va en `size="sm"`.** El `Alert` en su tamaño normal escribe en
+  `--type-reading`, que es lo correcto en una página; adentro del `SettingsModal`, cuyas filas están
+  en `--type-body`, el aviso se leía **más grande que los títulos de su propia sección**. `sm` lo
+  baja a body, achica el padding a 12 y el glifo a 16.
+- **El `Alert` se ve como el `Callout`: papel teñido, sin borde, y el texto en tamaño de lectura.**
+  Llevaba un borde del tono y el cuerpo en `--type-body` gris, así que el mismo contenido se leía
+  más chico y más apagado adentro de un aviso que adentro de un bloque de contenido. Lo único que
+  el `Alert` mantiene y el `Callout` no es el glifo en la tinta del tono, que es lo que hace que el
+  estado no dependa del color. Al sacar el borde, `--ok-border` y `--warn-border` quedaron sin un
+  solo consumidor, y está dicho en **Color**.
+- **Una zona de riesgo es un `Alert tone="bad"`, no una caja a mano.** El `SettingsModal` tenía
+  cinco clases propias (`dangerBox`, `dangerTitle`, `dangerText`, `dangerButton`) que reescribían la
+  receta del `Alert`: mismo `--bad-subtle`, mismo radio, mismo padding, y le faltaban el borde y el
+  glifo. Sin el glifo el rojo es la única señal, que es justo lo que **Accesibilidad** prohíbe.
+- **Un aviso que no acaba de pasar no lleva `role="alert"`.** `Alert` lo pone solo con `tone="bad"`,
+  y para algo que está fijo en la pantalla eso hace que el lector lo anuncie con urgencia cada vez
+  que se monta la sección. La pieza deja pasar el `role` (el spread de props va último), así que una
+  zona de riesgo va con `role="group"` y su `aria-label`. La receta visual se reusa; la urgencia no.
+- **Un item elegido se marca con una barra de 2px a la izquierda, sin fondo y sin borde.** El riel
+  de Ajustes llegó a apilar tres tratamientos en el item activo: pastilla con `--brand-soft`, borde
+  `--brand-border`, y adentro una caja blanca con su propio anillo alrededor del icono. Tres capas
+  para decir una cosa. La barra la dibuja un `::before` absoluto, así que no empuja nada.
+- **Un icono no cambia de peso entre estados**, y esto no se ve leyendo el CSS: `icon-muted` no es
+  solo un gris, también escribe `--icon-wght: 400`. Alternarlo con otra clase al elegir un item
+  cambia el peso de una fuente variable, el glifo cambia de ancho y **se mueve adentro de su caja**.
+  El `Nav` no lo hace: usa la misma clase siempre y el color lo hereda del item. El riel de Ajustes
+  sí lo hacía, y por eso los iconos saltaban al cambiar de sección.
+- **Una superficie es 16, sin excepciones.** Tarjeta, fila, panel flotante, modal y diálogo, todo
+  `--radius-xl`. `--radius-2xl` era del modal y del `ConfirmDialog`, y a 24 sobre un panel de 168 de
+  alto la esquina se come casi un tercio del borde: el diálogo se lee como una pastilla y no como
+  una superficie. Al sacarlo quedó sin un solo consumidor, y eso está dicho en **Medidas y radios**
+  en vez de escondido: un escalón de escala que no usa nadie es una invitación a usarlo mal.
+- **La acción que manda es siempre el azul de marca.** `brand` y no `solid`, en cualquier pantalla:
+  un modal, un panel, un vacío, una confirmación que no es destructiva. `solid` es el mismo rol en
+  tinta y existe para una pantalla donde el azul no se pueda usar, así que hoy no lo usa ningún call
+  site salvo la galería que lo muestra. Va uno o el otro, nunca los dos. Esto ya estaba escrito en
+  el docblock de `lib/control.ts` y el código hacía lo contrario: `solid` en 18 lugares contra
+  `brand` en 2.
+- **Un diálogo se arma con sus partes, y la del medio es la que scrollea.** `Modal` es
+  `ModalHeader` + `ModalBody` + `ModalFooter`, y `ConfirmDialog` es lo mismo con sus propios
+  nombres. El panel es una columna: header y footer no se mueven y el cuerpo scrollea cuando no
+  entra, así que en un modal largo las acciones siguen a la vista. Antes el interior se construía a
+  mano en cada call site y la X flotaba afuera del panel, anclada con dos `!important`.
+- **El nombre del diálogo sale del título que se ve.** `ModalTitle` se ata solo con
+  `aria-labelledby`, y `label` queda para el caso sin título a la vista, como fallback. Teniendo las
+  dos, la prop y el título decían cosas distintas y el lector anunciaba la prop, que es la que nadie
+  revisa.
+- **Una confirmación no lleva X.** La salida segura ya está a la vista y es el botón de cancelar;
+  dos formas de salir compiten, y la X no dice qué pasa con lo que estabas por hacer. Por eso
+  `ConfirmDialogHeader` no la pone y `ModalHeader` sí.
+- **Los dos botones de una confirmación son partes y no props**, porque la regla de foco es de la
+  pieza y no del call site: con `tone="bad"` el foco arranca en cancelar, porque con el foco puesto
+  en "Borrar" un Enter de más borra. `ConfirmDialogCancel` y `ConfirmDialogConfirm` lo resuelven
+  solos, así que no hay forma de escribir la confirmación destructiva con el foco en el lugar
+  peligroso.
 
 ## Overlays: lo que costó y conviene no volver a pelear
 
@@ -558,7 +626,7 @@ Lo mismo vale para los tipos que una pieza recibe como argumento (`ToastOptions`
 
 ## Los tests
 
-`npm test` corre vitest con jsdom y testing-library. 777 tests, y lo que prueban es el
+`npm test` corre vitest con jsdom y testing-library. 781 tests, y lo que prueban es el
 comportamiento (teclado, nombres accesibles, estados) y no el markup, que cambia con cada
 ajuste de estilo. El test de cada pieza vive en su carpeta, al lado del componente.
 
@@ -634,6 +702,11 @@ documento, y falla si alguna cae en "Esa vista ya no está acá" o se dibuja sin
 dibuja la portada. Otro verifica que ningún botón de la portada mande a una vista que ya no existe,
 que es justo lo que se rompió al sacar Principios. Y el cuarto compara los números que la portada
 anuncia contra la realidad.
+
+**Dos cosas del test de contraste que no se ven leyéndolo.** Cada archivo de tokens se corta por su
+propio bloque oscuro **antes** de juntarlos: concatenados primero, lo claro de los roles cae adentro
+de lo oscuro de las primitivas. Y lo que el bloque oscuro no redeclara se hereda de `:root`, igual
+que en el navegador: sin esa caída, un rol declarado una sola vez se lee como ausente en oscuro.
 
 Y cincuenta y nueve leen los tokens y calculan contraste: cada tono de estado contra su fondo, el
 gris del texto secundario contra las superficies sobre las que se escribe, el gris del texto
@@ -731,9 +804,6 @@ un aula:
   clase de módulo, que es otra cosa). Son de cuando los botones tenían volumen. Sacarlos es una
   decisión sobre la superficie del paquete, así que está escrito en la vista en vez de hecho a
   escondidas. El que sí se usa y por una sola pieza es `--relief-raised`, en `Segmented`.
-- **`Modal` tiene dos fuentes para su nombre.** La prop `label` es la que el lector de pantalla
-  anuncia, y `ModalTitle` es la que se ve: en la historia dicen cosas distintas y nada lo mira. La
-  salida es que el título se ate solo con `aria-labelledby`, como hace el `Sheet`.
 - **El lienzo, antes que los manipulables y que el editor de nodos.** Los dos necesitan lo mismo y
   no está decidido: pan, zoom, selección, y el teclado para todo eso. Si se arman por separado, cada
   uno lo inventa y quedan dos sistemas. Es la misma forma que ya tuvo el arrastre, donde `Reorder`
@@ -746,9 +816,12 @@ un aula:
   `p()` o `person()` en tres. Es contenido de ejemplo, así que va a un `fixtures.ts` compartido.
 - **Un `Stack` hermano de `Cluster`.** Hay 23 clases en 18 archivos que son la misma columna con
   gap, pero los valores van de 0.125 a 1.5rem y no entran en una escala sin mover cosas de lugar.
-- **Props que le faltan a dos piezas, y que las historias suplen con CSS.** `Table` no tiene
-  `align="right"` ni columna de acciones, y `Modal` no tiene `ModalHeader`/`Body`/`Footer` como sí
-  tiene `Card`: la historia del modal construye el interior entero a mano.
+- **`Table` no tiene `align="right"` ni columna de acciones**, y la historia lo suple con CSS.
+- **`Sheet` todavía tiene las dos fuentes para su nombre** que `Modal` y `ConfirmDialog` ya no
+  tienen: su prop `label` es lo que anuncia el lector y `SheetHeader` recibe el título por prop, así
+  que pueden decir cosas distintas y nada lo mira. Ojo: este archivo llegó a decir que el `Sheet` ya
+  lo resolvía con `aria-labelledby`, y era falso. La salida es la misma que se aplicó en los otros
+  dos.
 - **La familia de controles ya llega a 44×44 en táctil; el resto de las piezas no.** Con
   `pointer: coarse` los botones suben a `lg` y llevan `touch-target`, que agranda el blanco de toque
   a 44 sin mover la caja; los campos suben la caja a 44 de verdad, porque ahí el tap tiene que llegar

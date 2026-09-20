@@ -1,25 +1,35 @@
 import s from './modal.module.css'
-import { useRef, type ComponentPropsWithoutRef, type ReactNode } from 'react'
+import { createContext, useContext, useId, useRef, type ComponentPropsWithoutRef, type ReactNode } from 'react'
 import { IconButton } from '../icon-button/icon-button'
 import { useEscape } from '../lib/esc'
 import { useFocusTrap, useScrollLock } from '../lib/overlay-hooks'
 import { Portal } from '../portal/portal'
 import { cx } from '../lib/cx'
 
+type Ctx = { onClose: () => void; titleId: string }
+const ModalContext = createContext<Ctx | null>(null)
+
+/** Los tres anchos, y el de arriba es el tope: más que eso deja de ser un diálogo y es una pantalla. */
+const widths = { sm: 420, md: 620, lg: 820 } as const
+
+export type ModalSize = keyof typeof widths
+
+/** El diálogo centrado que tapa la pantalla. Se arma con `ModalHeader`, `ModalBody` y `ModalFooter`. */
 export function Modal({
-  open, onClose, children, width = 620, label,
+  open, onClose, children, size = 'md', label,
 }: {
   /** Cerrado no monta nada. */
   open: boolean
-  /** Lo llaman Escape y el click en el backdrop. */
+  /** Lo llaman Escape, el velo y la X del header. */
   onClose: () => void
   children: ReactNode
-  /** El ancho del panel en px. */
-  width?: number
-  /** El aria-label del role="dialog". */
-  label: string
+  /** `sm` una pregunta o un campo, `md` el de siempre, `lg` lo que necesita dos columnas. */
+  size?: ModalSize
+  /** Solo si no hay `ModalTitle`: con título, el nombre sale de ahí. */
+  label?: string
 }) {
   const panel = useRef<HTMLDivElement>(null)
+  const titleId = useId()
   useScrollLock(open)
   useEscape(open, onClose)
   useFocusTrap(open, panel)
@@ -32,21 +42,16 @@ export function Modal({
           ref={panel}
           role="dialog"
           aria-modal="true"
+          aria-labelledby={titleId}
           aria-label={label}
           tabIndex={-1}
-          style={{ width, maxWidth: '100%' }}
+          style={{ width: widths[size], maxWidth: '100%' }}
           className={`${s.panel} ui-zoom bg-surface`}
         >
-          {children}
+          <ModalContext.Provider value={{ onClose, titleId }}>
+            {children}
+          </ModalContext.Provider>
         </div>
-        <IconButton
-          icon="close"
-          label="Cerrar"
-          variant="solid"
-          size="lg"
-          onClick={onClose}
-          className={s.close}
-        />
       </div>
     </Portal>
   )
@@ -54,19 +59,40 @@ export function Modal({
 
 type PartProps = ComponentPropsWithoutRef<'div'>
 
-/** El cuerpo del modal, con su aire. Sin esto el contenido queda pegado al borde del panel. */
-export function ModalBody({ className, ...rest }: PartProps) {
-  return <div className={cx(s.body, className)} {...rest} />
+/** La cabecera: adentro van `ModalTitle` y `ModalHint`, y la X la pone ella. */
+export function ModalHeader({ className, children, ...rest }: PartProps) {
+  const ctx = useContext(ModalContext)
+  return (
+    <div className={cx(s.header, className)} {...rest}>
+      <div className={s.heading}>{children}</div>
+      {ctx && (
+        <IconButton
+          icon="close"
+          label="Cerrar"
+          size="sm"
+          variant="ghost"
+          onClick={ctx.onClose}
+          className={s.close}
+        />
+      )}
+    </div>
+  )
 }
 
-/** El título, del mismo tamaño que el del `Sheet` y el del `ConfirmDialog`: un diálogo tiene un solo título. Va como encabezado para que el lector de pantalla lo encuentre. */
-export function ModalTitle({ className, ...rest }: ComponentPropsWithoutRef<'h2'>) {
-  return <h2 className={cx(s.title, className)} {...rest} />
+/** El título, y de paso el nombre que anuncia el lector: se ata solo. */
+export function ModalTitle({ className, id, ...rest }: ComponentPropsWithoutRef<'h2'>) {
+  const ctx = useContext(ModalContext)
+  return <h2 id={id ?? ctx?.titleId} className={cx(s.title, className)} {...rest} />
 }
 
 /** La línea de apoyo debajo del título, en gris. */
 export function ModalHint({ className, ...rest }: PartProps) {
   return <div className={cx(s.hint, className)} {...rest} />
+}
+
+/** El cuerpo, y lo único que scrollea cuando el contenido no entra. */
+export function ModalBody({ className, ...rest }: PartProps) {
+  return <div className={cx(s.body, className)} {...rest} />
 }
 
 /** La fila de acciones, contra el borde derecho. */

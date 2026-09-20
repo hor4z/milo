@@ -1,18 +1,5 @@
 #!/usr/bin/env node
-/**
- * El set de iconos se administra desde acá. Nunca se edita a mano ni el
- * manifiesto ni los `.gen.ts`.
- *
- *   npm run icons -w @milo/ui -- search <texto>   busca en el catálogo, offline
- *   npm run icons -w @milo/ui -- add <nombre...>  agrega al set y regenera
- *   npm run icons -w @milo/ui -- sync             rebaja la fuente y regenera
- *   npm run icons -w @milo/ui -- check            nombres usados que faltan, y al revés
- *   npm run icons -w @milo/ui -- refresh          reconstruye el catálogo desde Google
- *
- * Por qué el catálogo está versionado: `search` y `add` tienen que andar sin
- * internet. Es el mismo argumento de las caras de los avatares. Nunca llega al
- * browser: solo lo importan este script y la historia del kit.
- */
+/** El set de iconos: `search`, `add`, `sync`, `check` y `refresh`. Las cuatro primeras andan sin internet, y por eso el catálogo está versionado. */
 import { readFileSync, writeFileSync, readdirSync, statSync } from 'node:fs'
 import { createHash } from 'node:crypto'
 import { fileURLToPath } from 'node:url'
@@ -37,8 +24,6 @@ const catalog = () => {
   for (const c of readJSON(P.catalog)) m.set(c.n, c)
   return m
 }
-
-/* ------------------------------------------------------------------ search */
 
 /** Distancia de edición, para sugerir cuando el nombre no existe. */
 function dist(a, b) {
@@ -66,8 +51,6 @@ function search(q, cat, limit = 20) {
   return hits.slice(0, limit).map(h => h[1])
 }
 
-/* -------------------------------------------------------------------- sync */
-
 async function downloadFont(names, axes) {
   const url = `https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:${axes}`
     + `&icon_names=${names.join(',')}`
@@ -75,8 +58,6 @@ async function downloadFont(names, axes) {
   const src = css.match(/https:\/\/fonts\.gstatic\.com[^)]*/)?.[0]
   if (!src) throw new Error('no vino una url de fuente en el CSS de Google:\n' + css.slice(0, 400))
   const buf = Buffer.from(await (await fetch(src, { headers: { 'User-Agent': UA } })).arrayBuffer())
-  /* Si el User-Agent no parece un browser moderno, Google devuelve TTF en vez
-     de woff2 y el @font-face queda mintiendo sobre el formato. */
   if (buf.subarray(0, 4).toString('latin1') !== 'wOF2')
     throw new Error(`lo que bajó no es woff2 (empieza con ${JSON.stringify(buf.subarray(0, 4).toString('latin1'))})`)
   return { buf, src }
@@ -135,8 +116,6 @@ async function sync() {
   console.log(`${m.names.length} iconos · ${(buf.length / 1024).toFixed(1)} KB · sha256 ${m.font.sha256.slice(0, 12)}…`)
 }
 
-/* --------------------------------------------------------------------- add */
-
 async function add(args) {
   const yes = args.includes('--yes')
   const requested = args.filter(a => !a.startsWith('--'))
@@ -147,7 +126,6 @@ async function add(args) {
   const added = []
 
   for (const n of requested) {
-    // 1. ¿existe?
     if (!cat.has(n)) {
       const near = [...cat.keys()].map(k => [dist(n, k), k]).sort((a, b) => a[0] - b[0]).slice(0, 5)
       console.error(`✗ "${n}" no existe en Material Symbols Rounded.`)
@@ -155,12 +133,10 @@ async function add(args) {
       console.error(`  o probá: icons search ${n.split('_')[0]}`)
       process.exit(1)
     }
-    // 2. ¿ya lo tenemos?
     if (m.names.includes(n)) {
       console.log(`· "${n}" ya está en el set. No hay nada que bajar.`)
       continue
     }
-    // 3. ¿hay uno mejor, o uno que ya hace lo mismo?
     const tags = new Set(cat.get(n).t)
     const similar = m.names
       .map(k => [[...tags].filter(t => cat.get(k)?.t.includes(t)).length, k])
@@ -183,8 +159,6 @@ async function add(args) {
   await sync()
 }
 
-/* ------------------------------------------------------------------- check */
-
 function fuentes(dir, out = []) {
   for (const e of readdirSync(dir)) {
     if (e === 'node_modules' || e === 'dist' || e.startsWith('.')) continue
@@ -204,15 +178,6 @@ function check() {
     for (const re of [/\bicon(?:End)?=["']([a-z0-9_]+)["']/g, /\bname=["']([a-z0-9_]+)["']/g, /\bicon:\s*'([a-z0-9_]+)'/g]) {
       for (const mm of src.matchAll(re)) used.add(mm[1])
     }
-    // Y cualquier string suelto que coincida con un nombre del manifiesto. Las
-    // formas de arriba son precisas y por eso se perdían los usos que no tienen
-    // esa forma: un ternario (`icon={oscuro ? 'light_mode' : 'dark_mode'}`), el
-    // valor de un `Record<…, IconName>`, un dato en un array. Los cuatro de ese
-    // ejemplo se reportaban sin uso y estaban en uso.
-    //
-    // Esto cuenta de más (un `'search'` que no sea un icono también entra) y
-    // está bien que así sea: equivocarse para el otro lado significa borrar del
-    // set un glifo que alguien está dibujando.
     for (const mm of src.matchAll(/['"`]([a-z][a-z0-9_]{2,})['"`]/g)) {
       if (inManifest.has(mm[1])) used.add(mm[1])
     }
@@ -224,8 +189,6 @@ function check() {
   if (!missing.length) console.log('✓ todo lo que se usa está en el manifiesto')
   process.exit(missing.length ? 1 : 0)
 }
-
-/* -------------------------------------------------------------------- main */
 
 const [cmd, ...args] = process.argv.slice(2)
 if (cmd === 'sync') await sync()

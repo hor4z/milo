@@ -40,7 +40,7 @@ export function Intro({ go, views }: { go: (id: string) => void; views: number }
           </Stack>
 
           <div className={cls.heroActions}>
-            <Button variant="solid" iconStart={<Icon name="arrow_forward" />} onClick={() => go('accessibility')}>Ver los fundamentos</Button>
+            <Button variant="brand" iconStart={<Icon name="arrow_forward" />} onClick={() => go('accessibility')}>Ver los fundamentos</Button>
             <Button variant="muted" iconStart={<Icon name="dashboard" />} onClick={() => go('dashboard')}>Ver el dashboard</Button>
             <Button variant="muted" iconStart={<Icon name="description" />} onClick={() => go('documento')}>Ver un documento</Button>
           </div>

@@ -18,15 +18,13 @@
   }
 
   .railItem {
+    position: relative;
     display: flex;
     height: 2.5rem;
     align-items: center;
     gap: 0.75rem;
     border-radius: var(--radius-lg);
-    border-style: solid;
-    border-width: 1px;
-    padding-right: 0.5rem;
-    padding-left: .25rem;
+    padding-inline: 0.75rem;
     text-align: left;
     font-size: var(--type-body);
     line-height: var(--type-body-lh);
@@ -35,41 +33,35 @@
   }
 
   .railItemMotion {
-    transition-property: background-color,border-color,color;
+    transition-property: background-color,color;
     transition-duration: var(--duration-fast);
     transition-timing-function: var(--ease-out);
   }
 
   .railItemActive {
-    border-color: var(--brand-border);
-    background-color: var(--brand-soft);
     color: var(--brand-ink);
+
+    &::before {
+      content: "";
+      position: absolute;
+      inset-block: 0.5rem;
+      left: 0;
+      width: 2px;
+      border-radius: var(--radius-full);
+      background-color: var(--brand);
+    }
   }
 
   .railItemIdle {
-    border-color: #0000;
     color: var(--text);
   }
 
   .railGlyph {
     display: flex;
-    width: 2rem;
-    height: 2rem;
+    width: 20px;
     flex-shrink: 0;
     align-items: center;
     justify-content: center;
-    border-radius: var(--radius-md);
-    transition-property: background-color,box-shadow;
-    transition-duration: var(--duration-fast);
-    transition-timing-function: var(--ease-out);
-  }
-
-  .railGlyphActive {
-    box-shadow: 0 0 0 1px var(--brand-border);
-  }
-
-  .railIcon {
-    color: var(--brand-ink);
   }
 
   .panel {
@@ -123,32 +115,6 @@
     border-color: var(--border);
     padding-inline: 1.5rem;
     padding-block: 1rem;
-  }
-
-  .dangerBox {
-    border-radius: var(--radius-xl);
-    background-color: var(--bad-subtle);
-    padding: 1rem;
-  }
-
-  .dangerTitle {
-    font-size: var(--type-body);
-    line-height: var(--type-body-lh);
-    letter-spacing: var(--type-body-ls);
-    font-weight: var(--font-weight-semibold);
-    color: var(--text);
-  }
-
-  .dangerText {
-    margin-top: 0.5rem;
-    font-size: var(--type-body);
-    line-height: var(--type-body-lh);
-    letter-spacing: var(--type-body-ls);
-    color: var(--text-muted);
-  }
-
-  .dangerButton {
-    margin-top: 0.75rem;
   }
 
   .row {

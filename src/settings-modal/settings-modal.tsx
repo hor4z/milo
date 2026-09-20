@@ -1,6 +1,7 @@
 import cls from './settings-modal.module.css'
 import { useState } from 'react'
 import { cx } from '../lib/cx'
+import { Alert, AlertActions, AlertBody, AlertTitle } from '../alert/alert'
 import { Button } from '../button/button'
 import { Chip } from '../chip/chip'
 import { Row } from '../row/row'
@@ -8,7 +9,7 @@ import { Segmented } from '../segmented/segmented'
 import { Select } from '../select/select'
 import { Switch } from '../switch/switch'
 import { Icon, type IconName } from '../icon/icon'
-import { Modal } from '../modal/modal'
+import { Modal, ModalHeader, ModalTitle } from '../modal/modal'
 import { usePrefs } from '../prefs/prefs'
 
 type SectionId = 'general' | 'perfil' | 'seguridad' | 'avisos'
@@ -41,7 +42,10 @@ export function SettingsModal({ open, onClose, user }: {
   const [section, setSection] = useState<SectionId>('general')
 
   return (
-    <Modal open={open} onClose={onClose} width={594} label="Ajustes">
+    <Modal open={open} onClose={onClose} size="md">
+      <ModalHeader>
+        <ModalTitle>Ajustes</ModalTitle>
+      </ModalHeader>
       <div className={cls.root}>
         <nav className={cls.rail}>
           {sections.map(s => {
@@ -60,11 +64,8 @@ export function SettingsModal({ open, onClose, user }: {
                     : cls.railItemIdle,
                 )}
               >
-                <span className={cx(
-                  cls.railGlyph,
-                  active && `${cls.railGlyphActive} bg-surface`,
-                )}>
-                  <Icon name={s.icon} size={20} className={active ? cls.railIcon : 'icon-muted'} />
+                <span className={cls.railGlyph}>
+                  <Icon name={s.icon} size={20} />
                 </span>
                 {s.label}
               </button>
@@ -158,14 +159,16 @@ function SecuritySection() {
         <Button size="sm" variant="ghost" iconEnd={<Icon name="download" />}>Descargar</Button>
       </Row>
       <div className={cls.dangerZone}>
-        <div className={cls.dangerBox}>
-          <div className={cls.dangerTitle}>Borrar la cuenta</div>
-          <p className={cls.dangerText}>
+        <Alert tone="bad" size="sm" role="group" aria-label="Borrar la cuenta">
+          <AlertTitle>Borrar la cuenta</AlertTitle>
+          <AlertBody>
             Se van los espacios que coordinás y las actividades que escribiste. Las entregas de los
             aprendices quedan con su autor, no con vos.
-          </p>
-          <Button size="sm" variant="bad" className={cls.dangerButton}>Borrar la cuenta</Button>
-        </div>
+          </AlertBody>
+          <AlertActions>
+            <Button size="sm" variant="bad">Borrar la cuenta</Button>
+          </AlertActions>
+        </Alert>
       </div>
     </div>
   )

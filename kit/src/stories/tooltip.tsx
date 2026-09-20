@@ -31,7 +31,7 @@ export function TooltipStory() {
         <Cluster align="center">
           <Demo label="en un botón con texto">
             <Tooltip label="Se publica para los siete espacios">
-              <Button variant="solid">Publicar</Button>
+              <Button variant="brand">Publicar</Button>
             </Tooltip>
           </Demo>
           <Demo label="texto largo · se envuelve a 240">

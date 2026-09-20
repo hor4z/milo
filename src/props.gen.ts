@@ -70,6 +70,13 @@ export const propsByComponent: Record<string, ComponentDoc> = {
         "type": "() => void",
         "required": false,
         "doc": "Agrega la X para cerrarlo; sin esto no se cierra."
+      },
+      {
+        "name": "size",
+        "type": "'sm' | 'md'",
+        "required": false,
+        "def": "'md'",
+        "doc": "`sm` para adentro de un panel denso, donde el de siempre se lee más grande que las filas de al lado."
       }
     ],
     "html": "div",
@@ -737,13 +744,13 @@ export const propsByComponent: Record<string, ComponentDoc> = {
         "name": "open",
         "type": "boolean",
         "required": true,
-        "doc": "Lo dibuja o no: cerrado no monta nada."
+        "doc": "Cerrado no monta nada."
       },
       {
         "name": "onCancel",
         "type": "() => void",
         "required": true,
-        "doc": "Lo llaman Cancelar, el velo y Escape."
+        "doc": "Lo llaman el botón de cancelar, el velo y Escape."
       },
       {
         "name": "onConfirm",
@@ -752,40 +759,61 @@ export const propsByComponent: Record<string, ComponentDoc> = {
         "doc": "Lo que pasa si dice que sí."
       },
       {
-        "name": "title",
-        "type": "string",
-        "required": true,
-        "doc": "La pregunta, con el nombre de lo que se va a tocar adentro."
-      },
-      {
-        "name": "body",
+        "name": "children",
         "type": "ReactNode",
-        "required": false,
-        "doc": "Qué más se lleva puesto."
-      },
-      {
-        "name": "confirmLabel",
-        "type": "string",
-        "required": false,
-        "def": "'Aceptar'",
-        "doc": "El verbo de lo que va a pasar, no \"Sí\"."
-      },
-      {
-        "name": "cancelLabel",
-        "type": "string",
-        "required": false,
-        "def": "'Cancelar'",
-        "doc": "La salida segura."
+        "required": true
       },
       {
         "name": "tone",
         "type": "'neutral' | 'bad'",
         "required": false,
         "def": "'neutral'",
-        "doc": "Bad pinta el botón de confirmar y arranca el foco en Cancelar."
+        "doc": "Bad pinta el botón de confirmar y arranca el foco en cancelar."
       }
     ],
-    "doc": "El diálogo que pregunta antes de algo que no se puede deshacer."
+    "doc": "El diálogo que pregunta antes de algo que no se puede deshacer. Se arma con sus partes, igual que el `Modal`."
+  },
+  "ConfirmDialogHeader": {
+    "props": [],
+    "html": "div",
+    "doc": "La cabecera. No lleva X: la salida segura es el botón de cancelar, que ya está a la vista."
+  },
+  "ConfirmDialogTitle": {
+    "props": [],
+    "html": "h2",
+    "doc": "La pregunta, con el nombre de lo que se va a tocar adentro. Es el nombre que anuncia el lector."
+  },
+  "ConfirmDialogBody": {
+    "props": [],
+    "html": "div",
+    "doc": "Qué más se lleva puesto."
+  },
+  "ConfirmDialogFooter": {
+    "props": [],
+    "html": "div",
+    "doc": "La fila de los dos botones, contra el borde derecho."
+  },
+  "ConfirmDialogCancel": {
+    "props": [
+      {
+        "name": "children",
+        "type": "ReactNode",
+        "required": false,
+        "def": "'Cancelar'"
+      }
+    ],
+    "doc": "La salida segura. Con `tone=\"bad\"` arranca con el foco."
+  },
+  "ConfirmDialogConfirm": {
+    "props": [
+      {
+        "name": "children",
+        "type": "ReactNode",
+        "required": false,
+        "def": "'Aceptar'"
+      }
+    ],
+    "doc": "El verbo de lo que va a pasar, no \"Sí\". Con `tone=\"bad\"` se pinta y cede el foco."
   },
   "DatePicker": {
     "props": [
@@ -1539,7 +1567,7 @@ export const propsByComponent: Record<string, ComponentDoc> = {
         "name": "onClose",
         "type": "() => void",
         "required": true,
-        "doc": "Lo llaman Escape y el click en el backdrop."
+        "doc": "Lo llaman Escape, el velo y la X del header."
       },
       {
         "name": "children",
@@ -1547,34 +1575,40 @@ export const propsByComponent: Record<string, ComponentDoc> = {
         "required": true
       },
       {
-        "name": "width",
-        "type": "number",
+        "name": "size",
+        "type": "ModalSize",
         "required": false,
-        "def": "620",
-        "doc": "El ancho del panel en px."
+        "def": "'md'",
+        "doc": "`sm` una pregunta o un campo, `md` el de siempre, `lg` lo que necesita dos columnas."
       },
       {
         "name": "label",
         "type": "string",
-        "required": true,
-        "doc": "El aria-label del role=\"dialog\"."
+        "required": false,
+        "doc": "Solo si no hay `ModalTitle`: con título, el nombre sale de ahí."
       }
-    ]
+    ],
+    "doc": "El diálogo centrado que tapa la pantalla. Se arma con `ModalHeader`, `ModalBody` y `ModalFooter`."
   },
-  "ModalBody": {
+  "ModalHeader": {
     "props": [],
     "html": "div",
-    "doc": "El cuerpo del modal, con su aire. Sin esto el contenido queda pegado al borde del panel."
+    "doc": "La cabecera: adentro van `ModalTitle` y `ModalHint`, y la X la pone ella."
   },
   "ModalTitle": {
     "props": [],
     "html": "h2",
-    "doc": "El título, del mismo tamaño que el del `Sheet` y el del `ConfirmDialog`: un diálogo tiene un solo título. Va como encabezado para que el lector de pantalla lo encuentre."
+    "doc": "El título, y de paso el nombre que anuncia el lector: se ata solo."
   },
   "ModalHint": {
     "props": [],
     "html": "div",
     "doc": "La línea de apoyo debajo del título, en gris."
+  },
+  "ModalBody": {
+    "props": [],
+    "html": "div",
+    "doc": "El cuerpo, y lo único que scrollea cuando el contenido no entra."
   },
   "ModalFooter": {
     "props": [],
@@ -2238,7 +2272,7 @@ export const propsByComponent: Record<string, ComponentDoc> = {
         "name": "onClose",
         "type": "() => void",
         "required": true,
-        "doc": "La X. Es la salida a la vista Escape y el velo hacen lo mismo."
+        "doc": "La X, que es la salida a la vista: Escape y el velo hacen lo mismo."
       }
     ],
     "doc": "La cabecera del panel, con su título y el botón de cerrar."

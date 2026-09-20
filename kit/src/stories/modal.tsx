@@ -1,63 +1,62 @@
 import { useState } from 'react'
-import { Button, Icon, Modal, ModalBody, ModalFooter, ModalHint, ModalTitle, SettingsModal } from '@milo/ui'
-import { A11y, Cluster, Demo, Footnote, Page, Props, Section } from '../kit'
+import { Button, Field, Icon, Modal, ModalBody, ModalFooter, ModalHeader, ModalHint, ModalTitle, SettingsModal, TextField } from '@milo/ui'
+import { A11y, Demo, Example, Grid, Note, Page, Props, Section } from '../kit'
 
 export function ModalStory() {
   const [open, setOpen] = useState(false)
   const [narrowOpen, setNarrowOpen] = useState(false)
   const [settingsOpen, setSettingsOpen] = useState(false)
+  const [nombre, setNombre] = useState('Física · 5.º B')
 
   return (
     <Page
       title="Modal"
-      lead="El backdrop es blur de 3px más una capa que atenúa en vez de lavar: 14% en claro y 55% en oscuro, porque sobre un fondo ya oscuro un velo tenue no se ve. En los dos casos el contexto de abajo se sigue leyendo y el modal no se siente un cambio de página. El bloqueo de scroll compensa el ancho de la scrollbar, porque sin eso la página salta a la derecha justo al abrir."
       kind="Superficies"
-      imports="import { Modal, ModalBody, ModalTitle, ModalHint, ModalFooter } from '@milo/ui'"
+      imports="import { Modal, ModalHeader, ModalTitle, ModalHint, ModalBody, ModalFooter } from '@milo/ui'"
+      lead="Tres partes: la cabecera con el título y la X, el cuerpo, y los botones abajo. El panel es una columna, así que el cuerpo es lo único que scrollea y las acciones siguen a la vista. El ancho sale de tres, no de un número suelto."
     >
       <Section
         title="Vivo"
-        note="Se enfoca el contenedor del diálogo y no su primer control: el navegador scrollea para traer a la vista lo que enfoca, así que enfocar 'el primero enfocable' abría el panel corrido 39px con la primera fila tapada. Para el caso que sí quiere un campo (la paleta de comandos) hay un `[data-autofocus]`."
+        note="Probá Escape, y probá scrollear la página de atrás: está bloqueado y no hay salto lateral al abrir."
       >
-        <Cluster align="start">
-          <Demo label="width 620">
+        <Grid min={300}>
+          <Demo label="md · 620, el de siempre">
             <Button variant="muted" onClick={() => setOpen(true)}>Abrir modal</Button>
-            <Modal open={open} onClose={() => setOpen(false)} label="Ejemplo" width={620}>
-              <ModalBody>
+            <Modal open={open} onClose={() => setOpen(false)} size="md">
+              <ModalHeader>
                 <ModalTitle>Un modal de 620</ModalTitle>
-                <ModalHint>
-                  Probá Escape, y probá hacer scroll en la página de atrás: está bloqueado, y no hay
-                  salto lateral al abrir.
-                </ModalHint>
-                <ModalFooter>
-                  <Button variant="ghost" onClick={() => setOpen(false)}>Cancelar</Button>
-                  <Button variant="solid" onClick={() => setOpen(false)}>Entendido</Button>
-                </ModalFooter>
-              </ModalBody>
-            </Modal>
-          </Demo>
-
-          <Demo label="width 420">
-            <Button variant="muted" onClick={() => setNarrowOpen(true)}>Confirmación</Button>
-            <Modal open={narrowOpen} onClose={() => setNarrowOpen(false)} label="Confirmar" width={420}>
+                <ModalHint>Lo que el lector anuncia sale de ese título.</ModalHint>
+              </ModalHeader>
               <ModalBody>
-                <ModalTitle>¿Eliminar la actividad?</ModalTitle>
-                <ModalHint>Se va a borrar para todo el equipo.</ModalHint>
-                <ModalFooter>
-                  <Button variant="ghost" size="sm" onClick={() => setNarrowOpen(false)}>Cancelar</Button>
-                  <Button variant="bad" size="sm" onClick={() => setNarrowOpen(false)}>Eliminar</Button>
-                </ModalFooter>
+                El cuerpo es lo que scrollea cuando el contenido no entra. La cabecera y los botones
+                se quedan donde están.
               </ModalBody>
+              <ModalFooter>
+                <Button variant="ghost" onClick={() => setOpen(false)}>Cancelar</Button>
+                <Button variant="brand" onClick={() => setOpen(false)}>Entendido</Button>
+              </ModalFooter>
             </Modal>
           </Demo>
-        </Cluster>
-      </Section>
 
-      <Section
-        title="El caso real: los ajustes"
-        note="El mismo modal que usa la app: rail de 180 que no scrollea, panel que sí. Si scrollean los dos, al bajar en una sección larga desaparecen las secciones y no sabés dónde estás. Van en un modal y no en una página para no perder el contexto: al cerrar seguís donde estabas, con el scroll donde lo dejaste."
-      >
-        <Cluster align="start">
-          <Demo label="width 594">
+          <Demo label="sm · 420, una pregunta o un campo">
+            <Button variant="muted" onClick={() => setNarrowOpen(true)}>Renombrar</Button>
+            <Modal open={narrowOpen} onClose={() => setNarrowOpen(false)} size="sm">
+              <ModalHeader>
+                <ModalTitle>Renombrar el espacio</ModalTitle>
+              </ModalHeader>
+              <ModalBody>
+                <Field label="Nombre" hint="Lo ven los 28 del curso.">
+                  <TextField value={nombre} onChange={e => setNombre(e.target.value)} />
+                </Field>
+              </ModalBody>
+              <ModalFooter>
+                <Button variant="ghost" size="sm" onClick={() => setNarrowOpen(false)}>Cancelar</Button>
+                <Button variant="brand" size="sm" onClick={() => setNarrowOpen(false)}>Guardar</Button>
+              </ModalFooter>
+            </Modal>
+          </Demo>
+
+          <Demo label="md · el caso real">
             <Button variant="muted" iconStart={<Icon name="tune" />} onClick={() => setSettingsOpen(true)}>Ajustes</Button>
             <SettingsModal
               open={settingsOpen}
@@ -70,23 +69,41 @@ export function ModalStory() {
               }}
             />
           </Demo>
-        </Cluster>
-        <Footnote>
-          Vive en el paquete y no en la app por la misma regla que deja al shell afuera: no lee{' '}
-          <code>data.ts</code> ni el router. Lo único que necesita son las preferencias (que ya viven acá) y
-          quién está mirando, que va por prop: el nombre y el correo de una persona real no son
-          parte de un design system. Adentro hay un Select, que abre un flotante adentro de otro
-          flotante: probalo, el listbox queda arriba del modal sin que nadie escriba un z-index.
-        </Footnote>
+        </Grid>
       </Section>
 
+      <Section title="Cómo se escribe">
+        <Example code={`
+<Modal open={open} onClose={cerrar} size="md">
+  <ModalHeader>
+    <ModalTitle>Un modal de 620</ModalTitle>
+    <ModalHint>La línea de apoyo, si hace falta.</ModalHint>
+  </ModalHeader>
+  <ModalBody>
+    El contenido.
+  </ModalBody>
+  <ModalFooter>
+    <Button variant="ghost" onClick={cerrar}>Cancelar</Button>
+    <Button variant="brand" onClick={guardar}>Entendido</Button>
+  </ModalFooter>
+</Modal>
+`} />
+      </Section>
+
+      <Note title="Modal o ConfirmDialog">
+        El modal es para lo que pide hacer algo: un formulario corto, unos ajustes, elegir. Si lo
+        único que hace es preguntar "¿seguro?" y ofrecer dos salidas, eso es un
+        [ConfirmDialog](#confirm), que además pone el foco donde corresponde y se anuncia como
+        `alertdialog`.
+      </Note>
+
       <Section title="Props">
-        <Props of={['Modal', 'ModalBody', 'ModalTitle', 'ModalHint', 'ModalFooter']} />
+        <Props of={['Modal', 'ModalHeader', 'ModalTitle', 'ModalHint', 'ModalBody', 'ModalFooter']} />
       </Section>
 
       <Section title="Accesibilidad">
         <A11y items={[
-          'role="dialog" con aria-modal y su nombre.',
+          'role="dialog" con aria-modal, y el nombre sale del `ModalTitle` por `aria-labelledby`: una sola fuente, y la que se ve es la que se anuncia.',
           'Atrapa el foco mientras está abierto y lo devuelve al cerrarse.',
           'Se enfoca el contenedor y no el primer control: el navegador scrollea a lo que enfoca, y eso abría el panel corrido.',
           'Bloquea el scroll de la página compensando el ancho de la barra, así que nada salta al abrir.',

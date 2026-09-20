@@ -1,22 +1,18 @@
 @layer milo.components {
   .surfaceInfo {
     background-color: var(--brand-soft);
-    border-color: var(--info-border);
   }
 
   .surfaceOk {
     background-color: var(--ok-subtle);
-    border-color: var(--ok-border);
   }
 
   .surfaceWarn {
     background-color: var(--warn-subtle);
-    border-color: var(--warn-border);
   }
 
   .surfaceBad {
     background-color: var(--bad-subtle);
-    border-color: var(--bad-border);
   }
 
   .inkInfo {

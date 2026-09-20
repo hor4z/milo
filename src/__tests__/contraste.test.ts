@@ -5,9 +5,7 @@ import { join } from 'node:path'
 const css = readFileSync(join(import.meta.dirname, '../styles/tokens/primitives.css'), 'utf8')
 const roles = readFileSync(join(import.meta.dirname, '../styles/tokens/semantic.css'), 'utf8')
 
-/** Cada archivo se corta por su propio bloque oscuro antes de juntarlos: si se
- *  concatenan primero, lo claro de los roles cae adentro de lo oscuro de las
- *  primitivas. */
+/** Cada archivo se corta por su propio bloque oscuro antes de juntarlos: si se concatenan primero, lo claro de los roles cae adentro de lo oscuro de las primitivas. */
 function scope(theme: 'light' | 'dark') {
   return [css, roles]
     .map(f => { const b = f.split('[data-theme="dark"]'); return theme === 'light' ? b[0] : b[1] ?? '' })
@@ -17,9 +15,6 @@ function scope(theme: 'light' | 'dark') {
 function value(token: string, theme: 'light' | 'dark'): string | undefined {
   const lookUp = (t: 'light' | 'dark') =>
     scope(t).match(new RegExp(`${token}:\\s*(#[0-9a-fA-F]{3,8}|var\\(--[\\w-]+\\))`))?.[1]
-  // lo que el bloque oscuro no redeclara lo sigue heredando de :root, igual que
-  // en el navegador: sin esta caída, un rol declarado una sola vez se lee como
-  // ausente en oscuro.
   const raw = lookUp(theme) ?? (theme === 'dark' ? lookUp('light') : undefined)
   if (!raw) return undefined
   const ref = raw.match(/var\((--[\w-]+)\)/)
@@ -90,10 +85,7 @@ describe('el relleno que lleva texto encima llega a AA', () => {
 })
 
 describe('el hover no deshace el anclaje', () => {
-  /** Cada variante de control: su relleno en reposo, el del hover, y la tinta
-   *  que lleva encima. Cuando los botones tenían relieve esto se verificaba
-   *  sobre las recetas de `theme.css`; en plano lo que hay que mirar es que el
-   *  paso del hover siga aguantando su propio texto. */
+  /** Cada variante de control: su relleno en reposo, el del hover, y la tinta que lleva encima. Cuando los botones tenían relieve esto se verificaba sobre las recetas de `theme.css`; en plano lo que hay que mirar es que el paso del hover siga aguantando su propio texto. */
   const variants: [string, string, string][] = [
     ['--brand', '--brand-hover', '--on-brand'],
     ['--solid', '--solid-hover', '--on-solid'],

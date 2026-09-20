@@ -20,7 +20,7 @@ export function EmptyStateStory() {
               icon="inbox"
               title="Todavía no llegó ninguna entrega"
               body="Cuando alguien entregue una actividad de este espacio, la vas a ver acá con su estado."
-              action={<Button variant="solid">Crear una actividad</Button>}
+              action={<Button variant="brand">Crear una actividad</Button>}
             />
           </Demo>
           <Demo label="sm · adentro de una pieza">

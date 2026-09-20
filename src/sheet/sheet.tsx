@@ -54,8 +54,8 @@ export function Sheet({
 export function SheetHeader({ title, onClose }: {
   /** El nombre del panel. */
   title: string
-  /** La X. Es la salida a la vista
-  Escape y el velo hacen lo mismo. */ onClose: () => void
+  /** La X, que es la salida a la vista: Escape y el velo hacen lo mismo. */
+  onClose: () => void
 }) {
   return (
     <div className={s.header}>

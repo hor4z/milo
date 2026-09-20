@@ -46,8 +46,6 @@ describe('toda clase que llega al HTML resuelve a algo', () => {
   }
 
   it('touch-target va solo donde toda la superficie es el mismo objetivo', () => {
-    // el ::after se pinta sobre el contenido, así que en algo que lleva un control
-    // adentro se queda con el tap que iba a ese control
     const bad: string[] = []
     for (const [name, View] of views) {
       const { container } = render(<ToastProvider><View /></ToastProvider>)

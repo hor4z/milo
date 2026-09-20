@@ -10,7 +10,7 @@ export const toneIcon: Record<Tone, IconName> = {
   bad: 'error',
 }
 
-/** El papel de un aviso: su propio tono y su propio borde. Un aviso blanco sobre una tarjeta blanca no avisa nada. */
+/** El papel de un aviso: su propio tono y sin borde, como el `Callout`. Un aviso blanco sobre una tarjeta blanca no avisa nada, y con el papel teñido el borde ya no suma. */
 export const toneSurface: Record<Tone, string> = {
   info: s.surfaceInfo,
   ok: s.surfaceOk,

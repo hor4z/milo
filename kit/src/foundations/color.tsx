@@ -3,7 +3,7 @@ import {
   Alert, AlertTitle, Button, Chip, Progress, Table, TableBody, TableCell, TableHead,
   TableHeader, TableRow,
 } from '@milo/ui'
-import { Note, Page, Ramp, Rich, Section, Stack, Swatch, useTokens } from '../kit'
+import { Footnote, Note, Page, Ramp, Rich, Section, Stack, Swatch, useTokens } from '../kit'
 
 const blue = ['--blue-050', '--blue-100', '--blue-200', '--blue-300', '--blue-400', '--blue-500', '--blue-600', '--blue-700', '--blue-800', '--blue-900'] as const
 const yellow = ['--yellow-050', '--yellow-100', '--yellow-200', '--yellow-300', '--yellow-400', '--yellow-500', '--yellow-600', '--yellow-700', '--yellow-800', '--yellow-900'] as const
@@ -41,7 +41,7 @@ export function ColorSection() {
             token="--brand"
             note="Lo que manda y lo que dice dónde estás. Uno por pantalla."
           >
-            <Button variant="solid">Nueva actividad</Button>
+            <Button variant="brand">Nueva actividad</Button>
           </Lead>
           <Lead
             title="Naranja · el acento"
@@ -227,6 +227,12 @@ export function ColorSection() {
           <Swatch token="--warn-subtle" note="su fondo" />
           <Swatch token="--bad-subtle" note="su fondo" />
         </div>
+        <Footnote>
+          También hay un `--ok-border`, un `--warn-border` y un `--bad-border`, y **hoy los dos
+          primeros no los usa nadie**. Eran la línea del `Alert`, que dejó de tener borde para
+          parecerse al `Callout`: con el papel teñido, el borde no agregaba nada. Del tercero queda
+          un solo uso, en el `AudioPlayer`.
+        </Footnote>
       </Section>
 
       <Section

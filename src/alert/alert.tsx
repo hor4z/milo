@@ -12,20 +12,22 @@ type AlertProps = ComponentPropsWithoutRef<'div'> & {
   icon?: IconName | null
   /** Agrega la X para cerrarlo; sin esto no se cierra. */
   onDismiss?: () => void
+  /** `sm` para adentro de un panel denso, donde el de siempre se lee más grande que las filas de al lado. */
+  size?: 'sm' | 'md'
 }
 
 /** Un aviso fijo en la página: algo pasó o algo hay que saber antes de seguir. */
-export function Alert({ tone = 'info', icon, onDismiss, className, children, ...props }: AlertProps) {
+export function Alert({ tone = 'info', icon, onDismiss, size = 'md', className, children, ...props }: AlertProps) {
   const glyph = icon === null ? null : icon ?? toneIcon[tone]
   return (
     <div
       role={tone === 'bad' ? 'alert' : 'status'}
-      className={cx(s.root, toneSurface[tone], className)}
+      className={cx(s.root, size === 'sm' && s.compact, toneSurface[tone], className)}
       {...props}
     >
       {glyph && (
         <span className={cx(s.icon, toneInk[tone])}>
-          <Icon name={glyph} size={18} />
+          <Icon name={glyph} size={size === 'sm' ? 16 : 18} />
         </span>
       )}
       <div className={s.body}>{children}</div>

@@ -63,7 +63,7 @@ export function AccessibilitySection() {
         note="Dos píxeles de superficie y después el azul. Los dos píxeles de papel en el medio son lo que lo deja ver también sobre un botón azul, donde un anillo pegado al borde se perdería contra el relleno. Probalo: hacé Tab acá adentro."
       >
         <div className={`${cls.ringCard} bg-surface`}>
-          <Button variant="solid">Guardar</Button>
+          <Button variant="brand">Guardar</Button>
           <Button variant="brand">Publicar</Button>
           <Button variant="muted">Cancelar</Button>
           <span className={cls.ringNote}>
