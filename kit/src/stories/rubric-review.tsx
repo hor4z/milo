@@ -95,7 +95,7 @@ export function RubricReviewStory() {
                   },
                 }))}
               >
-                <RubricReview.Title>Entrega de Bruno Díaz</RubricReview.Title>
+                <RubricReview.Title>Entrega</RubricReview.Title>
               </RubricReview>
             </Stack>
           </Variant>
@@ -131,7 +131,7 @@ export function RubricReviewStory() {
   onMark={(id, level) => marcar(id, level)}
   onNote={(id, text) => comentar(id, text)}
 >
-  <RubricReview.Title>Entrega de Bruno Díaz</RubricReview.Title>
+  <RubricReview.Title>Entrega</RubricReview.Title>
 </RubricReview>`} />
       </Section>
 
