@@ -44,7 +44,7 @@ export function CriterionCard({ criterion, total, open, onToggle, onRemove, clas
 
   return (
     <Card className={cx(s.root, className)}>
-      <Card.Header className={s.header}>
+      <Card.Header className={cx(s.header, open && s.headerOpen)}>
         <button
           type="button"
           aria-expanded={open}
