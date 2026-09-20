@@ -4,7 +4,7 @@ El sistema de interfaz de milo: la identidad en tokens, las piezas que la usan, 
 donde se ve todo funcionando. No es una lámina de estilos: cada pieza de acá es el componente
 real, con su teclado, sus estados y sus tests.
 
-**El repo es del design system y de nada más.** El UI kit (las 65 piezas) es una parte; las
+**El repo es del design system y de nada más.** El UI kit (las 64 piezas) es una parte; las
 otras son los tokens y lo que el sitio documenta alrededor. Acá adentro no vive producto: el
 prototipo de la app que hubo hasta ahora se borró, y cuando haga falta uno de nuevo se arma
 aparte.
@@ -213,7 +213,7 @@ módulos, obliga a `s['card-header']` en TS y eso lo daría por muerto. Hay un t
 Si dos reglas se parecen tanto que dan ganas de numerarlas, lo que las separa es el nombre:
 `trackRest` y `trackActive`, no `track` y `track2`.
 
-**El léxico**, una palabra por papel y la misma en las 65 piezas:
+**El léxico**, una palabra por papel y la misma en las 64 piezas:
 
 | | |
 |---|---|
@@ -612,7 +612,7 @@ Un paquete, `@milo/ui`, y adentro el sitio que lo documenta:
 ```
 src/                    theme.css (las capas) · styles/ (reset, base y tokens/) ·
                         una carpeta por pieza: button/button.tsx + button/button.test.tsx,
-                        y así las 65 (select, modal, toast, chart, table…)
+                        y así las 64 (select, modal, toast, chart, table…)
                         lib/ lo compartido que no es un componente, un archivo por cosa:
                         cx · colors · control · tone · time · number · parts ·
                         esc · overlay-hooks · roving · side-scroll · dismiss ·
@@ -624,7 +624,7 @@ src/                    theme.css (las capas) · styles/ (reset, base y tokens/)
 src/styles/tokens/      la identidad, en CSS puro. Sin librerías y sin JS.
 scripts/                icons.mjs (search · add · sync · check) + catalog.json,
                         y props.mjs
-kit/src/                el sitio: App.tsx (shell y riel) · kit.tsx (Page, Section, Canvas,
+kit/src/                el sitio: app.tsx (shell y riel) · kit.tsx (Page, Section, Canvas,
                         Cluster, Frame, Footnote, Grid, Props, A11y, Note) · intro.tsx (la portada) ·
                         dashboard.tsx · document.tsx · stories/ (una por pieza) ·
                         mascots/ ·

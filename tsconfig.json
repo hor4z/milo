@@ -120,9 +120,6 @@
       "@milo/ui/nav": [
         "./src/nav/nav.tsx"
       ],
-      "@milo/ui/page": [
-        "./src/page/page.tsx"
-      ],
       "@milo/ui/pagination": [
         "./src/pagination/pagination.tsx"
       ],
