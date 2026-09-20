@@ -3,6 +3,7 @@ import { Children, useEffect, useState, type ReactNode } from 'react'
 import { Chip } from '@milo/ui/chip'
 import { CopyButton } from '@milo/ui/copy-button'
 import { useClipboard } from '@milo/ui/lib/use-clipboard'
+import type { LabelColor } from '@milo/ui/lib/colors'
 import { toneIcon, toneInk, toneSurface, type Tone } from '@milo/ui/lib/tone'
 import { Icon, type IconName } from '@milo/ui/icon'
 import { cx } from '@milo/ui/lib/cx'
@@ -68,6 +69,18 @@ type PageProps = {
   children: ReactNode
 }
 
+/** Un color por grupo, el mismo que separa al riel: la categoría se reconoce antes de leerla. */
+const kindColor: Record<string, LabelColor> = {
+  Fundamentos: 'teal',
+  Editor: 'purple',
+  Acciones: 'blue',
+  Formularios: 'green',
+  'Navegación': 'orange',
+  Datos: 'blue',
+  Avisos: 'pink',
+  Superficies: 'purple',
+}
+
 /** La cabecera de una pieza y el cuerpo de su página. */
 export function Page({ title, lead, imports, kind, children }: PageProps) {
   return (
@@ -75,7 +88,7 @@ export function Page({ title, lead, imports, kind, children }: PageProps) {
       <header className={s.pageHeader}>
         <div className={s.pageTitleRow}>
           <h1 className={s.pageTitle}>{title}</h1>
-          {kind && <Chip size="sm">{kind}</Chip>}
+          {kind && <Chip size="sm" color={kindColor[kind] ?? 'blue'}>{kind}</Chip>}
         </div>
         <p className={s.pageLead}><Rich text={lead} /></p>
         {imports && <Code>{imports}</Code>}

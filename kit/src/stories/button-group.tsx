@@ -1,7 +1,7 @@
 import { Button } from '@milo/ui/button'
 import { ButtonGroup } from '@milo/ui/button-group'
 import { Icon } from '@milo/ui/icon'
-import { A11y, Canvas, Cluster, Example, Page, Practices, Props, Section, Stack } from '../kit'
+import { A11y, Example, Page, Panel, Practices, Props, Section, Variant } from '../kit'
 
 export function ButtonGroupStory() {
   return (
@@ -15,30 +15,32 @@ export function ButtonGroupStory() {
         title="Cuándo va pegado y cuándo separado"
         note="Pegado, las acciones se leen como variantes de una misma cosa. Si no lo son, van separadas con el aire de siempre: pegar dos acciones que no tienen nada que ver obliga a leer las dos para entender cualquiera. Y para elegir una entre varias va `Segmented`, que trae el roving del teclado."
       >
-        <Canvas>
-          <Stack gap="lg">
+        <Panel>
+          <Variant name="una acción en pasos" note="Alejar, el valor, acercar: tres botones que son la misma cosa.">
             <ButtonGroup label="Zoom">
-              <Button iconStart={<Icon name="remove" />} aria-label="Alejar" />
-              <Button>100%</Button>
-              <Button iconStart={<Icon name="add" />} aria-label="Acercar" />
+              <Button size="sm" iconStart={<Icon name="remove" />} aria-label="Alejar" />
+              <Button size="sm">100%</Button>
+              <Button size="sm" iconStart={<Icon name="add" />} aria-label="Acercar" />
             </ButtonGroup>
+          </Variant>
+          <Variant name="dos maneras de lo mismo" note="Ordenar por una cosa o por la otra.">
             <ButtonGroup label="Orden">
-              <Button>Más reciente</Button>
-              <Button>Por nombre</Button>
+              <Button size="sm">Más reciente</Button>
+              <Button size="sm">Por nombre</Button>
             </ButtonGroup>
-          </Stack>
-        </Canvas>
+          </Variant>
+        </Panel>
       </Section>
 
       <Section title="Apilado" note="Para una columna angosta, o para un par que se lee de arriba abajo.">
-        <Canvas>
-          <Cluster>
+        <Panel>
+          <Variant name="vertical">
             <ButtonGroup label="Mover la fila" vertical>
-              <Button iconStart={<Icon name="arrow_upward" />} aria-label="Subir" />
-              <Button iconStart={<Icon name="arrow_downward" />} aria-label="Bajar" />
+              <Button size="sm" iconStart={<Icon name="arrow_upward" />} aria-label="Subir" />
+              <Button size="sm" iconStart={<Icon name="arrow_downward" />} aria-label="Bajar" />
             </ButtonGroup>
-          </Cluster>
-        </Canvas>
+          </Variant>
+        </Panel>
       </Section>
 
       <Section title="Cómo se escribe">

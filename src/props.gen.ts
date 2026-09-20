@@ -2607,33 +2607,15 @@ export const propsByComponent: Record<string, ComponentDoc> = {
   "SplitButton": {
     "props": [
       {
-        "name": "label",
-        "type": "string",
-        "required": true,
-        "doc": "La acción principal, la que se hace casi siempre."
-      },
-      {
-        "name": "onClick",
-        "type": "() => void",
-        "required": false,
-        "doc": "Lo que hace esa acción."
-      },
-      {
-        "name": "items",
-        "type": "DropdownItem[]",
-        "required": true,
-        "doc": "Las de al lado, en el menú."
-      },
-      {
         "name": "variant",
-        "type": "'brand' | 'solid' | 'muted' | 'ghost' | 'bad'",
+        "type": "Variante",
         "required": false,
         "def": "'brand'",
-        "doc": "El mismo juego que `Button`."
+        "doc": "El mismo juego que `Button`, y vale para las dos mitades."
       },
       {
         "name": "size",
-        "type": "'sm' | 'md' | 'lg'",
+        "type": "Paso",
         "required": false,
         "def": "'md'",
         "doc": "La escalera de siempre."
@@ -2647,10 +2629,72 @@ export const propsByComponent: Record<string, ComponentDoc> = {
         "name": "menuLabel",
         "type": "string",
         "required": false,
-        "doc": "Qué hay en el menú, para quien lo escucha. Sin esto dice \"Más opciones\"."
+        "doc": "Qué hay en el menú, para quien lo escucha. Sin esto, \"Más opciones\"."
+      },
+      {
+        "name": "width",
+        "type": "number",
+        "required": false,
+        "def": "220",
+        "doc": "El ancho del panel en px."
+      },
+      {
+        "name": "children",
+        "type": "ReactNode",
+        "required": true,
+        "doc": "El `SplitButton.Action` y los `SplitButton.Item` que van en el menú."
       }
     ],
-    "doc": "La acción que se hace casi siempre, y al lado las que casi nunca. Es lo que evita una fila de cinco botones donde cuatro no se tocan nunca: el que manda queda a la vista y el resto a un clic."
+    "doc": "La acción que se hace casi siempre, y al lado las que casi nunca. Es lo que evita una fila de cinco botones donde cuatro no se tocan nunca."
+  },
+  "SplitButton.Action": {
+    "props": [
+      {
+        "name": "onClick",
+        "type": "() => void",
+        "required": false,
+        "doc": "Lo que hace la acción principal."
+      },
+      {
+        "name": "children",
+        "type": "ReactNode",
+        "required": true
+      }
+    ],
+    "doc": "La acción que se hace casi siempre: la mitad ancha, la que se toca directo."
+  },
+  "SplitButton.Item": {
+    "props": [
+      {
+        "name": "icon",
+        "type": "IconName",
+        "required": false,
+        "doc": "A la izquierda, en gris."
+      },
+      {
+        "name": "danger",
+        "type": "boolean",
+        "required": false,
+        "doc": "Borrar, descartar: lo que no se deshace."
+      },
+      {
+        "name": "disabled",
+        "type": "boolean",
+        "required": false
+      },
+      {
+        "name": "onSelect",
+        "type": "() => void",
+        "required": false,
+        "doc": "Cerrar el menú lo hace la pieza."
+      },
+      {
+        "name": "children",
+        "type": "ReactNode",
+        "required": true
+      }
+    ],
+    "doc": "Una de las que casi nunca: van adentro del menú que abre la flecha."
   },
   "Stepper": {
     "props": [

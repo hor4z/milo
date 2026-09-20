@@ -1,51 +1,53 @@
 import { useState } from 'react'
 import { ToggleButton } from '@milo/ui/toggle-button'
-import { A11y, Canvas, Cluster, Example, Page, Practices, Props, Section, Variant } from '../kit'
+import { A11y, Example, Page, Panel, Practices, Props, Section, Variant } from '../kit'
 
 export function ToggleButtonStory() {
   const [bold, setBold] = useState(true)
   const [italic, setItalic] = useState(false)
-  const [vista, setVista] = useState(false)
+  const [grilla, setGrilla] = useState(true)
 
   return (
     <Page
       title="ToggleButton"
       kind="Acciones"
       imports="import { ToggleButton } from '@milo/ui/toggle-button'"
-      lead="Un botón que queda hundido. Dice en qué estado está algo, no que algo pasó: la negrita del editor, el filtro que está puesto, la columna que se está mostrando."
+      lead="Un botón que queda hundido. Dice en qué estado está algo, no que algo pasó: la negrita del editor, el filtro que está puesto, la vista que se está mirando."
     >
       <Section
         title="Cuándo va este y no otro"
-        note="Es un `Button` que recuerda: lleva `aria-pressed`, así que un lector anuncia si está activado. Para elegir uno entre varios va `Segmented`, que además trae las flechas del teclado. Para prender y apagar una preferencia va `Switch`, que se lee como una llave de luz y no como una acción."
+        note="Es un `Button` que recuerda: lleva `aria-pressed`, así que un lector anuncia si está activado. Para elegir uno entre varios va `Segmented`, que además trae las flechas del teclado; para prender y apagar una preferencia va `Switch`, que se lee como una llave de luz."
       >
-        <Canvas>
-          <Cluster>
-            <ToggleButton pressed={bold} onPressedChange={setBold} icon="format_bold" label="Negrita" />
-            <ToggleButton pressed={italic} onPressedChange={setItalic} icon="format_italic" label="Cursiva" />
-            <ToggleButton pressed={vista} onPressedChange={setVista} icon="grid_view">Grilla</ToggleButton>
-          </Cluster>
-        </Canvas>
+        <Panel>
+          <Variant name="solo el glifo" note="En una barra de formato, que es donde más se usa.">
+            <ToggleButton size="sm" pressed={bold} onPressedChange={setBold} icon="format_bold" label="Negrita" />
+            <ToggleButton size="sm" pressed={italic} onPressedChange={setItalic} icon="format_italic" label="Cursiva" />
+          </Variant>
+          <Variant name="con texto" note="Cuando el glifo solo no alcanza para saber qué alterna.">
+            <ToggleButton pressed={grilla} onPressedChange={setGrilla} icon="grid_view">Grilla</ToggleButton>
+          </Variant>
+        </Panel>
       </Section>
 
-      <Section title="Los tres tamaños" note="La misma escalera que el resto de los controles: 36, 40 y 44.">
-        <Canvas>
-          <Cluster>
-            <Variant name="sm"><ToggleButton size="sm" pressed icon="format_bold" label="Negrita" /></Variant>
-            <Variant name="md"><ToggleButton size="md" pressed icon="format_bold" label="Negrita" /></Variant>
-            <Variant name="lg"><ToggleButton size="lg" pressed icon="format_bold" label="Negrita" /></Variant>
-          </Cluster>
-        </Canvas>
+      <Section
+        title="Los tres tamaños"
+        note="36 · 40 · 44, los del `Button`, con el icono de cada paso: 16 · 20 · 24. El glifo no crece con la caja: lo que sube es el aire alrededor, que es lo que hace falta para el dedo."
+      >
+        <Panel>
+          <Variant name="sm · md · lg">
+            <ToggleButton size="sm" pressed icon="format_bold" label="Negrita" />
+            <ToggleButton size="md" pressed icon="format_bold" label="Negrita" />
+            <ToggleButton size="lg" pressed icon="format_bold" label="Negrita" />
+          </Variant>
+          <Variant name="apagado" note="No responde y se ve que no responde.">
+            <ToggleButton size="sm" pressed={false} disabled icon="format_bold" label="Negrita" />
+          </Variant>
+        </Panel>
       </Section>
 
       <Section title="Cómo se escribe">
         <Example code={`const [bold, setBold] = useState(false)
-
-<ToggleButton
-  pressed={bold}
-  onPressedChange={setBold}
-  icon="format_bold"
-  label="Negrita"
-/>`} />
+<ToggleButton pressed={bold} onPressedChange={setBold} icon="format_bold" label="Negrita" />`} />
       </Section>
 
       <Section title="Props">

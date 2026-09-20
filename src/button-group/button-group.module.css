@@ -17,6 +17,35 @@
     margin-left: -1px;
   }
 
+  /* la línea va en un pseudo y no en un box-shadow inset: el botón ya usa su box-shadow
+     para el relieve y el foco, así que ahí la línea se pierde. Y sale de la tinta de cada
+     botón, así que se ve igual sobre el relleno de marca que sobre el claro. */
+  .horizontal > *:not(:first-child)::before,
+  .vertical > *:not(:first-child)::before {
+    content: "";
+    position: absolute;
+    background-color: color-mix(in oklab, currentColor 22%, transparent);
+    pointer-events: none;
+  }
+
+  /* 80% y centrada: a lo alto entero la línea toca los dos cantos y se lee como un borde
+     que cortó la pieza en dos, en vez de como el pliegue entre dos mitades de la misma */
+  .horizontal > *:not(:first-child)::before {
+    top: 50%;
+    translate: 0 -50%;
+    left: 0;
+    width: 1px;
+    height: 80%;
+  }
+
+  .vertical > *:not(:first-child)::before {
+    left: 50%;
+    translate: -50% 0;
+    top: 0;
+    width: 80%;
+    height: 1px;
+  }
+
   .horizontal > *:not(:last-child) {
     border-top-right-radius: 0;
     border-bottom-right-radius: 0;

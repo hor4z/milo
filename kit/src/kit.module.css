@@ -238,6 +238,8 @@
     font-size: var(--type-body);
     line-height: var(--type-body-lh);
     letter-spacing: var(--type-body-ls);
+    /* una línea en blanco separa dos ideas del ejemplo: sin alto propio, el <span> vacío se colapsa */
+    min-height: var(--type-body-lh);
     color: var(--text);
     white-space: pre;
   }

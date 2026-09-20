@@ -1,5 +1,5 @@
 import { CopyButton } from '@milo/ui/copy-button'
-import { A11y, Canvas, Cluster, Example, Page, Practices, Props, Section, Variant } from '../kit'
+import { A11y, Example, Mono, Page, Panel, Practices, Props, Section, Variant } from '../kit'
 
 export function CopyButtonStory() {
   return (
@@ -13,13 +13,17 @@ export function CopyButtonStory() {
         title="La pieza"
         note="El tilde dura un rato y vuelve solo. Si el navegador no deja copiar (sin permiso, sin contexto seguro) el botón no miente: se queda diciendo Copiar."
       >
-        <Canvas>
-          <Cluster>
-            <Variant name="sm"><CopyButton size="sm" value="npm install @milo/ui" /></Variant>
-            <Variant name="md"><CopyButton value="npm install @milo/ui" /></Variant>
-            <Variant name="lg"><CopyButton size="lg" value="npm install @milo/ui" /></Variant>
-          </Cluster>
-        </Canvas>
+        <Panel>
+          <Variant name="sm · md · lg" note="Los tres pasos del resto de los controles.">
+            <CopyButton size="sm" value="npm install @milo/ui" />
+            <CopyButton value="npm install @milo/ui" />
+            <CopyButton size="lg" value="npm install @milo/ui" />
+          </Variant>
+          <Variant name="al lado de lo que copia" note="Que es donde va: pegado al texto, no en otra parte de la fila.">
+            <Mono>npm install @milo/ui</Mono>
+            <CopyButton size="sm" value="npm install @milo/ui" />
+          </Variant>
+        </Panel>
       </Section>
 
       <Section title="Cómo se escribe">

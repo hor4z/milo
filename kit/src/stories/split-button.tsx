@@ -1,11 +1,5 @@
 import { SplitButton } from '@milo/ui/split-button'
-import { A11y, Canvas, Cluster, Example, Page, Practices, Props, Section } from '../kit'
-
-const otras = [
-  { label: 'Guardar como borrador', icon: 'draft' as const },
-  { label: 'Programar para el lunes', icon: 'schedule' as const },
-  { label: 'Descartar', icon: 'delete', danger: true } as const,
-]
+import { A11y, Example, Page, Panel, Practices, Props, Section, Variant } from '../kit'
 
 export function SplitButtonStory() {
   return (
@@ -13,29 +7,42 @@ export function SplitButtonStory() {
       title="SplitButton"
       kind="Acciones"
       imports="import { SplitButton } from '@milo/ui/split-button'"
-      lead="La acción que se hace casi siempre, y al lado las que casi nunca."
+      lead="La acción que se hace casi siempre, y al lado las que casi nunca. Es lo que evita una fila de cinco botones donde cuatro no se tocan nunca."
     >
       <Section
-        title="Para qué sirve"
-        note="Es lo que evita una fila de cinco botones donde cuatro no se tocan nunca. El que manda queda a la vista y con un clic; el resto está a dos. Si las acciones pesan lo mismo, no va: ahí van dos botones y se acabó."
+        title="La pieza"
+        note="El que manda queda a la vista y con un clic; el resto está a dos. La línea entre las dos mitades sale de la tinta de cada botón, así que se ve igual sobre el relleno de marca que sobre el claro."
       >
-        <Canvas>
-          <Cluster>
-            <SplitButton label="Publicar" items={otras} onClick={() => {}} />
-            <SplitButton label="Exportar" variant="muted" items={otras} onClick={() => {}} />
-          </Cluster>
-        </Canvas>
+        <Panel>
+          <Variant name="brand" note="**La acción que manda** de una pantalla, con sus variantes al lado.">
+            <SplitButton size="sm">
+              <SplitButton.Action onClick={() => {}}>Publicar</SplitButton.Action>
+              <SplitButton.Item icon="draft">Guardar como borrador</SplitButton.Item>
+              <SplitButton.Item icon="schedule">Programar</SplitButton.Item>
+            </SplitButton>
+          </Variant>
+          <Variant name="muted" note="Lo secundario: exportar, descargar, compartir.">
+            <SplitButton size="sm" variant="muted">
+              <SplitButton.Action onClick={() => {}}>Exportar</SplitButton.Action>
+              <SplitButton.Item>Como PDF</SplitButton.Item>
+              <SplitButton.Item>Como planilla</SplitButton.Item>
+            </SplitButton>
+          </Variant>
+          <Variant name="apagado" note="Las dos mitades se apagan juntas.">
+            <SplitButton size="sm" variant="muted" disabled>
+              <SplitButton.Action>Publicar</SplitButton.Action>
+              <SplitButton.Item icon="draft">Guardar como borrador</SplitButton.Item>
+            </SplitButton>
+          </Variant>
+        </Panel>
       </Section>
 
       <Section title="Cómo se escribe">
-        <Example code={`<SplitButton
-  label="Publicar"
-  onClick={publicar}
-  items={[
-    { label: 'Guardar como borrador', icon: 'draft' },
-    { label: 'Programar', icon: 'schedule' },
-  ]}
-/>`} />
+        <Example code={`<SplitButton>
+  <SplitButton.Action onClick={publicar}>Publicar</SplitButton.Action>
+  <SplitButton.Item icon="draft" onSelect={guardar}>Guardar como borrador</SplitButton.Item>
+  <SplitButton.Item icon="schedule" onSelect={programar}>Programar</SplitButton.Item>
+</SplitButton>`} />
       </Section>
 
       <Section title="Props">
@@ -52,7 +59,7 @@ export function SplitButtonStory() {
       <Section title="Accesibilidad">
         <A11y>
           <A11y.Item>Las dos mitades van en un role="group" con el nombre de la acción principal.</A11y.Item>
-          <A11y.Item>La flecha lleva aria-haspopup="menu" y aria-expanded, así que se anuncia como lo que es y no como otro botón.</A11y.Item>
+          <A11y.Item>La flecha lleva aria-haspopup="menu" y aria-expanded, así que se anuncia como lo que es.</A11y.Item>
           <A11y.Item>La flecha tiene su propio nombre ("Más opciones de Publicar"): dos botones sin nombre al lado no se distinguen de oído.</A11y.Item>
           <A11y.Item>Apagar el componente apaga las dos mitades, no una sola.</A11y.Item>
         </A11y>
