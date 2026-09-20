@@ -1,15 +1,15 @@
 import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { describe, expect, it, vi } from 'vitest'
-import { Table, TableBody, TableCell, TableFooter, TableHead, TableHeader, TableRow } from './table'
+import { Table } from './table'
 
 describe('Table', () => {
   it('arma la grilla con su pie', () => {
     render(
       <Table>
-        <TableHeader><TableRow><TableHead>Nombre</TableHead></TableRow></TableHeader>
-        <TableBody><TableRow><TableCell>Ana</TableCell></TableRow></TableBody>
-        <TableFooter><TableRow><TableCell>Total</TableCell></TableRow></TableFooter>
+        <Table.Header><Table.Row><Table.Head>Nombre</Table.Head></Table.Row></Table.Header>
+        <Table.Body><Table.Row><Table.Cell>Ana</Table.Cell></Table.Row></Table.Body>
+        <Table.Foot><Table.Row><Table.Cell>Total</Table.Cell></Table.Row></Table.Foot>
       </Table>,
     )
     expect(screen.getByRole('table')).toBeInTheDocument()
@@ -19,8 +19,8 @@ describe('Table', () => {
 
   it('la franja del footer queda fuera del scroller', () => {
     const { container } = render(
-      <Table footer={<div data-testid="franja">pie</div>}>
-        <TableBody><TableRow><TableCell>x</TableCell></TableRow></TableBody>
+      <Table><Table.Footer><div data-testid="franja">pie</div></Table.Footer>
+        <Table.Body><Table.Row><Table.Cell>x</Table.Cell></Table.Row></Table.Body>
       </Table>,
     )
     const scroller = [...container.querySelectorAll('div')]
@@ -32,7 +32,7 @@ describe('Table', () => {
     const onOpen = vi.fn()
     render(
       <Table>
-        <TableBody><TableRow onClick={onOpen}><TableCell>Ana</TableCell></TableRow></TableBody>
+        <Table.Body><Table.Row onClick={onOpen}><Table.Cell>Ana</Table.Cell></Table.Row></Table.Body>
       </Table>,
     )
     const row = screen.getByText('Ana').closest('tr')!
@@ -47,7 +47,7 @@ describe('Table', () => {
   it('una fila que no hace nada no es una parada de tabulación', () => {
     render(
       <Table>
-        <TableBody><TableRow><TableCell>Ana</TableCell></TableRow></TableBody>
+        <Table.Body><Table.Row><Table.Cell>Ana</Table.Cell></Table.Row></Table.Body>
       </Table>,
     )
     expect(screen.getByText('Ana').closest('tr')).not.toHaveAttribute('tabindex')
@@ -56,8 +56,8 @@ describe('Table', () => {
   it('los encabezados dicen a qué columna encabezan', () => {
     render(
       <Table>
-        <TableHeader><TableRow><TableHead>Nombre</TableHead></TableRow></TableHeader>
-        <TableBody><TableRow><TableCell>Ana</TableCell></TableRow></TableBody>
+        <Table.Header><Table.Row><Table.Head>Nombre</Table.Head></Table.Row></Table.Header>
+        <Table.Body><Table.Row><Table.Cell>Ana</Table.Cell></Table.Row></Table.Body>
       </Table>,
     )
     expect(screen.getByText('Nombre')).toHaveAttribute('scope', 'col')

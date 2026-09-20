@@ -8,7 +8,7 @@ const Ctx = createContext<TabsCtx | null>(null)
 
 function useTabs(who: string) {
   const ctx = useContext(Ctx)
-  if (!ctx) throw new Error(`${who} necesita un <Tabs> alrededor`)
+  if (!ctx) throw new Error(`${who} necesita un <Root> alrededor`)
   return ctx
 }
 
@@ -21,8 +21,7 @@ type TabsProps = Omit<ComponentPropsWithoutRef<'div'>, 'onChange'> & {
   onValueChange?: (v: string) => void
 }
 
-/** Paneles hermanos donde solo se ve uno. Controlado o no, como el resto. */
-export function Tabs({ value, defaultValue, onValueChange, className, children, ...props }: TabsProps) {
+function Root({ value, defaultValue, onValueChange, className, children, ...props }: TabsProps) {
   const [internal, setInternal] = useState(defaultValue ?? '')
   const name = useId()
   const current = value ?? internal
@@ -38,7 +37,7 @@ export function Tabs({ value, defaultValue, onValueChange, className, children, 
 }
 
 /** La fila de solapas. Las flechas se mueven entre ellas, como pide un tablist. */
-export function TabList({ label, className, children, ...props }: ComponentPropsWithoutRef<'div'> & {
+function List({ label, className, children, ...props }: ComponentPropsWithoutRef<'div'> & {
   /** De qué son estas solapas. Sin esto un lector las anuncia como "lista de solapas" y con dos en una pantalla no se distinguen. */
   label?: string
 }) {
@@ -72,7 +71,7 @@ export function TabList({ label, className, children, ...props }: ComponentProps
 }
 
 /** Una solapa. El activo se marca con la línea y el azul primario. */
-export function Tab({ value, className, children, ...props }: ComponentPropsWithoutRef<'button'> & {
+function Tab({ value, className, children, ...props }: ComponentPropsWithoutRef<'button'> & {
   /** Ata la solapa a su panel. */
   value: string
 }) {
@@ -101,11 +100,11 @@ export function Tab({ value, className, children, ...props }: ComponentPropsWith
 }
 
 /** El contenido de una solapa. */
-export function TabPanel({ value, className, children, ...props }: ComponentPropsWithoutRef<'div'> & {
+function Panel({ value, className, children, ...props }: ComponentPropsWithoutRef<'div'> & {
   /** El mismo valor que su solapa. */
   value: string
 }) {
-  const { value: current, name } = useTabs('TabPanel')
+  const { value: current, name } = useTabs('Panel')
   if (current !== value) return null
   return (
     <div
@@ -120,3 +119,6 @@ export function TabPanel({ value, className, children, ...props }: ComponentProp
     </div>
   )
 }
+
+/** Paneles hermanos donde solo se ve uno. Controlado o no, como el resto. */
+export const Tabs = Object.assign(Root, { List, Tab, Panel })

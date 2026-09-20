@@ -1,16 +1,23 @@
 import type { CSSProperties, ReactNode } from 'react'
-import { AvatarGroup } from '../avatar/avatar'
+import { Avatar } from '../avatar/avatar'
 import { cx } from '../lib/cx'
+import { takePart } from '../lib/parts'
 
-/** Una carpeta que se abre. */
+/** El nombre, debajo. */
+function Label({ children }: { children: ReactNode }) {
+  return <>{children}</>
+}
 
-export function Folder({
-  label, meta, sheets = 3, size = 128, color, avatars, badges, onClick, className,
+/** La línea de apoyo: "15 archivos". */
+function Meta({ children }: { children: ReactNode }) {
+  return <>{children}</>
+}
+
+function Root({
+  children, sheets = 3, size = 128, color, avatars, badges, onClick, className,
 }: {
-  /** El nombre, debajo. */
-  label?: string
-  /** La línea de apoyo: "15 archivos". */
-  meta?: string
+  /** El `Folder.Label` y, si va, el `Folder.Meta`. */
+  children?: ReactNode
   /** Cuántas hojas se abanican. */
   sheets?: 2 | 3
   /** El ancho de la carpeta en px. */
@@ -25,6 +32,8 @@ export function Folder({
   onClick?: () => void
   className?: string
 }) {
+  const [label, sinLabel] = takePart(children, Label)
+  const [meta] = takePart(sinLabel, Meta)
   const Tag = onClick ? 'button' : 'div'
   return (
     <Tag
@@ -43,7 +52,7 @@ export function Folder({
           {(avatars?.length || badges) && (
             <span className="folder-badges">
               {avatars?.length ? (
-                <AvatarGroup
+                <Avatar.Group
                   people={avatars}
                   size={Math.round(size * 0.17)}
                   ring="var(--folder-top)"
@@ -54,12 +63,15 @@ export function Folder({
           )}
         </span>
       </span>
-      {(label || meta) && (
+      {(label.length > 0 || meta.length > 0) && (
         <span className="folder-label">
-          {label && <span className="folder-name">{label}</span>}
-          {meta && <span className="folder-meta">{meta}</span>}
+          {label.length > 0 && <span className="folder-name">{label}</span>}
+          {meta.length > 0 && <span className="folder-meta">{meta}</span>}
         </span>
       )}
     </Tag>
   )
 }
+
+/** Una carpeta que se abre. */
+export const Folder = Object.assign(Root, { Label, Meta })

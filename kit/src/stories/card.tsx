@@ -1,46 +1,52 @@
 import cls from './card.module.css'
-import { Button, Card, CardBody, CardFooter, CardHeader, CardHint, CardTitle, Chip, Icon, Progress } from '@milo/ui'
-import { A11y, Cluster, Note, Page, Props, Section } from '../kit'
+import { Button } from '@milo/ui/button'
+import { Card } from '@milo/ui/card'
+import { Chip } from '@milo/ui/chip'
+import { Icon } from '@milo/ui/icon'
+import { Progress } from '@milo/ui/progress'
+import { A11y, Cluster, Example, Note, Page, Practices, Props, Section } from '../kit'
 
 export function CardStory() {
   return (
     <Page
       title="Card"
       kind="Superficies"
-      imports="import { Card, CardHeader, CardTitle, CardHint, CardBody, CardFooter } from '@milo/ui'"
+      imports="import { Card } from '@milo/ui/card'"
       lead="La superficie de una grilla: una cosa por tarjeta, y la tarjeta entera es la unidad que se escanea. Radio 16 con 8 de padding, así que lo que va adentro lleva 8: la regla del anidado, no un número elegido a ojo."
     >
       <Section
         title="Se arma con partes"
-        note="`CardHeader`, `CardTitle`, `CardHint`, `CardBody` y `CardFooter` traen el espaciado y la tipografía del sistema. Sin ellas, cada pantalla inventaba su propia cabecera: tres tamaños de título distintos en tres tarjetas vecinas."
+        note="Las partes traen el espaciado y la tipografía del sistema, así que dos tarjetas vecinas no terminan con tres tamaños de título distintos."
       >
         <Cluster gap="lg" align="start">
           <Card className={cls.partsCard}>
-            <CardHeader>
+            <Card.Header>
               <div className={cls.partsHeading}>
-                <CardTitle>Entregas de la semana</CardTitle>
-                <CardHint>De todos tus espacios</CardHint>
+                <Card.Title>Entregas de la semana</Card.Title>
+                <Card.Hint>De todos tus espacios</Card.Hint>
               </div>
               <Chip size="sm" color="ok">84%</Chip>
-            </CardHeader>
-            <CardBody>
-              <Progress label="Corregidas" value={18} max={24} hint="18 de 24" />
-            </CardBody>
-            <CardFooter>
+            </Card.Header>
+            <Card.Body>
+              <Progress label="Corregidas" value={18} max={24} >
+                <Progress.Hint>18 de 24</Progress.Hint>
+              </Progress>
+            </Card.Body>
+            <Card.Footer>
               <Button size="sm" variant="ghost" iconEnd={<Icon name="chevron_right" />}>Ver todas</Button>
-            </CardFooter>
+            </Card.Footer>
           </Card>
 
           <Card className={cls.looseCard}>
-            <CardHeader>
-              <CardTitle>Sin partes</CardTitle>
-            </CardHeader>
-            <CardBody>
+            <Card.Header>
+              <Card.Title>Sin partes</Card.Title>
+            </Card.Header>
+            <Card.Body>
               <p className={cls.looseText}>
                 La tarjeta sigue aceptando cualquier contenido suelto para lo que no tiene esa forma,
                 una portada, un gráfico, una grilla de fotos.
               </p>
-            </CardBody>
+            </Card.Body>
           </Card>
         </Cluster>
       </Section>
@@ -90,16 +96,33 @@ export function CardStory() {
         no seis tarjetas apiladas.
       </Note>
 
+      <Section title="Cómo se escribe">
+        <Example code={`<Card>
+  <Card.Header>
+    <Card.Title>Fracciones equivalentes</Card.Title>
+    <Card.Hint>18 entregas</Card.Hint>
+  </Card.Header>
+  <Card.Body>Cierra el 9 de marzo.</Card.Body>
+</Card>`} />
+      </Section>
+
       <Section title="Props">
-        <Props of={['Card', 'CardHeader', 'CardTitle', 'CardHint', 'CardBody', 'CardFooter']} />
+        <Props of="Card" />
+      </Section>
+
+      <Section title="Cómo se usa bien">
+        <Practices>
+          <Practices.Do>Se arma con sus partes: `Card.Header`, `Card.Title`, `Card.Body`.</Practices.Do>
+          <Practices.Dont>No la muevas en hover ni le pongas acciones flotando encima: una grilla que salta hace temblar la vista.</Practices.Dont>
+        </Practices>
       </Section>
 
       <Section title="Accesibilidad">
-        <A11y items={[
-          'CardTitle es un <h3>: la tarjeta entra en el esquema de encabezados de la página en vez de ser texto en negrita.',
-          'La tarjeta no se mueve en hover ni esconde acciones detrás del puntero, así que se descubre igual sin mouse.',
-          'Con interactive, lo que se toca sigue siendo un control de verdad (un link o un botón) y no un div con onClick.',
-        ]} />
+        <A11y>
+          <A11y.Item>{'`Card.Title` es un <h3>: la tarjeta entra en el esquema de encabezados de la página en vez de ser texto en negrita.'}</A11y.Item>
+          <A11y.Item>La tarjeta no se mueve en hover ni esconde acciones detrás del puntero, así que se descubre igual sin mouse.</A11y.Item>
+          <A11y.Item>Con interactive, lo que se toca sigue siendo un control de verdad (un link o un botón) y no un div con onClick.</A11y.Item>
+        </A11y>
       </Section>
     </Page>
   )

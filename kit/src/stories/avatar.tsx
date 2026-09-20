@@ -1,6 +1,6 @@
 import cls from './avatar.module.css'
-import { Avatar, AvatarGroup } from '@milo/ui'
-import { A11y, Demo, Page, Props, Section } from '../kit'
+import { Avatar } from '@milo/ui/avatar'
+import { A11y, Demo, Example, Page, Practices, Props, Section } from '../kit'
 
 const face = (n: number) => `/avatars/${String(n).padStart(2, '0')}.webp`
 const person = (name: string, photo?: number) => ({ name, src: photo ? face(photo) : undefined })
@@ -8,14 +8,14 @@ const person = (name: string, photo?: number) => ({ name, src: photo ? face(phot
 export function AvatarStory() {
   return (
     <Page
-      title="Avatar · AvatarGroup"
+      title="Avatar"
       kind="Datos"
-      imports="import { Avatar, AvatarGroup } from '@milo/ui'"
+      imports="import { Avatar } from '@milo/ui/avatar'"
       lead="Una persona en el lugar de un nombre. Con foto o con la inicial sobre una etiqueta de color, y las dos tienen que pesar lo mismo: en una fila donde algunos subieron foto y otros no, el que no subió no puede leerse como un error."
     >
       <Section
         title="Sin foto"
-        note="Círculo pastel con la inicial en el mismo tono: es la familia de las marcas de fila, no la viva. Medido, la inicial sobre pastel se lee mejor que el blanco sobre relleno vivo (los cinco pares pasan de 4.5:1 y el blanco sobre el vivo no llega a 3.8:1 en ninguno) y deja de gritarle al texto de al lado. El tono sale del nombre: de un random, la misma persona cambiaría de color en cada render."
+        note="Círculo pastel con la inicial en el mismo tono, que es la familia de las marcas de fila. El color sale del nombre, así que la misma persona tiene siempre el mismo."
       >
         <Demo>
           <Avatar name="Horacio Rivero" size={24} />
@@ -45,16 +45,16 @@ export function AvatarStory() {
         note="Se montan un tercio y cada uno lleva un anillo del color del fondo de atrás: sin él, dos vecinos de tonos parecidos se leen como una mancha sola y no como dos personas. Tres caras y el resto en un círculo neutro: un '+4' no identifica a nadie."
       >
         <Demo label="todos con foto">
-          <AvatarGroup people={[person('Ana Pérez', 1), person('Bruno Díaz', 2), person('Carla Sosa', 3), person('Damián Ruiz', 4), person('Elena Vega', 5)]} />
+          <Avatar.Group people={[person('Ana Pérez', 1), person('Bruno Díaz', 2), person('Carla Sosa', 3), person('Damián Ruiz', 4), person('Elena Vega', 5)]} />
         </Demo>
         <Demo label="ninguno con foto">
-          <AvatarGroup people={[person('Irene Lopez'), person('Julián Cruz'), person('Karen Ortiz'), person('Leo Nuñez')]} />
+          <Avatar.Group people={[person('Irene Lopez'), person('Julián Cruz'), person('Karen Ortiz'), person('Leo Nuñez')]} />
         </Demo>
         <Demo label="mezclados · el caso que importa mirar">
-          <AvatarGroup people={[person('Mora Tello', 6), person('Nico Arce'), person('Olivia Rey', 7)]} />
+          <Avatar.Group people={[person('Mora Tello', 6), person('Nico Arce'), person('Olivia Rey', 7)]} />
         </Demo>
         <Demo label="con un solo sobrante va la cuarta cara, no un '+1'">
-          <AvatarGroup people={[person('Ana Pérez', 1), person('Bruno Díaz', 2), person('Carla Sosa', 3), person('Damián Ruiz', 4)]} />
+          <Avatar.Group people={[person('Ana Pérez', 1), person('Bruno Díaz', 2), person('Carla Sosa', 3), person('Damián Ruiz', 4)]} />
         </Demo>
       </Section>
 
@@ -64,7 +64,7 @@ export function AvatarStory() {
       >
         <Demo label='ring="var(--surface-muted)" sobre una superficie apagada'>
           <span className={cls.ringedPlate}>
-            <AvatarGroup
+            <Avatar.Group
               people={[person('Ana Pérez', 1), person('Bruno Díaz', 2), person('Carla Sosa', 3), person('Damián Ruiz', 4), person('Elena Vega', 5)]}
               size={40}
               ring="var(--surface-muted)"
@@ -73,7 +73,7 @@ export function AvatarStory() {
         </Demo>
         <Demo label="el mismo grupo con el anillo por default: se corta contra el fondo">
           <span className={cls.defaultRingPlate}>
-            <AvatarGroup
+            <Avatar.Group
               people={[person('Ana Pérez', 1), person('Bruno Díaz', 2), person('Carla Sosa', 3), person('Damián Ruiz', 4), person('Elena Vega', 5)]}
               size={40}
             />
@@ -81,15 +81,28 @@ export function AvatarStory() {
         </Demo>
       </Section>
 
+      <Section title="Cómo se escribe">
+        <Example code={`<Avatar name="Ana Pérez" src="/avatars/01.webp" />
+
+<Avatar.Group people={equipo} size={24} ring="var(--surface)" />`} />
+      </Section>
+
       <Section title="Props">
-        <Props of={['Avatar', 'AvatarGroup']} />
+        <Props of="Avatar" />
+      </Section>
+
+      <Section title="Cómo se usa bien">
+        <Practices>
+          <Practices.Do>El color sale del nombre con `colorForName`, así que la misma persona tiene siempre el mismo tinte.</Practices.Do>
+          <Practices.Dont>En un grupo, tres caras y un "+N": más de tres no se reconocen, se cuentan.</Practices.Dont>
+        </Practices>
       </Section>
 
       <Section title="Accesibilidad">
-        <A11y items={[
-          'El grupo publica los nombres completos en texto para quien no ve las caras.',
-          'Sin foto, la inicial va sobre su color con contraste suficiente.',
-        ]} />
+        <A11y>
+          <A11y.Item>El grupo publica los nombres completos en texto para quien no ve las caras.</A11y.Item>
+          <A11y.Item>Sin foto, la inicial va sobre su color con contraste suficiente.</A11y.Item>
+        </A11y>
       </Section>
     </Page>
   )

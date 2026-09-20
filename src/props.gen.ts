@@ -17,20 +17,13 @@ export type ComponentDoc = {
 }
 
 export const propsByComponent: Record<string, ComponentDoc> = {
-  "AccordionItem": {
+  "Accordion": {
+    "props": [],
+    "html": "div",
+    "doc": "Varias filas que se abren, una debajo de la otra."
+  },
+  "Accordion.Item": {
     "props": [
-      {
-        "name": "summary",
-        "type": "ReactNode",
-        "required": true,
-        "doc": "Lo que se ve siempre y se toca para abrir."
-      },
-      {
-        "name": "children",
-        "type": "ReactNode",
-        "required": true,
-        "doc": "Lo que aparece al abrir."
-      },
       {
         "name": "defaultOpen",
         "type": "boolean",
@@ -41,14 +34,24 @@ export const propsByComponent: Record<string, ComponentDoc> = {
         "name": "className",
         "type": "string",
         "required": false
+      },
+      {
+        "name": "children",
+        "type": "ReactNode",
+        "required": true
       }
     ],
     "doc": "Una fila que se abre. Es un `<details>`, así que funciona sin JavaScript."
   },
-  "Accordion": {
+  "Accordion.Summary": {
+    "props": [],
+    "html": "summary",
+    "doc": "Lo que se ve siempre y se toca para abrir. Va primero: es el `<summary>` del `<details>`."
+  },
+  "Accordion.Body": {
     "props": [],
     "html": "div",
-    "doc": "Varias filas que se abren, una debajo de la otra."
+    "doc": "Lo que aparece al abrir."
   },
   "Alert": {
     "props": [
@@ -82,17 +85,17 @@ export const propsByComponent: Record<string, ComponentDoc> = {
     "html": "div",
     "doc": "Un aviso fijo en la página: algo pasó o algo hay que saber antes de seguir."
   },
-  "AlertTitle": {
+  "Alert.Title": {
     "props": [],
     "html": "p",
     "doc": "El renglón que nombra el aviso."
   },
-  "AlertBody": {
+  "Alert.Body": {
     "props": [],
     "html": "p",
     "doc": "Qué pasó y qué se puede hacer."
   },
-  "AlertActions": {
+  "Alert.Actions": {
     "props": [],
     "html": "div",
     "doc": "La fila de botones del aviso."
@@ -109,7 +112,7 @@ export const propsByComponent: Record<string, ComponentDoc> = {
         "name": "title",
         "type": "string",
         "required": false,
-        "doc": "El nombre de la pista, arriba de la onda. Sin esto el reproductor va en una sola fila."
+        "doc": "El nombre de la pista, arriba de la onda. Es un string y no una parte porque la pieza lo necesita como texto: alimenta el `MediaMetadata` del sistema operativo y el nombre de la barra de búsqueda. Sin esto el reproductor va en una sola fila."
       },
       {
         "name": "peaks",
@@ -118,10 +121,10 @@ export const propsByComponent: Record<string, ComponentDoc> = {
         "doc": "Los picos del archivo, de 0 a 1, para dibujar la onda. Se reparten el ancho, así que cuantos menos, más gordas salen las barras. Sin esto se dibuja una pista pelada: no se inventa una onda que no es la del audio."
       },
       {
-        "name": "actions",
+        "name": "children",
         "type": "ReactNode",
         "required": false,
-        "doc": "A la derecha del tiempo: descargar, un menú, lo que haga falta."
+        "doc": "Las `AudioPlayer.Actions`, si van."
       },
       {
         "name": "size",
@@ -135,8 +138,17 @@ export const propsByComponent: Record<string, ComponentDoc> = {
         "type": "string",
         "required": false
       }
+    ]
+  },
+  "AudioPlayer.Actions": {
+    "props": [
+      {
+        "name": "children",
+        "type": "ReactNode",
+        "required": true
+      }
     ],
-    "doc": "Un archivo de audio con su onda: play, una línea de tiempo que se arrastra y el reloj."
+    "doc": "A la derecha del tiempo: descargar, un menú, lo que haga falta."
   },
   "Avatar": {
     "props": [
@@ -144,13 +156,13 @@ export const propsByComponent: Record<string, ComponentDoc> = {
         "name": "name",
         "type": "string",
         "required": true,
-        "doc": "De acá salen la inicial y el tinte."
+        "doc": "De acá salen la inicial y el tinte, así que la misma persona tiene siempre el mismo color."
       },
       {
         "name": "src",
         "type": "string",
         "required": false,
-        "doc": "Opcional; la etiqueta de color queda de fondo."
+        "doc": "Si no carga, queda la inicial: un hueco gris en una fila de cinco se lee como una persona sin nombre."
       },
       {
         "name": "size",
@@ -160,14 +172,20 @@ export const propsByComponent: Record<string, ComponentDoc> = {
         "doc": "El diámetro en px; la inicial y el anillo salen de acá."
       },
       {
+        "name": "label",
+        "type": "string",
+        "required": false,
+        "doc": "Solo cuando el avatar está solo y nada al lado dice de quién es. Con el nombre escrito al lado sobra, y repetirlo hace que el lector lo diga dos veces."
+      },
+      {
         "name": "className",
         "type": "string",
         "required": false
       }
     ],
-    "doc": "Dos estados y nada más: con foto, o el círculo pastel con la inicial."
+    "doc": "Una persona en el lugar de un nombre: la foto si carga, y si no la inicial sobre su color."
   },
-  "AvatarGroup": {
+  "Avatar.Group": {
     "props": [
       {
         "name": "people",
@@ -180,14 +198,14 @@ export const propsByComponent: Record<string, ComponentDoc> = {
         "type": "number",
         "required": false,
         "def": "3",
-        "doc": "Cuenta avatares, no personas."
+        "doc": "Cuenta avatares, no personas: con un solo sobrante se muestra la cara en vez de un \"+1\"."
       },
       {
         "name": "size",
         "type": "number",
         "required": false,
         "def": "28",
-        "doc": "El monte sale de acá."
+        "doc": "El diámetro de cada uno; el monte sale de acá."
       },
       {
         "name": "ring",
@@ -195,6 +213,12 @@ export const propsByComponent: Record<string, ComponentDoc> = {
         "required": false,
         "def": "'var(--surface)'",
         "doc": "El color del anillo, que tiene que ser el del fondo de atrás."
+      },
+      {
+        "name": "label",
+        "type": "string",
+        "required": false,
+        "doc": "De quiénes es el grupo. Sin esto se anuncian los nombres, que es lo correcto casi siempre."
       },
       {
         "name": "className",
@@ -280,6 +304,24 @@ export const propsByComponent: Record<string, ComponentDoc> = {
     ],
     "html": "button"
   },
+  "ButtonGroup": {
+    "props": [
+      {
+        "name": "label",
+        "type": "string",
+        "required": true,
+        "doc": "Qué agrupa. Sin esto un lector lee los botones sueltos, sin saber que van juntos."
+      },
+      {
+        "name": "vertical",
+        "type": "boolean",
+        "required": false,
+        "doc": "Apilados, para un menú lateral angosto."
+      }
+    ],
+    "html": "div",
+    "doc": "Botones pegados, con el canto solo en los extremos: una sola acción repartida en dos o tres pasos, o un conmutador de vista. Para elegir uno entre varios va `Segmented`, que trae el teclado."
+  },
   "Callout": {
     "props": [
       {
@@ -296,12 +338,6 @@ export const propsByComponent: Record<string, ComponentDoc> = {
         "doc": "El color del papel. Sale de la familia de categorías y no de los tonos de estado: un bloque de contenido no está avisando de nada."
       },
       {
-        "name": "title",
-        "type": "string",
-        "required": false,
-        "doc": "La primera línea, en negrita. Sin esto el bloque arranca directo con el texto."
-      },
-      {
         "name": "children",
         "type": "ReactNode",
         "required": true
@@ -313,6 +349,15 @@ export const propsByComponent: Record<string, ComponentDoc> = {
       }
     ],
     "doc": "Un bloque de contenido que pide detenerse: una aclaración, una pista, algo para recordar."
+  },
+  "Callout.Title": {
+    "props": [
+      {
+        "name": "children",
+        "type": "ReactNode",
+        "required": true
+      }
+    ]
   },
   "Card": {
     "props": [
@@ -343,27 +388,27 @@ export const propsByComponent: Record<string, ComponentDoc> = {
     ],
     "doc": "El contenedor de radio 16: lo que se apoya en la página. Lo que flota sobre un velo (un modal, un diálogo) va en 24."
   },
-  "CardHeader": {
+  "Card.Header": {
     "props": [],
     "html": "div",
     "doc": "La cabecera de una tarjeta: el título a la izquierda, lo que haya a la derecha."
   },
-  "CardTitle": {
+  "Card.Title": {
     "props": [],
     "html": "h3",
     "doc": "Cómo se llama lo que hay en la tarjeta."
   },
-  "CardHint": {
+  "Card.Hint": {
     "props": [],
     "html": "p",
     "doc": "La línea de apoyo, debajo del título."
   },
-  "CardBody": {
+  "Card.Body": {
     "props": [],
     "html": "div",
     "doc": "El cuerpo, con el padding que la tarjeta no pone."
   },
-  "CardFooter": {
+  "Card.Footer": {
     "props": [],
     "html": "div",
     "doc": "La fila de abajo, separada por una línea."
@@ -477,6 +522,77 @@ export const propsByComponent: Record<string, ComponentDoc> = {
       }
     ],
     "doc": "La caja de 18, la misma medida del pulgar del switch, así una fila con los dos no tiene dos tamaños de \"marca\"."
+  },
+  "Checklist": {
+    "props": [
+      {
+        "name": "defaultOpen",
+        "type": "boolean",
+        "required": false,
+        "def": "false",
+        "doc": "Arranca abierta. Cerrada ocupa una fila y dice lo mismo."
+      },
+      {
+        "name": "children",
+        "type": "ReactNode",
+        "required": true
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "required": false
+      }
+    ],
+    "doc": "Los primeros pasos de algo, con cuánto va hecho a la vista y el detalle plegado. El contador sale de los pasos, así que no se puede despegar de ellos."
+  },
+  "Checklist.Title": {
+    "props": [
+      {
+        "name": "children",
+        "type": "ReactNode",
+        "required": true
+      }
+    ],
+    "doc": "El nombre de la lista, en la cabecera."
+  },
+  "Checklist.Item": {
+    "props": [
+      {
+        "name": "state",
+        "type": "ChecklistState",
+        "required": false,
+        "def": "'todo'",
+        "doc": "Sin esto es un paso que todavía no se hizo."
+      },
+      {
+        "name": "hint",
+        "type": "string",
+        "required": false,
+        "doc": "Por qué el paso está trabado, o qué hay que hacer. Aparece en una etiqueta flotante."
+      },
+      {
+        "name": "onClick",
+        "type": "() => void",
+        "required": false,
+        "doc": "Sin esto la fila es texto y no se puede tocar."
+      },
+      {
+        "name": "children",
+        "type": "ReactNode",
+        "required": true
+      }
+    ],
+    "doc": "Un paso. El estado lo dice la marca de la izquierda, no el color del texto."
+  },
+  "Checklist.Footer": {
+    "props": [
+      {
+        "name": "children",
+        "type": "ReactNode",
+        "required": true
+      }
+    ],
+    "doc": "La aclaración de abajo de todo, con su glifo."
   },
   "Chip": {
     "props": [
@@ -679,6 +795,21 @@ export const propsByComponent: Record<string, ComponentDoc> = {
       }
     ]
   },
+  "CommandGroup": {
+    "props": [
+      {
+        "name": "label",
+        "type": "string",
+        "required": true,
+        "doc": "El encabezado del grupo."
+      },
+      {
+        "name": "items",
+        "type": "CommandItem[]",
+        "required": true
+      }
+    ]
+  },
   "ConfirmDialog": {
     "props": [
       {
@@ -714,27 +845,27 @@ export const propsByComponent: Record<string, ComponentDoc> = {
     ],
     "doc": "El diálogo que pregunta antes de algo que no se puede deshacer. Se arma con sus partes, igual que el `Modal`."
   },
-  "ConfirmDialogHeader": {
+  "ConfirmDialog.Header": {
     "props": [],
     "html": "div",
     "doc": "La cabecera. No lleva X: la salida segura es el botón de cancelar, que ya está a la vista."
   },
-  "ConfirmDialogTitle": {
+  "ConfirmDialog.Title": {
     "props": [],
     "html": "h2",
     "doc": "La pregunta, con el nombre de lo que se va a tocar adentro. Es el nombre que anuncia el lector."
   },
-  "ConfirmDialogBody": {
+  "ConfirmDialog.Body": {
     "props": [],
     "html": "div",
     "doc": "Qué más se lleva puesto."
   },
-  "ConfirmDialogFooter": {
+  "ConfirmDialog.Footer": {
     "props": [],
     "html": "div",
     "doc": "La fila de los dos botones, contra el borde derecho."
   },
-  "ConfirmDialogCancel": {
+  "ConfirmDialog.Cancel": {
     "props": [
       {
         "name": "children",
@@ -745,7 +876,7 @@ export const propsByComponent: Record<string, ComponentDoc> = {
     ],
     "doc": "La salida segura. Con `tone=\"bad\"` arranca con el foco."
   },
-  "ConfirmDialogConfirm": {
+  "ConfirmDialog.Confirm": {
     "props": [
       {
         "name": "children",
@@ -755,6 +886,43 @@ export const propsByComponent: Record<string, ComponentDoc> = {
       }
     ],
     "doc": "El verbo de lo que va a pasar, no \"Sí\". Con `tone=\"bad\"` se pinta y cede el foco."
+  },
+  "CopyButton": {
+    "props": [
+      {
+        "name": "value",
+        "type": "string",
+        "required": true,
+        "doc": "Lo que se copia."
+      },
+      {
+        "name": "label",
+        "type": "string",
+        "required": false,
+        "def": "'Copiar'",
+        "doc": "Qué se copia, para quien no ve el glifo."
+      },
+      {
+        "name": "copiedLabel",
+        "type": "string",
+        "required": false,
+        "def": "'Copiado'",
+        "doc": "Lo que se dice cuando ya está."
+      },
+      {
+        "name": "size",
+        "type": "'sm' | 'md' | 'lg'",
+        "required": false,
+        "def": "'md'",
+        "doc": "La escalera de siempre."
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "required": false
+      }
+    ],
+    "doc": "Copiar un texto al portapapeles, con el tilde que avisa que salió bien. El aviso también se anuncia: el cambio de glifo no lo ve quien escucha la pantalla."
   },
   "DatePicker": {
     "props": [
@@ -904,22 +1072,10 @@ export const propsByComponent: Record<string, ComponentDoc> = {
   "EmptyState": {
     "props": [
       {
-        "name": "title",
-        "type": "string",
-        "required": true,
-        "doc": "Qué falta, en una línea."
-      },
-      {
-        "name": "body",
-        "type": "string",
-        "required": true,
-        "doc": "Qué pasó y qué se puede hacer."
-      },
-      {
-        "name": "action",
+        "name": "children",
         "type": "ReactNode",
         "required": false,
-        "doc": "La salida. Siempre conviene que haya una."
+        "doc": "El `Title`, el `Body` y, si hay salida, la `Action`."
       },
       {
         "name": "icon",
@@ -944,26 +1100,38 @@ export const propsByComponent: Record<string, ComponentDoc> = {
     ],
     "doc": "Lo que se ve cuando no hay nada."
   },
-  "Field": {
+  "EmptyState.Title": {
     "props": [
       {
-        "name": "label",
-        "type": "string",
-        "required": true,
-        "doc": "Nombra el control y lo enfoca al tocarla."
-      },
+        "name": "children",
+        "type": "ReactNode",
+        "required": true
+      }
+    ],
+    "doc": "Qué falta, en una línea."
+  },
+  "EmptyState.Body": {
+    "props": [
       {
-        "name": "hint",
-        "type": "string",
-        "required": false,
-        "doc": "Debajo de la etiqueta: para qué sirve el campo."
-      },
+        "name": "children",
+        "type": "ReactNode",
+        "required": true
+      }
+    ],
+    "doc": "Qué pasó y qué se puede hacer."
+  },
+  "EmptyState.Action": {
+    "props": [
       {
-        "name": "error",
-        "type": "string",
-        "required": false,
-        "doc": "Lo que está mal. Reemplaza al hint y marca el control."
-      },
+        "name": "children",
+        "type": "ReactNode",
+        "required": true
+      }
+    ],
+    "doc": "La salida. Siempre conviene que haya una."
+  },
+  "Field": {
+    "props": [
       {
         "name": "required",
         "type": "boolean",
@@ -974,7 +1142,7 @@ export const propsByComponent: Record<string, ComponentDoc> = {
         "name": "children",
         "type": "ReactNode",
         "required": true,
-        "doc": "El control, que toma el id solo."
+        "doc": "El `Field.Label`, el `Field.Hint` o el `Field.Error` si van, y el control, que toma el id solo."
       },
       {
         "name": "className",
@@ -984,7 +1152,37 @@ export const propsByComponent: Record<string, ComponentDoc> = {
     ],
     "doc": "Une etiqueta, ayuda, error y control: los tres textos quedan atados al control."
   },
-  "FieldSet": {
+  "Field.Label": {
+    "props": [
+      {
+        "name": "children",
+        "type": "ReactNode",
+        "required": true
+      }
+    ],
+    "doc": "Nombra el control y lo enfoca al tocarla."
+  },
+  "Field.Hint": {
+    "props": [
+      {
+        "name": "children",
+        "type": "ReactNode",
+        "required": true
+      }
+    ],
+    "doc": "Debajo de la etiqueta: para qué sirve el campo."
+  },
+  "Field.Error": {
+    "props": [
+      {
+        "name": "children",
+        "type": "ReactNode",
+        "required": true
+      }
+    ],
+    "doc": "Lo que está mal. Reemplaza al hint y marca el control."
+  },
+  "Field.Set": {
     "props": [
       {
         "name": "legend",
@@ -1011,10 +1209,10 @@ export const propsByComponent: Record<string, ComponentDoc> = {
         "doc": "Qué se ve, para quien no la ve. No es el epígrafe: si la imagen no aporta nada que el texto no diga, va vacío y la imagen queda decorativa."
       },
       {
-        "name": "caption",
+        "name": "children",
         "type": "ReactNode",
         "required": false,
-        "doc": "Lo que se lee abajo, para todo el mundo. Agrega algo que la imagen no dice sola: de dónde salió, qué hay que mirar."
+        "doc": "El `Figure.Caption`, si lleva."
       },
       {
         "name": "ratio",
@@ -1037,6 +1235,16 @@ export const propsByComponent: Record<string, ComponentDoc> = {
       }
     ],
     "doc": "Una imagen con su pie: lo que ilustra una consigna, una foto de un experimento, el gráfico que alguien dibujó a mano."
+  },
+  "Figure.Caption": {
+    "props": [
+      {
+        "name": "children",
+        "type": "ReactNode",
+        "required": true
+      }
+    ],
+    "doc": "Lo que se lee abajo, para todo el mundo. Agrega algo que la imagen no dice sola: de dónde salió, qué hay que mirar."
   },
   "FilterBar": {
     "props": [],
@@ -1080,16 +1288,10 @@ export const propsByComponent: Record<string, ComponentDoc> = {
   "Folder": {
     "props": [
       {
-        "name": "label",
-        "type": "string",
+        "name": "children",
+        "type": "ReactNode",
         "required": false,
-        "doc": "El nombre, debajo."
-      },
-      {
-        "name": "meta",
-        "type": "string",
-        "required": false,
-        "doc": "La línea de apoyo: \"15 archivos\"."
+        "doc": "El `Folder.Label` y, si va, el `Folder.Meta`."
       },
       {
         "name": "sheets",
@@ -1137,6 +1339,26 @@ export const propsByComponent: Record<string, ComponentDoc> = {
     ],
     "doc": "Una carpeta que se abre."
   },
+  "Folder.Label": {
+    "props": [
+      {
+        "name": "children",
+        "type": "ReactNode",
+        "required": true
+      }
+    ],
+    "doc": "El nombre, debajo."
+  },
+  "Folder.Meta": {
+    "props": [
+      {
+        "name": "children",
+        "type": "ReactNode",
+        "required": true
+      }
+    ],
+    "doc": "La línea de apoyo: \"15 archivos\"."
+  },
   "Icon": {
     "props": [
       {
@@ -1165,7 +1387,7 @@ export const propsByComponent: Record<string, ComponentDoc> = {
       }
     ]
   },
-  "FolderIcon": {
+  "Icon.Folder": {
     "props": [
       {
         "name": "color",
@@ -1210,12 +1432,6 @@ export const propsByComponent: Record<string, ComponentDoc> = {
         "required": false,
         "def": "'md'",
         "doc": "36 · 40 · 44, los del Button."
-      },
-      {
-        "name": "dot",
-        "type": "boolean",
-        "required": false,
-        "doc": "El puntito de \"hay algo nuevo\", adentro del botón. Para un contador o un glifo, `Indicator`."
       },
       {
         "name": "active",
@@ -1330,7 +1546,7 @@ export const propsByComponent: Record<string, ComponentDoc> = {
       }
     ]
   },
-  "ListItem": {
+  "List.Item": {
     "props": [
       {
         "name": "icon",
@@ -1345,18 +1561,6 @@ export const propsByComponent: Record<string, ComponentDoc> = {
         "doc": "El par relleno/glifo de la marca."
       },
       {
-        "name": "title",
-        "type": "string",
-        "required": true,
-        "doc": "· 16/600."
-      },
-      {
-        "name": "hint",
-        "type": "string",
-        "required": false,
-        "doc": "14/500 en gris."
-      },
-      {
         "name": "active",
         "type": "boolean",
         "required": false,
@@ -1369,12 +1573,42 @@ export const propsByComponent: Record<string, ComponentDoc> = {
         "doc": "Sin esto la fila es un <div> y no toma hover."
       },
       {
-        "name": "trailing",
+        "name": "children",
         "type": "ReactNode",
-        "required": false,
-        "doc": "A la derecha: un chevron, un `Switch`. Un contador no: el número ya está en `hint`, y repetirlo al lado obliga a leer dos veces lo mismo."
+        "required": true,
+        "doc": "El `List.Title`, el `List.Hint` si va y el `List.Trailing` si va."
       }
     ]
+  },
+  "List.Title": {
+    "props": [
+      {
+        "name": "children",
+        "type": "ReactNode",
+        "required": true
+      }
+    ],
+    "doc": "El nombre de la fila, en 16/600."
+  },
+  "List.Hint": {
+    "props": [
+      {
+        "name": "children",
+        "type": "ReactNode",
+        "required": true
+      }
+    ],
+    "doc": "La línea de apoyo, en 14/500 gris."
+  },
+  "List.Trailing": {
+    "props": [
+      {
+        "name": "children",
+        "type": "ReactNode",
+        "required": true
+      }
+    ],
+    "doc": "A la derecha: un chevron, un `Switch`. Un contador no: el número ya está en el hint, y repetirlo al lado obliga a leer dos veces lo mismo."
   },
   "Mention": {
     "props": [
@@ -1437,7 +1671,7 @@ export const propsByComponent: Record<string, ComponentDoc> = {
     ],
     "doc": "El menú, en piezas."
   },
-  "MenuItem": {
+  "Menu.Item": {
     "props": [
       {
         "name": "children",
@@ -1449,18 +1683,6 @@ export const propsByComponent: Record<string, ComponentDoc> = {
         "type": "IconName",
         "required": false,
         "doc": "A la izquierda, en gris."
-      },
-      {
-        "name": "shortcut",
-        "type": "string",
-        "required": false,
-        "doc": "El atajo, en un Kbd."
-      },
-      {
-        "name": "hint",
-        "type": "string",
-        "required": false,
-        "doc": "Una línea de apoyo a la derecha, en gris."
       },
       {
         "name": "checked",
@@ -1497,10 +1719,9 @@ export const propsByComponent: Record<string, ComponentDoc> = {
         "type": "string",
         "required": false
       }
-    ],
-    "doc": "Una fila del menú."
+    ]
   },
-  "MenuLabel": {
+  "Menu.Label": {
     "props": [
       {
         "name": "children",
@@ -1509,6 +1730,26 @@ export const propsByComponent: Record<string, ComponentDoc> = {
       }
     ],
     "doc": "El rótulo de un grupo de opciones."
+  },
+  "Menu.Shortcut": {
+    "props": [
+      {
+        "name": "children",
+        "type": "ReactNode",
+        "required": true
+      }
+    ],
+    "doc": "El atajo, a la derecha, en un `Kbd`."
+  },
+  "Menu.Hint": {
+    "props": [
+      {
+        "name": "children",
+        "type": "ReactNode",
+        "required": true
+      }
+    ],
+    "doc": "Una línea de apoyo a la derecha, en gris."
   },
   "Modal": {
     "props": [
@@ -1540,32 +1781,32 @@ export const propsByComponent: Record<string, ComponentDoc> = {
         "name": "label",
         "type": "string",
         "required": false,
-        "doc": "Solo si no hay `ModalTitle`: con título, el nombre sale de ahí."
+        "doc": "Solo si no hay `Title`: con título, el nombre sale de ahí."
       }
     ],
-    "doc": "El diálogo centrado que tapa la pantalla. Se arma con `ModalHeader`, `ModalBody` y `ModalFooter`."
+    "doc": "El diálogo centrado que tapa la pantalla. Se arma con `Modal.Header`, `Modal.Body` y `Modal.Footer`."
   },
-  "ModalHeader": {
+  "Modal.Header": {
     "props": [],
     "html": "div",
-    "doc": "La cabecera: adentro van `ModalTitle` y `ModalHint`, y la X la pone ella."
+    "doc": "La cabecera: adentro van `Title` y `Hint`, y la X la pone ella."
   },
-  "ModalTitle": {
+  "Modal.Title": {
     "props": [],
     "html": "h2",
     "doc": "El título, y de paso el nombre que anuncia el lector: se ata solo."
   },
-  "ModalHint": {
+  "Modal.Hint": {
     "props": [],
     "html": "div",
     "doc": "La línea de apoyo debajo del título, en gris."
   },
-  "ModalBody": {
+  "Modal.Body": {
     "props": [],
     "html": "div",
     "doc": "El cuerpo, y lo único que scrollea cuando el contenido no entra."
   },
-  "ModalFooter": {
+  "Modal.Footer": {
     "props": [],
     "html": "div",
     "doc": "La fila de acciones, contra el borde derecho."
@@ -1620,29 +1861,47 @@ export const propsByComponent: Record<string, ComponentDoc> = {
     ],
     "doc": "El contenedor de una pantalla."
   },
-  "PageHeader": {
+  "Page.Header": {
     "props": [
       {
-        "name": "title",
-        "type": "string",
-        "required": true,
-        "doc": "El nombre de la pantalla, como `h1`."
-      },
-      {
-        "name": "subtitle",
-        "type": "string",
-        "required": false,
-        "doc": "Una línea de apoyo."
-      },
-      {
-        "name": "actions",
+        "name": "children",
         "type": "ReactNode",
-        "required": false,
-        "doc": "Lo que se puede hacer acá, a la derecha."
+        "required": true,
+        "doc": "El `Page.Title`, y si van el `Page.Subtitle` y las `Page.Actions`."
       }
     ]
   },
-  "SectionLabel": {
+  "Page.Title": {
+    "props": [
+      {
+        "name": "children",
+        "type": "ReactNode",
+        "required": true
+      }
+    ],
+    "doc": "El nombre de la pantalla, como `h1`."
+  },
+  "Page.Subtitle": {
+    "props": [
+      {
+        "name": "children",
+        "type": "ReactNode",
+        "required": true
+      }
+    ],
+    "doc": "Una línea de apoyo, debajo del título."
+  },
+  "Page.Actions": {
+    "props": [
+      {
+        "name": "children",
+        "type": "ReactNode",
+        "required": true
+      }
+    ],
+    "doc": "Lo que se puede hacer acá, a la derecha."
+  },
+  "Page.SectionLabel": {
     "props": [
       {
         "name": "children",
@@ -1663,7 +1922,7 @@ export const propsByComponent: Record<string, ComponentDoc> = {
     "html": "nav",
     "doc": "La línea de abajo de una tabla: qué tramo se está viendo y cómo pasar al que sigue."
   },
-  "PaginationStatus": {
+  "Pagination.Status": {
     "props": [
       {
         "name": "to",
@@ -1699,7 +1958,7 @@ export const propsByComponent: Record<string, ComponentDoc> = {
     ],
     "doc": "Qué tramo se está viendo."
   },
-  "PaginationPrev": {
+  "Pagination.Prev": {
     "props": [
       {
         "name": "children",
@@ -1710,7 +1969,7 @@ export const propsByComponent: Record<string, ComponentDoc> = {
     ],
     "doc": "Los dos viajan juntos y están siempre, apagados en las puntas."
   },
-  "PaginationNext": {
+  "Pagination.Next": {
     "props": [
       {
         "name": "children",
@@ -1788,8 +2047,78 @@ export const propsByComponent: Record<string, ComponentDoc> = {
       }
     ]
   },
+  "Prefs": {
+    "props": [
+      {
+        "name": "theme",
+        "type": "'light' | 'dark'",
+        "required": true
+      },
+      {
+        "name": "suggest",
+        "type": "boolean",
+        "required": true
+      },
+      {
+        "name": "resume",
+        "type": "boolean",
+        "required": true
+      },
+      {
+        "name": "showLens",
+        "type": "boolean",
+        "required": true
+      },
+      {
+        "name": "shareRecipes",
+        "type": "boolean",
+        "required": true
+      },
+      {
+        "name": "directory",
+        "type": "boolean",
+        "required": true
+      },
+      {
+        "name": "confirmDelete",
+        "type": "boolean",
+        "required": true
+      },
+      {
+        "name": "notifySubmission",
+        "type": "boolean",
+        "required": true
+      },
+      {
+        "name": "notifyStuck",
+        "type": "boolean",
+        "required": true
+      },
+      {
+        "name": "notifyWeekly",
+        "type": "boolean",
+        "required": true
+      },
+      {
+        "name": "notifyProduct",
+        "type": "boolean",
+        "required": true
+      },
+      {
+        "name": "sidebarCollapsed",
+        "type": "boolean",
+        "required": true
+      }
+    ]
+  },
   "Progress": {
     "props": [
+      {
+        "name": "children",
+        "type": "ReactNode",
+        "required": false,
+        "doc": "El `Progress.Hint` con el número, si va."
+      },
       {
         "name": "value",
         "type": "number",
@@ -1810,12 +2139,6 @@ export const propsByComponent: Record<string, ComponentDoc> = {
         "doc": "Qué mide, para quien no ve la barra."
       },
       {
-        "name": "hint",
-        "type": "ReactNode",
-        "required": false,
-        "doc": "El número al costado."
-      },
-      {
         "name": "tone",
         "type": "'brand' | 'ok' | 'warn' | 'bad'",
         "required": false,
@@ -1826,18 +2149,22 @@ export const propsByComponent: Record<string, ComponentDoc> = {
     "html": "div",
     "doc": "Cuánto de algo va hecho. La pista es el resto, no un segundo dato."
   },
+  "Progress.Hint": {
+    "props": [
+      {
+        "name": "children",
+        "type": "ReactNode",
+        "required": true
+      }
+    ],
+    "doc": "El número al costado."
+  },
   "Quote": {
     "props": [
       {
         "name": "children",
         "type": "ReactNode",
         "required": true
-      },
-      {
-        "name": "source",
-        "type": "ReactNode",
-        "required": false,
-        "doc": "Quién lo dijo o de dónde salió. Va abajo, en gris y más chico."
       },
       {
         "name": "cite",
@@ -1852,6 +2179,16 @@ export const propsByComponent: Record<string, ComponentDoc> = {
       }
     ],
     "doc": "Palabras de otro: lo que dijo alguien, un fragmento de un texto, la respuesta de un estudiante."
+  },
+  "Quote.Source": {
+    "props": [
+      {
+        "name": "children",
+        "type": "ReactNode",
+        "required": true
+      }
+    ],
+    "doc": "Quién lo dijo o de dónde salió. Va abajo, en gris y más chico."
   },
   "Radio": {
     "props": [
@@ -1889,18 +2226,18 @@ export const propsByComponent: Record<string, ComponentDoc> = {
         "name": "tabIndex",
         "type": "number",
         "required": false,
-        "doc": "Lo pone `RadioGroup` para dejar una sola parada de tabulación."
+        "doc": "Lo pone `Group` para dejar una sola parada de tabulación."
       },
       {
         "name": "ref",
         "type": "Ref<HTMLButtonElement>",
         "required": false,
-        "doc": "Lo usa `RadioGroup` para mover el foco con las flechas."
+        "doc": "Lo usa `Group` para mover el foco con las flechas."
       }
     ],
     "doc": "La elección de una entre varias."
   },
-  "RadioGroup": {
+  "Radio.Group": {
     "props": [
       {
         "name": "value",
@@ -1987,25 +2324,33 @@ export const propsByComponent: Record<string, ComponentDoc> = {
   "Row": {
     "props": [
       {
-        "name": "label",
-        "type": "string",
-        "required": true,
-        "doc": "Qué se ajusta. Es un `<label>` de verdad: tocarlo acciona el control."
-      },
-      {
-        "name": "hint",
-        "type": "string",
-        "required": false,
-        "doc": "La segunda línea, en 11 gris."
-      },
-      {
         "name": "children",
         "type": "ReactNode",
         "required": false,
-        "doc": "El control, alineado a la derecha."
+        "doc": "El `Row.Label`, el `Row.Hint` si va, y el control."
       }
     ],
     "doc": "La fila de un panel: 56px de alto, padding 16/24, label a la izquierda y control a la derecha."
+  },
+  "Row.Label": {
+    "props": [
+      {
+        "name": "children",
+        "type": "ReactNode",
+        "required": true
+      }
+    ],
+    "doc": "Qué se ajusta. Es un `<label>` de verdad: tocarlo acciona el control."
+  },
+  "Row.Hint": {
+    "props": [
+      {
+        "name": "children",
+        "type": "ReactNode",
+        "required": true
+      }
+    ],
+    "doc": "La segunda línea, en 11 gris."
   },
   "Search": {
     "props": [
@@ -2160,6 +2505,32 @@ export const propsByComponent: Record<string, ComponentDoc> = {
     ],
     "doc": "Los ajustes en un modal y no en una página."
   },
+  "SettingsUser": {
+    "props": [
+      {
+        "name": "name",
+        "type": "string",
+        "required": true
+      },
+      {
+        "name": "email",
+        "type": "string",
+        "required": true
+      },
+      {
+        "name": "alias",
+        "type": "string",
+        "required": true,
+        "doc": "Cómo lo ven los aprendices."
+      },
+      {
+        "name": "school",
+        "type": "string",
+        "required": true
+      }
+    ],
+    "doc": "Quién está mirando los ajustes."
+  },
   "Sheet": {
     "props": [
       {
@@ -2196,28 +2567,21 @@ export const propsByComponent: Record<string, ComponentDoc> = {
       {
         "name": "label",
         "type": "string",
-        "required": true,
-        "doc": "Nombra el diálogo para el lector."
+        "required": false,
+        "doc": "Solo si no hay `Sheet.Title`: con título, el nombre sale de ahí."
       }
     ],
     "doc": "El panel que entra desde un costado: un formulario largo sin cambiar de pantalla."
   },
-  "SheetHeader": {
-    "props": [
-      {
-        "name": "title",
-        "type": "string",
-        "required": true,
-        "doc": "El nombre del panel."
-      },
-      {
-        "name": "onClose",
-        "type": "() => void",
-        "required": true,
-        "doc": "La X, que es la salida a la vista: Escape y el velo hacen lo mismo."
-      }
-    ],
-    "doc": "La cabecera del panel, con su título y el botón de cerrar."
+  "Sheet.Header": {
+    "props": [],
+    "html": "div",
+    "doc": "La cabecera del panel: adentro va `Title`, y la X la pone ella."
+  },
+  "Sheet.Title": {
+    "props": [],
+    "html": "h2",
+    "doc": "El título, y de paso el nombre que anuncia el lector: se ata solo."
   },
   "Skeleton": {
     "props": [],
@@ -2317,57 +2681,21 @@ export const propsByComponent: Record<string, ComponentDoc> = {
     ],
     "doc": "Pista completa más un arco encima."
   },
-  "Stepper": {
+  "SplitButton": {
     "props": [
       {
-        "name": "value",
-        "type": "number",
-        "required": true,
-        "doc": "El número."
-      },
-      {
-        "name": "onChange",
-        "type": "(v: number) => void",
-        "required": true,
-        "doc": "Recibe el número nuevo, siempre dentro de `min` y `max`."
-      },
-      {
-        "name": "min",
-        "type": "number",
+        "name": "variant",
+        "type": "Variante",
         "required": false,
-        "def": "0"
+        "def": "'brand'",
+        "doc": "El mismo juego que `Button`, y vale para las dos mitades."
       },
       {
-        "name": "max",
-        "type": "number",
+        "name": "size",
+        "type": "Paso",
         "required": false,
-        "def": "99"
-      },
-      {
-        "name": "step",
-        "type": "number",
-        "required": false,
-        "def": "1",
-        "doc": "Cuánto suben las flechas y los botones."
-      },
-      {
-        "name": "pageStep",
-        "type": "number",
-        "required": false,
-        "def": "10",
-        "doc": "Cuánto suben Re Pág y Av Pág: para llegar lejos sin apretar veinte veces."
-      },
-      {
-        "name": "label",
-        "type": "string",
-        "required": false,
-        "doc": "De qué es el número. Sin esto lo pone el `Field` de alrededor."
-      },
-      {
-        "name": "suffix",
-        "type": "string",
-        "required": false,
-        "doc": "Lo que va después del número: \"min\", \"pts\". No se escribe ni se lee aparte."
+        "def": "'md'",
+        "doc": "La escalera de siempre."
       },
       {
         "name": "disabled",
@@ -2375,13 +2703,75 @@ export const propsByComponent: Record<string, ComponentDoc> = {
         "required": false
       },
       {
+        "name": "menuLabel",
+        "type": "string",
+        "required": false,
+        "doc": "Qué hay en el menú, para quien lo escucha. Sin esto, \"Más opciones\"."
+      },
+      {
         "name": "width",
         "type": "number",
         "required": false,
-        "def": "132"
+        "def": "220",
+        "doc": "El ancho del panel en px."
+      },
+      {
+        "name": "children",
+        "type": "ReactNode",
+        "required": true,
+        "doc": "El `SplitButton.Action` y los `SplitButton.Item` que van en el menú."
       }
     ],
-    "doc": "Un número chico que se sube y se baja: cuántos intentos, cuántas preguntas, una nota."
+    "doc": "La acción que se hace casi siempre, y al lado las que casi nunca. Es lo que evita una fila de cinco botones donde cuatro no se tocan nunca."
+  },
+  "SplitButton.Action": {
+    "props": [
+      {
+        "name": "onClick",
+        "type": "() => void",
+        "required": false,
+        "doc": "Lo que hace la acción principal."
+      },
+      {
+        "name": "children",
+        "type": "ReactNode",
+        "required": true
+      }
+    ],
+    "doc": "La acción que se hace casi siempre: la mitad ancha, la que se toca directo."
+  },
+  "SplitButton.Item": {
+    "props": [
+      {
+        "name": "icon",
+        "type": "IconName",
+        "required": false,
+        "doc": "A la izquierda, en gris."
+      },
+      {
+        "name": "danger",
+        "type": "boolean",
+        "required": false,
+        "doc": "Borrar, descartar: lo que no se deshace."
+      },
+      {
+        "name": "disabled",
+        "type": "boolean",
+        "required": false
+      },
+      {
+        "name": "onSelect",
+        "type": "() => void",
+        "required": false,
+        "doc": "Cerrar el menú lo hace la pieza."
+      },
+      {
+        "name": "children",
+        "type": "ReactNode",
+        "required": true
+      }
+    ],
+    "doc": "Una de las que casi nunca: van adentro del menú que abre la flecha."
   },
   "Steps": {
     "props": [
@@ -2423,6 +2813,22 @@ export const propsByComponent: Record<string, ComponentDoc> = {
       }
     ],
     "doc": "Por dónde va algo que tiene etapas: una actividad en partes, un proceso de diseño, un formulario largo."
+  },
+  "Step": {
+    "props": [
+      {
+        "name": "label",
+        "type": "string",
+        "required": true,
+        "doc": "El nombre de la etapa."
+      },
+      {
+        "name": "hint",
+        "type": "string",
+        "required": false,
+        "doc": "Una línea abajo, para lo que el nombre no dice."
+      }
+    ]
   },
   "Switch": {
     "props": [
@@ -2480,12 +2886,6 @@ export const propsByComponent: Record<string, ComponentDoc> = {
         "doc": "Abajo de esto la tabla scrollea en vez de apretar las columnas."
       },
       {
-        "name": "footer",
-        "type": "ReactNode",
-        "required": false,
-        "doc": "La franja de abajo: vive adentro del marco pero fuera del scroll."
-      },
-      {
         "name": "className",
         "type": "string",
         "required": false
@@ -2493,7 +2893,7 @@ export const propsByComponent: Record<string, ComponentDoc> = {
     ],
     "doc": "La tabla, en piezas."
   },
-  "TableHeader": {
+  "Table.Header": {
     "props": [
       {
         "name": "children",
@@ -2503,7 +2903,17 @@ export const propsByComponent: Record<string, ComponentDoc> = {
     ],
     "doc": "La cabecera va sobre `--surface-muted` y no sobre el papel: es lo que la separa del cuerpo sin gastar un divisor más grueso."
   },
-  "TableBody": {
+  "Table.Footer": {
+    "props": [
+      {
+        "name": "children",
+        "type": "ReactNode",
+        "required": true
+      }
+    ],
+    "doc": "La franja de abajo: vive adentro del marco pero fuera del scroll, y ahí va la paginación. Solo marca el lugar, el estilo lo pone lo que va adentro."
+  },
+  "Table.Body": {
     "props": [
       {
         "name": "children",
@@ -2513,7 +2923,7 @@ export const propsByComponent: Record<string, ComponentDoc> = {
     ],
     "doc": "El cuerpo de la tabla."
   },
-  "TableFooter": {
+  "Table.Foot": {
     "props": [
       {
         "name": "children",
@@ -2523,7 +2933,7 @@ export const propsByComponent: Record<string, ComponentDoc> = {
     ],
     "doc": "La fila del total, abajo de todo."
   },
-  "TableRow": {
+  "Table.Row": {
     "props": [
       {
         "name": "children",
@@ -2550,7 +2960,7 @@ export const propsByComponent: Record<string, ComponentDoc> = {
     ],
     "doc": "La última fila se queda sin divisor: abajo ya está el borde de la tabla."
   },
-  "TableHead": {
+  "Table.Head": {
     "props": [
       {
         "name": "children",
@@ -2572,7 +2982,7 @@ export const propsByComponent: Record<string, ComponentDoc> = {
     "html": "th",
     "doc": "Un encabezado de columna: 11/600 con tracking, en tinta."
   },
-  "TableCell": {
+  "Table.Cell": {
     "props": [
       {
         "name": "children",
@@ -2600,7 +3010,53 @@ export const propsByComponent: Record<string, ComponentDoc> = {
     "html": "td",
     "doc": "Una celda: 12/500, con el alto de fila de 56."
   },
-  "TableEmpty": {
+  "Table.Title": {
+    "props": [
+      {
+        "name": "children",
+        "type": "ReactNode",
+        "required": false
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "required": false
+      }
+    ],
+    "doc": "Lo que se lee primero de una fila."
+  },
+  "Table.Hint": {
+    "props": [
+      {
+        "name": "children",
+        "type": "ReactNode",
+        "required": false
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "required": false
+      }
+    ],
+    "doc": "La línea de apoyo debajo del título, en gris."
+  },
+  "Table.Num": {
+    "props": [
+      {
+        "name": "children",
+        "type": "ReactNode",
+        "required": false
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "required": false
+      }
+    ],
+    "html": "td",
+    "doc": "Una columna de números."
+  },
+  "Table.Empty": {
     "props": [
       {
         "name": "children",
@@ -2620,52 +3076,6 @@ export const propsByComponent: Record<string, ComponentDoc> = {
       }
     ],
     "doc": "La fila entera cuando no hay ninguna: adentro va un `EmptyState`."
-  },
-  "TableTitle": {
-    "props": [
-      {
-        "name": "children",
-        "type": "ReactNode",
-        "required": false
-      },
-      {
-        "name": "className",
-        "type": "string",
-        "required": false
-      }
-    ],
-    "doc": "Lo que se lee primero de una fila."
-  },
-  "TableHint": {
-    "props": [
-      {
-        "name": "children",
-        "type": "ReactNode",
-        "required": false
-      },
-      {
-        "name": "className",
-        "type": "string",
-        "required": false
-      }
-    ],
-    "doc": "La línea de apoyo debajo del título, en gris."
-  },
-  "TableNum": {
-    "props": [
-      {
-        "name": "children",
-        "type": "ReactNode",
-        "required": false
-      },
-      {
-        "name": "className",
-        "type": "string",
-        "required": false
-      }
-    ],
-    "html": "td",
-    "doc": "Una columna de números."
   },
   "Tabs": {
     "props": [
@@ -2690,7 +3100,7 @@ export const propsByComponent: Record<string, ComponentDoc> = {
     ],
     "doc": "Paneles hermanos donde solo se ve uno. Controlado o no, como el resto."
   },
-  "TabList": {
+  "Tabs.List": {
     "props": [
       {
         "name": "label",
@@ -2702,7 +3112,7 @@ export const propsByComponent: Record<string, ComponentDoc> = {
     "html": "div",
     "doc": "La fila de solapas. Las flechas se mueven entre ellas, como pide un tablist."
   },
-  "Tab": {
+  "Tabs.Tab": {
     "props": [
       {
         "name": "value",
@@ -2714,7 +3124,7 @@ export const propsByComponent: Record<string, ComponentDoc> = {
     "html": "button",
     "doc": "Una solapa. El activo se marca con la línea y el azul primario."
   },
-  "TabPanel": {
+  "Tabs.Panel": {
     "props": [
       {
         "name": "value",
@@ -2759,6 +3169,27 @@ export const propsByComponent: Record<string, ComponentDoc> = {
       }
     ],
     "doc": "Cosas para hacer, que se marcan al hacerlas: los pasos de una entrega, lo que falta de una actividad."
+  },
+  "Task": {
+    "props": [
+      {
+        "name": "id",
+        "type": "string",
+        "required": true,
+        "doc": "Único en la lista."
+      },
+      {
+        "name": "label",
+        "type": "string",
+        "required": true,
+        "doc": "Lo que hay que hacer."
+      },
+      {
+        "name": "done",
+        "type": "boolean",
+        "required": false
+      }
+    ]
   },
   "TextField": {
     "props": [
@@ -2885,6 +3316,47 @@ export const propsByComponent: Record<string, ComponentDoc> = {
     ],
     "doc": "Lo que recibe `toast()`."
   },
+  "ToggleButton": {
+    "props": [
+      {
+        "name": "pressed",
+        "type": "boolean",
+        "required": true,
+        "doc": "Hundido o no. Es controlado: el estado lo guarda quien lo usa."
+      },
+      {
+        "name": "onPressedChange",
+        "type": "(pressed: boolean) => void",
+        "required": false,
+        "doc": "Recibe el estado nuevo."
+      },
+      {
+        "name": "icon",
+        "type": "IconName",
+        "required": false,
+        "doc": "El glifo, antes del texto o solo."
+      },
+      {
+        "name": "size",
+        "type": "'sm' | 'md' | 'lg'",
+        "required": false,
+        "def": "'md'",
+        "doc": "La escalera de siempre."
+      },
+      {
+        "name": "label",
+        "type": "string",
+        "required": false,
+        "doc": "Obligatorio cuando adentro solo hay un glifo: sin esto el botón no dice nada."
+      },
+      {
+        "name": "children",
+        "type": "ReactNode",
+        "required": false
+      }
+    ],
+    "doc": "Un botón que queda hundido: dice en qué estado está algo, no que algo pasó. El `aria-pressed` es lo que lo separa de un `Button`, y es lo que hace que un lector anuncie \"activado\"."
+  },
   "Toolbar": {
     "props": [
       {
@@ -2906,7 +3378,7 @@ export const propsByComponent: Record<string, ComponentDoc> = {
     ],
     "doc": "La barra de herramientas: una sola parada de tabulación y flechas adentro, como manda un `toolbar`."
   },
-  "ToolbarButton": {
+  "Toolbar.Button": {
     "props": [
       {
         "name": "icon",
@@ -2936,7 +3408,7 @@ export const propsByComponent: Record<string, ComponentDoc> = {
         "required": false
       }
     ],
-    "doc": "Un botón de la barra. Con `pressed` es un interruptor y lo dice: \"negrita, activado\"."
+    "doc": "El botón de la barra: siempre un glifo solo, y siempre `sm`. Con `pressed` es un interruptor y sin él una acción que pasa y no queda."
   },
   "Tooltip": {
     "props": [

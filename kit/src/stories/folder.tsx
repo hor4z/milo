@@ -1,6 +1,8 @@
 import cls from './folder.module.css'
-import { Card, Folder, Icon } from '@milo/ui'
-import { A11y, Footnote, Mono, Page, Props, Section, Stack } from '../kit'
+import { Card } from '@milo/ui/card'
+import { Folder } from '@milo/ui/folder'
+import { Icon } from '@milo/ui/icon'
+import { A11y, Example, Footnote, Mono, Page, Practices, Props, Section, Stack } from '../kit'
 
 const face = (n: number) => `/avatars/${String(n).padStart(2, '0')}.webp`
 const p = (name: string, photo?: number) => ({ name, src: photo ? face(photo) : undefined })
@@ -10,7 +12,7 @@ export function FolderStory() {
     <Page
       title="Folder"
       kind="Superficies"
-      imports="import { Folder, FolderIcon } from '@milo/ui'"
+      imports="import { Folder } from '@milo/ui/folder'"
       lead="Una carpeta que se abre. Cerrada es una silueta limpia; al pasar por encima las hojas suben desde adentro y se abanican, y ahí se ve qué hay sin tener que entrar."
     >
       <Section
@@ -18,15 +20,24 @@ export function FolderStory() {
         note="El sistema tiene escrito que las tarjetas no se mueven en hover, porque una grilla que salta hace temblar la vista. Esto no lo contradice: lo que se mueve no es la pieza, es el contenido de la pieza. La carpeta no cambia de tamaño ni de lugar, así que la grilla se queda quieta, y lo que se gana es información, cuántas hojas hay."
       >
         <Card surface="muted" className={cls.hoverShelf}>
-          <Folder label="Onboarding" meta="15 archivos" onClick={() => {}} />
-          <Folder label="Matemática · 4.º A" meta="8 actividades" onClick={() => {}} />
-          <Folder label="Sin abrir" meta="2 archivos" sheets={2} onClick={() => {}} />
+          <Folder onClick={() => {}}>
+            <Folder.Label>Onboarding</Folder.Label>
+            <Folder.Meta>15 archivos</Folder.Meta>
+          </Folder>
+          <Folder onClick={() => {}}>
+            <Folder.Label>Matemática · 4.º A</Folder.Label>
+            <Folder.Meta>8 actividades</Folder.Meta>
+          </Folder>
+          <Folder sheets={2} onClick={() => {}}>
+            <Folder.Label>Sin abrir</Folder.Label>
+            <Folder.Meta>2 archivos</Folder.Meta>
+          </Folder>
         </Card>
       </Section>
 
       <Section
         title="Las tres capas"
-        note="Contratapa, hojas y solapa. La contratapa y la pestaña son UN solo path y no dos rectángulos: con dos, cada uno trae sus esquinas y en el doblez queda un corte a la vista. Las hojas suben entre la contratapa y la solapa, que es lo que hace que parezca que salen de adentro."
+        note="Las hojas suben al pasar el mouse y dicen cuántas hay. La carpeta no cambia de tamaño ni de lugar, así que la grilla no se mueve."
       >
         <Card surface="muted" className={cls.layersShelf}>
           {[88, 128, 168, 220].map(s => (
@@ -44,13 +55,25 @@ export function FolderStory() {
 
       <Section
         title="El amarillo sale de una regla"
-        note="Amarillo propio en H 89.6 de OKLCH. `--warn-500` está en 82.2 y a esa luminosidad sale dorado: siete grados son poco para dos colores de estado y mucho para una carpeta. La croma va al 81% del techo y no al tope: al límite deja de ser una carpeta y pasa a ser un resaltador."
+        note="El amarillo de la carpeta es propio y no el de `warn`: una carpeta no está avisando de nada. El color sale de un token, nunca de un hex a mano."
       >
         <Card surface="muted" className={cls.colorShelf}>
-          <Folder label="Amarillo" meta="el default" />
-          <Folder label="Azul" meta="--label-blue" color="var(--label-blue)" />
-          <Folder label="Púrpura" meta="--label-purple" color="var(--label-purple)" />
-          <Folder label="Rosa" meta="--label-pink" color="var(--label-pink)" />
+          <Folder>
+            <Folder.Label>Amarillo</Folder.Label>
+            <Folder.Meta>el default</Folder.Meta>
+          </Folder>
+          <Folder color="var(--label-blue)">
+            <Folder.Label>Azul</Folder.Label>
+            <Folder.Meta>--label-blue</Folder.Meta>
+          </Folder>
+          <Folder color="var(--label-purple)">
+            <Folder.Label>Púrpura</Folder.Label>
+            <Folder.Meta>--label-purple</Folder.Meta>
+          </Folder>
+          <Folder color="var(--label-pink)">
+            <Folder.Label>Rosa</Folder.Label>
+            <Folder.Meta>--label-pink</Folder.Meta>
+          </Folder>
         </Card>
         <Footnote>
           Se elige <strong className={cls.emphasis}>un solo color</strong>, el del cuerpo:
@@ -64,20 +87,42 @@ export function FolderStory() {
 
       <Section
         title="Con avatares"
-        note="Abajo a la izquierda de la solapa va quién tiene acceso. Es un `AvatarGroup`, así que hereda todo lo suyo: tres caras como máximo, el resto en un círculo neutro, y con un solo sobrante se muestra la cuarta cara en vez de un '+1'. La prop `badges` sigue estando para lo que no es una persona."
+        note="Abajo a la izquierda de la solapa va quién tiene acceso. Es un `Avatar.Group`, así que hereda todo lo suyo: tres caras como máximo, el resto en un círculo neutro, y con un solo sobrante se muestra la cuarta cara en vez de un '+1'. La prop `badges` sigue estando para lo que no es una persona."
       >
         <Card surface="muted" className={cls.avatarShelf}>
-          <Folder label="Con dos" meta="6 archivos" avatars={[p('Ana Pérez', 1), p('Bruno Díaz', 2)]} />
-          <Folder label="Con cinco" meta="24 archivos" avatars={[p('Ana Pérez', 1), p('Bruno Díaz', 2), p('Carla Sosa', 3), p('Damián Ruiz', 4), p('Elena Vega', 5)]} />
-          <Folder label="Sin foto" meta="9 archivos" avatars={[p('Irene Lopez'), p('Julián Cruz'), p('Karen Ortiz')]} />
-          <Folder label="Teñida" meta="3 archivos" color="var(--label-blue)" avatars={[p('Mora Tello', 6), p('Nico Arce', 7)]} />
-          <Folder label="Con un icono" meta="4 archivos" badges={<Icon name="attach_file" size={16} className={cls.badgeIcon} />} />
+          <Folder avatars={[p('Ana Pérez', 1), p('Bruno Díaz', 2)]}>
+            <Folder.Label>Con dos</Folder.Label>
+            <Folder.Meta>6 archivos</Folder.Meta>
+          </Folder>
+          <Folder avatars={[p('Ana Pérez', 1), p('Bruno Díaz', 2), p('Carla Sosa', 3), p('Damián Ruiz', 4), p('Elena Vega', 5)]}>
+            <Folder.Label>Con cinco</Folder.Label>
+            <Folder.Meta>24 archivos</Folder.Meta>
+          </Folder>
+          <Folder avatars={[p('Irene Lopez'), p('Julián Cruz'), p('Karen Ortiz')]}>
+            <Folder.Label>Sin foto</Folder.Label>
+            <Folder.Meta>9 archivos</Folder.Meta>
+          </Folder>
+          <Folder color="var(--label-blue)" avatars={[p('Mora Tello', 6), p('Nico Arce', 7)]}>
+            <Folder.Label>Teñida</Folder.Label>
+            <Folder.Meta>3 archivos</Folder.Meta>
+          </Folder>
+          <Folder badges={<Icon name="attach_file" size={16} className={cls.badgeIcon} />}>
+            <Folder.Label>Con un icono</Folder.Label>
+            <Folder.Meta>4 archivos</Folder.Meta>
+          </Folder>
         </Card>
         <Footnote>
           El anillo de los avatares va del color del cuerpo y no del papel: acá están apoyados sobre
           la carpeta, no sobre la página, y con el anillo blanco se ven recortados. El tamaño sale
           del ancho de la carpeta, como todo lo demás.
         </Footnote>
+      </Section>
+
+      <Section title="Cómo se escribe">
+        <Example code={`<Folder color="var(--space-green)" onClick={abrir}>
+  <Folder.Label>Ciencias</Folder.Label>
+  <Folder.Meta>24 archivos</Folder.Meta>
+</Folder>`} />
       </Section>
 
       <Section title="Props">
@@ -94,11 +139,18 @@ export function FolderStory() {
         </Card>
       </Section>
 
+      <Section title="Cómo se usa bien">
+        <Practices>
+          <Practices.Do>El nombre va en `Folder.Label` y la línea de apoyo en `Folder.Meta`.</Practices.Do>
+          <Practices.Dont>El color sale de un token, nunca de un hex escrito a mano.</Practices.Dont>
+        </Practices>
+      </Section>
+
       <Section title="Accesibilidad">
-        <A11y items={[
-          'El color identifica el espacio de un vistazo, pero el nombre está siempre escrito.',
-          'El dibujo es aria-hidden: no se anuncia una carpeta dibujada.',
-        ]} />
+        <A11y>
+          <A11y.Item>El color identifica el espacio de un vistazo, pero el nombre está siempre escrito.</A11y.Item>
+          <A11y.Item>El dibujo es aria-hidden: no se anuncia una carpeta dibujada.</A11y.Item>
+        </A11y>
       </Section>
     </Page>
   )

@@ -23,7 +23,9 @@ describe('Slider', () => {
 
   it('adentro de un Field toma su id y su descripción', () => {
     render(
-      <Field label="Duración" hint="En minutos">
+      <Field>
+        <Field.Label>Duración</Field.Label>
+        <Field.Hint>En minutos</Field.Hint>
         <Slider value={30} onChange={() => {}} />
       </Field>,
     )

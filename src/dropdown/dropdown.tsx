@@ -1,6 +1,6 @@
 import type { ReactNode } from 'react'
 import type { IconName } from '../icon/icon'
-import { Menu, MenuItem } from '../menu/menu'
+import { Menu } from '../menu/menu'
 import { Popover } from '../popover/popover'
 
 /** Una opción de la lista del `Dropdown`. */
@@ -43,16 +43,10 @@ export function Dropdown({
       {close => (
         <Menu label={label}>
           {items.map((item, i) => (
-            <MenuItem
-              key={i}
-              icon={item.icon}
-              shortcut={item.shortcut}
-              danger={item.danger}
-              disabled={item.disabled}
-              onSelect={() => { item.onSelect?.(); close() }}
-            >
+            <Menu.Item key={i} icon={item.icon} danger={item.danger} disabled={item.disabled} onSelect={() => { item.onSelect?.(); close() }}>
+              {item.shortcut && <Menu.Shortcut>{item.shortcut}</Menu.Shortcut>}
               {item.label}
-            </MenuItem>
+            </Menu.Item>
           ))}
         </Menu>
       )}

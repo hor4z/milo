@@ -1,18 +1,19 @@
 import cls from './spinner.module.css'
-import { Button, Spinner } from '@milo/ui'
-import { A11y, Page, Panel, Props, Section, Variant } from '../kit'
+import { Button } from '@milo/ui/button'
+import { Spinner } from '@milo/ui/spinner'
+import { A11y, Example, Page, Panel, Practices, Props, Section, Variant } from '../kit'
 
 export function SpinnerStory() {
   return (
     <Page
       title="Spinner"
       kind="Avisos"
-      imports="import { Spinner } from '@milo/ui'"
+      imports="import { Spinner } from '@milo/ui/spinner'"
       lead="Pista completa más un arco encima, los dos del mismo grosor. La pista no es decorativa: sin ella, un arco suelto girando no dice 'esperá', dice que falta un trozo de la interfaz. El arco es de largo fijo y lo único que pasa es que gira, parejo."
     >
       <Section
         title="Tamaños"
-        note="El trazo escala: es el 17% del diámetro a cualquier tamaño. Con el trazo fijo, el de 44 quedaba en 3 sobre 44 (un hilo) al lado del de 20 en 3 sobre 20. Abajo de 12 hay un piso de 2px, para que no caiga en el medio píxel y el antialias lo apague."
+        note="El trazo crece con el diámetro, así que el mismo spinner se lee igual adentro de un botón chico que en el medio de una pantalla."
       >
         <Panel>
           <Variant name="16 · 20 · 28 · 44">
@@ -42,14 +43,27 @@ export function SpinnerStory() {
         </Panel>
       </Section>
 
+      <Section title="Cómo se escribe">
+        <Example code={`<Spinner label="Cargando las entregas" />
+
+<Button loading>Guardar</Button>`} />
+      </Section>
+
       <Section title="Props">
         <Props of="Spinner" />
       </Section>
 
+      <Section title="Cómo se usa bien">
+        <Practices>
+          <Practices.Do>Adentro de un control va `on="control"`, que pinta el hueco del color del relleno.</Practices.Do>
+          <Practices.Dont>Para una pantalla entera va un `Skeleton`: el girador no dice qué está por venir.</Practices.Dont>
+        </Practices>
+      </Section>
+
       <Section title="Accesibilidad">
-        <A11y items={[
-          'Lleva role="status" y un nombre, así que un lector dice qué está cargando.',
-        ]} />
+        <A11y>
+          <A11y.Item>Lleva role="status" y un nombre, así que un lector dice qué está cargando.</A11y.Item>
+        </A11y>
       </Section>
     </Page>
   )

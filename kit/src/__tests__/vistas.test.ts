@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest'
-import { readFileSync, readdirSync } from 'node:fs'
+import { readFileSync, readdirSync, statSync } from 'node:fs'
 import { join } from 'node:path'
+import { propsByComponent } from '@milo/ui/props'
 
 const stories = join(import.meta.dirname, '../stories')
 const files = readdirSync(stories).filter((f: string) => f.endsWith('.tsx'))
@@ -83,7 +84,8 @@ describe('las vistas del kit', () => {
       )
     const inert: string[] = []
     for (const f of walk(dir)) {
-      const text = readFileSync(join(dir, f), 'utf8')
+      // el código de un ejemplo es texto y no una demo: ahí un control sin handler está bien
+      const text = readFileSync(join(dir, f), 'utf8').replace(/<Example code=\{`[\s\S]*?`\}\s*\/>/g, '')
       for (const m of text.matchAll(/<([A-Z]\w+)((?:[^<>]|\{[^{}]*\})*?)\/>/gs)) {
         const [, name, attrs] = m
         if (!controlled.test(name)) continue
@@ -101,10 +103,50 @@ describe('las vistas del kit', () => {
     for (const f of files) {
       const text = readFileSync(join(stories, f), 'utf8')
       const covers = [...text.matchAll(/<Page\b/g)].length
-      const imports = [...text.matchAll(/imports="/g)].length
-      if (covers !== imports) withoutImport.push(`${f}: ${covers} portadas, ${imports} imports`)
+      const imports = [...text.matchAll(/imports="([^"]*)"/g)]
+      if (covers !== imports.length) withoutImport.push(`${f}: ${covers} portadas, ${imports.length} imports`)
+      // una vista documenta una pieza: dos imports pegados en la misma línea no se copian de una
+      for (const m of imports) {
+        if (m[1].includes('·')) withoutImport.push(`${f}: el import de la portada nombra dos módulos`)
+      }
     }
     expect(withoutImport).toEqual([])
+  })
+
+  it('una vista de Fundamentos no muestra código', () => {
+    const fundamentos = join(import.meta.dirname, '../foundations')
+    const conCodigo = readdirSync(fundamentos)
+      .filter((f: string) => f.endsWith('.tsx'))
+      .filter((f: string) => {
+        const text = readFileSync(join(fundamentos, f), 'utf8')
+        return text.includes('imports=') || text.includes('<Example')
+      })
+    expect(
+      conCodigo,
+      'Fundamentos es la capa de la que sale todo lo demás, no una pieza que se importa: el código va en la vista de la pieza',
+    ).toEqual([])
+  })
+
+  it('cada vista de una pieza muestra cómo se escribe', () => {
+    const sinEjemplo = files.filter(f => !readFileSync(join(stories, f), 'utf8').includes('<Example'))
+    expect(
+      sinEjemplo,
+      'una tabla de props dice qué acepta la pieza; el ejemplo dice cómo se arma, que es lo que alguien copia',
+    ).toEqual([])
+  })
+
+  it('cada vista de una pieza dice cómo se usa bien', () => {
+    const sinPracticas: string[] = []
+    for (const f of files) {
+      const text = readFileSync(join(stories, f), 'utf8')
+      if (!text.includes('<Practices>')) { sinPracticas.push(f); continue }
+      // un bloque sin las dos mitades es media guía: lo que conviene y lo que no
+      if (!text.includes('<Practices.Do>')) sinPracticas.push(`${f}: sin ningún Practices.Do`)
+    }
+    expect(
+      sinPracticas,
+      'la vista de una pieza cierra diciendo cómo se usa bien: es lo que lee quien la va a usar, humano o agente',
+    ).toEqual([])
   })
 })
 
@@ -184,7 +226,7 @@ describe('los medios que el sitio pide', () => {
 
 describe('el riel', () => {
   it('cada pieza tiene sinónimos para buscarla', () => {
-    const app = readFileSync(join(import.meta.dirname, '../App.tsx'), 'utf8')
+    const app = readFileSync(join(import.meta.dirname, '../app.tsx'), 'utf8')
     const pieces = [...app.matchAll(/\{ id: '([\w-]+)', label: '[^']*',( alias: '[^']*',)?/g)]
     const withoutAlias = pieces.filter(m => !m[2]).map(m => m[1])
     expect(withoutAlias).toEqual([])
@@ -219,31 +261,6 @@ describe('accesibilidad documentada', () => {
   it('el conjunto no se olvida de ninguna historia con teclado', () => {
     const candidates = files.filter(f => !noKeyboard.has(f))
     expect(candidates.length).toBeGreaterThan(20)
-  })
-})
-
-describe('los números de la portada', () => {
-  it('la cantidad de piezas que anuncia es la de las carpetas', () => {
-    const intro = readFileSync(join(import.meta.dirname, '../intro.tsx'), 'utf8')
-    const announced = Number(intro.match(/\['(\d+)', 'piezas'\]/)?.[1])
-    const src = join(import.meta.dirname, '../../../src')
-    const reales = readdirSync(src, { withFileTypes: true })
-      .filter(e => e.isDirectory() && !['styles', 'lib', '__tests__'].includes(e.name)).length
-    expect(
-      announced,
-      `la portada dice ${announced} piezas y en src/ hay ${reales} carpetas`,
-    ).toBe(reales)
-  })
-
-  it('la cantidad de iconos que anuncia es la del manifiesto', () => {
-    const intro = readFileSync(join(import.meta.dirname, '../intro.tsx'), 'utf8')
-    const announced = Number(intro.match(/\['(\d+)', 'iconos'\]/)?.[1])
-    const gen = readFileSync(
-      join(import.meta.dirname, '../../../src/icons.gen.ts'),
-      'utf8',
-    )
-    const reales = [...gen.matchAll(/^\s+\w+: 0x[0-9a-f]+,/gm)].length
-    expect(announced).toBe(reales)
   })
 })
 
@@ -327,19 +344,47 @@ describe('el corte entre el sitio y el paquete', () => {
   })
 })
 
+describe('la tabla de props', () => {
+  it('toda pieza que una vista pide existe en props.gen', () => {
+    const root = join(import.meta.dirname, '..')
+    const walk = (base: string): string[] =>
+      readdirSync(base, { withFileTypes: true }).flatMap(e =>
+        e.isDirectory()
+          ? (e.name === '__tests__' ? [] : walk(join(base, e.name)))
+          : /\.tsx$/.test(e.name) ? [join(base, e.name)] : [],
+      )
+
+    const fantasmas: string[] = []
+    for (const file of walk(root)) {
+      const text = readFileSync(file, 'utf8')
+      for (const m of text.matchAll(/<Props of=(?:"([^"]+)"|\{\[([^\]]*)\]\})/g)) {
+        const pedidos = m[1] ? [m[1]] : m[2].split(',').map(s => s.trim().replace(/^'|'$/g, ''))
+        for (const p of pedidos) {
+          if (p && !(p in propsByComponent)) fantasmas.push(`${file.split('/').pop()}: ${p}`)
+        }
+      }
+    }
+    expect(
+      fantasmas,
+      'una vista que pide una pieza que no existe dibuja una tabla vacía y nadie se entera',
+    ).toEqual([])
+  })
+})
+
 describe('cobertura del kit', () => {
-  const internal = new Set(['Portal', 'PageHeader', 'SectionLabel'])
+  const internal = new Set(['Portal', 'Page'])
 
   it('cada componente exportado se muestra en alguna vista', () => {
-    const index = readFileSync(
-      join(import.meta.dirname, '../../../src/index.ts'),
-      'utf8',
-    )
+    const pkg = join(import.meta.dirname, '../../../src')
     const exported = new Set<string>()
-    for (const m of index.matchAll(/export \{([^}]*)\} from/g)) {
-      for (const n of m[1].split(',')) {
-        const name = n.trim()
-        if (name && /^[A-Z]/.test(name) && !internal.has(name)) exported.add(name)
+    for (const folder of readdirSync(pkg)) {
+      const dir = join(pkg, folder)
+      if (!statSync(dir).isDirectory() || ['__tests__', 'lib', 'styles', 'assets'].includes(folder)) continue
+      const entry = join(dir, `${folder}.tsx`)
+      let text: string
+      try { text = readFileSync(entry, 'utf8') } catch { continue }
+      for (const m of text.matchAll(/^export (?:function|const) ([A-Z]\w+)/gm)) {
+        if (!internal.has(m[1])) exported.add(m[1])
       }
     }
 

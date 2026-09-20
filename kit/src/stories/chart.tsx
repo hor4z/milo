@@ -1,6 +1,8 @@
 import cls from './chart.module.css'
-import { AvatarGroup, BarChart, Card } from '@milo/ui'
-import { A11y, Page, Props, Section } from '../kit'
+import { Avatar } from '@milo/ui/avatar'
+import { Card } from '@milo/ui/card'
+import { BarChart } from '@milo/ui/chart'
+import { A11y, Example, Page, Practices, Props, Section } from '../kit'
 
 const face = (n: number) => `/avatars/${String(n).padStart(2, '0')}.webp`
 
@@ -13,7 +15,7 @@ const week = [
     detail: (
       <>
         <span className={`${cls.tooltipValue} tabular`}>50%</span>
-        <AvatarGroup
+        <Avatar.Group
           size={18}
           max={3}
           people={[
@@ -39,7 +41,7 @@ export function ChartStory() {
     <Page
       title="BarChart"
       kind="Datos"
-      imports="import { BarChart } from '@milo/ui'"
+      imports="import { BarChart } from '@milo/ui/chart'"
       lead="Cada barra son dos cosas: el gris es el total y el azul es lo hecho. No son dos series compitiendo, es una parte adentro de su todo, y por eso el azul va dentro del gris: apoyados uno al lado del otro habría que compararlos a ojo, y metido adentro, lo que falta es el gris que sobra arriba."
     >
       <Section
@@ -75,6 +77,15 @@ export function ChartStory() {
         </p>
       </Section>
 
+      <Section title="Cómo se escribe">
+        <Example code={`const datos = [
+  { label: 'Lunes', value: 12 },
+  { label: 'Martes', value: 18, highlight: true },
+]
+
+<BarChart title="Entregas por día" data={datos} />`} />
+      </Section>
+
       <Section title="Props">
         <Props of={['BarChart', 'BarDatum']} />
       </Section>
@@ -91,13 +102,20 @@ export function ChartStory() {
         </p>
       </Section>
 
+      <Section title="Cómo se usa bien">
+        <Practices>
+          <Practices.Do>Abajo del gráfico va la tabla con los mismos datos: no todo el mundo lee una barra.</Practices.Do>
+          <Practices.Dont>Si son más de dos series o hay que comparar valores exactos, va una tabla y no un gráfico.</Practices.Dont>
+        </Practices>
+      </Section>
+
       <Section title="Accesibilidad">
-        <A11y items={[
-          'Cada barra es un <button> que se enfoca y muestra el mismo tooltip que con el mouse.',
-          'Cada barra se anuncia como "Miércoles: 27 de 29".',
-          'Los valores viven además en una tabla sr-only: una altura no se lee.',
-          'El tono sube con la altura, así que el tamaño y el color dicen lo mismo.',
-        ]} />
+        <A11y>
+          <A11y.Item>{'Cada barra es un <button> que se enfoca y muestra el mismo tooltip que con el mouse.'}</A11y.Item>
+          <A11y.Item>Cada barra se anuncia como "Miércoles: 27 de 29".</A11y.Item>
+          <A11y.Item>Los valores viven además en una tabla sr-only: una altura no se lee.</A11y.Item>
+          <A11y.Item>El tono sube con la altura, así que el tamaño y el color dicen lo mismo.</A11y.Item>
+        </A11y>
       </Section>
     </Page>
   )

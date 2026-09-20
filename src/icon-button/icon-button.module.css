@@ -27,12 +27,4 @@
     border-radius: var(--radius-md);
   }
 
-  .dot {
-    position: absolute;
-    width: 0.375rem;
-    height: 0.375rem;
-    border-radius: var(--radius-full);
-    background-color: var(--accent);
-    box-shadow: 0 0 0 2px var(--surface);
-  }
 }

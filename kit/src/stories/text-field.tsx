@@ -1,6 +1,8 @@
 import { useState } from 'react'
-import { IconButton, Kbd, TextField } from '@milo/ui'
-import { A11y, Cluster, Demo, Page, Props, Section } from '../kit'
+import { IconButton } from '@milo/ui/icon-button'
+import { Kbd } from '@milo/ui/kbd'
+import { TextField } from '@milo/ui/text-field'
+import { A11y, Cluster, Demo, Example, Page, Practices, Props, Section } from '../kit'
 
 export function TextFieldStory() {
   const [text, setText] = useState('Fracciones con la receta de la abuela')
@@ -9,7 +11,7 @@ export function TextFieldStory() {
     <Page
       title="TextField"
       kind="Formularios"
-      imports="import { TextField } from '@milo/ui'"
+      imports="import { TextField } from '@milo/ui/text-field'"
       lead="Plano: un fondo y una línea de un píxel, sin relieve. El volumen se fue a propósito: el relieve dice 'esto sobresale' o 'esto se aprieta', y un campo no es ninguna de las dos. Al enfocarse se le tiñe el borde que ya tenía: el anillo es para una pieza sin borde propio, y acá dibujaba una segunda línea a dos píxeles."
     >
       <Section title="Variantes">
@@ -40,7 +42,7 @@ export function TextFieldStory() {
 
       <Section
         title="El click y el foco"
-        note="El input tapa la caja entera: mide lo que mide su línea de texto (16px) y adentro de una caja de 44 dejaba 14 muertos arriba y abajo, así que media caja no recibía el click. El anillo de foco es del campo y no del input: si no, queda un rectángulo flotando adentro."
+        note="Tocar cualquier parte del campo enfoca el cursor, no solo la línea de texto. Es lo que hace que un campo alto no tenga zonas muertas."
       >
         <Cluster>
           <Demo width="sm" fill label="con botón adentro">
@@ -54,15 +56,31 @@ export function TextFieldStory() {
       </Section>
 
       <Section title="Props" note="Todo lo que acepta un `<input>` nativo pasa derecho: `value`, `onChange`, `placeholder`, `disabled`, `type`.">
+        <Section title="Cómo se escribe">
+          <Example code={`<TextField
+  icon="search"
+  value={texto}
+  onChange={e => setTexto(e.target.value)}
+  placeholder="Fracciones equivalentes"
+/>`} />
+        </Section>
+
         <Props of="TextField" />
       </Section>
 
+      <Section title="Cómo se usa bien">
+        <Practices>
+          <Practices.Do>Adentro de un `Field` no lleva `label`: lo toma de la etiqueta de alrededor.</Practices.Do>
+          <Practices.Dont>El placeholder no reemplaza a la etiqueta: desaparece justo cuando hace falta.</Practices.Dont>
+        </Practices>
+      </Section>
+
       <Section title="Accesibilidad">
-        <A11y items={[
-          'El área clickeable es la caja entera y no solo la línea de texto de 16px.',
-          'El anillo lo toma el campo y no el <input> de adentro, así que no hay dos marcas de foco.',
-          'Con un botón adentro, el campo no se enciende: la marca es del botón que tiene el foco.',
-        ]} />
+        <A11y>
+          <A11y.Item>El área clickeable es la caja entera y no solo la línea de texto de 16px.</A11y.Item>
+          <A11y.Item>{'El anillo lo toma el campo y no el <input> de adentro, así que no hay dos marcas de foco.'}</A11y.Item>
+          <A11y.Item>Con un botón adentro, el campo no se enciende: la marca es del botón que tiene el foco.</A11y.Item>
+        </A11y>
       </Section>
     </Page>
   )

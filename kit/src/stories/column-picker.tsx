@@ -1,7 +1,7 @@
 import s from './column-picker.module.css'
 import { useState } from 'react'
-import { ColumnPicker } from '@milo/ui'
-import { A11y, Page, Panel, Props, Section, Variant } from '../kit'
+import { ColumnPicker } from '@milo/ui/column-picker'
+import { A11y, Example, Page, Panel, Practices, Props, Section, Variant } from '../kit'
 
 const columns = [
   { id: 'actividad', label: 'Actividad', locked: true },
@@ -19,7 +19,7 @@ export function ColumnPickerStory() {
       title="ColumnPicker"
       kind="Datos"
       lead="Qué columnas de una tabla se ven. Vivía adentro de `filter/` y no tenía vista propia: una pieza que no se puede encontrar es una pieza que alguien vuelve a escribir a mano."
-      imports="import { ColumnPicker } from '@milo/ui'"
+      imports="import { ColumnPicker } from '@milo/ui/column-picker'"
     >
       <Section
         title="Cómo se usa"
@@ -35,17 +35,30 @@ export function ColumnPickerStory() {
         </Panel>
       </Section>
 
+      <Section title="Cómo se escribe">
+        <Example code={`const [visibles, setVisibles] = useState(['nombre', 'estado'])
+
+<ColumnPicker
+  label="Columnas"
+  columns={[{ id: 'nombre', label: 'Nombre', locked: true }, { id: 'estado', label: 'Estado' }]}
+  value={visibles}
+  onChange={setVisibles}
+/>`} />
+      </Section>
+
       <Section title="Props">
         <Props of="ColumnPicker" />
       </Section>
 
-      <A11y
-        items={[
-          'Cada opción es un `checkbox` de verdad, así que se recorre y se marca con el teclado sin nada agregado.',
-          'La columna bloqueada se anuncia como deshabilitada y sigue leyéndose: se entiende por qué no se puede sacar.',
-          'El panel se cierra con Escape y el foco vuelve al botón que lo abrió.',
-        ]}
-      />
+      <Practices>
+        <Practices.Do>`label` nombra el botón y encabeza el panel: son la misma cosa dicha una vez.</Practices.Do>
+      </Practices>
+
+      <A11y>
+        <A11y.Item>Cada opción es un `checkbox` de verdad, así que se recorre y se marca con el teclado sin nada agregado.</A11y.Item>
+        <A11y.Item>La columna bloqueada se anuncia como deshabilitada y sigue leyéndose: se entiende por qué no se puede sacar.</A11y.Item>
+        <A11y.Item>El panel se cierra con Escape y el foco vuelve al botón que lo abrió.</A11y.Item>
+      </A11y>
     </Page>
   )
 }

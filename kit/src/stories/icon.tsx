@@ -1,12 +1,15 @@
 import cls from './icon.module.css'
 import { useMemo, useState } from 'react'
 import type { CSSProperties } from 'react'
-import {
-  EmptyState, Icon, Segmented, Slider, TextField, fold,
-  iconNames, type IconName, type IconWeight,
-} from '@milo/ui'
+import { EmptyState } from '@milo/ui/empty-state'
+import { Icon, type IconName, type IconWeight } from '@milo/ui/icon'
+import { iconNames } from '@milo/ui/icons'
+import { fold } from '@milo/ui/lib/cx'
+import { Segmented } from '@milo/ui/segmented'
+import { Slider } from '@milo/ui/slider'
+import { TextField } from '@milo/ui/text-field'
 import { iconTags } from '@milo/ui/icons.meta'
-import { A11y, Cluster, Footnote, Mono, Note, Page, Panel, Props, Section, Variant } from '../kit'
+import { A11y, Cluster, Example, Footnote, Mono, Note, Page, Panel, Practices, Props, Section, Variant } from '../kit'
 
 const sizes = [
   { px: 12, role: 'un badge, la cruz de un chip' },
@@ -43,8 +46,8 @@ export function IconStory() {
   return (
     <Page
       title="Icon"
-      kind="Guía"
-      imports="import { Icon } from '@milo/ui'"
+      kind="Fundamentos"
+      imports="import { Icon } from '@milo/ui/icon'"
       lead="Material Symbols Rounded, subseteado a lo que usamos y servido desde el repo. Peso 300 de base, y peso y relleno son ejes reales de la fuente, no variantes generadas."
     >
       <Section
@@ -65,7 +68,7 @@ export function IconStory() {
 
       <Section
         title={`El set · ${iconNames.length} iconos`}
-        note="Buscá por nombre o por lo que el icono es. Los controles escriben las variables una sola vez en el contenedor de la grilla y los glifos las heredan: cambiar `font-variation-settings` en cada instancia invalida la rasterización de cada glifo, y serían todos los del set por cada movimiento del control."
+        note="Buscá por nombre o por lo que el icono es. Los tags son los de Google y están en inglés: 'calendar' encuentra `calendar_month`, 'calendario' no encuentra nada."
       >
         <Cluster gap="lg" align="center">
           <span className={cls.searchSlot}>
@@ -86,12 +89,10 @@ export function IconStory() {
 
         {visible.length === 0 ? (
           <div className={cls.emptySlot}>
-            <EmptyState
-              size="sm"
-              icon="search_off"
-              title="Ningún icono con eso"
-              body={`Los tags son los de Google y están en inglés. Si no está en el set, buscalo en el catálogo completo: npm run icons -w @milo/ui -- search ${q.trim() || '…'}`}
-            />
+            <EmptyState size="sm" icon="search_off">
+              <EmptyState.Title>Ningún icono con eso</EmptyState.Title>
+              <EmptyState.Body>{`Los tags son los de Google y están en inglés. Si no está en el set, buscalo en el catálogo completo: npm run icons -w @milo/ui -- search ${q.trim() || '…'}`}</EmptyState.Body>
+            </EmptyState>
           </div>
         ) : (
           <div
@@ -127,7 +128,7 @@ export function IconStory() {
 
       <Section
         title="Los tamaños"
-        note="Seis pasos pares. Antes eran nueve valores y tres de ellos impares, que salieron de encajar ópticamente dibujos propios; con una fuente un tamaño impar cae en media grilla de píxeles y se ve borroso."
+        note="Seis pasos, todos pares: con una fuente, un tamaño impar cae en media grilla de píxeles y el glifo se ve borroso."
       >
         <Panel>
           {sizes.map(e => (
@@ -184,8 +185,14 @@ export function IconStory() {
         </p>
       </Section>
 
+      <Section title="Cómo se escribe">
+        <Example code={`<Icon name="calendar_month" size={20} />
+
+<Icon name="tune" size={18} className="icon-muted" />`} />
+      </Section>
+
       <Section title="Props">
-        <Props of={['Icon', 'FolderIcon']} />
+        <Props of="Icon" />
       </Section>
 
       <Section
@@ -195,13 +202,19 @@ export function IconStory() {
         <div />
       </Section>
 
+      <Section title="Cómo se usa bien">
+        <Practices>
+          <Practices.Do>El gris se hereda del ancestro con `icon-muted`, no se pasa por prop.</Practices.Do>
+          <Practices.Do>El tamaño sale de la escala: 14, 16, 18, 20, 22 o 24.</Practices.Do>
+          <Practices.Dont>El set crece solo por `npm run icons -- add`: no dibujes un path a mano.</Practices.Dont>
+        </Practices>
+      </Section>
+
       <Section title="Accesibilidad">
-        <Note icon="warning" title="Sesenta y cinco de los ciento setenta y dos no los usa nadie">
-        `npm run icons -w @milo/ui -- check` los lista. Sacarlos llevaría la fuente de 64 KB a 27,
-        medido subseteándola de verdad. No se sacan porque el editor y los gráficos van a consumir
-        varios, y traer uno de vuelta es un comando; pero el número conviene mirarlo cada tanto,
-        porque doscientos iconos con seis variantes de engranaje es exactamente lo que `icons add`
-        existe para evitar.
+        <Note tone="warn" title="Buena parte del set no la usa nadie">
+        `npm run icons -- check` los lista, y el número conviene mirarlo cada tanto: doscientos
+        iconos con seis variantes de engranaje es lo que `icons add` existe para evitar. No se sacan
+        porque el editor y los gráficos van a consumir varios, y traer uno de vuelta es un comando.
       </Note>
 
       <Note title="Un glifo que falta deja el hueco, no la pantalla en blanco">
@@ -214,12 +227,12 @@ export function IconStory() {
         de la pantalla sigue en pie.
       </Note>
 
-      <A11y items={[
-          'Los glifos van aria-hidden: un icono es una imagen del texto que tiene al lado, no una segunda lectura.',
-          'Un icono sin texto vive dentro de un IconButton, que exige su label.',
-          'El glifo lleva translate="no": es texto, y un traductor automático puede reescribirlo.',
-          'Si alguien desactiva las fuentes de la página, los iconos desaparecen. Es el precio de que el peso sea un eje real y está dicho, no escondido.',
-        ]} />
+      <A11y>
+        <A11y.Item>Los glifos van aria-hidden: un icono es una imagen del texto que tiene al lado, no una segunda lectura.</A11y.Item>
+        <A11y.Item>Un icono sin texto vive dentro de un IconButton, que exige su label.</A11y.Item>
+        <A11y.Item>El glifo lleva translate="no": es texto, y un traductor automático puede reescribirlo.</A11y.Item>
+        <A11y.Item>Si alguien desactiva las fuentes de la página, los iconos desaparecen. Es el precio de que el peso sea un eje real y está dicho, no escondido.</A11y.Item>
+      </A11y>
       </Section>
     </Page>
   )

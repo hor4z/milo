@@ -1,6 +1,14 @@
 import cls from './states.module.css'
 import { useState } from 'react'
-import { Button, Card, Chip, EmptyState, Icon, Skeleton, Spinner, Switch, TextField } from '@milo/ui'
+import { Button } from '@milo/ui/button'
+import { Card } from '@milo/ui/card'
+import { Chip } from '@milo/ui/chip'
+import { EmptyState } from '@milo/ui/empty-state'
+import { Icon } from '@milo/ui/icon'
+import { Skeleton } from '@milo/ui/skeleton'
+import { Spinner } from '@milo/ui/spinner'
+import { Switch } from '@milo/ui/switch'
+import { TextField } from '@milo/ui/text-field'
 import { A11y, Note, Page, Rich, Section, Stack } from '../kit'
 
 /** Los seis estados de algo que se toca, y con qué los dice este sistema. */
@@ -19,7 +27,6 @@ export function StatesSection() {
       title="Estados"
       kind="Fundamentos"
       lead="Lo que una pieza hace cuando algo le pasa: se toca, se está cargando, se rompió, no tiene nada adentro. Es la mitad de la experiencia y la mitad que se documenta menos, porque la pantalla del caso feliz es la que se dibuja primero."
-      imports="import { EmptyState, Skeleton, Spinner } from '@milo/ui'"
     >
       <Section
         title="La regla que ordena todo esto"
@@ -77,12 +84,11 @@ export function StatesSection() {
             tag="EmptyState"
             note="El vacío más importante y el que se trata peor. No es un error: es la primera vez. Dice qué va a haber acá y ofrece la acción que lo llena: un vacío sin salida es una pantalla que no se puede usar."
           >
-            <EmptyState
-              icon="folder_open"
-              title="Todavía no hay actividades"
-              body="Cuando crees la primera, la vas a ver acá con sus entregas y su estado."
-              action={<Button variant="brand">Nueva actividad</Button>}
-            />
+            <EmptyState icon="folder_open">
+              <EmptyState.Title>Todavía no hay actividades</EmptyState.Title>
+              <EmptyState.Body>Cuando crees la primera, la vas a ver acá con sus entregas y su estado.</EmptyState.Body>
+              <EmptyState.Action><Button variant="brand">Nueva actividad</Button></EmptyState.Action>
+            </EmptyState>
           </StateCard>
 
           <StateCard
@@ -90,12 +96,11 @@ export function StatesSection() {
             tag="EmptyState"
             note="Distinto del anterior y se confunden siempre. Acá sí hay contenido: lo que no hay es contenido que cumpla lo que se pidió. La salida no es crear algo, es aflojar el filtro."
           >
-            <EmptyState
-              icon="search_off"
-              title="Nada para 'trimestral'"
-              body="Probá con menos palabras, o sacá el filtro de espacio."
-              action={<Button variant="muted" iconStart={<Icon name="filter_alt" />}>Limpiar filtros</Button>}
-            />
+            <EmptyState icon="search_off">
+              <EmptyState.Title>Nada para 'trimestral'</EmptyState.Title>
+              <EmptyState.Body>Probá con menos palabras, o sacá el filtro de espacio.</EmptyState.Body>
+              <EmptyState.Action><Button variant="muted" iconStart={<Icon name="filter_alt" />}>Limpiar filtros</Button></EmptyState.Action>
+            </EmptyState>
           </StateCard>
         </div>
       </Section>
@@ -142,15 +147,13 @@ export function StatesSection() {
         algo que acabás de hacer.
       </Note>
 
-      <A11y
-        items={[
-          'Ningún estado se dice solo con color: lo que no distingue tonos lo distingue por relieve, por opacidad, por un glifo o por la palabra.',
-          'El foco va con `:focus-visible`, así que aparece con el teclado y no al hacer click, y cuando aparece, es el mismo anillo en todo el sistema.',
-          'Lo que carga se anuncia: un `Skeleton` va `aria-hidden` y el contenedor lleva el estado, así que un lector de pantalla no lee cuatro cajas vacías.',
-          'Un `EmptyState` es contenido de verdad y no una ilustración: el título y el cuerpo se leen, y la acción es un botón real.',
-          'Algo deshabilitado se sigue leyendo (opacidad 45%, no gris sobre gris) porque tiene que poder explicar por qué lo está.',
-        ]}
-      />
+      <A11y>
+        <A11y.Item>Ningún estado se dice solo con color: lo que no distingue tonos lo distingue por relieve, por opacidad, por un glifo o por la palabra.</A11y.Item>
+        <A11y.Item>El foco va con `:focus-visible`, así que aparece con el teclado y no al hacer click, y cuando aparece, es el mismo anillo en todo el sistema.</A11y.Item>
+        <A11y.Item>Lo que carga se anuncia: un `Skeleton` va `aria-hidden` y el contenedor lleva el estado, así que un lector de pantalla no lee cuatro cajas vacías.</A11y.Item>
+        <A11y.Item>Un `EmptyState` es contenido de verdad y no una ilustración: el título y el cuerpo se leen, y la acción es un botón real.</A11y.Item>
+        <A11y.Item>Algo deshabilitado se sigue leyendo (opacidad 45%, no gris sobre gris) porque tiene que poder explicar por qué lo está.</A11y.Item>
+      </A11y>
     </Page>
   )
 }

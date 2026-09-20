@@ -1,13 +1,13 @@
 import cls from './kbd.module.css'
-import { Kbd } from '@milo/ui'
-import { A11y, Note, Page, Panel, Props, Section, Variant } from '../kit'
+import { Kbd } from '@milo/ui/kbd'
+import { A11y, Example, Note, Page, Panel, Practices, Props, Section, Variant } from '../kit'
 
 export function KbdStory() {
   return (
     <Page
       title="Kbd"
       kind="Superficies"
-      imports="import { Kbd } from '@milo/ui'"
+      imports="import { Kbd } from '@milo/ui/kbd'"
       lead="La tecla dibujada. Es una marca hundida (la misma receta que la pista de un segmented) porque una tecla es algo que se aprieta: lleva canto, luz arriba y una sombra de caída corta."
     >
       <Section
@@ -45,15 +45,25 @@ export function KbdStory() {
         el nombre es lo que está impreso.
       </Note>
 
+      <Section title="Cómo se escribe">
+        <Example code={`Apretá <Kbd>/</Kbd> para buscar.`} />
+      </Section>
+
       <Section title="Props">
         <Props of="Kbd" />
       </Section>
 
+      <Section title="Cómo se usa bien">
+        <Practices>
+          <Practices.Do>Es un recordatorio de la tecla, no la tecla: el atajo lo escucha quien lo pone.</Practices.Do>
+        </Practices>
+      </Section>
+
       <Section title="Accesibilidad">
-        <A11y items={[
-          'Usa el elemento <kbd>, que es lo que un lector de pantalla anuncia como una tecla.',
-          'No es un botón: es texto que dice qué apretar, no algo que se toque.',
-        ]} />
+        <A11y>
+          <A11y.Item>{'Usa el elemento <kbd>, que es lo que un lector de pantalla anuncia como una tecla.'}</A11y.Item>
+          <A11y.Item>No es un botón: es texto que dice qué apretar, no algo que se toque.</A11y.Item>
+        </A11y>
       </Section>
     </Page>
   )

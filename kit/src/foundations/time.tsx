@@ -1,6 +1,6 @@
 import cls from './time.module.css'
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@milo/ui'
-import { clock, day, dayAndTime, duration, machineTime, timeAgo, zoneLabel } from '@milo/ui'
+import { Table } from '@milo/ui/table'
+import { clock, day, dayAndTime, duration, machineTime, timeAgo, zoneLabel } from '@milo/ui/lib/time'
 import { A11y, Note, Page, Panel, Rich, Section, Variant } from '../kit'
 
 const AR = 'America/Argentina/Buenos_Aires'
@@ -20,32 +20,31 @@ export function TimeSection() {
     <Page
       title="Fecha y hora"
       kind="Fundamentos"
-      imports="import { clock, day, dayAndTime, timeAgo } from '@milo/ui'"
-      lead="Una fecha mal escrita hace perder una entrega. Todo lo que dice cuándo pasa por las mismas funciones: el reloj es de veinticuatro horas, la coma y el punto son los de acá, y la hora es la del curso y no la del navegador de quien mira."
+      lead="Una fecha mal escrita hace perder una entrega. Todo lo que dice cuándo pasa por las mismas funciones: el reloj es de veinticuatro horas, la coma y el punto son los de acá, y la hora es la del curso y no la del navegador de quien mira. Las funciones están en [Utilidades](#utilidades), con lo que devuelve cada una."
     >
       <Section
         title="Cuál va"
         note="La pregunta es qué tiene que hacer quien lee con ese dato. Si tiene que anotarlo en algún lado, va absoluto."
       >
         <Table label="Qué formato usar según para qué se lee" minWidth={620}>
-          <TableHeader>
-            <TableRow>
-              <TableHead>Qué se está diciendo</TableHead>
-              <TableHead>Formato</TableHead>
-              <TableHead>Se ve</TableHead>
-              <TableHead>La regla</TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
+          <Table.Header>
+            <Table.Row>
+              <Table.Head>Qué se está diciendo</Table.Head>
+              <Table.Head>Formato</Table.Head>
+              <Table.Head>Se ve</Table.Head>
+              <Table.Head>La regla</Table.Head>
+            </Table.Row>
+          </Table.Header>
+          <Table.Body>
             {which.map(([q, f, v, r]) => (
-              <TableRow key={q}>
-                <TableCell>{q}</TableCell>
-                <TableCell>{f}</TableCell>
-                <TableCell><Rich text={v} /></TableCell>
-                <TableCell>{r}</TableCell>
-              </TableRow>
+              <Table.Row key={q}>
+                <Table.Cell>{q}</Table.Cell>
+                <Table.Cell>{f}</Table.Cell>
+                <Table.Cell><Rich text={v} /></Table.Cell>
+                <Table.Cell>{r}</Table.Cell>
+              </Table.Row>
             ))}
-          </TableBody>
+          </Table.Body>
         </Table>
       </Section>
 
@@ -119,14 +118,12 @@ export function TimeSection() {
         test que busca relojes y relativos escritos a mano fuera de estas funciones.
       </Note>
 
-      <A11y
-        items={[
-          'Cada fecha va adentro de un `time` con su `dateTime` en UTC, así que lo que lee una máquina no depende de cómo quedó el texto.',
-          'El reloj es de veinticuatro horas y con dos cifras, así que un lector dice "cero cinco" y no "cinco" a las 00:05.',
-          'Las unidades van enteras y no abreviadas: un lector lee "hace veinte minutos" y no "hace veinte eme i ene".',
-          'Lo relativo se corta a la semana: pasada esa, la fecha ubica y "hace 23 días" no.',
-        ]}
-      />
+      <A11y>
+        <A11y.Item>Cada fecha va adentro de un `time` con su `dateTime` en UTC, así que lo que lee una máquina no depende de cómo quedó el texto.</A11y.Item>
+        <A11y.Item>El reloj es de veinticuatro horas y con dos cifras, así que un lector dice "cero cinco" y no "cinco" a las 00:05.</A11y.Item>
+        <A11y.Item>Las unidades van enteras y no abreviadas: un lector lee "hace veinte minutos" y no "hace veinte eme i ene".</A11y.Item>
+        <A11y.Item>Lo relativo se corta a la semana: pasada esa, la fecha ubica y "hace 23 días" no.</A11y.Item>
+      </A11y>
     </Page>
   )
 }

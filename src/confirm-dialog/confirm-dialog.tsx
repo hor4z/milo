@@ -14,8 +14,7 @@ type Ctx = {
 }
 const ConfirmContext = createContext<Ctx | null>(null)
 
-/** El diálogo que pregunta antes de algo que no se puede deshacer. Se arma con sus partes, igual que el `Modal`. */
-export function ConfirmDialog({
+function Root({
   open, onCancel, onConfirm, children, tone = 'neutral',
 }: {
   /** Cerrado no monta nada. */
@@ -58,28 +57,28 @@ export function ConfirmDialog({
 type PartProps = ComponentPropsWithoutRef<'div'>
 
 /** La cabecera. No lleva X: la salida segura es el botón de cancelar, que ya está a la vista. */
-export function ConfirmDialogHeader({ className, ...rest }: PartProps) {
+function Header({ className, ...rest }: PartProps) {
   return <div className={cx(cls.header, className)} {...rest} />
 }
 
 /** La pregunta, con el nombre de lo que se va a tocar adentro. Es el nombre que anuncia el lector. */
-export function ConfirmDialogTitle({ className, id, ...rest }: ComponentPropsWithoutRef<'h2'>) {
+function Title({ className, id, ...rest }: ComponentPropsWithoutRef<'h2'>) {
   const ctx = useContext(ConfirmContext)
   return <h2 id={id ?? ctx?.titleId} className={cx(cls.title, className)} {...rest} />
 }
 
 /** Qué más se lleva puesto. */
-export function ConfirmDialogBody({ className, ...rest }: PartProps) {
+function Body({ className, ...rest }: PartProps) {
   return <div className={cx(cls.body, className)} {...rest} />
 }
 
 /** La fila de los dos botones, contra el borde derecho. */
-export function ConfirmDialogFooter({ className, ...rest }: PartProps) {
+function Footer({ className, ...rest }: PartProps) {
   return <div className={cx(cls.footer, className)} {...rest} />
 }
 
 /** La salida segura. Con `tone="bad"` arranca con el foco. */
-export function ConfirmDialogCancel({ children = 'Cancelar' }: { children?: ReactNode }) {
+function Cancel({ children = 'Cancelar' }: { children?: ReactNode }) {
   const ctx = useContext(ConfirmContext)
   return (
     <Button
@@ -94,7 +93,7 @@ export function ConfirmDialogCancel({ children = 'Cancelar' }: { children?: Reac
 }
 
 /** El verbo de lo que va a pasar, no "Sí". Con `tone="bad"` se pinta y cede el foco. */
-export function ConfirmDialogConfirm({ children = 'Aceptar' }: { children?: ReactNode }) {
+function Confirm({ children = 'Aceptar' }: { children?: ReactNode }) {
   const ctx = useContext(ConfirmContext)
   return (
     <Button
@@ -107,3 +106,6 @@ export function ConfirmDialogConfirm({ children = 'Aceptar' }: { children?: Reac
     </Button>
   )
 }
+
+/** El diálogo que pregunta antes de algo que no se puede deshacer. Se arma con sus partes, igual que el `Modal`. */
+export const ConfirmDialog = Object.assign(Root, { Header, Title, Body, Footer, Cancel, Confirm })

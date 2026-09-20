@@ -1,12 +1,12 @@
-import { Breadcrumb } from '@milo/ui'
-import { A11y, Canvas, Note, Page, Props, Section } from '../kit'
+import { Breadcrumb } from '@milo/ui/breadcrumb'
+import { A11y, Canvas, Example, Note, Page, Practices, Props, Section } from '../kit'
 
 export function BreadcrumbStory() {
   return (
     <Page
       title="Breadcrumb"
       kind="Navegación"
-      imports="import { Breadcrumb } from '@milo/ui'"
+      imports="import { Breadcrumb } from '@milo/ui/breadcrumb'"
       lead="Dónde estás parado y cómo volver. Sirve cuando lo que estás mirando vive adentro de algo (una actividad adentro de un espacio) y no sirve cuando la pantalla es un destino suelto: una miga de un solo paso es ruido."
     >
       <Section
@@ -41,16 +41,33 @@ export function BreadcrumbStory() {
         jerarquía es más profunda que eso, lo que hay que revisar es la jerarquía.
       </Note>
 
+      <Section title="Cómo se escribe">
+        <Example code={`<Breadcrumb
+  label="Dónde estás"
+  items={[
+    { label: 'Espacios', href: '/espacios' },
+    { label: 'Matemática', href: '/espacios/mate' },
+    { label: 'Fracciones equivalentes' },
+  ]}
+/>`} />
+      </Section>
+
       <Section title="Props">
         <Props of="Breadcrumb" />
       </Section>
 
+      <Section title="Cómo se usa bien">
+        <Practices>
+          <Practices.Do>El último eslabón es dónde estás y no es un enlace.</Practices.Do>
+        </Practices>
+      </Section>
+
       <Section title="Accesibilidad">
-        <A11y items={[
-          'Es un <nav> con su nombre, así que un lector lo anuncia como la navegación de la página y lo puede saltear.',
-          'El item actual lleva aria-current="page" y no es un link: no se puede ir a donde ya estás.',
-          'Los separadores son decorativos y no se leen: entre item e item no se escucha "barra".',
-        ]} />
+        <A11y>
+          <A11y.Item>{'Es un <nav> con su nombre, así que un lector lo anuncia como la navegación de la página y lo puede saltear.'}</A11y.Item>
+          <A11y.Item>El item actual lleva aria-current="page" y no es un link: no se puede ir a donde ya estás.</A11y.Item>
+          <A11y.Item>Los separadores son decorativos y no se leen: entre item e item no se escucha "barra".</A11y.Item>
+        </A11y>
       </Section>
     </Page>
   )

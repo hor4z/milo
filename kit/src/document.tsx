@@ -1,10 +1,16 @@
 import cls from './document.module.css'
 import { useState } from 'react'
-import {
-  AvatarGroup, Button, Callout, Figure, Mention, Popover, Quote, TaskList,
-  CommandMenu, Divider, Icon,
-  type CommandGroup, type Task,
-} from '@milo/ui'
+import { Avatar } from '@milo/ui/avatar'
+import { Button } from '@milo/ui/button'
+import { Callout } from '@milo/ui/callout'
+import { CommandMenu, type CommandGroup } from '@milo/ui/command-menu'
+import { Divider } from '@milo/ui/divider'
+import { Figure } from '@milo/ui/figure'
+import { Icon } from '@milo/ui/icon'
+import { Mention } from '@milo/ui/mention'
+import { Popover } from '@milo/ui/popover'
+import { Quote } from '@milo/ui/quote'
+import { TaskList, type Task } from '@milo/ui/task-list'
 
 const face = (n: number) => `/avatars/${String(n).padStart(2, '0')}.webp`
 
@@ -57,7 +63,7 @@ export function DocumentStory() {
             <h1 className={cls.docTitle}>Caída libre: medir g en el patio</h1>
           </div>
           <div className={cls.docActions}>
-            <AvatarGroup
+            <Avatar.Group
               size={28}
               people={[
                 { name: 'Ana Pérez', src: face(4) },
@@ -102,7 +108,8 @@ export function DocumentStory() {
           <Mention name="Física · 5.º B" icon="folder" href="#folder" />.
         </p>
 
-        <Callout icon="warning" color="orange" title="Antes de subir al primer piso">
+        <Callout icon="warning" color="orange">
+          <Callout.Title>Antes de subir al primer piso</Callout.Title>
           Nadie se asoma a la baranda. La pelota la suelta una sola persona y el resto mira desde
           abajo, a tres metros del punto de caída.
         </Callout>
@@ -118,7 +125,8 @@ export function DocumentStory() {
           </span> Eso es lo que hay que comparar con los 9,8 del libro.
         </p>
 
-        <Quote source="Galileo, Diálogos sobre dos nuevas ciencias" cite="#quote">
+        <Quote cite="#quote">
+          <Quote.Source>Galileo, Diálogos sobre dos nuevas ciencias</Quote.Source>
           Y encontré que los espacios recorridos están entre sí como los cuadrados de los tiempos.
         </Quote>
 
@@ -127,13 +135,9 @@ export function DocumentStory() {
         <h2 className={cls.taskHeading}>Qué hay que entregar</h2>
         <TaskList items={tasks} onToggle={toggleTask} label="Lo que hay que entregar" />
 
-        <Figure
-          src="/mascotas/otto.webp"
-          alt="Otto, una nutria de pie con las manos juntas"
-          caption="La pelota se suelta, no se tira. Si la empujan, la velocidad inicial deja de ser cero y la cuenta de arriba no sirve."
-          ratio="16/9"
-          fit="contain"
-        />
+        <Figure src="/mascotas/otto.webp" alt="Otto, una nutria de pie con las manos juntas" ratio="16/9" fit="contain">
+          <Figure.Caption>La pelota se suelta, no se tira. Si la empujan, la velocidad inicial deja de ser cero y la cuenta de arriba no sirve.</Figure.Caption>
+        </Figure>
 
         <h2 className={cls.furtherHeading}>Para los que quieran ir más lejos</h2>
         <p className={cls.furtherText}>

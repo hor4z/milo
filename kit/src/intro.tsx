@@ -1,9 +1,15 @@
 import cls from './intro.module.css'
 import { Stack } from './kit'
-import {
-  Alert, AlertTitle, AvatarGroup, BarChart, Button, Card, Chip, Icon,
-  Progress, Switch, TextField, type IconName,
-} from '@milo/ui'
+import { Alert } from '@milo/ui/alert'
+import { Avatar } from '@milo/ui/avatar'
+import { Button } from '@milo/ui/button'
+import { Card } from '@milo/ui/card'
+import { BarChart } from '@milo/ui/chart'
+import { Chip } from '@milo/ui/chip'
+import { Icon, type IconName } from '@milo/ui/icon'
+import { Progress } from '@milo/ui/progress'
+import { Switch } from '@milo/ui/switch'
+import { TextField } from '@milo/ui/text-field'
 import { useState } from 'react'
 
 const face = (n: number) => `/avatars/${String(n).padStart(2, '0')}.webp`
@@ -15,7 +21,7 @@ const shortcuts: { id: string; icon: IconName; title: string; body: string }[] =
   { id: 'documento', icon: 'description', title: 'Documento', body: 'Las del editor, juntas en una consigna de verdad.' },
 ]
 
-export function Intro({ go, views }: { go: (id: string) => void; views: number }) {
+export function Intro({ go }: { go: (id: string) => void }) {
   const [demo, setDemo] = useState(true)
 
   return (
@@ -34,8 +40,8 @@ export function Intro({ go, views }: { go: (id: string) => void; views: number }
               El sistema de milo, funcionando
             </h1>
             <p className={cls.heroLead}>
-              No es una lámina de estilos: cada pieza de acá es el componente real, con su teclado, sus
-              estados y sus tests. El repo entero es un paquete: <code className={cls.inlineCode}>@milo/ui</code>.
+              Cada pieza de acá es el componente real, con su teclado, sus estados y sus tests. Se
+              importa una por una: <code className={cls.inlineCode}>@milo/ui/button</code>.
             </p>
           </Stack>
 
@@ -45,14 +51,6 @@ export function Intro({ go, views }: { go: (id: string) => void; views: number }
             <Button variant="muted" iconStart={<Icon name="description" />} onClick={() => go('documento')}>Ver un documento</Button>
           </div>
 
-          <dl className={cls.statList}>
-            {[[String(views), 'vistas'], ['62', 'piezas'], ['172', 'iconos'], ['2', 'temas']].map(([n, l]) => (
-              <div key={l} className={cls.statItem}>
-                <dt className={`${cls.statValue} tabular`}>{n}</dt>
-                <dd className={cls.statLabel}>{l}</dd>
-              </div>
-            ))}
-          </dl>
         </div>
       </section>
 
@@ -111,12 +109,14 @@ export function Intro({ go, views }: { go: (id: string) => void; views: number }
                 <Chip color="blue">Corregida</Chip>
                 <Chip size="sm" color="warn" icon="schedule">Vence mañana</Chip>
               </div>
-              <Progress label="Corregidas" value={18} max={24} hint="18 de 24" />
+              <Progress label="Corregidas" value={18} max={24} >
+                <Progress.Hint>18 de 24</Progress.Hint>
+              </Progress>
             </Card>
 
             <Card className={cls.peopleCard}>
               <div className={cls.peopleRow}>
-                <AvatarGroup people={[
+                <Avatar.Group people={[
                   { name: 'Ana Pérez', src: face(1) },
                   { name: 'Bruno Díaz', src: face(2) },
                   { name: 'Carla Sosa', src: face(3) },
@@ -129,25 +129,10 @@ export function Intro({ go, views }: { go: (id: string) => void; views: number }
         </div>
 
         <Alert tone="ok">
-          <AlertTitle>Todo lo de arriba es el componente real: tocalo.</AlertTitle>
+          <Alert.Title>Todo lo de arriba es el componente real: tocalo.</Alert.Title>
         </Alert>
       </section>
 
-      <section className={cls.notSection}>
-        <h2 className={cls.notTitle}>Lo que no es</h2>
-        <div className={cls.notGrid}>
-          {[
-            ['No está en npm', 'El repo es privado y se instala desde GitHub por su tag. El paquete es el repo entero.'],
-            ['No tiene backend', 'Nada persiste salvo las preferencias, y el tema vive en localStorage.'],
-            ['No es un clon terminado', 'De la referencia salieron medidas y recetas de sombra; el resto se resolvió con criterio propio.'],
-          ].map(([t, d]) => (
-            <div key={t} className={cls.notItem}>
-              <span className={cls.notName}>{t}</span>
-              <span className={cls.notBody}>{d}</span>
-            </div>
-          ))}
-        </div>
-      </section>
     </div>
   )
 }

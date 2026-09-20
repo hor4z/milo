@@ -71,3 +71,30 @@ describe('Dropdown', () => {
     expect(trigger).toHaveAttribute('aria-expanded', 'true')
   })
 })
+
+describe('Dropdown · un item sin atajo no deja el hueco', () => {
+  it('sin shortcut no dibuja un Kbd vacío', async () => {
+    render(
+      <Dropdown
+        label="Cuenta"
+        items={[{ label: 'Ajustes' }, { label: 'Cerrar sesión' }]}
+        trigger={props => <button type="button" {...props}>Abrir</button>}
+      />,
+    )
+    await userEvent.click(screen.getByRole('button', { name: 'Abrir' }))
+    const menu = screen.getByRole('menu')
+    expect(menu.querySelectorAll('kbd')).toHaveLength(0)
+  })
+
+  it('con shortcut sí lo dibuja', async () => {
+    render(
+      <Dropdown
+        label="Cuenta"
+        items={[{ label: 'Ajustes', shortcut: '⌘,' }]}
+        trigger={props => <button type="button" {...props}>Abrir</button>}
+      />,
+    )
+    await userEvent.click(screen.getByRole('button', { name: 'Abrir' }))
+    expect(screen.getByText('⌘,')).toBeInTheDocument()
+  })
+})

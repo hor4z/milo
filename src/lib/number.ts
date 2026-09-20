@@ -44,3 +44,13 @@ export function delta(value: number, { percent = false }: { percent?: boolean } 
   const core = percent ? `${Math.abs(Math.round(value))}%` : count(Math.abs(value))
   return `${value > 0 ? '+' : '-'}${core}`
 }
+
+/** La palabra que corresponde a un número. El castellano no se resuelve sumando una `s`: "actividad" hace "actividades" y "lápiz" hace "lápices", así que las dos formas se escriben. */
+export function plural(value: number, [singular, muchos]: readonly [string, string]) {
+  return value === 1 ? singular : muchos
+}
+
+/** El número y su palabra: `1 entrega`, `18 entregas`. */
+export function counted(value: number, formas: readonly [string, string]) {
+  return `${count(value)} ${plural(value, formas)}`
+}

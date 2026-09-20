@@ -1,24 +1,27 @@
 import s from './callout.module.css'
-import { Callout } from '@milo/ui'
-import { A11y, Frame, Note, Page, Props, Section, Stack } from '../kit'
+import { Callout } from '@milo/ui/callout'
+import { A11y, Example, Frame, Note, Page, Practices, Props, Section, Stack } from '../kit'
 
 export function CalloutStory() {
   return (
     <Page
       title="Callout"
       kind="Editor"
-      imports="import { Callout } from '@milo/ui'"
+      imports="import { Callout } from '@milo/ui/callout'"
       lead="Un bloque de contenido que pide detenerse: una aclaración, una pista, algo para recordar. Lo escribe quien arma el material, no el sistema."
     >
       <Section title="La pieza">
         <Stack width="xl">
-          <Callout icon="lightbulb" color="blue" title="Para acordarse">
+          <Callout icon="lightbulb" color="blue">
+            <Callout.Title>Para acordarse</Callout.Title>
             La velocidad límite no depende de la masa: depende de la forma y del aire.
           </Callout>
-          <Callout icon="science" color="green" title="Probalo">
+          <Callout icon="science" color="green">
+            <Callout.Title>Probalo</Callout.Title>
             Soltá una hoja abierta y la misma hoja hecha un bollo. Cronometrá las dos.
           </Callout>
-          <Callout icon="visibility" color="orange" title="Ojo con esto">
+          <Callout icon="visibility" color="orange">
+            <Callout.Title>Ojo con esto</Callout.Title>
             Dos figuras con el mismo perímetro pueden tener áreas muy distintas.
           </Callout>
         </Stack>
@@ -47,15 +50,25 @@ export function CalloutStory() {
         de estado: un bloque de contenido en rojo diría "error" sin que haya ninguno.
       </Note>
 
+      <Section title="Cómo se escribe">
+        <Example code={`<Callout icon="lightbulb" color="blue">
+  <Callout.Title>Para acordarse</Callout.Title>
+  La velocidad límite no depende de la masa.
+</Callout>`} />
+      </Section>
+
       <Props of="Callout" />
 
-      <A11y
-        items={[
-          'Lleva `role="note"`: se anuncia como una nota al margen sin sumar una región. Con once bloques en una página, once regiones dejarían la lista de saltos inservible.',
-          'El glifo es decorativo. Lo que el bloque dice está en su texto, así que sacarlo no pierde nada.',
-          'El color nunca es la única diferencia: el título y el glifo dicen de qué se trata.',
-        ]}
-      />
+      <Practices>
+        <Practices.Do>El color sale de la familia de categorías, no de los tonos de estado: un bloque de contenido no avisa de nada.</Practices.Do>
+        <Practices.Dont>No lo uses para un error: eso es un `Alert`.</Practices.Dont>
+      </Practices>
+
+      <A11y>
+        <A11y.Item>Lleva `role="note"`: se anuncia como una nota al margen sin sumar una región. Con once bloques en una página, once regiones dejarían la lista de saltos inservible.</A11y.Item>
+        <A11y.Item>El glifo es decorativo. Lo que el bloque dice está en su texto, así que sacarlo no pierde nada.</A11y.Item>
+        <A11y.Item>El color nunca es la única diferencia: el título y el glifo dicen de qué se trata.</A11y.Item>
+      </A11y>
     </Page>
   )
 }

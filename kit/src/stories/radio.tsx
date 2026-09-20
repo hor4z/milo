@@ -1,7 +1,8 @@
 import cls from './radio.module.css'
 import { useState } from 'react'
-import { Checkbox, Radio, RadioGroup } from '@milo/ui'
-import { A11y, Footnote, Page, Panel, Props, Section, Variant } from '../kit'
+import { Checkbox } from '@milo/ui/checkbox'
+import { Radio } from '@milo/ui/radio'
+import { A11y, Example, Footnote, Page, Panel, Practices, Props, Section, Variant } from '../kit'
 
 export function RadioStory() {
   const [compared, setCompared] = useState(true)
@@ -12,9 +13,9 @@ export function RadioStory() {
 
   return (
     <Page
-      title="Radio · RadioGroup"
+      title="Radio"
       kind="Formularios"
-      imports="import { Radio } from '@milo/ui'"
+      imports="import { Radio } from '@milo/ui/radio'"
       lead="La elección de una entre varias. Es 18, la misma medida del Checkbox y del pulgar del switch, así una fila con los tres queda pareja."
     >
       <Section
@@ -23,7 +24,7 @@ export function RadioStory() {
       >
         <Panel>
           <Variant name="dos opciones">
-            <RadioGroup
+            <Radio.Group
               label="Dos opciones"
               value={one}
               onChange={setOne}
@@ -31,7 +32,7 @@ export function RadioStory() {
             />
           </Variant>
           <Variant name="tres">
-            <RadioGroup
+            <Radio.Group
               label="Tres opciones"
               value={mode}
               onChange={setMode}
@@ -97,7 +98,7 @@ export function RadioStory() {
       >
         <Panel>
           <Variant name="probalo">
-            <RadioGroup
+            <Radio.Group
               label="Probá las flechas"
               value={mode}
               onChange={setMode}
@@ -111,15 +112,36 @@ export function RadioStory() {
         </Panel>
       </Section>
 
+      <Section title="Cómo se escribe">
+        <Example code={`const [modo, setModo] = useState('individual')
+
+<Radio.Group
+  value={modo}
+  onChange={setModo}
+  label="Cómo se entrega"
+  options={[
+    { value: 'individual', label: 'Individual' },
+    { value: 'grupal', label: 'En grupo' },
+  ]}
+/>`} />
+      </Section>
+
       <Section title="Props">
-        <Props of={['Radio', 'RadioGroup']} />
+        <Props of="Radio" />
+      </Section>
+
+      <Section title="Cómo se usa bien">
+        <Practices>
+          <Practices.Do>Van adentro de un `Radio.Group`, que es lo que le da el roving al teclado.</Practices.Do>
+          <Practices.Dont>Con más de cinco opciones va un `Select`: cinco radios ocupan media pantalla.</Practices.Dont>
+        </Practices>
       </Section>
 
       <Section title="Accesibilidad">
-        <A11y items={[
-          'role="radio" con aria-checked y nombre propio.',
-          'El anillo del control sin elegir va en tinta y no en gris: sobre un tinte, el gris se ve sucio.',
-        ]} />
+        <A11y>
+          <A11y.Item>role="radio" con aria-checked y nombre propio.</A11y.Item>
+          <A11y.Item>El anillo del control sin elegir va en tinta y no en gris: sobre un tinte, el gris se ve sucio.</A11y.Item>
+        </A11y>
       </Section>
     </Page>
   )

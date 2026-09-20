@@ -1,13 +1,18 @@
 import cls from './table.module.css'
 import { useMemo, useState } from 'react'
-import {
-  Avatar, AvatarGroup, Chip, ColumnPicker, Dropdown, EmptyState, Filter, FilterBar, FilterReset,
-  Search, IconButton,
-  Pagination, PaginationNext, PaginationPrev, PaginationStatus,
-  Table, TableBody, TableCell, TableFooter, TableHead, TableHeader,
-  TableEmpty, TableHint, TableNum, TableRow, TableTitle, facets, fold, timeAgo,
-} from '@milo/ui'
-import { A11y, Footnote, Mono, Page, Props, Section, Stack } from '../kit'
+import { Avatar } from '@milo/ui/avatar'
+import { Chip } from '@milo/ui/chip'
+import { ColumnPicker } from '@milo/ui/column-picker'
+import { Dropdown } from '@milo/ui/dropdown'
+import { EmptyState } from '@milo/ui/empty-state'
+import { Filter, FilterBar, FilterReset, facets } from '@milo/ui/filter'
+import { IconButton } from '@milo/ui/icon-button'
+import { fold } from '@milo/ui/lib/cx'
+import { timeAgo } from '@milo/ui/lib/time'
+import { Pagination } from '@milo/ui/pagination'
+import { Search } from '@milo/ui/search'
+import { Table } from '@milo/ui/table'
+import { A11y, Example, Footnote, Mono, Page, Practices, Props, Section, Stack } from '../kit'
 
 const face = (n: number) => `/avatars/${String(n).padStart(2, '0')}.webp`
 
@@ -126,12 +131,12 @@ export function TableStory() {
     <Page
       title="Table"
       kind="Datos"
-      imports="import { Table, TableCell, TableEmpty, TableHeader, TableRow } from '@milo/ui'"
+      imports="import { Table } from '@milo/ui/table'"
       lead="Piezas que se arman, no un componente que recibe `columns` y `rows`. Una tabla de datos y una de personas con un grupo de avatares y un menú al final no comparten nada más que la grilla, y una API de columnas termina con un `render` por columna: el mismo JSX, pero metido en un objeto y sin poder leerlo de arriba abajo."
     >
       <Section
         title="La tabla entera"
-        note="Una tabla de trabajo son tres cosas más que la grilla: con qué se recorta, cuántas hay y cómo se pasa al tramo siguiente. Los tres se llevan entre sí, que es la parte que se rompe cuando cada uno se escribe por su lado. Y la franja de paginar vive adentro del marco pero afuera del scroll."
+        note="Una tabla de trabajo lleva tres cosas más que la grilla: el filtro, el total y la paginación. Van juntas porque se leen juntas: cuántas hay depende de con qué se recortó."
       >
         <FilterBar className={cls.filterGap}>
           <Search
@@ -168,55 +173,55 @@ export function TableStory() {
         <Table
           label="Actividades del espacio"
           minWidth={980}
-          footer={(
-            <Pagination>
-              <PaginationStatus
-                from={from + 1}
-                to={from + onScreen.length}
-                total={list.length}
-                noun={['actividad', 'actividades']}
-              />
-              <PaginationPrev disabled={page === 0} onClick={() => setPage(p => p - 1)} />
-              <PaginationNext disabled={!hasMore} onClick={() => setPage(p => p + 1)} />
-            </Pagination>
-          )}
         >
-          <TableHeader>
-            <TableRow>
-              <TableHead>Actividad</TableHead>
-              {view('estudiantes') && <TableHead>Estudiantes</TableHead>}
-              {view('docente') && <TableHead>Docente</TableHead>}
-              {view('estado') && <TableHead>Estado</TableHead>}
-              {view('corregidas') && <TableHead align="right">Corregidas</TableHead>}
-              {view('entregas') && <TableHead align="right">Entregas</TableHead>}
-              {view('acciones') && <TableHead><span className="sr-only">Acciones</span></TableHead>}
-            </TableRow>
-          </TableHeader>
-          <TableBody>
+          <Table.Footer>
+            <Pagination>
+                <Pagination.Status
+                  from={from + 1}
+                  to={from + onScreen.length}
+                  total={list.length}
+                  noun={['actividad', 'actividades']}
+                />
+                <Pagination.Prev disabled={page === 0} onClick={() => setPage(p => p - 1)} />
+                <Pagination.Next disabled={!hasMore} onClick={() => setPage(p => p + 1)} />
+              </Pagination>
+          </Table.Footer>
+          <Table.Header>
+            <Table.Row>
+              <Table.Head>Actividad</Table.Head>
+              {view('estudiantes') && <Table.Head>Estudiantes</Table.Head>}
+              {view('docente') && <Table.Head>Docente</Table.Head>}
+              {view('estado') && <Table.Head>Estado</Table.Head>}
+              {view('corregidas') && <Table.Head align="right">Corregidas</Table.Head>}
+              {view('entregas') && <Table.Head align="right">Entregas</Table.Head>}
+              {view('acciones') && <Table.Head><span className="sr-only">Acciones</span></Table.Head>}
+            </Table.Row>
+          </Table.Header>
+          <Table.Body>
             {onScreen.map(a => (
-              <TableRow key={a.name} onClick={() => {}}>
-                <TableCell>
-                  <TableTitle>{a.name}</TableTitle>
-                  <TableHint>{a.space}</TableHint>
-                </TableCell>
-                {view('estudiantes') && <TableCell><AvatarGroup people={a.students} /></TableCell>}
+              <Table.Row key={a.name} onClick={() => {}}>
+                <Table.Cell>
+                  <Table.Title>{a.name}</Table.Title>
+                  <Table.Hint>{a.space}</Table.Hint>
+                </Table.Cell>
+                {view('estudiantes') && <Table.Cell><Avatar.Group people={a.students} /></Table.Cell>}
                 {view('docente') && (
-                  <TableCell>
+                  <Table.Cell>
                     <span className={cls.teacherCell}>
                       <Avatar name={a.teacher.name} src={a.teacher.src} size={24} />
                       <span className={cls.teacherName}>{a.teacher.name}</span>
                     </span>
-                  </TableCell>
+                  </Table.Cell>
                 )}
-                {view('estado') && <TableCell><Chip color={tone[a.status as keyof typeof tone]}>{a.status}</Chip></TableCell>}
+                {view('estado') && <Table.Cell><Chip color={tone[a.status as keyof typeof tone]}>{a.status}</Chip></Table.Cell>}
                 {view('corregidas') && (
-                  <TableNum>
+                  <Table.Num>
                     {a.total ? <>{a.done}<span className={cls.fractionTotal}> / {a.total}</span></> : '-'}
-                  </TableNum>
+                  </Table.Num>
                 )}
-                {view('entregas') && <TableNum>{a.total || '-'}</TableNum>}
+                {view('entregas') && <Table.Num>{a.total || '-'}</Table.Num>}
                 {view('acciones') && (
-                <TableCell fit>
+                <Table.Cell fit>
                   <Dropdown
                     items={[
                       { label: 'Abrir', icon: 'open_in_new' },
@@ -234,67 +239,65 @@ export function TableStory() {
                       />
                     )}
                   />
-                </TableCell>
+                </Table.Cell>
                 )}
-              </TableRow>
+              </Table.Row>
             ))}
             {onScreen.length === 0 && (
-              <TableEmpty colSpan={visible.length}>
-                <EmptyState
-                  size="sm"
-                  icon="search_off"
-                  title="Ninguna actividad con eso"
-                  body="Probá con otras palabras, o sacá alguno de los filtros puestos."
-                  action={<FilterReset onClick={clear}>Limpiar los filtros</FilterReset>}
-                />
-              </TableEmpty>
+              <Table.Empty colSpan={visible.length}>
+                <EmptyState size="sm" icon="search_off">
+                  <EmptyState.Title>Ninguna actividad con eso</EmptyState.Title>
+                  <EmptyState.Body>Probá con otras palabras, o sacá alguno de los filtros puestos.</EmptyState.Body>
+                  <EmptyState.Action><FilterReset onClick={clear}>Limpiar los filtros</FilterReset></EmptyState.Action>
+                </EmptyState>
+              </Table.Empty>
             )}
-          </TableBody>
+          </Table.Body>
           {onScreen.length > 0 && (
-            <TableFooter>
-              <TableRow>
-                <TableCell colSpan={1 + ['estudiantes', 'docente', 'estado'].filter(view).length}>
+            <Table.Foot>
+              <Table.Row>
+                <Table.Cell colSpan={1 + ['estudiantes', 'docente', 'estado'].filter(view).length}>
                   Total{filtering ? ' de lo filtrado' : ''}
-                </TableCell>
-                {view('corregidas') && <TableNum>{list.reduce((n, a) => n + a.done, 0)}</TableNum>}
-                {view('entregas') && <TableNum>{list.reduce((n, a) => n + a.total, 0)}</TableNum>}
-                {view('acciones') && <TableCell />}
-              </TableRow>
-            </TableFooter>
+                </Table.Cell>
+                {view('corregidas') && <Table.Num>{list.reduce((n, a) => n + a.done, 0)}</Table.Num>}
+                {view('entregas') && <Table.Num>{list.reduce((n, a) => n + a.total, 0)}</Table.Num>}
+                {view('acciones') && <Table.Cell />}
+              </Table.Row>
+            </Table.Foot>
           )}
         </Table>
       </Section>
 
       <Section
         title="La pieza"
-        note="La fila mide 56, la misma que `Row`: una tabla y un panel uno arriba del otro no pueden verse de dos sistemas. La cabecera va en tinta y no en gris: apagada, había que buscar de qué era cada columna. Y las filas alternan papel porque en una tabla ancha el divisor de un píxel no alcanza para seguir una fila hasta el final."
+        note="La fila mide lo mismo que la de un panel, así que una tabla y un panel uno arriba del otro se ven del mismo sistema. Las filas alternan papel: en una tabla ancha, un divisor de un píxel no alcanza para seguir una fila hasta el final."
       >
         <Table label="Entregas por estudiante" minWidth={720}>
-          <TableHeader>
-            <TableRow>
-              <TableHead>Actividad</TableHead>
-              <TableHead>Estudiantes</TableHead>
-              <TableHead>Estado</TableHead>
-              <TableHead align="right">Entregas</TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
+          <Table.Header>
+            <Table.Row>
+              <Table.Head>Actividad</Table.Head>
+              <Table.Head>Estudiantes</Table.Head>
+              <Table.Head>Estado</Table.Head>
+              <Table.Head align="right">Entregas</Table.Head>
+            </Table.Row>
+          </Table.Header>
+          <Table.Body>
             {spaces.map(a => (
-              <TableRow key={a.name} onClick={() => {}}>
-                <TableCell>
-                  <TableTitle>{a.name}</TableTitle>
-                  <TableHint>{a.space}</TableHint>
-                </TableCell>
-                <TableCell>
-                  <AvatarGroup people={a.students} />
-                </TableCell>
-                <TableCell>
+              <Table.Row key={a.name} onClick={() => {}}>
+                <Table.Cell>
+                  <Table.Title>{a.name}</Table.Title>
+                  <Table.Hint>{a.space}</Table.Hint>
+                </Table.Cell>
+                <Table.Cell>
+                  <Avatar.Group people={a.students} />
+                </Table.Cell>
+                <Table.Cell>
                   <Chip color={tone[a.status as keyof typeof tone]}>{a.status}</Chip>
-                </TableCell>
-                <TableNum>{a.total || '-'}</TableNum>
-              </TableRow>
+                </Table.Cell>
+                <Table.Num>{a.total || '-'}</Table.Num>
+              </Table.Row>
             ))}
-          </TableBody>
+          </Table.Body>
         </Table>
       </Section>
 
@@ -304,19 +307,19 @@ export function TableStory() {
       >
         <Stack gap="lg">
           <div className={`${cls.twoRow} bg-surface`}>
-            <AvatarGroup people={[p('Ana Pérez', 1), p('Bruno Díaz', 2)]} />
+            <Avatar.Group people={[p('Ana Pérez', 1), p('Bruno Díaz', 2)]} />
             <Mono>2 de 3</Mono>
           </div>
           <div className={`${cls.threeRow} bg-surface`}>
-            <AvatarGroup people={[p('Ana Pérez', 1), p('Bruno Díaz', 2), p('Carla Sosa', 3)]} />
+            <Avatar.Group people={[p('Ana Pérez', 1), p('Bruno Díaz', 2), p('Carla Sosa', 3)]} />
             <Mono>3 de 3</Mono>
           </div>
           <div className={`${cls.fourRow} bg-surface`}>
-            <AvatarGroup people={[p('Ana Pérez', 1), p('Bruno Díaz', 2), p('Carla Sosa', 3), p('Damián Ruiz', 4)]} />
+            <Avatar.Group people={[p('Ana Pérez', 1), p('Bruno Díaz', 2), p('Carla Sosa', 3), p('Damián Ruiz', 4)]} />
             <Mono>4 · se muestra la cuarta cara, no un "+1"</Mono>
           </div>
           <div className={`${cls.fiveRow} bg-surface`}>
-            <AvatarGroup people={[p('Ana Pérez', 1), p('Bruno Díaz', 2), p('Carla Sosa', 3), p('Damián Ruiz', 4), p('Elena Vega', 5)]} />
+            <Avatar.Group people={[p('Ana Pérez', 1), p('Bruno Díaz', 2), p('Carla Sosa', 3), p('Damián Ruiz', 4), p('Elena Vega', 5)]} />
             <Mono>5 · tres caras y el resto</Mono>
           </div>
         </Stack>
@@ -332,23 +335,43 @@ export function TableStory() {
         note="El anillo es del color de la fila y no blanco fijo, así que sobre un fondo distinto hay que pasarle `ring`. Es la única forma: un avatar no puede saber sobre qué lo pusieron."
       >
         <div className={cls.mutedRow}>
-          <AvatarGroup people={[p('Ana Pérez', 1), p('Bruno Díaz', 2), p('Carla Sosa', 3), p('Damián Ruiz', 4)]} ring="var(--surface-muted)" />
+          <Avatar.Group people={[p('Ana Pérez', 1), p('Bruno Díaz', 2), p('Carla Sosa', 3), p('Damián Ruiz', 4)]} ring="var(--surface-muted)" />
           <Mono>ring="var(--surface-muted)"</Mono>
         </div>
       </Section>
 
+      <Section title="Cómo se escribe">
+        <Example code={`<Table label="Actividades del espacio">
+  <Table.Header>
+    <Table.Row><Table.Head>Nombre</Table.Head><Table.Head>Entregas</Table.Head></Table.Row>
+  </Table.Header>
+  <Table.Body>
+    <Table.Row><Table.Cell>Fracciones</Table.Cell><Table.Num>18</Table.Num></Table.Row>
+  </Table.Body>
+  <Table.Footer><Pagination>{paginacion}</Pagination></Table.Footer>
+</Table>`} />
+      </Section>
+
       <Section title="Props">
-        <Props of={['Table', 'TableRow', 'TableHead', 'TableCell', 'TableEmpty', 'Avatar', 'AvatarGroup']} />
+        <Props of={['Table', 'Avatar']} />
+      </Section>
+
+      <Section title="Cómo se usa bien">
+        <Practices>
+          <Practices.Do>`label` dice de qué es: cuando scrollea se vuelve una región enfocable, y dos regiones con el mismo nombre se leen como una.</Practices.Do>
+          <Practices.Do>La paginación va en `Table.Footer`, que vive adentro del marco pero fuera del scroll.</Practices.Do>
+          <Practices.Dont>{'`Table.Foot` es el `<tfoot>` y `Table.Footer` es la franja de abajo: no son lo mismo.'}</Practices.Dont>
+        </Practices>
       </Section>
 
       <Section title="Accesibilidad">
-        <A11y items={[
-          'Es una <table> de verdad: encabezados con `scope`, filas y celdas con su semántica.',
-          'Una fila que se toca entra en el orden de tabulación y contesta a Enter y a la barra: no es un click y nada más.',
-          'Cuando las columnas no entran, el scroll lateral es una parada de tabulación con nombre: sin barra a la vista, es la única forma de llegar a la derecha sin mouse.',
-          'La franja de paginación es un <nav> con su nombre y anuncia el tramo con role="status" cuando cambia.',
-          'Las opciones de filtros y columnas se nombran una por una.',
-        ]} />
+        <A11y>
+          <A11y.Item>{'Es una <table> de verdad: encabezados con `scope`, filas y celdas con su semántica.'}</A11y.Item>
+          <A11y.Item>Una fila que se toca entra en el orden de tabulación y contesta a Enter y a la barra: no es un click y nada más.</A11y.Item>
+          <A11y.Item>Cuando las columnas no entran, el scroll lateral es una parada de tabulación con nombre: sin barra a la vista, es la única forma de llegar a la derecha sin mouse.</A11y.Item>
+          <A11y.Item>{'La franja de paginación es un <nav> con su nombre y anuncia el tramo con role="status" cuando cambia.'}</A11y.Item>
+          <A11y.Item>Las opciones de filtros y columnas se nombran una por una.</A11y.Item>
+        </A11y>
       </Section>
     </Page>
   )

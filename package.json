@@ -13,12 +13,16 @@
     "*.css"
   ],
   "exports": {
-    ".": {
-      "types": "./dist/index.d.ts",
-      "import": "./dist/index.js"
+    "./lib/*": {
+      "types": "./dist/lib/*.d.ts",
+      "import": "./dist/lib/*.js"
     },
     "./style.css": "./dist/style.css",
     "./theme.css": "./src/theme.css",
+    "./icons": {
+      "types": "./dist/icons.gen.d.ts",
+      "import": "./dist/icons.gen.js"
+    },
     "./icons.meta": {
       "types": "./dist/icons.meta.d.ts",
       "import": "./dist/icons.meta.js"
@@ -26,6 +30,10 @@
     "./props": {
       "types": "./dist/props.gen.d.ts",
       "import": "./dist/props.gen.js"
+    },
+    "./*": {
+      "types": "./dist/*/*.d.ts",
+      "import": "./dist/*/*.js"
     }
   },
   "files": [
@@ -46,7 +54,10 @@
     "props": "node scripts/props.mjs",
     "icons": "node scripts/icons.mjs",
     "mascotas": "python3 kit/scripts/mascotas.py",
-    "picos": "python3 kit/scripts/picos.py"
+    "picos": "python3 kit/scripts/picos.py",
+    "test:changed": "vitest run --changed",
+    "test:guards": "vitest run src/__tests__ kit/src/__tests__",
+    "paths": "node scripts/paths.mjs"
   },
   "peerDependencies": {
     "react": ">=19",

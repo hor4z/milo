@@ -1,5 +1,5 @@
 import s from './checkbox.module.css'
-import { useField } from '../field/field'
+import { useField } from '../lib/field-ctx'
 import { Icon } from '../icon/icon'
 import { cx } from '../lib/cx'
 

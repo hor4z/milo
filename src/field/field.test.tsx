@@ -2,7 +2,7 @@ import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { describe, expect, it } from 'vitest'
 import { Checkbox } from '../checkbox/checkbox'
-import { Field, FieldSet } from './field'
+import { Field } from './field'
 import { Select } from '../select/select'
 import { Slider } from '../slider/slider'
 import { Switch } from '../switch/switch'
@@ -11,23 +11,23 @@ import { Textarea } from '../textarea/textarea'
 
 describe('Field', () => {
   it('la etiqueta enfoca el campo al clickearla', async () => {
-    render(<Field label="Nombre de la actividad"><TextField /></Field>)
+    render(<Field><Field.Label>Nombre de la actividad</Field.Label><TextField /></Field>)
     await userEvent.click(screen.getByText('Nombre de la actividad'))
     expect(document.activeElement).toBe(screen.getByRole('textbox'))
   })
 
   it('el campo queda nombrado por su etiqueta', () => {
-    render(<Field label="Consigna"><Textarea /></Field>)
+    render(<Field><Field.Label>Consigna</Field.Label><Textarea /></Field>)
     expect(screen.getByRole('textbox', { name: 'Consigna' })).toBeInTheDocument()
   })
 
   it('la ayuda queda atada al campo', () => {
-    render(<Field label="Nombre" hint="Lo ven los estudiantes"><TextField /></Field>)
+    render(<Field><Field.Label>Nombre</Field.Label><Field.Hint>Lo ven los estudiantes</Field.Hint><TextField /></Field>)
     expect(screen.getByRole('textbox')).toHaveAccessibleDescription('Lo ven los estudiantes')
   })
 
   it('el error marca el campo y reemplaza a la ayuda', () => {
-    render(<Field label="Nombre" hint="Lo ven los estudiantes" error="Poné un nombre"><TextField /></Field>)
+    render(<Field><Field.Label>Nombre</Field.Label><Field.Hint>Lo ven los estudiantes</Field.Hint><Field.Error>Poné un nombre</Field.Error><TextField /></Field>)
     const field = screen.getByRole('textbox')
     expect(field).toHaveAttribute('aria-invalid', 'true')
     expect(field).toHaveAccessibleDescription('Poné un nombre')
@@ -35,7 +35,7 @@ describe('Field', () => {
   })
 
   it('lo obligatorio se dice con texto y no solo con un asterisco', () => {
-    render(<Field label="Nombre" required><TextField /></Field>)
+    render(<Field required><Field.Label>Nombre</Field.Label><TextField /></Field>)
     expect(screen.getByText('(obligatorio)')).toBeInTheDocument()
   })
 
@@ -45,12 +45,12 @@ describe('Field', () => {
   })
 })
 
-describe('FieldSet', () => {
+describe('Field.Set', () => {
   it('agrupa campos bajo un nombre', () => {
     render(
-      <FieldSet legend="Quién puede ver">
-        <Field label="Espacio"><TextField /></Field>
-      </FieldSet>,
+      <Field.Set legend="Quién puede ver">
+        <Field><Field.Label>Espacio</Field.Label><TextField /></Field>
+      </Field.Set>,
     )
     expect(screen.getByRole('group', { name: 'Quién puede ver' })).toBeInTheDocument()
   })
@@ -58,20 +58,22 @@ describe('FieldSet', () => {
 
 describe('Field con cualquier control del sistema', () => {
   it('nombra un Select y lo enfoca desde la etiqueta', async () => {
-    render(<Field label="Espacio"><Select value="Matemática" options={['Matemática', 'Lengua']} /></Field>)
+    render(<Field><Field.Label>Espacio</Field.Label><Select value="Matemática" options={['Matemática', 'Lengua']} /></Field>)
     const control = screen.getByRole('button', { name: /Espacio/ })
     await userEvent.click(screen.getByText('Espacio'))
     expect(document.activeElement).toBe(control)
   })
 
   it('nombra un Switch', async () => {
-    render(<Field label="Avisos por mail"><Switch checked onChange={() => {}} /></Field>)
+    render(<Field><Field.Label>Avisos por mail</Field.Label><Switch checked onChange={() => {}} /></Field>)
     expect(screen.getByRole('switch', { name: 'Avisos por mail' })).toBeInTheDocument()
   })
 
   it('nombra un Checkbox y le pasa el error', async () => {
     render(
-      <Field label="Acepto" error="Hay que aceptar para seguir">
+      <Field>
+        <Field.Label>Acepto</Field.Label>
+        <Field.Error>Hay que aceptar para seguir</Field.Error>
         <Checkbox checked={false} onChange={() => {}} />
       </Field>,
     )
@@ -81,7 +83,7 @@ describe('Field con cualquier control del sistema', () => {
   })
 
   it('nombra un Slider', async () => {
-    render(<Field label="Duración"><Slider value={30} onChange={() => {}} /></Field>)
+    render(<Field><Field.Label>Duración</Field.Label><Slider value={30} onChange={() => {}} /></Field>)
     expect(screen.getByRole('slider', { name: 'Duración' })).toBeInTheDocument()
   })
 

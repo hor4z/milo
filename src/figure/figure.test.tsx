@@ -4,13 +4,17 @@ import { Figure } from './figure'
 
 describe('Figure', () => {
   it('el alt describe la imagen y el epígrafe agrega algo distinto', () => {
-    render(<Figure src="/x.webp" alt="Una regla apoyada sobre una hoja cuadriculada" caption="Medido en el aula, con la regla de 30" />)
+    render(<Figure src="/x.webp" alt="Una regla apoyada sobre una hoja cuadriculada" >
+  <Figure.Caption>Medido en el aula, con la regla de 30</Figure.Caption>
+</Figure>)
     expect(screen.getByRole('img', { name: 'Una regla apoyada sobre una hoja cuadriculada' })).toBeInTheDocument()
     expect(screen.getByText('Medido en el aula, con la regla de 30')).toBeInTheDocument()
   })
 
   it('con `alt` vacío la imagen es decorativa y no la anuncia nadie', () => {
-    render(<Figure src="/x.webp" alt="" caption="Un pie que igual se lee" />)
+    render(<Figure src="/x.webp" alt="" >
+  <Figure.Caption>Un pie que igual se lee</Figure.Caption>
+</Figure>)
     expect(screen.queryByRole('img')).not.toBeInTheDocument()
     expect(screen.getByText('Un pie que igual se lee')).toBeInTheDocument()
   })

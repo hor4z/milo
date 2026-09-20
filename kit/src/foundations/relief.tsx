@@ -33,22 +33,6 @@ export function ReliefSection() {
       kind="Fundamentos"
       lead="Mezcla luz interior arriba y sombra abajo para decir cuánto se levanta algo. Los botones no lo usan: van planos, y lo que los separa del fondo es el relleno. Lo que sí lleva volumen es lo que flota sobre la página, que son trece piezas, y lo hundido, que es donde el relieve dice algo que el color no puede decir."
     >
-      <Note icon="layers" title="Lo que el relieve dejó de tener que hacer">
-        Durante un tiempo el relieve era lo único que separaba una tarjeta del fondo: el papel de
-        una pieza y el de la página eran el mismo color. No alcanzaba: con la elevación en alpha
-        bajo y a 1x, una pantalla densa se leía como un campo blanco enorme con líneas encima.
-        Ahora <code>--surface</code> y <code>--canvas</code> son dos tonos distintos, y eso libera
-        al relieve de una carga que no le correspondía: ya no tiene que decir <em>si</em> algo
-        existe, solo <strong className={css.emphasis}>cuánto se levanta</strong>. Es la
-        razón por la que las sombras de abajo son tan bajas y funcionan igual.
-        {' '}
-        Eso vale mientras la pieza se apoye en la página. Una tarjeta adentro de otra superficie
-        de papel vuelve al problema del principio: los dos fondos son el mismo tono y la sombra,
-        que es del 5%, no alcanza para decir dónde empieza. Por eso la <code>Card</code> lleva su
-        línea siempre. La sombra dice cuánto se levanta y la línea dice que existe, que son dos
-        trabajos distintos y no se reemplazan.
-      </Note>
-
       <Section title="Las recetas que se tocan">
         <div className={css.recipeGrid}>
           {recipes.map(r => (
@@ -86,7 +70,7 @@ export function ReliefSection() {
 
       <Section
         title="Dos cosas que costaron"
-        note="Las dos están escritas al lado de su token, y las dos se rompieron antes de quedar escritas."
+        note="Las dos están escritas al lado de su token."
       >
         <div className={css.lessonGrid}>
           <div className={`${css.edgeCard} bg-surface`}>
@@ -108,12 +92,8 @@ export function ReliefSection() {
         </div>
       </Section>
 
-      <Note icon="visibility_off" title="Lo que está declarado y no usa nadie">
-        Tres tokens quedaron sin consumidor y conviene que se sepa antes de que alguien los agarre
-        creyendo que son la receta de algo: <code>--relief-solid</code>, <code>--relief-brand</code>{' '}
-        y <code>--relief-brand-pressed</code>, más la clase global <code>.pressed</code>. Son de cuando
-        los botones tenían volumen. No se sacaron todavía porque sacarlos es una decisión sobre la
-        superficie del paquete, pero ninguno de los cuatro es algo que haya que imitar.
+      <Note icon="visibility_off" title="Tres tokens sin consumidor">
+        `--relief-solid`, `--relief-brand` y `--relief-brand-pressed` no los usa ninguna pieza: son de cuando los botones tenían volumen. Están a la vista para que nadie los agarre creyendo que son la receta de algo.
       </Note>
 
       <Note title="Un campo no lleva relieve">

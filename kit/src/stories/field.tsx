@@ -1,6 +1,11 @@
 import { useState } from 'react'
-import { Checkbox, Field, FieldSet, Select, Switch, TextField, Textarea } from '@milo/ui'
-import { A11y, Canvas, Frame, Note, Page, Props, Section, Stack } from '../kit'
+import { Checkbox } from '@milo/ui/checkbox'
+import { Field } from '@milo/ui/field'
+import { Select } from '@milo/ui/select'
+import { Switch } from '@milo/ui/switch'
+import { TextField } from '@milo/ui/text-field'
+import { Textarea } from '@milo/ui/textarea'
+import { A11y, Canvas, Example, Frame, Note, Page, Practices, Props, Section, Stack } from '../kit'
 
 export function FieldStory() {
   const [overdue, setOverdue] = useState(true)
@@ -15,7 +20,7 @@ export function FieldStory() {
     <Page
       title="Field"
       kind="Formularios"
-      imports="import { Field, FieldSet } from '@milo/ui'"
+      imports="import { Field } from '@milo/ui/field'"
       lead="Un campo suelto no es un formulario: le falta el nombre, la ayuda y el error, y los tres tienen que estar atados al control para que un lector de pantalla los lea con él. Field hace ese trabajo una vez y en un solo lugar."
     >
       <Section
@@ -24,7 +29,10 @@ export function FieldStory() {
       >
         <Canvas>
           <Stack gap="xl" width="md">
-            <Field label="Nombre de la actividad" hint="Lo ven los estudiantes" required error={error}>
+            <Field required>
+              <Field.Label>Nombre de la actividad</Field.Label>
+              <Field.Hint>Lo ven los estudiantes</Field.Hint>
+              <Field.Error>{error}</Field.Error>
               <TextField
                 value={name}
                 onChange={e => setName(e.target.value)}
@@ -32,7 +40,9 @@ export function FieldStory() {
                 placeholder="Fracciones equivalentes"
               />
             </Field>
-            <Field label="Consigna" hint="Podés pegar el texto que ya tenías">
+            <Field>
+              <Field.Label>Consigna</Field.Label>
+              <Field.Hint>Podés pegar el texto que ya tenías</Field.Hint>
               <Textarea rows={3} maxRows={8} placeholder="Escribí la consigna…" />
             </Field>
           </Stack>
@@ -45,13 +55,18 @@ export function FieldStory() {
       >
         <Canvas>
           <Stack gap="xl" width="md">
-            <Field label="Espacio" hint="Dónde se publica">
+            <Field>
+              <Field.Label>Espacio</Field.Label>
+              <Field.Hint>Dónde se publica</Field.Hint>
               <Select value={space} onChange={setSpace} options={['Matemática · 4.º A', 'Lengua · 6.º']} />
             </Field>
-            <Field label="Entregas fuera de fecha" hint="Permitir que entreguen después del cierre">
+            <Field>
+              <Field.Label>Entregas fuera de fecha</Field.Label>
+              <Field.Hint>Permitir que entreguen después del cierre</Field.Hint>
               <Switch checked={overdue} onChange={setOverdue} label="Entregas fuera de fecha" />
             </Field>
-            <Field label="Avisar al publicar">
+            <Field>
+              <Field.Label>Avisar al publicar</Field.Label>
               <Checkbox checked={notify} onChange={setNotify} label="Avisar al publicar" />
             </Field>
           </Stack>
@@ -64,7 +79,8 @@ export function FieldStory() {
       >
         <Canvas>
           <Frame width="sm">
-            <Field label="Espacio" required>
+            <Field required>
+              <Field.Label>Espacio</Field.Label>
               <Select value={where} onChange={setWhere} options={['Matemática · 4.º A', 'Lengua · 6.º']} />
             </Field>
           </Frame>
@@ -72,19 +88,22 @@ export function FieldStory() {
       </Section>
 
       <Section
-        title="FieldSet"
+        title="Field.Set"
         note="Agrupa los campos que van juntos y les pone un título que el lector anuncia al entrar al grupo. En un formulario de tres campos sobra; en uno de doce es lo que lo hace legible."
       >
         <Canvas>
           <Frame width="md">
-            <FieldSet legend="Lo básico">
-              <Field label="Nombre" required>
+            <Field.Set legend="Lo básico">
+              <Field required>
+                <Field.Label>Nombre</Field.Label>
                 <TextField placeholder="Fracciones equivalentes" />
               </Field>
-              <Field label="Consigna" hint="Se puede editar después de publicar">
+              <Field>
+                <Field.Label>Consigna</Field.Label>
+                <Field.Hint>Se puede editar después de publicar</Field.Hint>
                 <Textarea rows={3} maxRows={8} />
               </Field>
-            </FieldSet>
+            </Field.Set>
           </Frame>
         </Canvas>
       </Section>
@@ -95,18 +114,34 @@ export function FieldStory() {
         [Row](#row).
       </Note>
 
+      <Section title="Cómo se escribe">
+        <Example code={`<Field>
+  <Field.Label>Nombre de la actividad</Field.Label>
+  <Field.Hint>Lo ven los estudiantes</Field.Hint>
+  <TextField value={nombre} onChange={e => setNombre(e.target.value)} />
+</Field>`} />
+      </Section>
+
       <Section title="Props">
-        <Props of="FieldSet" />
+        <Props of="Field" />
+      </Section>
+
+      <Section title="Cómo se usa bien">
+        <Practices>
+          <Practices.Do>La etiqueta va en `Field.Label`, el apoyo en `Field.Hint` y lo que está mal en `Field.Error`.</Practices.Do>
+          <Practices.Do>El control de adentro toma el id solo: no le pongas `label` también, se nombra dos veces.</Practices.Do>
+          <Practices.Dont>El error reemplaza al hint, no se apila: dos líneas de apoyo compiten por la misma mirada.</Practices.Dont>
+        </Practices>
       </Section>
 
       <Section title="Accesibilidad">
-        <A11y items={[
-          'La etiqueta usa htmlFor: tocarla enfoca el campo, que además agranda el blanco del click.',
-          'La ayuda y el error se anuncian como descripción del control, no como texto suelto al lado.',
-          'Con error, el campo queda aria-invalid y el mensaje lleva su glifo: no depende del color rojo.',
-          'Lo obligatorio se dice con texto además del asterisco.',
-          'Los siete controles del sistema toman el id del Field: ninguno queda con la etiqueta colgando.',
-        ]} />
+        <A11y>
+          <A11y.Item>La etiqueta usa htmlFor: tocarla enfoca el campo, que además agranda el blanco del click.</A11y.Item>
+          <A11y.Item>La ayuda y el error se anuncian como descripción del control, no como texto suelto al lado.</A11y.Item>
+          <A11y.Item>Con error, el campo queda aria-invalid y el mensaje lleva su glifo: no depende del color rojo.</A11y.Item>
+          <A11y.Item>Lo obligatorio se dice con texto además del asterisco.</A11y.Item>
+          <A11y.Item>Los siete controles del sistema toman el id del Field: ninguno queda con la etiqueta colgando.</A11y.Item>
+        </A11y>
       </Section>
     </Page>
   )

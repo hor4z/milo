@@ -1,5 +1,7 @@
-import { Icon, IconButton, Indicator } from '@milo/ui'
-import { A11y, Page, Panel, Props, Section, Variant } from '../kit'
+import { Icon } from '@milo/ui/icon'
+import { IconButton } from '@milo/ui/icon-button'
+import { Indicator } from '@milo/ui/indicator'
+import { A11y, Example, Page, Panel, Practices, Props, Section, Variant } from '../kit'
 
 export function IndicatorStory() {
   return (
@@ -7,7 +9,7 @@ export function IndicatorStory() {
       title="Indicator"
       kind="Datos"
       lead="Una marca chica pegada a la esquina de otra cosa. No es una pieza en sí: envuelve a la que sí lo es (un botón, un avatar, una carpeta) y le agrega un punto, un contador o un glifo sin cambiarla."
-      imports="import { Indicator } from '@milo/ui'"
+      imports="import { Indicator } from '@milo/ui/indicator'"
     >
       <Section
         title="Tres formas de marcar"
@@ -66,19 +68,29 @@ export function IndicatorStory() {
         </Panel>
       </Section>
 
+      <Section title="Cómo se escribe">
+        <Example code={`<Indicator dot label="Hay avisos sin leer" inset={6}>
+  <IconButton icon="notifications" label="Novedades" />
+</Indicator>`} />
+      </Section>
+
       <Section title="Props">
         <Props of="Indicator" />
       </Section>
 
-      <A11y
-        items={[
-          'Con `label`, la marca se anuncia como `role="status"` y el texto va en `sr-only`: quien no la ve se entera igual, y una sola vez.',
-          'Sin `label` la marca es decorativa y va `aria-hidden`, porque lo que significa ya está en el nombre de lo que envuelve.',
-          'La marca no recibe el puntero: lo que se toca sigue siendo la pieza de abajo, con su mismo objetivo de siempre.',
-          'El contador no es la única forma de enterarse: el número también está en el nombre accesible de lo que marca.',
-          'Ningún tono se dice solo con color: el glifo es la forma, y el punto y el contador viven pegados a una pieza que ya se nombra sola.',
-        ]}
-      />
+      <Practices>
+        <Practices.Do>El `inset` lo escribe el call site, porque la pieza no sabe el relleno de lo que envuelve.</Practices.Do>
+        <Practices.Do>El anillo es del color de lo que hay atrás, así que también sale del call site.</Practices.Do>
+        <Practices.Dont>No la uses para envolver cualquier cosa: marca un icono, y sobre un avatar cada caso pide su propio número.</Practices.Dont>
+      </Practices>
+
+      <A11y>
+        <A11y.Item>Con `label`, la marca se anuncia como `role="status"` y el texto va en `sr-only`: quien no la ve se entera igual, y una sola vez.</A11y.Item>
+        <A11y.Item>Sin `label` la marca es decorativa y va `aria-hidden`, porque lo que significa ya está en el nombre de lo que envuelve.</A11y.Item>
+        <A11y.Item>La marca no recibe el puntero: lo que se toca sigue siendo la pieza de abajo, con su mismo objetivo de siempre.</A11y.Item>
+        <A11y.Item>El contador no es la única forma de enterarse: el número también está en el nombre accesible de lo que marca.</A11y.Item>
+        <A11y.Item>Ningún tono se dice solo con color: el glifo es la forma, y el punto y el contador viven pegados a una pieza que ya se nombra sola.</A11y.Item>
+      </A11y>
     </Page>
   )
 }

@@ -1,6 +1,6 @@
 import s from './mention.module.css'
-import { Mention } from '@milo/ui'
-import { A11y, Note, Page, Props, Section } from '../kit'
+import { Mention } from '@milo/ui/mention'
+import { A11y, Example, Note, Page, Practices, Props, Section } from '../kit'
 
 const face = (n: number) => `/avatars/${String(n).padStart(2, '0')}.webp`
 
@@ -9,12 +9,12 @@ export function MentionStory() {
     <Page
       title="Mention"
       kind="Editor"
-      imports="import { Mention } from '@milo/ui'"
+      imports="import { Mention } from '@milo/ui/mention'"
       lead="Una referencia adentro del texto: quién o qué. Va en el renglón y no lo interrumpe."
     >
       <Section
         title="En un párrafo"
-        note="Es la prueba que importa: los renglones de arriba y de abajo tienen que seguir a la misma distancia. Con la caja de un chip, el renglón que lleva una mención se separa de los otros y el párrafo se ve roto."
+        note="Adentro de un párrafo los renglones tienen que seguir a la misma distancia. Por eso la mención no lleva la caja de un `Chip`."
       >
         <div className={`${s.paragraphBox} bg-surface`}>
           <p className={s.paragraphText}>
@@ -44,16 +44,22 @@ export function MentionStory() {
         mención; si está en una barra, es chip.
       </Note>
 
+      <Section title="Cómo se escribe">
+        <Example code={`Le pedí a <Mention name="Ana Pérez" src="/avatars/01.webp" href="/personas/ana" /> que revise la consigna.`} />
+      </Section>
+
       <Props of="Mention" />
 
-      <A11y
-        items={[
-          'Sin `href` es texto: no promete un lugar al que ir ni recibe el foco.',
-          'La foto va con `alt` vacío: el nombre está escrito al lado, y anunciarlo dos veces es ruido.',
-          'Con `href` es un enlace de verdad, así que aparece en la lista de enlaces de la página con el nombre como texto.',
-          'Y lleva subrayado, como todo enlace del sistema: adentro de un párrafo, el fondo teñido lo distingue solo por color, y eso no le llega a quien no separa el azul del negro.',
-        ]}
-      />
+      <Practices>
+        <Practices.Do>Sin `href` es texto y no un enlace: una mención que no lleva a ningún lado no se finge enlace.</Practices.Do>
+      </Practices>
+
+      <A11y>
+        <A11y.Item>Sin `href` es texto: no promete un lugar al que ir ni recibe el foco.</A11y.Item>
+        <A11y.Item>La foto va con `alt` vacío: el nombre está escrito al lado, y anunciarlo dos veces es ruido.</A11y.Item>
+        <A11y.Item>Con `href` es un enlace de verdad, así que aparece en la lista de enlaces de la página con el nombre como texto.</A11y.Item>
+        <A11y.Item>Y lleva subrayado, como todo enlace del sistema: adentro de un párrafo, el fondo teñido lo distingue solo por color, y eso no le llega a quien no separa el azul del negro.</A11y.Item>
+      </A11y>
     </Page>
   )
 }

@@ -1,13 +1,13 @@
 import cls from './tabs.module.css'
-import { Tab, TabList, TabPanel, Tabs } from '@milo/ui'
-import { A11y, Canvas, Note, Page, Props, Section } from '../kit'
+import { Tabs } from '@milo/ui/tabs'
+import { A11y, Canvas, Example, Note, Page, Practices, Props, Section } from '../kit'
 
 export function TabsStory() {
   return (
     <Page
       title="Tabs"
       kind="Navegación"
-      imports="import { Tabs, TabList, Tab, TabPanel } from '@milo/ui'"
+      imports="import { Tabs } from '@milo/ui/tabs'"
       lead="Un mismo lugar que muestra contenidos que se comparan entre sí: las entregas, la rúbrica y los ajustes de una actividad. Lo que no se compara no va en solapas: va en una pantalla aparte o en un `Accordion`."
     >
       <Section
@@ -16,20 +16,20 @@ export function TabsStory() {
       >
         <Canvas>
           <Tabs defaultValue="entregas">
-            <TabList label="Secciones de la actividad">
-              <Tab value="entregas">Entregas</Tab>
-              <Tab value="rubrica">Rúbrica</Tab>
-              <Tab value="ajustes">Ajustes</Tab>
-            </TabList>
-            <TabPanel value="entregas">
+            <Tabs.List label="Secciones de la actividad">
+              <Tabs.Tab value="entregas">Entregas</Tabs.Tab>
+              <Tabs.Tab value="rubrica">Rúbrica</Tabs.Tab>
+              <Tabs.Tab value="ajustes">Ajustes</Tabs.Tab>
+            </Tabs.List>
+            <Tabs.Panel value="entregas">
               <p className={cls.handedText}>Dieciocho entregas, cuatro sin mirar.</p>
-            </TabPanel>
-            <TabPanel value="rubrica">
+            </Tabs.Panel>
+            <Tabs.Panel value="rubrica">
               <p className={cls.rubricText}>Cuatro criterios, cada uno de 1 a 4.</p>
-            </TabPanel>
-            <TabPanel value="ajustes">
+            </Tabs.Panel>
+            <Tabs.Panel value="ajustes">
               <p className={cls.accessText}>Quién puede ver la actividad y hasta cuándo.</p>
-            </TabPanel>
+            </Tabs.Panel>
           </Tabs>
         </Canvas>
       </Section>
@@ -40,20 +40,20 @@ export function TabsStory() {
       >
         <Canvas>
           <Tabs defaultValue="semana" onValueChange={() => {}}>
-            <TabList label="Rango del panel">
-              <Tab value="semana">Esta semana</Tab>
-              <Tab value="mes">Este mes</Tab>
-              <Tab value="todo">Todo</Tab>
-            </TabList>
-            <TabPanel value="semana">
+            <Tabs.List label="Rango del panel">
+              <Tabs.Tab value="semana">Esta semana</Tabs.Tab>
+              <Tabs.Tab value="mes">Este mes</Tabs.Tab>
+              <Tabs.Tab value="todo">Todo</Tabs.Tab>
+            </Tabs.List>
+            <Tabs.Panel value="semana">
               <p className={cls.weekText}>79 entregas en cuatro espacios.</p>
-            </TabPanel>
-            <TabPanel value="mes">
+            </Tabs.Panel>
+            <Tabs.Panel value="mes">
               <p className={cls.monthText}>312 entregas, 289 corregidas.</p>
-            </TabPanel>
-            <TabPanel value="todo">
+            </Tabs.Panel>
+            <Tabs.Panel value="todo">
               <p className={cls.allText}>Desde marzo: 1.204 entregas.</p>
-            </TabPanel>
+            </Tabs.Panel>
           </Tabs>
         </Canvas>
       </Section>
@@ -64,17 +64,35 @@ export function TabsStory() {
         un [Accordion](#accordion).
       </Note>
 
+      <Section title="Cómo se escribe">
+        <Example code={`<Tabs defaultValue="entregas">
+  <Tabs.List label="Secciones de la actividad">
+    <Tabs.Tab value="entregas">Entregas</Tabs.Tab>
+    <Tabs.Tab value="consigna">Consigna</Tabs.Tab>
+  </Tabs.List>
+  <Tabs.Panel value="entregas">{tabla}</Tabs.Panel>
+  <Tabs.Panel value="consigna">{texto}</Tabs.Panel>
+</Tabs>`} />
+      </Section>
+
       <Section title="Props">
-        <Props of={['Tabs', 'Tab', 'TabPanel']} />
+        <Props of="Tabs" />
+      </Section>
+
+      <Section title="Cómo se usa bien">
+        <Practices>
+          <Practices.Do>El panel y su solapa se atan por el mismo `value`.</Practices.Do>
+          <Practices.Dont>Si el contenido de las solapas hay que compararlo, va un acordeón o la lista entera.</Practices.Dont>
+        </Practices>
       </Section>
 
       <Section title="Accesibilidad">
-        <A11y items={[
-          'La fila de solapas es un tablist y cada panel declara qué solapa lo nombra.',
-          'Las flechas izquierda y derecha mueven el foco y dan la vuelta al llegar al final.',
-          'Solo la solapa activa es tabulable: Tab entra al grupo y sale, no recorre las cinco.',
-          'El panel es tabulable, así que se puede leer con teclado aunque adentro no haya nada que tocar.',
-        ]} />
+        <A11y>
+          <A11y.Item>La fila de solapas es un tablist y cada panel declara qué solapa lo nombra.</A11y.Item>
+          <A11y.Item>Las flechas izquierda y derecha mueven el foco y dan la vuelta al llegar al final.</A11y.Item>
+          <A11y.Item>Solo la solapa activa es tabulable: Tab entra al grupo y sale, no recorre las cinco.</A11y.Item>
+          <A11y.Item>El panel es tabulable, así que se puede leer con teclado aunque adentro no haya nada que tocar.</A11y.Item>
+        </A11y>
       </Section>
     </Page>
   )

@@ -1,13 +1,16 @@
 import cls from './divider.module.css'
-import { Avatar, Divider, Icon, Kbd } from '@milo/ui'
-import { A11y, Footnote, Frame, Page, Panel, Props, Section, Variant } from '../kit'
+import { Avatar } from '@milo/ui/avatar'
+import { Divider } from '@milo/ui/divider'
+import { Icon } from '@milo/ui/icon'
+import { Kbd } from '@milo/ui/kbd'
+import { A11y, Example, Footnote, Frame, Page, Panel, Practices, Props, Section, Variant } from '../kit'
 
 export function DividerStory() {
   return (
     <Page
       title="Divider"
       kind="Superficies"
-      imports="import { Divider } from '@milo/ui'"
+      imports="import { Divider } from '@milo/ui/divider'"
       lead="Un píxel de `--border`, y nada más. Existe como pieza porque la línea estaba escrita a mano en varios lugares y no todas con el mismo gris: cuál es la línea del sistema es una decisión, y una decisión escrita seis veces se desincroniza a la quinta."
     >
       <Section
@@ -58,16 +61,28 @@ export function DividerStory() {
         </Footnote>
       </Section>
 
+      <Section title="Cómo se escribe">
+        <Example code={`<Divider />
+
+<Divider orientation="vertical" />`} />
+      </Section>
+
       <Section title="Props">
         <Props of="Divider" />
       </Section>
 
+      <Section title="Cómo se usa bien">
+        <Practices>
+          <Practices.Do>Separá dos cosas que ya se distinguen; si no se distinguen, lo que falta es aire.</Practices.Do>
+        </Practices>
+      </Section>
+
       <Section title="Accesibilidad">
-        <A11y items={[
-          'Lleva role="separator" con su orientación, así que un lector anuncia el corte en vez de saltearlo.',
-          'No es tabulable ni tiene contenido: separa, y nada más.',
-          'El gris sale de --border, el mismo de todas las líneas del sistema, así que sube y baja con el tema.',
-        ]} />
+        <A11y>
+          <A11y.Item>Lleva role="separator" con su orientación, así que un lector anuncia el corte en vez de saltearlo.</A11y.Item>
+          <A11y.Item>No es tabulable ni tiene contenido: separa, y nada más.</A11y.Item>
+          <A11y.Item>El gris sale de --border, el mismo de todas las líneas del sistema, así que sube y baja con el tema.</A11y.Item>
+        </A11y>
       </Section>
     </Page>
   )

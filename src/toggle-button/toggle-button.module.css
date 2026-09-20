@@ -1,0 +1,37 @@
+@layer milo.components {
+  .root {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: var(--font-weight-medium);
+  }
+
+  .motion {
+    transition-property: background-color, color, box-shadow;
+    transition-duration: var(--duration-fast);
+    transition-timing-function: var(--ease-out);
+  }
+
+  .on {
+    background-color: var(--surface-muted);
+    color: var(--text);
+  }
+
+  .off {
+    color: var(--text-muted);
+  }
+
+  .disabled {
+    &:disabled {
+      pointer-events: none;
+      opacity: .45;
+    }
+  }
+
+  @media (hover: hover) {
+    .off:hover {
+      background-color: var(--surface-hover);
+      color: var(--text);
+    }
+  }
+}

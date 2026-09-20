@@ -30,10 +30,6 @@
     }
   }
 
-  .buttonOn {
-    background-color: var(--surface-muted);
-    color: var(--text);
-  }
 
   .buttonOff {
     color: var(--text-muted);

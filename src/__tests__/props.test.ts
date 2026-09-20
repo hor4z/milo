@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import { execFileSync } from 'node:child_process'
-import { readFileSync } from 'node:fs'
+import { readFileSync, readdirSync, statSync } from 'node:fs'
 import { join } from 'node:path'
 import { propsByComponent } from '../props.gen'
 
@@ -11,9 +11,24 @@ describe('la tabla de props sale del código', () => {
     expect(() => execFileSync('node', ['scripts/props.mjs', '--check'], { cwd: root, stdio: 'pipe' })).not.toThrow()
   })
 
+  it('el paths de tsconfig.json está al día', () => {
+    expect(() => execFileSync('node', ['scripts/paths.mjs', '--check'], { cwd: root, stdio: 'pipe' })).not.toThrow()
+  })
+
   it('cada pieza que el kit documenta existe en el paquete', () => {
-    const index = readFileSync(join(root, 'src/index.ts'), 'utf8')
-    const outside = Object.keys(propsByComponent).filter(p => !new RegExp(`\\b${p}\\b`).test(index))
+    const src = join(root, 'src')
+    const declarado = new Set<string>()
+    for (const folder of readdirSync(src)) {
+      const dir = join(src, folder)
+      if (!statSync(dir).isDirectory() || ['__tests__', 'styles', 'assets'].includes(folder)) continue
+      for (const file of readdirSync(dir)) {
+        if (!/\.tsx?$/.test(file) || file.endsWith('.test.ts') || file.endsWith('.test.tsx')) continue
+        const text = readFileSync(join(dir, file), 'utf8')
+        for (const m of text.matchAll(/^export (?:function|const|type) (\w+)/gm)) declarado.add(m[1])
+      }
+    }
+    // la familia se documenta como Modal.Header: lo que importa es que la raíz exista
+    const outside = Object.keys(propsByComponent).filter(p => !declarado.has(p.split('.')[0]))
     expect(outside).toEqual([])
   })
 

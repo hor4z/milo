@@ -1,0 +1,185 @@
+@layer milo.components {
+  /* dos superficies: el marco hundido de afuera y el papel de adentro, que es donde
+     viven los pasos. Plegada se ve solo el marco, y eso es lo que la hace una fila */
+  .root {
+    display: flex;
+    flex-direction: column;
+    border-radius: var(--radius-xl);
+    background-color: var(--surface-muted);
+    padding: 0.25rem;
+    padding-bottom: 0.15rem;
+    padding-inline: 0.15rem;
+  }
+
+  /* la fila que se ve siempre. El botón es el chevron con su título y nada más: la barra
+     y el contador quedan afuera, porque un progreso adentro de un botón se anuncia como
+     parte del nombre del botón */
+  .header {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.625rem 0.75rem;
+  }
+
+  /* el botón es la flecha y nada más: el título va al lado, a su altura. Sin fondo en
+     hover, que sobre un cuadrado de 20 se lee como una mancha */
+  .trigger {
+    display: inline-flex;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--radius-sm);
+  }
+
+  .chevron {
+    flex-shrink: 0;
+    transition-property: rotate;
+    transition-duration: var(--duration-fast);
+    transition-timing-function: var(--ease-out);
+  }
+
+  .chevronOpen {
+    rotate: 180deg;
+  }
+
+  .title {
+    flex: 1;
+    min-width: 0;
+    font-size: var(--type-reading);
+    line-height: var(--type-reading-lh);
+    letter-spacing: var(--type-reading-ls);
+    font-weight: var(--font-weight-semibold);
+    color: var(--text);
+  }
+
+  /* la barra es la del `Progress` en chico: acá el número de al lado dice lo mismo */
+  .track {
+    width: 5rem;
+    height: 0.375rem;
+    flex-shrink: 0;
+    overflow: hidden;
+    border-radius: var(--radius-xs);
+    /* la pista va contra el marco hundido, así que no puede ser del mismo gris */
+    background-color: var(--border-strong);
+  }
+
+  .fill {
+    display: block;
+    height: 100%;
+    border-radius: var(--radius-xs);
+    background-color: var(--brand);
+    transition-property: width;
+    transition-duration: var(--duration-content);
+    transition-timing-function: var(--ease-out);
+  }
+
+  .count {
+    flex-shrink: 0;
+    font-size: var(--type-meta);
+    line-height: var(--type-meta-lh);
+    letter-spacing: var(--type-meta-ls);
+    font-weight: var(--font-weight-medium);
+    color: var(--text-muted);
+  }
+
+  /* sin sombra: el papel ya se separa del marco por el cambio de fondo, y una sombra
+     contra el canto de afuera se lee como un segundo borde */
+  .body {
+    border-radius: var(--radius-lg);
+    padding: 0.5rem 0.75rem 0.75rem;
+  }
+
+  .items {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .item {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    gap: 0.75rem;
+    border-radius: var(--radius-md);
+    padding: 0.625rem 0.5rem;
+    text-align: left;
+  }
+
+  .itemMotion {
+    transition-property: background-color;
+    transition-duration: var(--duration-fast);
+    transition-timing-function: var(--ease-out);
+  }
+
+  .blocked {
+    color: var(--text-muted);
+  }
+
+  .mark {
+    display: inline-flex;
+    width: 1.25rem;
+    height: 1.25rem;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* relleno y no contorno: el paso hecho es lo único de la lista que se ve de reojo.
+     El par es `--ok-fill` con `--on-ok`, que es el que aguanta tinta blanca */
+  .done {
+    display: inline-flex;
+    width: 1.25rem;
+    height: 1.25rem;
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--radius-full);
+    background-color: var(--ok-fill);
+    color: var(--on-ok);
+  }
+
+  /* el paso que todavía no se hizo es un círculo vacío: un glifo ahí lo haría parecer una acción */
+  .pending {
+    width: 0.875rem;
+    height: 0.875rem;
+    border-radius: var(--radius-full);
+    border: 1.5px solid var(--border-strong);
+  }
+
+  .label {
+    flex: 1;
+    min-width: 0;
+    font-size: var(--type-reading);
+    line-height: var(--type-reading-lh);
+    letter-spacing: var(--type-reading-ls);
+    font-weight: var(--font-weight-medium);
+  }
+
+  .hint {
+    display: inline-flex;
+    flex-shrink: 0;
+  }
+
+  .footer {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.5rem;
+    border-top: 1px solid var(--border);
+    margin-top: 0.5rem;
+    padding: 0.75rem 0.5rem 0.25rem;
+    font-size: var(--type-meta);
+    line-height: var(--type-meta-lh);
+    letter-spacing: var(--type-meta-ls);
+    font-weight: var(--font-weight-medium);
+    color: var(--text-muted);
+  }
+
+  .footerIcon {
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  @media (hover: hover) {
+    .interactive:hover {
+      background-color: var(--surface-hover);
+    }
+  }
+}

@@ -1,7 +1,7 @@
 import cls from './settings-modal.module.css'
 import { useState } from 'react'
 import { cx } from '../lib/cx'
-import { Alert, AlertActions, AlertBody, AlertTitle } from '../alert/alert'
+import { Alert } from '../alert/alert'
 import { Button } from '../button/button'
 import { Chip } from '../chip/chip'
 import { Row } from '../row/row'
@@ -9,7 +9,7 @@ import { Segmented } from '../segmented/segmented'
 import { Select } from '../select/select'
 import { Switch } from '../switch/switch'
 import { Icon, type IconName } from '../icon/icon'
-import { Modal, ModalHeader, ModalTitle } from '../modal/modal'
+import { Modal } from '../modal/modal'
 import { usePrefs } from '../prefs/prefs'
 
 type SectionId = 'general' | 'perfil' | 'seguridad' | 'avisos'
@@ -43,9 +43,9 @@ export function SettingsModal({ open, onClose, user }: {
 
   return (
     <Modal open={open} onClose={onClose} size="md">
-      <ModalHeader>
-        <ModalTitle>Ajustes</ModalTitle>
-      </ModalHeader>
+      <Modal.Header>
+        <Modal.Title>Ajustes</Modal.Title>
+      </Modal.Header>
       <div className={cls.root}>
         <nav className={cls.rail}>
           {sections.map(s => {
@@ -94,10 +94,12 @@ function GeneralSection({ user }: { user: SettingsUser }) {
   return (
     <div>
       <EditableRow label="Nombre" value={user.name} />
-      <Row label="Correo">
+      <Row>
+        <Row.Label>Correo</Row.Label>
         <span className={cls.accountEmail}>{user.email}</span>
       </Row>
-      <Row label="Tema">
+      <Row>
+        <Row.Label>Tema</Row.Label>
         <Segmented
           size="sm"
           value={prefs.theme}
@@ -105,16 +107,21 @@ function GeneralSection({ user }: { user: SettingsUser }) {
           options={[{ value: 'light', label: 'Claro' }, { value: 'dark', label: 'Oscuro' }]}
         />
       </Row>
-      <Row label="Sugerir consignas mientras escribo" hint="Aparecen abajo del cursor y se aceptan con Tab.">
+      <Row>
+        <Row.Label>Sugerir consignas mientras escribo</Row.Label>
+        <Row.Hint>Aparecen abajo del cursor y se aceptan con Tab.</Row.Hint>
         <Switch checked={prefs.suggest} onChange={v => set('suggest', v)} label="Sugerir consignas" />
       </Row>
-      <Row label="Abrir la última actividad al entrar">
+      <Row>
+        <Row.Label>Abrir la última actividad al entrar</Row.Label>
         <Switch checked={prefs.resume} onChange={v => set('resume', v)} label="Abrir la última actividad" />
       </Row>
-      <Row label="Mostrar el método en las tarjetas">
+      <Row>
+        <Row.Label>Mostrar el método en las tarjetas</Row.Label>
         <Switch checked={prefs.showLens} onChange={v => set('showLens', v)} label="Mostrar el método" />
       </Row>
-      <Row label="Idioma">
+      <Row>
+        <Row.Label>Idioma</Row.Label>
         <Select width={148} value="Español (AR)" options={['Español (AR)', 'Español', 'Português', 'English']} />
       </Row>
     </div>
@@ -126,16 +133,22 @@ function ProfileSection({ user }: { user: SettingsUser }) {
   return (
     <div>
       <EditableRow label="Cómo te ven los aprendices" value={user.alias} />
-      <Row label="Rol" hint="Lo define quien coordina el espacio.">
+      <Row>
+        <Row.Label>Rol</Row.Label>
+        <Row.Hint>Lo define quien coordina el espacio.</Row.Hint>
         <Chip color="green">Guía</Chip>
       </Row>
-      <Row label="Escuela">
+      <Row>
+        <Row.Label>Escuela</Row.Label>
         <span className={cls.schoolName}>{user.school}</span>
       </Row>
-      <Row label="Dejar que otros guías vean mis recetas" hint="Solo las que publiques, nunca los borradores.">
+      <Row>
+        <Row.Label>Dejar que otros guías vean mis recetas</Row.Label>
+        <Row.Hint>Solo las que publiques, nunca los borradores.</Row.Hint>
         <Switch checked={prefs.shareRecipes} onChange={v => set('shareRecipes', v)} label="Compartir recetas" />
       </Row>
-      <Row label="Aparecer en el directorio de la escuela">
+      <Row>
+        <Row.Label>Aparecer en el directorio de la escuela</Row.Label>
         <Switch checked={prefs.directory} onChange={v => set('directory', v)} label="Aparecer en el directorio" />
       </Row>
     </div>
@@ -146,28 +159,35 @@ function SecuritySection() {
   const { prefs, set } = usePrefs()
   return (
     <div>
-      <Row label="Ingreso" hint="Se entra con Google y con nada más.">
+      <Row>
+        <Row.Label>Ingreso</Row.Label>
+        <Row.Hint>Se entra con Google y con nada más.</Row.Hint>
         <Chip color="blue">Google</Chip>
       </Row>
-      <Row label="Sesiones abiertas" hint="Chrome en Linux · Safari en iPhone">
+      <Row>
+        <Row.Label>Sesiones abiertas</Row.Label>
+        <Row.Hint>Chrome en Linux · Safari en iPhone</Row.Hint>
         <Button size="sm">Cerrar las otras</Button>
       </Row>
-      <Row label="Preguntar antes de borrar una actividad" hint="Con entregas adentro siempre pregunta; esto es para las vacías.">
+      <Row>
+        <Row.Label>Preguntar antes de borrar una actividad</Row.Label>
+        <Row.Hint>Con entregas adentro siempre pregunta; esto es para las vacías.</Row.Hint>
         <Switch checked={prefs.confirmDelete} onChange={v => set('confirmDelete', v)} label="Preguntar antes de borrar" />
       </Row>
-      <Row label="Registro de accesos">
+      <Row>
+        <Row.Label>Registro de accesos</Row.Label>
         <Button size="sm" variant="ghost" iconEnd={<Icon name="download" />}>Descargar</Button>
       </Row>
       <div className={cls.dangerZone}>
         <Alert tone="bad" size="sm" role="group" aria-label="Borrar la cuenta">
-          <AlertTitle>Borrar la cuenta</AlertTitle>
-          <AlertBody>
+          <Alert.Title>Borrar la cuenta</Alert.Title>
+          <Alert.Body>
             Se van los espacios que coordinás y las actividades que escribiste. Las entregas de los
             aprendices quedan con su autor, no con vos.
-          </AlertBody>
-          <AlertActions>
+          </Alert.Body>
+          <Alert.Actions>
             <Button size="sm" variant="bad">Borrar la cuenta</Button>
-          </AlertActions>
+          </Alert.Actions>
         </Alert>
       </div>
     </div>
@@ -178,19 +198,26 @@ function NoticesSection() {
   const { prefs, set } = usePrefs()
   return (
     <div>
-      <Row label="Cuando entra una entrega">
+      <Row>
+        <Row.Label>Cuando entra una entrega</Row.Label>
         <Switch checked={prefs.notifySubmission} onChange={v => set('notifySubmission', v)} label="Avisar entregas" />
       </Row>
-      <Row label="Cuando un aprendiz queda trabado" hint="Dos intentos sin avanzar en la misma fase.">
+      <Row>
+        <Row.Label>Cuando un aprendiz queda trabado</Row.Label>
+        <Row.Hint>Dos intentos sin avanzar en la misma fase.</Row.Hint>
         <Switch checked={prefs.notifyStuck} onChange={v => set('notifyStuck', v)} label="Avisar trabas" />
       </Row>
-      <Row label="Resumen de la semana" hint="Los domingos, con lo que pasó en cada espacio.">
+      <Row>
+        <Row.Label>Resumen de la semana</Row.Label>
+        <Row.Hint>Los domingos, con lo que pasó en cada espacio.</Row.Hint>
         <Switch checked={prefs.notifyWeekly} onChange={v => set('notifyWeekly', v)} label="Resumen semanal" />
       </Row>
-      <Row label="Novedades del producto">
+      <Row>
+        <Row.Label>Novedades del producto</Row.Label>
         <Switch checked={prefs.notifyProduct} onChange={v => set('notifyProduct', v)} label="Novedades" />
       </Row>
-      <Row label="Por dónde">
+      <Row>
+        <Row.Label>Por dónde</Row.Label>
         <Select width={148} value="Correo" options={['Correo', 'Solo en la app', 'Correo y app']} />
       </Row>
     </div>

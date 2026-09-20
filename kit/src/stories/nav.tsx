@@ -1,7 +1,8 @@
 import cls from './nav.module.css'
 import { useState } from 'react'
-import { FolderIcon, NavItemBody, navItemClass, navSubItemClass } from '@milo/ui'
-import { A11y, Page, Props, Section } from '../kit'
+import { Icon } from '@milo/ui/icon'
+import { NavItemBody, navItemClass, navSubItemClass } from '@milo/ui/nav'
+import { A11y, Example, Page, Practices, Props, Section } from '../kit'
 
 export function NavStory() {
   const [active, setActive] = useState('explorar')
@@ -10,12 +11,12 @@ export function NavStory() {
     <Page
       title="NavItem"
       kind="Navegación"
-      imports="import { NavItemBody, navItemClass } from '@milo/ui'"
+      imports="import { NavItemBody, navItemClass } from '@milo/ui/nav'"
       lead="El item del sidebar, y es la pieza que usa el riel de este mismo kit. Va partido en dos (`navItemClass` para el contenedor y `NavItemBody` para el contenido) porque NavLink recibe className y children como funciones de su propio estado: partirlo deja que quien navega elija el elemento y que el sistema decida cómo se ve."
     >
       <Section
         title="El item"
-        note="40 de alto, radio 12, el icono en un cuadrado de 34 y la etiqueta en el rol `--type-body`. El activo va en azul suave con su canto. Estuvo en gris, con la regla 'el activo nunca se marca con color': esa regla existía cuando el azul era el único acento, y dejó de valer cuando pasó a ser el color primario: en un riel de doce, el gris hay que buscarlo."
+        note="El activo se marca con la barra de la izquierda y el azul suave. En un riel de doce items, un activo en gris hay que buscarlo."
       >
         <div className={cls.itemRail}>
           <div className={cls.itemList}>
@@ -37,7 +38,7 @@ export function NavStory() {
             ] as const).map(s => (
               <button key={s.id} onClick={() => setActive(s.id)} className={navItemClass({ active: active === s.id })}>
                 <NavItemBody
-                  glyph={<FolderIcon color={s.color} size={20} />}
+                  glyph={<Icon.Folder color={s.color} size={20} />}
                   label={s.label}
                 />
               </button>
@@ -71,15 +72,28 @@ export function NavStory() {
         </div>
       </Section>
 
+      <Section title="Cómo se escribe">
+        <Example code={`<button className={navItemClass({ active })}>
+  <NavItemBody icon="dashboard" label="Dashboard" badge="3" />
+</button>`} />
+      </Section>
+
       <Section title="Props">
-        <Props of={['navItemClass', 'NavItemBody']} />
+        <Props of="NavItemBody" />
+      </Section>
+
+      <Section title="Cómo se usa bien">
+        <Practices>
+          <Practices.Do>El activo se marca con la barra de 2px: sin fondo y sin borde.</Practices.Do>
+          <Practices.Dont>No alternes la clase del icono entre estados: cambia el peso de la fuente y el glifo se mueve adentro de su caja.</Practices.Dont>
+        </Practices>
       </Section>
 
       <Section title="Accesibilidad">
-        <A11y items={[
-          'El item activo lo dice con aria-current, no solo con el fondo.',
-          'El texto de un item inactivo va en tinta: en gris, una lista de siete espacios parece deshabilitada.',
-        ]} />
+        <A11y>
+          <A11y.Item>El item activo lo dice con aria-current, no solo con el fondo.</A11y.Item>
+          <A11y.Item>El texto de un item inactivo va en tinta: en gris, una lista de siete espacios parece deshabilitada.</A11y.Item>
+        </A11y>
       </Section>
     </Page>
   )

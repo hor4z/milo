@@ -1,6 +1,12 @@
 import s from './kit.module.css'
 import { Children, useEffect, useState, type ReactNode } from 'react'
-import { Chip, Icon, cx, type IconName } from '@milo/ui'
+import { Chip } from '@milo/ui/chip'
+import { CopyButton } from '@milo/ui/copy-button'
+import { useClipboard } from '@milo/ui/lib/use-clipboard'
+import type { LabelColor } from '@milo/ui/lib/colors'
+import { toneIcon, toneInk, toneSurface, type Tone } from '@milo/ui/lib/tone'
+import { Icon, type IconName } from '@milo/ui/icon'
+import { cx } from '@milo/ui/lib/cx'
 import { propsByComponent } from '@milo/ui/props'
 
 export function useTokens(names: readonly string[]) {
@@ -63,6 +69,18 @@ type PageProps = {
   children: ReactNode
 }
 
+/** Un color por grupo, el mismo que separa al riel: la categoría se reconoce antes de leerla. */
+const kindColor: Record<string, LabelColor> = {
+  Fundamentos: 'teal',
+  Editor: 'purple',
+  Acciones: 'blue',
+  Formularios: 'green',
+  'Navegación': 'orange',
+  Datos: 'blue',
+  Avisos: 'pink',
+  Superficies: 'purple',
+}
+
 /** La cabecera de una pieza y el cuerpo de su página. */
 export function Page({ title, lead, imports, kind, children }: PageProps) {
   return (
@@ -70,7 +88,7 @@ export function Page({ title, lead, imports, kind, children }: PageProps) {
       <header className={s.pageHeader}>
         <div className={s.pageTitleRow}>
           <h1 className={s.pageTitle}>{title}</h1>
-          {kind && <Chip size="sm">{kind}</Chip>}
+          {kind && <Chip size="sm" color={kindColor[kind] ?? 'blue'}>{kind}</Chip>}
         </div>
         <p className={s.pageLead}><Rich text={lead} /></p>
         {imports && <Code>{imports}</Code>}
@@ -82,15 +100,11 @@ export function Page({ title, lead, imports, kind, children }: PageProps) {
 
 /** Una línea de código que se puede copiar. */
 export function Code({ children }: { children: string }) {
-  const [copied, setCopied] = useState(false)
+  const { copied, copy } = useClipboard()
   return (
     <button
       type="button"
-      onClick={() => {
-        navigator.clipboard?.writeText(children)
-        setCopied(true)
-        setTimeout(() => setCopied(false), 1400)
-      }}
+      onClick={() => copy(children)}
       className={`${s.importBlock} group`}
     >
       <code className={s.importCode}>{children}</code>
@@ -147,7 +161,6 @@ const highlight: Record<string, string> = {
 
 /** Cómo se escribe la pieza. Va al lado de la tabla de props: una dice qué acepta, el otro cómo se usa. */
 export function Example({ code }: { code: string }) {
-  const [copied, setCopied] = useState(false)
   return (
     <div className={`${s.codeBlock} group`}>
       <pre className={s.codePre}>
@@ -161,18 +174,7 @@ export function Example({ code }: { code: string }) {
           ))}
         </code>
       </pre>
-      <button
-        type="button"
-        aria-label={copied ? 'Copiado' : 'Copiar el ejemplo'}
-        className={s.codeCopy}
-        onClick={() => {
-          navigator.clipboard?.writeText(code.trim())
-          setCopied(true)
-          setTimeout(() => setCopied(false), 1400)
-        }}
-      >
-        <Icon name={copied ? 'check' : 'content_copy'} size={14} className="icon-muted" />
-      </button>
+      <CopyButton value={code.trim()} label="Copiar el ejemplo" size="sm" className={s.codeCopy} />
     </div>
   )
 }
@@ -336,7 +338,12 @@ export function Mono({ children }: { children: ReactNode }) {
 
 /** La tabla de props. Las filas salen del código: tipo, default y descripción los escribe la pieza en su docblock y los extrae `scripts/props.mjs`. */
 export function Props({ of }: { of: string | readonly string[] }) {
-  const names = typeof of === 'string' ? [of] : of
+  const pedidos = typeof of === 'string' ? [of] : of
+  // con la raíz alcanza: las partes de la familia salen solas, en el orden en que la pieza las cuelga
+  const names = pedidos.flatMap(pieza => [
+    pieza,
+    ...Object.keys(propsByComponent).filter(k => k.startsWith(`${pieza}.`)),
+  ])
   return (
     <Stack gap="lg">
       {names.map(pieza => {
@@ -401,10 +408,17 @@ export function Props({ of }: { of: string | readonly string[] }) {
   )
 }
 
-export function Note({ icon = 'lightbulb', title, children }: { icon?: IconName; title?: string; children: ReactNode }) {
+export function Note({ tone, icon, title, children }: {
+  /** Sin esto la nota es papel blanco y el glifo gris, que es lo que va para una aclaración. `warn` para lo que se puede romper, `ok` para lo que ya está resuelto. */
+  tone?: Tone
+  icon?: IconName
+  title?: string
+  children: ReactNode
+}) {
+  const glifo = icon ?? (tone ? toneIcon[tone] : 'lightbulb')
   return (
-    <div className={`${s.note} bg-surface`}>
-      <Icon name={icon} size={18} className={`${s.noteIcon} icon-muted`} />
+    <div className={cx(s.note, tone && toneSurface[tone])}>
+      <Icon name={glifo} size={18} className={cx(s.noteIcon, tone ? toneInk[tone] : s.noteGlyph)} />
       <div className={s.noteBody}>
         {title && <p className={s.noteTitle}><Rich text={title} /></p>}
         <div className={s.noteText}>
@@ -416,18 +430,51 @@ export function Note({ icon = 'lightbulb', title, children }: { icon?: IconName;
 }
 
 /** Lo que la pieza hace por accesibilidad, en una lista corta. */
-export function A11y({ items }: { items: string[] }) {
+function A11yRoot({ children }: { children: ReactNode }) {
+  return <ul className={s.a11yList}>{children}</ul>
+}
+
+/** Una cosa que la pieza resuelve sola en accesibilidad. */
+function A11yItem({ children }: { children: ReactNode }) {
   return (
-    <ul className={s.a11yList}>
-      {items.map(t => (
-        <li key={t} className={s.a11yItem}>
-          <Icon name="check" size={16} className={s.a11yCheck} />
-          <span className={s.a11yText}><Rich text={t} /></span>
-        </li>
-      ))}
-    </ul>
+    <li className={s.a11yItem}>
+      <Icon name="check" size={16} className={s.a11yCheck} />
+      <span className={s.a11yText}>
+        {Children.map(children, c => (typeof c === 'string' ? <Rich text={c} /> : c))}
+      </span>
+    </li>
   )
 }
+
+/** Lo que la pieza resuelve sola, al cierre de cada vista. */
+export const A11y = Object.assign(A11yRoot, { Item: A11yItem })
+
+function PracticesRoot({ children }: { children: ReactNode }) {
+  return <div className={s.practices}>{children}</div>
+}
+
+/** Lo que conviene hacer. Una línea, concreta, con la pieza adentro. */
+function Do({ children }: { children: ReactNode }) {
+  return (
+    <p className={s.practiceDo}>
+      <Icon name="check_circle" size={16} className={s.practiceDoIcon} />
+      <span>{Children.map(children, c => (typeof c === 'string' ? <Rich text={c} /> : c))}</span>
+    </p>
+  )
+}
+
+/** Lo que no, y por qué. Sin el porqué es una orden y no una guía. */
+function Dont({ children }: { children: ReactNode }) {
+  return (
+    <p className={s.practiceDont}>
+      <Icon name="cancel" size={16} className={s.practiceDontIcon} />
+      <span>{Children.map(children, c => (typeof c === 'string' ? <Rich text={c} /> : c))}</span>
+    </p>
+  )
+}
+
+/** Cómo se usa bien esta pieza, en dos columnas. Es también lo que un agente necesita para no equivocarse con ella. */
+export const Practices = Object.assign(PracticesRoot, { Do, Dont })
 
 export function Swatch({ token, note }: { token: string; note?: string }) {
   const vals = useTokens([token])

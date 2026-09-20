@@ -2,21 +2,21 @@ import { useState } from 'react'
 import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { describe, expect, it } from 'vitest'
-import { Pagination, PaginationNext, PaginationPrev, PaginationStatus } from './pagination'
+import { Pagination } from './pagination'
 
-describe('PaginationStatus', () => {
+describe('Pagination.Status', () => {
   it('colapsa el tramo cuando es todo', () => {
-    render(<PaginationStatus from={1} to={9} total={9} noun={['actividad', 'actividades']} />)
+    render(<Pagination.Status from={1} to={9} total={9} noun={['actividad', 'actividades']} />)
     expect(screen.getByRole('status')).toHaveTextContent('9 actividades')
   })
 
   it('usa el singular con uno solo', () => {
-    render(<PaginationStatus from={1} to={1} total={1} noun={['actividad', 'actividades']} />)
+    render(<Pagination.Status from={1} to={1} total={1} noun={['actividad', 'actividades']} />)
     expect(screen.getByRole('status')).toHaveTextContent('1 actividad')
   })
 
   it('dice el tramo cuando no es todo', () => {
-    render(<PaginationStatus from={5} to={8} total={20} noun={['fila', 'filas']} />)
+    render(<Pagination.Status from={5} to={8} total={20} noun={['fila', 'filas']} />)
     expect(screen.getByRole('status')).toHaveTextContent('5 a 8 de 20 filas')
   })
 })
@@ -27,9 +27,9 @@ describe('Pagination', () => {
       const [p, setP] = useState(0)
       return (
         <Pagination>
-          <PaginationStatus from={p * 4 + 1} to={p * 4 + 4} total={12} />
-          <PaginationPrev disabled={p === 0} onClick={() => setP(n => n - 1)} />
-          <PaginationNext disabled={p === 2} onClick={() => setP(n => n + 1)} />
+          <Pagination.Status from={p * 4 + 1} to={p * 4 + 4} total={12} />
+          <Pagination.Prev disabled={p === 0} onClick={() => setP(n => n - 1)} />
+          <Pagination.Next disabled={p === 2} onClick={() => setP(n => n + 1)} />
         </Pagination>
       )
     }
@@ -43,7 +43,7 @@ describe('Pagination', () => {
   it('la franja se anuncia como la navegación de la tabla', () => {
     render(
       <Pagination>
-        <PaginationStatus to={4} total={9} noun={['actividad', 'actividades']} />
+        <Pagination.Status to={4} total={9} noun={['actividad', 'actividades']} />
       </Pagination>,
     )
     expect(screen.getByRole('navigation', { name: 'Paginación' })).toBeInTheDocument()

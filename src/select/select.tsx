@@ -1,6 +1,6 @@
 import s from './select.module.css'
 import { useCallback, useEffect, useId, useLayoutEffect, useRef, useState, type ReactNode } from 'react'
-import { useField } from '../field/field'
+import { useField } from '../lib/field-ctx'
 import { Icon } from '../icon/icon'
 import { cx, fold } from '../lib/cx'
 import { useEscape } from '../lib/esc'

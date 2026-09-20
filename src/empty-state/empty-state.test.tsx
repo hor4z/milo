@@ -5,21 +5,51 @@ import { EmptyState } from './empty-state'
 
 describe('EmptyState', () => {
   it('lleva su salida y el icono no se anuncia', () => {
-    render(<EmptyState icon="inbox" title="Nada acá" body="Todavía no llegó nada." action={<button>Crear</button>} />)
+    render(
+      <EmptyState icon="inbox">
+        <EmptyState.Title>Nada acá</EmptyState.Title>
+        <EmptyState.Body>Todavía no llegó nada.</EmptyState.Body>
+        <EmptyState.Action><button>Crear</button></EmptyState.Action>
+      </EmptyState>,
+    )
     expect(screen.getByText('Nada acá')).toBeInTheDocument()
     expect(screen.getByRole('button', { name: 'Crear' })).toBeInTheDocument()
   })
 
   it('el chico no lleva la caja punteada y el grande sí', () => {
-    const { container, rerender } = render(<EmptyState title="Nada" body="Nada acá" size="sm" />)
+    const { container, rerender } = render(<EmptyState size="sm" >
+  <EmptyState.Title>Nada</EmptyState.Title>
+  <EmptyState.Body>Nada acá</EmptyState.Body>
+</EmptyState>)
     expect((container.firstChild as HTMLElement).className).not.toContain(s.bordered)
-    rerender(<EmptyState title="Nada" body="Nada acá" />)
+    rerender(<EmptyState >
+  <EmptyState.Title>Nada</EmptyState.Title>
+  <EmptyState.Body>Nada acá</EmptyState.Body>
+</EmptyState>)
     expect((container.firstChild as HTMLElement).className).toContain(s.bordered)
   })
 
   it('el título y el cuerpo se leen los dos', () => {
-    render(<EmptyState title="Nada acá" body="Todavía no llegó nada." />)
+    render(<EmptyState >
+  <EmptyState.Title>Nada acá</EmptyState.Title>
+  <EmptyState.Body>Todavía no llegó nada.</EmptyState.Body>
+</EmptyState>)
     expect(screen.getByText('Nada acá')).toBeInTheDocument()
     expect(screen.getByText('Todavía no llegó nada.')).toBeInTheDocument()
+  })
+})
+
+describe('EmptyState · cada parte cae en su lugar', () => {
+  it('el título no queda adentro de la acción', () => {
+    render(
+      <EmptyState icon="inbox">
+        <EmptyState.Title>Nada acá</EmptyState.Title>
+        <EmptyState.Body>Todavía no llegó nada.</EmptyState.Body>
+        <EmptyState.Action><button type="button">Crear</button></EmptyState.Action>
+      </EmptyState>,
+    )
+    const boton = screen.getByRole('button', { name: 'Crear' })
+    expect(boton).not.toHaveTextContent('Nada acá')
+    expect(boton.contains(screen.getByText('Todavía no llegó nada.'))).toBe(false)
   })
 })

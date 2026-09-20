@@ -13,8 +13,6 @@ type IconButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
   variant?: 'ghost' | 'solid' | 'muted' | 'brand'
   /** 36 · 40 · 44, los del Button. */
   size?: 'sm' | 'md' | 'lg'
-  /** El puntito de "hay algo nuevo", adentro del botón. Para un contador o un glifo, `Indicator`. */
-  dot?: boolean
   /** Solo cambia el ghost, que pasa a muted. */
   active?: boolean
   /** Para usarlo como disparador de un `Dropdown` o un `Popover`. */
@@ -22,7 +20,7 @@ type IconButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
 }
 
 export function IconButton({
-  icon, label, variant = 'ghost', size = 'md', dot, active, type = 'button', className, ...rest
+  icon, label, variant = 'ghost', size = 'md', active, type = 'button', className, ...rest
 }: IconButtonProps) {
   const c = control[size]
   return (
@@ -40,7 +38,6 @@ export function IconButton({
       {...rest}
     >
       <Icon name={icon} size={c.icon} />
-      {dot && <span className={cx(s.dot, c.dot)} />}
     </button>
   )
 }

@@ -1,6 +1,13 @@
-import cls from './App.module.css'
-import { useEffect, useMemo, useRef, useState, type ReactNode } from 'react'
-import { Button, EmptyState, Icon, IconButton, Search, ToastProvider, cx, fold, usePrefs } from '@milo/ui'
+import cls from './app.module.css'
+import { Fragment, useEffect, useMemo, useRef, useState, type ReactNode } from 'react'
+import { Button } from '@milo/ui/button'
+import { EmptyState } from '@milo/ui/empty-state'
+import { Icon } from '@milo/ui/icon'
+import { IconButton } from '@milo/ui/icon-button'
+import { cx, fold } from '@milo/ui/lib/cx'
+import { usePrefs } from '@milo/ui/prefs'
+import { Search } from '@milo/ui/search'
+import { ToastProvider } from '@milo/ui/toast'
 import { Intro } from './intro'
 import { Dashboard } from './dashboard'
 import { DocumentStory } from './document'
@@ -21,7 +28,6 @@ import { QuoteStory } from './stories/quote'
 import { TaskListStory } from './stories/task-list'
 import { MentionStory } from './stories/mention'
 import { DatePickerStory } from './stories/date-picker'
-import { StepperStory } from './stories/stepper'
 import { ReorderStory } from './stories/reorder'
 import { CommandMenuStory } from './stories/command-menu'
 import { ToolbarStory } from './stories/toolbar'
@@ -29,7 +35,12 @@ import { StepsStory } from './stories/steps'
 import { AmeliaStory } from './mascots/amelia'
 import { OttoStory } from './mascots/otto'
 import { WritingSection } from './foundations/writing'
+import { ChecklistStory } from './stories/checklist'
 import { ButtonStory } from './stories/button'
+import { ButtonGroupStory } from './stories/button-group'
+import { SplitButtonStory } from './stories/split-button'
+import { ToggleButtonStory } from './stories/toggle-button'
+import { CopyButtonStory } from './stories/copy-button'
 import { IconButtonStory } from './stories/icon-button'
 import { TextFieldStory } from './stories/text-field'
 import { TextareaStory } from './stories/textarea'
@@ -45,6 +56,7 @@ import { ChipStory } from './stories/chip'
 import { SpinnerStory } from './stories/spinner'
 import { AvatarStory } from './stories/avatar'
 import { IconStory } from './stories/icon'
+import { UtilidadesStory } from './stories/utilidades'
 import { KbdStory } from './stories/kbd'
 import { DividerStory } from './stories/divider'
 import { MenuStory } from './stories/menu'
@@ -73,7 +85,7 @@ import { ModalStory } from './stories/modal'
 import { PopoverStory } from './stories/popover'
 import { TooltipStory } from './stories/tooltip'
 
-type Story = { id: string; label: string; render: () => ReactNode; alias?: string }
+type Story = { id: string; label: string; render: () => ReactNode; alias?: string; children?: Story[] }
 type Group = { label: string; stories: Story[] }
 
 const INTRO = 'intro'
@@ -94,6 +106,7 @@ const groups: Group[] = [
       { id: 'media', label: 'Medios', alias: 'medios imagen video audio animación multimedia subtítulos leyendas audiodescripción transcripción alt proporción autoplay peso voz sonido silencio volumen velocidad escuchar lectura hablada', render: () => <MediaSection /> },
       { id: 'numbers', label: 'Números y valores', alias: 'números cifras decimales coma porcentaje unidades tamaño rango cantidades tabular', render: () => <NumbersSection /> },
       { id: 'writing', label: 'Cómo se escribe', alias: 'texto redacción copy mensajes tono escritura', render: () => <WritingSection /> },
+      { id: 'utilidades', label: 'Utilidades', alias: 'utilidades helpers funciones hooks lib time number colorForName plural api', render: () => <UtilidadesStory /> },
     ],
   },
   {
@@ -106,100 +119,113 @@ const groups: Group[] = [
   {
     label: 'Editor',
     stories: [
-      { id: 'toolbar', label: 'Toolbar', alias: 'barra herramientas formato negrita cursiva editor texto enriquecido', render: () => <ToolbarStory /> },
-      { id: 'command-menu', label: 'CommandMenu', alias: 'comandos paleta barra slash menú buscar bloques editor notion', render: () => <CommandMenuStory /> },
-      { id: 'callout', label: 'Callout', alias: 'bloque destacado aclaración pista recordar contenido editor', render: () => <CalloutStory /> },
-      { id: 'figure', label: 'Figure', alias: 'imagen figura pie epígrafe foto alt caption editor', render: () => <FigureStory /> },
-      { id: 'quote', label: 'Quote', alias: 'cita blockquote fuente atribución textual editor', render: () => <QuoteStory /> },
-      { id: 'task-list', label: 'TaskList', alias: 'tareas checklist pasos pendientes marcar hacer editor', render: () => <TaskListStory /> },
-      { id: 'mention', label: 'Mention', alias: 'mención arroba persona espacio referencia enlace texto editor', render: () => <MentionStory /> },
+      { id: 'toolbar', label: 'Barra de formato', alias: 'Toolbar barra herramientas formato negrita cursiva editor texto enriquecido', render: () => <ToolbarStory /> },
+      { id: 'command-menu', label: 'Paleta de comandos', alias: 'CommandMenu comandos paleta barra slash menú buscar bloques editor notion', render: () => <CommandMenuStory /> },
+      { id: 'callout', label: 'Bloque destacado', alias: 'Callout bloque destacado aclaración pista recordar contenido editor', render: () => <CalloutStory /> },
+      { id: 'figure', label: 'Imagen con pie', alias: 'Figure imagen figura pie epígrafe foto alt caption editor', render: () => <FigureStory /> },
+      { id: 'quote', label: 'Cita', alias: 'cita blockquote fuente atribución textual editor', render: () => <QuoteStory /> },
+      { id: 'task-list', label: 'Lista de tareas', alias: 'TaskList tareas checklist pasos pendientes marcar hacer editor', render: () => <TaskListStory /> },
+      { id: 'checklist', label: 'Lista de pasos', alias: 'Checklist primeros pasos onboarding progreso acordeón plegable checklist', render: () => <ChecklistStory /> },
+      { id: 'mention', label: 'Mención', alias: 'Mention mención arroba persona espacio referencia enlace texto editor', render: () => <MentionStory /> },
     ],
   },
   {
     label: 'Acciones',
     stories: [
-      { id: 'button', label: 'Button', alias: 'botón acción primaria cta', render: () => <ButtonStory /> },
-      { id: 'icon-button', label: 'IconButton', alias: 'botón icono redondo acción', render: () => <IconButtonStory /> },
-      { id: 'menu', label: 'Menu', alias: 'menú opciones contextual', render: () => <MenuStory /> },
-      { id: 'dropdown', label: 'Dropdown', alias: 'menú desplegable opciones', render: () => <DropdownStory /> },
+      {
+        id: 'button',
+        label: 'Botón',
+        alias: 'button botón acción primaria cta',
+        render: () => <ButtonStory />,
+        children: [
+          { id: 'icon-button', label: 'Botón de icono', alias: 'IconButton botón icono redondo acción', render: () => <IconButtonStory /> },
+          { id: 'button-group', label: 'Grupo de botones', alias: 'ButtonGroup grupo pegados juntos barra', render: () => <ButtonGroupStory /> },
+          { id: 'split-button', label: 'Botón partido', alias: 'SplitButton partido flecha menú acción principal', render: () => <SplitButtonStory /> },
+          { id: 'toggle-button', label: 'Botón de alternancia', alias: 'ToggleButton toggle alternar hundido pressed', render: () => <ToggleButtonStory /> },
+          { id: 'copy-button', label: 'Botón de copiar', alias: 'CopyButton copiar portapapeles clipboard', render: () => <CopyButtonStory /> },
+        ],
+      },
+      { id: 'menu', label: 'Menú', alias: 'Menu menú opciones contextual', render: () => <MenuStory /> },
+      { id: 'dropdown', label: 'Desplegable', alias: 'Dropdown menú desplegable opciones', render: () => <DropdownStory /> },
     ],
   },
   {
     label: 'Formularios',
     stories: [
-      { id: 'field', label: 'Field', alias: 'formulario campo etiqueta ayuda error obligatorio fieldset', render: () => <FieldStory /> },
-      { id: 'sheet', label: 'Sheet', alias: 'panel lateral drawer formulario largo costado', render: () => <SheetStory /> },
-      { id: 'search', label: 'Search', alias: 'buscador buscar búsqueda lupa filtrar atajo', render: () => <SearchStory /> },
-      { id: 'text-field', label: 'TextField', alias: 'input campo texto entrada', render: () => <TextFieldStory /> },
-      { id: 'textarea', label: 'Textarea', alias: 'campo multilínea texto largo', render: () => <TextareaStory /> },
-      { id: 'select', label: 'Select', alias: 'combo desplegable elegir opción', render: () => <SelectStory /> },
-      { id: 'date-picker', label: 'DatePicker', alias: 'fecha calendario vencimiento día mes entrega cuándo almanaque', render: () => <DatePickerStory /> },
-      { id: 'checkbox', label: 'Checkbox', alias: 'casilla marcar tilde', render: () => <CheckboxStory /> },
-      { id: 'radio', label: 'Radio', alias: 'opción única elegir', render: () => <RadioStory /> },
-      { id: 'switch', label: 'Switch', alias: 'toggle interruptor prender apagar', render: () => <SwitchStory /> },
-      { id: 'slider', label: 'Slider', alias: 'rango deslizar valor', render: () => <SliderStory /> },
-      { id: 'stepper', label: 'Stepper', alias: 'paso número cantidad más menos contador incrementar intentos', render: () => <StepperStory /> },
-      { id: 'segmented', label: 'Segmented', alias: 'filtro conmutador pestañas grupo', render: () => <SegmentedStory /> },
+      { id: 'field', label: 'Campo', alias: 'formulario campo etiqueta ayuda error obligatorio fieldset', render: () => <FieldStory /> },
+      { id: 'sheet', label: 'Panel lateral', alias: 'Sheet panel lateral drawer formulario largo costado', render: () => <SheetStory /> },
+      { id: 'search', label: 'Buscador', alias: 'Search buscador buscar búsqueda lupa filtrar atajo', render: () => <SearchStory /> },
+      { id: 'text-field', label: 'Campo de texto', alias: 'TextField input campo texto entrada', render: () => <TextFieldStory /> },
+      { id: 'textarea', label: 'Área de texto', alias: 'Textarea campo multilínea texto largo', render: () => <TextareaStory /> },
+      { id: 'select', label: 'Selector', alias: 'Select combo desplegable elegir opción', render: () => <SelectStory /> },
+      { id: 'date-picker', label: 'Selector de fecha', alias: 'DatePicker fecha calendario vencimiento día mes entrega cuándo almanaque', render: () => <DatePickerStory /> },
+      { id: 'checkbox', label: 'Casilla', alias: 'Checkbox casilla marcar tilde', render: () => <CheckboxStory /> },
+      { id: 'radio', label: 'Opción única', alias: 'Radio opción única elegir', render: () => <RadioStory /> },
+      { id: 'switch', label: 'Interruptor', alias: 'Switch toggle interruptor prender apagar', render: () => <SwitchStory /> },
+      { id: 'slider', label: 'Deslizador', alias: 'Slider rango deslizar valor', render: () => <SliderStory /> },
+      { id: 'segmented', label: 'Segmentado', alias: 'Segmented filtro conmutador pestañas grupo', render: () => <SegmentedStory /> },
     ],
   },
   {
     label: 'Navegación',
     stories: [
-      { id: 'tabs', label: 'Tabs', alias: 'solapas pestañas paneles', render: () => <TabsStory /> },
-      { id: 'accordion', label: 'Accordion', alias: 'acordeón desplegable details preguntas frecuentes', render: () => <AccordionStory /> },
-      { id: 'breadcrumb', label: 'Breadcrumb', alias: 'ruta migas volver jerarquía', render: () => <BreadcrumbStory /> },
-      { id: 'reorder', label: 'Reorder', alias: 'reordenar arrastrar soltar mover orden bloques manija drag', render: () => <ReorderStory /> },
-      { id: 'steps', label: 'Steps', alias: 'etapas pasos proceso wizard progreso secuencia', render: () => <StepsStory /> },
-      { id: 'nav', label: 'NavItem', alias: 'navegación item sidebar riel', render: () => <NavStory /> },
+      { id: 'tabs', label: 'Solapas', alias: 'Tabs solapas pestañas paneles', render: () => <TabsStory /> },
+      { id: 'accordion', label: 'Acordeón', alias: 'Accordion acordeón desplegable details preguntas frecuentes', render: () => <AccordionStory /> },
+      { id: 'breadcrumb', label: 'Migas de pan', alias: 'Breadcrumb ruta migas volver jerarquía', render: () => <BreadcrumbStory /> },
+      { id: 'reorder', label: 'Reordenar', alias: 'Reorder reordenar arrastrar soltar mover orden bloques manija drag', render: () => <ReorderStory /> },
+      { id: 'steps', label: 'Pasos', alias: 'Steps etapas pasos proceso wizard progreso secuencia', render: () => <StepsStory /> },
+      { id: 'nav', label: 'Item de navegación', alias: 'NavItem navegación item sidebar riel', render: () => <NavStory /> },
     ],
   },
   {
     label: 'Datos',
     stories: [
-      { id: 'table', label: 'Table', alias: 'tabla grilla filas columnas datos', render: () => <TableStory /> },
-      { id: 'list', label: 'List', alias: 'lista filas acciones', render: () => <ListStory /> },
-      { id: 'bar-chart', label: 'BarChart', alias: 'gráfico barras chart datos progreso visualización ejes leyenda tabla', render: () => <ChartStory /> },
-      { id: 'column-picker', label: 'ColumnPicker', alias: 'columnas tabla elegir mostrar ocultar', render: () => <ColumnPickerStory /> },
-      { id: 'indicator', label: 'Indicator', alias: 'indicador badge marca punto contador aviso notificación campana', render: () => <IndicatorStory /> },
-      { id: 'progress', label: 'Progress', alias: 'progreso barra porcentaje avance', render: () => <ProgressStory /> },
-      { id: 'audio-player', label: 'AudioPlayer', alias: 'audio reproductor sonido onda waveform grabación consigna mp3', render: () => <AudioPlayerStory /> },
-      { id: 'skeleton', label: 'Skeleton', alias: 'esqueleto carga hueco placeholder', render: () => <SkeletonStory /> },
-      { id: 'avatar', label: 'Avatar', alias: 'foto persona iniciales grupo', render: () => <AvatarStory /> },
-      { id: 'chip', label: 'Chip', alias: 'etiqueta pill categoría badge marca estado tono', render: () => <ChipStory /> },
+      { id: 'table', label: 'Tabla', alias: 'Table tabla grilla filas columnas datos', render: () => <TableStory /> },
+      { id: 'list', label: 'Lista', alias: 'lista filas acciones', render: () => <ListStory /> },
+      { id: 'bar-chart', label: 'Gráfico de barras', alias: 'BarChart gráfico barras chart datos progreso visualización ejes leyenda tabla', render: () => <ChartStory /> },
+      { id: 'column-picker', label: 'Selector de columnas', alias: 'ColumnPicker columnas tabla elegir mostrar ocultar', render: () => <ColumnPickerStory /> },
+      { id: 'indicator', label: 'Indicador', alias: 'Indicator indicador badge marca punto contador aviso notificación campana', render: () => <IndicatorStory /> },
+      { id: 'progress', label: 'Barra de progreso', alias: 'Progress progreso barra porcentaje avance', render: () => <ProgressStory /> },
+      { id: 'audio-player', label: 'Reproductor de audio', alias: 'AudioPlayer audio reproductor sonido onda waveform grabación consigna mp3', render: () => <AudioPlayerStory /> },
+      { id: 'skeleton', label: 'Esqueleto', alias: 'Skeleton esqueleto carga hueco placeholder', render: () => <SkeletonStory /> },
+      { id: 'avatar', label: 'Avatar', alias: 'Avatar foto persona iniciales grupo', render: () => <AvatarStory /> },
+      { id: 'chip', label: 'Ficha', alias: 'Chip etiqueta pill categoría badge marca estado tono', render: () => <ChipStory /> },
     ],
   },
   {
     label: 'Avisos',
     stories: [
-      { id: 'alert', label: 'Alert', alias: 'alerta aviso error banner mensaje', render: () => <AlertStory /> },
-      { id: 'toast', label: 'Toast', alias: 'toast notificación aviso pasajero deshacer', render: () => <ToastStory /> },
-      { id: 'empty-state', label: 'EmptyState', alias: 'vacío sin resultados nada', render: () => <EmptyStateStory /> },
-      { id: 'spinner', label: 'Spinner', alias: 'cargando loading esperar', render: () => <SpinnerStory /> },
-      { id: 'tooltip', label: 'Tooltip', alias: 'ayuda globo hover', render: () => <TooltipStory /> },
+      { id: 'alert', label: 'Aviso', alias: 'alerta aviso error banner mensaje', render: () => <AlertStory /> },
+      { id: 'toast', label: 'Notificación', alias: 'toast notificación aviso pasajero deshacer', render: () => <ToastStory /> },
+      { id: 'empty-state', label: 'Vacío', alias: 'EmptyState vacío sin resultados nada', render: () => <EmptyStateStory /> },
+      { id: 'spinner', label: 'Girador', alias: 'Spinner cargando loading esperar', render: () => <SpinnerStory /> },
+      { id: 'tooltip', label: 'Etiqueta flotante', alias: 'Tooltip ayuda globo hover', render: () => <TooltipStory /> },
     ],
   },
   {
     label: 'Superficies',
     stories: [
-      { id: 'card', label: 'Card', alias: 'tarjeta card panel superficie grilla', render: () => <CardStory /> },
-      { id: 'row', label: 'Row', alias: 'fila ajuste panel preferencia', render: () => <RowStory /> },
-      { id: 'modal', label: 'Modal', alias: 'diálogo ventana emergente', render: () => <ModalStory /> },
-      { id: 'confirm', label: 'ConfirmDialog', alias: 'confirmar borrar peligro pregunta', render: () => <ConfirmStory /> },
-      { id: 'popover', label: 'Popover', alias: 'panel anclado flotante', render: () => <PopoverStory /> },
-      { id: 'divider', label: 'Divider', alias: 'separador línea corte', render: () => <DividerStory /> },
-      { id: 'link', label: 'Link', alias: 'enlace hipervínculo subrayado externo', render: () => <LinkStory /> },
-      { id: 'kbd', label: 'Kbd', alias: 'tecla atajo teclado', render: () => <KbdStory /> },
-      { id: 'folder', label: 'Folder', alias: 'carpeta espacio color', render: () => <FolderStory /> },
+      { id: 'card', label: 'Tarjeta', alias: 'tarjeta card panel superficie grilla', render: () => <CardStory /> },
+      { id: 'row', label: 'Fila', alias: 'Row fila ajuste panel preferencia', render: () => <RowStory /> },
+      { id: 'modal', label: 'Modal', alias: 'Modal diálogo ventana emergente', render: () => <ModalStory /> },
+      { id: 'confirm', label: 'Confirmación', alias: 'ConfirmDialog confirmar borrar peligro pregunta', render: () => <ConfirmStory /> },
+      { id: 'popover', label: 'Panel anclado', alias: 'Popover panel anclado flotante', render: () => <PopoverStory /> },
+      { id: 'divider', label: 'Separador', alias: 'Divider separador línea corte', render: () => <DividerStory /> },
+      { id: 'link', label: 'Enlace', alias: 'Link enlace hipervínculo subrayado externo', render: () => <LinkStory /> },
+      { id: 'kbd', label: 'Tecla', alias: 'Kbd tecla atajo teclado', render: () => <KbdStory /> },
+      { id: 'folder', label: 'Carpeta', alias: 'Folder carpeta espacio color', render: () => <FolderStory /> },
     ],
   },
 ]
 
-const everything = groups.flatMap(g => g.stories.map(s => ({ ...s, group: g.label })))
+const flatten = (stories: Story[]): Story[] => stories.flatMap(s => [s, ...(s.children ?? [])])
+const everything = groups.flatMap(g => flatten(g.stories).map(s => ({ ...s, group: g.label })))
 
 export function App() {
   const [current, setCurrent] = useState(() => location.hash.slice(1) || INTRO)
   const [query, setQuery] = useState('')
   const [railOpen, setRailOpen] = useState(false)
+  const [abiertos, setAbiertos] = useState<string[]>([])
   const { prefs, set } = usePrefs()
   const searchRef = useRef<HTMLInputElement>(null)
   const main = useRef<HTMLElement>(null)
@@ -240,10 +266,15 @@ export function App() {
     return groups
       .map(g => ({
         ...g,
-        stories: g.stories.filter(s =>
-          fold(s.label).includes(q)
-          || fold(g.label).includes(q)
-          || (s.alias ? fold(s.alias).includes(q) : false)),
+        stories: g.stories.flatMap(s => {
+          const coincide = (x: Story) =>
+            fold(x.label).includes(q)
+            || fold(g.label).includes(q)
+            || (x.alias ? fold(x.alias).includes(q) : false)
+          const hijos = (s.children ?? []).filter(coincide)
+          if (coincide(s)) return [{ ...s, children: hijos.length ? hijos : s.children }]
+          return hijos.length ? [{ ...s, children: hijos }] : []
+        }),
       }))
       .filter(g => g.stories.length > 0)
   }, [query])
@@ -313,9 +344,32 @@ export function App() {
                   {g.label}
                 </div>
                 <div className={cls.navGroupItems}>
-                  {g.stories.map(s => (
-                    <SideLink key={s.id} active={current === s.id} onClick={() => go(s.id)} piece>{s.label}</SideLink>
-                  ))}
+                  {g.stories.map(s => {
+                    // se despliega al tocarlo, o solo si estás parado en uno de sus hijos
+                    const desplegado = abiertos.includes(s.id)
+                      || Boolean(s.children?.some(c => c.id === current))
+                      || Boolean(query && s.children?.length)
+                    return (
+                      <Fragment key={s.id}>
+                        <SideLink
+                          active={current === s.id}
+                          expanded={s.children?.length ? desplegado : undefined}
+                          onClick={() => {
+                            if (s.children?.length) {
+                              setAbiertos(a => a.includes(s.id) ? a.filter(x => x !== s.id) : [...a, s.id])
+                            }
+                            go(s.id)
+                          }}
+                          piece
+                        >
+                          {s.label}
+                        </SideLink>
+                        {desplegado && s.children?.map(c => (
+                          <SideLink key={c.id} active={current === c.id} onClick={() => go(c.id)} piece sub>{c.label}</SideLink>
+                        ))}
+                      </Fragment>
+                    )
+                  })}
                 </div>
               </div>
             ))}
@@ -354,19 +408,18 @@ export function App() {
 
         <main ref={main} className={cls.main}>
           <div key={current} className={cls.viewSlot}>
-            {current === INTRO && <Intro go={go} views={everything.length} />}
+            {current === INTRO && <Intro go={go} />}
             {current === 'dashboard' && <Dashboard />}
             {current === 'documento' && <DocumentStory />}
             {story?.render()}
             {!story && current !== INTRO && current !== 'dashboard' && current !== 'documento' && (
               <>
               <h1 className="sr-only">Esa vista ya no está acá</h1>
-              <EmptyState
-                icon="search_off"
-                title="Esa vista ya no está acá"
-                body={`No hay ninguna pieza que se llame "${current}". Puede que se haya renombrado: el buscador del riel encuentra por nombre y por sinónimo.`}
-                action={<Button variant="muted" iconStart={<Icon name="arrow_back" />} onClick={() => go(INTRO)}>Volver a la introducción</Button>}
-              />
+              <EmptyState icon="search_off">
+                <EmptyState.Title>Esa vista ya no está acá</EmptyState.Title>
+                <EmptyState.Body>{`No hay ninguna pieza que se llame "${current}". Puede que se haya renombrado: el buscador del riel encuentra por nombre y por sinónimo.`}</EmptyState.Body>
+                <EmptyState.Action><Button variant="muted" iconStart={<Icon name="arrow_back" />} onClick={() => go(INTRO)}>Volver a la introducción</Button></EmptyState.Action>
+              </EmptyState>
               </>
             )}
           </div>
@@ -376,11 +429,15 @@ export function App() {
   )
 }
 
-function SideLink({ active, onClick, icon, piece, children }: {
+function SideLink({ active, onClick, icon, piece, sub, expanded, children }: {
   active: boolean
   onClick: () => void
   icon?: 'deployed_code' | 'dashboard' | 'description'
   piece?: boolean
+  /** La sangría del tercer nivel: la columna del texto del padre, no un valor nuevo. */
+  sub?: boolean
+  /** Presente cuando el item tiene hijos: dibuja el chevron y dice si están a la vista. */
+  expanded?: boolean
   children: ReactNode
 }) {
   return (
@@ -396,13 +453,22 @@ function SideLink({ active, onClick, icon, piece, children }: {
         next?.focus()
       }}
       aria-current={active ? 'page' : undefined}
+      aria-expanded={expanded}
       className={cx(
         cls.navItem,
+        sub && cls.navSubItem,
         active ? cls.navItemActive : cls.navItemIdle,
       )}
     >
       {icon && <Icon name={icon} size={16} className={active ? undefined : 'icon-muted'} />}
       <span className={cls.navItemLabel}>{children}</span>
+      {expanded !== undefined && (
+        <Icon
+          name="keyboard_arrow_down"
+          size={16}
+          className={cx(cls.navChevron, expanded && cls.navChevronOpen, 'icon-muted')}
+        />
+      )}
     </button>
   )
 }

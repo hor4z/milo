@@ -1,9 +1,9 @@
 import { useState } from 'react'
-import {
-  Button, ConfirmDialog, ConfirmDialogBody, ConfirmDialogCancel, ConfirmDialogConfirm,
-  ConfirmDialogFooter, ConfirmDialogHeader, ConfirmDialogTitle, Icon, useToast,
-} from '@milo/ui'
-import { A11y, Demo, Example, Grid, Note, Page, Props, Section } from '../kit'
+import { Button } from '@milo/ui/button'
+import { ConfirmDialog } from '@milo/ui/confirm-dialog'
+import { Icon } from '@milo/ui/icon'
+import { useToast } from '@milo/ui/toast'
+import { A11y, Demo, Example, Grid, Note, Page, Practices, Props, Section } from '../kit'
 
 export function ConfirmStory() {
   const [open, setOpen] = useState(false)
@@ -13,7 +13,7 @@ export function ConfirmStory() {
     <Page
       title="ConfirmDialog"
       kind="Superficies"
-      imports="import { ConfirmDialog, ConfirmDialogHeader, ConfirmDialogTitle, ConfirmDialogBody, ConfirmDialogFooter, ConfirmDialogCancel, ConfirmDialogConfirm } from '@milo/ui'"
+      imports="import { ConfirmDialog } from '@milo/ui/confirm-dialog'"
       lead="La pregunta antes de algo que no se deshace. Mismas partes que el Modal, sin X: la salida segura ya está a la vista y es el botón de cancelar."
     >
       <Section
@@ -32,16 +32,16 @@ export function ConfirmStory() {
               }}
               tone="bad"
             >
-              <ConfirmDialogHeader>
-                <ConfirmDialogTitle>¿Borrar "Fracciones equivalentes"?</ConfirmDialogTitle>
-              </ConfirmDialogHeader>
-              <ConfirmDialogBody>
+              <ConfirmDialog.Header>
+                <ConfirmDialog.Title>¿Borrar "Fracciones equivalentes"?</ConfirmDialog.Title>
+              </ConfirmDialog.Header>
+              <ConfirmDialog.Body>
                 Se borran también las 18 entregas que ya llegaron. No se puede deshacer.
-              </ConfirmDialogBody>
-              <ConfirmDialogFooter>
-                <ConfirmDialogCancel />
-                <ConfirmDialogConfirm>Borrar</ConfirmDialogConfirm>
-              </ConfirmDialogFooter>
+              </ConfirmDialog.Body>
+              <ConfirmDialog.Footer>
+                <ConfirmDialog.Cancel />
+                <ConfirmDialog.Confirm>Borrar</ConfirmDialog.Confirm>
+              </ConfirmDialog.Footer>
             </ConfirmDialog>
           </Demo>
 
@@ -55,16 +55,16 @@ export function ConfirmStory() {
                 toast({ title: 'Actividad publicada', body: 'Queda abierta hasta que la cierres', tone: 'ok' })
               }}
             >
-              <ConfirmDialogHeader>
-                <ConfirmDialogTitle>¿Publicar sin fecha de cierre?</ConfirmDialogTitle>
-              </ConfirmDialogHeader>
-              <ConfirmDialogBody>
+              <ConfirmDialog.Header>
+                <ConfirmDialog.Title>¿Publicar sin fecha de cierre?</ConfirmDialog.Title>
+              </ConfirmDialog.Header>
+              <ConfirmDialog.Body>
                 Queda abierta hasta que la cierres a mano, y los estudiantes pueden seguir entregando.
-              </ConfirmDialogBody>
-              <ConfirmDialogFooter>
-                <ConfirmDialogCancel />
-                <ConfirmDialogConfirm>Publicar</ConfirmDialogConfirm>
-              </ConfirmDialogFooter>
+              </ConfirmDialog.Body>
+              <ConfirmDialog.Footer>
+                <ConfirmDialog.Cancel />
+                <ConfirmDialog.Confirm>Publicar</ConfirmDialog.Confirm>
+              </ConfirmDialog.Footer>
             </ConfirmDialog>
           </Demo>
         </Grid>
@@ -73,16 +73,16 @@ export function ConfirmStory() {
       <Section title="Cómo se escribe">
         <Example code={`
 <ConfirmDialog open={open} onCancel={cerrar} onConfirm={borrar} tone="bad">
-  <ConfirmDialogHeader>
-    <ConfirmDialogTitle>¿Borrar "Fracciones equivalentes"?</ConfirmDialogTitle>
-  </ConfirmDialogHeader>
-  <ConfirmDialogBody>
+  <ConfirmDialog.Header>
+    <ConfirmDialog.Title>¿Borrar "Fracciones equivalentes"?</ConfirmDialog.Title>
+  </ConfirmDialog.Header>
+  <ConfirmDialog.Body>
     Se borran también las 18 entregas que ya llegaron.
-  </ConfirmDialogBody>
-  <ConfirmDialogFooter>
-    <ConfirmDialogCancel />
-    <ConfirmDialogConfirm>Borrar</ConfirmDialogConfirm>
-  </ConfirmDialogFooter>
+  </ConfirmDialog.Body>
+  <ConfirmDialog.Footer>
+    <ConfirmDialog.Cancel />
+    <ConfirmDialog.Confirm>Borrar</ConfirmDialog.Confirm>
+  </ConfirmDialog.Footer>
 </ConfirmDialog>
 `} />
       </Section>
@@ -94,17 +94,24 @@ export function ConfirmStory() {
       </Note>
 
       <Section title="Props">
-        <Props of={['ConfirmDialog', 'ConfirmDialogHeader', 'ConfirmDialogTitle', 'ConfirmDialogBody', 'ConfirmDialogFooter', 'ConfirmDialogCancel', 'ConfirmDialogConfirm']} />
+        <Props of="ConfirmDialog" />
+      </Section>
+
+      <Section title="Cómo se usa bien">
+        <Practices>
+          <Practices.Do>Los botones son partes y no props porque la regla de foco es de la pieza: con `tone="bad"` el foco arranca en cancelar.</Practices.Do>
+          <Practices.Dont>No le pongas una X: la salida segura ya está a la vista y es cancelar.</Practices.Dont>
+        </Practices>
       </Section>
 
       <Section title="Accesibilidad">
-        <A11y items={[
-          'Va como role="alertdialog": se anuncia con más urgencia que un diálogo común, y el nombre sale del título por `aria-labelledby`.',
-          'Con tone="bad" el foco arranca en Cancelar: con el foco en "Borrar", un Enter de más lo borra. Eso lo resuelven las dos partes de botón, no el call site.',
-          'No lleva X: la salida segura ya está a la vista y es el botón de cancelar.',
-          'El foco no se escapa del diálogo mientras está abierto.',
-          'Escape cancela, que es la salida segura.',
-        ]} />
+        <A11y>
+          <A11y.Item>Va como role="alertdialog": se anuncia con más urgencia que un diálogo común, y el nombre sale del título por `aria-labelledby`.</A11y.Item>
+          <A11y.Item>Con tone="bad" el foco arranca en Cancelar: con el foco en "Borrar", un Enter de más lo borra. Eso lo resuelven las dos partes de botón, no el call site.</A11y.Item>
+          <A11y.Item>No lleva X: la salida segura ya está a la vista y es el botón de cancelar.</A11y.Item>
+          <A11y.Item>El foco no se escapa del diálogo mientras está abierto.</A11y.Item>
+          <A11y.Item>Escape cancela, que es la salida segura.</A11y.Item>
+        </A11y>
       </Section>
     </Page>
   )

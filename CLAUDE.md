@@ -4,7 +4,7 @@ El sistema de interfaz de milo: la identidad en tokens, las piezas que la usan, 
 donde se ve todo funcionando. No es una lámina de estilos: cada pieza de acá es el componente
 real, con su teclado, sus estados y sus tests.
 
-**El repo es del design system y de nada más.** El UI kit (las 62 piezas) es una parte; las
+**El repo es del design system y de nada más.** El UI kit (las 65 piezas) es una parte; las
 otras son los tokens y lo que el sitio documenta alrededor. Acá adentro no vive producto: el
 prototipo de la app que hubo hasta ahora se borró, y cuando haga falta uno de nuevo se arma
 aparte.
@@ -18,9 +18,11 @@ final son lo único que hay que tocar.
 npm install
 npm run dev        # el sitio · http://localhost:5190
 npm run typecheck  # el paquete y el sitio de una
-npm test           # 781 tests con vitest y testing-library
+npm test           # 808 tests con vitest y testing-library
 npm run build      # compila el paquete a dist/ (js, css y tipos)
 npm run props      # regenera la tabla de props desde los tipos
+npm run paths      # regenera el paths de tsconfig.json, una entrada por pieza
+npm test:changed   # solo lo que toca el cambio; los guardianes van aparte
 ```
 
 **El repo es un solo paquete y se llama `@milo/ui`.** Fue un monorepo de tres workspaces
@@ -148,8 +150,14 @@ Estas sí van acá: no se ven en una pantalla, así que el kit no puede mostrarl
 
 - **Los componentes se estilan solo contra roles.** Ninguno sabe que existe `--shade-03`; sabe que
   hay un `--surface-muted`. Un hex escrito a mano en un componente es un bug, y hay un test.
-- **Todo lo que se consume entra por `src/index.ts`.** Un export que no sale por la
-  puerta hace fallar un test.
+- **No hay barril: cada pieza entra por su propio subpath.** `@milo/ui/button`,
+  `@milo/ui/modal`, `@milo/ui/lib/use-debounce`. `src/index.ts` existió y se borró: importaba las
+  62 piezas, así que cualquier test que entrara por `@milo/ui` quedaba atado a las 62 en el grafo
+  de módulos y `vitest --changed` corría siempre la suite entera. Un export que no se alcanza desde
+  `pieza/pieza.tsx`, `lib/x.ts` o un subpath nombrado a mano hace fallar un test.
+- **Todo archivo y toda carpeta va en kebab, sin una sola mayúscula**, que es lo que hace
+  predecible el subpath: `icon-button/icon-button.tsx` se importa de `@milo/ui/icon-button`. Hay un
+  test.
 - **Una carpeta por pieza, con su test al lado.** Agregar una pieza es agregar una carpeta, no
   editar cuatro archivos. Dos tests lo sostienen: cada carpeta tiene el componente que le da
   nombre, y cada componente tiene su test.
@@ -162,8 +170,17 @@ Estas sí van acá: no se ven en una pantalla, así que el kit no puede mostrarl
   Corolario que cuesta ver: **`Icon` no escribe `--icon-wght` salvo que le pasen `weight`**, porque
   un estilo inline le gana a una clase y con un default escrito siempre, `icon-muted` no podría
   subir el peso.
-- **Lo que se compone se expone en partes.** `AlertTitle`, `CardHeader`, `TabPanel`. Cuesta dos
-  líneas más de escribir y evita la prop número catorce.
+- **Lo que se compone se expone en partes, y las partes cuelgan de la raíz.** `Alert.Title`,
+  `Card.Header`, `Tabs.Panel`. La pieza declara sus partes con nombre corto y **local** y arma el
+  namespace ahí mismo (`export const Modal = Object.assign(Root, { Header, Title, … })`), así que
+  `ModalHeader` no existe en ningún lado: ni adentro de la pieza ni en la puerta. El consumidor
+  importa una palabra por familia.
+- **El contenido va como hijo, nunca adentro de una prop.** `<Accordion.Summary>` y no
+  `summary="…"`; `<Field.Label>` y no `label="…"`. Lo que sí sigue siendo prop es lo que no se ve
+  (un `aria-label`, un `src`, un `value`), lo que la pieza necesita como string y no como nodo (el
+  `title` del `AudioPlayer` alimenta el `MediaMetadata` del sistema operativo) y los tipos de datos
+  que se pasan como array (`Task`, `Step`, `DropdownItem`). Cuando una pieza dibuja una parte en
+  otro lugar del marco, los hijos se separan con `lib/parts`.
 - **Un campo no sabe dónde cae.** La superficie que lo contiene escribe `--field-bg`, así que un
   `TextField` adentro de un `Card` adentro de un `Modal` se ve bien sin que nadie se lo diga. El
   `Spinner` con `on="control"` hace lo mismo con `--spinner-bg`: el hueco entre el arco y la pista
@@ -183,8 +200,8 @@ módulos, obliga a `s['card-header']` en TS y eso lo daría por muerto. Hay un t
 
 **De dónde sale el nombre**, en este orden:
 
-1. **Si es una parte que la pieza ya expone, se llama como la parte.** `CardHeader` es `header`,
-   `AlertTitle` es `title`, `TabPanel` es `panel`, `CardHeader` es `header`.
+1. **Si es una parte que la pieza ya expone, se llama como la parte.** `Card.Header` es `header`,
+   `Alert.Title` es `title`, `Tabs.Panel` es `panel`.
 2. **Si es un contenedor, se llama por lo que contiene, en plural**, y la unidad adentro es el
    singular: `items` e `item`, `actions`, `options`, `swatches` y `swatch`.
 3. **Si es un estado o una variante, se llama por la condición bajo la cual se aplica**, nunca por la
@@ -196,7 +213,7 @@ módulos, obliga a `s['card-header']` en TS y eso lo daría por muerto. Hay un t
 Si dos reglas se parecen tanto que dan ganas de numerarlas, lo que las separa es el nombre:
 `trackRest` y `trackActive`, no `track` y `track2`.
 
-**El léxico**, una palabra por papel y la misma en las 62 piezas:
+**El léxico**, una palabra por papel y la misma en las 65 piezas:
 
 | | |
 |---|---|
@@ -222,13 +239,14 @@ escapa: el `Tree` que hubo tenía `idle` contra `selected`, que se lee como si e
 `zebra`, `pressed` y las cincuenta y pico que declaran `base.css` y `theme.css` quedan prohibidas
 como nombre de módulo, y hay un test.
 
-**Dónde el léxico no coincide con la API, y por qué.** El vocabulario público de `index.ts` se
-contradice consigo mismo: `Body` es el cuerpo en `Card` y en `Sheet` pero la línea de apoyo en
+**Dónde el léxico no coincide con la API, y por qué.** El vocabulario público se contradice consigo
+mismo: `Body` es el cuerpo en `Card` y en `Sheet` pero la línea de apoyo en
 `Alert`, que en `Card` se llama `Hint`; `Footer` son tres cosas; hay seis palabras para el texto de
 apoyo (`hint`, `meta`, `caption`, `subtitle`, `body`, `detail`), cinco para lo elegido y cinco para el
-adorno de la izquierda. Las clases eligieron una y la usan en todas las piezas. **La API no se tocó**:
-cambiarla rompe a quien consume el paquete, y eso es otro trabajo. Así que en `Alert` la clase del
-texto de apoyo se llama `text` aunque la parte se llame `AlertBody`.
+adorno de la izquierda. Las clases eligieron una y la usan en todas las piezas. **La API se tocó una vez**, al pasar todo a
+namespaces: era el momento, porque el paquete todavía no tiene un consumidor de verdad. Lo que no se
+unificó es el vocabulario, así que en `Alert` la clase del texto de apoyo se llama `text` aunque la
+parte se llame `Alert.Body`.
 
 ## Patrones que el sistema da por decididos
 
@@ -294,11 +312,16 @@ Salieron de armar pantallas de verdad con estas piezas, y valen para cualquiera 
   clavado en `--surface`, o sea blanco, así que sobre un botón gris se veía un halo que no
   correspondía. Va por prop, transparente por default, y lo escribe quien la usa: sobre una foto, el
   papel de la tarjeta; sobre un control, nada. Es la misma forma que ya tenía `AvatarGroup`.
-- **El verde de estado no aguanta tinta blanca, así que el `Indicator` tiene su propio relleno.**
-  `--ok` da 3,78 contra el blanco y el test exige 4,5, por eso `--on-ok` era casi negro: un tilde
-  negro sobre un círculo verde, que se lee como un error de imprenta. La salida ya estaba inventada
-  en el sistema (`--accent-fill` es exactamente eso), así que ahora hay `--ok-fill`, un verde un paso
-  más oscuro que da 5,48 con blanco.
+- **El verde de estado no aguanta tinta blanca, así que hay un relleno aparte: `--ok-fill`.** `--ok`
+  da 3,78 contra el blanco, por eso `--on-ok` llegó a ser casi negro: un tilde negro sobre un círculo
+  verde, que se lee como un error de imprenta. La salida ya estaba inventada en el sistema
+  (`--accent-fill` es exactamente eso).
+- **Y en claro ese relleno es una excepción escrita, no un descuido.** `--ok-fill` es `#20ad54`, que
+  da 2,93 con blanco: no llega al 4,5 del sistema ni al 3:1 que WCAG pide para un gráfico. Se eligió
+  a ojo y se decidió igual. Lo que el test sigue sosteniendo es que **no pueda empeorar**: el par
+  tiene su propio piso anotado en `contraste.test.ts` con el motivo al lado. En oscuro no se tocó y
+  sigue en 5,45. Si algún día se quiere volver a la regla, el más claro de ese mismo tono que llega a
+  4,5 es `#198842`.
 - **Una marca de `Indicator` se ancla a la caja de lo que marca, y esa caja casi nunca es lo que se
   ve.** Un `IconButton` de 40 lleva un glifo de 18 centrado, así que la esquina de la caja queda a
   11px de la esquina del glifo, y el punto se lee suelto aunque las cajas estén pegadas. La pieza no
@@ -356,20 +379,20 @@ Salieron de armar pantallas de verdad con estas piezas, y valen para cualquiera 
   el docblock de `lib/control.ts` y el código hacía lo contrario: `solid` en 18 lugares contra
   `brand` en 2.
 - **Un diálogo se arma con sus partes, y la del medio es la que scrollea.** `Modal` es
-  `ModalHeader` + `ModalBody` + `ModalFooter`, y `ConfirmDialog` es lo mismo con sus propios
-  nombres. El panel es una columna: header y footer no se mueven y el cuerpo scrollea cuando no
+  `Modal.Header` + `Modal.Body` + `Modal.Footer`, y `ConfirmDialog` es lo mismo con sus propias
+  partes. El panel es una columna: header y footer no se mueven y el cuerpo scrollea cuando no
   entra, así que en un modal largo las acciones siguen a la vista. Antes el interior se construía a
   mano en cada call site y la X flotaba afuera del panel, anclada con dos `!important`.
-- **El nombre del diálogo sale del título que se ve.** `ModalTitle` se ata solo con
+- **El nombre del diálogo sale del título que se ve.** `Modal.Title` se ata solo con
   `aria-labelledby`, y `label` queda para el caso sin título a la vista, como fallback. Teniendo las
   dos, la prop y el título decían cosas distintas y el lector anunciaba la prop, que es la que nadie
   revisa.
 - **Una confirmación no lleva X.** La salida segura ya está a la vista y es el botón de cancelar;
   dos formas de salir compiten, y la X no dice qué pasa con lo que estabas por hacer. Por eso
-  `ConfirmDialogHeader` no la pone y `ModalHeader` sí.
+  `ConfirmDialog.Header` no la pone y `Modal.Header` sí.
 - **Los dos botones de una confirmación son partes y no props**, porque la regla de foco es de la
   pieza y no del call site: con `tone="bad"` el foco arranca en cancelar, porque con el foco puesto
-  en "Borrar" un Enter de más borra. `ConfirmDialogCancel` y `ConfirmDialogConfirm` lo resuelven
+  en "Borrar" un Enter de más borra. `ConfirmDialog.Cancel` y `ConfirmDialog.Confirm` lo resuelven
   solos, así que no hay forma de escribir la confirmación destructiva con el foco en el lugar
   peligroso.
 
@@ -551,6 +574,21 @@ consecuencias que conviene tener presentes:
 - **Una rama no es un contrato, un tag sí.** Para sacar versión: `npm version <patch|minor|major>`
   y `git push --follow-tags`.
 
+Y cada pieza se importa por su carpeta, que es lo que hace que cambiar una no arrastre a las
+demás:
+
+```ts
+import { Button } from '@milo/ui/button'
+import { Modal } from '@milo/ui/modal'
+import { timeAgo } from '@milo/ui/lib/time'
+```
+
+Eso lo resuelven dos patrones del `exports` (`./lib/*` y `./*`) contra una entrada por carpeta en el
+build, nombrada `button/button` para que el `.js` caiga al lado del `.d.ts`. **TypeScript admite una
+sola estrella por sustitución**, así que el `paths` de `tsconfig.json` no puede resolver a una
+carpeta y su archivo: lo escribe `scripts/paths.mjs` y un test lo corre con `--check`, igual que
+`props` y que `icons`.
+
 Del lado del consumidor, el CSS va primero y en este orden:
 
 ```ts
@@ -573,12 +611,13 @@ Un paquete, `@milo/ui`, y adentro el sitio que lo documenta:
 
 ```
 src/                    theme.css (las capas) · styles/ (reset, base y tokens/) ·
-                        index.ts (la puerta) ·
                         una carpeta por pieza: button/button.tsx + button/button.test.tsx,
-                        y así las 62 (select, modal, toast, chart, table…)
-                        lib/ lo compartido que no es un componente: cx · colors ·
-                        control · tone · time · number · esc · overlay-hooks ·
-                        roving · side-scroll · dismiss
+                        y así las 65 (select, modal, toast, chart, table…)
+                        lib/ lo compartido que no es un componente, un archivo por cosa:
+                        cx · colors · control · tone · time · number · parts ·
+                        esc · overlay-hooks · roving · side-scroll · dismiss ·
+                        use-disclosure · use-announce · use-media-query · use-clipboard ·
+                        use-theme · use-local-storage · use-debounce
                         __tests__/ los cinco que leen el paquete entero:
                         coherencia · contraste · tipografía · utilidades · props
                         icons.gen.ts e icons.meta.ts los genera scripts/icons.mjs
@@ -597,12 +636,13 @@ kit/src/                el sitio: App.tsx (shell y riel) · kit.tsx (Page, Secti
 el sitio existe: exporta piezas y nada más. El sitio las consume como lo haría cualquier app de
 afuera, que es lo que lo vuelve una prueba de verdad y no una demo. Cuando dejó de ser un
 monorepo, lo que sostenía ese corte pasó de ser un workspace a ser un alias: `kit/vite.config.ts`
-y `vitest.config.ts` resuelven `@milo/ui` a `src/index.ts`, y el sitio nunca escribe una ruta
-relativa hacia adentro del paquete. Un import con `../../src` en `kit/` rompe el corte y hay que
+y `vitest.config.ts` resuelven `@milo/ui/<pieza>` a `src/<pieza>/<pieza>`, y el sitio nunca escribe
+una ruta relativa hacia adentro del paquete. Un import con `../../src` en `kit/` rompe el corte y hay que
 tratarlo como un bug.
 
-Todo lo que se consume entra por `src/index.ts`. Un test lo verifica: si alguien exporta algo de
-un archivo y no lo saca por la puerta, falla.
+Un export se alcanza desde `pieza/pieza.tsx`, desde `lib/x.ts` o desde un subpath nombrado a mano en
+el `exports`, y no hay una cuarta forma. Un test lo verifica: un segundo componente adentro de la
+carpeta de otra pieza no lo alcanza nadie, y eso falla.
 
 **Una carpeta por pieza, con su test adentro.** El archivo largo con doce componentes
 (`primitives.tsx` tenía 922 líneas) obliga a leer todo para tocar uno, y su test hermano en
@@ -612,9 +652,17 @@ agregar una pieza es agregar una carpeta y no editar cuatro archivos. Dos tests 
 lo sostienen: cada carpeta tiene el componente que le da nombre, y cada componente tiene su
 test al lado.
 
-Lo que no es un componente vive en `lib/`: `cx` y `fold`, las familias de color, la escalera
-de alturas de control, los pares de tono de aviso, la pila de Escape y los hooks de overlay.
-El corte es el mismo de siempre: si dos piezas lo comparten, no es de ninguna de las dos.
+Lo que no es un componente vive en `lib/`, **un archivo por cosa**: `cx` y `fold`, las familias de
+color, la escalera de alturas de control, los pares de tono de aviso, la pila de Escape, los hooks de
+overlay y los siete hooks sueltos. El corte es el mismo de siempre: si dos piezas lo comparten, no es
+de ninguna de las dos, y por eso `FieldCtx` se mudó acá el día que `Row` empezó a usarlo.
+
+**Los siete hooks no salieron de un catálogo**: cada uno tiene lugares contados donde entra.
+`useAnnounce` es el que más faltaba, porque cuatro piezas armaban su propia región viva a mano y dos
+regiones compitiendo se pisan; ahora hay una sola para todo el documento. `useDisclosure` tiene trece
+call sites. `useTheme` estrena el valor `system` de verdad, con listener de `matchMedia` y sync entre
+pestañas, que es lo que `usePrefs` no hacía. Y `plural` salió de adentro de las props de
+`Pagination`, que era el único lugar del sistema que hacía bien el plural en castellano.
 
 **El kit va con una historia por pieza, y una sola pieza por historia.** Las vistas que juntaban
 dos o tres ("Alert y Toast", "Chip y Progress", "Card y Row") hacían a escala chica lo mismo que
@@ -636,7 +684,23 @@ regla o un valor: una distinción que le importa a quien los escribió y a nadie
 categoría y el `import` para copiar; y cierra con lo que la pieza resuelve en accesibilidad.
 Dos tests verifican que ninguna vista se quede sin portada ni sin import.
 
-El riel tiene buscador con atajo `/` y no tiene logo: el nombre va en texto.
+El riel tiene buscador con atajo `/` y no tiene logo: el nombre va en texto. **Los nombres van en
+castellano** ("Botón de icono", no `IconButton`) y el alias de búsqueda se queda con el nombre
+técnico, así que buscar `IconButton` lo sigue encontrando. **Y tiene tres niveles**: la familia de
+botones cuelga de Botón, con la sangría que ya definía `navSubItemClass`.
+
+**La familia de botones son cinco piezas.** `Button` e `IconButton` ya estaban; entraron
+`ButtonGroup` (pegados, con el canto solo en los extremos), `SplitButton` (la acción que se hace
+siempre a la vista y el resto en un menú), `ToggleButton` y `CopyButton`. `ToggleButton` no es nuevo:
+existía adentro de `Toolbar` y solo aceptaba un glifo, que es el caso del cajón de `filter/` otra
+vez; ahora `ToolbarButton` se apoya en él. **`ToggleButtonGroup` no entra y no es un olvido**:
+`Segmented` ya es eso para selección única y trae el roving del teclado; para selección múltiple
+alcanza un `ButtonGroup` con `ToggleButton` adentro.
+
+**Cada vista de pieza cierra diciendo cómo se usa bien**, en dos mitades: lo que conviene y lo que
+no, con el porqué. Sin el porqué es una orden y no una guía. Ahí adentro va también lo que un agente
+necesita para no equivocarse con la pieza, que es el mismo contenido dicho igual, así que no se
+escribe dos veces. Un guardián falla si una vista de pieza no lo tiene.
 
 ## La documentación de las props
 
@@ -665,7 +729,7 @@ Lo mismo vale para los tipos que una pieza recibe como argumento (`ToastOptions`
 
 ## Los tests
 
-`npm test` corre vitest con jsdom y testing-library. 781 tests, y lo que prueban es el
+`npm test` corre vitest con jsdom y testing-library. 808 tests, y lo que prueban es el
 comportamiento (teclado, nombres accesibles, estados) y no el markup, que cambia con cada
 ajuste de estilo. El test de cada pieza vive en su carpeta, al lado del componente.
 
@@ -688,7 +752,12 @@ Veinte de ellos leen el paquete entero y fallan si alguien:
   la anterior y la que el renombre necesitaba: ver abajo por qué no la puede dar el que dibuja,
 - **le pone a una clase un nombre que no dice por qué existe la regla**: la etiqueta sola, un
   número al final, kebab, o uno de la lista corta de vacíos,
-- exporta algo sin sacarlo por `index.ts`,
+- exporta algo que no se alcanza por ningún subpath,
+- **escribe un archivo o una carpeta con una mayúscula**, que rompe el subpath sin avisar,
+- **deja el `paths` de `tsconfig.json` viejo**, que hace que un import nuevo no resuelva,
+- **pide en una vista una pieza que no existe en `props.gen`**: eso dibuja una tabla vacía, y una
+  tabla vacía no se distingue de una pieza sin props,
+- **deja una vista de pieza sin el bloque de cómo se usa bien**,
 - deja una carpeta sin el componente que le da nombre, o un componente sin su test al lado.
 
 Y hay uno que no se puede escribir leyendo archivos: **dibuja las setenta vistas y falla
@@ -708,8 +777,8 @@ La palanca para verlo en vivo, si alguna vez hace falta, es correr esa suite con
 nombre que llega al DOM está hasheado, así que asertar sobre él es ilegible. `__tests__/estilo.ts`
 resuelve el nombre picado contra el módulo del que salió. Lo hacía buscando el nombre en **todos**
 los módulos del paquete y concatenando los cuerpos, que funcionaba mientras los nombres eran
-únicos por accidente: con un léxico compartido `input` existe en el `Textarea`, en el `Slider` y en
-el `Stepper`, y la aserción del textarea empezó a leer el `flex` del stepper.
+únicos por accidente: con un léxico compartido `input` existe en el `Textarea` y en el `Slider`, y la
+aserción del textarea empezó a leer el `flex` del otro.
 
 Catorce más leen los tokens de tipografía: que cada rol declare sus tres valores y que quien
 escriba un tamaño escriba los tres, que ninguno baje de 12px, que la curva de interlineado tenga su máximo en `reading`, que
@@ -806,8 +875,7 @@ eso: parecía voz de producto como Inclusión, pero una de sus nueve reglas la h
 guardián que lee el repo entero (el que busca la raya larga y las comillas angulares), así que
 está sostenida.
 
-**Entró en una vuelta anterior**, porque el propósito del sistema lo pedía: `DatePicker` y
-`Stepper` y `Reorder`, más el `Documento` que las prueba juntas. De arrastrar y soltar entró la mitad que importa: reordenar una lista, con el teclado como
+**Entró en una vuelta anterior**, porque el propósito del sistema lo pedía: `DatePicker` y `Reorder`, más el `Documento` que las prueba juntas. De arrastrar y soltar entró la mitad que importa: reordenar una lista, con el teclado como
 pieza y el arrastre como comodidad. Lo que sigue afuera es soltar algo **adentro** de otra cosa
 (un archivo en una carpeta) que es otro problema.
 
@@ -831,12 +899,6 @@ un aula:
   (`--milo-gradient-from/via/to/stops`), casi toda adentro de un `transition-property` que no anima
   nada. **La de sombra y la de translate ya no están, y no eran cosmética: estaban rotas.** Ver
   abajo.
-- **La portada anuncia piezas y ya no tests**, porque el número de tests no se puede verificar
-  leyendo archivos y se vencía solo: decía 687 cuando había 783, y el guardián que lo miraba era un
-  piso (`>=` contra los `it(` que se pueden contar en el texto) en vez de una igualdad, así que no
-  avisaba nunca. Las piezas son las carpetas de `src/`, que un test cuenta y compara exacto, igual
-  que los iconos. Si alguna vez se quiere el número de tests ahí, tiene que salir de un archivo
-  generado, como `props.gen.ts`.
 - **Cuatro cosas del relieve no las usa nadie.** Medido al achicar la vista de Relieve:
   `--relief-solid`, `--relief-brand` y `--relief-brand-pressed` no tienen un solo consumidor, y la
   clase global `.pressed` de `base.css` tampoco (el `.pressed` de `Button` y de `IconButton` es una
@@ -851,21 +913,19 @@ un aula:
   que se puede agarrar, qué devuelve cuando se lo mueve, qué pasa sin mouse, y sobre todo la línea
   entre explorar y evaluar. Un manipulable donde equivocarse es parte de entender no puede usar el
   rojo de error, y hoy esa contradicción no está escrita en ningún lado.
+- **El paquete no exporta nada que no se alcance por su subpath, y eso hay que probarlo desde
+  afuera.** Node resuelve los 69 subpaths contra el `exports` de verdad, que es lo mismo que hace
+  quien instala, pero nadie lo instaló todavía en un proyecto real.
 - **El helper `face()` está copiado en cinco historias** (avatar, mention, table, chart, folder), y
   `p()` o `person()` en tres. Es contenido de ejemplo, así que va a un `fixtures.ts` compartido.
 - **Un `Stack` hermano de `Cluster`.** Hay 23 clases en 18 archivos que son la misma columna con
   gap, pero los valores van de 0.125 a 1.5rem y no entran en una escala sin mover cosas de lugar.
 - **`Table` no tiene `align="right"` ni columna de acciones**, y la historia lo suple con CSS.
-- **`Sheet` todavía tiene las dos fuentes para su nombre** que `Modal` y `ConfirmDialog` ya no
-  tienen: su prop `label` es lo que anuncia el lector y `SheetHeader` recibe el título por prop, así
-  que pueden decir cosas distintas y nada lo mira. Ojo: este archivo llegó a decir que el `Sheet` ya
-  lo resolvía con `aria-labelledby`, y era falso. La salida es la misma que se aplicó en los otros
-  dos.
 - **La familia de controles ya llega a 44×44 en táctil; el resto de las piezas no.** Con
   `pointer: coarse` los botones suben a `lg` y llevan `touch-target`, que agranda el blanco de toque
   a 44 sin mover la caja; los campos suben la caja a 44 de verdad, porque ahí el tap tiene que llegar
   al `input`. En escritorio no cambia un píxel. Lo tienen `Button`, `IconButton`, `ToolbarButton`,
-  `TextField`, `Textarea`, `Select`, `DatePicker` y `Stepper`. **Lo que falta, medido**: `Checkbox` y `Radio` de 18, `Switch` de 22, el tachito de
+  `TextField`, `Textarea`, `Select` y `DatePicker`. **Lo que falta, medido**: `Checkbox` y `Radio` de 18, `Switch` de 22, el tachito de
   `Chip` de 24 y el de `Search` de 24, el eslabón de `Breadcrumb` de 24, las opciones de
   `Segmented` de 28 a 32, y las solapas de `Tabs` y los ítems de `Menu` de 36 a 40. Esas no son
   una omisión: varias son compactas a propósito, así que subirlas es una decisión sobre cómo se

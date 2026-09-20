@@ -238,6 +238,8 @@
     font-size: var(--type-body);
     line-height: var(--type-body-lh);
     letter-spacing: var(--type-body-ls);
+    /* una línea en blanco separa dos ideas del ejemplo: sin alto propio, el <span> vacío se colapsa */
+    min-height: var(--type-body-lh);
     color: var(--text);
     white-space: pre;
   }
@@ -522,14 +524,18 @@
     color: var(--text);
   }
 
+  /* el papel de una aclaración: crema, para que se separe del blanco de la página sin
+     usar un tono de estado, que diría que algo pasó. Con `tone` lo pisa el del tono. */
   .note {
     display: flex;
     gap: 0.75rem;
     border-radius: var(--radius-xl);
-    border-style: solid;
-    border-width: 1px;
-    border-color: var(--border);
+    background-color: var(--yellow-050);
     padding: 1rem;
+  }
+
+  .noteGlyph {
+    color: var(--yellow-700);
   }
 
   .noteIcon {
@@ -559,6 +565,33 @@
     letter-spacing: var(--type-body-ls);
     font-weight: var(--font-weight-medium);
     color: var(--text-muted);
+  }
+
+  .practices {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  .practiceDo,
+  .practiceDont {
+    display: flex;
+    gap: 0.5rem;
+    max-width: 70ch;
+    font-size: var(--type-body);
+    line-height: var(--type-body-lh);
+    letter-spacing: var(--type-body-ls);
+    font-weight: var(--font-weight-medium);
+    color: var(--text-muted);
+  }
+  .practiceDoIcon {
+    margin-top: 1px;
+    flex-shrink: 0;
+    color: var(--ok);
+  }
+  .practiceDontIcon {
+    margin-top: 1px;
+    flex-shrink: 0;
+    color: var(--bad);
   }
 
   .a11yList {

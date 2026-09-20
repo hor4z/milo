@@ -1,6 +1,6 @@
 import cls from './numbers.module.css'
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@milo/ui'
-import { bytes, count, decimals, delta, share, span, withUnit } from '@milo/ui'
+import { Table } from '@milo/ui/table'
+import { bytes, count, decimals, delta, share, span, withUnit } from '@milo/ui/lib/number'
 import { A11y, Note, Page, Panel, Rich, Section, Stack, Variant } from '../kit'
 
 const which = [
@@ -17,30 +17,29 @@ export function NumbersSection() {
     <Page
       title="Números y valores"
       kind="Fundamentos"
-      imports="import { count, decimals, share, withUnit } from '@milo/ui'"
-      lead="En un producto donde se corrige, se mide y se calcula, un número mal escrito se lee como otro número. La coma es el decimal y el punto separa los miles, que es como se escribe acá: un 1,250 escrito a mano se lee 1250 en media América y 1,25 en la otra."
+      lead="En un producto donde se corrige, se mide y se calcula, un número mal escrito se lee como otro número. La coma es el decimal y el punto separa los miles, que es como se escribe acá: un 1,250 escrito a mano se lee 1250 en media América y 1,25 en la otra. Las funciones están en [Utilidades](#utilidades), con lo que devuelve cada una."
     >
       <Section
         title="Cuál va"
         note="La pregunta es qué tiene que hacer quien lee con ese número. Casi siempre la respuesta es la cuenta y no el porcentaje."
       >
         <Table label="Qué forma usar según qué número es" minWidth={560}>
-          <TableHeader>
-            <TableRow>
-              <TableHead>Qué es</TableHead>
-              <TableHead>Se ve</TableHead>
-              <TableHead>La regla</TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
+          <Table.Header>
+            <Table.Row>
+              <Table.Head>Qué es</Table.Head>
+              <Table.Head>Se ve</Table.Head>
+              <Table.Head>La regla</Table.Head>
+            </Table.Row>
+          </Table.Header>
+          <Table.Body>
             {which.map(([q, v, r]) => (
-              <TableRow key={q}>
-                <TableCell>{q}</TableCell>
-                <TableCell><Rich text={v} /></TableCell>
-                <TableCell>{r}</TableCell>
-              </TableRow>
+              <Table.Row key={q}>
+                <Table.Cell>{q}</Table.Cell>
+                <Table.Cell><Rich text={v} /></Table.Cell>
+                <Table.Cell>{r}</Table.Cell>
+              </Table.Row>
             ))}
-          </TableBody>
+          </Table.Body>
         </Table>
       </Section>
 
@@ -102,14 +101,12 @@ export function NumbersSection() {
         renglón va con barra, `3/4`, porque apilada cae abajo del piso de 12px del sistema.
       </Note>
 
-      <A11y
-        items={[
-          'El número va con lo que mide en la misma frase: "18 de 24 corregidas" se escucha entero, "18" no.',
-          'Las unidades van enteras en prosa: un lector lee "cuarenta y cinco minutos" y no "cuarenta y cinco eme i ene".',
-          'Un cambio lleva su signo en el texto y no solo en el color: quien no distingue el verde del rojo lee el más y el menos.',
-          'La cifra tabular no cambia lo que se anuncia, cambia que una columna se pueda comparar de un vistazo.',
-        ]}
-      />
+      <A11y>
+        <A11y.Item>El número va con lo que mide en la misma frase: "18 de 24 corregidas" se escucha entero, "18" no.</A11y.Item>
+        <A11y.Item>Las unidades van enteras en prosa: un lector lee "cuarenta y cinco minutos" y no "cuarenta y cinco eme i ene".</A11y.Item>
+        <A11y.Item>Un cambio lleva su signo en el texto y no solo en el color: quien no distingue el verde del rojo lee el más y el menos.</A11y.Item>
+        <A11y.Item>La cifra tabular no cambia lo que se anuncia, cambia que una columna se pueda comparar de un vistazo.</A11y.Item>
+      </A11y>
     </Page>
   )
 }

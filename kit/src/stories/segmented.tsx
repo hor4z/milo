@@ -1,6 +1,6 @@
 import { useState } from 'react'
-import { Segmented } from '@milo/ui'
-import { A11y, Page, Panel, Props, Section, Variant } from '../kit'
+import { Segmented } from '@milo/ui/segmented'
+import { A11y, Example, Page, Panel, Practices, Props, Section, Variant } from '../kit'
 
 export function SegmentedStory() {
   const [filter, setFilter] = useState<'todas' | 'abiertas'>('todas')
@@ -12,12 +12,12 @@ export function SegmentedStory() {
     <Page
       title="Segmented"
       kind="Formularios"
-      imports="import { Segmented } from '@milo/ui'"
+      imports="import { Segmented } from '@milo/ui/segmented'"
       lead="Un solo componente para el filtro de texto ('Todas · Abiertas') y para el conmutador de grilla/lista. Que sean la misma pieza y no dos parecidas es el punto: dos implementaciones del mismo control se van separando sola una de la otra con cada cambio, y terminan con dos radios, dos alturas y dos ideas de qué es 'activo'."
     >
       <Section
         title="Tamaños"
-        note="La opción activa flota sobre una pista apagada, y dos cuentas tienen que dar. El radio: la opción es la pista menos su padding, 12 − 2 = 10. Y el alto: **la pista contiene su padding, no lo suma**, así que la opción mide cuatro menos que el escalón y el conjunto apoya en la misma línea que un `Button` del mismo talle."
+        note="El conjunto apoya en la misma línea que un `Button` del mismo talle, así que un segmentado y un botón en la misma fila no se desalinean."
       >
         <Panel>
           <Variant name="md · texto">
@@ -39,18 +39,35 @@ export function SegmentedStory() {
         </Panel>
       </Section>
 
+      <Section title="Cómo se escribe">
+        <Example code={`const [vista, setVista] = useState('semana')
+
+<Segmented
+  value={vista}
+  onChange={setVista}
+  options={[{ value: 'semana', label: 'Semana' }, { value: 'mes', label: 'Mes' }]}
+/>`} />
+      </Section>
+
       <Section title="Props">
         <Props of="Segmented" />
       </Section>
     
+      <Section title="Cómo se usa bien">
+        <Practices>
+          <Practices.Do>Es el mismo control para el filtro de texto y para el conmutador de vista: dos implementaciones se separan solas.</Practices.Do>
+          <Practices.Dont>Con más de cuatro opciones va un `Select`: el segmentado se estira y deja de leerse.</Practices.Dont>
+        </Practices>
+      </Section>
+
       <Section title="Accesibilidad">
-        <A11y items={[
-          'Es un radiogroup: elegir una de varias, que es lo que hace. Antes era un tablist, y un tablist sin paneles le promete a un lector de pantalla algo que no existe.',
-          'Las flechas mueven la elección y dan la vuelta; Tab entra al grupo y sale, porque solo la elegida es tabulable.',
-          'Con solo iconos, el `title` es el nombre accesible y además la etiqueta del Tooltip: no queda la caja del sistema operativo diciendo lo mismo.',
-          'Adentro de un Field o de un Row, el grupo se nombra con la etiqueta que ya está escrita.',
-          'El chip elegido conserva el relieve al enfocarse con el teclado.',
-        ]} />
+        <A11y>
+          <A11y.Item>Es un radiogroup: elegir una de varias, que es lo que hace. Antes era un tablist, y un tablist sin paneles le promete a un lector de pantalla algo que no existe.</A11y.Item>
+          <A11y.Item>Las flechas mueven la elección y dan la vuelta; Tab entra al grupo y sale, porque solo la elegida es tabulable.</A11y.Item>
+          <A11y.Item>Con solo iconos, el `title` es el nombre accesible y además la etiqueta del Tooltip: no queda la caja del sistema operativo diciendo lo mismo.</A11y.Item>
+          <A11y.Item>Adentro de un Field o de un Row, el grupo se nombra con la etiqueta que ya está escrita.</A11y.Item>
+          <A11y.Item>El chip elegido conserva el relieve al enfocarse con el teclado.</A11y.Item>
+        </A11y>
       </Section>
     </Page>
   )

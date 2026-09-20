@@ -4,7 +4,7 @@ import { Callout } from './callout'
 
 describe('Callout', () => {
   it('es una nota: contenido al costado del hilo, no un aviso del sistema ni una región más', () => {
-    render(<Callout title="Para acordarse">La velocidad límite no depende de la masa.</Callout>)
+    render(<Callout><Callout.Title>Para acordarse</Callout.Title>La velocidad límite no depende de la masa.</Callout>)
     const c = screen.getByRole('note')
     expect(c).toHaveTextContent('Para acordarse')
     expect(c).toHaveTextContent('La velocidad límite no depende de la masa.')

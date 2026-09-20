@@ -1,7 +1,10 @@
 import cls from './command-menu.module.css'
 import { useState } from 'react'
-import { Button, CommandMenu, Kbd, Popover, type CommandGroup, type CommandItem } from '@milo/ui'
-import { A11y, Cluster, Frame, Note, Page, Props, Section, Stack } from '../kit'
+import { Button } from '@milo/ui/button'
+import { CommandMenu, type CommandGroup, type CommandItem } from '@milo/ui/command-menu'
+import { Kbd } from '@milo/ui/kbd'
+import { Popover } from '@milo/ui/popover'
+import { A11y, Cluster, Example, Frame, Note, Page, Practices, Props, Section, Stack } from '../kit'
 
 const blocks: CommandGroup[] = [
   {
@@ -43,7 +46,7 @@ export function CommandMenuStory() {
     <Page
       title="CommandMenu"
       kind="Editor"
-      imports="import { CommandMenu } from '@milo/ui'"
+      imports="import { CommandMenu } from '@milo/ui/command-menu'"
       lead="La lista de comandos: se escribe, se filtra y se elige con las flechas. Es el menú que abre la barra en un editor, y la paleta de atajos de una app."
     >
       <Section
@@ -112,16 +115,29 @@ export function CommandMenuStory() {
         paleta de atajos de la app, sin cambiarle una línea.
       </Note>
 
+      <Section title="Cómo se escribe">
+        <Example code={`const [abierto, setAbierto] = useState(false)
+
+<CommandMenu
+  open={abierto}
+  onClose={() => setAbierto(false)}
+  groups={grupos}
+  onSelect={id => insertar(id)}
+/>`} />
+      </Section>
+
       <Props of={['CommandMenu', 'CommandGroup', 'CommandItem']} />
 
-      <A11y
-        items={[
-          'El buscador es un `combobox` y la lista un `listbox`. Lo marcado viaja por `aria-activedescendant`, así que el foco no se mueve y lo que se escribe sigue llegando al campo.',
-          'Flechas para moverse, Home y End para los extremos, Enter para elegir. Lo apagado se saltea.',
-          'Al cambiar lo buscado, la marca vuelve al primero: dejarla donde estaba marca algo que ya no se está mirando.',
-          'Un grupo que se queda sin resultados no deja su encabezado solo, y cuando no queda nada se dice con palabras.',
-        ]}
-      />
+      <Practices>
+        <Practices.Do>El `id` de cada item es lo que se anuncia y lo que vuelve al elegir: tiene que ser único en toda la lista.</Practices.Do>
+      </Practices>
+
+      <A11y>
+        <A11y.Item>El buscador es un `combobox` y la lista un `listbox`. Lo marcado viaja por `aria-activedescendant`, así que el foco no se mueve y lo que se escribe sigue llegando al campo.</A11y.Item>
+        <A11y.Item>Flechas para moverse, Home y End para los extremos, Enter para elegir. Lo apagado se saltea.</A11y.Item>
+        <A11y.Item>Al cambiar lo buscado, la marca vuelve al primero: dejarla donde estaba marca algo que ya no se está mirando.</A11y.Item>
+        <A11y.Item>Un grupo que se queda sin resultados no deja su encabezado solo, y cuando no queda nada se dice con palabras.</A11y.Item>
+      </A11y>
     </Page>
   )
 }

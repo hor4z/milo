@@ -1,5 +1,7 @@
 import cls from './media.module.css'
-import { AudioPlayer, Figure, Icon } from '@milo/ui'
+import { AudioPlayer } from '@milo/ui/audio-player'
+import { Figure } from '@milo/ui/figure'
+import { Icon } from '@milo/ui/icon'
 import { A11y, Cluster, Footnote, Note, Page, Rich, Section, Stack } from '../kit'
 
 const peaks = [0.2, 0.5, 0.8, 0.6, 0.9, 0.4, 0.7, 0.3, 0.85, 0.55, 0.25, 0.65, 0.45, 0.75, 0.35, 0.6]
@@ -94,7 +96,6 @@ export function MediaSection() {
     <Page
       title="Medios"
       kind="Fundamentos"
-      imports="import { AudioPlayer, Figure } from '@milo/ui'"
       lead="Imagen, audio, video y animación. Cuál va cuándo, qué pide cada uno para estar terminado, y qué es lo que ninguno puede hacer solo."
     >
       <Section
@@ -147,7 +148,7 @@ export function MediaSection() {
 
       <Section
         title="Las cuatro formas escritas, que no son la misma"
-        note="Acá el sistema venía diciendo 'subtítulos o transcripción' como si fueran dos maneras de decir lo mismo. Son cuatro cosas distintas y cada una cubre a alguien que las otras no."
+        note="Son cuatro cosas distintas y cada una cubre a alguien que las otras no."
       >
         <div className={cls.specimenGrid}>
           {equivalents.map(e => (
@@ -181,23 +182,15 @@ export function MediaSection() {
       >
         <Cluster gap="lg" align="start">
           <div className={cls.sample}>
-            <Figure
-              src="/mascotas/otto-primitivo.webp"
-              alt="Otto, la nutria, de pie y de frente"
-              ratio="4/3"
-              fit="contain"
-              caption="Es el contenido"
-            />
+            <Figure src="/mascotas/otto-primitivo.webp" alt="Otto, la nutria, de pie y de frente" ratio="4/3" fit="contain">
+              <Figure.Caption>Es el contenido</Figure.Caption>
+            </Figure>
             <code className={cls.sampleAlt}>alt="Otto, la nutria, de pie y de frente"</code>
           </div>
           <div className={cls.sample}>
-            <Figure
-              src="/mascotas/amelia.webp"
-              alt=""
-              ratio="4/3"
-              fit="contain"
-              caption="Acompaña"
-            />
+            <Figure src="/mascotas/amelia.webp" alt="" ratio="4/3" fit="contain">
+              <Figure.Caption>Acompaña</Figure.Caption>
+            </Figure>
             <code className={cls.sampleAlt}>alt=""</code>
           </div>
         </Cluster>
@@ -233,16 +226,14 @@ export function MediaSection() {
         </Stack>
       </Section>
 
-      <A11y
-        items={[
-          'Nada arranca solo, así que un lector de pantalla nunca compite con un audio del sistema.',
-          'Un audio que arranca detiene al otro: dos voces a la vez no se separan, ni siquiera con buen oído.',
-          'El botón dice lo que va a hacer, "Reproducir" o "Pausar", y el tiempo se anuncia como "0:45 de 1:30" y no como un número suelto.',
-          'La onda va `aria-hidden`: lo que lleva el significado es el control, no el dibujo.',
-          'Todo lo hablado tiene su texto, que es lo que le llega a quien no oye y también a quien está donde no puede escuchar.',
-          'Una imagen decorativa va con `alt=""` para que el lector la saltee, y una animación se reemplaza por su cuadro quieto con `prefers-reduced-motion`.',
-        ]}
-      />
+      <A11y>
+        <A11y.Item>Nada arranca solo, así que un lector de pantalla nunca compite con un audio del sistema.</A11y.Item>
+        <A11y.Item>Un audio que arranca detiene al otro: dos voces a la vez no se separan, ni siquiera con buen oído.</A11y.Item>
+        <A11y.Item>El botón dice lo que va a hacer, "Reproducir" o "Pausar", y el tiempo se anuncia como "0:45 de 1:30" y no como un número suelto.</A11y.Item>
+        <A11y.Item>La onda va `aria-hidden`: lo que lleva el significado es el control, no el dibujo.</A11y.Item>
+        <A11y.Item>Todo lo hablado tiene su texto, que es lo que le llega a quien no oye y también a quien está donde no puede escuchar.</A11y.Item>
+        <A11y.Item>Una imagen decorativa va con `alt=""` para que el lector la saltee, y una animación se reemplaza por su cuadro quieto con `prefers-reduced-motion`.</A11y.Item>
+      </A11y>
     </Page>
   )
 }

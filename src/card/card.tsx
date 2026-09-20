@@ -2,8 +2,7 @@ import s from './card.module.css'
 import type { ComponentPropsWithoutRef, ReactNode } from 'react'
 import { cx } from '../lib/cx'
 
-/** El contenedor de radio 16: lo que se apoya en la página. Lo que flota sobre un velo (un modal, un diálogo) va en 24. */
-export function Card({ children, className, interactive, surface = 'paper' }: {
+function Root({ children, className, interactive, surface = 'paper' }: {
   children: ReactNode
   /** Para el ancho y para cambiar el padding. */
   className?: string
@@ -27,7 +26,7 @@ export function Card({ children, className, interactive, surface = 'paper' }: {
 }
 
 /** La cabecera de una tarjeta: el título a la izquierda, lo que haya a la derecha. */
-export function CardHeader({ className, children, ...props }: ComponentPropsWithoutRef<'div'>) {
+function Header({ className, children, ...props }: ComponentPropsWithoutRef<'div'>) {
   return (
     <div className={cx(s.header, className)} {...props}>
       {children}
@@ -36,21 +35,24 @@ export function CardHeader({ className, children, ...props }: ComponentPropsWith
 }
 
 /** Cómo se llama lo que hay en la tarjeta. */
-export function CardTitle({ className, ...props }: ComponentPropsWithoutRef<'h3'>) {
+function Title({ className, ...props }: ComponentPropsWithoutRef<'h3'>) {
   return <h3 className={cx(s.title, className)} {...props} />
 }
 
 /** La línea de apoyo, debajo del título. */
-export function CardHint({ className, ...props }: ComponentPropsWithoutRef<'p'>) {
+function Hint({ className, ...props }: ComponentPropsWithoutRef<'p'>) {
   return <p className={cx(s.hint, className)} {...props} />
 }
 
 /** El cuerpo, con el padding que la tarjeta no pone. */
-export function CardBody({ className, ...props }: ComponentPropsWithoutRef<'div'>) {
+function Body({ className, ...props }: ComponentPropsWithoutRef<'div'>) {
   return <div className={cx(s.body, className)} {...props} />
 }
 
 /** La fila de abajo, separada por una línea. */
-export function CardFooter({ className, ...props }: ComponentPropsWithoutRef<'div'>) {
+function Footer({ className, ...props }: ComponentPropsWithoutRef<'div'>) {
   return <div className={cx(s.footer, className)} {...props} />
 }
+
+/** El contenedor de radio 16: lo que se apoya en la página. Lo que flota sobre un velo (un modal, un diálogo) va en 24. */
+export const Card = Object.assign(Root, { Header, Title, Hint, Body, Footer })

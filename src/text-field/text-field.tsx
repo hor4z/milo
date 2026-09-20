@@ -1,6 +1,6 @@
 import s from './text-field.module.css'
 import type { InputHTMLAttributes, ReactNode, Ref } from 'react'
-import { useField } from '../field/field'
+import { useField } from '../lib/field-ctx'
 import { Icon, type IconName } from '../icon/icon'
 import { fieldSizes } from '../lib/control'
 import { cx } from '../lib/cx'

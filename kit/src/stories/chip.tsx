@@ -1,7 +1,9 @@
 import cls from './chip.module.css'
 import { useState } from 'react'
-import { Card, CardBody, CardHeader, CardTitle, Chip, labelColors } from '@milo/ui'
-import { A11y, Cluster, Demo, Note, Page, Panel, Props, Section, Variant } from '../kit'
+import { Card } from '@milo/ui/card'
+import { Chip } from '@milo/ui/chip'
+import { labelColors } from '@milo/ui/lib/colors'
+import { A11y, Cluster, Demo, Example, Page, Panel, Practices, Props, Section, Variant } from '../kit'
 
 export function ChipStory() {
   const [chips, setChips] = useState(['Indagación', 'Proyecto', 'Taller'])
@@ -10,7 +12,7 @@ export function ChipStory() {
     <Page
       title="Chip"
       kind="Datos"
-      imports="import { Chip } from '@milo/ui'"
+      imports="import { Chip } from '@milo/ui/chip'"
       lead="La marca chica de texto, y hay una sola. Dice en qué estado está una actividad, o nombra una categoría, un método o una persona. Siempre con texto: un punto de color no dice en qué estado está algo, y si lo dijera, no lo diría para quien no distingue colores."
     >
       <Section
@@ -94,51 +96,53 @@ export function ChipStory() {
         <Demo label="en la cabecera de una tarjeta">
           <Cluster gap="lg" align="start">
             <Card className={cls.correctedCard}>
-              <CardHeader>
-                <CardTitle>Fracciones equivalentes</CardTitle>
+              <Card.Header>
+                <Card.Title>Fracciones equivalentes</Card.Title>
                 <Chip size="sm" color="ok" icon="check_circle">Corregida</Chip>
-              </CardHeader>
-              <CardBody>
+              </Card.Header>
+              <Card.Body>
                 <p className={cls.correctedMeta}>Matemática · 4.º A · 24 entregas</p>
-              </CardBody>
+              </Card.Body>
             </Card>
             <Card className={cls.dueCard}>
-              <CardHeader>
-                <CardTitle>Mapa de América</CardTitle>
+              <Card.Header>
+                <Card.Title>Mapa de América</Card.Title>
                 <Chip size="sm" color="warn" icon="schedule">Vence mañana</Chip>
-              </CardHeader>
-              <CardBody>
+              </Card.Header>
+              <Card.Body>
                 <p className={cls.dueMeta}>Sociales · 5.º A · 3 de 7</p>
-              </CardBody>
+              </Card.Body>
             </Card>
           </Cluster>
         </Demo>
       </Section>
 
-      <Note title="Acá había dos piezas y ahora hay una">
-        Existía un `Badge` al lado de este chip, y las dos vistas necesitaban una nota para
-        explicar en qué se diferenciaban. Cuando un sistema necesita dos notas para sostener una
-        distinción, la distinción no existe: la regla escrita era sobre qué se escribe adentro, no
-        sobre qué hace la pieza, y una pieza no puede hacerla cumplir. Las dos dibujaban lo mismo,
-        una marca chica con texto y un glifo opcional, y lo que las separaba de verdad era el
-        tamaño y la familia de color, que ahora son dos props. Quedó el nombre `Chip` y no `Badge`
-        porque en este sistema el badge de todos los demás ya existe con otro nombre: es el
-        `Indicator`, el punto o el contador pegado a la esquina de un botón.
-      </Note>
+      <Section title="Cómo se escribe">
+        <Example code={`<Chip color="ok" icon="check_circle">Corregida</Chip>
+
+<Chip color="blue" onRemove={() => quitar(id)}>Matemática</Chip>`} />
+      </Section>
 
       <Section title="Props">
         <Props of="Chip" />
       </Section>
 
+      <Section title="Cómo se usa bien">
+        <Practices>
+          <Practices.Do>Los de estado usan los tonos y los de categoría la familia de etiquetas: son dos cosas distintas.</Practices.Do>
+          <Practices.Dont>El estado no puede depender solo del color: el texto lo dice también.</Practices.Dont>
+        </Practices>
+      </Section>
+
       <Section title="Accesibilidad">
-        <A11y items={[
-          'El estado está en el texto, no en el color: quien no distingue tonos lee lo mismo.',
-          'Sin onClick ni onRemove es un <span>: no entra en el orden de tabulación algo que no hace nada.',
-          'El glifo es decorativo y no se anuncia dos veces: lo que se lee es el texto.',
-          'La cruz de quitar es un botón con su propio nombre, así que se puede usar con el teclado.',
-          'Un chip que se toca y se saca son dos botones hermanos y no uno adentro del otro: anidados, tocar la cruz disparaba también el click del chip.',
-          'El contraste de cada color contra su fondo está verificado en los dos temas, y hay tests que fallan si alguien lo rompe.',
-        ]} />
+        <A11y>
+          <A11y.Item>El estado está en el texto, no en el color: quien no distingue tonos lee lo mismo.</A11y.Item>
+          <A11y.Item>{'Sin onClick ni onRemove es un <span>: no entra en el orden de tabulación algo que no hace nada.'}</A11y.Item>
+          <A11y.Item>El glifo es decorativo y no se anuncia dos veces: lo que se lee es el texto.</A11y.Item>
+          <A11y.Item>La cruz de quitar es un botón con su propio nombre, así que se puede usar con el teclado.</A11y.Item>
+          <A11y.Item>Un chip que se toca y se saca son dos botones hermanos y no uno adentro del otro: anidados, tocar la cruz disparaba también el click del chip.</A11y.Item>
+          <A11y.Item>El contraste de cada color contra su fondo está verificado en los dos temas, y hay tests que fallan si alguien lo rompe.</A11y.Item>
+        </A11y>
       </Section>
     </Page>
   )

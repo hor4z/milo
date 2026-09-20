@@ -1,7 +1,7 @@
 import cls from './slider.module.css'
 import { useState } from 'react'
-import { Slider } from '@milo/ui'
-import { A11y, Footnote, Frame, Mono, Page, Panel, Props, Section, Variant } from '../kit'
+import { Slider } from '@milo/ui/slider'
+import { A11y, Example, Footnote, Frame, Mono, Page, Panel, Practices, Props, Section, Variant } from '../kit'
 
 export function SliderStory() {
   const [a, setA] = useState(59)
@@ -13,12 +13,12 @@ export function SliderStory() {
     <Page
       title="Slider"
       kind="Formularios"
-      imports="import { Slider } from '@milo/ui'"
+      imports="import { Slider } from '@milo/ui/slider'"
       lead="El hermano del switch, y por eso no tiene recetas propias: la pista llena, la vacía y el pulgar son los del switch. Los dos son una píldora con una pieza redonda encima, así que el día que cambie el relieve de uno tiene que cambiar el del otro."
     >
       <Section
         title="La pieza"
-        note="Pista de 22, la del switch: dos píldoras en el mismo sistema con dos alturas distintas se ven como dos sistemas. El pulgar es de 24 y sobresale, al revés que el del switch, que es de 18 y vive adentro: esa es la diferencia entre los dos controles. El del switch corre por un canal; el del slider está apoyado sobre un riel y se agarra."
+        note="El pulgar sobresale del riel y se agarra, al revés que el del `Switch`, que corre adentro de su canal. Esa es la diferencia entre elegir un valor y prender algo."
       >
         <Panel>
           <Variant name={`valor ${a}`}>
@@ -49,7 +49,7 @@ export function SliderStory() {
 
       <Section
         title="Con pasos"
-        note="`step`, las flechas y el arrastre son del input nativo: adentro hay un `range` de verdad, transparente y encima de todo. No es el caso del `Select`, donde la lista la dibuja el sistema operativo y no hay forma de estilarla: un range se tapa entero con un div y el teclado viene gratis."
+        note="Las flechas, Home, End y el arrastre vienen del `range` nativo, así que el teclado funciona sin que nadie lo escriba."
       >
         <Panel>
           <Variant name={`${steps} de 5 · step 1, max 5`}>
@@ -76,6 +76,11 @@ export function SliderStory() {
         </Panel>
       </Section>
 
+      <Section title="Cómo se escribe">
+        <Example code={`const [peso, setPeso] = useState(50)
+<Slider value={peso} onChange={setPeso} min={0} max={100} step={5} label="Peso de la nota" />`} />
+      </Section>
+
       <Section title="Props">
         <Props of="Slider" />
       </Section>
@@ -89,12 +94,18 @@ export function SliderStory() {
         </p>
       </Section>
 
+      <Section title="Cómo se usa bien">
+        <Practices>
+          <Practices.Do>Va cuando el valor exacto no importa: lo que se elige es más o menos, no un número.</Practices.Do>
+        </Practices>
+      </Section>
+
       <Section title="Accesibilidad">
-        <A11y items={[
-          'Es un <input type="range"> de verdad: flechas, Home, End y PageUp funcionan solas.',
-          'El pulgar dibujado toma el foco del input que hay debajo.',
-          'El label lo nombra aunque en pantalla no haya texto al lado.',
-        ]} />
+        <A11y>
+          <A11y.Item>{'Es un <input type="range"> de verdad: flechas, Home, End y PageUp funcionan solas.'}</A11y.Item>
+          <A11y.Item>El pulgar dibujado toma el foco del input que hay debajo.</A11y.Item>
+          <A11y.Item>El label lo nombra aunque en pantalla no haya texto al lado.</A11y.Item>
+        </A11y>
       </Section>
     </Page>
   )

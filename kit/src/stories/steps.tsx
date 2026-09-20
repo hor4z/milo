@@ -1,7 +1,9 @@
 import cls from './steps.module.css'
 import { useState } from 'react'
-import { Button, Icon, Steps } from '@milo/ui'
-import { A11y, Note, Page, Props, Section } from '../kit'
+import { Button } from '@milo/ui/button'
+import { Icon } from '@milo/ui/icon'
+import { Steps } from '@milo/ui/steps'
+import { A11y, Example, Note, Page, Practices, Props, Section } from '../kit'
 
 const design = [
   { label: 'Empatizar', hint: 'Escuchar a quien tiene el problema' },
@@ -26,7 +28,7 @@ export function StepsStory() {
     <Page
       title="Steps"
       kind="Navegación"
-      imports="import { Steps } from '@milo/ui'"
+      imports="import { Steps } from '@milo/ui/steps'"
       lead="Por dónde va algo que tiene etapas: una actividad en partes, un proceso de diseño, un formulario largo. Dice dónde estás y cuánto falta, que es lo que una barra de progreso no puede decir."
     >
       <Section title="La pieza" note="Las anteriores quedan hechas, la actual se marca, las que siguen esperan.">
@@ -63,16 +65,27 @@ export function StepsStory() {
         orden, y lo que importa no es el porcentaje sino cuál viene ahora.
       </Note>
 
+      <Section title="Cómo se escribe">
+        <Example code={`<Steps
+  label="Publicar una actividad"
+  current={1}
+  items={[{ label: 'Escribir' }, { label: 'Revisar' }, { label: 'Publicar' }]}
+/>`} />
+      </Section>
+
       <Props of={['Steps', 'Step']} />
 
-      <A11y
-        items={[
-          'Es una lista ordenada con nombre: quien la escucha sabe cuántas etapas hay antes de recorrerlas.',
-          'La etapa en curso lleva `aria-current="step"`, y es una sola.',
-          'Hecha, en curso y pendiente se dicen con palabras además de con color y con el tilde. El color nunca va solo.',
-          'Sin `onSelect` no hay botones: una etapa que no lleva a ningún lado no debería recibir el foco.',
-        ]}
-      />
+      <Practices>
+        <Practices.Do>`current` es dónde estás parado, que no es lo mismo que lo elegido ni que el cursor del teclado.</Practices.Do>
+        <Practices.Dont>No lo uses para un proceso de dos pasos: dos pasos se cuentan solos.</Practices.Dont>
+      </Practices>
+
+      <A11y>
+        <A11y.Item>Es una lista ordenada con nombre: quien la escucha sabe cuántas etapas hay antes de recorrerlas.</A11y.Item>
+        <A11y.Item>La etapa en curso lleva `aria-current="step"`, y es una sola.</A11y.Item>
+        <A11y.Item>Hecha, en curso y pendiente se dicen con palabras además de con color y con el tilde. El color nunca va solo.</A11y.Item>
+        <A11y.Item>Sin `onSelect` no hay botones: una etapa que no lleva a ningún lado no debería recibir el foco.</A11y.Item>
+      </A11y>
     </Page>
   )
 }

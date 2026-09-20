@@ -6,7 +6,7 @@ export type { IconName }
 /** El set es Material Symbols Rounded, subseteado a lo que usamos y servido desde el repo. */
 export type IconWeight = 100 | 200 | 300 | 400 | 500 | 600 | 700
 
-export function Icon({ name, size, className, weight }: {
+function Root({ name, size, className, weight }: {
   /** El glifo, de la unión de los que están en el manifiesto. */
   name: IconName
   /** Alto y ancho de la caja en px. Sin esto lo manda el ancestro por `--icon-size`, y si nadie lo manda son 20. */
@@ -43,7 +43,7 @@ const folderColors = {
 
 export type FolderColor = keyof typeof folderColors
 
-export function FolderIcon({ color = 'ink', size = 20 }: {
+function Folder({ color = 'ink', size = 20 }: {
   /** El color del espacio: es lo que la deja reconocer de reojo en una lista de siete. */
   color?: FolderColor
   /** El lado en px. */
@@ -60,3 +60,5 @@ export function FolderIcon({ color = 'ink', size = 20 }: {
     </svg>
   )
 }
+
+export const Icon = Object.assign(Root, { Folder })

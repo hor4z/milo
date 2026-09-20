@@ -1,8 +1,9 @@
 import cls from './color.module.css'
-import {
-  Alert, AlertTitle, Button, Chip, Progress, Table, TableBody, TableCell, TableHead,
-  TableHeader, TableRow,
-} from '@milo/ui'
+import { Alert } from '@milo/ui/alert'
+import { Button } from '@milo/ui/button'
+import { Chip } from '@milo/ui/chip'
+import { Progress } from '@milo/ui/progress'
+import { Table } from '@milo/ui/table'
 import { Footnote, Note, Page, Ramp, Rich, Section, Stack, Swatch, useTokens } from '../kit'
 
 const blue = ['--blue-050', '--blue-100', '--blue-200', '--blue-300', '--blue-400', '--blue-500', '--blue-600', '--blue-700', '--blue-800', '--blue-900'] as const
@@ -29,7 +30,7 @@ export function ColorSection() {
     <Page
       title="Color"
       kind="Fundamentos"
-      lead="Un primario, un acento y una rampa casi neutra. Todo lo que tiene color en el sistema sale de ahí o de una de las familias acotadas de abajo, y ninguna es decorativa: cada una contesta una pregunta distinta."
+      lead="Un primario, un acento y una rampa casi neutra. Todo lo que tiene color en el sistema sale de ahí o de una de las familias acotadas de abajo, y ninguna es decorativa: cada una contesta una pregunta distinta. El color de una persona sale de su nombre con `colorForName`, que está en [Utilidades](#utilidades)."
     >
       <Section
         title="Los tres"
@@ -68,22 +69,22 @@ export function ColorSection() {
         note="La pregunta no es qué color queda bien: es qué está diciendo esto."
       >
         <Table label="Qué rol usar según qué se quiere decir" minWidth={560}>
-          <TableHeader>
-            <TableRow>
-              <TableHead>Qué estás diciendo</TableHead>
-              <TableHead>Rol</TableHead>
-              <TableHead>Por ejemplo</TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
+          <Table.Header>
+            <Table.Row>
+              <Table.Head>Qué estás diciendo</Table.Head>
+              <Table.Head>Rol</Table.Head>
+              <Table.Head>Por ejemplo</Table.Head>
+            </Table.Row>
+          </Table.Header>
+          <Table.Body>
             {which.map(([q, r, e]) => (
-              <TableRow key={q}>
-                <TableCell>{q}</TableCell>
-                <TableCell><Rich text={r} /></TableCell>
-                <TableCell>{e}</TableCell>
-              </TableRow>
+              <Table.Row key={q}>
+                <Table.Cell>{q}</Table.Cell>
+                <Table.Cell><Rich text={r} /></Table.Cell>
+                <Table.Cell>{e}</Table.Cell>
+              </Table.Row>
             ))}
-          </TableBody>
+          </Table.Body>
         </Table>
       </Section>
 
@@ -106,11 +107,8 @@ export function ColorSection() {
           Va uno o el otro, nunca los dos en la misma pantalla: dos botones que mandan es ninguno.
         </Note>
 
-        <Note title="Dos roles pueden compartir valor; dos nombres para el mismo trabajo, no">
-          El papel de una tarjeta y el fondo de un campo son blancos los dos y son roles distintos:
-          el día que uno cambie, el otro se queda. Lo que no puede pasar es que el mismo trabajo
-          tenga dos nombres. Pasó dos veces y las dos se resolvieron sacando uno: `--text-subtle`
-          era `--text-muted`, y `--brand-subtle` era `--brand-soft`.
+        <Note title="Dos roles pueden compartir valor">
+          Lo que no puede pasar es que el mismo trabajo tenga dos nombres: ahí uno de los dos sobra y se saca.
         </Note>
       </Section>
 
@@ -201,7 +199,7 @@ export function ColorSection() {
             <Chip size="sm" color="bad" icon="error">Sin entregar</Chip>
           </div>
           <Alert tone="warn">
-            <AlertTitle>Tres entregas vencen mañana</AlertTitle>
+            <Alert.Title>Tres entregas vencen mañana</Alert.Title>
           </Alert>
         </div>
         <Note title="El naranja del warn no llega a los 3:1 contra su pista, y está decidido así">
@@ -265,10 +263,8 @@ export function ColorSection() {
             tokens={spaces}
           />
         </Stack>
-        <Note title="Antes de teñir algo">
-          Los roles vivieron un rato juntos bajo el mismo nombre y de ahí salieron dos bugs: los
-          chips quedaron pastel cuando ya tenían que ser vivos, y al pasarlos a vivos se llevó
-          puesta la marca de la lista, que tenía que quedar pastel.
+        <Note title="Cuál de las dos familias va">
+          La viva es para una pieza chica con tinta encima: un chip, una etiqueta. La pastel es para una marca grande con un glifo adentro: la carpeta de un espacio, el cuadrado de una fila.
         </Note>
       </Section>
 
@@ -277,8 +273,12 @@ export function ColorSection() {
         note="La pista es lo que había para hacer y el relleno es lo hecho. **No son los tonos de estado aunque en claro coincidan**: un tono de estado está anclado donde el blanco encima se lee, y un relleno no lleva texto encima, así que lo que necesita es despegarse de su pista."
       >
         <div className={`${cls.dataCard} bg-surface`}>
-          <Progress label="Corregidas" value={18} max={24} hint="18 de 24" />
-          <Progress label="Espacio usado" value={22} max={24} tone="warn" hint="22 de 24 GB" />
+          <Progress label="Corregidas" value={18} max={24} >
+            <Progress.Hint>18 de 24</Progress.Hint>
+          </Progress>
+          <Progress label="Espacio usado" value={22} max={24} tone="warn" >
+            <Progress.Hint>22 de 24 GB</Progress.Hint>
+          </Progress>
         </div>
         <div className={cls.dataRamp}>
           <Swatch token="--track" note="lo que había para hacer" />

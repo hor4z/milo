@@ -4,6 +4,7 @@ import { IconButton } from '../icon-button/icon-button'
 import { Spinner } from '../spinner/spinner'
 import { control } from '../lib/control'
 import { cx } from '../lib/cx'
+import { takePart } from '../lib/parts'
 import { duration } from '../lib/time'
 
 type Status = 'loading' | 'ready' | 'error'
@@ -44,19 +45,25 @@ function BareTrack({ progress }: { progress: number }) {
 type AudioPlayerProps = {
   /** El archivo. */
   src: string
-  /** El nombre de la pista, arriba de la onda. Sin esto el reproductor va en una sola fila. */
+  /** El nombre de la pista, arriba de la onda. Es un string y no una parte porque la pieza lo necesita como texto: alimenta el `MediaMetadata` del sistema operativo y el nombre de la barra de búsqueda. Sin esto el reproductor va en una sola fila. */
   title?: string
   /** Los picos del archivo, de 0 a 1, para dibujar la onda. Se reparten el ancho, así que cuantos menos, más gordas salen las barras. Sin esto se dibuja una pista pelada: no se inventa una onda que no es la del audio. */
   peaks?: readonly number[]
-  /** A la derecha del tiempo: descargar, un menú, lo que haga falta. */
-  actions?: ReactNode
+  /** Las `AudioPlayer.Actions`, si van. */
+  children?: ReactNode
   /** 36 · 40 · 44, los del Button. */
   size?: 'sm' | 'md' | 'lg'
   className?: string
 }
 
 /** Un archivo de audio con su onda: play, una línea de tiempo que se arrastra y el reloj. */
-export function AudioPlayer({ src, title, peaks, actions, size = 'md', className }: AudioPlayerProps) {
+/** A la derecha del tiempo: descargar, un menú, lo que haga falta. */
+function Actions({ children }: { children: ReactNode }) {
+  return <>{children}</>
+}
+
+function Root({ src, title, peaks, children, size = 'md', className }: AudioPlayerProps) {
+  const [actions] = takePart(children, Actions)
   const audio = useRef<HTMLAudioElement>(null)
   const [status, setStatus] = useState<Status>('loading')
   const [isPlaying, setIsPlaying] = useState(false)
@@ -195,8 +202,10 @@ export function AudioPlayer({ src, title, peaks, actions, size = 'md', className
           {duration(t)} / {ready ? duration(dur) : '--:--'}
         </span>
 
-        {actions && <span className={cls.actions}>{actions}</span>}
+        {actions.length > 0 && <span className={cls.actions}>{actions}</span>}
       </div>
     </div>
   )
 }
+
+export const AudioPlayer = Object.assign(Root, { Actions })

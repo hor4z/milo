@@ -1,6 +1,11 @@
 import { useState } from 'react'
-import { Button, Field, Icon, Modal, ModalBody, ModalFooter, ModalHeader, ModalHint, ModalTitle, SettingsModal, TextField } from '@milo/ui'
-import { A11y, Demo, Example, Grid, Note, Page, Props, Section } from '../kit'
+import { Button } from '@milo/ui/button'
+import { Field } from '@milo/ui/field'
+import { Icon } from '@milo/ui/icon'
+import { Modal } from '@milo/ui/modal'
+import { SettingsModal } from '@milo/ui/settings-modal'
+import { TextField } from '@milo/ui/text-field'
+import { A11y, Demo, Example, Grid, Note, Page, Practices, Props, Section } from '../kit'
 
 export function ModalStory() {
   const [open, setOpen] = useState(false)
@@ -12,7 +17,7 @@ export function ModalStory() {
     <Page
       title="Modal"
       kind="Superficies"
-      imports="import { Modal, ModalHeader, ModalTitle, ModalHint, ModalBody, ModalFooter } from '@milo/ui'"
+      imports="import { Modal } from '@milo/ui/modal'"
       lead="Tres partes: la cabecera con el título y la X, el cuerpo, y los botones abajo. El panel es una columna, así que el cuerpo es lo único que scrollea y las acciones siguen a la vista. El ancho sale de tres, no de un número suelto."
     >
       <Section
@@ -23,36 +28,38 @@ export function ModalStory() {
           <Demo label="md · 620, el de siempre">
             <Button variant="muted" onClick={() => setOpen(true)}>Abrir modal</Button>
             <Modal open={open} onClose={() => setOpen(false)} size="md">
-              <ModalHeader>
-                <ModalTitle>Un modal de 620</ModalTitle>
-                <ModalHint>Lo que el lector anuncia sale de ese título.</ModalHint>
-              </ModalHeader>
-              <ModalBody>
+              <Modal.Header>
+                <Modal.Title>Un modal de 620</Modal.Title>
+                <Modal.Hint>Lo que el lector anuncia sale de ese título.</Modal.Hint>
+              </Modal.Header>
+              <Modal.Body>
                 El cuerpo es lo que scrollea cuando el contenido no entra. La cabecera y los botones
                 se quedan donde están.
-              </ModalBody>
-              <ModalFooter>
+              </Modal.Body>
+              <Modal.Footer>
                 <Button variant="ghost" onClick={() => setOpen(false)}>Cancelar</Button>
                 <Button variant="brand" onClick={() => setOpen(false)}>Entendido</Button>
-              </ModalFooter>
+              </Modal.Footer>
             </Modal>
           </Demo>
 
           <Demo label="sm · 420, una pregunta o un campo">
             <Button variant="muted" onClick={() => setNarrowOpen(true)}>Renombrar</Button>
             <Modal open={narrowOpen} onClose={() => setNarrowOpen(false)} size="sm">
-              <ModalHeader>
-                <ModalTitle>Renombrar el espacio</ModalTitle>
-              </ModalHeader>
-              <ModalBody>
-                <Field label="Nombre" hint="Lo ven los 28 del curso.">
+              <Modal.Header>
+                <Modal.Title>Renombrar el espacio</Modal.Title>
+              </Modal.Header>
+              <Modal.Body>
+                <Field>
+                  <Field.Label>Nombre</Field.Label>
+                  <Field.Hint>Lo ven los 28 del curso.</Field.Hint>
                   <TextField value={nombre} onChange={e => setNombre(e.target.value)} />
                 </Field>
-              </ModalBody>
-              <ModalFooter>
+              </Modal.Body>
+              <Modal.Footer>
                 <Button variant="ghost" size="sm" onClick={() => setNarrowOpen(false)}>Cancelar</Button>
                 <Button variant="brand" size="sm" onClick={() => setNarrowOpen(false)}>Guardar</Button>
-              </ModalFooter>
+              </Modal.Footer>
             </Modal>
           </Demo>
 
@@ -75,17 +82,17 @@ export function ModalStory() {
       <Section title="Cómo se escribe">
         <Example code={`
 <Modal open={open} onClose={cerrar} size="md">
-  <ModalHeader>
-    <ModalTitle>Un modal de 620</ModalTitle>
-    <ModalHint>La línea de apoyo, si hace falta.</ModalHint>
-  </ModalHeader>
-  <ModalBody>
+  <Modal.Header>
+    <Modal.Title>Un modal de 620</Modal.Title>
+    <Modal.Hint>La línea de apoyo, si hace falta.</Modal.Hint>
+  </Modal.Header>
+  <Modal.Body>
     El contenido.
-  </ModalBody>
-  <ModalFooter>
+  </Modal.Body>
+  <Modal.Footer>
     <Button variant="ghost" onClick={cerrar}>Cancelar</Button>
     <Button variant="brand" onClick={guardar}>Entendido</Button>
-  </ModalFooter>
+  </Modal.Footer>
 </Modal>
 `} />
       </Section>
@@ -98,16 +105,24 @@ export function ModalStory() {
       </Note>
 
       <Section title="Props">
-        <Props of={['Modal', 'ModalHeader', 'ModalTitle', 'ModalHint', 'ModalBody', 'ModalFooter']} />
+        <Props of="Modal" />
+      </Section>
+
+      <Section title="Cómo se usa bien">
+        <Practices>
+          <Practices.Do>El nombre sale de `Modal.Title`, que se ata solo. `label` es para el modal sin título a la vista.</Practices.Do>
+          <Practices.Do>El ancho sale de `sm`, `md` o `lg`: más de 820 deja de ser un diálogo y es una pantalla.</Practices.Do>
+          <Practices.Dont>No armes el interior a mano: el cuerpo es el que scrollea, y eso lo sabe `Modal.Body`.</Practices.Dont>
+        </Practices>
       </Section>
 
       <Section title="Accesibilidad">
-        <A11y items={[
-          'role="dialog" con aria-modal, y el nombre sale del `ModalTitle` por `aria-labelledby`: una sola fuente, y la que se ve es la que se anuncia.',
-          'Atrapa el foco mientras está abierto y lo devuelve al cerrarse.',
-          'Se enfoca el contenedor y no el primer control: el navegador scrollea a lo que enfoca, y eso abría el panel corrido.',
-          'Bloquea el scroll de la página compensando el ancho de la barra, así que nada salta al abrir.',
-        ]} />
+        <A11y>
+          <A11y.Item>role="dialog" con aria-modal, y el nombre sale del `Modal.Title` por `aria-labelledby`: una sola fuente, y la que se ve es la que se anuncia.</A11y.Item>
+          <A11y.Item>Atrapa el foco mientras está abierto y lo devuelve al cerrarse.</A11y.Item>
+          <A11y.Item>Se enfoca el contenedor y no el primer control: el navegador scrollea a lo que enfoca, y eso abría el panel corrido.</A11y.Item>
+          <A11y.Item>Bloquea el scroll de la página compensando el ancho de la barra, así que nada salta al abrir.</A11y.Item>
+        </A11y>
       </Section>
     </Page>
   )

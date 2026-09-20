@@ -1,5 +1,6 @@
 import css from './typography.module.css'
-import { Icon, Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@milo/ui'
+import { Icon } from '@milo/ui/icon'
+import { Table } from '@milo/ui/table'
 import { A11y, Note, Page, Section, Stack, useTokens } from '../kit'
 
 /** Los siete roles, en orden de tamaño. `name` es el token y el resto es lo que documenta. */
@@ -19,7 +20,6 @@ export function TypographySection() {
       title="Tipografía"
       kind="Fundamentos"
       lead="Una familia (Inter) y siete roles, cada uno cargando tamaño, interlineado y tracking juntos. La base es 14 y hay un escalón explícito de 16 para lo que un estudiante lee de corrido."
-      imports="import { Icon } from '@milo/ui'"
     >
       <Section
         title="Los siete roles"
@@ -48,13 +48,13 @@ export function TypographySection() {
       >
         <div>
           <Table>
-            <TableHeader>
-              <TableRow>
-                <TableHead>Si el texto…</TableHead>
-                <TableHead>va en</TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
+            <Table.Header>
+              <Table.Row>
+                <Table.Head>Si el texto…</Table.Head>
+                <Table.Head>va en</Table.Head>
+              </Table.Row>
+            </Table.Header>
+            <Table.Body>
               {[
                 ['se lee de corrido, en párrafos', '--type-reading'],
                 ['es el título de la pantalla', '--type-title'],
@@ -62,12 +62,12 @@ export function TypographySection() {
                 ['es un dato de apoyo que se mira de reojo', '--type-meta'],
                 ['es cualquier otra cosa', '--type-body'],
               ].map(([q, a]) => (
-                <TableRow key={a}>
-                  <TableCell>{q}</TableCell>
-                  <TableCell><code className={css.tokenName}>{a}</code></TableCell>
-                </TableRow>
+                <Table.Row key={a}>
+                  <Table.Cell>{q}</Table.Cell>
+                  <Table.Cell><code className={css.tokenName}>{a}</code></Table.Cell>
+                </Table.Row>
               ))}
-            </TableBody>
+            </Table.Body>
           </Table>
         </div>
       </Section>
@@ -75,8 +75,8 @@ export function TypographySection() {
       <WhyInter />
 
       <Section
-        title="El interlineado dejó de ser uno solo"
-        note="Era 16px fijo para todo, y el argumento era bueno: con interlineado proporcional, una fila de 12 y una de 14 dejan de alinearse. Dejó de importar porque los interlineados nuevos son todos pares, así que apilan predecible, y porque las filas del sistema centran con flex y no haciendo coincidir cajas de línea."
+        title="El interlineado sale del rol"
+        note="Cada rol declara el suyo y todos son pares, así que apilan predecible. Un interlineado fijo para todos alinea bien dos filas de distinto tamaño, pero aplasta un párrafo largo."
       >
         <div className={css.leadingGrid}>
           <div className={`${css.leadingBadCard} bg-surface`}>
@@ -112,7 +112,7 @@ export function TypographySection() {
 
       <Section
         title="El tracking cruza el cero en la base"
-        note="Positivo donde la letra es chica y se empasta, cero en la interfaz, negativo donde es grande y se despega. Antes era al revés: −0.015em en todos los títulos por igual, un número medido contra otra familia a 12px. Apretar la letra chica es exactamente cómo se pierde nitidez."
+        note="Positivo donde la letra es chica y se empasta, cero en la interfaz, negativo donde es grande y se despega. Apretar la letra chica es exactamente cómo se pierde nitidez."
       >
         <div className={`${css.trackingCard} bg-surface`}>
           {roles.map(r => (
@@ -198,15 +198,13 @@ export function TypographySection() {
         Si alguna vez esto se ve lavado, el problema es el peso o el contraste, no el suavizado.
       </Note>
 
-      <A11y
-        items={[
-          'El piso del sistema es 12px y es un rol con nombre (`--type-meta`) para que se note cuándo se está usando abajo de lo que corresponde. La única cosa que baja de ahí es la inicial de un avatar chico, que es una marca y no un texto: nadie la lee, identifica.',
-          'Los tamaños van en `rem` y no en píxeles: quien agranda la letra en las preferencias de su navegador la ve agrandada. El zoom ya escalaba los píxeles y cubría WCAG 1.4.4; la preferencia de tamaño de fuente no, y esa es la que usa quien tiene baja visión.',
-          'El escalón de lectura tiene 1.5 de interlineado, el número de WCAG 1.4.12, y las piezas que llevan texto encima usan `min-h` en vez de alto fijo, así que aguantan que alguien fuerce más espaciado sin que se corte nada.',
-          'El tracking es positivo en los dos escalones más chicos. La letra apretada a 12px es la que más se empasta, y es la que peor le cae a quien lee con dificultad.',
-          'La jerarquía nunca se apoya solo en el tamaño: un título lleva tamaño y peso, y lo que es accionable lleva además su propio rol semántico en el HTML.',
-        ]}
-      />
+      <A11y>
+        <A11y.Item>El piso del sistema es 12px y es un rol con nombre (`--type-meta`) para que se note cuándo se está usando abajo de lo que corresponde. La única cosa que baja de ahí es la inicial de un avatar chico, que es una marca y no un texto: nadie la lee, identifica.</A11y.Item>
+        <A11y.Item>Los tamaños van en `rem` y no en píxeles: quien agranda la letra en las preferencias de su navegador la ve agrandada. El zoom ya escalaba los píxeles y cubría WCAG 1.4.4; la preferencia de tamaño de fuente no, y esa es la que usa quien tiene baja visión.</A11y.Item>
+        <A11y.Item>El escalón de lectura tiene 1.5 de interlineado, el número de WCAG 1.4.12, y las piezas que llevan texto encima usan `min-h` en vez de alto fijo, así que aguantan que alguien fuerce más espaciado sin que se corte nada.</A11y.Item>
+        <A11y.Item>El tracking es positivo en los dos escalones más chicos. La letra apretada a 12px es la que más se empasta, y es la que peor le cae a quien lee con dificultad.</A11y.Item>
+        <A11y.Item>La jerarquía nunca se apoya solo en el tamaño: un título lleva tamaño y peso, y lo que es accionable lleva además su propio rol semántico en el HTML.</A11y.Item>
+      </A11y>
     </Page>
   )
 }
@@ -215,7 +213,7 @@ function WhyInter() {
   return (
     <Section
       title="Por qué Inter, y por qué una sola"
-      note="Cuarta familia del proyecto: Inter → Geist → Instrument Sans → Inter. Volver no es andar en círculo: aquella vez eran tres familias, y ese era justamente el motivo de dejarla. Inter v4 trae eje óptico, así que una sola instancia cubre el cuerpo y el display."
+      note="Una sola familia para todo. Inter v4 trae eje óptico, así que la misma instancia cubre el cuerpo y el display sin traer un segundo archivo."
     >
       <Stack gap="lg">
         <div className={css.interGrid}>

@@ -1,13 +1,14 @@
 import cls from './skeleton.module.css'
-import { Card, Skeleton } from '@milo/ui'
-import { A11y, Cluster, Demo, Note, Page, Props, Section, Stack } from '../kit'
+import { Card } from '@milo/ui/card'
+import { Skeleton } from '@milo/ui/skeleton'
+import { A11y, Cluster, Demo, Example, Note, Page, Practices, Props, Section, Stack } from '../kit'
 
 export function SkeletonStory() {
   return (
     <Page
       title="Skeleton"
       kind="Datos"
-      imports="import { Skeleton } from '@milo/ui'"
+      imports="import { Skeleton } from '@milo/ui/skeleton'"
       lead="El hueco que ocupa algo que todavía no llegó. Tiene que medir lo mismo que el contenido real, o al llegar los datos la pantalla salta y se pierde lo que se estaba leyendo."
     >
       <Section
@@ -58,16 +59,29 @@ export function SkeletonStory() {
         cien) el spinner es más honesto.
       </Note>
 
+      <Section title="Cómo se escribe">
+        <Example code={`{cargando
+  ? <Skeleton lines={3} />
+  : <p>{consigna}</p>}`} />
+      </Section>
+
       <Section title="Props">
         <Props of="Skeleton" />
       </Section>
 
+      <Section title="Cómo se usa bien">
+        <Practices>
+          <Practices.Do>Ocupa el lugar exacto de lo que viene, así que cuando llega no se mueve nada.</Practices.Do>
+          <Practices.Dont>Para una espera de menos de un segundo no va nada: el parpadeo molesta más que la espera.</Practices.Dont>
+        </Practices>
+      </Section>
+
       <Section title="Accesibilidad">
-        <A11y items={[
-          'Es aria-hidden: un lector de pantalla no anuncia rectángulos vacíos.',
-          'Quien espera datos necesita que se lo diga el contenedor (aria-busy en la lista, un aviso al terminar), no cada hueco.',
-          'El pulso respeta prefers-reduced-motion: sin animación, el hueco se ve igual.',
-        ]} />
+        <A11y>
+          <A11y.Item>Es aria-hidden: un lector de pantalla no anuncia rectángulos vacíos.</A11y.Item>
+          <A11y.Item>Quien espera datos necesita que se lo diga el contenedor (aria-busy en la lista, un aviso al terminar), no cada hueco.</A11y.Item>
+          <A11y.Item>El pulso respeta prefers-reduced-motion: sin animación, el hueco se ve igual.</A11y.Item>
+        </A11y>
       </Section>
     </Page>
   )

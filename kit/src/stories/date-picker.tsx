@@ -1,6 +1,7 @@
 import { useState } from 'react'
-import { DatePicker, Field, FieldSet } from '@milo/ui'
-import { A11y, Canvas, Note, Page, Props, Section, Stack } from '../kit'
+import { DatePicker } from '@milo/ui/date-picker'
+import { Field } from '@milo/ui/field'
+import { A11y, Canvas, Example, Note, Page, Practices, Props, Section, Stack } from '../kit'
 
 const today = () => {
   const d = new Date()
@@ -17,7 +18,7 @@ export function DatePickerStory() {
     <Page
       title="DatePicker"
       kind="Formularios"
-      imports="import { DatePicker } from '@milo/ui'"
+      imports="import { DatePicker } from '@milo/ui/date-picker'"
       lead="Un campo que abre un mes. El valor es el texto `AAAA-MM-DD` y no un `Date`: una fecha de entrega no tiene hora ni zona, y un `Date` arrastra las dos."
     >
       <Section
@@ -26,14 +27,18 @@ export function DatePickerStory() {
       >
         <Canvas>
           <Stack gap="xl" width="md">
-            <FieldSet legend="Cuándo">
-              <Field label="Abre" hint="Desde cuándo se puede entregar">
+            <Field.Set legend="Cuándo">
+              <Field>
+                <Field.Label>Abre</Field.Label>
+                <Field.Hint>Desde cuándo se puede entregar</Field.Hint>
                 <DatePicker value={from} onChange={setFrom} />
               </Field>
-              <Field label="Vence" hint="Después de esta fecha no entra nada">
+              <Field>
+                <Field.Label>Vence</Field.Label>
+                <Field.Hint>Después de esta fecha no entra nada</Field.Hint>
                 <DatePicker value={due} onChange={setDue} min={from} placeholder="Sin fecha de cierre" />
               </Field>
-            </FieldSet>
+            </Field.Set>
           </Stack>
         </Canvas>
       </Section>
@@ -68,18 +73,29 @@ export function DatePickerStory() {
         es una prop y no una pieza nueva.
       </Note>
 
+      <Section title="Cómo se escribe">
+        <Example code={`const [fecha, setFecha] = useState('')
+<DatePicker value={fecha} onChange={setFecha} min={hoy} label="Cierra el" />`} />
+      </Section>
+
       <Section title="Props">
         <Props of="DatePicker" />
       </Section>
 
+      <Section title="Cómo se usa bien">
+        <Practices>
+          <Practices.Do>`min` y `max` acotan: para un vencimiento, `min` es hoy.</Practices.Do>
+        </Practices>
+      </Section>
+
       <Section title="Accesibilidad">
-        <A11y items={[
-          'Cada día se nombra entero ("lunes, 9 de marzo de 2026") en vez de leerse como un número suelto sin contexto.',
-          'El mes entero se recorre con el teclado: flechas de a un día y de a una semana, Re Pág y Av Pág de a un mes, con Shift de a un año, Inicio y Fin a los extremos de la semana.',
-          'Una sola parada de tabulación en la grilla (el día del cursor) en vez de treinta para llegar al final del mes. Escape cierra y el foco vuelve al campo.',
-          'El mes se anuncia al cambiar: con el teclado lo único que cambia es el título, y sin `aria-live` el salto es mudo.',
-          'Hoy lleva un punto además del color, y lo elegido va en relleno: dos señales distintas para dos cosas distintas.',
-        ]} />
+        <A11y>
+          <A11y.Item>Cada día se nombra entero ("lunes, 9 de marzo de 2026") en vez de leerse como un número suelto sin contexto.</A11y.Item>
+          <A11y.Item>El mes entero se recorre con el teclado: flechas de a un día y de a una semana, Re Pág y Av Pág de a un mes, con Shift de a un año, Inicio y Fin a los extremos de la semana.</A11y.Item>
+          <A11y.Item>Una sola parada de tabulación en la grilla (el día del cursor) en vez de treinta para llegar al final del mes. Escape cierra y el foco vuelve al campo.</A11y.Item>
+          <A11y.Item>El mes se anuncia al cambiar: con el teclado lo único que cambia es el título, y sin `aria-live` el salto es mudo.</A11y.Item>
+          <A11y.Item>Hoy lleva un punto además del color, y lo elegido va en relleno: dos señales distintas para dos cosas distintas.</A11y.Item>
+        </A11y>
       </Section>
     </Page>
   )

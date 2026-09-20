@@ -1,5 +1,5 @@
 import css from './layout.module.css'
-import { Card, CardBody } from '@milo/ui'
+import { Card } from '@milo/ui/card'
 import { A11y, Note, Page, Section } from '../kit'
 
 const breaks = [
@@ -23,7 +23,6 @@ export function LayoutSection() {
       title="Layout"
       kind="Fundamentos"
       lead="Dónde se apoya cada cosa: el mueble de la pantalla, los cuatro cortes y las dos reglas que rompen una grilla cuando faltan."
-      imports="import { Card } from '@milo/ui'"
     >
       <Section
         title="Cuatro cortes, y cada uno hace algo distinto"
@@ -61,14 +60,14 @@ export function LayoutSection() {
       >
         <div className={css.structureStack}>
           <Card>
-            <CardBody>
+            <Card.Body>
               <div className={css.structureMain}>Lo what la pantalla viene a mostrar</div>
-            </CardBody>
+            </Card.Body>
           </Card>
           <Card surface="muted">
-            <CardBody>
+            <Card.Body>
               <div className={css.structureAside}>Lo what acompaña</div>
-            </CardBody>
+            </Card.Body>
           </Card>
         </div>
       </Section>
@@ -81,7 +80,7 @@ export function LayoutSection() {
         recetas distintas se ve enseguida, aunque cada una por separado parezca bien.
       </Note>
 
-      <Note icon="warning" title="Las dos que rompen una grilla sin avisar">
+      <Note tone="warn" title="Las dos que rompen una grilla sin avisar">
         <strong>Un hijo de grilla no baja de su contenido.</strong> Sin <code>min-w-0</code>, una
         tabla o un gráfico adentro de una columna la empujan más ancha que la pantalla, y el
         desborde aparece recién en un teléfono. Le pasó al dashboard.
@@ -92,7 +91,7 @@ export function LayoutSection() {
         nombre, porque "región" no dice de qué.
       </Note>
 
-      <Note icon="warning" title="Una cabecera que envuelve deja sus acciones a la izquierda">
+      <Note tone="warn" title="Una cabecera que envuelve deja sus acciones a la izquierda">
         Un <code>space-between</code> con <code>flex-wrap</code> reparte bien mientras las dos
         partes entren en una línea. Cuando dejan de entrar, las acciones bajan solas a la línea de
         abajo, y ahí <code>space-between</code> no tiene contra qué repartir: las pega al margen
@@ -101,19 +100,17 @@ export function LayoutSection() {
         {' '}
         La receta es una línea: el bloque de acciones lleva{' '}
         <code>margin-inline-start: auto</code>, que no cambia nada mientras las dos partes comparten
-        línea y lo mantiene a la derecha cuando envuelve. Lo llevan el <code>PageHeader</code> del
+        línea y lo mantiene a la derecha cuando envuelve. Lo llevan el <code>Page.Header</code> del
         paquete, la cabecera del dashboard y la del documento. Una fila de etiqueta y valor no lo
         lleva: ahí envolver hacia la izquierda es lo correcto.
       </Note>
 
-      <A11y
-        items={[
-          'La estructura se declara con landmarks: una cabecera, un `nav` y un `main`. Quien navega por regiones salta entre esas tres y no entre veinte.',
-          'A 390px no hay desborde horizontal en ninguna vista: una página que se corre de costado obliga a leer con dos manos.',
-          'El ancho de lectura se acota en caracteres y no en píxeles, así que sigue siendo el mismo cuando alguien agranda la letra del navegador.',
-          'El piso táctil todavía es el pendiente: `sm` mide 32 y para el dedo convendrían 44. Está anotado en Accesibilidad.',
-        ]}
-      />
+      <A11y>
+        <A11y.Item>La estructura se declara con landmarks: una cabecera, un `nav` y un `main`. Quien navega por regiones salta entre esas tres y no entre veinte.</A11y.Item>
+        <A11y.Item>A 390px no hay desborde horizontal en ninguna vista: una página que se corre de costado obliga a leer con dos manos.</A11y.Item>
+        <A11y.Item>El ancho de lectura se acota en caracteres y no en píxeles, así que sigue siendo el mismo cuando alguien agranda la letra del navegador.</A11y.Item>
+        <A11y.Item>El piso táctil todavía es el pendiente: `sm` mide 32 y para el dedo convendrían 44. Está anotado en Accesibilidad.</A11y.Item>
+      </A11y>
     </Page>
   )
 }

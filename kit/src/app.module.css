@@ -198,6 +198,22 @@
     transition-timing-function: var(--ease-out);
   }
 
+  .navChevron {
+    margin-left: auto;
+    flex-shrink: 0;
+    transition-property: rotate;
+    transition-duration: var(--duration-fast);
+    transition-timing-function: var(--ease-out);
+  }
+
+  .navChevronOpen {
+    rotate: 180deg;
+  }
+
+  .navSubItem {
+    padding-left: 2.25rem;
+  }
+
   .navItemActive {
     position: relative;
     font-weight: var(--font-weight-semibold);

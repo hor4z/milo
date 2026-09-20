@@ -1,6 +1,6 @@
 import { useState } from 'react'
-import { Search } from '@milo/ui'
-import { A11y, Page, Panel, Props, Section, Variant } from '../kit'
+import { Search } from '@milo/ui/search'
+import { A11y, Example, Page, Panel, Practices, Props, Section, Variant } from '../kit'
 
 export function SearchStory() {
   const [first, setFirst] = useState('')
@@ -15,7 +15,7 @@ export function SearchStory() {
       title="Search"
       kind="Formularios"
       lead="Un campo con la lupa y una cruz que aparece cuando hay algo escrito. Es un `TextField` por dentro y no un campo aparte: se dibuja igual que los otros y hereda su inversión contra el fondo."
-      imports="import { Search } from '@milo/ui'"
+      imports="import { Search } from '@milo/ui/search'"
     >
       <Section
         title="Las tres alturas"
@@ -39,18 +39,29 @@ export function SearchStory() {
         </Panel>
       </Section>
 
+      <Section title="Cómo se escribe">
+        <Example code={`const [texto, setTexto] = useState('')
+const buscado = useDebounce(texto, 250)
+
+<Search value={texto} onValueChange={setTexto} placeholder="Buscar una actividad" shortcut="/" />`} />
+      </Section>
+
       <Section title="Props">
         <Props of="Search" />
       </Section>
 
-      <A11y
-        items={[
-          'La cruz devuelve el foco al campo al vaciarlo: se desmonta al desaparecer, y sin eso el foco se cae al `<body>`.',
-          'El atajo es un recordatorio y no la tecla: quien pone el buscador escucha el evento, así que el campo no se apropia de una tecla global.',
-          '`ref` va al `input` y no al contenedor: es lo que un atajo necesita para enfocarlo desde afuera.',
-          'El campo se nombra con `aria-label` o con un `Field` alrededor: un placeholder desaparece al escribir y deja de nombrar nada.',
-        ]}
-      />
+      <Practices>
+        <Practices.Do>Es controlado: el texto lo guarda quien lo usa, y `onValueChange` recibe vacío al limpiar.</Practices.Do>
+        <Practices.Do>Para filtrar contra datos, pasá el valor por `useDebounce` antes de buscar.</Practices.Do>
+        <Practices.Dont>`shortcut` es un recordatorio, no la tecla: el atajo lo escucha quien lo pone.</Practices.Dont>
+      </Practices>
+
+      <A11y>
+        <A11y.Item>{'La cruz devuelve el foco al campo al vaciarlo: se desmonta al desaparecer, y sin eso el foco se cae al `<body>`.'}</A11y.Item>
+        <A11y.Item>El atajo es un recordatorio y no la tecla: quien pone el buscador escucha el evento, así que el campo no se apropia de una tecla global.</A11y.Item>
+        <A11y.Item>`ref` va al `input` y no al contenedor: es lo que un atajo necesita para enfocarlo desde afuera.</A11y.Item>
+        <A11y.Item>El campo se nombra con `aria-label` o con un `Field` alrededor: un placeholder desaparece al escribir y deja de nombrar nada.</A11y.Item>
+      </A11y>
     </Page>
   )
 }

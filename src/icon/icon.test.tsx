@@ -1,6 +1,6 @@
 import { render } from '@testing-library/react'
 import { describe, expect, it } from 'vitest'
-import { FolderIcon, Icon } from './icon'
+import { Icon } from './icon'
 
 describe('Icon', () => {
   it('se esconde de la lectura: el glifo no es contenido', () => {
@@ -41,7 +41,7 @@ describe('Icon', () => {
 
 describe('FolderIcon', () => {
   it('es un SVG y no un glifo: necesita dos tonos', () => {
-    const { container } = render(<FolderIcon color="blue" size={16} />)
+    const { container } = render(<Icon.Folder color="blue" size={16} />)
     const svg = container.querySelector('svg')!
     expect(svg).toHaveAttribute('aria-hidden', 'true')
     expect(svg.getAttribute('width')).toBe('16')

@@ -1,7 +1,7 @@
 import cls from './textarea.module.css'
 import { useState } from 'react'
-import { Textarea } from '@milo/ui'
-import { A11y, Cluster, Demo, Page, Props, Section } from '../kit'
+import { Textarea } from '@milo/ui/textarea'
+import { A11y, Cluster, Demo, Example, Page, Practices, Props, Section } from '../kit'
 
 export function TextareaStory() {
   const [short, setShort] = useState('')
@@ -18,7 +18,7 @@ export function TextareaStory() {
     <Page
       title="Textarea"
       kind="Formularios"
-      imports="import { Textarea } from '@milo/ui'"
+      imports="import { Textarea } from '@milo/ui/textarea'"
       lead="El campo de varias líneas: el TextField estirado. La misma caja, el mismo borde y la misma marca de foco, porque dos campos que no se parecen se leen como dos sistemas. Lo único que cambia adentro es el interlineado: el 16 fijo aprieta cuando hay varios renglones."
     >
       <Section
@@ -139,12 +139,23 @@ export function TextareaStory() {
       </Section>
 
       <Section title="Props" note="Todo lo que acepta un `<textarea>` nativo pasa derecho: `value`, `onChange`, `placeholder`, `disabled`, `maxLength`. Menos `style` y `resize`, que son de quien decide el alto.">
+        <Section title="Cómo se escribe">
+          <Example code={`<Textarea
+  rows={3}
+  maxRows={8}
+  counter
+  maxLength={280}
+  value={consigna}
+  onChange={e => setConsigna(e.target.value)}
+/>`} />
+        </Section>
+
         <Props of="Textarea" />
       </Section>
 
       <Section
         title="Lo que se paga si falta"
-        note="Tres cosas que no se ven cuando están bien. `height: auto` antes de leer `scrollHeight`, o el campo crece y no vuelve. El techo prende el scroll, y abajo del techo lo apaga, o aparece una barra que titila en cada tecla. Y se mide en un layout effect: después del paint, cada tecla se ve como un salto."
+        note="Crecer es la mitad fácil: lo que se olvida es volver. Escribí y borrá en los dos ejemplos de arriba."
       >
         <p className={cls.costText}>
           El <code>resize</code> nativo no está: es una esquina que solo existe con mouse, y
@@ -153,12 +164,18 @@ export function TextareaStory() {
         </p>
       </Section>
 
+      <Section title="Cómo se usa bien">
+        <Practices>
+          <Practices.Do>`maxRows` le pone techo al crecimiento, así que la página no se estira sin fin.</Practices.Do>
+        </Practices>
+      </Section>
+
       <Section title="Accesibilidad">
-        <A11y items={[
-          'Se remide al cambiar el ancho y al cargar la fuente, así que nunca recorta texto sin barra.',
-          'Al llegar al techo prende el scroll; abajo del techo lo apaga para que no titile.',
-          'El anillo de foco es de la caja, igual que en TextField.',
-        ]} />
+        <A11y>
+          <A11y.Item>Se remide al cambiar el ancho y al cargar la fuente, así que nunca recorta texto sin barra.</A11y.Item>
+          <A11y.Item>Al llegar al techo prende el scroll; abajo del techo lo apaga para que no titile.</A11y.Item>
+          <A11y.Item>El anillo de foco es de la caja, igual que en TextField.</A11y.Item>
+        </A11y>
       </Section>
     </Page>
   )

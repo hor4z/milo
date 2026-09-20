@@ -10,12 +10,12 @@ describe('Quote', () => {
   })
 
   it('la fuente va atada a la cita y no suelta abajo', () => {
-    const { container } = render(<Quote source="Aristóteles">Algo.</Quote>)
+    const { container } = render(<Quote><Quote.Source>Aristóteles</Quote.Source>Algo.</Quote>)
     expect(container.querySelector('figure figcaption')).toHaveTextContent('Aristóteles')
   })
 
   it('con `cite` la dirección queda en el markup además de escrita', () => {
-    const { container } = render(<Quote cite="https://ejemplo.org/metafisica" source="Metafísica">Algo.</Quote>)
+    const { container } = render(<Quote cite="https://ejemplo.org/metafisica"><Quote.Source>Metafísica</Quote.Source>Algo.</Quote>)
     expect(container.querySelector('blockquote')).toHaveAttribute('cite', 'https://ejemplo.org/metafisica')
     expect(container.querySelector('cite')).toHaveTextContent('Metafísica')
   })

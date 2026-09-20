@@ -1,13 +1,13 @@
 import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { describe, expect, it } from 'vitest'
-import { Accordion, AccordionItem } from './accordion'
+import { Accordion } from './accordion'
 
 describe('Accordion', () => {
   it('abre y cierra', async () => {
     render(
       <Accordion>
-        <AccordionItem summary="¿Cómo entrego?">Desde la actividad.</AccordionItem>
+        <Accordion.Item><Accordion.Summary>¿Cómo entrego?</Accordion.Summary><Accordion.Body>Desde la actividad.</Accordion.Body></Accordion.Item>
       </Accordion>,
     )
     const details = screen.getByText('¿Cómo entrego?').closest('details')!
@@ -19,8 +19,8 @@ describe('Accordion', () => {
   it('una fila no cierra a las otras', async () => {
     render(
       <Accordion>
-        <AccordionItem summary="Uno" defaultOpen>Contenido uno</AccordionItem>
-        <AccordionItem summary="Dos" defaultOpen>Contenido dos</AccordionItem>
+        <Accordion.Item defaultOpen><Accordion.Summary>Uno</Accordion.Summary><Accordion.Body>Contenido uno</Accordion.Body></Accordion.Item>
+        <Accordion.Item defaultOpen><Accordion.Summary>Dos</Accordion.Summary><Accordion.Body>Contenido dos</Accordion.Body></Accordion.Item>
       </Accordion>,
     )
     const [first, second] = screen.getAllByText(/^(Uno|Dos)$/).map(s => s.closest('details')!)
@@ -34,7 +34,7 @@ describe('Accordion', () => {
   it('lo cerrado sigue en el documento, así que Ctrl+F lo encuentra', () => {
     render(
       <Accordion>
-        <AccordionItem summary="¿Cómo entrego?">Desde la actividad.</AccordionItem>
+        <Accordion.Item><Accordion.Summary>¿Cómo entrego?</Accordion.Summary><Accordion.Body>Desde la actividad.</Accordion.Body></Accordion.Item>
       </Accordion>,
     )
     expect(screen.getByText('Desde la actividad.')).toBeInTheDocument()

@@ -1,7 +1,7 @@
 import cls from './task-list.module.css'
 import { useState } from 'react'
-import { TaskList, type Task } from '@milo/ui'
-import { A11y, Note, Page, Props, Section } from '../kit'
+import { TaskList, type Task } from '@milo/ui/task-list'
+import { A11y, Example, Note, Page, Practices, Props, Section } from '../kit'
 
 const initial: Task[] = [
   { id: 'leer', label: 'Leer la consigna entera antes de empezar', done: true },
@@ -18,7 +18,7 @@ export function TaskListStory() {
     <Page
       title="TaskList"
       kind="Editor"
-      imports="import { TaskList } from '@milo/ui'"
+      imports="import { TaskList } from '@milo/ui/task-list'"
       lead="Cosas para hacer que se marcan al hacerlas: los pasos de una entrega, lo que falta de una actividad, el checklist de un experimento."
     >
       <Section title="La pieza" note="Marcá y desmarcá: lo hecho se apaga y se tacha, que son dos avisos y no uno.">
@@ -42,15 +42,22 @@ export function TaskListStory() {
         Si al final hay un "Guardar", son casillas; si no, es esta lista.
       </Note>
 
+      <Section title="Cómo se escribe">
+        <Example code={`const [tareas, setTareas] = useState(pendientes)
+<TaskList label="Antes de publicar" tasks={tareas} onToggle={marcar} />`} />
+      </Section>
+
       <Props of={['TaskList', 'Task']} />
 
-      <A11y
-        items={[
-          'La lista lleva nombre: "lista, cuatro elementos" no dice de qué.',
-          'Cada casilla se nombra con su propio texto, y el texto es zona de click, que es la mitad del área útil del control.',
-          'Lo hecho se dice con el tachado además del gris: quien no separa el gris del negro ve igual que la línea está cruzada.',
-        ]}
-      />
+      <Practices>
+        <Practices.Do>`label` dice de qué es: sin eso un lector anuncia "lista, cuatro elementos".</Practices.Do>
+      </Practices>
+
+      <A11y>
+        <A11y.Item>La lista lleva nombre: "lista, cuatro elementos" no dice de qué.</A11y.Item>
+        <A11y.Item>Cada casilla se nombra con su propio texto, y el texto es zona de click, que es la mitad del área útil del control.</A11y.Item>
+        <A11y.Item>Lo hecho se dice con el tachado además del gris: quien no separa el gris del negro ve igual que la línea está cruzada.</A11y.Item>
+      </A11y>
     </Page>
   )
 }

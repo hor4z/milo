@@ -1,5 +1,7 @@
-import { Icon, List, ListItem, type IconName, type MarkColor } from '@milo/ui'
-import { A11y, Footnote, Frame, Mono, Page, Props, Section } from '../kit'
+import { Icon, type IconName } from '@milo/ui/icon'
+import { type MarkColor } from '@milo/ui/lib/colors'
+import { List } from '@milo/ui/list'
+import { A11y, Example, Footnote, Frame, Mono, Page, Practices, Props, Section } from '../kit'
 
 const onboarding: { icon: IconName; color: MarkColor; title: string; hint: string; active?: boolean }[] = [
   { icon: 'check', color: 'green', title: 'Completá tu perfil', hint: 'Una foto y en qué materias das clase.' },
@@ -18,19 +20,22 @@ const spaces: { icon: IconName; color: MarkColor; title: string; hint: string }[
 export function ListStory() {
   return (
     <Page
-      title="List · ListItem"
+      title="List"
       kind="Datos"
-      imports="import { List, ListItem } from '@milo/ui'"
+      imports="import { List } from '@milo/ui/list'"
       lead="Filas altas, cada una con una marca de color, un título y una línea de apoyo. No es `Row`: acá no hay divisores (cada fila es su propia caja con aire alrededor), el título sube a 16 porque es lo que se lee primero, y la marca de color es lo que te deja encontrar una fila de reojo sin leerla."
     >
       <Section
         title="La pieza"
-        note="El contenedor es una bandeja transparente y las que flotan son las filas, cada una en papel con radio 16: el mismo de la `Card`, porque las dos se apoyan en la página. El alto de 72 tampoco es arbitrario: la marca es de 44 y el aire de 14 arriba y abajo. Cambiar la marca cambia el alto, no el padding."
+        note="Cada fila es una pieza apoyada en la página, con el mismo canto que una `Card`. La marca de color es lo que la identifica de reojo en una lista larga."
       >
         <Frame width="md">
           <List>
             {onboarding.map(i => (
-              <ListItem key={i.title} icon={i.icon} color={i.color} title={i.title} hint={i.hint} active={i.active} onClick={() => {}} />
+              <List.Item key={i.title} icon={i.icon} color={i.color} active={i.active} onClick={() => {}}>
+                <List.Title>{i.title}</List.Title>
+                <List.Hint>{i.hint}</List.Hint>
+              </List.Item>
             ))}
           </List>
         </Frame>
@@ -43,9 +48,18 @@ export function ListStory() {
       <Section title="Estados de una fila">
         <Frame width="md">
           <List>
-            <ListItem icon="check" color="green" title="En reposo" hint="Fondo apagado, sin sombra." />
-            <ListItem icon="menu_book" color="purple" title="Elegida" hint="Hundida un paso." active />
-            <ListItem icon="star_shine" color="blue" title="Se toca" hint="Pasá el mouse: sube al papel y toma sombra." onClick={() => {}} />
+            <List.Item icon="check" color="green">
+              <List.Title>En reposo</List.Title>
+              <List.Hint>Fondo apagado, sin sombra.</List.Hint>
+            </List.Item>
+            <List.Item icon="menu_book" color="purple" active>
+              <List.Title>Elegida</List.Title>
+              <List.Hint>Hundida un paso.</List.Hint>
+            </List.Item>
+            <List.Item icon="star_shine" color="blue" onClick={() => {}}>
+              <List.Title>Se toca</List.Title>
+              <List.Hint>Pasá el mouse: sube al papel y toma sombra.</List.Hint>
+            </List.Item>
           </List>
         </Frame>
       </Section>
@@ -54,26 +68,42 @@ export function ListStory() {
         <Frame width="md">
           <List>
             {spaces.map(e => (
-              <ListItem
-                key={e.title}
-                icon={e.icon} color={e.color} title={e.title} hint={e.hint}
-                onClick={() => {}}
-                trailing={<Icon name="chevron_right" size={20} className="icon-muted" />}
-              />
+              <List.Item key={e.title} icon={e.icon} color={e.color} onClick={() => {}}>
+                <List.Title>{e.title}</List.Title>
+                <List.Hint>{e.hint}</List.Hint>
+                <List.Trailing><Icon name="chevron_right" size={20} className="icon-muted" /></List.Trailing>
+              </List.Item>
             ))}
           </List>
         </Frame>
       </Section>
 
+      <Section title="Cómo se escribe">
+        <Example code={`<List>
+  <List.Item icon="edit" color="blue" onClick={abrir}>
+    <List.Title>Corregir entregas</List.Title>
+    <List.Hint>24 esperando</List.Hint>
+    <List.Trailing><Icon name="chevron_right" size={20} className="icon-muted" /></List.Trailing>
+  </List.Item>
+</List>`} />
+      </Section>
+
       <Section title="Props">
-        <Props of="ListItem" />
+        <Props of="List" />
+      </Section>
+
+      <Section title="Cómo se usa bien">
+        <Practices>
+          <Practices.Do>El nombre va en `List.Title` y la línea de apoyo en `List.Hint`.</Practices.Do>
+          <Practices.Dont>Un contador no va en `List.Trailing`: el número ya está en el hint, y repetirlo obliga a leer dos veces.</Practices.Dont>
+        </Practices>
       </Section>
 
       <Section title="Accesibilidad">
-        <A11y items={[
-          'Una fila con onClick es un <button>; sin él es un <div> que no se puede enfocar.',
-          'La marca de color no es la única señal: el título dice de qué es la fila.',
-        ]} />
+        <A11y>
+          <A11y.Item>{'Una fila con onClick es un <button>; sin él es un <div> que no se puede enfocar.'}</A11y.Item>
+          <A11y.Item>La marca de color no es la única señal: el título dice de qué es la fila.</A11y.Item>
+        </A11y>
       </Section>
     </Page>
   )

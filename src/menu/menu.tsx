@@ -1,11 +1,11 @@
 import cls from './menu.module.css'
 import { useRef, type KeyboardEvent, type ReactNode } from 'react'
 import { cx } from '../lib/cx'
+import { takePart } from '../lib/parts'
 import { Kbd } from '../kbd/kbd'
 import { Icon, type IconName } from '../icon/icon'
 
-/** El menú, en piezas. */
-export function Menu({ children, label, width, className }: {
+function Root({ children, label, width, className }: {
   children: ReactNode
   /** Qué menú es. Sin esto un lector lo anuncia como "menú" y nada más, y con dos abiertos en una pantalla no se distinguen. */
   label?: string
@@ -46,16 +46,22 @@ export function Menu({ children, label, width, className }: {
 }
 
 /** Una fila del menú. */
-export function MenuItem({
-  children, icon, shortcut, hint, checked, submenu, danger, disabled, onSelect, className,
+/** El atajo, a la derecha, en un `Kbd`. */
+function Shortcut({ children }: { children: ReactNode }) {
+  return <>{children}</>
+}
+
+/** Una línea de apoyo a la derecha, en gris. */
+function Hint({ children }: { children: ReactNode }) {
+  return <>{children}</>
+}
+
+function Item({
+  children, icon, checked, submenu, danger, disabled, onSelect, className,
 }: {
   children: ReactNode
   /** A la izquierda, en gris. */
   icon?: IconName
-  /** El atajo, en un Kbd. */
-  shortcut?: string
-  /** Una línea de apoyo a la derecha, en gris. */
-  hint?: string
   /** El tilde de "esta es la que está puesta". */
   checked?: boolean
   /** El chevron de "hay otro nivel". */
@@ -68,6 +74,8 @@ export function MenuItem({
   onSelect?: () => void
   className?: string
 }) {
+  const [shortcut, sinShortcut] = takePart(children, Shortcut)
+  const [hint, texto] = takePart(sinShortcut, Hint)
   return (
     <button
       type="button"
@@ -84,9 +92,9 @@ export function MenuItem({
       )}
     >
       {icon && <Icon name={icon} size={20} className={danger ? undefined : 'icon-muted'} />}
-      <span className={cls.label}>{children}</span>
-      {shortcut && <Kbd>{shortcut}</Kbd>}
-      {hint && <span className={cls.hint}>{hint}</span>}
+      <span className={cls.label}>{texto}</span>
+      {shortcut.length > 0 && <Kbd>{shortcut}</Kbd>}
+      {hint.length > 0 && <span className={cls.hint}>{hint}</span>}
       {checked && <Icon name="check" size={18} />}
       {submenu && <Icon name="chevron_right" size={18} className={`${cls.submenuChevron} icon-muted`} />}
     </button>
@@ -94,10 +102,13 @@ export function MenuItem({
 }
 
 /** El rótulo de un grupo de opciones. */
-export function MenuLabel({ children }: { children: ReactNode }) {
+function Label({ children }: { children: ReactNode }) {
   return (
     <div role="presentation" className={cls.groupLabel}>
       {children}
     </div>
   )
 }
+
+/** El menú, en piezas. */
+export const Menu = Object.assign(Root, { Item, Label, Shortcut, Hint })

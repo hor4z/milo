@@ -1,0 +1,79 @@
+@layer milo.components {
+  .root {
+    display: inline-flex;
+    isolation: isolate;
+  }
+
+  .root > * {
+    position: relative;
+  }
+
+  /* el foco se levanta para que su anillo no lo corte el vecino. El hover no: si se
+     levantara, la mitad de la izquierda taparía la línea divisoria de la de al lado y la
+     línea aparecería y desaparecería al pasar el mouse */
+  .root > *:focus-visible {
+    z-index: 1;
+  }
+
+  .horizontal > *:not(:first-child) {
+    margin-left: -1px;
+  }
+
+  /* la línea va en un pseudo y no en un box-shadow inset: el botón ya usa su box-shadow
+     para el relieve y el foco, así que ahí la línea se pierde. Y sale de la tinta de cada
+     botón, así que se ve igual sobre el relleno de marca que sobre el claro. */
+  .horizontal > *:not(:first-child)::before,
+  .vertical > *:not(:first-child)::before {
+    content: "";
+    position: absolute;
+    background-color: color-mix(in oklab, currentColor 16%, transparent);
+    pointer-events: none;
+    z-index: 2;
+  }
+
+  /* 80% y centrada: a lo alto entero la línea toca los dos cantos y se lee como un borde
+     que cortó la pieza en dos, en vez de como el pliegue entre dos mitades de la misma */
+  .horizontal > *:not(:first-child)::before {
+    top: 50%;
+    translate: 0 -50%;
+    left: 0;
+    width: 1px;
+    height: 80%;
+  }
+
+  .vertical > *:not(:first-child)::before {
+    left: 50%;
+    translate: -50% 0;
+    top: 0;
+    width: 80%;
+    height: 1px;
+  }
+
+  .horizontal > *:not(:last-child) {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+
+  .horizontal > *:not(:first-child) {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+  }
+
+  .vertical {
+    flex-direction: column;
+  }
+
+  .vertical > *:not(:first-child) {
+    margin-top: -1px;
+  }
+
+  .vertical > *:not(:last-child) {
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+  }
+
+  .vertical > *:not(:first-child) {
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+  }
+}

@@ -1,0 +1,11 @@
+@layer milo.components {
+  /* la mitad de la flecha es cuadrada: con el padding de un botón de texto se lee como
+     si fuera otra acción y no el borde de la misma */
+  .chevron {
+    padding-inline: 0;
+  }
+
+  .sm { width: 2rem; }
+  .md { width: 2.25rem; }
+  .lg { width: 2.5rem; }
+}

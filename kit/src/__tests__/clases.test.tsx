@@ -3,7 +3,7 @@ import { describe, expect, it } from 'vitest'
 import { readFileSync } from 'node:fs'
 import { join } from 'node:path'
 import type { ComponentType } from 'react'
-import { ToastProvider } from '@milo/ui'
+import { ToastProvider } from '@milo/ui/toast'
 
 const ui = join(import.meta.dirname, '../../../src')
 const globals = new Set(

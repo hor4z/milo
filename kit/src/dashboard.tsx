@@ -1,12 +1,26 @@
 import cls from './dashboard.module.css'
 import { Stack } from './kit'
 import { useEffect, useState } from 'react'
-import {
-  Avatar, AvatarGroup, BarChart, Button, Card, Chip, Dropdown, Folder, Icon, IconButton,
-  Indicator, Link, List, ListItem, Progress, Search, Segmented, SettingsModal, Tooltip, useToast,
-  count, dayAndTime, delta,
-  type IconName,
-} from '@milo/ui'
+import { Avatar } from '@milo/ui/avatar'
+import { Button } from '@milo/ui/button'
+import { Card } from '@milo/ui/card'
+import { BarChart } from '@milo/ui/chart'
+import { Chip } from '@milo/ui/chip'
+import { Dropdown } from '@milo/ui/dropdown'
+import { Folder } from '@milo/ui/folder'
+import { Icon, type IconName } from '@milo/ui/icon'
+import { IconButton } from '@milo/ui/icon-button'
+import { Indicator } from '@milo/ui/indicator'
+import { count, delta } from '@milo/ui/lib/number'
+import { dayAndTime } from '@milo/ui/lib/time'
+import { Link } from '@milo/ui/link'
+import { List } from '@milo/ui/list'
+import { Progress } from '@milo/ui/progress'
+import { Search } from '@milo/ui/search'
+import { Segmented } from '@milo/ui/segmented'
+import { SettingsModal } from '@milo/ui/settings-modal'
+import { useToast } from '@milo/ui/toast'
+import { Tooltip } from '@milo/ui/tooltip'
 import { useStill } from './mascots/still'
 
 const AR = 'America/Argentina/Buenos_Aires'
@@ -154,15 +168,10 @@ export function Dashboard() {
             </div>
             <div className={cls.folderGrid}>
               {spaces.map(e => (
-                <Folder
-                  key={e.label}
-                  size={104}
-                  label={e.label}
-                  meta={e.meta}
-                  color={e.color}
-                  avatars={e.avatars}
-                  onClick={() => {}}
-                />
+                <Folder key={e.label} size={104} color={e.color} avatars={e.avatars} onClick={() => {}}>
+                  <Folder.Label>{e.label}</Folder.Label>
+                  <Folder.Meta>{e.meta}</Folder.Meta>
+                </Folder>
               ))}
             </div>
           </section>
@@ -178,28 +187,32 @@ export function Dashboard() {
               </div>
               <List>
                 {pending.map(t => (
-                  <ListItem
-                    key={t.title}
-                    icon={t.icon}
-                    color={t.color}
-                    title={t.title}
-                    hint={t.hint}
-                    onClick={() => {}}
-                  />
+                  <List.Item key={t.title} icon={t.icon} color={t.color} onClick={() => {}}>
+                    <List.Title>{t.title}</List.Title>
+                    <List.Hint>{t.hint}</List.Hint>
+                  </List.Item>
                 ))}
               </List>
             </Stack>
 
             <div className={cls.progressBlock}>
               <h2 className={cls.progressTitle}>Cómo va cada espacio</h2>
-              <Progress label="Matemática · 4.º A" value={11} max={18} hint="11/18" />
-              <Progress label="Ciencias · 5.º B" value={24} max={24} hint="listo" tone="ok" />
-              <Progress label="Sociales · 5.º A" value={3} max={7} hint="3/7" />
-              <Progress label="Lengua · 6.º" value={0} max={12} hint="sin entregas" />
+              <Progress label="Matemática · 4.º A" value={11} max={18} >
+                <Progress.Hint>11/18</Progress.Hint>
+              </Progress>
+              <Progress label="Ciencias · 5.º B" value={24} max={24} tone="ok" >
+                <Progress.Hint>listo</Progress.Hint>
+              </Progress>
+              <Progress label="Sociales · 5.º A" value={3} max={7} >
+                <Progress.Hint>3/7</Progress.Hint>
+              </Progress>
+              <Progress label="Lengua · 6.º" value={0} max={12} >
+                <Progress.Hint>sin entregas</Progress.Hint>
+              </Progress>
             </div>
 
             <div className={cls.peopleFooter}>
-              <AvatarGroup size={24} people={[p('Ana Pérez', 1), p('Bruno Díaz', 2), p('Carla Sosa', 3), p('Elena Vega', 5)]} />
+              <Avatar.Group size={24} people={[p('Ana Pérez', 1), p('Bruno Díaz', 2), p('Carla Sosa', 3), p('Elena Vega', 5)]} />
               <span className={cls.peopleCount}>96 estudiantes en total</span>
             </div>
           </Card>

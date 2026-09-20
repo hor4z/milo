@@ -1,18 +1,20 @@
 import cls from './icon-button.module.css'
-import { IconButton } from '@milo/ui'
-import { A11y, Example, Page, Panel, Props, Section, Variant } from '../kit'
+import { IconButton } from '@milo/ui/icon-button'
+import { Indicator } from '@milo/ui/indicator'
+import { A11y, Example, Page, Panel, Practices, Props, Section, Variant } from '../kit'
 
 export function IconButtonStory() {
   return (
     <Page
       title="IconButton"
       kind="Acciones"
-      imports="import { IconButton } from '@milo/ui'"
+      imports="import { IconButton } from '@milo/ui/icon-button'
+import { Indicator } from '@milo/ui/indicator'"
       lead="Cuadrado del alto de su paso, y los pasos son los del `Button`: un icono al lado de un botón en la misma fila apoya en la misma línea sin que nadie lo calcule. El radio es 10 y no el 12 del Button: sobre un cuadrado chico, esos dos píxeles se comen tanto lado plano que la pieza se lee redonda."
     >
       <Section
         title="Los tres tamaños"
-        note="36 · 40 · 44, los del Button, con el icono de cada paso: 16 · 18 · 20. El glifo no crece con la caja: lo que sube es el aire alrededor, que es lo que hace falta para el dedo."
+        note="36 · 40 · 44, los del Button. `sm` en una barra o adentro de una fila, `md` suelto, `lg` donde se toca con el dedo."
       >
         <Panel>
           <Variant name="sm · md · lg">
@@ -33,7 +35,7 @@ export function IconButtonStory() {
         </Panel>
       </Section>
 
-      <Section title="Variantes" note="`label` es obligatorio: un botón que solo tiene un icono no dice nada sin él. En una barra va `ghost`, que no dibuja caja: lo que identifica a un botón de solo icono es el glifo, y sobre el fondo de la página llega a 8:1 sin necesidad de un relleno detrás.">
+      <Section title="Variantes" note="`label` es obligatorio: sin él el botón no dice nada. `ghost` en una barra, `muted` cuando tiene que encontrarse solo, `brand` para la acción que manda.">
         <Panel>
           <Variant name="ghost">
             <IconButton icon="tune" label="Ajustes" />
@@ -48,15 +50,42 @@ export function IconButtonStory() {
         </Panel>
       </Section>
 
-      <Section title="Estados" note="`dot` es el puntito de 'hay algo nuevo', y es uno de los pocos usos del acento en toda la interfaz.">
+      <Section
+        title="Estados"
+        note="`active` es para el botón cuyo panel está abierto, o el filtro que está puesto."
+      >
         <Panel>
-          <Variant name="active"><IconButton icon="filter_alt" label="Filtrar" active /></Variant>
-          <Variant name="dot">
-            <IconButton icon="notifications" label="Novedades" dot size="sm" />
-            <IconButton icon="notifications" label="Novedades" dot />
-            <IconButton icon="notifications" label="Novedades" dot size="lg" />
+          <Variant name="active" note="El panel de filtros está abierto.">
+            <IconButton icon="filter_alt" label="Filtrar" active />
           </Variant>
-          <Variant name="disabled"><IconButton icon="delete" label="Eliminar" disabled /></Variant>
+          <Variant name="disabled" note="No responde y se ve que no responde.">
+            <IconButton icon="delete" label="Eliminar" disabled />
+          </Variant>
+        </Panel>
+      </Section>
+
+      <Section
+        title="Dónde aparece de verdad"
+        note="Casi nunca va suelto: va en una fila, en una cabecera o en una barra."
+      >
+        <Panel>
+          <Variant name="la acción de una fila" note="`ghost` y `sm`: la fila ya tiene su marco.">
+            <span className={cls.rowSample}>
+              <span className={cls.rowText}>Fracciones equivalentes</span>
+              <IconButton icon="more_horiz" label="Más opciones de Fracciones equivalentes" size="sm" />
+            </span>
+          </Variant>
+          <Variant name="con una marca encima" note="El puntito lo pone `Indicator`. Este botón no tiene una prop para eso.">
+            <Indicator dot label="Hay avisos sin leer" inset={6}>
+              <IconButton icon="notifications" label="Novedades" variant="muted" />
+            </Indicator>
+          </Variant>
+          <Variant name="uno al lado del otro" note="En una barra van sin caja y separados por el aire. Si tienen que leerse como un grupo, va `ButtonGroup`.">
+            <IconButton icon="undo" label="Deshacer" size="sm" />
+            <IconButton icon="redo" label="Rehacer" size="sm" />
+            <IconButton icon="content_copy" label="Duplicar" size="sm" />
+            <IconButton icon="delete" label="Eliminar" size="sm" />
+          </Variant>
         </Panel>
       </Section>
 
@@ -74,12 +103,20 @@ export function IconButtonStory() {
         <Props of="IconButton" />
       </Section>
 
+      <Section title="Cómo se usa bien">
+        <Practices>
+          <Practices.Do>`label` siempre: adentro solo hay un glifo y sin eso el botón no dice nada.</Practices.Do>
+          <Practices.Do>Elegí el glifo por lo que hace, no por lo que decora.</Practices.Do>
+          <Practices.Dont>No lo uses para la acción principal de una pantalla: un icono solo se reconoce, no se lee.</Practices.Dont>
+        </Practices>
+      </Section>
+
       <Section title="Accesibilidad">
-        <A11y items={[
-          'El `label` es obligatorio y se convierte en el nombre accesible: un icono solo no dice nada.',
-          'No lleva `title` nativo, que era una segunda caja del sistema operativo diciendo lo mismo.',
-          'Para la ayuda visual se envuelve en `Tooltip`, que aparece también con el teclado.',
-        ]} />
+        <A11y>
+          <A11y.Item>El `label` es obligatorio y se convierte en el nombre accesible: un icono solo no dice nada.</A11y.Item>
+          <A11y.Item>No lleva `title` nativo, que era una segunda caja del sistema operativo diciendo lo mismo.</A11y.Item>
+          <A11y.Item>Para la ayuda visual se envuelve en `Tooltip`, que aparece también con el teclado.</A11y.Item>
+        </A11y>
       </Section>
     </Page>
   )

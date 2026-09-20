@@ -1,6 +1,7 @@
-import { Button, Icon } from '@milo/ui'
+import { Button } from '@milo/ui/button'
+import { Icon } from '@milo/ui/icon'
 import { useEffect, useRef, useState } from 'react'
-import { A11y, Demo, Example, Grid, Page, Panel, Props, Section, Variant } from '../kit'
+import { A11y, Demo, Example, Grid, Page, Panel, Practices, Props, Section, Variant } from '../kit'
 
 /** Dos respuestas de verdad, una más rápida que la espera y otra más lenta, para ver que la corta no dibuja nada y la larga no se corta. */
 function TryLoading() {
@@ -33,7 +34,7 @@ export function ButtonStory() {
     <Page
       title="Button"
       kind="Acciones"
-      imports="import { Button } from '@milo/ui'"
+      imports="import { Button } from '@milo/ui/button'"
       lead="El texto va un escalón arriba del de su entorno: un botón con el mismo tamaño de letra que lo que lo rodea no se lee como accionable."
     >
       <Section
@@ -156,12 +157,21 @@ export function ButtonStory() {
         <Props of="Button" />
       </Section>
 
+      <Section title="Cómo se usa bien">
+        <Practices>
+          <Practices.Do>La acción que manda va en `variant="brand"`, y hay una sola por pantalla: si hay dos, ninguna manda.</Practices.Do>
+          <Practices.Do>El texto dice qué va a pasar (`Publicar`, `Archivar`), no `Aceptar`.</Practices.Do>
+          <Practices.Dont>No pongas `solid` y `brand` juntos: son el mismo rol en dos tintas, va uno o el otro.</Practices.Dont>
+          <Practices.Dont>No uses un botón para navegar: eso es un `Link`, y con el botón se pierde abrir en otra pestaña.</Practices.Dont>
+        </Practices>
+      </Section>
+
       <Section title="Accesibilidad">
-        <A11y items={[
-          'Es un <button> real: entra en el orden de tabulación y responde a Enter y Espacio.',
-          'El anillo de foco se dibuja por fuera de la caja, con dos píxeles de superficie de por medio: no mueve el botón ni empuja a los de al lado.',
-          'Deshabilitado deja de recibir el puntero y baja a 45% de opacidad, pero conserva su texto legible.',
-        ]} />
+        <A11y>
+          <A11y.Item>{'Es un <button> real: entra en el orden de tabulación y responde a Enter y Espacio.'}</A11y.Item>
+          <A11y.Item>El anillo de foco se dibuja por fuera de la caja, con dos píxeles de superficie de por medio: no mueve el botón ni empuja a los de al lado.</A11y.Item>
+          <A11y.Item>Deshabilitado deja de recibir el puntero y baja a 45% de opacidad, pero conserva su texto legible.</A11y.Item>
+        </A11y>
       </Section>
     </Page>
   )

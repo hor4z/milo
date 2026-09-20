@@ -1,6 +1,7 @@
 import cls from './popover.module.css'
-import { Button, Popover } from '@milo/ui'
-import { A11y, Cluster, Demo, Page, Props, Section } from '../kit'
+import { Button } from '@milo/ui/button'
+import { Popover } from '@milo/ui/popover'
+import { A11y, Cluster, Demo, Example, Page, Practices, Props, Section } from '../kit'
 
 export function PopoverStory() {
   return (
@@ -8,7 +9,7 @@ export function PopoverStory() {
       title="Popover"
       lead="El panel anclado. Cierra con `pointerdown` y no con `click`: con click, el mismo gesto que abre otro panel lo cierra y lo reabre, y parpadea. Y el scroll de la página lo cierra, pero el de su propio contenido no: el listener va en captura y se filtra por origen."
       kind="Superficies"
-      imports="import { Popover } from '@milo/ui'"
+      imports="import { Popover } from '@milo/ui/popover'"
     >
       <Section title="Vivo" note="Con `veil`, el resto de la pantalla se apaga. El velo va sin blur: el fondo se sigue reconociendo, que es lo que te dice de dónde salió el panel.">
         <Cluster align="start">
@@ -55,16 +56,32 @@ export function PopoverStory() {
         </Cluster>
       </Section>
 
+      <Section title="Cómo se escribe">
+        <Example code={`<Popover
+  width={280}
+  trigger={props => <Button {...props}>Filtros</Button>}
+>
+  {close => <FiltroPanel onDone={close} />}
+</Popover>`} />
+      </Section>
+
       <Section title="Props">
         <Props of="Popover" />
       </Section>
 
+      <Section title="Cómo se usa bien">
+        <Practices>
+          <Practices.Do>El velo va cuando la lista pide leerse entera; un menú de cuatro items no lo necesita.</Practices.Do>
+          <Practices.Dont>No lo uses para un texto de ayuda de una línea: eso es un `Tooltip`.</Practices.Dont>
+        </Practices>
+      </Section>
+
       <Section title="Accesibilidad">
-        <A11y items={[
-          'El disparador declara aria-expanded, así que se anuncia si está abierto.',
-          'Escape cierra el de arriba y no todos.',
-          'El scroll de la página lo cierra; el de su propio contenido, no.',
-        ]} />
+        <A11y>
+          <A11y.Item>El disparador declara aria-expanded, así que se anuncia si está abierto.</A11y.Item>
+          <A11y.Item>Escape cierra el de arriba y no todos.</A11y.Item>
+          <A11y.Item>El scroll de la página lo cierra; el de su propio contenido, no.</A11y.Item>
+        </A11y>
       </Section>
     </Page>
   )

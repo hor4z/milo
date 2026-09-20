@@ -1,12 +1,12 @@
-import { Quote } from '@milo/ui'
-import { A11y, Frame, Note, Page, Props, Section, Stack } from '../kit'
+import { Quote } from '@milo/ui/quote'
+import { A11y, Example, Frame, Note, Page, Practices, Props, Section, Stack } from '../kit'
 
 export function QuoteStory() {
   return (
     <Page
       title="Quote"
       kind="Editor"
-      imports="import { Quote } from '@milo/ui'"
+      imports="import { Quote } from '@milo/ui/quote'"
       lead="Palabras de otro: lo que dijo alguien, un fragmento de un texto, la respuesta de un estudiante que vale leer en clase."
     >
       <Section
@@ -14,7 +14,8 @@ export function QuoteStory() {
         note="La barra va del lado de la lectura y no alrededor: una caja cerrada se lee como un aviso, y esto es texto adentro del texto. Va en el azul de marca y no en gris: en una página de texto corrido un gris más es una línea entre otras, y lo que la barra tiene que hacer es cortar la lectura."
       >
         <Stack gap="xl" width="xl">
-          <Quote source="Ana, 6.º B">
+          <Quote>
+            <Quote.Source>Ana, 6.º B</Quote.Source>
             Me di cuenta de que si dibujaba el triángulo adentro del rectángulo, la mitad se veía
             sola y no hacía falta la fórmula.
           </Quote>
@@ -27,7 +28,8 @@ export function QuoteStory() {
         note="`cite` deja la dirección en el markup además de escribirla. No se ve, y es lo que permite que alguien la recupere."
       >
         <Frame width="xl">
-          <Quote cite="https://es.wikipedia.org/wiki/Principio_de_Arquímedes" source="Principio de Arquímedes">
+          <Quote cite="https://es.wikipedia.org/wiki/Principio_de_Arquímedes">
+            <Quote.Source>Principio de Arquímedes</Quote.Source>
             Todo cuerpo sumergido en un fluido experimenta un empuje vertical hacia arriba igual al
             peso del fluido que desaloja.
           </Quote>
@@ -40,15 +42,24 @@ export function QuoteStory() {
         atribuir, es una cita; si es una aclaración propia, no.
       </Note>
 
+      <Section title="Cómo se escribe">
+        <Example code={`<Quote cite="https://example.edu/acta">
+  Lo que no está escrito en la consigna se pregunta siete veces.
+  <Quote.Source>Acta de la reunión de marzo</Quote.Source>
+</Quote>`} />
+      </Section>
+
       <Props of="Quote" />
 
-      <A11y
-        items={[
-          'Es un `blockquote` de verdad, no un párrafo con un borde a la izquierda: quien navega por elementos lo encuentra como cita.',
-          'La fuente va en un `figcaption` atado a la cita, no suelta abajo, así que se sabe de qué cita habla.',
-          'La barra de la izquierda es decorativa. Lo que dice que es una cita es el markup, no la línea.',
-        ]}
-      />
+      <Practices>
+        <Practices.Do>`cite` pone la dirección en el markup además de escribirla.</Practices.Do>
+      </Practices>
+
+      <A11y>
+        <A11y.Item>Es un `blockquote` de verdad, no un párrafo con un borde a la izquierda: quien navega por elementos lo encuentra como cita.</A11y.Item>
+        <A11y.Item>La fuente va en un `figcaption` atado a la cita, no suelta abajo, así que se sabe de qué cita habla.</A11y.Item>
+        <A11y.Item>La barra de la izquierda es decorativa. Lo que dice que es una cita es el markup, no la línea.</A11y.Item>
+      </A11y>
     </Page>
   )
 }

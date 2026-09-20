@@ -1,5 +1,10 @@
 import cls from './accessibility.module.css'
-import { Button, Chip, Field, Icon, Kbd, TextField } from '@milo/ui'
+import { Button } from '@milo/ui/button'
+import { Chip } from '@milo/ui/chip'
+import { Field } from '@milo/ui/field'
+import { Icon } from '@milo/ui/icon'
+import { Kbd } from '@milo/ui/kbd'
+import { TextField } from '@milo/ui/text-field'
 import { A11y, Note, Page, Section, Stack } from '../kit'
 
 /** Las reglas del sistema, no las de cada pieza: lo de cada pieza está en su vista. */
@@ -42,7 +47,6 @@ export function AccessibilitySection() {
       title="Accesibilidad"
       kind="Fundamentos"
       lead="No es una capa que se agrega al final: son las reglas que cada pieza ya cumple, y lo que se verifica con tests en vez de con buena voluntad. Esto se va a usar en educación, donde quien no puede leer la pantalla no puede hacer la tarea."
-      imports="import { Field, Alert } from '@milo/ui'"
     >
       <Section title="Las seis reglas">
         <div className={cls.specimenGrid}>
@@ -109,7 +113,9 @@ export function AccessibilitySection() {
         note="Un asterisco es una convención que no significa nada para quien no la conoce, y un lector de pantalla lo lee como 'asterisco'. Va el asterisco para quien lo reconoce y la palabra para todos los demás."
       >
         <div className={`${cls.requiredCard} bg-surface`}>
-          <Field label="Nombre de la actividad" required hint="Lo que van a ver los aprendices en su lista.">
+          <Field required>
+            <Field.Label>Nombre de la actividad</Field.Label>
+            <Field.Hint>Lo que van a ver los aprendices en su lista.</Field.Hint>
             <TextField placeholder="Informe del experimento" />
           </Field>
           <p className={cls.requiredNote}>
@@ -154,16 +160,6 @@ export function AccessibilitySection() {
         </div>
       </Section>
 
-      <Note icon="check_circle" title="La deuda de contraste está saldada">
-        El blanco sobre los dos rellenos saturados no llegaba a AA: el botón <code>brand</code> iba
-        de 2.89:1 arriba del degradado a 3.75:1 abajo, y el <code>bad</code> daba 3.75:1. El texto
-        de un botón es de 16/600, que para WCAG no es texto grande, así que el mínimo era 4.5 y no 3.
-        Los dos rellenos ahora están <strong className={cls.emphasis}>anclados</strong>:
-        son el escalón donde el blanco encima llega exactamente a 4.5:1, derivado por búsqueda en
-        OKLCH y no elegido mirando. El degradado del azul va de 600 a 700, así que pasa de punta a
-        punta y no solo en la mitad de abajo. Hay un test que lo mide en los dos temas.
-      </Note>
-
       <Note title="Por qué el objetivo es AA y no AAA">
         El gris del texto secundario da 6,94:1 sobre el fondo del tema oscuro: le faltan seis
         centésimas para AAA. Subirlo parece gratis y no lo es: para llegar a 7:1 sobre las cuatro
@@ -172,7 +168,7 @@ export function AccessibilitySection() {
         jerarquía, que es lo que el gris estaba haciendo. Medido, no estimado.
       </Note>
 
-      <Note icon="warning" title="Los dos números que no llegan, con la cuenta">
+      <Note tone="warn" title="Los dos números que no llegan, con la cuenta">
         **El texto sugerido de un campo, en oscuro y con el mouse encima: 3,82:1.** Se mide contra
         los cuatro fondos de campo (sobre el escritorio y adentro de una pieza de papel, cada uno
         con y sin mouse) y llega a 4,5 en tres. Para pasar el cuarto hay que aclarar el gris hasta
@@ -188,7 +184,7 @@ export function AccessibilitySection() {
       </Note>
 
 
-      <Note icon="warning" title="Lo único que axe marca y no se corrige">
+      <Note tone="warn" title="Lo único que axe marca y no se corrige">
         Con un menú abierto aparece <code>region</code>, que pide que todo el contenido esté adentro
         de una landmark. El panel se dibuja en un portal colgado del <code>body</code>, así que no
         lo está. Meterlo adentro de una landmark sería peor: una landmark por cada menú abierto
@@ -198,14 +194,12 @@ export function AccessibilitySection() {
         con Escape y se anuncia con nombre propio, que es lo que la persona necesita.
       </Note>
 
-      <A11y
-        items={[
-          'Cada vista de una pieza cierra con lo que esa pieza resuelve: acá están las reglas del sistema, no las de cada una.',
-          'Los tests de contraste corren sobre los tokens crudos en los dos temas, así que no dependen de que alguien se acuerde de mirar.',
-          'El sitio declara `lang="es"`, que es lo que hace que un lector de pantalla lo pronuncie en castellano y no deletree.',
-          'El riel es un `<nav>` con nombre y el item actual lleva `aria-current`, así que se puede saltear y se sabe dónde estás.',
-        ]}
-      />
+      <A11y>
+        <A11y.Item>Cada vista de una pieza cierra con lo que esa pieza resuelve: acá están las reglas del sistema, no las de cada una.</A11y.Item>
+        <A11y.Item>Los tests de contraste corren sobre los tokens crudos en los dos temas, así que no dependen de que alguien se acuerde de mirar.</A11y.Item>
+        <A11y.Item>El sitio declara `lang="es"`, que es lo que hace que un lector de pantalla lo pronuncie en castellano y no deletree.</A11y.Item>
+        <A11y.Item>{'El riel es un `<nav>` con nombre y el item actual lleva `aria-current`, así que se puede saltear y se sabe dónde estás.'}</A11y.Item>
+      </A11y>
     </Page>
   )
 }
