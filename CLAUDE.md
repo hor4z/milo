@@ -268,6 +268,14 @@ Salieron de armar pantallas de verdad con estas piezas, y valen para cualquiera 
   alguien de doce años. Tres cosas no cambian: nunca al lado de una tarea, nunca como única forma de
   entender algo, y siempre se reemplaza por la versión quieta para quien pidió menos movimiento.
 
+- **Una marca de `Indicator` se ancla a la caja de lo que marca, y esa caja casi nunca es lo que se
+  ve.** Un `IconButton` de 40 lleva un glifo de 18 centrado, así que la esquina de la caja queda a
+  11px de la esquina del glifo, y el punto se lee suelto aunque las cajas estén pegadas. La pieza no
+  puede saber el relleno de lo que envuelve, así que lo dice el call site con `inset`: 6 para un
+  `IconButton` md. Medir caja contra caja no sirve acá, porque la tinta de un glifo es más chica que
+  su caja: hay que mirarlo.
+- **Una acción que se deshace no va en rojo.** `bad` y `danger` son para lo que no tiene vuelta, no
+  para lo que asusta: "Cerrar sesión" estaba en rojo en el menú del dashboard y se vuelve a entrar.
 - **El spinner de un botón tiene dos números y los dos son del sistema.** Aparece recién a los 120ms
   (`--duration-fast`), porque una respuesta más rápida que una transición no alcanza a leerse; y una
   vez que apareció se queda 280 (`--duration-content`), para que no se vaya antes de que el ojo lo
