@@ -3,7 +3,7 @@ import { Alert } from '@milo/ui/alert'
 import { Button } from '@milo/ui/button'
 import { Chip } from '@milo/ui/chip'
 import { Progress } from '@milo/ui/progress'
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@milo/ui/table'
+import { Table } from '@milo/ui/table'
 import { Footnote, Note, Page, Ramp, Rich, Section, Stack, Swatch, useTokens } from '../kit'
 
 const blue = ['--blue-050', '--blue-100', '--blue-200', '--blue-300', '--blue-400', '--blue-500', '--blue-600', '--blue-700', '--blue-800', '--blue-900'] as const
@@ -69,22 +69,22 @@ export function ColorSection() {
         note="La pregunta no es qué color queda bien: es qué está diciendo esto."
       >
         <Table label="Qué rol usar según qué se quiere decir" minWidth={560}>
-          <TableHeader>
-            <TableRow>
-              <TableHead>Qué estás diciendo</TableHead>
-              <TableHead>Rol</TableHead>
-              <TableHead>Por ejemplo</TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
+          <Table.Header>
+            <Table.Row>
+              <Table.Head>Qué estás diciendo</Table.Head>
+              <Table.Head>Rol</Table.Head>
+              <Table.Head>Por ejemplo</Table.Head>
+            </Table.Row>
+          </Table.Header>
+          <Table.Body>
             {which.map(([q, r, e]) => (
-              <TableRow key={q}>
-                <TableCell>{q}</TableCell>
-                <TableCell><Rich text={r} /></TableCell>
-                <TableCell>{e}</TableCell>
-              </TableRow>
+              <Table.Row key={q}>
+                <Table.Cell>{q}</Table.Cell>
+                <Table.Cell><Rich text={r} /></Table.Cell>
+                <Table.Cell>{e}</Table.Cell>
+              </Table.Row>
             ))}
-          </TableBody>
+          </Table.Body>
         </Table>
       </Section>
 

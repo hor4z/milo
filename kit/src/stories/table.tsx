@@ -11,7 +11,7 @@ import { fold } from '@milo/ui/lib/cx'
 import { timeAgo } from '@milo/ui/lib/time'
 import { Pagination } from '@milo/ui/pagination'
 import { Search } from '@milo/ui/search'
-import { Table, TableBody, TableCell, TableFooter, TableHead, TableHeader, TableEmpty, TableHint, TableNum, TableRow, TableTitle } from '@milo/ui/table'
+import { Table } from '@milo/ui/table'
 import { A11y, Footnote, Mono, Page, Props, Section, Stack } from '../kit'
 
 const face = (n: number) => `/avatars/${String(n).padStart(2, '0')}.webp`
@@ -131,7 +131,7 @@ export function TableStory() {
     <Page
       title="Table"
       kind="Datos"
-      imports="import { Table, TableCell, TableEmpty, TableHeader, TableRow } from '@milo/ui/table'"
+      imports="import { Table } from '@milo/ui/table'"
       lead="Piezas que se arman, no un componente que recibe `columns` y `rows`. Una tabla de datos y una de personas con un grupo de avatares y un menú al final no comparten nada más que la grilla, y una API de columnas termina con un `render` por columna: el mismo JSX, pero metido en un objeto y sin poder leerlo de arriba abajo."
     >
       <Section
@@ -173,55 +173,55 @@ export function TableStory() {
         <Table
           label="Actividades del espacio"
           minWidth={980}
-          footer={(
-            <Pagination>
-              <Pagination.Status
-                from={from + 1}
-                to={from + onScreen.length}
-                total={list.length}
-                noun={['actividad', 'actividades']}
-              />
-              <Pagination.Prev disabled={page === 0} onClick={() => setPage(p => p - 1)} />
-              <Pagination.Next disabled={!hasMore} onClick={() => setPage(p => p + 1)} />
-            </Pagination>
-          )}
         >
-          <TableHeader>
-            <TableRow>
-              <TableHead>Actividad</TableHead>
-              {view('estudiantes') && <TableHead>Estudiantes</TableHead>}
-              {view('docente') && <TableHead>Docente</TableHead>}
-              {view('estado') && <TableHead>Estado</TableHead>}
-              {view('corregidas') && <TableHead align="right">Corregidas</TableHead>}
-              {view('entregas') && <TableHead align="right">Entregas</TableHead>}
-              {view('acciones') && <TableHead><span className="sr-only">Acciones</span></TableHead>}
-            </TableRow>
-          </TableHeader>
-          <TableBody>
+          <Table.Footer>
+            <Pagination>
+                <Pagination.Status
+                  from={from + 1}
+                  to={from + onScreen.length}
+                  total={list.length}
+                  noun={['actividad', 'actividades']}
+                />
+                <Pagination.Prev disabled={page === 0} onClick={() => setPage(p => p - 1)} />
+                <Pagination.Next disabled={!hasMore} onClick={() => setPage(p => p + 1)} />
+              </Pagination>
+          </Table.Footer>
+          <Table.Header>
+            <Table.Row>
+              <Table.Head>Actividad</Table.Head>
+              {view('estudiantes') && <Table.Head>Estudiantes</Table.Head>}
+              {view('docente') && <Table.Head>Docente</Table.Head>}
+              {view('estado') && <Table.Head>Estado</Table.Head>}
+              {view('corregidas') && <Table.Head align="right">Corregidas</Table.Head>}
+              {view('entregas') && <Table.Head align="right">Entregas</Table.Head>}
+              {view('acciones') && <Table.Head><span className="sr-only">Acciones</span></Table.Head>}
+            </Table.Row>
+          </Table.Header>
+          <Table.Body>
             {onScreen.map(a => (
-              <TableRow key={a.name} onClick={() => {}}>
-                <TableCell>
-                  <TableTitle>{a.name}</TableTitle>
-                  <TableHint>{a.space}</TableHint>
-                </TableCell>
-                {view('estudiantes') && <TableCell><Avatar.Group people={a.students} /></TableCell>}
+              <Table.Row key={a.name} onClick={() => {}}>
+                <Table.Cell>
+                  <Table.Title>{a.name}</Table.Title>
+                  <Table.Hint>{a.space}</Table.Hint>
+                </Table.Cell>
+                {view('estudiantes') && <Table.Cell><Avatar.Group people={a.students} /></Table.Cell>}
                 {view('docente') && (
-                  <TableCell>
+                  <Table.Cell>
                     <span className={cls.teacherCell}>
                       <Avatar name={a.teacher.name} src={a.teacher.src} size={24} />
                       <span className={cls.teacherName}>{a.teacher.name}</span>
                     </span>
-                  </TableCell>
+                  </Table.Cell>
                 )}
-                {view('estado') && <TableCell><Chip color={tone[a.status as keyof typeof tone]}>{a.status}</Chip></TableCell>}
+                {view('estado') && <Table.Cell><Chip color={tone[a.status as keyof typeof tone]}>{a.status}</Chip></Table.Cell>}
                 {view('corregidas') && (
-                  <TableNum>
+                  <Table.Num>
                     {a.total ? <>{a.done}<span className={cls.fractionTotal}> / {a.total}</span></> : '-'}
-                  </TableNum>
+                  </Table.Num>
                 )}
-                {view('entregas') && <TableNum>{a.total || '-'}</TableNum>}
+                {view('entregas') && <Table.Num>{a.total || '-'}</Table.Num>}
                 {view('acciones') && (
-                <TableCell fit>
+                <Table.Cell fit>
                   <Dropdown
                     items={[
                       { label: 'Abrir', icon: 'open_in_new' },
@@ -239,12 +239,12 @@ export function TableStory() {
                       />
                     )}
                   />
-                </TableCell>
+                </Table.Cell>
                 )}
-              </TableRow>
+              </Table.Row>
             ))}
             {onScreen.length === 0 && (
-              <TableEmpty colSpan={visible.length}>
+              <Table.Empty colSpan={visible.length}>
                 <EmptyState
                   size="sm"
                   icon="search_off"
@@ -252,20 +252,20 @@ export function TableStory() {
                   body="Probá con otras palabras, o sacá alguno de los filtros puestos."
                   action={<FilterReset onClick={clear}>Limpiar los filtros</FilterReset>}
                 />
-              </TableEmpty>
+              </Table.Empty>
             )}
-          </TableBody>
+          </Table.Body>
           {onScreen.length > 0 && (
-            <TableFooter>
-              <TableRow>
-                <TableCell colSpan={1 + ['estudiantes', 'docente', 'estado'].filter(view).length}>
+            <Table.Foot>
+              <Table.Row>
+                <Table.Cell colSpan={1 + ['estudiantes', 'docente', 'estado'].filter(view).length}>
                   Total{filtering ? ' de lo filtrado' : ''}
-                </TableCell>
-                {view('corregidas') && <TableNum>{list.reduce((n, a) => n + a.done, 0)}</TableNum>}
-                {view('entregas') && <TableNum>{list.reduce((n, a) => n + a.total, 0)}</TableNum>}
-                {view('acciones') && <TableCell />}
-              </TableRow>
-            </TableFooter>
+                </Table.Cell>
+                {view('corregidas') && <Table.Num>{list.reduce((n, a) => n + a.done, 0)}</Table.Num>}
+                {view('entregas') && <Table.Num>{list.reduce((n, a) => n + a.total, 0)}</Table.Num>}
+                {view('acciones') && <Table.Cell />}
+              </Table.Row>
+            </Table.Foot>
           )}
         </Table>
       </Section>
@@ -275,31 +275,31 @@ export function TableStory() {
         note="La fila mide 56, la misma que `Row`: una tabla y un panel uno arriba del otro no pueden verse de dos sistemas. La cabecera va en tinta y no en gris: apagada, había que buscar de qué era cada columna. Y las filas alternan papel porque en una tabla ancha el divisor de un píxel no alcanza para seguir una fila hasta el final."
       >
         <Table label="Entregas por estudiante" minWidth={720}>
-          <TableHeader>
-            <TableRow>
-              <TableHead>Actividad</TableHead>
-              <TableHead>Estudiantes</TableHead>
-              <TableHead>Estado</TableHead>
-              <TableHead align="right">Entregas</TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
+          <Table.Header>
+            <Table.Row>
+              <Table.Head>Actividad</Table.Head>
+              <Table.Head>Estudiantes</Table.Head>
+              <Table.Head>Estado</Table.Head>
+              <Table.Head align="right">Entregas</Table.Head>
+            </Table.Row>
+          </Table.Header>
+          <Table.Body>
             {spaces.map(a => (
-              <TableRow key={a.name} onClick={() => {}}>
-                <TableCell>
-                  <TableTitle>{a.name}</TableTitle>
-                  <TableHint>{a.space}</TableHint>
-                </TableCell>
-                <TableCell>
+              <Table.Row key={a.name} onClick={() => {}}>
+                <Table.Cell>
+                  <Table.Title>{a.name}</Table.Title>
+                  <Table.Hint>{a.space}</Table.Hint>
+                </Table.Cell>
+                <Table.Cell>
                   <Avatar.Group people={a.students} />
-                </TableCell>
-                <TableCell>
+                </Table.Cell>
+                <Table.Cell>
                   <Chip color={tone[a.status as keyof typeof tone]}>{a.status}</Chip>
-                </TableCell>
-                <TableNum>{a.total || '-'}</TableNum>
-              </TableRow>
+                </Table.Cell>
+                <Table.Num>{a.total || '-'}</Table.Num>
+              </Table.Row>
             ))}
-          </TableBody>
+          </Table.Body>
         </Table>
       </Section>
 
@@ -343,7 +343,7 @@ export function TableStory() {
       </Section>
 
       <Section title="Props">
-        <Props of={['Table', 'TableRow', 'TableHead', 'TableCell', 'TableEmpty', 'Avatar']} />
+        <Props of={['Table', 'Avatar']} />
       </Section>
 
       <Section title="Accesibilidad">

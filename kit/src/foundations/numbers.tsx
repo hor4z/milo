@@ -1,5 +1,5 @@
 import cls from './numbers.module.css'
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@milo/ui/table'
+import { Table } from '@milo/ui/table'
 import { bytes, count, decimals, delta, share, span, withUnit } from '@milo/ui/lib/number'
 import { A11y, Note, Page, Panel, Rich, Section, Stack, Variant } from '../kit'
 
@@ -25,22 +25,22 @@ export function NumbersSection() {
         note="La pregunta es qué tiene que hacer quien lee con ese número. Casi siempre la respuesta es la cuenta y no el porcentaje."
       >
         <Table label="Qué forma usar según qué número es" minWidth={560}>
-          <TableHeader>
-            <TableRow>
-              <TableHead>Qué es</TableHead>
-              <TableHead>Se ve</TableHead>
-              <TableHead>La regla</TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
+          <Table.Header>
+            <Table.Row>
+              <Table.Head>Qué es</Table.Head>
+              <Table.Head>Se ve</Table.Head>
+              <Table.Head>La regla</Table.Head>
+            </Table.Row>
+          </Table.Header>
+          <Table.Body>
             {which.map(([q, v, r]) => (
-              <TableRow key={q}>
-                <TableCell>{q}</TableCell>
-                <TableCell><Rich text={v} /></TableCell>
-                <TableCell>{r}</TableCell>
-              </TableRow>
+              <Table.Row key={q}>
+                <Table.Cell>{q}</Table.Cell>
+                <Table.Cell><Rich text={v} /></Table.Cell>
+                <Table.Cell>{r}</Table.Cell>
+              </Table.Row>
             ))}
-          </TableBody>
+          </Table.Body>
         </Table>
       </Section>
 

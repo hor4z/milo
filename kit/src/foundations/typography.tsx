@@ -1,6 +1,6 @@
 import css from './typography.module.css'
 import { Icon } from '@milo/ui/icon'
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@milo/ui/table'
+import { Table } from '@milo/ui/table'
 import { A11y, Note, Page, Section, Stack, useTokens } from '../kit'
 
 /** Los siete roles, en orden de tamaño. `name` es el token y el resto es lo que documenta. */
@@ -49,13 +49,13 @@ export function TypographySection() {
       >
         <div>
           <Table>
-            <TableHeader>
-              <TableRow>
-                <TableHead>Si el texto…</TableHead>
-                <TableHead>va en</TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
+            <Table.Header>
+              <Table.Row>
+                <Table.Head>Si el texto…</Table.Head>
+                <Table.Head>va en</Table.Head>
+              </Table.Row>
+            </Table.Header>
+            <Table.Body>
               {[
                 ['se lee de corrido, en párrafos', '--type-reading'],
                 ['es el título de la pantalla', '--type-title'],
@@ -63,12 +63,12 @@ export function TypographySection() {
                 ['es un dato de apoyo que se mira de reojo', '--type-meta'],
                 ['es cualquier otra cosa', '--type-body'],
               ].map(([q, a]) => (
-                <TableRow key={a}>
-                  <TableCell>{q}</TableCell>
-                  <TableCell><code className={css.tokenName}>{a}</code></TableCell>
-                </TableRow>
+                <Table.Row key={a}>
+                  <Table.Cell>{q}</Table.Cell>
+                  <Table.Cell><code className={css.tokenName}>{a}</code></Table.Cell>
+                </Table.Row>
               ))}
-            </TableBody>
+            </Table.Body>
           </Table>
         </div>
       </Section>

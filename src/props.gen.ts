@@ -2597,12 +2597,6 @@ export const propsByComponent: Record<string, ComponentDoc> = {
         "doc": "Abajo de esto la tabla scrollea en vez de apretar las columnas."
       },
       {
-        "name": "footer",
-        "type": "ReactNode",
-        "required": false,
-        "doc": "La franja de abajo: vive adentro del marco pero fuera del scroll."
-      },
-      {
         "name": "className",
         "type": "string",
         "required": false
@@ -2610,7 +2604,7 @@ export const propsByComponent: Record<string, ComponentDoc> = {
     ],
     "doc": "La tabla, en piezas."
   },
-  "TableHeader": {
+  "Table.Header": {
     "props": [
       {
         "name": "children",
@@ -2620,7 +2614,17 @@ export const propsByComponent: Record<string, ComponentDoc> = {
     ],
     "doc": "La cabecera va sobre `--surface-muted` y no sobre el papel: es lo que la separa del cuerpo sin gastar un divisor más grueso."
   },
-  "TableBody": {
+  "Table.Footer": {
+    "props": [
+      {
+        "name": "children",
+        "type": "ReactNode",
+        "required": true
+      }
+    ],
+    "doc": "La franja de abajo: vive adentro del marco pero fuera del scroll, y ahí va la paginación. Solo marca el lugar, el estilo lo pone lo que va adentro."
+  },
+  "Table.Body": {
     "props": [
       {
         "name": "children",
@@ -2630,7 +2634,7 @@ export const propsByComponent: Record<string, ComponentDoc> = {
     ],
     "doc": "El cuerpo de la tabla."
   },
-  "TableFooter": {
+  "Table.Foot": {
     "props": [
       {
         "name": "children",
@@ -2640,7 +2644,7 @@ export const propsByComponent: Record<string, ComponentDoc> = {
     ],
     "doc": "La fila del total, abajo de todo."
   },
-  "TableRow": {
+  "Table.Row": {
     "props": [
       {
         "name": "children",
@@ -2667,7 +2671,7 @@ export const propsByComponent: Record<string, ComponentDoc> = {
     ],
     "doc": "La última fila se queda sin divisor: abajo ya está el borde de la tabla."
   },
-  "TableHead": {
+  "Table.Head": {
     "props": [
       {
         "name": "children",
@@ -2689,7 +2693,7 @@ export const propsByComponent: Record<string, ComponentDoc> = {
     "html": "th",
     "doc": "Un encabezado de columna: 11/600 con tracking, en tinta."
   },
-  "TableCell": {
+  "Table.Cell": {
     "props": [
       {
         "name": "children",
@@ -2717,7 +2721,53 @@ export const propsByComponent: Record<string, ComponentDoc> = {
     "html": "td",
     "doc": "Una celda: 12/500, con el alto de fila de 56."
   },
-  "TableEmpty": {
+  "Table.Title": {
+    "props": [
+      {
+        "name": "children",
+        "type": "ReactNode",
+        "required": false
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "required": false
+      }
+    ],
+    "doc": "Lo que se lee primero de una fila."
+  },
+  "Table.Hint": {
+    "props": [
+      {
+        "name": "children",
+        "type": "ReactNode",
+        "required": false
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "required": false
+      }
+    ],
+    "doc": "La línea de apoyo debajo del título, en gris."
+  },
+  "Table.Num": {
+    "props": [
+      {
+        "name": "children",
+        "type": "ReactNode",
+        "required": false
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "required": false
+      }
+    ],
+    "html": "td",
+    "doc": "Una columna de números."
+  },
+  "Table.Empty": {
     "props": [
       {
         "name": "children",
@@ -2737,52 +2787,6 @@ export const propsByComponent: Record<string, ComponentDoc> = {
       }
     ],
     "doc": "La fila entera cuando no hay ninguna: adentro va un `EmptyState`."
-  },
-  "TableTitle": {
-    "props": [
-      {
-        "name": "children",
-        "type": "ReactNode",
-        "required": false
-      },
-      {
-        "name": "className",
-        "type": "string",
-        "required": false
-      }
-    ],
-    "doc": "Lo que se lee primero de una fila."
-  },
-  "TableHint": {
-    "props": [
-      {
-        "name": "children",
-        "type": "ReactNode",
-        "required": false
-      },
-      {
-        "name": "className",
-        "type": "string",
-        "required": false
-      }
-    ],
-    "doc": "La línea de apoyo debajo del título, en gris."
-  },
-  "TableNum": {
-    "props": [
-      {
-        "name": "children",
-        "type": "ReactNode",
-        "required": false
-      },
-      {
-        "name": "className",
-        "type": "string",
-        "required": false
-      }
-    ],
-    "html": "td",
-    "doc": "Una columna de números."
   },
   "Tabs": {
     "props": [

@@ -1,5 +1,5 @@
 import cls from './time.module.css'
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@milo/ui/table'
+import { Table } from '@milo/ui/table'
 import { clock, day, dayAndTime, duration, machineTime, timeAgo, zoneLabel } from '@milo/ui/lib/time'
 import { A11y, Note, Page, Panel, Rich, Section, Variant } from '../kit'
 
@@ -28,24 +28,24 @@ export function TimeSection() {
         note="La pregunta es qué tiene que hacer quien lee con ese dato. Si tiene que anotarlo en algún lado, va absoluto."
       >
         <Table label="Qué formato usar según para qué se lee" minWidth={620}>
-          <TableHeader>
-            <TableRow>
-              <TableHead>Qué se está diciendo</TableHead>
-              <TableHead>Formato</TableHead>
-              <TableHead>Se ve</TableHead>
-              <TableHead>La regla</TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
+          <Table.Header>
+            <Table.Row>
+              <Table.Head>Qué se está diciendo</Table.Head>
+              <Table.Head>Formato</Table.Head>
+              <Table.Head>Se ve</Table.Head>
+              <Table.Head>La regla</Table.Head>
+            </Table.Row>
+          </Table.Header>
+          <Table.Body>
             {which.map(([q, f, v, r]) => (
-              <TableRow key={q}>
-                <TableCell>{q}</TableCell>
-                <TableCell>{f}</TableCell>
-                <TableCell><Rich text={v} /></TableCell>
-                <TableCell>{r}</TableCell>
-              </TableRow>
+              <Table.Row key={q}>
+                <Table.Cell>{q}</Table.Cell>
+                <Table.Cell>{f}</Table.Cell>
+                <Table.Cell><Rich text={v} /></Table.Cell>
+                <Table.Cell>{r}</Table.Cell>
+              </Table.Row>
             ))}
-          </TableBody>
+          </Table.Body>
         </Table>
       </Section>
 
