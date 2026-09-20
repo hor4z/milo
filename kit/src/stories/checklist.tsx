@@ -66,7 +66,7 @@ export function ChecklistStory() {
 
       <Section
         title="Como escalera"
-        note="Con `value` y `onChange` los pasos dejan de ser independientes: cada uno incluye a los de arriba, así que tocar el tercero marca los tres y volver a tocarlo desmarca de ahí para abajo. Es para lo que se recorre en orden y no se saltea: los niveles de un criterio, el avance de una entrega. El estado de cada paso lo decide la pieza, así que el call site no puede dejar el segundo sin marcar y el tercero marcado."
+        note="Con `value` y `onChange` los pasos dejan de ser independientes: cada uno incluye a los de arriba, así que tocar el tercero marca los tres y volver a tocarlo desmarca de ahí para abajo. Es para lo que se recorre en orden y no se saltea: los niveles de un aspecto, el avance de una entrega. El estado de cada paso lo decide la pieza, así que el call site no puede dejar el segundo sin marcar y el tercero marcado."
       >
         <Panel>
           <Variant name="tres de cuatro" note="El contador y la barra salen del mismo número, y tocar un paso ya marcado vuelve al anterior.">

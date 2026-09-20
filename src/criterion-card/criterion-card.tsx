@@ -8,7 +8,7 @@ import { cx } from '../lib/cx'
 import { labelSoft, type LabelColor } from '../lib/colors'
 import { share } from '../lib/number'
 
-/** Un criterio: qué se mira, cuánto vale contra los demás y qué se ve en cada nivel. */
+/** Un aspecto: qué se mira, cuánto vale contra los demás y qué se ve en cada nivel. */
 export type Criterion = {
   /** Único en la rúbrica. */
   id: string
@@ -24,17 +24,17 @@ export type Criterion = {
   levels: string[]
 }
 
-/** Un criterio adentro de una rúbrica: la marca, el nombre y, plegados, sus niveles. Cerrado ocupa una fila, así que una rúbrica de ocho criterios mide lo mismo que una de dos. */
+/** Un aspecto adentro de una rúbrica: la marca, el nombre y, plegados, sus niveles. Cerrado ocupa una fila, así que una rúbrica de ocho aspectos mide lo mismo que una de dos. */
 export function CriterionCard({ criterion, total, open, onToggle, onRemove, className }: {
   /** Lo que la tarjeta muestra. */
   criterion: Criterion
-  /** La suma de los pesos de la rúbrica: con eso la tarjeta dice cuánto vale este criterio. */
+  /** La suma de los pesos de la rúbrica: con eso la tarjeta dice cuánto vale este aspecto. */
   total: number
   /** Es controlada: la rúbrica decide cuál está abierta. */
   open: boolean
   /** Recibe el pedido de abrir o cerrar. */
   onToggle: () => void
-  /** Sin esto el criterio no se puede sacar. */
+  /** Sin esto el aspecto no se puede sacar. */
   onRemove?: () => void
   className?: string
 }) {

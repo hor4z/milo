@@ -190,10 +190,10 @@ const groups: Group[] = [
       {
         id: 'rubric',
         label: 'Rúbrica',
-        alias: 'Rubric rúbrica criterios niveles evaluación corregir peso descriptores',
+        alias: 'Rubric rúbrica aspectos aspectos niveles evaluación corregir peso descriptores',
         render: () => <RubricStory />,
         children: [
-          { id: 'criterion-card', label: 'Tarjeta de criterio', alias: 'CriterionCard criterio tarjeta plegable niveles descriptores rúbrica', render: () => <CriterionCardStory /> },
+          { id: 'criterion-card', label: 'Tarjeta de aspecto', alias: 'CriterionCard aspecto aspecto tarjeta plegable niveles descriptores rúbrica', render: () => <CriterionCardStory /> },
         ],
       },
       { id: 'progress', label: 'Barra de progreso', alias: 'Progress progreso barra porcentaje avance', render: () => <ProgressStory /> },

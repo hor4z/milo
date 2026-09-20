@@ -38,13 +38,13 @@ function Title({ children }: { children: ReactNode }) {
   return <>{children}</>
 }
 
-/** Con qué se mira un trabajo: los criterios, cuánto vale cada uno y qué se ve en cada nivel. El porcentaje sale de los pesos, así que no se puede despegar de ellos. */
+/** Con qué se mira un trabajo: los aspectos, cuánto vale cada uno y qué se ve en cada nivel. El porcentaje sale de los pesos, así que no se puede despegar de ellos. */
 function Root({ criteria, onAdd, onRemove, defaultOpen = true, children, className }: {
   /** En el orden en que se leen. */
   criteria: Criterion[]
   /** Sin esto la rúbrica se lee y no se edita. */
   onAdd?: (draft: CriterionDraft) => void
-  /** Sin esto ningún criterio se puede sacar. */
+  /** Sin esto ningún aspecto se puede sacar. */
   onRemove?: (criterion: Criterion) => void
   /** Arranca abierta. Plegada deja a la vista el nombre, el contador y la barra. */
   defaultOpen?: boolean
@@ -131,13 +131,13 @@ function Root({ criteria, onAdd, onRemove, defaultOpen = true, children, classNa
         </button>
         <p id={titleId} className={s.title}>{title}</p>
         <span className={`${s.count} tabular`}>
-          {counted(criteria.length, ['criterio', 'criterios'])}
+          {counted(criteria.length, ['aspecto', 'aspectos'])}
         </span>
       </div>
 
       <div
         role="toolbar"
-        aria-label="Cuánto vale cada criterio"
+        aria-label="Cuánto vale cada aspecto"
         onKeyDown={roving.onKeyDown}
         className={s.weights}
       >
@@ -195,7 +195,7 @@ function Root({ criteria, onAdd, onRemove, defaultOpen = true, children, classNa
                 onClick={openForm}
                 className={s.addCriterion}
               >
-                Agregar criterio
+                Agregar aspecto
               </Button>
             )}
 

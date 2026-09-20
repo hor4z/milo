@@ -961,7 +961,7 @@ export const propsByComponent: Record<string, ComponentDoc> = {
         "name": "total",
         "type": "number",
         "required": true,
-        "doc": "La suma de los pesos de la rúbrica: con eso la tarjeta dice cuánto vale este criterio."
+        "doc": "La suma de los pesos de la rúbrica: con eso la tarjeta dice cuánto vale este aspecto."
       },
       {
         "name": "open",
@@ -979,7 +979,7 @@ export const propsByComponent: Record<string, ComponentDoc> = {
         "name": "onRemove",
         "type": "() => void",
         "required": false,
-        "doc": "Sin esto el criterio no se puede sacar."
+        "doc": "Sin esto el aspecto no se puede sacar."
       },
       {
         "name": "className",
@@ -987,7 +987,7 @@ export const propsByComponent: Record<string, ComponentDoc> = {
         "required": false
       }
     ],
-    "doc": "Un criterio adentro de una rúbrica: la marca, el nombre y, plegados, sus niveles. Cerrado ocupa una fila, así que una rúbrica de ocho criterios mide lo mismo que una de dos."
+    "doc": "Un aspecto adentro de una rúbrica: la marca, el nombre y, plegados, sus niveles. Cerrado ocupa una fila, así que una rúbrica de ocho aspectos mide lo mismo que una de dos."
   },
   "Criterion": {
     "props": [
@@ -1028,7 +1028,7 @@ export const propsByComponent: Record<string, ComponentDoc> = {
         "doc": "Un descriptor por nivel, del más flojo al más completo."
       }
     ],
-    "doc": "Un criterio: qué se mira, cuánto vale contra los demás y qué se ve en cada nivel."
+    "doc": "Un aspecto: qué se mira, cuánto vale contra los demás y qué se ve en cada nivel."
   },
   "DatePicker": {
     "props": [
@@ -2404,7 +2404,7 @@ export const propsByComponent: Record<string, ComponentDoc> = {
         "name": "onRemove",
         "type": "(criterion: Criterion) => void",
         "required": false,
-        "doc": "Sin esto ningún criterio se puede sacar."
+        "doc": "Sin esto ningún aspecto se puede sacar."
       },
       {
         "name": "defaultOpen",
@@ -2425,7 +2425,7 @@ export const propsByComponent: Record<string, ComponentDoc> = {
         "required": false
       }
     ],
-    "doc": "Con qué se mira un trabajo: los criterios, cuánto vale cada uno y qué se ve en cada nivel. El porcentaje sale de los pesos, así que no se puede despegar de ellos."
+    "doc": "Con qué se mira un trabajo: los aspectos, cuánto vale cada uno y qué se ve en cada nivel. El porcentaje sale de los pesos, así que no se puede despegar de ellos."
   },
   "Rubric.Title": {
     "props": [
