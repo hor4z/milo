@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest'
 import { readFileSync, readdirSync, statSync } from 'node:fs'
 import { join } from 'node:path'
+import { propsByComponent } from '@milo/ui/props'
 
 const stories = join(import.meta.dirname, '../stories')
 const files = readdirSync(stories).filter((f: string) => f.endsWith('.tsx'))
@@ -323,6 +324,33 @@ describe('el corte entre el sitio y el paquete', () => {
     expect(
       offenders,
       'el alias @milo/ui es lo que sostiene el corte: una ruta relativa hacia src/ lo rompe',
+    ).toEqual([])
+  })
+})
+
+describe('la tabla de props', () => {
+  it('toda pieza que una vista pide existe en props.gen', () => {
+    const root = join(import.meta.dirname, '..')
+    const walk = (base: string): string[] =>
+      readdirSync(base, { withFileTypes: true }).flatMap(e =>
+        e.isDirectory()
+          ? (e.name === '__tests__' ? [] : walk(join(base, e.name)))
+          : /\.tsx$/.test(e.name) ? [join(base, e.name)] : [],
+      )
+
+    const fantasmas: string[] = []
+    for (const file of walk(root)) {
+      const text = readFileSync(file, 'utf8')
+      for (const m of text.matchAll(/<Props of=(?:"([^"]+)"|\{\[([^\]]*)\]\})/g)) {
+        const pedidos = m[1] ? [m[1]] : m[2].split(',').map(s => s.trim().replace(/^'|'$/g, ''))
+        for (const p of pedidos) {
+          if (p && !(p in propsByComponent)) fantasmas.push(`${file.split('/').pop()}: ${p}`)
+        }
+      }
+    }
+    expect(
+      fantasmas,
+      'una vista que pide una pieza que no existe dibuja una tabla vacía y nadie se entera',
     ).toEqual([])
   })
 })

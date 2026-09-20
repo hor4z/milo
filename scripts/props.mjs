@@ -56,14 +56,10 @@ const extract = (file) => {
     if (ts.isTypeAliasDeclaration(n)) alias.set(n.name.text, n.type)
   })
 
-  ts.forEachChild(sf, (n) => {
-    if (!ts.isFunctionDeclaration(n) || !n.name) return
-    if (!n.modifiers?.some(m => m.kind === ts.SyntaxKind.ExportKeyword)) return
-    const name = n.name.text
-    if (!/^[A-Z]/.test(name)) return
-
-    const param = n.parameters[0]
-    if (!param) return
+  /** Lo que el kit dibuja de una función: sus props, de qué etiqueta hereda y su docblock. */
+  const leer = (n) => {
+    const param = n.parameters?.[0]
+    if (!param) return null
 
     const defaults = new Map()
     if (param.name && ts.isObjectBindingPattern(param.name)) {
@@ -86,13 +82,65 @@ const extract = (file) => {
     }
     const html = native(param.type)
     const doc = docDe(n)
-    if (rows.length || html) pieces[name] = { props: rows, ...(html ? { html } : {}), ...(doc ? { doc } : {}) }
+    if (!rows.length && !html) return null
+    return { props: rows, ...(html ? { html } : {}), ...(doc ? { doc } : {}) }
+  }
+
+  // todas las declaraciones locales, porque las partes de una familia no se exportan
+  const locales = new Map()
+  ts.forEachChild(sf, (n) => {
+    if (ts.isFunctionDeclaration(n) && n.name) locales.set(n.name.text, n)
+  })
+
+  // las familias: export const Modal = Object.assign(Root, { Header, Title })
+  const enFamilia = new Set()
+  ts.forEachChild(sf, (n) => {
+    if (!ts.isVariableStatement(n)) return
+    if (!n.modifiers?.some(m => m.kind === ts.SyntaxKind.ExportKeyword)) return
+    for (const decl of n.declarationList.declarations) {
+      const name = decl.name.getText(sf)
+      if (!/^[A-Z]/.test(name)) continue
+      const call = decl.initializer
+      if (!call || !ts.isCallExpression(call)) continue
+      if (call.expression.getText(sf) !== 'Object.assign') continue
+
+      const [raiz, partes] = call.arguments
+      const raizNode = locales.get(raiz?.getText(sf))
+      if (raizNode) {
+        enFamilia.add(raiz.getText(sf))
+        const doc = docDe(n) || docDe(decl)
+        const leido = leer(raizNode)
+        if (leido) pieces[name] = doc ? { ...leido, doc } : leido
+      }
+      if (!partes || !ts.isObjectLiteralExpression(partes)) continue
+      for (const prop of partes.properties) {
+        const alias = prop.name?.getText(sf)
+        const destino = ts.isShorthandPropertyAssignment(prop)
+          ? alias
+          : ts.isPropertyAssignment(prop) ? prop.initializer.getText(sf) : null
+        if (!alias || !destino) continue
+        const parteNode = locales.get(destino)
+        if (!parteNode) continue
+        enFamilia.add(destino)
+        const leido = leer(parteNode)
+        if (leido) pieces[`${name}.${alias}`] = leido
+      }
+    }
+  })
+
+  // las piezas sueltas, que siguen siendo un export function
+  ts.forEachChild(sf, (n) => {
+    if (!ts.isFunctionDeclaration(n) || !n.name) return
+    if (!n.modifiers?.some(m => m.kind === ts.SyntaxKind.ExportKeyword)) return
+    const name = n.name.text
+    if (!/^[A-Z]/.test(name) || enFamilia.has(name)) return
+    const leido = leer(n)
+    if (leido) pieces[name] = leido
   })
 
   ts.forEachChild(sf, (n) => {
     if (!ts.isTypeAliasDeclaration(n)) return
     if (!n.modifiers?.some(m => m.kind === ts.SyntaxKind.ExportKeyword)) return
-    if (!/(Options|Item|Datum|Option)$/.test(n.name.text)) return
     const rows = []
     for (const m of members(n.type)) {
       if (!ts.isPropertySignature(m) || !m.name) continue

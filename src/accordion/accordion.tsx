@@ -3,34 +3,38 @@ import type { ComponentPropsWithoutRef, ReactNode } from 'react'
 import { Icon } from '../icon/icon'
 import { cx } from '../lib/cx'
 
-type AccordionItemProps = {
-  /** Lo que se ve siempre y se toca para abrir. */
-  summary: ReactNode
-  /** Lo que aparece al abrir. */
-  children: ReactNode
+/** Una fila que se abre. Es un `<details>`, así que funciona sin JavaScript. */
+function Item({ defaultOpen, className, children }: {
   /** Arranca abierta. */
   defaultOpen?: boolean
   className?: string
-}
-
-/** Una fila que se abre. Es un `<details>`, así que funciona sin JavaScript. */
-export function AccordionItem({ summary, children, defaultOpen, className }: AccordionItemProps) {
+  children: ReactNode
+}) {
   return (
     <details open={defaultOpen} className={cx(`${s.root} group`, className)}>
-      <summary className={s.trigger}>
-        <Icon
-          name="keyboard_arrow_down"
-          size={18}
-          className={`${s.icon} icon-muted`}
-        />
-        <span className={s.title}>{summary}</span>
-      </summary>
-      <div className={s.body}>{children}</div>
+      {children}
     </details>
   )
 }
 
-/** Varias filas que se abren, una debajo de la otra. */
-export function Accordion({ className, ...props }: ComponentPropsWithoutRef<'div'>) {
+/** Lo que se ve siempre y se toca para abrir. Va primero: es el `<summary>` del `<details>`. */
+function Summary({ className, children }: ComponentPropsWithoutRef<'summary'>) {
+  return (
+    <summary className={cx(s.trigger, className)}>
+      <Icon name="keyboard_arrow_down" size={18} className={`${s.icon} icon-muted`} />
+      <span className={s.title}>{children}</span>
+    </summary>
+  )
+}
+
+/** Lo que aparece al abrir. */
+function Body({ className, children }: ComponentPropsWithoutRef<'div'>) {
+  return <div className={cx(s.body, className)}>{children}</div>
+}
+
+function Root({ className, ...props }: ComponentPropsWithoutRef<'div'>) {
   return <div className={cx(`${s.list} bg-surface`, className)} {...props} />
 }
+
+/** Varias filas que se abren, una debajo de la otra. */
+export const Accordion = Object.assign(Root, { Item, Summary, Body })

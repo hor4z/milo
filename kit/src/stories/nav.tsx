@@ -73,7 +73,7 @@ export function NavStory() {
       </Section>
 
       <Section title="Props">
-        <Props of={['navItemClass', 'NavItemBody']} />
+        <Props of="NavItemBody" />
       </Section>
 
       <Section title="Accesibilidad">

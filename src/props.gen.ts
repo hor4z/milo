@@ -17,20 +17,13 @@ export type ComponentDoc = {
 }
 
 export const propsByComponent: Record<string, ComponentDoc> = {
-  "AccordionItem": {
+  "Accordion": {
+    "props": [],
+    "html": "div",
+    "doc": "Varias filas que se abren, una debajo de la otra."
+  },
+  "Accordion.Item": {
     "props": [
-      {
-        "name": "summary",
-        "type": "ReactNode",
-        "required": true,
-        "doc": "Lo que se ve siempre y se toca para abrir."
-      },
-      {
-        "name": "children",
-        "type": "ReactNode",
-        "required": true,
-        "doc": "Lo que aparece al abrir."
-      },
       {
         "name": "defaultOpen",
         "type": "boolean",
@@ -41,14 +34,24 @@ export const propsByComponent: Record<string, ComponentDoc> = {
         "name": "className",
         "type": "string",
         "required": false
+      },
+      {
+        "name": "children",
+        "type": "ReactNode",
+        "required": true
       }
     ],
     "doc": "Una fila que se abre. Es un `<details>`, así que funciona sin JavaScript."
   },
-  "Accordion": {
+  "Accordion.Summary": {
+    "props": [],
+    "html": "summary",
+    "doc": "Lo que se ve siempre y se toca para abrir. Va primero: es el `<summary>` del `<details>`."
+  },
+  "Accordion.Body": {
     "props": [],
     "html": "div",
-    "doc": "Varias filas que se abren, una debajo de la otra."
+    "doc": "Lo que aparece al abrir."
   },
   "Alert": {
     "props": [
@@ -676,6 +679,21 @@ export const propsByComponent: Record<string, ComponentDoc> = {
         "name": "disabled",
         "type": "boolean",
         "required": false
+      }
+    ]
+  },
+  "CommandGroup": {
+    "props": [
+      {
+        "name": "label",
+        "type": "string",
+        "required": true,
+        "doc": "El encabezado del grupo."
+      },
+      {
+        "name": "items",
+        "type": "CommandItem[]",
+        "required": true
       }
     ]
   },
@@ -1788,6 +1806,70 @@ export const propsByComponent: Record<string, ComponentDoc> = {
       }
     ]
   },
+  "Prefs": {
+    "props": [
+      {
+        "name": "theme",
+        "type": "'light' | 'dark'",
+        "required": true
+      },
+      {
+        "name": "suggest",
+        "type": "boolean",
+        "required": true
+      },
+      {
+        "name": "resume",
+        "type": "boolean",
+        "required": true
+      },
+      {
+        "name": "showLens",
+        "type": "boolean",
+        "required": true
+      },
+      {
+        "name": "shareRecipes",
+        "type": "boolean",
+        "required": true
+      },
+      {
+        "name": "directory",
+        "type": "boolean",
+        "required": true
+      },
+      {
+        "name": "confirmDelete",
+        "type": "boolean",
+        "required": true
+      },
+      {
+        "name": "notifySubmission",
+        "type": "boolean",
+        "required": true
+      },
+      {
+        "name": "notifyStuck",
+        "type": "boolean",
+        "required": true
+      },
+      {
+        "name": "notifyWeekly",
+        "type": "boolean",
+        "required": true
+      },
+      {
+        "name": "notifyProduct",
+        "type": "boolean",
+        "required": true
+      },
+      {
+        "name": "sidebarCollapsed",
+        "type": "boolean",
+        "required": true
+      }
+    ]
+  },
   "Progress": {
     "props": [
       {
@@ -2160,6 +2242,32 @@ export const propsByComponent: Record<string, ComponentDoc> = {
     ],
     "doc": "Los ajustes en un modal y no en una página."
   },
+  "SettingsUser": {
+    "props": [
+      {
+        "name": "name",
+        "type": "string",
+        "required": true
+      },
+      {
+        "name": "email",
+        "type": "string",
+        "required": true
+      },
+      {
+        "name": "alias",
+        "type": "string",
+        "required": true,
+        "doc": "Cómo lo ven los aprendices."
+      },
+      {
+        "name": "school",
+        "type": "string",
+        "required": true
+      }
+    ],
+    "doc": "Quién está mirando los ajustes."
+  },
   "Sheet": {
     "props": [
       {
@@ -2423,6 +2531,22 @@ export const propsByComponent: Record<string, ComponentDoc> = {
       }
     ],
     "doc": "Por dónde va algo que tiene etapas: una actividad en partes, un proceso de diseño, un formulario largo."
+  },
+  "Step": {
+    "props": [
+      {
+        "name": "label",
+        "type": "string",
+        "required": true,
+        "doc": "El nombre de la etapa."
+      },
+      {
+        "name": "hint",
+        "type": "string",
+        "required": false,
+        "doc": "Una línea abajo, para lo que el nombre no dice."
+      }
+    ]
   },
   "Switch": {
     "props": [
@@ -2759,6 +2883,27 @@ export const propsByComponent: Record<string, ComponentDoc> = {
       }
     ],
     "doc": "Cosas para hacer, que se marcan al hacerlas: los pasos de una entrega, lo que falta de una actividad."
+  },
+  "Task": {
+    "props": [
+      {
+        "name": "id",
+        "type": "string",
+        "required": true,
+        "doc": "Único en la lista."
+      },
+      {
+        "name": "label",
+        "type": "string",
+        "required": true,
+        "doc": "Lo que hay que hacer."
+      },
+      {
+        "name": "done",
+        "type": "boolean",
+        "required": false
+      }
+    ]
   },
   "TextField": {
     "props": [
