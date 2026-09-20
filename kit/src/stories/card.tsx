@@ -119,7 +119,7 @@ export function CardStory() {
 
       <Section title="Accesibilidad">
         <A11y>
-          <A11y.Item>{'CardTitle es un <h3>: la tarjeta entra en el esquema de encabezados de la página en vez de ser texto en negrita.'}</A11y.Item>
+          <A11y.Item>{'`Card.Title` es un <h3>: la tarjeta entra en el esquema de encabezados de la página en vez de ser texto en negrita.'}</A11y.Item>
           <A11y.Item>La tarjeta no se mueve en hover ni esconde acciones detrás del puntero, así que se descubre igual sin mouse.</A11y.Item>
           <A11y.Item>Con interactive, lo que se toca sigue siendo un control de verdad (un link o un botón) y no un div con onClick.</A11y.Item>
         </A11y>

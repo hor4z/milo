@@ -118,7 +118,7 @@ export function ModalStory() {
 
       <Section title="Accesibilidad">
         <A11y>
-          <A11y.Item>role="dialog" con aria-modal, y el nombre sale del `ModalTitle` por `aria-labelledby`: una sola fuente, y la que se ve es la que se anuncia.</A11y.Item>
+          <A11y.Item>role="dialog" con aria-modal, y el nombre sale del `Modal.Title` por `aria-labelledby`: una sola fuente, y la que se ve es la que se anuncia.</A11y.Item>
           <A11y.Item>Atrapa el foco mientras está abierto y lo devuelve al cerrarse.</A11y.Item>
           <A11y.Item>Se enfoca el contenedor y no el primer control: el navegador scrollea a lo que enfoca, y eso abría el panel corrido.</A11y.Item>
           <A11y.Item>Bloquea el scroll de la página compensando el ancho de la barra, así que nada salta al abrir.</A11y.Item>

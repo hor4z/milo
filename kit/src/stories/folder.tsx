@@ -87,7 +87,7 @@ export function FolderStory() {
 
       <Section
         title="Con avatares"
-        note="Abajo a la izquierda de la solapa va quién tiene acceso. Es un `AvatarGroup`, así que hereda todo lo suyo: tres caras como máximo, el resto en un círculo neutro, y con un solo sobrante se muestra la cuarta cara en vez de un '+1'. La prop `badges` sigue estando para lo que no es una persona."
+        note="Abajo a la izquierda de la solapa va quién tiene acceso. Es un `Avatar.Group`, así que hereda todo lo suyo: tres caras como máximo, el resto en un círculo neutro, y con un solo sobrante se muestra la cuarta cara en vez de un '+1'. La prop `badges` sigue estando para lo que no es una persona."
       >
         <Card surface="muted" className={cls.avatarShelf}>
           <Folder avatars={[p('Ana Pérez', 1), p('Bruno Díaz', 2)]}>

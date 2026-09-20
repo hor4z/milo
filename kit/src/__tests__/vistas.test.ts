@@ -372,7 +372,7 @@ describe('la tabla de props', () => {
 })
 
 describe('cobertura del kit', () => {
-  const internal = new Set(['Portal', 'PageHeader', 'SectionLabel'])
+  const internal = new Set(['Portal', 'Page'])
 
   it('cada componente exportado se muestra en alguna vista', () => {
     const pkg = join(import.meta.dirname, '../../../src')

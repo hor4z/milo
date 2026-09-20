@@ -4,7 +4,7 @@ import userEvent from '@testing-library/user-event'
 import { describe, expect, it } from 'vitest'
 import { Pagination } from './pagination'
 
-describe('PaginationStatus', () => {
+describe('Pagination.Status', () => {
   it('colapsa el tramo cuando es todo', () => {
     render(<Pagination.Status from={1} to={9} total={9} noun={['actividad', 'actividades']} />)
     expect(screen.getByRole('status')).toHaveTextContent('9 actividades')

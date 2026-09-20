@@ -45,7 +45,7 @@ describe('Field', () => {
   })
 })
 
-describe('FieldSet', () => {
+describe('Field.Set', () => {
   it('agrupa campos bajo un nombre', () => {
     render(
       <Field.Set legend="Quién puede ver">

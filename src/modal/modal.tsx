@@ -99,5 +99,5 @@ function Footer({ className, ...rest }: PartProps) {
   return <div className={cx(s.footer, className)} {...rest} />
 }
 
-/** El diálogo centrado que tapa la pantalla. Se arma con `ModalHeader`, `ModalBody` y `ModalFooter`. */
+/** El diálogo centrado que tapa la pantalla. Se arma con `Modal.Header`, `Modal.Body` y `Modal.Footer`. */
 export const Modal = Object.assign(Root, { Header, Title, Hint, Body, Footer })

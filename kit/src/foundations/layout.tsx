@@ -100,7 +100,7 @@ export function LayoutSection() {
         {' '}
         La receta es una línea: el bloque de acciones lleva{' '}
         <code>margin-inline-start: auto</code>, que no cambia nada mientras las dos partes comparten
-        línea y lo mantiene a la derecha cuando envuelve. Lo llevan el <code>PageHeader</code> del
+        línea y lo mantiene a la derecha cuando envuelve. Lo llevan el <code>Page.Header</code> del
         paquete, la cabecera del dashboard y la del documento. Una fila de etiqueta y valor no lo
         lleva: ahí envolver hacia la izquierda es lo correcto.
       </Note>

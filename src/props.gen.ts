@@ -1784,7 +1784,7 @@ export const propsByComponent: Record<string, ComponentDoc> = {
         "doc": "Solo si no hay `Title`: con título, el nombre sale de ahí."
       }
     ],
-    "doc": "El diálogo centrado que tapa la pantalla. Se arma con `ModalHeader`, `ModalBody` y `ModalFooter`."
+    "doc": "El diálogo centrado que tapa la pantalla. Se arma con `Modal.Header`, `Modal.Body` y `Modal.Footer`."
   },
   "Modal.Header": {
     "props": [],

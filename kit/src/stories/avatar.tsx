@@ -8,7 +8,7 @@ const person = (name: string, photo?: number) => ({ name, src: photo ? face(phot
 export function AvatarStory() {
   return (
     <Page
-      title="Avatar · AvatarGroup"
+      title="Avatar"
       kind="Datos"
       imports="import { Avatar } from '@milo/ui/avatar'"
       lead="Una persona en el lugar de un nombre. Con foto o con la inicial sobre una etiqueta de color, y las dos tienen que pesar lo mismo: en una fila donde algunos subieron foto y otros no, el que no subió no puede leerse como un error."

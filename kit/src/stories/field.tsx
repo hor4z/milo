@@ -88,7 +88,7 @@ export function FieldStory() {
       </Section>
 
       <Section
-        title="FieldSet"
+        title="Field.Set"
         note="Agrupa los campos que van juntos y les pone un título que el lector anuncia al entrar al grupo. En un formulario de tres campos sobra; en uno de doce es lo que lo hace legible."
       >
         <Canvas>

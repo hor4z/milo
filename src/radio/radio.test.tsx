@@ -25,7 +25,7 @@ describe('Radio', () => {
   })
 })
 
-describe('RadioGroup', () => {
+describe('Radio.Group', () => {
   it('se anuncia como grupo y marca la elegida', () => {
     render(<Radio.Group value="b" onChange={() => {}} options={options} label="Quién ve" />)
     expect(screen.getByRole('radiogroup', { name: 'Quién ve' })).toBeInTheDocument()

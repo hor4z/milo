@@ -12,7 +12,7 @@ describe('Page', () => {
   })
 })
 
-describe('PageHeader', () => {
+describe('Page.Header', () => {
   it('el título es el encabezado de la pantalla', () => {
     render(<Page.Header><Page.Title>Espacios</Page.Title><Page.Subtitle>Lo que tenés a cargo</Page.Subtitle></Page.Header>)
     expect(screen.getByRole('heading', { level: 1, name: 'Espacios' })).toBeInTheDocument()

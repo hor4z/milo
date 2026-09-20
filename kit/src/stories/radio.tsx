@@ -13,7 +13,7 @@ export function RadioStory() {
 
   return (
     <Page
-      title="Radio · RadioGroup"
+      title="Radio"
       kind="Formularios"
       imports="import { Radio } from '@milo/ui/radio'"
       lead="La elección de una entre varias. Es 18, la misma medida del Checkbox y del pulgar del switch, así una fila con los tres queda pareja."

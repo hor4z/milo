@@ -19,7 +19,3 @@ export function useReducedMotion() {
   return useMediaQuery('(prefers-reduced-motion: reduce)')
 }
 
-/** Un dedo y no un mouse: el objetivo de toque sube a 44. */
-export function useCoarsePointer() {
-  return useMediaQuery('(pointer: coarse)')
-}
