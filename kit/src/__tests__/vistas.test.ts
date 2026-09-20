@@ -223,31 +223,6 @@ describe('accesibilidad documentada', () => {
   })
 })
 
-describe('los números de la portada', () => {
-  it('la cantidad de piezas que anuncia es la de las carpetas', () => {
-    const intro = readFileSync(join(import.meta.dirname, '../intro.tsx'), 'utf8')
-    const announced = Number(intro.match(/\['(\d+)', 'piezas'\]/)?.[1])
-    const src = join(import.meta.dirname, '../../../src')
-    const reales = readdirSync(src, { withFileTypes: true })
-      .filter(e => e.isDirectory() && !['styles', 'lib', '__tests__'].includes(e.name)).length
-    expect(
-      announced,
-      `la portada dice ${announced} piezas y en src/ hay ${reales} carpetas`,
-    ).toBe(reales)
-  })
-
-  it('la cantidad de iconos que anuncia es la del manifiesto', () => {
-    const intro = readFileSync(join(import.meta.dirname, '../intro.tsx'), 'utf8')
-    const announced = Number(intro.match(/\['(\d+)', 'iconos'\]/)?.[1])
-    const gen = readFileSync(
-      join(import.meta.dirname, '../../../src/icons.gen.ts'),
-      'utf8',
-    )
-    const reales = [...gen.matchAll(/^\s+\w+: 0x[0-9a-f]+,/gm)].length
-    expect(announced).toBe(reales)
-  })
-})
-
 describe('las escalas que la doctrina dibuja', () => {
   it('cada paso de espaciado que Medidas declara se puede escribir', () => {
     const view = readFileSync(join(import.meta.dirname, '../foundations/measure.tsx'), 'utf8')

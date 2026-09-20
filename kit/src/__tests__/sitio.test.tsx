@@ -6,7 +6,7 @@ import { PrefsProvider } from '@milo/ui/prefs'
 import { App } from '../app'
 
 const app = readFileSync(join(import.meta.dirname, '../app.tsx'), 'utf8')
-const entries = [...app.matchAll(/\{ id: '([\w-]+)', label: '([^']*)'/g)].map(m => ({ id: m[1], label: m[2] }))
+const entries = [...app.matchAll(/id: '([\w-]+)',\s*label: '([^']*)'/g)].map(m => ({ id: m[1], label: m[2] }))
 const sueltas = [
   { id: 'dashboard', label: 'Dashboard' },
   { id: 'documento', label: 'Documento' },

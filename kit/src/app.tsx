@@ -1,5 +1,5 @@
 import cls from './app.module.css'
-import { useEffect, useMemo, useRef, useState, type ReactNode } from 'react'
+import { Fragment, useEffect, useMemo, useRef, useState, type ReactNode } from 'react'
 import { Button } from '@milo/ui/button'
 import { EmptyState } from '@milo/ui/empty-state'
 import { Icon } from '@milo/ui/icon'
@@ -37,6 +37,10 @@ import { AmeliaStory } from './mascots/amelia'
 import { OttoStory } from './mascots/otto'
 import { WritingSection } from './foundations/writing'
 import { ButtonStory } from './stories/button'
+import { ButtonGroupStory } from './stories/button-group'
+import { SplitButtonStory } from './stories/split-button'
+import { ToggleButtonStory } from './stories/toggle-button'
+import { CopyButtonStory } from './stories/copy-button'
 import { IconButtonStory } from './stories/icon-button'
 import { TextFieldStory } from './stories/text-field'
 import { TextareaStory } from './stories/textarea'
@@ -80,7 +84,7 @@ import { ModalStory } from './stories/modal'
 import { PopoverStory } from './stories/popover'
 import { TooltipStory } from './stories/tooltip'
 
-type Story = { id: string; label: string; render: () => ReactNode; alias?: string }
+type Story = { id: string; label: string; render: () => ReactNode; alias?: string; children?: Story[] }
 type Group = { label: string; stories: Story[] }
 
 const INTRO = 'intro'
@@ -125,10 +129,21 @@ const groups: Group[] = [
   {
     label: 'Acciones',
     stories: [
-      { id: 'button', label: 'Button', alias: 'botón acción primaria cta', render: () => <ButtonStory /> },
-      { id: 'icon-button', label: 'IconButton', alias: 'botón icono redondo acción', render: () => <IconButtonStory /> },
-      { id: 'menu', label: 'Menu', alias: 'menú opciones contextual', render: () => <MenuStory /> },
-      { id: 'dropdown', label: 'Dropdown', alias: 'menú desplegable opciones', render: () => <DropdownStory /> },
+      {
+        id: 'button',
+        label: 'Botón',
+        alias: 'button botón acción primaria cta',
+        render: () => <ButtonStory />,
+        children: [
+          { id: 'icon-button', label: 'Botón de icono', alias: 'IconButton botón icono redondo acción', render: () => <IconButtonStory /> },
+          { id: 'button-group', label: 'Grupo de botones', alias: 'ButtonGroup grupo pegados juntos barra', render: () => <ButtonGroupStory /> },
+          { id: 'split-button', label: 'Botón partido', alias: 'SplitButton partido flecha menú acción principal', render: () => <SplitButtonStory /> },
+          { id: 'toggle-button', label: 'Botón de alternancia', alias: 'ToggleButton toggle alternar hundido pressed', render: () => <ToggleButtonStory /> },
+          { id: 'copy-button', label: 'Botón de copiar', alias: 'CopyButton copiar portapapeles clipboard', render: () => <CopyButtonStory /> },
+        ],
+      },
+      { id: 'menu', label: 'Menú', alias: 'Menu menú opciones contextual', render: () => <MenuStory /> },
+      { id: 'dropdown', label: 'Desplegable', alias: 'Dropdown menú desplegable opciones', render: () => <DropdownStory /> },
     ],
   },
   {
@@ -201,7 +216,8 @@ const groups: Group[] = [
   },
 ]
 
-const everything = groups.flatMap(g => g.stories.map(s => ({ ...s, group: g.label })))
+const flatten = (stories: Story[]): Story[] => stories.flatMap(s => [s, ...(s.children ?? [])])
+const everything = groups.flatMap(g => flatten(g.stories).map(s => ({ ...s, group: g.label })))
 
 export function App() {
   const [current, setCurrent] = useState(() => location.hash.slice(1) || INTRO)
@@ -247,10 +263,15 @@ export function App() {
     return groups
       .map(g => ({
         ...g,
-        stories: g.stories.filter(s =>
-          fold(s.label).includes(q)
-          || fold(g.label).includes(q)
-          || (s.alias ? fold(s.alias).includes(q) : false)),
+        stories: g.stories.flatMap(s => {
+          const coincide = (x: Story) =>
+            fold(x.label).includes(q)
+            || fold(g.label).includes(q)
+            || (x.alias ? fold(x.alias).includes(q) : false)
+          const hijos = (s.children ?? []).filter(coincide)
+          if (coincide(s)) return [{ ...s, children: hijos.length ? hijos : s.children }]
+          return hijos.length ? [{ ...s, children: hijos }] : []
+        }),
       }))
       .filter(g => g.stories.length > 0)
   }, [query])
@@ -321,7 +342,12 @@ export function App() {
                 </div>
                 <div className={cls.navGroupItems}>
                   {g.stories.map(s => (
-                    <SideLink key={s.id} active={current === s.id} onClick={() => go(s.id)} piece>{s.label}</SideLink>
+                    <Fragment key={s.id}>
+                      <SideLink active={current === s.id} onClick={() => go(s.id)} piece>{s.label}</SideLink>
+                      {s.children?.map(c => (
+                        <SideLink key={c.id} active={current === c.id} onClick={() => go(c.id)} piece sub>{c.label}</SideLink>
+                      ))}
+                    </Fragment>
                   ))}
                 </div>
               </div>
@@ -361,7 +387,7 @@ export function App() {
 
         <main ref={main} className={cls.main}>
           <div key={current} className={cls.viewSlot}>
-            {current === INTRO && <Intro go={go} views={everything.length} />}
+            {current === INTRO && <Intro go={go} />}
             {current === 'dashboard' && <Dashboard />}
             {current === 'documento' && <DocumentStory />}
             {story?.render()}
@@ -382,11 +408,13 @@ export function App() {
   )
 }
 
-function SideLink({ active, onClick, icon, piece, children }: {
+function SideLink({ active, onClick, icon, piece, sub, children }: {
   active: boolean
   onClick: () => void
   icon?: 'deployed_code' | 'dashboard' | 'description'
   piece?: boolean
+  /** La sangría del tercer nivel: la columna del texto del padre, no un valor nuevo. */
+  sub?: boolean
   children: ReactNode
 }) {
   return (
@@ -404,6 +432,7 @@ function SideLink({ active, onClick, icon, piece, children }: {
       aria-current={active ? 'page' : undefined}
       className={cx(
         cls.navItem,
+        sub && cls.navSubItem,
         active ? cls.navItemActive : cls.navItemIdle,
       )}
     >

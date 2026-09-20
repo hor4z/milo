@@ -1,0 +1,47 @@
+@layer milo.components {
+  .root {
+    display: inline-flex;
+    isolation: isolate;
+  }
+
+  .root > * {
+    position: relative;
+  }
+
+  .root > *:focus-visible,
+  .root > *:hover {
+    z-index: 1;
+  }
+
+  .horizontal > *:not(:first-child) {
+    margin-left: -1px;
+  }
+
+  .horizontal > *:not(:last-child) {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+
+  .horizontal > *:not(:first-child) {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+  }
+
+  .vertical {
+    flex-direction: column;
+  }
+
+  .vertical > *:not(:first-child) {
+    margin-top: -1px;
+  }
+
+  .vertical > *:not(:last-child) {
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+  }
+
+  .vertical > *:not(:first-child) {
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+  }
+}

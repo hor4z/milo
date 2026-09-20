@@ -33,6 +33,9 @@
       "@milo/ui/button": [
         "./src/button/button.tsx"
       ],
+      "@milo/ui/button-group": [
+        "./src/button-group/button-group.tsx"
+      ],
       "@milo/ui/callout": [
         "./src/callout/callout.tsx"
       ],
@@ -56,6 +59,9 @@
       ],
       "@milo/ui/confirm-dialog": [
         "./src/confirm-dialog/confirm-dialog.tsx"
+      ],
+      "@milo/ui/copy-button": [
+        "./src/copy-button/copy-button.tsx"
       ],
       "@milo/ui/date-picker": [
         "./src/date-picker/date-picker.tsx"
@@ -165,6 +171,9 @@
       "@milo/ui/spinner": [
         "./src/spinner/spinner.tsx"
       ],
+      "@milo/ui/split-button": [
+        "./src/split-button/split-button.tsx"
+      ],
       "@milo/ui/stepper": [
         "./src/stepper/stepper.tsx"
       ],
@@ -191,6 +200,9 @@
       ],
       "@milo/ui/toast": [
         "./src/toast/toast.tsx"
+      ],
+      "@milo/ui/toggle-button": [
+        "./src/toggle-button/toggle-button.tsx"
       ],
       "@milo/ui/toolbar": [
         "./src/toolbar/toolbar.tsx"

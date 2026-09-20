@@ -1,6 +1,8 @@
 import s from './kit.module.css'
 import { Children, useEffect, useState, type ReactNode } from 'react'
 import { Chip } from '@milo/ui/chip'
+import { CopyButton } from '@milo/ui/copy-button'
+import { useClipboard } from '@milo/ui/lib/use-clipboard'
 import { Icon, type IconName } from '@milo/ui/icon'
 import { cx } from '@milo/ui/lib/cx'
 import { propsByComponent } from '@milo/ui/props'
@@ -84,15 +86,11 @@ export function Page({ title, lead, imports, kind, children }: PageProps) {
 
 /** Una línea de código que se puede copiar. */
 export function Code({ children }: { children: string }) {
-  const [copied, setCopied] = useState(false)
+  const { copied, copy } = useClipboard()
   return (
     <button
       type="button"
-      onClick={() => {
-        navigator.clipboard?.writeText(children)
-        setCopied(true)
-        setTimeout(() => setCopied(false), 1400)
-      }}
+      onClick={() => copy(children)}
       className={`${s.importBlock} group`}
     >
       <code className={s.importCode}>{children}</code>
@@ -149,7 +147,6 @@ const highlight: Record<string, string> = {
 
 /** Cómo se escribe la pieza. Va al lado de la tabla de props: una dice qué acepta, el otro cómo se usa. */
 export function Example({ code }: { code: string }) {
-  const [copied, setCopied] = useState(false)
   return (
     <div className={`${s.codeBlock} group`}>
       <pre className={s.codePre}>
@@ -163,18 +160,7 @@ export function Example({ code }: { code: string }) {
           ))}
         </code>
       </pre>
-      <button
-        type="button"
-        aria-label={copied ? 'Copiado' : 'Copiar el ejemplo'}
-        className={s.codeCopy}
-        onClick={() => {
-          navigator.clipboard?.writeText(code.trim())
-          setCopied(true)
-          setTimeout(() => setCopied(false), 1400)
-        }}
-      >
-        <Icon name={copied ? 'check' : 'content_copy'} size={14} className="icon-muted" />
-      </button>
+      <CopyButton value={code.trim()} label="Copiar el ejemplo" size="sm" className={s.codeCopy} />
     </div>
   )
 }

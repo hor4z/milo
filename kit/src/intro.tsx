@@ -21,7 +21,7 @@ const shortcuts: { id: string; icon: IconName; title: string; body: string }[] =
   { id: 'documento', icon: 'description', title: 'Documento', body: 'Las del editor, juntas en una consigna de verdad.' },
 ]
 
-export function Intro({ go, views }: { go: (id: string) => void; views: number }) {
+export function Intro({ go }: { go: (id: string) => void }) {
   const [demo, setDemo] = useState(true)
 
   return (
@@ -40,8 +40,8 @@ export function Intro({ go, views }: { go: (id: string) => void; views: number }
               El sistema de milo, funcionando
             </h1>
             <p className={cls.heroLead}>
-              No es una lámina de estilos: cada pieza de acá es el componente real, con su teclado, sus
-              estados y sus tests. El repo entero es un paquete: <code className={cls.inlineCode}>@milo/ui</code>.
+              Cada pieza de acá es el componente real, con su teclado, sus estados y sus tests. Se
+              importa una por una: <code className={cls.inlineCode}>@milo/ui/button</code>.
             </p>
           </Stack>
 
@@ -51,14 +51,6 @@ export function Intro({ go, views }: { go: (id: string) => void; views: number }
             <Button variant="muted" iconStart={<Icon name="description" />} onClick={() => go('documento')}>Ver un documento</Button>
           </div>
 
-          <dl className={cls.statList}>
-            {[[String(views), 'vistas'], ['62', 'piezas'], ['172', 'iconos'], ['2', 'temas']].map(([n, l]) => (
-              <div key={l} className={cls.statItem}>
-                <dt className={`${cls.statValue} tabular`}>{n}</dt>
-                <dd className={cls.statLabel}>{l}</dd>
-              </div>
-            ))}
-          </dl>
         </div>
       </section>
 
@@ -141,21 +133,6 @@ export function Intro({ go, views }: { go: (id: string) => void; views: number }
         </Alert>
       </section>
 
-      <section className={cls.notSection}>
-        <h2 className={cls.notTitle}>Lo que no es</h2>
-        <div className={cls.notGrid}>
-          {[
-            ['No está en npm', 'El repo es privado y se instala desde GitHub por su tag. El paquete es el repo entero.'],
-            ['No tiene backend', 'Nada persiste salvo las preferencias, y el tema vive en localStorage.'],
-            ['No es un clon terminado', 'De la referencia salieron medidas y recetas de sombra; el resto se resolvió con criterio propio.'],
-          ].map(([t, d]) => (
-            <div key={t} className={cls.notItem}>
-              <span className={cls.notName}>{t}</span>
-              <span className={cls.notBody}>{d}</span>
-            </div>
-          ))}
-        </div>
-      </section>
     </div>
   )
 }

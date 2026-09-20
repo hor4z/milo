@@ -1,0 +1,23 @@
+@layer milo.components {
+  .root {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .motion {
+    transition-property: background-color, color;
+    transition-duration: var(--duration-fast);
+    transition-timing-function: var(--ease-out);
+  }
+
+  .done {
+    color: var(--ok);
+  }
+
+  @media (hover: hover) {
+    .root:hover {
+      background-color: var(--surface-hover);
+    }
+  }
+}

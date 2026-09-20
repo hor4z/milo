@@ -292,6 +292,24 @@ export const propsByComponent: Record<string, ComponentDoc> = {
     ],
     "html": "button"
   },
+  "ButtonGroup": {
+    "props": [
+      {
+        "name": "label",
+        "type": "string",
+        "required": true,
+        "doc": "Qué agrupa. Sin esto un lector lee los botones sueltos, sin saber que van juntos."
+      },
+      {
+        "name": "vertical",
+        "type": "boolean",
+        "required": false,
+        "doc": "Apilados, para un menú lateral angosto."
+      }
+    ],
+    "html": "div",
+    "doc": "Botones pegados, con el canto solo en los extremos: una sola acción repartida en dos o tres pasos, o un conmutador de vista. Para elegir uno entre varios va `Segmented`, que trae el teclado."
+  },
   "Callout": {
     "props": [
       {
@@ -785,6 +803,43 @@ export const propsByComponent: Record<string, ComponentDoc> = {
       }
     ],
     "doc": "El verbo de lo que va a pasar, no \"Sí\". Con `tone=\"bad\"` se pinta y cede el foco."
+  },
+  "CopyButton": {
+    "props": [
+      {
+        "name": "value",
+        "type": "string",
+        "required": true,
+        "doc": "Lo que se copia."
+      },
+      {
+        "name": "label",
+        "type": "string",
+        "required": false,
+        "def": "'Copiar'",
+        "doc": "Qué se copia, para quien no ve el glifo."
+      },
+      {
+        "name": "copiedLabel",
+        "type": "string",
+        "required": false,
+        "def": "'Copiado'",
+        "doc": "Lo que se dice cuando ya está."
+      },
+      {
+        "name": "size",
+        "type": "'sm' | 'md' | 'lg'",
+        "required": false,
+        "def": "'md'",
+        "doc": "La escalera de siempre."
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "required": false
+      }
+    ],
+    "doc": "Copiar un texto al portapapeles, con el tilde que avisa que salió bien. El aviso también se anuncia: el cambio de glifo no lo ve quien escucha la pantalla."
   },
   "DatePicker": {
     "props": [
@@ -2549,6 +2604,54 @@ export const propsByComponent: Record<string, ComponentDoc> = {
     ],
     "doc": "Pista completa más un arco encima."
   },
+  "SplitButton": {
+    "props": [
+      {
+        "name": "label",
+        "type": "string",
+        "required": true,
+        "doc": "La acción principal, la que se hace casi siempre."
+      },
+      {
+        "name": "onClick",
+        "type": "() => void",
+        "required": false,
+        "doc": "Lo que hace esa acción."
+      },
+      {
+        "name": "items",
+        "type": "DropdownItem[]",
+        "required": true,
+        "doc": "Las de al lado, en el menú."
+      },
+      {
+        "name": "variant",
+        "type": "'brand' | 'solid' | 'muted' | 'ghost' | 'bad'",
+        "required": false,
+        "def": "'brand'",
+        "doc": "El mismo juego que `Button`."
+      },
+      {
+        "name": "size",
+        "type": "'sm' | 'md' | 'lg'",
+        "required": false,
+        "def": "'md'",
+        "doc": "La escalera de siempre."
+      },
+      {
+        "name": "disabled",
+        "type": "boolean",
+        "required": false
+      },
+      {
+        "name": "menuLabel",
+        "type": "string",
+        "required": false,
+        "doc": "Qué hay en el menú, para quien lo escucha. Sin esto dice \"Más opciones\"."
+      }
+    ],
+    "doc": "La acción que se hace casi siempre, y al lado las que casi nunca. Es lo que evita una fila de cinco botones donde cuatro no se tocan nunca: el que manda queda a la vista y el resto a un clic."
+  },
   "Stepper": {
     "props": [
       {
@@ -3158,6 +3261,47 @@ export const propsByComponent: Record<string, ComponentDoc> = {
     ],
     "doc": "Lo que recibe `toast()`."
   },
+  "ToggleButton": {
+    "props": [
+      {
+        "name": "pressed",
+        "type": "boolean",
+        "required": true,
+        "doc": "Hundido o no. Es controlado: el estado lo guarda quien lo usa."
+      },
+      {
+        "name": "onPressedChange",
+        "type": "(pressed: boolean) => void",
+        "required": false,
+        "doc": "Recibe el estado nuevo."
+      },
+      {
+        "name": "icon",
+        "type": "IconName",
+        "required": false,
+        "doc": "El glifo, antes del texto o solo."
+      },
+      {
+        "name": "size",
+        "type": "'sm' | 'md' | 'lg'",
+        "required": false,
+        "def": "'md'",
+        "doc": "La escalera de siempre."
+      },
+      {
+        "name": "label",
+        "type": "string",
+        "required": false,
+        "doc": "Obligatorio cuando adentro solo hay un glifo: sin esto el botón no dice nada."
+      },
+      {
+        "name": "children",
+        "type": "ReactNode",
+        "required": false
+      }
+    ],
+    "doc": "Un botón que queda hundido: dice en qué estado está algo, no que algo pasó. El `aria-pressed` es lo que lo separa de un `Button`, y es lo que hace que un lector anuncie \"activado\"."
+  },
   "Toolbar": {
     "props": [
       {
@@ -3209,7 +3353,7 @@ export const propsByComponent: Record<string, ComponentDoc> = {
         "required": false
       }
     ],
-    "doc": "Un botón de la barra. Con `pressed` es un interruptor y lo dice: \"negrita, activado\"."
+    "doc": "El botón de la barra: siempre un glifo solo, y siempre `sm`. Con `pressed` es un interruptor y sin él una acción que pasa y no queda."
   },
   "Tooltip": {
     "props": [

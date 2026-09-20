@@ -2,6 +2,7 @@ import s from './toolbar.module.css'
 import { useLayoutEffect, useRef, type FocusEvent, type KeyboardEvent, type ReactNode } from 'react'
 import { Icon, type IconName } from '../icon/icon'
 import { cx } from '../lib/cx'
+import { ToggleButton } from '../toggle-button/toggle-button'
 
 function Root({ label, children, className }: {
   /** Qué controla esta barra. Dos barras sin nombre en una pantalla se leen como una sola. */
@@ -51,6 +52,7 @@ function Root({ label, children, className }: {
 }
 
 /** Un botón de la barra. Con `pressed` es un interruptor y lo dice: "negrita, activado". */
+/** El botón de la barra: siempre un glifo solo, y siempre `sm`. Con `pressed` es un interruptor y sin él una acción que pasa y no queda. */
 function Button({ icon, label, pressed, disabled, onClick }: {
   icon: IconName
   /** Sin esto el botón no dice nada: adentro solo hay un glifo. */
@@ -60,22 +62,29 @@ function Button({ icon, label, pressed, disabled, onClick }: {
   disabled?: boolean
   onClick?: () => void
 }) {
+  if (pressed === undefined) {
+    return (
+      <button
+        type="button"
+        aria-label={label}
+        disabled={disabled}
+        onClick={onClick}
+        className={cx(s.button, s.disabled, s.buttonOff)}
+      >
+        <Icon name={icon} size={18} />
+      </button>
+    )
+  }
   return (
-    <button
-      type="button"
-      aria-label={label}
-      aria-pressed={pressed}
+    <ToggleButton
+      size="sm"
+      icon={icon}
+      label={label}
+      pressed={pressed}
       disabled={disabled}
-      onClick={onClick}
-      tabIndex={-1}
-      className={cx(
-        `${s.button} touch-target`,
-        s.disabled,
-        pressed ? s.buttonOn : s.buttonOff,
-      )}
-    >
-      <Icon name={icon} size={18} />
-    </button>
+      onPressedChange={() => onClick?.()}
+      className={s.button}
+    />
   )
 }
 
