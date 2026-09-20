@@ -30,7 +30,7 @@ export function ColorSection() {
     <Page
       title="Color"
       kind="Fundamentos"
-      lead="Un primario, un acento y una rampa casi neutra. Todo lo que tiene color en el sistema sale de ahí o de una de las familias acotadas de abajo, y ninguna es decorativa: cada una contesta una pregunta distinta."
+      lead="Un primario, un acento y una rampa casi neutra. Todo lo que tiene color en el sistema sale de ahí o de una de las familias acotadas de abajo, y ninguna es decorativa: cada una contesta una pregunta distinta. El color de una persona sale de su nombre con `colorForName`, que está en [Utilidades](#utilidades)."
     >
       <Section
         title="Los tres"

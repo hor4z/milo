@@ -55,6 +55,7 @@ import { ChipStory } from './stories/chip'
 import { SpinnerStory } from './stories/spinner'
 import { AvatarStory } from './stories/avatar'
 import { IconStory } from './stories/icon'
+import { UtilidadesStory } from './stories/utilidades'
 import { KbdStory } from './stories/kbd'
 import { DividerStory } from './stories/divider'
 import { MenuStory } from './stories/menu'
@@ -104,6 +105,7 @@ const groups: Group[] = [
       { id: 'media', label: 'Medios', alias: 'medios imagen video audio animación multimedia subtítulos leyendas audiodescripción transcripción alt proporción autoplay peso voz sonido silencio volumen velocidad escuchar lectura hablada', render: () => <MediaSection /> },
       { id: 'numbers', label: 'Números y valores', alias: 'números cifras decimales coma porcentaje unidades tamaño rango cantidades tabular', render: () => <NumbersSection /> },
       { id: 'writing', label: 'Cómo se escribe', alias: 'texto redacción copy mensajes tono escritura', render: () => <WritingSection /> },
+      { id: 'utilidades', label: 'Utilidades', alias: 'utilidades helpers funciones hooks lib time number colorForName plural api', render: () => <UtilidadesStory /> },
     ],
   },
   {
@@ -221,6 +223,7 @@ export function App() {
   const [current, setCurrent] = useState(() => location.hash.slice(1) || INTRO)
   const [query, setQuery] = useState('')
   const [railOpen, setRailOpen] = useState(false)
+  const [abiertos, setAbiertos] = useState<string[]>([])
   const { prefs, set } = usePrefs()
   const searchRef = useRef<HTMLInputElement>(null)
   const main = useRef<HTMLElement>(null)
@@ -339,14 +342,32 @@ export function App() {
                   {g.label}
                 </div>
                 <div className={cls.navGroupItems}>
-                  {g.stories.map(s => (
-                    <Fragment key={s.id}>
-                      <SideLink active={current === s.id} onClick={() => go(s.id)} piece>{s.label}</SideLink>
-                      {s.children?.map(c => (
-                        <SideLink key={c.id} active={current === c.id} onClick={() => go(c.id)} piece sub>{c.label}</SideLink>
-                      ))}
-                    </Fragment>
-                  ))}
+                  {g.stories.map(s => {
+                    // se despliega al tocarlo, o solo si estás parado en uno de sus hijos
+                    const desplegado = abiertos.includes(s.id)
+                      || Boolean(s.children?.some(c => c.id === current))
+                      || Boolean(query && s.children?.length)
+                    return (
+                      <Fragment key={s.id}>
+                        <SideLink
+                          active={current === s.id}
+                          expanded={s.children?.length ? desplegado : undefined}
+                          onClick={() => {
+                            if (s.children?.length) {
+                              setAbiertos(a => a.includes(s.id) ? a.filter(x => x !== s.id) : [...a, s.id])
+                            }
+                            go(s.id)
+                          }}
+                          piece
+                        >
+                          {s.label}
+                        </SideLink>
+                        {desplegado && s.children?.map(c => (
+                          <SideLink key={c.id} active={current === c.id} onClick={() => go(c.id)} piece sub>{c.label}</SideLink>
+                        ))}
+                      </Fragment>
+                    )
+                  })}
                 </div>
               </div>
             ))}
@@ -406,13 +427,15 @@ export function App() {
   )
 }
 
-function SideLink({ active, onClick, icon, piece, sub, children }: {
+function SideLink({ active, onClick, icon, piece, sub, expanded, children }: {
   active: boolean
   onClick: () => void
   icon?: 'deployed_code' | 'dashboard' | 'description'
   piece?: boolean
   /** La sangría del tercer nivel: la columna del texto del padre, no un valor nuevo. */
   sub?: boolean
+  /** Presente cuando el item tiene hijos: dibuja el chevron y dice si están a la vista. */
+  expanded?: boolean
   children: ReactNode
 }) {
   return (
@@ -428,6 +451,7 @@ function SideLink({ active, onClick, icon, piece, sub, children }: {
         next?.focus()
       }}
       aria-current={active ? 'page' : undefined}
+      aria-expanded={expanded}
       className={cx(
         cls.navItem,
         sub && cls.navSubItem,
@@ -436,6 +460,13 @@ function SideLink({ active, onClick, icon, piece, sub, children }: {
     >
       {icon && <Icon name={icon} size={16} className={active ? undefined : 'icon-muted'} />}
       <span className={cls.navItemLabel}>{children}</span>
+      {expanded !== undefined && (
+        <Icon
+          name="keyboard_arrow_down"
+          size={16}
+          className={cx(cls.navChevron, expanded && cls.navChevronOpen, 'icon-muted')}
+        />
+      )}
     </button>
   )
 }

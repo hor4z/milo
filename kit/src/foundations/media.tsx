@@ -96,7 +96,6 @@ export function MediaSection() {
     <Page
       title="Medios"
       kind="Fundamentos"
-      imports="import { AudioPlayer } from '@milo/ui/audio-player' · import { Figure } from '@milo/ui/figure'"
       lead="Imagen, audio, video y animación. Cuál va cuándo, qué pide cada uno para estar terminado, y qué es lo que ninguno puede hacer solo."
     >
       <Section

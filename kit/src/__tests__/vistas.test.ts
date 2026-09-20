@@ -103,10 +103,28 @@ describe('las vistas del kit', () => {
     for (const f of files) {
       const text = readFileSync(join(stories, f), 'utf8')
       const covers = [...text.matchAll(/<Page\b/g)].length
-      const imports = [...text.matchAll(/imports="/g)].length
-      if (covers !== imports) withoutImport.push(`${f}: ${covers} portadas, ${imports} imports`)
+      const imports = [...text.matchAll(/imports="([^"]*)"/g)]
+      if (covers !== imports.length) withoutImport.push(`${f}: ${covers} portadas, ${imports.length} imports`)
+      // una vista documenta una pieza: dos imports pegados en la misma línea no se copian de una
+      for (const m of imports) {
+        if (m[1].includes('·')) withoutImport.push(`${f}: el import de la portada nombra dos módulos`)
+      }
     }
     expect(withoutImport).toEqual([])
+  })
+
+  it('una vista de Fundamentos no muestra código', () => {
+    const fundamentos = join(import.meta.dirname, '../foundations')
+    const conCodigo = readdirSync(fundamentos)
+      .filter((f: string) => f.endsWith('.tsx'))
+      .filter((f: string) => {
+        const text = readFileSync(join(fundamentos, f), 'utf8')
+        return text.includes('imports=') || text.includes('<Example')
+      })
+    expect(
+      conCodigo,
+      'Fundamentos es la capa de la que sale todo lo demás, no una pieza que se importa: el código va en la vista de la pieza',
+    ).toEqual([])
   })
 
   it('cada vista de una pieza muestra cómo se escribe', () => {

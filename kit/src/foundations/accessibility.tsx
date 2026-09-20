@@ -47,7 +47,6 @@ export function AccessibilitySection() {
       title="Accesibilidad"
       kind="Fundamentos"
       lead="No es una capa que se agrega al final: son las reglas que cada pieza ya cumple, y lo que se verifica con tests en vez de con buena voluntad. Esto se va a usar en educación, donde quien no puede leer la pantalla no puede hacer la tarea."
-      imports="import { Alert } from '@milo/ui/alert' · import { Field } from '@milo/ui/field'"
     >
       <Section title="Las seis reglas">
         <div className={cls.specimenGrid}>

@@ -12,7 +12,7 @@ export function FolderStory() {
     <Page
       title="Folder"
       kind="Superficies"
-      imports="import { Folder } from '@milo/ui/folder' · import { Icon } from '@milo/ui/icon'"
+      imports="import { Folder } from '@milo/ui/folder'"
       lead="Una carpeta que se abre. Cerrada es una silueta limpia; al pasar por encima las hojas suben desde adentro y se abanican, y ahí se ve qué hay sin tener que entrar."
     >
       <Section

@@ -12,7 +12,7 @@ export function SwitchStory() {
     <Page
       title="Switch"
       kind="Formularios"
-      imports="import { Row } from '@milo/ui/row' · import { Switch } from '@milo/ui/switch'"
+      imports="import { Switch } from '@milo/ui/switch'"
       lead="Pista de 40×22 con 2 de padding, así que el pulgar es de 18 y viaja 18 exactos. La pista prendida va en el azul de marca, el mismo que el checkbox marcado: el naranja señala algo que pasó y no eligió nadie, y un switch prendido es lo contrario, es una decisión de quien lo usa."
     >
       <Section

@@ -27,7 +27,6 @@ export function StatesSection() {
       title="Estados"
       kind="Fundamentos"
       lead="Lo que una pieza hace cuando algo le pasa: se toca, se está cargando, se rompió, no tiene nada adentro. Es la mitad de la experiencia y la mitad que se documenta menos, porque la pantalla del caso feliz es la que se dibuja primero."
-      imports="import { EmptyState } from '@milo/ui/empty-state' · import { Skeleton } from '@milo/ui/skeleton' · import { Spinner } from '@milo/ui/spinner'"
     >
       <Section
         title="La regla que ordena todo esto"

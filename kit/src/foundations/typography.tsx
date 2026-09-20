@@ -20,7 +20,6 @@ export function TypographySection() {
       title="Tipografía"
       kind="Fundamentos"
       lead="Una familia (Inter) y siete roles, cada uno cargando tamaño, interlineado y tracking juntos. La base es 14 y hay un escalón explícito de 16 para lo que un estudiante lee de corrido."
-      imports="import { Icon } from '@milo/ui/icon'"
     >
       <Section
         title="Los siete roles"
