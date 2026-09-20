@@ -114,9 +114,7 @@ function ToastItem({ toast, onDismiss }: { toast: ToastRecord; onDismiss: (id: s
             {action.label}
           </Button>
         )}
-        {!action && !meta && (
-          <IconButton icon="close" label="Cerrar el aviso" size="sm" variant="ghost" onClick={close} />
-        )}
+        <IconButton icon="close" label="Cerrar el aviso" size="sm" variant="ghost" onClick={close} />
       </div>
     </li>
   )

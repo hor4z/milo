@@ -1,4 +1,8 @@
 @layer milo.app {
+  .radiusXs {
+    border-radius: var(--radius-xs);
+  }
+
   .radiusSm {
     border-radius: var(--radius-sm);
   }

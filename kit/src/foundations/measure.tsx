@@ -12,7 +12,8 @@ const shell = [
 ] as const
 
 const radii = [
-  { token: '--radius-sm', cls: css.radiusSm, role: 'marcas hundidas: un kbd, un badge, un checkbox' },
+  { token: '--radius-xs', cls: css.radiusXs, role: 'lo más chico que se toca: una casilla, un radio. Sobre 18px el escalón siguiente ya se lee redondo' },
+  { token: '--radius-sm', cls: css.radiusSm, role: 'marcas hundidas: un kbd, un badge' },
   { token: '--radius-md', cls: css.radiusMd, role: 'lo chico: un control de 32, un chip, un tooltip, un esqueleto' },
   { token: '--radius-lg', cls: css.radiusLg, role: 'lo que se toca de 36 para arriba: botón md y lg, item de nav' },
   { token: '--radius-xl', cls: css.radiusXl, role: 'todo lo que es una superficie: una tarjeta, una fila, un panel flotante, un modal' },

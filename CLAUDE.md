@@ -492,7 +492,7 @@ npm run icons -- refresh               # rebaja el catálogo desde Google
 La regla: **el set crece solo por `icons add`.** `icons check` corre al lado de `typecheck` y
 falla cuando alguien usa un glifo que no está en el manifiesto: esa mitad sí está cerrada.
 
-La otra mitad no: hoy hay **65 de 172 que no usa ningún call site**, y el chequeo los lista sin
+La otra mitad no: hoy hay **68 de 172 que no usa ningún call site**, y el chequeo los lista sin
 fallar. Medido con `pyftsubset`, sacarlos llevaría la fuente de 64 KB a 27 KB. No se sacaron
 porque la decisión es de quien arma el producto y no de un script: el editor y los gráficos van a
 consumir varios de esos, y volver a traer uno es `icons add`, que tarda lo mismo que leer esta
