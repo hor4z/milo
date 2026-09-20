@@ -9,6 +9,7 @@ import { Figure } from '@milo/ui/figure'
 import { Mention } from '@milo/ui/mention'
 import { Popover } from '@milo/ui/popover'
 import { Quote } from '@milo/ui/quote'
+import { Tooltip } from '@milo/ui/tooltip'
 import { TaskList, type Task } from '@milo/ui/task-list'
 import { labelFill, type LabelColor } from '@milo/ui/lib/colors'
 import { counted } from '@milo/ui/lib/number'
@@ -48,22 +49,22 @@ const initialTasks: Task[] = [
   { id: 'escribir', label: 'Escribir en dos párrafos por qué la pendiente da la mitad de g' },
 ]
 
-type Level = { id: string, label: string, color: LabelColor }
+type Level = { id: string, label: string, hint: string, color: LabelColor }
 
 const levels: Level[] = [
-  { id: 'apenas', label: 'Apenas', color: 'orange' },
-  { id: 'camino', label: 'En camino', color: 'purple' },
-  { id: 'bien', label: 'Bien', color: 'blue' },
-  { id: 'completo', label: 'Completo', color: 'teal' },
+  { id: 'apenas', label: 'Apenas', hint: 'Falta lo que el criterio pide', color: 'orange' },
+  { id: 'camino', label: 'En camino', hint: 'Está empezado y se entiende para dónde va', color: 'purple' },
+  { id: 'bien', label: 'Bien', hint: 'Cumple con lo que el criterio pide', color: 'blue' },
+  { id: 'completo', label: 'Completo', hint: 'Cumple, lo explica y va más lejos', color: 'teal' },
 ]
 
 const levelById = new Map(levels.map(l => [l.id, l]))
 
 const criteria = [
-  { id: 'datos', label: 'Toma de datos', hint: 'Tres tiempos por altura, con el error estimado', levels: ['apenas', 'camino', 'bien', 'completo'] },
-  { id: 'grafico', label: 'Gráfico', hint: 'Altura contra tiempo al cuadrado, con la unidad en cada eje', levels: ['apenas', 'camino', 'bien', 'completo'] },
-  { id: 'explicacion', label: 'Explicación', hint: 'Por qué la pendiente da la mitad de la gravedad', levels: ['apenas', 'camino', 'bien', 'completo'] },
-  { id: 'seguridad', label: 'Seguridad en el patio', hint: 'Se cumple o no se cumple, acá no hay medias tintas', levels: ['apenas', 'completo'] },
+  { id: 'datos', label: 'Toma de datos', hint: 'Tres tiempos por altura, con el error estimado', levels: [{ id: 'apenas', weight: 1 }, { id: 'camino', weight: 2 }, { id: 'bien', weight: 4 }, { id: 'completo', weight: 3 }] },
+  { id: 'grafico', label: 'Gráfico', hint: 'Altura contra tiempo al cuadrado, con la unidad en cada eje', levels: [{ id: 'apenas', weight: 3 }, { id: 'camino', weight: 2 }, { id: 'bien', weight: 5 }, { id: 'completo', weight: 2 }] },
+  { id: 'explicacion', label: 'Explicación', hint: 'Por qué la pendiente da la mitad de la gravedad', levels: [{ id: 'apenas', weight: 2 }, { id: 'camino', weight: 5 }, { id: 'bien', weight: 2 }, { id: 'completo', weight: 4 }] },
+  { id: 'seguridad', label: 'Seguridad en el patio', hint: 'Se cumple o no se cumple, acá no hay medias tintas', levels: [{ id: 'apenas', weight: 2 }, { id: 'completo', weight: 7 }] },
 ]
 
 function Rubric() {
@@ -79,15 +80,23 @@ function Rubric() {
           {criteria.map(c => (
             <li key={c.id} className={cls.criterion}>
               <p className={cls.criterionLabel}>{c.label}</p>
-              <span aria-hidden className={cls.levels}>
-                {c.levels.map(id => (
-                  <span key={id} className={`${cls.level} ${labelFill[levelById.get(id)!.color]}`} />
-                ))}
+              <span className={cls.levels}>
+                {c.levels.map(l => {
+                  const level = levelById.get(l.id)!
+                  return (
+                    <span key={l.id} className={cls.level} style={{ flex: l.weight }}>
+                      <Tooltip label={`${level.label}: ${level.hint}`}>
+                        <button
+                          type="button"
+                          aria-label={`${level.label}, en ${c.label}`}
+                          className={`${cls.levelBand} ${labelFill[level.color]}`}
+                        />
+                      </Tooltip>
+                    </span>
+                  )
+                })}
               </span>
-              <p className={cls.criterionHint}>
-                {c.hint}
-                <span className="sr-only">. {counted(c.levels.length, ['nivel', 'niveles'])}: {c.levels.map(id => levelById.get(id)!.label).join(', ')}</span>
-              </p>
+              <p className={cls.criterionHint}>{c.hint}</p>
             </li>
           ))}
         </ul>
@@ -97,14 +106,6 @@ function Rubric() {
         </Button>
       </div>
 
-      <ul className={cls.swatches}>
-        {levels.map(l => (
-          <li key={l.id} className={cls.swatch}>
-            <span aria-hidden className={`${cls.swatchColor} ${labelFill[l.color]}`} />
-            {l.label}
-          </li>
-        ))}
-      </ul>
     </aside>
   )
 }
