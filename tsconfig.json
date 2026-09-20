@@ -147,6 +147,9 @@
       "@milo/ui/row": [
         "./src/row/row.tsx"
       ],
+      "@milo/ui/rubric": [
+        "./src/rubric/rubric.tsx"
+      ],
       "@milo/ui/search": [
         "./src/search/search.tsx"
       ],

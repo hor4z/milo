@@ -114,6 +114,7 @@
 
   .docBody {
     display: flex;
+    min-width: 0;
     max-width: 68ch;
     flex-direction: column;
     gap: 1.5rem;
@@ -164,4 +165,34 @@
     color: var(--text);
   }
 
+  .columns {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  .railTop {
+    display: flex;
+    justify-content: flex-end;
+    padding-bottom: 0.75rem;
+  }
+
+  @media (min-width: 64rem) {
+    .columns {
+      flex-direction: row;
+      align-items: flex-start;
+    }
+
+    .docBody {
+      flex: 1;
+    }
+
+    .rail {
+      margin-inline-start: auto;
+      position: sticky;
+      top: 2.5rem;
+      width: 320px;
+      flex-shrink: 0;
+    }
+  }
 }

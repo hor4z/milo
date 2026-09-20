@@ -4,7 +4,7 @@ El sistema de interfaz de milo: la identidad en tokens, las piezas que la usan, 
 donde se ve todo funcionando. No es una lámina de estilos: cada pieza de acá es el componente
 real, con su teclado, sus estados y sus tests.
 
-**El repo es del design system y de nada más.** El UI kit (las 64 piezas) es una parte; las
+**El repo es del design system y de nada más.** El UI kit (las 65 piezas) es una parte; las
 otras son los tokens y lo que el sitio documenta alrededor. Acá adentro no vive producto: el
 prototipo de la app que hubo hasta ahora se borró, y cuando haga falta uno de nuevo se arma
 aparte.
@@ -18,7 +18,7 @@ final son lo único que hay que tocar.
 npm install
 npm run dev        # el sitio · http://localhost:5190
 npm run typecheck  # el paquete y el sitio de una
-npm test           # 808 tests con vitest y testing-library
+npm test           # 819 tests con vitest y testing-library
 npm run build      # compila el paquete a dist/ (js, css y tipos)
 npm run props      # regenera la tabla de props desde los tipos
 npm run paths      # regenera el paths de tsconfig.json, una entrada por pieza
@@ -213,7 +213,7 @@ módulos, obliga a `s['card-header']` en TS y eso lo daría por muerto. Hay un t
 Si dos reglas se parecen tanto que dan ganas de numerarlas, lo que las separa es el nombre:
 `trackRest` y `trackActive`, no `track` y `track2`.
 
-**El léxico**, una palabra por papel y la misma en las 64 piezas:
+**El léxico**, una palabra por papel y la misma en las 65 piezas:
 
 | | |
 |---|---|
@@ -612,7 +612,7 @@ Un paquete, `@milo/ui`, y adentro el sitio que lo documenta:
 ```
 src/                    theme.css (las capas) · styles/ (reset, base y tokens/) ·
                         una carpeta por pieza: button/button.tsx + button/button.test.tsx,
-                        y así las 64 (select, modal, toast, chart, table…)
+                        y así las 65 (select, modal, toast, chart, table…)
                         lib/ lo compartido que no es un componente, un archivo por cosa:
                         cx · colors · control · tone · time · number · parts ·
                         esc · overlay-hooks · roving · side-scroll · dismiss ·
@@ -729,7 +729,7 @@ Lo mismo vale para los tipos que una pieza recibe como argumento (`ToastOptions`
 
 ## Los tests
 
-`npm test` corre vitest con jsdom y testing-library. 808 tests, y lo que prueban es el
+`npm test` corre vitest con jsdom y testing-library. 819 tests, y lo que prueban es el
 comportamiento (teclado, nombres accesibles, estados) y no el markup, que cambia con cada
 ajuste de estilo. El test de cada pieza vive en su carpeta, al lado del componente.
 
@@ -875,6 +875,14 @@ eso: parecía voz de producto como Inclusión, pero una de sus nueve reglas la h
 guardián que lee el repo entero (el que busca la raya larga y las comillas angulares), así que
 está sostenida.
 
+**Entró con la rúbrica**: `Rubric` es el panel que acompaña a la consigna mientras se la escribe.
+Una barra reparte el peso de cada criterio (que es una cantidad, así que el largo dice algo), cada
+criterio es una tarjeta con sus niveles escritos del más flojo al más completo, y el alta vive
+adentro del panel. Lo que la pieza no hace es puntuar: marcar en qué nivel cayó una entrega es
+corregir, y eso es otra pantalla. Del otro lado, el estudiante ve la misma rúbrica como un
+`Checklist` por criterio, que ahora sabe ser una escalera: con `value` y `onChange` cada paso
+incluye a los de arriba, así que no hay forma de tener el tercero hecho y el segundo no.
+
 **Entró en una vuelta anterior**, porque el propósito del sistema lo pedía: `DatePicker` y `Reorder`, más el `Documento` que las prueba juntas. De arrastrar y soltar entró la mitad que importa: reordenar una lista, con el teclado como
 pieza y el arrastre como comodidad. Lo que sigue afuera es soltar algo **adentro** de otra cosa
 (un archivo en una carpeta) que es otro problema.
@@ -886,7 +894,7 @@ un aula:
 |---|---|
 | campo de fichas | asignar personas a una entrega. `Chip` ya dibuja la ficha; falta el campo que las arma |
 | menú contextual | el clic derecho sobre un bloque. `Menu` y `Popover` ya están: falta la posición y la tecla de menú |
-| puntuación de rúbrica | corregir con criterios y no con un número. Es más una decisión pedagógica que de interfaz, y todavía no está tomada |
+| corregir con la rúbrica | `Rubric` ya define con qué se mira; falta la pantalla donde se marca en qué nivel cayó una entrega, que es otro momento y otra persona |
 | imágenes, como fundamento | `Figure` resuelve la pieza; falta la doctrina de proporción, carga y texto alternativo en un solo lugar |
 | deshacer | hoy vive en el `Toast` con acción, que alcanza para una acción por vez y no para un editor |
 | imprimir | un docente imprime una consigna. No hay ni una hoja de estilos de impresión |

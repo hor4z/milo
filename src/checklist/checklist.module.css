@@ -1,6 +1,4 @@
 @layer milo.components {
-  /* dos superficies: el marco hundido de afuera y el papel de adentro, que es donde
-     viven los pasos. Plegada se ve solo el marco, y eso es lo que la hace una fila */
   .root {
     display: flex;
     flex-direction: column;
@@ -11,9 +9,6 @@
     padding-inline: 0.15rem;
   }
 
-  /* la fila que se ve siempre. El botón es el chevron con su título y nada más: la barra
-     y el contador quedan afuera, porque un progreso adentro de un botón se anuncia como
-     parte del nombre del botón */
   .header {
     display: flex;
     align-items: center;
@@ -21,8 +16,6 @@
     padding: 0.625rem 0.75rem;
   }
 
-  /* el botón es la flecha y nada más: el título va al lado, a su altura. Sin fondo en
-     hover, que sobre un cuadrado de 20 se lee como una mancha */
   .trigger {
     display: inline-flex;
     flex-shrink: 0;
@@ -52,14 +45,12 @@
     color: var(--text);
   }
 
-  /* la barra es la del `Progress` en chico: acá el número de al lado dice lo mismo */
   .track {
     width: 5rem;
     height: 0.375rem;
     flex-shrink: 0;
     overflow: hidden;
     border-radius: var(--radius-xs);
-    /* la pista va contra el marco hundido, así que no puede ser del mismo gris */
     background-color: var(--border-strong);
   }
 
@@ -82,8 +73,6 @@
     color: var(--text-muted);
   }
 
-  /* sin sombra: el papel ya se separa del marco por el cambio de fondo, y una sombra
-     contra el canto de afuera se lee como un segundo borde */
   .body {
     border-radius: var(--radius-lg);
     padding: 0.5rem 0.75rem 0.75rem;
@@ -123,8 +112,6 @@
     justify-content: center;
   }
 
-  /* relleno y no contorno: el paso hecho es lo único de la lista que se ve de reojo.
-     El par es `--ok-fill` con `--on-ok`, que es el que aguanta tinta blanca */
   .done {
     display: inline-flex;
     width: 1.25rem;
@@ -136,7 +123,6 @@
     color: var(--on-ok);
   }
 
-  /* el paso que todavía no se hizo es un círculo vacío: un glifo ahí lo haría parecer una acción */
   .pending {
     width: 0.875rem;
     height: 0.875rem;
@@ -160,7 +146,7 @@
 
   .footer {
     display: flex;
-    align-items: flex-start;
+    align-items: center;
     gap: 0.5rem;
     border-top: 1px solid var(--border);
     margin-top: 0.5rem;
@@ -169,12 +155,20 @@
     line-height: var(--type-meta-lh);
     letter-spacing: var(--type-meta-ls);
     font-weight: var(--font-weight-medium);
+  }
+
+  .footerQuiet {
     color: var(--text-muted);
+  }
+
+  .footerNote {
+    display: inline-flex;
+    flex-shrink: 0;
   }
 
   .footerIcon {
     flex-shrink: 0;
-    margin-top: 1px;
+    --icon-wght: 400;
   }
 
   @media (hover: hover) {
