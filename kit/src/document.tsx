@@ -65,13 +65,6 @@ export function DocumentStory() {
             <h1 className={cls.docTitle}>Caída libre: medir g en el patio</h1>
           </div>
           <div className={cls.docActions}>
-            <Segmented
-              size="xs"
-              label="Ver el documento como"
-              value={mode}
-              onChange={setMode}
-              options={[{ value: 'teacher', label: 'Docente' }, { value: 'student', label: 'Estudiante' }]}
-            />
             <Avatar.Group
               size={28}
               people={[
@@ -158,6 +151,15 @@ export function DocumentStory() {
         </div>
 
         <div className={cls.rail}>
+          <div className={cls.railTop}>
+            <Segmented
+              size="xs"
+              label="Ver el documento como"
+              value={mode}
+              onChange={setMode}
+              options={[{ value: 'teacher', label: 'Docente' }, { value: 'student', label: 'Estudiante' }]}
+            />
+          </div>
           <RubricRail mode={mode} />
         </div>
       </div>

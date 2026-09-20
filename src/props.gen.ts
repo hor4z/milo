@@ -593,12 +593,6 @@ export const propsByComponent: Record<string, ComponentDoc> = {
         "doc": "El detalle que no entra en la línea. Aparece al pasar por el glifo."
       },
       {
-        "name": "tone",
-        "type": "Tone",
-        "required": false,
-        "doc": "Sin esto la aclaración va en gris. Con un tono, la línea entera toma su tinta."
-      },
-      {
         "name": "children",
         "type": "ReactNode",
         "required": true

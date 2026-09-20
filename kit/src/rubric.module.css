@@ -155,10 +155,17 @@
   }
 
   .swatch {
-    width: 0.5rem;
-    height: 0.5rem;
+    display: inline-flex;
+    width: 1.5rem;
+    height: 1.5rem;
     flex-shrink: 0;
-    border-radius: var(--radius-full);
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--radius-sm);
+  }
+
+  .criterionHeader {
+    padding-bottom: 0;
   }
 
   .criterionLabel {

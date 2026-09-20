@@ -4,14 +4,14 @@ import { Button } from '@milo/ui/button'
 import { Card } from '@milo/ui/card'
 import { Checklist } from '@milo/ui/checklist'
 import { Field } from '@milo/ui/field'
-import { Icon } from '@milo/ui/icon'
+import { Icon, type IconName } from '@milo/ui/icon'
 import { IconButton } from '@milo/ui/icon-button'
 import { Slider } from '@milo/ui/slider'
 import { TextField } from '@milo/ui/text-field'
 import { Tooltip } from '@milo/ui/tooltip'
 import { useToast } from '@milo/ui/toast'
 import { cx } from '@milo/ui/lib/cx'
-import { labelColors, labelFill, type LabelColor } from '@milo/ui/lib/colors'
+import { labelColors, labelFill, labelSoft, type LabelColor } from '@milo/ui/lib/colors'
 import { counted, share } from '@milo/ui/lib/number'
 import { useDisclosure } from '@milo/ui/lib/use-disclosure'
 
@@ -23,6 +23,7 @@ type Criterion = {
   label: string
   weight: number
   color: LabelColor
+  icon: IconName
   levels: string[]
 }
 
@@ -32,6 +33,7 @@ const initialCriteria: Criterion[] = [
     label: 'Toma de datos',
     weight: 4,
     color: 'green',
+    icon: 'timer',
     levels: [
       'Una sola medición anotada',
       'Las tres, sin el error',
@@ -44,6 +46,7 @@ const initialCriteria: Criterion[] = [
     label: 'Gráfico',
     weight: 3,
     color: 'teal',
+    icon: 'analytics',
     levels: [
       'Altura contra tiempo',
       'Altura contra el tiempo al cuadrado',
@@ -56,6 +59,7 @@ const initialCriteria: Criterion[] = [
     label: 'Explicación',
     weight: 5,
     color: 'blue',
+    icon: 'description',
     levels: [
       'El resultado, sin explicación',
       'La pendiente tiene que ver con la gravedad',
@@ -127,6 +131,7 @@ export function RubricRail({ mode }: { mode: RubricMode }) {
       label: name,
       weight,
       color: labelColors[cs.length % labelColors.length],
+      icon: 'label',
       levels: levels.map((l, i) => l.trim() || `Sin descriptor para el nivel ${i + 1}`),
     }])
     closeForm()
@@ -154,7 +159,7 @@ export function RubricRail({ mode }: { mode: RubricMode }) {
                 {level}
               </Checklist.Item>
             ))}
-            <Checklist.Footer tone="warn" hint="Cada renglón incluye al anterior: al marcar uno quedan marcados los de arriba.">
+            <Checklist.Footer hint="Cada renglón incluye al anterior: al marcar uno quedan marcados los de arriba.">
               Vale {share(c.weight, total).percent} de la nota.
             </Checklist.Footer>
           </Checklist>
@@ -219,9 +224,11 @@ export function RubricRail({ mode }: { mode: RubricMode }) {
                   className={cls.criterion}
                 >
                   <Card>
-                    <Card.Header>
+                    <Card.Header className={cls.criterionHeader}>
                       <div className={cls.criterionTop}>
-                        <span aria-hidden className={`${cls.swatch} ${labelFill[c.color]}`} />
+                        <span aria-hidden className={`${cls.swatch} mark ${labelSoft[c.color]}`}>
+                          <Icon name={c.icon} size={16} />
+                        </span>
                         <Card.Title className={cls.criterionLabel}>
                           {c.label}
                           <span className="sr-only">, vale {share(c.weight, total).percent} de la nota</span>

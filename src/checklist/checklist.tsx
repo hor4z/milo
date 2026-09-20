@@ -4,7 +4,6 @@ import { Icon } from '../icon/icon'
 import { Spinner } from '../spinner/spinner'
 import { Tooltip } from '../tooltip/tooltip'
 import { cx } from '../lib/cx'
-import { toneInk, type Tone } from '../lib/tone'
 import { takePart } from '../lib/parts'
 
 /** Dónde está cada paso: hecho, en curso, todavía no, o trabado por otro que falta. */
@@ -16,16 +15,14 @@ function Title({ children }: { children: ReactNode }) {
 }
 
 /** La aclaración de abajo de todo, con su glifo. */
-function Footer({ hint, tone, children }: {
+function Footer({ hint, children }: {
   /** El detalle que no entra en la línea. Aparece al pasar por el glifo. */
   hint?: string
-  /** Sin esto la aclaración va en gris. Con un tono, la línea entera toma su tinta. */
-  tone?: Tone
   children: ReactNode
 }) {
-  const glifo = <Icon name="info" size={16} className={cx(s.footerIcon, tone ? toneInk[tone] : s.footerIconQuiet)} />
+  const glifo = <Icon name="info" size={16} className={`${s.footerIcon} ${s.footerIconQuiet}`} />
   return (
-    <p className={cx(s.footer, 'icon-filled', tone ? toneInk[tone] : s.footerQuiet)}>
+    <p className={`${s.footer} ${s.footerQuiet} icon-filled`}>
       {hint
         ? <Tooltip label={hint}><span className={s.footerNote}>{glifo}</span></Tooltip>
         : glifo}
