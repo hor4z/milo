@@ -282,9 +282,10 @@ Salieron de armar pantallas de verdad con estas piezas, y valen para cualquiera 
   vean sobre cualquier superficie. Al sacarlas, `--relief-inset` pasó de seis consumidores a cuatro.
 - **La escala de radios gana un escalón abajo, `--radius-xs` de 4px**, porque sobre un cuadrado de 18
   el `sm` de 6 deja la casilla casi redonda y una casilla redonda se lee como un radio.
-- **Un `IconButton` `lg` lleva el glifo en 24 y no en 20.** Sobre una caja de 44 es la proporción que
-  usa cualquier sistema (Material va 24 sobre 48), y es lo que hace que un icono solo se lea como una
-  pieza y no como un detalle. La escala de iconos gana ese escalón.
+- **La escalera de iconos de un control va 16 · 20 · 24**, uno por cada alto: 36, 40 y 44. Estaba en
+  16 · 18 · 24 después de subir el `lg`, y ese salto de 6 después de uno de 2 no era una escalera.
+  Cada par es el que usa cualquier sistema (Material va 20 sobre 40 y 24 sobre 48), y es lo que hace
+  que un icono solo se lea como una pieza y no como un detalle.
 - **El `Indicator` marca un icono, no cualquier cosa.** La marca se apoya en el hombro del glifo y no
   en la esquina del botón, que es más grande: el `inset` viene en 9, que es lo que ese par pide, y va
   en 0 sobre un glifo suelto. Se probó envolviendo un avatar y una carpeta y no vale la pena: cada

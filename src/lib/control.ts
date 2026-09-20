@@ -11,7 +11,7 @@ export const variants = {
 /** La escalera de los controles. */
 export const control = {
   sm: { box: s.heightSm, square: s.squareSm, px: s.padSm, text: s.textSm, gap: s.gapSm, radius: s.radiusSm, icon: 16, dot: s.dotSm },
-  md: { box: s.heightMd, square: s.squareMd, px: s.padMd, text: s.textMd, gap: s.gapMd, radius: s.radiusMd, icon: 18, dot: s.dotMd },
+  md: { box: s.heightMd, square: s.squareMd, px: s.padMd, text: s.textMd, gap: s.gapMd, radius: s.radiusMd, icon: 20, dot: s.dotMd },
   lg: { box: s.heightLg, square: s.squareLg, px: s.padLg, text: s.textLg, gap: s.gapLg, radius: s.radiusLg, icon: 24, dot: s.dotLg },
 } as const
 

@@ -20,10 +20,10 @@ export function IndicatorStory() {
             </Indicator>
           </Variant>
           <Variant name="contador">
-            <Indicator count={3}  label="3 avisos sin leer">
+            <Indicator count={3} label="3 avisos sin leer">
               <IconButton icon="inbox" label="Entregas" size="lg" />
             </Indicator>
-            <Indicator count={148}  label="148 sin leer">
+            <Indicator count={148} label="148 sin leer">
               <IconButton icon="mail" label="Mensajes" size="lg" />
             </Indicator>
           </Variant>
@@ -45,7 +45,7 @@ export function IndicatorStory() {
         <Panel>
           <Variant name="tonos">
             {(['accent', 'ok', 'warn', 'bad', 'neutral'] as const).map(t => (
-              <Indicator key={t} dot  tone={t} label={t}>
+              <Indicator key={t} dot tone={t} label={t}>
                 <IconButton icon="notifications" label={`Avisos ${t}`} size="lg" />
               </Indicator>
             ))}
