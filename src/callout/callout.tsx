@@ -3,14 +3,13 @@ import type { ReactNode } from 'react'
 import { Icon, type IconName } from '../icon/icon'
 import { labelSoft, type LabelColor } from '../lib/colors'
 import { cx } from '../lib/cx'
+import { takePart } from '../lib/parts'
 
 type CalloutProps = {
   /** El glifo de la izquierda. Elegilo por lo que dice el bloque, no por el color. */
   icon?: IconName
   /** El color del papel. Sale de la familia de categorías y no de los tonos de estado: un bloque de contenido no está avisando de nada. */
   color?: LabelColor | 'neutral'
-  /** La primera línea, en negrita. Sin esto el bloque arranca directo con el texto. */
-  title?: string
   children: ReactNode
   className?: string
 }
@@ -20,8 +19,12 @@ const paper: Record<LabelColor | 'neutral', string> = {
   ...labelSoft,
 }
 
-/** Un bloque de contenido que pide detenerse: una aclaración, una pista, algo para recordar. */
-export function Callout({ icon, color = 'neutral', title, children, className }: CalloutProps) {
+function Title({ children }: { children: ReactNode }) {
+  return <span className={s.title}>{children}</span>
+}
+
+function Root({ icon, color = 'neutral', children, className }: CalloutProps) {
+  const [title, texto] = takePart(children, Title)
   return (
     <aside role="note" className={cx(s.root, paper[color], className)}>
       {icon && (
@@ -30,9 +33,12 @@ export function Callout({ icon, color = 'neutral', title, children, className }:
         </span>
       )}
       <div className={s.body}>
-        {title && <span className={s.title}>{title}</span>}
-        <div className={s.text}>{children}</div>
+        {title}
+        <div className={s.text}>{texto}</div>
       </div>
     </aside>
   )
 }
+
+/** Un bloque de contenido que pide detenerse: una aclaración, una pista, algo para recordar. */
+export const Callout = Object.assign(Root, { Title })

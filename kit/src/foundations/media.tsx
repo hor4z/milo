@@ -183,23 +183,15 @@ export function MediaSection() {
       >
         <Cluster gap="lg" align="start">
           <div className={cls.sample}>
-            <Figure
-              src="/mascotas/otto-primitivo.webp"
-              alt="Otto, la nutria, de pie y de frente"
-              ratio="4/3"
-              fit="contain"
-              caption="Es el contenido"
-            />
+            <Figure src="/mascotas/otto-primitivo.webp" alt="Otto, la nutria, de pie y de frente" ratio="4/3" fit="contain">
+              <Figure.Caption>Es el contenido</Figure.Caption>
+            </Figure>
             <code className={cls.sampleAlt}>alt="Otto, la nutria, de pie y de frente"</code>
           </div>
           <div className={cls.sample}>
-            <Figure
-              src="/mascotas/amelia.webp"
-              alt=""
-              ratio="4/3"
-              fit="contain"
-              caption="Acompaña"
-            />
+            <Figure src="/mascotas/amelia.webp" alt="" ratio="4/3" fit="contain">
+              <Figure.Caption>Acompaña</Figure.Caption>
+            </Figure>
             <code className={cls.sampleAlt}>alt=""</code>
           </div>
         </Cluster>

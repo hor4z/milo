@@ -117,7 +117,9 @@ export function Intro({ go, views }: { go: (id: string) => void; views: number }
                 <Chip color="blue">Corregida</Chip>
                 <Chip size="sm" color="warn" icon="schedule">Vence mañana</Chip>
               </div>
-              <Progress label="Corregidas" value={18} max={24} hint="18 de 24" />
+              <Progress label="Corregidas" value={18} max={24} >
+                <Progress.Hint>18 de 24</Progress.Hint>
+              </Progress>
             </Card>
 
             <Card className={cls.peopleCard}>

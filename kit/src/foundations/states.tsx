@@ -85,12 +85,11 @@ export function StatesSection() {
             tag="EmptyState"
             note="El vacío más importante y el que se trata peor. No es un error: es la primera vez. Dice qué va a haber acá y ofrece la acción que lo llena: un vacío sin salida es una pantalla que no se puede usar."
           >
-            <EmptyState
-              icon="folder_open"
-              title="Todavía no hay actividades"
-              body="Cuando crees la primera, la vas a ver acá con sus entregas y su estado."
-              action={<Button variant="brand">Nueva actividad</Button>}
-            />
+            <EmptyState icon="folder_open">
+              <EmptyState.Title>Todavía no hay actividades</EmptyState.Title>
+              <EmptyState.Body>Cuando crees la primera, la vas a ver acá con sus entregas y su estado.</EmptyState.Body>
+              <EmptyState.Action>{<Button variant="brand">Nueva actividad</Button>}</EmptyState.Action>
+            </EmptyState>
           </StateCard>
 
           <StateCard
@@ -98,12 +97,11 @@ export function StatesSection() {
             tag="EmptyState"
             note="Distinto del anterior y se confunden siempre. Acá sí hay contenido: lo que no hay es contenido que cumpla lo que se pidió. La salida no es crear algo, es aflojar el filtro."
           >
-            <EmptyState
-              icon="search_off"
-              title="Nada para 'trimestral'"
-              body="Probá con menos palabras, o sacá el filtro de espacio."
-              action={<Button variant="muted" iconStart={<Icon name="filter_alt" />}>Limpiar filtros</Button>}
-            />
+            <EmptyState icon="search_off">
+              <EmptyState.Title>Nada para 'trimestral'</EmptyState.Title>
+              <EmptyState.Body>Probá con menos palabras, o sacá el filtro de espacio.</EmptyState.Body>
+              <EmptyState.Action>{<Button variant="muted" iconStart={<Icon name="filter_alt" />}>Limpiar filtros</Button>}</EmptyState.Action>
+            </EmptyState>
           </StateCard>
         </div>
       </Section>

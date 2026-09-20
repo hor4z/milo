@@ -20,9 +20,18 @@ export function FolderStory() {
         note="El sistema tiene escrito que las tarjetas no se mueven en hover, porque una grilla que salta hace temblar la vista. Esto no lo contradice: lo que se mueve no es la pieza, es el contenido de la pieza. La carpeta no cambia de tamaño ni de lugar, así que la grilla se queda quieta, y lo que se gana es información, cuántas hojas hay."
       >
         <Card surface="muted" className={cls.hoverShelf}>
-          <Folder label="Onboarding" meta="15 archivos" onClick={() => {}} />
-          <Folder label="Matemática · 4.º A" meta="8 actividades" onClick={() => {}} />
-          <Folder label="Sin abrir" meta="2 archivos" sheets={2} onClick={() => {}} />
+          <Folder onClick={() => {}}>
+            <Folder.Label>Onboarding</Folder.Label>
+            <Folder.Meta>15 archivos</Folder.Meta>
+          </Folder>
+          <Folder onClick={() => {}}>
+            <Folder.Label>Matemática · 4.º A</Folder.Label>
+            <Folder.Meta>8 actividades</Folder.Meta>
+          </Folder>
+          <Folder sheets={2} onClick={() => {}}>
+            <Folder.Label>Sin abrir</Folder.Label>
+            <Folder.Meta>2 archivos</Folder.Meta>
+          </Folder>
         </Card>
       </Section>
 
@@ -49,10 +58,22 @@ export function FolderStory() {
         note="Amarillo propio en H 89.6 de OKLCH. `--warn-500` está en 82.2 y a esa luminosidad sale dorado: siete grados son poco para dos colores de estado y mucho para una carpeta. La croma va al 81% del techo y no al tope: al límite deja de ser una carpeta y pasa a ser un resaltador."
       >
         <Card surface="muted" className={cls.colorShelf}>
-          <Folder label="Amarillo" meta="el default" />
-          <Folder label="Azul" meta="--label-blue" color="var(--label-blue)" />
-          <Folder label="Púrpura" meta="--label-purple" color="var(--label-purple)" />
-          <Folder label="Rosa" meta="--label-pink" color="var(--label-pink)" />
+          <Folder>
+            <Folder.Label>Amarillo</Folder.Label>
+            <Folder.Meta>el default</Folder.Meta>
+          </Folder>
+          <Folder color="var(--label-blue)">
+            <Folder.Label>Azul</Folder.Label>
+            <Folder.Meta>--label-blue</Folder.Meta>
+          </Folder>
+          <Folder color="var(--label-purple)">
+            <Folder.Label>Púrpura</Folder.Label>
+            <Folder.Meta>--label-purple</Folder.Meta>
+          </Folder>
+          <Folder color="var(--label-pink)">
+            <Folder.Label>Rosa</Folder.Label>
+            <Folder.Meta>--label-pink</Folder.Meta>
+          </Folder>
         </Card>
         <Footnote>
           Se elige <strong className={cls.emphasis}>un solo color</strong>, el del cuerpo:
@@ -69,11 +90,26 @@ export function FolderStory() {
         note="Abajo a la izquierda de la solapa va quién tiene acceso. Es un `AvatarGroup`, así que hereda todo lo suyo: tres caras como máximo, el resto en un círculo neutro, y con un solo sobrante se muestra la cuarta cara en vez de un '+1'. La prop `badges` sigue estando para lo que no es una persona."
       >
         <Card surface="muted" className={cls.avatarShelf}>
-          <Folder label="Con dos" meta="6 archivos" avatars={[p('Ana Pérez', 1), p('Bruno Díaz', 2)]} />
-          <Folder label="Con cinco" meta="24 archivos" avatars={[p('Ana Pérez', 1), p('Bruno Díaz', 2), p('Carla Sosa', 3), p('Damián Ruiz', 4), p('Elena Vega', 5)]} />
-          <Folder label="Sin foto" meta="9 archivos" avatars={[p('Irene Lopez'), p('Julián Cruz'), p('Karen Ortiz')]} />
-          <Folder label="Teñida" meta="3 archivos" color="var(--label-blue)" avatars={[p('Mora Tello', 6), p('Nico Arce', 7)]} />
-          <Folder label="Con un icono" meta="4 archivos" badges={<Icon name="attach_file" size={16} className={cls.badgeIcon} />} />
+          <Folder avatars={[p('Ana Pérez', 1), p('Bruno Díaz', 2)]}>
+            <Folder.Label>Con dos</Folder.Label>
+            <Folder.Meta>6 archivos</Folder.Meta>
+          </Folder>
+          <Folder avatars={[p('Ana Pérez', 1), p('Bruno Díaz', 2), p('Carla Sosa', 3), p('Damián Ruiz', 4), p('Elena Vega', 5)]}>
+            <Folder.Label>Con cinco</Folder.Label>
+            <Folder.Meta>24 archivos</Folder.Meta>
+          </Folder>
+          <Folder avatars={[p('Irene Lopez'), p('Julián Cruz'), p('Karen Ortiz')]}>
+            <Folder.Label>Sin foto</Folder.Label>
+            <Folder.Meta>9 archivos</Folder.Meta>
+          </Folder>
+          <Folder color="var(--label-blue)" avatars={[p('Mora Tello', 6), p('Nico Arce', 7)]}>
+            <Folder.Label>Teñida</Folder.Label>
+            <Folder.Meta>3 archivos</Folder.Meta>
+          </Folder>
+          <Folder badges={<Icon name="attach_file" size={16} className={cls.badgeIcon} />}>
+            <Folder.Label>Con un icono</Folder.Label>
+            <Folder.Meta>4 archivos</Folder.Meta>
+          </Folder>
         </Card>
         <Footnote>
           El anillo de los avatares va del color del cuerpo y no del papel: acá están apoyados sobre

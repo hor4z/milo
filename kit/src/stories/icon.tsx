@@ -89,12 +89,10 @@ export function IconStory() {
 
         {visible.length === 0 ? (
           <div className={cls.emptySlot}>
-            <EmptyState
-              size="sm"
-              icon="search_off"
-              title="Ningún icono con eso"
-              body={`Los tags son los de Google y están en inglés. Si no está en el set, buscalo en el catálogo completo: npm run icons -w @milo/ui -- search ${q.trim() || '…'}`}
-            />
+            <EmptyState size="sm" icon="search_off">
+              <EmptyState.Title>Ningún icono con eso</EmptyState.Title>
+              <EmptyState.Body>{`Los tags son los de Google y están en inglés. Si no está en el set, buscalo en el catálogo completo: npm run icons -w @milo/ui -- search ${q.trim() || '…'}`}</EmptyState.Body>
+            </EmptyState>
           </div>
         ) : (
           <div

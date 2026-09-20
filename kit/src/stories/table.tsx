@@ -245,13 +245,11 @@ export function TableStory() {
             ))}
             {onScreen.length === 0 && (
               <Table.Empty colSpan={visible.length}>
-                <EmptyState
-                  size="sm"
-                  icon="search_off"
-                  title="Ninguna actividad con eso"
-                  body="Probá con otras palabras, o sacá alguno de los filtros puestos."
-                  action={<FilterReset onClick={clear}>Limpiar los filtros</FilterReset>}
-                />
+                <EmptyState size="sm" icon="search_off">
+                  <EmptyState.Title>Ninguna actividad con eso</EmptyState.Title>
+                  <EmptyState.Body>Probá con otras palabras, o sacá alguno de los filtros puestos.</EmptyState.Body>
+                  <EmptyState.Action>{<FilterReset onClick={clear}>Limpiar los filtros</FilterReset>}</EmptyState.Action>
+                </EmptyState>
               </Table.Empty>
             )}
           </Table.Body>

@@ -4,7 +4,9 @@ import { Progress } from './progress'
 
 describe('Progress', () => {
   it('expone valor y nombre', () => {
-    render(<Progress value={30} max={60} label="Corregidas" hint="30/60" />)
+    render(<Progress value={30} max={60} label="Corregidas" >
+  <Progress.Hint>30/60</Progress.Hint>
+</Progress>)
     const bar = screen.getByRole('progressbar', { name: 'Corregidas' })
     expect(bar).toHaveAttribute('aria-valuenow', '30')
     expect(bar).toHaveAttribute('aria-valuemax', '60')

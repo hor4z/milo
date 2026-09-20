@@ -108,7 +108,8 @@ export function DocumentStory() {
           <Mention name="Física · 5.º B" icon="folder" href="#folder" />.
         </p>
 
-        <Callout icon="warning" color="orange" title="Antes de subir al primer piso">
+        <Callout icon="warning" color="orange">
+          <Callout.Title>Antes de subir al primer piso</Callout.Title>
           Nadie se asoma a la baranda. La pelota la suelta una sola persona y el resto mira desde
           abajo, a tres metros del punto de caída.
         </Callout>
@@ -124,7 +125,8 @@ export function DocumentStory() {
           </span> Eso es lo que hay que comparar con los 9,8 del libro.
         </p>
 
-        <Quote source="Galileo, Diálogos sobre dos nuevas ciencias" cite="#quote">
+        <Quote cite="#quote">
+          <Quote.Source>Galileo, Diálogos sobre dos nuevas ciencias</Quote.Source>
           Y encontré que los espacios recorridos están entre sí como los cuadrados de los tiempos.
         </Quote>
 
@@ -133,13 +135,9 @@ export function DocumentStory() {
         <h2 className={cls.taskHeading}>Qué hay que entregar</h2>
         <TaskList items={tasks} onToggle={toggleTask} label="Lo que hay que entregar" />
 
-        <Figure
-          src="/mascotas/otto.webp"
-          alt="Otto, una nutria de pie con las manos juntas"
-          caption="La pelota se suelta, no se tira. Si la empujan, la velocidad inicial deja de ser cero y la cuenta de arriba no sirve."
-          ratio="16/9"
-          fit="contain"
-        />
+        <Figure src="/mascotas/otto.webp" alt="Otto, una nutria de pie con las manos juntas" ratio="16/9" fit="contain">
+          <Figure.Caption>La pelota se suelta, no se tira. Si la empujan, la velocidad inicial deja de ser cero y la cuenta de arriba no sirve.</Figure.Caption>
+        </Figure>
 
         <h2 className={cls.furtherHeading}>Para los que quieran ir más lejos</h2>
         <p className={cls.furtherText}>

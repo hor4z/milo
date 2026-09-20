@@ -18,14 +18,18 @@ export function FigureStory() {
           <Figure
             src="/avatars/03.webp"
             alt="Una persona sonriendo, de frente"
-            caption="Con una foto va cover: llena el hueco y el borde no importa"
-          />
+           
+          >
+            <Figure.Caption>Con una foto va cover: llena el hueco y el borde no importa</Figure.Caption>
+          </Figure>
           <Figure
             src="/mascotas/otto.webp"
             alt="Otto, una nutria de pie con un pañuelo azul"
-            caption="Con un dibujo va contain: recortar se lleva justo lo que hay que ver"
+           
             fit="contain"
-          />
+          >
+            <Figure.Caption>Con un dibujo va contain: recortar se lleva justo lo que hay que ver</Figure.Caption>
+          </Figure>
         </div>
       </Section>
 
@@ -35,7 +39,9 @@ export function FigureStory() {
       >
         <div className={s.ratioGrid}>
           {(['16/9', '4/3', '3/2', '1/1'] as const).map((r, i) => (
-            <Figure key={r} src={`/avatars/0${i + 1}.webp`} alt="" caption={r} ratio={r} />
+            <Figure key={r} src={`/avatars/0${i + 1}.webp`} alt="" ratio={r} >
+              <Figure.Caption>{r}</Figure.Caption>
+            </Figure>
           ))}
         </div>
       </Section>

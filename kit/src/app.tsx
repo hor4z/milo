@@ -368,12 +368,11 @@ export function App() {
             {!story && current !== INTRO && current !== 'dashboard' && current !== 'documento' && (
               <>
               <h1 className="sr-only">Esa vista ya no está acá</h1>
-              <EmptyState
-                icon="search_off"
-                title="Esa vista ya no está acá"
-                body={`No hay ninguna pieza que se llame "${current}". Puede que se haya renombrado: el buscador del riel encuentra por nombre y por sinónimo.`}
-                action={<Button variant="muted" iconStart={<Icon name="arrow_back" />} onClick={() => go(INTRO)}>Volver a la introducción</Button>}
-              />
+              <EmptyState icon="search_off">
+                <EmptyState.Title>Esa vista ya no está acá</EmptyState.Title>
+                <EmptyState.Body>{`No hay ninguna pieza que se llame "${current}". Puede que se haya renombrado: el buscador del riel encuentra por nombre y por sinónimo.`}</EmptyState.Body>
+                <EmptyState.Action>{<Button variant="muted" iconStart={<Icon name="arrow_back" />} onClick={() => go(INTRO)}>Volver a la introducción</Button>}</EmptyState.Action>
+              </EmptyState>
               </>
             )}
           </div>

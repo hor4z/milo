@@ -28,7 +28,9 @@ export function CardStory() {
               <Chip size="sm" color="ok">84%</Chip>
             </Card.Header>
             <Card.Body>
-              <Progress label="Corregidas" value={18} max={24} hint="18 de 24" />
+              <Progress label="Corregidas" value={18} max={24} >
+                <Progress.Hint>18 de 24</Progress.Hint>
+              </Progress>
             </Card.Body>
             <Card.Footer>
               <Button size="sm" variant="ghost" iconEnd={<Icon name="chevron_right" />}>Ver todas</Button>

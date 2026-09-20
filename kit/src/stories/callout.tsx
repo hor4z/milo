@@ -12,13 +12,16 @@ export function CalloutStory() {
     >
       <Section title="La pieza">
         <Stack width="xl">
-          <Callout icon="lightbulb" color="blue" title="Para acordarse">
+          <Callout icon="lightbulb" color="blue">
+            <Callout.Title>Para acordarse</Callout.Title>
             La velocidad límite no depende de la masa: depende de la forma y del aire.
           </Callout>
-          <Callout icon="science" color="green" title="Probalo">
+          <Callout icon="science" color="green">
+            <Callout.Title>Probalo</Callout.Title>
             Soltá una hoja abierta y la misma hoja hecha un bollo. Cronometrá las dos.
           </Callout>
-          <Callout icon="visibility" color="orange" title="Ojo con esto">
+          <Callout icon="visibility" color="orange">
+            <Callout.Title>Ojo con esto</Callout.Title>
             Dos figuras con el mismo perímetro pueden tener áreas muy distintas.
           </Callout>
         </Stack>

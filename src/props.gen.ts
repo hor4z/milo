@@ -299,12 +299,6 @@ export const propsByComponent: Record<string, ComponentDoc> = {
         "doc": "El color del papel. Sale de la familia de categorías y no de los tonos de estado: un bloque de contenido no está avisando de nada."
       },
       {
-        "name": "title",
-        "type": "string",
-        "required": false,
-        "doc": "La primera línea, en negrita. Sin esto el bloque arranca directo con el texto."
-      },
-      {
         "name": "children",
         "type": "ReactNode",
         "required": true
@@ -316,6 +310,15 @@ export const propsByComponent: Record<string, ComponentDoc> = {
       }
     ],
     "doc": "Un bloque de contenido que pide detenerse: una aclaración, una pista, algo para recordar."
+  },
+  "Callout.Title": {
+    "props": [
+      {
+        "name": "children",
+        "type": "ReactNode",
+        "required": true
+      }
+    ]
   },
   "Card": {
     "props": [
@@ -922,22 +925,10 @@ export const propsByComponent: Record<string, ComponentDoc> = {
   "EmptyState": {
     "props": [
       {
-        "name": "title",
-        "type": "string",
-        "required": true,
-        "doc": "Qué falta, en una línea."
-      },
-      {
-        "name": "body",
-        "type": "string",
-        "required": true,
-        "doc": "Qué pasó y qué se puede hacer."
-      },
-      {
-        "name": "action",
+        "name": "children",
         "type": "ReactNode",
         "required": false,
-        "doc": "La salida. Siempre conviene que haya una."
+        "doc": "El `Title`, el `Body` y, si hay salida, la `Action`."
       },
       {
         "name": "icon",
@@ -961,6 +952,36 @@ export const propsByComponent: Record<string, ComponentDoc> = {
       }
     ],
     "doc": "Lo que se ve cuando no hay nada."
+  },
+  "EmptyState.Title": {
+    "props": [
+      {
+        "name": "children",
+        "type": "ReactNode",
+        "required": true
+      }
+    ],
+    "doc": "Qué falta, en una línea."
+  },
+  "EmptyState.Body": {
+    "props": [
+      {
+        "name": "children",
+        "type": "ReactNode",
+        "required": true
+      }
+    ],
+    "doc": "Qué pasó y qué se puede hacer."
+  },
+  "EmptyState.Action": {
+    "props": [
+      {
+        "name": "children",
+        "type": "ReactNode",
+        "required": true
+      }
+    ],
+    "doc": "La salida. Siempre conviene que haya una."
   },
   "Field": {
     "props": [
@@ -1029,10 +1050,10 @@ export const propsByComponent: Record<string, ComponentDoc> = {
         "doc": "Qué se ve, para quien no la ve. No es el epígrafe: si la imagen no aporta nada que el texto no diga, va vacío y la imagen queda decorativa."
       },
       {
-        "name": "caption",
+        "name": "children",
         "type": "ReactNode",
         "required": false,
-        "doc": "Lo que se lee abajo, para todo el mundo. Agrega algo que la imagen no dice sola: de dónde salió, qué hay que mirar."
+        "doc": "El `Figure.Caption`, si lleva."
       },
       {
         "name": "ratio",
@@ -1055,6 +1076,16 @@ export const propsByComponent: Record<string, ComponentDoc> = {
       }
     ],
     "doc": "Una imagen con su pie: lo que ilustra una consigna, una foto de un experimento, el gráfico que alguien dibujó a mano."
+  },
+  "Figure.Caption": {
+    "props": [
+      {
+        "name": "children",
+        "type": "ReactNode",
+        "required": true
+      }
+    ],
+    "doc": "Lo que se lee abajo, para todo el mundo. Agrega algo que la imagen no dice sola: de dónde salió, qué hay que mirar."
   },
   "FilterBar": {
     "props": [],
@@ -1098,16 +1129,10 @@ export const propsByComponent: Record<string, ComponentDoc> = {
   "Folder": {
     "props": [
       {
-        "name": "label",
-        "type": "string",
+        "name": "children",
+        "type": "ReactNode",
         "required": false,
-        "doc": "El nombre, debajo."
-      },
-      {
-        "name": "meta",
-        "type": "string",
-        "required": false,
-        "doc": "La línea de apoyo: \"15 archivos\"."
+        "doc": "El `Folder.Label` y, si va, el `Folder.Meta`."
       },
       {
         "name": "sheets",
@@ -1154,6 +1179,26 @@ export const propsByComponent: Record<string, ComponentDoc> = {
       }
     ],
     "doc": "Una carpeta que se abre."
+  },
+  "Folder.Label": {
+    "props": [
+      {
+        "name": "children",
+        "type": "ReactNode",
+        "required": true
+      }
+    ],
+    "doc": "El nombre, debajo."
+  },
+  "Folder.Meta": {
+    "props": [
+      {
+        "name": "children",
+        "type": "ReactNode",
+        "required": true
+      }
+    ],
+    "doc": "La línea de apoyo: \"15 archivos\"."
   },
   "Icon": {
     "props": [
@@ -1873,6 +1918,12 @@ export const propsByComponent: Record<string, ComponentDoc> = {
   "Progress": {
     "props": [
       {
+        "name": "children",
+        "type": "ReactNode",
+        "required": false,
+        "doc": "El `Progress.Hint` con el número, si va."
+      },
+      {
         "name": "value",
         "type": "number",
         "required": true,
@@ -1892,12 +1943,6 @@ export const propsByComponent: Record<string, ComponentDoc> = {
         "doc": "Qué mide, para quien no ve la barra."
       },
       {
-        "name": "hint",
-        "type": "ReactNode",
-        "required": false,
-        "doc": "El número al costado."
-      },
-      {
         "name": "tone",
         "type": "'brand' | 'ok' | 'warn' | 'bad'",
         "required": false,
@@ -1908,18 +1953,22 @@ export const propsByComponent: Record<string, ComponentDoc> = {
     "html": "div",
     "doc": "Cuánto de algo va hecho. La pista es el resto, no un segundo dato."
   },
+  "Progress.Hint": {
+    "props": [
+      {
+        "name": "children",
+        "type": "ReactNode",
+        "required": true
+      }
+    ],
+    "doc": "El número al costado."
+  },
   "Quote": {
     "props": [
       {
         "name": "children",
         "type": "ReactNode",
         "required": true
-      },
-      {
-        "name": "source",
-        "type": "ReactNode",
-        "required": false,
-        "doc": "Quién lo dijo o de dónde salió. Va abajo, en gris y más chico."
       },
       {
         "name": "cite",
@@ -1934,6 +1983,16 @@ export const propsByComponent: Record<string, ComponentDoc> = {
       }
     ],
     "doc": "Palabras de otro: lo que dijo alguien, un fragmento de un texto, la respuesta de un estudiante."
+  },
+  "Quote.Source": {
+    "props": [
+      {
+        "name": "children",
+        "type": "ReactNode",
+        "required": true
+      }
+    ],
+    "doc": "Quién lo dijo o de dónde salió. Va abajo, en gris y más chico."
   },
   "Radio": {
     "props": [
@@ -2069,25 +2128,33 @@ export const propsByComponent: Record<string, ComponentDoc> = {
   "Row": {
     "props": [
       {
-        "name": "label",
-        "type": "string",
-        "required": true,
-        "doc": "Qué se ajusta. Es un `<label>` de verdad: tocarlo acciona el control."
-      },
-      {
-        "name": "hint",
-        "type": "string",
-        "required": false,
-        "doc": "La segunda línea, en 11 gris."
-      },
-      {
         "name": "children",
         "type": "ReactNode",
         "required": false,
-        "doc": "El control, alineado a la derecha."
+        "doc": "El `Row.Label`, el `Row.Hint` si va, y el control."
       }
     ],
     "doc": "La fila de un panel: 56px de alto, padding 16/24, label a la izquierda y control a la derecha."
+  },
+  "Row.Label": {
+    "props": [
+      {
+        "name": "children",
+        "type": "ReactNode",
+        "required": true
+      }
+    ],
+    "doc": "Qué se ajusta. Es un `<label>` de verdad: tocarlo acciona el control."
+  },
+  "Row.Hint": {
+    "props": [
+      {
+        "name": "children",
+        "type": "ReactNode",
+        "required": true
+      }
+    ],
+    "doc": "La segunda línea, en 11 gris."
   },
   "Search": {
     "props": [

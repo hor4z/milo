@@ -23,13 +23,18 @@ export function RowStory() {
         note="El divisor va como borde superior de cada fila menos la primera, y no como borde inferior de todas: así la última no deja una línea suelta contra el fondo del panel. Es un detalle de un píxel que se nota en cuanto falta."
       >
         <div className={`${cls.settingsList} bg-surface`}>
-          <Row label="Sugerir mejoras" hint="Mientras escribís una consigna">
+          <Row>
+            <Row.Label>Sugerir mejoras</Row.Label>
+            <Row.Hint>Mientras escribís una consigna</Row.Hint>
             <Switch checked={first} onChange={setFirst} label="Sugerir mejoras" />
           </Row>
-          <Row label="Aparecer en el directorio" hint="Otras escuelas pueden encontrarte">
+          <Row>
+            <Row.Label>Aparecer en el directorio</Row.Label>
+            <Row.Hint>Otras escuelas pueden encontrarte</Row.Hint>
             <Switch checked={second} onChange={setSecond} label="Directorio" />
           </Row>
-          <Row label="Quién ve mis recetas">
+          <Row>
+            <Row.Label>Quién ve mis recetas</Row.Label>
             <Select value={level} onChange={setLevel} width={180} options={['Solo yo', 'Todo el equipo', 'Cualquiera con el link']} />
           </Row>
         </div>
@@ -40,7 +45,9 @@ export function RowStory() {
         note="El `label` es un `<label>` de verdad atado al control que lleva adentro: tocar el texto prende el switch, que además agranda muchísimo el blanco del click. Adentro de la etiqueta va solo el nombre: con la ayuda adentro, el nombre accesible pasaría a ser las dos frases pegadas."
       >
         <div className={`${cls.labelFocusList} bg-surface`}>
-          <Row label="Avisos por mail" hint="Cuando llega una entrega">
+          <Row>
+            <Row.Label>Avisos por mail</Row.Label>
+            <Row.Hint>Cuando llega una entrega</Row.Hint>
             <Switch checked={first} onChange={setFirst} label="Avisos por mail" />
           </Row>
         </div>
@@ -51,10 +58,13 @@ export function RowStory() {
         note="Un valor que no se edita acá, un botón que lleva a otro lado, un dato: la fila sirve igual, y el que decide si hay algo que tocar es el contenido."
       >
         <div className={`${cls.rightSideList} bg-surface`}>
-          <Row label="Correo">
+          <Row>
+            <Row.Label>Correo</Row.Label>
             <span className={cls.accountEmail}>melina@milo.app</span>
           </Row>
-          <Row label="Contraseña" hint="La última vez que la cambiaste fue en marzo">
+          <Row>
+            <Row.Label>Contraseña</Row.Label>
+            <Row.Hint>La última vez que la cambiaste fue en marzo</Row.Hint>
             <Button size="sm" variant="muted">Cambiar</Button>
           </Row>
         </div>

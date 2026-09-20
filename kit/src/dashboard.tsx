@@ -168,15 +168,10 @@ export function Dashboard() {
             </div>
             <div className={cls.folderGrid}>
               {spaces.map(e => (
-                <Folder
-                  key={e.label}
-                  size={104}
-                  label={e.label}
-                  meta={e.meta}
-                  color={e.color}
-                  avatars={e.avatars}
-                  onClick={() => {}}
-                />
+                <Folder key={e.label} size={104} color={e.color} avatars={e.avatars} onClick={() => {}}>
+                  <Folder.Label>{e.label}</Folder.Label>
+                  <Folder.Meta>{e.meta}</Folder.Meta>
+                </Folder>
               ))}
             </div>
           </section>
@@ -206,10 +201,18 @@ export function Dashboard() {
 
             <div className={cls.progressBlock}>
               <h2 className={cls.progressTitle}>Cómo va cada espacio</h2>
-              <Progress label="Matemática · 4.º A" value={11} max={18} hint="11/18" />
-              <Progress label="Ciencias · 5.º B" value={24} max={24} hint="listo" tone="ok" />
-              <Progress label="Sociales · 5.º A" value={3} max={7} hint="3/7" />
-              <Progress label="Lengua · 6.º" value={0} max={12} hint="sin entregas" />
+              <Progress label="Matemática · 4.º A" value={11} max={18} >
+                <Progress.Hint>11/18</Progress.Hint>
+              </Progress>
+              <Progress label="Ciencias · 5.º B" value={24} max={24} tone="ok" >
+                <Progress.Hint>listo</Progress.Hint>
+              </Progress>
+              <Progress label="Sociales · 5.º A" value={3} max={7} >
+                <Progress.Hint>3/7</Progress.Hint>
+              </Progress>
+              <Progress label="Lengua · 6.º" value={0} max={12} >
+                <Progress.Hint>sin entregas</Progress.Hint>
+              </Progress>
             </div>
 
             <div className={cls.peopleFooter}>

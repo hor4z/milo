@@ -278,8 +278,12 @@ export function ColorSection() {
         note="La pista es lo que había para hacer y el relleno es lo hecho. **No son los tonos de estado aunque en claro coincidan**: un tono de estado está anclado donde el blanco encima se lee, y un relleno no lleva texto encima, así que lo que necesita es despegarse de su pista."
       >
         <div className={`${cls.dataCard} bg-surface`}>
-          <Progress label="Corregidas" value={18} max={24} hint="18 de 24" />
-          <Progress label="Espacio usado" value={22} max={24} tone="warn" hint="22 de 24 GB" />
+          <Progress label="Corregidas" value={18} max={24} >
+            <Progress.Hint>18 de 24</Progress.Hint>
+          </Progress>
+          <Progress label="Espacio usado" value={22} max={24} tone="warn" >
+            <Progress.Hint>22 de 24 GB</Progress.Hint>
+          </Progress>
         </div>
         <div className={cls.dataRamp}>
           <Swatch token="--track" note="lo que había para hacer" />

@@ -18,22 +18,19 @@ export function EmptyStateStory() {
       >
         <Stack gap="lg">
           <Demo label="md · una pantalla">
-            <EmptyState
-              icon="inbox"
-              title="Todavía no llegó ninguna entrega"
-              body="Cuando alguien entregue una actividad de este espacio, la vas a ver acá con su estado."
-              action={<Button variant="brand">Crear una actividad</Button>}
-            />
+            <EmptyState icon="inbox">
+              <EmptyState.Action>{<Button variant="brand">
+              <EmptyState.Title>Todavía no llegó ninguna entrega</EmptyState.Title>
+              <EmptyState.Body>Cuando alguien entregue una actividad de este espacio, la vas a ver acá con su estado.</EmptyState.Body>Crear una actividad</Button>}</EmptyState.Action>
+            </EmptyState>
           </Demo>
           <Demo label="sm · adentro de una pieza">
             <div className={`${cls.insetBox} bg-surface`}>
-              <EmptyState
-                size="sm"
-                icon="search_off"
-                title="Ninguna actividad con eso"
-                body="Probá con otras palabras, o sacá alguno de los filtros puestos."
-                action={<FilterReset>Limpiar los filtros</FilterReset>}
-              />
+              <EmptyState size="sm" icon="search_off">
+                <EmptyState.Action>{<FilterReset>
+                <EmptyState.Title>Ninguna actividad con eso</EmptyState.Title>
+                <EmptyState.Body>Probá con otras palabras, o sacá alguno de los filtros puestos.</EmptyState.Body>Limpiar los filtros</FilterReset>}</EmptyState.Action>
+              </EmptyState>
             </div>
           </Demo>
         </Stack>
@@ -45,16 +42,22 @@ export function EmptyStateStory() {
       >
         <Stack gap="lg">
           <Demo label="bordered · el default de md">
-            <EmptyState icon="folder_open" title="Este espacio está vacío" body="Todavía no hay actividades acá." />
+            <EmptyState icon="folder_open" >
+              <EmptyState.Title>Este espacio está vacío</EmptyState.Title>
+              <EmptyState.Body>Todavía no hay actividades acá.</EmptyState.Body>
+            </EmptyState>
           </Demo>
           <Demo label="sin caja, adentro de una tarjeta">
             <div className={`${cls.raisedBox} bg-surface`}>
               <EmptyState
                 bordered={false}
                 icon="folder_open"
-                title="Este espacio está vacío"
-                body="Todavía no hay actividades acá."
-              />
+               
+               
+              >
+                <EmptyState.Title>Este espacio está vacío</EmptyState.Title>
+                <EmptyState.Body>Todavía no hay actividades acá.</EmptyState.Body>
+              </EmptyState>
             </div>
           </Demo>
         </Stack>
@@ -65,11 +68,11 @@ export function EmptyStateStory() {
         note="Sigue funcionando, y es lo que había antes: un bloque de texto centrado. Con icono se reconoce de qué tipo de vacío se trata antes de leerlo: no es lo mismo 'no hay nada todavía' que 'no encontré nada con eso'."
       >
         <Demo label="solo texto">
-          <EmptyState
-            title="Acá no hay nada"
-            body="La dirección existe pero no lleva a ninguna pantalla."
-            action={<Button variant="muted">Volver</Button>}
-          />
+          <EmptyState>
+            <EmptyState.Action>{<Button variant="muted">
+            <EmptyState.Title>Acá no hay nada</EmptyState.Title>
+            <EmptyState.Body>La dirección existe pero no lleva a ninguna pantalla.</EmptyState.Body>Volver</Button>}</EmptyState.Action>
+          </EmptyState>
         </Demo>
       </Section>
 
