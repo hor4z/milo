@@ -6,7 +6,6 @@ import { Callout } from '@milo/ui/callout'
 import { CommandMenu, type CommandGroup } from '@milo/ui/command-menu'
 import { Divider } from '@milo/ui/divider'
 import { Figure } from '@milo/ui/figure'
-import { Icon } from '@milo/ui/icon'
 import { Mention } from '@milo/ui/mention'
 import { Popover } from '@milo/ui/popover'
 import { Quote } from '@milo/ui/quote'
@@ -71,7 +70,6 @@ function Rubric() {
   return (
     <aside className={cls.rubric} aria-labelledby="rubrica">
       <div className={cls.rubricHeader}>
-        <Icon name="checklist" size={20} className="icon-muted" />
         <p id="rubrica" className={cls.rubricTitle}>Con qué se corrige</p>
         <span className={`${cls.rubricCount} tabular`}>{counted(criteria.length, ['criterio', 'criterios'])}</span>
       </div>
@@ -94,13 +92,7 @@ function Rubric() {
           ))}
         </ul>
 
-        <Button
-          size="sm"
-          variant="ghost"
-          iconStart={<Icon name="add" />}
-          onClick={() => {}}
-          className={cls.addCriterion}
-        >
+        <Button size="sm" variant="ghost" onClick={() => {}} className={cls.addCriterion}>
           Agregar criterio
         </Button>
       </div>
@@ -146,7 +138,7 @@ export function DocumentStory() {
             <Popover
               align="end"
               trigger={p => (
-                <Button {...p} size="sm" variant="brand" iconStart={<Icon name="add" />}>
+                <Button {...p} size="sm" variant="brand">
                   Insertar
                 </Button>
               )}

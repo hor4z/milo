@@ -235,13 +235,13 @@
 
   .levels {
     display: flex;
-    height: 0.5rem;
-    gap: 0.125rem;
+    height: 0.75rem;
+    overflow: hidden;
+    border-radius: var(--radius-full);
   }
 
   .level {
     flex: 1;
-    border-radius: var(--radius-xs);
   }
 
   .criterionHint {
@@ -252,7 +252,8 @@
   }
 
   .addCriterion {
-    align-self: flex-start;
+    align-self: flex-end;
+    margin-top: 0.5rem;
   }
 
   .swatches {
@@ -291,6 +292,7 @@
     }
 
     .rubric {
+      margin-inline-start: auto;
       position: sticky;
       top: 2.5rem;
       width: 300px;
