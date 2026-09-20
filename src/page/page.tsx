@@ -2,8 +2,7 @@ import s from './page.module.css'
 import type { ReactNode } from 'react'
 import { cx } from '../lib/cx'
 
-/** El contenedor de una pantalla. */
-export function Page({ children, wide }: {
+function Root({ children, wide }: {
   children: ReactNode
   /** Suelta el ancho para una tabla o una grilla larga. */
   wide?: boolean
@@ -15,7 +14,7 @@ export function Page({ children, wide }: {
   )
 }
 
-export function PageHeader({
+function Header({
   title, subtitle, actions,
 }: {
   /** El nombre de la pantalla, como `h1`. */
@@ -37,7 +36,7 @@ export function PageHeader({
 }
 
 /** El separador con rótulo, para cortar una pantalla larga en tramos. */
-export function SectionLabel({ children, count }: {
+function SectionLabel({ children, count }: {
   children: ReactNode
   /** Cuántos hay, al lado del rótulo. */
   count?: number
@@ -50,3 +49,6 @@ export function SectionLabel({ children, count }: {
     </div>
   )
 }
+
+/** El contenedor de una pantalla. */
+export const Page = Object.assign(Root, { Header, SectionLabel })

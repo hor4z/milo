@@ -1,16 +1,16 @@
 import { render, screen } from '@testing-library/react'
 import s from './card.module.css'
 import { describe, expect, it } from 'vitest'
-import { Card, CardBody, CardFooter, CardHeader, CardHint, CardTitle } from './card'
+import { Card } from './card'
 
 describe('Card', () => {
   it('se arma con partes', () => {
     render(
       <Card>
-        <CardHeader><CardTitle>Entregas</CardTitle></CardHeader>
-        <CardHint>De esta semana</CardHint>
-        <CardBody>18 de 24</CardBody>
-        <CardFooter>pie</CardFooter>
+        <Card.Header><Card.Title>Entregas</Card.Title></Card.Header>
+        <Card.Hint>De esta semana</Card.Hint>
+        <Card.Body>18 de 24</Card.Body>
+        <Card.Footer>pie</Card.Footer>
       </Card>,
     )
     expect(screen.getByRole('heading', { name: 'Entregas' })).toBeInTheDocument()
@@ -18,7 +18,7 @@ describe('Card', () => {
   })
 
   it('el título es un h3: la tarjeta entra en el esquema de la página', () => {
-    render(<Card><CardHeader><CardTitle>Entregas</CardTitle></CardHeader></Card>)
+    render(<Card><Card.Header><Card.Title>Entregas</Card.Title></Card.Header></Card>)
     expect(screen.getByRole('heading', { level: 3, name: 'Entregas' })).toBeInTheDocument()
   })
 

@@ -1,5 +1,5 @@
 import css from './layout.module.css'
-import { Card, CardBody } from '@milo/ui/card'
+import { Card } from '@milo/ui/card'
 import { A11y, Note, Page, Section } from '../kit'
 
 const breaks = [
@@ -61,14 +61,14 @@ export function LayoutSection() {
       >
         <div className={css.structureStack}>
           <Card>
-            <CardBody>
+            <Card.Body>
               <div className={css.structureMain}>Lo what la pantalla viene a mostrar</div>
-            </CardBody>
+            </Card.Body>
           </Card>
           <Card surface="muted">
-            <CardBody>
+            <Card.Body>
               <div className={css.structureAside}>Lo what acompaña</div>
-            </CardBody>
+            </Card.Body>
           </Card>
         </div>
       </Section>

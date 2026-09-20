@@ -18,8 +18,7 @@ type FieldProps = {
   className?: string
 }
 
-/** Une etiqueta, ayuda, error y control: los tres textos quedan atados al control. */
-export function Field({ label, hint, error, required, children, className }: FieldProps) {
+function Root({ label, hint, error, required, children, className }: FieldProps) {
   const id = useId()
   const labelId = `${id}-label`
   const hintId = `${id}-hint`
@@ -48,7 +47,7 @@ export function Field({ label, hint, error, required, children, className }: Fie
 }
 
 /** Varios campos, uno debajo del otro, con el aire del sistema. */
-export function FieldSet({ legend, className, children, ...props }: ComponentPropsWithoutRef<'fieldset'> & {
+function Set({ legend, className, children, ...props }: ComponentPropsWithoutRef<'fieldset'> & {
   /** Cómo se llama el grupo. Un lector lo anuncia al entrar. */
   legend?: string
 }) {
@@ -59,3 +58,6 @@ export function FieldSet({ legend, className, children, ...props }: ComponentPro
     </fieldset>
   )
 }
+
+/** Une etiqueta, ayuda, error y control: los tres textos quedan atados al control. */
+export const Field = Object.assign(Root, { Set })

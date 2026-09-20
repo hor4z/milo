@@ -1,7 +1,7 @@
 import cls from './dashboard.module.css'
 import { Stack } from './kit'
 import { useEffect, useState } from 'react'
-import { Avatar, AvatarGroup } from '@milo/ui/avatar'
+import { Avatar } from '@milo/ui/avatar'
 import { Button } from '@milo/ui/button'
 import { Card } from '@milo/ui/card'
 import { BarChart } from '@milo/ui/chart'
@@ -14,7 +14,7 @@ import { Indicator } from '@milo/ui/indicator'
 import { count, delta } from '@milo/ui/lib/number'
 import { dayAndTime } from '@milo/ui/lib/time'
 import { Link } from '@milo/ui/link'
-import { List, ListItem } from '@milo/ui/list'
+import { List } from '@milo/ui/list'
 import { Progress } from '@milo/ui/progress'
 import { Search } from '@milo/ui/search'
 import { Segmented } from '@milo/ui/segmented'
@@ -192,7 +192,7 @@ export function Dashboard() {
               </div>
               <List>
                 {pending.map(t => (
-                  <ListItem
+                  <List.Item
                     key={t.title}
                     icon={t.icon}
                     color={t.color}
@@ -213,7 +213,7 @@ export function Dashboard() {
             </div>
 
             <div className={cls.peopleFooter}>
-              <AvatarGroup size={24} people={[p('Ana Pérez', 1), p('Bruno Díaz', 2), p('Carla Sosa', 3), p('Elena Vega', 5)]} />
+              <Avatar.Group size={24} people={[p('Ana Pérez', 1), p('Bruno Díaz', 2), p('Carla Sosa', 3), p('Elena Vega', 5)]} />
               <span className={cls.peopleCount}>96 estudiantes en total</span>
             </div>
           </Card>

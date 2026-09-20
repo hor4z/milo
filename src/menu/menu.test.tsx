@@ -1,20 +1,20 @@
 import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { describe, expect, it } from 'vitest'
-import { Menu, MenuItem, MenuLabel } from './menu'
+import { Menu } from './menu'
 
 describe('Menu', () => {
   it('tiene nombre: con dos abiertos, "menú" y "menú" no se distinguen', () => {
-    render(<Menu label="Acciones de la actividad"><MenuItem>Editar</MenuItem></Menu>)
+    render(<Menu label="Acciones de la actividad"><Menu.Item>Editar</Menu.Item></Menu>)
     expect(screen.getByRole('menu', { name: 'Acciones de la actividad' })).toBeInTheDocument()
   })
 
   it('marca la opción elegida para un lector', () => {
     render(
       <Menu>
-        <MenuLabel>Vista</MenuLabel>
-        <MenuItem checked>Grilla</MenuItem>
-        <MenuItem checked={false}>Lista</MenuItem>
+        <Menu.Label>Vista</Menu.Label>
+        <Menu.Item checked>Grilla</Menu.Item>
+        <Menu.Item checked={false}>Lista</Menu.Item>
       </Menu>,
     )
     expect(screen.getByRole('menuitemradio', { name: /Grilla/ })).toHaveAttribute('aria-checked', 'true')
@@ -22,16 +22,16 @@ describe('Menu', () => {
   })
 
   it('una opción sin estado es un menuitem común', () => {
-    render(<Menu><MenuItem>Salir</MenuItem></Menu>)
+    render(<Menu><Menu.Item>Salir</Menu.Item></Menu>)
     expect(screen.getByRole('menuitem', { name: 'Salir' })).toBeInTheDocument()
   })
 
   it('las flechas recorren el menú y dan la vuelta', async () => {
     render(
       <Menu>
-        <MenuItem>Duplicar</MenuItem>
-        <MenuItem>Archivar</MenuItem>
-        <MenuItem danger>Borrar</MenuItem>
+        <Menu.Item>Duplicar</Menu.Item>
+        <Menu.Item>Archivar</Menu.Item>
+        <Menu.Item danger>Borrar</Menu.Item>
       </Menu>,
     )
     const [first, second, third] = screen.getAllByRole('menuitem')
@@ -47,9 +47,9 @@ describe('Menu', () => {
   it('Home y End van a los extremos', async () => {
     render(
       <Menu>
-        <MenuItem>Duplicar</MenuItem>
-        <MenuItem>Archivar</MenuItem>
-        <MenuItem>Borrar</MenuItem>
+        <Menu.Item>Duplicar</Menu.Item>
+        <Menu.Item>Archivar</Menu.Item>
+        <Menu.Item>Borrar</Menu.Item>
       </Menu>,
     )
     const items = screen.getAllByRole('menuitem')
@@ -63,9 +63,9 @@ describe('Menu', () => {
   it('las flechas saltean lo apagado', async () => {
     render(
       <Menu>
-        <MenuItem>Duplicar</MenuItem>
-        <MenuItem disabled>Archivar</MenuItem>
-        <MenuItem>Borrar</MenuItem>
+        <Menu.Item>Duplicar</Menu.Item>
+        <Menu.Item disabled>Archivar</Menu.Item>
+        <Menu.Item>Borrar</Menu.Item>
       </Menu>,
     )
     const items = screen.getAllByRole('menuitem')

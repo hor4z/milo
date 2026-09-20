@@ -3,8 +3,7 @@ import type { Ref } from 'react'
 import { cx } from '../lib/cx'
 import { useRovingRadio } from '../lib/roving'
 
-/** La elección de una entre varias. */
-export function Radio({
+function Root({
   checked, onChange, label, disabled, id, tabIndex, ref,
 }: {
   /** Es controlado. */
@@ -17,9 +16,9 @@ export function Radio({
   disabled?: boolean
   /** Para atarlo a una etiqueta de afuera. */
   id?: string
-  /** Lo pone `RadioGroup` para dejar una sola parada de tabulación. */
+  /** Lo pone `Group` para dejar una sola parada de tabulación. */
   tabIndex?: number
-  /** Lo usa `RadioGroup` para mover el foco con las flechas. */
+  /** Lo usa `Group` para mover el foco con las flechas. */
   ref?: Ref<HTMLButtonElement>
 }) {
   return (
@@ -51,7 +50,7 @@ export function Radio({
 }
 
 /** El grupo va suelto: las opciones sobre el papel, cada una con su etiqueta al lado. */
-export function RadioGroup<T extends string>({
+function Group<T extends string>({
   value, onChange, options, label, className,
 }: {
   /** El valor elegido: es controlado. */
@@ -73,7 +72,7 @@ export function RadioGroup<T extends string>({
       className={cx(s.row, className)}
     >
       {options.map(o => (
-        <Radio
+        <Root
           key={o.value}
           ref={roving.ref(o.value)}
           checked={o.value === value}
@@ -86,3 +85,6 @@ export function RadioGroup<T extends string>({
     </div>
   )
 }
+
+/** La elección de una entre varias. */
+export const Radio = Object.assign(Root, { Group })

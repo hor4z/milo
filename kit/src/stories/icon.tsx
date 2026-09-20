@@ -188,7 +188,7 @@ export function IconStory() {
       </Section>
 
       <Section title="Props">
-        <Props of={['Icon', 'FolderIcon']} />
+        <Props of="Icon" />
       </Section>
 
       <Section

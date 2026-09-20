@@ -1,5 +1,5 @@
 import cls from './color.module.css'
-import { Alert, AlertTitle } from '@milo/ui/alert'
+import { Alert } from '@milo/ui/alert'
 import { Button } from '@milo/ui/button'
 import { Chip } from '@milo/ui/chip'
 import { Progress } from '@milo/ui/progress'
@@ -202,7 +202,7 @@ export function ColorSection() {
             <Chip size="sm" color="bad" icon="error">Sin entregar</Chip>
           </div>
           <Alert tone="warn">
-            <AlertTitle>Tres entregas vencen mañana</AlertTitle>
+            <Alert.Title>Tres entregas vencen mañana</Alert.Title>
           </Alert>
         </div>
         <Note title="El naranja del warn no llega a los 3:1 contra su pista, y está decidido así">

@@ -1,6 +1,6 @@
 import s from './toolbar.module.css'
 import { useState } from 'react'
-import { Toolbar, ToolbarButton, ToolbarSeparator } from '@milo/ui/toolbar'
+import { Toolbar } from '@milo/ui/toolbar'
 import { A11y, Page, Props, Section } from '../kit'
 
 export function ToolbarStory() {
@@ -11,23 +11,23 @@ export function ToolbarStory() {
     <Page
       title="Toolbar"
       kind="Editor"
-      imports="import { Toolbar, ToolbarButton, ToolbarSeparator } from '@milo/ui/toolbar'"
+      imports="import { Toolbar } from '@milo/ui/toolbar'"
       lead="La barra que aparece sobre el texto seleccionado. Una sola parada de tabulación, y adentro se mueve con flechas."
     >
       <Section title="La pieza">
         <div className={s.pieceBox}>
           <Toolbar label="Formato del texto">
-            <ToolbarButton icon="format_bold" label="Negrita" pressed={format.bold} onClick={() => toggle('bold')} />
-            <ToolbarButton icon="format_italic" label="Cursiva" pressed={format.italic} onClick={() => toggle('italic')} />
-            <ToolbarButton icon="format_underlined" label="Subrayado" pressed={format.underline} onClick={() => toggle('underline')} />
-            <ToolbarSeparator />
-            <ToolbarButton icon="format_h1" label="Título" />
-            <ToolbarButton icon="format_h2" label="Subtítulo" />
-            <ToolbarButton icon="format_quote" label="Cita" />
-            <ToolbarSeparator />
-            <ToolbarButton icon="link" label="Enlace" />
-            <ToolbarButton icon="functions" label="Fórmula" />
-            <ToolbarButton icon="delete" label="Borrar el bloque" disabled />
+            <Toolbar.Button icon="format_bold" label="Negrita" pressed={format.bold} onClick={() => toggle('bold')} />
+            <Toolbar.Button icon="format_italic" label="Cursiva" pressed={format.italic} onClick={() => toggle('italic')} />
+            <Toolbar.Button icon="format_underlined" label="Subrayado" pressed={format.underline} onClick={() => toggle('underline')} />
+            <Toolbar.Separator />
+            <Toolbar.Button icon="format_h1" label="Título" />
+            <Toolbar.Button icon="format_h2" label="Subtítulo" />
+            <Toolbar.Button icon="format_quote" label="Cita" />
+            <Toolbar.Separator />
+            <Toolbar.Button icon="link" label="Enlace" />
+            <Toolbar.Button icon="functions" label="Fórmula" />
+            <Toolbar.Button icon="delete" label="Borrar el bloque" disabled />
           </Toolbar>
         </div>
       </Section>
@@ -38,13 +38,13 @@ export function ToolbarStory() {
       >
         <div className={s.toggleBox}>
           <Toolbar label="Dos clases de botón">
-            <ToolbarButton icon="format_bold" label="Negrita" pressed={format.bold} onClick={() => toggle('bold')} />
-            <ToolbarButton icon="content_copy" label="Duplicar" />
+            <Toolbar.Button icon="format_bold" label="Negrita" pressed={format.bold} onClick={() => toggle('bold')} />
+            <Toolbar.Button icon="content_copy" label="Duplicar" />
           </Toolbar>
         </div>
       </Section>
 
-      <Props of={['Toolbar', 'ToolbarButton']} />
+      <Props of="Toolbar" />
 
       <A11y
         items={[

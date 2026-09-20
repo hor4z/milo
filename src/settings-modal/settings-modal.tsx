@@ -1,7 +1,7 @@
 import cls from './settings-modal.module.css'
 import { useState } from 'react'
 import { cx } from '../lib/cx'
-import { Alert, AlertActions, AlertBody, AlertTitle } from '../alert/alert'
+import { Alert } from '../alert/alert'
 import { Button } from '../button/button'
 import { Chip } from '../chip/chip'
 import { Row } from '../row/row'
@@ -9,7 +9,7 @@ import { Segmented } from '../segmented/segmented'
 import { Select } from '../select/select'
 import { Switch } from '../switch/switch'
 import { Icon, type IconName } from '../icon/icon'
-import { Modal, ModalHeader, ModalTitle } from '../modal/modal'
+import { Modal } from '../modal/modal'
 import { usePrefs } from '../prefs/prefs'
 
 type SectionId = 'general' | 'perfil' | 'seguridad' | 'avisos'
@@ -43,9 +43,9 @@ export function SettingsModal({ open, onClose, user }: {
 
   return (
     <Modal open={open} onClose={onClose} size="md">
-      <ModalHeader>
-        <ModalTitle>Ajustes</ModalTitle>
-      </ModalHeader>
+      <Modal.Header>
+        <Modal.Title>Ajustes</Modal.Title>
+      </Modal.Header>
       <div className={cls.root}>
         <nav className={cls.rail}>
           {sections.map(s => {
@@ -160,14 +160,14 @@ function SecuritySection() {
       </Row>
       <div className={cls.dangerZone}>
         <Alert tone="bad" size="sm" role="group" aria-label="Borrar la cuenta">
-          <AlertTitle>Borrar la cuenta</AlertTitle>
-          <AlertBody>
+          <Alert.Title>Borrar la cuenta</Alert.Title>
+          <Alert.Body>
             Se van los espacios que coordinás y las actividades que escribiste. Las entregas de los
             aprendices quedan con su autor, no con vos.
-          </AlertBody>
-          <AlertActions>
+          </Alert.Body>
+          <Alert.Actions>
             <Button size="sm" variant="bad">Borrar la cuenta</Button>
-          </AlertActions>
+          </Alert.Actions>
         </Alert>
       </div>
     </div>

@@ -1,5 +1,5 @@
 import type { CSSProperties, ReactNode } from 'react'
-import { AvatarGroup } from '../avatar/avatar'
+import { Avatar } from '../avatar/avatar'
 import { cx } from '../lib/cx'
 
 /** Una carpeta que se abre. */
@@ -43,7 +43,7 @@ export function Folder({
           {(avatars?.length || badges) && (
             <span className="folder-badges">
               {avatars?.length ? (
-                <AvatarGroup
+                <Avatar.Group
                   people={avatars}
                   size={Math.round(size * 0.17)}
                   ring="var(--folder-top)"

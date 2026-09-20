@@ -45,6 +45,13 @@
     padding-block: 1rem;
   }
 
+  .heading {
+    display: flex;
+    min-width: 0;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
   .title {
     font-size: var(--type-reading);
     line-height: var(--type-reading-lh);

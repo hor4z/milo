@@ -1,7 +1,7 @@
 import { Icon } from '../icon/icon'
 import s from './filter.module.css'
 import type { ComponentPropsWithoutRef } from 'react'
-import { Avatar, AvatarGroup } from '../avatar/avatar'
+import { Avatar } from '../avatar/avatar'
 import { Button } from '../button/button'
 import { Checkbox } from '../checkbox/checkbox'
 import { cx } from '../lib/cx'
@@ -51,7 +51,7 @@ export function Filter({ label, options, value, onValueChange }: FilterProps) {
           size="sm"
           iconEnd={<Icon name="keyboard_arrow_down" />}
         >
-          {faces.length > 0 && <AvatarGroup people={faces} size={18} max={3} ring="var(--brand)" className={s.barFaces} />}
+          {faces.length > 0 && <Avatar.Group people={faces} size={18} max={3} ring="var(--brand)" className={s.barFaces} />}
           {label}{value.length > 0 && faces.length === 0 && ` · ${value.length}`}
         </Button>
       )}

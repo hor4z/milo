@@ -8,7 +8,7 @@ import { Icon, type IconName } from '../icon/icon'
 
 export type { MarkColor } from '../lib/colors'
 
-export function List({ children, className }: { children: ReactNode; className?: string }) {
+function Root({ children, className }: { children: ReactNode; className?: string }) {
   return (
     <div className={cx(s.root, className)}>
       {children}
@@ -16,7 +16,7 @@ export function List({ children, className }: { children: ReactNode; className?:
   )
 }
 
-export function ListItem({
+function Item({
   icon, color, title, hint, active, onClick, trailing,
 }: {
   /** El glifo de la marca de color. */
@@ -58,3 +58,5 @@ export function ListItem({
     </Tag>
   )
 }
+
+export const List = Object.assign(Root, { Item })

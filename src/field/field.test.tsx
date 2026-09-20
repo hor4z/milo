@@ -2,7 +2,7 @@ import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { describe, expect, it } from 'vitest'
 import { Checkbox } from '../checkbox/checkbox'
-import { Field, FieldSet } from './field'
+import { Field } from './field'
 import { Select } from '../select/select'
 import { Slider } from '../slider/slider'
 import { Switch } from '../switch/switch'
@@ -48,9 +48,9 @@ describe('Field', () => {
 describe('FieldSet', () => {
   it('agrupa campos bajo un nombre', () => {
     render(
-      <FieldSet legend="Quién puede ver">
+      <Field.Set legend="Quién puede ver">
         <Field label="Espacio"><TextField /></Field>
-      </FieldSet>,
+      </Field.Set>,
     )
     expect(screen.getByRole('group', { name: 'Quién puede ver' })).toBeInTheDocument()
   })

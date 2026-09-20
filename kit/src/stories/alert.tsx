@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Alert, AlertActions, AlertBody, AlertTitle } from '@milo/ui/alert'
+import { Alert } from '@milo/ui/alert'
 import { Button } from '@milo/ui/button'
 import { Icon } from '@milo/ui/icon'
 import { A11y, Demo, Frame, Note, Page, Props, Section, Stack } from '../kit'
@@ -13,7 +13,7 @@ export function AlertStory() {
     <Page
       title="Alert"
       kind="Avisos"
-      imports="import { Alert, AlertTitle, AlertBody, AlertActions } from '@milo/ui/alert'"
+      imports="import { Alert } from '@milo/ui/alert'"
       lead="El aviso que se queda en la página y forma parte de lo que estás mirando: algo está roto, algo falta, algo está por vencer. Si el aviso tiene que seguir ahí cuando la persona vuelva a mirar, es un Alert y no un `Toast`."
     >
       <Section
@@ -22,27 +22,27 @@ export function AlertStory() {
       >
         <Stack>
           <Alert tone="info">
-            <AlertTitle>La corrección automática está en prueba</AlertTitle>
-            <AlertBody>Podés desactivarla desde Ajustes mientras la probamos.</AlertBody>
+            <Alert.Title>La corrección automática está en prueba</Alert.Title>
+            <Alert.Body>Podés desactivarla desde Ajustes mientras la probamos.</Alert.Body>
           </Alert>
           <Alert tone="ok">
-            <AlertTitle>Se publicó en los siete espacios</AlertTitle>
+            <Alert.Title>Se publicó en los siete espacios</Alert.Title>
           </Alert>
           <Alert tone="warn">
-            <AlertTitle>Tres entregas vencen mañana</AlertTitle>
-            <AlertBody>Después de esa fecha los estudiantes ya no pueden subir nada.</AlertBody>
-            <AlertActions>
+            <Alert.Title>Tres entregas vencen mañana</Alert.Title>
+            <Alert.Body>Después de esa fecha los estudiantes ya no pueden subir nada.</Alert.Body>
+            <Alert.Actions>
               <Button size="sm" variant="muted">Ver las entregas</Button>
-            </AlertActions>
+            </Alert.Actions>
           </Alert>
           {showing('rojo')
             ? (
               <Alert tone="bad" onDismiss={() => dismiss('rojo')}>
-                <AlertTitle>No se pudieron traer las entregas</AlertTitle>
-                <AlertBody>Puede ser la conexión. Lo que ya estaba corregido sigue estando.</AlertBody>
-                <AlertActions>
+                <Alert.Title>No se pudieron traer las entregas</Alert.Title>
+                <Alert.Body>Puede ser la conexión. Lo que ya estaba corregido sigue estando.</Alert.Body>
+                <Alert.Actions>
                   <Button size="sm" variant="muted" iconStart={<Icon name="refresh" />}>Reintentar</Button>
-                </AlertActions>
+                </Alert.Actions>
               </Alert>
             )
             : <Button size="sm" variant="muted" iconStart={<Icon name="undo" />} onClick={() => setDismissed(c => c.filter(x => x !== 'rojo'))}>Mostrarlo de nuevo</Button>}
@@ -56,14 +56,14 @@ export function AlertStory() {
         <Stack>
           <Demo label="solo título">
             <Frame width="lg">
-              <Alert tone="ok"><AlertTitle>Listo</AlertTitle></Alert>
+              <Alert tone="ok"><Alert.Title>Listo</Alert.Title></Alert>
             </Frame>
           </Demo>
           <Demo label="título y cuerpo">
             <Frame width="lg">
               <Alert tone="info">
-                <AlertTitle>Quedó en borrador</AlertTitle>
-                <AlertBody>Nadie lo ve hasta que lo publiques.</AlertBody>
+                <Alert.Title>Quedó en borrador</Alert.Title>
+                <Alert.Body>Nadie lo ve hasta que lo publiques.</Alert.Body>
               </Alert>
             </Frame>
           </Demo>
@@ -72,11 +72,11 @@ export function AlertStory() {
               ? (
                 <Frame width="lg">
                   <Alert tone="warn" onDismiss={() => dismiss('amarillo')}>
-                    <AlertTitle>Quedaste sin lugar</AlertTitle>
-                    <AlertBody>El próximo archivo que subas no va a entrar.</AlertBody>
-                    <AlertActions>
+                    <Alert.Title>Quedaste sin lugar</Alert.Title>
+                    <Alert.Body>El próximo archivo que subas no va a entrar.</Alert.Body>
+                    <Alert.Actions>
                       <Button size="sm" variant="muted">Liberar espacio</Button>
-                    </AlertActions>
+                    </Alert.Actions>
                   </Alert>
                 </Frame>
               )
@@ -93,14 +93,14 @@ export function AlertStory() {
           <Demo label="glifo propio">
             <Frame width="lg">
               <Alert tone="info" icon="schedule">
-                <AlertTitle>Cierra el viernes a las 23:59</AlertTitle>
+                <Alert.Title>Cierra el viernes a las 23:59</Alert.Title>
               </Alert>
             </Frame>
           </Demo>
           <Demo label="sin glifo">
             <Frame width="lg">
               <Alert tone="info" icon={null}>
-                <AlertTitle>Cuatro entregas nuevas desde ayer</AlertTitle>
+                <Alert.Title>Cuatro entregas nuevas desde ayer</Alert.Title>
               </Alert>
             </Frame>
           </Demo>

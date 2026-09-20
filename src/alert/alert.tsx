@@ -16,8 +16,7 @@ type AlertProps = ComponentPropsWithoutRef<'div'> & {
   size?: 'sm' | 'md'
 }
 
-/** Un aviso fijo en la página: algo pasó o algo hay que saber antes de seguir. */
-export function Alert({ tone = 'info', icon, onDismiss, size = 'md', className, children, ...props }: AlertProps) {
+function Root({ tone = 'info', icon, onDismiss, size = 'md', className, children, ...props }: AlertProps) {
   const glyph = icon === null ? null : icon ?? toneIcon[tone]
   return (
     <div
@@ -39,16 +38,19 @@ export function Alert({ tone = 'info', icon, onDismiss, size = 'md', className, 
 }
 
 /** El renglón que nombra el aviso. */
-export function AlertTitle({ className, ...props }: ComponentPropsWithoutRef<'p'>) {
+function Title({ className, ...props }: ComponentPropsWithoutRef<'p'>) {
   return <p className={cx(s.title, className)} {...props} />
 }
 
 /** Qué pasó y qué se puede hacer. */
-export function AlertBody({ className, ...props }: ComponentPropsWithoutRef<'p'>) {
+function Body({ className, ...props }: ComponentPropsWithoutRef<'p'>) {
   return <p className={cx(s.text, className)} {...props} />
 }
 
 /** La fila de botones del aviso. */
-export function AlertActions({ className, ...props }: ComponentPropsWithoutRef<'div'>) {
+function Actions({ className, ...props }: ComponentPropsWithoutRef<'div'>) {
   return <div className={cx(s.actions, className)} {...props} />
 }
+
+/** Un aviso fijo en la página: algo pasó o algo hay que saber antes de seguir. */
+export const Alert = Object.assign(Root, { Title, Body, Actions })

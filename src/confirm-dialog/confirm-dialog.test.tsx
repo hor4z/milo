@@ -1,10 +1,7 @@
 import { render, screen, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { describe, expect, it, vi } from 'vitest'
-import {
-  ConfirmDialog, ConfirmDialogBody, ConfirmDialogCancel, ConfirmDialogConfirm,
-  ConfirmDialogFooter, ConfirmDialogHeader, ConfirmDialogTitle,
-} from './confirm-dialog'
+import { ConfirmDialog } from './confirm-dialog'
 
 function Borrar({ onCancel, onConfirm, tone = 'bad' }: {
   onCancel?: () => void
@@ -13,14 +10,14 @@ function Borrar({ onCancel, onConfirm, tone = 'bad' }: {
 }) {
   return (
     <ConfirmDialog open onCancel={onCancel ?? (() => {})} onConfirm={onConfirm ?? (() => {})} tone={tone}>
-      <ConfirmDialogHeader>
-        <ConfirmDialogTitle>¿Borrar "Fracciones equivalentes"?</ConfirmDialogTitle>
-      </ConfirmDialogHeader>
-      <ConfirmDialogBody>Se borran también las 18 entregas.</ConfirmDialogBody>
-      <ConfirmDialogFooter>
-        <ConfirmDialogCancel />
-        <ConfirmDialogConfirm>{tone === 'bad' ? 'Borrar' : 'Publicar'}</ConfirmDialogConfirm>
-      </ConfirmDialogFooter>
+      <ConfirmDialog.Header>
+        <ConfirmDialog.Title>¿Borrar "Fracciones equivalentes"?</ConfirmDialog.Title>
+      </ConfirmDialog.Header>
+      <ConfirmDialog.Body>Se borran también las 18 entregas.</ConfirmDialog.Body>
+      <ConfirmDialog.Footer>
+        <ConfirmDialog.Cancel />
+        <ConfirmDialog.Confirm>{tone === 'bad' ? 'Borrar' : 'Publicar'}</ConfirmDialog.Confirm>
+      </ConfirmDialog.Footer>
     </ConfirmDialog>
   )
 }

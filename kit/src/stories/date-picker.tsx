@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { DatePicker } from '@milo/ui/date-picker'
-import { Field, FieldSet } from '@milo/ui/field'
+import { Field } from '@milo/ui/field'
 import { A11y, Canvas, Note, Page, Props, Section, Stack } from '../kit'
 
 const today = () => {
@@ -27,14 +27,14 @@ export function DatePickerStory() {
       >
         <Canvas>
           <Stack gap="xl" width="md">
-            <FieldSet legend="Cuándo">
+            <Field.Set legend="Cuándo">
               <Field label="Abre" hint="Desde cuándo se puede entregar">
                 <DatePicker value={from} onChange={setFrom} />
               </Field>
               <Field label="Vence" hint="Después de esta fecha no entra nada">
                 <DatePicker value={due} onChange={setDue} min={from} placeholder="Sin fecha de cierre" />
               </Field>
-            </FieldSet>
+            </Field.Set>
           </Stack>
         </Canvas>
       </Section>

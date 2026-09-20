@@ -1,6 +1,6 @@
 import { Icon, type IconName } from '@milo/ui/icon'
 import { type MarkColor } from '@milo/ui/lib/colors'
-import { List, ListItem } from '@milo/ui/list'
+import { List } from '@milo/ui/list'
 import { A11y, Footnote, Frame, Mono, Page, Props, Section } from '../kit'
 
 const onboarding: { icon: IconName; color: MarkColor; title: string; hint: string; active?: boolean }[] = [
@@ -22,7 +22,7 @@ export function ListStory() {
     <Page
       title="List · ListItem"
       kind="Datos"
-      imports="import { List, ListItem } from '@milo/ui/list'"
+      imports="import { List } from '@milo/ui/list'"
       lead="Filas altas, cada una con una marca de color, un título y una línea de apoyo. No es `Row`: acá no hay divisores (cada fila es su propia caja con aire alrededor), el título sube a 16 porque es lo que se lee primero, y la marca de color es lo que te deja encontrar una fila de reojo sin leerla."
     >
       <Section
@@ -32,7 +32,7 @@ export function ListStory() {
         <Frame width="md">
           <List>
             {onboarding.map(i => (
-              <ListItem key={i.title} icon={i.icon} color={i.color} title={i.title} hint={i.hint} active={i.active} onClick={() => {}} />
+              <List.Item key={i.title} icon={i.icon} color={i.color} title={i.title} hint={i.hint} active={i.active} onClick={() => {}} />
             ))}
           </List>
         </Frame>
@@ -45,9 +45,9 @@ export function ListStory() {
       <Section title="Estados de una fila">
         <Frame width="md">
           <List>
-            <ListItem icon="check" color="green" title="En reposo" hint="Fondo apagado, sin sombra." />
-            <ListItem icon="menu_book" color="purple" title="Elegida" hint="Hundida un paso." active />
-            <ListItem icon="star_shine" color="blue" title="Se toca" hint="Pasá el mouse: sube al papel y toma sombra." onClick={() => {}} />
+            <List.Item icon="check" color="green" title="En reposo" hint="Fondo apagado, sin sombra." />
+            <List.Item icon="menu_book" color="purple" title="Elegida" hint="Hundida un paso." active />
+            <List.Item icon="star_shine" color="blue" title="Se toca" hint="Pasá el mouse: sube al papel y toma sombra." onClick={() => {}} />
           </List>
         </Frame>
       </Section>
@@ -56,7 +56,7 @@ export function ListStory() {
         <Frame width="md">
           <List>
             {spaces.map(e => (
-              <ListItem
+              <List.Item
                 key={e.title}
                 icon={e.icon} color={e.color} title={e.title} hint={e.hint}
                 onClick={() => {}}
@@ -68,7 +68,7 @@ export function ListStory() {
       </Section>
 
       <Section title="Props">
-        <Props of="ListItem" />
+        <Props of="List" />
       </Section>
 
       <Section title="Accesibilidad">

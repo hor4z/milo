@@ -1,6 +1,6 @@
 import cls from './table.module.css'
 import { useMemo, useState } from 'react'
-import { Avatar, AvatarGroup } from '@milo/ui/avatar'
+import { Avatar } from '@milo/ui/avatar'
 import { Chip } from '@milo/ui/chip'
 import { ColumnPicker } from '@milo/ui/column-picker'
 import { Dropdown } from '@milo/ui/dropdown'
@@ -9,7 +9,7 @@ import { Filter, FilterBar, FilterReset, facets } from '@milo/ui/filter'
 import { IconButton } from '@milo/ui/icon-button'
 import { fold } from '@milo/ui/lib/cx'
 import { timeAgo } from '@milo/ui/lib/time'
-import { Pagination, PaginationNext, PaginationPrev, PaginationStatus } from '@milo/ui/pagination'
+import { Pagination } from '@milo/ui/pagination'
 import { Search } from '@milo/ui/search'
 import { Table, TableBody, TableCell, TableFooter, TableHead, TableHeader, TableEmpty, TableHint, TableNum, TableRow, TableTitle } from '@milo/ui/table'
 import { A11y, Footnote, Mono, Page, Props, Section, Stack } from '../kit'
@@ -175,14 +175,14 @@ export function TableStory() {
           minWidth={980}
           footer={(
             <Pagination>
-              <PaginationStatus
+              <Pagination.Status
                 from={from + 1}
                 to={from + onScreen.length}
                 total={list.length}
                 noun={['actividad', 'actividades']}
               />
-              <PaginationPrev disabled={page === 0} onClick={() => setPage(p => p - 1)} />
-              <PaginationNext disabled={!hasMore} onClick={() => setPage(p => p + 1)} />
+              <Pagination.Prev disabled={page === 0} onClick={() => setPage(p => p - 1)} />
+              <Pagination.Next disabled={!hasMore} onClick={() => setPage(p => p + 1)} />
             </Pagination>
           )}
         >
@@ -204,7 +204,7 @@ export function TableStory() {
                   <TableTitle>{a.name}</TableTitle>
                   <TableHint>{a.space}</TableHint>
                 </TableCell>
-                {view('estudiantes') && <TableCell><AvatarGroup people={a.students} /></TableCell>}
+                {view('estudiantes') && <TableCell><Avatar.Group people={a.students} /></TableCell>}
                 {view('docente') && (
                   <TableCell>
                     <span className={cls.teacherCell}>
@@ -291,7 +291,7 @@ export function TableStory() {
                   <TableHint>{a.space}</TableHint>
                 </TableCell>
                 <TableCell>
-                  <AvatarGroup people={a.students} />
+                  <Avatar.Group people={a.students} />
                 </TableCell>
                 <TableCell>
                   <Chip color={tone[a.status as keyof typeof tone]}>{a.status}</Chip>
@@ -309,19 +309,19 @@ export function TableStory() {
       >
         <Stack gap="lg">
           <div className={`${cls.twoRow} bg-surface`}>
-            <AvatarGroup people={[p('Ana Pérez', 1), p('Bruno Díaz', 2)]} />
+            <Avatar.Group people={[p('Ana Pérez', 1), p('Bruno Díaz', 2)]} />
             <Mono>2 de 3</Mono>
           </div>
           <div className={`${cls.threeRow} bg-surface`}>
-            <AvatarGroup people={[p('Ana Pérez', 1), p('Bruno Díaz', 2), p('Carla Sosa', 3)]} />
+            <Avatar.Group people={[p('Ana Pérez', 1), p('Bruno Díaz', 2), p('Carla Sosa', 3)]} />
             <Mono>3 de 3</Mono>
           </div>
           <div className={`${cls.fourRow} bg-surface`}>
-            <AvatarGroup people={[p('Ana Pérez', 1), p('Bruno Díaz', 2), p('Carla Sosa', 3), p('Damián Ruiz', 4)]} />
+            <Avatar.Group people={[p('Ana Pérez', 1), p('Bruno Díaz', 2), p('Carla Sosa', 3), p('Damián Ruiz', 4)]} />
             <Mono>4 · se muestra la cuarta cara, no un "+1"</Mono>
           </div>
           <div className={`${cls.fiveRow} bg-surface`}>
-            <AvatarGroup people={[p('Ana Pérez', 1), p('Bruno Díaz', 2), p('Carla Sosa', 3), p('Damián Ruiz', 4), p('Elena Vega', 5)]} />
+            <Avatar.Group people={[p('Ana Pérez', 1), p('Bruno Díaz', 2), p('Carla Sosa', 3), p('Damián Ruiz', 4), p('Elena Vega', 5)]} />
             <Mono>5 · tres caras y el resto</Mono>
           </div>
         </Stack>
@@ -337,13 +337,13 @@ export function TableStory() {
         note="El anillo es del color de la fila y no blanco fijo, así que sobre un fondo distinto hay que pasarle `ring`. Es la única forma: un avatar no puede saber sobre qué lo pusieron."
       >
         <div className={cls.mutedRow}>
-          <AvatarGroup people={[p('Ana Pérez', 1), p('Bruno Díaz', 2), p('Carla Sosa', 3), p('Damián Ruiz', 4)]} ring="var(--surface-muted)" />
+          <Avatar.Group people={[p('Ana Pérez', 1), p('Bruno Díaz', 2), p('Carla Sosa', 3), p('Damián Ruiz', 4)]} ring="var(--surface-muted)" />
           <Mono>ring="var(--surface-muted)"</Mono>
         </div>
       </Section>
 
       <Section title="Props">
-        <Props of={['Table', 'TableRow', 'TableHead', 'TableCell', 'TableEmpty', 'Avatar', 'AvatarGroup']} />
+        <Props of={['Table', 'TableRow', 'TableHead', 'TableCell', 'TableEmpty', 'Avatar']} />
       </Section>
 
       <Section title="Accesibilidad">

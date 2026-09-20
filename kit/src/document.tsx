@@ -1,6 +1,6 @@
 import cls from './document.module.css'
 import { useState } from 'react'
-import { AvatarGroup } from '@milo/ui/avatar'
+import { Avatar } from '@milo/ui/avatar'
 import { Button } from '@milo/ui/button'
 import { Callout } from '@milo/ui/callout'
 import { CommandMenu, type CommandGroup } from '@milo/ui/command-menu'
@@ -63,7 +63,7 @@ export function DocumentStory() {
             <h1 className={cls.docTitle}>Caída libre: medir g en el patio</h1>
           </div>
           <div className={cls.docActions}>
-            <AvatarGroup
+            <Avatar.Group
               size={28}
               people={[
                 { name: 'Ana Pérez', src: face(4) },

@@ -1,9 +1,9 @@
 import { useState } from 'react'
 import { Button } from '@milo/ui/button'
-import { Field, FieldSet } from '@milo/ui/field'
+import { Field } from '@milo/ui/field'
 import { Icon } from '@milo/ui/icon'
 import { Select } from '@milo/ui/select'
-import { Sheet, SheetBody, SheetFooter, SheetHeader } from '@milo/ui/sheet'
+import { Sheet } from '@milo/ui/sheet'
 import { Switch } from '@milo/ui/switch'
 import { TextField } from '@milo/ui/text-field'
 import { Textarea } from '@milo/ui/textarea'
@@ -23,7 +23,7 @@ export function SheetStory() {
     <Page
       title="Sheet"
       kind="Formularios"
-      imports="import { Sheet, SheetHeader, SheetBody, SheetFooter } from '@milo/ui/sheet'"
+      imports="import { Sheet } from '@milo/ui/sheet'"
       lead="El panel que entra de costado, para un formulario largo que no justifica cambiar de pantalla. Lo de atrás se queda donde estaba y al cerrar seguís en el mismo lugar, con el scroll donde lo dejaste."
     >
       <Section
@@ -34,10 +34,10 @@ export function SheetStory() {
           <Button variant="brand" onClick={() => setOpen(true)}>Nueva actividad</Button>
         </Canvas>
 
-        <Sheet open={open} onClose={() => setOpen(false)} label="Nueva actividad">
-          <SheetHeader title="Nueva actividad" onClose={() => setOpen(false)} />
-          <SheetBody>
-            <FieldSet legend="Lo básico">
+        <Sheet open={open} onClose={() => setOpen(false)}>
+          <Sheet.Header><Sheet.Title>Nueva actividad</Sheet.Title></Sheet.Header>
+          <Sheet.Body>
+            <Field.Set legend="Lo básico">
               <Field label="Nombre" required>
                 <TextField placeholder="Fracciones equivalentes" />
               </Field>
@@ -50,9 +50,9 @@ export function SheetStory() {
               <Field label="Entregas fuera de fecha" hint="Permitir que entreguen después del cierre">
                 <Switch checked={late} onChange={setLate} label="Entregas fuera de fecha" />
               </Field>
-            </FieldSet>
-          </SheetBody>
-          <SheetFooter>
+            </Field.Set>
+          </Sheet.Body>
+          <Sheet.Footer>
             <Button variant="ghost" onClick={() => setOpen(false)}>Cancelar</Button>
             <Button
               variant="brand"
@@ -63,7 +63,7 @@ export function SheetStory() {
             >
               Crear
             </Button>
-          </SheetFooter>
+          </Sheet.Footer>
         </Sheet>
       </Section>
 
@@ -75,9 +75,9 @@ export function SheetStory() {
           <Button variant="muted" iconStart={<Icon name="filter_list" />} onClick={() => setLeftOpen(true)}>Filtros</Button>
         </Canvas>
 
-        <Sheet open={leftOpen} onClose={() => setLeftOpen(false)} side="left" width={360} label="Filtros">
-          <SheetHeader title="Filtros" onClose={() => setLeftOpen(false)} />
-          <SheetBody>
+        <Sheet open={leftOpen} onClose={() => setLeftOpen(false)} side="left" width={360}>
+          <Sheet.Header><Sheet.Title>Filtros</Sheet.Title></Sheet.Header>
+          <Sheet.Body>
             <Stack gap="xl">
               <Field label="Espacio">
                 <Select value={spaceFilter} onChange={setSpaceFilter} options={['Todos', 'Matemática · 4.º A', 'Lengua · 6.º']} />
@@ -86,11 +86,11 @@ export function SheetStory() {
                 <Select value={statusFilter} onChange={setStatusFilter} options={['Cualquiera', 'Abierta', 'Corregida', 'Borrador']} />
               </Field>
             </Stack>
-          </SheetBody>
-          <SheetFooter>
+          </Sheet.Body>
+          <Sheet.Footer>
             <Button variant="ghost" onClick={() => setLeftOpen(false)}>Limpiar</Button>
             <Button variant="brand" onClick={() => setLeftOpen(false)}>Aplicar</Button>
-          </SheetFooter>
+          </Sheet.Footer>
         </Sheet>
       </Section>
 
@@ -102,7 +102,7 @@ export function SheetStory() {
       </Note>
 
       <Section title="Props">
-        <Props of="SheetHeader" />
+        <Props of="Sheet" />
       </Section>
 
       <Section title="Accesibilidad">

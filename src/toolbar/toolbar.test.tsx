@@ -1,16 +1,16 @@
 import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { describe, expect, it, vi } from 'vitest'
-import { Toolbar, ToolbarButton, ToolbarSeparator } from './toolbar'
+import { Toolbar } from './toolbar'
 
 function Bar({ onBold = () => {} }) {
   return (
     <Toolbar label="Formato del texto">
-      <ToolbarButton icon="format_bold" label="Negrita" pressed onClick={onBold} />
-      <ToolbarButton icon="format_italic" label="Cursiva" pressed={false} />
-      <ToolbarSeparator />
-      <ToolbarButton icon="link" label="Enlace" />
-      <ToolbarButton icon="delete" label="Borrar" disabled />
+      <Toolbar.Button icon="format_bold" label="Negrita" pressed onClick={onBold} />
+      <Toolbar.Button icon="format_italic" label="Cursiva" pressed={false} />
+      <Toolbar.Separator />
+      <Toolbar.Button icon="link" label="Enlace" />
+      <Toolbar.Button icon="delete" label="Borrar" disabled />
     </Toolbar>
   )
 }

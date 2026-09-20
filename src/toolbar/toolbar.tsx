@@ -3,8 +3,7 @@ import { useLayoutEffect, useRef, type FocusEvent, type KeyboardEvent, type Reac
 import { Icon, type IconName } from '../icon/icon'
 import { cx } from '../lib/cx'
 
-/** La barra de herramientas: una sola parada de tabulación y flechas adentro, como manda un `toolbar`. */
-export function Toolbar({ label, children, className }: {
+function Root({ label, children, className }: {
   /** Qué controla esta barra. Dos barras sin nombre en una pantalla se leen como una sola. */
   label: string
   children: ReactNode
@@ -52,7 +51,7 @@ export function Toolbar({ label, children, className }: {
 }
 
 /** Un botón de la barra. Con `pressed` es un interruptor y lo dice: "negrita, activado". */
-export function ToolbarButton({ icon, label, pressed, disabled, onClick }: {
+function Button({ icon, label, pressed, disabled, onClick }: {
   icon: IconName
   /** Sin esto el botón no dice nada: adentro solo hay un glifo. */
   label: string
@@ -81,6 +80,9 @@ export function ToolbarButton({ icon, label, pressed, disabled, onClick }: {
 }
 
 /** El corte entre dos grupos de la barra. */
-export function ToolbarSeparator() {
+function Separator() {
   return <span aria-hidden className={s.separator} />
 }
+
+/** La barra de herramientas: una sola parada de tabulación y flechas adentro, como manda un `toolbar`. */
+export const Toolbar = Object.assign(Root, { Button, Separator })

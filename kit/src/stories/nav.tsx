@@ -1,6 +1,6 @@
 import cls from './nav.module.css'
 import { useState } from 'react'
-import { FolderIcon } from '@milo/ui/icon'
+import { Icon } from '@milo/ui/icon'
 import { NavItemBody, navItemClass, navSubItemClass } from '@milo/ui/nav'
 import { A11y, Page, Props, Section } from '../kit'
 
@@ -38,7 +38,7 @@ export function NavStory() {
             ] as const).map(s => (
               <button key={s.id} onClick={() => setActive(s.id)} className={navItemClass({ active: active === s.id })}>
                 <NavItemBody
-                  glyph={<FolderIcon color={s.color} size={20} />}
+                  glyph={<Icon.Folder color={s.color} size={20} />}
                   label={s.label}
                 />
               </button>

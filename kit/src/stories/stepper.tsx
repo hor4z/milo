@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Field, FieldSet } from '@milo/ui/field'
+import { Field } from '@milo/ui/field'
 import { Stepper } from '@milo/ui/stepper'
 import { A11y, Canvas, Cluster, Note, Page, Panel, Props, Section, Stack, Variant } from '../kit'
 
@@ -23,14 +23,14 @@ export function StepperStory() {
       >
         <Canvas>
           <Stack gap="xl" width="md">
-            <FieldSet legend="Cómo se entrega">
+            <Field.Set legend="Cómo se entrega">
               <Field label="Intentos" hint="Cuántas veces puede volver a entregar">
                 <Stepper value={attempts} onChange={setAttempts} min={1} max={9} label="Intentos" />
               </Field>
               <Field label="Tiempo" hint="Desde que abre la actividad">
                 <Stepper value={minutes} onChange={setMinutes} min={5} max={120} step={5} suffix="min" label="Tiempo" width={148} />
               </Field>
-            </FieldSet>
+            </Field.Set>
           </Stack>
         </Canvas>
       </Section>

@@ -85,17 +85,17 @@ export const propsByComponent: Record<string, ComponentDoc> = {
     "html": "div",
     "doc": "Un aviso fijo en la página: algo pasó o algo hay que saber antes de seguir."
   },
-  "AlertTitle": {
+  "Alert.Title": {
     "props": [],
     "html": "p",
     "doc": "El renglón que nombra el aviso."
   },
-  "AlertBody": {
+  "Alert.Body": {
     "props": [],
     "html": "p",
     "doc": "Qué pasó y qué se puede hacer."
   },
-  "AlertActions": {
+  "Alert.Actions": {
     "props": [],
     "html": "div",
     "doc": "La fila de botones del aviso."
@@ -170,7 +170,7 @@ export const propsByComponent: Record<string, ComponentDoc> = {
     ],
     "doc": "Dos estados y nada más: con foto, o el círculo pastel con la inicial."
   },
-  "AvatarGroup": {
+  "Avatar.Group": {
     "props": [
       {
         "name": "people",
@@ -346,27 +346,27 @@ export const propsByComponent: Record<string, ComponentDoc> = {
     ],
     "doc": "El contenedor de radio 16: lo que se apoya en la página. Lo que flota sobre un velo (un modal, un diálogo) va en 24."
   },
-  "CardHeader": {
+  "Card.Header": {
     "props": [],
     "html": "div",
     "doc": "La cabecera de una tarjeta: el título a la izquierda, lo que haya a la derecha."
   },
-  "CardTitle": {
+  "Card.Title": {
     "props": [],
     "html": "h3",
     "doc": "Cómo se llama lo que hay en la tarjeta."
   },
-  "CardHint": {
+  "Card.Hint": {
     "props": [],
     "html": "p",
     "doc": "La línea de apoyo, debajo del título."
   },
-  "CardBody": {
+  "Card.Body": {
     "props": [],
     "html": "div",
     "doc": "El cuerpo, con el padding que la tarjeta no pone."
   },
-  "CardFooter": {
+  "Card.Footer": {
     "props": [],
     "html": "div",
     "doc": "La fila de abajo, separada por una línea."
@@ -732,27 +732,27 @@ export const propsByComponent: Record<string, ComponentDoc> = {
     ],
     "doc": "El diálogo que pregunta antes de algo que no se puede deshacer. Se arma con sus partes, igual que el `Modal`."
   },
-  "ConfirmDialogHeader": {
+  "ConfirmDialog.Header": {
     "props": [],
     "html": "div",
     "doc": "La cabecera. No lleva X: la salida segura es el botón de cancelar, que ya está a la vista."
   },
-  "ConfirmDialogTitle": {
+  "ConfirmDialog.Title": {
     "props": [],
     "html": "h2",
     "doc": "La pregunta, con el nombre de lo que se va a tocar adentro. Es el nombre que anuncia el lector."
   },
-  "ConfirmDialogBody": {
+  "ConfirmDialog.Body": {
     "props": [],
     "html": "div",
     "doc": "Qué más se lleva puesto."
   },
-  "ConfirmDialogFooter": {
+  "ConfirmDialog.Footer": {
     "props": [],
     "html": "div",
     "doc": "La fila de los dos botones, contra el borde derecho."
   },
-  "ConfirmDialogCancel": {
+  "ConfirmDialog.Cancel": {
     "props": [
       {
         "name": "children",
@@ -763,7 +763,7 @@ export const propsByComponent: Record<string, ComponentDoc> = {
     ],
     "doc": "La salida segura. Con `tone=\"bad\"` arranca con el foco."
   },
-  "ConfirmDialogConfirm": {
+  "ConfirmDialog.Confirm": {
     "props": [
       {
         "name": "children",
@@ -1002,7 +1002,7 @@ export const propsByComponent: Record<string, ComponentDoc> = {
     ],
     "doc": "Une etiqueta, ayuda, error y control: los tres textos quedan atados al control."
   },
-  "FieldSet": {
+  "Field.Set": {
     "props": [
       {
         "name": "legend",
@@ -1183,7 +1183,7 @@ export const propsByComponent: Record<string, ComponentDoc> = {
       }
     ]
   },
-  "FolderIcon": {
+  "Icon.Folder": {
     "props": [
       {
         "name": "color",
@@ -1348,7 +1348,7 @@ export const propsByComponent: Record<string, ComponentDoc> = {
       }
     ]
   },
-  "ListItem": {
+  "List.Item": {
     "props": [
       {
         "name": "icon",
@@ -1455,7 +1455,7 @@ export const propsByComponent: Record<string, ComponentDoc> = {
     ],
     "doc": "El menú, en piezas."
   },
-  "MenuItem": {
+  "Menu.Item": {
     "props": [
       {
         "name": "children",
@@ -1518,7 +1518,7 @@ export const propsByComponent: Record<string, ComponentDoc> = {
     ],
     "doc": "Una fila del menú."
   },
-  "MenuLabel": {
+  "Menu.Label": {
     "props": [
       {
         "name": "children",
@@ -1558,32 +1558,32 @@ export const propsByComponent: Record<string, ComponentDoc> = {
         "name": "label",
         "type": "string",
         "required": false,
-        "doc": "Solo si no hay `ModalTitle`: con título, el nombre sale de ahí."
+        "doc": "Solo si no hay `Title`: con título, el nombre sale de ahí."
       }
     ],
     "doc": "El diálogo centrado que tapa la pantalla. Se arma con `ModalHeader`, `ModalBody` y `ModalFooter`."
   },
-  "ModalHeader": {
+  "Modal.Header": {
     "props": [],
     "html": "div",
-    "doc": "La cabecera: adentro van `ModalTitle` y `ModalHint`, y la X la pone ella."
+    "doc": "La cabecera: adentro van `Title` y `Hint`, y la X la pone ella."
   },
-  "ModalTitle": {
+  "Modal.Title": {
     "props": [],
     "html": "h2",
     "doc": "El título, y de paso el nombre que anuncia el lector: se ata solo."
   },
-  "ModalHint": {
+  "Modal.Hint": {
     "props": [],
     "html": "div",
     "doc": "La línea de apoyo debajo del título, en gris."
   },
-  "ModalBody": {
+  "Modal.Body": {
     "props": [],
     "html": "div",
     "doc": "El cuerpo, y lo único que scrollea cuando el contenido no entra."
   },
-  "ModalFooter": {
+  "Modal.Footer": {
     "props": [],
     "html": "div",
     "doc": "La fila de acciones, contra el borde derecho."
@@ -1638,7 +1638,7 @@ export const propsByComponent: Record<string, ComponentDoc> = {
     ],
     "doc": "El contenedor de una pantalla."
   },
-  "PageHeader": {
+  "Page.Header": {
     "props": [
       {
         "name": "title",
@@ -1660,7 +1660,7 @@ export const propsByComponent: Record<string, ComponentDoc> = {
       }
     ]
   },
-  "SectionLabel": {
+  "Page.SectionLabel": {
     "props": [
       {
         "name": "children",
@@ -1681,7 +1681,7 @@ export const propsByComponent: Record<string, ComponentDoc> = {
     "html": "nav",
     "doc": "La línea de abajo de una tabla: qué tramo se está viendo y cómo pasar al que sigue."
   },
-  "PaginationStatus": {
+  "Pagination.Status": {
     "props": [
       {
         "name": "to",
@@ -1717,7 +1717,7 @@ export const propsByComponent: Record<string, ComponentDoc> = {
     ],
     "doc": "Qué tramo se está viendo."
   },
-  "PaginationPrev": {
+  "Pagination.Prev": {
     "props": [
       {
         "name": "children",
@@ -1728,7 +1728,7 @@ export const propsByComponent: Record<string, ComponentDoc> = {
     ],
     "doc": "Los dos viajan juntos y están siempre, apagados en las puntas."
   },
-  "PaginationNext": {
+  "Pagination.Next": {
     "props": [
       {
         "name": "children",
@@ -1971,18 +1971,18 @@ export const propsByComponent: Record<string, ComponentDoc> = {
         "name": "tabIndex",
         "type": "number",
         "required": false,
-        "doc": "Lo pone `RadioGroup` para dejar una sola parada de tabulación."
+        "doc": "Lo pone `Group` para dejar una sola parada de tabulación."
       },
       {
         "name": "ref",
         "type": "Ref<HTMLButtonElement>",
         "required": false,
-        "doc": "Lo usa `RadioGroup` para mover el foco con las flechas."
+        "doc": "Lo usa `Group` para mover el foco con las flechas."
       }
     ],
     "doc": "La elección de una entre varias."
   },
-  "RadioGroup": {
+  "Radio.Group": {
     "props": [
       {
         "name": "value",
@@ -2304,28 +2304,21 @@ export const propsByComponent: Record<string, ComponentDoc> = {
       {
         "name": "label",
         "type": "string",
-        "required": true,
-        "doc": "Nombra el diálogo para el lector."
+        "required": false,
+        "doc": "Solo si no hay `Sheet.Title`: con título, el nombre sale de ahí."
       }
     ],
     "doc": "El panel que entra desde un costado: un formulario largo sin cambiar de pantalla."
   },
-  "SheetHeader": {
-    "props": [
-      {
-        "name": "title",
-        "type": "string",
-        "required": true,
-        "doc": "El nombre del panel."
-      },
-      {
-        "name": "onClose",
-        "type": "() => void",
-        "required": true,
-        "doc": "La X, que es la salida a la vista: Escape y el velo hacen lo mismo."
-      }
-    ],
-    "doc": "La cabecera del panel, con su título y el botón de cerrar."
+  "Sheet.Header": {
+    "props": [],
+    "html": "div",
+    "doc": "La cabecera del panel: adentro va `Title`, y la X la pone ella."
+  },
+  "Sheet.Title": {
+    "props": [],
+    "html": "h2",
+    "doc": "El título, y de paso el nombre que anuncia el lector: se ata solo."
   },
   "Skeleton": {
     "props": [],
@@ -2814,7 +2807,7 @@ export const propsByComponent: Record<string, ComponentDoc> = {
     ],
     "doc": "Paneles hermanos donde solo se ve uno. Controlado o no, como el resto."
   },
-  "TabList": {
+  "Tabs.List": {
     "props": [
       {
         "name": "label",
@@ -2826,7 +2819,7 @@ export const propsByComponent: Record<string, ComponentDoc> = {
     "html": "div",
     "doc": "La fila de solapas. Las flechas se mueven entre ellas, como pide un tablist."
   },
-  "Tab": {
+  "Tabs.Tab": {
     "props": [
       {
         "name": "value",
@@ -2838,7 +2831,7 @@ export const propsByComponent: Record<string, ComponentDoc> = {
     "html": "button",
     "doc": "Una solapa. El activo se marca con la línea y el azul primario."
   },
-  "TabPanel": {
+  "Tabs.Panel": {
     "props": [
       {
         "name": "value",
@@ -3051,7 +3044,7 @@ export const propsByComponent: Record<string, ComponentDoc> = {
     ],
     "doc": "La barra de herramientas: una sola parada de tabulación y flechas adentro, como manda un `toolbar`."
   },
-  "ToolbarButton": {
+  "Toolbar.Button": {
     "props": [
       {
         "name": "icon",

@@ -1,5 +1,5 @@
 import cls from './chart.module.css'
-import { AvatarGroup } from '@milo/ui/avatar'
+import { Avatar } from '@milo/ui/avatar'
 import { Card } from '@milo/ui/card'
 import { BarChart } from '@milo/ui/chart'
 import { A11y, Page, Props, Section } from '../kit'
@@ -15,7 +15,7 @@ const week = [
     detail: (
       <>
         <span className={`${cls.tooltipValue} tabular`}>50%</span>
-        <AvatarGroup
+        <Avatar.Group
           size={18}
           max={3}
           people={[

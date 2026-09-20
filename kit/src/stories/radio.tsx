@@ -1,7 +1,7 @@
 import cls from './radio.module.css'
 import { useState } from 'react'
 import { Checkbox } from '@milo/ui/checkbox'
-import { Radio, RadioGroup } from '@milo/ui/radio'
+import { Radio } from '@milo/ui/radio'
 import { A11y, Footnote, Page, Panel, Props, Section, Variant } from '../kit'
 
 export function RadioStory() {
@@ -24,7 +24,7 @@ export function RadioStory() {
       >
         <Panel>
           <Variant name="dos opciones">
-            <RadioGroup
+            <Radio.Group
               label="Dos opciones"
               value={one}
               onChange={setOne}
@@ -32,7 +32,7 @@ export function RadioStory() {
             />
           </Variant>
           <Variant name="tres">
-            <RadioGroup
+            <Radio.Group
               label="Tres opciones"
               value={mode}
               onChange={setMode}
@@ -98,7 +98,7 @@ export function RadioStory() {
       >
         <Panel>
           <Variant name="probalo">
-            <RadioGroup
+            <Radio.Group
               label="Probá las flechas"
               value={mode}
               onChange={setMode}
@@ -113,7 +113,7 @@ export function RadioStory() {
       </Section>
 
       <Section title="Props">
-        <Props of={['Radio', 'RadioGroup']} />
+        <Props of="Radio" />
       </Section>
 
       <Section title="Accesibilidad">

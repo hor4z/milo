@@ -14,8 +14,7 @@ const widths = { sm: 420, md: 620, lg: 820 } as const
 
 export type ModalSize = keyof typeof widths
 
-/** El diálogo centrado que tapa la pantalla. Se arma con `ModalHeader`, `ModalBody` y `ModalFooter`. */
-export function Modal({
+function Root({
   open, onClose, children, size = 'md', label,
 }: {
   /** Cerrado no monta nada. */
@@ -25,7 +24,7 @@ export function Modal({
   children: ReactNode
   /** `sm` una pregunta o un campo, `md` el de siempre, `lg` lo que necesita dos columnas. */
   size?: ModalSize
-  /** Solo si no hay `ModalTitle`: con título, el nombre sale de ahí. */
+  /** Solo si no hay `Title`: con título, el nombre sale de ahí. */
   label?: string
 }) {
   const panel = useRef<HTMLDivElement>(null)
@@ -59,8 +58,8 @@ export function Modal({
 
 type PartProps = ComponentPropsWithoutRef<'div'>
 
-/** La cabecera: adentro van `ModalTitle` y `ModalHint`, y la X la pone ella. */
-export function ModalHeader({ className, children, ...rest }: PartProps) {
+/** La cabecera: adentro van `Title` y `Hint`, y la X la pone ella. */
+function Header({ className, children, ...rest }: PartProps) {
   const ctx = useContext(ModalContext)
   return (
     <div className={cx(s.header, className)} {...rest}>
@@ -80,22 +79,25 @@ export function ModalHeader({ className, children, ...rest }: PartProps) {
 }
 
 /** El título, y de paso el nombre que anuncia el lector: se ata solo. */
-export function ModalTitle({ className, id, ...rest }: ComponentPropsWithoutRef<'h2'>) {
+function Title({ className, id, ...rest }: ComponentPropsWithoutRef<'h2'>) {
   const ctx = useContext(ModalContext)
   return <h2 id={id ?? ctx?.titleId} className={cx(s.title, className)} {...rest} />
 }
 
 /** La línea de apoyo debajo del título, en gris. */
-export function ModalHint({ className, ...rest }: PartProps) {
+function Hint({ className, ...rest }: PartProps) {
   return <div className={cx(s.hint, className)} {...rest} />
 }
 
 /** El cuerpo, y lo único que scrollea cuando el contenido no entra. */
-export function ModalBody({ className, ...rest }: PartProps) {
+function Body({ className, ...rest }: PartProps) {
   return <div className={cx(s.body, className)} {...rest} />
 }
 
 /** La fila de acciones, contra el borde derecho. */
-export function ModalFooter({ className, ...rest }: PartProps) {
+function Footer({ className, ...rest }: PartProps) {
   return <div className={cx(s.footer, className)} {...rest} />
 }
+
+/** El diálogo centrado que tapa la pantalla. Se arma con `ModalHeader`, `ModalBody` y `ModalFooter`. */
+export const Modal = Object.assign(Root, { Header, Title, Hint, Body, Footer })

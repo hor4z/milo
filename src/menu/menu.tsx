@@ -4,8 +4,7 @@ import { cx } from '../lib/cx'
 import { Kbd } from '../kbd/kbd'
 import { Icon, type IconName } from '../icon/icon'
 
-/** El menú, en piezas. */
-export function Menu({ children, label, width, className }: {
+function Root({ children, label, width, className }: {
   children: ReactNode
   /** Qué menú es. Sin esto un lector lo anuncia como "menú" y nada más, y con dos abiertos en una pantalla no se distinguen. */
   label?: string
@@ -46,7 +45,7 @@ export function Menu({ children, label, width, className }: {
 }
 
 /** Una fila del menú. */
-export function MenuItem({
+function Item({
   children, icon, shortcut, hint, checked, submenu, danger, disabled, onSelect, className,
 }: {
   children: ReactNode
@@ -94,10 +93,13 @@ export function MenuItem({
 }
 
 /** El rótulo de un grupo de opciones. */
-export function MenuLabel({ children }: { children: ReactNode }) {
+function Label({ children }: { children: ReactNode }) {
   return (
     <div role="presentation" className={cls.groupLabel}>
       {children}
     </div>
   )
 }
+
+/** El menú, en piezas. */
+export const Menu = Object.assign(Root, { Item, Label })

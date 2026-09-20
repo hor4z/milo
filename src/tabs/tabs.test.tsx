@@ -1,16 +1,16 @@
 import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { describe, expect, it, vi } from 'vitest'
-import { Tab, TabList, TabPanel, Tabs } from './tabs'
+import { Tabs } from './tabs'
 
 describe('Tabs', () => {
   it('la lista de solapas tiene nombre, y Home y End van a los extremos', async () => {
     render(
       <Tabs defaultValue="a">
-        <TabList label="Secciones de la actividad">
-          <Tab value="a">A</Tab><Tab value="b">B</Tab><Tab value="c">C</Tab>
-        </TabList>
-        <TabPanel value="a">uno</TabPanel>
+        <Tabs.List label="Secciones de la actividad">
+          <Tabs.Tab value="a">A</Tabs.Tab><Tabs.Tab value="b">B</Tabs.Tab><Tabs.Tab value="c">C</Tabs.Tab>
+        </Tabs.List>
+        <Tabs.Panel value="a">uno</Tabs.Panel>
       </Tabs>,
     )
     expect(screen.getByRole('tablist', { name: 'Secciones de la actividad' })).toBeInTheDocument()
@@ -23,12 +23,12 @@ describe('Tabs', () => {
 
   const Demo = () => (
     <Tabs defaultValue="a">
-      <TabList>
-        <Tab value="a">Resumen</Tab>
-        <Tab value="b">Detalle</Tab>
-      </TabList>
-      <TabPanel value="a">Panel A</TabPanel>
-      <TabPanel value="b">Panel B</TabPanel>
+      <Tabs.List>
+        <Tabs.Tab value="a">Resumen</Tabs.Tab>
+        <Tabs.Tab value="b">Detalle</Tabs.Tab>
+      </Tabs.List>
+      <Tabs.Panel value="a">Panel A</Tabs.Panel>
+      <Tabs.Panel value="b">Panel B</Tabs.Panel>
     </Tabs>
   )
 
@@ -59,8 +59,8 @@ describe('Tabs', () => {
     const onValueChange = vi.fn()
     render(
       <Tabs value="a" onValueChange={onValueChange}>
-        <TabList><Tab value="a">A</Tab><Tab value="b">B</Tab></TabList>
-        <TabPanel value="a">Uno</TabPanel>
+        <Tabs.List><Tabs.Tab value="a">A</Tabs.Tab><Tabs.Tab value="b">B</Tabs.Tab></Tabs.List>
+        <Tabs.Panel value="a">Uno</Tabs.Panel>
       </Tabs>,
     )
     await userEvent.click(screen.getByRole('tab', { name: 'B' }))

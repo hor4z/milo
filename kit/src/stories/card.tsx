@@ -1,6 +1,6 @@
 import cls from './card.module.css'
 import { Button } from '@milo/ui/button'
-import { Card, CardBody, CardFooter, CardHeader, CardHint, CardTitle } from '@milo/ui/card'
+import { Card } from '@milo/ui/card'
 import { Chip } from '@milo/ui/chip'
 import { Icon } from '@milo/ui/icon'
 import { Progress } from '@milo/ui/progress'
@@ -11,7 +11,7 @@ export function CardStory() {
     <Page
       title="Card"
       kind="Superficies"
-      imports="import { Card, CardHeader, CardTitle, CardHint, CardBody, CardFooter } from '@milo/ui/card'"
+      imports="import { Card } from '@milo/ui/card'"
       lead="La superficie de una grilla: una cosa por tarjeta, y la tarjeta entera es la unidad que se escanea. Radio 16 con 8 de padding, así que lo que va adentro lleva 8: la regla del anidado, no un número elegido a ojo."
     >
       <Section
@@ -20,31 +20,31 @@ export function CardStory() {
       >
         <Cluster gap="lg" align="start">
           <Card className={cls.partsCard}>
-            <CardHeader>
+            <Card.Header>
               <div className={cls.partsHeading}>
-                <CardTitle>Entregas de la semana</CardTitle>
-                <CardHint>De todos tus espacios</CardHint>
+                <Card.Title>Entregas de la semana</Card.Title>
+                <Card.Hint>De todos tus espacios</Card.Hint>
               </div>
               <Chip size="sm" color="ok">84%</Chip>
-            </CardHeader>
-            <CardBody>
+            </Card.Header>
+            <Card.Body>
               <Progress label="Corregidas" value={18} max={24} hint="18 de 24" />
-            </CardBody>
-            <CardFooter>
+            </Card.Body>
+            <Card.Footer>
               <Button size="sm" variant="ghost" iconEnd={<Icon name="chevron_right" />}>Ver todas</Button>
-            </CardFooter>
+            </Card.Footer>
           </Card>
 
           <Card className={cls.looseCard}>
-            <CardHeader>
-              <CardTitle>Sin partes</CardTitle>
-            </CardHeader>
-            <CardBody>
+            <Card.Header>
+              <Card.Title>Sin partes</Card.Title>
+            </Card.Header>
+            <Card.Body>
               <p className={cls.looseText}>
                 La tarjeta sigue aceptando cualquier contenido suelto para lo que no tiene esa forma,
                 una portada, un gráfico, una grilla de fotos.
               </p>
-            </CardBody>
+            </Card.Body>
           </Card>
         </Cluster>
       </Section>
@@ -95,7 +95,7 @@ export function CardStory() {
       </Note>
 
       <Section title="Props">
-        <Props of={['Card', 'CardHeader', 'CardTitle', 'CardHint', 'CardBody', 'CardFooter']} />
+        <Props of="Card" />
       </Section>
 
       <Section title="Accesibilidad">

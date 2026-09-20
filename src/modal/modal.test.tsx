@@ -1,14 +1,14 @@
 import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { describe, expect, it, vi } from 'vitest'
-import { Modal, ModalBody, ModalFooter, ModalHeader, ModalTitle } from './modal'
+import { Modal } from './modal'
 
 function Ajustes({ onClose }: { onClose?: () => void }) {
   return (
     <Modal open onClose={onClose ?? (() => {})}>
-      <ModalHeader><ModalTitle>Ajustes</ModalTitle></ModalHeader>
-      <ModalBody><p>El cuerpo</p></ModalBody>
-      <ModalFooter><button type="button">Guardar</button></ModalFooter>
+      <Modal.Header><Modal.Title>Ajustes</Modal.Title></Modal.Header>
+      <Modal.Body><p>El cuerpo</p></Modal.Body>
+      <Modal.Footer><button type="button">Guardar</button></Modal.Footer>
     </Modal>
   )
 }
@@ -45,7 +45,7 @@ describe('Modal', () => {
   it('sin título, el nombre lo pone label', () => {
     render(
       <Modal open onClose={() => {}} label="Ajustes">
-        <ModalBody>Sin cabecera</ModalBody>
+        <Modal.Body>Sin cabecera</Modal.Body>
       </Modal>,
     )
     expect(screen.getByRole('dialog', { name: 'Ajustes' })).toBeInTheDocument()
@@ -54,7 +54,7 @@ describe('Modal', () => {
   it('cerrado no monta nada', () => {
     render(
       <Modal open={false} onClose={() => {}} label="Ajustes">
-        <ModalBody>Ajustes</ModalBody>
+        <Modal.Body>Ajustes</Modal.Body>
       </Modal>,
     )
     expect(screen.queryByRole('dialog')).not.toBeInTheDocument()

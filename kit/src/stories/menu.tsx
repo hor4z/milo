@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { Button } from '@milo/ui/button'
 import { Divider } from '@milo/ui/divider'
 import { Icon } from '@milo/ui/icon'
-import { Menu, MenuItem, MenuLabel } from '@milo/ui/menu'
+import { Menu } from '@milo/ui/menu'
 import { Popover } from '@milo/ui/popover'
 import { A11y, Footnote, Mono, Page, Panel, Props, Section, Variant } from '../kit'
 
@@ -13,7 +13,7 @@ export function MenuStory() {
     <Page
       title="Menu"
       kind="Acciones"
-      imports="import { Menu, MenuItem, MenuLabel } from '@milo/ui/menu'"
+      imports="import { Menu } from '@milo/ui/menu'"
       lead="Piezas que se arman, no una lista de opciones: un panel y filas que se escriben adentro. Es el mismo corte que la Table, y por el mismo motivo: la lista alcanza hasta el primer menú que necesita un separador, un rótulo de grupo o un atajo, y a partir de ahí cada necesidad nueva es una prop nueva en un objeto."
     >
       <Section
@@ -23,10 +23,10 @@ export function MenuStory() {
         <Panel>
           <Variant name="suelta">
             <Menu label="Acciones de la actividad" width={260}>
-              <MenuItem icon="edit">Renombrar</MenuItem>
-              <MenuItem icon="content_copy" shortcut="⌘D">Duplicar</MenuItem>
-              <MenuItem icon="group" hint="7">Compartir</MenuItem>
-              <MenuItem icon="folder" submenu>Mover a</MenuItem>
+              <Menu.Item icon="edit">Renombrar</Menu.Item>
+              <Menu.Item icon="content_copy" shortcut="⌘D">Duplicar</Menu.Item>
+              <Menu.Item icon="group" hint="7">Compartir</Menu.Item>
+              <Menu.Item icon="folder" submenu>Mover a</Menu.Item>
             </Menu>
           </Variant>
         </Panel>
@@ -39,20 +39,20 @@ export function MenuStory() {
         <Panel>
           <Variant name="armado entero">
             <Menu label="Acciones con grupos" width={260}>
-              <MenuLabel>Esta actividad</MenuLabel>
-              <MenuItem icon="edit" shortcut="E">Editar</MenuItem>
-              <MenuItem icon="visibility">Ver como estudiante</MenuItem>
+              <Menu.Label>Esta actividad</Menu.Label>
+              <Menu.Item icon="edit" shortcut="E">Editar</Menu.Item>
+              <Menu.Item icon="visibility">Ver como estudiante</Menu.Item>
               <Divider />
-              <MenuLabel>Vista</MenuLabel>
-              <MenuItem icon="grid_view" checked={view === 'grilla'} onSelect={() => setView('grilla')}>
+              <Menu.Label>Vista</Menu.Label>
+              <Menu.Item icon="grid_view" checked={view === 'grilla'} onSelect={() => setView('grilla')}>
                 Grilla
-              </MenuItem>
-              <MenuItem icon="view_list" checked={view === 'lista'} onSelect={() => setView('lista')}>
+              </Menu.Item>
+              <Menu.Item icon="view_list" checked={view === 'lista'} onSelect={() => setView('lista')}>
                 Lista
-              </MenuItem>
+              </Menu.Item>
               <Divider />
-              <MenuItem icon="inventory_2" disabled>Archivar</MenuItem>
-              <MenuItem icon="delete" danger>Eliminar</MenuItem>
+              <Menu.Item icon="inventory_2" disabled>Archivar</Menu.Item>
+              <Menu.Item icon="delete" danger>Eliminar</Menu.Item>
             </Menu>
           </Variant>
         </Panel>
@@ -79,10 +79,10 @@ export function MenuStory() {
             >
               {close => (
                 <Menu label="Acciones de la fila" width={240}>
-                  <MenuItem icon="edit" shortcut="E" onSelect={close}>Editar</MenuItem>
-                  <MenuItem icon="link" shortcut="⌘L" onSelect={close}>Copiar enlace</MenuItem>
+                  <Menu.Item icon="edit" shortcut="E" onSelect={close}>Editar</Menu.Item>
+                  <Menu.Item icon="link" shortcut="⌘L" onSelect={close}>Copiar enlace</Menu.Item>
                   <Divider />
-                  <MenuItem icon="delete" danger onSelect={close}>Eliminar</MenuItem>
+                  <Menu.Item icon="delete" danger onSelect={close}>Eliminar</Menu.Item>
                 </Menu>
               )}
             </Popover>
@@ -96,7 +96,7 @@ export function MenuStory() {
       </Section>
 
       <Section title="Props">
-        <Props of={['Menu', 'MenuItem']} />
+        <Props of="Menu" />
       </Section>
 
       <Section title="Accesibilidad">

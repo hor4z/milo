@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { Avatar } from '@milo/ui/avatar'
-import { FolderIcon, Icon } from '@milo/ui/icon'
+import { Icon } from '@milo/ui/icon'
 import { Select } from '@milo/ui/select'
 import { A11y, Cluster, Demo, Page, Props, Section } from '../kit'
 
@@ -66,7 +66,7 @@ export function SelectStory() {
               value={space}
               onChange={setSpace}
               width={200}
-              leading={<FolderIcon color="blue" size={16} />}
+              leading={<Icon.Folder color="blue" size={16} />}
               options={['Matemática · 4.º A', 'Lengua · 6.º', 'Ciencias · 5.º B']}
             />
           </Demo>

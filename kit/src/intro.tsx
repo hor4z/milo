@@ -1,7 +1,7 @@
 import cls from './intro.module.css'
 import { Stack } from './kit'
-import { Alert, AlertTitle } from '@milo/ui/alert'
-import { AvatarGroup } from '@milo/ui/avatar'
+import { Alert } from '@milo/ui/alert'
+import { Avatar } from '@milo/ui/avatar'
 import { Button } from '@milo/ui/button'
 import { Card } from '@milo/ui/card'
 import { BarChart } from '@milo/ui/chart'
@@ -122,7 +122,7 @@ export function Intro({ go, views }: { go: (id: string) => void; views: number }
 
             <Card className={cls.peopleCard}>
               <div className={cls.peopleRow}>
-                <AvatarGroup people={[
+                <Avatar.Group people={[
                   { name: 'Ana Pérez', src: face(1) },
                   { name: 'Bruno Díaz', src: face(2) },
                   { name: 'Carla Sosa', src: face(3) },
@@ -135,7 +135,7 @@ export function Intro({ go, views }: { go: (id: string) => void; views: number }
         </div>
 
         <Alert tone="ok">
-          <AlertTitle>Todo lo de arriba es el componente real: tocalo.</AlertTitle>
+          <Alert.Title>Todo lo de arriba es el componente real: tocalo.</Alert.Title>
         </Alert>
       </section>
 

@@ -1,6 +1,6 @@
 import cls from './chip.module.css'
 import { useState } from 'react'
-import { Card, CardBody, CardHeader, CardTitle } from '@milo/ui/card'
+import { Card } from '@milo/ui/card'
 import { Chip } from '@milo/ui/chip'
 import { labelColors } from '@milo/ui/lib/colors'
 import { A11y, Cluster, Demo, Note, Page, Panel, Props, Section, Variant } from '../kit'
@@ -96,22 +96,22 @@ export function ChipStory() {
         <Demo label="en la cabecera de una tarjeta">
           <Cluster gap="lg" align="start">
             <Card className={cls.correctedCard}>
-              <CardHeader>
-                <CardTitle>Fracciones equivalentes</CardTitle>
+              <Card.Header>
+                <Card.Title>Fracciones equivalentes</Card.Title>
                 <Chip size="sm" color="ok" icon="check_circle">Corregida</Chip>
-              </CardHeader>
-              <CardBody>
+              </Card.Header>
+              <Card.Body>
                 <p className={cls.correctedMeta}>Matemática · 4.º A · 24 entregas</p>
-              </CardBody>
+              </Card.Body>
             </Card>
             <Card className={cls.dueCard}>
-              <CardHeader>
-                <CardTitle>Mapa de América</CardTitle>
+              <Card.Header>
+                <Card.Title>Mapa de América</Card.Title>
                 <Chip size="sm" color="warn" icon="schedule">Vence mañana</Chip>
-              </CardHeader>
-              <CardBody>
+              </Card.Header>
+              <Card.Body>
                 <p className={cls.dueMeta}>Sociales · 5.º A · 3 de 7</p>
-              </CardBody>
+              </Card.Body>
             </Card>
           </Cluster>
         </Demo>

@@ -3,8 +3,7 @@ import type { CSSProperties } from 'react'
 import { markColors, markFill } from '../lib/colors'
 import { cx } from '../lib/cx'
 
-/** Dos estados y nada más: con foto, o el círculo pastel con la inicial. */
-export function Avatar({ name, src, size = 40, className }: {
+function Root({ name, src, size = 40, className }: {
   /** De acá salen la inicial y el tinte. */
   name: string
   /** Opcional; la etiqueta de color queda de fondo. */
@@ -30,7 +29,7 @@ export function Avatar({ name, src, size = 40, className }: {
 }
 
 /** Varias personas en el lugar de una. */
-export function AvatarGroup({
+function Group({
   people, max = 3, size = 28, ring = 'var(--surface)', className,
 }: {
   /** Sin `src` cae a la inicial. */
@@ -55,7 +54,7 @@ export function AvatarGroup({
       style={{ '--overlap': `${overlap}px`, '--ring': ring } as CSSProperties}
     >
       {shown.map((p, i) => (
-        <Avatar
+        <Root
           key={`${p.name}-${i}`}
           name={p.name}
           src={p.src}
@@ -75,3 +74,6 @@ export function AvatarGroup({
     </span>
   )
 }
+
+/** Dos estados y nada más: con foto, o el círculo pastel con la inicial. */
+export const Avatar = Object.assign(Root, { Group })
