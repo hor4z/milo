@@ -523,6 +523,77 @@ export const propsByComponent: Record<string, ComponentDoc> = {
     ],
     "doc": "La caja de 18, la misma medida del pulgar del switch, así una fila con los dos no tiene dos tamaños de \"marca\"."
   },
+  "Checklist": {
+    "props": [
+      {
+        "name": "defaultOpen",
+        "type": "boolean",
+        "required": false,
+        "def": "false",
+        "doc": "Arranca abierta. Cerrada ocupa una fila y dice lo mismo."
+      },
+      {
+        "name": "children",
+        "type": "ReactNode",
+        "required": true
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "required": false
+      }
+    ],
+    "doc": "Los primeros pasos de algo, con cuánto va hecho a la vista y el detalle plegado. El contador sale de los pasos, así que no se puede despegar de ellos."
+  },
+  "Checklist.Title": {
+    "props": [
+      {
+        "name": "children",
+        "type": "ReactNode",
+        "required": true
+      }
+    ],
+    "doc": "El nombre de la lista, en la cabecera."
+  },
+  "Checklist.Item": {
+    "props": [
+      {
+        "name": "state",
+        "type": "ChecklistState",
+        "required": false,
+        "def": "'todo'",
+        "doc": "Sin esto es un paso que todavía no se hizo."
+      },
+      {
+        "name": "hint",
+        "type": "string",
+        "required": false,
+        "doc": "Por qué el paso está trabado, o qué hay que hacer. Aparece en una etiqueta flotante."
+      },
+      {
+        "name": "onClick",
+        "type": "() => void",
+        "required": false,
+        "doc": "Sin esto la fila es texto y no se puede tocar."
+      },
+      {
+        "name": "children",
+        "type": "ReactNode",
+        "required": true
+      }
+    ],
+    "doc": "Un paso. El estado lo dice la marca de la izquierda, no el color del texto."
+  },
+  "Checklist.Footer": {
+    "props": [
+      {
+        "name": "children",
+        "type": "ReactNode",
+        "required": true
+      }
+    ],
+    "doc": "La aclaración de abajo de todo, con su glifo."
+  },
   "Chip": {
     "props": [
       {

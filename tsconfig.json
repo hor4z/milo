@@ -48,6 +48,9 @@
       "@milo/ui/checkbox": [
         "./src/checkbox/checkbox.tsx"
       ],
+      "@milo/ui/checklist": [
+        "./src/checklist/checklist.tsx"
+      ],
       "@milo/ui/chip": [
         "./src/chip/chip.tsx"
       ],

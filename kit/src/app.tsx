@@ -35,6 +35,7 @@ import { StepsStory } from './stories/steps'
 import { AmeliaStory } from './mascots/amelia'
 import { OttoStory } from './mascots/otto'
 import { WritingSection } from './foundations/writing'
+import { ChecklistStory } from './stories/checklist'
 import { ButtonStory } from './stories/button'
 import { ButtonGroupStory } from './stories/button-group'
 import { SplitButtonStory } from './stories/split-button'
@@ -124,6 +125,7 @@ const groups: Group[] = [
       { id: 'figure', label: 'Imagen con pie', alias: 'Figure imagen figura pie epígrafe foto alt caption editor', render: () => <FigureStory /> },
       { id: 'quote', label: 'Cita', alias: 'cita blockquote fuente atribución textual editor', render: () => <QuoteStory /> },
       { id: 'task-list', label: 'Lista de tareas', alias: 'TaskList tareas checklist pasos pendientes marcar hacer editor', render: () => <TaskListStory /> },
+      { id: 'checklist', label: 'Lista de pasos', alias: 'Checklist primeros pasos onboarding progreso acordeón plegable checklist', render: () => <ChecklistStory /> },
       { id: 'mention', label: 'Mención', alias: 'Mention mención arroba persona espacio referencia enlace texto editor', render: () => <MentionStory /> },
     ],
   },
