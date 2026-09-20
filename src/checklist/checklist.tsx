@@ -77,6 +77,7 @@ function Root({ defaultOpen = false, children, className }: {
 }) {
   const [open, setOpen] = useState(defaultOpen)
   const bodyId = useId()
+  const titleId = useId()
 
   const [title, sinTitle] = takePart(children, Title)
   const [footer, cuerpo] = takePart(sinTitle, Footer)
@@ -87,30 +88,33 @@ function Root({ defaultOpen = false, children, className }: {
   const pct = total === 0 ? 0 : (hechos / total) * 100
 
   return (
-    <div className={cx(`${s.root} bg-surface`, className)}>
-      <button
-        type="button"
-        aria-expanded={open}
-        aria-controls={bodyId}
-        onClick={() => setOpen(v => !v)}
-        className={cx(s.header, s.headerMotion)}
-      >
-        <Icon
-          name="keyboard_arrow_down"
-          size={20}
-          className={cx(s.chevron, open && s.chevronOpen, 'icon-muted')}
-        />
-        <span className={s.title}>{title}</span>
+    <div className={cx(s.root, className)}>
+      <div className={s.header}>
+        <button
+          type="button"
+          aria-expanded={open}
+          aria-controls={bodyId}
+          aria-labelledby={titleId}
+          onClick={() => setOpen(v => !v)}
+          className={s.trigger}
+        >
+          <Icon
+            name="keyboard_arrow_down"
+            size={20}
+            className={cx(s.chevron, open && s.chevronOpen, 'icon-muted')}
+          />
+        </button>
+        <p id={titleId} className={s.title}>{title}</p>
         <span className={s.track} aria-hidden="true">
           <span className={s.fill} style={{ width: `${pct}%` }} />
         </span>
-        <span className={`${s.count} tabular`}>
+        <p className={`${s.count} tabular`}>
           {hechos}/{total}
           <span className="sr-only"> pasos hechos</span>
-        </span>
-      </button>
+        </p>
+      </div>
       {open && (
-        <div id={bodyId} className={s.body}>
+        <div id={bodyId} className={`${s.body} bg-surface`}>
           <div className={s.items}>{cuerpo}</div>
           {footer}
         </div>

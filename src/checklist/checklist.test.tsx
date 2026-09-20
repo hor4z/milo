@@ -22,19 +22,36 @@ const arma = (props: Record<string, unknown> = {}, onClick = vi.fn()) => {
 describe('Checklist', () => {
   it('el contador sale de los pasos y no de una prop', () => {
     arma()
-    expect(screen.getByRole('button', { name: /Primeros pasos/ })).toHaveTextContent('1/4')
+    const contador = screen.getByText((_, el) => el?.className.includes('count') ?? false)
+    expect(contador).toHaveTextContent('1/4')
+    expect(contador).toHaveTextContent('pasos hechos')
+  })
+
+  it('el botón es la flecha sola, y toma su nombre del título de al lado', () => {
+    arma()
+    const disparador = screen.getByRole('button', { name: 'Primeros pasos' })
+    expect(disparador).not.toHaveTextContent('Primeros pasos')
+    expect(disparador).toHaveAttribute('aria-labelledby')
+    expect(document.getElementById(disparador.getAttribute('aria-labelledby')!))
+      .toHaveTextContent('Primeros pasos')
+  })
+
+  it('la barra y el contador quedan afuera del botón: si no, se leen como su nombre', () => {
+    arma()
+    const disparador = screen.getByRole('button', { name: 'Primeros pasos' })
+    expect(disparador).not.toHaveTextContent('1/4')
   })
 
   it('arranca plegada: la cabecera dice lo mismo sin ocupar la pantalla', () => {
     arma()
-    const cabecera = screen.getByRole('button', { name: /Primeros pasos/ })
+    const cabecera = screen.getByRole('button', { name: 'Primeros pasos' })
     expect(cabecera).toHaveAttribute('aria-expanded', 'false')
     expect(screen.queryByText('Creá tu primer espacio')).not.toBeInTheDocument()
   })
 
   it('se abre al tocarla y la cabecera dice a qué apunta', async () => {
     arma()
-    const cabecera = screen.getByRole('button', { name: /Primeros pasos/ })
+    const cabecera = screen.getByRole('button', { name: 'Primeros pasos' })
     await userEvent.click(cabecera)
     expect(cabecera).toHaveAttribute('aria-expanded', 'true')
     expect(screen.getByText('Creá tu primer espacio')).toBeInTheDocument()
@@ -67,6 +84,6 @@ describe('Checklist', () => {
         <Checklist.Title>Vacía</Checklist.Title>
       </Checklist>,
     )
-    expect(screen.getByRole('button', { name: /Vacía/ })).toHaveTextContent('0/0')
+    expect(screen.getByText((_, el) => el?.className.includes('count') ?? false)).toHaveTextContent('0/0')
   })
 })

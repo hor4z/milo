@@ -17,14 +17,14 @@ export function ChecklistStory() {
         note="Va para una secuencia que alguien recorre una sola vez y a su ritmo: configurar un espacio, dejar listo un aula. Para los pasos de un formulario que se hace de corrido va `Steps`, que marca dónde estás; para una lista de cosas por hacer que no tiene orden va `TaskList`."
       >
         <Panel>
-          <Variant name="plegada" note="Una fila: el nombre, cuánto va y nada más. Es como vive el otro 90% del tiempo.">
+          <Variant name="plegada" note="Una fila: el nombre, cuánto va y nada más. Es como vive el otro 90% del tiempo, y con tres de cuatro hechos la barra dice sola que falta poco.">
             <Stack width="md">
               <Checklist>
                 <Checklist.Title>Primeros pasos</Checklist.Title>
                 <Checklist.Item state="done">Creá tu primer espacio</Checklist.Item>
-                <Checklist.Item state="doing">Sumá a tus estudiantes</Checklist.Item>
-                <Checklist.Item>Publicá una actividad</Checklist.Item>
-                <Checklist.Item>Ajustá tus preferencias</Checklist.Item>
+                <Checklist.Item state="done">Sumá a tus estudiantes</Checklist.Item>
+                <Checklist.Item state="done">Publicá una actividad</Checklist.Item>
+                <Checklist.Item state="doing">Ajustá tus preferencias</Checklist.Item>
               </Checklist>
             </Stack>
           </Variant>

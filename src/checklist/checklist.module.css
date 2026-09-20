@@ -1,26 +1,32 @@
 @layer milo.components {
+  /* dos superficies: el marco hundido de afuera y el papel de adentro, que es donde
+     viven los pasos. Plegada se ve solo el marco, y eso es lo que la hace una fila */
   .root {
     display: flex;
     flex-direction: column;
     border-radius: var(--radius-xl);
-    box-shadow: var(--relief-card);
-    overflow: hidden;
+    background-color: var(--surface-muted);
+    padding: 0.25rem;
   }
 
-  /* la cabecera es el disparador entero: plegada, la pieza es esta fila y nada más */
+  /* la fila que se ve siempre. El botón es el chevron con su título y nada más: la barra
+     y el contador quedan afuera, porque un progreso adentro de un botón se anuncia como
+     parte del nombre del botón */
   .header {
     display: flex;
-    width: 100%;
     align-items: center;
     gap: 0.75rem;
-    padding: 0.875rem 1rem;
-    text-align: left;
+    padding: 0.625rem 0.75rem;
   }
 
-  .headerMotion {
-    transition-property: background-color;
-    transition-duration: var(--duration-fast);
-    transition-timing-function: var(--ease-out);
+  /* el botón es la flecha y nada más: el título va al lado, a su altura. Sin fondo en
+     hover, que sobre un cuadrado de 20 se lee como una mancha */
+  .trigger {
+    display: inline-flex;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--radius-sm);
   }
 
   .chevron {
@@ -51,7 +57,8 @@
     flex-shrink: 0;
     overflow: hidden;
     border-radius: var(--radius-xs);
-    background-color: var(--surface-muted);
+    /* la pista va contra el marco hundido, así que no puede ser del mismo gris */
+    background-color: var(--border-strong);
   }
 
   .fill {
@@ -74,7 +81,9 @@
   }
 
   .body {
-    padding: 0 1rem 0.75rem;
+    border-radius: var(--radius-lg);
+    padding: 0.5rem 0.75rem 0.75rem;
+    box-shadow: var(--relief-card);
   }
 
   .items {
@@ -166,10 +175,6 @@
   }
 
   @media (hover: hover) {
-    .header:hover {
-      background-color: var(--surface-hover);
-    }
-
     .interactive:hover {
       background-color: var(--surface-hover);
     }
