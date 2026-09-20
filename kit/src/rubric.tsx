@@ -1,8 +1,8 @@
 import cls from './rubric.module.css'
 import { useRef, useState, type CSSProperties } from 'react'
 import { Button } from '@milo/ui/button'
+import { Card } from '@milo/ui/card'
 import { Checklist } from '@milo/ui/checklist'
-import { Divider } from '@milo/ui/divider'
 import { Field } from '@milo/ui/field'
 import { Icon } from '@milo/ui/icon'
 import { IconButton } from '@milo/ui/icon-button'
@@ -154,7 +154,9 @@ export function RubricRail({ mode }: { mode: RubricMode }) {
                 {level}
               </Checklist.Item>
             ))}
-            <Checklist.Footer>Vale {share(c.weight, total).percent} de la nota.</Checklist.Footer>
+            <Checklist.Footer tone="warn" hint="Cada renglón incluye al anterior: al marcar uno quedan marcados los de arriba.">
+              Vale {share(c.weight, total).percent} de la nota.
+            </Checklist.Footer>
           </Checklist>
         ))}
       </div>
@@ -208,7 +210,7 @@ export function RubricRail({ mode }: { mode: RubricMode }) {
 
       <div className={cx(cls.body, panel.open && cls.bodyOpen)}>
         <div id="rubrica-cuerpo" inert={!panel.open} className={cls.bodyInner}>
-          <div className={`${cls.paper} bg-surface`}>
+          <div className={cls.cards}>
             <ul key={runs} className={cls.items}>
               {criteria.map((c, i) => (
                 <li
@@ -216,37 +218,41 @@ export function RubricRail({ mode }: { mode: RubricMode }) {
                   style={{ '--enter': i } as CSSProperties}
                   className={cls.criterion}
                 >
-                  {i > 0 && <Divider className={cls.split} />}
-                  <div className={cls.criterionTop}>
-                    <span aria-hidden className={`${cls.swatch} ${labelFill[c.color]}`} />
-                    <p className={cls.criterionLabel}>
-                      {c.label}
-                      <span className="sr-only">, vale {share(c.weight, total).percent} de la nota</span>
-                    </p>
-                    <Tooltip label="Sacar de la rúbrica">
-                      <IconButton
-                        icon="delete"
-                        label={`Sacar ${c.label} de la rúbrica`}
-                        size="sm"
-                        variant="ghost"
-                        onClick={() => remove(c, i)}
-                        className={cls.removeCriterion}
-                      />
-                    </Tooltip>
-                  </div>
-
-                  <ol className={cls.ladder}>
-                    {c.levels.map((level, j) => (
-                      <li key={level} className={cx(cls.step, j === c.levels.length - 1 && cls.stepTop)}>
-                        <span className={cls.stepText}>{level}</span>
-                      </li>
-                    ))}
-                  </ol>
+                  <Card>
+                    <Card.Header>
+                      <div className={cls.criterionTop}>
+                        <span aria-hidden className={`${cls.swatch} ${labelFill[c.color]}`} />
+                        <Card.Title className={cls.criterionLabel}>
+                          {c.label}
+                          <span className="sr-only">, vale {share(c.weight, total).percent} de la nota</span>
+                        </Card.Title>
+                      </div>
+                      <Tooltip label="Sacar de la rúbrica">
+                        <IconButton
+                          icon="delete"
+                          label={`Sacar ${c.label} de la rúbrica`}
+                          size="sm"
+                          variant="ghost"
+                          onClick={() => remove(c, i)}
+                          className={cls.removeCriterion}
+                        />
+                      </Tooltip>
+                    </Card.Header>
+                    <Card.Body className={cls.criterionBody}>
+                      <ol className={cls.ladder}>
+                        {c.levels.map((level, j) => (
+                          <li key={level} className={cx(cls.step, j === c.levels.length - 1 && cls.stepTop)}>
+                            <span className={cls.stepText}>{level}</span>
+                          </li>
+                        ))}
+                      </ol>
+                    </Card.Body>
+                  </Card>
                 </li>
               ))}
             </ul>
 
-            {mode === 'teacher' && !form.open && (
+            {!form.open && (
               <Button
                 ref={addRef}
                 size="sm"
@@ -258,48 +264,48 @@ export function RubricRail({ mode }: { mode: RubricMode }) {
               </Button>
             )}
 
-            {mode === 'teacher' && form.open && (
-              <div className={cls.form}>
-                <Field>
-                  <Field.Label>Qué vas a mirar</Field.Label>
-                  <TextField
-                    inputRef={labelRef}
-                    size="sm"
-                    value={label}
-                    placeholder="Trabajo en equipo"
-                    onChange={e => setLabel(e.target.value)}
-                    onKeyDown={e => { if (e.key === 'Escape') closeForm() }}
-                  />
-                </Field>
-
-                <Field>
-                  <Field.Label>Cuánto vale contra los demás</Field.Label>
-                  <div className={cls.weightRow}>
-                    <Slider value={weight} onChange={setWeight} min={1} max={5} className={cls.weightSlider} />
-                    <span className={`${cls.share} tabular`}>{share(weight, total + weight).percent} de la nota</span>
-                  </div>
-                </Field>
-
-                {levels.map((level, i) => (
-                  <Field key={levelHints[i]}>
-                    <Field.Label>Nivel {i + 1}</Field.Label>
+            {form.open && (
+              <Card className={cls.form}>
+                <Card.Body className={cls.formFields}>
+                  <Field>
+                    <Field.Label>Qué vas a mirar</Field.Label>
                     <TextField
+                      inputRef={labelRef}
                       size="sm"
-                      value={level}
-                      placeholder={levelHints[i]}
-                      onChange={e => setLevels(ls => ls.map((l, j) => (j === i ? e.target.value : l)))}
+                      value={label}
+                      placeholder="Trabajo en equipo"
+                      onChange={e => setLabel(e.target.value)}
                       onKeyDown={e => { if (e.key === 'Escape') closeForm() }}
                     />
                   </Field>
-                ))}
 
-                <div className={cls.formActions}>
+                  <Field>
+                    <Field.Label>Cuánto vale contra los demás</Field.Label>
+                    <div className={cls.weightRow}>
+                      <Slider value={weight} onChange={setWeight} min={1} max={5} className={cls.weightSlider} />
+                      <span className={`${cls.share} tabular`}>{share(weight, total + weight).percent} de la nota</span>
+                    </div>
+                  </Field>
+
+                  {levels.map((level, i) => (
+                    <Field key={levelHints[i]}>
+                      <Field.Label>Nivel {i + 1}</Field.Label>
+                      <TextField
+                        size="sm"
+                        value={level}
+                        placeholder={levelHints[i]}
+                        onChange={e => setLevels(ls => ls.map((l, j) => (j === i ? e.target.value : l)))}
+                        onKeyDown={e => { if (e.key === 'Escape') closeForm() }}
+                      />
+                    </Field>
+                  ))}
+                </Card.Body>
+                <Card.Footer className={cls.formActions}>
                   <Button size="sm" variant="ghost" onClick={closeForm}>Cancelar</Button>
                   <Button size="sm" variant="brand" onClick={add}>Agregar</Button>
-                </div>
-              </div>
+                </Card.Footer>
+              </Card>
             )}
-
           </div>
         </div>
       </div>

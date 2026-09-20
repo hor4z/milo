@@ -160,7 +160,7 @@
 
   .footer {
     display: flex;
-    align-items: flex-start;
+    align-items: center;
     gap: 0.5rem;
     border-top: 1px solid var(--border);
     margin-top: 0.5rem;
@@ -169,12 +169,24 @@
     line-height: var(--type-meta-lh);
     letter-spacing: var(--type-meta-ls);
     font-weight: var(--font-weight-medium);
+  }
+
+  .footerQuiet {
     color: var(--text-muted);
+  }
+
+  .footerNote {
+    display: inline-flex;
+    flex-shrink: 0;
   }
 
   .footerIcon {
     flex-shrink: 0;
-    margin-top: 1px;
+    --icon-wght: 400;
+  }
+
+  .footerIconQuiet {
+    color: color-mix(in oklab, var(--text-muted) 65%, transparent);
   }
 
   @media (hover: hover) {
