@@ -49,7 +49,7 @@ function Item({ state = 'todo', hint, onClick, children }: ItemProps) {
       <span className={s.mark}>
         {state === 'done' && (
           <span className={s.done}>
-            <Icon name="check" size={14} weight={600} />
+            <Icon name="check" weight={600} />
           </span>
         )}
         {state === 'doing' && <Spinner size={18} />}
