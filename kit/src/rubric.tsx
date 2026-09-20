@@ -1,14 +1,17 @@
 import cls from './rubric.module.css'
 import { useRef, useState, type CSSProperties } from 'react'
 import { Button } from '@milo/ui/button'
+import { Divider } from '@milo/ui/divider'
 import { Field } from '@milo/ui/field'
 import { Icon } from '@milo/ui/icon'
+import { IconButton } from '@milo/ui/icon-button'
 import { Radio } from '@milo/ui/radio'
 import { Slider } from '@milo/ui/slider'
 import { TextField } from '@milo/ui/text-field'
+import { useToast } from '@milo/ui/toast'
 import { cx } from '@milo/ui/lib/cx'
 import { labelColors, labelFill, type LabelColor } from '@milo/ui/lib/colors'
-import { counted } from '@milo/ui/lib/number'
+import { counted, share } from '@milo/ui/lib/number'
 import { useDisclosure } from '@milo/ui/lib/use-disclosure'
 import { useRovingRadio } from '@milo/ui/lib/roving'
 
@@ -90,16 +93,20 @@ function Ladder({ criterion, mark, onMark }: {
         <span
           key={level}
           onClick={() => onMark(i)}
-          className={cx(cls.step, cls.stepPick, mark === i && cls.stepSelected)}
+          className={cx(
+            cls.step,
+            cls.stepPick,
+            i === criterion.levels.length - 1 && cls.stepTop,
+            mark === i && cls.stepSelected,
+          )}
         >
           <Radio
             ref={roving.ref(String(i))}
             checked={mark === i}
             onChange={() => onMark(i)}
-            label={`Nivel ${i + 1}: ${level}`}
+            label={`Nivel ${i + 1} de ${criterion.levels.length}: ${level}`}
             tabIndex={roving.tabIndex(String(i))}
           />
-          <span aria-hidden className={`${cls.stepNumber} tabular`}>{i + 1}</span>
           <span aria-hidden className={cls.stepText}>{level}</span>
         </span>
       ))}
@@ -117,6 +124,7 @@ export function RubricRail({ mode }: { mode: RubricMode }) {
   const [weight, setWeight] = useState(3)
   const [levels, setLevels] = useState(emptyLevels)
 
+  const { toast } = useToast()
   const panel = useDisclosure(true)
   const form = useDisclosure(false)
   const addRef = useRef<HTMLButtonElement>(null)
@@ -136,6 +144,17 @@ export function RubricRail({ mode }: { mode: RubricMode }) {
   const closeForm = () => {
     form.onClose()
     requestAnimationFrame(() => addRef.current?.focus())
+  }
+
+  const remove = (criterion: Criterion, at: number) => {
+    setCriteria(cs => cs.filter(c => c.id !== criterion.id))
+    toast({
+      title: `Sacamos "${criterion.label}"`,
+      action: {
+        label: 'Deshacer',
+        onClick: () => setCriteria(cs => [...cs.slice(0, at), criterion, ...cs.slice(at)]),
+      },
+    })
   }
 
   const add = () => {
@@ -212,10 +231,21 @@ export function RubricRail({ mode }: { mode: RubricMode }) {
                     onPointerLeave={() => setLit(null)}
                     className={cx(cls.criterion, lit === c.id && cls.criterionLit)}
                   >
+                    {i > 0 && <Divider className={cls.split} />}
                     <div className={cls.criterionTop}>
                       <span aria-hidden className={`${cls.swatch} ${labelFill[c.color]}`} />
                       <p className={cls.criterionLabel}>{c.label}</p>
-                      <span className={`${cls.share} tabular`}>pesa {c.weight} de {total}</span>
+                      <span className={`${cls.share} tabular`}>{share(c.weight, total).percent}</span>
+                      {mode === 'teacher' && (
+                        <IconButton
+                          icon="close"
+                          label={`Sacar ${c.label} de la rúbrica`}
+                          size="sm"
+                          variant="ghost"
+                          onClick={() => remove(c, i)}
+                          className={cls.removeCriterion}
+                        />
+                      )}
                     </div>
 
                     {mode === 'student' ? (
@@ -227,8 +257,7 @@ export function RubricRail({ mode }: { mode: RubricMode }) {
                     ) : (
                       <ol className={cls.ladder}>
                         {c.levels.map((level, i) => (
-                          <li key={level} className={cls.step}>
-                            <span aria-hidden className={`${cls.stepNumber} tabular`}>{i + 1}</span>
+                          <li key={level} className={cx(cls.step, i === c.levels.length - 1 && cls.stepTop)}>
                             <span className={cls.stepText}>{level}</span>
                           </li>
                         ))}
@@ -275,10 +304,10 @@ export function RubricRail({ mode }: { mode: RubricMode }) {
                 </Field>
 
                 <Field>
-                  <Field.Label>Cuánto pesa contra los demás</Field.Label>
+                  <Field.Label>Cuánto vale contra los demás</Field.Label>
                   <div className={cls.weightRow}>
                     <Slider value={weight} onChange={setWeight} min={1} max={5} className={cls.weightSlider} />
-                    <span className={`${cls.share} tabular`}>{weight} de {total + weight}</span>
+                    <span className={`${cls.share} tabular`}>{share(weight, total + weight).percent} de la nota</span>
                   </div>
                 </Field>
 
