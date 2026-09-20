@@ -45,7 +45,7 @@
   }
 
   .track {
-    height: 0.375rem;
+    height: 0.5rem;
     width: 100%;
     overflow: hidden;
     border-radius: var(--radius-full);
