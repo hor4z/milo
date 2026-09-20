@@ -8,8 +8,10 @@
     position: relative;
   }
 
-  .root > *:focus-visible,
-  .root > *:hover {
+  /* el foco se levanta para que su anillo no lo corte el vecino. El hover no: si se
+     levantara, la mitad de la izquierda taparía la línea divisoria de la de al lado y la
+     línea aparecería y desaparecería al pasar el mouse */
+  .root > *:focus-visible {
     z-index: 1;
   }
 
@@ -26,6 +28,7 @@
     position: absolute;
     background-color: color-mix(in oklab, currentColor 22%, transparent);
     pointer-events: none;
+    z-index: 2;
   }
 
   /* 80% y centrada: a lo alto entero la línea toca los dos cantos y se lee como un borde

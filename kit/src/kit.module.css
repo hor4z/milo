@@ -524,14 +524,18 @@
     color: var(--text);
   }
 
+  /* el papel de una aclaración: crema, para que se separe del blanco de la página sin
+     usar un tono de estado, que diría que algo pasó. Con `tone` lo pisa el del tono. */
   .note {
     display: flex;
     gap: 0.75rem;
     border-radius: var(--radius-xl);
-    border-style: solid;
-    border-width: 1px;
-    border-color: var(--border);
+    background-color: var(--yellow-050);
     padding: 1rem;
+  }
+
+  .noteGlyph {
+    color: var(--yellow-700);
   }
 
   .noteIcon {

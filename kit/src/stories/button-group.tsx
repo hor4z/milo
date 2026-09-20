@@ -1,6 +1,5 @@
-import { Button } from '@milo/ui/button'
 import { ButtonGroup } from '@milo/ui/button-group'
-import { Icon } from '@milo/ui/icon'
+import { IconButton } from '@milo/ui/icon-button'
 import { A11y, Example, Page, Panel, Practices, Props, Section, Variant } from '../kit'
 
 export function ButtonGroupStory() {
@@ -9,44 +8,51 @@ export function ButtonGroupStory() {
       title="ButtonGroup"
       kind="Acciones"
       imports="import { ButtonGroup } from '@milo/ui/button-group'"
-      lead="Botones pegados, con el canto solo en los extremos. Dice que las acciones son de la misma familia sin escribirlo."
+      lead="Dos o tres acciones que son la misma cosa, pegadas y con el canto solo en los extremos. Dice que van juntas sin escribirlo."
     >
       <Section
-        title="Cuándo va pegado y cuándo separado"
-        note="Pegado, las acciones se leen como variantes de una misma cosa. Si no lo son, van separadas con el aire de siempre: pegar dos acciones que no tienen nada que ver obliga a leer las dos para entender cualquiera. Y para elegir una entre varias va `Segmented`, que trae el roving del teclado."
+        title="Lo que va acá y lo que no"
+        note="Acá van acciones que **se ejecutan**: anterior y siguiente, deshacer y rehacer, subir y bajar. Pegadas se leen como los dos sentidos de un mismo movimiento. Lo que **se elige** no va acá aunque se parezca: una vista de grilla o de lista, un orden, un filtro de texto. Eso es `Segmented`, que marca cuál está puesta y trae las flechas del teclado, y son dos cosas que un grupo de botones no hace."
       >
         <Panel>
-          <Variant name="una acción en pasos" note="Alejar, el valor, acercar: tres botones que son la misma cosa.">
-            <ButtonGroup label="Zoom">
-              <Button size="sm" iconStart={<Icon name="remove" />} aria-label="Alejar" />
-              <Button size="sm">100%</Button>
-              <Button size="sm" iconStart={<Icon name="add" />} aria-label="Acercar" />
+          <Variant name="anterior y siguiente" note="Los dos sentidos de recorrer algo.">
+            <ButtonGroup label="Paginación">
+              <IconButton size="sm" variant="muted" icon="chevron_left" label="Anterior" />
+              <IconButton size="sm" variant="muted" icon="chevron_right" label="Siguiente" />
             </ButtonGroup>
           </Variant>
-          <Variant name="dos maneras de lo mismo" note="Ordenar por una cosa o por la otra.">
-            <ButtonGroup label="Orden">
-              <Button size="sm">Más reciente</Button>
-              <Button size="sm">Por nombre</Button>
+          <Variant name="deshacer y rehacer" note="En la barra de un editor, donde uno se usa detrás del otro.">
+            <ButtonGroup label="Historial">
+              <IconButton size="sm" variant="muted" icon="undo" label="Deshacer" />
+              <IconButton size="sm" variant="muted" icon="redo" label="Rehacer" />
+            </ButtonGroup>
+          </Variant>
+          <Variant name="tres o cuatro" note="El transporte de un audio: siguen siendo acciones, y el grupo las junta sin que ninguna se marque como puesta.">
+            <ButtonGroup label="Reproducción">
+              <IconButton size="sm" variant="muted" icon="skip_previous" label="Anterior" />
+              <IconButton size="sm" variant="muted" icon="play_arrow" label="Reproducir" />
+              <IconButton size="sm" variant="muted" icon="stop" label="Detener" />
+              <IconButton size="sm" variant="muted" icon="skip_next" label="Siguiente" />
             </ButtonGroup>
           </Variant>
         </Panel>
       </Section>
 
-      <Section title="Apilado" note="Para una columna angosta, o para un par que se lee de arriba abajo.">
+      <Section title="Apilado" note="Para lo que se lee de arriba abajo, que es como se mueve una fila.">
         <Panel>
-          <Variant name="vertical">
+          <Variant name="subir y bajar">
             <ButtonGroup label="Mover la fila" vertical>
-              <Button size="sm" iconStart={<Icon name="arrow_upward" />} aria-label="Subir" />
-              <Button size="sm" iconStart={<Icon name="arrow_downward" />} aria-label="Bajar" />
+              <IconButton size="sm" variant="muted" icon="arrow_upward" label="Subir" />
+              <IconButton size="sm" variant="muted" icon="arrow_downward" label="Bajar" />
             </ButtonGroup>
           </Variant>
         </Panel>
       </Section>
 
       <Section title="Cómo se escribe">
-        <Example code={`<ButtonGroup label="Orden">
-  <Button>Más reciente</Button>
-  <Button>Por nombre</Button>
+        <Example code={`<ButtonGroup label="Historial">
+  <IconButton icon="undo" label="Deshacer" onClick={deshacer} />
+  <IconButton icon="redo" label="Rehacer" onClick={rehacer} />
 </ButtonGroup>`} />
       </Section>
 
@@ -57,8 +63,9 @@ export function ButtonGroupStory() {
       <Section title="Cómo se usa bien">
         <Practices>
           <Practices.Do>`label` nombra el grupo: sin eso los botones se leen sueltos.</Practices.Do>
-          <Practices.Do>Va solo cuando las acciones son variantes de una misma cosa.</Practices.Do>
-          <Practices.Dont>Para elegir una opción entre varias va `Segmented`, que trae las flechas del teclado.</Practices.Dont>
+          <Practices.Do>Va cuando las acciones son los dos sentidos de lo mismo, o los pasos de una sola.</Practices.Do>
+          <Practices.Dont>Para elegir una opción entre varias va `Segmented`: marca la puesta y trae el roving del teclado.</Practices.Dont>
+          <Practices.Dont>Para una acción principal con sus variantes al lado va `SplitButton`, que ya arma el grupo.</Practices.Dont>
         </Practices>
       </Section>
 
@@ -66,7 +73,7 @@ export function ButtonGroupStory() {
         <A11y>
           <A11y.Item>Es un role="group" con su nombre: sin eso un lector lee los botones sueltos y no se entera de que van juntos.</A11y.Item>
           <A11y.Item>El foco de un botón se dibuja por encima de sus vecinos, así que el anillo no queda cortado por el de al lado.</A11y.Item>
-          <A11y.Item>Cada botón sigue siendo un botón: las flechas no lo recorren, porque son acciones y no opciones.</A11y.Item>
+          <A11y.Item>Cada botón sigue siendo un botón y se llega con Tab: las flechas no lo recorren, porque son acciones y no opciones.</A11y.Item>
         </A11y>
       </Section>
     </Page>

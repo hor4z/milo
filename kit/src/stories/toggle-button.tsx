@@ -5,7 +5,7 @@ import { A11y, Example, Page, Panel, Practices, Props, Section, Variant } from '
 export function ToggleButtonStory() {
   const [bold, setBold] = useState(true)
   const [italic, setItalic] = useState(false)
-  const [grilla, setGrilla] = useState(true)
+  const [soloSinCorregir, setSoloSinCorregir] = useState(false)
 
   return (
     <Page
@@ -23,8 +23,10 @@ export function ToggleButtonStory() {
             <ToggleButton size="sm" pressed={bold} onPressedChange={setBold} icon="format_bold" label="Negrita" />
             <ToggleButton size="sm" pressed={italic} onPressedChange={setItalic} icon="format_italic" label="Cursiva" />
           </Variant>
-          <Variant name="con texto" note="Cuando el glifo solo no alcanza para saber qué alterna.">
-            <ToggleButton pressed={grilla} onPressedChange={setGrilla} icon="grid_view">Grilla</ToggleButton>
+          <Variant name="con texto" note="Un filtro que se prende y se apaga: hay un estado, no una opción entre varias.">
+            <ToggleButton size="sm" pressed={soloSinCorregir} onPressedChange={setSoloSinCorregir} icon="filter_alt">
+              Solo sin corregir
+            </ToggleButton>
           </Variant>
         </Panel>
       </Section>

@@ -417,8 +417,8 @@ export function Note({ tone, icon, title, children }: {
 }) {
   const glifo = icon ?? (tone ? toneIcon[tone] : 'lightbulb')
   return (
-    <div className={tone ? cx(s.note, toneSurface[tone]) : `${s.note} bg-surface`}>
-      <Icon name={glifo} size={18} className={tone ? toneInk[tone] : `${s.noteIcon} icon-muted`} />
+    <div className={cx(s.note, tone && toneSurface[tone])}>
+      <Icon name={glifo} size={18} className={cx(s.noteIcon, tone ? toneInk[tone] : s.noteGlyph)} />
       <div className={s.noteBody}>
         {title && <p className={s.noteTitle}><Rich text={title} /></p>}
         <div className={s.noteText}>

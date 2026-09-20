@@ -1,12 +1,14 @@
 import { CopyButton } from '@milo/ui/copy-button'
-import { A11y, Example, Mono, Page, Panel, Practices, Props, Section, Variant } from '../kit'
+import { TextField } from '@milo/ui/text-field'
+import { A11y, Example, Page, Panel, Practices, Props, Section, Variant } from '../kit'
 
 export function CopyButtonStory() {
   return (
     <Page
       title="CopyButton"
       kind="Acciones"
-      imports="import { CopyButton } from '@milo/ui/copy-button'"
+      imports="import { CopyButton } from '@milo/ui/copy-button'
+import { TextField } from '@milo/ui/text-field'"
       lead="Copiar un texto al portapapeles, con el tilde que avisa que salió bien."
     >
       <Section
@@ -19,9 +21,13 @@ export function CopyButtonStory() {
             <CopyButton value="npm install @milo/ui" />
             <CopyButton size="lg" value="npm install @milo/ui" />
           </Variant>
-          <Variant name="al lado de lo que copia" note="Que es donde va: pegado al texto, no en otra parte de la fila.">
-            <Mono>npm install @milo/ui</Mono>
-            <CopyButton size="sm" value="npm install @milo/ui" />
+          <Variant name="adentro del campo" note="El caso más común: un enlace para compartir, que se lee y se copia sin seleccionarlo a mano.">
+            <TextField
+              readOnly
+              value="https://milo.escuela/act/fracciones-equivalentes"
+              aria-label="Enlace para compartir"
+              suffix={<CopyButton size="sm" value="https://milo.escuela/act/fracciones-equivalentes" label="Copiar el enlace" />}
+            />
           </Variant>
         </Panel>
       </Section>
