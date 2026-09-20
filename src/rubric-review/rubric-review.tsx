@@ -2,7 +2,7 @@ import s from './rubric-review.module.css'
 import { useId, useState, type ReactNode } from 'react'
 import { Avatar } from '../avatar/avatar'
 import { Button } from '../button/button'
-import { CriterionCard, type Criterion } from '../criterion-card/criterion-card'
+import { CriterionCard, type Criterion, type Met } from '../criterion-card/criterion-card'
 import { Icon } from '../icon/icon'
 import { Textarea } from '../textarea/textarea'
 import { cx } from '../lib/cx'
@@ -10,7 +10,7 @@ import { labelFill } from '../lib/colors'
 import { counted } from '../lib/number'
 import { takePart } from '../lib/parts'
 
-export type { Criterion }
+export type { Criterion, Met }
 
 /** Quién escribió una devolución. Un agente firma igual que una persona: lo que cambia es el nombre, no lo que puede hacer. */
 export type Reviewer = {
@@ -22,20 +22,23 @@ export type Reviewer = {
   assistant?: boolean
 }
 
-/** Lo que se dijo sobre un aspecto. */
+/** Lo que se dijo sobre un aspecto: uno solo, de quien lo escribió. */
 export type Note = {
-  id: string
   by: Reviewer
   text: string
 }
 
 /** Cómo le fue a un trabajo en un aspecto. */
 export type Mark = {
-  /** En qué nivel cayó, contando desde cero. Sin esto está sin corregir. */
-  level?: number
-  /** Lo que le dijeron, en el orden en que se escribió. */
-  notes?: Note[]
+  /** Cómo quedó cada renglón, en el orden de `levels`: cumple, no cumple, o sin mirar. */
+  met?: Met[]
+  /** El comentario del aspecto, si alguien lo escribió. */
+  note?: Note
 }
+
+const hechos = (mark: Mark) => (mark.met ?? []).filter(v => v === true).length
+
+const tocado = (mark: Mark) => (mark.met ?? []).some(v => v !== undefined) || !!mark.note
 
 /** Cómo se llama la devolución, en la cabecera. */
 function Title({ children }: { children: ReactNode }) {
@@ -54,50 +57,52 @@ function Signature({ by }: { by: Reviewer }) {
   )
 }
 
-/** Cómo le fue a un trabajo contra su rúbrica: en qué nivel cayó cada aspecto y qué le dijeron. Sin los callbacks es la devolución que lee quien entregó; con ellos, la pantalla donde se corrige. */
-function Root({ criteria, marks, by, onMark, onNote, children, className }: {
+/** Cómo le fue a un trabajo contra su rúbrica: qué cumplió de cada aspecto y qué le dijeron. Sin los callbacks es la devolución que lee quien entregó; con ellos, la pantalla donde se corrige. */
+function Root({ criteria, marks, by, onMet, onNote, onClearNote, children, className }: {
   /** Los aspectos de la rúbrica, en su orden. */
   criteria: Criterion[]
   /** Lo corregido hasta ahora, por id de aspecto. */
   marks: Record<string, Mark>
   /** Quién está corrigiendo ahora: firma lo que escriba. */
   by?: Reviewer
-  /** Sin esto los niveles se leen y no se eligen. */
-  onMark?: (id: string, level: number) => void
+  /** Sin esto los renglones se leen y no se marcan. */
+  onMet?: (id: string, level: number, value: Met) => void
   /** Sin esto no se puede comentar. */
   onNote?: (id: string, text: string) => void
+  /** Sin esto un comentario no se puede borrar. */
+  onClearNote?: (id: string) => void
   /** El `RubricReview.Title`. */
   children: ReactNode
   className?: string
 }) {
   const [open, setOpen] = useState<string | null>(criteria[0]?.id ?? null)
   const [draft, setDraft] = useState<Record<string, string>>({})
+  const [editing, setEditing] = useState<string | null>(null)
   const id = useId()
   const titleId = `${id}-title`
 
   const [title] = takePart(children, Title)
   const total = criteria.reduce((sum, c) => sum + c.weight, 0)
-  const done = criteria.filter(c => marks[c.id]?.level !== undefined).length
+  const listos = criteria.filter(c => tocado(marks[c.id] ?? {})).length
 
   return (
     <section aria-labelledby={titleId} className={cx(s.root, className)}>
       <div className={s.header}>
         <p id={titleId} className={s.title}>{title}</p>
         <span className={`${s.count} tabular`}>
-          {done === criteria.length
+          {listos === criteria.length
             ? 'corregida'
-            : `${done} de ${counted(criteria.length, ['aspecto', 'aspectos'])}`}
+            : `${listos} de ${counted(criteria.length, ['aspecto', 'aspectos'])}`}
         </span>
       </div>
 
       <div aria-hidden className={s.weights}>
         {criteria.map(c => {
-          const level = marks[c.id]?.level
-          const reached = level === undefined ? 0 : ((level + 1) / c.levels.length) * 100
+          const mark = marks[c.id] ?? {}
           return (
             <span key={c.id} style={{ flexGrow: c.weight }} className={s.weight}>
               <span
-                style={{ inlineSize: `${reached}%` }}
+                style={{ inlineSize: `${(hechos(mark) / c.levels.length) * 100}%` }}
                 className={`${s.fill} ${labelFill[c.color]}`}
               />
             </span>
@@ -108,32 +113,45 @@ function Root({ criteria, marks, by, onMark, onNote, children, className }: {
       <div className={s.cards}>
         {criteria.map(c => {
           const mark = marks[c.id] ?? {}
-          const next = mark.level === undefined ? undefined : c.levels[mark.level + 1]
+          const escribiendo = editing === c.id
           return (
             <CriterionCard
               key={c.id}
               criterion={c}
               total={total}
-              level={mark.level}
-              onLevel={onMark && (level => onMark(c.id, level))}
+              met={mark.met ?? c.levels.map(() => undefined)}
+              onMet={onMet && ((level, value) => onMet(c.id, level, value))}
+              meta={tocado(mark) ? `${hechos(mark)} de ${c.levels.length}` : 'sin corregir'}
               open={open === c.id}
               onToggle={() => setOpen(o => (o === c.id ? null : c.id))}
             >
-              {next && (
-                <p className={s.next}>
-                  <Icon name="arrow_forward" size={14} className={`${s.nextIcon} icon-muted`} />
-                  <span>Para el próximo nivel: {next.charAt(0).toLowerCase()}{next.slice(1)}</span>
-                </p>
+              {mark.note && !escribiendo && (
+                <div className={s.note}>
+                  <Signature by={mark.note.by} />
+                  <p className={s.noteText}>{mark.note.text}</p>
+                  {onNote && (
+                    <div className={s.noteActions}>
+                      <Button
+                        size="sm"
+                        variant="ghost"
+                        onClick={() => {
+                          setDraft(d => ({ ...d, [c.id]: mark.note?.text ?? '' }))
+                          setEditing(c.id)
+                        }}
+                      >
+                        Editar
+                      </Button>
+                      {onClearNote && (
+                        <Button size="sm" variant="ghost" onClick={() => onClearNote(c.id)}>
+                          Borrar
+                        </Button>
+                      )}
+                    </div>
+                  )}
+                </div>
               )}
 
-              {mark.notes?.map(n => (
-                <div key={n.id} className={s.note}>
-                  <Signature by={n.by} />
-                  <p className={s.noteText}>{n.text}</p>
-                </div>
-              ))}
-
-              {onNote && by && (
+              {onNote && by && (!mark.note || escribiendo) && (
                 <div className={s.write}>
                   <Textarea
                     value={draft[c.id] ?? ''}
@@ -143,17 +161,25 @@ function Root({ criteria, marks, by, onMark, onNote, children, className }: {
                   />
                   <div className={s.writeActions}>
                     <Signature by={by} />
-                    <Button
-                      size="sm"
-                      variant="brand"
-                      disabled={!(draft[c.id] ?? '').trim()}
-                      onClick={() => {
-                        onNote(c.id, (draft[c.id] ?? '').trim())
-                        setDraft(d => ({ ...d, [c.id]: '' }))
-                      }}
-                    >
-                      Comentar
-                    </Button>
+                    <div className={s.noteActions}>
+                      {escribiendo && (
+                        <Button size="sm" variant="ghost" onClick={() => setEditing(null)}>
+                          Cancelar
+                        </Button>
+                      )}
+                      <Button
+                        size="sm"
+                        variant="brand"
+                        disabled={!(draft[c.id] ?? '').trim()}
+                        onClick={() => {
+                          onNote(c.id, (draft[c.id] ?? '').trim())
+                          setDraft(d => ({ ...d, [c.id]: '' }))
+                          setEditing(null)
+                        }}
+                      >
+                        {escribiendo ? 'Guardar' : 'Comentar'}
+                      </Button>
+                    </div>
                   </div>
                 </div>
               )}

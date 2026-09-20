@@ -982,16 +982,22 @@ export const propsByComponent: Record<string, ComponentDoc> = {
         "doc": "Sin esto el aspecto no se puede sacar."
       },
       {
-        "name": "level",
-        "type": "number",
+        "name": "met",
+        "type": "Met[]",
         "required": false,
-        "doc": "En qué nivel cayó el trabajo, contando desde cero. Sin esto el aspecto está sin corregir."
+        "doc": "Cómo quedó cada renglón, en el orden de `levels`: cumple, no cumple, o sin mirar."
       },
       {
-        "name": "onLevel",
-        "type": "(level: number) => void",
+        "name": "onMet",
+        "type": "(level: number, value: Met) => void",
         "required": false,
-        "doc": "Sin esto los niveles se leen y no se eligen."
+        "doc": "Sin esto los renglones se leen y no se marcan."
+      },
+      {
+        "name": "meta",
+        "type": "ReactNode",
+        "required": false,
+        "doc": "A la derecha del nombre, y se ve también plegada: en qué anda este aspecto."
       },
       {
         "name": "children",
@@ -2496,16 +2502,22 @@ export const propsByComponent: Record<string, ComponentDoc> = {
         "doc": "Quién está corrigiendo ahora: firma lo que escriba."
       },
       {
-        "name": "onMark",
-        "type": "(id: string, level: number) => void",
+        "name": "onMet",
+        "type": "(id: string, level: number, value: Met) => void",
         "required": false,
-        "doc": "Sin esto los niveles se leen y no se eligen."
+        "doc": "Sin esto los renglones se leen y no se marcan."
       },
       {
         "name": "onNote",
         "type": "(id: string, text: string) => void",
         "required": false,
         "doc": "Sin esto no se puede comentar."
+      },
+      {
+        "name": "onClearNote",
+        "type": "(id: string) => void",
+        "required": false,
+        "doc": "Sin esto un comentario no se puede borrar."
       },
       {
         "name": "children",
@@ -2519,7 +2531,7 @@ export const propsByComponent: Record<string, ComponentDoc> = {
         "required": false
       }
     ],
-    "doc": "Cómo le fue a un trabajo contra su rúbrica: en qué nivel cayó cada aspecto y qué le dijeron. Sin los callbacks es la devolución que lee quien entregó; con ellos, la pantalla donde se corrige."
+    "doc": "Cómo le fue a un trabajo contra su rúbrica: qué cumplió de cada aspecto y qué le dijeron. Sin los callbacks es la devolución que lee quien entregó; con ellos, la pantalla donde se corrige."
   },
   "RubricReview.Title": {
     "props": [
@@ -2557,11 +2569,6 @@ export const propsByComponent: Record<string, ComponentDoc> = {
   "Note": {
     "props": [
       {
-        "name": "id",
-        "type": "string",
-        "required": true
-      },
-      {
         "name": "by",
         "type": "Reviewer",
         "required": true
@@ -2572,21 +2579,21 @@ export const propsByComponent: Record<string, ComponentDoc> = {
         "required": true
       }
     ],
-    "doc": "Lo que se dijo sobre un aspecto."
+    "doc": "Lo que se dijo sobre un aspecto: uno solo, de quien lo escribió."
   },
   "Mark": {
     "props": [
       {
-        "name": "level",
-        "type": "number",
+        "name": "met",
+        "type": "Met[]",
         "required": false,
-        "doc": "En qué nivel cayó, contando desde cero. Sin esto está sin corregir."
+        "doc": "Cómo quedó cada renglón, en el orden de `levels`: cumple, no cumple, o sin mirar."
       },
       {
-        "name": "notes",
-        "type": "Note[]",
+        "name": "note",
+        "type": "Note",
         "required": false,
-        "doc": "Lo que le dijeron, en el orden en que se escribió."
+        "doc": "El comentario del aspecto, si alguien lo escribió."
       }
     ],
     "doc": "Cómo le fue a un trabajo en un aspecto."

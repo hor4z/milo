@@ -49,24 +49,23 @@ const ana = { name: 'Ana Pérez', src: '/avatars/04.webp' }
 
 const devuelta: Record<string, Mark> = {
   datos: {
-    level: 2,
-    notes: [
-      { id: 'n1', by: amelia, text: 'Están las tres mediciones y el error estimado. Para el último nivel falta decir de dónde sale ese error.' },
-      { id: 'n2', by: ana, text: 'La tabla quedó muy clara. Sumale el cálculo y queda completo.' },
-    ],
+    met: [true, true, true, false],
+    note: { by: amelia, text: 'Están las tres mediciones y el error estimado. Falta decir de dónde sale ese error.' },
   },
   grafico: {
-    level: 3,
-    notes: [{ id: 'n3', by: ana, text: 'Impecable: la recta marcada y la pendiente despejada.' }],
+    met: [true, true, true, true],
+    note: { by: ana, text: 'Impecable: la recta marcada y la pendiente despejada.' },
   },
   explicacion: {
-    level: 1,
-    notes: [{ id: 'n4', by: amelia, text: 'Decís que la pendiente tiene que ver con la gravedad, pero no por qué da la mitad.' }],
+    met: [true, true, false, false],
+    note: { by: amelia, text: 'Decís que la pendiente tiene que ver con la gravedad, pero no por qué da la mitad.' },
   },
 }
 
 export function RubricReviewStory() {
-  const [marks, setMarks] = useState<Record<string, Mark>>({ datos: { level: 2 } })
+  const [marks, setMarks] = useState<Record<string, Mark>>({
+    datos: { met: [true, true, true, false] },
+  })
 
   return (
     <Page
@@ -77,7 +76,7 @@ export function RubricReviewStory() {
     >
       <Section
         title="Corrigiendo"
-        note="Con `onMark` los niveles se eligen y con `onNote` se puede comentar. La barra de arriba se llena mientras se corrige: cada tramo es un aspecto, su ancho es lo que vale y lo lleno es hasta dónde llegó el trabajo. No hay nota ni puntaje, y eso no es un olvido: el número convierte cuatro descripciones en una cifra que se lee sola."
+        note="Con `onMet` los renglones se tildan, con `onNote` se comenta y con `onClearNote` se borra ese comentario. Es el mismo gesto que hace el estudiante con su lista, y a la derecha de cada nombre dice en qué anda ese aspecto, así que plegada la tarjeta igual se sabe qué falta corregir. La barra se llena con lo tildado: no hay nota ni puntaje, y eso no es un olvido."
       >
         <Panel>
           <Variant name="a medio corregir" note="Elegí un nivel en Gráfico y mirá cómo se llena su tramo.">
@@ -86,14 +85,14 @@ export function RubricReviewStory() {
                 criteria={criteria}
                 marks={marks}
                 by={ana}
-                onMark={(id, level) => setMarks(m => ({ ...m, [id]: { ...m[id], level } }))}
-                onNote={(id, text) => setMarks(m => ({
-                  ...m,
-                  [id]: {
-                    ...m[id],
-                    notes: [...(m[id]?.notes ?? []), { id: `n${Date.now()}`, by: ana, text }],
-                  },
-                }))}
+                onMet={(id, level, value) => setMarks(m => {
+                  const aspecto = criteria.find(c => c.id === id)!
+                  const met = [...(m[id]?.met ?? aspecto.levels.map(() => false))]
+                  met[level] = value
+                  return { ...m, [id]: { ...m[id], met } }
+                })}
+                onNote={(id, text) => setMarks(m => ({ ...m, [id]: { ...m[id], note: { by: ana, text } } }))}
+                onClearNote={id => setMarks(m => ({ ...m, [id]: { ...m[id], note: undefined } }))}
               >
                 <RubricReview.Title>Entrega</RubricReview.Title>
               </RubricReview>
@@ -104,7 +103,7 @@ export function RubricReviewStory() {
 
       <Section
         title="La devolución"
-        note="Sin los callbacks, la misma pieza es lo que abre quien entregó: el nivel donde cayó cada aspecto, lo que le dijeron y, debajo, qué le falta para el nivel que sigue. Eso último es lo único que vuelve útil a una devolución: sin el paso siguiente escrito, la rúbrica solo explica una nota."
+        note="Sin los callbacks, la misma pieza es lo que abre quien entregó: qué renglones cumplió, cuáles no y qué le dijeron. Lo que falta no hay que escribirlo: son los renglones sin tildar, que están a la vista y dicen exactamente qué hacer la próxima vez."
       >
         <Panel>
           <Variant name="lo que ve quien entregó">
@@ -128,8 +127,9 @@ export function RubricReviewStory() {
   criteria={aspectos}
   marks={loCorregido}
   by={quienCorrige}
-  onMark={(id, level) => marcar(id, level)}
+  onMet={(id, nivel, cumple) => tildar(id, nivel, cumple)}
   onNote={(id, text) => comentar(id, text)}
+  onClearNote={id => borrarComentario(id)}
 >
   <RubricReview.Title>Entrega</RubricReview.Title>
 </RubricReview>`} />
@@ -142,17 +142,18 @@ export function RubricReviewStory() {
       <Section title="Cómo se usa bien">
         <Practices>
           <Practices.Do>Comentá al lado del aspecto que lo motiva: un comentario general al final se lee como un veredicto y no como una ayuda.</Practices.Do>
-          <Practices.Do>Dejá el nivel sin marcar mientras no se corrigió: el vacío es un estado y la cabecera lo dice ("1 de 3 aspectos").</Practices.Do>
+          <Practices.Do>Dejá el aspecto sin tocar mientras no se corrigió: "sin corregir" al lado del nombre es lo que le dice a quien corrige dónde quedó.</Practices.Do>
           <Practices.Do>Firmá siempre lo que escribe un agente: quien lee tiene derecho a saber si eso lo miró una persona.</Practices.Do>
           <Practices.Dont>No la uses para poner una nota: si el producto necesita una cifra, va aparte y no adentro de la devolución.</Practices.Dont>
-          <Practices.Dont>No escondas los niveles que no alcanzó: son los que dicen qué hacer la próxima vez.</Practices.Dont>
+          <Practices.Dont>No escondas los renglones sin tildar: son los que dicen qué hacer la próxima vez.</Practices.Dont>
+          <Practices.Dont>No los tildes en rojo cuando no están: el vacío ya dice que falta, y una pantalla de cruces se lee como un veredicto.</Practices.Dont>
         </Practices>
       </Section>
 
       <Section title="Accesibilidad">
         <A11y>
-          <A11y.Item>Corrigiendo, los niveles de cada aspecto son un `radiogroup` con una sola parada de tabulación y las flechas para moverse.</A11y.Item>
-          <A11y.Item>Leyendo, el nivel alcanzado lleva `aria-current`, así que no depende del color de fondo.</A11y.Item>
+          <A11y.Item>Corrigiendo, cada renglón es una casilla adentro de su etiqueta: se toca el texto y se tilda.</A11y.Item>
+          <A11y.Item>Leyendo, cada renglón dice "cumplido" o "todavía no" en un texto que solo alcanza un lector de pantalla: no depende de ver el tilde.</A11y.Item>
           <A11y.Item>La barra es decorativa: lo que dice está escrito en cada aspecto.</A11y.Item>
           <A11y.Item>El campo de comentario dice sobre qué aspecto es, porque hay uno por tarjeta.</A11y.Item>
           <A11y.Item>La firma de un agente se lee como texto ("asistente") y no solo como un glifo.</A11y.Item>

@@ -12,7 +12,7 @@
   }
 
   .headerOpen {
-    padding-bottom: 0.25rem;
+    padding-bottom: 0.875rem;
   }
 
   .trigger {
@@ -52,6 +52,17 @@
     line-height: var(--type-body-lh);
     letter-spacing: var(--type-body-ls);
     font-weight: var(--font-weight-semibold);
+  }
+
+  .meta {
+    flex-shrink: 0;
+    min-width: 4rem;
+    text-align: right;
+    font-size: var(--type-meta);
+    line-height: var(--type-meta-lh);
+    letter-spacing: var(--type-meta-ls);
+    font-weight: var(--font-weight-medium);
+    color: var(--text-muted);
   }
 
   .remove {
@@ -98,29 +109,72 @@
     color: var(--text-muted);
   }
 
-  .stepPick {
-    width: 100%;
-    cursor: pointer;
-    text-align: left;
-    transition-property: background-color;
+  .row {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+
+  .picks {
+    display: inline-flex;
+    flex-shrink: 0;
+    gap: 0.25rem;
+  }
+
+  .pick {
+    --icon-size: 12px;
+    display: inline-flex;
+    width: 1.125rem;
+    height: 1.125rem;
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--radius-full);
+    border-style: solid;
+    border-width: 1.5px;
+    border-color: var(--border-strong);
+    color: var(--text-muted);
+    transition-property: background-color, color, border-color;
     transition-duration: var(--duration-fast);
     transition-timing-function: var(--ease-out);
   }
 
-  .stepMarked {
-    background-color: var(--brand-soft);
-    color: var(--brand-ink);
-    font-weight: var(--font-weight-medium);
+  .failed {
+    background-color: var(--bad);
+    border-color: var(--bad);
+    color: var(--on-bad);
   }
 
-  .stepTop {
+  .met,
+  .unmet {
+    display: inline-flex;
+    width: 1.125rem;
+    height: 1.125rem;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--radius-full);
+    margin-top: 1px;
+  }
+
+  .met {
+    --icon-size: 12px;
+    background-color: var(--ok-fill);
+    border-color: var(--ok-fill);
+    color: var(--on-ok);
+  }
+
+  .unmet {
+    --icon-size: 12px;
+    background-color: var(--yellow-soft);
+    color: var(--yellow-ink);
+  }
+
+  .stepText {
+    min-width: 0;
+  }
+
+  .stepMet {
     color: var(--text);
-    font-weight: var(--font-weight-medium);
   }
 
-  @media (hover: hover) {
-    .stepPick:hover {
-      background-color: var(--surface-hover);
-    }
-  }
 }

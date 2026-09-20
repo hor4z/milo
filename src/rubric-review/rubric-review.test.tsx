@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react'
+import { render, screen, within } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { describe, expect, it, vi } from 'vitest'
 import { RubricReview, type Criterion, type Mark } from './rubric-review'
@@ -26,10 +26,10 @@ const amelia = { name: 'Amelia', assistant: true }
 
 const corregida: Record<string, Mark> = {
   datos: {
-    level: 1,
-    notes: [{ id: 'n1', by: amelia, text: 'Están las tres, falta estimar el error.' }],
+    met: [true, true, undefined],
+    note: { by: amelia, text: 'Están las tres, falta estimar el error.' },
   },
-  grafico: { level: 1 },
+  grafico: { met: [true, true] },
 }
 
 const arma = (props: Record<string, unknown> = {}) => {
@@ -51,20 +51,20 @@ describe('RubricReview', () => {
     expect(screen.getByText('Están las tres, falta estimar el error.')).toBeInTheDocument()
   })
 
-  it('el nivel marcado dice que es el actual, y no solo con el color', () => {
+  it('cada renglón dice si está cumplido, y no solo con el tilde', () => {
     arma()
-    const marcado = screen.getByText('Las tres, sin el error')
-    expect(marcado).toHaveAttribute('aria-current', 'true')
+    expect(screen.getByText('Las tres, sin el error').textContent).toContain('cumplido')
+    expect(screen.getByText('Las tres, con el error').textContent).toContain('todavía no')
   })
 
-  it('dice qué sigue, que es lo que el estudiante puede hacer con esto', () => {
+  it('en qué anda cada aspecto se ve sin abrirlo', () => {
     arma()
-    expect(screen.getByText(/Para el próximo nivel: las tres, con el error/)).toBeInTheDocument()
+    expect(screen.getByText('2 de 3')).toBeInTheDocument()
   })
 
   it('la cabecera dice cuánto falta corregir', () => {
     render(
-      <RubricReview criteria={criteria} marks={{ datos: { level: 0 } }}>
+      <RubricReview criteria={criteria} marks={{ datos: { met: [true, false, false] } }}>
         <RubricReview.Title>Cómo te fue</RubricReview.Title>
       </RubricReview>,
     )
@@ -76,15 +76,51 @@ describe('RubricReview', () => {
     expect(screen.getByText('corregida')).toBeInTheDocument()
   })
 
-  it('con onMark los niveles se eligen, y avisa cuál', async () => {
-    const onMark = vi.fn()
+  it('corrigiendo, cada renglón se marca con el tilde o con la cruz', async () => {
+    const onMet = vi.fn()
     render(
-      <RubricReview criteria={criteria} marks={corregida} onMark={onMark}>
+      <RubricReview criteria={criteria} marks={corregida} onMet={onMet}>
         <RubricReview.Title>Cómo te fue</RubricReview.Title>
       </RubricReview>,
     )
-    await userEvent.click(screen.getByRole('radio', { name: 'Las tres, con el error' }))
-    expect(onMark).toHaveBeenCalledWith('datos', 2)
+    const fila = screen.getByRole('radiogroup', { name: 'Cómo quedó: Las tres, con el error' })
+    await userEvent.click(within(fila).getByRole('radio', { name: 'Lo hizo' }))
+    expect(onMet).toHaveBeenCalledWith('datos', 2, true)
+
+    await userEvent.click(within(fila).getByRole('radio', { name: 'No lo hizo' }))
+    expect(onMet).toHaveBeenCalledWith('datos', 2, false)
+  })
+
+  it('la cruz es del que corrige: quien entregó no la recibe', () => {
+    render(
+      <RubricReview criteria={criteria} marks={{ datos: { met: [true, false, undefined] } }}>
+        <RubricReview.Title>Cómo te fue</RubricReview.Title>
+      </RubricReview>,
+    )
+    expect(screen.queryByRole('radio')).not.toBeInTheDocument()
+    expect(screen.getByText('Las tres, sin el error').textContent).toContain('todavía no')
+  })
+
+  it('un comentario se puede editar y borrar', async () => {
+    const onClearNote = vi.fn()
+    render(
+      <RubricReview
+        criteria={criteria}
+        marks={corregida}
+        by={amelia}
+        onNote={vi.fn()}
+        onClearNote={onClearNote}
+      >
+        <RubricReview.Title>Cómo te fue</RubricReview.Title>
+      </RubricReview>,
+    )
+    await userEvent.click(screen.getByRole('button', { name: 'Editar' }))
+    expect(screen.getByLabelText('Comentario sobre Toma de datos'))
+      .toHaveValue('Están las tres, falta estimar el error.')
+
+    await userEvent.click(screen.getByRole('button', { name: 'Cancelar' }))
+    await userEvent.click(screen.getByRole('button', { name: 'Borrar' }))
+    expect(onClearNote).toHaveBeenCalledWith('datos')
   })
 
   it('el comentario se firma con quien está corrigiendo, sea persona o agente', async () => {
@@ -94,14 +130,14 @@ describe('RubricReview', () => {
         <RubricReview.Title>Cómo te fue</RubricReview.Title>
       </RubricReview>,
     )
-    const campo = screen.getByLabelText('Comentario sobre Toma de datos')
+    const campo = screen.getByLabelText('Comentario sobre Gráfico')
     const enviar = screen.getAllByRole('button', { name: 'Comentar' })[0]
 
     expect(enviar).toBeDisabled()
     await userEvent.type(campo, 'Sumá el cálculo del error')
     await userEvent.click(enviar)
 
-    expect(onNote).toHaveBeenCalledWith('datos', 'Sumá el cálculo del error')
+    expect(onNote).toHaveBeenCalledWith('grafico', 'Sumá el cálculo del error')
     expect(screen.getAllByText('Amelia').length).toBeGreaterThan(0)
   })
 
