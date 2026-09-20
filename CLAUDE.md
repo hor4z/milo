@@ -266,6 +266,14 @@ Salieron de armar pantallas de verdad con estas piezas, y valen para cualquiera 
   alguien de doce años. Tres cosas no cambian: nunca al lado de una tarea, nunca como única forma de
   entender algo, y siempre se reemplaza por la versión quieta para quien pidió menos movimiento.
 
+- **Una zona de riesgo es un `Alert tone="bad"`, no una caja a mano.** El `SettingsModal` tenía
+  cinco clases propias (`dangerBox`, `dangerTitle`, `dangerText`, `dangerButton`) que reescribían la
+  receta del `Alert`: mismo `--bad-subtle`, mismo radio, mismo padding, y le faltaban el borde y el
+  glifo. Sin el glifo el rojo es la única señal, que es justo lo que **Accesibilidad** prohíbe.
+- **Un aviso que no acaba de pasar no lleva `role="alert"`.** `Alert` lo pone solo con `tone="bad"`,
+  y para algo que está fijo en la pantalla eso hace que el lector lo anuncie con urgencia cada vez
+  que se monta la sección. La pieza deja pasar el `role` (el spread de props va último), así que una
+  zona de riesgo va con `role="group"` y su `aria-label`. La receta visual se reusa; la urgencia no.
 - **Un item elegido se marca con una barra de 2px a la izquierda, sin fondo y sin borde.** El riel
   de Ajustes llegó a apilar tres tratamientos en el item activo: pastilla con `--brand-soft`, borde
   `--brand-border`, y adentro una caja blanca con su propio anillo alrededor del icono. Tres capas

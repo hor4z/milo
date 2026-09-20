@@ -117,32 +117,6 @@
     padding-block: 1rem;
   }
 
-  .dangerBox {
-    border-radius: var(--radius-xl);
-    background-color: var(--bad-subtle);
-    padding: 1rem;
-  }
-
-  .dangerTitle {
-    font-size: var(--type-body);
-    line-height: var(--type-body-lh);
-    letter-spacing: var(--type-body-ls);
-    font-weight: var(--font-weight-semibold);
-    color: var(--text);
-  }
-
-  .dangerText {
-    margin-top: 0.5rem;
-    font-size: var(--type-body);
-    line-height: var(--type-body-lh);
-    letter-spacing: var(--type-body-ls);
-    color: var(--text-muted);
-  }
-
-  .dangerButton {
-    margin-top: 0.75rem;
-  }
-
   .row {
     display: flex;
     min-height: 3.5rem;

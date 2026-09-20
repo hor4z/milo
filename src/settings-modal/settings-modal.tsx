@@ -1,6 +1,7 @@
 import cls from './settings-modal.module.css'
 import { useState } from 'react'
 import { cx } from '../lib/cx'
+import { Alert, AlertActions, AlertBody, AlertTitle } from '../alert/alert'
 import { Button } from '../button/button'
 import { Chip } from '../chip/chip'
 import { Row } from '../row/row'
@@ -158,14 +159,16 @@ function SecuritySection() {
         <Button size="sm" variant="ghost" iconEnd={<Icon name="download" />}>Descargar</Button>
       </Row>
       <div className={cls.dangerZone}>
-        <div className={cls.dangerBox}>
-          <div className={cls.dangerTitle}>Borrar la cuenta</div>
-          <p className={cls.dangerText}>
+        <Alert tone="bad" role="group" aria-label="Borrar la cuenta">
+          <AlertTitle>Borrar la cuenta</AlertTitle>
+          <AlertBody>
             Se van los espacios que coordinás y las actividades que escribiste. Las entregas de los
             aprendices quedan con su autor, no con vos.
-          </p>
-          <Button size="sm" variant="bad" className={cls.dangerButton}>Borrar la cuenta</Button>
-        </div>
+          </AlertBody>
+          <AlertActions>
+            <Button size="sm" variant="bad">Borrar la cuenta</Button>
+          </AlertActions>
+        </Alert>
       </div>
     </div>
   )
