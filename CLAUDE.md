@@ -4,7 +4,7 @@ El sistema de interfaz de milo: la identidad en tokens, las piezas que la usan, 
 donde se ve todo funcionando. No es una lámina de estilos: cada pieza de acá es el componente
 real, con su teclado, sus estados y sus tests.
 
-**El repo es del design system y de nada más.** El UI kit (las 64 piezas) es una parte; las
+**El repo es del design system y de nada más.** El UI kit (las 62 piezas) es una parte; las
 otras son los tokens y lo que el sitio documenta alrededor. Acá adentro no vive producto: el
 prototipo de la app que hubo hasta ahora se borró, y cuando haga falta uno de nuevo se arma
 aparte.
@@ -184,7 +184,7 @@ módulos, obliga a `s['card-header']` en TS y eso lo daría por muerto. Hay un t
 **De dónde sale el nombre**, en este orden:
 
 1. **Si es una parte que la pieza ya expone, se llama como la parte.** `CardHeader` es `header`,
-   `AlertTitle` es `title`, `TabPanel` es `panel`, `TreeNode` es `node`.
+   `AlertTitle` es `title`, `TabPanel` es `panel`, `CardHeader` es `header`.
 2. **Si es un contenedor, se llama por lo que contiene, en plural**, y la unidad adentro es el
    singular: `items` e `item`, `actions`, `options`, `swatches` y `swatch`.
 3. **Si es un estado o una variante, se llama por la condición bajo la cual se aplica**, nunca por la
@@ -196,7 +196,7 @@ módulos, obliga a `s['card-header']` en TS y eso lo daría por muerto. Hay un t
 Si dos reglas se parecen tanto que dan ganas de numerarlas, lo que las separa es el nombre:
 `trackRest` y `trackActive`, no `track` y `track2`.
 
-**El léxico**, una palabra por papel y la misma en las 64 piezas:
+**El léxico**, una palabra por papel y la misma en las 62 piezas:
 
 | | |
 |---|---|
@@ -210,13 +210,13 @@ Si dos reglas se parecen tanto que dan ganas de numerarlas, lo que las separa es
 
 `selected`, `active` y `current` son tres cosas distintas y conviven en la misma pieza: `selected` es
 el valor elegido, `active` es dónde está el cursor del teclado, `current` es dónde estás parado en una
-secuencia. En `Select`, en `Tree`, en el `DatePicker` y en el `CommandMenu` hacen falta las tres.
+secuencia. En `Select`, en el `DatePicker` y en el `CommandMenu` hacen falta las tres.
 
 Y cada una tiene su complemento, que son tres y no uno: **`idle`** es lo que no tiene el cursor
 encima (`active ? active : idle`), **`plain`** es lo que no recibió ningún tratamiento de tono ni de
 elección (`danger ? danger : plain`, `selected ? selected : plain`), y un interruptor va con el par
 **`on`/`off`**, que no es ninguna de las dos. Elegir mal el complemento no rompe nada y por eso se
-escapa: `Tree` tenía `idle` contra `selected`, que se lee como si el árbol tuviera cursor.
+escapa: el `Tree` que hubo tenía `idle` contra `selected`, que se lee como si el árbol tuviera cursor.
 
 **Una clase no pisa el nombre de una global.** `group`, `peer`, `mark`, `field`, `tabular`, `raised`,
 `zebra`, `pressed` y las cincuenta y pico que declaran `base.css` y `theme.css` quedan prohibidas
@@ -268,6 +268,20 @@ Salieron de armar pantallas de verdad con estas piezas, y valen para cualquiera 
   alguien de doce años. Tres cosas no cambian: nunca al lado de una tarea, nunca como única forma de
   entender algo, y siempre se reemplaza por la versión quieta para quien pidió menos movimiento.
 
+- **Un radio se elige contra el alto de la pieza, no contra su tipo.** `radius-xl` es correcto en una
+  tarjeta y demasiado en una barra: sobre un `Toolbar` de 44 o un item de `Menu` de 40, 16px es más
+  de un tercio del alto y la pieza se lee como una pastilla. Los tres bajaron a `lg`. Es la misma
+  cuenta que bajó el modal de 24 a 16.
+- **Un item elegido se marca con la barra, en el riel de Ajustes y en el `Nav`.** El `Nav` también
+  apilaba fondo suave, anillo y una caja blanca con su propio canto alrededor del icono. Ahora es la
+  misma barra de 2px que el riel de Ajustes, y el `NavItemBody` pierde `active` y `chip`, que solo
+  existían para esa caja.
+- **Una casilla y un radio apagados son una caja vacía con su línea, no un campo hundido.** Llevaban
+  `inset-relief` y un relleno gris: la sombra ensuciaba una pieza de 18px y el gris la hacía leerse
+  como deshabilitada. Ahora van en `--field-bg` con una línea interior, que es lo que hace que se
+  vean sobre cualquier superficie. Al sacarlas, `--relief-inset` pasó de seis consumidores a cuatro.
+- **La escala de radios gana un escalón abajo, `--radius-xs` de 4px**, porque sobre un cuadrado de 18
+  el `sm` de 6 deja la casilla casi redonda y una casilla redonda se lee como un radio.
 - **Una marca de `Indicator` se ancla a la caja de lo que marca, y esa caja casi nunca es lo que se
   ve.** Un `IconButton` de 40 lleva un glifo de 18 centrado, así que la esquina de la caja queda a
   11px de la esquina del glifo, y el punto se lee suelto aunque las cajas estén pegadas. La pieza no
@@ -544,7 +558,7 @@ Un paquete, `@milo/ui`, y adentro el sitio que lo documenta:
 src/                    theme.css (las capas) · styles/ (reset, base y tokens/) ·
                         index.ts (la puerta) ·
                         una carpeta por pieza: button/button.tsx + button/button.test.tsx,
-                        y así las 64 (select, modal, toast, chart, table…)
+                        y así las 62 (select, modal, toast, chart, table…)
                         lib/ lo compartido que no es un componente: cx · colors ·
                         control · tone · time · number · esc · overlay-hooks ·
                         roving · side-scroll · dismiss
@@ -775,7 +789,7 @@ eso: parecía voz de producto como Inclusión, pero una de sus nueve reglas la h
 guardián que lee el repo entero (el que busca la raya larga y las comillas angulares), así que
 está sostenida.
 
-**Entró en una vuelta anterior**, porque el propósito del sistema lo pedía: `DatePicker` y `Tree` y
+**Entró en una vuelta anterior**, porque el propósito del sistema lo pedía: `DatePicker` y
 `Stepper` y `Reorder`, más el `Documento` que las prueba juntas. De arrastrar y soltar entró la mitad que importa: reordenar una lista, con el teclado como
 pieza y el arrastre como comodidad. Lo que sigue afuera es soltar algo **adentro** de otra cosa
 (un archivo en una carpeta) que es otro problema.

@@ -6,7 +6,7 @@
     flex-shrink: 0;
     align-items: center;
     justify-content: center;
-    border-radius: var(--radius-sm);
+    border-radius: var(--radius-xs);
   }
 
   .motion {
@@ -28,8 +28,9 @@
   }
 
   .off {
-    background-color: var(--surface-muted);
+    background-color: var(--field-bg);
     color: var(--on-brand);
+    box-shadow: inset 0 0 0 1px var(--border-strong);
   }
 
   .glyph {

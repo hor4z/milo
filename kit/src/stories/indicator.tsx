@@ -11,19 +11,19 @@ export function IndicatorStory() {
     >
       <Section
         title="Tres formas de marcar"
-        note="El punto dice 'hay algo' y nada más, que es lo que alcanza casi siempre. El contador dice cuánto, y solo vale la pena cuando el número cambia la decisión: entre 'hay avisos' y 'hay tres avisos' no cambia nada, entre 'hay 3' y 'hay 148' sí. El glifo dice qué pasó, y es el único que no necesita que vayas a mirar."
+        note="El punto dice 'hay algo' y nada más, que es lo que alcanza casi siempre. El contador dice cuánto, y solo vale la pena cuando el número cambia la decisión: entre 'hay avisos' y 'hay tres avisos' no cambia nada, entre 'hay 3' y 'hay 148' sí. El glifo dice qué pasó, y es el único que no necesita que vayas a mirar. Sobre un `IconButton` va con `inset`: el botón mide 40 y el glifo 18, así que sin eso la marca se ancla a la esquina de la caja y queda lejos de lo que marca. Sobre un avatar o una carpeta no hace falta, porque ahí la tinta llena la caja."
       >
         <Panel>
           <Variant name="punto">
-            <Indicator dot label="Hay avisos sin leer">
+            <Indicator dot inset={6} label="Hay avisos sin leer">
               <IconButton icon="notifications" label="Avisos" />
             </Indicator>
           </Variant>
           <Variant name="contador">
-            <Indicator count={3} label="3 avisos sin leer">
+            <Indicator count={3} inset={6} label="3 avisos sin leer">
               <IconButton icon="inbox" label="Entregas" />
             </Indicator>
-            <Indicator count={148} label="148 sin leer">
+            <Indicator count={148} inset={6} label="148 sin leer">
               <IconButton icon="mail" label="Mensajes" />
             </Indicator>
           </Variant>
@@ -45,7 +45,7 @@ export function IndicatorStory() {
         <Panel>
           <Variant name="tonos">
             {(['accent', 'ok', 'warn', 'bad', 'neutral'] as const).map(t => (
-              <Indicator key={t} dot tone={t} label={t}>
+              <Indicator key={t} dot inset={6} tone={t} label={t}>
                 <IconButton icon="notifications" label={`Avisos ${t}`} />
               </Indicator>
             ))}

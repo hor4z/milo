@@ -72,9 +72,9 @@
     color: var(--text-muted);
   }
 
-  .iconOnlyXs { width: 1.5rem; }
-  .iconOnlySm { width: 1.75rem; }
-  .iconOnlyMd { width: 2rem; }
+  .iconOnlyXs { width: 1.75rem; }
+  .iconOnlySm { width: 2rem; }
+  .iconOnlyMd { width: 2.25rem; }
 
   .padXs { padding-inline: 0.5rem; }
   .padSm { padding-inline: 0.75rem; }

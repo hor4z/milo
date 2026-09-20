@@ -37,7 +37,7 @@ export function Radio({
         s.root,
         s.motion,
         s.disabled,
-        checked ? s.on : `${s.off} inset-relief`,
+        checked ? s.on : s.off,
       )}
     >
       <span

@@ -30,6 +30,7 @@
   }
 
   .badge {
+    --inset: 0px;
     pointer-events: none;
     position: absolute;
     display: inline-flex;
@@ -40,15 +41,22 @@
   }
 
   .dot {
-    top: 0;
-    right: 0;
+    top: var(--inset);
+    right: var(--inset);
     width: 0.625rem;
     height: 0.625rem;
   }
 
+  .glyph {
+    top: calc(-0.125rem + var(--inset));
+    right: calc(-0.125rem + var(--inset));
+    width: 1.125rem;
+    height: 1.125rem;
+  }
+
   .count {
-    top: calc(0.25rem * -1);
-    right: calc(0.25rem * -1);
+    top: calc(-0.25rem + var(--inset));
+    right: calc(-0.25rem + var(--inset));
     min-height: 1rem;
     min-width: 1rem;
     padding-inline: 0.25rem;

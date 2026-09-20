@@ -204,71 +204,6 @@ export const propsByComponent: Record<string, ComponentDoc> = {
     ],
     "doc": "Varias personas en el lugar de una."
   },
-  "Book": {
-    "props": [
-      {
-        "name": "title",
-        "type": "string",
-        "required": true,
-        "doc": "El nombre, en la tapa."
-      },
-      {
-        "name": "variant",
-        "type": "'stripe' | 'simple'",
-        "required": false,
-        "def": "'stripe'",
-        "doc": "`stripe` lleva una franja de color arriba con el icono o la ilustración, y el título abajo sobre papel."
-      },
-      {
-        "name": "color",
-        "type": "string",
-        "required": false,
-        "doc": "Un token, no un hex: así la tapa sigue al tema."
-      },
-      {
-        "name": "textColor",
-        "type": "string",
-        "required": false,
-        "doc": "El color de lo que va encima del color: el glifo de la franja en `stripe`, y el título en `simple`."
-      },
-      {
-        "name": "width",
-        "type": "BookWidth",
-        "required": false,
-        "def": "196",
-        "doc": "Ancho en px, o dos anchos para que el libro no se aplaste en pantalla chica."
-      },
-      {
-        "name": "textured",
-        "type": "boolean",
-        "required": false,
-        "doc": "Solo para una portada sola."
-      },
-      {
-        "name": "icon",
-        "type": "ReactNode",
-        "required": false,
-        "doc": "El glifo de la franja en `stripe`, o el de la tapa en `simple`."
-      },
-      {
-        "name": "illustration",
-        "type": "ReactNode",
-        "required": false,
-        "doc": "Llena la franja o la tapa."
-      },
-      {
-        "name": "href",
-        "type": "string",
-        "required": false,
-        "doc": "Lo convierte en <a>."
-      },
-      {
-        "name": "className",
-        "type": "string",
-        "required": false
-      }
-    ]
-  },
   "Breadcrumb": {
     "props": [
       {
@@ -1649,23 +1584,10 @@ export const propsByComponent: Record<string, ComponentDoc> = {
         "doc": "Hundido como un kbd: un contador no es accionable."
       },
       {
-        "name": "active",
-        "type": "boolean",
-        "required": false,
-        "doc": "Dónde estás parado. Se marca con el azul primario y su canto."
-      },
-      {
         "name": "collapsed",
         "type": "boolean",
         "required": false,
         "doc": "El riel de 72: queda el icono y nada más."
-      },
-      {
-        "name": "chip",
-        "type": "boolean",
-        "required": false,
-        "def": "true",
-        "doc": "El chip de papel detrás del icono cuando el item está activo."
       }
     ]
   },
@@ -2936,6 +2858,12 @@ export const propsByComponent: Record<string, ComponentDoc> = {
         "doc": "La salida del aviso: deshacer, ver, reintentar. Al tocarla el aviso se cierra."
       },
       {
+        "name": "meta",
+        "type": "string",
+        "required": false,
+        "doc": "Una línea corta a la derecha, en gris, para cuando no hay acción. Si es un tiempo, sale de `timeAgo` y no escrito a mano."
+      },
+      {
         "name": "duration",
         "type": "number",
         "required": false,
@@ -3027,51 +2955,5 @@ export const propsByComponent: Record<string, ComponentDoc> = {
       }
     ],
     "doc": "La etiqueta que dice qué hace un control que no lo dice solo: un icono suelto, un valor truncado, una acción con una consecuencia que conviene aclarar."
-  },
-  "Tree": {
-    "props": [
-      {
-        "name": "nodes",
-        "type": "TreeNode[]",
-        "required": true,
-        "doc": "Las ramas de arriba. Cada una puede traer `children`."
-      },
-      {
-        "name": "label",
-        "type": "string",
-        "required": true,
-        "doc": "De qué es el árbol. Sin esto un lector dice \"árbol\" y nada más."
-      },
-      {
-        "name": "expanded",
-        "type": "string[]",
-        "required": false,
-        "doc": "Los ids abiertos. Sin esto el árbol los maneja solo."
-      },
-      {
-        "name": "onExpandedChange",
-        "type": "(ids: string[]) => void",
-        "required": false,
-        "doc": "Recibe la lista nueva de ids abiertos."
-      },
-      {
-        "name": "selected",
-        "type": "string",
-        "required": false,
-        "doc": "El id elegido."
-      },
-      {
-        "name": "onSelect",
-        "type": "(id: string) => void",
-        "required": false,
-        "doc": "Recibe el id al elegir con Enter, espacio o el mouse."
-      },
-      {
-        "name": "className",
-        "type": "string",
-        "required": false
-      }
-    ],
-    "doc": "Una jerarquía que se abre y se cierra: los espacios de alguien, el índice de un documento."
   }
 }

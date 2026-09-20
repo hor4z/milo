@@ -1,8 +1,8 @@
 import cls from './document.module.css'
 import { useState } from 'react'
 import {
-  Callout, Figure, Mention, Popover, Quote, TaskList, Toolbar,
-  ToolbarButton, ToolbarSeparator, CommandMenu, Divider, Icon, IconButton, Tooltip,
+  AvatarGroup, Button, Callout, Figure, Mention, Popover, Quote, TaskList, Toolbar,
+  ToolbarButton, ToolbarSeparator, CommandMenu, Divider, Icon,
   type CommandGroup, type Task,
 } from '@milo/ui'
 
@@ -52,6 +52,14 @@ export function DocumentStory() {
 
   return (
     <article className={cls.doc}>
+      <span aria-hidden className={`${cls.cursor} ${cls.cursorAna}`}>
+        <span className={cls.caret} />
+        <span className={cls.who}>Ana</span>
+      </span>
+      <span aria-hidden className={`${cls.cursor} ${cls.cursorBruno}`}>
+        <span className={cls.caret} />
+        <span className={cls.who}>Bruno</span>
+      </span>
       <header className={cls.docHeader}>
         <div className={cls.titleRow}>
           <div className={cls.titleBlock}>
@@ -59,20 +67,23 @@ export function DocumentStory() {
             <h1 className={cls.docTitle}>Caída libre: medir g en el patio</h1>
           </div>
           <div className={cls.docActions}>
-            <Tooltip label="Quién puede verlo">
-              <IconButton icon="group" label="Compartir" size="sm" variant="muted" />
-            </Tooltip>
+            <AvatarGroup
+              size={28}
+              max={4}
+              people={[
+                { name: 'Ana Pérez', src: face(4) },
+                { name: 'Bruno Costa', src: face(11) },
+                { name: 'Carla Ríos', src: face(7) },
+                { name: 'Diego Sosa' },
+                { name: 'Emilia Paz' },
+              ]}
+            />
             <Popover
               align="end"
               trigger={p => (
-                <button
-                  {...p}
-                  type="button"
-                  className={`${cls.insertTrigger} field-focus bg-surface`}
-                >
-                  <Icon name="add" size={16} className="icon-muted" />
+                <Button {...p} size="sm" variant="brand" iconStart={<Icon name="add" />}>
                   Insertar
-                </button>
+                </Button>
               )}
             >
               {close => (

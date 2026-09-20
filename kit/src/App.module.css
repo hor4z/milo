@@ -199,10 +199,19 @@
   }
 
   .navItemActive {
-    background-color: var(--brand-soft);
+    position: relative;
     font-weight: var(--font-weight-semibold);
     color: var(--brand-ink);
-    box-shadow: 0 0 0 1px var(--brand-border);
+
+    &::before {
+      content: "";
+      position: absolute;
+      inset-block: 0.5rem;
+      left: 0;
+      width: 2px;
+      border-radius: var(--radius-full);
+      background-color: var(--brand);
+    }
   }
 
   .navItemIdle {

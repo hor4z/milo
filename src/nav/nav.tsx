@@ -21,7 +21,7 @@ export function navItemClass({
 }
 
 export function NavItemBody({
-  icon, glyph, label, badge, active, collapsed, chip = true,
+  icon, glyph, label, badge, collapsed,
 }: {
   /** El glifo del set; para uno propio va `glyph`. */
   icon?: IconName
@@ -31,22 +31,13 @@ export function NavItemBody({
   label: string
   /** Hundido como un kbd: un contador no es accionable. */
   badge?: string
-  /** Dónde estás parado. Se marca con el azul primario y su canto. */
-  active?: boolean
   /** El riel de 72: queda el icono y nada más. */
   collapsed?: boolean
-  /** El chip de papel detrás del icono cuando el item está activo. */
-  chip?: boolean
 }) {
   return (
     <>
       <span className={cls.glyphSlot}>
-        <span
-          className={cx(
-            cls.glyph,
-            active && chip && `${cls.glyphPaper} bg-surface`,
-          )}
-        >
+        <span className={cls.glyph}>
           {glyph ?? (icon && <Icon name={icon} size={20} className={cls.icon} />)}
         </span>
       </span>

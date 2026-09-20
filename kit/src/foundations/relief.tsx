@@ -8,7 +8,7 @@ const recipes = [
     token: '--relief-inset',
     role: 'lo hundido que no es una marca',
     detail: 'canto arriba y nada más: no tiene tono propio ni cae hacia afuera',
-    used: 'Checkbox · Radio · Kbd · Nav · EmptyState · SettingsModal',
+    used: 'Kbd · Nav · EmptyState · SettingsModal',
   },
   {
     cls: 'mark',

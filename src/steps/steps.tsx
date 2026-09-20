@@ -49,7 +49,7 @@ export function Steps({ steps, current, label, orientation = 'horizontal', onSel
                   horizontal ? cls.connectorHorizontal : cls.connectorVertical,
                   isDone || isCurrent ? cls.connectorReached : cls.connectorAhead,
                 )}
-                style={horizontal ? { left: 'calc(-100% + 36px)', right: 'calc(100% + 8px)' } : undefined}
+                style={horizontal ? { left: 'calc(-100% + 28px)', right: '100%' } : undefined}
               />
             )}
 
@@ -57,7 +57,7 @@ export function Steps({ steps, current, label, orientation = 'horizontal', onSel
               {...(onSelect ? { type: 'button' as const, onClick: () => onSelect(i) } : {})}
               className={cx(
                 `${cls.bullet} tabular`,
-                onSelect && cls.bulletClickable,
+                cls.bulletMotion,
                 isDone && cls.bulletDone,
                 isCurrent && cls.bulletCurrent,
                 !isDone && !isCurrent && cls.bulletAhead,

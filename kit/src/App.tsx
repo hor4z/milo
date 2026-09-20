@@ -21,7 +21,6 @@ import { QuoteStory } from './stories/quote'
 import { TaskListStory } from './stories/task-list'
 import { MentionStory } from './stories/mention'
 import { DatePickerStory } from './stories/date-picker'
-import { TreeStory } from './stories/tree'
 import { StepperStory } from './stories/stepper'
 import { ReorderStory } from './stories/reorder'
 import { CommandMenuStory } from './stories/command-menu'
@@ -49,7 +48,6 @@ import { IconStory } from './stories/icon'
 import { KbdStory } from './stories/kbd'
 import { DividerStory } from './stories/divider'
 import { MenuStory } from './stories/menu'
-import { BookStory } from './stories/book'
 import { FolderStory } from './stories/folder'
 import { ListStory } from './stories/list'
 import { TableStory } from './stories/table'
@@ -150,7 +148,6 @@ const groups: Group[] = [
       { id: 'tabs', label: 'Tabs', alias: 'solapas pestañas paneles', render: () => <TabsStory /> },
       { id: 'accordion', label: 'Accordion', alias: 'acordeón desplegable details preguntas frecuentes', render: () => <AccordionStory /> },
       { id: 'breadcrumb', label: 'Breadcrumb', alias: 'ruta migas volver jerarquía', render: () => <BreadcrumbStory /> },
-      { id: 'tree', label: 'Tree', alias: 'árbol jerarquía carpetas anidado índice esquema outline ramas', render: () => <TreeStory /> },
       { id: 'reorder', label: 'Reorder', alias: 'reordenar arrastrar soltar mover orden bloques manija drag', render: () => <ReorderStory /> },
       { id: 'steps', label: 'Steps', alias: 'etapas pasos proceso wizard progreso secuencia', render: () => <StepsStory /> },
       { id: 'nav', label: 'NavItem', alias: 'navegación item sidebar riel', render: () => <NavStory /> },
@@ -192,7 +189,6 @@ const groups: Group[] = [
       { id: 'divider', label: 'Divider', alias: 'separador línea corte', render: () => <DividerStory /> },
       { id: 'link', label: 'Link', alias: 'enlace hipervínculo subrayado externo', render: () => <LinkStory /> },
       { id: 'kbd', label: 'Kbd', alias: 'tecla atajo teclado', render: () => <KbdStory /> },
-      { id: 'book', label: 'Book', alias: 'libro portada tapa', render: () => <BookStory /> },
       { id: 'folder', label: 'Folder', alias: 'carpeta espacio color', render: () => <FolderStory /> },
     ],
   },

@@ -47,7 +47,7 @@ export function RadioStory() {
 
       <Section
         title="Es el checkbox en redondo"
-        note="Mismo relleno azul prendido, misma receta hundida apagado, misma medida de 18. Lo único que cambia es la marca de adentro: un tilde o un disco. Dos piezas que dicen lo mismo ('esto lo elegí yo') no pueden dibujarse con dos recetas distintas."
+        note="Mismo relleno azul prendido, misma caja vacía con su línea apagado, misma medida de 18. Lo único que cambia es la marca de adentro: un tilde o un disco. Dos piezas que dicen lo mismo ('esto lo elegí yo') no pueden dibujarse con dos recetas distintas."
       >
         <Panel>
           <Variant name="radio vs checkbox">

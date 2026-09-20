@@ -29,6 +29,9 @@ export function ToastStory() {
             <Button variant="muted" onClick={() => toast({ title: 'Se archivaron 12 actividades', duration: 0 })}>
               Sin vencimiento
             </Button>
+            <Button variant="muted" onClick={() => toast({ title: 'Resumen de la semana', body: 'El lunes ya está listo.', meta: 'recién' })}>
+              Con hora
+            </Button>
           </Cluster>
         </Demo>
       </Section>

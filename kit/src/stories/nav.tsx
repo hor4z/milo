@@ -25,7 +25,7 @@ export function NavStory() {
               { id: 'guardadas', icon: 'favorite', label: 'Guardadas' },
             ].map(i => (
               <button key={i.id} onClick={() => setActive(i.id)} className={navItemClass({ active: active === i.id })}>
-                <NavItemBody icon={i.icon as 'explore'} label={i.label} badge={i.badge} active={active === i.id} />
+                <NavItemBody icon={i.icon as 'explore'} label={i.label} badge={i.badge} />
               </button>
             ))}
 
@@ -39,8 +39,6 @@ export function NavStory() {
                 <NavItemBody
                   glyph={<FolderIcon color={s.color} size={20} />}
                   label={s.label}
-                  active={active === s.id}
-                  chip={false}
                 />
               </button>
             ))}
@@ -52,7 +50,7 @@ export function NavStory() {
         <div className={cls.subitemRail}>
           <div className={cls.subitemList}>
             <button className={navItemClass({ active: true })}>
-              <NavItemBody icon="explore" label="Explorar" active />
+              <NavItemBody icon="explore" label="Explorar" />
             </button>
             <button className={navSubItemClass({ active: true })}>Recetas</button>
             <button className={navSubItemClass()}>Publicadas</button>
@@ -64,7 +62,7 @@ export function NavStory() {
         <div className={cls.collapsedRail}>
           <div className={cls.collapsedList}>
             <button className={navItemClass({ active: true, collapsed: true })} title="Explorar">
-              <NavItemBody icon="explore" label="Explorar" active collapsed />
+              <NavItemBody icon="explore" label="Explorar" collapsed />
             </button>
             <button className={navItemClass({ collapsed: true })} title="Recursos">
               <NavItemBody icon="layers" label="Recursos" collapsed />
