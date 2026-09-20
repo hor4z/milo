@@ -80,10 +80,11 @@
     color: var(--text-muted);
   }
 
+  /* sin sombra: el papel ya se separa del marco por el cambio de fondo, y una sombra
+     contra el canto de afuera se lee como un segundo borde */
   .body {
     border-radius: var(--radius-lg);
     padding: 0.5rem 0.75rem 0.75rem;
-    box-shadow: var(--relief-card);
   }
 
   .items {
