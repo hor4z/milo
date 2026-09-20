@@ -942,6 +942,87 @@ export const propsByComponent: Record<string, ComponentDoc> = {
     ],
     "doc": "Copiar un texto al portapapeles, con el tilde que avisa que salió bien. El aviso también se anuncia: el cambio de glifo no lo ve quien escucha la pantalla."
   },
+  "CriterionCard": {
+    "props": [
+      {
+        "name": "criterion",
+        "type": "Criterion",
+        "required": true,
+        "doc": "Lo que la tarjeta muestra."
+      },
+      {
+        "name": "total",
+        "type": "number",
+        "required": true,
+        "doc": "La suma de los pesos de la rúbrica: con eso la tarjeta dice cuánto vale este criterio."
+      },
+      {
+        "name": "open",
+        "type": "boolean",
+        "required": true,
+        "doc": "Es controlada: la rúbrica decide cuál está abierta."
+      },
+      {
+        "name": "onToggle",
+        "type": "() => void",
+        "required": true,
+        "doc": "Recibe el pedido de abrir o cerrar."
+      },
+      {
+        "name": "onRemove",
+        "type": "() => void",
+        "required": false,
+        "doc": "Sin esto el criterio no se puede sacar."
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "required": false
+      }
+    ],
+    "doc": "Un criterio adentro de una rúbrica: la marca, el nombre y, plegados, sus niveles. Cerrado ocupa una fila, así que una rúbrica de ocho criterios mide lo mismo que una de dos."
+  },
+  "Criterion": {
+    "props": [
+      {
+        "name": "id",
+        "type": "string",
+        "required": true,
+        "doc": "Único en la rúbrica."
+      },
+      {
+        "name": "label",
+        "type": "string",
+        "required": true,
+        "doc": "Qué se mira, en las palabras de quien corrige."
+      },
+      {
+        "name": "weight",
+        "type": "number",
+        "required": true,
+        "doc": "Cuánto vale contra los demás. De acá sale su porcentaje."
+      },
+      {
+        "name": "color",
+        "type": "LabelColor",
+        "required": true,
+        "doc": "El color de su marca, y el de su tramo en la barra de la rúbrica."
+      },
+      {
+        "name": "icon",
+        "type": "IconName",
+        "required": true,
+        "doc": "El glifo de su marca."
+      },
+      {
+        "name": "levels",
+        "type": "string[]",
+        "required": true,
+        "doc": "Un descriptor por nivel, del más flojo al más completo."
+      }
+    ],
+    "doc": "Un criterio: qué se mira, cuánto vale contra los demás y qué se ve en cada nivel."
+  },
   "DatePicker": {
     "props": [
       {
@@ -2348,47 +2429,6 @@ export const propsByComponent: Record<string, ComponentDoc> = {
       }
     ],
     "doc": "Cómo se llama la rúbrica, en la cabecera."
-  },
-  "Criterion": {
-    "props": [
-      {
-        "name": "id",
-        "type": "string",
-        "required": true,
-        "doc": "Único en la rúbrica."
-      },
-      {
-        "name": "label",
-        "type": "string",
-        "required": true,
-        "doc": "Qué se mira, en las palabras de quien corrige."
-      },
-      {
-        "name": "weight",
-        "type": "number",
-        "required": true,
-        "doc": "Cuánto vale contra los demás. De acá sale el ancho de su tramo y su porcentaje."
-      },
-      {
-        "name": "color",
-        "type": "LabelColor",
-        "required": true,
-        "doc": "El color de su tramo en la barra y de su marca."
-      },
-      {
-        "name": "icon",
-        "type": "IconName",
-        "required": true,
-        "doc": "El glifo de su marca."
-      },
-      {
-        "name": "levels",
-        "type": "string[]",
-        "required": true,
-        "doc": "Un descriptor por nivel, del más flojo al más completo."
-      }
-    ],
-    "doc": "Un criterio: qué se mira, cuánto vale contra los demás y qué se ve en cada nivel."
   },
   "CriterionDraft": {
     "props": [

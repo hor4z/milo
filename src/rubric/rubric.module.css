@@ -146,35 +146,6 @@
     transition-timing-function: var(--ease-out);
   }
 
-  .criterionTop {
-    display: flex;
-    min-width: 0;
-    align-items: center;
-    gap: 0.5rem;
-  }
-
-  .swatch {
-    display: inline-flex;
-    width: 1.5rem;
-    height: 1.5rem;
-    flex-shrink: 0;
-    align-items: center;
-    justify-content: center;
-    border-radius: var(--radius-sm);
-  }
-
-  .criterionHeader {
-    padding-bottom: 0;
-  }
-
-  .criterionLabel {
-    min-width: 0;
-    font-size: var(--type-body);
-    line-height: var(--type-body-lh);
-    letter-spacing: var(--type-body-ls);
-    font-weight: var(--font-weight-semibold);
-  }
-
   .share {
     flex-shrink: 0;
     font-size: var(--type-meta);
@@ -182,45 +153,6 @@
     letter-spacing: var(--type-meta-ls);
     font-weight: var(--font-weight-medium);
     color: var(--text-muted);
-  }
-
-  .removeCriterion {
-    flex-shrink: 0;
-    margin-inline-end: -0.375rem;
-  }
-
-  .criterionBody {
-    padding-top: 0;
-  }
-
-  .ladder {
-    display: flex;
-    flex-direction: column;
-    gap: 0.125rem;
-  }
-
-  .step {
-    display: flex;
-    align-items: flex-start;
-    gap: 0.5rem;
-    border-radius: var(--radius-sm);
-    padding: 0.25rem 0.375rem;
-    font-size: var(--type-meta);
-    line-height: var(--type-meta-lh);
-    letter-spacing: var(--type-meta-ls);
-    color: var(--text-muted);
-    transition-property: background-color, color;
-    transition-duration: var(--duration-fast);
-    transition-timing-function: var(--ease-out);
-  }
-
-  .stepTop {
-    color: var(--text);
-    font-weight: var(--font-weight-medium);
-  }
-
-  .stepText {
-    min-width: 0;
   }
 
   .addCriterion {

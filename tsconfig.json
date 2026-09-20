@@ -66,6 +66,9 @@
       "@milo/ui/copy-button": [
         "./src/copy-button/copy-button.tsx"
       ],
+      "@milo/ui/criterion-card": [
+        "./src/criterion-card/criterion-card.tsx"
+      ],
       "@milo/ui/date-picker": [
         "./src/date-picker/date-picker.tsx"
       ],

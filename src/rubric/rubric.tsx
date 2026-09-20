@@ -2,34 +2,20 @@ import s from './rubric.module.css'
 import { useEffect, useId, useRef, useState, type CSSProperties, type ReactNode } from 'react'
 import { Button } from '../button/button'
 import { Card } from '../card/card'
+import { CriterionCard, type Criterion } from '../criterion-card/criterion-card'
 import { Field } from '../field/field'
-import { Icon, type IconName } from '../icon/icon'
-import { IconButton } from '../icon-button/icon-button'
+import { Icon } from '../icon/icon'
 import { Slider } from '../slider/slider'
 import { TextField } from '../text-field/text-field'
 import { Tooltip } from '../tooltip/tooltip'
 import { cx } from '../lib/cx'
-import { labelFill, labelSoft, type LabelColor } from '../lib/colors'
+import { labelFill } from '../lib/colors'
 import { counted, share } from '../lib/number'
 import { useDisclosure } from '../lib/use-disclosure'
 import { useRovingRadio } from '../lib/roving'
 import { takePart } from '../lib/parts'
 
-/** Un criterio: qué se mira, cuánto vale contra los demás y qué se ve en cada nivel. */
-export type Criterion = {
-  /** Único en la rúbrica. */
-  id: string
-  /** Qué se mira, en las palabras de quien corrige. */
-  label: string
-  /** Cuánto vale contra los demás. De acá sale el ancho de su tramo y su porcentaje. */
-  weight: number
-  /** El color de su tramo en la barra y de su marca. */
-  color: LabelColor
-  /** El glifo de su marca. */
-  icon: IconName
-  /** Un descriptor por nivel, del más flojo al más completo. */
-  levels: string[]
-}
+export type { Criterion }
 
 /** Lo que devuelve el alta. El id, el color y el glifo los pone quien la guarda. */
 export type CriterionDraft = {
@@ -68,6 +54,7 @@ function Root({ criteria, onAdd, onRemove, defaultOpen = true, children, classNa
 }) {
   const [lit, setLit] = useState<string | null>(null)
   const [pinned, setPinned] = useState<string | null>(null)
+  const [openCard, setOpenCard] = useState<string | null>(criteria[0]?.id ?? null)
   const [runs, setRuns] = useState(0)
   const [label, setLabel] = useState('')
   const [weight, setWeight] = useState(3)
@@ -168,10 +155,11 @@ function Root({ criteria, onAdd, onRemove, defaultOpen = true, children, classNa
                 aria-label={`${c.label}, vale ${share(c.weight, total).percent} de la nota`}
                 onPointerEnter={() => setLit(c.id)}
                 onPointerLeave={() => setLit(null)}
-                onFocus={() => { setLit(c.id); bring(c.id) }}
+                onFocus={() => { setLit(c.id); setOpenCard(c.id); bring(c.id) }}
                 onBlur={() => setLit(null)}
                 onClick={() => {
                   setPinned(p => (p === c.id ? null : c.id))
+                  setOpenCard(c.id)
                   if (!panel.open) {
                     setRuns(n => n + 1)
                     panel.onOpen()
@@ -196,40 +184,13 @@ function Root({ criteria, onAdd, onRemove, defaultOpen = true, children, classNa
                   style={{ '--enter': i } as CSSProperties}
                   className={cx(s.criterion, active && active !== c.id && s.criterionDim)}
                 >
-                  <Card>
-                    <Card.Header className={s.criterionHeader}>
-                      <div className={s.criterionTop}>
-                        <span aria-hidden className={`${s.swatch} mark ${labelSoft[c.color]}`}>
-                          <Icon name={c.icon} size={16} />
-                        </span>
-                        <Card.Title className={s.criterionLabel}>
-                          {c.label}
-                          <span className="sr-only">, vale {share(c.weight, total).percent} de la nota</span>
-                        </Card.Title>
-                      </div>
-                      {onRemove && (
-                        <Tooltip label="Sacar de la rúbrica">
-                          <IconButton
-                            icon="delete"
-                            label={`Sacar ${c.label} de la rúbrica`}
-                            size="sm"
-                            variant="ghost"
-                            onClick={() => onRemove(c)}
-                            className={s.removeCriterion}
-                          />
-                        </Tooltip>
-                      )}
-                    </Card.Header>
-                    <Card.Body className={s.criterionBody}>
-                      <ol className={s.ladder}>
-                        {c.levels.map((level, j) => (
-                          <li key={level} className={cx(s.step, j === c.levels.length - 1 && s.stepTop)}>
-                            <span className={s.stepText}>{level}</span>
-                          </li>
-                        ))}
-                      </ol>
-                    </Card.Body>
-                  </Card>
+                  <CriterionCard
+                    criterion={c}
+                    total={total}
+                    open={openCard === c.id}
+                    onToggle={() => setOpenCard(o => (o === c.id ? null : c.id))}
+                    onRemove={onRemove && (() => onRemove(c))}
+                  />
                 </li>
               ))}
             </ul>
