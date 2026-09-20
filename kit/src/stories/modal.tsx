@@ -50,7 +50,9 @@ export function ModalStory() {
                 <Modal.Title>Renombrar el espacio</Modal.Title>
               </Modal.Header>
               <Modal.Body>
-                <Field label="Nombre" hint="Lo ven los 28 del curso.">
+                <Field>
+                  <Field.Label>Nombre</Field.Label>
+                  <Field.Hint>Lo ven los 28 del curso.</Field.Hint>
                   <TextField value={nombre} onChange={e => setNombre(e.target.value)} />
                 </Field>
               </Modal.Body>

@@ -99,16 +99,13 @@ export function AudioPlayerStory() {
       <Section title="Lo que va al costado" note="Descargar, un menú, borrar. Entra por `actions` y no como props propias.">
         <Panel>
           <div className={cls.asideFrame}>
-            <AudioPlayer
-              src={AUDIO}
-              title="Devolución para Ana Pérez"
-              peaks={peaks}
-              actions={(
+            <AudioPlayer src={AUDIO} title="Devolución para Ana Pérez" peaks={peaks}>
+              <AudioPlayer.Actions>{(
                 <Tooltip label="Descargar">
                   <IconButton icon="download" label="Descargar el audio" size="sm" />
                 </Tooltip>
-              )}
-            />
+              )}</AudioPlayer.Actions>
+            </AudioPlayer>
           </div>
         </Panel>
       </Section>

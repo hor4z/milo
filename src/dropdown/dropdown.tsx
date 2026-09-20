@@ -43,14 +43,8 @@ export function Dropdown({
       {close => (
         <Menu label={label}>
           {items.map((item, i) => (
-            <Menu.Item
-              key={i}
-              icon={item.icon}
-              shortcut={item.shortcut}
-              danger={item.danger}
-              disabled={item.disabled}
-              onSelect={() => { item.onSelect?.(); close() }}
-            >
+            <Menu.Item key={i} icon={item.icon} danger={item.danger} disabled={item.disabled} onSelect={() => { item.onSelect?.(); close() }}>
+              <Menu.Shortcut>{item.shortcut}</Menu.Shortcut>
               {item.label}
             </Menu.Item>
           ))}

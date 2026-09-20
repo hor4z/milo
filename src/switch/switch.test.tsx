@@ -31,7 +31,9 @@ describe('Switch', () => {
 
   it('adentro de un Field toma su id y se nombra con la etiqueta', () => {
     render(
-      <Field label="Entregas fuera de fecha" hint="Después del cierre">
+      <Field>
+        <Field.Label>Entregas fuera de fecha</Field.Label>
+        <Field.Hint>Después del cierre</Field.Hint>
         <Switch checked onChange={() => {}} />
       </Field>,
     )

@@ -1,6 +1,7 @@
 import s from './list.module.css'
 import type { ReactNode } from 'react'
 import { cx } from '../lib/cx'
+import { takePart } from '../lib/parts'
 import { markFill, type MarkColor } from '../lib/colors'
 import { Icon, type IconName } from '../icon/icon'
 
@@ -16,24 +17,38 @@ function Root({ children, className }: { children: ReactNode; className?: string
   )
 }
 
+/** El nombre de la fila, en 16/600. */
+function Title({ children }: { children: ReactNode }) {
+  return <>{children}</>
+}
+
+/** La línea de apoyo, en 14/500 gris. */
+function Hint({ children }: { children: ReactNode }) {
+  return <>{children}</>
+}
+
+/** A la derecha: un chevron, un `Switch`. Un contador no: el número ya está en el hint, y repetirlo al lado obliga a leer dos veces lo mismo. */
+function Trailing({ children }: { children: ReactNode }) {
+  return <>{children}</>
+}
+
 function Item({
-  icon, color, title, hint, active, onClick, trailing,
+  icon, color, active, onClick, children,
 }: {
   /** El glifo de la marca de color. */
   icon: IconName
   /** El par relleno/glifo de la marca. */
   color: MarkColor
-  /** · 16/600. */
-  title: string
-  /** 14/500 en gris. */
-  hint?: string
   /** La fila elegida: queda hundida, no teñida. */
   active?: boolean
   /** Sin esto la fila es un <div> y no toma hover. */
   onClick?: () => void
-  /** A la derecha: un chevron, un `Switch`. Un contador no: el número ya está en `hint`, y repetirlo al lado obliga a leer dos veces lo mismo. */
-  trailing?: ReactNode
+  /** El `List.Title`, el `List.Hint` si va y el `List.Trailing` si va. */
+  children: ReactNode
 }) {
+  const [title, sinTitle] = takePart(children, Title)
+  const [hint, sinHint] = takePart(sinTitle, Hint)
+  const [trailing] = takePart(sinHint, Trailing)
   const Tag = onClick ? 'button' : 'div'
   return (
     <Tag
@@ -51,12 +66,12 @@ function Item({
 
       <span className={s.body}>
         <span className={s.title}>{title}</span>
-        {hint && <span className={s.hint}>{hint}</span>}
+        {hint.length > 0 && <span className={s.hint}>{hint}</span>}
       </span>
 
-      {trailing && <span className={s.trailing}>{trailing}</span>}
+      {trailing.length > 0 && <span className={s.trailing}>{trailing}</span>}
     </Tag>
   )
 }
 
-export const List = Object.assign(Root, { Item })
+export const List = Object.assign(Root, { Item, Title, Hint, Trailing })

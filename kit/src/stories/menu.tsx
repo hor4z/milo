@@ -24,8 +24,8 @@ export function MenuStory() {
           <Variant name="suelta">
             <Menu label="Acciones de la actividad" width={260}>
               <Menu.Item icon="edit">Renombrar</Menu.Item>
-              <Menu.Item icon="content_copy" shortcut="⌘D">Duplicar</Menu.Item>
-              <Menu.Item icon="group" hint="7">Compartir</Menu.Item>
+              <Menu.Item icon="content_copy">Duplicar<Menu.Shortcut>⌘D</Menu.Shortcut></Menu.Item>
+              <Menu.Item icon="group">Compartir<Menu.Hint>7</Menu.Hint></Menu.Item>
               <Menu.Item icon="folder" submenu>Mover a</Menu.Item>
             </Menu>
           </Variant>
@@ -40,7 +40,7 @@ export function MenuStory() {
           <Variant name="armado entero">
             <Menu label="Acciones con grupos" width={260}>
               <Menu.Label>Esta actividad</Menu.Label>
-              <Menu.Item icon="edit" shortcut="E">Editar</Menu.Item>
+              <Menu.Item icon="edit">Editar<Menu.Shortcut>E</Menu.Shortcut></Menu.Item>
               <Menu.Item icon="visibility">Ver como estudiante</Menu.Item>
               <Divider />
               <Menu.Label>Vista</Menu.Label>
@@ -79,8 +79,8 @@ export function MenuStory() {
             >
               {close => (
                 <Menu label="Acciones de la fila" width={240}>
-                  <Menu.Item icon="edit" shortcut="E" onSelect={close}>Editar</Menu.Item>
-                  <Menu.Item icon="link" shortcut="⌘L" onSelect={close}>Copiar enlace</Menu.Item>
+                  <Menu.Item icon="edit" onSelect={close}>Editar<Menu.Shortcut>E</Menu.Shortcut></Menu.Item>
+                  <Menu.Item icon="link" onSelect={close}>Copiar enlace<Menu.Shortcut>⌘L</Menu.Shortcut></Menu.Item>
                   <Divider />
                   <Menu.Item icon="delete" danger onSelect={close}>Eliminar</Menu.Item>
                 </Menu>

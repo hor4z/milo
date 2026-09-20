@@ -187,14 +187,10 @@ export function Dashboard() {
               </div>
               <List>
                 {pending.map(t => (
-                  <List.Item
-                    key={t.title}
-                    icon={t.icon}
-                    color={t.color}
-                    title={t.title}
-                    hint={t.hint}
-                    onClick={() => {}}
-                  />
+                  <List.Item key={t.title} icon={t.icon} color={t.color} onClick={() => {}}>
+                    <List.Title>{t.title}</List.Title>
+                    <List.Hint>{t.hint}</List.Hint>
+                  </List.Item>
                 ))}
               </List>
             </Stack>

@@ -14,18 +14,18 @@ describe('Page', () => {
 
 describe('PageHeader', () => {
   it('el título es el encabezado de la pantalla', () => {
-    render(<Page.Header title="Espacios" subtitle="Lo que tenés a cargo" />)
+    render(<Page.Header><Page.Title>Espacios</Page.Title><Page.Subtitle>Lo que tenés a cargo</Page.Subtitle></Page.Header>)
     expect(screen.getByRole('heading', { level: 1, name: 'Espacios' })).toBeInTheDocument()
     expect(screen.getByText('Lo que tenés a cargo')).toBeInTheDocument()
   })
 
   it('sin subtítulo no deja el hueco', () => {
-    render(<Page.Header title="Espacios" />)
+    render(<Page.Header><Page.Title>Espacios</Page.Title></Page.Header>)
     expect(screen.queryByText('Lo que tenés a cargo')).not.toBeInTheDocument()
   })
 
   it('las acciones van al lado del título', () => {
-    render(<Page.Header title="Espacios" actions={<button>Nuevo</button>} />)
+    render(<Page.Header><Page.Title>Espacios</Page.Title><Page.Actions><button>Nuevo</button></Page.Actions></Page.Header>)
     expect(screen.getByRole('button', { name: 'Nuevo' })).toBeInTheDocument()
   })
 })

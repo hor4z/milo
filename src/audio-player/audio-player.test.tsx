@@ -121,7 +121,7 @@ describe('AudioPlayer', () => {
   })
 
   it('las acciones de al lado se muestran', () => {
-    render(<AudioPlayer src="/x.mp3" actions={<button type="button">Descargar</button>} />)
+    render(<AudioPlayer src="/x.mp3"><AudioPlayer.Actions><button type="button">Descargar</button></AudioPlayer.Actions></AudioPlayer>)
     expect(screen.getByRole('button', { name: 'Descargar' })).toBeInTheDocument()
   })
 })

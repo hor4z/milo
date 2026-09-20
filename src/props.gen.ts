@@ -112,7 +112,7 @@ export const propsByComponent: Record<string, ComponentDoc> = {
         "name": "title",
         "type": "string",
         "required": false,
-        "doc": "El nombre de la pista, arriba de la onda. Sin esto el reproductor va en una sola fila."
+        "doc": "El nombre de la pista, arriba de la onda. Es un string y no una parte porque la pieza lo necesita como texto: alimenta el `MediaMetadata` del sistema operativo y el nombre de la barra de búsqueda. Sin esto el reproductor va en una sola fila."
       },
       {
         "name": "peaks",
@@ -121,10 +121,10 @@ export const propsByComponent: Record<string, ComponentDoc> = {
         "doc": "Los picos del archivo, de 0 a 1, para dibujar la onda. Se reparten el ancho, así que cuantos menos, más gordas salen las barras. Sin esto se dibuja una pista pelada: no se inventa una onda que no es la del audio."
       },
       {
-        "name": "actions",
+        "name": "children",
         "type": "ReactNode",
         "required": false,
-        "doc": "A la derecha del tiempo: descargar, un menú, lo que haga falta."
+        "doc": "Las `AudioPlayer.Actions`, si van."
       },
       {
         "name": "size",
@@ -138,8 +138,17 @@ export const propsByComponent: Record<string, ComponentDoc> = {
         "type": "string",
         "required": false
       }
+    ]
+  },
+  "AudioPlayer.Actions": {
+    "props": [
+      {
+        "name": "children",
+        "type": "ReactNode",
+        "required": true
+      }
     ],
-    "doc": "Un archivo de audio con su onda: play, una línea de tiempo que se arrastra y el reloj."
+    "doc": "A la derecha del tiempo: descargar, un menú, lo que haga falta."
   },
   "Avatar": {
     "props": [
@@ -986,24 +995,6 @@ export const propsByComponent: Record<string, ComponentDoc> = {
   "Field": {
     "props": [
       {
-        "name": "label",
-        "type": "string",
-        "required": true,
-        "doc": "Nombra el control y lo enfoca al tocarla."
-      },
-      {
-        "name": "hint",
-        "type": "string",
-        "required": false,
-        "doc": "Debajo de la etiqueta: para qué sirve el campo."
-      },
-      {
-        "name": "error",
-        "type": "string",
-        "required": false,
-        "doc": "Lo que está mal. Reemplaza al hint y marca el control."
-      },
-      {
         "name": "required",
         "type": "boolean",
         "required": false,
@@ -1013,7 +1004,7 @@ export const propsByComponent: Record<string, ComponentDoc> = {
         "name": "children",
         "type": "ReactNode",
         "required": true,
-        "doc": "El control, que toma el id solo."
+        "doc": "El `Field.Label`, el `Field.Hint` o el `Field.Error` si van, y el control, que toma el id solo."
       },
       {
         "name": "className",
@@ -1022,6 +1013,36 @@ export const propsByComponent: Record<string, ComponentDoc> = {
       }
     ],
     "doc": "Une etiqueta, ayuda, error y control: los tres textos quedan atados al control."
+  },
+  "Field.Label": {
+    "props": [
+      {
+        "name": "children",
+        "type": "ReactNode",
+        "required": true
+      }
+    ],
+    "doc": "Nombra el control y lo enfoca al tocarla."
+  },
+  "Field.Hint": {
+    "props": [
+      {
+        "name": "children",
+        "type": "ReactNode",
+        "required": true
+      }
+    ],
+    "doc": "Debajo de la etiqueta: para qué sirve el campo."
+  },
+  "Field.Error": {
+    "props": [
+      {
+        "name": "children",
+        "type": "ReactNode",
+        "required": true
+      }
+    ],
+    "doc": "Lo que está mal. Reemplaza al hint y marca el control."
   },
   "Field.Set": {
     "props": [
@@ -1408,18 +1429,6 @@ export const propsByComponent: Record<string, ComponentDoc> = {
         "doc": "El par relleno/glifo de la marca."
       },
       {
-        "name": "title",
-        "type": "string",
-        "required": true,
-        "doc": "· 16/600."
-      },
-      {
-        "name": "hint",
-        "type": "string",
-        "required": false,
-        "doc": "14/500 en gris."
-      },
-      {
         "name": "active",
         "type": "boolean",
         "required": false,
@@ -1432,12 +1441,42 @@ export const propsByComponent: Record<string, ComponentDoc> = {
         "doc": "Sin esto la fila es un <div> y no toma hover."
       },
       {
-        "name": "trailing",
+        "name": "children",
         "type": "ReactNode",
-        "required": false,
-        "doc": "A la derecha: un chevron, un `Switch`. Un contador no: el número ya está en `hint`, y repetirlo al lado obliga a leer dos veces lo mismo."
+        "required": true,
+        "doc": "El `List.Title`, el `List.Hint` si va y el `List.Trailing` si va."
       }
     ]
+  },
+  "List.Title": {
+    "props": [
+      {
+        "name": "children",
+        "type": "ReactNode",
+        "required": true
+      }
+    ],
+    "doc": "El nombre de la fila, en 16/600."
+  },
+  "List.Hint": {
+    "props": [
+      {
+        "name": "children",
+        "type": "ReactNode",
+        "required": true
+      }
+    ],
+    "doc": "La línea de apoyo, en 14/500 gris."
+  },
+  "List.Trailing": {
+    "props": [
+      {
+        "name": "children",
+        "type": "ReactNode",
+        "required": true
+      }
+    ],
+    "doc": "A la derecha: un chevron, un `Switch`. Un contador no: el número ya está en el hint, y repetirlo al lado obliga a leer dos veces lo mismo."
   },
   "Mention": {
     "props": [
@@ -1514,18 +1553,6 @@ export const propsByComponent: Record<string, ComponentDoc> = {
         "doc": "A la izquierda, en gris."
       },
       {
-        "name": "shortcut",
-        "type": "string",
-        "required": false,
-        "doc": "El atajo, en un Kbd."
-      },
-      {
-        "name": "hint",
-        "type": "string",
-        "required": false,
-        "doc": "Una línea de apoyo a la derecha, en gris."
-      },
-      {
         "name": "checked",
         "type": "boolean",
         "required": false,
@@ -1560,8 +1587,7 @@ export const propsByComponent: Record<string, ComponentDoc> = {
         "type": "string",
         "required": false
       }
-    ],
-    "doc": "Una fila del menú."
+    ]
   },
   "Menu.Label": {
     "props": [
@@ -1572,6 +1598,26 @@ export const propsByComponent: Record<string, ComponentDoc> = {
       }
     ],
     "doc": "El rótulo de un grupo de opciones."
+  },
+  "Menu.Shortcut": {
+    "props": [
+      {
+        "name": "children",
+        "type": "ReactNode",
+        "required": true
+      }
+    ],
+    "doc": "El atajo, a la derecha, en un `Kbd`."
+  },
+  "Menu.Hint": {
+    "props": [
+      {
+        "name": "children",
+        "type": "ReactNode",
+        "required": true
+      }
+    ],
+    "doc": "Una línea de apoyo a la derecha, en gris."
   },
   "Modal": {
     "props": [
@@ -1686,24 +1732,42 @@ export const propsByComponent: Record<string, ComponentDoc> = {
   "Page.Header": {
     "props": [
       {
-        "name": "title",
-        "type": "string",
-        "required": true,
-        "doc": "El nombre de la pantalla, como `h1`."
-      },
-      {
-        "name": "subtitle",
-        "type": "string",
-        "required": false,
-        "doc": "Una línea de apoyo."
-      },
-      {
-        "name": "actions",
+        "name": "children",
         "type": "ReactNode",
-        "required": false,
-        "doc": "Lo que se puede hacer acá, a la derecha."
+        "required": true,
+        "doc": "El `Page.Title`, y si van el `Page.Subtitle` y las `Page.Actions`."
       }
     ]
+  },
+  "Page.Title": {
+    "props": [
+      {
+        "name": "children",
+        "type": "ReactNode",
+        "required": true
+      }
+    ],
+    "doc": "El nombre de la pantalla, como `h1`."
+  },
+  "Page.Subtitle": {
+    "props": [
+      {
+        "name": "children",
+        "type": "ReactNode",
+        "required": true
+      }
+    ],
+    "doc": "Una línea de apoyo, debajo del título."
+  },
+  "Page.Actions": {
+    "props": [
+      {
+        "name": "children",
+        "type": "ReactNode",
+        "required": true
+      }
+    ],
+    "doc": "Lo que se puede hacer acá, a la derecha."
   },
   "Page.SectionLabel": {
     "props": [

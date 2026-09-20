@@ -8,8 +8,14 @@ describe('List', () => {
     const onClick = vi.fn()
     render(
       <List>
-        <List.Item icon="star" color="blue" title="Con acción" hint="x" onClick={onClick} />
-        <List.Item icon="star" color="green" title="Sin acción" hint="y" />
+        <List.Item icon="star" color="blue" onClick={onClick}>
+          <List.Title>Con acción</List.Title>
+          <List.Hint>x</List.Hint>
+        </List.Item>
+        <List.Item icon="star" color="green">
+          <List.Title>Sin acción</List.Title>
+          <List.Hint>y</List.Hint>
+        </List.Item>
       </List>,
     )
     await userEvent.click(screen.getByText('Con acción'))

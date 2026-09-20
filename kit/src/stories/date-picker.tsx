@@ -28,10 +28,14 @@ export function DatePickerStory() {
         <Canvas>
           <Stack gap="xl" width="md">
             <Field.Set legend="Cuándo">
-              <Field label="Abre" hint="Desde cuándo se puede entregar">
+              <Field>
+                <Field.Label>Abre</Field.Label>
+                <Field.Hint>Desde cuándo se puede entregar</Field.Hint>
                 <DatePicker value={from} onChange={setFrom} />
               </Field>
-              <Field label="Vence" hint="Después de esta fecha no entra nada">
+              <Field>
+                <Field.Label>Vence</Field.Label>
+                <Field.Hint>Después de esta fecha no entra nada</Field.Hint>
                 <DatePicker value={due} onChange={setDue} min={from} placeholder="Sin fecha de cierre" />
               </Field>
             </Field.Set>

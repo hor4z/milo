@@ -114,7 +114,9 @@ export function AccessibilitySection() {
         note="Un asterisco es una convención que no significa nada para quien no la conoce, y un lector de pantalla lo lee como 'asterisco'. Va el asterisco para quien lo reconoce y la palabra para todos los demás."
       >
         <div className={`${cls.requiredCard} bg-surface`}>
-          <Field label="Nombre de la actividad" required hint="Lo que van a ver los aprendices en su lista.">
+          <Field required>
+            <Field.Label>Nombre de la actividad</Field.Label>
+            <Field.Hint>Lo que van a ver los aprendices en su lista.</Field.Hint>
             <TextField placeholder="Informe del experimento" />
           </Field>
           <p className={cls.requiredNote}>

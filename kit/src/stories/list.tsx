@@ -32,7 +32,10 @@ export function ListStory() {
         <Frame width="md">
           <List>
             {onboarding.map(i => (
-              <List.Item key={i.title} icon={i.icon} color={i.color} title={i.title} hint={i.hint} active={i.active} onClick={() => {}} />
+              <List.Item key={i.title} icon={i.icon} color={i.color} active={i.active} onClick={() => {}}>
+                <List.Title>{i.title}</List.Title>
+                <List.Hint>{i.hint}</List.Hint>
+              </List.Item>
             ))}
           </List>
         </Frame>
@@ -45,9 +48,18 @@ export function ListStory() {
       <Section title="Estados de una fila">
         <Frame width="md">
           <List>
-            <List.Item icon="check" color="green" title="En reposo" hint="Fondo apagado, sin sombra." />
-            <List.Item icon="menu_book" color="purple" title="Elegida" hint="Hundida un paso." active />
-            <List.Item icon="star_shine" color="blue" title="Se toca" hint="Pasá el mouse: sube al papel y toma sombra." onClick={() => {}} />
+            <List.Item icon="check" color="green">
+              <List.Title>En reposo</List.Title>
+              <List.Hint>Fondo apagado, sin sombra.</List.Hint>
+            </List.Item>
+            <List.Item icon="menu_book" color="purple" active>
+              <List.Title>Elegida</List.Title>
+              <List.Hint>Hundida un paso.</List.Hint>
+            </List.Item>
+            <List.Item icon="star_shine" color="blue" onClick={() => {}}>
+              <List.Title>Se toca</List.Title>
+              <List.Hint>Pasá el mouse: sube al papel y toma sombra.</List.Hint>
+            </List.Item>
           </List>
         </Frame>
       </Section>
@@ -56,12 +68,11 @@ export function ListStory() {
         <Frame width="md">
           <List>
             {spaces.map(e => (
-              <List.Item
-                key={e.title}
-                icon={e.icon} color={e.color} title={e.title} hint={e.hint}
-                onClick={() => {}}
-                trailing={<Icon name="chevron_right" size={20} className="icon-muted" />}
-              />
+              <List.Item key={e.title} icon={e.icon} color={e.color} onClick={() => {}}>
+                <List.Title>{e.title}</List.Title>
+                <List.Hint>{e.hint}</List.Hint>
+                <List.Trailing>{<Icon name="chevron_right" size={20} className="icon-muted" />}</List.Trailing>
+              </List.Item>
             ))}
           </List>
         </Frame>

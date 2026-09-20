@@ -1,6 +1,7 @@
 import cls from './menu.module.css'
 import { useRef, type KeyboardEvent, type ReactNode } from 'react'
 import { cx } from '../lib/cx'
+import { takePart } from '../lib/parts'
 import { Kbd } from '../kbd/kbd'
 import { Icon, type IconName } from '../icon/icon'
 
@@ -45,16 +46,22 @@ function Root({ children, label, width, className }: {
 }
 
 /** Una fila del menú. */
+/** El atajo, a la derecha, en un `Kbd`. */
+function Shortcut({ children }: { children: ReactNode }) {
+  return <>{children}</>
+}
+
+/** Una línea de apoyo a la derecha, en gris. */
+function Hint({ children }: { children: ReactNode }) {
+  return <>{children}</>
+}
+
 function Item({
-  children, icon, shortcut, hint, checked, submenu, danger, disabled, onSelect, className,
+  children, icon, checked, submenu, danger, disabled, onSelect, className,
 }: {
   children: ReactNode
   /** A la izquierda, en gris. */
   icon?: IconName
-  /** El atajo, en un Kbd. */
-  shortcut?: string
-  /** Una línea de apoyo a la derecha, en gris. */
-  hint?: string
   /** El tilde de "esta es la que está puesta". */
   checked?: boolean
   /** El chevron de "hay otro nivel". */
@@ -67,6 +74,8 @@ function Item({
   onSelect?: () => void
   className?: string
 }) {
+  const [shortcut, sinShortcut] = takePart(children, Shortcut)
+  const [hint, texto] = takePart(sinShortcut, Hint)
   return (
     <button
       type="button"
@@ -83,9 +92,9 @@ function Item({
       )}
     >
       {icon && <Icon name={icon} size={20} className={danger ? undefined : 'icon-muted'} />}
-      <span className={cls.label}>{children}</span>
-      {shortcut && <Kbd>{shortcut}</Kbd>}
-      {hint && <span className={cls.hint}>{hint}</span>}
+      <span className={cls.label}>{texto}</span>
+      {shortcut.length > 0 && <Kbd>{shortcut}</Kbd>}
+      {hint.length > 0 && <span className={cls.hint}>{hint}</span>}
       {checked && <Icon name="check" size={18} />}
       {submenu && <Icon name="chevron_right" size={18} className={`${cls.submenuChevron} icon-muted`} />}
     </button>
@@ -102,4 +111,4 @@ function Label({ children }: { children: ReactNode }) {
 }
 
 /** El menú, en piezas. */
-export const Menu = Object.assign(Root, { Item, Label })
+export const Menu = Object.assign(Root, { Item, Label, Shortcut, Hint })

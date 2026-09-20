@@ -57,7 +57,8 @@ describe('Segmented', () => {
 
   it('adentro de un Field se nombra con la etiqueta', () => {
     render(
-      <Field label="Rango">
+      <Field>
+        <Field.Label>Rango</Field.Label>
         <Segmented value="a" onChange={() => {}} options={filters} />
       </Field>,
     )

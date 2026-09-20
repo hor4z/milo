@@ -24,10 +24,14 @@ export function StepperStory() {
         <Canvas>
           <Stack gap="xl" width="md">
             <Field.Set legend="Cómo se entrega">
-              <Field label="Intentos" hint="Cuántas veces puede volver a entregar">
+              <Field>
+                <Field.Label>Intentos</Field.Label>
+                <Field.Hint>Cuántas veces puede volver a entregar</Field.Hint>
                 <Stepper value={attempts} onChange={setAttempts} min={1} max={9} label="Intentos" />
               </Field>
-              <Field label="Tiempo" hint="Desde que abre la actividad">
+              <Field>
+                <Field.Label>Tiempo</Field.Label>
+                <Field.Hint>Desde que abre la actividad</Field.Hint>
                 <Stepper value={minutes} onChange={setMinutes} min={5} max={120} step={5} suffix="min" label="Tiempo" width={148} />
               </Field>
             </Field.Set>
@@ -53,10 +57,12 @@ export function StepperStory() {
       >
         <Canvas>
           <Cluster gap="xl" align="end">
-            <Field label="Nota">
+            <Field>
+              <Field.Label>Nota</Field.Label>
               <Stepper value={grade} onChange={setGrade} min={1} max={10} label="Nota" width={120} />
             </Field>
-            <Field label="Preguntas">
+            <Field>
+              <Field.Label>Preguntas</Field.Label>
               <Stepper value={questions} onChange={setQuestions} min={1} max={50} label="Preguntas" width={120} />
             </Field>
           </Cluster>

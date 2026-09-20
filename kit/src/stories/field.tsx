@@ -29,7 +29,10 @@ export function FieldStory() {
       >
         <Canvas>
           <Stack gap="xl" width="md">
-            <Field label="Nombre de la actividad" hint="Lo ven los estudiantes" required error={error}>
+            <Field required>
+              <Field.Label>Nombre de la actividad</Field.Label>
+              <Field.Hint>Lo ven los estudiantes</Field.Hint>
+              <Field.Error>{error}</Field.Error>
               <TextField
                 value={name}
                 onChange={e => setName(e.target.value)}
@@ -37,7 +40,9 @@ export function FieldStory() {
                 placeholder="Fracciones equivalentes"
               />
             </Field>
-            <Field label="Consigna" hint="Podés pegar el texto que ya tenías">
+            <Field>
+              <Field.Label>Consigna</Field.Label>
+              <Field.Hint>Podés pegar el texto que ya tenías</Field.Hint>
               <Textarea rows={3} maxRows={8} placeholder="Escribí la consigna…" />
             </Field>
           </Stack>
@@ -50,13 +55,18 @@ export function FieldStory() {
       >
         <Canvas>
           <Stack gap="xl" width="md">
-            <Field label="Espacio" hint="Dónde se publica">
+            <Field>
+              <Field.Label>Espacio</Field.Label>
+              <Field.Hint>Dónde se publica</Field.Hint>
               <Select value={space} onChange={setSpace} options={['Matemática · 4.º A', 'Lengua · 6.º']} />
             </Field>
-            <Field label="Entregas fuera de fecha" hint="Permitir que entreguen después del cierre">
+            <Field>
+              <Field.Label>Entregas fuera de fecha</Field.Label>
+              <Field.Hint>Permitir que entreguen después del cierre</Field.Hint>
               <Switch checked={overdue} onChange={setOverdue} label="Entregas fuera de fecha" />
             </Field>
-            <Field label="Avisar al publicar">
+            <Field>
+              <Field.Label>Avisar al publicar</Field.Label>
               <Checkbox checked={notify} onChange={setNotify} label="Avisar al publicar" />
             </Field>
           </Stack>
@@ -69,7 +79,8 @@ export function FieldStory() {
       >
         <Canvas>
           <Frame width="sm">
-            <Field label="Espacio" required>
+            <Field required>
+              <Field.Label>Espacio</Field.Label>
               <Select value={where} onChange={setWhere} options={['Matemática · 4.º A', 'Lengua · 6.º']} />
             </Field>
           </Frame>
@@ -83,10 +94,13 @@ export function FieldStory() {
         <Canvas>
           <Frame width="md">
             <Field.Set legend="Lo básico">
-              <Field label="Nombre" required>
+              <Field required>
+                <Field.Label>Nombre</Field.Label>
                 <TextField placeholder="Fracciones equivalentes" />
               </Field>
-              <Field label="Consigna" hint="Se puede editar después de publicar">
+              <Field>
+                <Field.Label>Consigna</Field.Label>
+                <Field.Hint>Se puede editar después de publicar</Field.Hint>
                 <Textarea rows={3} maxRows={8} />
               </Field>
             </Field.Set>

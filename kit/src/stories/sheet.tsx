@@ -38,16 +38,22 @@ export function SheetStory() {
           <Sheet.Header><Sheet.Title>Nueva actividad</Sheet.Title></Sheet.Header>
           <Sheet.Body>
             <Field.Set legend="Lo básico">
-              <Field label="Nombre" required>
+              <Field required>
+                <Field.Label>Nombre</Field.Label>
                 <TextField placeholder="Fracciones equivalentes" />
               </Field>
-              <Field label="Espacio">
+              <Field>
+                <Field.Label>Espacio</Field.Label>
                 <Select value={space} onChange={setSpace} options={['Matemática · 4.º A', 'Lengua · 6.º', 'Ciencias · 5.º B']} />
               </Field>
-              <Field label="Consigna" hint="Se puede editar después de publicar">
+              <Field>
+                <Field.Label>Consigna</Field.Label>
+                <Field.Hint>Se puede editar después de publicar</Field.Hint>
                 <Textarea rows={4} maxRows={10} />
               </Field>
-              <Field label="Entregas fuera de fecha" hint="Permitir que entreguen después del cierre">
+              <Field>
+                <Field.Label>Entregas fuera de fecha</Field.Label>
+                <Field.Hint>Permitir que entreguen después del cierre</Field.Hint>
                 <Switch checked={late} onChange={setLate} label="Entregas fuera de fecha" />
               </Field>
             </Field.Set>
@@ -79,10 +85,12 @@ export function SheetStory() {
           <Sheet.Header><Sheet.Title>Filtros</Sheet.Title></Sheet.Header>
           <Sheet.Body>
             <Stack gap="xl">
-              <Field label="Espacio">
+              <Field>
+                <Field.Label>Espacio</Field.Label>
                 <Select value={spaceFilter} onChange={setSpaceFilter} options={['Todos', 'Matemática · 4.º A', 'Lengua · 6.º']} />
               </Field>
-              <Field label="Estado">
+              <Field>
+                <Field.Label>Estado</Field.Label>
                 <Select value={statusFilter} onChange={setStatusFilter} options={['Cualquiera', 'Abierta', 'Corregida', 'Borrador']} />
               </Field>
             </Stack>
