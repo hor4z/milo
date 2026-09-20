@@ -13,7 +13,7 @@ const tones = {
 
 /** Una marca chica pegada a la esquina de otra cosa: un punto, un contador o un glifo. Lo que marca sigue siendo lo que se toca. */
 export function Indicator({
-  children, dot, count, icon, tone = 'accent', label, inset = 0, ring = 'transparent', className,
+  children, dot, count, icon, tone = 'accent', label, inset = 9, ring = 'transparent', className,
 }: {
   /** Lo que se marca: un icono, un botón, un avatar, una tarjeta. */
   children: ReactNode
@@ -29,7 +29,7 @@ export function Indicator({
   label?: string
   /** El anillo que separa la marca de lo que tiene atrás. Va del color de ese fondo: sobre una foto, el papel de la tarjeta; sobre un control, su relleno. */
   ring?: string
-  /** Cuánto meter la marca hacia adentro, en px. Lo que se marca no siempre llena su caja: un `IconButton` de 40 lleva un glifo de 18, y con la marca en la esquina queda lejos de lo que marca. */
+  /** Cuánto meter la marca hacia adentro, en px. El default es el de un `IconButton` `lg`, que es donde va casi siempre: la caja mide 44 y el glifo 24, así que sin esto la marca queda lejos de lo que marca. Sobre un glifo suelto va en 0. */
   inset?: number
   className?: string
 }) {

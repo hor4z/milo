@@ -138,7 +138,7 @@ describe('coherencia del sistema', () => {
   })
 
   it('los iconos salen de la escala, también cuando el número llega por una tabla', () => {
-    const scale = new Set([12, 14, 16, 18, 20, 22])
+    const scale = new Set([12, 14, 16, 18, 20, 22, 24])
     const offenders: string[] = []
     for (const f of sources) {
       for (const m of f.text.matchAll(/<Icon\b[^>]*?size=\{([^}]+)\}/gs)) {

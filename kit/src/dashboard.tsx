@@ -217,7 +217,7 @@ function Alerts() {
       align="end"
       width={300}
       trigger={({ onClick, ref, 'aria-expanded': expanded }) => (
-        <Indicator dot inset={6} label="Hay avisos sin leer">
+        <Indicator dot label="Hay avisos sin leer">
           <IconButton ref={ref} icon="notifications" label="Avisos" size="md" variant="ghost" onClick={onClick} aria-expanded={expanded} />
         </Indicator>
       )}

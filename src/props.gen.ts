@@ -1282,8 +1282,8 @@ export const propsByComponent: Record<string, ComponentDoc> = {
         "name": "inset",
         "type": "number",
         "required": false,
-        "def": "0",
-        "doc": "Cuánto meter la marca hacia adentro, en px. Lo que se marca no siempre llena su caja: un `IconButton` de 40 lleva un glifo de 18, y con la marca en la esquina queda lejos de lo que marca."
+        "def": "9",
+        "doc": "Cuánto meter la marca hacia adentro, en px. El default es el de un `IconButton` `lg`, que es donde va casi siempre: la caja mide 44 y el glifo 24, así que sin esto la marca queda lejos de lo que marca. Sobre un glifo suelto va en 0."
       },
       {
         "name": "className",
