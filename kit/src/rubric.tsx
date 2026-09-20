@@ -139,8 +139,7 @@ export function RubricRail({ mode }: { mode: RubricMode }) {
     return (
       <div className={cls.groups}>
         <p className={cls.lead}>
-          Esto es lo que va a mirar tu docente en la entrega. Marcá hasta dónde llegaste en cada
-          uno: la nota la pone quien corrige, esto es para saber qué te falta.
+          Marcá hasta dónde llegaste en cada uno. No es la nota: es para ver qué te falta.
         </p>
 
         {criteria.map((c, i) => (
