@@ -266,6 +266,16 @@ Salieron de armar pantallas de verdad con estas piezas, y valen para cualquiera 
   alguien de doce años. Tres cosas no cambian: nunca al lado de una tarea, nunca como única forma de
   entender algo, y siempre se reemplaza por la versión quieta para quien pidió menos movimiento.
 
+- **El ancho de un modal sale de tres y no de un número suelto**: `sm` 420 para una pregunta o un
+  campo, `md` 620 para el de siempre, `lg` 820 para lo que necesita dos columnas. Antes era
+  `width={number}` y no tenía tope: medido, con `width={2000}` en una pantalla ancha el panel salía
+  de 2000, y lo único que lo frenaba era el viewport. Un diálogo más ancho que 820 deja de ser un
+  diálogo y es una pantalla. El alto sí tenía tope desde siempre, `100vh - 2rem`, y de ahí scrollea
+  el cuerpo.
+- **Un aviso adentro de un panel denso va en `size="sm"`.** El `Alert` en su tamaño normal escribe en
+  `--type-reading`, que es lo correcto en una página; adentro del `SettingsModal`, cuyas filas están
+  en `--type-body`, el aviso se leía **más grande que los títulos de su propia sección**. `sm` lo
+  baja a body, achica el padding a 12 y el glifo a 16.
 - **El `Alert` se ve como el `Callout`: papel teñido, sin borde, y el texto en tamaño de lectura.**
   Llevaba un borde del tono y el cuerpo en `--type-body` gris, así que el mismo contenido se leía
   más chico y más apagado adentro de un aviso que adentro de un bloque de contenido. Lo único que

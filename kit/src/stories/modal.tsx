@@ -13,16 +13,16 @@ export function ModalStory() {
       title="Modal"
       kind="Superficies"
       imports="import { Modal, ModalHeader, ModalTitle, ModalHint, ModalBody, ModalFooter } from '@milo/ui'"
-      lead="Tres partes: la cabecera con el título y la X, el cuerpo, y los botones abajo. El panel es una columna, así que el cuerpo es lo único que scrollea y las acciones siguen a la vista."
+      lead="Tres partes: la cabecera con el título y la X, el cuerpo, y los botones abajo. El panel es una columna, así que el cuerpo es lo único que scrollea y las acciones siguen a la vista. El ancho sale de tres, no de un número suelto."
     >
       <Section
         title="Vivo"
         note="Probá Escape, y probá scrollear la página de atrás: está bloqueado y no hay salto lateral al abrir."
       >
         <Grid min={300}>
-          <Demo label="width 620">
+          <Demo label="md · 620, el de siempre">
             <Button variant="muted" onClick={() => setOpen(true)}>Abrir modal</Button>
-            <Modal open={open} onClose={() => setOpen(false)} width={620}>
+            <Modal open={open} onClose={() => setOpen(false)} size="md">
               <ModalHeader>
                 <ModalTitle>Un modal de 620</ModalTitle>
                 <ModalHint>Lo que el lector anuncia sale de ese título.</ModalHint>
@@ -38,9 +38,9 @@ export function ModalStory() {
             </Modal>
           </Demo>
 
-          <Demo label="width 420">
+          <Demo label="sm · 420, una pregunta o un campo">
             <Button variant="muted" onClick={() => setNarrowOpen(true)}>Renombrar</Button>
-            <Modal open={narrowOpen} onClose={() => setNarrowOpen(false)} width={420}>
+            <Modal open={narrowOpen} onClose={() => setNarrowOpen(false)} size="sm">
               <ModalHeader>
                 <ModalTitle>Renombrar el espacio</ModalTitle>
               </ModalHeader>
@@ -56,7 +56,7 @@ export function ModalStory() {
             </Modal>
           </Demo>
 
-          <Demo label="width 594 · el caso real">
+          <Demo label="md · el caso real">
             <Button variant="muted" iconStart={<Icon name="tune" />} onClick={() => setSettingsOpen(true)}>Ajustes</Button>
             <SettingsModal
               open={settingsOpen}
@@ -74,7 +74,7 @@ export function ModalStory() {
 
       <Section title="Cómo se escribe">
         <Example code={`
-<Modal open={open} onClose={cerrar} width={620}>
+<Modal open={open} onClose={cerrar} size="md">
   <ModalHeader>
     <ModalTitle>Un modal de 620</ModalTitle>
     <ModalHint>La línea de apoyo, si hace falta.</ModalHint>

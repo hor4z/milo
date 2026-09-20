@@ -9,17 +9,22 @@ import { cx } from '../lib/cx'
 type Ctx = { onClose: () => void; titleId: string }
 const ModalContext = createContext<Ctx | null>(null)
 
+/** Los tres anchos, y el de arriba es el tope: más que eso deja de ser un diálogo y es una pantalla. */
+const widths = { sm: 420, md: 620, lg: 820 } as const
+
+export type ModalSize = keyof typeof widths
+
 /** El diálogo centrado que tapa la pantalla. Se arma con `ModalHeader`, `ModalBody` y `ModalFooter`. */
 export function Modal({
-  open, onClose, children, width = 620, label,
+  open, onClose, children, size = 'md', label,
 }: {
   /** Cerrado no monta nada. */
   open: boolean
   /** Lo llaman Escape, el velo y la X del header. */
   onClose: () => void
   children: ReactNode
-  /** El ancho del panel en px. */
-  width?: number
+  /** `sm` una pregunta o un campo, `md` el de siempre, `lg` lo que necesita dos columnas. */
+  size?: ModalSize
   /** Solo si no hay `ModalTitle`: con título, el nombre sale de ahí. */
   label?: string
 }) {
@@ -40,7 +45,7 @@ export function Modal({
           aria-labelledby={titleId}
           aria-label={label}
           tabIndex={-1}
-          style={{ width, maxWidth: '100%' }}
+          style={{ width: widths[size], maxWidth: '100%' }}
           className={`${s.panel} ui-zoom bg-surface`}
         >
           <ModalContext.Provider value={{ onClose, titleId }}>

@@ -70,6 +70,13 @@ export const propsByComponent: Record<string, ComponentDoc> = {
         "type": "() => void",
         "required": false,
         "doc": "Agrega la X para cerrarlo; sin esto no se cierra."
+      },
+      {
+        "name": "size",
+        "type": "'sm' | 'md'",
+        "required": false,
+        "def": "'md'",
+        "doc": "`sm` para adentro de un panel denso, donde el de siempre se lee más grande que las filas de al lado."
       }
     ],
     "html": "div",
@@ -1568,11 +1575,11 @@ export const propsByComponent: Record<string, ComponentDoc> = {
         "required": true
       },
       {
-        "name": "width",
-        "type": "number",
+        "name": "size",
+        "type": "ModalSize",
         "required": false,
-        "def": "620",
-        "doc": "El ancho del panel en px."
+        "def": "'md'",
+        "doc": "`sm` una pregunta o un campo, `md` el de siempre, `lg` lo que necesita dos columnas."
       },
       {
         "name": "label",

@@ -6,6 +6,27 @@
     padding: 1rem;
   }
 
+  .compact {
+    gap: 0.5rem;
+    padding: 0.75rem;
+
+    & .title,
+    & .text {
+      font-size: var(--type-body);
+      line-height: var(--type-body-lh);
+      letter-spacing: var(--type-body-ls);
+    }
+
+    & .icon {
+      height: 1.25rem;
+      width: 1rem;
+    }
+
+    & .actions {
+      margin-top: 0.25rem;
+    }
+  }
+
   .icon {
     display: flex;
     height: 1.5rem;

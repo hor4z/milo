@@ -42,7 +42,7 @@ export function SettingsModal({ open, onClose, user }: {
   const [section, setSection] = useState<SectionId>('general')
 
   return (
-    <Modal open={open} onClose={onClose} width={594}>
+    <Modal open={open} onClose={onClose} size="md">
       <ModalHeader>
         <ModalTitle>Ajustes</ModalTitle>
       </ModalHeader>
@@ -159,7 +159,7 @@ function SecuritySection() {
         <Button size="sm" variant="ghost" iconEnd={<Icon name="download" />}>Descargar</Button>
       </Row>
       <div className={cls.dangerZone}>
-        <Alert tone="bad" role="group" aria-label="Borrar la cuenta">
+        <Alert tone="bad" size="sm" role="group" aria-label="Borrar la cuenta">
           <AlertTitle>Borrar la cuenta</AlertTitle>
           <AlertBody>
             Se van los espacios que coordinás y las actividades que escribiste. Las entregas de los
