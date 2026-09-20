@@ -15,8 +15,8 @@ const radii = [
   { token: '--radius-sm', cls: css.radiusSm, role: 'marcas hundidas: un kbd, un badge, un checkbox' },
   { token: '--radius-md', cls: css.radiusMd, role: 'lo chico: un control de 32, un chip, un tooltip, un esqueleto' },
   { token: '--radius-lg', cls: css.radiusLg, role: 'lo que se toca de 36 para arriba: botón md y lg, item de nav' },
-  { token: '--radius-xl', cls: css.radiusXl, role: 'lo que se apoya en la página: una tarjeta, una fila de lista' },
-  { token: '--radius-2xl', cls: css.radiusXxl, role: 'lo que flota sobre un velo: un modal, un diálogo' },
+  { token: '--radius-xl', cls: css.radiusXl, role: 'todo lo que es una superficie: una tarjeta, una fila, un panel flotante, un modal' },
+  { token: '--radius-2xl', cls: css.radiusXxl, role: 'no lo usa nadie: era del modal, y a 24 sobre un panel chico la esquina se come el borde' },
   { token: '--radius-full', cls: css.radiusFull, role: 'lo que es redondo de verdad: un avatar, un punto, un pulgar' },
 ] as const
 

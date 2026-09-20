@@ -26,7 +26,7 @@
     max-width: 420px;
     flex-direction: column;
     overflow: hidden;
-    border-radius: var(--radius-2xl);
+    border-radius: var(--radius-xl);
     box-shadow: 0 0 0 1px var(--border), var(--relief-popover);
   }
 

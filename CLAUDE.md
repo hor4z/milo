@@ -266,6 +266,11 @@ Salieron de armar pantallas de verdad con estas piezas, y valen para cualquiera 
   alguien de doce años. Tres cosas no cambian: nunca al lado de una tarea, nunca como única forma de
   entender algo, y siempre se reemplaza por la versión quieta para quien pidió menos movimiento.
 
+- **Una superficie es 16, sin excepciones.** Tarjeta, fila, panel flotante, modal y diálogo, todo
+  `--radius-xl`. `--radius-2xl` era del modal y del `ConfirmDialog`, y a 24 sobre un panel de 168 de
+  alto la esquina se come casi un tercio del borde: el diálogo se lee como una pastilla y no como
+  una superficie. Al sacarlo quedó sin un solo consumidor, y eso está dicho en **Medidas y radios**
+  en vez de escondido: un escalón de escala que no usa nadie es una invitación a usarlo mal.
 - **La acción que manda es siempre el azul de marca.** `brand` y no `solid`, en cualquier pantalla:
   un modal, un panel, un vacío, una confirmación que no es destructiva. `solid` es el mismo rol en
   tinta y existe para una pantalla donde el azul no se pueda usar, así que hoy no lo usa ningún call
