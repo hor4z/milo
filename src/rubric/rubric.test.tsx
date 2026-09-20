@@ -117,7 +117,7 @@ describe('Rubric', () => {
     arma()
     const barra = screen.getByRole('toolbar', { name: 'Cuánto vale cada criterio' })
     const tramos = within(barra).getAllByRole('button')
-    const tarjetas = () => screen.getAllByRole('listitem').filter(li => li.style.getPropertyValue('--enter'))
+    const tarjetas = () => screen.getAllByRole('listitem').filter(li => li.className.includes('criterion'))
 
     expect(tarjetas().filter(li => li.className.includes('criterionDim'))).toHaveLength(0)
 
@@ -131,7 +131,7 @@ describe('Rubric', () => {
     arma()
     const barra = screen.getByRole('toolbar', { name: 'Cuánto vale cada criterio' })
     const tarjeta = screen.getAllByRole('listitem')
-      .filter(li => li.style.getPropertyValue('--enter'))[1]
+      .filter(li => li.className.includes('criterion'))[1]
     tarjeta.scrollIntoView = vi.fn()
 
     act(() => within(barra).getAllByRole('button')[1].focus())

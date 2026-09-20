@@ -139,8 +139,6 @@
   }
 
   .criterion {
-    animation: rubric-in var(--duration-normal) var(--ease-out) backwards;
-    animation-delay: calc(var(--enter) * 55ms);
     transition-property: opacity;
     transition-duration: var(--duration-fast);
     transition-timing-function: var(--ease-out);
@@ -187,7 +185,6 @@
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .criterion,
     .form {
       animation: none;
     }

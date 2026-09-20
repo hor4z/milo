@@ -1,5 +1,5 @@
 import s from './rubric.module.css'
-import { useEffect, useId, useRef, useState, type CSSProperties, type ReactNode } from 'react'
+import { useEffect, useId, useRef, useState, type ReactNode } from 'react'
 import { Button } from '../button/button'
 import { Card } from '../card/card'
 import { CriterionCard, type Criterion } from '../criterion-card/criterion-card'
@@ -55,7 +55,6 @@ function Root({ criteria, onAdd, onRemove, defaultOpen = true, children, classNa
   const [lit, setLit] = useState<string | null>(null)
   const [pinned, setPinned] = useState<string | null>(null)
   const [openCard, setOpenCard] = useState<string | null>(criteria[0]?.id ?? null)
-  const [runs, setRuns] = useState(0)
   const [label, setLabel] = useState('')
   const [weight, setWeight] = useState(3)
   const [levels, setLevels] = useState(emptyLevels)
@@ -121,10 +120,7 @@ function Root({ criteria, onAdd, onRemove, defaultOpen = true, children, classNa
           aria-expanded={panel.open}
           aria-controls={bodyId}
           aria-labelledby={titleId}
-          onClick={() => {
-            if (!panel.open) setRuns(n => n + 1)
-            panel.onToggle()
-          }}
+          onClick={panel.onToggle}
           className={s.trigger}
         >
           <Icon
@@ -160,10 +156,7 @@ function Root({ criteria, onAdd, onRemove, defaultOpen = true, children, classNa
                 onClick={() => {
                   setPinned(p => (p === c.id ? null : c.id))
                   setOpenCard(c.id)
-                  if (!panel.open) {
-                    setRuns(n => n + 1)
-                    panel.onOpen()
-                  }
+                  if (!panel.open) panel.onOpen()
                   requestAnimationFrame(() => bring(c.id))
                 }}
                 className={cx(s.weightBand, labelFill[c.color], active && active !== c.id && s.weightDim)}
@@ -176,12 +169,11 @@ function Root({ criteria, onAdd, onRemove, defaultOpen = true, children, classNa
       <div className={cx(s.body, panel.open && s.bodyOpen)}>
         <div id={bodyId} inert={!panel.open} className={s.bodyInner}>
           <div className={s.cards}>
-            <ul key={runs} className={s.items}>
-              {criteria.map((c, i) => (
+            <ul className={s.items}>
+              {criteria.map(c => (
                 <li
                   key={c.id}
                   ref={el => { cards.current[c.id] = el }}
-                  style={{ '--enter': i } as CSSProperties}
                   className={cx(s.criterion, active && active !== c.id && s.criterionDim)}
                 >
                   <CriterionCard
