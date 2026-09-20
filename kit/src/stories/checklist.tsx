@@ -4,6 +4,7 @@ import { A11y, Example, Page, Panel, Practices, Props, Section, Stack, Variant }
 
 export function ChecklistStory() {
   const [conectada, setConectada] = useState(false)
+  const [nivel, setNivel] = useState(2)
 
   return (
     <Page
@@ -54,6 +55,28 @@ export function ChecklistStory() {
       </Section>
 
       <Section
+        title="Como escalera"
+        note="Con `value` y `onChange` los pasos dejan de ser independientes: cada uno incluye a los de arriba, así que tocar el tercero marca los tres y volver a tocarlo desmarca de ahí para abajo. Es para lo que se recorre en orden y no se saltea: los niveles de un criterio, el avance de una entrega. El estado de cada paso lo decide la pieza, así que el call site no puede dejar el segundo sin marcar y el tercero marcado."
+      >
+        <Panel>
+          <Variant name="tres de cuatro" note="El contador y la barra salen del mismo número, y tocar un paso ya marcado vuelve al anterior.">
+            <Stack width="md">
+              <Checklist defaultOpen value={nivel} onChange={setNivel}>
+                <Checklist.Title>Toma de datos</Checklist.Title>
+                <Checklist.Item>Una sola medición anotada</Checklist.Item>
+                <Checklist.Item>Las tres, sin el error</Checklist.Item>
+                <Checklist.Item>Las tres, con el error estimado</Checklist.Item>
+                <Checklist.Item>Las tres, con el error y de dónde sale</Checklist.Item>
+                <Checklist.Footer hint="Cada renglón incluye al anterior: al marcar uno quedan marcados los de arriba.">
+                  Vale 33% de la nota.
+                </Checklist.Footer>
+              </Checklist>
+            </Stack>
+          </Variant>
+        </Panel>
+      </Section>
+
+      <Section
         title="Los cuatro estados de un paso"
         note="`done` es el que ya está. `doing` es el que se está haciendo ahora, y es el único que se anuncia como el actual. `todo` es el que falta. `blocked` es el que no se puede hacer todavía, y ese lleva una aclaración de por qué."
       >
@@ -92,6 +115,7 @@ export function ChecklistStory() {
         <Practices>
           <Practices.Do>El contador sale de los pasos, así que no hay un número que pueda despegarse de la lista.</Practices.Do>
           <Practices.Do>Un paso `blocked` lleva `hint`: si no se puede hacer, hay que decir por qué.</Practices.Do>
+          <Practices.Do>Cuando los pasos se recorren en orden, pasale `value` y `onChange`: la escalera no deja estados imposibles, como el tercero hecho y el segundo no.</Practices.Do>
           <Practices.Dont>No la uses para una secuencia que se hace de corrido: eso es `Steps`.</Practices.Dont>
           <Practices.Dont>Cuando todo está hecho, sacala de la pantalla. Una lista de cuatro tildes verdes ocupa lugar y no dice nada.</Practices.Dont>
         </Practices>

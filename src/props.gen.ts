@@ -533,6 +533,18 @@ export const propsByComponent: Record<string, ComponentDoc> = {
         "doc": "Arranca abierta. Cerrada ocupa una fila y dice lo mismo."
       },
       {
+        "name": "value",
+        "type": "number",
+        "required": false,
+        "doc": "Cuántos pasos van hechos. Con esto la lista es una escalera: cada paso incluye a los de arriba, así que el estado de cada uno lo decide la pieza y no el call site."
+      },
+      {
+        "name": "onChange",
+        "type": "(value: number) => void",
+        "required": false,
+        "doc": "Recibe cuántos pasos quedan hechos al tocar uno. Tocar el que ya es el último desmarca de ahí para abajo."
+      },
+      {
         "name": "children",
         "type": "ReactNode",
         "required": true
@@ -2285,6 +2297,118 @@ export const propsByComponent: Record<string, ComponentDoc> = {
       }
     ],
     "doc": "La segunda línea, en 11 gris."
+  },
+  "Rubric": {
+    "props": [
+      {
+        "name": "criteria",
+        "type": "Criterion[]",
+        "required": true,
+        "doc": "En el orden en que se leen."
+      },
+      {
+        "name": "onAdd",
+        "type": "(draft: CriterionDraft) => void",
+        "required": false,
+        "doc": "Sin esto la rúbrica se lee y no se edita."
+      },
+      {
+        "name": "onRemove",
+        "type": "(criterion: Criterion) => void",
+        "required": false,
+        "doc": "Sin esto ningún criterio se puede sacar."
+      },
+      {
+        "name": "defaultOpen",
+        "type": "boolean",
+        "required": false,
+        "def": "true",
+        "doc": "Arranca abierta. Plegada deja a la vista el nombre, el contador y la barra."
+      },
+      {
+        "name": "children",
+        "type": "ReactNode",
+        "required": true,
+        "doc": "El `Rubric.Title`."
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "required": false
+      }
+    ],
+    "doc": "Con qué se mira un trabajo: los criterios, cuánto vale cada uno y qué se ve en cada nivel. El porcentaje sale de los pesos, así que no se puede despegar de ellos."
+  },
+  "Rubric.Title": {
+    "props": [
+      {
+        "name": "children",
+        "type": "ReactNode",
+        "required": true
+      }
+    ],
+    "doc": "Cómo se llama la rúbrica, en la cabecera."
+  },
+  "Criterion": {
+    "props": [
+      {
+        "name": "id",
+        "type": "string",
+        "required": true,
+        "doc": "Único en la rúbrica."
+      },
+      {
+        "name": "label",
+        "type": "string",
+        "required": true,
+        "doc": "Qué se mira, en las palabras de quien corrige."
+      },
+      {
+        "name": "weight",
+        "type": "number",
+        "required": true,
+        "doc": "Cuánto vale contra los demás. De acá sale el ancho de su tramo y su porcentaje."
+      },
+      {
+        "name": "color",
+        "type": "LabelColor",
+        "required": true,
+        "doc": "El color de su tramo en la barra y de su marca."
+      },
+      {
+        "name": "icon",
+        "type": "IconName",
+        "required": true,
+        "doc": "El glifo de su marca."
+      },
+      {
+        "name": "levels",
+        "type": "string[]",
+        "required": true,
+        "doc": "Un descriptor por nivel, del más flojo al más completo."
+      }
+    ],
+    "doc": "Un criterio: qué se mira, cuánto vale contra los demás y qué se ve en cada nivel."
+  },
+  "CriterionDraft": {
+    "props": [
+      {
+        "name": "label",
+        "type": "string",
+        "required": true
+      },
+      {
+        "name": "weight",
+        "type": "number",
+        "required": true
+      },
+      {
+        "name": "levels",
+        "type": "string[]",
+        "required": true
+      }
+    ],
+    "doc": "Lo que devuelve el alta. El id, el color y el glifo los pone quien la guarda."
   },
   "Search": {
     "props": [

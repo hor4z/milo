@@ -1,5 +1,5 @@
 import s from './checklist.module.css'
-import { Children, isValidElement, useId, useState, type ReactNode } from 'react'
+import { Children, cloneElement, isValidElement, useId, useState, type ReactElement, type ReactNode } from 'react'
 import { Icon } from '../icon/icon'
 import { Spinner } from '../spinner/spinner'
 import { Tooltip } from '../tooltip/tooltip'
@@ -31,8 +31,7 @@ function Footer({ hint, children }: {
   )
 }
 
-/** Un paso. El estado lo dice la marca de la izquierda, no el color del texto. */
-function Item({ state = 'todo', hint, onClick, children }: {
+type ItemProps = {
   /** Sin esto es un paso que todavía no se hizo. */
   state?: ChecklistState
   /** Por qué el paso está trabado, o qué hay que hacer. Aparece en una etiqueta flotante. */
@@ -40,7 +39,10 @@ function Item({ state = 'todo', hint, onClick, children }: {
   /** Sin esto la fila es texto y no se puede tocar. */
   onClick?: () => void
   children: ReactNode
-}) {
+}
+
+/** Un paso. El estado lo dice la marca de la izquierda, no el color del texto. */
+function Item({ state = 'todo', hint, onClick, children }: ItemProps) {
   const Tag = onClick && state !== 'blocked' ? 'button' : 'div'
   const texto = (
     <>
@@ -76,9 +78,13 @@ function Item({ state = 'todo', hint, onClick, children }: {
 }
 
 /** Los primeros pasos de algo, con cuánto va hecho a la vista y el detalle plegado. El contador sale de los pasos, así que no se puede despegar de ellos. */
-function Root({ defaultOpen = false, children, className }: {
+function Root({ defaultOpen = false, value, onChange, children, className }: {
   /** Arranca abierta. Cerrada ocupa una fila y dice lo mismo. */
   defaultOpen?: boolean
+  /** Cuántos pasos van hechos. Con esto la lista es una escalera: cada paso incluye a los de arriba, así que el estado de cada uno lo decide la pieza y no el call site. */
+  value?: number
+  /** Recibe cuántos pasos quedan hechos al tocar uno. Tocar el que ya es el último desmarca de ahí para abajo. */
+  onChange?: (value: number) => void
   children: ReactNode
   className?: string
 }) {
@@ -91,8 +97,24 @@ function Root({ defaultOpen = false, children, className }: {
 
   const pasos = Children.toArray(cuerpo).filter(c => isValidElement(c) && c.type === Item)
   const total = pasos.length
-  const hechos = pasos.filter(c => (isValidElement<{ state?: ChecklistState }>(c) ? c.props.state : undefined) === 'done').length
+  const escalera = value !== undefined
+  const hechos = escalera
+    ? Math.min(Math.max(value, 0), total)
+    : pasos.filter(c => (isValidElement<ItemProps>(c) ? c.props.state : undefined) === 'done').length
   const pct = total === 0 ? 0 : (hechos / total) * 100
+
+  let paso = -1
+  const items = escalera
+    ? Children.map(cuerpo, c => {
+        if (!isValidElement(c) || c.type !== Item) return c
+        paso += 1
+        const at = paso
+        return cloneElement(c as ReactElement<ItemProps>, {
+          state: at < hechos ? 'done' : 'todo',
+          onClick: () => onChange?.(hechos === at + 1 ? at : at + 1),
+        })
+      })
+    : cuerpo
 
   return (
     <div className={cx(s.root, className)}>
@@ -122,7 +144,7 @@ function Root({ defaultOpen = false, children, className }: {
       </div>
       {open && (
         <div id={bodyId} className={`${s.body} bg-surface`}>
-          <div className={s.items}>{cuerpo}</div>
+          <div className={s.items}>{items}</div>
           {footer}
         </div>
       )}
