@@ -11,7 +11,7 @@ export function SplitButtonStory() {
     >
       <Section
         title="La pieza"
-        note="El que manda queda a la vista y con un clic; el resto está a dos. La línea entre las dos mitades sale de la tinta de cada botón, así que se ve igual sobre el relleno de marca que sobre el claro."
+        note="El que manda queda a un clic y el resto a dos. Va cuando hay una acción que se hace casi siempre: publicar, exportar, guardar."
       >
         <Panel>
           <Variant name="brand" note="**La acción que manda** de una pantalla, con sus variantes al lado.">

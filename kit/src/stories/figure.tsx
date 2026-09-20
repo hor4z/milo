@@ -1,6 +1,6 @@
 import s from './figure.module.css'
 import { Figure } from '@milo/ui/figure'
-import { A11y, Note, Page, Practices, Props, Section } from '../kit'
+import { A11y, Example, Note, Page, Practices, Props, Section } from '../kit'
 
 export function FigureStory() {
   return (
@@ -53,6 +53,12 @@ export function FigureStory() {
         veces. Y si la imagen no aporta nada que el texto ya no diga, el `alt` va vacío: ahí es
         decoración, y anunciarla interrumpe.
       </Note>
+
+      <Section title="Cómo se escribe">
+        <Example code={`<Figure src="/diagrama.png" alt="Dos figuras con el mismo perímetro" ratio="16/9" fit="contain">
+  <Figure.Caption>Las dos miden 20 cm de contorno.</Figure.Caption>
+</Figure>`} />
+      </Section>
 
       <Props of="Figure" />
 

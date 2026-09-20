@@ -11,8 +11,8 @@ export function ButtonGroupStory() {
       lead="Dos o tres acciones que son la misma cosa, pegadas y con el canto solo en los extremos. Dice que van juntas sin escribirlo."
     >
       <Section
-        title="Lo que va acá y lo que no"
-        note="Acá van acciones que **se ejecutan**: anterior y siguiente, deshacer y rehacer, subir y bajar. Pegadas se leen como los dos sentidos de un mismo movimiento. Lo que **se elige** no va acá aunque se parezca: una vista de grilla o de lista, un orden, un filtro de texto. Eso es `Segmented`, que marca cuál está puesta y trae las flechas del teclado, y son dos cosas que un grupo de botones no hace."
+        title="Cuándo va"
+        note="Acciones que se ejecutan: anterior y siguiente, deshacer y rehacer, subir y bajar. Para elegir una opción entre varias va `Segmented`."
       >
         <Panel>
           <Variant name="anterior y siguiente" note="Los dos sentidos de recorrer algo.">
@@ -27,7 +27,7 @@ export function ButtonGroupStory() {
               <IconButton size="sm" variant="muted" icon="redo" label="Rehacer" />
             </ButtonGroup>
           </Variant>
-          <Variant name="tres o cuatro" note="El transporte de un audio: siguen siendo acciones, y el grupo las junta sin que ninguna se marque como puesta.">
+          <Variant name="tres o cuatro" note="El transporte de un audio: cuatro acciones, ninguna elegida.">
             <ButtonGroup label="Reproducción">
               <IconButton size="sm" variant="muted" icon="skip_previous" label="Anterior" />
               <IconButton size="sm" variant="muted" icon="play_arrow" label="Reproducir" />
@@ -38,9 +38,9 @@ export function ButtonGroupStory() {
         </Panel>
       </Section>
 
-      <Section title="Apilado" note="Para lo que se lee de arriba abajo, que es como se mueve una fila.">
+      <Section title="Apilado" note="Cuando el par de acciones es de verdad arriba y abajo: mover una fila en una lista, subir o bajar una prioridad. También cuando la columna es angosta y de a dos no entran.">
         <Panel>
-          <Variant name="subir y bajar">
+          <Variant name="subir y bajar" note="Al lado de la fila que se mueve.">
             <ButtonGroup label="Mover la fila" vertical>
               <IconButton size="sm" variant="muted" icon="arrow_upward" label="Subir" />
               <IconButton size="sm" variant="muted" icon="arrow_downward" label="Bajar" />

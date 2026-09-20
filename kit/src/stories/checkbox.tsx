@@ -1,7 +1,7 @@
 import cls from './checkbox.module.css'
 import { useState } from 'react'
 import { Checkbox } from '@milo/ui/checkbox'
-import { A11y, Page, Panel, Practices, Props, Section, Stack, Variant } from '../kit'
+import { A11y, Example, Page, Panel, Practices, Props, Section, Stack, Variant } from '../kit'
 
 export function CheckboxStory() {
   const [spaces, setSpaces] = useState<string[]>(['Ciencias'])
@@ -56,6 +56,11 @@ export function CheckboxStory() {
             </Stack>
           </Variant>
         </Panel>
+      </Section>
+
+      <Section title="Cómo se escribe">
+        <Example code={`const [marcado, setMarcado] = useState(false)
+<Checkbox checked={marcado} onChange={setMarcado} label="Permitir entregas tarde" />`} />
       </Section>
 
       <Section title="Props">

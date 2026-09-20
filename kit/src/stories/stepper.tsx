@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { Field } from '@milo/ui/field'
 import { Stepper } from '@milo/ui/stepper'
-import { A11y, Canvas, Cluster, Note, Page, Panel, Practices, Props, Section, Stack, Variant } from '../kit'
+import { A11y, Canvas, Cluster, Example, Note, Page, Panel, Practices, Props, Section, Stack, Variant } from '../kit'
 
 export function StepperStory() {
   const [attempts, setAttempts] = useState(3)
@@ -75,6 +75,11 @@ export function StepperStory() {
         lo que no era un número vuelve al último que sí lo era. Y para llegar lejos con el teclado
         están Re Pág y Av Pág, que van de a diez, e Inicio y Fin, que van a los topes.
       </Note>
+
+      <Section title="Cómo se escribe">
+        <Example code={`const [intentos, setIntentos] = useState(3)
+<Stepper value={intentos} onChange={setIntentos} min={1} max={9} size="sm" label="Intentos" />`} />
+      </Section>
 
       <Section title="Props">
         <Props of="Stepper" />

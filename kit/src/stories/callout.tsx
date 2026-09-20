@@ -1,6 +1,6 @@
 import s from './callout.module.css'
 import { Callout } from '@milo/ui/callout'
-import { A11y, Frame, Note, Page, Practices, Props, Section, Stack } from '../kit'
+import { A11y, Example, Frame, Note, Page, Practices, Props, Section, Stack } from '../kit'
 
 export function CalloutStory() {
   return (
@@ -49,6 +49,13 @@ export function CalloutStory() {
         parte de lo que se está leyendo y sigue ahí aunque nadie haga nada. Por eso no usa los tonos
         de estado: un bloque de contenido en rojo diría "error" sin que haya ninguno.
       </Note>
+
+      <Section title="Cómo se escribe">
+        <Example code={`<Callout icon="lightbulb" color="blue">
+  <Callout.Title>Para acordarse</Callout.Title>
+  La velocidad límite no depende de la masa.
+</Callout>`} />
+      </Section>
 
       <Props of="Callout" />
 

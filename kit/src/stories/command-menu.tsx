@@ -4,7 +4,7 @@ import { Button } from '@milo/ui/button'
 import { CommandMenu, type CommandGroup, type CommandItem } from '@milo/ui/command-menu'
 import { Kbd } from '@milo/ui/kbd'
 import { Popover } from '@milo/ui/popover'
-import { A11y, Cluster, Frame, Note, Page, Practices, Props, Section, Stack } from '../kit'
+import { A11y, Cluster, Example, Frame, Note, Page, Practices, Props, Section, Stack } from '../kit'
 
 const blocks: CommandGroup[] = [
   {
@@ -114,6 +114,17 @@ export function CommandMenuStory() {
         quien la usa, como en el ejemplo de arriba. Adentro de un `Modal` la misma lista es la
         paleta de atajos de la app, sin cambiarle una línea.
       </Note>
+
+      <Section title="Cómo se escribe">
+        <Example code={`const [abierto, setAbierto] = useState(false)
+
+<CommandMenu
+  open={abierto}
+  onClose={() => setAbierto(false)}
+  groups={grupos}
+  onSelect={id => insertar(id)}
+/>`} />
+      </Section>
 
       <Props of={['CommandMenu', 'CommandGroup', 'CommandItem']} />
 

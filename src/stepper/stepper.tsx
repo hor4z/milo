@@ -3,12 +3,13 @@ import { useEffect, useState } from 'react'
 import { useField } from '../lib/field-ctx'
 import { Icon } from '../icon/icon'
 import { cx } from '../lib/cx'
+import { fieldSizes } from '../lib/control'
 
 const clamp = (n: number, min: number, max: number) => Math.min(max, Math.max(min, n))
 
 /** Un número chico que se sube y se baja: cuántos intentos, cuántas preguntas, una nota. */
 export function Stepper({
-  value, onChange, min = 0, max = 99, step = 1, pageStep = 10, label, suffix, disabled, width = 132,
+  value, onChange, min = 0, max = 99, step = 1, pageStep = 10, label, suffix, size = 'md', disabled, width = 132,
 }: {
   /** El número. */
   value: number
@@ -24,6 +25,8 @@ export function Stepper({
   label?: string
   /** Lo que va después del número: "min", "pts". No se escribe ni se lee aparte. */
   suffix?: string
+  /** La misma escalera que el resto de los campos. */
+  size?: 'sm' | 'md' | 'lg'
   disabled?: boolean
   width?: number
 }) {
@@ -47,6 +50,7 @@ export function Stepper({
       style={{ width }}
       className={cx(
         `${cls.root} field`,
+        fieldSizes[size],
         disabled && cls.disabled,
       )}
     >

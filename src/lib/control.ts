@@ -10,9 +10,9 @@ export const variants = {
 
 /** La escalera de los controles. */
 export const control = {
-  sm: { box: s.heightSm, square: s.squareSm, px: s.padSm, text: s.textSm, gap: s.gapSm, radius: s.radiusSm, icon: 16, dot: s.dotSm },
-  md: { box: s.heightMd, square: s.squareMd, px: s.padMd, text: s.textMd, gap: s.gapMd, radius: s.radiusMd, icon: 20, dot: s.dotMd },
-  lg: { box: s.heightLg, square: s.squareLg, px: s.padLg, text: s.textLg, gap: s.gapLg, radius: s.radiusLg, icon: 24, dot: s.dotLg },
+  sm: { box: s.heightSm, square: s.squareSm, px: s.padSm, text: s.textSm, gap: s.gapSm, radius: s.radiusSm, icon: 16 },
+  md: { box: s.heightMd, square: s.squareMd, px: s.padMd, text: s.textMd, gap: s.gapMd, radius: s.radiusMd, icon: 20 },
+  lg: { box: s.heightLg, square: s.squareLg, px: s.padLg, text: s.textLg, gap: s.gapLg, radius: s.radiusLg, icon: 24 },
 } as const
 
 /** Los campos van en el cuerpo de la interfaz y no un escalón arriba como el botón: lo que se escribe tiene que medir lo mismo que lo que se lee alrededor. En táctil sube a 16, y eso lo hace `theme.css`. */

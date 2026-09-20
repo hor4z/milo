@@ -3,7 +3,7 @@ import { Avatar } from '@milo/ui/avatar'
 import { Divider } from '@milo/ui/divider'
 import { Icon } from '@milo/ui/icon'
 import { Kbd } from '@milo/ui/kbd'
-import { A11y, Footnote, Frame, Page, Panel, Practices, Props, Section, Variant } from '../kit'
+import { A11y, Example, Footnote, Frame, Page, Panel, Practices, Props, Section, Variant } from '../kit'
 
 export function DividerStory() {
   return (
@@ -59,6 +59,12 @@ export function DividerStory() {
           el Divider lleva <code className={cls.attributeName}>data-divider</code>, que es de lo único que
           se agarra el padre para hacerla.
         </Footnote>
+      </Section>
+
+      <Section title="Cómo se escribe">
+        <Example code={`<Divider />
+
+<Divider orientation="vertical" />`} />
       </Section>
 
       <Section title="Props">

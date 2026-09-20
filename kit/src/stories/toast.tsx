@@ -1,7 +1,7 @@
 import { Button } from '@milo/ui/button'
 import { Icon } from '@milo/ui/icon'
 import { useToast } from '@milo/ui/toast'
-import { A11y, Cluster, Demo, Note, Page, Practices, Props, Section } from '../kit'
+import { A11y, Cluster, Demo, Example, Note, Page, Practices, Props, Section } from '../kit'
 
 export function ToastStory() {
   const { toast } = useToast()
@@ -79,6 +79,16 @@ export function ToastStory() {
         queda en la página. La prueba es simple: si la persona se fue a hacer otra cosa y vuelve
         dentro de un minuto, ¿tiene que seguir viendo el aviso? Si sí, no es un toast.
       </Note>
+
+      <Section title="Cómo se escribe">
+        <Example code={`const { toast } = useToast()
+
+toast({
+  tone: 'ok',
+  title: 'Actividad publicada',
+  action: { label: 'Deshacer', onClick: revertir },
+})`} />
+      </Section>
 
       <Section title="Props">
         <Props of={['ToastOptions', 'ToastProvider']} />

@@ -26,7 +26,7 @@
   .vertical > *:not(:first-child)::before {
     content: "";
     position: absolute;
-    background-color: color-mix(in oklab, currentColor 22%, transparent);
+    background-color: color-mix(in oklab, currentColor 16%, transparent);
     pointer-events: none;
     z-index: 2;
   }

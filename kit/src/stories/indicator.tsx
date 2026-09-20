@@ -1,7 +1,7 @@
 import { Icon } from '@milo/ui/icon'
 import { IconButton } from '@milo/ui/icon-button'
 import { Indicator } from '@milo/ui/indicator'
-import { A11y, Page, Panel, Practices, Props, Section, Variant } from '../kit'
+import { A11y, Example, Page, Panel, Practices, Props, Section, Variant } from '../kit'
 
 export function IndicatorStory() {
   return (
@@ -66,6 +66,12 @@ export function IndicatorStory() {
             </Indicator>
           </Variant>
         </Panel>
+      </Section>
+
+      <Section title="Cómo se escribe">
+        <Example code={`<Indicator dot label="Hay avisos sin leer" inset={6}>
+  <IconButton icon="notifications" label="Novedades" />
+</Indicator>`} />
       </Section>
 
       <Section title="Props">

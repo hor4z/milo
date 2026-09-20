@@ -12,7 +12,7 @@ import { timeAgo } from '@milo/ui/lib/time'
 import { Pagination } from '@milo/ui/pagination'
 import { Search } from '@milo/ui/search'
 import { Table } from '@milo/ui/table'
-import { A11y, Footnote, Mono, Page, Practices, Props, Section, Stack } from '../kit'
+import { A11y, Example, Footnote, Mono, Page, Practices, Props, Section, Stack } from '../kit'
 
 const face = (n: number) => `/avatars/${String(n).padStart(2, '0')}.webp`
 
@@ -136,7 +136,7 @@ export function TableStory() {
     >
       <Section
         title="La tabla entera"
-        note="Una tabla de trabajo son tres cosas más que la grilla: con qué se recorta, cuántas hay y cómo se pasa al tramo siguiente. Los tres se llevan entre sí, que es la parte que se rompe cuando cada uno se escribe por su lado. Y la franja de paginar vive adentro del marco pero afuera del scroll."
+        note="Una tabla de trabajo lleva tres cosas más que la grilla: el filtro, el total y la paginación. Van juntas porque se leen juntas: cuántas hay depende de con qué se recortó."
       >
         <FilterBar className={cls.filterGap}>
           <Search
@@ -270,7 +270,7 @@ export function TableStory() {
 
       <Section
         title="La pieza"
-        note="La fila mide 56, la misma que `Row`: una tabla y un panel uno arriba del otro no pueden verse de dos sistemas. La cabecera va en tinta y no en gris: apagada, había que buscar de qué era cada columna. Y las filas alternan papel porque en una tabla ancha el divisor de un píxel no alcanza para seguir una fila hasta el final."
+        note="La fila mide lo mismo que la de un panel, así que una tabla y un panel uno arriba del otro se ven del mismo sistema. Las filas alternan papel: en una tabla ancha, un divisor de un píxel no alcanza para seguir una fila hasta el final."
       >
         <Table label="Entregas por estudiante" minWidth={720}>
           <Table.Header>
@@ -338,6 +338,18 @@ export function TableStory() {
           <Avatar.Group people={[p('Ana Pérez', 1), p('Bruno Díaz', 2), p('Carla Sosa', 3), p('Damián Ruiz', 4)]} ring="var(--surface-muted)" />
           <Mono>ring="var(--surface-muted)"</Mono>
         </div>
+      </Section>
+
+      <Section title="Cómo se escribe">
+        <Example code={`<Table label="Actividades del espacio">
+  <Table.Header>
+    <Table.Row><Table.Head>Nombre</Table.Head><Table.Head>Entregas</Table.Head></Table.Row>
+  </Table.Header>
+  <Table.Body>
+    <Table.Row><Table.Cell>Fracciones</Table.Cell><Table.Num>18</Table.Num></Table.Row>
+  </Table.Body>
+  <Table.Footer><Pagination>{paginacion}</Pagination></Table.Footer>
+</Table>`} />
       </Section>
 
       <Section title="Props">

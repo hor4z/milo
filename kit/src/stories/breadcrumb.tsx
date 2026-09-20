@@ -1,5 +1,5 @@
 import { Breadcrumb } from '@milo/ui/breadcrumb'
-import { A11y, Canvas, Note, Page, Practices, Props, Section } from '../kit'
+import { A11y, Canvas, Example, Note, Page, Practices, Props, Section } from '../kit'
 
 export function BreadcrumbStory() {
   return (
@@ -40,6 +40,17 @@ export function BreadcrumbStory() {
         Tres o cuatro. Con más, la fila deja de leerse y empieza a cortarse en pantalla chica: si la
         jerarquía es más profunda que eso, lo que hay que revisar es la jerarquía.
       </Note>
+
+      <Section title="Cómo se escribe">
+        <Example code={`<Breadcrumb
+  label="Dónde estás"
+  items={[
+    { label: 'Espacios', href: '/espacios' },
+    { label: 'Matemática', href: '/espacios/mate' },
+    { label: 'Fracciones equivalentes' },
+  ]}
+/>`} />
+      </Section>
 
       <Section title="Props">
         <Props of="Breadcrumb" />

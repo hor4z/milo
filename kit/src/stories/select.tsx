@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { Avatar } from '@milo/ui/avatar'
 import { Icon } from '@milo/ui/icon'
 import { Select } from '@milo/ui/select'
-import { A11y, Cluster, Demo, Page, Practices, Props, Section } from '../kit'
+import { A11y, Cluster, Demo, Example, Page, Practices, Props, Section } from '../kit'
 
 export function SelectStory() {
   const [level, setLevel] = useState('6.º grado')
@@ -109,6 +109,11 @@ export function SelectStory() {
             />
           </Demo>
         </Cluster>
+      </Section>
+
+      <Section title="Cómo se escribe">
+        <Example code={`const [espacio, setEspacio] = useState('Matemática')
+<Select value={espacio} onChange={setEspacio} options={espacios} width={180} />`} />
       </Section>
 
       <Section title="Props">

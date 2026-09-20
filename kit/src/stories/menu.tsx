@@ -4,7 +4,7 @@ import { Divider } from '@milo/ui/divider'
 import { Icon } from '@milo/ui/icon'
 import { Menu } from '@milo/ui/menu'
 import { Popover } from '@milo/ui/popover'
-import { A11y, Footnote, Mono, Page, Panel, Practices, Props, Section, Variant } from '../kit'
+import { A11y, Example, Footnote, Mono, Page, Panel, Practices, Props, Section, Variant } from '../kit'
 
 export function MenuStory() {
   const [view, setView] = useState<'grilla' | 'lista'>('grilla')
@@ -18,7 +18,7 @@ export function MenuStory() {
     >
       <Section
         title="La fila"
-        note="40 de alto, radio 12 y el icono en gris a 20: el texto va en tinta: al revés, con el texto apagado, el menú entero se lee como deshabilitado. A la derecha hay un solo lugar y cuatro cosas que pueden ocuparlo: el atajo, una línea de apoyo, el tilde o el chevron. Nunca dos, porque compiten por el mismo significado."
+        note="A la derecha hay un solo lugar y cuatro cosas que pueden ocuparlo: el atajo, una línea de apoyo, el tilde o el chevron. Nunca dos, porque compiten por el mismo significado."
       >
         <Panel>
           <Variant name="suelta">
@@ -93,6 +93,16 @@ export function MenuStory() {
           entre en la ventana. Y si abajo del disparador no hay lugar y arriba sí, el panel sube
           solo.
         </Footnote>
+      </Section>
+
+      <Section title="Cómo se escribe">
+        <Example code={`<Menu label="Opciones de la actividad">
+  <Menu.Label>Editar</Menu.Label>
+  <Menu.Item icon="content_copy" onSelect={duplicar}>
+    Duplicar<Menu.Shortcut>⌘D</Menu.Shortcut>
+  </Menu.Item>
+  <Menu.Item icon="delete" danger onSelect={borrar}>Eliminar</Menu.Item>
+</Menu>`} />
       </Section>
 
       <Section title="Props">

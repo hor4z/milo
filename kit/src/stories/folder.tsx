@@ -2,7 +2,7 @@ import cls from './folder.module.css'
 import { Card } from '@milo/ui/card'
 import { Folder } from '@milo/ui/folder'
 import { Icon } from '@milo/ui/icon'
-import { A11y, Footnote, Mono, Page, Practices, Props, Section, Stack } from '../kit'
+import { A11y, Example, Footnote, Mono, Page, Practices, Props, Section, Stack } from '../kit'
 
 const face = (n: number) => `/avatars/${String(n).padStart(2, '0')}.webp`
 const p = (name: string, photo?: number) => ({ name, src: photo ? face(photo) : undefined })
@@ -37,7 +37,7 @@ export function FolderStory() {
 
       <Section
         title="Las tres capas"
-        note="Contratapa, hojas y solapa. La contratapa y la pestaña son UN solo path y no dos rectángulos: con dos, cada uno trae sus esquinas y en el doblez queda un corte a la vista. Las hojas suben entre la contratapa y la solapa, que es lo que hace que parezca que salen de adentro."
+        note="Las hojas suben al pasar el mouse y dicen cuántas hay. La carpeta no cambia de tamaño ni de lugar, así que la grilla no se mueve."
       >
         <Card surface="muted" className={cls.layersShelf}>
           {[88, 128, 168, 220].map(s => (
@@ -55,7 +55,7 @@ export function FolderStory() {
 
       <Section
         title="El amarillo sale de una regla"
-        note="Amarillo propio en H 89.6 de OKLCH. `--warn-500` está en 82.2 y a esa luminosidad sale dorado: siete grados son poco para dos colores de estado y mucho para una carpeta. La croma va al 81% del techo y no al tope: al límite deja de ser una carpeta y pasa a ser un resaltador."
+        note="El amarillo de la carpeta es propio y no el de `warn`: una carpeta no está avisando de nada. El color sale de un token, nunca de un hex a mano."
       >
         <Card surface="muted" className={cls.colorShelf}>
           <Folder>
@@ -116,6 +116,13 @@ export function FolderStory() {
           la carpeta, no sobre la página, y con el anillo blanco se ven recortados. El tamaño sale
           del ancho de la carpeta, como todo lo demás.
         </Footnote>
+      </Section>
+
+      <Section title="Cómo se escribe">
+        <Example code={`<Folder color="var(--space-green)" onClick={abrir}>
+  <Folder.Label>Ciencias</Folder.Label>
+  <Folder.Meta>24 archivos</Folder.Meta>
+</Folder>`} />
       </Section>
 
       <Section title="Props">

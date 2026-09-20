@@ -1,7 +1,7 @@
 import { Icon, type IconName } from '@milo/ui/icon'
 import { type MarkColor } from '@milo/ui/lib/colors'
 import { List } from '@milo/ui/list'
-import { A11y, Footnote, Frame, Mono, Page, Practices, Props, Section } from '../kit'
+import { A11y, Example, Footnote, Frame, Mono, Page, Practices, Props, Section } from '../kit'
 
 const onboarding: { icon: IconName; color: MarkColor; title: string; hint: string; active?: boolean }[] = [
   { icon: 'check', color: 'green', title: 'Completá tu perfil', hint: 'Una foto y en qué materias das clase.' },
@@ -27,7 +27,7 @@ export function ListStory() {
     >
       <Section
         title="La pieza"
-        note="El contenedor es una bandeja transparente y las que flotan son las filas, cada una en papel con radio 16: el mismo de la `Card`, porque las dos se apoyan en la página. El alto de 72 tampoco es arbitrario: la marca es de 44 y el aire de 14 arriba y abajo. Cambiar la marca cambia el alto, no el padding."
+        note="Cada fila es una pieza apoyada en la página, con el mismo canto que una `Card`. La marca de color es lo que la identifica de reojo en una lista larga."
       >
         <Frame width="md">
           <List>
@@ -76,6 +76,16 @@ export function ListStory() {
             ))}
           </List>
         </Frame>
+      </Section>
+
+      <Section title="Cómo se escribe">
+        <Example code={`<List>
+  <List.Item icon="edit" color="blue" onClick={abrir}>
+    <List.Title>Corregir entregas</List.Title>
+    <List.Hint>24 esperando</List.Hint>
+    <List.Trailing><Icon name="chevron_right" size={20} className="icon-muted" /></List.Trailing>
+  </List.Item>
+</List>`} />
       </Section>
 
       <Section title="Props">

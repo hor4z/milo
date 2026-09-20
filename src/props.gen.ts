@@ -1351,12 +1351,6 @@ export const propsByComponent: Record<string, ComponentDoc> = {
         "doc": "36 · 40 · 44, los del Button."
       },
       {
-        "name": "dot",
-        "type": "boolean",
-        "required": false,
-        "doc": "El puntito de \"hay algo nuevo\", adentro del botón. Para un contador o un glifo, `Indicator`."
-      },
-      {
         "name": "active",
         "type": "boolean",
         "required": false,
@@ -2747,6 +2741,13 @@ export const propsByComponent: Record<string, ComponentDoc> = {
         "type": "string",
         "required": false,
         "doc": "Lo que va después del número: \"min\", \"pts\". No se escribe ni se lee aparte."
+      },
+      {
+        "name": "size",
+        "type": "'sm' | 'md' | 'lg'",
+        "required": false,
+        "def": "'md'",
+        "doc": "La misma escalera que el resto de los campos."
       },
       {
         "name": "disabled",

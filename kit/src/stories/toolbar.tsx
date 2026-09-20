@@ -1,7 +1,7 @@
 import s from './toolbar.module.css'
 import { useState } from 'react'
 import { Toolbar } from '@milo/ui/toolbar'
-import { A11y, Page, Practices, Props, Section } from '../kit'
+import { A11y, Example, Page, Practices, Props, Section } from '../kit'
 
 export function ToolbarStory() {
   const [format, setFormat] = useState({ bold: true, italic: false, underline: false })
@@ -42,6 +42,14 @@ export function ToolbarStory() {
             <Toolbar.Button icon="content_copy" label="Duplicar" />
           </Toolbar>
         </div>
+      </Section>
+
+      <Section title="Cómo se escribe">
+        <Example code={`<Toolbar label="Formato">
+  <Toolbar.Button icon="format_bold" label="Negrita" pressed={bold} onClick={() => setBold(!bold)} />
+  <Toolbar.Separator />
+  <Toolbar.Button icon="link" label="Enlace" onClick={abrirEnlace} />
+</Toolbar>`} />
       </Section>
 
       <Props of="Toolbar" />

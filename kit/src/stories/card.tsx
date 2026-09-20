@@ -4,7 +4,7 @@ import { Card } from '@milo/ui/card'
 import { Chip } from '@milo/ui/chip'
 import { Icon } from '@milo/ui/icon'
 import { Progress } from '@milo/ui/progress'
-import { A11y, Cluster, Note, Page, Practices, Props, Section } from '../kit'
+import { A11y, Cluster, Example, Note, Page, Practices, Props, Section } from '../kit'
 
 export function CardStory() {
   return (
@@ -16,7 +16,7 @@ export function CardStory() {
     >
       <Section
         title="Se arma con partes"
-        note="`CardHeader`, `CardTitle`, `CardHint`, `CardBody` y `CardFooter` traen el espaciado y la tipografía del sistema. Sin ellas, cada pantalla inventaba su propia cabecera: tres tamaños de título distintos en tres tarjetas vecinas."
+        note="Las partes traen el espaciado y la tipografía del sistema, así que dos tarjetas vecinas no terminan con tres tamaños de título distintos."
       >
         <Cluster gap="lg" align="start">
           <Card className={cls.partsCard}>
@@ -95,6 +95,16 @@ export function CardStory() {
         [Row](#row) adentro de un panel, y
         no seis tarjetas apiladas.
       </Note>
+
+      <Section title="Cómo se escribe">
+        <Example code={`<Card>
+  <Card.Header>
+    <Card.Title>Fracciones equivalentes</Card.Title>
+    <Card.Hint>18 entregas</Card.Hint>
+  </Card.Header>
+  <Card.Body>Cierra el 9 de marzo.</Card.Body>
+</Card>`} />
+      </Section>
 
       <Section title="Props">
         <Props of="Card" />

@@ -1,7 +1,7 @@
 import s from './column-picker.module.css'
 import { useState } from 'react'
 import { ColumnPicker } from '@milo/ui/column-picker'
-import { A11y, Page, Panel, Practices, Props, Section, Variant } from '../kit'
+import { A11y, Example, Page, Panel, Practices, Props, Section, Variant } from '../kit'
 
 const columns = [
   { id: 'actividad', label: 'Actividad', locked: true },
@@ -33,6 +33,17 @@ export function ColumnPickerStory() {
             <span className={s.pickedList}>{value.join(' · ')}</span>
           </Variant>
         </Panel>
+      </Section>
+
+      <Section title="Cómo se escribe">
+        <Example code={`const [visibles, setVisibles] = useState(['nombre', 'estado'])
+
+<ColumnPicker
+  label="Columnas"
+  columns={[{ id: 'nombre', label: 'Nombre', locked: true }, { id: 'estado', label: 'Estado' }]}
+  value={visibles}
+  onChange={setVisibles}
+/>`} />
       </Section>
 
       <Section title="Props">

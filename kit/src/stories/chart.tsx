@@ -2,7 +2,7 @@ import cls from './chart.module.css'
 import { Avatar } from '@milo/ui/avatar'
 import { Card } from '@milo/ui/card'
 import { BarChart } from '@milo/ui/chart'
-import { A11y, Page, Practices, Props, Section } from '../kit'
+import { A11y, Example, Page, Practices, Props, Section } from '../kit'
 
 const face = (n: number) => `/avatars/${String(n).padStart(2, '0')}.webp`
 
@@ -75,6 +75,15 @@ export function ChartStory() {
           blanca flotando sobre cualquier cosa. Es el único lugar del sistema donde el color del
           dato entra en una superficie de texto.
         </p>
+      </Section>
+
+      <Section title="Cómo se escribe">
+        <Example code={`const datos = [
+  { label: 'Lunes', value: 12 },
+  { label: 'Martes', value: 18, highlight: true },
+]
+
+<BarChart title="Entregas por día" data={datos} />`} />
       </Section>
 
       <Section title="Props">

@@ -1,5 +1,5 @@
 import { Quote } from '@milo/ui/quote'
-import { A11y, Frame, Note, Page, Practices, Props, Section, Stack } from '../kit'
+import { A11y, Example, Frame, Note, Page, Practices, Props, Section, Stack } from '../kit'
 
 export function QuoteStory() {
   return (
@@ -41,6 +41,13 @@ export function QuoteStory() {
         escribe, puestas aparte para que no se pasen de largo. Si lo que va adentro se puede
         atribuir, es una cita; si es una aclaración propia, no.
       </Note>
+
+      <Section title="Cómo se escribe">
+        <Example code={`<Quote cite="https://example.edu/acta">
+  Lo que no está escrito en la consigna se pregunta siete veces.
+  <Quote.Source>Acta de la reunión de marzo</Quote.Source>
+</Quote>`} />
+      </Section>
 
       <Props of="Quote" />
 

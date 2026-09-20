@@ -13,10 +13,10 @@ import { TextField } from '@milo/ui/text-field'"
     >
       <Section
         title="La pieza"
-        note="El tilde dura un rato y vuelve solo. Si el navegador no deja copiar (sin permiso, sin contexto seguro) el botón no miente: se queda diciendo Copiar."
+        note="Va pegado a lo que copia. Si el navegador no deja copiar, el botón no dice que copió."
       >
         <Panel>
-          <Variant name="sm · md · lg" note="Los tres pasos del resto de los controles.">
+          <Variant name="sm · md · lg" note="`sm` adentro de un campo o de una fila, `md` suelto.">
             <CopyButton size="sm" value="npm install @milo/ui" />
             <CopyButton value="npm install @milo/ui" />
             <CopyButton size="lg" value="npm install @milo/ui" />

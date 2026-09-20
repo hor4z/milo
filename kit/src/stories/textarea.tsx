@@ -1,7 +1,7 @@
 import cls from './textarea.module.css'
 import { useState } from 'react'
 import { Textarea } from '@milo/ui/textarea'
-import { A11y, Cluster, Demo, Page, Practices, Props, Section } from '../kit'
+import { A11y, Cluster, Demo, Example, Page, Practices, Props, Section } from '../kit'
 
 export function TextareaStory() {
   const [short, setShort] = useState('')
@@ -139,12 +139,23 @@ export function TextareaStory() {
       </Section>
 
       <Section title="Props" note="Todo lo que acepta un `<textarea>` nativo pasa derecho: `value`, `onChange`, `placeholder`, `disabled`, `maxLength`. Menos `style` y `resize`, que son de quien decide el alto.">
+        <Section title="Cómo se escribe">
+          <Example code={`<Textarea
+  rows={3}
+  maxRows={8}
+  counter
+  maxLength={280}
+  value={consigna}
+  onChange={e => setConsigna(e.target.value)}
+/>`} />
+        </Section>
+
         <Props of="Textarea" />
       </Section>
 
       <Section
         title="Lo que se paga si falta"
-        note="Tres cosas que no se ven cuando están bien. `height: auto` antes de leer `scrollHeight`, o el campo crece y no vuelve. El techo prende el scroll, y abajo del techo lo apaga, o aparece una barra que titila en cada tecla. Y se mide en un layout effect: después del paint, cada tecla se ve como un salto."
+        note="Crecer es la mitad fácil: lo que se olvida es volver. Escribí y borrá en los dos ejemplos de arriba."
       >
         <p className={cls.costText}>
           El <code>resize</code> nativo no está: es una esquina que solo existe con mouse, y

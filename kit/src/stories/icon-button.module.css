@@ -24,4 +24,24 @@
     letter-spacing: var(--type-meta-ls);
     color: var(--text-muted);
   }
+
+
+  .rowSample {
+    display: flex;
+    width: 18rem;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+    border-radius: var(--radius-lg);
+    background-color: var(--surface);
+    padding: 0.5rem 0.75rem;
+  }
+
+  .rowText {
+    font-size: var(--type-body);
+    line-height: var(--type-body-lh);
+    letter-spacing: var(--type-body-ls);
+    font-weight: var(--font-weight-medium);
+    color: var(--text);
+  }
 }

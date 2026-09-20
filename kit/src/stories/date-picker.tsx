@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { DatePicker } from '@milo/ui/date-picker'
 import { Field } from '@milo/ui/field'
-import { A11y, Canvas, Note, Page, Practices, Props, Section, Stack } from '../kit'
+import { A11y, Canvas, Example, Note, Page, Practices, Props, Section, Stack } from '../kit'
 
 const today = () => {
   const d = new Date()
@@ -72,6 +72,11 @@ export function DatePickerStory() {
         veces el lunes se lee mal justo cuando hay que contar días. Si hace falta soportar las dos,
         es una prop y no una pieza nueva.
       </Note>
+
+      <Section title="Cómo se escribe">
+        <Example code={`const [fecha, setFecha] = useState('')
+<DatePicker value={fecha} onChange={setFecha} min={hoy} label="Cierra el" />`} />
+      </Section>
 
       <Section title="Props">
         <Props of="DatePicker" />

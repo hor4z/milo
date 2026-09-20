@@ -2,7 +2,7 @@ import cls from './switch.module.css'
 import { useState } from 'react'
 import { Row } from '@milo/ui/row'
 import { Switch } from '@milo/ui/switch'
-import { A11y, Note, Page, Panel, Practices, Props, Section, Variant } from '../kit'
+import { A11y, Example, Note, Page, Panel, Practices, Props, Section, Variant } from '../kit'
 
 export function SwitchStory() {
   const [on, setOn] = useState(true)
@@ -17,7 +17,7 @@ export function SwitchStory() {
     >
       <Section
         title="Estados"
-        note="Lo que lo hace verse como una pieza física y no como un círculo pintado son las tres capas del pulgar: luz interior arriba, un halo corto alrededor y una sombra de contacto un píxel más abajo. La pista además lleva su propia sombra interior (más marcada en on que en off) para que el pulgar parezca hundido dentro."
+        note="Se lee como una llave de luz y no como una casilla: va para lo que se aplica al momento, sin un botón de guardar que lo confirme."
       >
         <Panel>
           <Variant name="on"><Switch checked={on} onChange={setOn} label="Sugerencias" /></Variant>
@@ -52,6 +52,11 @@ export function SwitchStory() {
         se confirma después, con un botón. Si hay un "Guardar" abajo, va casilla; si el cambio pasa
         solo, va switch.
       </Note>
+
+      <Section title="Cómo se escribe">
+        <Example code={`const [activo, setActivo] = useState(true)
+<Switch checked={activo} onChange={setActivo} label="Permitir entregas tarde" />`} />
+      </Section>
 
       <Section title="Props">
         <Props of="Switch" />

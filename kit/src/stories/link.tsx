@@ -1,6 +1,6 @@
 import cls from './link.module.css'
 import { Link } from '@milo/ui/link'
-import { A11y, Canvas, Note, Page, Practices, Props, Section } from '../kit'
+import { A11y, Canvas, Example, Note, Page, Practices, Props, Section } from '../kit'
 
 export function LinkStory() {
   return (
@@ -40,6 +40,12 @@ export function LinkStory() {
         otra pestaña sin borrar, y un botón que navega no se puede copiar ni guardar. Cuando hay una
         URL de verdad, va link.
       </Note>
+
+      <Section title="Cómo se escribe">
+        <Example code={`Mirá <Link href="/rubricas">cómo se arma una rúbrica</Link> antes de publicar.
+
+<Link href="https://example.edu" external>El sitio de la escuela</Link>`} />
+      </Section>
 
       <Section title="Props">
         <Props of="Link" />

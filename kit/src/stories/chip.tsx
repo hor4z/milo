@@ -3,7 +3,7 @@ import { useState } from 'react'
 import { Card } from '@milo/ui/card'
 import { Chip } from '@milo/ui/chip'
 import { labelColors } from '@milo/ui/lib/colors'
-import { A11y, Cluster, Demo, Page, Panel, Practices, Props, Section, Variant } from '../kit'
+import { A11y, Cluster, Demo, Example, Page, Panel, Practices, Props, Section, Variant } from '../kit'
 
 export function ChipStory() {
   const [chips, setChips] = useState(['Indagación', 'Proyecto', 'Taller'])
@@ -115,6 +115,12 @@ export function ChipStory() {
             </Card>
           </Cluster>
         </Demo>
+      </Section>
+
+      <Section title="Cómo se escribe">
+        <Example code={`<Chip color="ok" icon="check_circle">Corregida</Chip>
+
+<Chip color="blue" onRemove={() => quitar(id)}>Matemática</Chip>`} />
       </Section>
 
       <Section title="Props">

@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { IconButton } from '@milo/ui/icon-button'
 import { Kbd } from '@milo/ui/kbd'
 import { TextField } from '@milo/ui/text-field'
-import { A11y, Cluster, Demo, Page, Practices, Props, Section } from '../kit'
+import { A11y, Cluster, Demo, Example, Page, Practices, Props, Section } from '../kit'
 
 export function TextFieldStory() {
   const [text, setText] = useState('Fracciones con la receta de la abuela')
@@ -42,7 +42,7 @@ export function TextFieldStory() {
 
       <Section
         title="El click y el foco"
-        note="El input tapa la caja entera: mide lo que mide su línea de texto (16px) y adentro de una caja de 44 dejaba 14 muertos arriba y abajo, así que media caja no recibía el click. El anillo de foco es del campo y no del input: si no, queda un rectángulo flotando adentro."
+        note="Tocar cualquier parte del campo enfoca el cursor, no solo la línea de texto. Es lo que hace que un campo alto no tenga zonas muertas."
       >
         <Cluster>
           <Demo width="sm" fill label="con botón adentro">
@@ -56,6 +56,15 @@ export function TextFieldStory() {
       </Section>
 
       <Section title="Props" note="Todo lo que acepta un `<input>` nativo pasa derecho: `value`, `onChange`, `placeholder`, `disabled`, `type`.">
+        <Section title="Cómo se escribe">
+          <Example code={`<TextField
+  icon="search"
+  value={texto}
+  onChange={e => setTexto(e.target.value)}
+  placeholder="Fracciones equivalentes"
+/>`} />
+        </Section>
+
         <Props of="TextField" />
       </Section>
 

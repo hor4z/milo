@@ -1,6 +1,6 @@
 import cls from './kbd.module.css'
 import { Kbd } from '@milo/ui/kbd'
-import { A11y, Note, Page, Panel, Practices, Props, Section, Variant } from '../kit'
+import { A11y, Example, Note, Page, Panel, Practices, Props, Section, Variant } from '../kit'
 
 export function KbdStory() {
   return (
@@ -44,6 +44,10 @@ export function KbdStory() {
         tecla que hay que apretar. La excepción son las que no tienen símbolo (Esc, Tab, Enter) donde
         el nombre es lo que está impreso.
       </Note>
+
+      <Section title="Cómo se escribe">
+        <Example code={`Apretá <Kbd>/</Kbd> para buscar.`} />
+      </Section>
 
       <Section title="Props">
         <Props of="Kbd" />

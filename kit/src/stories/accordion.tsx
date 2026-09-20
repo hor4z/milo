@@ -1,5 +1,5 @@
 import { Accordion } from '@milo/ui/accordion'
-import { A11y, Note, Page, Practices, Props, Section } from '../kit'
+import { A11y, Example, Note, Page, Practices, Props, Section } from '../kit'
 
 export function AccordionStory() {
   return (
@@ -50,6 +50,15 @@ export function AccordionStory() {
         es texto, no un acordeón. Y si las filas se comparan entre sí, van en
         [Tabs](#tabs).
       </Note>
+
+      <Section title="Cómo se escribe">
+        <Example code={`<Accordion>
+  <Accordion.Item defaultOpen>
+    <Accordion.Summary>¿Puedo corregir después de cerrar?</Accordion.Summary>
+    <Accordion.Body>Sí. Cerrar solo impide entregas nuevas.</Accordion.Body>
+  </Accordion.Item>
+</Accordion>`} />
+      </Section>
 
       <Section title="Props">
         <Props of="Accordion" />

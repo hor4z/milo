@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { Segmented } from '@milo/ui/segmented'
-import { A11y, Page, Panel, Practices, Props, Section, Variant } from '../kit'
+import { A11y, Example, Page, Panel, Practices, Props, Section, Variant } from '../kit'
 
 export function SegmentedStory() {
   const [filter, setFilter] = useState<'todas' | 'abiertas'>('todas')
@@ -17,7 +17,7 @@ export function SegmentedStory() {
     >
       <Section
         title="Tamaños"
-        note="La opción activa flota sobre una pista apagada, y dos cuentas tienen que dar. El radio: la opción es la pista menos su padding, 12 − 2 = 10. Y el alto: **la pista contiene su padding, no lo suma**, así que la opción mide cuatro menos que el escalón y el conjunto apoya en la misma línea que un `Button` del mismo talle."
+        note="El conjunto apoya en la misma línea que un `Button` del mismo talle, así que un segmentado y un botón en la misma fila no se desalinean."
       >
         <Panel>
           <Variant name="md · texto">
@@ -37,6 +37,16 @@ export function SegmentedStory() {
               options={[{ value: 'semana', label: 'Semana' }, { value: 'mes', label: 'Mes', dot: true }]} />
           </Variant>
         </Panel>
+      </Section>
+
+      <Section title="Cómo se escribe">
+        <Example code={`const [vista, setVista] = useState('semana')
+
+<Segmented
+  value={vista}
+  onChange={setVista}
+  options={[{ value: 'semana', label: 'Semana' }, { value: 'mes', label: 'Mes' }]}
+/>`} />
       </Section>
 
       <Section title="Props">

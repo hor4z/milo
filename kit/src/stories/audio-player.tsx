@@ -2,7 +2,7 @@ import cls from './audio-player.module.css'
 import { AudioPlayer } from '@milo/ui/audio-player'
 import { IconButton } from '@milo/ui/icon-button'
 import { Tooltip } from '@milo/ui/tooltip'
-import { A11y, Note, Page, Panel, Practices, Props, Rich, Section } from '../kit'
+import { A11y, Example, Note, Page, Panel, Practices, Props, Rich, Section } from '../kit'
 
 /** Salen de `npm run picos -- kit/public/audio/consigna.mp3 --barras 64`. */
 const peaks = [
@@ -134,6 +134,14 @@ export function AudioPlayerStory() {
         comparten es el fondo: los dos son un {' '}<code>input type=range</code> transparente encima
         de lo que se ve, así que el teclado y el arrastre son los del navegador.
       </Note>
+
+      <Section title="Cómo se escribe">
+        <Example code={`<AudioPlayer src="/devolucion.mp3" title="Devolución de Ana">
+  <AudioPlayer.Actions>
+    <IconButton icon="download" label="Descargar" size="sm" />
+  </AudioPlayer.Actions>
+</AudioPlayer>`} />
+      </Section>
 
       <Props of="AudioPlayer" />
 

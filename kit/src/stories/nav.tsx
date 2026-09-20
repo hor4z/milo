@@ -2,7 +2,7 @@ import cls from './nav.module.css'
 import { useState } from 'react'
 import { Icon } from '@milo/ui/icon'
 import { NavItemBody, navItemClass, navSubItemClass } from '@milo/ui/nav'
-import { A11y, Page, Practices, Props, Section } from '../kit'
+import { A11y, Example, Page, Practices, Props, Section } from '../kit'
 
 export function NavStory() {
   const [active, setActive] = useState('explorar')
@@ -16,7 +16,7 @@ export function NavStory() {
     >
       <Section
         title="El item"
-        note="40 de alto, radio 12, el icono en un cuadrado de 34 y la etiqueta en el rol `--type-body`. El activo va en azul suave con su canto. En un riel de doce items, un activo en gris hay que buscarlo."
+        note="El activo se marca con la barra de la izquierda y el azul suave. En un riel de doce items, un activo en gris hay que buscarlo."
       >
         <div className={cls.itemRail}>
           <div className={cls.itemList}>
@@ -70,6 +70,12 @@ export function NavStory() {
             </button>
           </div>
         </div>
+      </Section>
+
+      <Section title="Cómo se escribe">
+        <Example code={`<button className={navItemClass({ active })}>
+  <NavItemBody icon="dashboard" label="Dashboard" badge="3" />
+</button>`} />
       </Section>
 
       <Section title="Props">

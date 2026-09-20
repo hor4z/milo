@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { Search } from '@milo/ui/search'
-import { A11y, Page, Panel, Practices, Props, Section, Variant } from '../kit'
+import { A11y, Example, Page, Panel, Practices, Props, Section, Variant } from '../kit'
 
 export function SearchStory() {
   const [first, setFirst] = useState('')
@@ -37,6 +37,13 @@ export function SearchStory() {
           <Variant name="vacío · el atajo"><Search value={empty} onValueChange={setEmpty} shortcut="/" /></Variant>
           <Variant name="con texto · la cruz"><Search value={filled} onValueChange={setFilled} shortcut="/" /></Variant>
         </Panel>
+      </Section>
+
+      <Section title="Cómo se escribe">
+        <Example code={`const [texto, setTexto] = useState('')
+const buscado = useDebounce(texto, 250)
+
+<Search value={texto} onValueChange={setTexto} placeholder="Buscar una actividad" shortcut="/" />`} />
       </Section>
 
       <Section title="Props">

@@ -1,7 +1,7 @@
 import cls from './skeleton.module.css'
 import { Card } from '@milo/ui/card'
 import { Skeleton } from '@milo/ui/skeleton'
-import { A11y, Cluster, Demo, Note, Page, Practices, Props, Section, Stack } from '../kit'
+import { A11y, Cluster, Demo, Example, Note, Page, Practices, Props, Section, Stack } from '../kit'
 
 export function SkeletonStory() {
   return (
@@ -58,6 +58,12 @@ export function SkeletonStory() {
         viene, el esqueleto evita el salto. Cuando no se sabe (una búsqueda que puede traer cero o
         cien) el spinner es más honesto.
       </Note>
+
+      <Section title="Cómo se escribe">
+        <Example code={`{cargando
+  ? <Skeleton lines={3} />
+  : <p>{consigna}</p>}`} />
+      </Section>
 
       <Section title="Props">
         <Props of="Skeleton" />

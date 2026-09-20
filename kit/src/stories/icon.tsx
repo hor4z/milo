@@ -9,7 +9,7 @@ import { Segmented } from '@milo/ui/segmented'
 import { Slider } from '@milo/ui/slider'
 import { TextField } from '@milo/ui/text-field'
 import { iconTags } from '@milo/ui/icons.meta'
-import { A11y, Cluster, Footnote, Mono, Note, Page, Panel, Practices, Props, Section, Variant } from '../kit'
+import { A11y, Cluster, Example, Footnote, Mono, Note, Page, Panel, Practices, Props, Section, Variant } from '../kit'
 
 const sizes = [
   { px: 12, role: 'un badge, la cruz de un chip' },
@@ -46,7 +46,7 @@ export function IconStory() {
   return (
     <Page
       title="Icon"
-      kind="Guía"
+      kind="Fundamentos"
       imports="import { Icon } from '@milo/ui/icon'"
       lead="Material Symbols Rounded, subseteado a lo que usamos y servido desde el repo. Peso 300 de base, y peso y relleno son ejes reales de la fuente, no variantes generadas."
     >
@@ -68,7 +68,7 @@ export function IconStory() {
 
       <Section
         title={`El set · ${iconNames.length} iconos`}
-        note="Buscá por nombre o por lo que el icono es. Los controles escriben las variables una sola vez en el contenedor de la grilla y los glifos las heredan: cambiar `font-variation-settings` en cada instancia invalida la rasterización de cada glifo, y serían todos los del set por cada movimiento del control."
+        note="Buscá por nombre o por lo que el icono es. Los tags son los de Google y están en inglés: 'calendar' encuentra `calendar_month`, 'calendario' no encuentra nada."
       >
         <Cluster gap="lg" align="center">
           <span className={cls.searchSlot}>
@@ -183,6 +183,12 @@ export function IconStory() {
           escribir <Mono>--yes</Mono>. El catálogo está versionado, así que buscar funciona sin
           internet.
         </p>
+      </Section>
+
+      <Section title="Cómo se escribe">
+        <Example code={`<Icon name="calendar_month" size={20} />
+
+<Icon name="tune" size={18} className="icon-muted" />`} />
       </Section>
 
       <Section title="Props">

@@ -3,7 +3,7 @@ import { useState } from 'react'
 import { Button } from '@milo/ui/button'
 import { Icon } from '@milo/ui/icon'
 import { Steps } from '@milo/ui/steps'
-import { A11y, Note, Page, Practices, Props, Section } from '../kit'
+import { A11y, Example, Note, Page, Practices, Props, Section } from '../kit'
 
 const design = [
   { label: 'Empatizar', hint: 'Escuchar a quien tiene el problema' },
@@ -64,6 +64,14 @@ export function StepsStory() {
         intercambiables: once de dieciocho entregas. `Steps` sirve cuando las partes tienen nombre y
         orden, y lo que importa no es el porcentaje sino cuál viene ahora.
       </Note>
+
+      <Section title="Cómo se escribe">
+        <Example code={`<Steps
+  label="Publicar una actividad"
+  current={1}
+  items={[{ label: 'Escribir' }, { label: 'Revisar' }, { label: 'Publicar' }]}
+/>`} />
+      </Section>
 
       <Props of={['Steps', 'Step']} />
 

@@ -5,7 +5,7 @@ import { Select } from '@milo/ui/select'
 import { Switch } from '@milo/ui/switch'
 import { TextField } from '@milo/ui/text-field'
 import { Textarea } from '@milo/ui/textarea'
-import { A11y, Canvas, Frame, Note, Page, Practices, Props, Section, Stack } from '../kit'
+import { A11y, Canvas, Example, Frame, Note, Page, Practices, Props, Section, Stack } from '../kit'
 
 export function FieldStory() {
   const [overdue, setOverdue] = useState(true)
@@ -113,6 +113,14 @@ export function FieldStory() {
         tocarlo (etiqueta a la izquierda, switch a la derecha) es un
         [Row](#row).
       </Note>
+
+      <Section title="Cómo se escribe">
+        <Example code={`<Field>
+  <Field.Label>Nombre de la actividad</Field.Label>
+  <Field.Hint>Lo ven los estudiantes</Field.Hint>
+  <TextField value={nombre} onChange={e => setNombre(e.target.value)} />
+</Field>`} />
+      </Section>
 
       <Section title="Props">
         <Props of="Field" />

@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { Alert } from '@milo/ui/alert'
 import { Button } from '@milo/ui/button'
 import { Icon } from '@milo/ui/icon'
-import { A11y, Demo, Frame, Note, Page, Practices, Props, Section, Stack } from '../kit'
+import { A11y, Demo, Example, Frame, Note, Page, Practices, Props, Section, Stack } from '../kit'
 
 export function AlertStory() {
   const [dismissed, setDismissed] = useState<string[]>([])
@@ -113,6 +113,14 @@ export function AlertStory() {
         de la pantalla, va acá: el toast se va solo a los cinco segundos, y un error importante que
         desaparece solo es un error que nadie leyó.
       </Note>
+
+      <Section title="Cómo se escribe">
+        <Example code={`<Alert tone="bad">
+  <Alert.Title>No se pudo publicar</Alert.Title>
+  <Alert.Body>Falta la fecha de cierre.</Alert.Body>
+  <Alert.Actions><Button size="sm">Completar</Button></Alert.Actions>
+</Alert>`} />
+      </Section>
 
       <Section title="Props">
         <Props of="Alert" />

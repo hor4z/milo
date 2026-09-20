@@ -1,6 +1,6 @@
 import cls from './avatar.module.css'
 import { Avatar } from '@milo/ui/avatar'
-import { A11y, Demo, Page, Practices, Props, Section } from '../kit'
+import { A11y, Demo, Example, Page, Practices, Props, Section } from '../kit'
 
 const face = (n: number) => `/avatars/${String(n).padStart(2, '0')}.webp`
 const person = (name: string, photo?: number) => ({ name, src: photo ? face(photo) : undefined })
@@ -15,7 +15,7 @@ export function AvatarStory() {
     >
       <Section
         title="Sin foto"
-        note="Círculo pastel con la inicial en el mismo tono: es la familia de las marcas de fila, no la viva. Medido, la inicial sobre pastel se lee mejor que el blanco sobre relleno vivo (los cinco pares pasan de 4.5:1 y el blanco sobre el vivo no llega a 3.8:1 en ninguno) y deja de gritarle al texto de al lado. El tono sale del nombre: de un random, la misma persona cambiaría de color en cada render."
+        note="Círculo pastel con la inicial en el mismo tono, que es la familia de las marcas de fila. El color sale del nombre, así que la misma persona tiene siempre el mismo."
       >
         <Demo>
           <Avatar name="Horacio Rivero" size={24} />
@@ -79,6 +79,12 @@ export function AvatarStory() {
             />
           </span>
         </Demo>
+      </Section>
+
+      <Section title="Cómo se escribe">
+        <Example code={`<Avatar name="Ana Pérez" src="/avatars/01.webp" />
+
+<Avatar.Group people={equipo} size={24} ring="var(--surface)" />`} />
       </Section>
 
       <Section title="Props">

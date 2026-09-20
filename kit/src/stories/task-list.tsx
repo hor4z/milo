@@ -1,7 +1,7 @@
 import cls from './task-list.module.css'
 import { useState } from 'react'
 import { TaskList, type Task } from '@milo/ui/task-list'
-import { A11y, Note, Page, Practices, Props, Section } from '../kit'
+import { A11y, Example, Note, Page, Practices, Props, Section } from '../kit'
 
 const initial: Task[] = [
   { id: 'leer', label: 'Leer la consigna entera antes de empezar', done: true },
@@ -41,6 +41,11 @@ export function TaskListStory() {
         `TaskList` es una lista de cosas que se van haciendo, y cada marca vale sola en el momento.
         Si al final hay un "Guardar", son casillas; si no, es esta lista.
       </Note>
+
+      <Section title="Cómo se escribe">
+        <Example code={`const [tareas, setTareas] = useState(pendientes)
+<TaskList label="Antes de publicar" tasks={tareas} onToggle={marcar} />`} />
+      </Section>
 
       <Props of={['TaskList', 'Task']} />
 

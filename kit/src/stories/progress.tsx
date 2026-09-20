@@ -1,6 +1,6 @@
 import cls from './progress.module.css'
 import { Progress } from '@milo/ui/progress'
-import { A11y, Note, Page, Practices, Props, Section } from '../kit'
+import { A11y, Example, Note, Page, Practices, Props, Section } from '../kit'
 
 export function ProgressStory() {
   return (
@@ -47,6 +47,12 @@ export function ProgressStory() {
         [Spinner](#spinner). Una barra que
         se queda en el 90% es la forma más cara de perder la confianza de quien mira.
       </Note>
+
+      <Section title="Cómo se escribe">
+        <Example code={`<Progress value={18} max={24} label="Corregidas">
+  <Progress.Hint>18 de 24</Progress.Hint>
+</Progress>`} />
+      </Section>
 
       <Section title="Props">
         <Props of="Progress" />

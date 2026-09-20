@@ -1,7 +1,7 @@
 import { Button } from '@milo/ui/button'
 import { Dropdown } from '@milo/ui/dropdown'
 import { Icon } from '@milo/ui/icon'
-import { A11y, Cluster, Demo, Page, Practices, Props, Section } from '../kit'
+import { A11y, Cluster, Demo, Example, Page, Practices, Props, Section } from '../kit'
 
 export function DropdownStory() {
   return (
@@ -11,7 +11,7 @@ export function DropdownStory() {
       kind="Acciones"
       imports="import { Dropdown } from '@milo/ui/dropdown'"
     >
-      <Section title="Vivo" note="El disparador va como render prop porque el Dropdown necesita su ref para medir dónde abrir. Desde que `Button` acepta ref, el disparador puede ser el botón del sistema y no un <button> crudo repitiendo las clases.">
+      <Section title="Vivo" note="El disparador va como render prop: recibe `onClick`, `ref` y `aria-expanded`, y hay que pasárselos enteros o el panel no se ancla. Puede ser cualquier botón del sistema.">
         <Cluster align="start">
           <Demo label="align end · width 220">
             <Dropdown
@@ -60,6 +60,14 @@ export function DropdownStory() {
             />
           </Demo>
         </Cluster>
+      </Section>
+
+      <Section title="Cómo se escribe">
+        <Example code={`<Dropdown
+  label="Más opciones"
+  items={[{ label: 'Duplicar', icon: 'content_copy' }, { label: 'Eliminar', icon: 'delete', danger: true }]}
+  trigger={props => <IconButton icon="more_horiz" label="Más opciones" {...props} />}
+/>`} />
       </Section>
 
       <Section title="Props">

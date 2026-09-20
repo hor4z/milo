@@ -2,7 +2,7 @@ import cls from './radio.module.css'
 import { useState } from 'react'
 import { Checkbox } from '@milo/ui/checkbox'
 import { Radio } from '@milo/ui/radio'
-import { A11y, Footnote, Page, Panel, Practices, Props, Section, Variant } from '../kit'
+import { A11y, Example, Footnote, Page, Panel, Practices, Props, Section, Variant } from '../kit'
 
 export function RadioStory() {
   const [compared, setCompared] = useState(true)
@@ -110,6 +110,20 @@ export function RadioStory() {
             />
           </Variant>
         </Panel>
+      </Section>
+
+      <Section title="Cómo se escribe">
+        <Example code={`const [modo, setModo] = useState('individual')
+
+<Radio.Group
+  value={modo}
+  onChange={setModo}
+  label="Cómo se entrega"
+  options={[
+    { value: 'individual', label: 'Individual' },
+    { value: 'grupal', label: 'En grupo' },
+  ]}
+/>`} />
       </Section>
 
       <Section title="Props">

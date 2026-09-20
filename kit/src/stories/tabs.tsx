@@ -1,6 +1,6 @@
 import cls from './tabs.module.css'
 import { Tabs } from '@milo/ui/tabs'
-import { A11y, Canvas, Note, Page, Practices, Props, Section } from '../kit'
+import { A11y, Canvas, Example, Note, Page, Practices, Props, Section } from '../kit'
 
 export function TabsStory() {
   return (
@@ -63,6 +63,17 @@ export function TabsStory() {
         solapas. Si son preguntas sueltas que se leen de a una y la mayoría no se va a abrir nunca, va
         un [Accordion](#accordion).
       </Note>
+
+      <Section title="Cómo se escribe">
+        <Example code={`<Tabs defaultValue="entregas">
+  <Tabs.List label="Secciones de la actividad">
+    <Tabs.Tab value="entregas">Entregas</Tabs.Tab>
+    <Tabs.Tab value="consigna">Consigna</Tabs.Tab>
+  </Tabs.List>
+  <Tabs.Panel value="entregas">{tabla}</Tabs.Panel>
+  <Tabs.Panel value="consigna">{texto}</Tabs.Panel>
+</Tabs>`} />
+      </Section>
 
       <Section title="Props">
         <Props of="Tabs" />

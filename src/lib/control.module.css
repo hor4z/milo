@@ -56,10 +56,6 @@
     border-radius: var(--radius-md);
   }
 
-  .dotSm {
-    top: 6px;
-    right: 6px;
-  }
 
   .heightMd {
     height: 2.5rem;
@@ -88,10 +84,6 @@
     border-radius: var(--radius-lg);
   }
 
-  .dotMd {
-    top: 7px;
-    right: 7px;
-  }
 
   .heightLg {
     height: 2.75rem;
@@ -120,10 +112,6 @@
     border-radius: var(--radius-lg);
   }
 
-  .dotLg {
-    top: 8px;
-    right: 8px;
-  }
 
   .fieldSm {
     height: 2.25rem;

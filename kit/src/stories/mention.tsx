@@ -1,6 +1,6 @@
 import s from './mention.module.css'
 import { Mention } from '@milo/ui/mention'
-import { A11y, Note, Page, Practices, Props, Section } from '../kit'
+import { A11y, Example, Note, Page, Practices, Props, Section } from '../kit'
 
 const face = (n: number) => `/avatars/${String(n).padStart(2, '0')}.webp`
 
@@ -14,7 +14,7 @@ export function MentionStory() {
     >
       <Section
         title="En un párrafo"
-        note="Es la prueba que importa: los renglones de arriba y de abajo tienen que seguir a la misma distancia. Con la caja de un chip, el renglón que lleva una mención se separa de los otros y el párrafo se ve roto."
+        note="Adentro de un párrafo los renglones tienen que seguir a la misma distancia. Por eso la mención no lleva la caja de un `Chip`."
       >
         <div className={`${s.paragraphBox} bg-surface`}>
           <p className={s.paragraphText}>
@@ -43,6 +43,10 @@ export function MentionStory() {
         La `Mention` vive adentro de una oración y se lee con ella. Si está en un párrafo, es
         mención; si está en una barra, es chip.
       </Note>
+
+      <Section title="Cómo se escribe">
+        <Example code={`Le pedí a <Mention name="Ana Pérez" src="/avatars/01.webp" href="/personas/ana" /> que revise la consigna.`} />
+      </Section>
 
       <Props of="Mention" />
 

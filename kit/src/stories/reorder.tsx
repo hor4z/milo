@@ -2,7 +2,7 @@ import cls from './reorder.module.css'
 import { useState } from 'react'
 import { Icon, type IconName } from '@milo/ui/icon'
 import { Reorder, type ReorderItem } from '@milo/ui/reorder'
-import { A11y, Canvas, Frame, Note, Page, Practices, Props, Section } from '../kit'
+import { A11y, Canvas, Example, Frame, Note, Page, Practices, Props, Section } from '../kit'
 
 type Block = ReorderItem & { icon: IconName; meta: string }
 
@@ -65,6 +65,11 @@ export function ReorderStory() {
         posición 2 de 5", y el aviso se borra solo: si se queda, un lector lo repite al volver a
         entrar en la lista.
       </Note>
+
+      <Section title="Cómo se escribe">
+        <Example code={`const [items, setItems] = useState(pasos)
+<Reorder label="Pasos de la consigna" items={items} onReorder={setItems} />`} />
+      </Section>
 
       <Section title="Props">
         <Props of={['Reorder', 'ReorderItem']} />

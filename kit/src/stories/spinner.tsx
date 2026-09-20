@@ -1,7 +1,7 @@
 import cls from './spinner.module.css'
 import { Button } from '@milo/ui/button'
 import { Spinner } from '@milo/ui/spinner'
-import { A11y, Page, Panel, Practices, Props, Section, Variant } from '../kit'
+import { A11y, Example, Page, Panel, Practices, Props, Section, Variant } from '../kit'
 
 export function SpinnerStory() {
   return (
@@ -13,7 +13,7 @@ export function SpinnerStory() {
     >
       <Section
         title="Tamaños"
-        note="El trazo escala: es el 17% del diámetro a cualquier tamaño. Con el trazo fijo, el de 44 quedaba en 3 sobre 44 (un hilo) al lado del de 20 en 3 sobre 20. Abajo de 12 hay un piso de 2px, para que no caiga en el medio píxel y el antialias lo apague."
+        note="El trazo crece con el diámetro, así que el mismo spinner se lee igual adentro de un botón chico que en el medio de una pantalla."
       >
         <Panel>
           <Variant name="16 · 20 · 28 · 44">
@@ -41,6 +41,12 @@ export function SpinnerStory() {
             </span>
           </Variant>
         </Panel>
+      </Section>
+
+      <Section title="Cómo se escribe">
+        <Example code={`<Spinner label="Cargando las entregas" />
+
+<Button loading>Guardar</Button>`} />
       </Section>
 
       <Section title="Props">

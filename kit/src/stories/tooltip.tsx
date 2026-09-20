@@ -2,7 +2,7 @@ import cls from './tooltip.module.css'
 import { Button } from '@milo/ui/button'
 import { IconButton } from '@milo/ui/icon-button'
 import { Tooltip } from '@milo/ui/tooltip'
-import { A11y, Cluster, Demo, Page, Practices, Props, Section } from '../kit'
+import { A11y, Cluster, Demo, Example, Page, Practices, Props, Section } from '../kit'
 
 export function TooltipStory() {
   return (
@@ -61,6 +61,12 @@ export function TooltipStory() {
             <IconButton icon="chevron_right" label="Derecha" variant="muted" />
           </Tooltip>
         </div>
+      </Section>
+
+      <Section title="Cómo se escribe">
+        <Example code={`<Tooltip label="Exportar a CSV">
+  <IconButton icon="download" label="Exportar" />
+</Tooltip>`} />
       </Section>
 
       <Section title="Props">

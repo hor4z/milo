@@ -1,7 +1,7 @@
 import cls from './popover.module.css'
 import { Button } from '@milo/ui/button'
 import { Popover } from '@milo/ui/popover'
-import { A11y, Cluster, Demo, Page, Practices, Props, Section } from '../kit'
+import { A11y, Cluster, Demo, Example, Page, Practices, Props, Section } from '../kit'
 
 export function PopoverStory() {
   return (
@@ -54,6 +54,15 @@ export function PopoverStory() {
             </Popover>
           </Demo>
         </Cluster>
+      </Section>
+
+      <Section title="Cómo se escribe">
+        <Example code={`<Popover
+  width={280}
+  trigger={props => <Button {...props}>Filtros</Button>}
+>
+  {close => <FiltroPanel onDone={close} />}
+</Popover>`} />
       </Section>
 
       <Section title="Props">

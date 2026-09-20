@@ -8,7 +8,7 @@ import { Switch } from '@milo/ui/switch'
 import { TextField } from '@milo/ui/text-field'
 import { Textarea } from '@milo/ui/textarea'
 import { useToast } from '@milo/ui/toast'
-import { A11y, Canvas, Note, Page, Practices, Props, Section, Stack } from '../kit'
+import { A11y, Canvas, Example, Note, Page, Practices, Props, Section, Stack } from '../kit'
 
 export function SheetStory() {
   const [late, setLate] = useState(true)
@@ -108,6 +108,16 @@ export function SheetStory() {
         formulario de seis campos en un modal centrado tapa la pantalla y no deja ver aquello sobre
         lo que estás escribiendo.
       </Note>
+
+      <Section title="Cómo se escribe">
+        <Example code={`const { open, onOpen, onClose } = useDisclosure()
+
+<Sheet open={open} onClose={onClose} width={460}>
+  <Sheet.Header><Sheet.Title>Nueva actividad</Sheet.Title></Sheet.Header>
+  <Sheet.Body>{campos}</Sheet.Body>
+  <Sheet.Footer><Button variant="brand">Guardar</Button></Sheet.Footer>
+</Sheet>`} />
+      </Section>
 
       <Section title="Props">
         <Props of="Sheet" />

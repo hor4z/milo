@@ -84,7 +84,8 @@ describe('las vistas del kit', () => {
       )
     const inert: string[] = []
     for (const f of walk(dir)) {
-      const text = readFileSync(join(dir, f), 'utf8')
+      // el código de un ejemplo es texto y no una demo: ahí un control sin handler está bien
+      const text = readFileSync(join(dir, f), 'utf8').replace(/<Example code=\{`[\s\S]*?`\}\s*\/>/g, '')
       for (const m of text.matchAll(/<([A-Z]\w+)((?:[^<>]|\{[^{}]*\})*?)\/>/gs)) {
         const [, name, attrs] = m
         if (!controlled.test(name)) continue
@@ -106,6 +107,14 @@ describe('las vistas del kit', () => {
       if (covers !== imports) withoutImport.push(`${f}: ${covers} portadas, ${imports} imports`)
     }
     expect(withoutImport).toEqual([])
+  })
+
+  it('cada vista de una pieza muestra cómo se escribe', () => {
+    const sinEjemplo = files.filter(f => !readFileSync(join(stories, f), 'utf8').includes('<Example'))
+    expect(
+      sinEjemplo,
+      'una tabla de props dice qué acepta la pieza; el ejemplo dice cómo se arma, que es lo que alguien copia',
+    ).toEqual([])
   })
 
   it('cada vista de una pieza dice cómo se usa bien', () => {

@@ -4,7 +4,7 @@ import { Button } from '@milo/ui/button'
 import { Row } from '@milo/ui/row'
 import { Select } from '@milo/ui/select'
 import { Switch } from '@milo/ui/switch'
-import { A11y, Note, Page, Practices, Props, Section } from '../kit'
+import { A11y, Example, Note, Page, Practices, Props, Section } from '../kit'
 
 export function RowStory() {
   const [first, setFirst] = useState(true)
@@ -20,7 +20,7 @@ export function RowStory() {
     >
       <Section
         title="Una lista de ajustes"
-        note="El divisor va como borde superior de cada fila menos la primera, y no como borde inferior de todas: así la última no deja una línea suelta contra el fondo del panel. Es un detalle de un píxel que se nota en cuanto falta."
+        note="Las filas se separan con una línea entre una y la siguiente, no debajo de todas: la última no deja una línea suelta contra el fondo del panel."
       >
         <div className={`${cls.settingsList} bg-surface`}>
           <Row>
@@ -76,6 +76,14 @@ export function RowStory() {
         [Field](#field), que es otra pieza y
         otra forma de leer.
       </Note>
+
+      <Section title="Cómo se escribe">
+        <Example code={`<Row>
+  <Row.Label>Sugerir consignas mientras escribo</Row.Label>
+  <Row.Hint>Aparecen abajo del cursor.</Row.Hint>
+  <Switch checked={sugerir} onChange={setSugerir} />
+</Row>`} />
+      </Section>
 
       <Section title="Props">
         <Props of="Row" />

@@ -2,7 +2,7 @@ import cls from './empty-state.module.css'
 import { Button } from '@milo/ui/button'
 import { EmptyState } from '@milo/ui/empty-state'
 import { FilterReset } from '@milo/ui/filter'
-import { A11y, Demo, Page, Practices, Props, Section, Stack } from '../kit'
+import { A11y, Demo, Example, Page, Practices, Props, Section, Stack } from '../kit'
 
 export function EmptyStateStory() {
   return (
@@ -74,6 +74,14 @@ export function EmptyStateStory() {
             <EmptyState.Action><Button variant="muted">Volver</Button></EmptyState.Action>
           </EmptyState>
         </Demo>
+      </Section>
+
+      <Section title="Cómo se escribe">
+        <Example code={`<EmptyState icon="inbox">
+  <EmptyState.Title>Todavía no llegó ninguna entrega</EmptyState.Title>
+  <EmptyState.Body>Cuando alguien entregue, la vas a ver acá.</EmptyState.Body>
+  <EmptyState.Action><Button variant="brand">Crear una actividad</Button></EmptyState.Action>
+</EmptyState>`} />
       </Section>
 
       <Section title="Props">

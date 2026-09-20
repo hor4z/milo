@@ -15,8 +15,8 @@ export function ToggleButtonStory() {
       lead="Un botón que queda hundido. Dice en qué estado está algo, no que algo pasó: la negrita del editor, el filtro que está puesto, la vista que se está mirando."
     >
       <Section
-        title="Cuándo va este y no otro"
-        note="Es un `Button` que recuerda: lleva `aria-pressed`, así que un lector anuncia si está activado. Para elegir uno entre varios va `Segmented`, que además trae las flechas del teclado; para prender y apagar una preferencia va `Switch`, que se lee como una llave de luz."
+        title="Cuándo va"
+        note="Un estado que se prende y se apaga y se aplica al momento. Para elegir uno entre varios va `Segmented`; para una preferencia de ajustes, `Switch`."
       >
         <Panel>
           <Variant name="solo el glifo" note="En una barra de formato, que es donde más se usa.">
@@ -33,7 +33,7 @@ export function ToggleButtonStory() {
 
       <Section
         title="Los tres tamaños"
-        note="36 · 40 · 44, los del `Button`, con el icono de cada paso: 16 · 20 · 24. El glifo no crece con la caja: lo que sube es el aire alrededor, que es lo que hace falta para el dedo."
+        note="36 · 40 · 44, los del `Button`. `sm` en una barra, `md` suelto en una pantalla, `lg` donde se toca con el dedo."
       >
         <Panel>
           <Variant name="sm · md · lg">
