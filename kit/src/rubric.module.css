@@ -115,6 +115,12 @@
     padding-inline: 0.75rem;
   }
 
+  .groups {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
   .lead {
     font-size: var(--type-meta);
     line-height: var(--type-meta-lh);

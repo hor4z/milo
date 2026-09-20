@@ -1,12 +1,12 @@
 import cls from './rubric.module.css'
 import { useRef, useState, type CSSProperties } from 'react'
 import { Button } from '@milo/ui/button'
+import { Checklist } from '@milo/ui/checklist'
 import { Divider } from '@milo/ui/divider'
 import { Field } from '@milo/ui/field'
 import { Icon } from '@milo/ui/icon'
 import { IconButton } from '@milo/ui/icon-button'
 import { Slider } from '@milo/ui/slider'
-import { TaskList, type Task } from '@milo/ui/task-list'
 import { TextField } from '@milo/ui/text-field'
 import { Tooltip } from '@milo/ui/tooltip'
 import { useToast } from '@milo/ui/toast'
@@ -74,19 +74,11 @@ const levelHints = [
   'Cumple y va más lejos',
 ]
 
-function goals(criteria: Criterion[], done: Record<string, boolean>): Task[] {
-  return criteria.map(c => ({
-    id: c.id,
-    label: `${c.label}: ${c.levels[c.levels.length - 1].toLowerCase()}`,
-    done: done[c.id],
-  }))
-}
-
 /** Con qué se mira un trabajo: los criterios, cuánto pesa cada uno y qué se ve en cada nivel. */
 export function RubricRail({ mode }: { mode: RubricMode }) {
   const [criteria, setCriteria] = useState(initialCriteria)
   const [lit, setLit] = useState<string | null>(null)
-  const [done, setDone] = useState<Record<string, boolean>>({})
+  const [reached, setReached] = useState<Record<string, number>>({})
   const [runs, setRuns] = useState(0)
   const [label, setLabel] = useState('')
   const [weight, setWeight] = useState(3)
@@ -140,6 +132,38 @@ export function RubricRail({ mode }: { mode: RubricMode }) {
     closeForm()
   }
 
+  if (mode === 'student') {
+    const mark = (id: string, level: number) =>
+      setReached(r => ({ ...r, [id]: (r[id] ?? 0) === level + 1 ? level : level + 1 }))
+
+    return (
+      <div className={cls.groups}>
+        <p className={cls.lead}>
+          Esto es lo que va a mirar tu docente en la entrega. Marcá hasta dónde llegaste en cada
+          uno: la nota la pone quien corrige, esto es para saber qué te falta.
+        </p>
+
+        {criteria.map((c, i) => (
+          <Checklist key={c.id} defaultOpen={i === 0}>
+            <Checklist.Title>{c.label}</Checklist.Title>
+            {c.levels.map((level, j) => (
+              <Checklist.Item
+                key={level}
+                state={j < (reached[c.id] ?? 0) ? 'done' : 'todo'}
+                onClick={() => mark(c.id, j)}
+              >
+                {level}
+              </Checklist.Item>
+            ))}
+            <Checklist.Footer>
+              Vale {share(c.weight, total).percent} de la nota. Cada renglón incluye al anterior.
+            </Checklist.Footer>
+          </Checklist>
+        ))}
+      </div>
+    )
+  }
+
   return (
     <aside
       aria-labelledby="rubrica"
@@ -188,19 +212,6 @@ export function RubricRail({ mode }: { mode: RubricMode }) {
       <div className={cx(cls.body, panel.open && cls.bodyOpen)}>
         <div id="rubrica-cuerpo" inert={!panel.open} className={cls.bodyInner}>
           <div className={`${cls.paper} bg-surface`}>
-            {mode === 'student' ? (
-              <>
-                <p className={cls.lead}>
-                  Esto es lo que va a mirar tu docente en la entrega. Marcá lo que ya tenés y mirá
-                  lo que falta. Marcar no es la nota: la nota la pone quien corrige.
-                </p>
-                <TaskList
-                  items={goals(criteria, done)}
-                  onToggle={(id, value) => setDone(d => ({ ...d, [id]: value }))}
-                  label="Lo que se va a mirar"
-                />
-              </>
-            ) : (
             <ul key={runs} className={cls.items}>
               {criteria.map((c, i) => (
                 <li
@@ -237,7 +248,6 @@ export function RubricRail({ mode }: { mode: RubricMode }) {
                 </li>
               ))}
             </ul>
-            )}
 
             {mode === 'teacher' && !form.open && (
               <Button
