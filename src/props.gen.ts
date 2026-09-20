@@ -982,6 +982,24 @@ export const propsByComponent: Record<string, ComponentDoc> = {
         "doc": "Sin esto el aspecto no se puede sacar."
       },
       {
+        "name": "level",
+        "type": "number",
+        "required": false,
+        "doc": "En qué nivel cayó el trabajo, contando desde cero. Sin esto el aspecto está sin corregir."
+      },
+      {
+        "name": "onLevel",
+        "type": "(level: number) => void",
+        "required": false,
+        "doc": "Sin esto los niveles se leen y no se eligen."
+      },
+      {
+        "name": "children",
+        "type": "ReactNode",
+        "required": false,
+        "doc": "Debajo de los niveles: lo que se dijo sobre este aspecto."
+      },
+      {
         "name": "className",
         "type": "string",
         "required": false
@@ -2456,6 +2474,122 @@ export const propsByComponent: Record<string, ComponentDoc> = {
       }
     ],
     "doc": "Lo que devuelve el alta. El id, el color y el glifo los pone quien la guarda."
+  },
+  "RubricReview": {
+    "props": [
+      {
+        "name": "criteria",
+        "type": "Criterion[]",
+        "required": true,
+        "doc": "Los aspectos de la rúbrica, en su orden."
+      },
+      {
+        "name": "marks",
+        "type": "Record<string, Mark>",
+        "required": true,
+        "doc": "Lo corregido hasta ahora, por id de aspecto."
+      },
+      {
+        "name": "by",
+        "type": "Reviewer",
+        "required": false,
+        "doc": "Quién está corrigiendo ahora: firma lo que escriba."
+      },
+      {
+        "name": "onMark",
+        "type": "(id: string, level: number) => void",
+        "required": false,
+        "doc": "Sin esto los niveles se leen y no se eligen."
+      },
+      {
+        "name": "onNote",
+        "type": "(id: string, text: string) => void",
+        "required": false,
+        "doc": "Sin esto no se puede comentar."
+      },
+      {
+        "name": "children",
+        "type": "ReactNode",
+        "required": true,
+        "doc": "El `RubricReview.Title`."
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "required": false
+      }
+    ],
+    "doc": "Cómo le fue a un trabajo contra su rúbrica: en qué nivel cayó cada aspecto y qué le dijeron. Sin los callbacks es la devolución que lee quien entregó; con ellos, la pantalla donde se corrige."
+  },
+  "RubricReview.Title": {
+    "props": [
+      {
+        "name": "children",
+        "type": "ReactNode",
+        "required": true
+      }
+    ],
+    "doc": "Cómo se llama la devolución, en la cabecera."
+  },
+  "Reviewer": {
+    "props": [
+      {
+        "name": "name",
+        "type": "string",
+        "required": true,
+        "doc": "Como se lo nombra en la firma."
+      },
+      {
+        "name": "src",
+        "type": "string",
+        "required": false,
+        "doc": "La foto, si es una persona."
+      },
+      {
+        "name": "assistant",
+        "type": "boolean",
+        "required": false,
+        "doc": "Lo marca como asistente, para que no se confunda con alguien del curso."
+      }
+    ],
+    "doc": "Quién escribió una devolución. Un agente firma igual que una persona: lo que cambia es el nombre, no lo que puede hacer."
+  },
+  "Note": {
+    "props": [
+      {
+        "name": "id",
+        "type": "string",
+        "required": true
+      },
+      {
+        "name": "by",
+        "type": "Reviewer",
+        "required": true
+      },
+      {
+        "name": "text",
+        "type": "string",
+        "required": true
+      }
+    ],
+    "doc": "Lo que se dijo sobre un aspecto."
+  },
+  "Mark": {
+    "props": [
+      {
+        "name": "level",
+        "type": "number",
+        "required": false,
+        "doc": "En qué nivel cayó, contando desde cero. Sin esto está sin corregir."
+      },
+      {
+        "name": "notes",
+        "type": "Note[]",
+        "required": false,
+        "doc": "Lo que le dijeron, en el orden en que se escribió."
+      }
+    ],
+    "doc": "Cómo le fue a un trabajo en un aspecto."
   },
   "Search": {
     "props": [

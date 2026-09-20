@@ -153,6 +153,9 @@
       "@milo/ui/rubric": [
         "./src/rubric/rubric.tsx"
       ],
+      "@milo/ui/rubric-review": [
+        "./src/rubric-review/rubric-review.tsx"
+      ],
       "@milo/ui/search": [
         "./src/search/search.tsx"
       ],

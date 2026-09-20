@@ -79,6 +79,7 @@ import { SearchStory } from './stories/search'
 import { ColumnPickerStory } from './stories/column-picker'
 import { ProgressStory } from './stories/progress'
 import { CriterionCardStory } from './stories/criterion-card'
+import { RubricReviewStory } from './stories/rubric-review'
 import { RubricStory } from './stories/rubric'
 import { SkeletonStory } from './stories/skeleton'
 import { ConfirmStory } from './stories/confirm-dialog'
@@ -193,6 +194,7 @@ const groups: Group[] = [
         alias: 'Rubric rúbrica aspectos aspectos niveles evaluación corregir peso descriptores',
         render: () => <RubricStory />,
         children: [
+          { id: 'rubric-review', label: 'Devolución de rúbrica', alias: 'RubricReview devolución corrección feedback niveles comentarios agente docente entrega', render: () => <RubricReviewStory /> },
           { id: 'criterion-card', label: 'Tarjeta de aspecto', alias: 'CriterionCard aspecto aspecto tarjeta plegable niveles descriptores rúbrica', render: () => <CriterionCardStory /> },
         ],
       },

@@ -98,8 +98,29 @@
     color: var(--text-muted);
   }
 
+  .stepPick {
+    width: 100%;
+    cursor: pointer;
+    text-align: left;
+    transition-property: background-color;
+    transition-duration: var(--duration-fast);
+    transition-timing-function: var(--ease-out);
+  }
+
+  .stepMarked {
+    background-color: var(--brand-soft);
+    color: var(--brand-ink);
+    font-weight: var(--font-weight-medium);
+  }
+
   .stepTop {
     color: var(--text);
     font-weight: var(--font-weight-medium);
+  }
+
+  @media (hover: hover) {
+    .stepPick:hover {
+      background-color: var(--surface-hover);
+    }
   }
 }
