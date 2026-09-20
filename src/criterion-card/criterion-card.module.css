@@ -88,6 +88,7 @@
   }
 
   .levels {
+    min-width: 0;
     padding-top: 0;
     padding-bottom: 0.5rem;
     padding-inline: 0.5rem;
@@ -111,13 +112,16 @@
 
   .row {
     display: flex;
-    align-items: flex-start;
+    min-height: 1.375rem;
+    align-items: center;
     gap: 0.5rem;
   }
 
   .picks {
     display: inline-flex;
+    height: 1.125rem;
     flex-shrink: 0;
+    align-items: center;
     gap: 0.25rem;
   }
 
@@ -171,6 +175,7 @@
 
   .stepText {
     min-width: 0;
+    overflow-wrap: anywhere;
   }
 
   .stepMet {

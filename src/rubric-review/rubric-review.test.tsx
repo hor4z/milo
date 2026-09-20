@@ -101,7 +101,7 @@ describe('RubricReview', () => {
     expect(screen.getByText('Las tres, sin el error').textContent).toContain('todavía no')
   })
 
-  it('un comentario se puede editar y borrar', async () => {
+  it('un comentario se borra y se escribe de nuevo: no se edita', async () => {
     const onClearNote = vi.fn()
     render(
       <RubricReview
@@ -114,12 +114,10 @@ describe('RubricReview', () => {
         <RubricReview.Title>Cómo te fue</RubricReview.Title>
       </RubricReview>,
     )
-    await userEvent.click(screen.getByRole('button', { name: 'Editar' }))
-    expect(screen.getByLabelText('Comentario sobre Toma de datos'))
-      .toHaveValue('Están las tres, falta estimar el error.')
+    expect(screen.queryByRole('button', { name: 'Editar' })).not.toBeInTheDocument()
+    expect(screen.queryByLabelText('Comentario sobre Toma de datos')).not.toBeInTheDocument()
 
-    await userEvent.click(screen.getByRole('button', { name: 'Cancelar' }))
-    await userEvent.click(screen.getByRole('button', { name: 'Borrar' }))
+    await userEvent.click(screen.getByRole('button', { name: 'Borrar el comentario de Toma de datos' }))
     expect(onClearNote).toHaveBeenCalledWith('datos')
   })
 

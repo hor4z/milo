@@ -5,7 +5,9 @@ import { Button } from '../button/button'
 import { Chip } from '../chip/chip'
 import { CriterionCard, type Criterion, type Met } from '../criterion-card/criterion-card'
 import { Icon } from '../icon/icon'
+import { IconButton } from '../icon-button/icon-button'
 import { Textarea } from '../textarea/textarea'
+import { Tooltip } from '../tooltip/tooltip'
 import { cx } from '../lib/cx'
 import { labelFill, labelSoft } from '../lib/colors'
 import { counted } from '../lib/number'
@@ -78,7 +80,6 @@ function Root({ criteria, marks, by, onMet, onNote, onClearNote, children, class
 }) {
   const [open, setOpen] = useState<string | null>(criteria[0]?.id ?? null)
   const [draft, setDraft] = useState<Record<string, string>>({})
-  const [editing, setEditing] = useState<string | null>(null)
   const id = useId()
   const titleId = `${id}-title`
 
@@ -114,7 +115,6 @@ function Root({ criteria, marks, by, onMet, onNote, onClearNote, children, class
       <div className={s.cards}>
         {criteria.map(c => {
           const mark = marks[c.id] ?? {}
-          const escribiendo = editing === c.id
           return (
             <CriterionCard
               key={c.id}
@@ -126,33 +126,28 @@ function Root({ criteria, marks, by, onMet, onNote, onClearNote, children, class
               open={open === c.id}
               onToggle={() => setOpen(o => (o === c.id ? null : c.id))}
             >
-              {mark.note && !escribiendo && (
+              {mark.note && (
                 <div className={s.note}>
-                  <Signature by={mark.note.by} />
+                  <div className={s.noteTop}>
+                    <Signature by={mark.note.by} />
+                    {onClearNote && (
+                      <Tooltip label="Borrar el comentario">
+                        <IconButton
+                          icon="delete"
+                          label={`Borrar el comentario de ${c.label}`}
+                          size="sm"
+                          variant="ghost"
+                          onClick={() => onClearNote(c.id)}
+                          className={s.noteRemove}
+                        />
+                      </Tooltip>
+                    )}
+                  </div>
                   <p className={s.noteText}>{mark.note.text}</p>
-                  {onNote && (
-                    <div className={s.noteActions}>
-                      <Button
-                        size="sm"
-                        variant="ghost"
-                        onClick={() => {
-                          setDraft(d => ({ ...d, [c.id]: mark.note?.text ?? '' }))
-                          setEditing(c.id)
-                        }}
-                      >
-                        Editar
-                      </Button>
-                      {onClearNote && (
-                        <Button size="sm" variant="ghost" onClick={() => onClearNote(c.id)}>
-                          Borrar
-                        </Button>
-                      )}
-                    </div>
-                  )}
                 </div>
               )}
 
-              {onNote && by && (!mark.note || escribiendo) && (
+              {onNote && by && !mark.note && (
                 <div className={s.write}>
                   <Textarea
                     value={draft[c.id] ?? ''}
@@ -162,25 +157,17 @@ function Root({ criteria, marks, by, onMet, onNote, onClearNote, children, class
                   />
                   <div className={s.writeActions}>
                     <Signature by={by} />
-                    <div className={s.noteActions}>
-                      {escribiendo && (
-                        <Button size="sm" variant="ghost" onClick={() => setEditing(null)}>
-                          Cancelar
-                        </Button>
-                      )}
-                      <Button
-                        size="sm"
-                        variant="brand"
-                        disabled={!(draft[c.id] ?? '').trim()}
-                        onClick={() => {
-                          onNote(c.id, (draft[c.id] ?? '').trim())
-                          setDraft(d => ({ ...d, [c.id]: '' }))
-                          setEditing(null)
-                        }}
-                      >
-                        {escribiendo ? 'Guardar' : 'Comentar'}
-                      </Button>
-                    </div>
+                    <Button
+                      size="sm"
+                      variant="brand"
+                      disabled={!(draft[c.id] ?? '').trim()}
+                      onClick={() => {
+                        onNote(c.id, (draft[c.id] ?? '').trim())
+                        setDraft(d => ({ ...d, [c.id]: '' }))
+                      }}
+                    >
+                      Comentar
+                    </Button>
                   </div>
                 </div>
               )}
