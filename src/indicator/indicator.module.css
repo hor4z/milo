@@ -56,7 +56,7 @@
 
   .count {
     top: calc(-0.25rem + var(--inset));
-    right: -0.25rem;
+    left: calc(100% - 1rem);
     min-height: 1rem;
     min-width: 1rem;
     padding-inline: 0.25rem;
