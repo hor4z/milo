@@ -30,7 +30,7 @@ const levelHints = [
   'Lo más flojo que se puede llegar a ver',
   'Va por buen camino',
   'Cumple con lo que pedís',
-  'Cumple y va más lejos',
+  'Lo completo: esto es lo que va a leer como próximo paso quien quede en el 3',
 ]
 
 /** Cómo se llama la rúbrica, en la cabecera. */

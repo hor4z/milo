@@ -112,6 +112,7 @@ export function RubricStory() {
       <Section title="Cómo se usa bien">
         <Practices>
           <Practices.Do>Escribí los descriptores como evidencia, en frase sin verbo: "las tres, con el error estimado" dice qué hacer, "muy bien" no.</Practices.Do>
+          <Practices.Do>Acordate de que cada descriptor se lee dos veces: acá lo usa quien corrige para elegir el nivel, y en la devolución lo lee quien entregó como el próximo paso, si quedó un escalón más abajo.</Practices.Do>
           <Practices.Do>El porcentaje sale de los pesos, así que sumá siempre 100 sin escribirlo: cambiá un peso y los demás se acomodan solos.</Practices.Do>
           <Practices.Do>Sacar un aspecto no pregunta: avisá con un `Toast` con "Deshacer", que es lo que el sistema usa para lo que se puede volver atrás.</Practices.Do>
           <Practices.Dont>No la uses para lo que se cumple o no se cumple: una condición de seguridad va en un `Callout`, porque graduarla la vuelve negociable.</Practices.Dont>

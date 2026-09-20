@@ -122,7 +122,7 @@ function Root({ criteria, marks, by, onMark, onNote, children, className }: {
               {next && (
                 <p className={s.next}>
                   <Icon name="arrow_forward" size={14} className={`${s.nextIcon} icon-muted`} />
-                  <span>Para el que sigue: {next.charAt(0).toLowerCase()}{next.slice(1)}</span>
+                  <span>Para el próximo nivel: {next.charAt(0).toLowerCase()}{next.slice(1)}</span>
                 </p>
               )}
 

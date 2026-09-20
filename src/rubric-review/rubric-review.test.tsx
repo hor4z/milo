@@ -59,7 +59,7 @@ describe('RubricReview', () => {
 
   it('dice qué sigue, que es lo que el estudiante puede hacer con esto', () => {
     arma()
-    expect(screen.getByText(/Para el que sigue: las tres, con el error/)).toBeInTheDocument()
+    expect(screen.getByText(/Para el próximo nivel: las tres, con el error/)).toBeInTheDocument()
   })
 
   it('la cabecera dice cuánto falta corregir', () => {
