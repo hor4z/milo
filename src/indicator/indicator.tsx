@@ -13,7 +13,7 @@ const tones = {
 
 /** Una marca chica pegada a la esquina de otra cosa: un punto, un contador o un glifo. Lo que marca sigue siendo lo que se toca. */
 export function Indicator({
-  children, dot, count, icon, tone = 'accent', label, inset = 0, className,
+  children, dot, count, icon, tone = 'accent', label, inset = 0, ring = 'transparent', className,
 }: {
   /** Lo que se marca: un icono, un botón, un avatar, una tarjeta. */
   children: ReactNode
@@ -27,6 +27,8 @@ export function Indicator({
   tone?: keyof typeof tones
   /** Qué significa la marca, para quien no la ve. Sin esto la marca es decorativa. */
   label?: string
+  /** El anillo que separa la marca de lo que tiene atrás. Va del color de ese fondo: sobre una foto, el papel de la tarjeta; sobre un control, su relleno. */
+  ring?: string
   /** Cuánto meter la marca hacia adentro, en px. Lo que se marca no siempre llena su caja: un `IconButton` de 40 lleva un glifo de 18, y con la marca en la esquina queda lejos de lo que marca. */
   inset?: number
   className?: string
@@ -40,7 +42,7 @@ export function Indicator({
       <span
         aria-hidden={label ? undefined : 'true'}
         role={label ? 'status' : undefined}
-        style={inset ? ({ '--inset': `${inset}px` } as CSSProperties) : undefined}
+        style={{ '--inset': `${inset}px`, '--ring-color': ring } as CSSProperties}
         className={cx(
           cls.badge,
           tones[tone],
@@ -48,7 +50,7 @@ export function Indicator({
         )}
       >
         {label && <span className="sr-only">{label}</span>}
-        {icon ? <Icon name={icon} size={14} /> : count != null ? (count > 99 ? '99+' : count) : null}
+        {icon ? <Icon name={icon} size={12} /> : count != null ? (count > 99 ? '99+' : count) : null}
       </span>
     </span>
   )

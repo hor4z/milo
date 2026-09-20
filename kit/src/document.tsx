@@ -72,7 +72,7 @@ export function DocumentStory() {
               max={4}
               people={[
                 { name: 'Ana Pérez', src: face(4) },
-                { name: 'Bruno Costa', src: face(11) },
+                { name: 'Bruno Costa', src: face(5) },
                 { name: 'Carla Ríos', src: face(7) },
                 { name: 'Diego Sosa' },
                 { name: 'Emilia Paz' },

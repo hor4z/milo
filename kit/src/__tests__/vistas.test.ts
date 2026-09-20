@@ -159,6 +159,29 @@ describe('la prosa no se pega', () => {
   })
 })
 
+describe('los medios que el sitio pide', () => {
+  it('cada cara que se nombra existe en public/', () => {
+    const raiz = join(import.meta.dirname, '../..')
+    const hay = new Set(readdirSync(join(raiz, 'public/avatars')))
+    const pedidas = new Set<string>()
+    const recorrer = (base: string) => {
+      for (const e of readdirSync(base, { withFileTypes: true })) {
+        if (e.isDirectory()) { recorrer(join(base, e.name)); continue }
+        if (!/\.tsx?$/.test(e.name)) continue
+        const t = readFileSync(join(base, e.name), 'utf8')
+        for (const m of t.matchAll(/avatars\/(\d+)\.webp/g)) pedidas.add(`${m[1]}.webp`)
+        for (const m of t.matchAll(/face\((\d+)\)/g)) pedidas.add(`${String(m[1]).padStart(2, '0')}.webp`)
+      }
+    }
+    recorrer(join(import.meta.dirname, '..'))
+    expect(pedidas.size).toBeGreaterThan(3)
+    expect(
+      [...pedidas].filter(f => !hay.has(f)),
+      'una cara que no existe se dibuja como un roto y ningún test de comportamiento la ve',
+    ).toEqual([])
+  })
+})
+
 describe('el riel', () => {
   it('cada pieza tiene sinónimos para buscarla', () => {
     const app = readFileSync(join(import.meta.dirname, '../App.tsx'), 'utf8')

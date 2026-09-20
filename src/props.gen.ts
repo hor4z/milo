@@ -511,6 +511,12 @@ export const propsByComponent: Record<string, ComponentDoc> = {
         "doc": "Un punto del tono en vez de un glifo: clasifica sin nombrar."
       },
       {
+        "name": "avatar",
+        "type": "{ name: string; src?: string }",
+        "required": false,
+        "doc": "La cara de quien el chip nombra, en vez del glifo. Va pegada al canto izquierdo."
+      },
+      {
         "name": "onRemove",
         "type": "() => void",
         "required": false,
@@ -1264,6 +1270,13 @@ export const propsByComponent: Record<string, ComponentDoc> = {
         "type": "string",
         "required": false,
         "doc": "Qué significa la marca, para quien no la ve. Sin esto la marca es decorativa."
+      },
+      {
+        "name": "ring",
+        "type": "string",
+        "required": false,
+        "def": "'transparent'",
+        "doc": "El anillo que separa la marca de lo que tiene atrás. Va del color de ese fondo: sobre una foto, el papel de la tarjeta; sobre un control, su relleno."
       },
       {
         "name": "inset",

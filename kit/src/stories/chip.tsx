@@ -28,6 +28,15 @@ export function ChipStory() {
             <Chip color="ok" icon="check_circle">Corregida</Chip>
             <Chip color="warn" icon="schedule">Vence mañana</Chip>
           </Variant>
+          <Variant
+            name="con cara"
+            note="Cuando el chip nombra a una persona, la marca de la izquierda es su cara y no un glifo. Va pegada al canto, así que el chip no se hace más alto."
+          >
+            <Chip avatar={{ name: 'Ana Pérez', src: '/avatars/04.webp' }}>Ana Pérez</Chip>
+            <Chip avatar={{ name: 'Martín Roldán' }}>Martín Roldán</Chip>
+            <Chip size="sm" avatar={{ name: 'Bruno Díaz', src: '/avatars/05.webp' }}>Bruno Díaz</Chip>
+            <Chip avatar={{ name: 'Carla Ríos', src: '/avatars/07.webp' }} onRemove={() => {}}>Carla Ríos</Chip>
+          </Variant>
         </Panel>
       </Section>
 
