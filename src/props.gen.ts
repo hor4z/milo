@@ -1331,6 +1331,13 @@ export const propsByComponent: Record<string, ComponentDoc> = {
         "doc": "Qué significa la marca, para quien no la ve. Sin esto la marca es decorativa."
       },
       {
+        "name": "inset",
+        "type": "number",
+        "required": false,
+        "def": "0",
+        "doc": "Cuánto meter la marca hacia adentro, en px. Lo que se marca no siempre llena su caja: un `IconButton` de 40 lleva un glifo de 18, y con la marca en la esquina queda lejos de lo que marca."
+      },
+      {
         "name": "className",
         "type": "string",
         "required": false

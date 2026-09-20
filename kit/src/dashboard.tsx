@@ -84,10 +84,10 @@ export function Dashboard() {
               </button>
             )}
             items={[
-              { label: 'Ajustes', icon: 'settings', shortcut: ',', onSelect: () => setSettings(true) },
+              { label: 'Ajustes', icon: 'settings', onSelect: () => setSettings(true) },
               { label: 'Mis espacios', icon: 'folder', onSelect: () => {} },
               { label: 'Ayuda', icon: 'help', onSelect: () => {} },
-              { label: 'Cerrar sesión', icon: 'logout', danger: true, onSelect: () => {} },
+              { label: 'Cerrar sesión', icon: 'logout', onSelect: () => {} },
             ]}
           />
         </div>
@@ -217,7 +217,7 @@ function Alerts() {
       align="end"
       width={300}
       trigger={({ onClick, ref, 'aria-expanded': expanded }) => (
-        <Indicator dot label="Hay avisos sin leer">
+        <Indicator dot inset={6} label="Hay avisos sin leer">
           <IconButton ref={ref} icon="notifications" label="Avisos" size="md" variant="ghost" onClick={onClick} aria-expanded={expanded} />
         </Indicator>
       )}
