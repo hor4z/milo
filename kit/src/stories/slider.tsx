@@ -96,7 +96,7 @@ export function SliderStory() {
 
       <Section title="Cómo se usa bien">
         <Practices>
-          <Practices.Do>Va cuando el valor exacto no importa; si importa, va un `Stepper`.</Practices.Do>
+          <Practices.Do>Va cuando el valor exacto no importa: lo que se elige es más o menos, no un número.</Practices.Do>
         </Practices>
       </Section>
 

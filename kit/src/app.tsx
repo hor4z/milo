@@ -28,7 +28,6 @@ import { QuoteStory } from './stories/quote'
 import { TaskListStory } from './stories/task-list'
 import { MentionStory } from './stories/mention'
 import { DatePickerStory } from './stories/date-picker'
-import { StepperStory } from './stories/stepper'
 import { ReorderStory } from './stories/reorder'
 import { CommandMenuStory } from './stories/command-menu'
 import { ToolbarStory } from './stories/toolbar'
@@ -160,7 +159,6 @@ const groups: Group[] = [
       { id: 'radio', label: 'Opción única', alias: 'Radio opción única elegir', render: () => <RadioStory /> },
       { id: 'switch', label: 'Interruptor', alias: 'Switch toggle interruptor prender apagar', render: () => <SwitchStory /> },
       { id: 'slider', label: 'Deslizador', alias: 'Slider rango deslizar valor', render: () => <SliderStory /> },
-      { id: 'stepper', label: 'Contador', alias: 'Stepper paso número cantidad más menos contador incrementar intentos', render: () => <StepperStory /> },
       { id: 'segmented', label: 'Segmentado', alias: 'Segmented filtro conmutador pestañas grupo', render: () => <SegmentedStory /> },
     ],
   },

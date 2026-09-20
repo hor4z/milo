@@ -174,9 +174,6 @@
       "@milo/ui/split-button": [
         "./src/split-button/split-button.tsx"
       ],
-      "@milo/ui/stepper": [
-        "./src/stepper/stepper.tsx"
-      ],
       "@milo/ui/steps": [
         "./src/steps/steps.tsx"
       ],
