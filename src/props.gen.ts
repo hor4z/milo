@@ -156,13 +156,13 @@ export const propsByComponent: Record<string, ComponentDoc> = {
         "name": "name",
         "type": "string",
         "required": true,
-        "doc": "De acá salen la inicial y el tinte."
+        "doc": "De acá salen la inicial y el tinte, así que la misma persona tiene siempre el mismo color."
       },
       {
         "name": "src",
         "type": "string",
         "required": false,
-        "doc": "Opcional; la etiqueta de color queda de fondo."
+        "doc": "Si no carga, queda la inicial: un hueco gris en una fila de cinco se lee como una persona sin nombre."
       },
       {
         "name": "size",
@@ -172,12 +172,18 @@ export const propsByComponent: Record<string, ComponentDoc> = {
         "doc": "El diámetro en px; la inicial y el anillo salen de acá."
       },
       {
+        "name": "label",
+        "type": "string",
+        "required": false,
+        "doc": "Solo cuando el avatar está solo y nada al lado dice de quién es. Con el nombre escrito al lado sobra, y repetirlo hace que el lector lo diga dos veces."
+      },
+      {
         "name": "className",
         "type": "string",
         "required": false
       }
     ],
-    "doc": "Dos estados y nada más: con foto, o el círculo pastel con la inicial."
+    "doc": "Una persona en el lugar de un nombre: la foto si carga, y si no la inicial sobre su color."
   },
   "Avatar.Group": {
     "props": [
@@ -192,14 +198,14 @@ export const propsByComponent: Record<string, ComponentDoc> = {
         "type": "number",
         "required": false,
         "def": "3",
-        "doc": "Cuenta avatares, no personas."
+        "doc": "Cuenta avatares, no personas: con un solo sobrante se muestra la cara en vez de un \"+1\"."
       },
       {
         "name": "size",
         "type": "number",
         "required": false,
         "def": "28",
-        "doc": "El monte sale de acá."
+        "doc": "El diámetro de cada uno; el monte sale de acá."
       },
       {
         "name": "ring",
@@ -207,6 +213,12 @@ export const propsByComponent: Record<string, ComponentDoc> = {
         "required": false,
         "def": "'var(--surface)'",
         "doc": "El color del anillo, que tiene que ser el del fondo de atrás."
+      },
+      {
+        "name": "label",
+        "type": "string",
+        "required": false,
+        "doc": "De quiénes es el grupo. Sin esto se anuncian los nombres, que es lo correcto casi siempre."
       },
       {
         "name": "className",
