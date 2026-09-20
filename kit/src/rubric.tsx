@@ -1,5 +1,5 @@
 import cls from './rubric.module.css'
-import { useRef, useState } from 'react'
+import { useRef, useState, type CSSProperties } from 'react'
 import { Button } from '@milo/ui/button'
 import { Field } from '@milo/ui/field'
 import { Icon } from '@milo/ui/icon'
@@ -112,7 +112,7 @@ export function RubricRail({ mode }: { mode: RubricMode }) {
   const [criteria, setCriteria] = useState(initialCriteria)
   const [marks, setMarks] = useState<Record<string, number>>({})
   const [lit, setLit] = useState<string | null>(null)
-  const [fresh, setFresh] = useState<string | null>(null)
+  const [runs, setRuns] = useState(0)
   const [label, setLabel] = useState('')
   const [weight, setWeight] = useState(3)
   const [levels, setLevels] = useState(emptyLevels)
@@ -144,15 +144,13 @@ export function RubricRail({ mode }: { mode: RubricMode }) {
       labelRef.current?.focus()
       return
     }
-    const id = `c${Date.now()}`
     setCriteria(cs => [...cs, {
-      id,
+      id: `c${Date.now()}`,
       label: name,
       weight,
       color: labelColors[cs.length % labelColors.length],
       levels: levels.map((l, i) => l.trim() || `Sin descriptor para el nivel ${i + 1}`),
     }])
-    setFresh(id)
     closeForm()
   }
 
@@ -168,7 +166,10 @@ export function RubricRail({ mode }: { mode: RubricMode }) {
           aria-expanded={panel.open}
           aria-controls="rubrica-cuerpo"
           aria-labelledby="rubrica"
-          onClick={panel.onToggle}
+          onClick={() => {
+            if (!panel.open) setRuns(n => n + 1)
+            panel.onToggle()
+          }}
           className={cls.trigger}
         >
           <Icon
@@ -199,16 +200,17 @@ export function RubricRail({ mode }: { mode: RubricMode }) {
       <div className={cx(cls.body, panel.open && cls.bodyOpen)}>
         <div id="rubrica-cuerpo" inert={!panel.open} className={cls.bodyInner}>
           <div className={`${cls.paper} bg-surface`}>
-            <ul className={cls.items}>
-              {criteria.map(c => {
+            <ul key={runs} className={cls.items}>
+              {criteria.map((c, i) => {
                 const mark = marks[c.id]
                 const next = mark === undefined ? undefined : c.levels[mark + 1]
                 return (
                   <li
                     key={c.id}
+                    style={{ '--enter': i } as CSSProperties}
                     onPointerEnter={() => setLit(c.id)}
                     onPointerLeave={() => setLit(null)}
-                    className={cx(cls.criterion, lit === c.id && cls.criterionLit, fresh === c.id && cls.criterionFresh)}
+                    className={cx(cls.criterion, lit === c.id && cls.criterionLit)}
                   >
                     <div className={cls.criterionTop}>
                       <span aria-hidden className={`${cls.swatch} ${labelFill[c.color]}`} />
