@@ -45,16 +45,16 @@
   }
 
   .track {
-    height: 0.375rem;
+    height: 0.75rem;
     width: 100%;
     overflow: hidden;
-    border-radius: var(--radius-full);
+    border-radius: var(--radius-xs);
     background-color: var(--track);
   }
 
   .fill {
     height: 100%;
-    border-radius: var(--radius-full);
+    border-radius: var(--radius-xs);
     transition-property: width;
     transition-duration: var(--duration-normal);
     transition-timing-function: var(--ease-out);
