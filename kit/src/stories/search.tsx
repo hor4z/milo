@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { Search } from '@milo/ui/search'
-import { A11y, Page, Panel, Props, Section, Variant } from '../kit'
+import { A11y, Page, Panel, Practices, Props, Section, Variant } from '../kit'
 
 export function SearchStory() {
   const [first, setFirst] = useState('')
@@ -43,14 +43,18 @@ export function SearchStory() {
         <Props of="Search" />
       </Section>
 
-      <A11y
-        items={[
-          'La cruz devuelve el foco al campo al vaciarlo: se desmonta al desaparecer, y sin eso el foco se cae al `<body>`.',
-          'El atajo es un recordatorio y no la tecla: quien pone el buscador escucha el evento, así que el campo no se apropia de una tecla global.',
-          '`ref` va al `input` y no al contenedor: es lo que un atajo necesita para enfocarlo desde afuera.',
-          'El campo se nombra con `aria-label` o con un `Field` alrededor: un placeholder desaparece al escribir y deja de nombrar nada.',
-        ]}
-      />
+      <Practices>
+        <Practices.Do>Es controlado: el texto lo guarda quien lo usa, y `onValueChange` recibe vacío al limpiar.</Practices.Do>
+        <Practices.Do>Para filtrar contra datos, pasá el valor por `useDebounce` antes de buscar.</Practices.Do>
+        <Practices.Dont>`shortcut` es un recordatorio, no la tecla: el atajo lo escucha quien lo pone.</Practices.Dont>
+      </Practices>
+
+      <A11y>
+        <A11y.Item>{'La cruz devuelve el foco al campo al vaciarlo: se desmonta al desaparecer, y sin eso el foco se cae al `<body>`.'}</A11y.Item>
+        <A11y.Item>El atajo es un recordatorio y no la tecla: quien pone el buscador escucha el evento, así que el campo no se apropia de una tecla global.</A11y.Item>
+        <A11y.Item>`ref` va al `input` y no al contenedor: es lo que un atajo necesita para enfocarlo desde afuera.</A11y.Item>
+        <A11y.Item>El campo se nombra con `aria-label` o con un `Field` alrededor: un placeholder desaparece al escribir y deja de nombrar nada.</A11y.Item>
+      </A11y>
     </Page>
   )
 }

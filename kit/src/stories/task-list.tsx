@@ -1,7 +1,7 @@
 import cls from './task-list.module.css'
 import { useState } from 'react'
 import { TaskList, type Task } from '@milo/ui/task-list'
-import { A11y, Note, Page, Props, Section } from '../kit'
+import { A11y, Note, Page, Practices, Props, Section } from '../kit'
 
 const initial: Task[] = [
   { id: 'leer', label: 'Leer la consigna entera antes de empezar', done: true },
@@ -44,13 +44,15 @@ export function TaskListStory() {
 
       <Props of={['TaskList', 'Task']} />
 
-      <A11y
-        items={[
-          'La lista lleva nombre: "lista, cuatro elementos" no dice de qué.',
-          'Cada casilla se nombra con su propio texto, y el texto es zona de click, que es la mitad del área útil del control.',
-          'Lo hecho se dice con el tachado además del gris: quien no separa el gris del negro ve igual que la línea está cruzada.',
-        ]}
-      />
+      <Practices>
+        <Practices.Do>`label` dice de qué es: sin eso un lector anuncia "lista, cuatro elementos".</Practices.Do>
+      </Practices>
+
+      <A11y>
+        <A11y.Item>La lista lleva nombre: "lista, cuatro elementos" no dice de qué.</A11y.Item>
+        <A11y.Item>Cada casilla se nombra con su propio texto, y el texto es zona de click, que es la mitad del área útil del control.</A11y.Item>
+        <A11y.Item>Lo hecho se dice con el tachado además del gris: quien no separa el gris del negro ve igual que la línea está cruzada.</A11y.Item>
+      </A11y>
     </Page>
   )
 }

@@ -1,6 +1,6 @@
 import s from './mention.module.css'
 import { Mention } from '@milo/ui/mention'
-import { A11y, Note, Page, Props, Section } from '../kit'
+import { A11y, Note, Page, Practices, Props, Section } from '../kit'
 
 const face = (n: number) => `/avatars/${String(n).padStart(2, '0')}.webp`
 
@@ -46,14 +46,16 @@ export function MentionStory() {
 
       <Props of="Mention" />
 
-      <A11y
-        items={[
-          'Sin `href` es texto: no promete un lugar al que ir ni recibe el foco.',
-          'La foto va con `alt` vacío: el nombre está escrito al lado, y anunciarlo dos veces es ruido.',
-          'Con `href` es un enlace de verdad, así que aparece en la lista de enlaces de la página con el nombre como texto.',
-          'Y lleva subrayado, como todo enlace del sistema: adentro de un párrafo, el fondo teñido lo distingue solo por color, y eso no le llega a quien no separa el azul del negro.',
-        ]}
-      />
+      <Practices>
+        <Practices.Do>Sin `href` es texto y no un enlace: una mención que no lleva a ningún lado no se finge enlace.</Practices.Do>
+      </Practices>
+
+      <A11y>
+        <A11y.Item>Sin `href` es texto: no promete un lugar al que ir ni recibe el foco.</A11y.Item>
+        <A11y.Item>La foto va con `alt` vacío: el nombre está escrito al lado, y anunciarlo dos veces es ruido.</A11y.Item>
+        <A11y.Item>Con `href` es un enlace de verdad, así que aparece en la lista de enlaces de la página con el nombre como texto.</A11y.Item>
+        <A11y.Item>Y lleva subrayado, como todo enlace del sistema: adentro de un párrafo, el fondo teñido lo distingue solo por color, y eso no le llega a quien no separa el azul del negro.</A11y.Item>
+      </A11y>
     </Page>
   )
 }

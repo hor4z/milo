@@ -2,7 +2,7 @@ import cls from './folder.module.css'
 import { Card } from '@milo/ui/card'
 import { Folder } from '@milo/ui/folder'
 import { Icon } from '@milo/ui/icon'
-import { A11y, Footnote, Mono, Page, Props, Section, Stack } from '../kit'
+import { A11y, Footnote, Mono, Page, Practices, Props, Section, Stack } from '../kit'
 
 const face = (n: number) => `/avatars/${String(n).padStart(2, '0')}.webp`
 const p = (name: string, photo?: number) => ({ name, src: photo ? face(photo) : undefined })
@@ -132,11 +132,18 @@ export function FolderStory() {
         </Card>
       </Section>
 
+      <Section title="Cómo se usa bien">
+        <Practices>
+          <Practices.Do>El nombre va en `Folder.Label` y la línea de apoyo en `Folder.Meta`.</Practices.Do>
+          <Practices.Dont>El color sale de un token, nunca de un hex escrito a mano.</Practices.Dont>
+        </Practices>
+      </Section>
+
       <Section title="Accesibilidad">
-        <A11y items={[
-          'El color identifica el espacio de un vistazo, pero el nombre está siempre escrito.',
-          'El dibujo es aria-hidden: no se anuncia una carpeta dibujada.',
-        ]} />
+        <A11y>
+          <A11y.Item>El color identifica el espacio de un vistazo, pero el nombre está siempre escrito.</A11y.Item>
+          <A11y.Item>El dibujo es aria-hidden: no se anuncia una carpeta dibujada.</A11y.Item>
+        </A11y>
       </Section>
     </Page>
   )

@@ -36,12 +36,10 @@ export function OttoStory() {
         </Footnote>
       </Section>
 
-      <A11y
-        items={[
-          'Va con `alt=""`: es decorativo, y lo que la pantalla quiera decir va en su texto.',
-          'Un `img` animado no se puede pausar, así que donde se use el bucle, `prefers-reduced-motion` no lo atenúa: lo reemplaza por el retrato quieto.',
-        ]}
-      />
+      <A11y>
+        <A11y.Item>Va con `alt=""`: es decorativo, y lo que la pantalla quiera decir va en su texto.</A11y.Item>
+        <A11y.Item>Un `img` animado no se puede pausar, así que donde se use el bucle, `prefers-reduced-motion` no lo atenúa: lo reemplaza por el retrato quieto.</A11y.Item>
+      </A11y>
     </Page>
   )
 }

@@ -1,5 +1,5 @@
 import { SplitButton } from '@milo/ui/split-button'
-import { A11y, Canvas, Cluster, Example, Page, Props, Section } from '../kit'
+import { A11y, Canvas, Cluster, Example, Page, Practices, Props, Section } from '../kit'
 
 const otras = [
   { label: 'Guardar como borrador', icon: 'draft' as const },
@@ -42,13 +42,20 @@ export function SplitButtonStory() {
         <Props of="SplitButton" />
       </Section>
 
+      <Section title="Cómo se usa bien">
+        <Practices>
+          <Practices.Do>La acción de adelante es la que se hace casi siempre; el resto va al menú.</Practices.Do>
+          <Practices.Dont>Si las dos acciones pesan lo mismo, van dos botones y se acabó.</Practices.Dont>
+        </Practices>
+      </Section>
+
       <Section title="Accesibilidad">
-        <A11y items={[
-          'Las dos mitades van en un role="group" con el nombre de la acción principal.',
-          'La flecha lleva aria-haspopup="menu" y aria-expanded, así que se anuncia como lo que es y no como otro botón.',
-          'La flecha tiene su propio nombre ("Más opciones de Publicar"): dos botones sin nombre al lado no se distinguen de oído.',
-          'Apagar el componente apaga las dos mitades, no una sola.',
-        ]} />
+        <A11y>
+          <A11y.Item>Las dos mitades van en un role="group" con el nombre de la acción principal.</A11y.Item>
+          <A11y.Item>La flecha lleva aria-haspopup="menu" y aria-expanded, así que se anuncia como lo que es y no como otro botón.</A11y.Item>
+          <A11y.Item>La flecha tiene su propio nombre ("Más opciones de Publicar"): dos botones sin nombre al lado no se distinguen de oído.</A11y.Item>
+          <A11y.Item>Apagar el componente apaga las dos mitades, no una sola.</A11y.Item>
+        </A11y>
       </Section>
     </Page>
   )

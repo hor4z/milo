@@ -2,7 +2,7 @@ import cls from './radio.module.css'
 import { useState } from 'react'
 import { Checkbox } from '@milo/ui/checkbox'
 import { Radio } from '@milo/ui/radio'
-import { A11y, Footnote, Page, Panel, Props, Section, Variant } from '../kit'
+import { A11y, Footnote, Page, Panel, Practices, Props, Section, Variant } from '../kit'
 
 export function RadioStory() {
   const [compared, setCompared] = useState(true)
@@ -116,11 +116,18 @@ export function RadioStory() {
         <Props of="Radio" />
       </Section>
 
+      <Section title="Cómo se usa bien">
+        <Practices>
+          <Practices.Do>Van adentro de un `Radio.Group`, que es lo que le da el roving al teclado.</Practices.Do>
+          <Practices.Dont>Con más de cinco opciones va un `Select`: cinco radios ocupan media pantalla.</Practices.Dont>
+        </Practices>
+      </Section>
+
       <Section title="Accesibilidad">
-        <A11y items={[
-          'role="radio" con aria-checked y nombre propio.',
-          'El anillo del control sin elegir va en tinta y no en gris: sobre un tinte, el gris se ve sucio.',
-        ]} />
+        <A11y>
+          <A11y.Item>role="radio" con aria-checked y nombre propio.</A11y.Item>
+          <A11y.Item>El anillo del control sin elegir va en tinta y no en gris: sobre un tinte, el gris se ve sucio.</A11y.Item>
+        </A11y>
       </Section>
     </Page>
   )

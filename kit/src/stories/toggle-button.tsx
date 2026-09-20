@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { ToggleButton } from '@milo/ui/toggle-button'
-import { A11y, Canvas, Cluster, Example, Page, Props, Section, Variant } from '../kit'
+import { A11y, Canvas, Cluster, Example, Page, Practices, Props, Section, Variant } from '../kit'
 
 export function ToggleButtonStory() {
   const [bold, setBold] = useState(true)
@@ -52,13 +52,20 @@ export function ToggleButtonStory() {
         <Props of="ToggleButton" />
       </Section>
 
+      <Section title="Cómo se usa bien">
+        <Practices>
+          <Practices.Do>Es controlado: el estado lo guarda quien lo usa, y `onPressedChange` recibe el estado nuevo.</Practices.Do>
+          <Practices.Dont>Para prender y apagar una preferencia va `Switch`: se lee como una llave, no como una acción.</Practices.Dont>
+        </Practices>
+      </Section>
+
       <Section title="Accesibilidad">
-        <A11y items={[
-          'Lleva aria-pressed, así que un lector anuncia "activado" o "no activado" y no solo el nombre.',
-          'Cuando adentro solo hay un glifo, `label` es obligatorio: sin eso el botón no dice nada.',
-          'Con texto adentro el nombre sale del texto, así que `label` no lo pisa.',
-          'Es type="button": adentro de un form no lo manda.',
-        ]} />
+        <A11y>
+          <A11y.Item>Lleva aria-pressed, así que un lector anuncia "activado" o "no activado" y no solo el nombre.</A11y.Item>
+          <A11y.Item>Cuando adentro solo hay un glifo, `label` es obligatorio: sin eso el botón no dice nada.</A11y.Item>
+          <A11y.Item>Con texto adentro el nombre sale del texto, así que `label` no lo pisa.</A11y.Item>
+          <A11y.Item>Es type="button": adentro de un form no lo manda.</A11y.Item>
+        </A11y>
       </Section>
     </Page>
   )

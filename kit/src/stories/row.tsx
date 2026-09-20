@@ -4,7 +4,7 @@ import { Button } from '@milo/ui/button'
 import { Row } from '@milo/ui/row'
 import { Select } from '@milo/ui/select'
 import { Switch } from '@milo/ui/switch'
-import { A11y, Note, Page, Props, Section } from '../kit'
+import { A11y, Note, Page, Practices, Props, Section } from '../kit'
 
 export function RowStory() {
   const [first, setFirst] = useState(true)
@@ -81,12 +81,19 @@ export function RowStory() {
         <Props of="Row" />
       </Section>
 
+      <Section title="Cómo se usa bien">
+        <Practices>
+          <Practices.Do>{'El texto va en `Row.Label`, que es un `<label>` de verdad: tocarlo acciona el control.'}</Practices.Do>
+          <Practices.Dont>No metas dos controles en la misma fila: la etiqueta nombra a uno solo.</Practices.Dont>
+        </Practices>
+      </Section>
+
       <Section title="Accesibilidad">
-        <A11y items={[
-          'La etiqueta envuelve solo el nombre, así que el control se llama "Avisos por mail" y no "Avisos por mailCuando llega una entrega".',
-          'Tocar la etiqueta acciona el control, que es blanco de click de sobra para el dedo.',
-          'Las filas no son botones: lo que se toca es lo que hay adentro, y se ve cuál es.',
-        ]} />
+        <A11y>
+          <A11y.Item>La etiqueta envuelve solo el nombre, así que el control se llama "Avisos por mail" y no "Avisos por mailCuando llega una entrega".</A11y.Item>
+          <A11y.Item>Tocar la etiqueta acciona el control, que es blanco de click de sobra para el dedo.</A11y.Item>
+          <A11y.Item>Las filas no son botones: lo que se toca es lo que hay adentro, y se ve cuál es.</A11y.Item>
+        </A11y>
       </Section>
     </Page>
   )

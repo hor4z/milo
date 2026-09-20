@@ -1,7 +1,7 @@
 import s from './toolbar.module.css'
 import { useState } from 'react'
 import { Toolbar } from '@milo/ui/toolbar'
-import { A11y, Page, Props, Section } from '../kit'
+import { A11y, Page, Practices, Props, Section } from '../kit'
 
 export function ToolbarStory() {
   const [format, setFormat] = useState({ bold: true, italic: false, underline: false })
@@ -46,14 +46,17 @@ export function ToolbarStory() {
 
       <Props of="Toolbar" />
 
-      <A11y
-        items={[
-          'Es un `toolbar` de verdad: se entra con una sola tabulación y adentro se recorre con las flechas. Con diez botones, llegar a lo de al lado costaría diez tabulaciones.',
-          'Home y End van a los extremos, y las flechas dan la vuelta salteando lo apagado.',
-          'Cada botón tiene nombre: adentro solo hay un glifo, y un glifo no se lee.',
-          'La barra lleva nombre propio. Dos barras sin nombre en una pantalla se leen como una sola.',
-        ]}
-      />
+      <Practices>
+        <Practices.Do>`label` dice qué controla: dos barras sin nombre en una pantalla se leen igual.</Practices.Do>
+        <Practices.Do>Con `pressed` el botón es un interruptor; sin él, una acción que pasa y no queda.</Practices.Do>
+      </Practices>
+
+      <A11y>
+        <A11y.Item>Es un `toolbar` de verdad: se entra con una sola tabulación y adentro se recorre con las flechas. Con diez botones, llegar a lo de al lado costaría diez tabulaciones.</A11y.Item>
+        <A11y.Item>Home y End van a los extremos, y las flechas dan la vuelta salteando lo apagado.</A11y.Item>
+        <A11y.Item>Cada botón tiene nombre: adentro solo hay un glifo, y un glifo no se lee.</A11y.Item>
+        <A11y.Item>La barra lleva nombre propio. Dos barras sin nombre en una pantalla se leen como una sola.</A11y.Item>
+      </A11y>
     </Page>
   )
 }

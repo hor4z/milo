@@ -107,6 +107,20 @@ describe('las vistas del kit', () => {
     }
     expect(withoutImport).toEqual([])
   })
+
+  it('cada vista de una pieza dice cómo se usa bien', () => {
+    const sinPracticas: string[] = []
+    for (const f of files) {
+      const text = readFileSync(join(stories, f), 'utf8')
+      if (!text.includes('<Practices>')) { sinPracticas.push(f); continue }
+      // un bloque sin las dos mitades es media guía: lo que conviene y lo que no
+      if (!text.includes('<Practices.Do>')) sinPracticas.push(`${f}: sin ningún Practices.Do`)
+    }
+    expect(
+      sinPracticas,
+      'la vista de una pieza cierra diciendo cómo se usa bien: es lo que lee quien la va a usar, humano o agente',
+    ).toEqual([])
+  })
 })
 
 describe('los guardianes ven todas las vistas', () => {

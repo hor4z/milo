@@ -1,5 +1,5 @@
 import { CopyButton } from '@milo/ui/copy-button'
-import { A11y, Canvas, Cluster, Example, Page, Props, Section, Variant } from '../kit'
+import { A11y, Canvas, Cluster, Example, Page, Practices, Props, Section, Variant } from '../kit'
 
 export function CopyButtonStory() {
   return (
@@ -30,12 +30,19 @@ export function CopyButtonStory() {
         <Props of="CopyButton" />
       </Section>
 
+      <Section title="Cómo se usa bien">
+        <Practices>
+          <Practices.Do>Ponelo al lado de lo que se copia, no lejos.</Practices.Do>
+          <Practices.Dont>No supongas que copió: si el navegador no deja, la pieza no miente y tampoco tenés que mentir vos.</Practices.Dont>
+        </Practices>
+      </Section>
+
       <Section title="Accesibilidad">
-        <A11y items={[
-          'El nombre del botón cambia a "Copiado", así que el estado no depende solo del glifo.',
-          'Además lo anuncia por la región viva: un cambio de icono no lo ve quien escucha la pantalla.',
-          'Si copiar falla, no se anuncia nada y el nombre no cambia.',
-        ]} />
+        <A11y>
+          <A11y.Item>El nombre del botón cambia a "Copiado", así que el estado no depende solo del glifo.</A11y.Item>
+          <A11y.Item>Además lo anuncia por la región viva: un cambio de icono no lo ve quien escucha la pantalla.</A11y.Item>
+          <A11y.Item>Si copiar falla, no se anuncia nada y el nombre no cambia.</A11y.Item>
+        </A11y>
       </Section>
     </Page>
   )

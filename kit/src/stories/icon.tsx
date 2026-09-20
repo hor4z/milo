@@ -9,7 +9,7 @@ import { Segmented } from '@milo/ui/segmented'
 import { Slider } from '@milo/ui/slider'
 import { TextField } from '@milo/ui/text-field'
 import { iconTags } from '@milo/ui/icons.meta'
-import { A11y, Cluster, Footnote, Mono, Note, Page, Panel, Props, Section, Variant } from '../kit'
+import { A11y, Cluster, Footnote, Mono, Note, Page, Panel, Practices, Props, Section, Variant } from '../kit'
 
 const sizes = [
   { px: 12, role: 'un badge, la cruz de un chip' },
@@ -196,8 +196,16 @@ export function IconStory() {
         <div />
       </Section>
 
+      <Section title="Cómo se usa bien">
+        <Practices>
+          <Practices.Do>El gris se hereda del ancestro con `icon-muted`, no se pasa por prop.</Practices.Do>
+          <Practices.Do>El tamaño sale de la escala: 14, 16, 18, 20, 22 o 24.</Practices.Do>
+          <Practices.Dont>El set crece solo por `npm run icons -- add`: no dibujes un path a mano.</Practices.Dont>
+        </Practices>
+      </Section>
+
       <Section title="Accesibilidad">
-        <Note icon="warning" title="Sesenta y cinco de los ciento setenta y dos no los usa nadie">
+        <Note tone="warn" title="Sesenta y cinco de los ciento setenta y dos no los usa nadie">
         `npm run icons -w @milo/ui -- check` los lista. Sacarlos llevaría la fuente de 64 KB a 27,
         medido subseteándola de verdad. No se sacan porque el editor y los gráficos van a consumir
         varios, y traer uno de vuelta es un comando; pero el número conviene mirarlo cada tanto,
@@ -215,12 +223,12 @@ export function IconStory() {
         de la pantalla sigue en pie.
       </Note>
 
-      <A11y items={[
-          'Los glifos van aria-hidden: un icono es una imagen del texto que tiene al lado, no una segunda lectura.',
-          'Un icono sin texto vive dentro de un IconButton, que exige su label.',
-          'El glifo lleva translate="no": es texto, y un traductor automático puede reescribirlo.',
-          'Si alguien desactiva las fuentes de la página, los iconos desaparecen. Es el precio de que el peso sea un eje real y está dicho, no escondido.',
-        ]} />
+      <A11y>
+        <A11y.Item>Los glifos van aria-hidden: un icono es una imagen del texto que tiene al lado, no una segunda lectura.</A11y.Item>
+        <A11y.Item>Un icono sin texto vive dentro de un IconButton, que exige su label.</A11y.Item>
+        <A11y.Item>El glifo lleva translate="no": es texto, y un traductor automático puede reescribirlo.</A11y.Item>
+        <A11y.Item>Si alguien desactiva las fuentes de la página, los iconos desaparecen. Es el precio de que el peso sea un eje real y está dicho, no escondido.</A11y.Item>
+      </A11y>
       </Section>
     </Page>
   )

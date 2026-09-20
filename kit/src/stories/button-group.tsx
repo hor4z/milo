@@ -1,7 +1,7 @@
 import { Button } from '@milo/ui/button'
 import { ButtonGroup } from '@milo/ui/button-group'
 import { Icon } from '@milo/ui/icon'
-import { A11y, Canvas, Cluster, Example, Page, Props, Section, Stack } from '../kit'
+import { A11y, Canvas, Cluster, Example, Page, Practices, Props, Section, Stack } from '../kit'
 
 export function ButtonGroupStory() {
   return (
@@ -52,12 +52,20 @@ export function ButtonGroupStory() {
         <Props of="ButtonGroup" />
       </Section>
 
+      <Section title="Cómo se usa bien">
+        <Practices>
+          <Practices.Do>`label` nombra el grupo: sin eso los botones se leen sueltos.</Practices.Do>
+          <Practices.Do>Va solo cuando las acciones son variantes de una misma cosa.</Practices.Do>
+          <Practices.Dont>Para elegir una opción entre varias va `Segmented`, que trae las flechas del teclado.</Practices.Dont>
+        </Practices>
+      </Section>
+
       <Section title="Accesibilidad">
-        <A11y items={[
-          'Es un role="group" con su nombre: sin eso un lector lee los botones sueltos y no se entera de que van juntos.',
-          'El foco de un botón se dibuja por encima de sus vecinos, así que el anillo no queda cortado por el de al lado.',
-          'Cada botón sigue siendo un botón: las flechas no lo recorren, porque son acciones y no opciones.',
-        ]} />
+        <A11y>
+          <A11y.Item>Es un role="group" con su nombre: sin eso un lector lee los botones sueltos y no se entera de que van juntos.</A11y.Item>
+          <A11y.Item>El foco de un botón se dibuja por encima de sus vecinos, así que el anillo no queda cortado por el de al lado.</A11y.Item>
+          <A11y.Item>Cada botón sigue siendo un botón: las flechas no lo recorren, porque son acciones y no opciones.</A11y.Item>
+        </A11y>
       </Section>
     </Page>
   )

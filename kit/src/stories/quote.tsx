@@ -1,5 +1,5 @@
 import { Quote } from '@milo/ui/quote'
-import { A11y, Frame, Note, Page, Props, Section, Stack } from '../kit'
+import { A11y, Frame, Note, Page, Practices, Props, Section, Stack } from '../kit'
 
 export function QuoteStory() {
   return (
@@ -44,13 +44,15 @@ export function QuoteStory() {
 
       <Props of="Quote" />
 
-      <A11y
-        items={[
-          'Es un `blockquote` de verdad, no un párrafo con un borde a la izquierda: quien navega por elementos lo encuentra como cita.',
-          'La fuente va en un `figcaption` atado a la cita, no suelta abajo, así que se sabe de qué cita habla.',
-          'La barra de la izquierda es decorativa. Lo que dice que es una cita es el markup, no la línea.',
-        ]}
-      />
+      <Practices>
+        <Practices.Do>`cite` pone la dirección en el markup además de escribirla.</Practices.Do>
+      </Practices>
+
+      <A11y>
+        <A11y.Item>Es un `blockquote` de verdad, no un párrafo con un borde a la izquierda: quien navega por elementos lo encuentra como cita.</A11y.Item>
+        <A11y.Item>La fuente va en un `figcaption` atado a la cita, no suelta abajo, así que se sabe de qué cita habla.</A11y.Item>
+        <A11y.Item>La barra de la izquierda es decorativa. Lo que dice que es una cita es el markup, no la línea.</A11y.Item>
+      </A11y>
     </Page>
   )
 }

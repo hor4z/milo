@@ -3,7 +3,7 @@ import { useState } from 'react'
 import { Card } from '@milo/ui/card'
 import { Chip } from '@milo/ui/chip'
 import { labelColors } from '@milo/ui/lib/colors'
-import { A11y, Cluster, Demo, Note, Page, Panel, Props, Section, Variant } from '../kit'
+import { A11y, Cluster, Demo, Note, Page, Panel, Practices, Props, Section, Variant } from '../kit'
 
 export function ChipStory() {
   const [chips, setChips] = useState(['Indagación', 'Proyecto', 'Taller'])
@@ -132,15 +132,22 @@ export function ChipStory() {
         <Props of="Chip" />
       </Section>
 
+      <Section title="Cómo se usa bien">
+        <Practices>
+          <Practices.Do>Los de estado usan los tonos y los de categoría la familia de etiquetas: son dos cosas distintas.</Practices.Do>
+          <Practices.Dont>El estado no puede depender solo del color: el texto lo dice también.</Practices.Dont>
+        </Practices>
+      </Section>
+
       <Section title="Accesibilidad">
-        <A11y items={[
-          'El estado está en el texto, no en el color: quien no distingue tonos lee lo mismo.',
-          'Sin onClick ni onRemove es un <span>: no entra en el orden de tabulación algo que no hace nada.',
-          'El glifo es decorativo y no se anuncia dos veces: lo que se lee es el texto.',
-          'La cruz de quitar es un botón con su propio nombre, así que se puede usar con el teclado.',
-          'Un chip que se toca y se saca son dos botones hermanos y no uno adentro del otro: anidados, tocar la cruz disparaba también el click del chip.',
-          'El contraste de cada color contra su fondo está verificado en los dos temas, y hay tests que fallan si alguien lo rompe.',
-        ]} />
+        <A11y>
+          <A11y.Item>El estado está en el texto, no en el color: quien no distingue tonos lee lo mismo.</A11y.Item>
+          <A11y.Item>{'Sin onClick ni onRemove es un <span>: no entra en el orden de tabulación algo que no hace nada.'}</A11y.Item>
+          <A11y.Item>El glifo es decorativo y no se anuncia dos veces: lo que se lee es el texto.</A11y.Item>
+          <A11y.Item>La cruz de quitar es un botón con su propio nombre, así que se puede usar con el teclado.</A11y.Item>
+          <A11y.Item>Un chip que se toca y se saca son dos botones hermanos y no uno adentro del otro: anidados, tocar la cruz disparaba también el click del chip.</A11y.Item>
+          <A11y.Item>El contraste de cada color contra su fondo está verificado en los dos temas, y hay tests que fallan si alguien lo rompe.</A11y.Item>
+        </A11y>
       </Section>
     </Page>
   )

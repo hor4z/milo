@@ -199,15 +199,13 @@ export function TypographySection() {
         Si alguna vez esto se ve lavado, el problema es el peso o el contraste, no el suavizado.
       </Note>
 
-      <A11y
-        items={[
-          'El piso del sistema es 12px y es un rol con nombre (`--type-meta`) para que se note cuándo se está usando abajo de lo que corresponde. La única cosa que baja de ahí es la inicial de un avatar chico, que es una marca y no un texto: nadie la lee, identifica.',
-          'Los tamaños van en `rem` y no en píxeles: quien agranda la letra en las preferencias de su navegador la ve agrandada. El zoom ya escalaba los píxeles y cubría WCAG 1.4.4; la preferencia de tamaño de fuente no, y esa es la que usa quien tiene baja visión.',
-          'El escalón de lectura tiene 1.5 de interlineado, el número de WCAG 1.4.12, y las piezas que llevan texto encima usan `min-h` en vez de alto fijo, así que aguantan que alguien fuerce más espaciado sin que se corte nada.',
-          'El tracking es positivo en los dos escalones más chicos. La letra apretada a 12px es la que más se empasta, y es la que peor le cae a quien lee con dificultad.',
-          'La jerarquía nunca se apoya solo en el tamaño: un título lleva tamaño y peso, y lo que es accionable lleva además su propio rol semántico en el HTML.',
-        ]}
-      />
+      <A11y>
+        <A11y.Item>El piso del sistema es 12px y es un rol con nombre (`--type-meta`) para que se note cuándo se está usando abajo de lo que corresponde. La única cosa que baja de ahí es la inicial de un avatar chico, que es una marca y no un texto: nadie la lee, identifica.</A11y.Item>
+        <A11y.Item>Los tamaños van en `rem` y no en píxeles: quien agranda la letra en las preferencias de su navegador la ve agrandada. El zoom ya escalaba los píxeles y cubría WCAG 1.4.4; la preferencia de tamaño de fuente no, y esa es la que usa quien tiene baja visión.</A11y.Item>
+        <A11y.Item>El escalón de lectura tiene 1.5 de interlineado, el número de WCAG 1.4.12, y las piezas que llevan texto encima usan `min-h` en vez de alto fijo, así que aguantan que alguien fuerce más espaciado sin que se corte nada.</A11y.Item>
+        <A11y.Item>El tracking es positivo en los dos escalones más chicos. La letra apretada a 12px es la que más se empasta, y es la que peor le cae a quien lee con dificultad.</A11y.Item>
+        <A11y.Item>La jerarquía nunca se apoya solo en el tamaño: un título lleva tamaño y peso, y lo que es accionable lleva además su propio rol semántico en el HTML.</A11y.Item>
+      </A11y>
     </Page>
   )
 }

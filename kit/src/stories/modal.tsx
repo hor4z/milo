@@ -5,7 +5,7 @@ import { Icon } from '@milo/ui/icon'
 import { Modal } from '@milo/ui/modal'
 import { SettingsModal } from '@milo/ui/settings-modal'
 import { TextField } from '@milo/ui/text-field'
-import { A11y, Demo, Example, Grid, Note, Page, Props, Section } from '../kit'
+import { A11y, Demo, Example, Grid, Note, Page, Practices, Props, Section } from '../kit'
 
 export function ModalStory() {
   const [open, setOpen] = useState(false)
@@ -108,13 +108,21 @@ export function ModalStory() {
         <Props of="Modal" />
       </Section>
 
+      <Section title="Cómo se usa bien">
+        <Practices>
+          <Practices.Do>El nombre sale de `Modal.Title`, que se ata solo. `label` es para el modal sin título a la vista.</Practices.Do>
+          <Practices.Do>El ancho sale de `sm`, `md` o `lg`: más de 820 deja de ser un diálogo y es una pantalla.</Practices.Do>
+          <Practices.Dont>No armes el interior a mano: el cuerpo es el que scrollea, y eso lo sabe `Modal.Body`.</Practices.Dont>
+        </Practices>
+      </Section>
+
       <Section title="Accesibilidad">
-        <A11y items={[
-          'role="dialog" con aria-modal, y el nombre sale del `ModalTitle` por `aria-labelledby`: una sola fuente, y la que se ve es la que se anuncia.',
-          'Atrapa el foco mientras está abierto y lo devuelve al cerrarse.',
-          'Se enfoca el contenedor y no el primer control: el navegador scrollea a lo que enfoca, y eso abría el panel corrido.',
-          'Bloquea el scroll de la página compensando el ancho de la barra, así que nada salta al abrir.',
-        ]} />
+        <A11y>
+          <A11y.Item>role="dialog" con aria-modal, y el nombre sale del `ModalTitle` por `aria-labelledby`: una sola fuente, y la que se ve es la que se anuncia.</A11y.Item>
+          <A11y.Item>Atrapa el foco mientras está abierto y lo devuelve al cerrarse.</A11y.Item>
+          <A11y.Item>Se enfoca el contenedor y no el primer control: el navegador scrollea a lo que enfoca, y eso abría el panel corrido.</A11y.Item>
+          <A11y.Item>Bloquea el scroll de la página compensando el ancho de la barra, así que nada salta al abrir.</A11y.Item>
+        </A11y>
       </Section>
     </Page>
   )

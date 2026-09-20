@@ -2,7 +2,7 @@ import cls from './nav.module.css'
 import { useState } from 'react'
 import { Icon } from '@milo/ui/icon'
 import { NavItemBody, navItemClass, navSubItemClass } from '@milo/ui/nav'
-import { A11y, Page, Props, Section } from '../kit'
+import { A11y, Page, Practices, Props, Section } from '../kit'
 
 export function NavStory() {
   const [active, setActive] = useState('explorar')
@@ -76,11 +76,18 @@ export function NavStory() {
         <Props of="NavItemBody" />
       </Section>
 
+      <Section title="Cómo se usa bien">
+        <Practices>
+          <Practices.Do>El activo se marca con la barra de 2px: sin fondo y sin borde.</Practices.Do>
+          <Practices.Dont>No alternes la clase del icono entre estados: cambia el peso de la fuente y el glifo se mueve adentro de su caja.</Practices.Dont>
+        </Practices>
+      </Section>
+
       <Section title="Accesibilidad">
-        <A11y items={[
-          'El item activo lo dice con aria-current, no solo con el fondo.',
-          'El texto de un item inactivo va en tinta: en gris, una lista de siete espacios parece deshabilitada.',
-        ]} />
+        <A11y>
+          <A11y.Item>El item activo lo dice con aria-current, no solo con el fondo.</A11y.Item>
+          <A11y.Item>El texto de un item inactivo va en tinta: en gris, una lista de siete espacios parece deshabilitada.</A11y.Item>
+        </A11y>
       </Section>
     </Page>
   )

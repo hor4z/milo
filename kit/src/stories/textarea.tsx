@@ -1,7 +1,7 @@
 import cls from './textarea.module.css'
 import { useState } from 'react'
 import { Textarea } from '@milo/ui/textarea'
-import { A11y, Cluster, Demo, Page, Props, Section } from '../kit'
+import { A11y, Cluster, Demo, Page, Practices, Props, Section } from '../kit'
 
 export function TextareaStory() {
   const [short, setShort] = useState('')
@@ -153,12 +153,18 @@ export function TextareaStory() {
         </p>
       </Section>
 
+      <Section title="Cómo se usa bien">
+        <Practices>
+          <Practices.Do>`maxRows` le pone techo al crecimiento, así que la página no se estira sin fin.</Practices.Do>
+        </Practices>
+      </Section>
+
       <Section title="Accesibilidad">
-        <A11y items={[
-          'Se remide al cambiar el ancho y al cargar la fuente, así que nunca recorta texto sin barra.',
-          'Al llegar al techo prende el scroll; abajo del techo lo apaga para que no titile.',
-          'El anillo de foco es de la caja, igual que en TextField.',
-        ]} />
+        <A11y>
+          <A11y.Item>Se remide al cambiar el ancho y al cargar la fuente, así que nunca recorta texto sin barra.</A11y.Item>
+          <A11y.Item>Al llegar al techo prende el scroll; abajo del techo lo apaga para que no titile.</A11y.Item>
+          <A11y.Item>El anillo de foco es de la caja, igual que en TextField.</A11y.Item>
+        </A11y>
       </Section>
     </Page>
   )

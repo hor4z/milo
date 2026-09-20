@@ -561,6 +561,33 @@
     color: var(--text-muted);
   }
 
+  .practices {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  .practiceDo,
+  .practiceDont {
+    display: flex;
+    gap: 0.5rem;
+    max-width: 70ch;
+    font-size: var(--type-body);
+    line-height: var(--type-body-lh);
+    letter-spacing: var(--type-body-ls);
+    font-weight: var(--font-weight-medium);
+    color: var(--text-muted);
+  }
+  .practiceDoIcon {
+    margin-top: 1px;
+    flex-shrink: 0;
+    color: var(--ok);
+  }
+  .practiceDontIcon {
+    margin-top: 1px;
+    flex-shrink: 0;
+    color: var(--bad);
+  }
+
   .a11yList {
     display: flex;
     flex-direction: column;

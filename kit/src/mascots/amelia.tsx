@@ -57,12 +57,10 @@ export function AmeliaStory() {
         ]} />
       </Section>
 
-      <A11y
-        items={[
-          'Va con `alt=""`: es decorativo, y lo que la pantalla quiera decir va en su texto.',
-          'Respeta `prefers-reduced-motion`: quien pidió menos movimiento ve el retrato quieto en vez de los clips.',
-        ]}
-      />
+      <A11y>
+        <A11y.Item>Va con `alt=""`: es decorativo, y lo que la pantalla quiera decir va en su texto.</A11y.Item>
+        <A11y.Item>Respeta `prefers-reduced-motion`: quien pidió menos movimiento ve el retrato quieto en vez de los clips.</A11y.Item>
+      </A11y>
     </Page>
   )
 }

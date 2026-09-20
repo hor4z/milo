@@ -1,5 +1,5 @@
 import { Breadcrumb } from '@milo/ui/breadcrumb'
-import { A11y, Canvas, Note, Page, Props, Section } from '../kit'
+import { A11y, Canvas, Note, Page, Practices, Props, Section } from '../kit'
 
 export function BreadcrumbStory() {
   return (
@@ -45,12 +45,18 @@ export function BreadcrumbStory() {
         <Props of="Breadcrumb" />
       </Section>
 
+      <Section title="Cómo se usa bien">
+        <Practices>
+          <Practices.Do>El último eslabón es dónde estás y no es un enlace.</Practices.Do>
+        </Practices>
+      </Section>
+
       <Section title="Accesibilidad">
-        <A11y items={[
-          'Es un <nav> con su nombre, así que un lector lo anuncia como la navegación de la página y lo puede saltear.',
-          'El item actual lleva aria-current="page" y no es un link: no se puede ir a donde ya estás.',
-          'Los separadores son decorativos y no se leen: entre item e item no se escucha "barra".',
-        ]} />
+        <A11y>
+          <A11y.Item>{'Es un <nav> con su nombre, así que un lector lo anuncia como la navegación de la página y lo puede saltear.'}</A11y.Item>
+          <A11y.Item>El item actual lleva aria-current="page" y no es un link: no se puede ir a donde ya estás.</A11y.Item>
+          <A11y.Item>Los separadores son decorativos y no se leen: entre item e item no se escucha "barra".</A11y.Item>
+        </A11y>
       </Section>
     </Page>
   )

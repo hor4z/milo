@@ -1,6 +1,6 @@
 import cls from './avatar.module.css'
 import { Avatar } from '@milo/ui/avatar'
-import { A11y, Demo, Page, Props, Section } from '../kit'
+import { A11y, Demo, Page, Practices, Props, Section } from '../kit'
 
 const face = (n: number) => `/avatars/${String(n).padStart(2, '0')}.webp`
 const person = (name: string, photo?: number) => ({ name, src: photo ? face(photo) : undefined })
@@ -85,11 +85,18 @@ export function AvatarStory() {
         <Props of="Avatar" />
       </Section>
 
+      <Section title="Cómo se usa bien">
+        <Practices>
+          <Practices.Do>El color sale del nombre con `colorForName`, así que la misma persona tiene siempre el mismo tinte.</Practices.Do>
+          <Practices.Dont>En un grupo, tres caras y un "+N": más de tres no se reconocen, se cuentan.</Practices.Dont>
+        </Practices>
+      </Section>
+
       <Section title="Accesibilidad">
-        <A11y items={[
-          'El grupo publica los nombres completos en texto para quien no ve las caras.',
-          'Sin foto, la inicial va sobre su color con contraste suficiente.',
-        ]} />
+        <A11y>
+          <A11y.Item>El grupo publica los nombres completos en texto para quien no ve las caras.</A11y.Item>
+          <A11y.Item>Sin foto, la inicial va sobre su color con contraste suficiente.</A11y.Item>
+        </A11y>
       </Section>
     </Page>
   )

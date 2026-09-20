@@ -1,6 +1,6 @@
 import s from './callout.module.css'
 import { Callout } from '@milo/ui/callout'
-import { A11y, Frame, Note, Page, Props, Section, Stack } from '../kit'
+import { A11y, Frame, Note, Page, Practices, Props, Section, Stack } from '../kit'
 
 export function CalloutStory() {
   return (
@@ -52,13 +52,16 @@ export function CalloutStory() {
 
       <Props of="Callout" />
 
-      <A11y
-        items={[
-          'Lleva `role="note"`: se anuncia como una nota al margen sin sumar una región. Con once bloques en una página, once regiones dejarían la lista de saltos inservible.',
-          'El glifo es decorativo. Lo que el bloque dice está en su texto, así que sacarlo no pierde nada.',
-          'El color nunca es la única diferencia: el título y el glifo dicen de qué se trata.',
-        ]}
-      />
+      <Practices>
+        <Practices.Do>El color sale de la familia de categorías, no de los tonos de estado: un bloque de contenido no avisa de nada.</Practices.Do>
+        <Practices.Dont>No lo uses para un error: eso es un `Alert`.</Practices.Dont>
+      </Practices>
+
+      <A11y>
+        <A11y.Item>Lleva `role="note"`: se anuncia como una nota al margen sin sumar una región. Con once bloques en una página, once regiones dejarían la lista de saltos inservible.</A11y.Item>
+        <A11y.Item>El glifo es decorativo. Lo que el bloque dice está en su texto, así que sacarlo no pierde nada.</A11y.Item>
+        <A11y.Item>El color nunca es la única diferencia: el título y el glifo dicen de qué se trata.</A11y.Item>
+      </A11y>
     </Page>
   )
 }

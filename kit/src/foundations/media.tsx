@@ -227,16 +227,14 @@ export function MediaSection() {
         </Stack>
       </Section>
 
-      <A11y
-        items={[
-          'Nada arranca solo, así que un lector de pantalla nunca compite con un audio del sistema.',
-          'Un audio que arranca detiene al otro: dos voces a la vez no se separan, ni siquiera con buen oído.',
-          'El botón dice lo que va a hacer, "Reproducir" o "Pausar", y el tiempo se anuncia como "0:45 de 1:30" y no como un número suelto.',
-          'La onda va `aria-hidden`: lo que lleva el significado es el control, no el dibujo.',
-          'Todo lo hablado tiene su texto, que es lo que le llega a quien no oye y también a quien está donde no puede escuchar.',
-          'Una imagen decorativa va con `alt=""` para que el lector la saltee, y una animación se reemplaza por su cuadro quieto con `prefers-reduced-motion`.',
-        ]}
-      />
+      <A11y>
+        <A11y.Item>Nada arranca solo, así que un lector de pantalla nunca compite con un audio del sistema.</A11y.Item>
+        <A11y.Item>Un audio que arranca detiene al otro: dos voces a la vez no se separan, ni siquiera con buen oído.</A11y.Item>
+        <A11y.Item>El botón dice lo que va a hacer, "Reproducir" o "Pausar", y el tiempo se anuncia como "0:45 de 1:30" y no como un número suelto.</A11y.Item>
+        <A11y.Item>La onda va `aria-hidden`: lo que lleva el significado es el control, no el dibujo.</A11y.Item>
+        <A11y.Item>Todo lo hablado tiene su texto, que es lo que le llega a quien no oye y también a quien está donde no puede escuchar.</A11y.Item>
+        <A11y.Item>Una imagen decorativa va con `alt=""` para que el lector la saltee, y una animación se reemplaza por su cuadro quieto con `prefers-reduced-motion`.</A11y.Item>
+      </A11y>
     </Page>
   )
 }

@@ -1,7 +1,7 @@
 import cls from './popover.module.css'
 import { Button } from '@milo/ui/button'
 import { Popover } from '@milo/ui/popover'
-import { A11y, Cluster, Demo, Page, Props, Section } from '../kit'
+import { A11y, Cluster, Demo, Page, Practices, Props, Section } from '../kit'
 
 export function PopoverStory() {
   return (
@@ -60,12 +60,19 @@ export function PopoverStory() {
         <Props of="Popover" />
       </Section>
 
+      <Section title="Cómo se usa bien">
+        <Practices>
+          <Practices.Do>El velo va cuando la lista pide leerse entera; un menú de cuatro items no lo necesita.</Practices.Do>
+          <Practices.Dont>No lo uses para un texto de ayuda de una línea: eso es un `Tooltip`.</Practices.Dont>
+        </Practices>
+      </Section>
+
       <Section title="Accesibilidad">
-        <A11y items={[
-          'El disparador declara aria-expanded, así que se anuncia si está abierto.',
-          'Escape cierra el de arriba y no todos.',
-          'El scroll de la página lo cierra; el de su propio contenido, no.',
-        ]} />
+        <A11y>
+          <A11y.Item>El disparador declara aria-expanded, así que se anuncia si está abierto.</A11y.Item>
+          <A11y.Item>Escape cierra el de arriba y no todos.</A11y.Item>
+          <A11y.Item>El scroll de la página lo cierra; el de su propio contenido, no.</A11y.Item>
+        </A11y>
       </Section>
     </Page>
   )

@@ -1,7 +1,7 @@
 import { Button } from '@milo/ui/button'
 import { Dropdown } from '@milo/ui/dropdown'
 import { Icon } from '@milo/ui/icon'
-import { A11y, Cluster, Demo, Page, Props, Section } from '../kit'
+import { A11y, Cluster, Demo, Page, Practices, Props, Section } from '../kit'
 
 export function DropdownStory() {
   return (
@@ -66,14 +66,21 @@ export function DropdownStory() {
         <Props of={['Dropdown', 'DropdownItem']} />
       </Section>
 
+      <Section title="Cómo se usa bien">
+        <Practices>
+          <Practices.Do>El disparador recibe `onClick`, `ref` y `aria-expanded`: pasáselos enteros o el panel no se ancla.</Practices.Do>
+          <Practices.Dont>Si la lista pide leerse entera, va un `Popover` con velo y no un menú de cuatro items.</Practices.Dont>
+        </Practices>
+      </Section>
+
       <Section title="Accesibilidad">
-        <A11y items={[
-          'El panel es role="menu" y cada opción un menuitem.',
-          'Las flechas recorren las opciones y dan la vuelta; Home y End van a los extremos, y las dos saltean lo apagado.',
-          'El disparador dice si está abierto con `aria-expanded`, y al cerrar el foco vuelve a él.',
-          'Escape cierra solo este menú y deja abierto lo que haya detrás, por la pila global.',
-          'Cierra con pointerdown y no con click: el mismo gesto que abre otro menú no lo reabre.',
-        ]} />
+        <A11y>
+          <A11y.Item>El panel es role="menu" y cada opción un menuitem.</A11y.Item>
+          <A11y.Item>Las flechas recorren las opciones y dan la vuelta; Home y End van a los extremos, y las dos saltean lo apagado.</A11y.Item>
+          <A11y.Item>El disparador dice si está abierto con `aria-expanded`, y al cerrar el foco vuelve a él.</A11y.Item>
+          <A11y.Item>Escape cierra solo este menú y deja abierto lo que haya detrás, por la pila global.</A11y.Item>
+          <A11y.Item>Cierra con pointerdown y no con click: el mismo gesto que abre otro menú no lo reabre.</A11y.Item>
+        </A11y>
       </Section>
     </Page>
   )

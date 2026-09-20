@@ -119,14 +119,12 @@ export function TimeSection() {
         test que busca relojes y relativos escritos a mano fuera de estas funciones.
       </Note>
 
-      <A11y
-        items={[
-          'Cada fecha va adentro de un `time` con su `dateTime` en UTC, así que lo que lee una máquina no depende de cómo quedó el texto.',
-          'El reloj es de veinticuatro horas y con dos cifras, así que un lector dice "cero cinco" y no "cinco" a las 00:05.',
-          'Las unidades van enteras y no abreviadas: un lector lee "hace veinte minutos" y no "hace veinte eme i ene".',
-          'Lo relativo se corta a la semana: pasada esa, la fecha ubica y "hace 23 días" no.',
-        ]}
-      />
+      <A11y>
+        <A11y.Item>Cada fecha va adentro de un `time` con su `dateTime` en UTC, así que lo que lee una máquina no depende de cómo quedó el texto.</A11y.Item>
+        <A11y.Item>El reloj es de veinticuatro horas y con dos cifras, así que un lector dice "cero cinco" y no "cinco" a las 00:05.</A11y.Item>
+        <A11y.Item>Las unidades van enteras y no abreviadas: un lector lee "hace veinte minutos" y no "hace veinte eme i ene".</A11y.Item>
+        <A11y.Item>Lo relativo se corta a la semana: pasada esa, la fecha ubica y "hace 23 días" no.</A11y.Item>
+      </A11y>
     </Page>
   )
 }

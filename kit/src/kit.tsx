@@ -3,6 +3,7 @@ import { Children, useEffect, useState, type ReactNode } from 'react'
 import { Chip } from '@milo/ui/chip'
 import { CopyButton } from '@milo/ui/copy-button'
 import { useClipboard } from '@milo/ui/lib/use-clipboard'
+import { toneIcon, toneInk, toneSurface, type Tone } from '@milo/ui/lib/tone'
 import { Icon, type IconName } from '@milo/ui/icon'
 import { cx } from '@milo/ui/lib/cx'
 import { propsByComponent } from '@milo/ui/props'
@@ -394,10 +395,17 @@ export function Props({ of }: { of: string | readonly string[] }) {
   )
 }
 
-export function Note({ icon = 'lightbulb', title, children }: { icon?: IconName; title?: string; children: ReactNode }) {
+export function Note({ tone, icon, title, children }: {
+  /** Sin esto la nota es papel blanco y el glifo gris, que es lo que va para una aclaración. `warn` para lo que se puede romper, `ok` para lo que ya está resuelto. */
+  tone?: Tone
+  icon?: IconName
+  title?: string
+  children: ReactNode
+}) {
+  const glifo = icon ?? (tone ? toneIcon[tone] : 'lightbulb')
   return (
-    <div className={`${s.note} bg-surface`}>
-      <Icon name={icon} size={18} className={`${s.noteIcon} icon-muted`} />
+    <div className={tone ? cx(s.note, toneSurface[tone]) : `${s.note} bg-surface`}>
+      <Icon name={glifo} size={18} className={tone ? toneInk[tone] : `${s.noteIcon} icon-muted`} />
       <div className={s.noteBody}>
         {title && <p className={s.noteTitle}><Rich text={title} /></p>}
         <div className={s.noteText}>
@@ -409,18 +417,51 @@ export function Note({ icon = 'lightbulb', title, children }: { icon?: IconName;
 }
 
 /** Lo que la pieza hace por accesibilidad, en una lista corta. */
-export function A11y({ items }: { items: string[] }) {
+function A11yRoot({ children }: { children: ReactNode }) {
+  return <ul className={s.a11yList}>{children}</ul>
+}
+
+/** Una cosa que la pieza resuelve sola en accesibilidad. */
+function A11yItem({ children }: { children: ReactNode }) {
   return (
-    <ul className={s.a11yList}>
-      {items.map(t => (
-        <li key={t} className={s.a11yItem}>
-          <Icon name="check" size={16} className={s.a11yCheck} />
-          <span className={s.a11yText}><Rich text={t} /></span>
-        </li>
-      ))}
-    </ul>
+    <li className={s.a11yItem}>
+      <Icon name="check" size={16} className={s.a11yCheck} />
+      <span className={s.a11yText}>
+        {Children.map(children, c => (typeof c === 'string' ? <Rich text={c} /> : c))}
+      </span>
+    </li>
   )
 }
+
+/** Lo que la pieza resuelve sola, al cierre de cada vista. */
+export const A11y = Object.assign(A11yRoot, { Item: A11yItem })
+
+function PracticesRoot({ children }: { children: ReactNode }) {
+  return <div className={s.practices}>{children}</div>
+}
+
+/** Lo que conviene hacer. Una línea, concreta, con la pieza adentro. */
+function Do({ children }: { children: ReactNode }) {
+  return (
+    <p className={s.practiceDo}>
+      <Icon name="check_circle" size={16} className={s.practiceDoIcon} />
+      <span>{Children.map(children, c => (typeof c === 'string' ? <Rich text={c} /> : c))}</span>
+    </p>
+  )
+}
+
+/** Lo que no, y por qué. Sin el porqué es una orden y no una guía. */
+function Dont({ children }: { children: ReactNode }) {
+  return (
+    <p className={s.practiceDont}>
+      <Icon name="cancel" size={16} className={s.practiceDontIcon} />
+      <span>{Children.map(children, c => (typeof c === 'string' ? <Rich text={c} /> : c))}</span>
+    </p>
+  )
+}
+
+/** Cómo se usa bien esta pieza, en dos columnas. Es también lo que un agente necesita para no equivocarse con ella. */
+export const Practices = Object.assign(PracticesRoot, { Do, Dont })
 
 export function Swatch({ token, note }: { token: string; note?: string }) {
   const vals = useTokens([token])

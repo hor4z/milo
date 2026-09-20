@@ -1,6 +1,6 @@
 import cls from './link.module.css'
 import { Link } from '@milo/ui/link'
-import { A11y, Canvas, Note, Page, Props, Section } from '../kit'
+import { A11y, Canvas, Note, Page, Practices, Props, Section } from '../kit'
 
 export function LinkStory() {
   return (
@@ -45,13 +45,20 @@ export function LinkStory() {
         <Props of="Link" />
       </Section>
 
+      <Section title="Cómo se usa bien">
+        <Practices>
+          <Practices.Do>Si navega, es un `Link`: se puede abrir en otra pestaña y copiar la dirección.</Practices.Do>
+          <Practices.Dont>Si dispara una acción, es un `Button` aunque parezca un link.</Practices.Dont>
+        </Practices>
+      </Section>
+
       <Section title="Accesibilidad">
-        <A11y items={[
-          'El subrayado no depende del color: en monocromo o en alto contraste el enlace se sigue reconociendo.',
-          'Un link externo dice "se abre en otra pestaña" además de mostrar el glifo.',
-          'El texto dice a dónde lleva: "los ajustes de la actividad" y no "hacé click acá", que fuera de la frase no significa nada.',
-          'El foco se ve con el mismo anillo azul que el resto del sistema.',
-        ]} />
+        <A11y>
+          <A11y.Item>El subrayado no depende del color: en monocromo o en alto contraste el enlace se sigue reconociendo.</A11y.Item>
+          <A11y.Item>Un link externo dice "se abre en otra pestaña" además de mostrar el glifo.</A11y.Item>
+          <A11y.Item>El texto dice a dónde lleva: "los ajustes de la actividad" y no "hacé click acá", que fuera de la frase no significa nada.</A11y.Item>
+          <A11y.Item>El foco se ve con el mismo anillo azul que el resto del sistema.</A11y.Item>
+        </A11y>
       </Section>
     </Page>
   )

@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { Alert } from '@milo/ui/alert'
 import { Button } from '@milo/ui/button'
 import { Icon } from '@milo/ui/icon'
-import { A11y, Demo, Frame, Note, Page, Props, Section, Stack } from '../kit'
+import { A11y, Demo, Frame, Note, Page, Practices, Props, Section, Stack } from '../kit'
 
 export function AlertStory() {
   const [dismissed, setDismissed] = useState<string[]>([])
@@ -118,12 +118,20 @@ export function AlertStory() {
         <Props of="Alert" />
       </Section>
 
+      <Section title="Cómo se usa bien">
+        <Practices>
+          <Practices.Do>Va fijo en la pantalla, donde pasó la cosa.</Practices.Do>
+          <Practices.Do>Adentro de un panel denso va en `size="sm"`.</Practices.Do>
+          <Practices.Dont>Solo `tone="bad"` lleva `role="alert"`: algo que está fijo no tiene que interrumpir cada vez que se monta.</Practices.Dont>
+        </Practices>
+      </Section>
+
       <Section title="Accesibilidad">
-        <A11y items={[
-          'El error va como role="alert" y el resto como role="status": solo lo urgente interrumpe lo que se está leyendo.',
-          'El estado está en el texto y en el glifo, no solo en el color.',
-          'La X se nombra sola y no es la única salida: el aviso se puede leer entero sin tocarla.',
-        ]} />
+        <A11y>
+          <A11y.Item>El error va como role="alert" y el resto como role="status": solo lo urgente interrumpe lo que se está leyendo.</A11y.Item>
+          <A11y.Item>El estado está en el texto y en el glifo, no solo en el color.</A11y.Item>
+          <A11y.Item>La X se nombra sola y no es la única salida: el aviso se puede leer entero sin tocarla.</A11y.Item>
+        </A11y>
       </Section>
     </Page>
   )

@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { Segmented } from '@milo/ui/segmented'
-import { A11y, Page, Panel, Props, Section, Variant } from '../kit'
+import { A11y, Page, Panel, Practices, Props, Section, Variant } from '../kit'
 
 export function SegmentedStory() {
   const [filter, setFilter] = useState<'todas' | 'abiertas'>('todas')
@@ -43,14 +43,21 @@ export function SegmentedStory() {
         <Props of="Segmented" />
       </Section>
     
+      <Section title="Cómo se usa bien">
+        <Practices>
+          <Practices.Do>Es el mismo control para el filtro de texto y para el conmutador de vista: dos implementaciones se separan solas.</Practices.Do>
+          <Practices.Dont>Con más de cuatro opciones va un `Select`: el segmentado se estira y deja de leerse.</Practices.Dont>
+        </Practices>
+      </Section>
+
       <Section title="Accesibilidad">
-        <A11y items={[
-          'Es un radiogroup: elegir una de varias, que es lo que hace. Antes era un tablist, y un tablist sin paneles le promete a un lector de pantalla algo que no existe.',
-          'Las flechas mueven la elección y dan la vuelta; Tab entra al grupo y sale, porque solo la elegida es tabulable.',
-          'Con solo iconos, el `title` es el nombre accesible y además la etiqueta del Tooltip: no queda la caja del sistema operativo diciendo lo mismo.',
-          'Adentro de un Field o de un Row, el grupo se nombra con la etiqueta que ya está escrita.',
-          'El chip elegido conserva el relieve al enfocarse con el teclado.',
-        ]} />
+        <A11y>
+          <A11y.Item>Es un radiogroup: elegir una de varias, que es lo que hace. Antes era un tablist, y un tablist sin paneles le promete a un lector de pantalla algo que no existe.</A11y.Item>
+          <A11y.Item>Las flechas mueven la elección y dan la vuelta; Tab entra al grupo y sale, porque solo la elegida es tabulable.</A11y.Item>
+          <A11y.Item>Con solo iconos, el `title` es el nombre accesible y además la etiqueta del Tooltip: no queda la caja del sistema operativo diciendo lo mismo.</A11y.Item>
+          <A11y.Item>Adentro de un Field o de un Row, el grupo se nombra con la etiqueta que ya está escrita.</A11y.Item>
+          <A11y.Item>El chip elegido conserva el relieve al enfocarse con el teclado.</A11y.Item>
+        </A11y>
       </Section>
     </Page>
   )

@@ -2,7 +2,7 @@ import cls from './empty-state.module.css'
 import { Button } from '@milo/ui/button'
 import { EmptyState } from '@milo/ui/empty-state'
 import { FilterReset } from '@milo/ui/filter'
-import { A11y, Demo, Page, Props, Section, Stack } from '../kit'
+import { A11y, Demo, Page, Practices, Props, Section, Stack } from '../kit'
 
 export function EmptyStateStory() {
   return (
@@ -80,11 +80,19 @@ export function EmptyStateStory() {
         <Props of="EmptyState" />
       </Section>
 
+      <Section title="Cómo se usa bien">
+        <Practices>
+          <Practices.Do>Siempre conviene que haya una salida: el `EmptyState.Action`.</Practices.Do>
+          <Practices.Do>El título dice qué falta y el cuerpo qué se puede hacer.</Practices.Do>
+          <Practices.Dont>Adentro de una tabla o una galería va en `size="sm"`, sin la caja punteada.</Practices.Dont>
+        </Practices>
+      </Section>
+
       <Section title="Accesibilidad">
-        <A11y items={[
-          'El icono es decorativo y no se anuncia: lo que se lee es el título y el cuerpo.',
-          'La acción es un botón real, no un texto que parece link.',
-        ]} />
+        <A11y>
+          <A11y.Item>El icono es decorativo y no se anuncia: lo que se lee es el título y el cuerpo.</A11y.Item>
+          <A11y.Item>La acción es un botón real, no un texto que parece link.</A11y.Item>
+        </A11y>
       </Section>
     </Page>
   )

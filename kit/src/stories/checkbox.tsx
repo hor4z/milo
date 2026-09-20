@@ -1,7 +1,7 @@
 import cls from './checkbox.module.css'
 import { useState } from 'react'
 import { Checkbox } from '@milo/ui/checkbox'
-import { A11y, Page, Panel, Props, Section, Stack, Variant } from '../kit'
+import { A11y, Page, Panel, Practices, Props, Section, Stack, Variant } from '../kit'
 
 export function CheckboxStory() {
   const [spaces, setSpaces] = useState<string[]>(['Ciencias'])
@@ -62,12 +62,19 @@ export function CheckboxStory() {
         <Props of="Checkbox" />
       </Section>
 
+      <Section title="Cómo se usa bien">
+        <Practices>
+          <Practices.Do>Adentro de un `Field` o de un `Row` no lleva `label`: ya lo nombra la etiqueta de afuera.</Practices.Do>
+          <Practices.Dont>Para prender y apagar una preferencia va `Switch`, que se lee como una llave de luz.</Practices.Dont>
+        </Practices>
+      </Section>
+
       <Section title="Accesibilidad">
-        <A11y items={[
-          'Es un botón con role="checkbox" y aria-checked, así que un lector lo anuncia con su estado.',
-          'El `label` lo nombra; sin él, un cuadrado tildado no dice de qué es.',
-          'Espacio lo alterna, como cualquier casilla nativa.',
-        ]} />
+        <A11y>
+          <A11y.Item>Es un botón con role="checkbox" y aria-checked, así que un lector lo anuncia con su estado.</A11y.Item>
+          <A11y.Item>El `label` lo nombra; sin él, un cuadrado tildado no dice de qué es.</A11y.Item>
+          <A11y.Item>Espacio lo alterna, como cualquier casilla nativa.</A11y.Item>
+        </A11y>
       </Section>
     </Page>
   )

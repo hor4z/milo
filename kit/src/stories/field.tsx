@@ -5,7 +5,7 @@ import { Select } from '@milo/ui/select'
 import { Switch } from '@milo/ui/switch'
 import { TextField } from '@milo/ui/text-field'
 import { Textarea } from '@milo/ui/textarea'
-import { A11y, Canvas, Frame, Note, Page, Props, Section, Stack } from '../kit'
+import { A11y, Canvas, Frame, Note, Page, Practices, Props, Section, Stack } from '../kit'
 
 export function FieldStory() {
   const [overdue, setOverdue] = useState(true)
@@ -118,14 +118,22 @@ export function FieldStory() {
         <Props of="Field" />
       </Section>
 
+      <Section title="Cómo se usa bien">
+        <Practices>
+          <Practices.Do>La etiqueta va en `Field.Label`, el apoyo en `Field.Hint` y lo que está mal en `Field.Error`.</Practices.Do>
+          <Practices.Do>El control de adentro toma el id solo: no le pongas `label` también, se nombra dos veces.</Practices.Do>
+          <Practices.Dont>El error reemplaza al hint, no se apila: dos líneas de apoyo compiten por la misma mirada.</Practices.Dont>
+        </Practices>
+      </Section>
+
       <Section title="Accesibilidad">
-        <A11y items={[
-          'La etiqueta usa htmlFor: tocarla enfoca el campo, que además agranda el blanco del click.',
-          'La ayuda y el error se anuncian como descripción del control, no como texto suelto al lado.',
-          'Con error, el campo queda aria-invalid y el mensaje lleva su glifo: no depende del color rojo.',
-          'Lo obligatorio se dice con texto además del asterisco.',
-          'Los siete controles del sistema toman el id del Field: ninguno queda con la etiqueta colgando.',
-        ]} />
+        <A11y>
+          <A11y.Item>La etiqueta usa htmlFor: tocarla enfoca el campo, que además agranda el blanco del click.</A11y.Item>
+          <A11y.Item>La ayuda y el error se anuncian como descripción del control, no como texto suelto al lado.</A11y.Item>
+          <A11y.Item>Con error, el campo queda aria-invalid y el mensaje lleva su glifo: no depende del color rojo.</A11y.Item>
+          <A11y.Item>Lo obligatorio se dice con texto además del asterisco.</A11y.Item>
+          <A11y.Item>Los siete controles del sistema toman el id del Field: ninguno queda con la etiqueta colgando.</A11y.Item>
+        </A11y>
       </Section>
     </Page>
   )

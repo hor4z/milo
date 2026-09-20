@@ -8,7 +8,7 @@ import { Switch } from '@milo/ui/switch'
 import { TextField } from '@milo/ui/text-field'
 import { Textarea } from '@milo/ui/textarea'
 import { useToast } from '@milo/ui/toast'
-import { A11y, Canvas, Note, Page, Props, Section, Stack } from '../kit'
+import { A11y, Canvas, Note, Page, Practices, Props, Section, Stack } from '../kit'
 
 export function SheetStory() {
   const [late, setLate] = useState(true)
@@ -113,14 +113,22 @@ export function SheetStory() {
         <Props of="Sheet" />
       </Section>
 
+      <Section title="Cómo se usa bien">
+        <Practices>
+          <Practices.Do>El nombre sale de `Sheet.Title`. `label` queda para el panel sin título a la vista.</Practices.Do>
+          <Practices.Do>Va para un formulario largo: un modal centrado de seis campos tapa lo que estás mirando.</Practices.Do>
+          <Practices.Dont>No lo anides adentro de un modal: son dos capas que compiten por el mismo Escape.</Practices.Dont>
+        </Practices>
+      </Section>
+
       <Section title="Accesibilidad">
-        <A11y items={[
-          'Es un role="dialog" modal con su nombre, y atrapa el foco mientras está abierto.',
-          'Escape cierra por la pila global: cierra el panel de arriba y no todos los que haya detrás.',
-          'Al cerrar, el foco vuelve al botón que lo abrió.',
-          'Se enfoca el contenedor y no el primer campo, así que el panel no abre corrido con la primera fila tapada.',
-          'Bloquea el scroll del fondo compensando el ancho de la barra, así que la página no salta al abrir.',
-        ]} />
+        <A11y>
+          <A11y.Item>Es un role="dialog" modal con su nombre, y atrapa el foco mientras está abierto.</A11y.Item>
+          <A11y.Item>Escape cierra por la pila global: cierra el panel de arriba y no todos los que haya detrás.</A11y.Item>
+          <A11y.Item>Al cerrar, el foco vuelve al botón que lo abrió.</A11y.Item>
+          <A11y.Item>Se enfoca el contenedor y no el primer campo, así que el panel no abre corrido con la primera fila tapada.</A11y.Item>
+          <A11y.Item>Bloquea el scroll del fondo compensando el ancho de la barra, así que la página no salta al abrir.</A11y.Item>
+        </A11y>
       </Section>
     </Page>
   )

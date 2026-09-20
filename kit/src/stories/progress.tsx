@@ -1,6 +1,6 @@
 import cls from './progress.module.css'
 import { Progress } from '@milo/ui/progress'
-import { A11y, Note, Page, Props, Section } from '../kit'
+import { A11y, Note, Page, Practices, Props, Section } from '../kit'
 
 export function ProgressStory() {
   return (
@@ -52,12 +52,19 @@ export function ProgressStory() {
         <Props of="Progress" />
       </Section>
 
+      <Section title="Cómo se usa bien">
+        <Practices>
+          <Practices.Do>`label` dice qué mide, para quien no ve la barra.</Practices.Do>
+          <Practices.Dont>La pista es el resto, no un segundo dato: no metas dos números en la misma barra.</Practices.Dont>
+        </Practices>
+      </Section>
+
       <Section title="Accesibilidad">
-        <A11y items={[
-          'Es un role="progressbar" con aria-valuenow, aria-valuemin, aria-valuemax y su nombre.',
-          'El número está a la vista además de en el atributo: no hay que pasar el mouse para saber cuánto va.',
-          'El valor se recorta al rango: un 30 de 24 dibuja la barra llena y no se sale de la pista.',
-        ]} />
+        <A11y>
+          <A11y.Item>Es un role="progressbar" con aria-valuenow, aria-valuemin, aria-valuemax y su nombre.</A11y.Item>
+          <A11y.Item>El número está a la vista además de en el atributo: no hay que pasar el mouse para saber cuánto va.</A11y.Item>
+          <A11y.Item>El valor se recorta al rango: un 30 de 24 dibuja la barra llena y no se sale de la pista.</A11y.Item>
+        </A11y>
       </Section>
     </Page>
   )

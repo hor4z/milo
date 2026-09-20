@@ -4,7 +4,7 @@ import { Divider } from '@milo/ui/divider'
 import { Icon } from '@milo/ui/icon'
 import { Menu } from '@milo/ui/menu'
 import { Popover } from '@milo/ui/popover'
-import { A11y, Footnote, Mono, Page, Panel, Props, Section, Variant } from '../kit'
+import { A11y, Footnote, Mono, Page, Panel, Practices, Props, Section, Variant } from '../kit'
 
 export function MenuStory() {
   const [view, setView] = useState<'grilla' | 'lista'>('grilla')
@@ -99,14 +99,22 @@ export function MenuStory() {
         <Props of="Menu" />
       </Section>
 
+      <Section title="Cómo se usa bien">
+        <Practices>
+          <Practices.Do>`label` dice qué menú es: sin eso un lector anuncia "menú" y nada más.</Practices.Do>
+          <Practices.Do>Cerrar el panel es de quien lo abrió, así que llamá a `close` en el `onSelect`.</Practices.Do>
+          <Practices.Dont>Lo que no se deshace va con `danger`, y nada más va con `danger`.</Practices.Dont>
+        </Practices>
+      </Section>
+
       <Section title="Accesibilidad">
-        <A11y items={[
-          'role="menu" con menuitem, y las opciones que se marcan son menuitemradio con aria-checked.',
-          'Las flechas recorren las opciones y dan la vuelta; Home y End van a los extremos, y las dos saltean lo apagado. Un `role="menu"` promete eso y hay que cumplirlo.',
-          'El rótulo de grupo va como presentation: no es una fila que se pueda enfocar.',
-          'Lo peligroso va en el rojo de tinta, no en el del relleno: sobre el papel, el relleno no llega a AA.',
-          'Escape cierra solo el menú, no lo que haya detrás.',
-        ]} />
+        <A11y>
+          <A11y.Item>role="menu" con menuitem, y las opciones que se marcan son menuitemradio con aria-checked.</A11y.Item>
+          <A11y.Item>Las flechas recorren las opciones y dan la vuelta; Home y End van a los extremos, y las dos saltean lo apagado. Un `role="menu"` promete eso y hay que cumplirlo.</A11y.Item>
+          <A11y.Item>El rótulo de grupo va como presentation: no es una fila que se pueda enfocar.</A11y.Item>
+          <A11y.Item>Lo peligroso va en el rojo de tinta, no en el del relleno: sobre el papel, el relleno no llega a AA.</A11y.Item>
+          <A11y.Item>Escape cierra solo el menú, no lo que haya detrás.</A11y.Item>
+        </A11y>
       </Section>
     </Page>
   )

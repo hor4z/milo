@@ -161,7 +161,7 @@ export function AccessibilitySection() {
         </div>
       </Section>
 
-      <Note icon="check_circle" title="La deuda de contraste está saldada">
+      <Note tone="ok" title="La deuda de contraste está saldada">
         El blanco sobre los dos rellenos saturados no llegaba a AA: el botón <code>brand</code> iba
         de 2.89:1 arriba del degradado a 3.75:1 abajo, y el <code>bad</code> daba 3.75:1. El texto
         de un botón es de 16/600, que para WCAG no es texto grande, así que el mínimo era 4.5 y no 3.
@@ -179,7 +179,7 @@ export function AccessibilitySection() {
         jerarquía, que es lo que el gris estaba haciendo. Medido, no estimado.
       </Note>
 
-      <Note icon="warning" title="Los dos números que no llegan, con la cuenta">
+      <Note tone="warn" title="Los dos números que no llegan, con la cuenta">
         **El texto sugerido de un campo, en oscuro y con el mouse encima: 3,82:1.** Se mide contra
         los cuatro fondos de campo (sobre el escritorio y adentro de una pieza de papel, cada uno
         con y sin mouse) y llega a 4,5 en tres. Para pasar el cuarto hay que aclarar el gris hasta
@@ -195,7 +195,7 @@ export function AccessibilitySection() {
       </Note>
 
 
-      <Note icon="warning" title="Lo único que axe marca y no se corrige">
+      <Note tone="warn" title="Lo único que axe marca y no se corrige">
         Con un menú abierto aparece <code>region</code>, que pide que todo el contenido esté adentro
         de una landmark. El panel se dibuja en un portal colgado del <code>body</code>, así que no
         lo está. Meterlo adentro de una landmark sería peor: una landmark por cada menú abierto
@@ -205,14 +205,12 @@ export function AccessibilitySection() {
         con Escape y se anuncia con nombre propio, que es lo que la persona necesita.
       </Note>
 
-      <A11y
-        items={[
-          'Cada vista de una pieza cierra con lo que esa pieza resuelve: acá están las reglas del sistema, no las de cada una.',
-          'Los tests de contraste corren sobre los tokens crudos en los dos temas, así que no dependen de que alguien se acuerde de mirar.',
-          'El sitio declara `lang="es"`, que es lo que hace que un lector de pantalla lo pronuncie en castellano y no deletree.',
-          'El riel es un `<nav>` con nombre y el item actual lleva `aria-current`, así que se puede saltear y se sabe dónde estás.',
-        ]}
-      />
+      <A11y>
+        <A11y.Item>Cada vista de una pieza cierra con lo que esa pieza resuelve: acá están las reglas del sistema, no las de cada una.</A11y.Item>
+        <A11y.Item>Los tests de contraste corren sobre los tokens crudos en los dos temas, así que no dependen de que alguien se acuerde de mirar.</A11y.Item>
+        <A11y.Item>El sitio declara `lang="es"`, que es lo que hace que un lector de pantalla lo pronuncie en castellano y no deletree.</A11y.Item>
+        <A11y.Item>{'El riel es un `<nav>` con nombre y el item actual lleva `aria-current`, así que se puede saltear y se sabe dónde estás.'}</A11y.Item>
+      </A11y>
     </Page>
   )
 }

@@ -1,6 +1,6 @@
 import cls from './icon-button.module.css'
 import { IconButton } from '@milo/ui/icon-button'
-import { A11y, Example, Page, Panel, Props, Section, Variant } from '../kit'
+import { A11y, Example, Page, Panel, Practices, Props, Section, Variant } from '../kit'
 
 export function IconButtonStory() {
   return (
@@ -74,12 +74,20 @@ export function IconButtonStory() {
         <Props of="IconButton" />
       </Section>
 
+      <Section title="Cómo se usa bien">
+        <Practices>
+          <Practices.Do>`label` siempre: adentro solo hay un glifo y sin eso el botón no dice nada.</Practices.Do>
+          <Practices.Do>Elegí el glifo por lo que hace, no por lo que decora.</Practices.Do>
+          <Practices.Dont>No lo uses para la acción principal de una pantalla: un icono solo se reconoce, no se lee.</Practices.Dont>
+        </Practices>
+      </Section>
+
       <Section title="Accesibilidad">
-        <A11y items={[
-          'El `label` es obligatorio y se convierte en el nombre accesible: un icono solo no dice nada.',
-          'No lleva `title` nativo, que era una segunda caja del sistema operativo diciendo lo mismo.',
-          'Para la ayuda visual se envuelve en `Tooltip`, que aparece también con el teclado.',
-        ]} />
+        <A11y>
+          <A11y.Item>El `label` es obligatorio y se convierte en el nombre accesible: un icono solo no dice nada.</A11y.Item>
+          <A11y.Item>No lleva `title` nativo, que era una segunda caja del sistema operativo diciendo lo mismo.</A11y.Item>
+          <A11y.Item>Para la ayuda visual se envuelve en `Tooltip`, que aparece también con el teclado.</A11y.Item>
+        </A11y>
       </Section>
     </Page>
   )

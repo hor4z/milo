@@ -1,6 +1,6 @@
 import cls from './tabs.module.css'
 import { Tabs } from '@milo/ui/tabs'
-import { A11y, Canvas, Note, Page, Props, Section } from '../kit'
+import { A11y, Canvas, Note, Page, Practices, Props, Section } from '../kit'
 
 export function TabsStory() {
   return (
@@ -68,13 +68,20 @@ export function TabsStory() {
         <Props of="Tabs" />
       </Section>
 
+      <Section title="Cómo se usa bien">
+        <Practices>
+          <Practices.Do>El panel y su solapa se atan por el mismo `value`.</Practices.Do>
+          <Practices.Dont>Si el contenido de las solapas hay que compararlo, va un acordeón o la lista entera.</Practices.Dont>
+        </Practices>
+      </Section>
+
       <Section title="Accesibilidad">
-        <A11y items={[
-          'La fila de solapas es un tablist y cada panel declara qué solapa lo nombra.',
-          'Las flechas izquierda y derecha mueven el foco y dan la vuelta al llegar al final.',
-          'Solo la solapa activa es tabulable: Tab entra al grupo y sale, no recorre las cinco.',
-          'El panel es tabulable, así que se puede leer con teclado aunque adentro no haya nada que tocar.',
-        ]} />
+        <A11y>
+          <A11y.Item>La fila de solapas es un tablist y cada panel declara qué solapa lo nombra.</A11y.Item>
+          <A11y.Item>Las flechas izquierda y derecha mueven el foco y dan la vuelta al llegar al final.</A11y.Item>
+          <A11y.Item>Solo la solapa activa es tabulable: Tab entra al grupo y sale, no recorre las cinco.</A11y.Item>
+          <A11y.Item>El panel es tabulable, así que se puede leer con teclado aunque adentro no haya nada que tocar.</A11y.Item>
+        </A11y>
       </Section>
     </Page>
   )

@@ -148,15 +148,13 @@ export function StatesSection() {
         algo que acabás de hacer.
       </Note>
 
-      <A11y
-        items={[
-          'Ningún estado se dice solo con color: lo que no distingue tonos lo distingue por relieve, por opacidad, por un glifo o por la palabra.',
-          'El foco va con `:focus-visible`, así que aparece con el teclado y no al hacer click, y cuando aparece, es el mismo anillo en todo el sistema.',
-          'Lo que carga se anuncia: un `Skeleton` va `aria-hidden` y el contenedor lleva el estado, así que un lector de pantalla no lee cuatro cajas vacías.',
-          'Un `EmptyState` es contenido de verdad y no una ilustración: el título y el cuerpo se leen, y la acción es un botón real.',
-          'Algo deshabilitado se sigue leyendo (opacidad 45%, no gris sobre gris) porque tiene que poder explicar por qué lo está.',
-        ]}
-      />
+      <A11y>
+        <A11y.Item>Ningún estado se dice solo con color: lo que no distingue tonos lo distingue por relieve, por opacidad, por un glifo o por la palabra.</A11y.Item>
+        <A11y.Item>El foco va con `:focus-visible`, así que aparece con el teclado y no al hacer click, y cuando aparece, es el mismo anillo en todo el sistema.</A11y.Item>
+        <A11y.Item>Lo que carga se anuncia: un `Skeleton` va `aria-hidden` y el contenedor lleva el estado, así que un lector de pantalla no lee cuatro cajas vacías.</A11y.Item>
+        <A11y.Item>Un `EmptyState` es contenido de verdad y no una ilustración: el título y el cuerpo se leen, y la acción es un botón real.</A11y.Item>
+        <A11y.Item>Algo deshabilitado se sigue leyendo (opacidad 45%, no gris sobre gris) porque tiene que poder explicar por qué lo está.</A11y.Item>
+      </A11y>
     </Page>
   )
 }

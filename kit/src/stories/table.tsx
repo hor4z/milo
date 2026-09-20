@@ -12,7 +12,7 @@ import { timeAgo } from '@milo/ui/lib/time'
 import { Pagination } from '@milo/ui/pagination'
 import { Search } from '@milo/ui/search'
 import { Table } from '@milo/ui/table'
-import { A11y, Footnote, Mono, Page, Props, Section, Stack } from '../kit'
+import { A11y, Footnote, Mono, Page, Practices, Props, Section, Stack } from '../kit'
 
 const face = (n: number) => `/avatars/${String(n).padStart(2, '0')}.webp`
 
@@ -344,14 +344,22 @@ export function TableStory() {
         <Props of={['Table', 'Avatar']} />
       </Section>
 
+      <Section title="Cómo se usa bien">
+        <Practices>
+          <Practices.Do>`label` dice de qué es: cuando scrollea se vuelve una región enfocable, y dos regiones con el mismo nombre se leen como una.</Practices.Do>
+          <Practices.Do>La paginación va en `Table.Footer`, que vive adentro del marco pero fuera del scroll.</Practices.Do>
+          <Practices.Dont>{'`Table.Foot` es el `<tfoot>` y `Table.Footer` es la franja de abajo: no son lo mismo.'}</Practices.Dont>
+        </Practices>
+      </Section>
+
       <Section title="Accesibilidad">
-        <A11y items={[
-          'Es una <table> de verdad: encabezados con `scope`, filas y celdas con su semántica.',
-          'Una fila que se toca entra en el orden de tabulación y contesta a Enter y a la barra: no es un click y nada más.',
-          'Cuando las columnas no entran, el scroll lateral es una parada de tabulación con nombre: sin barra a la vista, es la única forma de llegar a la derecha sin mouse.',
-          'La franja de paginación es un <nav> con su nombre y anuncia el tramo con role="status" cuando cambia.',
-          'Las opciones de filtros y columnas se nombran una por una.',
-        ]} />
+        <A11y>
+          <A11y.Item>{'Es una <table> de verdad: encabezados con `scope`, filas y celdas con su semántica.'}</A11y.Item>
+          <A11y.Item>Una fila que se toca entra en el orden de tabulación y contesta a Enter y a la barra: no es un click y nada más.</A11y.Item>
+          <A11y.Item>Cuando las columnas no entran, el scroll lateral es una parada de tabulación con nombre: sin barra a la vista, es la única forma de llegar a la derecha sin mouse.</A11y.Item>
+          <A11y.Item>{'La franja de paginación es un <nav> con su nombre y anuncia el tramo con role="status" cuando cambia.'}</A11y.Item>
+          <A11y.Item>Las opciones de filtros y columnas se nombran una por una.</A11y.Item>
+        </A11y>
       </Section>
     </Page>
   )

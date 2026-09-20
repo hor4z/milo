@@ -1,7 +1,7 @@
 import { Button } from '@milo/ui/button'
 import { Icon } from '@milo/ui/icon'
 import { useToast } from '@milo/ui/toast'
-import { A11y, Cluster, Demo, Note, Page, Props, Section } from '../kit'
+import { A11y, Cluster, Demo, Note, Page, Practices, Props, Section } from '../kit'
 
 export function ToastStory() {
   const { toast } = useToast()
@@ -84,13 +84,20 @@ export function ToastStory() {
         <Props of={['ToastOptions', 'ToastProvider']} />
       </Section>
 
+      <Section title="Cómo se usa bien">
+        <Practices>
+          <Practices.Do>Es para lo que pasó y no necesita respuesta: aparece, se lee y se va.</Practices.Do>
+          <Practices.Dont>Con `duration: 0` poné una salida: sin X y sin acción, no hay forma de cerrarlo.</Practices.Dont>
+        </Practices>
+      </Section>
+
       <Section title="Accesibilidad">
-        <A11y items={[
-          'La región es aria-live="polite" con su nombre: los avisos se anuncian sin cortar lo que se esté leyendo.',
-          'El auto-cierre se pausa al enfocar algo adentro, así que quien navega con teclado no pierde el aviso.',
-          'Cada toast se cierra con un botón que se nombra solo, además de irse por su cuenta.',
-          'La acción es un botón de verdad y entra en el orden de tabulación mientras el aviso está a la vista.',
-        ]} />
+        <A11y>
+          <A11y.Item>La región es aria-live="polite" con su nombre: los avisos se anuncian sin cortar lo que se esté leyendo.</A11y.Item>
+          <A11y.Item>El auto-cierre se pausa al enfocar algo adentro, así que quien navega con teclado no pierde el aviso.</A11y.Item>
+          <A11y.Item>Cada toast se cierra con un botón que se nombra solo, además de irse por su cuenta.</A11y.Item>
+          <A11y.Item>La acción es un botón de verdad y entra en el orden de tabulación mientras el aviso está a la vista.</A11y.Item>
+        </A11y>
       </Section>
     </Page>
   )

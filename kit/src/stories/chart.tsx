@@ -2,7 +2,7 @@ import cls from './chart.module.css'
 import { Avatar } from '@milo/ui/avatar'
 import { Card } from '@milo/ui/card'
 import { BarChart } from '@milo/ui/chart'
-import { A11y, Page, Props, Section } from '../kit'
+import { A11y, Page, Practices, Props, Section } from '../kit'
 
 const face = (n: number) => `/avatars/${String(n).padStart(2, '0')}.webp`
 
@@ -93,13 +93,20 @@ export function ChartStory() {
         </p>
       </Section>
 
+      <Section title="Cómo se usa bien">
+        <Practices>
+          <Practices.Do>Abajo del gráfico va la tabla con los mismos datos: no todo el mundo lee una barra.</Practices.Do>
+          <Practices.Dont>Si son más de dos series o hay que comparar valores exactos, va una tabla y no un gráfico.</Practices.Dont>
+        </Practices>
+      </Section>
+
       <Section title="Accesibilidad">
-        <A11y items={[
-          'Cada barra es un <button> que se enfoca y muestra el mismo tooltip que con el mouse.',
-          'Cada barra se anuncia como "Miércoles: 27 de 29".',
-          'Los valores viven además en una tabla sr-only: una altura no se lee.',
-          'El tono sube con la altura, así que el tamaño y el color dicen lo mismo.',
-        ]} />
+        <A11y>
+          <A11y.Item>{'Cada barra es un <button> que se enfoca y muestra el mismo tooltip que con el mouse.'}</A11y.Item>
+          <A11y.Item>Cada barra se anuncia como "Miércoles: 27 de 29".</A11y.Item>
+          <A11y.Item>Los valores viven además en una tabla sr-only: una altura no se lee.</A11y.Item>
+          <A11y.Item>El tono sube con la altura, así que el tamaño y el color dicen lo mismo.</A11y.Item>
+        </A11y>
       </Section>
     </Page>
   )

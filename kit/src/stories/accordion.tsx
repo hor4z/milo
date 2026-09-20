@@ -1,5 +1,5 @@
 import { Accordion } from '@milo/ui/accordion'
-import { A11y, Note, Page, Props, Section } from '../kit'
+import { A11y, Note, Page, Practices, Props, Section } from '../kit'
 
 export function AccordionStory() {
   return (
@@ -55,12 +55,19 @@ export function AccordionStory() {
         <Props of="Accordion" />
       </Section>
 
+      <Section title="Cómo se usa bien">
+        <Practices>
+          <Practices.Do>El texto que se toca va en `Accordion.Summary` y lo que aparece en `Accordion.Body`.</Practices.Do>
+          <Practices.Dont>No lo uses para esconder algo que hay que leer: lo cerrado no se lee.</Practices.Dont>
+        </Practices>
+      </Section>
+
       <Section title="Accesibilidad">
-        <A11y items={[
-          'Es <details> y <summary>, así que el estado abierto o cerrado lo anuncia el navegador sin ayuda.',
-          'Enter y espacio abren y cierran, y el foco se ve con el mismo anillo que el resto del sistema.',
-          'El contenido cerrado sigue estando en el documento: Ctrl+F lo encuentra.',
-        ]} />
+        <A11y>
+          <A11y.Item>{'Es <details> y <summary>, así que el estado abierto o cerrado lo anuncia el navegador sin ayuda.'}</A11y.Item>
+          <A11y.Item>Enter y espacio abren y cierran, y el foco se ve con el mismo anillo que el resto del sistema.</A11y.Item>
+          <A11y.Item>El contenido cerrado sigue estando en el documento: Ctrl+F lo encuentra.</A11y.Item>
+        </A11y>
       </Section>
     </Page>
   )

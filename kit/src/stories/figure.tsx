@@ -1,6 +1,6 @@
 import s from './figure.module.css'
 import { Figure } from '@milo/ui/figure'
-import { A11y, Note, Page, Props, Section } from '../kit'
+import { A11y, Note, Page, Practices, Props, Section } from '../kit'
 
 export function FigureStory() {
   return (
@@ -56,13 +56,17 @@ export function FigureStory() {
 
       <Props of="Figure" />
 
-      <A11y
-        items={[
-          'El `alt` es obligatorio, y vacío es una respuesta válida: dice "esto es decorativo" en vez de dejar que un lector invente el nombre del archivo.',
-          'El epígrafe va en un `figcaption` atado a la figura, así que quien lo escucha sabe de qué imagen habla.',
-          'La imagen carga en diferido y el hueco ya tiene su proporción: la página no salta.',
-        ]}
-      />
+      <Practices>
+        <Practices.Do>`alt` es qué se ve y `Figure.Caption` es qué hay que mirar: no son lo mismo.</Practices.Do>
+        <Practices.Do>`ratio` reserva el hueco, así que la página no salta cuando la imagen carga.</Practices.Do>
+        <Practices.Dont>Si la imagen no aporta nada que el texto no diga, `alt` va vacío y queda decorativa.</Practices.Dont>
+      </Practices>
+
+      <A11y>
+        <A11y.Item>El `alt` es obligatorio, y vacío es una respuesta válida: dice "esto es decorativo" en vez de dejar que un lector invente el nombre del archivo.</A11y.Item>
+        <A11y.Item>El epígrafe va en un `figcaption` atado a la figura, así que quien lo escucha sabe de qué imagen habla.</A11y.Item>
+        <A11y.Item>La imagen carga en diferido y el hueco ya tiene su proporción: la página no salta.</A11y.Item>
+      </A11y>
     </Page>
   )
 }

@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { IconButton } from '@milo/ui/icon-button'
 import { Kbd } from '@milo/ui/kbd'
 import { TextField } from '@milo/ui/text-field'
-import { A11y, Cluster, Demo, Page, Props, Section } from '../kit'
+import { A11y, Cluster, Demo, Page, Practices, Props, Section } from '../kit'
 
 export function TextFieldStory() {
   const [text, setText] = useState('Fracciones con la receta de la abuela')
@@ -59,12 +59,19 @@ export function TextFieldStory() {
         <Props of="TextField" />
       </Section>
 
+      <Section title="Cómo se usa bien">
+        <Practices>
+          <Practices.Do>Adentro de un `Field` no lleva `label`: lo toma de la etiqueta de alrededor.</Practices.Do>
+          <Practices.Dont>El placeholder no reemplaza a la etiqueta: desaparece justo cuando hace falta.</Practices.Dont>
+        </Practices>
+      </Section>
+
       <Section title="Accesibilidad">
-        <A11y items={[
-          'El área clickeable es la caja entera y no solo la línea de texto de 16px.',
-          'El anillo lo toma el campo y no el <input> de adentro, así que no hay dos marcas de foco.',
-          'Con un botón adentro, el campo no se enciende: la marca es del botón que tiene el foco.',
-        ]} />
+        <A11y>
+          <A11y.Item>El área clickeable es la caja entera y no solo la línea de texto de 16px.</A11y.Item>
+          <A11y.Item>{'El anillo lo toma el campo y no el <input> de adentro, así que no hay dos marcas de foco.'}</A11y.Item>
+          <A11y.Item>Con un botón adentro, el campo no se enciende: la marca es del botón que tiene el foco.</A11y.Item>
+        </A11y>
       </Section>
     </Page>
   )

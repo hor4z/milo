@@ -1,6 +1,6 @@
 import cls from './kbd.module.css'
 import { Kbd } from '@milo/ui/kbd'
-import { A11y, Note, Page, Panel, Props, Section, Variant } from '../kit'
+import { A11y, Note, Page, Panel, Practices, Props, Section, Variant } from '../kit'
 
 export function KbdStory() {
   return (
@@ -49,11 +49,17 @@ export function KbdStory() {
         <Props of="Kbd" />
       </Section>
 
+      <Section title="Cómo se usa bien">
+        <Practices>
+          <Practices.Do>Es un recordatorio de la tecla, no la tecla: el atajo lo escucha quien lo pone.</Practices.Do>
+        </Practices>
+      </Section>
+
       <Section title="Accesibilidad">
-        <A11y items={[
-          'Usa el elemento <kbd>, que es lo que un lector de pantalla anuncia como una tecla.',
-          'No es un botón: es texto que dice qué apretar, no algo que se toque.',
-        ]} />
+        <A11y>
+          <A11y.Item>{'Usa el elemento <kbd>, que es lo que un lector de pantalla anuncia como una tecla.'}</A11y.Item>
+          <A11y.Item>No es un botón: es texto que dice qué apretar, no algo que se toque.</A11y.Item>
+        </A11y>
       </Section>
     </Page>
   )

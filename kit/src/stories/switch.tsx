@@ -2,7 +2,7 @@ import cls from './switch.module.css'
 import { useState } from 'react'
 import { Row } from '@milo/ui/row'
 import { Switch } from '@milo/ui/switch'
-import { A11y, Note, Page, Panel, Props, Section, Variant } from '../kit'
+import { A11y, Note, Page, Panel, Practices, Props, Section, Variant } from '../kit'
 
 export function SwitchStory() {
   const [on, setOn] = useState(true)
@@ -57,11 +57,18 @@ export function SwitchStory() {
         <Props of="Switch" />
       </Section>
 
+      <Section title="Cómo se usa bien">
+        <Practices>
+          <Practices.Do>Va para lo que se aplica al momento, sin botón de guardar.</Practices.Do>
+          <Practices.Dont>Si el cambio necesita confirmarse, va una casilla adentro de un formulario.</Practices.Dont>
+        </Practices>
+      </Section>
+
       <Section title="Accesibilidad">
-        <A11y items={[
-          'role="switch" con aria-checked: un lector dice "activado" y no "casilla marcada".',
-          'El `label` lo nombra aunque en pantalla no haya texto al lado.',
-        ]} />
+        <A11y>
+          <A11y.Item>role="switch" con aria-checked: un lector dice "activado" y no "casilla marcada".</A11y.Item>
+          <A11y.Item>El `label` lo nombra aunque en pantalla no haya texto al lado.</A11y.Item>
+        </A11y>
       </Section>
     </Page>
   )

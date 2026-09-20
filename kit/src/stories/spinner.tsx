@@ -1,7 +1,7 @@
 import cls from './spinner.module.css'
 import { Button } from '@milo/ui/button'
 import { Spinner } from '@milo/ui/spinner'
-import { A11y, Page, Panel, Props, Section, Variant } from '../kit'
+import { A11y, Page, Panel, Practices, Props, Section, Variant } from '../kit'
 
 export function SpinnerStory() {
   return (
@@ -47,10 +47,17 @@ export function SpinnerStory() {
         <Props of="Spinner" />
       </Section>
 
+      <Section title="Cómo se usa bien">
+        <Practices>
+          <Practices.Do>Adentro de un control va `on="control"`, que pinta el hueco del color del relleno.</Practices.Do>
+          <Practices.Dont>Para una pantalla entera va un `Skeleton`: el girador no dice qué está por venir.</Practices.Dont>
+        </Practices>
+      </Section>
+
       <Section title="Accesibilidad">
-        <A11y items={[
-          'Lleva role="status" y un nombre, así que un lector dice qué está cargando.',
-        ]} />
+        <A11y>
+          <A11y.Item>Lleva role="status" y un nombre, así que un lector dice qué está cargando.</A11y.Item>
+        </A11y>
       </Section>
     </Page>
   )

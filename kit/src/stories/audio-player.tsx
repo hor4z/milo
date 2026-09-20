@@ -2,7 +2,7 @@ import cls from './audio-player.module.css'
 import { AudioPlayer } from '@milo/ui/audio-player'
 import { IconButton } from '@milo/ui/icon-button'
 import { Tooltip } from '@milo/ui/tooltip'
-import { A11y, Note, Page, Panel, Props, Section, Rich } from '../kit'
+import { A11y, Note, Page, Panel, Practices, Props, Rich, Section } from '../kit'
 
 /** Salen de `npm run picos -- kit/public/audio/consigna.mp3 --barras 64`. */
 const peaks = [
@@ -137,15 +137,18 @@ export function AudioPlayerStory() {
 
       <Props of="AudioPlayer" />
 
-      <A11y
-        items={[
-          'El botón cambia de nombre según lo que va a hacer: "Reproducir" y "Pausar".',
-          'La línea de tiempo es un `slider` de verdad: flechas, Home, End y las dos de página, todas del navegador.',
-          'El `aria-valuetext` dice "0:45 de 1:30" y no "45": un número suelto no significa nada cuando el rango es un archivo.',
-          'La onda va `aria-hidden` y el significado lo lleva el slider. Escuchar la forma (lo que un gráfico resolvería con un audio graph) acá ya lo hace el botón de play.',
-          'Mientras carga hay un `status` que lo anuncia; si el archivo no está, el error va en texto y no solo en el color del borde.',
-        ]}
-      />
+      <Practices>
+        <Practices.Do>`title` alimenta el `MediaMetadata` del sistema operativo, así que es texto y no un nodo.</Practices.Do>
+        <Practices.Dont>Nada suena sin que alguien lo pida: no hay autoplay.</Practices.Dont>
+      </Practices>
+
+      <A11y>
+        <A11y.Item>El botón cambia de nombre según lo que va a hacer: "Reproducir" y "Pausar".</A11y.Item>
+        <A11y.Item>La línea de tiempo es un `slider` de verdad: flechas, Home, End y las dos de página, todas del navegador.</A11y.Item>
+        <A11y.Item>El `aria-valuetext` dice "0:45 de 1:30" y no "45": un número suelto no significa nada cuando el rango es un archivo.</A11y.Item>
+        <A11y.Item>La onda va `aria-hidden` y el significado lo lleva el slider. Escuchar la forma (lo que un gráfico resolvería con un audio graph) acá ya lo hace el botón de play.</A11y.Item>
+        <A11y.Item>Mientras carga hay un `status` que lo anuncia; si el archivo no está, el error va en texto y no solo en el color del borde.</A11y.Item>
+      </A11y>
     </Page>
   )
 }

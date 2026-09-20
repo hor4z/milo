@@ -4,7 +4,7 @@ import { Card } from '@milo/ui/card'
 import { Chip } from '@milo/ui/chip'
 import { Icon } from '@milo/ui/icon'
 import { Progress } from '@milo/ui/progress'
-import { A11y, Cluster, Note, Page, Props, Section } from '../kit'
+import { A11y, Cluster, Note, Page, Practices, Props, Section } from '../kit'
 
 export function CardStory() {
   return (
@@ -100,12 +100,19 @@ export function CardStory() {
         <Props of="Card" />
       </Section>
 
+      <Section title="Cómo se usa bien">
+        <Practices>
+          <Practices.Do>Se arma con sus partes: `Card.Header`, `Card.Title`, `Card.Body`.</Practices.Do>
+          <Practices.Dont>No la muevas en hover ni le pongas acciones flotando encima: una grilla que salta hace temblar la vista.</Practices.Dont>
+        </Practices>
+      </Section>
+
       <Section title="Accesibilidad">
-        <A11y items={[
-          'CardTitle es un <h3>: la tarjeta entra en el esquema de encabezados de la página en vez de ser texto en negrita.',
-          'La tarjeta no se mueve en hover ni esconde acciones detrás del puntero, así que se descubre igual sin mouse.',
-          'Con interactive, lo que se toca sigue siendo un control de verdad (un link o un botón) y no un div con onClick.',
-        ]} />
+        <A11y>
+          <A11y.Item>{'CardTitle es un <h3>: la tarjeta entra en el esquema de encabezados de la página en vez de ser texto en negrita.'}</A11y.Item>
+          <A11y.Item>La tarjeta no se mueve en hover ni esconde acciones detrás del puntero, así que se descubre igual sin mouse.</A11y.Item>
+          <A11y.Item>Con interactive, lo que se toca sigue siendo un control de verdad (un link o un botón) y no un div con onClick.</A11y.Item>
+        </A11y>
       </Section>
     </Page>
   )

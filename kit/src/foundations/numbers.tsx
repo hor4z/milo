@@ -102,14 +102,12 @@ export function NumbersSection() {
         renglón va con barra, `3/4`, porque apilada cae abajo del piso de 12px del sistema.
       </Note>
 
-      <A11y
-        items={[
-          'El número va con lo que mide en la misma frase: "18 de 24 corregidas" se escucha entero, "18" no.',
-          'Las unidades van enteras en prosa: un lector lee "cuarenta y cinco minutos" y no "cuarenta y cinco eme i ene".',
-          'Un cambio lleva su signo en el texto y no solo en el color: quien no distingue el verde del rojo lee el más y el menos.',
-          'La cifra tabular no cambia lo que se anuncia, cambia que una columna se pueda comparar de un vistazo.',
-        ]}
-      />
+      <A11y>
+        <A11y.Item>El número va con lo que mide en la misma frase: "18 de 24 corregidas" se escucha entero, "18" no.</A11y.Item>
+        <A11y.Item>Las unidades van enteras en prosa: un lector lee "cuarenta y cinco minutos" y no "cuarenta y cinco eme i ene".</A11y.Item>
+        <A11y.Item>Un cambio lleva su signo en el texto y no solo en el color: quien no distingue el verde del rojo lee el más y el menos.</A11y.Item>
+        <A11y.Item>La cifra tabular no cambia lo que se anuncia, cambia que una columna se pueda comparar de un vistazo.</A11y.Item>
+      </A11y>
     </Page>
   )
 }

@@ -1,7 +1,7 @@
 import cls from './slider.module.css'
 import { useState } from 'react'
 import { Slider } from '@milo/ui/slider'
-import { A11y, Footnote, Frame, Mono, Page, Panel, Props, Section, Variant } from '../kit'
+import { A11y, Footnote, Frame, Mono, Page, Panel, Practices, Props, Section, Variant } from '../kit'
 
 export function SliderStory() {
   const [a, setA] = useState(59)
@@ -89,12 +89,18 @@ export function SliderStory() {
         </p>
       </Section>
 
+      <Section title="Cómo se usa bien">
+        <Practices>
+          <Practices.Do>Va cuando el valor exacto no importa; si importa, va un `Stepper`.</Practices.Do>
+        </Practices>
+      </Section>
+
       <Section title="Accesibilidad">
-        <A11y items={[
-          'Es un <input type="range"> de verdad: flechas, Home, End y PageUp funcionan solas.',
-          'El pulgar dibujado toma el foco del input que hay debajo.',
-          'El label lo nombra aunque en pantalla no haya texto al lado.',
-        ]} />
+        <A11y>
+          <A11y.Item>{'Es un <input type="range"> de verdad: flechas, Home, End y PageUp funcionan solas.'}</A11y.Item>
+          <A11y.Item>El pulgar dibujado toma el foco del input que hay debajo.</A11y.Item>
+          <A11y.Item>El label lo nombra aunque en pantalla no haya texto al lado.</A11y.Item>
+        </A11y>
       </Section>
     </Page>
   )

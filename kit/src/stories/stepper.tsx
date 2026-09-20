@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { Field } from '@milo/ui/field'
 import { Stepper } from '@milo/ui/stepper'
-import { A11y, Canvas, Cluster, Note, Page, Panel, Props, Section, Stack, Variant } from '../kit'
+import { A11y, Canvas, Cluster, Note, Page, Panel, Practices, Props, Section, Stack, Variant } from '../kit'
 
 export function StepperStory() {
   const [attempts, setAttempts] = useState(3)
@@ -80,13 +80,19 @@ export function StepperStory() {
         <Props of="Stepper" />
       </Section>
 
+      <Section title="Cómo se usa bien">
+        <Practices>
+          <Practices.Do>`suffix` pone la unidad adentro del campo: no se escribe ni se borra.</Practices.Do>
+        </Practices>
+      </Section>
+
       <Section title="Accesibilidad">
-        <A11y items={[
-          'El campo del medio es un `spinbutton` que dice dónde está y hasta dónde llega, así que un lector anuncia "5, mínimo 1, máximo 10" sin que haga falta mirar los topes.',
-          'Las flechas suben y bajan sin tocar los botones, y por eso los botones no son paradas de tabulación: con ellas serían tres paradas para un solo dato.',
-          'El sufijo viaja en `aria-valuetext` y no como texto aparte: se escucha "45 min" y no "45" y después "min".',
-          'En el tope el botón de ese lado se deshabilita, que es lo que dice que no hay más para ese lado.',
-        ]} />
+        <A11y>
+          <A11y.Item>El campo del medio es un `spinbutton` que dice dónde está y hasta dónde llega, así que un lector anuncia "5, mínimo 1, máximo 10" sin que haga falta mirar los topes.</A11y.Item>
+          <A11y.Item>Las flechas suben y bajan sin tocar los botones, y por eso los botones no son paradas de tabulación: con ellas serían tres paradas para un solo dato.</A11y.Item>
+          <A11y.Item>El sufijo viaja en `aria-valuetext` y no como texto aparte: se escucha "45 min" y no "45" y después "min".</A11y.Item>
+          <A11y.Item>En el tope el botón de ese lado se deshabilita, que es lo que dice que no hay más para ese lado.</A11y.Item>
+        </A11y>
       </Section>
     </Page>
   )

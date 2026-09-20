@@ -15,7 +15,9 @@ describe('las piezas del propio kit', () => {
   })
 
   it('la lista de accesibilidad también los interpreta', () => {
-    const { container } = render(<A11y items={['La región lleva `aria-label`.']} />)
+    const { container } = render(<A11y>
+  <A11y.Item>La región lleva `aria-label`.</A11y.Item>
+</A11y>)
     expect(container.querySelector('code')?.textContent).toBe('aria-label')
   })
 })

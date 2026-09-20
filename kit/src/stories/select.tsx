@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { Avatar } from '@milo/ui/avatar'
 import { Icon } from '@milo/ui/icon'
 import { Select } from '@milo/ui/select'
-import { A11y, Cluster, Demo, Page, Props, Section } from '../kit'
+import { A11y, Cluster, Demo, Page, Practices, Props, Section } from '../kit'
 
 export function SelectStory() {
   const [level, setLevel] = useState('6.º grado')
@@ -115,15 +115,22 @@ export function SelectStory() {
         <Props of="Select" />
       </Section>
 
+      <Section title="Cómo se usa bien">
+        <Practices>
+          <Practices.Do>{'Es un botón con listbox propio y no un `<select>` nativo: la lista del sistema operativo no se puede estilar.'}</Practices.Do>
+          <Practices.Dont>Para más de una decena de opciones va un buscador, no una lista larga.</Practices.Dont>
+        </Practices>
+      </Section>
+
       <Section title="Accesibilidad">
-        <A11y items={[
-          'Flechas para moverse, Enter para elegir, Escape para salir, Home y End a los extremos. La flecha abajo también abre la lista.',
-          'Teclear salta a la opción que empieza así, sin tildes y sin distinguir mayúsculas: con veinte opciones es la diferencia entre usable y no.',
-          'El foco se queda en el control y la opción activa se anuncia con `aria-activedescendant`: un lector de pantalla dice cuál está señalada.',
-          'Las opciones no son paradas de tabulación: Tab sale del control, no recorre las veinte.',
-          'Escape entra en la pila global: cierra la lista y deja abierto el modal que haya detrás.',
-          'Con `loading` no abre y avisa `aria-busy`, en vez de mostrar una lista vacía.',
-        ]} />
+        <A11y>
+          <A11y.Item>Flechas para moverse, Enter para elegir, Escape para salir, Home y End a los extremos. La flecha abajo también abre la lista.</A11y.Item>
+          <A11y.Item>Teclear salta a la opción que empieza así, sin tildes y sin distinguir mayúsculas: con veinte opciones es la diferencia entre usable y no.</A11y.Item>
+          <A11y.Item>El foco se queda en el control y la opción activa se anuncia con `aria-activedescendant`: un lector de pantalla dice cuál está señalada.</A11y.Item>
+          <A11y.Item>Las opciones no son paradas de tabulación: Tab sale del control, no recorre las veinte.</A11y.Item>
+          <A11y.Item>Escape entra en la pila global: cierra la lista y deja abierto el modal que haya detrás.</A11y.Item>
+          <A11y.Item>Con `loading` no abre y avisa `aria-busy`, en vez de mostrar una lista vacía.</A11y.Item>
+        </A11y>
       </Section>
     </Page>
   )
