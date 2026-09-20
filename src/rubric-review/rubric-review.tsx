@@ -2,11 +2,12 @@ import s from './rubric-review.module.css'
 import { useId, useState, type ReactNode } from 'react'
 import { Avatar } from '../avatar/avatar'
 import { Button } from '../button/button'
+import { Chip } from '../chip/chip'
 import { CriterionCard, type Criterion, type Met } from '../criterion-card/criterion-card'
 import { Icon } from '../icon/icon'
 import { Textarea } from '../textarea/textarea'
 import { cx } from '../lib/cx'
-import { labelFill } from '../lib/colors'
+import { labelFill, labelSoft } from '../lib/colors'
 import { counted } from '../lib/number'
 import { takePart } from '../lib/parts'
 
@@ -49,10 +50,10 @@ function Signature({ by }: { by: Reviewer }) {
   return (
     <span className={s.by}>
       {by.assistant
-        ? <span aria-hidden className={s.bot}><Icon name="smart_toy" size={14} /></span>
+        ? <span aria-hidden className={`${s.bot} ${labelSoft.blue}`}><Icon name="smart_toy" size={14} /></span>
         : <Avatar name={by.name} src={by.src} size={20} />}
       <span className={s.byName}>{by.name}</span>
-      {by.assistant && <span className={s.badge}>asistente</span>}
+      {by.assistant && <Chip size="sm" color="blue">asistente</Chip>}
     </span>
   )
 }
