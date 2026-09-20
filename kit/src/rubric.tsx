@@ -154,9 +154,7 @@ export function RubricRail({ mode }: { mode: RubricMode }) {
                 {level}
               </Checklist.Item>
             ))}
-            <Checklist.Footer>
-              Vale {share(c.weight, total).percent} de la nota. Cada renglón incluye al anterior.
-            </Checklist.Footer>
+            <Checklist.Footer>Vale {share(c.weight, total).percent} de la nota.</Checklist.Footer>
           </Checklist>
         ))}
       </div>
