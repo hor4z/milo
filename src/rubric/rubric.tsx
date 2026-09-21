@@ -26,6 +26,8 @@ export type CriterionDraft = {
 
 const emptyLevels = ['', '', '', '']
 
+const levelPlaceholders = ['Lo mínimo', 'A mitad de camino', 'Lo pedido', 'Más de lo pedido']
+
 const levelHints = [
   'Lo más flojo que se puede llegar a ver.',
   'Va por buen camino, pero le falta.',
@@ -229,6 +231,7 @@ function Root({ criteria, onAdd, onRemove, defaultOpen = true, children, classNa
                       <TextField
                         size="sm"
                         value={level}
+                        placeholder={levelPlaceholders[i]}
                         onChange={e => setLevels(ls => ls.map((l, j) => (j === i ? e.target.value : l)))}
                         onKeyDown={e => { if (e.key === 'Escape') closeForm() }}
                       />
