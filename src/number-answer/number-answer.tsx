@@ -18,7 +18,7 @@ function Hint({ children }: { children: ReactNode }) {
 
 /** Un número que sale de una cuenta: un promedio, una diferencia, una métrica. La tolerancia existe porque una medición no da siempre lo mismo, así que la respuesta es un rango y no un valor. */
 function Root({
-  value, onChange, unit, expected, tolerance = 0, revealed, readOnly, children, className,
+  value, onChange, unit, placeholder, expected, tolerance = 0, revealed, readOnly, children, className,
 }: {
   /** Lo escrito, tal cual, para no pelearle al que está tipeando. */
   value: string
@@ -26,6 +26,8 @@ function Root({
   onChange?: (next: string) => void
   /** Lo que se mide: dB, cm, segundos. Va pegado al campo, no adentro del número. */
   unit?: string
+  /** La forma que se espera, no el número que va: con `expected` puesto, un ejemplo verosímil se copia y la pregunta deja de preguntar nada. */
+  placeholder?: string
   /** El valor al que hay que llegar. Sin `revealed` no se dibuja. */
   expected?: number
   /** El margen para arriba y para abajo. En cero, la respuesta es exacta. */
@@ -58,6 +60,7 @@ function Root({
           size="sm"
           inputMode="decimal"
           value={value}
+          placeholder={placeholder}
           readOnly={quieto}
           aria-labelledby={promptId}
           onChange={e => onChange?.(e.target.value)}

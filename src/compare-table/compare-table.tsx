@@ -19,6 +19,8 @@ export type CompareRow = {
   id: string
   /** Qué se mira en ese renglón. */
   label: string
+  /** Un ejemplo de la forma que se espera, no de la respuesta: se ve con la celda vacía y se va al escribir. */
+  placeholder?: string
 }
 
 /** Qué se compara y para qué. */
@@ -33,7 +35,7 @@ function Hint({ children }: { children: ReactNode }) {
 
 /** Un cuadro comparativo que se completa: dos o tres cosas en las columnas, en qué se las mira en los renglones. La grilla es de quien arma la consigna y las celdas son de quien la resuelve, así que nadie compara peras con manzanas por accidente. */
 function Root({
-  rows, columns, value, onChange, readOnly, children, className,
+  rows, columns, value, onChange, lines = 1, readOnly, children, className,
 }: {
   /** En qué se comparan, en el orden en que se leen. */
   rows: CompareRow[]
@@ -43,6 +45,8 @@ function Root({
   value: Record<string, Record<string, string>>
   /** Recibe el renglón, la columna y el texto nuevo. */
   onChange?: (rowId: string, columnId: string, next: string) => void
+  /** Los renglones de arranque de cada celda. Uno, porque acá entra una frase: la celda crece sola hasta el triple si hace falta. */
+  lines?: number
   /** Se lee y no se completa. */
   readOnly?: boolean
   /** El `CompareTable.Prompt` y, si hace falta, el `CompareTable.Hint`. */
@@ -56,6 +60,8 @@ function Root({
 
   const quieto = readOnly || !onChange
   const celda = (r: CompareRow, c: CompareColumn) => value[r.id]?.[c.id] ?? ''
+  const nombra = (r: CompareRow, c: CompareColumn) =>
+    columns.length === 1 ? r.label : `${r.label} de ${c.label}`
 
   return (
     <div className={cx(s.root, className)}>
@@ -79,10 +85,11 @@ function Root({
                     ? <span className={cx(s.text, !celda(r, c) && s.empty)}>{celda(r, c) || 'Sin completar'}</span>
                     : (
                         <Textarea
-                          rows={2}
-                          maxRows={4}
+                          rows={lines}
+                          maxRows={lines * 3}
                           value={celda(r, c)}
-                          aria-label={`${r.label} de ${c.label}`}
+                          placeholder={r.placeholder}
+                          aria-label={nombra(r, c)}
                           onChange={e => onChange(r.id, c.id, e.target.value)}
                         />
                       )}

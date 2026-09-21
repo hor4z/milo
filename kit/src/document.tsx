@@ -75,26 +75,26 @@ const salidas = [
 ]
 
 const cliente = [
-  { id: 'quien', label: '¿Quién te compra?' },
-  { id: 'edad', label: '¿Qué edad tiene?' },
-  { id: 'problema', label: '¿Qué le resolvés?' },
-  { id: 'porque', label: '¿Por qué a vos y no al que ya está?' },
+  { id: 'quien', label: '¿Quién te compra?', placeholder: 'Los que salen del club a la noche' },
+  { id: 'edad', label: '¿Qué edad tiene?', placeholder: 'Entre 15 y 25' },
+  { id: 'problema', label: '¿Qué le resolvés?', placeholder: 'No hay nada abierto después de las 22' },
+  { id: 'porque', label: '¿Por qué a vos y no al que ya está?', placeholder: 'Porque llevo hasta la puerta y el otro no' },
 ]
 
 const gastos = [
-  { id: 'materia', label: 'Materia prima o productos' },
-  { id: 'herramientas', label: 'Herramientas' },
-  { id: 'packaging', label: 'Packaging' },
-  { id: 'publicidad', label: 'Publicidad' },
-  { id: 'transporte', label: 'Transporte' },
-  { id: 'otros', label: 'Otros' },
+  { id: 'materia', label: 'Materia prima o productos', qtyExample: 'bolsas', priceExample: 'cada una' },
+  { id: 'herramientas', label: 'Herramientas', qtyExample: 'cuántas', priceExample: 'cada una' },
+  { id: 'packaging', label: 'Packaging', qtyExample: 'unidades', priceExample: 'cada una' },
+  { id: 'publicidad', label: 'Publicidad', qtyExample: 'meses', priceExample: 'por mes' },
+  { id: 'transporte', label: 'Transporte', qtyExample: 'viajes', priceExample: 'por viaje' },
+  { id: 'otros', label: 'Otros', qtyExample: 'cuántos', priceExample: 'cada uno' },
 ]
 
 const frentes = [
-  { id: 'producto', label: 'Producto' },
-  { id: 'precio', label: 'Precio' },
-  { id: 'publico', label: 'Público' },
-  { id: 'venta', label: 'Forma de venta' },
+  { id: 'producto', label: 'Producto', placeholder: 'Qué vende exactamente' },
+  { id: 'precio', label: 'Precio', placeholder: 'Cuánto cobra hoy' },
+  { id: 'publico', label: 'Público', placeholder: 'A quién le vende' },
+  { id: 'venta', label: 'Forma de venta', placeholder: 'Local, redes, encargo' },
 ]
 
 const competidores = [
@@ -240,7 +240,7 @@ export function DocumentStory() {
             segundo número, que vuelve en el punto 5.
           </p>
 
-          <NumberAnswer value={precio} onChange={setPrecio} unit="$" revealed={corregido}>
+          <NumberAnswer value={precio} onChange={setPrecio} unit="$" placeholder="4000" revealed={corregido}>
             <NumberAnswer.Prompt>¿A cuánto la vendés?</NumberAnswer.Prompt>
             <NumberAnswer.Hint>No hay respuesta correcta acá: la que elijas manda en todas las cuentas que siguen.</NumberAnswer.Hint>
           </NumberAnswer>
@@ -301,7 +301,8 @@ export function DocumentStory() {
             <CompareTable.Hint>Reales: con nombre, y con el precio que cobran de verdad.</CompareTable.Hint>
           </CompareTable>
 
-          <OpenQuestion value={diferencia} onChange={setDiferencia} rows={2} maxLength={240}>
+          <OpenQuestion value={diferencia} onChange={setDiferencia} rows={2} maxLength={240}
+            placeholder="Ninguno de los dos entrega de noche, y ahí es cuando la gente lo quiere">
             <OpenQuestion.Prompt>¿Qué tendría el tuyo que no tienen esos dos?</OpenQuestion.Prompt>
           </OpenQuestion>
 

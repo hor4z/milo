@@ -77,4 +77,14 @@ describe('Textarea', () => {
     const { container } = render(<Textarea aria-label="Devolución" counter maxLength={100} value={'\u{1F600}\u{1F600}'} onChange={() => {}} />)
     expect(counter(container)).toBe('2/100')
   })
+
+  it('el placeholder no cambia el tamaño de la caja: una pista es una pista', () => {
+    const corto = render(<Textarea rows={1} value="" onChange={() => {}} placeholder="Ok" />)
+    const alto = corto.container.querySelector('textarea')!.style.height
+    corto.unmount()
+    const largo = render(
+      <Textarea rows={1} value="" onChange={() => {}} placeholder={'Una pista larguísima que en una celda angosta se va a partir en tres renglones distintos'} />,
+    )
+    expect(largo.container.querySelector('textarea')!.style.height).toBe(alto)
+  })
 })

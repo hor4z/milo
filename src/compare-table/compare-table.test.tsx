@@ -26,6 +26,11 @@ describe('CompareTable', () => {
     expect(screen.getByRole('textbox', { name: 'Público de Tu emprendimiento' })).toBeInTheDocument()
   })
 
+  it('con una sola columna el nombre de la celda es el renglón, porque la columna no distingue nada', () => {
+    render(<Cuadro columns={[{ id: 'vos', label: 'Tu respuesta' }]} />)
+    expect(screen.getByRole('textbox', { name: 'Precio' })).toBeInTheDocument()
+  })
+
   it('devuelve el renglón, la columna y el texto', async () => {
     const onChange = vi.fn()
     render(<Cuadro onChange={onChange} />)
@@ -36,6 +41,11 @@ describe('CompareTable', () => {
   it('la grilla es de quien arma la consigna: las columnas y los renglones no se agregan desde adentro', () => {
     render(<Cuadro />)
     expect(screen.getAllByRole('textbox')).toHaveLength(4)
+  })
+
+  it('una celda arranca en un renglón, porque acá entra una frase y no un párrafo', () => {
+    render(<Cuadro />)
+    expect(screen.getAllByRole('textbox')[0]).toHaveAttribute('rows', '1')
   })
 
   it('de solo lectura muestra el texto, y una celda vacía lo dice', () => {

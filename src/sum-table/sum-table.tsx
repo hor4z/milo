@@ -13,6 +13,10 @@ export type SumRow = {
   id: string
   /** En qué se gasta. */
   label: string
+  /** Un ejemplo de qué se cuenta acá: bolsas, horas, unidades. */
+  qtyExample?: string
+  /** Un ejemplo de a cuánto, con la forma que se espera y no con el número que va. */
+  priceExample?: string
 }
 
 /** Lo que alguien cargó en un renglón, tal cual lo escribió. */
@@ -102,6 +106,7 @@ function Root({
                     size="sm"
                     inputMode="decimal"
                     value={celda.qty}
+                    placeholder={r.qtyExample}
                     readOnly={quieto}
                     aria-label={`Cantidad de ${r.label}`}
                     onChange={e => escribir(r, 'qty', e.target.value)}
@@ -113,6 +118,7 @@ function Root({
                     size="sm"
                     inputMode="decimal"
                     value={celda.price}
+                    placeholder={r.priceExample}
                     readOnly={quieto}
                     aria-label={`Precio de ${r.label}`}
                     onChange={e => escribir(r, 'price', e.target.value)}

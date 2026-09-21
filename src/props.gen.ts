@@ -957,6 +957,13 @@ export const propsByComponent: Record<string, ComponentDoc> = {
         "doc": "Recibe el renglón, la columna y el texto nuevo."
       },
       {
+        "name": "lines",
+        "type": "number",
+        "required": false,
+        "def": "1",
+        "doc": "Los renglones de arranque de cada celda. Uno, porque acá entra una frase: la celda crece sola hasta el triple si hace falta."
+      },
+      {
         "name": "readOnly",
         "type": "boolean",
         "required": false,
@@ -1026,6 +1033,12 @@ export const propsByComponent: Record<string, ComponentDoc> = {
         "type": "string",
         "required": true,
         "doc": "Qué se mira en ese renglón."
+      },
+      {
+        "name": "placeholder",
+        "type": "string",
+        "required": false,
+        "doc": "Un ejemplo de la forma que se espera, no de la respuesta: se ve con la celda vacía y se va al escribir."
       }
     ],
     "doc": "En qué se las compara: un renglón por aspecto."
@@ -2195,6 +2208,12 @@ export const propsByComponent: Record<string, ComponentDoc> = {
         "type": "string",
         "required": false,
         "doc": "Lo que se mide: dB, cm, segundos. Va pegado al campo, no adentro del número."
+      },
+      {
+        "name": "placeholder",
+        "type": "string",
+        "required": false,
+        "doc": "La forma que se espera, no el número que va: con `expected` puesto, un ejemplo verosímil se copia y la pregunta deja de preguntar nada."
       },
       {
         "name": "expected",
@@ -3521,6 +3540,18 @@ export const propsByComponent: Record<string, ComponentDoc> = {
         "type": "string",
         "required": true,
         "doc": "En qué se gasta."
+      },
+      {
+        "name": "qtyExample",
+        "type": "string",
+        "required": false,
+        "doc": "Un ejemplo de qué se cuenta acá: bolsas, horas, unidades."
+      },
+      {
+        "name": "priceExample",
+        "type": "string",
+        "required": false,
+        "doc": "Un ejemplo de a cuánto, con la forma que se espera y no con el número que va."
       }
     ],
     "doc": "Un renglón de la tabla: el concepto, que lo escribe quien arma la consigna."
