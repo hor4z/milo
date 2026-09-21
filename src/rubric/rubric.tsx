@@ -10,7 +10,7 @@ import { Textarea } from '../textarea/textarea'
 import { TextField } from '../text-field/text-field'
 import { Tooltip } from '../tooltip/tooltip'
 import { cx } from '../lib/cx'
-import { useDismiss } from '../lib/dismiss'
+import { useOutside } from '../lib/dismiss'
 import { labelFill } from '../lib/colors'
 import { counted, share } from '../lib/number'
 import { useDisclosure } from '../lib/use-disclosure'
@@ -73,7 +73,7 @@ function Root({ criteria, onAdd, onRemove, defaultOpen = true, children, classNa
   const active = lit ?? pinned
   const roving = useRovingRadio(active ?? criteria[0]?.id ?? '', setPinned, criteria.map(c => ({ value: c.id })))
 
-  useDismiss(!!pinned, () => setPinned(null), [rootRef])
+  useOutside(!!pinned, () => setPinned(null), [rootRef])
 
 
   const mounted = useRef(false)

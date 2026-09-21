@@ -152,13 +152,6 @@
     color: var(--text);
   }
 
-  .furtherHeading {
-    font-size: var(--type-title);
-    line-height: var(--type-title-lh);
-    letter-spacing: var(--type-title-ls);
-    font-weight: var(--font-weight-semibold);
-    color: var(--text);
-  }
 
 
   .columns {

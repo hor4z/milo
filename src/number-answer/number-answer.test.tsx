@@ -1,28 +1,13 @@
 import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { describe, expect, it, vi } from 'vitest'
-import { NumberAnswer, parseNumber } from './number-answer'
+import { NumberAnswer } from './number-answer'
 
 const Cuenta = (props: Partial<Parameters<typeof NumberAnswer>[0]> = {}) => (
   <NumberAnswer value="" onChange={() => {}} unit="dB" {...props}>
     <NumberAnswer.Prompt>El promedio del patio</NumberAnswer.Prompt>
   </NumberAnswer>
 )
-
-describe('parseNumber', () => {
-  it('acepta la coma, que es como se escribe acá', () => {
-    expect(parseNumber('72,3')).toBe(72.3)
-  })
-
-  it('acepta el punto, que es lo que manda el teclado del celular', () => {
-    expect(parseNumber('72.3')).toBe(72.3)
-  })
-
-  it('lo que no es un número no es cero: es nada', () => {
-    expect(parseNumber('mucho')).toBeNull()
-    expect(parseNumber('')).toBeNull()
-  })
-})
 
 describe('NumberAnswer', () => {
   it('el enunciado nombra al campo', () => {
@@ -63,9 +48,16 @@ describe('NumberAnswer', () => {
     expect(screen.getByText('Da 22 dB')).toBeInTheDocument()
   })
 
-  it('corregida no se vuelve a responder', () => {
+  it('corregida no se vuelve a responder, pero sigue legible: es el momento en que se compara', () => {
     render(<Cuenta value="70" expected={72.3} revealed />)
-    expect(screen.getByRole('textbox')).toBeDisabled()
+    const campo = screen.getByRole('textbox')
+    expect(campo).toHaveAttribute('readonly')
+    expect(campo).not.toBeDisabled()
+  })
+
+  it('el valor que muestra es el mismo contra el que compara, sin redondearlo', () => {
+    render(<Cuenta value="72,4" expected={72.35} revealed />)
+    expect(screen.getByText('Da 72,35 dB')).toBeInTheDocument()
   })
 
   it('la línea de apoyo es opcional y no deja el hueco cuando no está', () => {

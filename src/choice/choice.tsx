@@ -54,8 +54,9 @@ function Root({
 
   const quieto = revealed || readOnly
   const marcado = (o: Option) => value.includes(o.id)
-  const acertada = (o: Option) => revealed && correct?.includes(o.id)
-  const errada = (o: Option) => revealed && marcado(o) && !correct?.includes(o.id)
+  const corrige = revealed && correct !== undefined
+  const acertada = (o: Option) => corrige && correct.includes(o.id)
+  const errada = (o: Option) => corrige && marcado(o) && !correct.includes(o.id)
 
   const toggle = (o: Option) => {
     if (quieto) return
@@ -105,14 +106,14 @@ function Root({
                   )}
             </span>
             <span className={s.text}>{o.label}</span>
-            {acertada(o) && (
-              <span aria-hidden className={s.trailing}>
-                <Icon name="check" size={14} weight={600} />
+            {(acertada(o) || errada(o)) && (
+              <span aria-hidden className={cx(s.trailing, acertada(o) ? s.metMark : s.unmetMark)}>
+                <Icon name={acertada(o) ? 'check' : 'remove'} size={14} weight={600} />
               </span>
             )}
-            {revealed && (
+            {corrige && (
               <span className="sr-only">
-                {correct?.includes(o.id) ? ', es una de las que iban' : marcado(o) ? ', esta no iba' : ''}
+                {acertada(o) ? ', es una de las que iban' : errada(o) ? ', esta no iba' : ''}
               </span>
             )}
           </label>

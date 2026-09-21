@@ -214,6 +214,16 @@
     overflow-wrap: anywhere;
   }
 
+  .levelName {
+    font-weight: var(--font-weight-semibold);
+    color: var(--text);
+  }
+
+  .separator {
+    padding-inline: 0.25rem;
+    color: var(--text-muted);
+  }
+
   .stepMet {
     color: var(--text);
   }

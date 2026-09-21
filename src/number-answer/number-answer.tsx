@@ -3,16 +3,8 @@ import { useId, type ReactNode } from 'react'
 import { Icon } from '../icon/icon'
 import { TextField } from '../text-field/text-field'
 import { cx } from '../lib/cx'
-import { count, decimals, withUnit } from '../lib/number'
+import { amount, parseNumber } from '../lib/number'
 import { takePart } from '../lib/parts'
-
-/** Lo escrito, como número. Acepta la coma y el punto, porque acá se escribe "7,5" y el teclado del celular manda un punto. */
-export function parseNumber(raw: string): number | null {
-  const limpio = raw.replace(/\s/g, '').replace(',', '.')
-  if (limpio === '' || !/^-?\d*\.?\d*$/.test(limpio)) return null
-  const n = Number(limpio)
-  return Number.isFinite(n) ? n : null
-}
 
 /** Qué hay que calcular. */
 function Prompt({ children }: { children: ReactNode }) {
@@ -51,8 +43,7 @@ function Root({
   const [prompt, rest] = takePart(children, Prompt)
   const [hint] = takePart(rest, Hint)
 
-  const escrito = (v: number) => (Number.isInteger(v) ? count(v) : decimals(v, 1))
-  const conUnidad = (v: number) => (unit ? withUnit(v, unit, Number.isInteger(v) ? 0 : 1) : escrito(v))
+  const conUnidad = (v: number) => (unit ? `${amount(v)} ${unit}` : amount(v))
   const n = parseNumber(value)
   const quieto = revealed || readOnly || !onChange
   const acertó = revealed && expected !== undefined && n !== null && Math.abs(n - expected) <= tolerance
@@ -67,7 +58,7 @@ function Root({
           size="sm"
           inputMode="decimal"
           value={value}
-          disabled={quieto}
+          readOnly={quieto}
           aria-labelledby={promptId}
           onChange={e => onChange?.(e.target.value)}
           suffix={unit ? <span className={s.unit}>{unit}</span> : undefined}
@@ -80,7 +71,7 @@ function Root({
             </span>
             {acertó
               ? 'Cae adentro del margen'
-              : `Da ${conUnidad(expected)}${tolerance ? `, con ${escrito(tolerance)} de margen` : ''}`}
+              : `Da ${conUnidad(expected)}${tolerance ? `, con ${amount(tolerance)} de margen` : ''}`}
           </p>
         )}
       </div>

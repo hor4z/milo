@@ -7,11 +7,11 @@ import { A11y, Canvas, Example, Frame, Note, Page, Practices, Props, Section } f
 type Block = ReorderItem & { icon: IconName; meta: string }
 
 const initial: Block[] = [
-  { id: 'titulo', label: 'Título', icon: 'format_h1', meta: 'El mapa del ruido de la escuela' },
-  { id: 'aviso', label: 'Bloque destacado', icon: 'lightbulb', meta: 'Antes de subir al primer piso' },
-  { id: 'cita', label: 'Cita', icon: 'format_quote', meta: 'Galileo, Diálogos sobre dos nuevas ciencias' },
-  { id: 'tareas', label: 'Lista de tareas', icon: 'checklist', meta: 'Cuatro cosas para entregar' },
-  { id: 'imagen', label: 'Imagen', icon: 'image', meta: 'Otto, con su pie' },
+  { id: 'titulo', label: 'Título', icon: 'format_h1', meta: 'Creá tu propio emprendimiento' },
+  { id: 'aviso', label: 'Bloque destacado', icon: 'lightbulb', meta: 'La pregunta que hay que contestar' },
+  { id: 'presupuesto', label: 'Tabla que se suma', icon: 'table_rows', meta: 'Repartí los $100.000' },
+  { id: 'precio', label: 'Respuesta numérica', icon: 'calculate', meta: 'El margen por unidad' },
+  { id: 'competencia', label: 'Cuadro comparativo', icon: 'compare_arrows', meta: 'Contra quién competís' },
 ]
 
 export function ReorderStory() {

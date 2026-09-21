@@ -63,6 +63,9 @@
       "@milo/ui/command-menu": [
         "./src/command-menu/command-menu.tsx"
       ],
+      "@milo/ui/compare-table": [
+        "./src/compare-table/compare-table.tsx"
+      ],
       "@milo/ui/confirm-dialog": [
         "./src/confirm-dialog/confirm-dialog.tsx"
       ],
@@ -194,6 +197,9 @@
       ],
       "@milo/ui/steps": [
         "./src/steps/steps.tsx"
+      ],
+      "@milo/ui/sum-table": [
+        "./src/sum-table/sum-table.tsx"
       ],
       "@milo/ui/switch": [
         "./src/switch/switch.tsx"

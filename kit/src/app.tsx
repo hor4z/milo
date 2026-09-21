@@ -77,6 +77,8 @@ import { BreadcrumbStory } from './stories/breadcrumb'
 import { IndicatorStory } from './stories/indicator'
 import { SearchStory } from './stories/search'
 import { ChoiceStory } from './stories/choice'
+import { CompareTableStory } from './stories/compare-table'
+import { SumTableStory } from './stories/sum-table'
 import { NumberAnswerStory } from './stories/number-answer'
 import { OpenQuestionStory } from './stories/open-question'
 import { ColumnPickerStory } from './stories/column-picker'
@@ -192,6 +194,8 @@ const groups: Group[] = [
       { id: 'table', label: 'Tabla', alias: 'Table tabla grilla filas columnas datos', render: () => <TableStory /> },
       { id: 'list', label: 'Lista', alias: 'lista filas acciones', render: () => <ListStory /> },
       { id: 'bar-chart', label: 'Gráfico de barras', alias: 'BarChart gráfico barras chart datos progreso visualización ejes leyenda tabla', render: () => <ChartStory /> },
+      { id: 'sum-table', label: 'Tabla que se suma', alias: 'SumTable presupuesto suma total costeo materiales tope capital gasto', render: () => <SumTableStory /> },
+      { id: 'compare-table', label: 'Cuadro comparativo', alias: 'CompareTable comparar cuadro grilla competencia contrastar completar', render: () => <CompareTableStory /> },
       { id: 'column-picker', label: 'Selector de columnas', alias: 'ColumnPicker columnas tabla elegir mostrar ocultar', render: () => <ColumnPickerStory /> },
       { id: 'indicator', label: 'Indicador', alias: 'Indicator indicador badge marca punto contador aviso notificación campana', render: () => <IndicatorStory /> },
       {

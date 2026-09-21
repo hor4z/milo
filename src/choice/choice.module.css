@@ -67,6 +67,7 @@
   }
 
   .unmet {
+    border-color: var(--yellow-border);
     background-color: var(--yellow-soft);
   }
 
@@ -90,8 +91,16 @@
     justify-content: center;
     border-radius: var(--radius-full);
     margin-block: calc((var(--band) - 1.125rem) / 2);
+  }
+
+  .metMark {
     background-color: var(--ok-fill);
     color: var(--on-ok);
+  }
+
+  .unmetMark {
+    background-color: var(--yellow-soft);
+    color: var(--yellow-ink);
   }
 
   @media (hover: hover) {

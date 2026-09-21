@@ -41,6 +41,7 @@ export const codepoints = {
   cloud_download: 0xe2c0,
   cloud_upload: 0xe2c3,
   code: 0xe86f,
+  compare_arrows: 0xe915,
   content_copy: 0xe14d,
   content_cut: 0xe14e,
   content_paste: 0xe14f,

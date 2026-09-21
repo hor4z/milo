@@ -82,6 +82,17 @@ describe('Choice', () => {
     expect(screen.getByRole('radio', { name: /La del agua fría, esta no iba/ })).toBeInTheDocument()
   })
 
+  it('revelar sin saber cuáles iban no marca nada: no tener la respuesta no es que todo esté mal', () => {
+    render(<Pregunta value={['fria']} revealed />)
+    expect(screen.queryByText(/esta no iba/)).not.toBeInTheDocument()
+    expect(screen.queryByText(/es una de las que iban/)).not.toBeInTheDocument()
+  })
+
+  it('lo marcado de más también lleva glifo, porque el color no dice nada solo', () => {
+    const { container } = render(<Pregunta value={['fria']} correct={['sin']} revealed />)
+    expect(container.querySelectorAll('[class*=Mark]')).toHaveLength(2)
+  })
+
   it('una pregunta corregida no se vuelve a responder', async () => {
     const onChange = vi.fn()
     render(<Pregunta value={['fria']} correct={['sin']} revealed onChange={onChange} />)

@@ -12,6 +12,9 @@ import { share } from '../lib/number'
 /** Cómo quedó un renglón al corregirlo: lo hizo, no lo hizo, o todavía nadie lo miró. */
 export type Met = boolean | undefined
 
+/** Los cuatro escalones, del más flojo al más completo. Son los que usa el sistema educativo y no una escala propia: quien corrige ya los tiene en la cabeza y quien entregó los escuchó toda su escolaridad. Van en este orden y no al revés, porque el renglón de más abajo es hacia dónde ir. */
+export const levelNames = ['Inicial', 'En proceso', 'Bueno', 'Excelente'] as const
+
 /** Lo que entra en un aspecto. El nombre se lee plegado y por eso va corto; la descripción se lee al abrirlo, así que tiene más aire pero tampoco es un párrafo. */
 export const criterionLimits = { label: 56, detail: 220 } as const
 
@@ -29,6 +32,14 @@ export type Criterion = {
   color: LabelColor
   /** Qué se ve en la entrega, del renglón más flojo al más completo. */
   levels: string[]
+  /** Cómo se llama cada escalón. Con cuatro renglones y sin esto toma los del sistema educativo; con otra cantidad, los renglones van sin nombre. */
+  levelNames?: string[]
+}
+
+/** El nombre de cada escalón, si esta rúbrica tiene nombres que poner. */
+function namesFor(criterion: Criterion): string[] | undefined {
+  if (criterion.levelNames) return criterion.levelNames
+  return criterion.levels.length === levelNames.length ? [...levelNames] : undefined
 }
 
 function Pick({ value, label, onPick }: {
@@ -141,7 +152,9 @@ export function CriterionCard({ criterion, total, open, onToggle, onRemove, met,
           <Card.Body className={s.levels}>
             {criterion.detail && <p className={s.hint}>{criterion.detail}</p>}
             <ul className={s.ladder}>
-              {criterion.levels.map((text, i) => (
+              {criterion.levels.map((text, i) => {
+                const nombre = namesFor(criterion)?.[i]
+                return (
                 <li key={text} className={cx(s.step, s.row)}>
                   {onMet
                     ? <Pick value={met?.[i]} label={text} onPick={v => onMet(i, v)} />
@@ -153,13 +166,20 @@ export function CriterionCard({ criterion, total, open, onToggle, onRemove, met,
                         )
                       : <span aria-hidden className={s.bullet} />}
                   <span className={cx(s.stepText, met?.[i] && s.stepMet)}>
+                    {nombre && (
+                      <>
+                        <span className={s.levelName}>{nombre}</span>
+                        <span aria-hidden className={s.separator}>·</span>
+                      </>
+                    )}
                     {text}
                     {met && !onMet && (
                       <span className="sr-only">{met[i] ? ', cumplido' : ', todavía no'}</span>
                     )}
                   </span>
                 </li>
-              ))}
+                )
+              })}
             </ul>
             {children}
           </Card.Body>

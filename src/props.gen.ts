@@ -930,6 +930,106 @@ export const propsByComponent: Record<string, ComponentDoc> = {
       }
     ]
   },
+  "CompareTable": {
+    "props": [
+      {
+        "name": "rows",
+        "type": "CompareRow[]",
+        "required": true,
+        "doc": "En qué se comparan, en el orden en que se leen."
+      },
+      {
+        "name": "columns",
+        "type": "CompareColumn[]",
+        "required": true,
+        "doc": "Qué se compara. Dos o tres entran; con más, el cuadro se lee de costado."
+      },
+      {
+        "name": "value",
+        "type": "Record<string, Record<string, string>>",
+        "required": true,
+        "doc": "Lo cargado, por renglón y después por columna."
+      },
+      {
+        "name": "onChange",
+        "type": "(rowId: string, columnId: string, next: string) => void",
+        "required": false,
+        "doc": "Recibe el renglón, la columna y el texto nuevo."
+      },
+      {
+        "name": "readOnly",
+        "type": "boolean",
+        "required": false,
+        "doc": "Se lee y no se completa."
+      },
+      {
+        "name": "children",
+        "type": "ReactNode",
+        "required": true,
+        "doc": "El `CompareTable.Prompt` y, si hace falta, el `CompareTable.Hint`."
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "required": false
+      }
+    ],
+    "doc": "Un cuadro comparativo que se completa: dos o tres cosas en las columnas, en qué se las mira en los renglones. La grilla es de quien arma la consigna y las celdas son de quien la resuelve, así que nadie compara peras con manzanas por accidente."
+  },
+  "CompareTable.Prompt": {
+    "props": [
+      {
+        "name": "children",
+        "type": "ReactNode",
+        "required": true
+      }
+    ],
+    "doc": "Qué se compara y para qué."
+  },
+  "CompareTable.Hint": {
+    "props": [
+      {
+        "name": "children",
+        "type": "ReactNode",
+        "required": true
+      }
+    ],
+    "doc": "La línea de apoyo: dónde buscar lo que va en cada celda."
+  },
+  "CompareColumn": {
+    "props": [
+      {
+        "name": "id",
+        "type": "string",
+        "required": true,
+        "doc": "Único en el cuadro."
+      },
+      {
+        "name": "label",
+        "type": "string",
+        "required": true,
+        "doc": "Cómo se llama esa cosa."
+      }
+    ],
+    "doc": "Lo que se compara: una columna por cosa."
+  },
+  "CompareRow": {
+    "props": [
+      {
+        "name": "id",
+        "type": "string",
+        "required": true,
+        "doc": "Único en el cuadro."
+      },
+      {
+        "name": "label",
+        "type": "string",
+        "required": true,
+        "doc": "Qué se mira en ese renglón."
+      }
+    ],
+    "doc": "En qué se las compara: un renglón por aspecto."
+  },
   "ConfirmDialog": {
     "props": [
       {
@@ -1145,6 +1245,12 @@ export const propsByComponent: Record<string, ComponentDoc> = {
         "type": "string[]",
         "required": true,
         "doc": "Qué se ve en la entrega, del renglón más flojo al más completo."
+      },
+      {
+        "name": "levelNames",
+        "type": "string[]",
+        "required": false,
+        "doc": "Cómo se llama cada escalón. Con cuatro renglones y sin esto toma los del sistema educativo; con otra cantidad, los renglones van sin nombre."
       }
     ],
     "doc": "Un aspecto: qué se mira, cuánto vale contra los demás y qué se ve en cada renglón."
@@ -3328,6 +3434,113 @@ export const propsByComponent: Record<string, ComponentDoc> = {
         "doc": "Una línea abajo, para lo que el nombre no dice."
       }
     ]
+  },
+  "SumTable": {
+    "props": [
+      {
+        "name": "rows",
+        "type": "SumRow[]",
+        "required": true,
+        "doc": "Los conceptos, en el orden en que se leen."
+      },
+      {
+        "name": "value",
+        "type": "Record<string, SumCell>",
+        "required": true,
+        "doc": "Lo cargado hasta ahora, por id de renglón."
+      },
+      {
+        "name": "onChange",
+        "type": "(id: string, next: SumCell) => void",
+        "required": false,
+        "doc": "Recibe el renglón entero, no la celda suelta."
+      },
+      {
+        "name": "cap",
+        "type": "number",
+        "required": false,
+        "doc": "El tope que no se puede pasar. Sin esto la tabla suma y no opina."
+      },
+      {
+        "name": "currency",
+        "type": "string",
+        "required": false,
+        "def": "'$'",
+        "doc": "Lo que se antepone a cada número."
+      },
+      {
+        "name": "readOnly",
+        "type": "boolean",
+        "required": false,
+        "doc": "Se lee y no se completa."
+      },
+      {
+        "name": "children",
+        "type": "ReactNode",
+        "required": true,
+        "doc": "El `SumTable.Prompt` y, si hace falta, el `SumTable.Hint`."
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "required": false
+      }
+    ],
+    "doc": "Una tabla que se completa y se suma sola: un presupuesto, una lista de materiales, un costeo. El total no se escribe, y por eso no puede estar mal sumado. Con `cap`, además dice cuánto queda o de cuánto se pasaron."
+  },
+  "SumTable.Prompt": {
+    "props": [
+      {
+        "name": "children",
+        "type": "ReactNode",
+        "required": true
+      }
+    ],
+    "doc": "De qué es la tabla."
+  },
+  "SumTable.Hint": {
+    "props": [
+      {
+        "name": "children",
+        "type": "ReactNode",
+        "required": true
+      }
+    ],
+    "doc": "La línea de apoyo: de dónde sale cada número, qué no se puede olvidar."
+  },
+  "SumRow": {
+    "props": [
+      {
+        "name": "id",
+        "type": "string",
+        "required": true,
+        "doc": "Único en la tabla."
+      },
+      {
+        "name": "label",
+        "type": "string",
+        "required": true,
+        "doc": "En qué se gasta."
+      }
+    ],
+    "doc": "Un renglón de la tabla: el concepto, que lo escribe quien arma la consigna."
+  },
+  "SumCell": {
+    "props": [
+      {
+        "name": "qty",
+        "type": "string",
+        "required": true,
+        "doc": "Cuántas unidades."
+      },
+      {
+        "name": "price",
+        "type": "string",
+        "required": true,
+        "doc": "Cuánto sale cada una."
+      }
+    ],
+    "doc": "Lo que alguien cargó en un renglón, tal cual lo escribió."
   },
   "Switch": {
     "props": [

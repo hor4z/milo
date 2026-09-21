@@ -148,13 +148,19 @@
 
   .hint {
     display: inline-flex;
+    height: var(--band);
     flex-shrink: 0;
+    align-items: center;
   }
 
   .compact .mark,
   .compact .done {
     width: 1rem;
     height: 1rem;
+  }
+
+  .compact .mark {
+    margin-block: calc((var(--band) - 1rem) / 2);
   }
 
   .compact .done {
