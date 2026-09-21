@@ -27,10 +27,10 @@ export type CriterionDraft = {
 const emptyLevels = ['', '', '', '']
 
 const levelHints = [
-  'Lo más flojo que se puede llegar a ver',
-  'Va por buen camino',
-  'Cumple con lo que pedís',
-  'Lo completo: esto es lo que va a leer como próximo paso quien quede en el 3',
+  'Lo más flojo que se puede llegar a ver.',
+  'Va por buen camino, pero le falta.',
+  'Cumple con lo que pedís.',
+  'Lo completo, que es lo que lee como próximo paso quien quedó abajo.',
 ]
 
 /** Cómo se llama la rúbrica, en la cabecera. */
@@ -225,10 +225,10 @@ function Root({ criteria, onAdd, onRemove, defaultOpen = true, children, classNa
                   {levels.map((level, i) => (
                     <Field key={levelHints[i]}>
                       <Field.Label>Nivel {i + 1}</Field.Label>
+                      <Field.Hint>{levelHints[i]}</Field.Hint>
                       <TextField
                         size="sm"
                         value={level}
-                        placeholder={levelHints[i]}
                         onChange={e => setLevels(ls => ls.map((l, j) => (j === i ? e.target.value : l)))}
                         onKeyDown={e => { if (e.key === 'Escape') closeForm() }}
                       />

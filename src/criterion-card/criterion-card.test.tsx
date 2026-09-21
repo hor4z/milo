@@ -5,6 +5,7 @@ import { CriterionCard, type Criterion } from './criterion-card'
 
 const criterion: Criterion = {
   id: 'datos',
+  icon: 'timer',
   label: 'Toma de datos',
   weight: 3,
   color: 'green',

@@ -12,10 +12,18 @@
   }
 
   .headerOpen {
-    padding-bottom: 0.875rem;
+    padding-bottom: 0.5rem;
   }
 
   .trigger {
+    display: inline-flex;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--radius-sm);
+  }
+
+  .swatch {
     display: inline-flex;
     width: 1.5rem;
     height: 1.5rem;

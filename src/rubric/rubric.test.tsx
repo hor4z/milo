@@ -6,6 +6,7 @@ import { Rubric, type Criterion } from './rubric'
 const criteria: Criterion[] = [
   {
     id: 'datos',
+    icon: 'timer',
     label: 'Toma de datos',
     weight: 3,
     color: 'green',
@@ -13,6 +14,7 @@ const criteria: Criterion[] = [
   },
   {
     id: 'grafico',
+    icon: 'analytics',
     label: 'Gráfico',
     weight: 1,
     color: 'teal',

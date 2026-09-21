@@ -1037,7 +1037,13 @@ export const propsByComponent: Record<string, ComponentDoc> = {
         "name": "color",
         "type": "LabelColor",
         "required": true,
-        "doc": "El color de su flecha, y el de su tramo en la barra de la rúbrica."
+        "doc": "El color de su marca, y el de su tramo en la barra de la rúbrica."
+      },
+      {
+        "name": "icon",
+        "type": "IconName",
+        "required": true,
+        "doc": "El glifo de su marca."
       },
       {
         "name": "levels",

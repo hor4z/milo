@@ -12,6 +12,7 @@ export type RubricMode = 'teacher' | 'student'
 const initialCriteria: Criterion[] = [
   {
     id: 'datos',
+    icon: 'timer',
     label: 'Toma de datos',
     weight: 4,
     color: 'green',
@@ -24,6 +25,7 @@ const initialCriteria: Criterion[] = [
   },
   {
     id: 'grafico',
+    icon: 'analytics',
     label: 'Gráfico',
     weight: 3,
     color: 'teal',
@@ -36,6 +38,7 @@ const initialCriteria: Criterion[] = [
   },
   {
     id: 'explicacion',
+    icon: 'description',
     label: 'Explicación',
     weight: 5,
     color: 'blue',
@@ -103,6 +106,7 @@ export function RubricRail({ mode }: { mode: RubricMode }) {
         ...draft,
         id: `c${Date.now()}`,
         color: labelColors[cs.length % labelColors.length],
+        icon: 'bookmark',
       }])}
     >
       <Rubric.Title>Qué vamos a mirar</Rubric.Title>

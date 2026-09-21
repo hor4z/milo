@@ -5,6 +5,7 @@ import { A11y, Example, Note, Page, Panel, Practices, Props, Section, Stack, Var
 const criteria: Criterion[] = [
   {
     id: 'datos',
+    icon: 'timer',
     label: 'Toma de datos',
     weight: 4,
     color: 'green',
@@ -17,6 +18,7 @@ const criteria: Criterion[] = [
   },
   {
     id: 'grafico',
+    icon: 'analytics',
     label: 'Gráfico',
     weight: 3,
     color: 'teal',
@@ -29,6 +31,7 @@ const criteria: Criterion[] = [
   },
   {
     id: 'explicacion',
+    icon: 'description',
     label: 'Explicación',
     weight: 5,
     color: 'blue',

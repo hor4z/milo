@@ -6,6 +6,7 @@ import { A11y, Example, Note, Page, Panel, Practices, Props, Section, Stack, Var
 const base: Criterion[] = [
   {
     id: 'datos',
+    icon: 'timer',
     label: 'Toma de datos',
     weight: 4,
     color: 'green',
@@ -18,6 +19,7 @@ const base: Criterion[] = [
   },
   {
     id: 'grafico',
+    icon: 'analytics',
     label: 'Gráfico',
     weight: 3,
     color: 'teal',
@@ -30,6 +32,7 @@ const base: Criterion[] = [
   },
   {
     id: 'explicacion',
+    icon: 'description',
     label: 'Explicación',
     weight: 5,
     color: 'blue',
@@ -66,6 +69,7 @@ export function RubricStory() {
                   ...draft,
                   id: `c${Date.now()}`,
                   color: labelColors[cs.length % labelColors.length],
+                  icon: 'bookmark',
                 }])}
               >
                 <Rubric.Title>Qué vamos a mirar</Rubric.Title>
