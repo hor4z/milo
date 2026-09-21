@@ -46,7 +46,7 @@
 
   .optionXs {
     min-height: 1.75rem;
-    border-radius: var(--radius-md);
+    border-radius: var(--radius-sm);
     font-size: var(--type-meta);
     line-height: var(--type-meta-lh);
     letter-spacing: var(--type-meta-ls);

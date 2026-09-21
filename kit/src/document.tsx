@@ -154,7 +154,7 @@ export function DocumentStory() {
     setTasks(ts => ts.map(t => (t.id === id ? { ...t, done } : t)))
 
   return (
-    <article className={cls.doc} onInput={touch} onChange={touch}>
+    <article className={cls.doc}>
       <div className={cls.docBar}>
         <span className={cls.saveState}>
           <Icon
@@ -214,7 +214,7 @@ export function DocumentStory() {
 
       </header>
 
-      <div className={cls.columns}>
+      <div className={cls.columns} onInput={touch} onChange={touch}>
         <div className={cls.docBody}>
           <p className={cls.intro}>
             Tenés $100.000 y uno o dos compañeros. Con eso armá un emprendimiento que pueda ser
