@@ -3,7 +3,7 @@ import { useId, useState, type ReactNode } from 'react'
 import { Avatar } from '../avatar/avatar'
 import { Button } from '../button/button'
 import { Chip } from '../chip/chip'
-import { CriterionCard, type Criterion, type Met } from '../criterion-card/criterion-card'
+import { CriterionCard, levelNames, type Criterion } from '../criterion-card/criterion-card'
 import { Icon } from '../icon/icon'
 import { IconButton } from '../icon-button/icon-button'
 import { Textarea } from '../textarea/textarea'
@@ -13,7 +13,7 @@ import { labelFill, labelSoft } from '../lib/colors'
 import { counted } from '../lib/number'
 import { takePart } from '../lib/parts'
 
-export type { Criterion, Met }
+export type { Criterion }
 
 /** Quién escribió una devolución. Un agente firma igual que una persona: lo que cambia es el nombre, no lo que puede hacer. */
 export type Reviewer = {
@@ -33,15 +33,24 @@ export type Note = {
 
 /** Cómo le fue a un trabajo en un aspecto. */
 export type Mark = {
-  /** Cómo quedó cada renglón, en el orden de `levels`: cumple, no cumple, o sin mirar. */
-  met?: Met[]
+  /** En qué nivel quedó: el índice del renglón elegido. Los niveles son excluyentes, así que es uno solo. */
+  level?: number
   /** El comentario del aspecto, si alguien lo escribió. */
   note?: Note
 }
 
-const hechos = (mark: Mark) => (mark.met ?? []).filter(v => v === true).length
+/** Cuánto del tramo se llena: el nivel elegido sobre los que hay. */
+const parte = (mark: Mark, c: Criterion) =>
+  mark.level === undefined ? 0 : (mark.level + 1) / c.levels.length
 
-const tocado = (mark: Mark) => (mark.met ?? []).some(v => v !== undefined) || !!mark.note
+const tocado = (mark: Mark) => mark.level !== undefined || !!mark.note
+
+/** Cómo se llama el nivel en el que quedó, para decirlo al costado del nombre. */
+function nivel(mark: Mark, c: Criterion): string {
+  if (mark.level === undefined) return 'sin corregir'
+  const nombres = c.levelNames ?? (c.levels.length === levelNames.length ? [...levelNames] : undefined)
+  return nombres?.[mark.level] ?? `nivel ${mark.level + 1}`
+}
 
 /** Cómo se llama la devolución, en la cabecera. */
 function Title({ children }: { children: ReactNode }) {
@@ -61,15 +70,15 @@ function Signature({ by }: { by: Reviewer }) {
 }
 
 /** Cómo le fue a un trabajo contra su rúbrica: qué cumplió de cada aspecto y qué le dijeron. Sin los callbacks es la devolución que lee quien entregó; con ellos, la pantalla donde se corrige. */
-function Root({ criteria, marks, by, onMet, onNote, onClearNote, children, className }: {
+function Root({ criteria, marks, by, onLevel, onNote, onClearNote, children, className }: {
   /** Los aspectos de la rúbrica, en su orden. */
   criteria: Criterion[]
   /** Lo corregido hasta ahora, por id de aspecto. */
   marks: Record<string, Mark>
   /** Quién está corrigiendo ahora: firma lo que escriba. */
   by?: Reviewer
-  /** Sin esto los renglones se leen y no se marcan. */
-  onMet?: (id: string, level: number, value: Met) => void
+  /** Sin esto los renglones se leen y no se eligen. */
+  onLevel?: (id: string, level: number) => void
   /** Sin esto no se puede comentar. */
   onNote?: (id: string, text: string) => void
   /** Sin esto un comentario no se puede borrar. */
@@ -104,7 +113,7 @@ function Root({ criteria, marks, by, onMet, onNote, onClearNote, children, class
           return (
             <span key={c.id} style={{ flexGrow: c.weight }} className={s.weight}>
               <span
-                style={{ inlineSize: `${(hechos(mark) / c.levels.length) * 100}%` }}
+                style={{ inlineSize: `${parte(mark, c) * 100}%` }}
                 className={`${s.fill} ${labelFill[c.color]}`}
               />
             </span>
@@ -120,9 +129,9 @@ function Root({ criteria, marks, by, onMet, onNote, onClearNote, children, class
               key={c.id}
               criterion={c}
               total={total}
-              met={mark.met ?? c.levels.map(() => undefined)}
-              onMet={onMet && ((level, value) => onMet(c.id, level, value))}
-              meta={tocado(mark) ? `${hechos(mark)} de ${c.levels.length}` : 'sin corregir'}
+              level={mark.level}
+              onLevel={onLevel && (level => onLevel(c.id, level))}
+              meta={nivel(mark, c)}
               open={open === c.id}
               onToggle={() => setOpen(o => (o === c.id ? null : c.id))}
             >

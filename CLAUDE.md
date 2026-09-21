@@ -879,19 +879,29 @@ está sostenida.
 acompaña a la consigna mientras se la escribe: una barra reparte el peso de cada aspecto (que es una
 cantidad, así que el largo dice algo) y el alta vive adentro del panel. `CriterionCard` es un aspecto
 plegado, así que una rúbrica de ocho mide lo mismo que una de dos. Y `RubricReview` es la corrección
-y la devolución en la misma pieza: con `onMet` y `onNote` se tilda renglón por renglón y se comenta;
-sin ellos es lo que abre quien entregó.
+y la devolución en la misma pieza: con `onLevel` y `onNote` se elige el nivel y se comenta; sin ellos
+es lo que abre quien entregó.
 
 **En la pantalla no se llaman criterios, se llaman aspectos.** "Criterio" es la palabra del que
 escribe rúbricas y no la del aula. El código se queda en inglés con `Criterion`, que es el término
 exacto: es la misma distancia que hay entre `TaskList` y "Lista de tareas".
 
-**La corrección no termina en un número**, y eso es una decisión y no un olvido: el resultado es la
-barra, donde cada tramo se llena con lo que se tildó. Un número convierte cuatro descripciones en una
-cifra que se lee sola. Lo que falta son los renglones sin tilde, que están a la vista.
+**Los cuatro niveles son excluyentes y se elige uno.** Son cuatro descripciones del mismo estado, no
+cuatro pasos que se van cumpliendo: nadie "logra" Inicial camino a Excelente. Se corrige con un grupo
+de opción única, y el glifo es un tilde porque es el que la escuela usa para marcar, pero la
+semántica es de radio: una sola parada de tabulación, flechas para moverse y `aria-checked`.
 
-**La cruz es del que corrige y no llega a la devolución**: quien entregó ve el tilde verde en lo que
-cumplió y una raya amarilla en lo que falta, que es el tono de un consejo y no el de un error.
+Esto estuvo mal durante un tiempo y vale saber por qué. Los renglones nacieron como una escalera de
+evidencia, donde cada uno incluye de verdad al anterior ("una medición", "las tres", "las tres con el
+error"), y ahí tildar tres y que queden tildados los de arriba es correcto. Al ponerles los nombres
+del sistema educativo pasaron a ser una escala, y la mecánica de escalera quedó diciendo algo
+imposible: "no logra resolverlas" tildado junto con "resuelve bien costos y precios". Si alguna vez
+vuelve a hacer falta la escalera, es otra pieza y no una prop de esta.
+
+**La corrección no termina en un número**, y eso es una decisión y no un olvido: el resultado es la
+barra, donde cada tramo se llena hasta el nivel elegido, y el nombre de ese nivel al costado de cada
+aspecto. Un número convierte cuatro descripciones en una cifra que se lee sola. Lo que falta es el
+renglón de abajo del que quedó tildado, que está a la vista y dice exactamente qué hacer.
 
 **Un comentario lo escribe una persona o un agente, indistintamente**: mismo campo, mismos botones y
 mismo lugar, y lo único que cambia es la firma. El agente se anuncia como asistente en texto y no
