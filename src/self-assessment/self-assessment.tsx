@@ -92,7 +92,7 @@ function Aspect({ criterion, level, onLevel, open, onToggle }: {
   )
 }
 
-/** Dónde se ubica quien entrega, aspecto por aspecto, contra la rúbrica con la que lo van a mirar. Los niveles son excluyentes: va uno solo, porque son cuatro descripciones del mismo estado. Arriba dice cuántos aspectos quedan sin ubicar, que es lo único que acá cuenta como progreso. */
+/** Dónde se ubica quien entrega, aspecto por aspecto, contra la rúbrica con la que lo van a mirar. Los niveles son excluyentes: va uno solo, porque son cuatro descripciones del mismo estado. Arriba queda lo que falta, que es lo único que acá cuenta como progreso. */
 function Root({ criteria, value, onChange, children, className }: {
   /** Los aspectos de la rúbrica, en su orden. */
   criteria: Criterion[]
@@ -119,7 +119,7 @@ function Root({ criteria, value, onChange, children, className }: {
         <p className={s.left}>
           {faltan === 0
             ? 'Los ubicaste todos'
-            : `${counted(faltan, ['aspecto', 'aspectos'])} sin ubicar`}
+            : counted(faltan, ['aspecto', 'aspectos'])}
         </p>
       </div>
 

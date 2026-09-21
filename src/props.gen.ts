@@ -3138,7 +3138,7 @@ export const propsByComponent: Record<string, ComponentDoc> = {
         "required": false
       }
     ],
-    "doc": "Dónde se ubica quien entrega, aspecto por aspecto, contra la rúbrica con la que lo van a mirar. Los niveles son excluyentes: va uno solo, porque son cuatro descripciones del mismo estado. Arriba dice cuántos aspectos quedan sin ubicar, que es lo único que acá cuenta como progreso."
+    "doc": "Dónde se ubica quien entrega, aspecto por aspecto, contra la rúbrica con la que lo van a mirar. Los niveles son excluyentes: va uno solo, porque son cuatro descripciones del mismo estado. Arriba queda lo que falta, que es lo único que acá cuenta como progreso."
   },
   "SelfAssessment.Title": {
     "props": [

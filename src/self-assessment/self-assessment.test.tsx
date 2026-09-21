@@ -33,7 +33,7 @@ const arma = (props: Record<string, unknown> = {}) => {
 describe('SelfAssessment', () => {
   it('dice qué falta y no cuánto va: lo que sirve es el pendiente', () => {
     arma()
-    expect(screen.getByText('2 aspectos sin ubicar')).toBeInTheDocument()
+    expect(screen.getByText('2 aspectos')).toBeInTheDocument()
   })
 
   it('con todos ubicados lo dice sin números', () => {
@@ -43,7 +43,7 @@ describe('SelfAssessment', () => {
 
   it('el plural sale bien con uno solo', () => {
     arma({ value: { idea: 2 } })
-    expect(screen.getByText('1 aspecto sin ubicar')).toBeInTheDocument()
+    expect(screen.getByText('1 aspecto')).toBeInTheDocument()
   })
 
   it('plegado, cada aspecto dice en cuál quedó', () => {

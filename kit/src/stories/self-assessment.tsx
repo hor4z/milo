@@ -110,7 +110,7 @@ export function SelfAssessmentStory() {
           <A11y.Item>Cada aspecto es un botón con `aria-expanded` y `aria-controls`, y toma su nombre del título de al lado.</A11y.Item>
           <A11y.Item>Los niveles son un `radiogroup` nombrado con el aspecto: una sola parada de tabulación y las flechas mueven entre ellos.</A11y.Item>
           <A11y.Item>Plegado, el aspecto dice en cuál quedó o que está sin ubicar, así que no hace falta abrirlo para saberlo.</A11y.Item>
-          <A11y.Item>La barra de arriba es decorativa: lo que cuenta está escrito al lado, en "3 aspectos sin ubicar".</A11y.Item>
+          <A11y.Item>La barra de arriba es decorativa: lo que cuenta está escrito al lado, en "3 aspectos".</A11y.Item>
         </A11y>
       </Section>
     </Page>
