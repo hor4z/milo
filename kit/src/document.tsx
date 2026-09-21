@@ -1,5 +1,5 @@
 import cls from './document.module.css'
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { Avatar } from '@milo/ui/avatar'
 import { Button } from '@milo/ui/button'
 import { Callout } from '@milo/ui/callout'
@@ -103,7 +103,20 @@ const competidores = [
   { id: 'dos', label: 'Competidor 2' },
 ]
 
+function useAutosave(delay = 900) {
+  const [saving, setSaving] = useState(false)
+  const timer = useRef<ReturnType<typeof setTimeout>>(undefined)
+  useEffect(() => () => clearTimeout(timer.current), [])
+  const touch = () => {
+    setSaving(true)
+    clearTimeout(timer.current)
+    timer.current = setTimeout(() => setSaving(false), delay)
+  }
+  return { saving, touch }
+}
+
 export function DocumentStory() {
+  const { saving, touch } = useAutosave()
   const [tasks, setTasks] = useState(initialTasks)
   const [, setLast] = useState<string | null>(null)
   const [mode, setMode] = useState<RubricMode>('teacher')
@@ -141,7 +154,29 @@ export function DocumentStory() {
     setTasks(ts => ts.map(t => (t.id === id ? { ...t, done } : t)))
 
   return (
-    <article className={cls.doc}>
+    <article className={cls.doc} onInput={touch} onChange={touch}>
+      <div className={cls.docBar}>
+        <span className={cls.saveState}>
+          <Icon
+            name={saving ? 'sync' : 'check'}
+            size={16}
+            className={saving ? 'spin icon-muted' : 'icon-muted'}
+          />
+          {saving ? 'Guardando' : 'Guardado'}
+        </span>
+        <Avatar.Group
+          size={28}
+          ring="var(--canvas)"
+          people={[
+            { name: 'Ana Pérez', src: face(4) },
+            { name: 'Bruno Díaz', src: face(5) },
+            { name: 'Carla Ríos', src: face(7) },
+            { name: 'Diego Sosa', src: face(2) },
+            { name: 'Emilia Paz', src: face(6) },
+          ]}
+        />
+      </div>
+
       <header className={cls.docHeader}>
         <div className={cls.titleRow}>
           <div className={cls.titleBlock}>
@@ -149,16 +184,6 @@ export function DocumentStory() {
             <h1 className={cls.docTitle}>💼 Creá tu propio emprendimiento</h1>
           </div>
           <div className={cls.docActions}>
-            <Avatar.Group
-              size={28}
-              people={[
-                { name: 'Ana Pérez', src: face(4) },
-                { name: 'Bruno Díaz', src: face(5) },
-                { name: 'Carla Ríos', src: face(7) },
-                { name: 'Diego Sosa', src: face(2) },
-                { name: 'Emilia Paz', src: face(6) },
-              ]}
-            />
             <Popover
               align="end"
               trigger={p => (

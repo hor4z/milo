@@ -57,6 +57,32 @@
     .caret { animation: none; }
   }
 
+  .docBar {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding-block: 0.75rem;
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
+    border-bottom-color: var(--border);
+    background-color: var(--canvas);
+  }
+
+  .saveState {
+    display: flex;
+    align-items: center;
+    gap: 0.375rem;
+    font-size: var(--type-meta);
+    line-height: var(--type-meta-lh);
+    letter-spacing: var(--type-meta-ls);
+    font-weight: var(--font-weight-medium);
+    color: var(--text-muted);
+  }
+
   .docHeader {
     display: flex;
     flex-direction: column;
