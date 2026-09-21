@@ -144,9 +144,16 @@
   .docBody {
     display: flex;
     min-width: 0;
-    max-width: 68ch;
     flex-direction: column;
     gap: 1.5rem;
+
+    & > * {
+      max-width: 42rem;
+    }
+
+    & > div:has(table) {
+      max-width: none;
+    }
   }
 
   .intro {

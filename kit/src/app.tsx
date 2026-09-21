@@ -431,7 +431,7 @@ export function App() {
         </header>
 
         <main ref={main} className={cls.main}>
-          <div key={current} className={cls.viewSlot}>
+          <div key={current} className={cx(cls.viewSlot, current === 'documento' && cls.viewWide)}>
             {current === INTRO && <Intro go={go} />}
             {current === 'dashboard' && <Dashboard />}
             {current === 'documento' && <DocumentStory />}

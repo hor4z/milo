@@ -181,6 +181,10 @@
     flex-direction: column;
   }
 
+  .viewWide {
+    max-width: 1200px;
+  }
+
   .navItem {
     display: flex;
     height: 2rem;

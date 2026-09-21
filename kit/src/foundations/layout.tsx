@@ -13,7 +13,7 @@ const shell = [
   ['Riel', '220', 'Contraído, 72'],
   ['Barra de arriba', '80', '-'],
   ['Item de nav', '40', 'Radio 12, icono en un cuadrado de 34'],
-  ['Ancho del contenido', '980', 'Centrado, con 40 de aire lateral'],
+  ['Ancho del contenido', '980', 'Centrado, con 40 de aire lateral; 1200 con un riel al costado'],
   ['Ancho de lectura', '70ch', 'Lo que se lee de corrido; 42ch para un pie'],
 ] as const
 
@@ -61,12 +61,12 @@ export function LayoutSection() {
         <div className={css.structureStack}>
           <Card>
             <Card.Body>
-              <div className={css.structureMain}>Lo what la pantalla viene a mostrar</div>
+              <div className={css.structureMain}>Lo que la pantalla viene a mostrar</div>
             </Card.Body>
           </Card>
           <Card surface="muted">
             <Card.Body>
-              <div className={css.structureAside}>Lo what acompaña</div>
+              <div className={css.structureAside}>Lo que acompaña</div>
             </Card.Body>
           </Card>
         </div>
