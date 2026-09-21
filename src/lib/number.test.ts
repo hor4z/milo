@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { bytes, count, decimals, delta, share, span, withUnit } from './number'
+import { amount, bytes, count, decimals, delta, parseNumber, share, span, withUnit } from './number'
 
 describe('el separador', () => {
   it('la coma es el decimal y el punto separa los miles, que es como se escribe acá', () => {
@@ -56,5 +56,32 @@ describe('un cambio', () => {
   it('el cero no lleva signo porque no cambió nada', () => {
     expect(delta(0)).toBe('0')
     expect(delta(0, { percent: true })).toBe('0%')
+  })
+})
+
+describe('parseNumber', () => {
+  it('acepta la coma, que es como se escribe acá', () => {
+    expect(parseNumber('72,3')).toBe(72.3)
+  })
+
+  it('acepta el punto, que es lo que manda el teclado del celular', () => {
+    expect(parseNumber('72.3')).toBe(72.3)
+  })
+
+  it('lo que no es un número no es cero: es nada', () => {
+    expect(parseNumber('mucho')).toBeNull()
+    expect(parseNumber('')).toBeNull()
+    expect(parseNumber('-')).toBeNull()
+  })
+})
+
+describe('amount', () => {
+  it('no rellena con ceros lo que no los tiene', () => {
+    expect(amount(22)).toBe('22')
+  })
+
+  it('no redondea lo que alguien puso a propósito', () => {
+    expect(amount(72.35)).toBe('72,35')
+    expect(amount(0.05)).toBe('0,05')
   })
 })

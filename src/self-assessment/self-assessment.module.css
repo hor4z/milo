@@ -1,0 +1,101 @@
+@layer milo.components {
+  .root {
+    display: flex;
+    flex-direction: column;
+    border-radius: var(--radius-xl);
+    background-color: var(--surface-muted);
+    padding: 0.25rem;
+  }
+
+  .header {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 0.75rem 0.625rem;
+  }
+
+  .trigger {
+    display: inline-flex;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--radius-sm);
+  }
+
+  .chevron {
+    flex-shrink: 0;
+    rotate: -90deg;
+    transition-property: rotate;
+    transition-duration: var(--duration-fast);
+    transition-timing-function: var(--ease-out);
+  }
+
+  .chevronOpen {
+    rotate: 0deg;
+  }
+
+  .title {
+    flex: 1;
+    min-width: 0;
+    overflow-wrap: anywhere;
+    font-size: var(--type-reading);
+    line-height: var(--type-reading-lh);
+    letter-spacing: var(--type-reading-ls);
+    font-weight: var(--font-weight-semibold);
+    color: var(--text);
+  }
+
+  .count {
+    flex-shrink: 0;
+    font-size: var(--type-meta);
+    line-height: var(--type-meta-lh);
+    letter-spacing: var(--type-meta-ls);
+    font-weight: var(--font-weight-medium);
+    color: var(--text-muted);
+  }
+
+  .progress {
+    display: flex;
+    height: 0.75rem;
+    overflow: hidden;
+    border-radius: var(--radius-full);
+    margin-inline: 0.75rem;
+    margin-bottom: 0.75rem;
+    background-color: var(--track);
+  }
+
+  .fill {
+    display: block;
+    height: 100%;
+    border-radius: var(--radius-full);
+    background-color: var(--brand);
+    transition-property: inline-size;
+    transition-duration: var(--duration-content);
+    transition-timing-function: var(--ease-out);
+  }
+
+  .body {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition-property: grid-template-rows;
+    transition-duration: var(--duration-normal);
+    transition-timing-function: var(--ease-out);
+  }
+
+  .bodyOpen {
+    grid-template-rows: 1fr;
+  }
+
+  .bodyInner {
+    overflow: hidden;
+    min-height: 0;
+  }
+
+  .items {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding-inline: 0.25rem;
+    padding-bottom: 0.25rem;
+  }
+}

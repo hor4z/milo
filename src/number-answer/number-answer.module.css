@@ -1,0 +1,87 @@
+@layer milo.components {
+  .root {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .prompt {
+    min-width: 0;
+    font-size: var(--type-reading);
+    line-height: var(--type-reading-lh);
+    letter-spacing: var(--type-reading-ls);
+    font-weight: var(--font-weight-medium);
+    color: var(--text);
+  }
+
+  .hint {
+    min-width: 0;
+    margin-top: -0.25rem;
+    font-size: var(--type-meta);
+    line-height: var(--type-meta-lh);
+    letter-spacing: var(--type-meta-ls);
+    color: var(--text-muted);
+  }
+
+  .row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.625rem;
+  }
+
+  .control {
+    width: 9rem;
+    flex-shrink: 0;
+  }
+
+  .met {
+    background-color: var(--ok-fill);
+    color: var(--on-ok);
+  }
+
+  .unmet {
+    background-color: var(--yellow-soft);
+    color: var(--yellow-ink);
+  }
+
+  .unit {
+    flex-shrink: 0;
+    padding-inline-end: 0.625rem;
+    font-size: var(--type-meta);
+    line-height: var(--type-meta-lh);
+    letter-spacing: var(--type-meta-ls);
+    font-weight: var(--font-weight-medium);
+    color: var(--text-muted);
+  }
+
+  .verdict {
+    display: inline-flex;
+    min-width: 0;
+    align-items: center;
+    gap: 0.375rem;
+    font-size: var(--type-meta);
+    line-height: var(--type-meta-lh);
+    letter-spacing: var(--type-meta-ls);
+    font-weight: var(--font-weight-medium);
+  }
+
+  .metText {
+    color: var(--ok-ink);
+  }
+
+  .unmetText {
+    color: var(--yellow-ink);
+  }
+
+  .trailing {
+    --icon-size: 14px;
+    display: inline-flex;
+    width: 1.125rem;
+    height: 1.125rem;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--radius-full);
+  }
+}

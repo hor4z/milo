@@ -42,6 +42,7 @@ export const iconTags: Record<IconName, string> = {
   cloud_download: "access app application arrow backup cloud computing cloud storage computer",
   cloud_upload: "app application arrow backup computing connection data digital",
   code: "algorithm application backend brackets build coding commands compile",
+  compare_arrows: "alternative arrow balance bidirectional change choices collide cross",
   content_copy: "action clipboard clone copy content create cut data doc",
   content_cut: "action audio blade clip copy craft divide doc",
   content_paste: "action add application attach button clip clipboard control",

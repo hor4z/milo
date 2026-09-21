@@ -678,6 +678,101 @@ export const propsByComponent: Record<string, ComponentDoc> = {
     ],
     "doc": "La marca chica de texto: el estado de una actividad, el nombre de una categoría, de un método o de una persona."
   },
+  "Choice": {
+    "props": [
+      {
+        "name": "options",
+        "type": "Option[]",
+        "required": true,
+        "doc": "En el orden en que se leen."
+      },
+      {
+        "name": "value",
+        "type": "string[]",
+        "required": true,
+        "doc": "Lo marcado, siempre como array: así el call site no cambia de forma al pasar de una a varias."
+      },
+      {
+        "name": "onChange",
+        "type": "(next: string[]) => void",
+        "required": true,
+        "doc": "Recibe lo marcado después del toque, no el id que se tocó. Eligiendo una sola, volver a tocar la elegida no la apaga: es lo mismo que hace `Radio`, y una opción única que se puede dejar en blanco se destilda sin querer."
+      },
+      {
+        "name": "multiple",
+        "type": "boolean",
+        "required": false,
+        "doc": "Más de una puede estar bien, y entonces las tarjetas son casillas y no opciones únicas."
+      },
+      {
+        "name": "correct",
+        "type": "string[]",
+        "required": false,
+        "doc": "Cuáles estaban bien. Sin `revealed` no se dibuja: la pieza lo guarda hasta que alguien decide mostrarlo."
+      },
+      {
+        "name": "revealed",
+        "type": "boolean",
+        "required": false,
+        "doc": "Muestra cuáles estaban bien y deja de aceptar cambios: una pregunta corregida no se vuelve a responder."
+      },
+      {
+        "name": "readOnly",
+        "type": "boolean",
+        "required": false,
+        "doc": "Se lee y no se toca: la entrega de otro, una consigna cerrada."
+      },
+      {
+        "name": "children",
+        "type": "ReactNode",
+        "required": true,
+        "doc": "El `Choice.Prompt` y, si hace falta, el `Choice.Hint`."
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "required": false
+      }
+    ],
+    "doc": "Una pregunta con opciones: el enunciado y las tarjetas. Con `multiple` vale marcar más de una. Elegir no dice si estuvo bien: eso lo dice `revealed`, y hasta entonces la pieza no corrige a nadie."
+  },
+  "Choice.Prompt": {
+    "props": [
+      {
+        "name": "children",
+        "type": "ReactNode",
+        "required": true
+      }
+    ],
+    "doc": "Lo que se pregunta. Va como hijo porque es texto de la pantalla y lo escribe una persona."
+  },
+  "Choice.Hint": {
+    "props": [
+      {
+        "name": "children",
+        "type": "ReactNode",
+        "required": true
+      }
+    ],
+    "doc": "La línea de apoyo: de dónde sacar el dato, cuántas hay que marcar."
+  },
+  "Option": {
+    "props": [
+      {
+        "name": "id",
+        "type": "string",
+        "required": true,
+        "doc": "Único en la pregunta."
+      },
+      {
+        "name": "label",
+        "type": "string",
+        "required": true,
+        "doc": "Lo que se lee en la tarjeta."
+      }
+    ],
+    "doc": "Una de las opciones que se ofrecen."
+  },
   "ColumnPicker": {
     "props": [
       {
@@ -835,6 +930,119 @@ export const propsByComponent: Record<string, ComponentDoc> = {
       }
     ]
   },
+  "CompareTable": {
+    "props": [
+      {
+        "name": "rows",
+        "type": "CompareRow[]",
+        "required": true,
+        "doc": "En qué se comparan, en el orden en que se leen."
+      },
+      {
+        "name": "columns",
+        "type": "CompareColumn[]",
+        "required": true,
+        "doc": "Qué se compara. Dos o tres entran; con más, el cuadro se lee de costado."
+      },
+      {
+        "name": "value",
+        "type": "Record<string, Record<string, string>>",
+        "required": true,
+        "doc": "Lo cargado, por renglón y después por columna."
+      },
+      {
+        "name": "onChange",
+        "type": "(rowId: string, columnId: string, next: string) => void",
+        "required": false,
+        "doc": "Recibe el renglón, la columna y el texto nuevo."
+      },
+      {
+        "name": "lines",
+        "type": "number",
+        "required": false,
+        "def": "1",
+        "doc": "Los renglones de arranque de cada celda. Uno, porque acá entra una frase: la celda crece sola hasta el triple si hace falta."
+      },
+      {
+        "name": "readOnly",
+        "type": "boolean",
+        "required": false,
+        "doc": "Se lee y no se completa."
+      },
+      {
+        "name": "children",
+        "type": "ReactNode",
+        "required": true,
+        "doc": "El `CompareTable.Prompt` y, si hace falta, el `CompareTable.Hint`."
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "required": false
+      }
+    ],
+    "doc": "Un cuadro comparativo que se completa: dos o tres cosas en las columnas, en qué se las mira en los renglones. La grilla es de quien arma la consigna y las celdas son de quien la resuelve, así que nadie compara peras con manzanas por accidente."
+  },
+  "CompareTable.Prompt": {
+    "props": [
+      {
+        "name": "children",
+        "type": "ReactNode",
+        "required": true
+      }
+    ],
+    "doc": "Qué se compara y para qué."
+  },
+  "CompareTable.Hint": {
+    "props": [
+      {
+        "name": "children",
+        "type": "ReactNode",
+        "required": true
+      }
+    ],
+    "doc": "La línea de apoyo: dónde buscar lo que va en cada celda."
+  },
+  "CompareColumn": {
+    "props": [
+      {
+        "name": "id",
+        "type": "string",
+        "required": true,
+        "doc": "Único en el cuadro."
+      },
+      {
+        "name": "label",
+        "type": "string",
+        "required": true,
+        "doc": "Cómo se llama esa cosa."
+      }
+    ],
+    "doc": "Lo que se compara: una columna por cosa."
+  },
+  "CompareRow": {
+    "props": [
+      {
+        "name": "id",
+        "type": "string",
+        "required": true,
+        "doc": "Único en el cuadro."
+      },
+      {
+        "name": "label",
+        "type": "string",
+        "required": true,
+        "doc": "Qué se mira en ese renglón."
+      },
+      {
+        "name": "placeholder",
+        "type": "string",
+        "required": false,
+        "doc": "Un ejemplo de la forma que se espera, no de la respuesta: se ve con la celda vacía y se va al escribir."
+      }
+    ],
+    "doc": "En qué se las compara: un renglón por aspecto."
+  },
   "ConfirmDialog": {
     "props": [
       {
@@ -982,16 +1190,16 @@ export const propsByComponent: Record<string, ComponentDoc> = {
         "doc": "Sin esto el aspecto no se puede sacar."
       },
       {
-        "name": "met",
-        "type": "Met[]",
+        "name": "level",
+        "type": "number",
         "required": false,
-        "doc": "Cómo quedó cada renglón, en el orden de `levels`: cumple, no cumple, o sin mirar."
+        "doc": "En qué nivel quedó: el índice del renglón elegido. Los renglones son excluyentes, así que es uno y no una lista."
       },
       {
-        "name": "onMet",
-        "type": "(level: number, value: Met) => void",
+        "name": "onLevel",
+        "type": "(level: number) => void",
         "required": false,
-        "doc": "Sin esto los renglones se leen y no se marcan."
+        "doc": "Sin esto los renglones se leen y no se eligen."
       },
       {
         "name": "meta",
@@ -1025,7 +1233,13 @@ export const propsByComponent: Record<string, ComponentDoc> = {
         "name": "label",
         "type": "string",
         "required": true,
-        "doc": "Qué se mira, en las palabras de quien corrige."
+        "doc": "Qué se mira, en las palabras de quien corrige. Corto: es lo único que se ve plegado."
+      },
+      {
+        "name": "detail",
+        "type": "string",
+        "required": false,
+        "doc": "Lo que el nombre no alcanza a decir. Se lee recién al abrir el aspecto."
       },
       {
         "name": "weight",
@@ -1044,6 +1258,12 @@ export const propsByComponent: Record<string, ComponentDoc> = {
         "type": "string[]",
         "required": true,
         "doc": "Qué se ve en la entrega, del renglón más flojo al más completo."
+      },
+      {
+        "name": "levelNames",
+        "type": "string[]",
+        "required": false,
+        "doc": "Cómo se llama cada escalón. Con cuatro renglones y sin esto toma los del sistema educativo; con otra cantidad, los renglones van sin nombre."
       }
     ],
     "doc": "Un aspecto: qué se mira, cuánto vale contra los demás y qué se ve en cada renglón."
@@ -1752,7 +1972,7 @@ export const propsByComponent: Record<string, ComponentDoc> = {
         "name": "icon",
         "type": "IconName",
         "required": false,
-        "doc": "El glifo, para lo que no es una persona: un espacio, una actividad."
+        "doc": "El glifo, para lo que no es una persona: un espacio, una actividad. Va en la misma marca redonda que el avatar, así que las dos formas de una mención pesan igual en el renglón."
       },
       {
         "name": "href",
@@ -1968,6 +2188,165 @@ export const propsByComponent: Record<string, ComponentDoc> = {
         "doc": "El riel de 72: queda el icono y nada más."
       }
     ]
+  },
+  "NumberAnswer": {
+    "props": [
+      {
+        "name": "value",
+        "type": "string",
+        "required": true,
+        "doc": "Lo escrito, tal cual, para no pelearle al que está tipeando."
+      },
+      {
+        "name": "onChange",
+        "type": "(next: string) => void",
+        "required": false,
+        "doc": "Recibe el texto nuevo. Sin esto se lee y no se responde."
+      },
+      {
+        "name": "unit",
+        "type": "string",
+        "required": false,
+        "doc": "Lo que se mide: dB, cm, segundos. Va pegado al campo, no adentro del número."
+      },
+      {
+        "name": "placeholder",
+        "type": "string",
+        "required": false,
+        "doc": "La forma que se espera, no el número que va: con `expected` puesto, un ejemplo verosímil se copia y la pregunta deja de preguntar nada."
+      },
+      {
+        "name": "expected",
+        "type": "number",
+        "required": false,
+        "doc": "El valor al que hay que llegar. Sin `revealed` no se dibuja."
+      },
+      {
+        "name": "tolerance",
+        "type": "number",
+        "required": false,
+        "def": "0",
+        "doc": "El margen para arriba y para abajo. En cero, la respuesta es exacta."
+      },
+      {
+        "name": "revealed",
+        "type": "boolean",
+        "required": false,
+        "doc": "Muestra si cayó adentro del margen y deja de aceptar cambios."
+      },
+      {
+        "name": "readOnly",
+        "type": "boolean",
+        "required": false,
+        "doc": "Se lee y no se escribe."
+      },
+      {
+        "name": "children",
+        "type": "ReactNode",
+        "required": true,
+        "doc": "El `NumberAnswer.Prompt` y, si hace falta, el `NumberAnswer.Hint`."
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "required": false
+      }
+    ],
+    "doc": "Un número que sale de una cuenta: un promedio, una diferencia, una métrica. La tolerancia existe porque una medición no da siempre lo mismo, así que la respuesta es un rango y no un valor."
+  },
+  "NumberAnswer.Prompt": {
+    "props": [
+      {
+        "name": "children",
+        "type": "ReactNode",
+        "required": true
+      }
+    ],
+    "doc": "Qué hay que calcular."
+  },
+  "NumberAnswer.Hint": {
+    "props": [
+      {
+        "name": "children",
+        "type": "ReactNode",
+        "required": true
+      }
+    ],
+    "doc": "De dónde sale el número: qué cuenta hay que hacer, con qué datos."
+  },
+  "OpenQuestion": {
+    "props": [
+      {
+        "name": "value",
+        "type": "string",
+        "required": true,
+        "doc": "Lo escrito hasta ahora."
+      },
+      {
+        "name": "onChange",
+        "type": "(next: string) => void",
+        "required": false,
+        "doc": "Recibe el texto nuevo. Sin esto la pregunta se lee y no se responde."
+      },
+      {
+        "name": "placeholder",
+        "type": "string",
+        "required": false,
+        "doc": "Lo que se ve con el campo vacío: una pista de por dónde empezar, no la respuesta."
+      },
+      {
+        "name": "maxLength",
+        "type": "number",
+        "required": false,
+        "def": "600",
+        "doc": "El tope, que el campo avisa recién cuando queda poco."
+      },
+      {
+        "name": "rows",
+        "type": "number",
+        "required": false,
+        "def": "3",
+        "doc": "El alto de arranque. Crece sola hasta el doble."
+      },
+      {
+        "name": "readOnly",
+        "type": "boolean",
+        "required": false,
+        "doc": "Se lee y no se escribe: la entrega de otro, una consigna cerrada."
+      },
+      {
+        "name": "children",
+        "type": "ReactNode",
+        "required": true,
+        "doc": "El `OpenQuestion.Prompt` y, si hace falta, el `OpenQuestion.Hint`."
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "required": false
+      }
+    ],
+    "doc": "Una pregunta que se responde escribiendo. No la corrige nadie solo: lo que se escribe acá lo lee una persona, y por eso la pieza no tiene noción de respuesta correcta."
+  },
+  "OpenQuestion.Prompt": {
+    "props": [
+      {
+        "name": "children",
+        "type": "ReactNode",
+        "required": true
+      }
+    ],
+    "doc": "Lo que se pregunta. Va como hijo porque lo escribe una persona."
+  },
+  "OpenQuestion.Hint": {
+    "props": [
+      {
+        "name": "children",
+        "type": "ReactNode",
+        "required": true
+      }
+    ],
+    "doc": "La línea de apoyo: qué se espera que aparezca en la respuesta."
   },
   "Pagination": {
     "props": [],
@@ -2463,6 +2842,11 @@ export const propsByComponent: Record<string, ComponentDoc> = {
         "required": true
       },
       {
+        "name": "detail",
+        "type": "string",
+        "required": false
+      },
+      {
         "name": "weight",
         "type": "number",
         "required": true
@@ -2496,10 +2880,10 @@ export const propsByComponent: Record<string, ComponentDoc> = {
         "doc": "Quién está corrigiendo ahora: firma lo que escriba."
       },
       {
-        "name": "onMet",
-        "type": "(id: string, level: number, value: Met) => void",
+        "name": "onLevel",
+        "type": "(id: string, level: number) => void",
         "required": false,
-        "doc": "Sin esto los renglones se leen y no se marcan."
+        "doc": "Sin esto los renglones se leen y no se eligen."
       },
       {
         "name": "onNote",
@@ -2578,10 +2962,10 @@ export const propsByComponent: Record<string, ComponentDoc> = {
   "Mark": {
     "props": [
       {
-        "name": "met",
-        "type": "Met[]",
+        "name": "level",
+        "type": "number",
         "required": false,
-        "doc": "Cómo quedó cada renglón, en el orden de `levels`: cumple, no cumple, o sin mirar."
+        "doc": "En qué nivel quedó: el índice del renglón elegido. Los renglones son excluyentes, así que es uno solo."
       },
       {
         "name": "note",
@@ -2721,6 +3105,57 @@ export const propsByComponent: Record<string, ComponentDoc> = {
       }
     ],
     "doc": "El select es un botón con un listbox propio, no un `<select>` nativo."
+  },
+  "SelfAssessment": {
+    "props": [
+      {
+        "name": "criteria",
+        "type": "Criterion[]",
+        "required": true,
+        "doc": "Los aspectos de la rúbrica, en su orden."
+      },
+      {
+        "name": "value",
+        "type": "Record<string, number>",
+        "required": true,
+        "doc": "En qué nivel se ubicó cada aspecto, por id."
+      },
+      {
+        "name": "onChange",
+        "type": "(id: string, level: number) => void",
+        "required": true,
+        "doc": "Recibe el aspecto y el nivel elegido."
+      },
+      {
+        "name": "defaultOpen",
+        "type": "boolean",
+        "required": false,
+        "def": "true",
+        "doc": "Arranca abierta. Plegada deja a la vista el nombre, lo que falta y la barra."
+      },
+      {
+        "name": "children",
+        "type": "ReactNode",
+        "required": true,
+        "doc": "El `SelfAssessment.Title`."
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "required": false
+      }
+    ],
+    "doc": "Dónde se ubica quien entrega, aspecto por aspecto, contra la rúbrica con la que lo van a mirar. Es la misma tarjeta que usa quien corrige, así que lo que el docente escribe es lo que el estudiante lee. Los niveles son excluyentes: va uno solo, porque son descripciones del mismo estado."
+  },
+  "SelfAssessment.Title": {
+    "props": [
+      {
+        "name": "children",
+        "type": "ReactNode",
+        "required": true
+      }
+    ],
+    "doc": "Cómo se llama la autoevaluación, en la cabecera."
   },
   "SettingsModal": {
     "props": [
@@ -3069,6 +3504,125 @@ export const propsByComponent: Record<string, ComponentDoc> = {
         "doc": "Una línea abajo, para lo que el nombre no dice."
       }
     ]
+  },
+  "SumTable": {
+    "props": [
+      {
+        "name": "rows",
+        "type": "SumRow[]",
+        "required": true,
+        "doc": "Los conceptos, en el orden en que se leen."
+      },
+      {
+        "name": "value",
+        "type": "Record<string, SumCell>",
+        "required": true,
+        "doc": "Lo cargado hasta ahora, por id de renglón."
+      },
+      {
+        "name": "onChange",
+        "type": "(id: string, next: SumCell) => void",
+        "required": false,
+        "doc": "Recibe el renglón entero, no la celda suelta."
+      },
+      {
+        "name": "cap",
+        "type": "number",
+        "required": false,
+        "doc": "El tope que no se puede pasar. Sin esto la tabla suma y no opina."
+      },
+      {
+        "name": "currency",
+        "type": "string",
+        "required": false,
+        "def": "'$'",
+        "doc": "Lo que se antepone a cada número."
+      },
+      {
+        "name": "readOnly",
+        "type": "boolean",
+        "required": false,
+        "doc": "Se lee y no se completa."
+      },
+      {
+        "name": "children",
+        "type": "ReactNode",
+        "required": true,
+        "doc": "El `SumTable.Prompt` y, si hace falta, el `SumTable.Hint`."
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "required": false
+      }
+    ],
+    "doc": "Una tabla que se completa y se suma sola: un presupuesto, una lista de materiales, un costeo. El total no se escribe, y por eso no puede estar mal sumado. Con `cap`, además dice cuánto queda o de cuánto se pasaron."
+  },
+  "SumTable.Prompt": {
+    "props": [
+      {
+        "name": "children",
+        "type": "ReactNode",
+        "required": true
+      }
+    ],
+    "doc": "De qué es la tabla."
+  },
+  "SumTable.Hint": {
+    "props": [
+      {
+        "name": "children",
+        "type": "ReactNode",
+        "required": true
+      }
+    ],
+    "doc": "La línea de apoyo: de dónde sale cada número, qué no se puede olvidar."
+  },
+  "SumRow": {
+    "props": [
+      {
+        "name": "id",
+        "type": "string",
+        "required": true,
+        "doc": "Único en la tabla."
+      },
+      {
+        "name": "label",
+        "type": "string",
+        "required": true,
+        "doc": "En qué se gasta."
+      },
+      {
+        "name": "qtyExample",
+        "type": "string",
+        "required": false,
+        "doc": "Un ejemplo de qué se cuenta acá: bolsas, horas, unidades."
+      },
+      {
+        "name": "priceExample",
+        "type": "string",
+        "required": false,
+        "doc": "Un ejemplo de a cuánto, con la forma que se espera y no con el número que va."
+      }
+    ],
+    "doc": "Un renglón de la tabla: el concepto, que lo escribe quien arma la consigna."
+  },
+  "SumCell": {
+    "props": [
+      {
+        "name": "qty",
+        "type": "string",
+        "required": true,
+        "doc": "Cuántas unidades."
+      },
+      {
+        "name": "price",
+        "type": "string",
+        "required": true,
+        "doc": "Cuánto sale cada una."
+      }
+    ],
+    "doc": "Lo que alguien cargó en un renglón, tal cual lo escribió."
   },
   "Switch": {
     "props": [

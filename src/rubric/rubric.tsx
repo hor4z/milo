@@ -2,13 +2,15 @@ import s from './rubric.module.css'
 import { useEffect, useId, useRef, useState, type ReactNode } from 'react'
 import { Button } from '../button/button'
 import { Card } from '../card/card'
-import { CriterionCard, type Criterion } from '../criterion-card/criterion-card'
+import { CriterionCard, criterionLimits, type Criterion } from '../criterion-card/criterion-card'
 import { Field } from '../field/field'
 import { Icon } from '../icon/icon'
 import { Slider } from '../slider/slider'
+import { Textarea } from '../textarea/textarea'
 import { TextField } from '../text-field/text-field'
 import { Tooltip } from '../tooltip/tooltip'
 import { cx } from '../lib/cx'
+import { useOutside } from '../lib/dismiss'
 import { labelFill } from '../lib/colors'
 import { counted, share } from '../lib/number'
 import { useDisclosure } from '../lib/use-disclosure'
@@ -20,6 +22,7 @@ export type { Criterion }
 /** Lo que devuelve el alta. El id, el color y el glifo los pone quien la guarda. */
 export type CriterionDraft = {
   label: string
+  detail?: string
   weight: number
   levels: string[]
 }
@@ -51,11 +54,13 @@ function Root({ criteria, onAdd, onRemove, defaultOpen = true, children, classNa
   const [pinned, setPinned] = useState<string | null>(null)
   const [openCard, setOpenCard] = useState<string | null>(criteria[0]?.id ?? null)
   const [label, setLabel] = useState('')
+  const [detail, setDetail] = useState('')
   const [weight, setWeight] = useState(3)
   const [levels, setLevels] = useState(emptyLevels)
 
   const panel = useDisclosure(defaultOpen)
   const form = useDisclosure(false)
+  const rootRef = useRef<HTMLElement>(null)
   const addRef = useRef<HTMLButtonElement>(null)
   const labelRef = useRef<HTMLInputElement>(null)
   const cards = useRef<Record<string, HTMLLIElement | null>>({})
@@ -68,12 +73,13 @@ function Root({ criteria, onAdd, onRemove, defaultOpen = true, children, classNa
   const active = lit ?? pinned
   const roving = useRovingRadio(active ?? criteria[0]?.id ?? '', setPinned, criteria.map(c => ({ value: c.id })))
 
-  const mounted = useRef(false)
+  useOutside(!!pinned, () => setPinned(null), [rootRef])
+
+
+  const antes = useRef(form.open)
   useEffect(() => {
-    if (!mounted.current) {
-      mounted.current = true
-      return
-    }
+    if (antes.current === form.open) return
+    antes.current = form.open
     if (form.open) labelRef.current?.focus()
     else addRef.current?.focus()
   }, [form.open])
@@ -82,6 +88,7 @@ function Root({ criteria, onAdd, onRemove, defaultOpen = true, children, classNa
 
   const openForm = () => {
     setLabel('')
+    setDetail('')
     setWeight(3)
     setLevels(emptyLevels)
     form.onOpen()
@@ -97,6 +104,7 @@ function Root({ criteria, onAdd, onRemove, defaultOpen = true, children, classNa
     }
     onAdd?.({
       label: name,
+      detail: detail.trim() || undefined,
       weight,
       levels: levels.map((l, i) => l.trim() || `Sin escribir: ${levelNames[i].toLowerCase()}`),
     })
@@ -105,6 +113,7 @@ function Root({ criteria, onAdd, onRemove, defaultOpen = true, children, classNa
 
   return (
     <aside
+      ref={rootRef}
       aria-labelledby={titleId}
       onPointerLeave={() => setLit(null)}
       className={cx(s.root, className)}
@@ -199,12 +208,29 @@ function Root({ criteria, onAdd, onRemove, defaultOpen = true, children, classNa
                 <Card.Body className={s.formFields}>
                   <Field>
                     <Field.Label>Qué vas a mirar</Field.Label>
+                    <Field.Hint>En pocas palabras: es lo único que se ve con el aspecto plegado.</Field.Hint>
                     <TextField
                       inputRef={labelRef}
                       size="sm"
+                      maxLength={criterionLimits.label}
                       value={label}
                       placeholder="Trabajo en equipo"
                       onChange={e => setLabel(e.target.value)}
+                      onKeyDown={e => { if (e.key === 'Escape') closeForm() }}
+                    />
+                  </Field>
+
+                  <Field>
+                    <Field.Label>Qué querés aclarar</Field.Label>
+                    <Field.Hint>Se lee al abrir el aspecto, así que puede ser opcional.</Field.Hint>
+                    <Textarea
+                      rows={2}
+                      maxRows={4}
+                      counter
+                      maxLength={criterionLimits.detail}
+                      value={detail}
+                      placeholder="Que se repartan el trabajo y que cada uno pueda contar lo que hizo el resto"
+                      onChange={e => setDetail(e.target.value)}
                       onKeyDown={e => { if (e.key === 'Escape') closeForm() }}
                     />
                   </Field>

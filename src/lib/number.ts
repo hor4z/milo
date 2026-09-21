@@ -11,6 +11,19 @@ export function decimals(value: number, digits = 1) {
   return nf({ minimumFractionDigits: digits, maximumFractionDigits: digits }).format(value)
 }
 
+/** Lo escrito, como número. Acepta la coma y el punto, porque acá se escribe "7,5" y el teclado del celular manda un punto. Lo que no es un número no es cero: es nada. */
+export function parseNumber(raw: string): number | null {
+  const limpio = raw.replace(/\s/g, '').replace(',', '.')
+  if (limpio === '' || !/^-?\d*\.?\d*$/.test(limpio)) return null
+  const n = Number(limpio)
+  return Number.isFinite(n) ? n : null
+}
+
+/** Un número tal como se escribió, sin rellenar con ceros y sin redondear lo que alguien puso a propósito: `22`, `72,3`, `0,05`. */
+export function amount(value: number) {
+  return nf({ maximumFractionDigits: 3 }).format(value)
+}
+
 /** Una parte de un total, en las dos formas: `18 de 24` dice cuánto falta y `75%` obliga a calcularlo. */
 export function share(value: number, total: number) {
   const pct = total ? Math.round((value / total) * 100) : 0

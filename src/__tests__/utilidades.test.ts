@@ -83,8 +83,9 @@ describe('el CSS del sistema se sostiene solo', () => {
 
     const orphaned: string[] = []
     for (const f of css) {
+      const mine = new Set([...f.text.matchAll(/(--[a-z][\w-]*)\s*:/g)].map(m => m[1]))
       for (const m of f.text.matchAll(/var\((--[a-z][\w-]*)/g)) {
-        if (declared.has(m[1]) || own.test(m[1])) continue
+        if (declared.has(m[1]) || mine.has(m[1]) || own.test(m[1])) continue
         orphaned.push(`${f.name}: ${m[1]}`)
       }
     }

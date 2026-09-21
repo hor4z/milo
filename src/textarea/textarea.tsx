@@ -55,11 +55,12 @@ export function Textarea({
     const frame = parseFloat(cs.paddingTop) + parseFloat(cs.paddingBottom)
       + parseFloat(cs.borderTopWidth) + parseFloat(cs.borderBottomWidth)
     el.style.height = 'auto'
-    const height = el.scrollHeight
+    const floor = line * rows + frame
+    const height = text === '' ? floor : Math.max(el.scrollHeight, floor)
     const cap = maxRows ? line * maxRows + frame : Infinity
     el.style.height = `${Math.min(height, cap)}px`
     el.style.overflowY = height > cap ? 'auto' : 'hidden'
-  }, [maxRows, resize])
+  }, [maxRows, resize, rows, text])
 
   useLayoutEffect(measure, [measure, value, rows])
 

@@ -136,14 +136,14 @@ function Root({ defaultOpen = false, size = 'md', value, onChange, children, cla
           />
         </button>
         <p id={titleId} className={s.title}>{title}</p>
-        <span className={s.track} aria-hidden="true">
-          <span className={s.fill} style={{ width: `${pct}%` }} />
-        </span>
         <p className={`${s.count} tabular`}>
           {hechos}/{total}
           <span className="sr-only"> pasos hechos</span>
         </p>
       </div>
+      <span className={s.track} aria-hidden="true">
+        <span className={s.fill} style={{ width: `${pct}%` }} />
+      </span>
       {open && (
         <div id={bodyId} className={`${s.body} bg-surface`}>
           <div className={s.items}>{items}</div>

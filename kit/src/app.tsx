@@ -76,6 +76,12 @@ import { AccordionStory } from './stories/accordion'
 import { BreadcrumbStory } from './stories/breadcrumb'
 import { IndicatorStory } from './stories/indicator'
 import { SearchStory } from './stories/search'
+import { ChoiceStory } from './stories/choice'
+import { CompareTableStory } from './stories/compare-table'
+import { SelfAssessmentStory } from './stories/self-assessment'
+import { SumTableStory } from './stories/sum-table'
+import { NumberAnswerStory } from './stories/number-answer'
+import { OpenQuestionStory } from './stories/open-question'
 import { ColumnPickerStory } from './stories/column-picker'
 import { ProgressStory } from './stories/progress'
 import { CriterionCardStory } from './stories/criterion-card'
@@ -162,6 +168,9 @@ const groups: Group[] = [
       { id: 'textarea', label: 'Área de texto', alias: 'Textarea campo multilínea texto largo', render: () => <TextareaStory /> },
       { id: 'select', label: 'Selector', alias: 'Select combo desplegable elegir opción', render: () => <SelectStory /> },
       { id: 'date-picker', label: 'Selector de fecha', alias: 'DatePicker fecha calendario vencimiento día mes entrega cuándo almanaque', render: () => <DatePickerStory /> },
+      { id: 'choice', label: 'Pregunta con opciones', alias: 'Choice opciones multiple choice pregunta respuesta elegir correcta quiz', render: () => <ChoiceStory /> },
+      { id: 'open-question', label: 'Pregunta abierta', alias: 'OpenQuestion pregunta abierta respuesta escribir texto libre consigna', render: () => <OpenQuestionStory /> },
+      { id: 'number-answer', label: 'Respuesta numérica', alias: 'NumberAnswer número cálculo cuenta promedio métrica unidad tolerancia margen', render: () => <NumberAnswerStory /> },
       { id: 'checkbox', label: 'Casilla', alias: 'Checkbox casilla marcar tilde', render: () => <CheckboxStory /> },
       { id: 'radio', label: 'Opción única', alias: 'Radio opción única elegir', render: () => <RadioStory /> },
       { id: 'switch', label: 'Interruptor', alias: 'Switch toggle interruptor prender apagar', render: () => <SwitchStory /> },
@@ -186,6 +195,8 @@ const groups: Group[] = [
       { id: 'table', label: 'Tabla', alias: 'Table tabla grilla filas columnas datos', render: () => <TableStory /> },
       { id: 'list', label: 'Lista', alias: 'lista filas acciones', render: () => <ListStory /> },
       { id: 'bar-chart', label: 'Gráfico de barras', alias: 'BarChart gráfico barras chart datos progreso visualización ejes leyenda tabla', render: () => <ChartStory /> },
+      { id: 'sum-table', label: 'Tabla que se suma', alias: 'SumTable presupuesto suma total costeo materiales tope capital gasto', render: () => <SumTableStory /> },
+      { id: 'compare-table', label: 'Cuadro comparativo', alias: 'CompareTable comparar cuadro grilla competencia contrastar completar', render: () => <CompareTableStory /> },
       { id: 'column-picker', label: 'Selector de columnas', alias: 'ColumnPicker columnas tabla elegir mostrar ocultar', render: () => <ColumnPickerStory /> },
       { id: 'indicator', label: 'Indicador', alias: 'Indicator indicador badge marca punto contador aviso notificación campana', render: () => <IndicatorStory /> },
       {
@@ -195,6 +206,7 @@ const groups: Group[] = [
         render: () => <RubricStory />,
         children: [
           { id: 'rubric-review', label: 'Devolución de rúbrica', alias: 'RubricReview devolución corrección feedback niveles comentarios agente docente entrega', render: () => <RubricReviewStory /> },
+          { id: 'self-assessment', label: 'Autoevaluación', alias: 'SelfAssessment autoevaluación estudiante ubicarse niveles rúbrica antes de entregar', render: () => <SelfAssessmentStory /> },
           { id: 'criterion-card', label: 'Tarjeta de aspecto', alias: 'CriterionCard aspecto aspecto tarjeta plegable niveles descriptores rúbrica', render: () => <CriterionCardStory /> },
         ],
       },

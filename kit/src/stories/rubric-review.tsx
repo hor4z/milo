@@ -4,39 +4,40 @@ import { A11y, Example, Note, Page, Panel, Practices, Props, Section, Stack, Var
 
 const criteria: Criterion[] = [
   {
-    id: 'datos',
-    label: 'Toma de datos',
-    weight: 4,
+    id: 'medicion',
+    label: 'Cómo midieron',
+    detail: 'Se mira que los números se puedan comparar entre sí: el mismo aparato en todas las mediciones, los mismos tres momentos en todos los lugares, y anotado qué estaba pasando alrededor.',
+    weight: 5,
     color: 'green',
     levels: [
-      'Una sola medición anotada',
-      'Las tres, sin el error',
-      'Las tres, con el error estimado',
-      'Las tres, con el error y de dónde sale',
+      'Midieron una sola vez en cada lugar',
+      'Midieron los tres momentos, pero no en todos los lugares',
+      'Los cinco lugares en los tres momentos, siempre con el mismo teléfono',
+      'Todo con el mismo teléfono, y anotado qué estaba pasando alrededor en cada medición',
     ],
   },
   {
     id: 'grafico',
-    label: 'Gráfico',
-    weight: 3,
+    label: 'El gráfico',
+    weight: 4,
     color: 'teal',
     levels: [
-      'Altura contra tiempo',
-      'Altura contra el tiempo al cuadrado',
-      'Con la unidad en cada eje y la escala legible',
-      'Con la recta marcada y de dónde sale la pendiente',
+      'Los números en una lista, sin gráfico',
+      'Un gráfico, pero sin decir qué es cada eje',
+      'Con la unidad en el eje y los cinco lugares comparables de un vistazo',
+      'Con la unidad, los tres momentos distinguidos y el orden elegido para que se lea algo',
     ],
   },
   {
-    id: 'explicacion',
-    label: 'Explicación',
-    weight: 5,
+    id: 'propuesta',
+    label: 'La propuesta',
+    weight: 4,
     color: 'blue',
     levels: [
-      'El resultado, sin explicación',
-      'La pendiente tiene que ver con la gravedad',
-      'Por qué la pendiente da la mitad de la gravedad',
-      'Comparado con los 9,8 del libro, con la diferencia discutida',
+      'Dice que hay mucho ruido',
+      'Propone algo, sin decir de qué medición sale',
+      'Propone algo que se puede hacer el lunes, apoyado en el gráfico',
+      'Propone algo para el lunes, dice de qué medición sale y cómo se sabría si funcionó',
     ],
   },
 ]
@@ -45,23 +46,23 @@ const amelia = { name: 'Amelia', assistant: true }
 const ana = { name: 'Ana Pérez', src: '/avatars/04.webp' }
 
 const devuelta: Record<string, Mark> = {
-  datos: {
-    met: [true, true, true, false],
-    note: { by: amelia, text: 'Están las tres mediciones y el error estimado. Falta decir de dónde sale ese error.' },
+  medicion: {
+    level: 2,
+    note: { by: amelia, text: 'Los cinco lugares en los tres momentos y siempre el mismo teléfono. Para el de abajo falta anotar qué pasaba alrededor.' },
   },
   grafico: {
-    met: [true, true, true, true],
-    note: { by: ana, text: 'Impecable: la recta marcada y la pendiente despejada.' },
+    level: 3,
+    note: { by: ana, text: 'Impecable: la unidad en el eje y los tres momentos distinguidos.' },
   },
-  explicacion: {
-    met: [true, true, false, false],
-    note: { by: amelia, text: 'Decís que la pendiente tiene que ver con la gravedad, pero no por qué da la mitad.' },
+  propuesta: {
+    level: 1,
+    note: { by: amelia, text: 'Proponés cortinas en la biblioteca, pero no decís de qué medición sale.' },
   },
 }
 
 export function RubricReviewStory() {
   const [marks, setMarks] = useState<Record<string, Mark>>({
-    datos: { met: [true, true, true, false] },
+    medicion: { level: 2 },
   })
 
   return (
@@ -73,21 +74,16 @@ export function RubricReviewStory() {
     >
       <Section
         title="Corrigiendo"
-        note="Con `onMet` los renglones se tildan, con `onNote` se comenta y con `onClearNote` se borra ese comentario. Es el mismo gesto que hace el estudiante con su lista, y a la derecha de cada nombre dice en qué anda ese aspecto, así que plegada la tarjeta igual se sabe qué falta corregir. La barra se llena con lo tildado: no hay nota ni puntaje, y eso no es un olvido."
+        note="Con `onLevel` se elige el nivel, con `onNote` se comenta y con `onClearNote` se borra ese comentario. Se marca uno solo: los cuatro renglones son descripciones del mismo estado y solo una es cierta, así que no hay un sí y un no por renglón. A la derecha del nombre dice en cuál quedó, así que plegada la tarjeta igual se sabe qué falta corregir. La barra se llena hasta el nivel elegido: no hay nota ni puntaje, y eso no es un olvido."
       >
         <Panel>
-          <Variant name="a medio corregir" note="Tildá algo en Gráfico y mirá cómo se llena su tramo.">
+          <Variant name="a medio corregir" note="Elegí un nivel en El gráfico y mirá cómo se llena su tramo. Al elegir otro, el anterior se apaga.">
             <Stack width="sm">
               <RubricReview
                 criteria={criteria}
                 marks={marks}
                 by={ana}
-                onMet={(id, level, value) => setMarks(m => {
-                  const aspecto = criteria.find(c => c.id === id)!
-                  const met = [...(m[id]?.met ?? aspecto.levels.map(() => false))]
-                  met[level] = value
-                  return { ...m, [id]: { ...m[id], met } }
-                })}
+                onLevel={(id, level) => setMarks(m => ({ ...m, [id]: { ...m[id], level } }))}
                 onNote={(id, text) => setMarks(m => ({ ...m, [id]: { ...m[id], note: { by: ana, text } } }))}
                 onClearNote={id => setMarks(m => ({ ...m, [id]: { ...m[id], note: undefined } }))}
               >
@@ -100,7 +96,7 @@ export function RubricReviewStory() {
 
       <Section
         title="La devolución"
-        note="Sin los callbacks, la misma pieza es lo que abre quien entregó: qué renglones cumplió, cuáles no y qué le dijeron. Lo que falta no hay que escribirlo: son los renglones sin tildar, que están a la vista y dicen exactamente qué hacer la próxima vez."
+        note="Sin los callbacks, la misma pieza es lo que abre quien entregó: qué renglones cumplió, cuáles no y qué le dijeron. Lo que falta no hay que escribirlo: es el renglón de abajo del que quedó tildado, que está a la vista y dice exactamente qué hacer la próxima vez."
       >
         <Panel>
           <Variant name="lo que ve quien entregó">
@@ -143,14 +139,14 @@ export function RubricReviewStory() {
           <Practices.Do>Firmá siempre lo que escribe un agente: quien lee tiene derecho a saber si eso lo miró una persona.</Practices.Do>
           <Practices.Dont>No la uses para poner una nota: si el producto necesita una cifra, va aparte y no adentro de la devolución.</Practices.Dont>
           <Practices.Dont>No escondas los renglones sin tildar: son los que dicen qué hacer la próxima vez.</Practices.Dont>
-          <Practices.Dont>No los tildes en rojo cuando no están: el vacío ya dice que falta, y una pantalla de cruces se lee como un veredicto.</Practices.Dont>
+          <Practices.Dont>No le agregues un "no cumple" por renglón: el nivel de abajo ya es la descripción negativa, y una pantalla de cruces se lee como un veredicto.</Practices.Dont>
         </Practices>
       </Section>
 
       <Section title="Accesibilidad">
         <A11y>
-          <A11y.Item>Corrigiendo, cada renglón es una casilla adentro de su etiqueta: se toca el texto y se tilda.</A11y.Item>
-          <A11y.Item>Leyendo, cada renglón dice "cumplido" o "todavía no" en un texto que solo alcanza un lector de pantalla: no depende de ver el tilde.</A11y.Item>
+          <A11y.Item>Corrigiendo, los renglones son un grupo de opción única nombrado con el aspecto: una sola parada de tabulación y las flechas mueven entre ellos.</A11y.Item>
+          <A11y.Item>Leyendo, el renglón elegido lo dice en un texto que solo alcanza un lector de pantalla: no depende de ver el tilde.</A11y.Item>
           <A11y.Item>La barra es decorativa: lo que dice está escrito en cada aspecto.</A11y.Item>
           <A11y.Item>El campo de comentario dice sobre qué aspecto es, porque hay uno por tarjeta.</A11y.Item>
           <A11y.Item>La firma de un agente se lee como texto ("asistente") y no solo como un glifo.</A11y.Item>
