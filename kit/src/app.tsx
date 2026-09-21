@@ -78,6 +78,7 @@ import { IndicatorStory } from './stories/indicator'
 import { SearchStory } from './stories/search'
 import { ChoiceStory } from './stories/choice'
 import { CompareTableStory } from './stories/compare-table'
+import { SelfAssessmentStory } from './stories/self-assessment'
 import { SumTableStory } from './stories/sum-table'
 import { NumberAnswerStory } from './stories/number-answer'
 import { OpenQuestionStory } from './stories/open-question'
@@ -205,6 +206,7 @@ const groups: Group[] = [
         render: () => <RubricStory />,
         children: [
           { id: 'rubric-review', label: 'Devolución de rúbrica', alias: 'RubricReview devolución corrección feedback niveles comentarios agente docente entrega', render: () => <RubricReviewStory /> },
+          { id: 'self-assessment', label: 'Autoevaluación', alias: 'SelfAssessment autoevaluación estudiante ubicarse niveles rúbrica antes de entregar', render: () => <SelfAssessmentStory /> },
           { id: 'criterion-card', label: 'Tarjeta de aspecto', alias: 'CriterionCard aspecto aspecto tarjeta plegable niveles descriptores rúbrica', render: () => <CriterionCardStory /> },
         ],
       },

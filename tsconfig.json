@@ -177,6 +177,9 @@
       "@milo/ui/select": [
         "./src/select/select.tsx"
       ],
+      "@milo/ui/self-assessment": [
+        "./src/self-assessment/self-assessment.tsx"
+      ],
       "@milo/ui/settings-modal": [
         "./src/settings-modal/settings-modal.tsx"
       ],

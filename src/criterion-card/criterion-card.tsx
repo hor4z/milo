@@ -36,8 +36,8 @@ export type Criterion = {
   levelNames?: string[]
 }
 
-/** El nombre de cada escalón, si esta rúbrica tiene nombres que poner. */
-function namesFor(criterion: Criterion): string[] | undefined {
+/** El nombre de cada escalón, si esta rúbrica tiene nombres que poner. Una sola regla para todas las piezas que los muestran. */
+export function namesFor(criterion: Criterion): string[] | undefined {
   if (criterion.levelNames) return criterion.levelNames
   return criterion.levels.length === levelNames.length ? [...levelNames] : undefined
 }

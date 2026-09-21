@@ -540,22 +540,16 @@ export const propsByComponent: Record<string, ComponentDoc> = {
         "doc": "`sm` adentro de un panel denso: los pasos bajan a texto de cuerpo y las filas se achican."
       },
       {
-        "name": "exclusive",
-        "type": "boolean",
-        "required": false,
-        "doc": "Los renglones son excluyentes: se marca uno y los demás se apagan. Es para una escala, donde los renglones son descripciones del mismo estado y solo una es cierta. Se va con la barra y el contador, que miden cuánto va hecho y acá no hay nada hecho: hay un lugar donde estás. Sin esto la lista es la escalera de siempre, donde cada paso incluye a los de arriba."
-      },
-      {
         "name": "value",
         "type": "number",
         "required": false,
-        "doc": "Cuántos pasos van hechos, o cuál está marcado si es excluyente. En los dos casos el estado de cada renglón lo decide la pieza y no el call site."
+        "doc": "Cuántos pasos van hechos. Con esto la lista es una escalera: cada paso incluye a los de arriba, así que el estado de cada uno lo decide la pieza y no el call site."
       },
       {
         "name": "onChange",
         "type": "(value: number) => void",
         "required": false,
-        "doc": "Recibe el valor nuevo al tocar un renglón. En la escalera, tocar el último desmarca de ahí para abajo; siendo excluyente, tocar el marcado no lo apaga, igual que un radio."
+        "doc": "Recibe cuántos pasos quedan hechos al tocar uno. Tocar el que ya es el último desmarca de ahí para abajo."
       },
       {
         "name": "children",
@@ -3111,6 +3105,50 @@ export const propsByComponent: Record<string, ComponentDoc> = {
       }
     ],
     "doc": "El select es un botón con un listbox propio, no un `<select>` nativo."
+  },
+  "SelfAssessment": {
+    "props": [
+      {
+        "name": "criteria",
+        "type": "Criterion[]",
+        "required": true,
+        "doc": "Los aspectos de la rúbrica, en su orden."
+      },
+      {
+        "name": "value",
+        "type": "Record<string, number>",
+        "required": true,
+        "doc": "En qué nivel se ubicó cada aspecto, por id."
+      },
+      {
+        "name": "onChange",
+        "type": "(id: string, level: number) => void",
+        "required": true,
+        "doc": "Recibe el aspecto y el nivel elegido."
+      },
+      {
+        "name": "children",
+        "type": "ReactNode",
+        "required": true,
+        "doc": "El `SelfAssessment.Title`."
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "required": false
+      }
+    ],
+    "doc": "Dónde se ubica quien entrega, aspecto por aspecto, contra la rúbrica con la que lo van a mirar. Los niveles son excluyentes: va uno solo, porque son cuatro descripciones del mismo estado. Arriba dice cuántos aspectos quedan sin ubicar, que es lo único que acá cuenta como progreso."
+  },
+  "SelfAssessment.Title": {
+    "props": [
+      {
+        "name": "children",
+        "type": "ReactNode",
+        "required": true
+      }
+    ],
+    "doc": "Cómo se llama la autoevaluación, en la cabecera."
   },
   "SettingsModal": {
     "props": [

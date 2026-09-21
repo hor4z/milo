@@ -1,11 +1,11 @@
 import cls from './rubric.module.css'
 import { useState } from 'react'
-import { Checklist } from '@milo/ui/checklist'
+import { SelfAssessment } from '@milo/ui/self-assessment'
 import { ConfirmDialog } from '@milo/ui/confirm-dialog'
 import { Rubric, type Criterion } from '@milo/ui/rubric'
 import { useToast } from '@milo/ui/toast'
 import { labelColors } from '@milo/ui/lib/colors'
-import { counted, share } from '@milo/ui/lib/number'
+import { counted } from '@milo/ui/lib/number'
 
 /** Quién mira la rúbrica: uno la define, el otro se prepara con ella. */
 export type RubricMode = 'teacher' | 'student'
@@ -118,8 +118,6 @@ export function RubricRail({ mode }: { mode: RubricMode }) {
   const [asking, setAsking] = useState<Criterion | null>(null)
   const { toast } = useToast()
 
-  const total = criteria.reduce((sum, c) => sum + c.weight, 0)
-
   const remove = (criterion: Criterion) => {
     const at = criteria.findIndex(c => c.id === criterion.id)
     setCriteria(cs => cs.filter(c => c.id !== criterion.id))
@@ -136,28 +134,17 @@ export function RubricRail({ mode }: { mode: RubricMode }) {
     return (
       <div className={cls.groups}>
         <p className={cls.lead}>
-          Ubicate en cada aspecto: va uno solo. No es la nota, y el renglón de abajo del que elegís
-          es exactamente lo que te falta.
+          Ubicate en cada aspecto antes de entregar: va uno solo por aspecto. No es la nota, y el
+          renglón de abajo del que elegís es exactamente lo que te falta.
         </p>
 
-        {criteria.map((c, i) => (
-          <Checklist
-            key={c.id}
-            size="sm"
-            exclusive
-            defaultOpen={i === 0}
-            value={reached[c.id] ?? 0}
-            onChange={n => setReached(r => ({ ...r, [c.id]: n }))}
-          >
-            <Checklist.Title>{c.label}</Checklist.Title>
-            {c.levels.map(level => (
-              <Checklist.Item key={level}>{level}</Checklist.Item>
-            ))}
-            <Checklist.Footer hint="Los cuatro niveles son excluyentes: al marcar uno se apagan los demás.">
-              Vale {share(c.weight, total).percent} de la nota.
-            </Checklist.Footer>
-          </Checklist>
-        ))}
+        <SelfAssessment
+          criteria={criteria}
+          value={reached}
+          onChange={(id, level) => setReached(r => ({ ...r, [id]: level }))}
+        >
+          <SelfAssessment.Title>Dónde estás</SelfAssessment.Title>
+        </SelfAssessment>
       </div>
     )
   }
