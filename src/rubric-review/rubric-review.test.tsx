@@ -9,7 +9,6 @@ const criteria: Criterion[] = [
     label: 'Toma de datos',
     weight: 3,
     color: 'green',
-    icon: 'timer',
     levels: ['Una sola medición', 'Las tres, sin el error', 'Las tres, con el error'],
   },
   {
@@ -17,7 +16,6 @@ const criteria: Criterion[] = [
     label: 'Gráfico',
     weight: 1,
     color: 'teal',
-    icon: 'analytics',
     levels: ['Altura contra tiempo', 'Altura contra tiempo al cuadrado'],
   },
 ]

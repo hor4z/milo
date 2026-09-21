@@ -7,7 +7,6 @@ const datos: Criterion = {
   label: 'Toma de datos',
   weight: 4,
   color: 'green',
-  icon: 'timer',
   levels: [
     'Una sola medición anotada',
     'Las tres, sin el error',
@@ -21,7 +20,6 @@ const grafico: Criterion = {
   label: 'Gráfico',
   weight: 3,
   color: 'teal',
-  icon: 'analytics',
   levels: [
     'Altura contra tiempo',
     'Altura contra el tiempo al cuadrado',

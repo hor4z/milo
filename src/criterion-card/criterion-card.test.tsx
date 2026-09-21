@@ -8,7 +8,6 @@ const criterion: Criterion = {
   label: 'Toma de datos',
   weight: 3,
   color: 'green',
-  icon: 'timer',
   levels: ['Una sola medición', 'Las tres, sin el error', 'Las tres, con el error'],
 }
 

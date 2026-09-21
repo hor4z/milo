@@ -17,6 +17,7 @@
   .title {
     flex: 1;
     min-width: 0;
+    overflow-wrap: anywhere;
     font-size: var(--type-reading);
     line-height: var(--type-reading-lh);
     letter-spacing: var(--type-reading-ls);

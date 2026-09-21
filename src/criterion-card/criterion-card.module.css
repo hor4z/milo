@@ -17,6 +17,8 @@
 
   .trigger {
     display: inline-flex;
+    width: 1.5rem;
+    height: 1.5rem;
     flex-shrink: 0;
     align-items: center;
     justify-content: center;
@@ -35,19 +37,10 @@
     rotate: 0deg;
   }
 
-  .swatch {
-    display: inline-flex;
-    width: 1.5rem;
-    height: 1.5rem;
-    flex-shrink: 0;
-    align-items: center;
-    justify-content: center;
-    border-radius: var(--radius-sm);
-  }
-
   .title {
     flex: 1;
     min-width: 0;
+    overflow-wrap: anywhere;
     font-size: var(--type-body);
     line-height: var(--type-body-lh);
     letter-spacing: var(--type-body-ls);

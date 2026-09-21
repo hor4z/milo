@@ -2,7 +2,7 @@ import s from './criterion-card.module.css'
 import { useId, type ReactNode } from 'react'
 import { Card } from '../card/card'
 import { useRovingRadio } from '../lib/roving'
-import { Icon, type IconName } from '../icon/icon'
+import { Icon } from '../icon/icon'
 import { IconButton } from '../icon-button/icon-button'
 import { Tooltip } from '../tooltip/tooltip'
 import { cx } from '../lib/cx'
@@ -20,10 +20,8 @@ export type Criterion = {
   label: string
   /** Cuánto vale contra los demás. De acá sale su porcentaje. */
   weight: number
-  /** El color de su marca, y el de su tramo en la barra de la rúbrica. */
+  /** El color de su flecha, y el de su tramo en la barra de la rúbrica. */
   color: LabelColor
-  /** El glifo de su marca. */
-  icon: IconName
   /** Un descriptor por nivel, del más flojo al más completo. */
   levels: string[]
 }
@@ -103,17 +101,14 @@ export function CriterionCard({ criterion, total, open, onToggle, onRemove, met,
           aria-controls={bodyId}
           aria-labelledby={titleId}
           onClick={onToggle}
-          className={s.trigger}
+          className={cx(s.trigger, labelSoft[criterion.color])}
         >
           <Icon
             name="keyboard_arrow_down"
             size={18}
-            className={cx(s.chevron, open && s.chevronOpen, 'icon-muted')}
+            className={cx(s.chevron, open && s.chevronOpen)}
           />
         </button>
-        <span aria-hidden className={`${s.swatch} mark ${labelSoft[criterion.color]}`}>
-          <Icon name={criterion.icon} size={16} />
-        </span>
         <Card.Title id={titleId} className={s.title}>
           {criterion.label}
           <span className="sr-only">, vale {share(criterion.weight, total).percent} de la nota</span>
