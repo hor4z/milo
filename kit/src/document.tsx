@@ -78,7 +78,7 @@ const cliente = [
   { id: 'quien', label: '¿Quién te compra?', placeholder: 'Los que salen del club a la noche' },
   { id: 'edad', label: '¿Qué edad tiene?', placeholder: 'Entre 15 y 25' },
   { id: 'problema', label: '¿Qué le resolvés?', placeholder: 'No hay nada abierto después de las 22' },
-  { id: 'porque', label: '¿Por qué a vos y no al que ya está?', placeholder: 'Porque llevo hasta la puerta y el otro no' },
+  { id: 'porque', label: '¿Por qué a vos?', placeholder: 'Porque llevo hasta la puerta y el otro no' },
 ]
 
 const gastos = [

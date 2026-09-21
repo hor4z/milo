@@ -45,17 +45,17 @@ describe('toda clase que llega al HTML resuelve a algo', () => {
     })
   }
 
-  it('touch-target va solo donde toda la superficie es el mismo objetivo', () => {
-    const bad: string[] = []
-    for (const [name, View] of views) {
+  for (const [name, View] of views) {
+    it(`${name} pone touch-target solo donde toda la superficie es el mismo objetivo`, () => {
       const { container } = render(<ToastProvider><View /></ToastProvider>)
+      const bad: string[] = []
       for (const el of container.querySelectorAll('.touch-target')) {
         const inside = el.querySelector('input, textarea, select, button, a[href], [tabindex]')
-        if (inside) bad.push(`${name}: un ${el.tagName.toLowerCase()} con un ${inside.tagName.toLowerCase()} adentro`)
+        if (inside) bad.push(`un ${el.tagName.toLowerCase()} con un ${inside.tagName.toLowerCase()} adentro`)
       }
-    }
-    expect([...new Set(bad)]).toEqual([])
-  })
+      expect(bad).toEqual([])
+    })
+  }
 
   it('el guardián mira algo: hay clases de módulo dibujadas', () => {
     const First = views[0][1]

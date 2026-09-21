@@ -183,9 +183,9 @@
   }
 
   .met {
-    background-color: var(--ok-fill);
-    border-color: var(--ok-fill);
-    color: var(--on-ok);
+    background-color: var(--brand);
+    border-color: var(--brand);
+    color: var(--on-brand);
   }
 
 

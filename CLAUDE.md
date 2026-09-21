@@ -316,12 +316,12 @@ Salieron de armar pantallas de verdad con estas piezas, y valen para cualquiera 
   da 3,78 contra el blanco, por eso `--on-ok` llegó a ser casi negro: un tilde negro sobre un círculo
   verde, que se lee como un error de imprenta. La salida ya estaba inventada en el sistema
   (`--accent-fill` es exactamente eso).
-- **Y en claro ese relleno es una excepción escrita, no un descuido.** `--ok-fill` es `#20ad54`, que
-  da 2,93 con blanco: no llega al 4,5 del sistema ni al 3:1 que WCAG pide para un gráfico. Se eligió
-  a ojo y se decidió igual. Lo que el test sigue sosteniendo es que **no pueda empeorar**: el par
-  tiene su propio piso anotado en `contraste.test.ts` con el motivo al lado. En oscuro no se tocó y
-  sigue en 5,45. Si algún día se quiere volver a la regla, el más claro de ese mismo tono que llega a
-  4,5 es `#198842`.
+- **Y ese relleno dejó de ser la excepción del sistema.** En claro fue `#20ad54`, que da 2,93 con
+  blanco: no llegaba al 4,5 del sistema ni al 3:1 que WCAG pide para un gráfico, se eligió a ojo y
+  quedó anotado con su propio piso en `contraste.test.ts` para que al menos no empeorara. Ahora es
+  `#198842`, el más claro de ese mismo tono que llega a 4,5, que era el valor que esa nota dejaba
+  preparado. El piso anotado se fue con él y el par se verifica con la regla, como los demás. En
+  oscuro nunca hizo falta: sigue en 5,45.
 - **Una marca de `Indicator` se ancla a la caja de lo que marca, y esa caja casi nunca es lo que se
   ve.** Un `IconButton` de 40 lleva un glifo de 18 centrado, así que la esquina de la caja queda a
   11px de la esquina del glifo, y el punto se lee suelto aunque las cajas estén pegadas. La pieza no

@@ -264,23 +264,14 @@ describe('el relleno de un dato se despega de su pista', () => {
       ['--on-bad', '--bad'],
     ]
 
-    /** El verde de lo hecho se eligió a mano y por fuera de la regla: es una decisión tomada,
-        no un descuido. El piso queda anotado para que el par no pueda empeorar todavía más
-        sin que nadie se entere, que es lo único que el test puede seguir sosteniendo. */
-    const decididos: Record<string, number> = { '--on-ok --ok-fill light': 2.9 }
-
     for (const theme of ['light', 'dark'] as const) {
       for (const [ink, fill] of pairs) {
-        const piso = decididos[`${ink} ${fill} ${theme}`]
-        it(`${ink} sobre ${fill} en ${theme} llega a ${piso ?? '4.5'}:1`, () => {
+        it(`${ink} sobre ${fill} en ${theme} llega a 4.5:1`, () => {
           const i = literal(ink, theme)
           const f = literal(fill, theme)
           expect(i, `falta ${ink} en ${theme}`).toBeTruthy()
           expect(f, `falta ${fill} en ${theme}`).toBeTruthy()
-          expect(
-            ratio(i, f),
-            piso ? 'es una excepción escrita: no puede empeorar' : undefined,
-          ).toBeGreaterThanOrEqual(piso ?? 4.5)
+          expect(ratio(i, f)).toBeGreaterThanOrEqual(4.5)
         })
       }
     }

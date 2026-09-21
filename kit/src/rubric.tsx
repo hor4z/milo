@@ -133,10 +133,6 @@ export function RubricRail({ mode }: { mode: RubricMode }) {
   if (mode === 'student') {
     return (
       <div className={cls.groups}>
-        <p className={cls.lead}>
-          Ubicate en cada aspecto. No es la nota: es para ver qué te falta.
-        </p>
-
         <SelfAssessment
           criteria={criteria}
           value={reached}
