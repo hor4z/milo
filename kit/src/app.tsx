@@ -358,7 +358,6 @@ export function App() {
                 </div>
                 <div className={cls.navGroupItems}>
                   {g.stories.map(s => {
-                    // se despliega al tocarlo, o solo si estás parado en uno de sus hijos
                     const desplegado = abiertos.includes(s.id)
                       || Boolean(s.children?.some(c => c.id === current))
                       || Boolean(query && s.children?.length)

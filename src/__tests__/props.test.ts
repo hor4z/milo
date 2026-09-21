@@ -27,7 +27,6 @@ describe('la tabla de props sale del código', () => {
         for (const m of text.matchAll(/^export (?:function|const|type) (\w+)/gm)) declarado.add(m[1])
       }
     }
-    // la familia se documenta como Modal.Header: lo que importa es que la raíz exista
     const outside = Object.keys(propsByComponent).filter(p => !declarado.has(p.split('.')[0]))
     expect(outside).toEqual([])
   })
