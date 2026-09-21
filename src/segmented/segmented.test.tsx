@@ -76,8 +76,8 @@ describe('Segmented', () => {
 
   it('el pulgar lleva el radio de lo cuadrado, que es el de la pista menos su padding', () => {
     render(<Segmented value="a" onChange={() => {}} options={filters.slice(0, 2)} label="Rango" size="sm" />)
-    expect(style(screen.getByRole('radiogroup'))).toContain('border-radius: var(--radius-lg)')
-    expect(style(screen.getByRole('radio', { name: 'Todas' }))).toContain('border-radius: var(--radius-md)')
+    expect(style(screen.getByRole('radiogroup'))).toContain('border-radius: var(--radius-md)')
+    expect(style(screen.getByRole('radio', { name: 'Todas' }))).toContain('border-radius: calc(var(--radius-md) - 0.125rem)')
   })
 
   it('una opción apagada no se elige ni recibe el foco', async () => {

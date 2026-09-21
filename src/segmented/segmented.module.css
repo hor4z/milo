@@ -14,12 +14,12 @@
   }
 
   .railSm {
-    border-radius: var(--radius-lg);
+    border-radius: var(--radius-md);
     padding: 0.125rem;
   }
 
   .railMd {
-    border-radius: var(--radius-lg);
+    border-radius: var(--radius-md);
     padding: 0.125rem;
   }
 
@@ -54,7 +54,7 @@
 
   .optionSm {
     min-height: 2rem;
-    border-radius: var(--radius-md);
+    border-radius: calc(var(--radius-md) - 0.125rem);
     font-size: var(--type-body);
     line-height: var(--type-body-lh);
     letter-spacing: var(--type-body-ls);
@@ -62,7 +62,7 @@
 
   .optionMd {
     min-height: 2.25rem;
-    border-radius: var(--radius-md);
+    border-radius: calc(var(--radius-md) - 0.125rem);
     font-size: var(--type-body);
     line-height: var(--type-body-lh);
     letter-spacing: var(--type-body-ls);
