@@ -24,10 +24,10 @@ const amelia = { name: 'Amelia', assistant: true }
 
 const corregida: Record<string, Mark> = {
   datos: {
-    met: [true, true, undefined],
+    level: 1,
     note: { by: amelia, text: 'Están las tres, falta estimar el error.' },
   },
-  grafico: { met: [true, true] },
+  grafico: { level: 1 },
 }
 
 const arma = (props: Record<string, unknown> = {}) => {
@@ -49,20 +49,34 @@ describe('RubricReview', () => {
     expect(screen.getByText('Están las tres, falta estimar el error.')).toBeInTheDocument()
   })
 
-  it('cada renglón dice si está cumplido, y no solo con el tilde', () => {
+  it('el nivel en el que quedó se dice en texto, no solo con el tilde', () => {
     arma()
-    expect(screen.getByText('Las tres, sin el error').textContent).toContain('cumplido')
-    expect(screen.getByText('Las tres, con el error').textContent).toContain('todavía no')
+    expect(screen.getByText('Las tres, sin el error').textContent).toContain('es el nivel en el que quedó')
   })
 
-  it('en qué anda cada aspecto se ve sin abrirlo', () => {
+  it('los renglones son excluyentes: los otros no dicen nada de más', () => {
     arma()
-    expect(screen.getByText('2 de 3')).toBeInTheDocument()
+    expect(screen.getByText('Una sola medición').textContent).not.toContain('nivel en el que quedó')
+    expect(screen.getByText('Las tres, con el error').textContent).not.toContain('nivel en el que quedó')
+  })
+
+  it('en qué nivel quedó se ve sin abrirlo', () => {
+    arma()
+    expect(screen.getAllByText('nivel 2').length).toBeGreaterThan(0)
+  })
+
+  it('un aspecto sin tocar lo dice, y no se lee como el nivel más bajo', () => {
+    render(
+      <RubricReview criteria={criteria} marks={{}}>
+        <RubricReview.Title>Cómo te fue</RubricReview.Title>
+      </RubricReview>,
+    )
+    expect(screen.getAllByText('sin corregir')).toHaveLength(2)
   })
 
   it('la cabecera dice cuánto falta corregir', () => {
     render(
-      <RubricReview criteria={criteria} marks={{ datos: { met: [true, false, false] } }}>
+      <RubricReview criteria={criteria} marks={{ datos: { level: 0 } }}>
         <RubricReview.Title>Cómo te fue</RubricReview.Title>
       </RubricReview>,
     )
@@ -74,29 +88,27 @@ describe('RubricReview', () => {
     expect(screen.getByText('corregida')).toBeInTheDocument()
   })
 
-  it('corrigiendo, cada renglón se marca con el tilde o con la cruz', async () => {
-    const onMet = vi.fn()
+  it('corrigiendo, elegir un nivel devuelve el aspecto y el nivel', async () => {
+    const onLevel = vi.fn()
     render(
-      <RubricReview criteria={criteria} marks={corregida} onMet={onMet}>
+      <RubricReview criteria={criteria} marks={corregida} onLevel={onLevel}>
         <RubricReview.Title>Cómo te fue</RubricReview.Title>
       </RubricReview>,
     )
-    const fila = screen.getByRole('radiogroup', { name: 'Cómo quedó: Las tres, con el error' })
-    await userEvent.click(within(fila).getByRole('radio', { name: 'Lo hizo' }))
-    expect(onMet).toHaveBeenCalledWith('datos', 2, true)
-
-    await userEvent.click(within(fila).getByRole('radio', { name: 'No lo hizo' }))
-    expect(onMet).toHaveBeenCalledWith('datos', 2, false)
+    const grupo = screen.getByRole('radiogroup', { name: /Toma de datos/ })
+    await userEvent.click(within(grupo).getByRole('radio', { name: /Las tres, con el error/ }))
+    expect(onLevel).toHaveBeenCalledWith('datos', 2)
   })
 
-  it('la cruz es del que corrige: quien entregó no la recibe', () => {
+  it('el docente marca uno solo: son descripciones del mismo estado', () => {
     render(
-      <RubricReview criteria={criteria} marks={{ datos: { met: [true, false, undefined] } }}>
+      <RubricReview criteria={criteria} marks={corregida} onLevel={vi.fn()}>
         <RubricReview.Title>Cómo te fue</RubricReview.Title>
       </RubricReview>,
     )
-    expect(screen.queryByRole('radio')).not.toBeInTheDocument()
-    expect(screen.getByText('Las tres, sin el error').textContent).toContain('todavía no')
+    const grupo = screen.getByRole('radiogroup', { name: /Toma de datos/ })
+    const marcados = within(grupo).getAllByRole('radio').filter(r => r.getAttribute('aria-checked') === 'true')
+    expect(marcados).toHaveLength(1)
   })
 
   it('un comentario se borra y se escribe de nuevo: no se edita', async () => {
