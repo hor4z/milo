@@ -110,7 +110,7 @@ export function ChecklistStory() {
         note="Con `exclusive` los renglones dejan de sumarse: se marca uno y los demás se apagan, y tocar el que ya está marcado no lo apaga. Es para una escala, donde los renglones son descripciones del mismo estado y solo una es cierta, como los cuatro niveles de una rúbrica."
       >
         <Panel>
-          <Variant name="una escala" note="Tocá otro renglón: el anterior se apaga. No hay contador, porque dos de cuatro en una escala se lee como una nota.">
+          <Variant name="una escala" note="Tocá otro renglón: el anterior se apaga. No hay barra ni contador: los dos miden cuánto va hecho, y acá no hay nada hecho sino un lugar donde estás.">
             <Stack width="sm">
               <Checklist defaultOpen exclusive size="sm" value={nivel} onChange={setNivel}>
                 <Checklist.Title>La idea</Checklist.Title>
@@ -126,9 +126,14 @@ export function ChecklistStory() {
           </Variant>
         </Panel>
         <Note>
-          Sin `exclusive` la lista es una escalera y cada paso incluye a los de arriba, que es lo
-          correcto cuando los renglones se van cumpliendo de verdad. Mirando una lista no se
-          distingue cuál de las dos es: lo dice el contenido, así que lo elige quien la escribe.
+          Sin `exclusive` no cambia nada: la lista sigue siendo la escalera de siempre, con su barra
+          y su contador. Mirando una lista no se distingue cuál de las dos es: lo dice el contenido,
+          así que lo elige quien la escribe.
+        </Note>
+        <Note>
+          Lo que se pierde al sacar la barra es lo que la tarjeta decía plegada. Hoy plegada muestra
+          el nombre y nada más, así que en una rúbrica de ocho no se ve en cuál quedaste sin abrir
+          cada una. La salida sería que el call site pase el nombre del nivel, y todavía no está.
         </Note>
       </Section>
 

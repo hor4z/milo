@@ -131,8 +131,20 @@ describe('Checklist', () => {
     expect(onChange).toHaveBeenCalledWith(2)
   })
 
-  it('siendo excluyente no hay contador: dos de cuatro se lee como una nota', () => {
-    render(
+  it('la escalera conserva su barra y su contador: es lo que mide cuánto va hecho', () => {
+    const { container } = render(
+      <Checklist defaultOpen value={1}>
+        <Checklist.Title>Los pasos</Checklist.Title>
+        <Checklist.Item>Uno</Checklist.Item>
+        <Checklist.Item>Dos</Checklist.Item>
+      </Checklist>,
+    )
+    expect(screen.getByText('1/2')).toBeInTheDocument()
+    expect(container.querySelector('[class*=track]')).toBeInTheDocument()
+  })
+
+  it('siendo excluyente no hay barra ni contador: los dos miden cuánto va hecho, y acá hay un lugar donde estás', () => {
+    const { container } = render(
       <Checklist defaultOpen exclusive value={2}>
         <Checklist.Title>La idea</Checklist.Title>
         <Checklist.Item>Inicial</Checklist.Item>
@@ -140,5 +152,6 @@ describe('Checklist', () => {
       </Checklist>,
     )
     expect(screen.queryByText('2/2')).not.toBeInTheDocument()
+    expect(container.querySelector('[class*=track]')).not.toBeInTheDocument()
   })
 })

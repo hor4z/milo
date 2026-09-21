@@ -543,7 +543,7 @@ export const propsByComponent: Record<string, ComponentDoc> = {
         "name": "exclusive",
         "type": "boolean",
         "required": false,
-        "doc": "Los renglones son excluyentes: se marca uno y los demás se apagan. Es para una escala, donde los renglones son descripciones del mismo estado y solo una es cierta. Sin esto la lista es una escalera, donde cada paso incluye a los de arriba."
+        "doc": "Los renglones son excluyentes: se marca uno y los demás se apagan. Es para una escala, donde los renglones son descripciones del mismo estado y solo una es cierta. Se va con la barra y el contador, que miden cuánto va hecho y acá no hay nada hecho: hay un lugar donde estás. Sin esto la lista es la escalera de siempre, donde cada paso incluye a los de arriba."
       },
       {
         "name": "value",

@@ -83,7 +83,7 @@ function Root({ defaultOpen = false, size = 'md', exclusive, value, onChange, ch
   defaultOpen?: boolean
   /** `sm` adentro de un panel denso: los pasos bajan a texto de cuerpo y las filas se achican. */
   size?: 'md' | 'sm'
-  /** Los renglones son excluyentes: se marca uno y los demás se apagan. Es para una escala, donde los renglones son descripciones del mismo estado y solo una es cierta. Sin esto la lista es una escalera, donde cada paso incluye a los de arriba. */
+  /** Los renglones son excluyentes: se marca uno y los demás se apagan. Es para una escala, donde los renglones son descripciones del mismo estado y solo una es cierta. Se va con la barra y el contador, que miden cuánto va hecho y acá no hay nada hecho: hay un lugar donde estás. Sin esto la lista es la escalera de siempre, donde cada paso incluye a los de arriba. */
   exclusive?: boolean
   /** Cuántos pasos van hechos, o cuál está marcado si es excluyente. En los dos casos el estado de cada renglón lo decide la pieza y no el call site. */
   value?: number
@@ -145,9 +145,11 @@ function Root({ defaultOpen = false, size = 'md', exclusive, value, onChange, ch
           </p>
         )}
       </div>
-      <span className={s.track} aria-hidden="true">
-        <span className={s.fill} style={{ width: `${pct}%` }} />
-      </span>
+      {!exclusive && (
+        <span className={s.track} aria-hidden="true">
+          <span className={s.fill} style={{ width: `${pct}%` }} />
+        </span>
+      )}
       {open && (
         <div id={bodyId} className={`${s.body} bg-surface`}>
           <div className={s.items}>{items}</div>
