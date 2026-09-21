@@ -194,7 +194,7 @@ export function DocumentStory() {
             <Popover
               align="end"
               trigger={p => (
-                <Button {...p} size="sm" variant="brand">
+                <Button {...p} variant="brand">
                   Insertar
                 </Button>
               )}
