@@ -99,7 +99,7 @@
     display: flex;
     flex-direction: column;
     gap: 0.125rem;
-    padding-inline-start: 1rem;
+    padding-inline-start: 0.5rem;
   }
 
   .step {
@@ -115,13 +115,14 @@
   .row {
     display: flex;
     min-height: 1.375rem;
-    align-items: center;
+    align-items: flex-start;
     gap: 0.5rem;
   }
 
   .picks {
     display: inline-flex;
     height: 1.125rem;
+    margin-top: -1px;
     flex-shrink: 0;
     align-items: center;
     gap: 0.25rem;
@@ -151,12 +152,20 @@
   }
 
   .bullet {
-    width: 0.25rem;
-    height: 0.25rem;
+    display: inline-flex;
+    width: 1.125rem;
+    height: 1rem;
     flex-shrink: 0;
+    align-items: center;
+    justify-content: flex-end;
+  }
+
+  .bullet::before {
+    content: "";
+    width: 0.3125rem;
+    height: 0.3125rem;
     border-radius: var(--radius-full);
-    margin-inline: 0.4375rem;
-    background-color: var(--border-strong);
+    background-color: currentColor;
   }
 
   .met,
