@@ -906,6 +906,9 @@ un aula:
 
 | | por qué todavía no |
 |---|---|
+| bloque de preguntas y respuestas | del editor: pares de pregunta y campo, escritos por quien arma la consigna. Hoy lo suple un `CompareTable` de una sola columna, que no es lo mismo: ver abajo |
+| bloque de tabla dinámica | del editor: que quien escribe arme las columnas y las filas que quiera, en vez de recibirlas por prop. `CompareTable` y `SumTable` tienen su forma fija y su cuenta; esto es la tabla vacía |
+| y las dos se deciden en la plataforma | las dos son del editor de producto, así que puede que no se escriban acá: ver la nota de abajo sobre lo que está de paso |
 | campo de fichas | asignar personas a una entrega. `Chip` ya dibuja la ficha; falta el campo que las arma |
 | menú contextual | el clic derecho sobre un bloque. `Menu` y `Popover` ya están: falta la posición y la tecla de menú |
 | imágenes, como fundamento | `Figure` resuelve la pieza; falta la doctrina de proporción, carga y texto alternativo en un solo lugar |
@@ -914,6 +917,32 @@ un aula:
 | de derecha a izquierda | no hay plan de idiomas que lo pidan. Si aparece, lo que cambia es el layout y no las piezas |
 
 ## Pendiente
+
+- **Una tabla de una sola columna de respuestas no es una tabla, y el editor necesita otras dos
+  piezas.** El bloque "Quién te compra" de la consigna son cuatro preguntas con un campo cada una, y
+  se dibuja con un `CompareTable` de una columna. Lo que eso trae, medido: la pieza es un `<table>`
+  con `table-layout: fixed` y la primera columna clavada en 26%, y la etiqueta de la fila es un
+  `Table.Title`, que lleva `nowrap` y `ellipsis` porque está hecho para el nombre de un dato. O sea
+  que una pregunta se corta: "¿Por qué a vos y no al que ya está?" pedía 265px en una columna que
+  daba 116, y para que entrara la tabla tendría que medir 1000. Se resolvió acortando el texto de
+  ejemplo, que tapa el síntoma. **Las dos piezas que faltan son del grupo Editor**: un bloque de
+  preguntas y respuestas libre, donde el par es una pregunta y su campo y no una fila con columnas; y
+  un bloque de tabla dinámica, donde quien escribe la consigna arma las columnas y las filas que
+  quiera, que es lo que hoy ninguna de las dos tablas permite porque las dos reciben su forma por
+  prop. Lo que **no** hay que hacer es adaptar `Table` ni `CompareTable`: `CompareTable` sirve para
+  el otro uso del mismo documento, el cuadro de tres columnas que se comparan de verdad, y `Table`
+  trunca a propósito. Ojo con la historia: `Table` se tocó por última vez en el PR #49 y los dos data
+  grids nacieron en el #50, así que se apoyaron en ella tal como estaba, truncado incluido.
+
+- **Y antes de escribir ninguna de las dos, hay que decidir si van acá.** Las piezas de consigna
+  están en el paquete para ver el sistema funcionando en algo de verdad, que es lo que un kit de
+  especímenes no prueba: varias son de producto y **se van a quitar cuando la plataforma que las usa
+  las implemente**. Eso vale para las dos que faltan más que para las que están, porque todavía no se
+  escribieron: lo que hay que preguntar primero es si el bloque de preguntas y el de tabla dinámica
+  son del sistema o del editor de la plataforma. Si son del editor, acá no se escriben, y lo que sí
+  queda es lo que usan por debajo (el campo, la tabla, el radio, el tilde). El corte a mirar en cada
+  una es el de siempre: una pieza es del sistema cuando la forma se repite en cualquier producto, y
+  es del producto cuando lo que la define es la consigna que resuelve.
 
 - **Los otros arrastres de la conversión mecánica**: 56 `transition-duration: 150ms` seguidas de la
   `var(--duration-fast)` que sí vale, y la maquinaria de gradiente escrita a mano
