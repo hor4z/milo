@@ -53,7 +53,7 @@ export function SelfAssessmentStory() {
     >
       <Section
         title="Cómo se arma"
-        note="Toma los mismos `Criterion` que `Rubric` y `RubricReview`, así que lo que el docente escribe es lo que el estudiante lee. Lo que cambia es el momento y el gesto: acá no se corrige, se dice dónde estoy."
+        note="Es el mismo marco y la misma tarjeta que el panel del docente: se pliega entera, los aspectos se abren de a uno y adentro va el `CriterionCard` de siempre. Toma además los mismos `Criterion`, así que lo que el docente escribe es lo que el estudiante lee. Lo que cambia es el momento y el gesto: acá no se corrige, se dice dónde estoy."
       >
         <Panel>
           <Variant name="a medio ubicar" note="Elegí un nivel en otro aspecto: el de arriba se cierra y el tramo de la barra se llena.">
@@ -107,7 +107,7 @@ export function SelfAssessmentStory() {
 
       <Section title="Accesibilidad">
         <A11y>
-          <A11y.Item>Cada aspecto es un botón con `aria-expanded` y `aria-controls`, y toma su nombre del título de al lado.</A11y.Item>
+          <A11y.Item>El panel entero se pliega desde su cabecera, y cada aspecto desde la suya: las dos son botones con `aria-expanded` y `aria-controls` que toman su nombre del título de al lado.</A11y.Item>
           <A11y.Item>Los niveles son un `radiogroup` nombrado con el aspecto: una sola parada de tabulación y las flechas mueven entre ellos.</A11y.Item>
           <A11y.Item>Plegado, el aspecto dice en cuál quedó o que está sin ubicar, así que no hace falta abrirlo para saberlo.</A11y.Item>
           <A11y.Item>La barra de arriba es decorativa: lo que cuenta está escrito al lado, en "3 aspectos".</A11y.Item>

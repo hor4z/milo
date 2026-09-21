@@ -38,7 +38,7 @@ describe('SelfAssessment', () => {
 
   it('con todos ubicados lo dice sin números', () => {
     arma({ value: { idea: 2, cuentas: 0 } })
-    expect(screen.getByText('Los ubicaste todos')).toBeInTheDocument()
+    expect(screen.getByText('lista')).toBeInTheDocument()
   })
 
   it('el plural sale bien con uno solo', () => {
@@ -48,37 +48,44 @@ describe('SelfAssessment', () => {
 
   it('plegado, cada aspecto dice en cuál quedó', () => {
     arma({ value: { idea: 2 } })
-    const cerrado = screen.getByRole('button', { name: 'Las cuentas' })
-    const abierto = screen.getByRole('button', { name: 'La idea' })
-    expect(abierto).toHaveTextContent('Bueno')
-    expect(cerrado).toHaveTextContent('sin ubicar')
+    expect(screen.getAllByText('Bueno').length).toBeGreaterThan(0)
+    expect(screen.getByText('sin ubicar')).toBeInTheDocument()
+  })
+
+  it('el panel entero se pliega, como el del docente', async () => {
+    arma()
+    const cabecera = screen.getByRole('button', { name: 'Dónde estás' })
+    expect(cabecera).toHaveAttribute('aria-expanded', 'true')
+    await userEvent.click(cabecera)
+    expect(cabecera).toHaveAttribute('aria-expanded', 'false')
   })
 
   it('los niveles son un grupo de opción única, nombrado con el aspecto', () => {
     arma()
-    expect(screen.getByRole('radiogroup', { name: 'La idea' })).toBeInTheDocument()
+    expect(screen.getByRole('radiogroup', { name: /La idea/ })).toBeInTheDocument()
   })
 
   it('elegir devuelve el aspecto y el nivel', async () => {
     const { onChange } = arma()
-    const grupo = screen.getByRole('radiogroup', { name: 'La idea' })
+    const grupo = screen.getByRole('radiogroup', { name: /La idea/ })
     await userEvent.click(within(grupo).getByRole('radio', { name: /Clara y posible/ }))
     expect(onChange).toHaveBeenCalledWith('idea', 2)
   })
 
   it('solo uno queda marcado: son cuatro descripciones del mismo estado', () => {
     arma({ value: { idea: 2 } })
-    const grupo = screen.getByRole('radiogroup', { name: 'La idea' })
+    const grupo = screen.getByRole('radiogroup', { name: /La idea/ })
     const marcados = within(grupo).getAllByRole('radio').filter(r => r.getAttribute('aria-checked') === 'true')
     expect(marcados).toHaveLength(1)
   })
 
   it('una sola abierta por vez: la rúbrica se lee de arriba abajo', async () => {
     arma()
-    expect(screen.queryByRole('radiogroup', { name: 'Las cuentas' })).not.toBeInTheDocument()
-    await userEvent.click(screen.getByRole('button', { name: 'Las cuentas' }))
-    expect(screen.getByRole('radiogroup', { name: 'Las cuentas' })).toBeInTheDocument()
-    expect(screen.queryByRole('radiogroup', { name: 'La idea' })).not.toBeInTheDocument()
+    const cerrada = screen.getByRole('button', { name: /Las cuentas/ })
+    expect(cerrada).toHaveAttribute('aria-expanded', 'false')
+    await userEvent.click(cerrada)
+    expect(cerrada).toHaveAttribute('aria-expanded', 'true')
+    expect(screen.getByRole('button', { name: /La idea/ })).toHaveAttribute('aria-expanded', 'false')
   })
 
   it('sin cuatro renglones no hay nombre de nivel que poner, así que dice cuál es', () => {

@@ -1,10 +1,10 @@
 import s from './self-assessment.module.css'
 import { useId, useState, type ReactNode } from 'react'
+import { CriterionCard, namesFor, type Criterion } from '../criterion-card/criterion-card'
 import { Icon } from '../icon/icon'
-import { namesFor, type Criterion } from '../criterion-card/criterion-card'
 import { cx } from '../lib/cx'
 import { counted } from '../lib/number'
-import { useRovingRadio } from '../lib/roving'
+import { useDisclosure } from '../lib/use-disclosure'
 import { takePart } from '../lib/parts'
 
 export type { Criterion }
@@ -14,113 +14,58 @@ function Title({ children }: { children: ReactNode }) {
   return <>{children}</>
 }
 
-/** Un aspecto: el nombre, dónde quedó, y los niveles cuando está abierto. */
-function Aspect({ criterion, level, onLevel, open, onToggle }: {
-  criterion: Criterion
-  level?: number
-  onLevel: (level: number) => void
-  open: boolean
-  onToggle: () => void
-}) {
-  const id = useId()
-  const titleId = `${id}-title`
-  const bodyId = `${id}-body`
-  const nombres = namesFor(criterion)
-  const roving = useRovingRadio(
-    String(level ?? 0),
-    v => onLevel(Number(v)),
-    criterion.levels.map((_, i) => ({ value: String(i) })),
-  )
-
-  return (
-    <div className={s.aspect}>
-      <button
-        type="button"
-        aria-expanded={open}
-        aria-controls={bodyId}
-        aria-labelledby={titleId}
-        onClick={onToggle}
-        className={s.header}
-      >
-        <Icon
-          name="keyboard_arrow_down"
-          size={18}
-          className={cx(s.chevron, open && s.chevronOpen, 'icon-muted')}
-        />
-        <span id={titleId} className={s.title}>{criterion.label}</span>
-        <span className={cx(s.count, level === undefined && s.empty)}>
-          {level === undefined ? 'sin ubicar' : nombres?.[level] ?? `nivel ${level + 1}`}
-        </span>
-      </button>
-
-      {open && (
-        <div
-          id={bodyId}
-          role="radiogroup"
-          aria-labelledby={titleId}
-          onKeyDown={roving.onKeyDown}
-          className={s.levels}
-        >
-          {criterion.levels.map((text, i) => (
-            <button
-              key={text}
-              ref={roving.ref(String(i))}
-              type="button"
-              role="radio"
-              aria-checked={i === level}
-              tabIndex={roving.tabIndex(String(i))}
-              onClick={() => onLevel(i)}
-              className={cx(s.level, i === level && s.selected)}
-            >
-              <span aria-hidden className={cx(s.pick, i === level && s.picked)}>
-                {i === level && <Icon name="check" size={12} weight={600} />}
-              </span>
-              <span className={s.text}>
-                {nombres?.[i] && (
-                  <>
-                    <span className={s.levelName}>{nombres[i]}</span>
-                    <span aria-hidden className={s.separator}>·</span>
-                  </>
-                )}
-                {text}
-              </span>
-            </button>
-          ))}
-        </div>
-      )}
-    </div>
-  )
-}
-
-/** Dónde se ubica quien entrega, aspecto por aspecto, contra la rúbrica con la que lo van a mirar. Los niveles son excluyentes: va uno solo, porque son cuatro descripciones del mismo estado. Arriba queda lo que falta, que es lo único que acá cuenta como progreso. */
-function Root({ criteria, value, onChange, children, className }: {
+/** Dónde se ubica quien entrega, aspecto por aspecto, contra la rúbrica con la que lo van a mirar. Es la misma tarjeta que usa quien corrige, así que lo que el docente escribe es lo que el estudiante lee. Los niveles son excluyentes: va uno solo, porque son descripciones del mismo estado. */
+function Root({ criteria, value, onChange, defaultOpen = true, children, className }: {
   /** Los aspectos de la rúbrica, en su orden. */
   criteria: Criterion[]
   /** En qué nivel se ubicó cada aspecto, por id. */
   value: Record<string, number>
   /** Recibe el aspecto y el nivel elegido. */
   onChange: (id: string, level: number) => void
+  /** Arranca abierta. Plegada deja a la vista el nombre, lo que falta y la barra. */
+  defaultOpen?: boolean
   /** El `SelfAssessment.Title`. */
   children: ReactNode
   className?: string
 }) {
-  const [open, setOpen] = useState<string | null>(criteria[0]?.id ?? null)
+  const [openCard, setOpenCard] = useState<string | null>(criteria[0]?.id ?? null)
+  const panel = useDisclosure(defaultOpen)
   const id = useId()
   const titleId = `${id}-title`
+  const bodyId = `${id}-body`
 
   const [title] = takePart(children, Title)
+  const total = criteria.reduce((sum, c) => sum + c.weight, 0)
   const ubicados = criteria.filter(c => value[c.id] !== undefined).length
   const faltan = criteria.length - ubicados
 
+  const nivel = (c: Criterion) => {
+    const level = value[c.id]
+    if (level === undefined) return 'sin ubicar'
+    return namesFor(c)?.[level] ?? `nivel ${level + 1}`
+  }
+
   return (
     <section aria-labelledby={titleId} className={cx(s.root, className)}>
-      <div className={s.top}>
-        <p id={titleId} className={s.heading}>{title}</p>
-        <p className={s.left}>
-          {faltan === 0
-            ? 'Los ubicaste todos'
-            : counted(faltan, ['aspecto', 'aspectos'])}
-        </p>
+      <div className={s.header}>
+        <button
+          type="button"
+          aria-expanded={panel.open}
+          aria-controls={bodyId}
+          aria-labelledby={titleId}
+          onClick={panel.onToggle}
+          className={s.trigger}
+        >
+          <Icon
+            name="keyboard_arrow_down"
+            size={20}
+            className={cx(s.chevron, panel.open && s.chevronOpen, 'icon-muted')}
+          />
+        </button>
+        <p id={titleId} className={s.title}>{title}</p>
+        <span className={`${s.count} tabular`}>
+          {faltan === 0 ? 'lista' : counted(faltan, ['aspecto', 'aspectos'])}
+        </span>
       </div>
 
       <div aria-hidden className={s.progress}>
@@ -130,17 +75,24 @@ function Root({ criteria, value, onChange, children, className }: {
         />
       </div>
 
-      <div className={s.aspects}>
-        {criteria.map(c => (
-          <Aspect
-            key={c.id}
-            criterion={c}
-            level={value[c.id]}
-            onLevel={level => onChange(c.id, level)}
-            open={open === c.id}
-            onToggle={() => setOpen(o => (o === c.id ? null : c.id))}
-          />
-        ))}
+      <div className={cx(s.body, panel.open && s.bodyOpen)}>
+        <div id={bodyId} inert={!panel.open} className={s.bodyInner}>
+          <ul className={s.items}>
+            {criteria.map(c => (
+              <li key={c.id}>
+                <CriterionCard
+                  criterion={c}
+                  total={total}
+                  level={value[c.id]}
+                  onLevel={level => onChange(c.id, level)}
+                  meta={nivel(c)}
+                  open={openCard === c.id}
+                  onToggle={() => setOpenCard(o => (o === c.id ? null : c.id))}
+                />
+              </li>
+            ))}
+          </ul>
+        </div>
       </div>
     </section>
   )

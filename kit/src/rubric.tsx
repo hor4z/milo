@@ -134,8 +134,7 @@ export function RubricRail({ mode }: { mode: RubricMode }) {
     return (
       <div className={cls.groups}>
         <p className={cls.lead}>
-          Ubicate en cada aspecto antes de entregar: va uno solo por aspecto. No es la nota, y el
-          renglón de abajo del que elegís es exactamente lo que te falta.
+          Ubicate en cada aspecto. No es la nota: es para ver qué te falta.
         </p>
 
         <SelfAssessment

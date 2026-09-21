@@ -3127,6 +3127,13 @@ export const propsByComponent: Record<string, ComponentDoc> = {
         "doc": "Recibe el aspecto y el nivel elegido."
       },
       {
+        "name": "defaultOpen",
+        "type": "boolean",
+        "required": false,
+        "def": "true",
+        "doc": "Arranca abierta. Plegada deja a la vista el nombre, lo que falta y la barra."
+      },
+      {
         "name": "children",
         "type": "ReactNode",
         "required": true,
@@ -3138,7 +3145,7 @@ export const propsByComponent: Record<string, ComponentDoc> = {
         "required": false
       }
     ],
-    "doc": "Dónde se ubica quien entrega, aspecto por aspecto, contra la rúbrica con la que lo van a mirar. Los niveles son excluyentes: va uno solo, porque son cuatro descripciones del mismo estado. Arriba queda lo que falta, que es lo único que acá cuenta como progreso."
+    "doc": "Dónde se ubica quien entrega, aspecto por aspecto, contra la rúbrica con la que lo van a mirar. Es la misma tarjeta que usa quien corrige, así que lo que el docente escribe es lo que el estudiante lee. Los niveles son excluyentes: va uno solo, porque son descripciones del mismo estado."
   },
   "SelfAssessment.Title": {
     "props": [
