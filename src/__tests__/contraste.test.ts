@@ -267,7 +267,7 @@ describe('el relleno de un dato se despega de su pista', () => {
     /** El verde de lo hecho se eligió a mano y por fuera de la regla: es una decisión tomada,
         no un descuido. El piso queda anotado para que el par no pueda empeorar todavía más
         sin que nadie se entere, que es lo único que el test puede seguir sosteniendo. */
-    const decididos: Record<string, number> = { '--on-ok --ok-fill light': 2.9 }
+    const decididos: Record<string, number> = {}
 
     for (const theme of ['light', 'dark'] as const) {
       for (const [ink, fill] of pairs) {
