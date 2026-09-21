@@ -10,7 +10,7 @@
 
   .rail {
     gap: 0.125rem;
-    background-color: var(--surface-muted);
+    background-color: var(--surface-sunken);
   }
 
   .railSm {
