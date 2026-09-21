@@ -184,6 +184,13 @@ export function DocumentStory() {
             <h1 className={cls.docTitle}>💼 Creá tu propio emprendimiento</h1>
           </div>
           <div className={cls.docActions}>
+            <Segmented
+              size="sm"
+              label="Ver el documento como"
+              value={mode}
+              onChange={setMode}
+              options={[{ value: 'teacher', label: 'Docente' }, { value: 'student', label: 'Estudiante' }]}
+            />
             <Popover
               align="end"
               trigger={p => (
@@ -383,15 +390,6 @@ export function DocumentStory() {
         </div>
 
         <div className={cls.rail}>
-          <div className={cls.railTop}>
-            <Segmented
-              size="xs"
-              label="Ver el documento como"
-              value={mode}
-              onChange={setMode}
-              options={[{ value: 'teacher', label: 'Docente' }, { value: 'student', label: 'Estudiante' }]}
-            />
-          </div>
           <RubricRail mode={mode} />
         </div>
       </div>

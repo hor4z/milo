@@ -186,12 +186,6 @@
     gap: 2rem;
   }
 
-  .railTop {
-    display: flex;
-    justify-content: flex-end;
-    padding-bottom: 0.75rem;
-  }
-
   @media (min-width: 64rem) {
     .columns {
       flex-direction: row;
