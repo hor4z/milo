@@ -4,7 +4,6 @@ import { A11y, Example, Note, Page, Panel, Practices, Props, Section, Stack, Var
 
 const datos: Criterion = {
   id: 'datos',
-  icon: 'timer',
   label: 'Toma de datos',
   weight: 4,
   color: 'green',
@@ -18,7 +17,6 @@ const datos: Criterion = {
 
 const grafico: Criterion = {
   id: 'grafico',
-  icon: 'analytics',
   label: 'Gráfico',
   weight: 3,
   color: 'teal',

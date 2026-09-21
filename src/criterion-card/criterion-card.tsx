@@ -2,7 +2,7 @@ import s from './criterion-card.module.css'
 import { useId, type ReactNode } from 'react'
 import { Card } from '../card/card'
 import { useRovingRadio } from '../lib/roving'
-import { Icon, type IconName } from '../icon/icon'
+import { Icon } from '../icon/icon'
 import { IconButton } from '../icon-button/icon-button'
 import { Tooltip } from '../tooltip/tooltip'
 import { cx } from '../lib/cx'
@@ -22,8 +22,6 @@ export type Criterion = {
   weight: number
   /** El color de su marca, y el de su tramo en la barra de la rúbrica. */
   color: LabelColor
-  /** El glifo de su marca. */
-  icon: IconName
   /** Qué se ve en la entrega, del renglón más flojo al más completo. */
   levels: string[]
 }
@@ -112,7 +110,7 @@ export function CriterionCard({ criterion, total, open, onToggle, onRemove, met,
           />
         </button>
         <span aria-hidden className={`${s.swatch} mark ${labelSoft[criterion.color]}`}>
-          <Icon name={criterion.icon} size={16} />
+          <Icon name="label" size={16} />
         </span>
         <Card.Title id={titleId} className={s.title}>
           {criterion.label}
