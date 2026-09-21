@@ -63,4 +63,5 @@ describe('SumTable', () => {
     render(<Presupuesto value={cargado} readOnly />)
     expect(screen.getByRole('textbox', { name: 'Cantidad de Materia prima' })).toHaveAttribute('readonly')
   })
+
 })

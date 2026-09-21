@@ -210,7 +210,7 @@
 
 
   @media (hover: hover) {
-    .option:hover {
+    button.option:hover {
       background-color: var(--surface-hover);
     }
   }

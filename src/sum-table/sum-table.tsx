@@ -1,11 +1,18 @@
 import s from './sum-table.module.css'
-import { useId, type ReactNode } from 'react'
+import { isValidElement, useId, type ReactNode } from 'react'
 import { Alert } from '../alert/alert'
 import { Table } from '../table/table'
 import { TextField } from '../text-field/text-field'
 import { cx } from '../lib/cx'
 import { amount, parseNumber } from '../lib/number'
 import { takePart } from '../lib/parts'
+
+/** El texto del enunciado, para nombrar la tabla. `takePart` devuelve la parte y no lo que dice, así que hay que entrar un nivel. */
+function textOf(part: ReactNode): string | undefined {
+  if (!isValidElement<{ children?: ReactNode }>(part)) return undefined
+  const kids = part.props.children
+  return typeof kids === 'string' ? kids : undefined
+}
 
 /** Un renglón de la tabla: el concepto, que lo escribe quien arma la consigna. */
 export type SumRow = {
@@ -85,7 +92,7 @@ function Root({
       <p id={promptId} className={s.prompt}>{prompt}</p>
       {hint.length > 0 && <p className={s.hint}>{hint}</p>}
 
-      <Table label={typeof prompt[0] === 'string' ? prompt[0] : undefined} minWidth={460}>
+      <Table label={textOf(prompt[0])} minWidth={460}>
         <Table.Header>
           <Table.Row>
             <Table.Head>Concepto</Table.Head>

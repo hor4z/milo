@@ -54,4 +54,5 @@ describe('CompareTable', () => {
     expect(screen.getByText('$4.000')).toBeInTheDocument()
     expect(screen.getAllByText('Sin completar')).toHaveLength(3)
   })
+
 })
