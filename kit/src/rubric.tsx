@@ -1,11 +1,11 @@
 import cls from './rubric.module.css'
 import { useState } from 'react'
+import { Checklist } from '@milo/ui/checklist'
 import { ConfirmDialog } from '@milo/ui/confirm-dialog'
-import { RubricReview, type Mark } from '@milo/ui/rubric-review'
 import { Rubric, type Criterion } from '@milo/ui/rubric'
 import { useToast } from '@milo/ui/toast'
 import { labelColors } from '@milo/ui/lib/colors'
-import { counted } from '@milo/ui/lib/number'
+import { counted, share } from '@milo/ui/lib/number'
 
 /** Quién mira la rúbrica: uno la define, el otro se prepara con ella. */
 export type RubricMode = 'teacher' | 'student'
@@ -114,9 +114,11 @@ const initialCriteria: Criterion[] = [
 
 export function RubricRail({ mode }: { mode: RubricMode }) {
   const [criteria, setCriteria] = useState(initialCriteria)
-  const [reached, setReached] = useState<Record<string, Mark>>({})
+  const [reached, setReached] = useState<Record<string, number>>({})
   const [asking, setAsking] = useState<Criterion | null>(null)
   const { toast } = useToast()
+
+  const total = criteria.reduce((sum, c) => sum + c.weight, 0)
 
   const remove = (criterion: Criterion) => {
     const at = criteria.findIndex(c => c.id === criterion.id)
@@ -134,17 +136,26 @@ export function RubricRail({ mode }: { mode: RubricMode }) {
     return (
       <div className={cls.groups}>
         <p className={cls.lead}>
-          Ubicate en cada aspecto: los cuatro niveles son excluyentes, así que va uno solo. No es la
-          nota, y el renglón de abajo del que elegís es exactamente lo que te falta.
+          Marcá hasta dónde llegaste en cada uno. No es la nota: es para ver qué te falta.
         </p>
 
-        <RubricReview
-          criteria={criteria}
-          marks={reached}
-          onLevel={(id, level) => setReached(r => ({ ...r, [id]: { ...r[id], level } }))}
-        >
-          <RubricReview.Title>Dónde estás</RubricReview.Title>
-        </RubricReview>
+        {criteria.map((c, i) => (
+          <Checklist
+            key={c.id}
+            size="sm"
+            defaultOpen={i === 0}
+            value={reached[c.id] ?? 0}
+            onChange={n => setReached(r => ({ ...r, [c.id]: n }))}
+          >
+            <Checklist.Title>{c.label}</Checklist.Title>
+            {c.levels.map(level => (
+              <Checklist.Item key={level}>{level}</Checklist.Item>
+            ))}
+            <Checklist.Footer hint="Cada renglón incluye al anterior: al marcar uno quedan marcados los de arriba.">
+              Vale {share(c.weight, total).percent} de la nota.
+            </Checklist.Footer>
+          </Checklist>
+        ))}
       </div>
     )
   }

@@ -135,6 +135,14 @@
     gap: 0.5rem;
   }
 
+  .picks {
+    display: inline-flex;
+    height: 1.125rem;
+    margin-top: -1px;
+    flex-shrink: 0;
+    align-items: center;
+    gap: 0.25rem;
+  }
 
   .pick {
     --icon-size: 12px;
@@ -153,10 +161,40 @@
     transition-timing-function: var(--ease-out);
   }
 
+  .failed {
+    background-color: var(--bad);
+    border-color: var(--bad);
+    color: var(--on-bad);
+  }
 
+  .bullet {
+    display: inline-flex;
+    width: 1.125rem;
+    height: 1rem;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: flex-end;
+  }
 
+  .bullet::before {
+    content: "";
+    width: 0.3125rem;
+    height: 0.3125rem;
+    border-radius: var(--radius-full);
+    background-color: var(--text-muted);
+  }
 
   .met,
+  .unmet {
+    display: inline-flex;
+    width: 1.125rem;
+    height: 1.125rem;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--radius-full);
+    margin-top: 1px;
+  }
 
   .met {
     --icon-size: 12px;
@@ -165,28 +203,10 @@
     color: var(--on-ok);
   }
 
-
-  .option {
-    display: flex;
-    width: 100%;
-    min-width: 0;
-    align-items: flex-start;
-    gap: 0.5rem;
-    border-radius: var(--radius-sm);
-    padding: 0.125rem;
-    margin: -0.125rem;
-    text-align: left;
-    transition-property: background-color;
-    transition-duration: var(--duration-fast);
-    transition-timing-function: var(--ease-out);
-  }
-
-  .selected {
-    color: var(--text);
-  }
-
-  .stepPicked {
-    color: var(--text);
+  .unmet {
+    --icon-size: 12px;
+    background-color: var(--yellow-soft);
+    color: var(--yellow-ink);
   }
 
   .stepText {
@@ -208,12 +228,6 @@
     color: var(--text);
   }
 
-
-  @media (hover: hover) {
-    .option:hover {
-      background-color: var(--surface-hover);
-    }
-  }
 
   @media (pointer: coarse) {
     .header {

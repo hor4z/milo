@@ -103,7 +103,6 @@ export function CriterionCardStory() {
       <Section title="Cómo se usa bien">
         <Practices>
           <Practices.Do>Dejá una sola abierta: la rúbrica se lee de arriba abajo y el panel no crece con cada aspecto.</Practices.Do>
-          <Practices.Do>Escribí los cuatro renglones como descripciones excluyentes del mismo estado, no como pasos: si el segundo se puede cumplir sin el primero, lo que tenés no es una escala y esta pieza no es la que va.</Practices.Do>
           <Practices.Do>Si el nombre no entra en una línea, lo que sobra va en `detail` y no adentro del nombre: plegada la tarjeta muestra el nombre solo, y uno de cuatro renglones deja de ser una fila.</Practices.Do>
           <Practices.Do>Pasale `total` aunque no lo muestres: sin él, el porcentaje que escucha un lector de pantalla sería otro.</Practices.Do>
           <Practices.Dont>No le pongas número a cada renglón: el orden ya lo dice la posición, y el número invita a leer la rúbrica como una nota.</Practices.Dont>
@@ -116,8 +115,6 @@ export function CriterionCardStory() {
           <A11y.Item>La flecha es un botón con `aria-expanded` y `aria-controls`, y toma su nombre del título de al lado.</A11y.Item>
           <A11y.Item>Cerrada, los renglones van con `inert`: no juntan foco ni los lee nadie.</A11y.Item>
           <A11y.Item>El tacho dice a qué aspecto pertenece: "Sacar El gráfico de la rúbrica", no "Sacar".</A11y.Item>
-          <A11y.Item>Eligiendo, los renglones son un grupo de opción única: una sola parada de tabulación y las flechas mueven. El glifo es un tilde porque es el que la escuela usa para marcar, pero lo que se anuncia es "uno de cuatro".</A11y.Item>
-          <A11y.Item>Leyendo, el renglón elegido lo dice en un texto que solo alcanza un lector de pantalla: no depende de ver el tilde.</A11y.Item>
           <A11y.Item>La marca de color es decorativa: el aspecto se reconoce por su nombre, no por su glifo.</A11y.Item>
         </A11y>
       </Section>

@@ -47,22 +47,22 @@ const ana = { name: 'Ana Pérez', src: '/avatars/04.webp' }
 
 const devuelta: Record<string, Mark> = {
   medicion: {
-    level: 2,
-    note: { by: amelia, text: 'Los cinco lugares en los tres momentos y siempre el mismo teléfono. Para el nivel de arriba falta anotar qué pasaba alrededor.' },
+    met: [true, true, true, false],
+    note: { by: amelia, text: 'Los cinco lugares en los tres momentos y siempre el mismo teléfono. Falta anotar qué pasaba alrededor.' },
   },
   grafico: {
-    level: 3,
+    met: [true, true, true, true],
     note: { by: ana, text: 'Impecable: la unidad en el eje y los tres momentos distinguidos.' },
   },
   propuesta: {
-    level: 1,
+    met: [true, true, false, false],
     note: { by: amelia, text: 'Proponés cortinas en la biblioteca, pero no decís de qué medición sale.' },
   },
 }
 
 export function RubricReviewStory() {
   const [marks, setMarks] = useState<Record<string, Mark>>({
-    medicion: { level: 2 },
+    medicion: { met: [true, true, true, false] },
   })
 
   return (
@@ -74,16 +74,21 @@ export function RubricReviewStory() {
     >
       <Section
         title="Corrigiendo"
-        note="Con `onLevel` se elige el nivel, con `onNote` se comenta y con `onClearNote` se borra ese comentario. Los cuatro niveles son excluyentes: se tilda uno y los otros se apagan, porque son cuatro descripciones del mismo estado y solo una es cierta. A la derecha del nombre dice en cuál quedó, así que plegada la tarjeta igual se sabe qué falta corregir. La barra se llena hasta el nivel elegido: no hay nota ni puntaje, y eso no es un olvido."
+        note="Con `onMet` los renglones se tildan, con `onNote` se comenta y con `onClearNote` se borra ese comentario. Es el mismo gesto que hace el estudiante con su lista, y a la derecha de cada nombre dice en qué anda ese aspecto, así que plegada la tarjeta igual se sabe qué falta corregir. La barra se llena con lo tildado: no hay nota ni puntaje, y eso no es un olvido."
       >
         <Panel>
-          <Variant name="a medio corregir" note="Elegí un nivel en El gráfico y mirá cómo se llena su tramo. Solo uno queda tildado: los cuatro son excluyentes.">
+          <Variant name="a medio corregir" note="Tildá algo en El gráfico y mirá cómo se llena su tramo.">
             <Stack width="sm">
               <RubricReview
                 criteria={criteria}
                 marks={marks}
                 by={ana}
-                onLevel={(id, level) => setMarks(m => ({ ...m, [id]: { ...m[id], level } }))}
+                onMet={(id, level, value) => setMarks(m => {
+                  const aspecto = criteria.find(c => c.id === id)!
+                  const met = [...(m[id]?.met ?? aspecto.levels.map(() => false))]
+                  met[level] = value
+                  return { ...m, [id]: { ...m[id], met } }
+                })}
                 onNote={(id, text) => setMarks(m => ({ ...m, [id]: { ...m[id], note: { by: ana, text } } }))}
                 onClearNote={id => setMarks(m => ({ ...m, [id]: { ...m[id], note: undefined } }))}
               >
@@ -96,7 +101,7 @@ export function RubricReviewStory() {
 
       <Section
         title="La devolución"
-        note="Sin los callbacks, la misma pieza es lo que abre quien entregó: qué renglones cumplió, cuáles no y qué le dijeron. Lo que falta no hay que escribirlo: es el renglón de abajo del que quedó tildado, que está a la vista y dice exactamente qué hacer la próxima vez."
+        note="Sin los callbacks, la misma pieza es lo que abre quien entregó: qué renglones cumplió, cuáles no y qué le dijeron. Lo que falta no hay que escribirlo: son los renglones sin tildar, que están a la vista y dicen exactamente qué hacer la próxima vez."
       >
         <Panel>
           <Variant name="lo que ve quien entregó">

@@ -1190,16 +1190,16 @@ export const propsByComponent: Record<string, ComponentDoc> = {
         "doc": "Sin esto el aspecto no se puede sacar."
       },
       {
-        "name": "level",
-        "type": "number",
+        "name": "met",
+        "type": "Met[]",
         "required": false,
-        "doc": "En qué nivel quedó: el índice del renglón elegido. Los cuatro son excluyentes, así que es uno y no una lista."
+        "doc": "Cómo quedó cada renglón, en el orden de `levels`: cumple, no cumple, o sin mirar."
       },
       {
-        "name": "onLevel",
-        "type": "(level: number) => void",
+        "name": "onMet",
+        "type": "(level: number, value: Met) => void",
         "required": false,
-        "doc": "Sin esto los renglones se leen y no se eligen."
+        "doc": "Sin esto los renglones se leen y no se marcan."
       },
       {
         "name": "meta",
@@ -2880,10 +2880,10 @@ export const propsByComponent: Record<string, ComponentDoc> = {
         "doc": "Quién está corrigiendo ahora: firma lo que escriba."
       },
       {
-        "name": "onLevel",
-        "type": "(id: string, level: number) => void",
+        "name": "onMet",
+        "type": "(id: string, level: number, value: Met) => void",
         "required": false,
-        "doc": "Sin esto los renglones se leen y no se eligen."
+        "doc": "Sin esto los renglones se leen y no se marcan."
       },
       {
         "name": "onNote",
@@ -2962,10 +2962,10 @@ export const propsByComponent: Record<string, ComponentDoc> = {
   "Mark": {
     "props": [
       {
-        "name": "level",
-        "type": "number",
+        "name": "met",
+        "type": "Met[]",
         "required": false,
-        "doc": "En qué nivel quedó: el índice del renglón elegido. Los niveles son excluyentes, así que es uno solo."
+        "doc": "Cómo quedó cada renglón, en el orden de `levels`: cumple, no cumple, o sin mirar."
       },
       {
         "name": "note",
