@@ -145,13 +145,7 @@ export function CriterionCard({ criterion, total, open, onToggle, onRemove, met,
                             <Icon name={met[i] ? 'check' : 'remove'} weight={600} />
                           </span>
                         )
-                      : (
-                          <span
-                            aria-hidden
-                            style={{ color: `var(--label-${criterion.color}-ink)` }}
-                            className={s.bullet}
-                          />
-                        )}
+                      : <span aria-hidden className={s.bullet} />}
                   <span className={cx(s.stepText, met?.[i] && s.stepMet)}>
                     {text}
                     {met && !onMet && (
