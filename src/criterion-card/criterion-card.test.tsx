@@ -66,4 +66,20 @@ describe('CriterionCard', () => {
     arma({ onRemove: undefined })
     expect(screen.queryByRole('button', { name: /^Sacar/ })).not.toBeInTheDocument()
   })
+
+  it('definiendo la rúbrica no hay nada que marcar: los renglones van con viñeta', () => {
+    const { container } = render(
+      <CriterionCard criterion={criterion} total={12} open onToggle={() => {}} />,
+    )
+    expect(container.querySelectorAll('[class*=bullet]')).toHaveLength(criterion.levels.length)
+    expect(container.querySelector('[class*=pick]')).not.toBeInTheDocument()
+  })
+
+  it('leyendo una devolución, la marca va solo en el nivel que quedó', () => {
+    const { container } = render(
+      <CriterionCard criterion={criterion} total={12} level={1} open onToggle={() => {}} />,
+    )
+    expect(container.querySelectorAll('[class*=pick]')).toHaveLength(1)
+    expect(container.querySelectorAll('[class*=bullet]')).toHaveLength(criterion.levels.length - 1)
+  })
 })

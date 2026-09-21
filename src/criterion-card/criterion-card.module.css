@@ -164,6 +164,24 @@
 
   .met,
 
+  .bullet {
+    display: inline-flex;
+    width: 1rem;
+    height: 1rem;
+    margin-block: calc((var(--band) - 1rem) / 2);
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .bullet::before {
+    content: "";
+    width: 0.25rem;
+    height: 0.25rem;
+    border-radius: var(--radius-full);
+    background-color: var(--text-muted);
+  }
+
   .met {
     background-color: var(--ok-fill);
     border-color: var(--ok-fill);

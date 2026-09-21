@@ -125,9 +125,13 @@ export function CriterionCard({ criterion, total, open, onToggle, onRemove, leve
                 const elegido = i === level
                 const cuerpo = (
                   <>
-                    <span aria-hidden className={cx(s.pick, elegido && s.met)}>
-                      {elegido && <Icon name="check" size={12} weight={600} />}
-                    </span>
+                    {onLevel || elegido
+                      ? (
+                          <span aria-hidden className={cx(s.pick, elegido && s.met)}>
+                            {elegido && <Icon name="check" size={12} weight={600} />}
+                          </span>
+                        )
+                      : <span aria-hidden className={s.bullet} />}
                     <span className={cx(s.stepText, elegido && s.stepMet)}>
                       {nombres?.[i] && (
                         <>
