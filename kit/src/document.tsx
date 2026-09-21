@@ -91,10 +91,10 @@ const gastos = [
 ]
 
 const frentes = [
-  { id: 'producto', label: 'Producto' },
-  { id: 'precio', label: 'Precio' },
-  { id: 'publico', label: 'Público' },
-  { id: 'venta', label: 'Forma de venta' },
+  { id: 'producto', label: 'Producto', placeholder: 'Qué vende' },
+  { id: 'precio', label: 'Precio', placeholder: 'Cuánto sale' },
+  { id: 'publico', label: 'Público', placeholder: 'A quién' },
+  { id: 'venta', label: 'Forma de venta', placeholder: 'Local, redes' },
 ]
 
 const competidores = [

@@ -23,6 +23,15 @@
     color: var(--text-muted);
   }
 
+  .grid table {
+    table-layout: fixed;
+  }
+
+  .grid th:first-child,
+  .grid td:first-child {
+    width: 26%;
+  }
+
   .control {
     width: 100%;
     min-width: 0;

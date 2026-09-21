@@ -68,7 +68,11 @@ function Root({
       <p id={promptId} className={s.prompt}>{prompt}</p>
       {hint.length > 0 && <p className={s.hint}>{hint}</p>}
 
-      <Table label={typeof prompt[0] === 'string' ? prompt[0] : undefined} minWidth={130 * (columns.length + 1)}>
+      <Table
+        label={typeof prompt[0] === 'string' ? prompt[0] : undefined}
+        minWidth={130 * (columns.length + 1)}
+        className={s.grid}
+      >
         <Table.Header>
           <Table.Row>
             <Table.Head />
