@@ -74,10 +74,13 @@ describe('Segmented', () => {
     expect(style(screen.getByRole('radio', { name: 'Todas' }))).toContain(`min-height: ${height}`)
   })
 
-  it('el pulgar lleva el radio de lo cuadrado, que es el de la pista menos su padding', () => {
-    render(<Segmented value="a" onChange={() => {}} options={filters.slice(0, 2)} label="Rango" size="sm" />)
-    expect(style(screen.getByRole('radiogroup'))).toContain('border-radius: var(--radius-lg)')
-    expect(style(screen.getByRole('radio', { name: 'Todas' }))).toContain('border-radius: var(--radius-md)')
+  it.each([
+    ['sm', '--radius-md'],  // la pista mide 36, el alto del `sm` de la escalera, y el pulgar queda en 8
+    ['md', '--radius-lg'],  // mide 40, el `md`, y el pulgar queda en 10, el mismo que un botón de 36
+  ] as const)('en %s el pulgar lleva el radio de la pista menos su padding', (size, token) => {
+    render(<Segmented value="a" onChange={() => {}} options={filters.slice(0, 2)} label="Rango" size={size} />)
+    expect(style(screen.getByRole('radiogroup'))).toContain(`border-radius: var(${token})`)
+    expect(style(screen.getByRole('radio', { name: 'Todas' }))).toContain(`border-radius: calc(var(${token}) - 0.125rem)`)
   })
 
   it('una opción apagada no se elige ni recibe el foco', async () => {
