@@ -150,6 +150,15 @@
     color: var(--on-bad);
   }
 
+  .bullet {
+    width: 0.25rem;
+    height: 0.25rem;
+    flex-shrink: 0;
+    border-radius: var(--radius-full);
+    margin-inline: 0.4375rem;
+    background-color: var(--border-strong);
+  }
+
   .met,
   .unmet {
     display: inline-flex;

@@ -139,11 +139,13 @@ export function CriterionCard({ criterion, total, open, onToggle, onRemove, met,
                 <li key={text} className={cx(s.step, s.row)}>
                   {onMet
                     ? <Pick value={met?.[i]} label={text} onPick={v => onMet(i, v)} />
-                    : met && (
-                        <span aria-hidden className={met[i] ? s.met : s.unmet}>
-                          <Icon name={met[i] ? 'check' : 'remove'} weight={600} />
-                        </span>
-                      )}
+                    : met
+                      ? (
+                          <span aria-hidden className={met[i] ? s.met : s.unmet}>
+                            <Icon name={met[i] ? 'check' : 'remove'} weight={600} />
+                          </span>
+                        )
+                      : <span aria-hidden className={s.bullet} />}
                   <span className={cx(s.stepText, met?.[i] && s.stepMet)}>
                     {text}
                     {met && !onMet && (
