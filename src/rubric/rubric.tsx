@@ -26,21 +26,14 @@ export type CriterionDraft = {
 
 const emptyLevels = ['', '', '', '']
 
-const levelPlaceholders = ['Lo mínimo', 'A mitad de camino', 'Lo pedido', 'Más de lo pedido']
-
-const levelHints = [
-  'Lo más flojo que se puede llegar a ver.',
-  'Va por buen camino, pero le falta.',
-  'Cumple con lo que pedís.',
-  'Lo completo, que es lo que lee como próximo paso quien quedó abajo.',
-]
+const levelNames = ['Lo mínimo', 'A mitad de camino', 'Lo pedido', 'Lo completo']
 
 /** Cómo se llama la rúbrica, en la cabecera. */
 function Title({ children }: { children: ReactNode }) {
   return <>{children}</>
 }
 
-/** Con qué se mira un trabajo: los aspectos, cuánto vale cada uno y qué se ve en cada nivel. El porcentaje sale de los pesos, así que no se puede despegar de ellos. */
+/** Con qué se mira un trabajo: los aspectos, cuánto vale cada uno y qué se ve en cada renglón. El porcentaje sale de los pesos, así que no se puede despegar de ellos. */
 function Root({ criteria, onAdd, onRemove, defaultOpen = true, children, className }: {
   /** En el orden en que se leen. */
   criteria: Criterion[]
@@ -105,7 +98,7 @@ function Root({ criteria, onAdd, onRemove, defaultOpen = true, children, classNa
     onAdd?.({
       label: name,
       weight,
-      levels: levels.map((l, i) => l.trim() || `Sin descriptor para el nivel ${i + 1}`),
+      levels: levels.map((l, i) => l.trim() || `Sin escribir: ${levelNames[i].toLowerCase()}`),
     })
     closeForm()
   }
@@ -225,13 +218,12 @@ function Root({ criteria, onAdd, onRemove, defaultOpen = true, children, classNa
                   </Field>
 
                   {levels.map((level, i) => (
-                    <Field key={levelHints[i]}>
-                      <Field.Label>Nivel {i + 1}</Field.Label>
-                      <Field.Hint>{levelHints[i]}</Field.Hint>
+                    <Field key={levelNames[i]}>
+                      <Field.Label>{levelNames[i]}</Field.Label>
                       <TextField
                         size="sm"
                         value={level}
-                        placeholder={levelPlaceholders[i]}
+                        placeholder="Qué se ve en la entrega"
                         onChange={e => setLevels(ls => ls.map((l, j) => (j === i ? e.target.value : l)))}
                         onKeyDown={e => { if (e.key === 'Escape') closeForm() }}
                       />

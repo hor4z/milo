@@ -73,11 +73,11 @@ describe('Rubric', () => {
     expect(screen.getByRole('button', { name: 'Agregar aspecto' })).toHaveFocus()
   })
 
-  it('el alta devuelve lo escrito, y el nivel vacío queda dicho', async () => {
+  it('el alta devuelve lo escrito, y el renglón vacío queda dicho', async () => {
     const { onAdd } = arma()
     await userEvent.click(screen.getByRole('button', { name: 'Agregar aspecto' }))
     await userEvent.type(screen.getByLabelText('Qué vas a mirar'), 'Trabajo en equipo')
-    await userEvent.type(screen.getByLabelText('Nivel 1'), 'Trabajó solo')
+    await userEvent.type(screen.getByLabelText('Lo mínimo'), 'Trabajó solo')
     await userEvent.click(screen.getByRole('button', { name: 'Agregar' }))
 
     expect(onAdd).toHaveBeenCalledWith({
@@ -85,9 +85,9 @@ describe('Rubric', () => {
       weight: 3,
       levels: [
         'Trabajó solo',
-        'Sin descriptor para el nivel 2',
-        'Sin descriptor para el nivel 3',
-        'Sin descriptor para el nivel 4',
+        'Sin escribir: a mitad de camino',
+        'Sin escribir: lo pedido',
+        'Sin escribir: lo completo',
       ],
     })
   })

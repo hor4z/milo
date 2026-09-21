@@ -72,14 +72,14 @@ export function RubricReviewStory() {
       title="RubricReview"
       kind="Datos"
       imports="import { RubricReview } from '@milo/ui/rubric-review'"
-      lead="Cómo le fue a un trabajo contra su rúbrica: en qué nivel cayó cada aspecto y qué le dijeron. La misma pieza sirve para corregir y para leer la devolución, porque es la misma información vista desde los dos lados."
+      lead="Cómo le fue a un trabajo contra su rúbrica: qué cumplió de cada aspecto y qué le dijeron. La misma pieza sirve para corregir y para leer la devolución, porque es la misma información vista desde los dos lados."
     >
       <Section
         title="Corrigiendo"
         note="Con `onMet` los renglones se tildan, con `onNote` se comenta y con `onClearNote` se borra ese comentario. Es el mismo gesto que hace el estudiante con su lista, y a la derecha de cada nombre dice en qué anda ese aspecto, así que plegada la tarjeta igual se sabe qué falta corregir. La barra se llena con lo tildado: no hay nota ni puntaje, y eso no es un olvido."
       >
         <Panel>
-          <Variant name="a medio corregir" note="Elegí un nivel en Gráfico y mirá cómo se llena su tramo.">
+          <Variant name="a medio corregir" note="Tildá algo en Gráfico y mirá cómo se llena su tramo.">
             <Stack width="sm">
               <RubricReview
                 criteria={criteria}
@@ -127,7 +127,7 @@ export function RubricReviewStory() {
   criteria={aspectos}
   marks={loCorregido}
   by={quienCorrige}
-  onMet={(id, nivel, cumple) => tildar(id, nivel, cumple)}
+  onMet={(id, renglon, cumple) => tildar(id, renglon, cumple)}
   onNote={(id, text) => comentar(id, text)}
   onClearNote={id => borrarComentario(id)}
 >

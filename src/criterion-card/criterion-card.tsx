@@ -12,7 +12,7 @@ import { share } from '../lib/number'
 /** Cómo quedó un renglón al corregirlo: lo hizo, no lo hizo, o todavía nadie lo miró. */
 export type Met = boolean | undefined
 
-/** Un aspecto: qué se mira, cuánto vale contra los demás y qué se ve en cada nivel. */
+/** Un aspecto: qué se mira, cuánto vale contra los demás y qué se ve en cada renglón. */
 export type Criterion = {
   /** Único en la rúbrica. */
   id: string
@@ -24,7 +24,7 @@ export type Criterion = {
   color: LabelColor
   /** El glifo de su marca. */
   icon: IconName
-  /** Un descriptor por nivel, del más flojo al más completo. */
+  /** Qué se ve en la entrega, del renglón más flojo al más completo. */
   levels: string[]
 }
 
@@ -68,7 +68,7 @@ function Pick({ value, label, onPick }: {
   )
 }
 
-/** Un aspecto adentro de una rúbrica: la marca, el nombre y, plegados, sus niveles. Cerrado ocupa una fila, así que una rúbrica de ocho aspectos mide lo mismo que una de dos. */
+/** Un aspecto adentro de una rúbrica: la marca, el nombre y, plegados, sus renglones. Cerrado ocupa una fila, así que una rúbrica de ocho aspectos mide lo mismo que una de dos. */
 export function CriterionCard({ criterion, total, open, onToggle, onRemove, met, onMet, meta, children, className }: {
   /** Lo que la tarjeta muestra. */
   criterion: Criterion
@@ -86,7 +86,7 @@ export function CriterionCard({ criterion, total, open, onToggle, onRemove, met,
   onMet?: (level: number, value: Met) => void
   /** A la derecha del nombre, y se ve también plegada: en qué anda este aspecto. */
   meta?: ReactNode
-  /** Debajo de los niveles: lo que se dijo sobre este aspecto. */
+  /** Debajo de los renglones: lo que se dijo sobre este aspecto. */
   children?: ReactNode
   className?: string
 }) {

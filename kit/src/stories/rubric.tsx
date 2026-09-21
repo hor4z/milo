@@ -53,7 +53,7 @@ export function RubricStory() {
       title="Rubric"
       kind="Datos"
       imports="import { Rubric } from '@milo/ui/rubric'"
-      lead="Con qué se mira un trabajo: los aspectos, cuánto vale cada uno y qué se ve en cada nivel. La escribe quien corrige y la lee quien entrega, así que dice lo mismo de los dos lados."
+      lead="Con qué se mira un trabajo: los aspectos, cuánto vale cada uno y qué se ve en cada renglón. La escribe quien corrige y la lee quien entrega, así que dice lo mismo de los dos lados."
     >
       <Section
         title="Cómo se arma"
@@ -91,8 +91,8 @@ export function RubricStory() {
       </Section>
 
       <Section
-        title="La barra mide el peso, no el nivel"
-        note="Cada tramo es un aspecto y su ancho es lo que vale contra los demás, que es una cantidad de verdad. Los niveles son categorías en orden, así que van escritos adentro del aspecto y no repartidos en una barra: un nivel no es una porción de nada. El color nombra al aspecto y ata su tramo con su tarjeta."
+        title="La barra mide el peso, no lo logrado"
+        note="Cada tramo es un aspecto y su ancho es lo que vale contra los demás, que es una cantidad de verdad. Los renglones son cosas que se cumplen o no, así que van escritos adentro del aspecto y no repartidos en una barra: cumplir uno no es una porción de nada. El color nombra al aspecto y ata su tramo con su tarjeta."
       />
 
       <Section title="Cómo se escribe">
@@ -112,11 +112,11 @@ export function RubricStory() {
       <Section title="Cómo se usa bien">
         <Practices>
           <Practices.Do>Escribí los descriptores como evidencia, en frase sin verbo: "las tres, con el error estimado" dice qué hacer, "muy bien" no.</Practices.Do>
-          <Practices.Do>Acordate de que cada descriptor se lee dos veces: acá lo usa quien corrige para elegir el nivel, y en la devolución lo lee quien entregó como el próximo paso, si quedó un escalón más abajo.</Practices.Do>
+          <Practices.Do>Acordate de que cada descriptor se lee dos veces: acá lo tilda quien corrige, y en la devolución lo lee quien entregó como lo que le falta.</Practices.Do>
           <Practices.Do>El porcentaje sale de los pesos, así que sumá siempre 100 sin escribirlo: cambiá un peso y los demás se acomodan solos.</Practices.Do>
           <Practices.Do>Sacar un aspecto no pregunta: avisá con un `Toast` con "Deshacer", que es lo que el sistema usa para lo que se puede volver atrás.</Practices.Do>
           <Practices.Dont>No la uses para lo que se cumple o no se cumple: una condición de seguridad va en un `Callout`, porque graduarla la vuelve negociable.</Practices.Dont>
-          <Practices.Dont>No le pongas número a cada nivel: el orden ya lo dice la posición, y el número invita a leer la rúbrica como una nota.</Practices.Dont>
+          <Practices.Dont>No le pongas número a cada renglón: el orden ya lo dice la posición, y el número invita a leer la rúbrica como una nota.</Practices.Dont>
         </Practices>
       </Section>
 

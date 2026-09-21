@@ -38,7 +38,7 @@ export function CriterionCardStory() {
       title="CriterionCard"
       kind="Datos"
       imports="import { CriterionCard } from '@milo/ui/criterion-card'"
-      lead="Un aspecto adentro de una rúbrica: la marca, el nombre y, plegados, sus niveles. Cerrada ocupa una fila, así que una rúbrica de ocho aspectos mide lo mismo que una de dos."
+      lead="Un aspecto adentro de una rúbrica: la marca, el nombre y, plegados, sus renglones. Cerrada ocupa una fila, así que una rúbrica de ocho aspectos mide lo mismo que una de dos."
     >
       <Section
         title="Cómo se arma"
@@ -94,7 +94,7 @@ export function CriterionCardStory() {
         <Practices>
           <Practices.Do>Dejá una sola abierta: la rúbrica se lee de arriba abajo y el panel no crece con cada aspecto.</Practices.Do>
           <Practices.Do>Pasale `total` aunque no lo muestres: sin él, el porcentaje que escucha un lector de pantalla sería otro.</Practices.Do>
-          <Practices.Dont>No le pongas número a cada nivel: el orden ya lo dice la posición, y el número invita a leer la rúbrica como una nota.</Practices.Dont>
+          <Practices.Dont>No le pongas número a cada renglón: el orden ya lo dice la posición, y el número invita a leer la rúbrica como una nota.</Practices.Dont>
           <Practices.Dont>No la uses suelta como tarjeta de cualquier cosa: es de una rúbrica, y lo que dice en voz alta ("vale 25% de la nota") solo tiene sentido ahí.</Practices.Dont>
         </Practices>
       </Section>
@@ -102,7 +102,7 @@ export function CriterionCardStory() {
       <Section title="Accesibilidad">
         <A11y>
           <A11y.Item>La flecha es un botón con `aria-expanded` y `aria-controls`, y toma su nombre del título de al lado.</A11y.Item>
-          <A11y.Item>Cerrada, los niveles van con `inert`: no juntan foco ni los lee nadie.</A11y.Item>
+          <A11y.Item>Cerrada, los renglones van con `inert`: no juntan foco ni los lee nadie.</A11y.Item>
           <A11y.Item>El tacho dice a qué aspecto pertenece: "Sacar Gráfico de la rúbrica", no "Sacar".</A11y.Item>
           <A11y.Item>La marca de color es decorativa: el aspecto se reconoce por su nombre, no por su glifo.</A11y.Item>
         </A11y>

@@ -1003,7 +1003,7 @@ export const propsByComponent: Record<string, ComponentDoc> = {
         "name": "children",
         "type": "ReactNode",
         "required": false,
-        "doc": "Debajo de los niveles: lo que se dijo sobre este aspecto."
+        "doc": "Debajo de los renglones: lo que se dijo sobre este aspecto."
       },
       {
         "name": "className",
@@ -1011,7 +1011,7 @@ export const propsByComponent: Record<string, ComponentDoc> = {
         "required": false
       }
     ],
-    "doc": "Un aspecto adentro de una rúbrica: la marca, el nombre y, plegados, sus niveles. Cerrado ocupa una fila, así que una rúbrica de ocho aspectos mide lo mismo que una de dos."
+    "doc": "Un aspecto adentro de una rúbrica: la marca, el nombre y, plegados, sus renglones. Cerrado ocupa una fila, así que una rúbrica de ocho aspectos mide lo mismo que una de dos."
   },
   "Criterion": {
     "props": [
@@ -1049,10 +1049,10 @@ export const propsByComponent: Record<string, ComponentDoc> = {
         "name": "levels",
         "type": "string[]",
         "required": true,
-        "doc": "Un descriptor por nivel, del más flojo al más completo."
+        "doc": "Qué se ve en la entrega, del renglón más flojo al más completo."
       }
     ],
-    "doc": "Un aspecto: qué se mira, cuánto vale contra los demás y qué se ve en cada nivel."
+    "doc": "Un aspecto: qué se mira, cuánto vale contra los demás y qué se ve en cada renglón."
   },
   "DatePicker": {
     "props": [
@@ -2449,7 +2449,7 @@ export const propsByComponent: Record<string, ComponentDoc> = {
         "required": false
       }
     ],
-    "doc": "Con qué se mira un trabajo: los aspectos, cuánto vale cada uno y qué se ve en cada nivel. El porcentaje sale de los pesos, así que no se puede despegar de ellos."
+    "doc": "Con qué se mira un trabajo: los aspectos, cuánto vale cada uno y qué se ve en cada renglón. El porcentaje sale de los pesos, así que no se puede despegar de ellos."
   },
   "Rubric.Title": {
     "props": [
