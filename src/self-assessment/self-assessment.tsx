@@ -124,9 +124,10 @@ function Root({ criteria, value, onChange, children, className }: {
       </div>
 
       <div aria-hidden className={s.progress}>
-        {criteria.map(c => (
-          <span key={c.id} className={cx(s.slot, value[c.id] !== undefined && s.done)} />
-        ))}
+        <span
+          style={{ inlineSize: `${criteria.length === 0 ? 0 : (ubicados / criteria.length) * 100}%` }}
+          className={s.fill}
+        />
       </div>
 
       <div className={s.aspects}>

@@ -35,24 +35,22 @@
 
   .progress {
     display: flex;
-    height: 0.25rem;
+    height: 0.75rem;
+    overflow: hidden;
+    border-radius: var(--radius-full);
     margin-inline: 0.75rem;
     margin-bottom: 0.75rem;
-    gap: 0.125rem;
+    background-color: var(--track);
   }
 
-  .slot {
-    flex: 1;
-    min-width: 0;
+  .fill {
+    display: block;
+    height: 100%;
     border-radius: var(--radius-full);
-    background-color: var(--track);
-    transition-property: background-color;
+    background-color: var(--brand);
+    transition-property: inline-size;
     transition-duration: var(--duration-content);
     transition-timing-function: var(--ease-out);
-  }
-
-  .done {
-    background-color: var(--brand);
   }
 
   .aspects {

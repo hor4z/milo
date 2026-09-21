@@ -76,12 +76,10 @@ function Root({ criteria, onAdd, onRemove, defaultOpen = true, children, classNa
   useOutside(!!pinned, () => setPinned(null), [rootRef])
 
 
-  const mounted = useRef(false)
+  const antes = useRef(form.open)
   useEffect(() => {
-    if (!mounted.current) {
-      mounted.current = true
-      return
-    }
+    if (antes.current === form.open) return
+    antes.current = form.open
     if (form.open) labelRef.current?.focus()
     else addRef.current?.focus()
   }, [form.open])
