@@ -5,39 +5,40 @@ import { A11y, Example, Note, Page, Panel, Practices, Props, Section, Stack, Var
 
 const base: Criterion[] = [
   {
-    id: 'datos',
-    label: 'Toma de datos',
-    weight: 4,
+    id: 'medicion',
+    label: 'Cómo midieron',
+    detail: 'Se mira que los números se puedan comparar entre sí: el mismo aparato en todas las mediciones, los mismos tres momentos en todos los lugares, y anotado qué estaba pasando alrededor.',
+    weight: 5,
     color: 'green',
     levels: [
-      'Una sola medición anotada',
-      'Las tres, sin el error',
-      'Las tres, con el error estimado',
-      'Las tres, con el error y de dónde sale',
+      'Midieron una sola vez en cada lugar',
+      'Midieron los tres momentos, pero no en todos los lugares',
+      'Los cinco lugares en los tres momentos, siempre con el mismo teléfono',
+      'Todo con el mismo teléfono, y anotado qué estaba pasando alrededor en cada medición',
     ],
   },
   {
     id: 'grafico',
-    label: 'Gráfico',
-    weight: 3,
+    label: 'El gráfico',
+    weight: 4,
     color: 'teal',
     levels: [
-      'Altura contra tiempo',
-      'Altura contra el tiempo al cuadrado',
-      'Con la unidad en cada eje y la escala legible',
-      'Con la recta marcada y de dónde sale la pendiente',
+      'Los números en una lista, sin gráfico',
+      'Un gráfico, pero sin decir qué es cada eje',
+      'Con la unidad en el eje y los cinco lugares comparables de un vistazo',
+      'Con la unidad, los tres momentos distinguidos y el orden elegido para que se lea algo',
     ],
   },
   {
-    id: 'explicacion',
-    label: 'Explicación',
-    weight: 5,
+    id: 'propuesta',
+    label: 'La propuesta',
+    weight: 4,
     color: 'blue',
     levels: [
-      'El resultado, sin explicación',
-      'La pendiente tiene que ver con la gravedad',
-      'Por qué la pendiente da la mitad de la gravedad',
-      'Comparado con los 9,8 del libro, con la diferencia discutida',
+      'Dice que hay mucho ruido',
+      'Propone algo, sin decir de qué medición sale',
+      'Propone algo que se puede hacer el lunes, apoyado en el gráfico',
+      'Propone algo para el lunes, dice de qué medición sale y cómo se sabría si funcionó',
     ],
   },
 ]
@@ -107,10 +108,10 @@ export function RubricStory() {
 
       <Section title="Cómo se usa bien">
         <Practices>
-          <Practices.Do>Escribí los descriptores como evidencia, en frase sin verbo: "las tres, con el error estimado" dice qué hacer, "muy bien" no.</Practices.Do>
+          <Practices.Do>Escribí los descriptores como evidencia, en frase sin verbo: "siempre con el mismo teléfono" dice qué hacer, "muy bien" no.</Practices.Do>
           <Practices.Do>Acordate de que cada descriptor se lee dos veces: acá lo tilda quien corrige, y en la devolución lo lee quien entregó como lo que le falta.</Practices.Do>
           <Practices.Do>El porcentaje sale de los pesos, así que sumá siempre 100 sin escribirlo: cambiá un peso y los demás se acomodan solos.</Practices.Do>
-          <Practices.Do>Sacar un aspecto no pregunta: avisá con un `Toast` con "Deshacer", que es lo que el sistema usa para lo que se puede volver atrás.</Practices.Do>
+          <Practices.Do>Sacar un aspecto se lleva puestos sus cuatro renglones escritos a mano, así que preguntá antes con un `ConfirmDialog` que diga qué se va. En tono neutro y no en rojo: el aviso trae "Deshacer", y el rojo es para lo que no vuelve.</Practices.Do>
           <Practices.Dont>No la uses para lo que se cumple o no se cumple: una condición de seguridad va en un `Callout`, porque graduarla la vuelve negociable.</Practices.Dont>
           <Practices.Dont>No le pongas número a cada renglón: el orden ya lo dice la posición, y el número invita a leer la rúbrica como una nota.</Practices.Dont>
         </Practices>
@@ -122,7 +123,7 @@ export function RubricStory() {
           <A11y.Item>Plegada, el cuerpo va con `inert`: no junta foco ni lo lee nadie.</A11y.Item>
           <A11y.Item>La barra es decorativa (`aria-hidden`), así que cada aspecto dice su porcentaje en un texto que solo alcanza un lector de pantalla.</A11y.Item>
           <A11y.Item>El alta abre con el foco en el primer campo y `Escape` la cierra, devolviendo el foco al botón que la abrió.</A11y.Item>
-          <A11y.Item>El tacho dice a qué aspecto pertenece: "Sacar Gráfico de la rúbrica", no "Sacar".</A11y.Item>
+          <A11y.Item>El tacho dice a qué aspecto pertenece: "Sacar El gráfico de la rúbrica", no "Sacar".</A11y.Item>
         </A11y>
       </Section>
     </Page>

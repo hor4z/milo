@@ -7,7 +7,7 @@ import { A11y, Canvas, Example, Frame, Note, Page, Practices, Props, Section } f
 type Block = ReorderItem & { icon: IconName; meta: string }
 
 const initial: Block[] = [
-  { id: 'titulo', label: 'Título', icon: 'format_h1', meta: 'Caída libre: medir g en el patio' },
+  { id: 'titulo', label: 'Título', icon: 'format_h1', meta: 'El mapa del ruido de la escuela' },
   { id: 'aviso', label: 'Bloque destacado', icon: 'lightbulb', meta: 'Antes de subir al primer piso' },
   { id: 'cita', label: 'Cita', icon: 'format_quote', meta: 'Galileo, Diálogos sobre dos nuevas ciencias' },
   { id: 'tareas', label: 'Lista de tareas', icon: 'checklist', meta: 'Cuatro cosas para entregar' },

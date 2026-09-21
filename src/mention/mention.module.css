@@ -15,12 +15,15 @@
   }
 
   .linked {
-    text-decoration-line: underline;
-    text-decoration-color: currentColor;
-    text-underline-offset: 3px;
     transition-property: color,background-color,border-color,outline-color,text-decoration-color,fill,stroke;
     transition-duration: var(--duration-fast);
     transition-timing-function: var(--ease-out);
+  }
+
+  .linked .name {
+    text-decoration-line: underline;
+    text-decoration-color: currentColor;
+    text-underline-offset: 3px;
   }
 
   .plain {
@@ -28,17 +31,26 @@
   }
 
   .icon {
+    display: inline-flex;
+    width: 1rem;
+    height: 1rem;
     flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--radius-full);
   }
 
   .avatar {
     flex-shrink: 0;
   }
 
+  .name {
+    min-width: 0;
+  }
+
   @media (hover:hover) {
-    .linked:hover {
-        background-color: var(--brand-soft);
-        text-decoration-thickness: 2px;
+    .linked:hover .name {
+      text-decoration-thickness: 2px;
     }
   }
 }

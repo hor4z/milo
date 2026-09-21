@@ -54,6 +54,9 @@
       "@milo/ui/chip": [
         "./src/chip/chip.tsx"
       ],
+      "@milo/ui/choice": [
+        "./src/choice/choice.tsx"
+      ],
       "@milo/ui/column-picker": [
         "./src/column-picker/column-picker.tsx"
       ],
@@ -122,6 +125,12 @@
       ],
       "@milo/ui/nav": [
         "./src/nav/nav.tsx"
+      ],
+      "@milo/ui/number-answer": [
+        "./src/number-answer/number-answer.tsx"
+      ],
+      "@milo/ui/open-question": [
+        "./src/open-question/open-question.tsx"
       ],
       "@milo/ui/pagination": [
         "./src/pagination/pagination.tsx"

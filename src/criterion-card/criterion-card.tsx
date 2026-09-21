@@ -12,12 +12,17 @@ import { share } from '../lib/number'
 /** Cómo quedó un renglón al corregirlo: lo hizo, no lo hizo, o todavía nadie lo miró. */
 export type Met = boolean | undefined
 
+/** Lo que entra en un aspecto. El nombre se lee plegado y por eso va corto; la descripción se lee al abrirlo, así que tiene más aire pero tampoco es un párrafo. */
+export const criterionLimits = { label: 56, detail: 220 } as const
+
 /** Un aspecto: qué se mira, cuánto vale contra los demás y qué se ve en cada renglón. */
 export type Criterion = {
   /** Único en la rúbrica. */
   id: string
-  /** Qué se mira, en las palabras de quien corrige. */
+  /** Qué se mira, en las palabras de quien corrige. Corto: es lo único que se ve plegado. */
   label: string
+  /** Lo que el nombre no alcanza a decir. Se lee recién al abrir el aspecto. */
+  detail?: string
   /** Cuánto vale contra los demás. De acá sale su porcentaje. */
   weight: number
   /** El color de su marca, y el de su tramo en la barra de la rúbrica. */
@@ -134,6 +139,7 @@ export function CriterionCard({ criterion, total, open, onToggle, onRemove, met,
       <div className={cx(s.body, open && s.bodyOpen)}>
         <div id={bodyId} inert={!open} className={s.bodyInner}>
           <Card.Body className={s.levels}>
+            {criterion.detail && <p className={s.hint}>{criterion.detail}</p>}
             <ul className={s.ladder}>
               {criterion.levels.map((text, i) => (
                 <li key={text} className={cx(s.step, s.row)}>

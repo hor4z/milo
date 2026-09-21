@@ -76,6 +76,9 @@ import { AccordionStory } from './stories/accordion'
 import { BreadcrumbStory } from './stories/breadcrumb'
 import { IndicatorStory } from './stories/indicator'
 import { SearchStory } from './stories/search'
+import { ChoiceStory } from './stories/choice'
+import { NumberAnswerStory } from './stories/number-answer'
+import { OpenQuestionStory } from './stories/open-question'
 import { ColumnPickerStory } from './stories/column-picker'
 import { ProgressStory } from './stories/progress'
 import { CriterionCardStory } from './stories/criterion-card'
@@ -162,6 +165,9 @@ const groups: Group[] = [
       { id: 'textarea', label: 'Área de texto', alias: 'Textarea campo multilínea texto largo', render: () => <TextareaStory /> },
       { id: 'select', label: 'Selector', alias: 'Select combo desplegable elegir opción', render: () => <SelectStory /> },
       { id: 'date-picker', label: 'Selector de fecha', alias: 'DatePicker fecha calendario vencimiento día mes entrega cuándo almanaque', render: () => <DatePickerStory /> },
+      { id: 'choice', label: 'Pregunta con opciones', alias: 'Choice opciones multiple choice pregunta respuesta elegir correcta quiz', render: () => <ChoiceStory /> },
+      { id: 'open-question', label: 'Pregunta abierta', alias: 'OpenQuestion pregunta abierta respuesta escribir texto libre consigna', render: () => <OpenQuestionStory /> },
+      { id: 'number-answer', label: 'Respuesta numérica', alias: 'NumberAnswer número cálculo cuenta promedio métrica unidad tolerancia margen', render: () => <NumberAnswerStory /> },
       { id: 'checkbox', label: 'Casilla', alias: 'Checkbox casilla marcar tilde', render: () => <CheckboxStory /> },
       { id: 'radio', label: 'Opción única', alias: 'Radio opción única elegir', render: () => <RadioStory /> },
       { id: 'switch', label: 'Interruptor', alias: 'Switch toggle interruptor prender apagar', render: () => <SwitchStory /> },

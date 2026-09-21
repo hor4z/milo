@@ -87,6 +87,8 @@
   }
 
   .docTitle {
+    max-width: 24ch;
+    text-wrap: balance;
     font-size: var(--type-display);
     line-height: var(--type-display-lh);
     letter-spacing: var(--type-display-ls);
@@ -158,12 +160,6 @@
     color: var(--text);
   }
 
-  .furtherText {
-    font-size: var(--type-reading);
-    line-height: var(--type-reading-lh);
-    letter-spacing: var(--type-reading-ls);
-    color: var(--text);
-  }
 
   .columns {
     display: flex;
@@ -195,4 +191,55 @@
       flex-shrink: 0;
     }
   }
+
+
+
+
+  .comment {
+    display: flex;
+    flex-direction: column;
+    gap: 0.375rem;
+    border-radius: var(--radius-lg);
+    background-color: var(--surface-muted);
+    padding: 0.625rem 0.75rem;
+  }
+
+  .commentBy {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.375rem;
+  }
+
+  .commentBot {
+    display: inline-flex;
+    width: 1.25rem;
+    height: 1.25rem;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--radius-full);
+  }
+
+  .commentName {
+    font-size: var(--type-meta);
+    line-height: var(--type-meta-lh);
+    letter-spacing: var(--type-meta-ls);
+    font-weight: var(--font-weight-semibold);
+    color: var(--text);
+  }
+
+  .commentText {
+    min-width: 0;
+    overflow-wrap: anywhere;
+    font-size: var(--type-meta);
+    line-height: var(--type-meta-lh);
+    letter-spacing: var(--type-meta-ls);
+    color: var(--text);
+  }
+
+  .check {
+    display: flex;
+    justify-content: flex-end;
+  }
+
 }

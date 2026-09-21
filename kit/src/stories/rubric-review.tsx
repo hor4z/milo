@@ -4,39 +4,40 @@ import { A11y, Example, Note, Page, Panel, Practices, Props, Section, Stack, Var
 
 const criteria: Criterion[] = [
   {
-    id: 'datos',
-    label: 'Toma de datos',
-    weight: 4,
+    id: 'medicion',
+    label: 'Cómo midieron',
+    detail: 'Se mira que los números se puedan comparar entre sí: el mismo aparato en todas las mediciones, los mismos tres momentos en todos los lugares, y anotado qué estaba pasando alrededor.',
+    weight: 5,
     color: 'green',
     levels: [
-      'Una sola medición anotada',
-      'Las tres, sin el error',
-      'Las tres, con el error estimado',
-      'Las tres, con el error y de dónde sale',
+      'Midieron una sola vez en cada lugar',
+      'Midieron los tres momentos, pero no en todos los lugares',
+      'Los cinco lugares en los tres momentos, siempre con el mismo teléfono',
+      'Todo con el mismo teléfono, y anotado qué estaba pasando alrededor en cada medición',
     ],
   },
   {
     id: 'grafico',
-    label: 'Gráfico',
-    weight: 3,
+    label: 'El gráfico',
+    weight: 4,
     color: 'teal',
     levels: [
-      'Altura contra tiempo',
-      'Altura contra el tiempo al cuadrado',
-      'Con la unidad en cada eje y la escala legible',
-      'Con la recta marcada y de dónde sale la pendiente',
+      'Los números en una lista, sin gráfico',
+      'Un gráfico, pero sin decir qué es cada eje',
+      'Con la unidad en el eje y los cinco lugares comparables de un vistazo',
+      'Con la unidad, los tres momentos distinguidos y el orden elegido para que se lea algo',
     ],
   },
   {
-    id: 'explicacion',
-    label: 'Explicación',
-    weight: 5,
+    id: 'propuesta',
+    label: 'La propuesta',
+    weight: 4,
     color: 'blue',
     levels: [
-      'El resultado, sin explicación',
-      'La pendiente tiene que ver con la gravedad',
-      'Por qué la pendiente da la mitad de la gravedad',
-      'Comparado con los 9,8 del libro, con la diferencia discutida',
+      'Dice que hay mucho ruido',
+      'Propone algo, sin decir de qué medición sale',
+      'Propone algo que se puede hacer el lunes, apoyado en el gráfico',
+      'Propone algo para el lunes, dice de qué medición sale y cómo se sabría si funcionó',
     ],
   },
 ]
@@ -45,23 +46,23 @@ const amelia = { name: 'Amelia', assistant: true }
 const ana = { name: 'Ana Pérez', src: '/avatars/04.webp' }
 
 const devuelta: Record<string, Mark> = {
-  datos: {
+  medicion: {
     met: [true, true, true, false],
-    note: { by: amelia, text: 'Están las tres mediciones y el error estimado. Falta decir de dónde sale ese error.' },
+    note: { by: amelia, text: 'Los cinco lugares en los tres momentos y siempre el mismo teléfono. Falta anotar qué pasaba alrededor.' },
   },
   grafico: {
     met: [true, true, true, true],
-    note: { by: ana, text: 'Impecable: la recta marcada y la pendiente despejada.' },
+    note: { by: ana, text: 'Impecable: la unidad en el eje y los tres momentos distinguidos.' },
   },
-  explicacion: {
+  propuesta: {
     met: [true, true, false, false],
-    note: { by: amelia, text: 'Decís que la pendiente tiene que ver con la gravedad, pero no por qué da la mitad.' },
+    note: { by: amelia, text: 'Proponés cortinas en la biblioteca, pero no decís de qué medición sale.' },
   },
 }
 
 export function RubricReviewStory() {
   const [marks, setMarks] = useState<Record<string, Mark>>({
-    datos: { met: [true, true, true, false] },
+    medicion: { met: [true, true, true, false] },
   })
 
   return (
@@ -76,7 +77,7 @@ export function RubricReviewStory() {
         note="Con `onMet` los renglones se tildan, con `onNote` se comenta y con `onClearNote` se borra ese comentario. Es el mismo gesto que hace el estudiante con su lista, y a la derecha de cada nombre dice en qué anda ese aspecto, así que plegada la tarjeta igual se sabe qué falta corregir. La barra se llena con lo tildado: no hay nota ni puntaje, y eso no es un olvido."
       >
         <Panel>
-          <Variant name="a medio corregir" note="Tildá algo en Gráfico y mirá cómo se llena su tramo.">
+          <Variant name="a medio corregir" note="Tildá algo en El gráfico y mirá cómo se llena su tramo.">
             <Stack width="sm">
               <RubricReview
                 criteria={criteria}

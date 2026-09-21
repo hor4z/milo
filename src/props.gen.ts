@@ -678,6 +678,101 @@ export const propsByComponent: Record<string, ComponentDoc> = {
     ],
     "doc": "La marca chica de texto: el estado de una actividad, el nombre de una categoría, de un método o de una persona."
   },
+  "Choice": {
+    "props": [
+      {
+        "name": "options",
+        "type": "Option[]",
+        "required": true,
+        "doc": "En el orden en que se leen."
+      },
+      {
+        "name": "value",
+        "type": "string[]",
+        "required": true,
+        "doc": "Lo marcado, siempre como array: así el call site no cambia de forma al pasar de una a varias."
+      },
+      {
+        "name": "onChange",
+        "type": "(next: string[]) => void",
+        "required": true,
+        "doc": "Recibe lo marcado después del toque, no el id que se tocó. Eligiendo una sola, volver a tocar la elegida no la apaga: es lo mismo que hace `Radio`, y una opción única que se puede dejar en blanco se destilda sin querer."
+      },
+      {
+        "name": "multiple",
+        "type": "boolean",
+        "required": false,
+        "doc": "Más de una puede estar bien, y entonces las tarjetas son casillas y no opciones únicas."
+      },
+      {
+        "name": "correct",
+        "type": "string[]",
+        "required": false,
+        "doc": "Cuáles estaban bien. Sin `revealed` no se dibuja: la pieza lo guarda hasta que alguien decide mostrarlo."
+      },
+      {
+        "name": "revealed",
+        "type": "boolean",
+        "required": false,
+        "doc": "Muestra cuáles estaban bien y deja de aceptar cambios: una pregunta corregida no se vuelve a responder."
+      },
+      {
+        "name": "readOnly",
+        "type": "boolean",
+        "required": false,
+        "doc": "Se lee y no se toca: la entrega de otro, una consigna cerrada."
+      },
+      {
+        "name": "children",
+        "type": "ReactNode",
+        "required": true,
+        "doc": "El `Choice.Prompt` y, si hace falta, el `Choice.Hint`."
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "required": false
+      }
+    ],
+    "doc": "Una pregunta con opciones: el enunciado y las tarjetas. Con `multiple` vale marcar más de una. Elegir no dice si estuvo bien: eso lo dice `revealed`, y hasta entonces la pieza no corrige a nadie."
+  },
+  "Choice.Prompt": {
+    "props": [
+      {
+        "name": "children",
+        "type": "ReactNode",
+        "required": true
+      }
+    ],
+    "doc": "Lo que se pregunta. Va como hijo porque es texto de la pantalla y lo escribe una persona."
+  },
+  "Choice.Hint": {
+    "props": [
+      {
+        "name": "children",
+        "type": "ReactNode",
+        "required": true
+      }
+    ],
+    "doc": "La línea de apoyo: de dónde sacar el dato, cuántas hay que marcar."
+  },
+  "Option": {
+    "props": [
+      {
+        "name": "id",
+        "type": "string",
+        "required": true,
+        "doc": "Único en la pregunta."
+      },
+      {
+        "name": "label",
+        "type": "string",
+        "required": true,
+        "doc": "Lo que se lee en la tarjeta."
+      }
+    ],
+    "doc": "Una de las opciones que se ofrecen."
+  },
   "ColumnPicker": {
     "props": [
       {
@@ -1025,7 +1120,13 @@ export const propsByComponent: Record<string, ComponentDoc> = {
         "name": "label",
         "type": "string",
         "required": true,
-        "doc": "Qué se mira, en las palabras de quien corrige."
+        "doc": "Qué se mira, en las palabras de quien corrige. Corto: es lo único que se ve plegado."
+      },
+      {
+        "name": "detail",
+        "type": "string",
+        "required": false,
+        "doc": "Lo que el nombre no alcanza a decir. Se lee recién al abrir el aspecto."
       },
       {
         "name": "weight",
@@ -1752,7 +1853,7 @@ export const propsByComponent: Record<string, ComponentDoc> = {
         "name": "icon",
         "type": "IconName",
         "required": false,
-        "doc": "El glifo, para lo que no es una persona: un espacio, una actividad."
+        "doc": "El glifo, para lo que no es una persona: un espacio, una actividad. Va en la misma marca redonda que el avatar, así que las dos formas de una mención pesan igual en el renglón."
       },
       {
         "name": "href",
@@ -1968,6 +2069,159 @@ export const propsByComponent: Record<string, ComponentDoc> = {
         "doc": "El riel de 72: queda el icono y nada más."
       }
     ]
+  },
+  "NumberAnswer": {
+    "props": [
+      {
+        "name": "value",
+        "type": "string",
+        "required": true,
+        "doc": "Lo escrito, tal cual, para no pelearle al que está tipeando."
+      },
+      {
+        "name": "onChange",
+        "type": "(next: string) => void",
+        "required": false,
+        "doc": "Recibe el texto nuevo. Sin esto se lee y no se responde."
+      },
+      {
+        "name": "unit",
+        "type": "string",
+        "required": false,
+        "doc": "Lo que se mide: dB, cm, segundos. Va pegado al campo, no adentro del número."
+      },
+      {
+        "name": "expected",
+        "type": "number",
+        "required": false,
+        "doc": "El valor al que hay que llegar. Sin `revealed` no se dibuja."
+      },
+      {
+        "name": "tolerance",
+        "type": "number",
+        "required": false,
+        "def": "0",
+        "doc": "El margen para arriba y para abajo. En cero, la respuesta es exacta."
+      },
+      {
+        "name": "revealed",
+        "type": "boolean",
+        "required": false,
+        "doc": "Muestra si cayó adentro del margen y deja de aceptar cambios."
+      },
+      {
+        "name": "readOnly",
+        "type": "boolean",
+        "required": false,
+        "doc": "Se lee y no se escribe."
+      },
+      {
+        "name": "children",
+        "type": "ReactNode",
+        "required": true,
+        "doc": "El `NumberAnswer.Prompt` y, si hace falta, el `NumberAnswer.Hint`."
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "required": false
+      }
+    ],
+    "doc": "Un número que sale de una cuenta: un promedio, una diferencia, una métrica. La tolerancia existe porque una medición no da siempre lo mismo, así que la respuesta es un rango y no un valor."
+  },
+  "NumberAnswer.Prompt": {
+    "props": [
+      {
+        "name": "children",
+        "type": "ReactNode",
+        "required": true
+      }
+    ],
+    "doc": "Qué hay que calcular."
+  },
+  "NumberAnswer.Hint": {
+    "props": [
+      {
+        "name": "children",
+        "type": "ReactNode",
+        "required": true
+      }
+    ],
+    "doc": "De dónde sale el número: qué cuenta hay que hacer, con qué datos."
+  },
+  "OpenQuestion": {
+    "props": [
+      {
+        "name": "value",
+        "type": "string",
+        "required": true,
+        "doc": "Lo escrito hasta ahora."
+      },
+      {
+        "name": "onChange",
+        "type": "(next: string) => void",
+        "required": false,
+        "doc": "Recibe el texto nuevo. Sin esto la pregunta se lee y no se responde."
+      },
+      {
+        "name": "placeholder",
+        "type": "string",
+        "required": false,
+        "doc": "Lo que se ve con el campo vacío: una pista de por dónde empezar, no la respuesta."
+      },
+      {
+        "name": "maxLength",
+        "type": "number",
+        "required": false,
+        "def": "600",
+        "doc": "El tope, que el campo avisa recién cuando queda poco."
+      },
+      {
+        "name": "rows",
+        "type": "number",
+        "required": false,
+        "def": "3",
+        "doc": "El alto de arranque. Crece sola hasta el doble."
+      },
+      {
+        "name": "readOnly",
+        "type": "boolean",
+        "required": false,
+        "doc": "Se lee y no se escribe: la entrega de otro, una consigna cerrada."
+      },
+      {
+        "name": "children",
+        "type": "ReactNode",
+        "required": true,
+        "doc": "El `OpenQuestion.Prompt` y, si hace falta, el `OpenQuestion.Hint`."
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "required": false
+      }
+    ],
+    "doc": "Una pregunta que se responde escribiendo. No la corrige nadie solo: lo que se escribe acá lo lee una persona, y por eso la pieza no tiene noción de respuesta correcta."
+  },
+  "OpenQuestion.Prompt": {
+    "props": [
+      {
+        "name": "children",
+        "type": "ReactNode",
+        "required": true
+      }
+    ],
+    "doc": "Lo que se pregunta. Va como hijo porque lo escribe una persona."
+  },
+  "OpenQuestion.Hint": {
+    "props": [
+      {
+        "name": "children",
+        "type": "ReactNode",
+        "required": true
+      }
+    ],
+    "doc": "La línea de apoyo: qué se espera que aparezca en la respuesta."
   },
   "Pagination": {
     "props": [],
@@ -2461,6 +2715,11 @@ export const propsByComponent: Record<string, ComponentDoc> = {
         "name": "label",
         "type": "string",
         "required": true
+      },
+      {
+        "name": "detail",
+        "type": "string",
+        "required": false
       },
       {
         "name": "weight",

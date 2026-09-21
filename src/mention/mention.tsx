@@ -1,6 +1,7 @@
 import s from './mention.module.css'
 import { Avatar } from '../avatar/avatar'
 import { Icon, type IconName } from '../icon/icon'
+import { colorForName, markFill } from '../lib/colors'
 import { cx } from '../lib/cx'
 
 type MentionProps = {
@@ -8,7 +9,7 @@ type MentionProps = {
   name: string
   /** La foto, para una persona. Sin ella se dibuja la inicial sobre su color. */
   src?: string
-  /** El glifo, para lo que no es una persona: un espacio, una actividad. */
+  /** El glifo, para lo que no es una persona: un espacio, una actividad. Va en la misma marca redonda que el avatar, así que las dos formas de una mención pesan igual en el renglón. */
   icon?: IconName
   /** Adónde lleva. Sin esto es texto y no un enlace. */
   href?: string
@@ -31,9 +32,13 @@ export function Mention({ name, src, icon, href, className }: MentionProps) {
       )}
     >
       {icon
-        ? <Icon name={icon} size={14} className={s.icon} />
+        ? (
+            <span aria-hidden className={cx(`${s.icon} mark`, markFill[colorForName(name)])}>
+              <Icon name={icon} size={12} />
+            </span>
+          )
         : <Avatar name={name} src={src} size={16} className={s.avatar} />}
-      {name}
+      <span className={s.name}>{name}</span>
     </Tag>
   )
 }
