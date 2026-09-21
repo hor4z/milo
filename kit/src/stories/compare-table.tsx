@@ -81,6 +81,7 @@ export function CompareTableStory() {
       <Section title="Cómo se usa bien">
         <Practices>
           <Practices.Do>Poné dos o tres columnas: con cuatro el cuadro se lee de costado y la comparación se pierde en el scroll.</Practices.Do>
+          <Practices.Do>Guardate el `placeholder` para cuando hay una sola columna: en una grilla de tres, el encabezado de la fila ya dice qué va, y el ejemplo se recorta antes de terminar de decirlo.</Practices.Do>
           <Practices.Do>Escribí los renglones como aquello en lo que se comparan, no como preguntas sueltas: "Precio" y no "¿Cuánto sale el de ellos?".</Practices.Do>
           <Practices.Dont>No lo uses para texto largo: cada celda entra en una frase, y una celda de ocho renglones rompe la fila entera.</Practices.Dont>
           <Practices.Dont>No dejes que el que responde agregue columnas: dos cuadros con distintas columnas no se comparan entre sí.</Practices.Dont>

@@ -68,7 +68,7 @@ function Root({
       <p id={promptId} className={s.prompt}>{prompt}</p>
       {hint.length > 0 && <p className={s.hint}>{hint}</p>}
 
-      <Table label={typeof prompt[0] === 'string' ? prompt[0] : undefined} minWidth={160 * (columns.length + 1)}>
+      <Table label={typeof prompt[0] === 'string' ? prompt[0] : undefined} minWidth={130 * (columns.length + 1)}>
         <Table.Header>
           <Table.Row>
             <Table.Head />
@@ -90,6 +90,7 @@ function Root({
                           value={celda(r, c)}
                           placeholder={r.placeholder}
                           aria-label={nombra(r, c)}
+                          className={s.control}
                           onChange={e => onChange(r.id, c.id, e.target.value)}
                         />
                       )}

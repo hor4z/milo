@@ -49,6 +49,7 @@
   }
 
   .input {
+    width: 100%;
     min-width: 0;
     background-color: #0000;
     font-weight: var(--font-weight-medium);

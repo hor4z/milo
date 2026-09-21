@@ -23,6 +23,11 @@
     color: var(--text-muted);
   }
 
+  .control {
+    width: 100%;
+    min-width: 0;
+  }
+
   .text {
     min-width: 0;
     overflow-wrap: anywhere;
