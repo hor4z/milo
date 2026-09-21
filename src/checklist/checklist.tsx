@@ -78,14 +78,16 @@ function Item({ state = 'todo', hint, onClick, children }: ItemProps) {
 }
 
 /** Los primeros pasos de algo, con cuánto va hecho a la vista y el detalle plegado. El contador sale de los pasos, así que no se puede despegar de ellos. */
-function Root({ defaultOpen = false, size = 'md', value, onChange, children, className }: {
+function Root({ defaultOpen = false, size = 'md', exclusive, value, onChange, children, className }: {
   /** Arranca abierta. Cerrada ocupa una fila y dice lo mismo. */
   defaultOpen?: boolean
   /** `sm` adentro de un panel denso: los pasos bajan a texto de cuerpo y las filas se achican. */
   size?: 'md' | 'sm'
-  /** Cuántos pasos van hechos. Con esto la lista es una escalera: cada paso incluye a los de arriba, así que el estado de cada uno lo decide la pieza y no el call site. */
+  /** Los renglones son excluyentes: se marca uno y los demás se apagan. Es para una escala, donde los renglones son descripciones del mismo estado y solo una es cierta. Sin esto la lista es una escalera, donde cada paso incluye a los de arriba. */
+  exclusive?: boolean
+  /** Cuántos pasos van hechos, o cuál está marcado si es excluyente. En los dos casos el estado de cada renglón lo decide la pieza y no el call site. */
   value?: number
-  /** Recibe cuántos pasos quedan hechos al tocar uno. Tocar el que ya es el último desmarca de ahí para abajo. */
+  /** Recibe el valor nuevo al tocar un renglón. En la escalera, tocar el último desmarca de ahí para abajo; siendo excluyente, tocar el marcado no lo apaga, igual que un radio. */
   onChange?: (value: number) => void
   children: ReactNode
   className?: string
@@ -112,8 +114,8 @@ function Root({ defaultOpen = false, size = 'md', value, onChange, children, cla
         paso += 1
         const at = paso
         return cloneElement(c as ReactElement<ItemProps>, {
-          state: at < hechos ? 'done' : 'todo',
-          onClick: () => onChange?.(hechos === at + 1 ? at : at + 1),
+          state: exclusive ? (at === hechos - 1 ? 'done' : 'todo') : at < hechos ? 'done' : 'todo',
+          onClick: () => onChange?.(exclusive ? at + 1 : hechos === at + 1 ? at : at + 1),
         })
       })
     : cuerpo
@@ -136,10 +138,12 @@ function Root({ defaultOpen = false, size = 'md', value, onChange, children, cla
           />
         </button>
         <p id={titleId} className={s.title}>{title}</p>
-        <p className={`${s.count} tabular`}>
-          {hechos}/{total}
-          <span className="sr-only"> pasos hechos</span>
-        </p>
+        {!exclusive && (
+          <p className={`${s.count} tabular`}>
+            {hechos}/{total}
+            <span className="sr-only"> pasos hechos</span>
+          </p>
+        )}
       </div>
       <span className={s.track} aria-hidden="true">
         <span className={s.fill} style={{ width: `${pct}%` }} />

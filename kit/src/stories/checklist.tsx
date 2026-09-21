@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { Checklist } from '@milo/ui/checklist'
-import { A11y, Example, Page, Panel, Practices, Props, Section, Stack, Variant } from '../kit'
+import { A11y, Example, Note, Page, Panel, Practices, Props, Section, Stack, Variant } from '../kit'
 
 export function ChecklistStory() {
   const [conectada, setConectada] = useState(false)
@@ -103,6 +103,33 @@ export function ChecklistStory() {
             </Stack>
           </Variant>
         </Panel>
+      </Section>
+
+      <Section
+        title="Excluyente"
+        note="Con `exclusive` los renglones dejan de sumarse: se marca uno y los demás se apagan, y tocar el que ya está marcado no lo apaga. Es para una escala, donde los renglones son descripciones del mismo estado y solo una es cierta, como los cuatro niveles de una rúbrica."
+      >
+        <Panel>
+          <Variant name="una escala" note="Tocá otro renglón: el anterior se apaga. No hay contador, porque dos de cuatro en una escala se lee como una nota.">
+            <Stack width="sm">
+              <Checklist defaultOpen exclusive size="sm" value={nivel} onChange={setNivel}>
+                <Checklist.Title>La idea</Checklist.Title>
+                <Checklist.Item>Poco clara</Checklist.Item>
+                <Checklist.Item>Se entiende qué vende</Checklist.Item>
+                <Checklist.Item>Clara y posible</Checklist.Item>
+                <Checklist.Item>Clara, posible y propia</Checklist.Item>
+                <Checklist.Footer hint="Los cuatro niveles son excluyentes: al marcar uno se apagan los demás.">
+                  Vale 11% de la nota.
+                </Checklist.Footer>
+              </Checklist>
+            </Stack>
+          </Variant>
+        </Panel>
+        <Note>
+          Sin `exclusive` la lista es una escalera y cada paso incluye a los de arriba, que es lo
+          correcto cuando los renglones se van cumpliendo de verdad. Mirando una lista no se
+          distingue cuál de las dos es: lo dice el contenido, así que lo elige quien la escribe.
+        </Note>
       </Section>
 
       <Section title="Cómo se escribe">

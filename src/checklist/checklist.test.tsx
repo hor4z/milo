@@ -86,4 +86,59 @@ describe('Checklist', () => {
     )
     expect(screen.getByText((_, el) => el?.className.includes('count') ?? false)).toHaveTextContent('0/0')
   })
+
+  it('siendo excluyente se marca uno y los demás se apagan', async () => {
+    const onChange = vi.fn()
+    const { rerender } = render(
+      <Checklist defaultOpen exclusive value={3} onChange={onChange}>
+        <Checklist.Title>La idea</Checklist.Title>
+        <Checklist.Item>Inicial</Checklist.Item>
+        <Checklist.Item>En proceso</Checklist.Item>
+        <Checklist.Item>Bueno</Checklist.Item>
+        <Checklist.Item>Excelente</Checklist.Item>
+      </Checklist>,
+    )
+    const marcados = () => [...document.querySelectorAll('[data-state="done"]')]
+    expect(marcados()).toHaveLength(1)
+    expect(marcados()[0].textContent).toContain('Bueno')
+
+    await userEvent.click(screen.getByText('Excelente'))
+    expect(onChange).toHaveBeenCalledWith(4)
+
+    rerender(
+      <Checklist defaultOpen exclusive value={4} onChange={onChange}>
+        <Checklist.Title>La idea</Checklist.Title>
+        <Checklist.Item>Inicial</Checklist.Item>
+        <Checklist.Item>En proceso</Checklist.Item>
+        <Checklist.Item>Bueno</Checklist.Item>
+        <Checklist.Item>Excelente</Checklist.Item>
+      </Checklist>,
+    )
+    expect(marcados()).toHaveLength(1)
+    expect(marcados()[0].textContent).toContain('Excelente')
+  })
+
+  it('siendo excluyente, tocar el marcado no lo apaga: es una escala y hay que estar en algún lado', async () => {
+    const onChange = vi.fn()
+    render(
+      <Checklist defaultOpen exclusive value={2} onChange={onChange}>
+        <Checklist.Title>La idea</Checklist.Title>
+        <Checklist.Item>Inicial</Checklist.Item>
+        <Checklist.Item>En proceso</Checklist.Item>
+      </Checklist>,
+    )
+    await userEvent.click(screen.getByText('En proceso'))
+    expect(onChange).toHaveBeenCalledWith(2)
+  })
+
+  it('siendo excluyente no hay contador: dos de cuatro se lee como una nota', () => {
+    render(
+      <Checklist defaultOpen exclusive value={2}>
+        <Checklist.Title>La idea</Checklist.Title>
+        <Checklist.Item>Inicial</Checklist.Item>
+        <Checklist.Item>En proceso</Checklist.Item>
+      </Checklist>,
+    )
+    expect(screen.queryByText('2/2')).not.toBeInTheDocument()
+  })
 })

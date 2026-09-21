@@ -136,13 +136,15 @@ export function RubricRail({ mode }: { mode: RubricMode }) {
     return (
       <div className={cls.groups}>
         <p className={cls.lead}>
-          Marcá hasta dónde llegaste en cada uno. No es la nota: es para ver qué te falta.
+          Ubicate en cada aspecto: va uno solo. No es la nota, y el renglón de abajo del que elegís
+          es exactamente lo que te falta.
         </p>
 
         {criteria.map((c, i) => (
           <Checklist
             key={c.id}
             size="sm"
+            exclusive
             defaultOpen={i === 0}
             value={reached[c.id] ?? 0}
             onChange={n => setReached(r => ({ ...r, [c.id]: n }))}
@@ -151,7 +153,7 @@ export function RubricRail({ mode }: { mode: RubricMode }) {
             {c.levels.map(level => (
               <Checklist.Item key={level}>{level}</Checklist.Item>
             ))}
-            <Checklist.Footer hint="Cada renglón incluye al anterior: al marcar uno quedan marcados los de arriba.">
+            <Checklist.Footer hint="Los cuatro niveles son excluyentes: al marcar uno se apagan los demás.">
               Vale {share(c.weight, total).percent} de la nota.
             </Checklist.Footer>
           </Checklist>
