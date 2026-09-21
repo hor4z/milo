@@ -19,7 +19,7 @@
   }
 
   .railMd {
-    border-radius: var(--radius-md);
+    border-radius: var(--radius-lg);
     padding: 0.125rem;
   }
 
@@ -62,7 +62,7 @@
 
   .optionMd {
     min-height: 2.25rem;
-    border-radius: calc(var(--radius-md) - 0.125rem);
+    border-radius: calc(var(--radius-lg) - 0.125rem);
     font-size: var(--type-body);
     line-height: var(--type-body-lh);
     letter-spacing: var(--type-body-ls);

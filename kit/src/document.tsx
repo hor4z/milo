@@ -185,7 +185,7 @@ export function DocumentStory() {
           </div>
           <div className={cls.docActions}>
             <Segmented
-              size="sm"
+              size="md"
               label="Ver el documento como"
               value={mode}
               onChange={setMode}
