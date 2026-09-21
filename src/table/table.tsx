@@ -11,7 +11,6 @@ function Root({ children, label, minWidth = 640, className }: {
   minWidth?: number
   className?: string
 }) {
-  // la franja vive adentro del marco pero fuera del scroll, así que se separa del resto
   const todo = Children.toArray(children)
   const franja = todo.filter(c => isValidElement(c) && c.type === Footer)
   const tabla = todo.filter(c => !(isValidElement(c) && c.type === Footer))

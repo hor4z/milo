@@ -226,11 +226,8 @@ describe('coherencia del sistema', () => {
       const [folder, file] = f.name.split('/')
       const quien = `${f.name} (${exported.join(', ')})`
 
-      // src/lo-que-sea.ts: solo si el exports lo nombra a mano
       if (!file) { if (!sueltos.has(folder.replace(/\.tsx?$/, ''))) unreachable.push(quien); continue }
-      // src/lib/x.ts entra por ./lib/*
       if (folder === 'lib') { if (!exports['./lib/*']) unreachable.push(quien); continue }
-      // src/pieza/otra-cosa.tsx no lo alcanza nadie: ./* resuelve pieza/pieza
       if (file.replace(/\.tsx?$/, '') !== folder) unreachable.push(quien)
     }
 

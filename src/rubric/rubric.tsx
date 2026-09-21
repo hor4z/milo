@@ -1,34 +1,21 @@
 import s from './rubric.module.css'
-import { useEffect, useId, useRef, useState, type CSSProperties, type ReactNode } from 'react'
+import { useEffect, useId, useRef, useState, type ReactNode } from 'react'
 import { Button } from '../button/button'
 import { Card } from '../card/card'
+import { CriterionCard, type Criterion } from '../criterion-card/criterion-card'
 import { Field } from '../field/field'
-import { Icon, type IconName } from '../icon/icon'
-import { IconButton } from '../icon-button/icon-button'
+import { Icon } from '../icon/icon'
 import { Slider } from '../slider/slider'
 import { TextField } from '../text-field/text-field'
 import { Tooltip } from '../tooltip/tooltip'
 import { cx } from '../lib/cx'
-import { labelFill, labelSoft, type LabelColor } from '../lib/colors'
+import { labelFill } from '../lib/colors'
 import { counted, share } from '../lib/number'
 import { useDisclosure } from '../lib/use-disclosure'
+import { useRovingRadio } from '../lib/roving'
 import { takePart } from '../lib/parts'
 
-/** Un criterio: qué se mira, cuánto vale contra los demás y qué se ve en cada nivel. */
-export type Criterion = {
-  /** Único en la rúbrica. */
-  id: string
-  /** Qué se mira, en las palabras de quien corrige. */
-  label: string
-  /** Cuánto vale contra los demás. De acá sale el ancho de su tramo y su porcentaje. */
-  weight: number
-  /** El color de su tramo en la barra y de su marca. */
-  color: LabelColor
-  /** El glifo de su marca. */
-  icon: IconName
-  /** Un descriptor por nivel, del más flojo al más completo. */
-  levels: string[]
-}
+export type { Criterion }
 
 /** Lo que devuelve el alta. El id, el color y el glifo los pone quien la guarda. */
 export type CriterionDraft = {
@@ -39,25 +26,20 @@ export type CriterionDraft = {
 
 const emptyLevels = ['', '', '', '']
 
-const levelHints = [
-  'Lo más flojo que se puede llegar a ver',
-  'Va por buen camino',
-  'Cumple con lo que pedís',
-  'Cumple y va más lejos',
-]
+const levelNames = ['Lo mínimo', 'A mitad de camino', 'Lo pedido', 'Lo completo']
 
 /** Cómo se llama la rúbrica, en la cabecera. */
 function Title({ children }: { children: ReactNode }) {
   return <>{children}</>
 }
 
-/** Con qué se mira un trabajo: los criterios, cuánto vale cada uno y qué se ve en cada nivel. El porcentaje sale de los pesos, así que no se puede despegar de ellos. */
+/** Con qué se mira un trabajo: los aspectos, cuánto vale cada uno y qué se ve en cada renglón. El porcentaje sale de los pesos, así que no se puede despegar de ellos. */
 function Root({ criteria, onAdd, onRemove, defaultOpen = true, children, className }: {
   /** En el orden en que se leen. */
   criteria: Criterion[]
   /** Sin esto la rúbrica se lee y no se edita. */
   onAdd?: (draft: CriterionDraft) => void
-  /** Sin esto ningún criterio se puede sacar. */
+  /** Sin esto ningún aspecto se puede sacar. */
   onRemove?: (criterion: Criterion) => void
   /** Arranca abierta. Plegada deja a la vista el nombre, el contador y la barra. */
   defaultOpen?: boolean
@@ -66,7 +48,8 @@ function Root({ criteria, onAdd, onRemove, defaultOpen = true, children, classNa
   className?: string
 }) {
   const [lit, setLit] = useState<string | null>(null)
-  const [runs, setRuns] = useState(0)
+  const [pinned, setPinned] = useState<string | null>(null)
+  const [openCard, setOpenCard] = useState<string | null>(criteria[0]?.id ?? null)
   const [label, setLabel] = useState('')
   const [weight, setWeight] = useState(3)
   const [levels, setLevels] = useState(emptyLevels)
@@ -75,12 +58,15 @@ function Root({ criteria, onAdd, onRemove, defaultOpen = true, children, classNa
   const form = useDisclosure(false)
   const addRef = useRef<HTMLButtonElement>(null)
   const labelRef = useRef<HTMLInputElement>(null)
+  const cards = useRef<Record<string, HTMLLIElement | null>>({})
   const id = useId()
   const titleId = `${id}-title`
   const bodyId = `${id}-body`
 
   const [title] = takePart(children, Title)
   const total = criteria.reduce((sum, c) => sum + c.weight, 0)
+  const active = lit ?? pinned
+  const roving = useRovingRadio(active ?? criteria[0]?.id ?? '', setPinned, criteria.map(c => ({ value: c.id })))
 
   const mounted = useRef(false)
   useEffect(() => {
@@ -91,6 +77,8 @@ function Root({ criteria, onAdd, onRemove, defaultOpen = true, children, classNa
     if (form.open) labelRef.current?.focus()
     else addRef.current?.focus()
   }, [form.open])
+
+  const bring = (id: string) => cards.current[id]?.scrollIntoView({ block: 'nearest' })
 
   const openForm = () => {
     setLabel('')
@@ -110,7 +98,7 @@ function Root({ criteria, onAdd, onRemove, defaultOpen = true, children, classNa
     onAdd?.({
       label: name,
       weight,
-      levels: levels.map((l, i) => l.trim() || `Sin descriptor para el nivel ${i + 1}`),
+      levels: levels.map((l, i) => l.trim() || `Sin escribir: ${levelNames[i].toLowerCase()}`),
     })
     closeForm()
   }
@@ -127,10 +115,7 @@ function Root({ criteria, onAdd, onRemove, defaultOpen = true, children, classNa
           aria-expanded={panel.open}
           aria-controls={bodyId}
           aria-labelledby={titleId}
-          onClick={() => {
-            if (!panel.open) setRuns(n => n + 1)
-            panel.onToggle()
-          }}
+          onClick={panel.onToggle}
           className={s.trigger}
         >
           <Icon
@@ -141,19 +126,35 @@ function Root({ criteria, onAdd, onRemove, defaultOpen = true, children, classNa
         </button>
         <p id={titleId} className={s.title}>{title}</p>
         <span className={`${s.count} tabular`}>
-          {counted(criteria.length, ['criterio', 'criterios'])}
+          {counted(criteria.length, ['aspecto', 'aspectos'])}
         </span>
       </div>
 
-      <div className={s.weights}>
+      <div
+        role="toolbar"
+        aria-label="Cuánto vale cada aspecto"
+        onKeyDown={roving.onKeyDown}
+        className={s.weights}
+      >
         {criteria.map(c => (
           <span key={c.id} style={{ flexGrow: c.weight }} className={s.weight}>
             <Tooltip label={`${c.label}: ${share(c.weight, total).percent}`}>
-              <span
-                aria-hidden
+              <button
+                ref={roving.ref(c.id)}
+                type="button"
+                tabIndex={roving.tabIndex(c.id)}
+                aria-label={`${c.label}, vale ${share(c.weight, total).percent} de la nota`}
                 onPointerEnter={() => setLit(c.id)}
                 onPointerLeave={() => setLit(null)}
-                className={cx(s.weightBand, labelFill[c.color], lit && lit !== c.id && s.weightDim)}
+                onFocus={() => { setLit(c.id); setOpenCard(c.id); bring(c.id) }}
+                onBlur={() => setLit(null)}
+                onClick={() => {
+                  setPinned(p => (p === c.id ? null : c.id))
+                  setOpenCard(c.id)
+                  if (!panel.open) panel.onOpen()
+                  requestAnimationFrame(() => bring(c.id))
+                }}
+                className={cx(s.weightBand, labelFill[c.color], active && active !== c.id && s.weightDim)}
               />
             </Tooltip>
           </span>
@@ -163,47 +164,20 @@ function Root({ criteria, onAdd, onRemove, defaultOpen = true, children, classNa
       <div className={cx(s.body, panel.open && s.bodyOpen)}>
         <div id={bodyId} inert={!panel.open} className={s.bodyInner}>
           <div className={s.cards}>
-            <ul key={runs} className={s.items}>
-              {criteria.map((c, i) => (
+            <ul className={s.items}>
+              {criteria.map(c => (
                 <li
                   key={c.id}
-                  style={{ '--enter': i } as CSSProperties}
-                  className={s.criterion}
+                  ref={el => { cards.current[c.id] = el }}
+                  className={cx(s.criterion, active && active !== c.id && s.criterionDim)}
                 >
-                  <Card>
-                    <Card.Header className={s.criterionHeader}>
-                      <div className={s.criterionTop}>
-                        <span aria-hidden className={`${s.swatch} mark ${labelSoft[c.color]}`}>
-                          <Icon name={c.icon} size={16} />
-                        </span>
-                        <Card.Title className={s.criterionLabel}>
-                          {c.label}
-                          <span className="sr-only">, vale {share(c.weight, total).percent} de la nota</span>
-                        </Card.Title>
-                      </div>
-                      {onRemove && (
-                        <Tooltip label="Sacar de la rúbrica">
-                          <IconButton
-                            icon="delete"
-                            label={`Sacar ${c.label} de la rúbrica`}
-                            size="sm"
-                            variant="ghost"
-                            onClick={() => onRemove(c)}
-                            className={s.removeCriterion}
-                          />
-                        </Tooltip>
-                      )}
-                    </Card.Header>
-                    <Card.Body className={s.criterionBody}>
-                      <ol className={s.ladder}>
-                        {c.levels.map((level, j) => (
-                          <li key={level} className={cx(s.step, j === c.levels.length - 1 && s.stepTop)}>
-                            <span className={s.stepText}>{level}</span>
-                          </li>
-                        ))}
-                      </ol>
-                    </Card.Body>
-                  </Card>
+                  <CriterionCard
+                    criterion={c}
+                    total={total}
+                    open={openCard === c.id}
+                    onToggle={() => setOpenCard(o => (o === c.id ? null : c.id))}
+                    onRemove={onRemove && (() => onRemove(c))}
+                  />
                 </li>
               ))}
             </ul>
@@ -216,7 +190,7 @@ function Root({ criteria, onAdd, onRemove, defaultOpen = true, children, classNa
                 onClick={openForm}
                 className={s.addCriterion}
               >
-                Agregar criterio
+                Agregar aspecto
               </Button>
             )}
 
@@ -244,12 +218,12 @@ function Root({ criteria, onAdd, onRemove, defaultOpen = true, children, classNa
                   </Field>
 
                   {levels.map((level, i) => (
-                    <Field key={levelHints[i]}>
-                      <Field.Label>Nivel {i + 1}</Field.Label>
+                    <Field key={levelNames[i]}>
+                      <Field.Label>{levelNames[i]}</Field.Label>
                       <TextField
                         size="sm"
                         value={level}
-                        placeholder={levelHints[i]}
+                        placeholder="Qué se ve en la entrega"
                         onChange={e => setLevels(ls => ls.map((l, j) => (j === i ? e.target.value : l)))}
                         onKeyDown={e => { if (e.key === 'Escape') closeForm() }}
                       />

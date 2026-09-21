@@ -9,7 +9,6 @@ const base: Criterion[] = [
     label: 'Toma de datos',
     weight: 4,
     color: 'green',
-    icon: 'timer',
     levels: [
       'Una sola medición anotada',
       'Las tres, sin el error',
@@ -22,7 +21,6 @@ const base: Criterion[] = [
     label: 'Gráfico',
     weight: 3,
     color: 'teal',
-    icon: 'analytics',
     levels: [
       'Altura contra tiempo',
       'Altura contra el tiempo al cuadrado',
@@ -35,7 +33,6 @@ const base: Criterion[] = [
     label: 'Explicación',
     weight: 5,
     color: 'blue',
-    icon: 'description',
     levels: [
       'El resultado, sin explicación',
       'La pendiente tiene que ver con la gravedad',
@@ -53,14 +50,14 @@ export function RubricStory() {
       title="Rubric"
       kind="Datos"
       imports="import { Rubric } from '@milo/ui/rubric'"
-      lead="Con qué se mira un trabajo: los criterios, cuánto vale cada uno y qué se ve en cada nivel. Va al costado de la consigna mientras se la escribe, que es cuando se decide qué se va a mirar."
+      lead="Con qué se mira un trabajo: los aspectos, cuánto vale cada uno y qué se ve en cada renglón. La escribe quien corrige y la lee quien entrega, así que dice lo mismo de los dos lados."
     >
       <Section
         title="Cómo se arma"
-        note="Los criterios entran como dato y no como hijos, igual que en `TaskList`: son una lista que alguien guarda y ordena, no contenido escrito a mano. Lo único que va como hijo es el nombre, que es texto de la pantalla."
+        note="Los aspectos entran como dato y no como hijos, igual que en `TaskList`: son una lista que alguien guarda y ordena, no contenido escrito a mano. Lo único que va como hijo es el nombre, que es texto de la pantalla."
       >
         <Panel>
-          <Variant name="editable" note="Con `onAdd` aparece el alta y con `onRemove` el tacho de cada criterio. Probá agregar uno: la barra se reparte de nuevo mientras movés el peso.">
+          <Variant name="editable" note="Con `onAdd` aparece el alta y con `onRemove` el tacho de cada aspecto. Probá agregar uno: la barra se reparte de nuevo mientras movés el peso.">
             <Stack width="sm">
               <Rubric
                 criteria={criteria}
@@ -69,7 +66,6 @@ export function RubricStory() {
                   ...draft,
                   id: `c${Date.now()}`,
                   color: labelColors[cs.length % labelColors.length],
-                  icon: 'label',
                 }])}
               >
                 <Rubric.Title>Qué vamos a mirar</Rubric.Title>
@@ -91,13 +87,13 @@ export function RubricStory() {
       </Section>
 
       <Section
-        title="La barra mide el peso, no el nivel"
-        note="Cada tramo es un criterio y su ancho es lo que vale contra los demás, que es una cantidad de verdad. Los niveles son categorías en orden, así que van escritos adentro del criterio y no repartidos en una barra: un nivel no es una porción de nada. El color nombra al criterio y ata su tramo con su tarjeta."
+        title="La barra mide el peso, no lo logrado"
+        note="Cada tramo es un aspecto y su ancho es lo que vale contra los demás, que es una cantidad de verdad. Los renglones son cosas que se cumplen o no, así que van escritos adentro del aspecto y no repartidos en una barra: cumplir uno no es una porción de nada. El color nombra al aspecto y ata su tramo con su tarjeta."
       />
 
       <Section title="Cómo se escribe">
         <Example code={`<Rubric
-  criteria={criterios}
+  criteria={aspectos}
   onAdd={draft => guardar({ ...draft, id: nuevoId(), color: 'green', icon: 'label' })}
   onRemove={c => sacar(c.id)}
 >
@@ -112,10 +108,11 @@ export function RubricStory() {
       <Section title="Cómo se usa bien">
         <Practices>
           <Practices.Do>Escribí los descriptores como evidencia, en frase sin verbo: "las tres, con el error estimado" dice qué hacer, "muy bien" no.</Practices.Do>
+          <Practices.Do>Acordate de que cada descriptor se lee dos veces: acá lo tilda quien corrige, y en la devolución lo lee quien entregó como lo que le falta.</Practices.Do>
           <Practices.Do>El porcentaje sale de los pesos, así que sumá siempre 100 sin escribirlo: cambiá un peso y los demás se acomodan solos.</Practices.Do>
-          <Practices.Do>Sacar un criterio no pregunta: avisá con un `Toast` con "Deshacer", que es lo que el sistema usa para lo que se puede volver atrás.</Practices.Do>
+          <Practices.Do>Sacar un aspecto no pregunta: avisá con un `Toast` con "Deshacer", que es lo que el sistema usa para lo que se puede volver atrás.</Practices.Do>
           <Practices.Dont>No la uses para lo que se cumple o no se cumple: una condición de seguridad va en un `Callout`, porque graduarla la vuelve negociable.</Practices.Dont>
-          <Practices.Dont>No le pongas número a cada nivel: el orden ya lo dice la posición, y el número invita a leer la rúbrica como una nota.</Practices.Dont>
+          <Practices.Dont>No le pongas número a cada renglón: el orden ya lo dice la posición, y el número invita a leer la rúbrica como una nota.</Practices.Dont>
         </Practices>
       </Section>
 
@@ -123,9 +120,9 @@ export function RubricStory() {
         <A11y>
           <A11y.Item>La cabecera es un botón con `aria-expanded` y `aria-controls`, y toma su nombre del título de al lado.</A11y.Item>
           <A11y.Item>Plegada, el cuerpo va con `inert`: no junta foco ni lo lee nadie.</A11y.Item>
-          <A11y.Item>La barra es decorativa (`aria-hidden`), así que cada criterio dice su porcentaje en un texto que solo alcanza un lector de pantalla.</A11y.Item>
+          <A11y.Item>La barra es decorativa (`aria-hidden`), así que cada aspecto dice su porcentaje en un texto que solo alcanza un lector de pantalla.</A11y.Item>
           <A11y.Item>El alta abre con el foco en el primer campo y `Escape` la cierra, devolviendo el foco al botón que la abrió.</A11y.Item>
-          <A11y.Item>El tacho dice a qué criterio pertenece: "Sacar Gráfico de la rúbrica", no "Sacar".</A11y.Item>
+          <A11y.Item>El tacho dice a qué aspecto pertenece: "Sacar Gráfico de la rúbrica", no "Sacar".</A11y.Item>
         </A11y>
       </Section>
     </Page>

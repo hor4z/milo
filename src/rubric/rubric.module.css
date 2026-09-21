@@ -37,6 +37,7 @@
   .title {
     flex: 1;
     min-width: 0;
+    overflow-wrap: anywhere;
     font-size: var(--type-reading);
     line-height: var(--type-reading-lh);
     letter-spacing: var(--type-reading-ls);
@@ -58,8 +59,6 @@
     height: 0.75rem;
     margin-inline: 0.75rem;
     margin-bottom: 0.75rem;
-    overflow: hidden;
-    border-radius: var(--radius-full);
   }
 
   .weight {
@@ -83,6 +82,16 @@
     transition-property: opacity;
     transition-duration: var(--duration-fast);
     transition-timing-function: var(--ease-out);
+  }
+
+  .weight:first-child .weightBand {
+    border-start-start-radius: var(--radius-full);
+    border-end-start-radius: var(--radius-full);
+  }
+
+  .weight:last-child .weightBand {
+    border-start-end-radius: var(--radius-full);
+    border-end-end-radius: var(--radius-full);
   }
 
   .weightDim {
@@ -126,41 +135,14 @@
     gap: 0.625rem;
   }
 
+  .criterionDim {
+    opacity: 0.45;
+  }
+
   .criterion {
-    animation: rubric-in var(--duration-normal) var(--ease-out) backwards;
-    animation-delay: calc(var(--enter) * 55ms);
-    transition-property: background-color;
+    transition-property: opacity;
     transition-duration: var(--duration-fast);
     transition-timing-function: var(--ease-out);
-  }
-
-  .criterionTop {
-    display: flex;
-    min-width: 0;
-    align-items: center;
-    gap: 0.5rem;
-  }
-
-  .swatch {
-    display: inline-flex;
-    width: 1.5rem;
-    height: 1.5rem;
-    flex-shrink: 0;
-    align-items: center;
-    justify-content: center;
-    border-radius: var(--radius-sm);
-  }
-
-  .criterionHeader {
-    padding-bottom: 0;
-  }
-
-  .criterionLabel {
-    min-width: 0;
-    font-size: var(--type-body);
-    line-height: var(--type-body-lh);
-    letter-spacing: var(--type-body-ls);
-    font-weight: var(--font-weight-semibold);
   }
 
   .share {
@@ -168,47 +150,8 @@
     font-size: var(--type-meta);
     line-height: var(--type-meta-lh);
     letter-spacing: var(--type-meta-ls);
-    font-weight: var(--font-weight-medium);
-    color: var(--text-muted);
-  }
-
-  .removeCriterion {
-    flex-shrink: 0;
-    margin-inline-end: -0.375rem;
-  }
-
-  .criterionBody {
-    padding-top: 0;
-  }
-
-  .ladder {
-    display: flex;
-    flex-direction: column;
-    gap: 0.125rem;
-  }
-
-  .step {
-    display: flex;
-    align-items: flex-start;
-    gap: 0.5rem;
-    border-radius: var(--radius-sm);
-    padding: 0.25rem 0.375rem;
-    font-size: var(--type-meta);
-    line-height: var(--type-meta-lh);
-    letter-spacing: var(--type-meta-ls);
-    color: var(--text-muted);
-    transition-property: background-color, color;
-    transition-duration: var(--duration-fast);
-    transition-timing-function: var(--ease-out);
-  }
-
-  .stepTop {
-    color: var(--text);
-    font-weight: var(--font-weight-medium);
-  }
-
-  .stepText {
-    min-width: 0;
+    font-weight: var(--font-weight-semibold);
+    color: var(--brand-ink);
   }
 
   .addCriterion {
@@ -243,7 +186,6 @@
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .criterion,
     .form {
       animation: none;
     }

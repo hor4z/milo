@@ -15,7 +15,6 @@ const initialCriteria: Criterion[] = [
     label: 'Toma de datos',
     weight: 4,
     color: 'green',
-    icon: 'timer',
     levels: [
       'Una sola medición anotada',
       'Las tres, sin el error',
@@ -28,7 +27,6 @@ const initialCriteria: Criterion[] = [
     label: 'Gráfico',
     weight: 3,
     color: 'teal',
-    icon: 'analytics',
     levels: [
       'Altura contra tiempo',
       'Altura contra el tiempo al cuadrado',
@@ -41,7 +39,6 @@ const initialCriteria: Criterion[] = [
     label: 'Explicación',
     weight: 5,
     color: 'blue',
-    icon: 'description',
     levels: [
       'El resultado, sin explicación',
       'La pendiente tiene que ver con la gravedad',
@@ -80,6 +77,7 @@ export function RubricRail({ mode }: { mode: RubricMode }) {
         {criteria.map((c, i) => (
           <Checklist
             key={c.id}
+            size="sm"
             defaultOpen={i === 0}
             value={reached[c.id] ?? 0}
             onChange={n => setReached(r => ({ ...r, [c.id]: n }))}
@@ -105,7 +103,6 @@ export function RubricRail({ mode }: { mode: RubricMode }) {
         ...draft,
         id: `c${Date.now()}`,
         color: labelColors[cs.length % labelColors.length],
-        icon: 'label',
       }])}
     >
       <Rubric.Title>Qué vamos a mirar</Rubric.Title>

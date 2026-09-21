@@ -533,6 +533,13 @@ export const propsByComponent: Record<string, ComponentDoc> = {
         "doc": "Arranca abierta. Cerrada ocupa una fila y dice lo mismo."
       },
       {
+        "name": "size",
+        "type": "'md' | 'sm'",
+        "required": false,
+        "def": "'md'",
+        "doc": "`sm` adentro de un panel denso: los pasos bajan a texto de cuerpo y las filas se achican."
+      },
+      {
         "name": "value",
         "type": "number",
         "required": false,
@@ -941,6 +948,105 @@ export const propsByComponent: Record<string, ComponentDoc> = {
       }
     ],
     "doc": "Copiar un texto al portapapeles, con el tilde que avisa que salió bien. El aviso también se anuncia: el cambio de glifo no lo ve quien escucha la pantalla."
+  },
+  "CriterionCard": {
+    "props": [
+      {
+        "name": "criterion",
+        "type": "Criterion",
+        "required": true,
+        "doc": "Lo que la tarjeta muestra."
+      },
+      {
+        "name": "total",
+        "type": "number",
+        "required": true,
+        "doc": "La suma de los pesos de la rúbrica: con eso la tarjeta dice cuánto vale este aspecto."
+      },
+      {
+        "name": "open",
+        "type": "boolean",
+        "required": true,
+        "doc": "Es controlada: la rúbrica decide cuál está abierta."
+      },
+      {
+        "name": "onToggle",
+        "type": "() => void",
+        "required": true,
+        "doc": "Recibe el pedido de abrir o cerrar."
+      },
+      {
+        "name": "onRemove",
+        "type": "() => void",
+        "required": false,
+        "doc": "Sin esto el aspecto no se puede sacar."
+      },
+      {
+        "name": "met",
+        "type": "Met[]",
+        "required": false,
+        "doc": "Cómo quedó cada renglón, en el orden de `levels`: cumple, no cumple, o sin mirar."
+      },
+      {
+        "name": "onMet",
+        "type": "(level: number, value: Met) => void",
+        "required": false,
+        "doc": "Sin esto los renglones se leen y no se marcan."
+      },
+      {
+        "name": "meta",
+        "type": "ReactNode",
+        "required": false,
+        "doc": "A la derecha del nombre, y se ve también plegada: en qué anda este aspecto."
+      },
+      {
+        "name": "children",
+        "type": "ReactNode",
+        "required": false,
+        "doc": "Debajo de los renglones: lo que se dijo sobre este aspecto."
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "required": false
+      }
+    ],
+    "doc": "Un aspecto adentro de una rúbrica: la marca, el nombre y, plegados, sus renglones. Cerrado ocupa una fila, así que una rúbrica de ocho aspectos mide lo mismo que una de dos."
+  },
+  "Criterion": {
+    "props": [
+      {
+        "name": "id",
+        "type": "string",
+        "required": true,
+        "doc": "Único en la rúbrica."
+      },
+      {
+        "name": "label",
+        "type": "string",
+        "required": true,
+        "doc": "Qué se mira, en las palabras de quien corrige."
+      },
+      {
+        "name": "weight",
+        "type": "number",
+        "required": true,
+        "doc": "Cuánto vale contra los demás. De acá sale su porcentaje."
+      },
+      {
+        "name": "color",
+        "type": "LabelColor",
+        "required": true,
+        "doc": "El color de su marca, y el de su tramo en la barra de la rúbrica."
+      },
+      {
+        "name": "levels",
+        "type": "string[]",
+        "required": true,
+        "doc": "Qué se ve en la entrega, del renglón más flojo al más completo."
+      }
+    ],
+    "doc": "Un aspecto: qué se mira, cuánto vale contra los demás y qué se ve en cada renglón."
   },
   "DatePicker": {
     "props": [
@@ -2316,7 +2422,7 @@ export const propsByComponent: Record<string, ComponentDoc> = {
         "name": "onRemove",
         "type": "(criterion: Criterion) => void",
         "required": false,
-        "doc": "Sin esto ningún criterio se puede sacar."
+        "doc": "Sin esto ningún aspecto se puede sacar."
       },
       {
         "name": "defaultOpen",
@@ -2337,7 +2443,7 @@ export const propsByComponent: Record<string, ComponentDoc> = {
         "required": false
       }
     ],
-    "doc": "Con qué se mira un trabajo: los criterios, cuánto vale cada uno y qué se ve en cada nivel. El porcentaje sale de los pesos, así que no se puede despegar de ellos."
+    "doc": "Con qué se mira un trabajo: los aspectos, cuánto vale cada uno y qué se ve en cada renglón. El porcentaje sale de los pesos, así que no se puede despegar de ellos."
   },
   "Rubric.Title": {
     "props": [
@@ -2348,47 +2454,6 @@ export const propsByComponent: Record<string, ComponentDoc> = {
       }
     ],
     "doc": "Cómo se llama la rúbrica, en la cabecera."
-  },
-  "Criterion": {
-    "props": [
-      {
-        "name": "id",
-        "type": "string",
-        "required": true,
-        "doc": "Único en la rúbrica."
-      },
-      {
-        "name": "label",
-        "type": "string",
-        "required": true,
-        "doc": "Qué se mira, en las palabras de quien corrige."
-      },
-      {
-        "name": "weight",
-        "type": "number",
-        "required": true,
-        "doc": "Cuánto vale contra los demás. De acá sale el ancho de su tramo y su porcentaje."
-      },
-      {
-        "name": "color",
-        "type": "LabelColor",
-        "required": true,
-        "doc": "El color de su tramo en la barra y de su marca."
-      },
-      {
-        "name": "icon",
-        "type": "IconName",
-        "required": true,
-        "doc": "El glifo de su marca."
-      },
-      {
-        "name": "levels",
-        "type": "string[]",
-        "required": true,
-        "doc": "Un descriptor por nivel, del más flojo al más completo."
-      }
-    ],
-    "doc": "Un criterio: qué se mira, cuánto vale contra los demás y qué se ve en cada nivel."
   },
   "CriterionDraft": {
     "props": [
@@ -2409,6 +2474,123 @@ export const propsByComponent: Record<string, ComponentDoc> = {
       }
     ],
     "doc": "Lo que devuelve el alta. El id, el color y el glifo los pone quien la guarda."
+  },
+  "RubricReview": {
+    "props": [
+      {
+        "name": "criteria",
+        "type": "Criterion[]",
+        "required": true,
+        "doc": "Los aspectos de la rúbrica, en su orden."
+      },
+      {
+        "name": "marks",
+        "type": "Record<string, Mark>",
+        "required": true,
+        "doc": "Lo corregido hasta ahora, por id de aspecto."
+      },
+      {
+        "name": "by",
+        "type": "Reviewer",
+        "required": false,
+        "doc": "Quién está corrigiendo ahora: firma lo que escriba."
+      },
+      {
+        "name": "onMet",
+        "type": "(id: string, level: number, value: Met) => void",
+        "required": false,
+        "doc": "Sin esto los renglones se leen y no se marcan."
+      },
+      {
+        "name": "onNote",
+        "type": "(id: string, text: string) => void",
+        "required": false,
+        "doc": "Sin esto no se puede comentar."
+      },
+      {
+        "name": "onClearNote",
+        "type": "(id: string) => void",
+        "required": false,
+        "doc": "Sin esto un comentario no se puede borrar."
+      },
+      {
+        "name": "children",
+        "type": "ReactNode",
+        "required": true,
+        "doc": "El `RubricReview.Title`."
+      },
+      {
+        "name": "className",
+        "type": "string",
+        "required": false
+      }
+    ],
+    "doc": "Cómo le fue a un trabajo contra su rúbrica: qué cumplió de cada aspecto y qué le dijeron. Sin los callbacks es la devolución que lee quien entregó; con ellos, la pantalla donde se corrige."
+  },
+  "RubricReview.Title": {
+    "props": [
+      {
+        "name": "children",
+        "type": "ReactNode",
+        "required": true
+      }
+    ],
+    "doc": "Cómo se llama la devolución, en la cabecera."
+  },
+  "Reviewer": {
+    "props": [
+      {
+        "name": "name",
+        "type": "string",
+        "required": true,
+        "doc": "Como se lo nombra en la firma."
+      },
+      {
+        "name": "src",
+        "type": "string",
+        "required": false,
+        "doc": "La foto, si es una persona."
+      },
+      {
+        "name": "assistant",
+        "type": "boolean",
+        "required": false,
+        "doc": "Lo marca como asistente, para que no se confunda con alguien del curso."
+      }
+    ],
+    "doc": "Quién escribió una devolución. Un agente firma igual que una persona: lo que cambia es el nombre, no lo que puede hacer."
+  },
+  "Note": {
+    "props": [
+      {
+        "name": "by",
+        "type": "Reviewer",
+        "required": true
+      },
+      {
+        "name": "text",
+        "type": "string",
+        "required": true
+      }
+    ],
+    "doc": "Lo que se dijo sobre un aspecto: uno solo, de quien lo escribió."
+  },
+  "Mark": {
+    "props": [
+      {
+        "name": "met",
+        "type": "Met[]",
+        "required": false,
+        "doc": "Cómo quedó cada renglón, en el orden de `levels`: cumple, no cumple, o sin mirar."
+      },
+      {
+        "name": "note",
+        "type": "Note",
+        "required": false,
+        "doc": "El comentario del aspecto, si alguien lo escribió."
+      }
+    ],
+    "doc": "Cómo le fue a un trabajo en un aspecto."
   },
   "Search": {
     "props": [

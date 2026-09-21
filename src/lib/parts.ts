@@ -4,7 +4,6 @@ import { Children, Fragment, isValidElement, type ElementType, type ReactNode } 
 function tieneAlgo(node: ReactNode): boolean {
   if (node === null || node === undefined || node === false || node === '') return false
   if (Array.isArray(node)) return node.some(tieneAlgo)
-  // una parte existe para envolver algo: sin hijos, no hay nada que dibujar
   if (isValidElement<{ children?: ReactNode }>(node)) return tieneAlgo(node.props.children)
   return true
 }

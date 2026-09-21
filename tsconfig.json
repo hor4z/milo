@@ -66,6 +66,9 @@
       "@milo/ui/copy-button": [
         "./src/copy-button/copy-button.tsx"
       ],
+      "@milo/ui/criterion-card": [
+        "./src/criterion-card/criterion-card.tsx"
+      ],
       "@milo/ui/date-picker": [
         "./src/date-picker/date-picker.tsx"
       ],
@@ -149,6 +152,9 @@
       ],
       "@milo/ui/rubric": [
         "./src/rubric/rubric.tsx"
+      ],
+      "@milo/ui/rubric-review": [
+        "./src/rubric-review/rubric-review.tsx"
       ],
       "@milo/ui/search": [
         "./src/search/search.tsx"

@@ -24,7 +24,6 @@ export function useAnnounce() {
     const el = region()
     if (!el) return
     el.setAttribute('aria-live', politeness)
-    // vaciar antes obliga al lector a anunciar de nuevo el mismo texto
     el.textContent = ''
     clearTimeout(timer.current)
     timer.current = setTimeout(() => { el.textContent = message }, 50)

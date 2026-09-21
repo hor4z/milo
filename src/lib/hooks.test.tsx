@@ -130,8 +130,6 @@ describe('colorForName', () => {
   })
 
   it('mira el orden de las letras, que es lo que sumar los códigos no hacía', () => {
-    // con cinco colores dos nombres cualesquiera chocan una de cada cinco veces:
-    // lo que importa es que un anagrama no colisione *siempre*, como pasaba sumando
     const pares = [['Ana Ruiz', 'Ruiz Ana'], ['Juan Pérez', 'Pérez Juan'], ['Mora Tello', 'Tello Mora']] as const
     expect(pares.some(([a, b]) => colorForName(a) !== colorForName(b))).toBe(true)
   })

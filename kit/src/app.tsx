@@ -78,6 +78,8 @@ import { IndicatorStory } from './stories/indicator'
 import { SearchStory } from './stories/search'
 import { ColumnPickerStory } from './stories/column-picker'
 import { ProgressStory } from './stories/progress'
+import { CriterionCardStory } from './stories/criterion-card'
+import { RubricReviewStory } from './stories/rubric-review'
 import { RubricStory } from './stories/rubric'
 import { SkeletonStory } from './stories/skeleton'
 import { ConfirmStory } from './stories/confirm-dialog'
@@ -186,7 +188,16 @@ const groups: Group[] = [
       { id: 'bar-chart', label: 'Gráfico de barras', alias: 'BarChart gráfico barras chart datos progreso visualización ejes leyenda tabla', render: () => <ChartStory /> },
       { id: 'column-picker', label: 'Selector de columnas', alias: 'ColumnPicker columnas tabla elegir mostrar ocultar', render: () => <ColumnPickerStory /> },
       { id: 'indicator', label: 'Indicador', alias: 'Indicator indicador badge marca punto contador aviso notificación campana', render: () => <IndicatorStory /> },
-      { id: 'rubric', label: 'Rúbrica', alias: 'Rubric rúbrica criterios niveles evaluación corregir peso descriptores', render: () => <RubricStory /> },
+      {
+        id: 'rubric',
+        label: 'Rúbrica',
+        alias: 'Rubric rúbrica aspectos aspectos niveles evaluación corregir peso descriptores',
+        render: () => <RubricStory />,
+        children: [
+          { id: 'rubric-review', label: 'Devolución de rúbrica', alias: 'RubricReview devolución corrección feedback niveles comentarios agente docente entrega', render: () => <RubricReviewStory /> },
+          { id: 'criterion-card', label: 'Tarjeta de aspecto', alias: 'CriterionCard aspecto aspecto tarjeta plegable niveles descriptores rúbrica', render: () => <CriterionCardStory /> },
+        ],
+      },
       { id: 'progress', label: 'Barra de progreso', alias: 'Progress progreso barra porcentaje avance', render: () => <ProgressStory /> },
       { id: 'audio-player', label: 'Reproductor de audio', alias: 'AudioPlayer audio reproductor sonido onda waveform grabación consigna mp3', render: () => <AudioPlayerStory /> },
       { id: 'skeleton', label: 'Esqueleto', alias: 'Skeleton esqueleto carga hueco placeholder', render: () => <SkeletonStory /> },
@@ -347,7 +358,6 @@ export function App() {
                 </div>
                 <div className={cls.navGroupItems}>
                   {g.stories.map(s => {
-                    // se despliega al tocarlo, o solo si estás parado en uno de sus hijos
                     const desplegado = abiertos.includes(s.id)
                       || Boolean(s.children?.some(c => c.id === current))
                       || Boolean(query && s.children?.length)

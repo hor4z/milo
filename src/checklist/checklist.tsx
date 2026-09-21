@@ -49,7 +49,7 @@ function Item({ state = 'todo', hint, onClick, children }: ItemProps) {
       <span className={s.mark}>
         {state === 'done' && (
           <span className={s.done}>
-            <Icon name="check" size={14} weight={600} />
+            <Icon name="check" weight={600} />
           </span>
         )}
         {state === 'doing' && <Spinner size={18} />}
@@ -78,9 +78,11 @@ function Item({ state = 'todo', hint, onClick, children }: ItemProps) {
 }
 
 /** Los primeros pasos de algo, con cuánto va hecho a la vista y el detalle plegado. El contador sale de los pasos, así que no se puede despegar de ellos. */
-function Root({ defaultOpen = false, value, onChange, children, className }: {
+function Root({ defaultOpen = false, size = 'md', value, onChange, children, className }: {
   /** Arranca abierta. Cerrada ocupa una fila y dice lo mismo. */
   defaultOpen?: boolean
+  /** `sm` adentro de un panel denso: los pasos bajan a texto de cuerpo y las filas se achican. */
+  size?: 'md' | 'sm'
   /** Cuántos pasos van hechos. Con esto la lista es una escalera: cada paso incluye a los de arriba, así que el estado de cada uno lo decide la pieza y no el call site. */
   value?: number
   /** Recibe cuántos pasos quedan hechos al tocar uno. Tocar el que ya es el último desmarca de ahí para abajo. */
@@ -117,7 +119,7 @@ function Root({ defaultOpen = false, value, onChange, children, className }: {
     : cuerpo
 
   return (
-    <div className={cx(s.root, className)}>
+    <div className={cx(s.root, size === 'sm' && s.compact, className)}>
       <div className={s.header}>
         <button
           type="button"

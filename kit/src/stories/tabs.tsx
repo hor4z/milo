@@ -25,7 +25,7 @@ export function TabsStory() {
               <p className={cls.handedText}>Dieciocho entregas, cuatro sin mirar.</p>
             </Tabs.Panel>
             <Tabs.Panel value="rubrica">
-              <p className={cls.rubricText}>Cuatro criterios, cada uno de 1 a 4.</p>
+              <p className={cls.rubricText}>Cuatro aspectos, cada uno de 1 a 4.</p>
             </Tabs.Panel>
             <Tabs.Panel value="ajustes">
               <p className={cls.accessText}>Quién puede ver la actividad y hasta cuándo.</p>

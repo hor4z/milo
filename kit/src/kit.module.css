@@ -135,9 +135,6 @@
     gap: 0.5rem;
   }
 
-  /* Menos aire vertical que un lienzo cualquiera: acá la caja envuelve una
-     pieza sola y su etiqueta va justo abajo, así que el padding de 24 la
-     alejaba de lo que la nombra. */
   .demoCanvas {
     display: flex;
     min-height: 72px;
@@ -204,8 +201,6 @@
   }
 
   .variantNote {
-    /* Al final de la fila y con un ancho parejo: la pieza queda contra el nombre, a la izquierda,
-       y todas las explicaciones arrancan en la misma columna aunque las piezas midan distinto. */
     min-width: 12rem;
     flex: 0 1 42%;
     margin-left: auto;
@@ -238,39 +233,28 @@
     font-size: var(--type-body);
     line-height: var(--type-body-lh);
     letter-spacing: var(--type-body-ls);
-    /* una línea en blanco separa dos ideas del ejemplo: sin alto propio, el <span> vacío se colapsa */
     min-height: var(--type-body-lh);
     color: var(--text);
     white-space: pre;
   }
 
-  /* Los seis colores del resaltado están medidos contra el fondo del bloque y
-     pasan AA en los dos temas. Quedaron afuera los `--label-*-ink`, que eran
-     los candidatos obvios: son hexes literales que no se dan vuelta con el
-     tema y sobre fondo oscuro se quedan en 2,5:1. */
-
-  /* el nombre de la pieza, que es lo que se busca al mirar un ejemplo */
   .codeComponent {
     font-weight: var(--font-weight-semibold);
     color: var(--brand-ink);
   }
 
-  /* lo que se le pasa */
   .codeProp {
     color: var(--warn-700);
   }
 
-  /* un texto entre comillas */
   .codeString {
     color: var(--yellow-ink);
   }
 
-  /* un número o un booleano */
   .codeValue {
     color: var(--ok-700);
   }
 
-  /* lo que arma la sintaxis y no se lee */
   .codePunct {
     color: var(--text-muted);
   }
@@ -524,8 +508,6 @@
     color: var(--text);
   }
 
-  /* el papel de una aclaración: crema, para que se separe del blanco de la página sin
-     usar un tono de estado, que diría que algo pasó. Con `tone` lo pisa el del tono. */
   .note {
     display: flex;
     gap: 0.75rem;

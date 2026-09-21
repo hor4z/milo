@@ -84,7 +84,6 @@ describe('las vistas del kit', () => {
       )
     const inert: string[] = []
     for (const f of walk(dir)) {
-      // el código de un ejemplo es texto y no una demo: ahí un control sin handler está bien
       const text = readFileSync(join(dir, f), 'utf8').replace(/<Example code=\{`[\s\S]*?`\}\s*\/>/g, '')
       for (const m of text.matchAll(/<([A-Z]\w+)((?:[^<>]|\{[^{}]*\})*?)\/>/gs)) {
         const [, name, attrs] = m
@@ -105,7 +104,6 @@ describe('las vistas del kit', () => {
       const covers = [...text.matchAll(/<Page\b/g)].length
       const imports = [...text.matchAll(/imports="([^"]*)"/g)]
       if (covers !== imports.length) withoutImport.push(`${f}: ${covers} portadas, ${imports.length} imports`)
-      // una vista documenta una pieza: dos imports pegados en la misma línea no se copian de una
       for (const m of imports) {
         if (m[1].includes('·')) withoutImport.push(`${f}: el import de la portada nombra dos módulos`)
       }
@@ -140,7 +138,6 @@ describe('las vistas del kit', () => {
     for (const f of files) {
       const text = readFileSync(join(stories, f), 'utf8')
       if (!text.includes('<Practices>')) { sinPracticas.push(f); continue }
-      // un bloque sin las dos mitades es media guía: lo que conviene y lo que no
       if (!text.includes('<Practices.Do>')) sinPracticas.push(`${f}: sin ningún Practices.Do`)
     }
     expect(

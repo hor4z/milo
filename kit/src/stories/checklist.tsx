@@ -51,12 +51,22 @@ export function ChecklistStory() {
               </Checklist>
             </Stack>
           </Variant>
+          <Variant name="compacta" note="`size='sm'` para un riel angosto: el título y los pasos van los dos en texto de cuerpo, así que la lista se lee como un bloque y no como cuatro filas sueltas.">
+            <Stack width="sm">
+              <Checklist size="sm" defaultOpen>
+                <Checklist.Title>Toma de datos</Checklist.Title>
+                <Checklist.Item state="done">Una sola medición anotada</Checklist.Item>
+                <Checklist.Item>Las tres, sin el error</Checklist.Item>
+                <Checklist.Item>Las tres, con el error estimado</Checklist.Item>
+              </Checklist>
+            </Stack>
+          </Variant>
         </Panel>
       </Section>
 
       <Section
         title="Como escalera"
-        note="Con `value` y `onChange` los pasos dejan de ser independientes: cada uno incluye a los de arriba, así que tocar el tercero marca los tres y volver a tocarlo desmarca de ahí para abajo. Es para lo que se recorre en orden y no se saltea: los niveles de un criterio, el avance de una entrega. El estado de cada paso lo decide la pieza, así que el call site no puede dejar el segundo sin marcar y el tercero marcado."
+        note="Con `value` y `onChange` los pasos dejan de ser independientes: cada uno incluye a los de arriba, así que tocar el tercero marca los tres y volver a tocarlo desmarca de ahí para abajo. Es para lo que se recorre en orden y no se saltea: los niveles de un aspecto, el avance de una entrega. El estado de cada paso lo decide la pieza, así que el call site no puede dejar el segundo sin marcar y el tercero marcado."
       >
         <Panel>
           <Variant name="tres de cuatro" note="El contador y la barra salen del mismo número, y tocar un paso ya marcado vuelve al anterior.">
