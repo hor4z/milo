@@ -150,8 +150,8 @@
     font-size: var(--type-meta);
     line-height: var(--type-meta-lh);
     letter-spacing: var(--type-meta-ls);
-    font-weight: var(--font-weight-medium);
-    color: var(--text-muted);
+    font-weight: var(--font-weight-semibold);
+    color: var(--brand-ink);
   }
 
   .addCriterion {
