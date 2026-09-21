@@ -49,7 +49,7 @@ function Root({
 
       {quieto
         ? (
-            <p className={cx(s.answer, vacia && s.empty)} aria-labelledby={promptId}>
+            <p className={cx(s.answer, vacia && s.empty)}>
               {vacia ? 'Sin responder' : value}
             </p>
           )

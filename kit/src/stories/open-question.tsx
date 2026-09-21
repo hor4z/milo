@@ -77,7 +77,7 @@ export function OpenQuestionStory() {
         <A11y>
           <A11y.Item>El enunciado nombra al campo con `aria-labelledby`, así que un lector dice la pregunta antes de dejar escribir.</A11y.Item>
           <A11y.Item>El contador del campo viaja también por una región viva, así que el aviso de que queda poco no depende de verlo.</A11y.Item>
-          <A11y.Item>Leyendo, la respuesta sigue atada al enunciado: no es un párrafo suelto.</A11y.Item>
+          <A11y.Item>Leyendo, la respuesta es un párrafo que viene justo después del enunciado, así que se escucha en ese orden. No lleva `aria-labelledby`, que en un párrafo la mayoría de los lectores ignora.</A11y.Item>
         </A11y>
       </Section>
     </Page>

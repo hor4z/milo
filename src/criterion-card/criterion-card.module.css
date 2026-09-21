@@ -218,4 +218,10 @@
     color: var(--text);
   }
 
+
+  @media (pointer: coarse) {
+    .header {
+      --band: 2.75rem;
+    }
+  }
 }

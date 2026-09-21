@@ -67,7 +67,6 @@
   }
 
   .unmet {
-    border-color: var(--yellow-soft);
     background-color: var(--yellow-soft);
   }
 
