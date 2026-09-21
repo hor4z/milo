@@ -1,5 +1,6 @@
 @layer milo.app {
   .doc {
+    --rail-w: 320px;
     display: flex;
     flex-direction: column;
     gap: 2rem;
@@ -200,8 +201,13 @@
       margin-inline-start: auto;
       position: sticky;
       top: 2.5rem;
-      width: 320px;
+      width: var(--rail-w);
       flex-shrink: 0;
+    }
+
+    .docActions {
+      width: var(--rail-w);
+      justify-content: space-between;
     }
   }
 
